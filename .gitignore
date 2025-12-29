@@ -141,3 +141,5 @@ vite.config.ts.timestamp-*
 # Claude Code
 .claude/*
 !/.claude/settings.json
+
+.pnpm-store
