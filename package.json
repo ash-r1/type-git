@@ -1,0 +1,66 @@
+{
+  "name": "type-git",
+  "version": "0.1.0",
+  "description": "Type-safe Git wrapper library with LFS support, progress tracking, and abort control for Node.js/Deno/Bun",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/adapters/node/index.d.ts",
+      "import": "./dist/adapters/node/index.js"
+    },
+    "./bun": {
+      "types": "./dist/adapters/bun/index.d.ts",
+      "import": "./dist/adapters/bun/index.js"
+    },
+    "./deno": {
+      "types": "./dist/adapters/deno/index.d.ts",
+      "import": "./dist/adapters/deno/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "git",
+    "git-lfs",
+    "typescript",
+    "type-safe",
+    "node",
+    "deno",
+    "bun",
+    "progress",
+    "abort-controller"
+  ],
+  "author": "Ash",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
+    "eslint": "^9.18.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ash/type-git.git"
+  }
+}
