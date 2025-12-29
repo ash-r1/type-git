@@ -30,20 +30,20 @@ echo "🔍 Verifying git configuration..."
 git config --global --get user.name || echo "⚠️  Git user.name not set. Run: git config --global user.name 'Your Name'"
 git config --global --get user.email || echo "⚠️  Git user.email not set. Run: git config --global user.email 'your.email@example.com'"
 
-# Verify Claude Code installation
-if command -v claude &> /dev/null; then
-    echo "✅ Claude Code CLI is installed"
-    claude --version
-else
-    echo "⚠️  Claude Code CLI not found in PATH"
-fi
-
 # Verify pnpm installation
 if command -v pnpm &> /dev/null; then
     echo "✅ pnpm is installed"
     pnpm --version
 else
     echo "❌ pnpm not found in PATH"
+fi
+
+# Verify git-lfs
+if command -v git-lfs &> /dev/null; then
+    echo "✅ git-lfs is installed"
+    git lfs version
+else
+    echo "❌ git-lfs not found"
 fi
 
 echo "✨ Post-create setup complete!"

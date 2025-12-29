@@ -21,18 +21,13 @@ RUN usermod -aG sudo node && \
 USER node
 WORKDIR /home/node
 
-# Install pnpm globally as node user
-RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
+# Install pnpm globally as node user with explicit shell
+ENV SHELL=/bin/bash
+RUN curl -fsSL https://get.pnpm.io/install.sh | bash -
 
 # Set environment variables for pnpm
 ENV PNPM_HOME="/home/node/.local/share/pnpm"
-ENV PATH="${PNPM_HOME}:${PATH}"
-
-# Install Claude Code CLI as node user
-RUN curl -fsSL https://raw.githubusercontent.com/anthropics/claude-code/main/install.sh | sh
-
-# Ensure claude is in PATH
-ENV PATH="/home/node/.local/bin:${PATH}"
+ENV PATH="${PNPM_HOME}:/home/node/.local/bin:${PATH}"
 
 # Create directories with correct permissions
 RUN mkdir -p \

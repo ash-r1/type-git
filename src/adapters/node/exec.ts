@@ -3,12 +3,7 @@
  */
 
 import { spawn } from 'node:child_process';
-import type {
-  ExecAdapter,
-  SpawnOptions,
-  SpawnResult,
-  StreamHandler,
-} from '../../core/adapters.js';
+import type { ExecAdapter, SpawnOptions, SpawnResult, StreamHandler } from '../../core/adapters.js';
 import type { Capabilities } from '../../core/types.js';
 
 export class NodeExecAdapter implements ExecAdapter {

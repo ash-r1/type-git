@@ -52,11 +52,7 @@ export interface Git {
   /**
    * Clone a repository
    */
-  clone(
-    url: string,
-    path: string,
-    opts?: CloneOpts & ExecOpts,
-  ): Promise<WorktreeRepo | BareRepo>;
+  clone(url: string, path: string, opts?: CloneOpts & ExecOpts): Promise<WorktreeRepo | BareRepo>;
 
   /**
    * Initialize a new repository
