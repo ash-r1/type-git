@@ -943,6 +943,143 @@ export interface TagOperations {
   show(name: string, opts?: ExecOpts): Promise<TagInfo>;
 }
 
+// =============================================================================
+// Remote Operations
+// =============================================================================
+
+/**
+ * Remote information
+ */
+export type RemoteInfo = {
+  /** Remote name */
+  name: string;
+  /** Fetch URL */
+  fetchUrl: string;
+  /** Push URL (may differ from fetchUrl) */
+  pushUrl: string;
+};
+
+/**
+ * Options for adding a remote
+ */
+export type RemoteAddOpts = {
+  /** Set up tracking for default branch */
+  track?: string;
+  /** Only fetch specified branches */
+  fetch?: boolean;
+  /** Set up as mirror */
+  mirror?: 'fetch' | 'push';
+};
+
+/**
+ * Options for getting/setting remote URL
+ */
+export type RemoteUrlOpts = {
+  /** Target push URL instead of fetch URL */
+  push?: boolean;
+};
+
+/**
+ * Remote operations interface
+ */
+export interface RemoteOperations {
+  /**
+   * List remotes
+   */
+  list(opts?: ExecOpts): Promise<Array<RemoteInfo>>;
+
+  /**
+   * Add a remote
+   */
+  add(name: string, url: string, opts?: RemoteAddOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Remove a remote
+   */
+  remove(name: string, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Rename a remote
+   */
+  rename(oldName: string, newName: string, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Get remote URL
+   */
+  getUrl(name: string, opts?: RemoteUrlOpts & ExecOpts): Promise<string>;
+
+  /**
+   * Set remote URL
+   */
+  setUrl(name: string, url: string, opts?: RemoteUrlOpts & ExecOpts): Promise<void>;
+}
+
+// =============================================================================
+// Config Operations (Repository-level)
+// =============================================================================
+
+/**
+ * Config entry
+ */
+export type ConfigEntry = {
+  /** Config key (e.g., 'user.name') */
+  key: string;
+  /** Config value */
+  value: string;
+};
+
+/**
+ * Options for config get
+ */
+export type ConfigGetOpts = {
+  /** Get all values for multi-valued key */
+  all?: boolean;
+};
+
+/**
+ * Options for config set
+ */
+export type ConfigSetOpts = {
+  /** Add value to multi-valued key instead of replacing */
+  add?: boolean;
+};
+
+/**
+ * Options for config list
+ */
+export type ConfigListOpts = {
+  /** Show origin of each value */
+  showOrigin?: boolean;
+  /** Show scope of each value */
+  showScope?: boolean;
+};
+
+/**
+ * Config operations interface (repository-level)
+ */
+export interface ConfigOperations {
+  /**
+   * Get a config value
+   * Returns undefined if not set
+   */
+  get(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | Array<string> | undefined>;
+
+  /**
+   * Set a config value
+   */
+  set(key: string, value: string, opts?: ConfigSetOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Unset a config value
+   */
+  unset(key: string, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * List all config values
+   */
+  list(opts?: ConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>>;
+}
+
 /**
  * Submodule operations interface
  */
@@ -1132,6 +1269,16 @@ export interface WorktreeRepo extends RepoBase {
    * Submodule operations
    */
   submodule: SubmoduleOperations;
+
+  /**
+   * Remote operations
+   */
+  remote: RemoteOperations;
+
+  /**
+   * Config operations (repository-level)
+   */
+  config: ConfigOperations;
 }
 
 /**
@@ -1149,4 +1296,14 @@ export interface BareRepo extends RepoBase {
    * Push to remote
    */
   push(opts?: PushOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Remote operations
+   */
+  remote: RemoteOperations;
+
+  /**
+   * Config operations (repository-level)
+   */
+  config: ConfigOperations;
 }

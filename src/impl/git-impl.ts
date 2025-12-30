@@ -3,11 +3,21 @@
  */
 
 import type { RuntimeAdapters } from '../core/adapters.js';
-import type { CloneOpts, Git, InitOpts, LsRemoteOpts, LsRemoteResult } from '../core/git.js';
-import type { BareRepo, WorktreeRepo } from '../core/repo.js';
+import type {
+  CloneOpts,
+  Git,
+  GlobalConfigGetOpts,
+  GlobalConfigListOpts,
+  GlobalConfigOperations,
+  GlobalConfigSetOpts,
+  InitOpts,
+  LsRemoteOpts,
+  LsRemoteResult,
+} from '../core/git.js';
+import type { BareRepo, ConfigEntry, WorktreeRepo } from '../core/repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
 import { GitError } from '../core/types.js';
-import { parseLsRemote } from '../parsers/index.js';
+import { parseLines, parseLsRemote } from '../parsers/index.js';
 import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
 import { BareRepoImpl } from './bare-repo-impl.js';
 import { WorktreeRepoImpl } from './worktree-repo-impl.js';
@@ -46,9 +56,18 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
  */
 export class GitImpl implements Git {
   private readonly runner: CliRunner;
+  public readonly config: GlobalConfigOperations;
 
   public constructor(options: CreateGitOptions) {
     this.runner = new CliRunner(options.adapters, options);
+
+    // Initialize global config operations
+    this.config = {
+      get: this.configGet.bind(this),
+      set: this.configSet.bind(this),
+      unset: this.configUnset.bind(this),
+      list: this.configList.bind(this),
+    };
   }
 
   /**
@@ -241,6 +260,101 @@ export class GitImpl implements Git {
    */
   public async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run({ type: 'global' }, argv, opts);
+  }
+
+  // ==========================================================================
+  // Global Config Operations
+  // ==========================================================================
+
+  private async configGet(
+    key: string,
+    opts?: GlobalConfigGetOpts & ExecOpts,
+  ): Promise<string | Array<string> | undefined> {
+    const args = ['config', '--global'];
+
+    if (opts?.all) {
+      args.push('--get-all');
+    } else {
+      args.push('--get');
+    }
+
+    args.push(key);
+
+    const result = await this.runner.run({ type: 'global' }, args, {
+      signal: opts?.signal,
+    });
+
+    if (result.exitCode !== 0) {
+      // Key not found
+      return undefined;
+    }
+
+    if (opts?.all) {
+      return parseLines(result.stdout);
+    }
+
+    return result.stdout.trim();
+  }
+
+  private async configSet(
+    key: string,
+    value: string,
+    opts?: GlobalConfigSetOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['config', '--global'];
+
+    if (opts?.add) {
+      args.push('--add');
+    }
+
+    args.push(key, value);
+
+    await this.runner.runOrThrow({ type: 'global' }, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async configUnset(key: string, opts?: ExecOpts): Promise<void> {
+    await this.runner.runOrThrow({ type: 'global' }, ['config', '--global', '--unset', key], {
+      signal: opts?.signal,
+    });
+  }
+
+  private async configList(opts?: GlobalConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>> {
+    const args = ['config', '--global', '--list'];
+
+    if (opts?.showOrigin) {
+      args.push('--show-origin');
+    }
+
+    if (opts?.showScope) {
+      args.push('--show-scope');
+    }
+
+    const result = await this.runner.runOrThrow({ type: 'global' }, args, {
+      signal: opts?.signal,
+    });
+
+    const entries: Array<ConfigEntry> = [];
+    for (const line of parseLines(result.stdout)) {
+      let keyValue = line;
+      if (opts?.showOrigin || opts?.showScope) {
+        const tabIndex = line.lastIndexOf('\t');
+        if (tabIndex !== -1) {
+          keyValue = line.slice(tabIndex + 1);
+        }
+      }
+
+      const eqIndex = keyValue.indexOf('=');
+      if (eqIndex !== -1) {
+        entries.push({
+          key: keyValue.slice(0, eqIndex),
+          value: keyValue.slice(eqIndex + 1),
+        });
+      }
+    }
+
+    return entries;
   }
 }
 

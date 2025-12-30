@@ -2,7 +2,7 @@
  * Core Git interface - repository-agnostic operations
  */
 
-import type { BareRepo, WorktreeRepo } from './repo.js';
+import type { BareRepo, ConfigEntry, WorktreeRepo } from './repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from './types.js';
 
 /**
@@ -48,6 +48,67 @@ export type LsRemoteResult = {
     name: string;
   }>;
 };
+
+// =============================================================================
+// Global Config Operations
+// =============================================================================
+
+/**
+ * Options for global config get
+ */
+export type GlobalConfigGetOpts = {
+  /** Get all values for multi-valued key */
+  all?: boolean;
+};
+
+/**
+ * Options for global config set
+ */
+export type GlobalConfigSetOpts = {
+  /** Add value to multi-valued key instead of replacing */
+  add?: boolean;
+};
+
+/**
+ * Options for global config list
+ */
+export type GlobalConfigListOpts = {
+  /** Show origin of each value */
+  showOrigin?: boolean;
+  /** Show scope of each value */
+  showScope?: boolean;
+};
+
+/**
+ * Global config operations interface
+ *
+ * Operates on ~/.gitconfig (user-level configuration)
+ */
+export interface GlobalConfigOperations {
+  /**
+   * Get a global config value
+   * Returns undefined if not set
+   */
+  get(
+    key: string,
+    opts?: GlobalConfigGetOpts & ExecOpts,
+  ): Promise<string | Array<string> | undefined>;
+
+  /**
+   * Set a global config value
+   */
+  set(key: string, value: string, opts?: GlobalConfigSetOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Unset a global config value
+   */
+  unset(key: string, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * List all global config values
+   */
+  list(opts?: GlobalConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>>;
+}
 
 /**
  * Main Git interface for repository-agnostic operations
@@ -95,4 +156,12 @@ export interface Git {
    * Execute a raw git command (repository-agnostic)
    */
   raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult>;
+
+  /**
+   * Global config operations (--global flag)
+   *
+   * Operates on ~/.gitconfig (user-level configuration).
+   * For repository-level config, use repo.config instead.
+   */
+  config: GlobalConfigOperations;
 }
