@@ -146,3 +146,4 @@ vite.config.ts.timestamp-*
 website/src/content/docs/api/
 
 .pnpm-store
+.DS_Store
