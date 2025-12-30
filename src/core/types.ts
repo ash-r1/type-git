@@ -35,15 +35,15 @@ export type GitProgress = {
 };
 
 /**
- * Progress event for LFS operations
+ * Progress event for LFS operations (§7.3)
  *
  * Parsed from GIT_LFS_PROGRESS file format:
  * <direction> <oid> <bytes_so_far>/<bytes_total> <bytes_transferred>
  */
 export type LfsProgress = {
   kind: 'lfs';
-  /** Direction of the transfer */
-  direction: 'download' | 'upload';
+  /** Direction of the transfer (includes checkout per design doc §7.3) */
+  direction: 'download' | 'upload' | 'checkout';
   /** Object ID */
   oid: string;
   /** Bytes transferred in this chunk */
@@ -52,6 +52,8 @@ export type LfsProgress = {
   bytesSoFar: number;
   /** Total bytes to transfer */
   bytesTotal: number;
+  /** File name (optional, per design doc §7.3) */
+  name?: string;
 };
 
 /**
@@ -107,6 +109,27 @@ export type GitErrorKind =
   | 'CapabilityMissing';
 
 /**
+ * Git error category for error handling (§13.2)
+ *
+ * Categorizes errors by their nature to enable appropriate handling strategies.
+ */
+export type GitErrorCategory =
+  /** Authentication errors (401, credential related) */
+  | 'auth'
+  /** Network errors (timeout, DNS resolution failure, etc.) */
+  | 'network'
+  /** Merge/rebase conflicts */
+  | 'conflict'
+  /** LFS-specific errors (storage capacity, transfer failure, etc.) */
+  | 'lfs'
+  /** Permission errors (directory access, file lock) */
+  | 'permission'
+  /** Repository corruption */
+  | 'corruption'
+  /** Unclassifiable */
+  | 'unknown';
+
+/**
  * Git error with detailed context
  */
 export class GitError extends Error {
@@ -121,9 +144,29 @@ export class GitError extends Error {
       stdout?: string;
       stderr?: string;
     } = {},
+    public readonly category: GitErrorCategory = 'unknown',
   ) {
     super(message);
     this.name = 'GitError';
+  }
+
+  /**
+   * Check if the error is retryable (§13.2)
+   *
+   * Network errors and some LFS errors are typically retryable.
+   */
+  isRetryable(): boolean {
+    return (
+      this.category === 'network' ||
+      (this.category === 'lfs' && this.kind === 'NonZeroExit')
+    );
+  }
+
+  /**
+   * Check if authentication is needed (§13.2)
+   */
+  needsAuthentication(): boolean {
+    return this.category === 'auth';
   }
 }
 
@@ -229,3 +272,81 @@ export type ExecutionContext =
   | { type: 'global' }
   | { type: 'worktree'; workdir: string }
   | { type: 'bare'; gitDir: string };
+
+// =============================================================================
+// Environment Isolation (§6.3: 宣言的環境隔離)
+// =============================================================================
+
+/**
+ * Options for opening a repository with environment isolation (§6.3)
+ *
+ * Provides declarative environment configuration for Git operations.
+ */
+export type GitOpenOptions = {
+  /** Custom HOME directory (~/.gitconfig source) */
+  home?: string;
+  /** Ignore system config (--config-env=GIT_CONFIG_GLOBAL=/dev/null equivalent) */
+  ignoreSystemConfig?: boolean;
+  /** Custom credential helper */
+  credentialHelper?: string;
+  /** Additional environment variables */
+  env?: Record<string, string>;
+  /** Directories to prepend to PATH */
+  pathPrefix?: string[];
+  /** Credential configuration (§6.4) */
+  credential?: CredentialConfig;
+  /** LFS mode configuration */
+  lfs?: LfsMode;
+};
+
+// =============================================================================
+// Credential Configuration (§6.4)
+// =============================================================================
+
+/**
+ * Credential request information
+ */
+export type CredentialRequest = {
+  protocol: 'https' | 'ssh';
+  host: string;
+  path?: string;
+};
+
+/**
+ * Credential response
+ */
+export type Credential = {
+  username: string;
+  password: string;
+};
+
+/**
+ * Credential configuration for Git authentication (§6.4)
+ *
+ * Supports multiple authentication methods:
+ * 1. Built-in helper (store, cache, manager-core)
+ * 2. Custom helper binary
+ * 3. Programmatic authentication (recommended)
+ * 4. Static credentials (dev/test only)
+ */
+export type CredentialConfig = {
+  /** Method 1: Built-in helper name */
+  helper?: 'store' | 'cache' | 'manager-core' | string;
+
+  /** Method 2: Custom helper binary path */
+  helperPath?: string;
+
+  /** Method 3: Programmatic authentication provider (recommended) */
+  provider?: (request: CredentialRequest) => Promise<Credential>;
+
+  /** Method 4: Static credentials (dev/test only) */
+  username?: string;
+  password?: string;
+  token?: string;
+
+  /** Fallback credential configuration */
+  fallback?: CredentialConfig;
+
+  /** Callback when authentication fails */
+  onAuthFailure?: (error: Error, request: CredentialRequest) => void;
+};

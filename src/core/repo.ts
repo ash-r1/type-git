@@ -135,6 +135,101 @@ export type LfsStatusOpts = {
   json?: boolean;
 };
 
+// =============================================================================
+// Worktree Support (§7.4)
+// =============================================================================
+
+/**
+ * Worktree information (§7.4)
+ *
+ * Parsed from `git worktree list --porcelain` output.
+ */
+export type Worktree = {
+  /** Worktree path */
+  path: string;
+  /** HEAD commit hash */
+  head: string;
+  /** Branch name (if checked out) */
+  branch?: string;
+  /** Whether the worktree is locked */
+  locked: boolean;
+  /** Whether the worktree is prunable */
+  prunable: boolean;
+};
+
+/**
+ * Options for adding a worktree
+ */
+export type WorktreeAddOpts = {
+  /** Branch name to create or checkout */
+  branch?: string;
+  /** Create detached HEAD */
+  detach?: boolean;
+  /** Track remote branch */
+  track?: boolean;
+};
+
+/**
+ * Options for removing a worktree
+ */
+export type WorktreeRemoveOpts = {
+  /** Force removal even if dirty */
+  force?: boolean;
+};
+
+/**
+ * Options for pruning worktrees
+ */
+export type WorktreePruneOpts = {
+  /** Show what would be pruned without actually pruning */
+  dryRun?: boolean;
+  /** Show more details */
+  verbose?: boolean;
+};
+
+/**
+ * Options for locking a worktree
+ */
+export type WorktreeLockOpts = {
+  /** Reason for locking */
+  reason?: string;
+};
+
+/**
+ * Worktree operations interface (§7.4)
+ */
+export interface WorktreeOperations {
+  /**
+   * List all worktrees (parses --porcelain output)
+   */
+  list(opts?: ExecOpts): Promise<Worktree[]>;
+
+  /**
+   * Add a new worktree
+   */
+  add(path: string, opts?: WorktreeAddOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Remove a worktree
+   */
+  remove(path: string, opts?: WorktreeRemoveOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Prune stale worktree references
+   */
+  prune(opts?: WorktreePruneOpts & ExecOpts): Promise<string[]>;
+
+  /**
+   * Lock a worktree
+   */
+  lock(path: string, opts?: WorktreeLockOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Unlock a worktree
+   */
+  unlock(path: string, opts?: ExecOpts): Promise<void>;
+}
+
 /**
  * LFS operations interface
  */
@@ -185,6 +280,11 @@ export interface WorktreeRepo extends RepoBase {
    * LFS operations
    */
   lfs: LfsOperations;
+
+  /**
+   * Worktree operations (§7.4)
+   */
+  worktree: WorktreeOperations;
 
   /**
    * Configure LFS mode for this repository
