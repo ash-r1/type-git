@@ -21,6 +21,12 @@ import { GitError } from '../core/types.js';
 import { detectErrorCategory, parseGitProgress, parseLfsProgress } from '../parsers/index.js';
 
 /**
+ * Regex patterns for error message extraction
+ */
+const FATAL_ERROR_PATTERN = /fatal:\s*(.+)/i;
+const ERROR_PATTERN = /error:\s*(.+)/i;
+
+/**
  * Credential helper configuration
  */
 export type CredentialHelperConfig = {
@@ -361,14 +367,16 @@ export class CliRunner {
     const stderr = result.stderr.trim();
 
     // Look for "fatal:" or "error:" prefixed messages
-    const fatalMatch = stderr.match(/fatal:\s*(.+)/i);
-    if (fatalMatch) {
-      return fatalMatch[1]!;
+    const fatalMatch = stderr.match(FATAL_ERROR_PATTERN);
+    const fatalMessage = fatalMatch?.[1];
+    if (fatalMessage) {
+      return fatalMessage;
     }
 
-    const errorMatch = stderr.match(/error:\s*(.+)/i);
-    if (errorMatch) {
-      return errorMatch[1]!;
+    const errorMatch = stderr.match(ERROR_PATTERN);
+    const errorMessage = errorMatch?.[1];
+    if (errorMessage) {
+      return errorMessage;
     }
 
     // Return first line or generic message

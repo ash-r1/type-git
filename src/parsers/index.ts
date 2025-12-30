@@ -9,6 +9,18 @@
  */
 
 /**
+ * Safely get an element from an array, throwing if undefined
+ * @internal
+ */
+function at<T>(arr: Array<T>, index: number, context: string): T {
+  const value = arr[index];
+  if (value === undefined) {
+    throw new Error(`Parse error: expected element at index ${index} in ${context}`);
+  }
+  return value;
+}
+
+/**
  * Parse newline-separated output into lines
  *
  * @param stdout - Raw stdout string
@@ -174,31 +186,31 @@ export function parsePorcelainV2(stdout: string): Array<PorcelainV2Entry> {
       const pathPart = parts.slice(8).join(' ');
       entries.push({
         type: 'changed',
-        xy: parts[1]!,
-        sub: parts[2]!,
-        mH: parts[3]!,
-        mI: parts[4]!,
-        mW: parts[5]!,
-        hH: parts[6]!,
-        hI: parts[7]!,
+        xy: at(parts, 1, 'porcelain-v2 ordinary'),
+        sub: at(parts, 2, 'porcelain-v2 ordinary'),
+        mH: at(parts, 3, 'porcelain-v2 ordinary'),
+        mI: at(parts, 4, 'porcelain-v2 ordinary'),
+        mW: at(parts, 5, 'porcelain-v2 ordinary'),
+        hH: at(parts, 6, 'porcelain-v2 ordinary'),
+        hI: at(parts, 7, 'porcelain-v2 ordinary'),
         path: pathPart,
       });
     } else if (line.startsWith('2 ')) {
       // Renamed/copied entry
       const parts = line.split(' ');
       const pathPart = parts.slice(9).join(' ');
-      const [path, origPath] = pathPart.split('\t');
+      const pathParts = pathPart.split('\t');
       entries.push({
         type: 'changed',
-        xy: parts[1]!,
-        sub: parts[2]!,
-        mH: parts[3]!,
-        mI: parts[4]!,
-        mW: parts[5]!,
-        hH: parts[6]!,
-        hI: parts[7]!,
-        path: path!,
-        origPath,
+        xy: at(parts, 1, 'porcelain-v2 renamed'),
+        sub: at(parts, 2, 'porcelain-v2 renamed'),
+        mH: at(parts, 3, 'porcelain-v2 renamed'),
+        mI: at(parts, 4, 'porcelain-v2 renamed'),
+        mW: at(parts, 5, 'porcelain-v2 renamed'),
+        hH: at(parts, 6, 'porcelain-v2 renamed'),
+        hI: at(parts, 7, 'porcelain-v2 renamed'),
+        path: at(pathParts, 0, 'porcelain-v2 renamed path'),
+        origPath: pathParts[1],
       });
     } else if (line.startsWith('u ')) {
       // Unmerged entry
@@ -206,15 +218,15 @@ export function parsePorcelainV2(stdout: string): Array<PorcelainV2Entry> {
       const pathPart = parts.slice(10).join(' ');
       entries.push({
         type: 'unmerged',
-        xy: parts[1]!,
-        sub: parts[2]!,
-        m1: parts[3]!,
-        m2: parts[4]!,
-        m3: parts[5]!,
-        mW: parts[6]!,
-        h1: parts[7]!,
-        h2: parts[8]!,
-        h3: parts[9]!,
+        xy: at(parts, 1, 'porcelain-v2 unmerged'),
+        sub: at(parts, 2, 'porcelain-v2 unmerged'),
+        m1: at(parts, 3, 'porcelain-v2 unmerged'),
+        m2: at(parts, 4, 'porcelain-v2 unmerged'),
+        m3: at(parts, 5, 'porcelain-v2 unmerged'),
+        mW: at(parts, 6, 'porcelain-v2 unmerged'),
+        h1: at(parts, 7, 'porcelain-v2 unmerged'),
+        h2: at(parts, 8, 'porcelain-v2 unmerged'),
+        h3: at(parts, 9, 'porcelain-v2 unmerged'),
         path: pathPart,
       });
     } else if (line.startsWith('? ')) {
@@ -260,11 +272,17 @@ export function parseGitProgress(line: string): GitProgressInfo | null {
   const match = line.match(/^(.+?):\s*(\d+)%\s*\((\d+)\/(\d+)\)(?:,\s*(done))?/);
 
   if (match) {
+    const percent = match[2];
+    const current = match[3];
+    const total = match[4];
+    if (percent === undefined || current === undefined || total === undefined) {
+      return null;
+    }
     return {
       phase: match[1]?.trim() ?? '',
-      percent: Number.parseInt(match[2]!, 10),
-      current: Number.parseInt(match[3]!, 10),
-      total: Number.parseInt(match[4]!, 10),
+      percent: Number.parseInt(percent, 10),
+      current: Number.parseInt(current, 10),
+      total: Number.parseInt(total, 10),
       done: match[5] === 'done',
     };
   }
@@ -272,8 +290,13 @@ export function parseGitProgress(line: string): GitProgressInfo | null {
   // Pattern without percentage: "Phase: current/total"
   const simpleMatch = line.match(/^(.+?):\s*(\d+)\/(\d+)/);
   if (simpleMatch) {
-    const current = Number.parseInt(simpleMatch[2]!, 10);
-    const total = Number.parseInt(simpleMatch[3]!, 10);
+    const currentStr = simpleMatch[2];
+    const totalStr = simpleMatch[3];
+    if (currentStr === undefined || totalStr === undefined) {
+      return null;
+    }
+    const current = Number.parseInt(currentStr, 10);
+    const total = Number.parseInt(totalStr, 10);
     return {
       phase: simpleMatch[1]?.trim() ?? '',
       current,
@@ -309,23 +332,36 @@ export function parseLfsProgress(line: string): LfsProgressInfo | null {
     return null;
   }
 
-  const direction = parts[0] as 'download' | 'upload' | 'checkout';
-  if (direction !== 'download' && direction !== 'upload' && direction !== 'checkout') {
+  const directionStr = parts[0];
+  if (directionStr !== 'download' && directionStr !== 'upload' && directionStr !== 'checkout') {
+    return null;
+  }
+  const direction = directionStr;
+
+  const oid = parts[1];
+  const bytesStr = parts[2];
+  const transferredStr = parts[3];
+  if (oid === undefined || bytesStr === undefined || transferredStr === undefined) {
     return null;
   }
 
-  const oid = parts[1]!;
-  const bytesMatch = parts[2]?.match(/^(\d+)\/(\d+)$/);
+  const bytesMatch = bytesStr.match(/^(\d+)\/(\d+)$/);
   if (!bytesMatch) {
+    return null;
+  }
+
+  const bytesSoFar = bytesMatch[1];
+  const bytesTotal = bytesMatch[2];
+  if (bytesSoFar === undefined || bytesTotal === undefined) {
     return null;
   }
 
   return {
     direction,
     oid,
-    bytesSoFar: Number.parseInt(bytesMatch[1]!, 10),
-    bytesTotal: Number.parseInt(bytesMatch[2]!, 10),
-    bytesTransferred: Number.parseInt(parts[3]!, 10),
+    bytesSoFar: Number.parseInt(bytesSoFar, 10),
+    bytesTotal: Number.parseInt(bytesTotal, 10),
+    bytesTransferred: Number.parseInt(transferredStr, 10),
   };
 }
 
@@ -408,17 +444,43 @@ export function parseGitLog(stdout: string): Array<ParsedCommit> {
       continue;
     }
 
+    const hash = fields[0];
+    const abbrevHash = fields[1];
+    const parentsStr = fields[2];
+    const authorName = fields[3];
+    const authorEmail = fields[4];
+    const authorTimestampStr = fields[5];
+    const committerName = fields[6];
+    const committerEmail = fields[7];
+    const committerTimestampStr = fields[8];
+    const subject = fields[9];
+
+    // Skip if required fields are missing
+    if (
+      hash === undefined ||
+      abbrevHash === undefined ||
+      authorName === undefined ||
+      authorEmail === undefined ||
+      authorTimestampStr === undefined ||
+      committerName === undefined ||
+      committerEmail === undefined ||
+      committerTimestampStr === undefined ||
+      subject === undefined
+    ) {
+      continue;
+    }
+
     commits.push({
-      hash: fields[0]!,
-      abbrevHash: fields[1]!,
-      parents: fields[2] ? fields[2].split(' ').filter(Boolean) : [],
-      authorName: fields[3]!,
-      authorEmail: fields[4]!,
-      authorTimestamp: Number.parseInt(fields[5]!, 10),
-      committerName: fields[6]!,
-      committerEmail: fields[7]!,
-      committerTimestamp: Number.parseInt(fields[8]!, 10),
-      subject: fields[9]!,
+      hash,
+      abbrevHash,
+      parents: parentsStr ? parentsStr.split(' ').filter(Boolean) : [],
+      authorName,
+      authorEmail,
+      authorTimestamp: Number.parseInt(authorTimestampStr, 10),
+      committerName,
+      committerEmail,
+      committerTimestamp: Number.parseInt(committerTimestampStr, 10),
+      subject,
       body: fields[10]?.trim() ?? '',
     });
   }

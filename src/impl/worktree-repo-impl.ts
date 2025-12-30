@@ -216,32 +216,42 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         upstream = line.slice('# branch.upstream '.length);
       } else if (line.startsWith('# branch.ab ')) {
         const match = line.match(/# branch\.ab \+(\d+) -(\d+)/);
-        if (match) {
-          ahead = Number.parseInt(match[1]!, 10);
-          behind = Number.parseInt(match[2]!, 10);
+        const aheadStr = match?.[1];
+        const behindStr = match?.[2];
+        if (aheadStr !== undefined && behindStr !== undefined) {
+          ahead = Number.parseInt(aheadStr, 10);
+          behind = Number.parseInt(behindStr, 10);
         }
       } else if (line.startsWith('1 ') || line.startsWith('2 ')) {
         // Regular or renamed entry
         const parsed = parsePorcelainV2(line);
-        if (parsed.length > 0 && parsed[0]?.type === 'changed') {
-          const entry = parsed[0]!;
-          entries.push({
-            path: entry.path,
-            index: entry.xy[0]!,
-            workdir: entry.xy[1]!,
-            originalPath: entry.origPath,
-          });
+        const entry = parsed[0];
+        if (entry?.type === 'changed') {
+          const indexStatus = entry.xy[0];
+          const workdirStatus = entry.xy[1];
+          if (indexStatus !== undefined && workdirStatus !== undefined) {
+            entries.push({
+              path: entry.path,
+              index: indexStatus,
+              workdir: workdirStatus,
+              originalPath: entry.origPath,
+            });
+          }
         }
       } else if (line.startsWith('u ')) {
         // Unmerged entry
         const parsed = parsePorcelainV2(line);
-        if (parsed.length > 0 && parsed[0]?.type === 'unmerged') {
-          const entry = parsed[0]!;
-          entries.push({
-            path: entry.path,
-            index: entry.xy[0]!,
-            workdir: entry.xy[1]!,
-          });
+        const entry = parsed[0];
+        if (entry?.type === 'unmerged') {
+          const indexStatus = entry.xy[0];
+          const workdirStatus = entry.xy[1];
+          if (indexStatus !== undefined && workdirStatus !== undefined) {
+            entries.push({
+              path: entry.path,
+              index: indexStatus,
+              workdir: workdirStatus,
+            });
+          }
         }
       } else if (line.startsWith('? ')) {
         // Untracked
@@ -544,8 +554,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       oids = [];
       for (const line of parseLines(lsFilesResult.stdout)) {
         const match = line.match(/^([a-f0-9]{64})\s+[-*]\s+/);
-        if (match) {
-          oids.push(match[1]!);
+        const oid = match?.[1];
+        if (oid !== undefined) {
+          oids.push(oid);
         }
       }
     }
@@ -576,9 +587,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         const bytesMatch = result.stderr.match(
           /Uploading LFS objects:.*?\((\d+(?:\.\d+)?)\s*([KMG]?B)/i,
         );
-        if (bytesMatch) {
-          let bytes = Number.parseFloat(bytesMatch[1]!);
-          const unit = bytesMatch[2]?.toUpperCase();
+        const bytesStr = bytesMatch?.[1];
+        if (bytesStr !== undefined) {
+          let bytes = Number.parseFloat(bytesStr);
+          const unit = bytesMatch?.[2]?.toUpperCase();
           if (unit === 'KB') {
             bytes *= 1024;
           } else if (unit === 'MB') {
@@ -638,8 +650,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       oids = [];
       for (const line of parseLines(lsFilesResult.stdout)) {
         const match = line.match(/^([a-f0-9]{64})\s+[-*]\s+/);
-        if (match) {
-          oids.push(match[1]!);
+        const oid = match?.[1];
+        if (oid !== undefined) {
+          oids.push(oid);
         }
       }
     } else {
@@ -672,9 +685,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         const bytesMatch = result.stderr.match(
           /Downloading LFS objects:.*?\((\d+(?:\.\d+)?)\s*([KMG]?B)/i,
         );
-        if (bytesMatch) {
-          let bytes = Number.parseFloat(bytesMatch[1]!);
-          const unit = bytesMatch[2]?.toUpperCase();
+        const bytesStr = bytesMatch?.[1];
+        if (bytesStr !== undefined) {
+          let bytes = Number.parseFloat(bytesStr);
+          const unit = bytesMatch?.[2]?.toUpperCase();
           if (unit === 'KB') {
             bytes *= 1024;
           } else if (unit === 'MB') {
@@ -839,11 +853,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const branches: Array<BranchInfo> = [];
     for (const line of parseLines(result.stdout)) {
       const parts = line.split('\0');
-      if (parts.length >= 5) {
-        const [name, commit, upstream, trackInfo, head] = parts;
+      const name = parts[0];
+      const commit = parts[1];
+      const upstream = parts[2];
+      const trackInfo = parts[3];
+      const head = parts[4];
+      if (name !== undefined && commit !== undefined) {
         branches.push({
-          name: name!,
-          commit: commit!,
+          name,
+          commit,
           current: head === '*',
           upstream: upstream || undefined,
           gone: trackInfo?.includes('gone'),
@@ -1076,13 +1094,16 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       const files: Array<DiffEntry> = [];
       for (const line of parseLines(result.stdout)) {
         const match = line.match(/^([AMDRTCUX])\t(.+?)(?:\t(.+))?$/);
-        if (match) {
+        const status = match?.[1] as DiffEntry['status'] | undefined;
+        const pathOrOld = match?.[2];
+        const newPath = match?.[3];
+        if (status !== undefined && pathOrOld !== undefined) {
           const entry: DiffEntry = {
-            status: match[1] as DiffEntry['status'],
-            path: match[3] ?? match[2]!,
+            status,
+            path: newPath ?? pathOrOld,
           };
-          if (match[3]) {
-            entry.oldPath = match[2];
+          if (newPath !== undefined) {
+            entry.oldPath = pathOrOld;
           }
           files.push(entry);
         }
@@ -1309,14 +1330,16 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       // Default format: stash@{0}: On branch: message
       // Or: stash@{0}: WIP on branch: hash (when using -m)
       const match = line.match(/^stash@\{(\d+)\}:\s*(?:On\s+)?(.+?):\s*(.+)$/);
-      if (match) {
-        const [, indexStr, branchOrContext, message] = match;
+      const indexStr = match?.[1];
+      const branchOrContext = match?.[2];
+      const message = match?.[3];
+      if (indexStr !== undefined && message !== undefined) {
         // Check if branchOrContext includes "WIP on" format
         const wipMatch = branchOrContext?.match(/^WIP on (.+)$/);
         entries.push({
-          index: Number.parseInt(indexStr!, 10),
-          message: message!,
-          branch: wipMatch ? wipMatch[1] : branchOrContext,
+          index: Number.parseInt(indexStr, 10),
+          message,
+          branch: wipMatch?.[1] ?? branchOrContext,
           commit: '', // We'd need another command to get the commit hash
         });
       }
@@ -1528,9 +1551,18 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         } else if (line.startsWith('tagger ')) {
           const match = line.match(/^tagger (.+?) <(.+?)> (\d+)/);
           if (match) {
-            taggerName = match[1]!;
-            taggerEmail = match[2]!;
-            taggerDate = new Date(Number.parseInt(match[3]!, 10) * 1000);
+            const matchedName = match[1];
+            const matchedEmail = match[2];
+            const matchedTimestamp = match[3];
+            if (
+              matchedName !== undefined &&
+              matchedEmail !== undefined &&
+              matchedTimestamp !== undefined
+            ) {
+              taggerName = matchedName;
+              taggerEmail = matchedEmail;
+              taggerDate = new Date(Number.parseInt(matchedTimestamp, 10) * 1000);
+            }
           }
         } else if (line === '') {
           inMessage = true;
@@ -1544,13 +1576,14 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         commit,
         annotated: true,
         message: messageLines.join('\n').trim() || undefined,
-        tagger: taggerName
-          ? {
-              name: taggerName,
-              email: taggerEmail,
-              date: taggerDate!,
-            }
-          : undefined,
+        tagger:
+          taggerName && taggerDate
+            ? {
+                name: taggerName,
+                email: taggerEmail,
+                date: taggerDate,
+              }
+            : undefined,
       };
     } else {
       // Lightweight tag - get the commit it points to
@@ -1663,8 +1696,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     for (const line of parseLines(result.stdout)) {
       // Output is like "Removing file.txt" or "Would remove file.txt"
       const match = line.match(/^(?:Removing|Would remove) (.+)$/);
-      if (match) {
-        cleaned.push(match[1]!);
+      const matchedPath = match?.[1];
+      if (matchedPath !== undefined) {
+        cleaned.push(matchedPath);
       }
     }
 
@@ -1873,7 +1907,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       // Format: [+-U ]<sha1> <path> (<describe>)
       const match = line.match(/^[ +-U]?([a-f0-9]+) (.+?)(?: \((.+)\))?$/);
       if (match) {
-        const [, commit, path] = match;
+        const commit = match[1];
+        const path = match[2];
+        if (commit === undefined || path === undefined) {
+          continue;
+        }
         // Get URL from .gitmodules
         const urlResult = await this.runner.run(
           this.context,
@@ -1891,11 +1929,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         const branch = branchResult.exitCode === 0 ? branchResult.stdout.trim() : undefined;
 
         submodules.push({
-          name: path!,
-          path: path!,
+          name: path,
+          path: path,
           url,
           branch,
-          commit: commit!,
+          commit: commit,
         });
       }
     }

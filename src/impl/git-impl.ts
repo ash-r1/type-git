@@ -224,7 +224,8 @@ export class GitImpl implements Git {
 
     // Parse "git version X.Y.Z" format
     const match = result.stdout.match(/git version (\S+)/);
-    return match ? match[1]! : result.stdout.trim();
+    const version = match?.[1];
+    return version ?? result.stdout.trim();
   }
 
   /**
