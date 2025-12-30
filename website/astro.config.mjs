@@ -15,13 +15,15 @@ export default defineConfig({
         github: 'https://github.com/ash-r1/type-git',
       },
 
-      defaultLocale: 'en',
+      defaultLocale: 'root',
       locales: {
-        en: {
+        root: {
           label: 'English',
+          lang: 'en',
         },
         ja: {
           label: '日本語',
+          lang: 'ja',
         },
       },
 
