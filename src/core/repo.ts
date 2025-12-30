@@ -775,7 +775,15 @@ export interface LfsOperations {
    * Get LFS status
    */
   status(opts?: LfsStatusOpts & ExecOpts): Promise<LfsStatus>;
+}
 
+/**
+ * LFS Extra operations interface (inspired by fs-extra)
+ *
+ * Additional LFS utilities not part of the core LFS commands.
+ * These enable advanced patterns like 2-phase commit/fetch.
+ */
+export interface LfsExtraOperations {
   /**
    * Pre-upload LFS objects before refs push (§10.3)
    *
@@ -785,7 +793,7 @@ export interface LfsOperations {
    * @example
    * ```typescript
    * // Phase 1: Upload LFS objects first
-   * await repo.lfs.preUpload({ onProgress: handleProgress });
+   * await repo.lfsExtra.preUpload({ onProgress: handleProgress });
    *
    * // Phase 2: Create commit
    * await repo.commit({ message: 'Add large files' });
@@ -959,6 +967,13 @@ export interface WorktreeRepo extends RepoBase {
    * LFS operations
    */
   lfs: LfsOperations;
+
+  /**
+   * LFS extra operations (inspired by fs-extra)
+   *
+   * Additional utilities for advanced LFS patterns like 2-phase commit/fetch.
+   */
+  lfsExtra: LfsExtraOperations;
 
   /**
    * Worktree operations (§7.4)

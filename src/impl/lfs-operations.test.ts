@@ -47,14 +47,14 @@ function createMockAdapters(spawnResults?: Array<Partial<SpawnResult>>): Runtime
   };
 }
 
-describe('WorktreeRepoImpl LFS Operations', () => {
-  describe('lfs.preUpload', () => {
+describe('WorktreeRepoImpl LFS Extra Operations', () => {
+  describe('lfsExtra.preUpload', () => {
     it('should return zero counts when LFS is disabled', async () => {
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo', { lfs: 'disabled' });
 
-      const result = await repo.lfs.preUpload();
+      const result = await repo.lfsExtra.preUpload();
 
       expect(result).toEqual({
         uploadedCount: 0,
@@ -70,7 +70,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
       const oids = ['abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd'];
-      const result = await repo.lfs.preUpload({ oids });
+      const result = await repo.lfsExtra.preUpload({ oids });
 
       expect(adapters.exec.spawn).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -104,7 +104,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preUpload();
+      const result = await repo.lfsExtra.preUpload();
 
       // Should have called ls-files first
       expect(adapters.exec.spawn).toHaveBeenNthCalledWith(
@@ -130,7 +130,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preUpload({ oids, batchSize: 2 });
+      const result = await repo.lfsExtra.preUpload({ oids, batchSize: 2 });
 
       // Should have made 3 calls (2 + 2 + 1)
       expect(adapters.exec.spawn).toHaveBeenCalledTimes(3);
@@ -143,7 +143,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
       const oids = ['abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd'];
-      await repo.lfs.preUpload({ oids, remote: 'upstream' });
+      await repo.lfsExtra.preUpload({ oids, remote: 'upstream' });
 
       expect(adapters.exec.spawn).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -161,7 +161,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preUpload({ oids });
+      const result = await repo.lfsExtra.preUpload({ oids });
 
       expect(result.uploadedCount).toBe(0);
       expect(result.skippedCount).toBe(1);
@@ -172,7 +172,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preUpload();
+      const result = await repo.lfsExtra.preUpload();
 
       expect(result).toEqual({
         uploadedCount: 0,
@@ -188,7 +188,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preUpload();
+      const result = await repo.lfsExtra.preUpload();
 
       expect(result).toEqual({
         uploadedCount: 0,
@@ -198,13 +198,13 @@ describe('WorktreeRepoImpl LFS Operations', () => {
     });
   });
 
-  describe('lfs.preDownload', () => {
+  describe('lfsExtra.preDownload', () => {
     it('should return zero counts when LFS is disabled', async () => {
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo', { lfs: 'disabled' });
 
-      const result = await repo.lfs.preDownload({ ref: 'origin/main' });
+      const result = await repo.lfsExtra.preDownload({ ref: 'origin/main' });
 
       expect(result).toEqual({
         downloadedCount: 0,
@@ -220,7 +220,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
       const oids = ['abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd'];
-      const result = await repo.lfs.preDownload({ oids });
+      const result = await repo.lfsExtra.preDownload({ oids });
 
       expect(adapters.exec.spawn).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -253,7 +253,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preDownload({ ref: 'origin/feature' });
+      const result = await repo.lfsExtra.preDownload({ ref: 'origin/feature' });
 
       // Should have called ls-files with ref
       expect(adapters.exec.spawn).toHaveBeenNthCalledWith(
@@ -272,7 +272,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preDownload({});
+      const result = await repo.lfsExtra.preDownload({});
 
       expect(result).toEqual({
         downloadedCount: 0,
@@ -293,7 +293,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preDownload({ oids, batchSize: 2 });
+      const result = await repo.lfsExtra.preDownload({ oids, batchSize: 2 });
 
       // Should have made 3 calls (2 + 2 + 1)
       expect(adapters.exec.spawn).toHaveBeenCalledTimes(3);
@@ -306,7 +306,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
       const oids = ['abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd'];
-      await repo.lfs.preDownload({ oids, remote: 'upstream' });
+      await repo.lfsExtra.preDownload({ oids, remote: 'upstream' });
 
       expect(adapters.exec.spawn).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -322,7 +322,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preDownload({ oids });
+      const result = await repo.lfsExtra.preDownload({ oids });
 
       expect(result.downloadedCount).toBe(0);
       expect(result.skippedCount).toBe(1);
@@ -333,7 +333,7 @@ describe('WorktreeRepoImpl LFS Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const result = await repo.lfs.preDownload({ ref: 'nonexistent' });
+      const result = await repo.lfsExtra.preDownload({ ref: 'nonexistent' });
 
       expect(result).toEqual({
         downloadedCount: 0,

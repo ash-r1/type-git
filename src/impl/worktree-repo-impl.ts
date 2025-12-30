@@ -21,6 +21,7 @@ import type {
   DiffOpts,
   DiffResult,
   FetchOpts,
+  LfsExtraOperations,
   LfsOperations,
   LfsPreDownloadOpts,
   LfsPreDownloadResult,
@@ -90,6 +91,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   private _lfsMode: LfsMode = 'enabled';
 
   public readonly lfs: LfsOperations;
+  public readonly lfsExtra: LfsExtraOperations;
   public readonly worktree: WorktreeOperations;
   public readonly branch: BranchOperations;
   public readonly stash: StashOperations;
@@ -109,6 +111,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       pull: this.lfsPull.bind(this),
       push: this.lfsPush.bind(this),
       status: this.lfsStatus.bind(this),
+    };
+
+    // Initialize LFS extra operations
+    this.lfsExtra = {
       preUpload: this.lfsPreUpload.bind(this),
       preDownload: this.lfsPreDownload.bind(this),
     };
