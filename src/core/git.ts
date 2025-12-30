@@ -26,6 +26,11 @@ export type CloneOpts = {
   recurseSubmodules?: boolean;
   /** Store .git directory at specified path instead of inside the repository */
   separateGitDir?: string;
+  /**
+   * Whether to clean up the target directory if the operation is aborted.
+   * @default true
+   */
+  cleanupOnAbort?: boolean;
 };
 
 /**
@@ -36,6 +41,11 @@ export type InitOpts = {
   initialBranch?: string;
   /** Store .git directory at specified path instead of inside the repository */
   separateGitDir?: string;
+  /**
+   * Whether to clean up the target directory if the operation is aborted.
+   * @default true
+   */
+  cleanupOnAbort?: boolean;
 };
 
 /**

@@ -62,10 +62,12 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
  */
 export class GitImpl implements Git {
   private readonly runner: CliRunner;
+  private readonly adapters: RuntimeAdapters;
   public readonly config: GlobalConfigOperations;
 
   public constructor(options: CreateGitOptions) {
     this.runner = new CliRunner(options.adapters, options);
+    this.adapters = options.adapters;
 
     // Initialize global config operations
     this.config = {
@@ -177,10 +179,18 @@ export class GitImpl implements Git {
 
     args.push(url, path);
 
-    await this.runner.runOrThrow({ type: 'global' }, args, {
-      signal: opts?.signal,
-      onProgress: opts?.onProgress,
-    });
+    try {
+      await this.runner.runOrThrow({ type: 'global' }, args, {
+        signal: opts?.signal,
+        onProgress: opts?.onProgress,
+      });
+    } catch (error) {
+      // Clean up on abort if cleanupOnAbort is true (default)
+      if (error instanceof GitError && error.kind === 'Aborted' && opts?.cleanupOnAbort !== false) {
+        await this.adapters.fs.deleteDirectory(path);
+      }
+      throw error;
+    }
 
     // Return the appropriate repo type
     if (opts?.bare || opts?.mirror) {
@@ -210,10 +220,18 @@ export class GitImpl implements Git {
 
     args.push(path);
 
-    await this.runner.runOrThrow({ type: 'global' }, args, {
-      signal: opts?.signal,
-      onProgress: opts?.onProgress,
-    });
+    try {
+      await this.runner.runOrThrow({ type: 'global' }, args, {
+        signal: opts?.signal,
+        onProgress: opts?.onProgress,
+      });
+    } catch (error) {
+      // Clean up on abort if cleanupOnAbort is true (default)
+      if (error instanceof GitError && error.kind === 'Aborted' && opts?.cleanupOnAbort !== false) {
+        await this.adapters.fs.deleteDirectory(path);
+      }
+      throw error;
+    }
 
     if (opts?.bare) {
       return new BareRepoImpl(this.runner, path);

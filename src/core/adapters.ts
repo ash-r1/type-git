@@ -174,6 +174,13 @@ export interface FsAdapter {
   deleteFile(filePath: string): Promise<void>;
 
   /**
+   * Delete a directory recursively
+   *
+   * @param dirPath - Path to the directory to delete
+   */
+  deleteDirectory(dirPath: string): Promise<void>;
+
+  /**
    * Check if a file exists
    *
    * @param filePath - Path to check

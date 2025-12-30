@@ -4,7 +4,7 @@
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { RuntimeAdapters, SpawnResult } from '../core/adapters.js';
-import type { ExecutionContext, Progress } from '../core/types.js';
+import type { ExecutionContext, GitProgress, LfsProgress } from '../core/types.js';
 import { GitError } from '../core/types.js';
 import { CliRunner } from './cli-runner.js';
 
@@ -32,6 +32,7 @@ function createMockAdapters(spawnResult?: Partial<SpawnResult>): RuntimeAdapters
       createTempFile: vi.fn().mockResolvedValue('/tmp/type-git-lfs-123/temp'),
       tail: vi.fn().mockResolvedValue(undefined),
       deleteFile: vi.fn().mockResolvedValue(undefined),
+      deleteDirectory: vi.fn().mockResolvedValue(undefined),
       exists: vi.fn().mockResolvedValue(true),
       writeFile: vi.fn().mockResolvedValue(undefined),
     },
@@ -98,25 +99,23 @@ describe('CliRunner', () => {
       );
     });
 
-    it('should set up LFS progress file when onProgress provided', async () => {
+    it('should set up LFS progress environment when onLfsProgress provided', async () => {
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters);
-      const onProgress = vi.fn();
+      const onLfsProgress = vi.fn();
 
-      await runner.run({ type: 'global' }, ['lfs', 'pull'], { onProgress });
+      await runner.run({ type: 'global' }, ['lfs', 'pull'], { onLfsProgress });
 
-      expect(adapters.fs.createTempFile).toHaveBeenCalled();
       expect(adapters.exec.spawn).toHaveBeenCalledWith(
         expect.objectContaining({
           env: expect.objectContaining({
-            GIT_LFS_PROGRESS: expect.stringContaining('type-git-lfs'),
+            GIT_LFS_FORCE_PROGRESS: '1',
           }),
         }),
         expect.objectContaining({
           onStderr: expect.any(Function),
         }),
       );
-      expect(adapters.fs.deleteFile).toHaveBeenCalled();
     });
 
     it('should pass abort signal', async () => {
@@ -401,7 +400,7 @@ describe('CliRunner', () => {
     it('should parse git progress from stderr', async () => {
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters);
-      const progressEvents: Array<Progress> = [];
+      const progressEvents: Array<GitProgress> = [];
 
       // Capture the onStderr handler
       let stderrHandler: ((chunk: string) => void) | undefined;
@@ -423,12 +422,70 @@ describe('CliRunner', () => {
 
       expect(progressEvents.length).toBeGreaterThan(0);
       expect(progressEvents[0]).toMatchObject({
-        kind: 'git',
         phase: 'Counting objects',
         current: 5,
         total: 10,
         percent: 50,
       });
+    });
+
+    it('should parse LFS progress from stderr', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+      const lfsProgressEvents: Array<LfsProgress> = [];
+
+      (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
+        async (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
+          // Simulate LFS progress output with carriage returns
+          if (handlers?.onStderr) {
+            handlers.onStderr('Downloading LFS objects:  50% (1/2), 1.5 MB | 500 KB/s\r');
+            handlers.onStderr('Downloading LFS objects: 100% (2/2), 3.0 MB | 1.0 MB/s\n');
+          }
+          return { stdout: '', stderr: '', exitCode: 0, aborted: false };
+        },
+      );
+
+      await runner.run({ type: 'global' }, ['lfs', 'pull'], {
+        onLfsProgress: (p) => lfsProgressEvents.push(p),
+      });
+
+      expect(lfsProgressEvents.length).toBeGreaterThan(0);
+      expect(lfsProgressEvents[0]).toMatchObject({
+        direction: 'download',
+        percent: 50,
+        filesCompleted: 1,
+        filesTotal: 2,
+      });
+    });
+
+    it('should handle carriage return updates in LFS progress', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+      const lfsProgressEvents: Array<LfsProgress> = [];
+
+      (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
+        async (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
+          // Simulate LFS progress with multiple CR updates in single chunk
+          if (handlers?.onStderr) {
+            handlers.onStderr(
+              'Downloading LFS objects:  25% (1/4), 1 MB | 500 KB/s\r' +
+                'Downloading LFS objects:  50% (2/4), 2 MB | 600 KB/s\r' +
+                'Downloading LFS objects:  75% (3/4), 3 MB | 700 KB/s\r',
+            );
+          }
+          return { stdout: '', stderr: '', exitCode: 0, aborted: false };
+        },
+      );
+
+      await runner.run({ type: 'global' }, ['lfs', 'pull'], {
+        onLfsProgress: (p) => lfsProgressEvents.push(p),
+      });
+
+      // Should have parsed multiple progress events from CR-separated lines
+      expect(lfsProgressEvents.length).toBe(3);
+      expect(lfsProgressEvents[0].percent).toBe(25);
+      expect(lfsProgressEvents[1].percent).toBe(50);
+      expect(lfsProgressEvents[2].percent).toBe(75);
     });
   });
 });

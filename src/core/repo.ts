@@ -2,7 +2,7 @@
  * Repository interfaces - operations that require a repository context
  */
 
-import type { ExecOpts, LfsMode, Progress, RawResult } from './types.js';
+import type { ExecOpts, GitProgress, LfsMode, RawResult } from './types.js';
 
 /**
  * Base repository interface
@@ -338,7 +338,7 @@ export type PullOpts = {
   /** Prune remote-tracking refs */
   prune?: boolean;
   /** Progress callback */
-  onProgress?: (progress: Progress) => void;
+  onProgress?: (progress: GitProgress) => void;
 };
 
 /**

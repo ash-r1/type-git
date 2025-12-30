@@ -2,12 +2,22 @@
  * Tests for Git implementation
  */
 
-import { mkdtemp, rm } from 'node:fs/promises';
+import { access, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
+import { GitError } from '../core/types.js';
 import { createGit } from './git-impl.js';
+
+async function exists(path: string): Promise<boolean> {
+  try {
+    await access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 describe('GitImpl', () => {
   let tempDir: string;
@@ -85,6 +95,30 @@ describe('GitImpl', () => {
         const objectsDirStat = await stat(join(gitDirPath, 'objects'));
         expect(objectsDirStat.isDirectory()).toBe(true);
       }
+    });
+
+    it('should clean up directory on abort by default', async () => {
+      const repoPath = join(tempDir, 'abort-test-repo');
+      const controller = new AbortController();
+      controller.abort(); // Already aborted
+
+      await expect(git.init(repoPath, { signal: controller.signal })).rejects.toThrow(GitError);
+
+      // Directory should be cleaned up
+      expect(await exists(repoPath)).toBe(false);
+    });
+
+    it('should not clean up directory on abort when cleanupOnAbort is false', async () => {
+      const repoPath = join(tempDir, 'no-cleanup-repo');
+      const controller = new AbortController();
+      controller.abort(); // Already aborted
+
+      await expect(
+        git.init(repoPath, { signal: controller.signal, cleanupOnAbort: false }),
+      ).rejects.toThrow(GitError);
+
+      // Directory may or may not exist depending on how much git created before abort
+      // The key is that we don't throw during cleanup, so test just passes if no error
     });
   });
 

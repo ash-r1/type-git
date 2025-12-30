@@ -3,29 +3,33 @@
  *
  * This module provides:
  * - CliRunner: Executes Git commands with progress tracking and abort support
- * - Progress collection from stderr and LFS progress file
+ * - Progress collection from stderr (Git and LFS)
  * - Error mapping from Git exit codes
  */
 
 import process from 'node:process';
-import type { ExecAdapter, FsAdapter, RuntimeAdapters } from '../core/adapters.js';
+import type { ExecAdapter, RuntimeAdapters } from '../core/adapters.js';
 import type {
   ExecOpts,
   ExecutionContext,
   GitErrorKind,
   GitProgress,
   LfsProgress,
-  Progress,
   RawResult,
 } from '../core/types.js';
 import { GitError } from '../core/types.js';
-import { detectErrorCategory, parseGitProgress, parseLfsProgress } from '../parsers/index.js';
+import { detectErrorCategory, parseGitProgress, parseLfsStderrProgress } from '../parsers/index.js';
 
 /**
  * Regex patterns for error message extraction
  */
 const FATAL_ERROR_PATTERN = /fatal:\s*(.+)/i;
 const ERROR_PATTERN = /error:\s*(.+)/i;
+
+/**
+ * Regex pattern for splitting lines by carriage return or newline
+ */
+const LINE_SEPARATOR_PATTERN = /\r|\n/;
 
 /**
  * Credential helper configuration
@@ -58,14 +62,12 @@ export type CliRunnerOptions = {
  *
  * Handles:
  * - Command construction based on execution context
- * - Progress tracking from stderr
- * - LFS progress tracking via GIT_LFS_PROGRESS
+ * - Progress tracking from stderr (Git and LFS)
  * - Abort signal handling
  * - Error mapping
  */
 export class CliRunner {
   private readonly exec: ExecAdapter;
-  private readonly fs: FsAdapter;
   private readonly gitBinary: string;
   private readonly baseEnv: Record<string, string>;
   private readonly pathPrefix: Array<string>;
@@ -74,7 +76,6 @@ export class CliRunner {
 
   public constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
     this.exec = adapters.exec;
-    this.fs = adapters.fs;
     this.gitBinary = options?.gitBinary ?? 'git';
     this.baseEnv = options?.env ?? {};
     this.pathPrefix = options?.pathPrefix ?? [];
@@ -94,7 +95,16 @@ export class CliRunner {
     const credential = options.credential ?? this.credential;
 
     return new CliRunner(
-      { exec: this.exec, fs: this.fs },
+      {
+        exec: this.exec,
+        fs: {
+          createTempFile: async (): Promise<string> => '',
+          deleteFile: async (): Promise<void> => undefined,
+          deleteDirectory: async (): Promise<void> => undefined,
+          tail: async (): Promise<void> => undefined,
+          exists: async (): Promise<boolean> => false,
+        },
+      },
       {
         gitBinary: options.gitBinary ?? this.gitBinary,
         env: mergedEnv,
@@ -189,119 +199,121 @@ export class CliRunner {
     opts?: ExecOpts,
   ): Promise<RawResult> {
     const argv = this.buildArgv(context, args);
-    const { signal, onProgress } = opts ?? {};
+    const { signal, onProgress, onLfsProgress } = opts ?? {};
 
-    // Set up LFS progress tracking if callback provided
-    let lfsProgressFile: string | undefined;
-    let lfsAbortController: AbortController | undefined;
     const env = this.buildEnv();
 
-    if (onProgress) {
-      try {
-        lfsProgressFile = await this.fs.createTempFile('type-git-lfs-');
-        await this.fs.writeFile?.(lfsProgressFile, '');
-        env.GIT_LFS_PROGRESS = lfsProgressFile;
-        lfsAbortController = new AbortController();
-
-        // Start tailing LFS progress file in background
-        this.tailLfsProgress(lfsProgressFile, lfsAbortController.signal, onProgress).catch(() => {
-          // Ignore errors from tailing
-        });
-      } catch {
-        // If we can't create temp file, continue without LFS progress
-      }
+    // Enable LFS progress output to stderr when LFS progress callback is provided
+    if (onLfsProgress) {
+      env.GIT_LFS_FORCE_PROGRESS = '1';
     }
 
-    try {
-      const result = await this.exec.spawn(
-        {
-          argv,
-          env,
-          cwd: context.type === 'worktree' ? context.workdir : undefined,
-          signal,
-        },
-        onProgress
-          ? {
-              onStderr: (chunk) => {
-                this.parseStderrProgress(chunk, onProgress);
-              },
-            }
-          : undefined,
-      );
+    // Buffer for handling carriage return lines (LFS uses \r for in-place updates)
+    let stderrBuffer = '';
 
-      return {
-        stdout: result.stdout,
-        stderr: result.stderr,
-        exitCode: result.exitCode,
-        aborted: result.aborted,
-      };
-    } finally {
-      // Clean up LFS progress tracking
-      if (lfsAbortController) {
-        lfsAbortController.abort();
-      }
-      if (lfsProgressFile) {
-        await this.fs.deleteFile(lfsProgressFile).catch(() => {
-          // Ignore cleanup errors
-        });
-      }
-    }
-  }
-
-  /**
-   * Parse Git progress from stderr chunk
-   */
-  private parseStderrProgress(chunk: string, onProgress: (progress: Progress) => void): void {
-    // Git progress often uses \r for in-place updates
-    const lines = chunk.split(/[\r\n]+/);
-
-    for (const line of lines) {
-      const trimmed = line.trim();
-      if (!trimmed) {
-        continue;
-      }
-
-      const progress = parseGitProgress(trimmed);
-      if (progress) {
-        const gitProgress: GitProgress = {
-          kind: 'git',
-          phase: progress.phase,
-          current: progress.current,
-          total: progress.total,
-          percent: progress.percent,
-          message: trimmed,
-        };
-        onProgress(gitProgress);
-      }
-    }
-  }
-
-  /**
-   * Tail LFS progress file
-   */
-  private async tailLfsProgress(
-    filePath: string,
-    signal: AbortSignal,
-    onProgress: (progress: Progress) => void,
-  ): Promise<void> {
-    await this.fs.tail({
-      filePath,
-      signal,
-      onLine: (line) => {
-        const progress = parseLfsProgress(line);
-        if (progress) {
-          const lfsProgress: LfsProgress = {
-            kind: 'lfs',
-            direction: progress.direction,
-            oid: progress.oid,
-            bytesTransferred: progress.bytesTransferred,
-            bytesSoFar: progress.bytesSoFar,
-            bytesTotal: progress.bytesTotal,
-          };
-          onProgress(lfsProgress);
-        }
+    const result = await this.exec.spawn(
+      {
+        argv,
+        env,
+        cwd: context.type === 'worktree' ? context.workdir : undefined,
+        signal,
       },
-    });
+      onProgress || onLfsProgress
+        ? {
+            onStderr: (chunk: string) => {
+              // Accumulate chunk into buffer
+              stderrBuffer += chunk;
+
+              // Process complete lines (split by \r or \n)
+              // Keep incomplete line in buffer
+              const lines = stderrBuffer.split(LINE_SEPARATOR_PATTERN);
+              stderrBuffer = lines.pop() ?? '';
+
+              for (const line of lines) {
+                const trimmed = line.trim();
+                if (!trimmed) {
+                  continue;
+                }
+
+                // Try to parse as LFS progress first (more specific patterns)
+                if (onLfsProgress) {
+                  const lfsProgressInfo = parseLfsStderrProgress(trimmed);
+                  if (lfsProgressInfo) {
+                    const lfsProgress: LfsProgress = {
+                      direction: lfsProgressInfo.direction,
+                      bytesSoFar: lfsProgressInfo.bytesSoFar,
+                      bytesTotal: lfsProgressInfo.bytesTotal,
+                      bitrate: lfsProgressInfo.bitrate ?? undefined,
+                      filesCompleted: lfsProgressInfo.filesCompleted,
+                      filesTotal: lfsProgressInfo.filesTotal,
+                      percent: lfsProgressInfo.percent,
+                    };
+                    onLfsProgress(lfsProgress);
+                    continue;
+                  }
+                }
+
+                // Try to parse as Git progress
+                if (onProgress) {
+                  const gitProgressInfo = parseGitProgress(trimmed);
+                  if (gitProgressInfo) {
+                    const gitProgress: GitProgress = {
+                      phase: gitProgressInfo.phase,
+                      current: gitProgressInfo.current,
+                      total: gitProgressInfo.total,
+                      percent: gitProgressInfo.percent,
+                      message: trimmed,
+                    };
+                    onProgress(gitProgress);
+                  }
+                }
+              }
+            },
+          }
+        : undefined,
+    );
+
+    // Process any remaining content in buffer
+    if (stderrBuffer.trim() && (onProgress || onLfsProgress)) {
+      const trimmed = stderrBuffer.trim();
+
+      if (onLfsProgress) {
+        const lfsProgressInfo = parseLfsStderrProgress(trimmed);
+        if (lfsProgressInfo) {
+          const lfsProgress: LfsProgress = {
+            direction: lfsProgressInfo.direction,
+            bytesSoFar: lfsProgressInfo.bytesSoFar,
+            bytesTotal: lfsProgressInfo.bytesTotal,
+            bitrate: lfsProgressInfo.bitrate ?? undefined,
+            filesCompleted: lfsProgressInfo.filesCompleted,
+            filesTotal: lfsProgressInfo.filesTotal,
+            percent: lfsProgressInfo.percent,
+          };
+          onLfsProgress(lfsProgress);
+        }
+      }
+
+      if (onProgress && !onLfsProgress) {
+        const gitProgressInfo = parseGitProgress(trimmed);
+        if (gitProgressInfo) {
+          const gitProgress: GitProgress = {
+            phase: gitProgressInfo.phase,
+            current: gitProgressInfo.current,
+            total: gitProgressInfo.total,
+            percent: gitProgressInfo.percent,
+            message: trimmed,
+          };
+          onProgress(gitProgress);
+        }
+      }
+    }
+
+    return {
+      stdout: result.stdout,
+      stderr: result.stderr,
+      exitCode: result.exitCode,
+      aborted: result.aborted,
+    };
   }
 
   /**

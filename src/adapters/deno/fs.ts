@@ -101,9 +101,21 @@ export class DenoFsAdapter implements FsAdapter {
 
   public async deleteFile(filePath: string): Promise<void> {
     try {
-      await Deno.remove(filePath, { recursive: true });
+      await Deno.remove(filePath);
     } catch (error) {
       // Ignore if file doesn't exist
+      const err = error as Error & { code?: string };
+      if (err.name !== 'NotFound' && err.code !== 'ENOENT') {
+        throw error;
+      }
+    }
+  }
+
+  public async deleteDirectory(dirPath: string): Promise<void> {
+    try {
+      await Deno.remove(dirPath, { recursive: true });
+    } catch (error) {
+      // Ignore if directory doesn't exist
       const err = error as Error & { code?: string };
       if (err.name !== 'NotFound' && err.code !== 'ENOENT') {
         throw error;

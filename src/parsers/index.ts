@@ -366,6 +366,136 @@ export function parseLfsProgress(line: string): LfsProgressInfo | null {
 }
 
 // =============================================================================
+// LFS Stderr Progress Parser (GIT_LFS_FORCE_PROGRESS=1)
+// =============================================================================
+
+/**
+ * Parsed LFS stderr progress info
+ */
+export type LfsStderrProgressInfo = {
+  direction: 'download' | 'upload' | 'checkout';
+  percent: number;
+  filesCompleted: number;
+  filesTotal: number;
+  bytesSoFar: number;
+  bytesTotal: number;
+  /** Transfer rate in bytes per second */
+  bitrate: number | null;
+  done: boolean;
+};
+
+/**
+ * Parse size string like "1.2 MB", "500 KB", "10 GB" to bytes
+ */
+function parseSizeToBytes(sizeStr: string): number {
+  const match = sizeStr.match(/^([\d.]+)\s*(B|KB|MB|GB|TB)?$/i);
+  if (!match) {
+    return 0;
+  }
+
+  const value = Number.parseFloat(match[1] ?? '0');
+  const unit = (match[2] || 'B').toUpperCase();
+
+  const multipliers: Record<string, number> = {
+    B: 1,
+    KB: 1024,
+    MB: 1024 * 1024,
+    GB: 1024 * 1024 * 1024,
+    TB: 1024 * 1024 * 1024 * 1024,
+  };
+
+  return Math.round(value * (multipliers[unit] || 1));
+}
+
+/**
+ * Parse bitrate string like "500 KB/s", "1.5 MB/s" to bytes per second
+ */
+function parseBitrateToBytes(bitrateStr: string): number | null {
+  const match = bitrateStr.match(/^([\d.]+)\s*(B|KB|MB|GB)\/s$/i);
+  if (!match) {
+    return null;
+  }
+
+  const value = Number.parseFloat(match[1] ?? '0');
+  const unit = (match[2] ?? 'B').toUpperCase();
+
+  const multipliers: Record<string, number> = {
+    B: 1,
+    KB: 1024,
+    MB: 1024 * 1024,
+    GB: 1024 * 1024 * 1024,
+  };
+
+  return Math.round(value * (multipliers[unit] || 1));
+}
+
+/**
+ * Parse LFS progress from stderr (GIT_LFS_FORCE_PROGRESS=1)
+ *
+ * Formats:
+ * - "Downloading LFS objects:  50% (1/2), 1.2 MB | 500 KB/s"
+ * - "Uploading LFS objects: 100% (5/5), 10 MB | 1.5 MB/s, done."
+ * - "Filtering content:  75% (3/4), 500.0 KB | 100 KB/s"
+ * - "Checking out LFS objects:  25% (1/4), 2.0 MB | 1 MB/s"
+ *
+ * @param line - Single line from stderr
+ * @returns Parsed LFS progress or null if not an LFS progress line
+ */
+export function parseLfsStderrProgress(line: string): LfsStderrProgressInfo | null {
+  // Determine direction
+  let direction: 'download' | 'upload' | 'checkout';
+  if (/downloading|filtering/i.test(line)) {
+    direction = 'download';
+  } else if (/uploading/i.test(line)) {
+    direction = 'upload';
+  } else if (/checking out/i.test(line)) {
+    direction = 'checkout';
+  } else {
+    return null;
+  }
+
+  // Match: percent% (filesCompleted/filesTotal), size | bitrate[, done.]
+  // Also handle format without size: percent% (filesCompleted/filesTotal)
+  const progressMatch = line.match(
+    /(\d+)%\s*\((\d+)\/(\d+)\)(?:,\s*([\d.]+\s*(?:B|KB|MB|GB|TB)?)\s*(?:\|\s*([\d.]+\s*(?:B|KB|MB|GB)\/s))?)?/i,
+  );
+
+  if (!progressMatch) {
+    return null;
+  }
+
+  const percentStr = progressMatch[1];
+  const filesCompletedStr = progressMatch[2];
+  const filesTotalStr = progressMatch[3];
+  if (percentStr === undefined || filesCompletedStr === undefined || filesTotalStr === undefined) {
+    return null;
+  }
+
+  const percent = Number.parseInt(percentStr, 10);
+  const filesCompleted = Number.parseInt(filesCompletedStr, 10);
+  const filesTotal = Number.parseInt(filesTotalStr, 10);
+  const sizeStr = progressMatch[4];
+  const bitrateStr = progressMatch[5];
+
+  const bytesSoFar = sizeStr ? parseSizeToBytes(sizeStr) : 0;
+  // Estimate bytesTotal based on percent (if we have size info)
+  const bytesTotal = percent > 0 && bytesSoFar > 0 ? Math.round((bytesSoFar / percent) * 100) : 0;
+  const bitrate = bitrateStr ? parseBitrateToBytes(bitrateStr) : null;
+  const done = /,\s*done\.?\s*$/i.test(line);
+
+  return {
+    direction,
+    percent,
+    filesCompleted,
+    filesTotal,
+    bytesSoFar,
+    bytesTotal,
+    bitrate,
+    done,
+  };
+}
+
+// =============================================================================
 // ls-remote Parser
 // =============================================================================
 

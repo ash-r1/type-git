@@ -88,7 +88,6 @@ export function isNonEmpty(s: string): s is NonEmptyString {
  * - "Compressing objects: 100% (8/8), done."
  */
 export type GitProgress = {
-  kind: 'git';
   /** The phase of the git operation */
   phase: string;
   /** Current progress value */
@@ -104,29 +103,25 @@ export type GitProgress = {
 /**
  * Progress event for LFS operations (§7.3)
  *
- * Parsed from GIT_LFS_PROGRESS file format:
- * <direction> <oid> <bytes_so_far>/<bytes_total> <bytes_transferred>
+ * Parsed from LFS stderr output when GIT_LFS_FORCE_PROGRESS=1:
+ * "Downloading LFS objects:  50% (1/2), 1.2 MB | 500 KB/s"
  */
 export type LfsProgress = {
-  kind: 'lfs';
-  /** Direction of the transfer (includes checkout per design doc §7.3) */
+  /** Direction of the transfer */
   direction: 'download' | 'upload' | 'checkout';
-  /** Object ID */
-  oid: string;
-  /** Bytes transferred in this chunk */
-  bytesTransferred: number;
   /** Total bytes transferred so far */
   bytesSoFar: number;
   /** Total bytes to transfer */
   bytesTotal: number;
-  /** File name (optional, per design doc §7.3) */
-  name?: string;
+  /** Transfer rate in bytes per second */
+  bitrate?: number;
+  /** Number of files completed */
+  filesCompleted: number;
+  /** Total number of files */
+  filesTotal: number;
+  /** Progress percentage (0-100) */
+  percent: number;
 };
-
-/**
- * Union type for all progress events
- */
-export type Progress = GitProgress | LfsProgress;
 
 // =============================================================================
 // Execution Options and Results
@@ -138,8 +133,10 @@ export type Progress = GitProgress | LfsProgress;
 export type ExecOpts = {
   /** AbortSignal for cancellation */
   signal?: AbortSignal;
-  /** Progress callback */
-  onProgress?: (progress: Progress) => void;
+  /** Git progress callback (for operations like fetch, push, clone) */
+  onProgress?: (progress: GitProgress) => void;
+  /** LFS progress callback (for LFS transfer operations) */
+  onLfsProgress?: (progress: LfsProgress) => void;
 };
 
 /**

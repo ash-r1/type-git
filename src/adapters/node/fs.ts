@@ -67,7 +67,11 @@ export class NodeFsAdapter implements FsAdapter {
   }
 
   public async deleteFile(filePath: string): Promise<void> {
-    await rm(filePath, { force: true, recursive: true });
+    await rm(filePath, { force: true });
+  }
+
+  public async deleteDirectory(dirPath: string): Promise<void> {
+    await rm(dirPath, { force: true, recursive: true });
   }
 
   public async exists(filePath: string): Promise<boolean> {
