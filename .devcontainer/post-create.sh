@@ -38,6 +38,22 @@ else
     echo "❌ pnpm not found in PATH"
 fi
 
+# Verify Bun installation
+if command -v bun &> /dev/null; then
+    echo "✅ Bun is installed"
+    bun --version
+else
+    echo "❌ Bun not found in PATH"
+fi
+
+# Verify Deno installation
+if command -v deno &> /dev/null; then
+    echo "✅ Deno is installed"
+    deno --version
+else
+    echo "❌ Deno not found in PATH"
+fi
+
 # Verify git-lfs
 if command -v git-lfs &> /dev/null; then
     echo "✅ git-lfs is installed"
@@ -45,5 +61,12 @@ if command -v git-lfs &> /dev/null; then
 else
     echo "❌ git-lfs not found"
 fi
+
+echo ""
+echo "📋 Available test commands:"
+echo "   pnpm test        - Run Node.js tests (vitest)"
+echo "   pnpm test:bun    - Run Bun smoke tests"
+echo "   pnpm test:deno   - Run Deno smoke tests"
+echo ""
 
 echo "✨ Post-create setup complete!"
