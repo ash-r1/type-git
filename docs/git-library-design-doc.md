@@ -137,6 +137,98 @@ const git = await Git.open(repoPath, {
 - **認証カスタマイズ**: OAuth、AWS CodeCommit 等の credential helper を柔軟に設定
 - **ハングアップ防止**: `GIT_TERMINAL_PROMPT=0` により非対話環境での停止を回避
 
+### 6.4 Credential Helper ファーストクラスサポート
+
+Git 認証は実運用で最も問題が発生しやすい領域である。本ライブラリでは、宣言的かつ型安全な認証設定 API を提供する：
+
+```typescript
+interface CredentialConfig {
+  // 方法1: ビルトイン helper の使用
+  helper?: 'store' | 'cache' | 'manager-core' | string;
+
+  // 方法2: カスタム helper バイナリ
+  helperPath?: string;
+
+  // 方法3: プログラマティックな認証（推奨）
+  provider?: (request: CredentialRequest) => Promise<Credential>;
+
+  // 方法4: 静的な認証情報（開発/テスト用）
+  username?: string;
+  password?: string;
+  token?: string;
+
+  // エラーハンドリング
+  fallback?: CredentialConfig;
+  onAuthFailure?: (error: Error, request: CredentialRequest) => void;
+}
+
+interface CredentialRequest {
+  protocol: 'https' | 'ssh';
+  host: string;
+  path?: string;
+}
+
+interface Credential {
+  username: string;
+  password: string;
+}
+```
+
+**使用例**:
+
+```typescript
+// 方法1: ビルトイン helper
+const git = await Git.open(repoPath, {
+  credential: { helper: 'store' },
+});
+
+// 方法2: カスタム helper バイナリ
+const git = await Git.open(repoPath, {
+  credential: {
+    helper: 'custom',
+    helperPath: '/path/to/git-credential-custom',
+  },
+});
+
+// 方法3: プログラマティックな認証（推奨）
+const git = await Git.open(repoPath, {
+  credential: {
+    provider: async (request) => {
+      const token = await getTokenFromSecureStorage(request.host);
+      return { username: 'oauth2', password: token };
+    },
+  },
+});
+
+// 方法4: 静的な認証情報（開発/テスト用）
+const git = await Git.open(repoPath, {
+  credential: { token: 'personal-access-token' },
+});
+
+// 認証失敗時のフォールバック
+const git = await Git.open(repoPath, {
+  credential: {
+    provider: primaryProvider,
+    fallback: { provider: fallbackProvider },
+    onAuthFailure: (error, request) => {
+      log.warn('Auth failed', { host: request.host, error });
+    },
+  },
+});
+```
+
+**利点**:
+- **外部バイナリ不要**: プログラマティック認証により、credential helper バイナリのインストール・配布が不要
+- **型安全**: 認証フローが TypeScript で型付けされ、IDE 補完が効く
+- **エラーハンドリング**: 認証失敗のキャッチ、フォールバック、ログ記録が容易
+- **トークン管理**: リフレッシュ/ローテーション対応が `provider` 関数内で実装可能
+- **テスト容易性**: モック provider の注入が容易
+
+**実装方針**:
+- プログラマティック認証は `GIT_ASKPASS` 環境変数と一時スクリプトで実現
+- 静的認証情報は `git credential fill` へのパイプで注入
+- helper バイナリ指定は `credential.helper` config で設定
+
 ---
 
 ## 7. API 設計
