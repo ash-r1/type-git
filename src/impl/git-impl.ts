@@ -21,6 +21,25 @@ export type CreateGitOptions = CliRunnerOptions & {
 };
 
 /**
+ * Convert GitOpenOptions to CliRunnerOptions
+ */
+function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
+  if (!opts) return {};
+
+  return {
+    env: opts.env,
+    pathPrefix: opts.pathPrefix,
+    home: opts.home,
+    credential: opts.credential
+      ? {
+          helper: opts.credential.helper,
+          helperPath: opts.credential.helperPath,
+        }
+      : undefined,
+  };
+}
+
+/**
  * Git implementation
  */
 export class GitImpl implements Git {
@@ -34,15 +53,18 @@ export class GitImpl implements Git {
    * Open an existing repository
    */
   async open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo> {
+    // Create a runner with custom options if provided
+    const repoRunner = opts ? this.runner.withOptions(toCliRunnerOptions(opts)) : this.runner;
+
     // Check if it's a bare repository
-    const result = await this.runner.run({ type: 'worktree', workdir: path }, [
+    const result = await repoRunner.run({ type: 'worktree', workdir: path }, [
       'rev-parse',
       '--is-bare-repository',
     ]);
 
     if (result.exitCode !== 0) {
       // Try as git-dir directly
-      const bareResult = await this.runner.run({ type: 'bare', gitDir: path }, [
+      const bareResult = await repoRunner.run({ type: 'bare', gitDir: path }, [
         'rev-parse',
         '--is-bare-repository',
       ]);
@@ -55,7 +77,7 @@ export class GitImpl implements Git {
       }
 
       if (bareResult.stdout.trim() === 'true') {
-        return new BareRepoImpl(this.runner, path, opts);
+        return new BareRepoImpl(repoRunner, path, opts);
       }
     }
 
@@ -63,15 +85,15 @@ export class GitImpl implements Git {
 
     if (isBare) {
       // Find the actual git-dir
-      const gitDirResult = await this.runner.run({ type: 'worktree', workdir: path }, [
+      const gitDirResult = await repoRunner.run({ type: 'worktree', workdir: path }, [
         'rev-parse',
         '--git-dir',
       ]);
       const gitDir = gitDirResult.stdout.trim();
-      return new BareRepoImpl(this.runner, gitDir, opts);
+      return new BareRepoImpl(repoRunner, gitDir, opts);
     }
 
-    return new WorktreeRepoImpl(this.runner, path, opts);
+    return new WorktreeRepoImpl(repoRunner, path, opts);
   }
 
   /**

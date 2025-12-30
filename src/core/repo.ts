@@ -603,6 +603,66 @@ export type LfsStatusOpts = {
 };
 
 // =============================================================================
+// LFS 2-Phase Upload/Download (§10.3)
+// =============================================================================
+
+/**
+ * Options for LFS pre-upload (§10.3)
+ *
+ * Pre-upload allows pushing LFS objects before the refs push,
+ * enabling 2-phase commit patterns for improved reliability.
+ */
+export type LfsPreUploadOpts = {
+  /** Object IDs to upload (if omitted, auto-detect pending objects) */
+  oids?: string[];
+  /** Batch size for upload (default: 50, considers Windows 8KB limit) */
+  batchSize?: number;
+  /** Remote name (default: 'origin') */
+  remote?: string;
+};
+
+/**
+ * Result from LFS pre-upload
+ */
+export type LfsPreUploadResult = {
+  /** Number of objects uploaded */
+  uploadedCount: number;
+  /** Total bytes uploaded */
+  uploadedBytes: number;
+  /** Number of objects skipped (already on remote) */
+  skippedCount: number;
+};
+
+/**
+ * Options for LFS pre-download (§10.3)
+ *
+ * Pre-download allows fetching LFS objects before checkout,
+ * useful for controlled large file management.
+ */
+export type LfsPreDownloadOpts = {
+  /** Object IDs to download (if omitted, auto-detect from ref) */
+  oids?: string[];
+  /** Git ref to get LFS objects for (branch, tag, or commit) */
+  ref?: string;
+  /** Batch size for download (default: 50) */
+  batchSize?: number;
+  /** Remote name (default: 'origin') */
+  remote?: string;
+};
+
+/**
+ * Result from LFS pre-download
+ */
+export type LfsPreDownloadResult = {
+  /** Number of objects downloaded */
+  downloadedCount: number;
+  /** Total bytes downloaded */
+  downloadedBytes: number;
+  /** Number of objects skipped (already local) */
+  skippedCount: number;
+};
+
+// =============================================================================
 // Worktree Support (§7.4)
 // =============================================================================
 
@@ -715,6 +775,34 @@ export interface LfsOperations {
    * Get LFS status
    */
   status(opts?: LfsStatusOpts & ExecOpts): Promise<LfsStatus>;
+
+  /**
+   * Pre-upload LFS objects before refs push (§10.3)
+   *
+   * Enables 2-phase commit pattern for improved reliability with large files.
+   * Objects are uploaded in batches to handle Windows command line limits.
+   *
+   * @example
+   * ```typescript
+   * // Phase 1: Upload LFS objects first
+   * await repo.lfs.preUpload({ onProgress: handleProgress });
+   *
+   * // Phase 2: Create commit
+   * await repo.commit({ message: 'Add large files' });
+   *
+   * // Phase 3: Push refs (LFS already uploaded, so this is fast)
+   * await repo.push();
+   * ```
+   */
+  preUpload(opts?: LfsPreUploadOpts & ExecOpts): Promise<LfsPreUploadResult>;
+
+  /**
+   * Pre-download LFS objects before checkout (§10.3)
+   *
+   * Enables controlled download of large files before checkout.
+   * Useful when you need to verify available space or report progress separately.
+   */
+  preDownload(opts?: LfsPreDownloadOpts & ExecOpts): Promise<LfsPreDownloadResult>;
 }
 
 /**

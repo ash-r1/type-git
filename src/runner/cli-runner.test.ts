@@ -221,6 +221,182 @@ describe('CliRunner', () => {
     });
   });
 
+  describe('environment options', () => {
+    it('should apply custom environment variables', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        env: { CUSTOM_VAR: 'value', GIT_TERMINAL_PROMPT: '0' },
+      });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      expect(adapters.exec.spawn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          env: expect.objectContaining({
+            CUSTOM_VAR: 'value',
+            GIT_TERMINAL_PROMPT: '0',
+          }),
+        }),
+        undefined,
+      );
+    });
+
+    it('should apply home directory override', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, { home: '/custom/home' });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      expect(adapters.exec.spawn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          env: expect.objectContaining({
+            HOME: '/custom/home',
+            USERPROFILE: '/custom/home',
+          }),
+        }),
+        undefined,
+      );
+    });
+
+    it('should apply PATH prefix', async () => {
+      const adapters = createMockAdapters();
+      const originalPath = process.env.PATH;
+      const runner = new CliRunner(adapters, { pathPrefix: ['/custom/bin', '/another/bin'] });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      const envArg = spawnCall[0].env;
+      expect(envArg.PATH).toContain('/custom/bin');
+      expect(envArg.PATH).toContain('/another/bin');
+      expect(envArg.PATH).toContain(originalPath);
+    });
+
+    it('should merge options with withOptions()', async () => {
+      const adapters = createMockAdapters();
+      const baseRunner = new CliRunner(adapters, {
+        env: { BASE_VAR: 'base' },
+        pathPrefix: ['/base/bin'],
+      });
+
+      const derivedRunner = baseRunner.withOptions({
+        env: { DERIVED_VAR: 'derived' },
+        pathPrefix: ['/derived/bin'],
+        home: '/derived/home',
+      });
+
+      await derivedRunner.run({ type: 'global' }, ['version']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      const envArg = spawnCall[0].env;
+
+      // Should have both base and derived env vars
+      expect(envArg.BASE_VAR).toBe('base');
+      expect(envArg.DERIVED_VAR).toBe('derived');
+
+      // Should have home override
+      expect(envArg.HOME).toBe('/derived/home');
+
+      // Should have both path prefixes
+      expect(envArg.PATH).toContain('/base/bin');
+      expect(envArg.PATH).toContain('/derived/bin');
+    });
+
+    it('should allow derived env to override base env', async () => {
+      const adapters = createMockAdapters();
+      const baseRunner = new CliRunner(adapters, { env: { SHARED_VAR: 'base' } });
+      const derivedRunner = baseRunner.withOptions({ env: { SHARED_VAR: 'derived' } });
+
+      await derivedRunner.run({ type: 'global' }, ['version']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      expect(spawnCall[0].env.SHARED_VAR).toBe('derived');
+    });
+  });
+
+  describe('credential helper', () => {
+    it('should add credential.helper config when helper is specified', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        credential: { helper: 'store' },
+      });
+
+      await runner.run({ type: 'global' }, ['fetch']);
+
+      expect(adapters.exec.spawn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          argv: ['git', '-c', 'credential.helper=store', 'fetch'],
+        }),
+        undefined,
+      );
+    });
+
+    it('should add custom helper name to credential.helper config', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        credential: { helper: 'myapp' },
+      });
+
+      await runner.run({ type: 'worktree', workdir: '/repo' }, ['push']);
+
+      expect(adapters.exec.spawn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          argv: ['git', '-c', 'credential.helper=myapp', '-C', '/repo', 'push'],
+        }),
+        undefined,
+      );
+    });
+
+    it('should add helper binary path directory to PATH', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        credential: {
+          helper: 'myapp',
+          helperPath: '/custom/bin/git-credential-myapp',
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['fetch']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      const envArg = spawnCall[0].env;
+      expect(envArg.PATH).toContain('/custom/bin');
+    });
+
+    it('should handle Windows-style paths for helper binary', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        credential: {
+          helper: 'myapp',
+          helperPath: 'C:\\Program Files\\MyApp\\git-credential-myapp.exe',
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['fetch']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      const envArg = spawnCall[0].env;
+      expect(envArg.PATH).toContain('C:\\Program Files\\MyApp');
+    });
+
+    it('should pass credential config through withOptions()', async () => {
+      const adapters = createMockAdapters();
+      const baseRunner = new CliRunner(adapters);
+      const derivedRunner = baseRunner.withOptions({
+        credential: { helper: 'custom' },
+      });
+
+      await derivedRunner.run({ type: 'global' }, ['clone', 'url']);
+
+      expect(adapters.exec.spawn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          argv: expect.arrayContaining(['-c', 'credential.helper=custom']),
+        }),
+        undefined,
+      );
+    });
+  });
+
   describe('progress parsing', () => {
     it('should parse git progress from stderr', async () => {
       const adapters = createMockAdapters();

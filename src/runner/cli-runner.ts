@@ -21,6 +21,16 @@ import { GitError } from '../core/types.js';
 import { detectErrorCategory, parseGitProgress, parseLfsProgress } from '../parsers/index.js';
 
 /**
+ * Credential helper configuration
+ */
+export type CredentialHelperConfig = {
+  /** Helper name (e.g., 'store', 'cache', 'manager-core', or custom name) */
+  helper?: string;
+  /** Path to custom helper binary */
+  helperPath?: string;
+};
+
+/**
  * Options for CliRunner
  */
 export type CliRunnerOptions = {
@@ -28,6 +38,12 @@ export type CliRunnerOptions = {
   gitBinary?: string;
   /** Additional environment variables */
   env?: Record<string, string>;
+  /** Directories to prepend to PATH */
+  pathPrefix?: string[];
+  /** Custom HOME directory for git config isolation */
+  home?: string;
+  /** Credential helper configuration */
+  credential?: CredentialHelperConfig;
 };
 
 /**
@@ -45,12 +61,41 @@ export class CliRunner {
   private readonly fs: FsAdapter;
   private readonly gitBinary: string;
   private readonly baseEnv: Record<string, string>;
+  private readonly pathPrefix: string[];
+  private readonly home: string | undefined;
+  private readonly credential: CredentialHelperConfig | undefined;
 
   constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
     this.exec = adapters.exec;
     this.fs = adapters.fs;
     this.gitBinary = options?.gitBinary ?? 'git';
     this.baseEnv = options?.env ?? {};
+    this.pathPrefix = options?.pathPrefix ?? [];
+    this.home = options?.home;
+    this.credential = options?.credential;
+  }
+
+  /**
+   * Create a new CliRunner with additional options merged
+   *
+   * Used to create a runner for a specific repository with custom environment
+   */
+  withOptions(options: CliRunnerOptions): CliRunner {
+    const mergedEnv = { ...this.baseEnv, ...options.env };
+    const mergedPathPrefix = [...this.pathPrefix, ...(options.pathPrefix ?? [])];
+    const home = options.home ?? this.home;
+    const credential = options.credential ?? this.credential;
+
+    return new CliRunner(
+      { exec: this.exec, fs: this.fs },
+      {
+        gitBinary: options.gitBinary ?? this.gitBinary,
+        env: mergedEnv,
+        pathPrefix: mergedPathPrefix,
+        home,
+        credential,
+      },
+    );
   }
 
   /**
@@ -58,6 +103,11 @@ export class CliRunner {
    */
   private buildArgv(context: ExecutionContext, args: Array<string>): Array<string> {
     const argv = [this.gitBinary];
+
+    // Add credential helper configuration before context flags
+    if (this.credential?.helper) {
+      argv.push('-c', `credential.helper=${this.credential.helper}`);
+    }
 
     switch (context.type) {
       case 'global':
@@ -76,16 +126,68 @@ export class CliRunner {
   }
 
   /**
+   * Build the effective environment for command execution
+   *
+   * Applies home directory and PATH prefix overrides
+   */
+  private buildEnv(): Record<string, string> {
+    const env: Record<string, string> = { ...this.baseEnv };
+
+    // Apply home directory override
+    if (this.home) {
+      env.HOME = this.home;
+      // Also set USERPROFILE for Windows compatibility
+      env.USERPROFILE = this.home;
+    }
+
+    // Collect all PATH prefixes
+    const allPathPrefixes = [...this.pathPrefix];
+
+    // Add credential helper path directory if specified
+    if (this.credential?.helperPath) {
+      const helperDir = this.extractDirectory(this.credential.helperPath);
+      if (helperDir) {
+        allPathPrefixes.unshift(helperDir);
+      }
+    }
+
+    // Apply PATH prefix
+    if (allPathPrefixes.length > 0) {
+      const separator = process.platform === 'win32' ? ';' : ':';
+      const currentPath = process.env.PATH ?? '';
+      env.PATH = [...allPathPrefixes, currentPath].join(separator);
+    }
+
+    return env;
+  }
+
+  /**
+   * Extract directory from a file path
+   */
+  private extractDirectory(filePath: string): string | undefined {
+    const separator = filePath.includes('/') ? '/' : '\\';
+    const lastIndex = filePath.lastIndexOf(separator);
+    if (lastIndex > 0) {
+      return filePath.substring(0, lastIndex);
+    }
+    return undefined;
+  }
+
+  /**
    * Run a Git command
    */
-  async run(context: ExecutionContext, args: Array<string>, opts?: ExecOpts): Promise<RawResult> {
+  public async run(
+    context: ExecutionContext,
+    args: Array<string>,
+    opts?: ExecOpts,
+  ): Promise<RawResult> {
     const argv = this.buildArgv(context, args);
     const { signal, onProgress } = opts ?? {};
 
     // Set up LFS progress tracking if callback provided
     let lfsProgressFile: string | undefined;
     let lfsAbortController: AbortController | undefined;
-    const env = { ...this.baseEnv };
+    const env = this.buildEnv();
 
     if (onProgress) {
       try {
@@ -198,7 +300,11 @@ export class CliRunner {
   /**
    * Map Git result to GitError if needed
    */
-  mapError(result: RawResult, context: ExecutionContext, argv: Array<string>): GitError | null {
+  public mapError(
+    result: RawResult,
+    context: ExecutionContext,
+    argv: Array<string>,
+  ): GitError | null {
     if (result.aborted) {
       return new GitError('Aborted', 'Command was aborted', {
         argv,
@@ -273,7 +379,7 @@ export class CliRunner {
   /**
    * Run a command and throw on error
    */
-  async runOrThrow(
+  public async runOrThrow(
     context: ExecutionContext,
     args: Array<string>,
     opts?: ExecOpts,

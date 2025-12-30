@@ -22,6 +22,10 @@ import type {
   DiffResult,
   FetchOpts,
   LfsOperations,
+  LfsPreDownloadOpts,
+  LfsPreDownloadResult,
+  LfsPreUploadOpts,
+  LfsPreUploadResult,
   LfsPullOpts,
   LfsPushOpts,
   LfsStatus,
@@ -105,6 +109,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       pull: this.lfsPull.bind(this),
       push: this.lfsPush.bind(this),
       status: this.lfsStatus.bind(this),
+      preUpload: this.lfsPreUpload.bind(this),
+      preDownload: this.lfsPreDownload.bind(this),
     };
 
     // Initialize worktree operations
@@ -161,7 +167,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
+  async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
 
@@ -197,7 +203,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   private parseStatus(stdout: string): StatusPorcelain {
     const lines = parseLines(stdout);
-    const entries: Array<StatusEntry> = [];
+    const entries: StatusEntry[] = [];
     let branch: string | undefined;
     let upstream: string | undefined;
     let ahead: number | undefined;
@@ -217,7 +223,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       } else if (line.startsWith('1 ') || line.startsWith('2 ')) {
         // Regular or renamed entry
         const parsed = parsePorcelainV2(line);
-        if (parsed.length > 0 && parsed[0]?.type === 'changed') {
+        if (parsed.length > 0 && parsed[0]!.type === 'changed') {
           const entry = parsed[0]!;
           entries.push({
             path: entry.path,
@@ -229,7 +235,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       } else if (line.startsWith('u ')) {
         // Unmerged entry
         const parsed = parsePorcelainV2(line);
-        if (parsed.length > 0 && parsed[0]?.type === 'unmerged') {
+        if (parsed.length > 0 && parsed[0]!.type === 'unmerged') {
           const entry = parsed[0]!;
           entries.push({
             path: entry.path,
@@ -266,7 +272,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Get commit log
    */
-  async log(opts?: LogOpts & ExecOpts): Promise<Array<Commit>> {
+  async log(opts?: LogOpts & ExecOpts): Promise<Commit[]> {
     const args = ['log', `--format=${GIT_LOG_FORMAT}`];
 
     if (opts?.maxCount !== undefined) {
@@ -497,11 +503,192 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     return { files };
   }
 
+  /**
+   * Pre-upload LFS objects before commit/push (2-phase commit pattern)
+   *
+   * This allows uploading LFS objects to the remote before creating a commit,
+   * ensuring reliable large file handling. Objects are batched to handle
+   * Windows command line length limits (8KB).
+   *
+   * Usage pattern:
+   * 1. Stage changes: git add
+   * 2. Pre-upload LFS: await repo.lfs.preUpload()
+   * 3. Commit: git commit
+   * 4. Push refs: git push (only refs, objects already uploaded)
+   */
+  private async lfsPreUpload(opts?: LfsPreUploadOpts & ExecOpts): Promise<LfsPreUploadResult> {
+    if (this._lfsMode === 'disabled') {
+      return { uploadedCount: 0, uploadedBytes: 0, skippedCount: 0 };
+    }
+
+    const remote = opts?.remote ?? 'origin';
+    const batchSize = opts?.batchSize ?? 50; // Default 50 OIDs per batch (Windows 8KB limit)
+
+    // Get OIDs to upload
+    let oids: string[];
+    if (opts?.oids && opts.oids.length > 0) {
+      oids = opts.oids;
+    } else {
+      // Get all LFS objects that need to be pushed
+      const lsFilesResult = await this.runner.run(
+        this.context,
+        ['lfs', 'ls-files', '--all', '--long'],
+        { signal: opts?.signal },
+      );
+
+      if (lsFilesResult.exitCode !== 0) {
+        return { uploadedCount: 0, uploadedBytes: 0, skippedCount: 0 };
+      }
+
+      // Parse OIDs from ls-files output (format: <oid> [-|*] <path>)
+      oids = [];
+      for (const line of parseLines(lsFilesResult.stdout)) {
+        const match = line.match(/^([a-f0-9]{64})\s+[-*]\s+/);
+        if (match) {
+          oids.push(match[1]!);
+        }
+      }
+    }
+
+    if (oids.length === 0) {
+      return { uploadedCount: 0, uploadedBytes: 0, skippedCount: 0 };
+    }
+
+    // Process in batches
+    let uploadedCount = 0;
+    let uploadedBytes = 0;
+    let skippedCount = 0;
+
+    for (let i = 0; i < oids.length; i += batchSize) {
+      const batch = oids.slice(i, i + batchSize);
+      const args = ['lfs', 'push', remote, '--object-id', ...batch];
+
+      const result = await this.runner.run(this.context, args, {
+        signal: opts?.signal,
+        onProgress: opts?.onProgress,
+      });
+
+      if (result.exitCode === 0) {
+        // Parse upload stats from output if available
+        uploadedCount += batch.length;
+
+        // Try to extract bytes from progress output
+        const bytesMatch = result.stderr.match(
+          /Uploading LFS objects:.*?\((\d+(?:\.\d+)?)\s*([KMG]?B)/i,
+        );
+        if (bytesMatch) {
+          let bytes = Number.parseFloat(bytesMatch[1]!);
+          const unit = bytesMatch[2]?.toUpperCase();
+          if (unit === 'KB') bytes *= 1024;
+          else if (unit === 'MB') bytes *= 1024 * 1024;
+          else if (unit === 'GB') bytes *= 1024 * 1024 * 1024;
+          uploadedBytes += bytes;
+        }
+      } else {
+        // Some objects may have been skipped (already on remote)
+        skippedCount += batch.length;
+      }
+    }
+
+    return { uploadedCount, uploadedBytes, skippedCount };
+  }
+
+  /**
+   * Pre-download LFS objects before checkout (2-phase fetch pattern)
+   *
+   * This allows downloading LFS objects before switching branches,
+   * ensuring files are available locally before checkout.
+   *
+   * Usage pattern:
+   * 1. Fetch refs: git fetch
+   * 2. Pre-download LFS: await repo.lfs.preDownload({ ref: 'origin/feature' })
+   * 3. Checkout: git checkout feature
+   */
+  private async lfsPreDownload(
+    opts?: LfsPreDownloadOpts & ExecOpts,
+  ): Promise<LfsPreDownloadResult> {
+    if (this._lfsMode === 'disabled') {
+      return { downloadedCount: 0, downloadedBytes: 0, skippedCount: 0 };
+    }
+
+    const remote = opts?.remote ?? 'origin';
+    const batchSize = opts?.batchSize ?? 50;
+
+    // Get OIDs to download
+    let oids: string[];
+    if (opts?.oids && opts.oids.length > 0) {
+      oids = opts.oids;
+    } else if (opts?.ref) {
+      // Get LFS objects for a specific ref
+      const lsFilesResult = await this.runner.run(
+        this.context,
+        ['lfs', 'ls-files', '--long', opts.ref],
+        { signal: opts?.signal },
+      );
+
+      if (lsFilesResult.exitCode !== 0) {
+        return { downloadedCount: 0, downloadedBytes: 0, skippedCount: 0 };
+      }
+
+      // Parse OIDs from ls-files output
+      oids = [];
+      for (const line of parseLines(lsFilesResult.stdout)) {
+        const match = line.match(/^([a-f0-9]{64})\s+[-*]\s+/);
+        if (match) {
+          oids.push(match[1]!);
+        }
+      }
+    } else {
+      // No ref specified and no OIDs provided
+      return { downloadedCount: 0, downloadedBytes: 0, skippedCount: 0 };
+    }
+
+    if (oids.length === 0) {
+      return { downloadedCount: 0, downloadedBytes: 0, skippedCount: 0 };
+    }
+
+    // Process in batches
+    let downloadedCount = 0;
+    let downloadedBytes = 0;
+    let skippedCount = 0;
+
+    for (let i = 0; i < oids.length; i += batchSize) {
+      const batch = oids.slice(i, i + batchSize);
+      const args = ['lfs', 'fetch', remote, '--', ...batch];
+
+      const result = await this.runner.run(this.context, args, {
+        signal: opts?.signal,
+        onProgress: opts?.onProgress,
+      });
+
+      if (result.exitCode === 0) {
+        downloadedCount += batch.length;
+
+        // Try to extract bytes from progress output
+        const bytesMatch = result.stderr.match(
+          /Downloading LFS objects:.*?\((\d+(?:\.\d+)?)\s*([KMG]?B)/i,
+        );
+        if (bytesMatch) {
+          let bytes = Number.parseFloat(bytesMatch[1]!);
+          const unit = bytesMatch[2]?.toUpperCase();
+          if (unit === 'KB') bytes *= 1024;
+          else if (unit === 'MB') bytes *= 1024 * 1024;
+          else if (unit === 'GB') bytes *= 1024 * 1024 * 1024;
+          downloadedBytes += bytes;
+        }
+      } else {
+        skippedCount += batch.length;
+      }
+    }
+
+    return { downloadedCount, downloadedBytes, skippedCount };
+  }
+
   // ==========================================================================
   // Worktree Operations
   // ==========================================================================
 
-  private async worktreeList(opts?: ExecOpts): Promise<Array<Worktree>> {
+  private async worktreeList(opts?: ExecOpts): Promise<Worktree[]> {
     const result = await this.runner.runOrThrow(this.context, ['worktree', 'list', '--porcelain'], {
       signal: opts?.signal,
     });
@@ -548,7 +735,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
   }
 
-  private async worktreePrune(opts?: WorktreePruneOpts & ExecOpts): Promise<Array<string>> {
+  private async worktreePrune(opts?: WorktreePruneOpts & ExecOpts): Promise<string[]> {
     const args = ['worktree', 'prune'];
 
     if (opts?.dryRun) {
@@ -591,7 +778,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - add
   // ==========================================================================
 
-  async add(paths: string | Array<string>, opts?: AddOpts & ExecOpts): Promise<void> {
+  async add(paths: string | string[], opts?: AddOpts & ExecOpts): Promise<void> {
     const args = ['add'];
 
     if (opts?.all) {
@@ -622,7 +809,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - Branch Operations
   // ==========================================================================
 
-  private async branchList(opts?: BranchOpts & ExecOpts): Promise<Array<BranchInfo>> {
+  private async branchList(opts?: BranchOpts & ExecOpts): Promise<BranchInfo[]> {
     const args = [
       'branch',
       '--list',
@@ -641,7 +828,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       signal: opts?.signal,
     });
 
-    const branches: Array<BranchInfo> = [];
+    const branches: BranchInfo[] = [];
     for (const line of parseLines(result.stdout)) {
       const parts = line.split('\0');
       if (parts.length >= 5) {
@@ -876,15 +1063,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       signal: opts?.signal,
     });
 
-    const files: Array<DiffEntry> = [];
-
+    // Parse nameStatus result
     if (opts?.nameStatus) {
+      const files: Array<DiffEntry> = [];
       for (const line of parseLines(result.stdout)) {
         const match = line.match(/^([AMDRTCUX])\t(.+?)(?:\t(.+))?$/);
         if (match) {
           const entry: DiffEntry = {
             status: match[1] as DiffEntry['status'],
-            path: match[3] || match[2]!,
+            path: match[3] ?? match[2]!,
           };
           if (match[3]) {
             entry.oldPath = match[2];
@@ -892,19 +1079,20 @@ export class WorktreeRepoImpl implements WorktreeRepo {
           files.push(entry);
         }
       }
-    } else if (opts?.nameOnly) {
-      for (const line of parseLines(result.stdout)) {
-        files.push({
-          path: line,
-          status: 'M', // Default to modified for name-only
-        });
-      }
+      return { files };
     }
 
-    return {
-      files,
-      raw: opts?.nameOnly || opts?.nameStatus ? undefined : result.stdout,
-    };
+    // Parse nameOnly result
+    if (opts?.nameOnly) {
+      const files: Array<DiffEntry> = [];
+      for (const line of parseLines(result.stdout)) {
+        files.push({ status: 'M' as const, path: line });
+      }
+      return { files };
+    }
+
+    // Return raw result (default)
+    return { files: [], raw: result.stdout };
   }
 
   // ==========================================================================
@@ -1072,7 +1260,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - rm
   // ==========================================================================
 
-  async rm(paths: string | Array<string>, opts?: RmOpts & ExecOpts): Promise<void> {
+  async rm(paths: string | string[], opts?: RmOpts & ExecOpts): Promise<void> {
     const args = ['rm'];
 
     if (opts?.force) {
@@ -1103,12 +1291,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - Stash Operations
   // ==========================================================================
 
-  private async stashList(opts?: ExecOpts): Promise<Array<StashEntry>> {
+  private async stashList(opts?: ExecOpts): Promise<StashEntry[]> {
     const result = await this.runner.runOrThrow(this.context, ['stash', 'list'], {
       signal: opts?.signal,
     });
 
-    const entries: Array<StashEntry> = [];
+    const entries: StashEntry[] = [];
     for (const line of parseLines(result.stdout)) {
       // Default format: stash@{0}: On branch: message
       // Or: stash@{0}: WIP on branch: hash (when using -m)
@@ -1259,7 +1447,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - Tag Operations
   // ==========================================================================
 
-  private async tagList(opts?: TagListOpts & ExecOpts): Promise<Array<string>> {
+  private async tagList(opts?: TagListOpts & ExecOpts): Promise<string[]> {
     const args = ['tag', '--list'];
 
     if (opts?.sort) {
@@ -1323,7 +1511,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       let taggerName = '';
       let taggerEmail = '';
       let taggerDate: Date | undefined;
-      const messageLines: Array<string> = [];
+      const messageLines: string[] = [];
       let inMessage = false;
 
       for (const line of lines) {
@@ -1374,10 +1562,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - cherry-pick
   // ==========================================================================
 
-  async cherryPick(
-    commits: string | Array<string>,
-    opts?: CherryPickOpts & ExecOpts,
-  ): Promise<void> {
+  async cherryPick(commits: string | string[], opts?: CherryPickOpts & ExecOpts): Promise<void> {
     if (opts?.abort) {
       await this.runner.runOrThrow(this.context, ['cherry-pick', '--abort'], {
         signal: opts?.signal,
@@ -1433,7 +1618,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - clean
   // ==========================================================================
 
-  async clean(opts?: CleanOpts & ExecOpts): Promise<Array<string>> {
+  async clean(opts?: CleanOpts & ExecOpts): Promise<string[]> {
     const args = ['clean'];
 
     if (opts?.force) {
@@ -1463,7 +1648,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
 
     // Parse cleaned/would-be-cleaned paths from output
-    const cleaned: Array<string> = [];
+    const cleaned: string[] = [];
     for (const line of parseLines(result.stdout)) {
       // Output is like "Removing file.txt" or "Would remove file.txt"
       const match = line.match(/^(?:Removing|Would remove) (.+)$/);
@@ -1546,7 +1731,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - restore
   // ==========================================================================
 
-  async restore(paths: string | Array<string>, opts?: RestoreOpts & ExecOpts): Promise<void> {
+  async restore(paths: string | string[], opts?: RestoreOpts & ExecOpts): Promise<void> {
     const args = ['restore'];
 
     if (opts?.staged) {
@@ -1579,7 +1764,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - revert
   // ==========================================================================
 
-  async revert(commits: string | Array<string>, opts?: RevertOpts & ExecOpts): Promise<void> {
+  async revert(commits: string | string[], opts?: RevertOpts & ExecOpts): Promise<void> {
     if (opts?.abort) {
       await this.runner.runOrThrow(this.context, ['revert', '--abort'], {
         signal: opts?.signal,
@@ -1657,7 +1842,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - Submodule Operations
   // ==========================================================================
 
-  private async submoduleList(opts?: ExecOpts): Promise<Array<SubmoduleInfo>> {
+  private async submoduleList(opts?: ExecOpts): Promise<SubmoduleInfo[]> {
     const result = await this.runner.run(this.context, ['submodule', 'status'], {
       signal: opts?.signal,
     });
@@ -1666,7 +1851,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return [];
     }
 
-    const submodules: Array<SubmoduleInfo> = [];
+    const submodules: SubmoduleInfo[] = [];
     for (const line of parseLines(result.stdout)) {
       // Format: [+-U ]<sha1> <path> (<describe>)
       const match = line.match(/^[ +-U]?([a-f0-9]+) (.+?)(?: \((.+)\))?$/);
@@ -1701,7 +1886,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     return submodules;
   }
 
-  private async submoduleInit(paths?: Array<string>, opts?: ExecOpts): Promise<void> {
+  private async submoduleInit(paths?: string[], opts?: ExecOpts): Promise<void> {
     const args = ['submodule', 'init'];
 
     if (paths && paths.length > 0) {

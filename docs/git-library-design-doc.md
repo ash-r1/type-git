@@ -137,6 +137,73 @@ const git = await Git.open(repoPath, {
 - **認証カスタマイズ**: OAuth、AWS CodeCommit 等の credential helper を柔軟に設定
 - **ハングアップ防止**: `GIT_TERMINAL_PROMPT=0` により非対話環境での停止を回避
 
+#### 6.3.1 環境変数オーバーライドの実装詳細
+
+**要望背景**: Electron アプリ内での git 操作では、以下の環境隔離が必要となるケースがある：
+
+```typescript
+// 実際のユースケース
+const repo = await git.open(repoPath, {
+  env: {
+    HOME: '/custom/git/home',           // gitconfig 隔離
+    GIT_TERMINAL_PROMPT: '0',           // インタラクティブ無効化
+    GIT_CONFIG_NOSYSTEM: 'true',        // システム設定無視
+    MYAPP_GIT_USERNAME: username,       // credential helper 用
+    MYAPP_GIT_PASSWORD: password,       // credential helper 用
+  },
+  pathPrefix: ['/path/to/custom/bin'],  // カスタム credential helper 等
+});
+```
+
+**実装方針**:
+
+```typescript
+// src/runner/cli-runner.ts
+export class CliRunner {
+  constructor(
+    private readonly execAdapter: ExecAdapter,
+    private readonly context: ExecutionContext,
+    private readonly options?: {
+      env?: Record<string, string>
+      pathPrefix?: string[]
+      home?: string
+    }
+  ) {}
+
+  async run(args: string[], opts?: ExecOpts): Promise<ExecResult> {
+    // 環境変数のマージ
+    const env: Record<string, string> = {
+      ...process.env as Record<string, string>,
+      ...this.options?.env,
+    }
+
+    // home オプションの適用
+    if (this.options?.home) {
+      env.HOME = this.options.home
+    }
+
+    // PATH プレフィックスの適用
+    if (this.options?.pathPrefix?.length) {
+      const separator = process.platform === 'win32' ? ';' : ':'
+      env.PATH = [...this.options.pathPrefix, process.env.PATH].join(separator)
+    }
+
+    return this.execAdapter.exec('git', args, {
+      ...opts,
+      env,
+      cwd: this.context.type === 'worktree' ? this.context.workdir : undefined,
+    })
+  }
+}
+```
+
+**影響範囲**:
+- `CliRunner` クラスへの環境変数受け渡しロジック追加
+- `ExecAdapter.exec()` の `env` パラメータ対応確認
+- Windows/Unix でのパス区切り文字考慮（`;` vs `:`）
+
+**優先度**: **高**（この機能がないと環境隔離が必要なプロジェクトでは採用不可）
+
 ### 6.4 Credential Helper ファーストクラスサポート
 
 Git 認証は実運用で最も問題が発生しやすい領域である。本ライブラリでは、宣言的かつ型安全な認証設定 API を提供する：
@@ -404,6 +471,151 @@ try {
   - 非TTY抑止を避けたい場合は `GIT_LFS_FORCE_PROGRESS` を利用可能にする。
 - `git lfs pull` / `git lfs push` は JSON/porcelain が揃っていない可能性があるため、進捗はファイル方式＋補助的な stderr/stdout パースで成立させる。
 
+### 10.3 LFS 2フェーズアップロード（preUpload / preDownload）
+
+**ステータス**: ✅ 実装完了
+
+#### 10.3.1 背景と課題
+
+大容量ファイル（数百MB〜数GB）のアップロードでは、通常の `git push` に以下の問題が発生しうる：
+
+| 問題 | 影響 |
+|------|------|
+| 中途半端なコミット | LFS オブジェクトアップロード中の失敗で、refs は push されたが LFS オブジェクトが欠損 |
+| リカバリ困難 | 失敗時にどこまでアップロードされたか不明 |
+| 進捗報告の不正確さ | refs push と LFS push が混在し、進捗計算が複雑 |
+
+#### 10.3.2 提案 API
+
+```typescript
+interface LfsOperations {
+  // 既存
+  pull(opts?: LfsPullOpts): Promise<LfsPullResult>
+  push(opts?: LfsPushOpts): Promise<LfsPushResult>
+  status(): Promise<LfsStatus>
+
+  // 追加提案
+  preUpload(opts?: LfsPreUploadOpts): Promise<LfsPreUploadResult>
+  preDownload(opts?: LfsPreDownloadOpts): Promise<LfsPreDownloadResult>
+}
+
+interface LfsPreUploadOpts {
+  /** アップロード対象の OID 一覧（省略時は自動検出） */
+  oids?: string[]
+  /** バッチサイズ（デフォルト: 50、Windows 制限考慮） */
+  batchSize?: number
+  /** 進捗コールバック */
+  onProgress?: (progress: LfsProgress) => void
+  /** 中断シグナル */
+  signal?: AbortSignal
+}
+
+interface LfsPreUploadResult {
+  /** アップロードしたオブジェクト数 */
+  uploadedCount: number
+  /** アップロードしたバイト数 */
+  uploadedBytes: number
+  /** スキップしたオブジェクト数（既にリモートに存在） */
+  skippedCount: number
+}
+
+interface LfsPreDownloadOpts {
+  /** ダウンロード対象の OID 一覧（省略時は自動検出） */
+  oids?: string[]
+  /** バッチサイズ */
+  batchSize?: number
+  /** 進捗コールバック */
+  onProgress?: (progress: LfsProgress) => void
+  /** 中断シグナル */
+  signal?: AbortSignal
+}
+
+interface LfsPreDownloadResult {
+  /** ダウンロードしたオブジェクト数 */
+  downloadedCount: number
+  /** ダウンロードしたバイト数 */
+  downloadedBytes: number
+  /** スキップしたオブジェクト数（既にローカルに存在） */
+  skippedCount: number
+}
+```
+
+#### 10.3.3 利用イメージ
+
+```typescript
+const repo = await git.open(repoPath, options)
+
+// Phase 1: LFS オブジェクトを先行アップロード
+const preUploadResult = await repo.lfs.preUpload({
+  onProgress: (p) => reportProgress(0.1 + p.progress * 0.6),
+})
+
+// Phase 2: コミット作成
+await repo.add(['-A'])
+await repo.commit(message)
+
+// Phase 3: refs push（LFS は既にアップロード済みなので高速）
+await repo.push({
+  onProgress: (p) => reportProgress(0.8 + p.progress * 0.15),
+})
+
+// 成功後のクリーンアップ
+await repo.lfs.prune()
+```
+
+#### 10.3.4 実装方針
+
+```typescript
+async preUpload(opts?: LfsPreUploadOpts): Promise<LfsPreUploadResult> {
+  // 1. アップロード対象の OID を取得
+  const oids = opts?.oids ?? await this.detectPendingLfsObjects()
+
+  // 2. バッチ分割（Windows 8KB 制限対応）
+  // Windows CreateProcess API: コマンドライン長 8191 文字制限
+  // 50 OID × 65 文字 ≈ 3.3KB（安全マージン確保）
+  const batchSize = opts?.batchSize ?? 50
+  const batches = this.batchOids(oids, batchSize)
+
+  let uploadedCount = 0
+  let uploadedBytes = 0
+
+  // 3. バッチごとにアップロード
+  for (const batch of batches) {
+    const result = await this.runner.run([
+      'lfs', 'push', 'origin', '--object-id', ...batch
+    ], {
+      onProgress: opts?.onProgress,
+      signal: opts?.signal,
+    })
+    uploadedCount += batch.length
+  }
+
+  return { uploadedCount, uploadedBytes, skippedCount: 0 }
+}
+```
+
+#### 10.3.5 メリット
+
+| 観点 | 通常の push | preUpload + push |
+|------|-----------|------------------|
+| 信頼性 | LFS 失敗時に refs 不整合 | LFS 完了後に refs を push |
+| リカバリ | 困難 | 容易（LFS は冪等） |
+| 進捗報告 | 混在して複雑 | フェーズごとに明確 |
+| 失敗検知 | push 後に判明 | preUpload 時点で判明 |
+
+#### 10.3.6 代替手段
+
+現在は `raw()` メソッドで同等の機能を実現可能：
+
+```typescript
+// raw() を使った代替実装
+const lfsFiles = await repo.raw(['lfs', 'ls-files', '-l'])
+// OID をパースして...
+await repo.raw(['lfs', 'push', 'origin', '--object-id', ...oids])
+```
+
+本ライブラリの設計思想（LFS ファーストクラスサポート）に合致する機能であり、大容量ファイルを扱うプロジェクトには有用だが、raw で代替可能なため優先度は低〜中とする。
+
 ---
 
 ## 11. 進捗通知（Git 側）
@@ -511,6 +723,18 @@ stderr/stdout から category を推定するパターンマッチング：
 - `log()` の固定フォーマット（区切り文字・エスケープ規約・パーサ仕様）
 - LFS 無効モードの具体（環境変数運用、install 設定の扱い、操作単位/リポジトリ単位の優先順位）
 - libgit2 を補助採用する具体コマンド範囲（対象と採用理由の明記）
+
+### 17.1 実装優先度
+
+外部プロジェクトからの要望に基づき、以下の優先度で機能実装を進める：
+
+| 機能 | 優先度 | 状態 | 依存関係 |
+|------|--------|------|----------|
+| 環境変数オーバーライド | **高** | ✅ 実装完了 | なし |
+| Credential Helper 統合 | 中 | ✅ 実装完了 | 環境変数オーバーライド |
+| LFS preUpload / preDownload | 低〜中 | ✅ 実装完了 | LFS 基本機能 |
+
+**根拠**: 環境変数オーバーライドは Electron アプリ等での環境隔離に必須であり、これがないと本ライブラリを採用できないユースケースが存在する。
 
 ---
 
