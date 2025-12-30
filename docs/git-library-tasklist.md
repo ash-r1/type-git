@@ -7,7 +7,7 @@
 | Phase | 状態 | 完了タスク |
 |-------|------|-----------|
 | 1. リポジトリ準備 | ✅ 完了 | 1-7 |
-| 2. ランタイム対応の境界固定 | 🚧 進行中 | 8-11, 14, 17 (Node完了、Bun/Deno未着手) |
+| 2. ランタイム対応の境界固定 | ✅ 完了 | 8-20 (Node/Bun/Deno 全て完了) |
 | 3. 仕様確定 | ✅ 完了 | 21-30 |
 | 4. Core（型・仕様・パーサ） | ✅ 完了 | 31-33 |
 | 5. CLI 実行基盤 | ✅ 完了 | 34-36 |
@@ -21,7 +21,7 @@
 | 13. ドキュメント・運用 | ⏳ 未着手 | - |
 | 14. リリース準備 | ⏳ 未着手 | - |
 
-**現在のマイルストーン: M1 完了 → M2 に向けて作業中**
+**現在のマイルストーン: M0 完了 → M1/M2 に向けて作業中**
 
 ---
 
@@ -38,7 +38,7 @@
 
 ---
 
-## 2. ランタイム対応の境界固定（最優先）
+## 2. ランタイム対応の境界固定（最優先） ✅
 ### 2.1 Core: Adapter インターフェース確定 ✅
 8. [x] `ExecAdapter` インターフェース定義
    - spawn（argv/env/cwd 相当）
@@ -58,19 +58,19 @@
    - `supportsKillSignal`
    - `runtime: "node" | "deno" | "bun"` など
 
-### 2.2 Adapters: ランタイム別実装（初期から並走）
+### 2.2 Adapters: ランタイム別実装（初期から並走） ✅
 11. [x] `NodeExecAdapter` 実装
-12. [ ] `BunExecAdapter` 実装
-13. [ ] `DenoExecAdapter` 実装（Node 互換 API または Deno のプロセス API で実装）
+12. [x] `BunExecAdapter` 実装
+13. [x] `DenoExecAdapter` 実装（Deno.Command API で実装）
 14. [x] `NodeFsAdapter` 実装
-15. [ ] `BunFsAdapter` 実装
-16. [ ] `DenoFsAdapter` 実装（権限不足時は capability として扱う）
+15. [x] `BunFsAdapter` 実装
+16. [x] `DenoFsAdapter` 実装（権限不足時は capability として扱う）
 
-### 2.3 スモークテスト（早期に必須）
+### 2.3 スモークテスト（早期に必須） ✅
 17. [x] Node で「spawn + abort + stdout/stderr 取得」スモーク
-18. [ ] Bun で同等スモーク
-19. [ ] Deno で同等スモーク（必要権限が前提ならテスト実行オプションに反映）
-20. [ ] CI に Node/Bun/Deno のジョブ枠を追加（最初はスモークのみ）
+18. [x] Bun で同等スモーク
+19. [x] Deno で同等スモーク（--allow-run, --allow-read, --allow-write, --allow-env が必要）
+20. [x] CI に Node/Bun/Deno のジョブ枠を追加（最初はスモークのみ）
 
 ---
 

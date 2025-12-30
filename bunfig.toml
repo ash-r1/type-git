@@ -1,0 +1,11 @@
+# Bun configuration
+
+[test]
+# Test files pattern
+preload = []
+
+# Coverage is optional
+coverage = false
+
+# Timeout for tests (in milliseconds)
+timeout = 30000
