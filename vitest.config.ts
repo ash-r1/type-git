@@ -4,6 +4,12 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
+    exclude: [
+      'node_modules/',
+      'dist/',
+      'test/bun/**',
+      'test/deno/**',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -13,6 +19,8 @@ export default defineConfig({
         '**/*.test.ts',
         '**/*.spec.ts',
         '**/types.ts',
+        'src/adapters/bun/**',
+        'src/adapters/deno/**',
       ],
     },
   },
