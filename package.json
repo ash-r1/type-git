@@ -43,7 +43,8 @@
     "docs:dev": "pnpm --filter type-git-docs dev",
     "docs:build": "pnpm --filter type-git-docs build",
     "docs:preview": "pnpm --filter type-git-docs preview",
-    "prepare": "husky || true && npm run build"
+    "prepare": "husky || true && npm run build",
+    "prepublishOnly": "pnpm test:ci && pnpm build"
   },
   "keywords": [
     "git",
@@ -67,10 +68,19 @@
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ash/type-git.git"
+    "url": "git+https://github.com/ash-r1/type-git.git"
   },
+  "bugs": {
+    "url": "https://github.com/ash-r1/type-git/issues"
+  },
+  "homepage": "https://ash-r1.github.io/type-git/",
   "lint-staged": {
     "src/**/*.ts": [
       "biome check --write --no-errors-on-unmatched"
