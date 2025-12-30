@@ -614,7 +614,7 @@ export type LfsStatusOpts = {
  */
 export type LfsPreUploadOpts = {
   /** Object IDs to upload (if omitted, auto-detect pending objects) */
-  oids?: string[];
+  oids?: Array<string>;
   /** Batch size for upload (default: 50, considers Windows 8KB limit) */
   batchSize?: number;
   /** Remote name (default: 'origin') */
@@ -641,7 +641,7 @@ export type LfsPreUploadResult = {
  */
 export type LfsPreDownloadOpts = {
   /** Object IDs to download (if omitted, auto-detect from ref) */
-  oids?: string[];
+  oids?: Array<string>;
   /** Git ref to get LFS objects for (branch, tag, or commit) */
   ref?: string;
   /** Batch size for download (default: 50) */

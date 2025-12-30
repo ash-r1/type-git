@@ -252,7 +252,7 @@ export class GitError extends Error {
  * ```
  */
 export class GitArgumentError extends Error {
-  constructor(message: string) {
+  public constructor(message: string) {
     super(message);
     this.name = 'GitArgumentError';
   }

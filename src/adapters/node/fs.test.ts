@@ -107,7 +107,7 @@ describe('NodeFsAdapter', () => {
       const tailPromise = adapter.tail({
         filePath,
         signal: controller.signal,
-        onLine: (line) => {
+        onLine: (line: string): void => {
           lines.push(line);
           if (lines.length >= 2) {
             controller.abort();

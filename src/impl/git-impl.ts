@@ -24,7 +24,9 @@ export type CreateGitOptions = CliRunnerOptions & {
  * Convert GitOpenOptions to CliRunnerOptions
  */
 function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
-  if (!opts) return {};
+  if (!opts) {
+    return {};
+  }
 
   return {
     env: opts.env,
@@ -45,14 +47,14 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
 export class GitImpl implements Git {
   private readonly runner: CliRunner;
 
-  constructor(options: CreateGitOptions) {
+  public constructor(options: CreateGitOptions) {
     this.runner = new CliRunner(options.adapters, options);
   }
 
   /**
    * Open an existing repository
    */
-  async open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo> {
+  public async open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo> {
     // Create a runner with custom options if provided
     const repoRunner = opts ? this.runner.withOptions(toCliRunnerOptions(opts)) : this.runner;
 
@@ -99,7 +101,7 @@ export class GitImpl implements Git {
   /**
    * Clone a repository
    */
-  async clone(
+  public async clone(
     url: string,
     path: string,
     opts?: CloneOpts & ExecOpts,
@@ -157,7 +159,7 @@ export class GitImpl implements Git {
   /**
    * Initialize a new repository
    */
-  async init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo | BareRepo> {
+  public async init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo | BareRepo> {
     const args = ['init'];
 
     if (opts?.bare) {
@@ -185,7 +187,7 @@ export class GitImpl implements Git {
   /**
    * List references in a remote repository
    */
-  async lsRemote(url: string, opts?: LsRemoteOpts & ExecOpts): Promise<LsRemoteResult> {
+  public async lsRemote(url: string, opts?: LsRemoteOpts & ExecOpts): Promise<LsRemoteResult> {
     const args = ['ls-remote'];
 
     if (opts?.heads) {
@@ -215,7 +217,7 @@ export class GitImpl implements Git {
   /**
    * Get git version
    */
-  async version(opts?: ExecOpts): Promise<string> {
+  public async version(opts?: ExecOpts): Promise<string> {
     const result = await this.runner.runOrThrow({ type: 'global' }, ['--version'], {
       signal: opts?.signal,
     });
@@ -228,7 +230,7 @@ export class GitImpl implements Git {
   /**
    * Execute a raw git command (repository-agnostic)
    */
-  async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
+  public async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run({ type: 'global' }, argv, opts);
   }
 }

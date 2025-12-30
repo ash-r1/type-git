@@ -93,8 +93,12 @@ describe('NodeExecAdapter', () => {
           argv: ['sh', '-c', 'echo out && echo err >&2'],
         },
         {
-          onStdout: (chunk) => stdoutChunks.push(chunk),
-          onStderr: (chunk) => stderrChunks.push(chunk),
+          onStdout: (chunk: string): void => {
+            stdoutChunks.push(chunk);
+          },
+          onStderr: (chunk: string): void => {
+            stderrChunks.push(chunk);
+          },
         },
       );
 

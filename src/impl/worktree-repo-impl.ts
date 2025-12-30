@@ -85,18 +85,18 @@ import type { CliRunner } from '../runner/cli-runner.js';
  * WorktreeRepo implementation
  */
 export class WorktreeRepoImpl implements WorktreeRepo {
-  readonly workdir: string;
+  public readonly workdir: string;
   private readonly runner: CliRunner;
   private _lfsMode: LfsMode = 'enabled';
 
-  readonly lfs: LfsOperations;
-  readonly worktree: WorktreeOperations;
-  readonly branch: BranchOperations;
-  readonly stash: StashOperations;
-  readonly tag: TagOperations;
-  readonly submodule: SubmoduleOperations;
+  public readonly lfs: LfsOperations;
+  public readonly worktree: WorktreeOperations;
+  public readonly branch: BranchOperations;
+  public readonly stash: StashOperations;
+  public readonly tag: TagOperations;
+  public readonly submodule: SubmoduleOperations;
 
-  constructor(runner: CliRunner, workdir: string, options?: GitOpenOptions) {
+  public constructor(runner: CliRunner, workdir: string, options?: GitOpenOptions) {
     this.runner = runner;
     this.workdir = workdir;
 
@@ -167,14 +167,14 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
+  public async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
 
   /**
    * Get repository status
    */
-  async status(opts?: StatusOpts & ExecOpts): Promise<StatusPorcelain> {
+  public async status(opts?: StatusOpts & ExecOpts): Promise<StatusPorcelain> {
     const args = ['status', '--porcelain=v2'];
 
     if (opts?.untracked) {
@@ -203,7 +203,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   private parseStatus(stdout: string): StatusPorcelain {
     const lines = parseLines(stdout);
-    const entries: StatusEntry[] = [];
+    const entries: Array<StatusEntry> = [];
     let branch: string | undefined;
     let upstream: string | undefined;
     let ahead: number | undefined;
@@ -223,7 +223,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       } else if (line.startsWith('1 ') || line.startsWith('2 ')) {
         // Regular or renamed entry
         const parsed = parsePorcelainV2(line);
-        if (parsed.length > 0 && parsed[0]!.type === 'changed') {
+        if (parsed.length > 0 && parsed[0]?.type === 'changed') {
           const entry = parsed[0]!;
           entries.push({
             path: entry.path,
@@ -235,7 +235,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       } else if (line.startsWith('u ')) {
         // Unmerged entry
         const parsed = parsePorcelainV2(line);
-        if (parsed.length > 0 && parsed[0]!.type === 'unmerged') {
+        if (parsed.length > 0 && parsed[0]?.type === 'unmerged') {
           const entry = parsed[0]!;
           entries.push({
             path: entry.path,
@@ -272,7 +272,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Get commit log
    */
-  async log(opts?: LogOpts & ExecOpts): Promise<Commit[]> {
+  public async log(opts?: LogOpts & ExecOpts): Promise<Array<Commit>> {
     const args = ['log', `--format=${GIT_LOG_FORMAT}`];
 
     if (opts?.maxCount !== undefined) {
@@ -333,7 +333,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Fetch from remote
    */
-  async fetch(opts?: FetchOpts & ExecOpts): Promise<void> {
+  public async fetch(opts?: FetchOpts & ExecOpts): Promise<void> {
     const args = ['fetch'];
 
     if (opts?.onProgress) {
@@ -370,7 +370,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Push to remote
    */
-  async push(opts?: PushOpts & ExecOpts): Promise<void> {
+  public async push(opts?: PushOpts & ExecOpts): Promise<void> {
     const args = ['push'];
 
     if (opts?.onProgress) {
@@ -407,7 +407,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Configure LFS mode for this repository
    */
-  setLfsMode(mode: LfsMode): void {
+  public setLfsMode(mode: LfsMode): void {
     this._lfsMode = mode;
   }
 
@@ -525,7 +525,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const batchSize = opts?.batchSize ?? 50; // Default 50 OIDs per batch (Windows 8KB limit)
 
     // Get OIDs to upload
-    let oids: string[];
+    let oids: Array<string>;
     if (opts?.oids && opts.oids.length > 0) {
       oids = opts.oids;
     } else {
@@ -579,9 +579,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         if (bytesMatch) {
           let bytes = Number.parseFloat(bytesMatch[1]!);
           const unit = bytesMatch[2]?.toUpperCase();
-          if (unit === 'KB') bytes *= 1024;
-          else if (unit === 'MB') bytes *= 1024 * 1024;
-          else if (unit === 'GB') bytes *= 1024 * 1024 * 1024;
+          if (unit === 'KB') {
+            bytes *= 1024;
+          } else if (unit === 'MB') {
+            bytes *= 1024 * 1024;
+          } else if (unit === 'GB') {
+            bytes *= 1024 * 1024 * 1024;
+          }
           uploadedBytes += bytes;
         }
       } else {
@@ -615,7 +619,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const batchSize = opts?.batchSize ?? 50;
 
     // Get OIDs to download
-    let oids: string[];
+    let oids: Array<string>;
     if (opts?.oids && opts.oids.length > 0) {
       oids = opts.oids;
     } else if (opts?.ref) {
@@ -671,9 +675,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         if (bytesMatch) {
           let bytes = Number.parseFloat(bytesMatch[1]!);
           const unit = bytesMatch[2]?.toUpperCase();
-          if (unit === 'KB') bytes *= 1024;
-          else if (unit === 'MB') bytes *= 1024 * 1024;
-          else if (unit === 'GB') bytes *= 1024 * 1024 * 1024;
+          if (unit === 'KB') {
+            bytes *= 1024;
+          } else if (unit === 'MB') {
+            bytes *= 1024 * 1024;
+          } else if (unit === 'GB') {
+            bytes *= 1024 * 1024 * 1024;
+          }
           downloadedBytes += bytes;
         }
       } else {
@@ -688,7 +696,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Worktree Operations
   // ==========================================================================
 
-  private async worktreeList(opts?: ExecOpts): Promise<Worktree[]> {
+  private async worktreeList(opts?: ExecOpts): Promise<Array<Worktree>> {
     const result = await this.runner.runOrThrow(this.context, ['worktree', 'list', '--porcelain'], {
       signal: opts?.signal,
     });
@@ -735,7 +743,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
   }
 
-  private async worktreePrune(opts?: WorktreePruneOpts & ExecOpts): Promise<string[]> {
+  private async worktreePrune(opts?: WorktreePruneOpts & ExecOpts): Promise<Array<string>> {
     const args = ['worktree', 'prune'];
 
     if (opts?.dryRun) {
@@ -778,7 +786,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - add
   // ==========================================================================
 
-  async add(paths: string | string[], opts?: AddOpts & ExecOpts): Promise<void> {
+  public async add(paths: string | Array<string>, opts?: AddOpts & ExecOpts): Promise<void> {
     const args = ['add'];
 
     if (opts?.all) {
@@ -809,7 +817,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - Branch Operations
   // ==========================================================================
 
-  private async branchList(opts?: BranchOpts & ExecOpts): Promise<BranchInfo[]> {
+  private async branchList(opts?: BranchOpts & ExecOpts): Promise<Array<BranchInfo>> {
     const args = [
       'branch',
       '--list',
@@ -828,7 +836,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       signal: opts?.signal,
     });
 
-    const branches: BranchInfo[] = [];
+    const branches: Array<BranchInfo> = [];
     for (const line of parseLines(result.stdout)) {
       const parts = line.split('\0');
       if (parts.length >= 5) {
@@ -911,7 +919,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - checkout
   // ==========================================================================
 
-  async checkout(target: string, opts?: CheckoutOpts & ExecOpts): Promise<void> {
+  public async checkout(target: string, opts?: CheckoutOpts & ExecOpts): Promise<void> {
     const args = ['checkout'];
 
     if (opts?.force) {
@@ -941,7 +949,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - commit
   // ==========================================================================
 
-  async commit(opts?: CommitOpts & ExecOpts): Promise<CommitResult> {
+  public async commit(opts?: CommitOpts & ExecOpts): Promise<CommitResult> {
     const args = ['commit'];
 
     if (opts?.message) {
@@ -1028,7 +1036,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - diff
   // ==========================================================================
 
-  async diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffResult> {
+  public async diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffResult> {
     const args = ['diff'];
 
     if (opts?.staged) {
@@ -1099,7 +1107,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - merge
   // ==========================================================================
 
-  async merge(branch: string, opts?: MergeOpts & ExecOpts): Promise<MergeResult> {
+  public async merge(branch: string, opts?: MergeOpts & ExecOpts): Promise<MergeResult> {
     if (opts?.abort) {
       await this.runner.runOrThrow(this.context, ['merge', '--abort'], {
         signal: opts?.signal,
@@ -1193,7 +1201,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - pull
   // ==========================================================================
 
-  async pull(opts?: PullOpts & ExecOpts): Promise<void> {
+  public async pull(opts?: PullOpts & ExecOpts): Promise<void> {
     const args = ['pull'];
 
     if (opts?.onProgress) {
@@ -1240,7 +1248,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - reset
   // ==========================================================================
 
-  async reset(target?: string, opts?: ResetOpts & ExecOpts): Promise<void> {
+  public async reset(target?: string, opts?: ResetOpts & ExecOpts): Promise<void> {
     const args = ['reset'];
 
     if (opts?.mode) {
@@ -1260,7 +1268,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - rm
   // ==========================================================================
 
-  async rm(paths: string | string[], opts?: RmOpts & ExecOpts): Promise<void> {
+  public async rm(paths: string | Array<string>, opts?: RmOpts & ExecOpts): Promise<void> {
     const args = ['rm'];
 
     if (opts?.force) {
@@ -1291,12 +1299,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - Stash Operations
   // ==========================================================================
 
-  private async stashList(opts?: ExecOpts): Promise<StashEntry[]> {
+  private async stashList(opts?: ExecOpts): Promise<Array<StashEntry>> {
     const result = await this.runner.runOrThrow(this.context, ['stash', 'list'], {
       signal: opts?.signal,
     });
 
-    const entries: StashEntry[] = [];
+    const entries: Array<StashEntry> = [];
     for (const line of parseLines(result.stdout)) {
       // Default format: stash@{0}: On branch: message
       // Or: stash@{0}: WIP on branch: hash (when using -m)
@@ -1411,7 +1419,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - switch
   // ==========================================================================
 
-  async switch(branch: string, opts?: SwitchOpts & ExecOpts): Promise<void> {
+  public async switch(branch: string, opts?: SwitchOpts & ExecOpts): Promise<void> {
     const args = ['switch'];
 
     if (opts?.create) {
@@ -1447,7 +1455,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - Tag Operations
   // ==========================================================================
 
-  private async tagList(opts?: TagListOpts & ExecOpts): Promise<string[]> {
+  private async tagList(opts?: TagListOpts & ExecOpts): Promise<Array<string>> {
     const args = ['tag', '--list'];
 
     if (opts?.sort) {
@@ -1511,7 +1519,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       let taggerName = '';
       let taggerEmail = '';
       let taggerDate: Date | undefined;
-      const messageLines: string[] = [];
+      const messageLines: Array<string> = [];
       let inMessage = false;
 
       for (const line of lines) {
@@ -1562,7 +1570,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - cherry-pick
   // ==========================================================================
 
-  async cherryPick(commits: string | string[], opts?: CherryPickOpts & ExecOpts): Promise<void> {
+  public async cherryPick(
+    commits: string | Array<string>,
+    opts?: CherryPickOpts & ExecOpts,
+  ): Promise<void> {
     if (opts?.abort) {
       await this.runner.runOrThrow(this.context, ['cherry-pick', '--abort'], {
         signal: opts?.signal,
@@ -1618,7 +1629,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - clean
   // ==========================================================================
 
-  async clean(opts?: CleanOpts & ExecOpts): Promise<string[]> {
+  public async clean(opts?: CleanOpts & ExecOpts): Promise<Array<string>> {
     const args = ['clean'];
 
     if (opts?.force) {
@@ -1648,7 +1659,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
 
     // Parse cleaned/would-be-cleaned paths from output
-    const cleaned: string[] = [];
+    const cleaned: Array<string> = [];
     for (const line of parseLines(result.stdout)) {
       // Output is like "Removing file.txt" or "Would remove file.txt"
       const match = line.match(/^(?:Removing|Would remove) (.+)$/);
@@ -1664,7 +1675,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - mv
   // ==========================================================================
 
-  async mv(source: string, destination: string, opts?: MvOpts & ExecOpts): Promise<void> {
+  public async mv(source: string, destination: string, opts?: MvOpts & ExecOpts): Promise<void> {
     const args = ['mv'];
 
     if (opts?.force) {
@@ -1686,7 +1697,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - rebase
   // ==========================================================================
 
-  async rebase(opts?: RebaseOpts & ExecOpts): Promise<void> {
+  public async rebase(opts?: RebaseOpts & ExecOpts): Promise<void> {
     if (opts?.abort) {
       await this.runner.runOrThrow(this.context, ['rebase', '--abort'], {
         signal: opts?.signal,
@@ -1731,7 +1742,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - restore
   // ==========================================================================
 
-  async restore(paths: string | string[], opts?: RestoreOpts & ExecOpts): Promise<void> {
+  public async restore(
+    paths: string | Array<string>,
+    opts?: RestoreOpts & ExecOpts,
+  ): Promise<void> {
     const args = ['restore'];
 
     if (opts?.staged) {
@@ -1764,7 +1778,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - revert
   // ==========================================================================
 
-  async revert(commits: string | string[], opts?: RevertOpts & ExecOpts): Promise<void> {
+  public async revert(
+    commits: string | Array<string>,
+    opts?: RevertOpts & ExecOpts,
+  ): Promise<void> {
     if (opts?.abort) {
       await this.runner.runOrThrow(this.context, ['revert', '--abort'], {
         signal: opts?.signal,
@@ -1812,7 +1829,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - show
   // ==========================================================================
 
-  async show(object: string, opts?: ShowOpts & ExecOpts): Promise<string> {
+  public async show(object: string, opts?: ShowOpts & ExecOpts): Promise<string> {
     const args = ['show'];
 
     if (opts?.stat) {
@@ -1842,7 +1859,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Medium Priority - Submodule Operations
   // ==========================================================================
 
-  private async submoduleList(opts?: ExecOpts): Promise<SubmoduleInfo[]> {
+  private async submoduleList(opts?: ExecOpts): Promise<Array<SubmoduleInfo>> {
     const result = await this.runner.run(this.context, ['submodule', 'status'], {
       signal: opts?.signal,
     });
@@ -1851,7 +1868,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return [];
     }
 
-    const submodules: SubmoduleInfo[] = [];
+    const submodules: Array<SubmoduleInfo> = [];
     for (const line of parseLines(result.stdout)) {
       // Format: [+-U ]<sha1> <path> (<describe>)
       const match = line.match(/^[ +-U]?([a-f0-9]+) (.+?)(?: \((.+)\))?$/);
@@ -1886,7 +1903,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     return submodules;
   }
 
-  private async submoduleInit(paths?: string[], opts?: ExecOpts): Promise<void> {
+  private async submoduleInit(paths?: Array<string>, opts?: ExecOpts): Promise<void> {
     const args = ['submodule', 'init'];
 
     if (paths && paths.length > 0) {

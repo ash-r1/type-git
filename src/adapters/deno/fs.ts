@@ -135,10 +135,15 @@ export class DenoFsAdapter implements FsAdapter {
     const { signal, pollInterval = 100 } = options ?? {};
 
     type ResolverFn = (value: IteratorResult<string, undefined>) => void;
-    const state = {
+    type TailState = {
+      stopped: boolean;
+      resolveNext: ResolverFn | null;
+      lineQueue: Array<string>;
+    };
+    const state: TailState = {
       stopped: false,
-      resolveNext: null as ResolverFn | null,
-      lineQueue: [] as Array<string>,
+      resolveNext: null,
+      lineQueue: [],
     };
 
     const stop = (): void => {
@@ -197,7 +202,9 @@ export class DenoFsAdapter implements FsAdapter {
       stop();
     };
 
-    void startPolling();
+    startPolling().catch(() => {
+      // Intentionally ignored - startPolling handles its own cleanup
+    });
 
     const lines: AsyncIterable<string> = {
       [Symbol.asyncIterator](): AsyncIterator<string> {

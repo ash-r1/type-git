@@ -39,7 +39,7 @@ export type CliRunnerOptions = {
   /** Additional environment variables */
   env?: Record<string, string>;
   /** Directories to prepend to PATH */
-  pathPrefix?: string[];
+  pathPrefix?: Array<string>;
   /** Custom HOME directory for git config isolation */
   home?: string;
   /** Credential helper configuration */
@@ -61,11 +61,11 @@ export class CliRunner {
   private readonly fs: FsAdapter;
   private readonly gitBinary: string;
   private readonly baseEnv: Record<string, string>;
-  private readonly pathPrefix: string[];
+  private readonly pathPrefix: Array<string>;
   private readonly home: string | undefined;
   private readonly credential: CredentialHelperConfig | undefined;
 
-  constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
+  public constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
     this.exec = adapters.exec;
     this.fs = adapters.fs;
     this.gitBinary = options?.gitBinary ?? 'git';
@@ -80,7 +80,7 @@ export class CliRunner {
    *
    * Used to create a runner for a specific repository with custom environment
    */
-  withOptions(options: CliRunnerOptions): CliRunner {
+  public withOptions(options: CliRunnerOptions): CliRunner {
     const mergedEnv = { ...this.baseEnv, ...options.env };
     const mergedPathPrefix = [...this.pathPrefix, ...(options.pathPrefix ?? [])];
     const home = options.home ?? this.home;

@@ -10,10 +10,10 @@ import type { CliRunner } from '../runner/cli-runner.js';
  * BareRepo implementation
  */
 export class BareRepoImpl implements BareRepo {
-  readonly gitDir: string;
+  public readonly gitDir: string;
   private readonly runner: CliRunner;
 
-  constructor(runner: CliRunner, gitDir: string, _options?: unknown) {
+  public constructor(runner: CliRunner, gitDir: string, _options?: unknown) {
     this.runner = runner;
     this.gitDir = gitDir;
   }
@@ -25,14 +25,14 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
+  public async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
 
   /**
    * Fetch from remote
    */
-  async fetch(opts?: FetchOpts & ExecOpts): Promise<void> {
+  public async fetch(opts?: FetchOpts & ExecOpts): Promise<void> {
     const args = ['fetch'];
 
     if (opts?.onProgress) {
@@ -69,7 +69,7 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Push to remote
    */
-  async push(opts?: PushOpts & ExecOpts): Promise<void> {
+  public async push(opts?: PushOpts & ExecOpts): Promise<void> {
     const args = ['push'];
 
     if (opts?.onProgress) {

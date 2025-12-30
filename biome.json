@@ -148,6 +148,7 @@
         "recommended": false
       },
       "nursery": {
+        "recommended": true,
         "noFloatingPromises": "error",
         "noShadow": "error",
         "useExplicitType": "warn"
