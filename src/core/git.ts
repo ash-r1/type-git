@@ -16,6 +16,8 @@ export type CloneOpts = {
   mirror?: boolean;
   noCheckout?: boolean;
   recurseSubmodules?: boolean;
+  /** Store .git directory at specified path instead of inside the repository */
+  separateGitDir?: string;
 };
 
 /**
@@ -24,6 +26,8 @@ export type CloneOpts = {
 export type InitOpts = {
   bare?: boolean;
   initialBranch?: string;
+  /** Store .git directory at specified path instead of inside the repository */
+  separateGitDir?: string;
 };
 
 /**

@@ -61,6 +61,31 @@ describe('GitImpl', () => {
         expect(result.stdout.trim()).toBe('main');
       }
     });
+
+    it('should use separate git directory', async () => {
+      const repoPath = join(tempDir, 'test-repo');
+      const gitDirPath = join(tempDir, 'git-dir');
+      const repo = await git.init(repoPath, { separateGitDir: gitDirPath });
+
+      expect('workdir' in repo).toBe(true);
+      if ('workdir' in repo) {
+        // Verify .git is a file pointing to the separate git dir
+        const { readFile, stat } = await import('node:fs/promises');
+        const gitFile = join(repoPath, '.git');
+        const gitFileStat = await stat(gitFile);
+        expect(gitFileStat.isFile()).toBe(true);
+
+        const gitFileContent = await readFile(gitFile, 'utf-8');
+        expect(gitFileContent).toContain(gitDirPath);
+
+        // Verify the separate git directory exists and contains git objects
+        const gitDirStat = await stat(gitDirPath);
+        expect(gitDirStat.isDirectory()).toBe(true);
+
+        const objectsDirStat = await stat(join(gitDirPath, 'objects'));
+        expect(objectsDirStat.isDirectory()).toBe(true);
+      }
+    });
   });
 
   describe('open', () => {

@@ -395,6 +395,18 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.force) {
       args.push('--force');
+    } else if (opts?.forceWithLease !== undefined && opts.forceWithLease !== false) {
+      if (opts.forceWithLease === true) {
+        args.push('--force-with-lease');
+      } else {
+        // ForceWithLeaseOpts: { refname: string; expect?: string }
+        const leaseOpts = opts.forceWithLease;
+        if (leaseOpts.expect !== undefined) {
+          args.push(`--force-with-lease=${leaseOpts.refname}:${leaseOpts.expect}`);
+        } else {
+          args.push(`--force-with-lease=${leaseOpts.refname}`);
+        }
+      }
     }
 
     if (opts?.tags) {
@@ -403,6 +415,18 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.setUpstream) {
       args.push('--set-upstream');
+    }
+
+    if (opts?.noVerify) {
+      args.push('--no-verify');
+    }
+
+    if (opts?.signed !== undefined) {
+      if (opts.signed === true) {
+        args.push('--signed');
+      } else if (opts.signed === 'if-asked') {
+        args.push('--signed=if-asked');
+      }
     }
 
     if (opts?.remote) {
@@ -1005,6 +1029,16 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--dry-run');
     }
 
+    if (opts?.noVerify) {
+      args.push('--no-verify');
+    }
+
+    if (opts?.gpgSign) {
+      args.push('-S');
+    } else if (opts?.noGpgSign) {
+      args.push('--no-gpg-sign');
+    }
+
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
@@ -1183,6 +1217,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       for (const opt of strategyOpts) {
         args.push('-X', opt);
       }
+    }
+
+    if (opts?.noVerify) {
+      args.push('--no-verify');
     }
 
     args.push(branch);
@@ -1505,8 +1543,16 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   private async tagCreate(name: string, opts?: TagCreateOpts & ExecOpts): Promise<void> {
     const args = ['tag'];
 
+    if (opts?.sign) {
+      args.push('-s');
+    }
+
     if (opts?.message) {
-      args.push('-a', '-m', opts.message);
+      // If signing with -s, we don't need -a (signed tags are always annotated)
+      if (!opts.sign) {
+        args.push('-a');
+      }
+      args.push('-m', opts.message);
     }
 
     if (opts?.force) {
@@ -1656,6 +1702,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('-s', opts.strategy);
     }
 
+    if (opts?.noVerify) {
+      args.push('--no-verify');
+    }
+
     const commitList = Array.isArray(commits) ? commits : [commits];
     args.push(...commitList);
 
@@ -1769,6 +1819,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--rebase-merges');
     }
 
+    if (opts?.noVerify) {
+      args.push('--no-verify');
+    }
+
     if (opts?.upstream) {
       args.push(opts.upstream);
     }
@@ -1855,6 +1909,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.mainline !== undefined) {
       args.push('-m', opts.mainline.toString());
+    }
+
+    if (opts?.noVerify) {
+      args.push('--no-verify');
     }
 
     const commitList = Array.isArray(commits) ? commits : [commits];

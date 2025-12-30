@@ -141,6 +141,10 @@ export class GitImpl implements Git {
       args.push('--recurse-submodules');
     }
 
+    if (opts?.separateGitDir) {
+      args.push('--separate-git-dir', opts.separateGitDir);
+    }
+
     args.push(url, path);
 
     await this.runner.runOrThrow({ type: 'global' }, args, {
@@ -168,6 +172,10 @@ export class GitImpl implements Git {
 
     if (opts?.initialBranch) {
       args.push('--initial-branch', opts.initialBranch);
+    }
+
+    if (opts?.separateGitDir) {
+      args.push('--separate-git-dir', opts.separateGitDir);
     }
 
     args.push(path);

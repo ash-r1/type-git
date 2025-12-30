@@ -89,14 +89,38 @@ export type FetchOpts = {
 };
 
 /**
+ * Force with lease options for git push
+ */
+export type ForceWithLeaseOpts = {
+  /** Reference name to check (e.g., 'refs/heads/main') */
+  refname: string;
+  /** Expected value of the ref (commit hash) */
+  expect?: string;
+};
+
+/**
  * Options for git push
  */
 export type PushOpts = {
   remote?: string;
   refspec?: string | Array<string>;
   force?: boolean;
+  /**
+   * Force with lease - safer force push that fails if remote has been updated
+   * - true: use default behavior (check current remote ref)
+   * - ForceWithLeaseOpts: specify refname and optional expected value
+   */
+  forceWithLease?: boolean | ForceWithLeaseOpts;
   tags?: boolean;
   setUpstream?: boolean;
+  /** Bypass pre-push hook */
+  noVerify?: boolean;
+  /**
+   * GPG-sign the push (for signed pushes)
+   * - true: sign with default key
+   * - 'if-asked': sign only if server supports and requests it
+   */
+  signed?: boolean | 'if-asked';
 };
 
 // =============================================================================
@@ -198,6 +222,12 @@ export type CommitOpts = {
   date?: string | Date;
   /** Do not create commit, just update message */
   dryRun?: boolean;
+  /** Bypass pre-commit and commit-msg hooks */
+  noVerify?: boolean;
+  /** GPG-sign the commit with the default key */
+  gpgSign?: boolean;
+  /** Do not GPG-sign the commit (override commit.gpgSign config) */
+  noGpgSign?: boolean;
 };
 
 /**
@@ -277,6 +307,8 @@ export type MergeOpts = {
   abort?: boolean;
   /** Continue merge */
   continue?: boolean;
+  /** Bypass pre-merge-commit hook */
+  noVerify?: boolean;
 };
 
 /**
@@ -418,6 +450,8 @@ export type TagCreateOpts = {
   force?: boolean;
   /** Commit to tag */
   commit?: string;
+  /** GPG-sign the tag with the default key */
+  sign?: boolean;
 };
 
 // =============================================================================
@@ -444,6 +478,8 @@ export type CherryPickOpts = {
   continue?: boolean;
   /** Skip current commit */
   skip?: boolean;
+  /** Bypass pre-commit hook */
+  noVerify?: boolean;
 };
 
 /**
@@ -492,6 +528,8 @@ export type RebaseOpts = {
   continue?: boolean;
   /** Skip current commit */
   skip?: boolean;
+  /** Bypass pre-rebase hook */
+  noVerify?: boolean;
 };
 
 /**
@@ -525,6 +563,8 @@ export type RevertOpts = {
   continue?: boolean;
   /** Skip current commit */
   skip?: boolean;
+  /** Bypass pre-commit hook */
+  noVerify?: boolean;
 };
 
 /**
