@@ -1,0 +1,106 @@
+---
+title: Basic Usage
+description: Learn the core concepts of type-git
+---
+
+## Architecture Overview
+
+type-git provides two main interfaces:
+
+- **Git**: Repository-independent operations (clone, init, version)
+- **Repo**: Repository-dependent operations (status, commit, branch, etc.)
+
+## Working with Repositories
+
+### Cloning a Repository
+
+```typescript
+import { TypeGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = new TypeGit(nodeAdapter);
+
+// Simple clone
+await git.clone('https://github.com/user/repo.git', './repo');
+
+// Clone with options
+await git.clone('https://github.com/user/repo.git', './repo', {
+  depth: 1,           // Shallow clone
+  branch: 'develop',  // Specific branch
+});
+```
+
+### Opening an Existing Repository
+
+```typescript
+const repo = await git.open('./repo');
+```
+
+### Initializing a New Repository
+
+```typescript
+await git.init('./new-repo');
+const repo = await git.open('./new-repo');
+```
+
+## Common Operations
+
+### Checking Status
+
+```typescript
+const status = await repo.status();
+
+for (const file of status.files) {
+  console.log(`${file.path}: ${file.workingTree} / ${file.index}`);
+}
+```
+
+### Staging and Committing
+
+```typescript
+// Stage files
+await repo.add(['file1.txt', 'file2.txt']);
+
+// Commit
+await repo.commit('feat: add new feature');
+```
+
+### Branch Operations
+
+```typescript
+// List branches
+const branches = await repo.branch.list();
+
+// Create branch
+await repo.branch.create('feature/new-feature');
+
+// Switch branch
+await repo.switch('feature/new-feature');
+```
+
+## Progress Tracking
+
+Long-running operations support progress callbacks:
+
+```typescript
+await git.clone('https://github.com/user/repo.git', './repo', {
+  progress: (p) => {
+    console.log(`${p.phase}: ${p.percent}%`);
+  },
+});
+```
+
+## Abort Control
+
+Cancel operations using AbortController:
+
+```typescript
+const controller = new AbortController();
+
+// Cancel after 30 seconds
+setTimeout(() => controller.abort(), 30000);
+
+await git.clone('https://github.com/user/repo.git', './repo', {
+  signal: controller.signal,
+});
+```

@@ -1,0 +1,77 @@
+---
+title: インストール
+description: 各ランタイムへのtype-gitのインストール方法
+---
+
+## 要件
+
+- **Node.js**: 20.0.0以上
+- **Deno**: 1.40以上
+- **Bun**: 1.0以上
+- **Git**: インストール済みでPATHに追加されていること
+
+## パッケージのインストール
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="npm">
+    ```bash
+    npm install type-git
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add type-git
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add type-git
+    ```
+  </TabItem>
+  <TabItem label="bun">
+    ```bash
+    bun add type-git
+    ```
+  </TabItem>
+</Tabs>
+
+## ランタイムアダプター
+
+type-gitはプロセス実行を処理するためにランタイム固有のアダプターを使用します。使用するランタイムに適したアダプターをインポートしてください：
+
+### Node.js
+
+```typescript
+import { TypeGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = new TypeGit(nodeAdapter);
+```
+
+### Deno
+
+```typescript
+import { TypeGit } from 'npm:type-git';
+import { denoAdapter } from 'npm:type-git/deno';
+
+const git = new TypeGit(denoAdapter);
+```
+
+### Bun
+
+```typescript
+import { TypeGit } from 'type-git';
+import { bunAdapter } from 'type-git/bun';
+
+const git = new TypeGit(bunAdapter);
+```
+
+## インストールの確認
+
+```typescript
+const git = new TypeGit(nodeAdapter);
+const version = await git.version();
+console.log('Gitバージョン:', version);
+```

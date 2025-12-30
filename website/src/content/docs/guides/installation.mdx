@@ -1,0 +1,77 @@
+---
+title: Installation
+description: How to install type-git for your runtime
+---
+
+## Requirements
+
+- **Node.js**: 20.0.0 or higher
+- **Deno**: 1.40 or higher
+- **Bun**: 1.0 or higher
+- **Git**: Must be installed and available in PATH
+
+## Package Installation
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="npm">
+    ```bash
+    npm install type-git
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add type-git
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add type-git
+    ```
+  </TabItem>
+  <TabItem label="bun">
+    ```bash
+    bun add type-git
+    ```
+  </TabItem>
+</Tabs>
+
+## Runtime Adapters
+
+type-git uses runtime-specific adapters to handle process execution. Import the appropriate adapter for your runtime:
+
+### Node.js
+
+```typescript
+import { TypeGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = new TypeGit(nodeAdapter);
+```
+
+### Deno
+
+```typescript
+import { TypeGit } from 'npm:type-git';
+import { denoAdapter } from 'npm:type-git/deno';
+
+const git = new TypeGit(denoAdapter);
+```
+
+### Bun
+
+```typescript
+import { TypeGit } from 'type-git';
+import { bunAdapter } from 'type-git/bun';
+
+const git = new TypeGit(bunAdapter);
+```
+
+## Verifying Installation
+
+```typescript
+const git = new TypeGit(nodeAdapter);
+const version = await git.version();
+console.log('Git version:', version);
+```

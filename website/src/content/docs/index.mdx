@@ -1,0 +1,53 @@
+---
+title: type-git
+description: Type-safe Git wrapper library with LFS support for Node.js/Deno/Bun
+template: splash
+hero:
+  tagline: Type-safe Git operations with progress tracking and abort control
+  actions:
+    - text: Get Started
+      link: /type-git/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: API Reference
+      link: /type-git/api/
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Features
+
+<CardGrid stagger>
+  <Card title="Type-safe API" icon="approve-check">
+    Full TypeScript support with proper type inference and branded types for compile-time safety
+  </Card>
+  <Card title="Multi-runtime" icon="rocket">
+    Works seamlessly with Node.js, Deno, and Bun through runtime-specific adapters
+  </Card>
+  <Card title="Git LFS Support" icon="document">
+    Built-in LFS support with real-time progress tracking for large file operations
+  </Card>
+  <Card title="Abort Control" icon="close">
+    Cancel long-running operations using the standard AbortController API
+  </Card>
+</CardGrid>
+
+## Quick Example
+
+```typescript
+import { TypeGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = new TypeGit(nodeAdapter);
+
+// Clone with progress tracking
+await git.clone('https://github.com/user/repo.git', './repo', {
+  progress: (p) => console.log(`${p.phase}: ${p.percent}%`),
+});
+
+// Open and work with repository
+const repo = await git.open('./repo');
+const status = await repo.status();
+console.log(status.files);
+```

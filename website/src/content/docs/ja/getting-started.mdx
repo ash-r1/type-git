@@ -1,0 +1,68 @@
+---
+title: クイックスタート
+description: 5分でtype-gitを始める
+---
+
+## インストール
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="npm">
+    ```bash
+    npm install type-git
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add type-git
+    ```
+  </TabItem>
+  <TabItem label="Deno">
+    ```typescript
+    import { TypeGit } from 'npm:type-git';
+    import { denoAdapter } from 'npm:type-git/deno';
+    ```
+  </TabItem>
+  <TabItem label="Bun">
+    ```bash
+    bun add type-git
+    ```
+  </TabItem>
+</Tabs>
+
+## 基本的な使い方
+
+### TypeGitクラスを使用（推奨）
+
+```typescript
+import { TypeGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = new TypeGit(nodeAdapter);
+
+// リポジトリをクローン
+await git.clone('https://github.com/user/repo.git', './my-repo');
+
+// 既存のリポジトリを開く
+const repo = await git.open('./my-repo');
+
+// ステータスを確認
+const status = await repo.status();
+console.log('変更されたファイル:', status.files.filter(f => f.isModified));
+```
+
+### ファクトリ関数を使用
+
+```typescript
+import { createGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = createGit(nodeAdapter);
+```
+
+## 次のステップ
+
+- [インストールガイド](/type-git/ja/guides/installation/) - 詳細なインストール手順
+- [基本的な使い方](/type-git/ja/guides/basic-usage/) - コアコンセプトを学ぶ
+- [APIリファレンス](/type-git/api/) - 完全なAPIドキュメント

@@ -1,0 +1,14 @@
+{
+  "page.editLink": "このページを編集",
+  "page.lastUpdated": "最終更新日",
+  "tableOfContents.onThisPage": "目次",
+  "search.label": "検索",
+  "menuButton.accessibleLabel": "メニュー",
+  "sidebarNav.accessibleLabel": "サイドバーナビゲーション",
+  "skipLink.label": "コンテンツにスキップ",
+  "themeSelect.accessibleLabel": "テーマを選択",
+  "themeSelect.dark": "ダーク",
+  "themeSelect.light": "ライト",
+  "themeSelect.auto": "自動",
+  "languageSelect.accessibleLabel": "言語を選択"
+}

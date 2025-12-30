@@ -1,0 +1,53 @@
+---
+title: type-git
+description: Node.js/Deno/Bun対応の型安全なGitラッパーライブラリ（LFSサポート付き）
+template: splash
+hero:
+  tagline: 進捗トラッキングと中断制御を備えた型安全なGit操作
+  actions:
+    - text: はじめる
+      link: /type-git/ja/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: APIリファレンス
+      link: /type-git/api/
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## 特徴
+
+<CardGrid stagger>
+  <Card title="型安全なAPI" icon="approve-check">
+    完全なTypeScriptサポートと適切な型推論、コンパイル時の安全性を保証するブランド型
+  </Card>
+  <Card title="マルチランタイム" icon="rocket">
+    ランタイム固有のアダプターによりNode.js、Deno、Bunでシームレスに動作
+  </Card>
+  <Card title="Git LFSサポート" icon="document">
+    大容量ファイル操作のためのリアルタイム進捗トラッキング付きLFSサポート
+  </Card>
+  <Card title="中断制御" icon="close">
+    標準のAbortController APIを使用して長時間実行操作をキャンセル
+  </Card>
+</CardGrid>
+
+## クイック例
+
+```typescript
+import { TypeGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = new TypeGit(nodeAdapter);
+
+// 進捗トラッキング付きでクローン
+await git.clone('https://github.com/user/repo.git', './repo', {
+  progress: (p) => console.log(`${p.phase}: ${p.percent}%`),
+});
+
+// リポジトリを開いて操作
+const repo = await git.open('./repo');
+const status = await repo.status();
+console.log(status.files);
+```

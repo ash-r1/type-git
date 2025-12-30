@@ -1,0 +1,106 @@
+---
+title: 基本的な使い方
+description: type-gitのコアコンセプトを学ぶ
+---
+
+## アーキテクチャ概要
+
+type-gitは2つの主要なインターフェースを提供します：
+
+- **Git**: リポジトリ非依存の操作（clone、init、version）
+- **Repo**: リポジトリ依存の操作（status、commit、branchなど）
+
+## リポジトリの操作
+
+### リポジトリのクローン
+
+```typescript
+import { TypeGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = new TypeGit(nodeAdapter);
+
+// シンプルなクローン
+await git.clone('https://github.com/user/repo.git', './repo');
+
+// オプション付きクローン
+await git.clone('https://github.com/user/repo.git', './repo', {
+  depth: 1,           // シャロークローン
+  branch: 'develop',  // 特定のブランチ
+});
+```
+
+### 既存リポジトリを開く
+
+```typescript
+const repo = await git.open('./repo');
+```
+
+### 新規リポジトリの初期化
+
+```typescript
+await git.init('./new-repo');
+const repo = await git.open('./new-repo');
+```
+
+## よく使う操作
+
+### ステータスの確認
+
+```typescript
+const status = await repo.status();
+
+for (const file of status.files) {
+  console.log(`${file.path}: ${file.workingTree} / ${file.index}`);
+}
+```
+
+### ステージングとコミット
+
+```typescript
+// ファイルをステージ
+await repo.add(['file1.txt', 'file2.txt']);
+
+// コミット
+await repo.commit('feat: 新機能を追加');
+```
+
+### ブランチ操作
+
+```typescript
+// ブランチ一覧
+const branches = await repo.branch.list();
+
+// ブランチ作成
+await repo.branch.create('feature/new-feature');
+
+// ブランチ切り替え
+await repo.switch('feature/new-feature');
+```
+
+## 進捗トラッキング
+
+長時間実行される操作は進捗コールバックをサポートしています：
+
+```typescript
+await git.clone('https://github.com/user/repo.git', './repo', {
+  progress: (p) => {
+    console.log(`${p.phase}: ${p.percent}%`);
+  },
+});
+```
+
+## 中断制御
+
+AbortControllerを使用して操作をキャンセル：
+
+```typescript
+const controller = new AbortController();
+
+// 30秒後にキャンセル
+setTimeout(() => controller.abort(), 30000);
+
+await git.clone('https://github.com/user/repo.git', './repo', {
+  signal: controller.signal,
+});
+```

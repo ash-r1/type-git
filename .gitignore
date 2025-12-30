@@ -142,4 +142,7 @@ vite.config.ts.timestamp-*
 .claude/*
 !/.claude/settings.json
 
+# Starlight TypeDoc generated files
+website/src/content/docs/api/
+
 .pnpm-store

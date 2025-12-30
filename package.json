@@ -39,7 +39,10 @@
     "format:check": "biome format src",
     "check": "biome check src",
     "check:fix": "biome check --write src",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "docs:dev": "pnpm --filter type-git-docs dev",
+    "docs:build": "pnpm --filter type-git-docs build",
+    "docs:preview": "pnpm --filter type-git-docs preview"
   },
   "keywords": [
     "git",

@@ -1,0 +1,68 @@
+---
+title: Quick Start
+description: Get started with type-git in 5 minutes
+---
+
+## Installation
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="npm">
+    ```bash
+    npm install type-git
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add type-git
+    ```
+  </TabItem>
+  <TabItem label="Deno">
+    ```typescript
+    import { TypeGit } from 'npm:type-git';
+    import { denoAdapter } from 'npm:type-git/deno';
+    ```
+  </TabItem>
+  <TabItem label="Bun">
+    ```bash
+    bun add type-git
+    ```
+  </TabItem>
+</Tabs>
+
+## Basic Usage
+
+### Using TypeGit Class (Recommended)
+
+```typescript
+import { TypeGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = new TypeGit(nodeAdapter);
+
+// Clone a repository
+await git.clone('https://github.com/user/repo.git', './my-repo');
+
+// Open existing repository
+const repo = await git.open('./my-repo');
+
+// Check status
+const status = await repo.status();
+console.log('Modified files:', status.files.filter(f => f.isModified));
+```
+
+### Using Factory Function
+
+```typescript
+import { createGit } from 'type-git';
+import { nodeAdapter } from 'type-git/node';
+
+const git = createGit(nodeAdapter);
+```
+
+## Next Steps
+
+- [Installation Guide](/type-git/guides/installation/) - Detailed installation instructions
+- [Basic Usage](/type-git/guides/basic-usage/) - Learn the core concepts
+- [API Reference](/type-git/api/) - Complete API documentation
