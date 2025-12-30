@@ -29,15 +29,51 @@ npm install type-git
 
 ## Usage
 
-```typescript
-import { Git } from 'type-git';
-import { NodeExecAdapter, NodeFsAdapter } from 'type-git/node';
+### Simple Usage (Recommended)
 
-// Create a Git client
-const git = new Git({
-  exec: new NodeExecAdapter(),
-  fs: new NodeFsAdapter(),
+```typescript
+// Node.js
+import { TypeGit } from 'type-git/node';
+
+// Bun
+// import { TypeGit } from 'type-git/bun';
+
+// Deno
+// import { TypeGit } from 'type-git/deno';
+
+const git = new TypeGit();
+
+// Open an existing repository
+const repo = await git.open('/path/to/repo');
+const status = await repo.status();
+
+// Clone a repository
+const clonedRepo = await git.clone('https://github.com/user/repo.git', '/path/to/clone');
+
+// Initialize a new repository
+const newRepo = await git.init('/path/to/new-repo');
+```
+
+### Advanced Usage
+
+For more control over adapters, you can use the factory function:
+
+```typescript
+import { createGit } from 'type-git';
+import { createNodeAdapters } from 'type-git/node';
+
+const git = createGit({
+  adapters: createNodeAdapters(),
+  // Additional options...
 });
+```
+
+### Full Example
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+const git = new TypeGit();
 
 // Clone a repository with progress tracking
 const repo = await git.clone('https://github.com/user/repo.git', '/path/to/clone', {
@@ -45,7 +81,7 @@ const repo = await git.clone('https://github.com/user/repo.git', '/path/to/clone
     if (progress.kind === 'git') {
       console.log(`${progress.phase}: ${progress.message}`);
     } else if (progress.kind === 'lfs') {
-      console.log(`LFS ${progress.direction}: ${progress.current}/${progress.total}`);
+      console.log(`LFS ${progress.direction}: ${progress.bytesSoFar}/${progress.bytesTotal}`);
     }
   },
 });
