@@ -1,0 +1,145 @@
+---
+title: Core Concepts
+description: Understanding type-git's type-safe design philosophy
+---
+
+type-git is designed with **type safety first**. This page explains the key concepts that make type-git different from other git libraries.
+
+## Type Safety Philosophy
+
+type-git provides strong type guarantees at every level:
+
+```typescript
+// Every operation returns typed results
+const status = await repo.status();
+// status.entries is typed as PorcelainV2Entry[]
+
+const commits = await repo.log({ maxCount: 10 });
+// commits is typed as Commit[]
+
+const branches = await repo.branch.list();
+// branches is typed as BranchInfo[]
+```
+
+**No `any` types.** Every return value, every option, every error is fully typed.
+
+## Three-Layer API
+
+type-git provides three levels of abstraction:
+
+### 1. Raw API
+
+Direct access to git commands with unprocessed output:
+
+```typescript
+const result = await repo.raw(['log', '--oneline', '-5']);
+// Returns { stdout: string, stderr: string, exitCode: number }
+```
+
+Use when:
+- Output isn't covered by typed APIs
+- You want to process output yourself
+- Running custom git commands
+
+### 2. Typed API
+
+Parsed, type-safe output for common operations:
+
+```typescript
+const status = await repo.status();
+for (const entry of status.entries) {
+  console.log(entry.path, entry.index, entry.workdir);
+}
+```
+
+Use when:
+- You want structured data
+- You need type safety
+- Output format is predictable
+
+### 3. High-Level API
+
+Convenience methods for common workflows:
+
+```typescript
+await repo.branch.create('feature-x');
+await repo.stash.push({ message: 'WIP' });
+await repo.tag.create('v1.0.0', { message: 'Release' });
+```
+
+Use when:
+- You want a clean, intuitive API
+- Doing common git operations
+
+## Context Separation
+
+type-git separates operations into two contexts:
+
+### Git (Repository-Agnostic)
+
+Operations that don't require a repository:
+
+```typescript
+const git = new TypeGit();
+
+await git.clone(url, path);   // Clone remote repo
+await git.init(path);         // Create new repo
+await git.lsRemote(url);      // List remote refs
+await git.version();          // Get git version
+```
+
+### Repo (Repository-Specific)
+
+Operations that require a repository context:
+
+```typescript
+const repo = await git.open('./my-repo');
+
+await repo.status();
+await repo.commit({ message: 'feat: add feature' });
+await repo.push();
+```
+
+This separation ensures you can't accidentally call repository-specific operations without a valid repository context.
+
+## Output Contract
+
+type-git uses git's **porcelain** and **machine-readable** output formats for reliable parsing:
+
+| Operation | Format | Stability |
+|-----------|--------|-----------|
+| `status()` | `--porcelain=v2` | Stable |
+| `log()` | Custom format string | Stable |
+| `branch.list()` | `--format=%(...)` | Stable |
+| `lsRemote()` | Tab-separated | Stable |
+
+This means type-git's parsing is:
+- **Predictable**: Output format won't change between git versions
+- **Reliable**: No regex hacks on human-readable output
+- **Fast**: Minimal parsing overhead
+
+## Error Handling
+
+All git errors are wrapped in a typed `GitError`:
+
+```typescript
+import { GitError } from 'type-git';
+
+try {
+  await repo.push();
+} catch (error) {
+  if (error instanceof GitError) {
+    console.log(error.kind);     // 'NonZeroExit' | 'Aborted' | 'SpawnFailed'
+    console.log(error.category); // 'authentication' | 'network' | 'conflict' | ...
+    console.log(error.exitCode);
+    console.log(error.stderr);
+  }
+}
+```
+
+The `category` property provides semantic error classification, making it easy to handle specific error types.
+
+## Next Steps
+
+- [Quick Start](/type-git/getting-started/) - Get started with type-git
+- [Architecture](/type-git/guides/04-architecture/) - Understand the internal design

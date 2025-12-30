@@ -1,0 +1,158 @@
+---
+title: カスタムアダプター
+description: テスト、ロギング、特殊環境向けのカスタムアダプター作成
+---
+
+特殊なユースケースでは、type-gitがgitコマンドを実行する方法やファイル操作を処理する方法を制御するカスタムアダプターを作成できます。
+
+## カスタムアダプターを作成する場面
+
+- モックgitコマンドでのテスト
+- カスタムプロセス起動（コンテナ、SSH）
+- カスタムファイルシステム（仮想FS、クラウドストレージ）
+- 全gitオペレーションのログ/監査
+
+## ExecAdapterインターフェース
+
+```typescript
+interface ExecAdapter {
+  getCapabilities(): Capabilities;
+  spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult>;
+  spawnStreaming?(options: SpawnOptions): SpawnHandle;
+}
+
+type SpawnOptions = {
+  argv: string[];
+  env?: Record<string, string>;
+  cwd?: string;
+  signal?: AbortSignal;
+};
+
+type SpawnResult = {
+  stdout: string;
+  stderr: string;
+  exitCode: number;
+  aborted: boolean;
+};
+```
+
+## FsAdapterインターフェース
+
+```typescript
+interface FsAdapter {
+  createTempFile(prefix?: string): Promise<string>;
+  deleteFile(filePath: string): Promise<void>;
+  deleteDirectory(dirPath: string): Promise<void>;
+  exists(filePath: string): Promise<boolean>;
+  tail(options: TailOptions): Promise<void>;
+  tailStreaming?(filePath: string, options?: TailStreamingOptions): TailHandle;
+}
+```
+
+## 例: ロギングアダプター
+
+```typescript
+import { createGit, createNodeAdapters } from 'type-git/node';
+import type { ExecAdapter, SpawnOptions, SpawnResult } from 'type-git';
+
+class LoggingExecAdapter implements ExecAdapter {
+  private inner: ExecAdapter;
+
+  constructor(inner: ExecAdapter) {
+    this.inner = inner;
+  }
+
+  getCapabilities() {
+    return this.inner.getCapabilities();
+  }
+
+  async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
+    console.log('[GIT]', options.argv.join(' '));
+    const start = Date.now();
+
+    const result = await this.inner.spawn(options, handlers);
+
+    console.log(`[GIT] ${Date.now() - start}msで完了 (exit: ${result.exitCode})`);
+    return result;
+  }
+}
+
+// 使用方法
+const nodeAdapters = createNodeAdapters();
+const git = createGit({
+  adapters: {
+    exec: new LoggingExecAdapter(nodeAdapters.exec),
+    fs: nodeAdapters.fs,
+  },
+});
+```
+
+## 例: テスト用モックアダプター
+
+```typescript
+class MockExecAdapter implements ExecAdapter {
+  private responses: Map<string, SpawnResult> = new Map();
+
+  getCapabilities() {
+    return { runtime: 'node' as const };
+  }
+
+  mockCommand(pattern: string, result: Partial<SpawnResult>) {
+    this.responses.set(pattern, {
+      stdout: result.stdout ?? '',
+      stderr: result.stderr ?? '',
+      exitCode: result.exitCode ?? 0,
+      aborted: false,
+    });
+  }
+
+  async spawn(options: SpawnOptions): Promise<SpawnResult> {
+    const command = options.argv.join(' ');
+
+    for (const [pattern, result] of this.responses) {
+      if (command.includes(pattern)) {
+        return result;
+      }
+    }
+
+    throw new Error(`モックされていないコマンド: ${command}`);
+  }
+}
+
+// テストでの使用
+const mockExec = new MockExecAdapter();
+mockExec.mockCommand('--version', { stdout: 'git version 2.40.0' });
+mockExec.mockCommand('status --porcelain', { stdout: '' });
+
+const git = createGit({
+  adapters: {
+    exec: mockExec,
+    fs: createMockFsAdapter(),
+  },
+});
+```
+
+## createGitの使用
+
+完全な制御が必要な場合は、`TypeGit`の代わりに`createGit`を使用：
+
+```typescript
+import { createGit, createNodeAdapters } from 'type-git/node';
+
+const git = createGit({
+  adapters: createNodeAdapters(),
+  gitBinary: '/custom/path/to/git',
+  env: { GIT_AUTHOR_NAME: 'Custom Author' },
+});
+```
+
+利用可能なオプション：
+
+| オプション | 説明 |
+|--------|-------------|
+| `adapters` | ランタイムアダプター（必須） |
+| `gitBinary` | git実行ファイルへのパス |
+| `env` | 追加の環境変数 |
+| `pathPrefix` | PATHに追加するディレクトリ |
+| `home` | カスタムHOMEディレクトリ |
+| `credential` | 資格情報ヘルパーの設定 |

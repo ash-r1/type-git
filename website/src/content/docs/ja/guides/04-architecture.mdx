@@ -11,23 +11,42 @@ type-gitは3つの主要な原則で設計されています：
 2. **ランタイム抽象化** - アダプターを通じてNode.js、Deno、Bunをサポート
 3. **レイヤードAPI** - 用途に応じた3つの抽象化レベル
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    アプリケーション                       │
-├─────────────────────────────────────────────────────────┤
-│  TypeGit (便利クラス)    │  createGit() (高度な使用)     │
-├─────────────────────────────────────────────────────────┤
-│         Git              │       WorktreeRepo / BareRepo │
-│   (リポジトリ非依存)       │       (リポジトリ固有)         │
-├─────────────────────────────────────────────────────────┤
-│                      CliRunner                           │
-│            (コマンド構築、進捗トラッキング)                 │
-├─────────────────────────────────────────────────────────┤
-│     ExecAdapter          │         FsAdapter             │
-│   (プロセス起動)          │    (ファイル操作)              │
-├─────────────────────────────────────────────────────────┤
-│  Node.js  │    Deno     │     Bun                        │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph Application["アプリケーション"]
+        A[あなたのコード]
+    end
+
+    subgraph HighLevel["高レベルAPI"]
+        B["TypeGit (便利クラス)"]
+        C["createGit() (高度な使用)"]
+    end
+
+    subgraph Core["コアインターフェース"]
+        D["Git (リポジトリ非依存)"]
+        E["WorktreeRepo / BareRepo (リポジトリ固有)"]
+    end
+
+    subgraph Runner["実行レイヤー"]
+        F["CliRunner (コマンド構築、進捗トラッキング)"]
+    end
+
+    subgraph Adapters["ランタイムアダプター"]
+        G["ExecAdapter (プロセス起動)"]
+        H["FsAdapter (ファイル操作)"]
+    end
+
+    subgraph Runtimes["JavaScriptランタイム"]
+        I[Node.js]
+        J[Deno]
+        K[Bun]
+    end
+
+    A --> B & C
+    B & C --> D & E
+    D & E --> F
+    F --> G & H
+    G & H --> I & J & K
 ```
 
 ## コンテキスト分離
@@ -202,30 +221,14 @@ import { TypeGit } from 'type-git/bun';
 
 git操作を呼び出すと：
 
-```
-repo.status()
-    │
-    ▼
-WorktreeRepoImpl.status()
-    │ 引数を構築: ['status', '--porcelain=v2']
-    ▼
-CliRunner.run(context, args)
-    │ コンテキストを追加: ['git', '-C', '/path/to/repo', ...]
-    │ 環境変数を追加: { GIT_LFS_FORCE_PROGRESS: '1', ... }
-    ▼
-ExecAdapter.spawn(options)
-    │ プロセスを実行
-    │ stdout/stderrを収集
-    │ stderrから進捗をパース
-    ▼
-CliRunner
-    │ 終了コードをエラーにマッピング
-    │ 進捗コールバックを呼び出し
-    ▼
-WorktreeRepoImpl
-    │ stdoutをparsePorcelainV2()でパース
-    ▼
-StatusPorcelain (型付き結果)
+```mermaid
+flowchart TD
+    A["repo.status()"] --> B["WorktreeRepoImpl.status()"]
+    B -->|"引数を構築"| C["CliRunner.run(context, args)"]
+    C -->|"コンテキスト・環境変数を追加"| D["ExecAdapter.spawn(options)"]
+    D -->|"プロセスを実行"| E["CliRunner"]
+    E -->|"終了コードをマッピング"| F["WorktreeRepoImpl"]
+    F -->|"stdoutをパース"| G["StatusPorcelain (型付き結果)"]
 ```
 
 ## `cwd`に依存しない設計

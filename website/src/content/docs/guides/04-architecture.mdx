@@ -11,23 +11,42 @@ type-git is designed with three key principles:
 2. **Runtime Abstraction** - Support for Node.js, Deno, and Bun through adapters
 3. **Layered API** - Three levels of abstraction for different use cases
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Your Application                      │
-├─────────────────────────────────────────────────────────┤
-│  TypeGit (convenience)  │  createGit() (advanced)       │
-├─────────────────────────────────────────────────────────┤
-│         Git              │       WorktreeRepo / BareRepo │
-│   (repo-agnostic)        │       (repo-specific)         │
-├─────────────────────────────────────────────────────────┤
-│                      CliRunner                           │
-│            (command construction, progress)              │
-├─────────────────────────────────────────────────────────┤
-│     ExecAdapter          │         FsAdapter             │
-│   (process spawning)     │    (file operations)          │
-├─────────────────────────────────────────────────────────┤
-│  Node.js  │    Deno     │     Bun                        │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph Application["Your Application"]
+        A[Your Code]
+    end
+
+    subgraph HighLevel["High-Level API"]
+        B["TypeGit (convenience)"]
+        C["createGit() (advanced)"]
+    end
+
+    subgraph Core["Core Interfaces"]
+        D["Git (repo-agnostic)"]
+        E["WorktreeRepo / BareRepo (repo-specific)"]
+    end
+
+    subgraph Runner["Execution Layer"]
+        F["CliRunner (command construction, progress)"]
+    end
+
+    subgraph Adapters["Runtime Adapters"]
+        G["ExecAdapter (process spawning)"]
+        H["FsAdapter (file operations)"]
+    end
+
+    subgraph Runtimes["JavaScript Runtimes"]
+        I[Node.js]
+        J[Deno]
+        K[Bun]
+    end
+
+    A --> B & C
+    B & C --> D & E
+    D & E --> F
+    F --> G & H
+    G & H --> I & J & K
 ```
 
 ## Context Separation
@@ -202,30 +221,14 @@ These automatically configure the correct adapters for your runtime.
 
 When you call a git operation:
 
-```
-repo.status()
-    │
-    ▼
-WorktreeRepoImpl.status()
-    │ Builds args: ['status', '--porcelain=v2']
-    ▼
-CliRunner.run(context, args)
-    │ Adds context: ['git', '-C', '/path/to/repo', ...]
-    │ Adds env: { GIT_LFS_FORCE_PROGRESS: '1', ... }
-    ▼
-ExecAdapter.spawn(options)
-    │ Executes process
-    │ Collects stdout/stderr
-    │ Parses progress from stderr
-    ▼
-CliRunner
-    │ Maps exit codes to errors
-    │ Calls progress callbacks
-    ▼
-WorktreeRepoImpl
-    │ Parses stdout with parsePorcelainV2()
-    ▼
-StatusPorcelain (typed result)
+```mermaid
+flowchart TD
+    A["repo.status()"] --> B["WorktreeRepoImpl.status()"]
+    B -->|"Builds args"| C["CliRunner.run(context, args)"]
+    C -->|"Adds context & env"| D["ExecAdapter.spawn(options)"]
+    D -->|"Executes process"| E["CliRunner"]
+    E -->|"Maps exit codes"| F["WorktreeRepoImpl"]
+    F -->|"Parses stdout"| G["StatusPorcelain (typed result)"]
 ```
 
 ## No `cwd` Dependency

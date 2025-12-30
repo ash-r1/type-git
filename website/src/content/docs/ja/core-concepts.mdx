@@ -1,0 +1,145 @@
+---
+title: コアコンセプト
+description: type-gitの型安全な設計思想を理解する
+---
+
+type-gitは**型安全性を最優先**に設計されています。このページでは、type-gitを他のgitライブラリと異なるものにしている主要なコンセプトを説明します。
+
+## 型安全性の哲学
+
+type-gitはあらゆるレベルで強力な型保証を提供します：
+
+```typescript
+// すべての操作が型付きの結果を返す
+const status = await repo.status();
+// status.entries は PorcelainV2Entry[] 型
+
+const commits = await repo.log({ maxCount: 10 });
+// commits は Commit[] 型
+
+const branches = await repo.branch.list();
+// branches は BranchInfo[] 型
+```
+
+**`any`型は一切なし。** すべての戻り値、すべてのオプション、すべてのエラーが完全に型付けされています。
+
+## 3層API
+
+type-gitは3つの抽象化レベルを提供します：
+
+### 1. Raw API
+
+未処理の出力を直接取得：
+
+```typescript
+const result = await repo.raw(['log', '--oneline', '-5']);
+// { stdout: string, stderr: string, exitCode: number } を返す
+```
+
+使用場面：
+- 型付きAPIでカバーされていない出力が必要
+- 自分で出力を処理したい
+- カスタムgitコマンドを実行
+
+### 2. Typed API
+
+パースされた型安全な出力：
+
+```typescript
+const status = await repo.status();
+for (const entry of status.entries) {
+  console.log(entry.path, entry.index, entry.workdir);
+}
+```
+
+使用場面：
+- 構造化データが必要
+- 型安全性が必要
+- 出力形式が予測可能
+
+### 3. High-Level API
+
+一般的なワークフロー向けの便利メソッド：
+
+```typescript
+await repo.branch.create('feature-x');
+await repo.stash.push({ message: 'WIP' });
+await repo.tag.create('v1.0.0', { message: 'Release' });
+```
+
+使用場面：
+- クリーンで直感的なAPIが必要
+- 一般的なgit操作を行う
+
+## コンテキスト分離
+
+type-gitは操作を2つのコンテキストに分離します：
+
+### Git（リポジトリ非依存）
+
+リポジトリを必要としない操作：
+
+```typescript
+const git = new TypeGit();
+
+await git.clone(url, path);   // リモートリポジトリをクローン
+await git.init(path);         // 新規リポジトリ作成
+await git.lsRemote(url);      // リモートrefを一覧表示
+await git.version();          // gitバージョン取得
+```
+
+### Repo（リポジトリ固有）
+
+リポジトリコンテキストが必要な操作：
+
+```typescript
+const repo = await git.open('./my-repo');
+
+await repo.status();
+await repo.commit({ message: 'feat: 機能追加' });
+await repo.push();
+```
+
+この分離により、有効なリポジトリコンテキストなしにリポジトリ固有の操作を誤って呼び出すことを防ぎます。
+
+## Output Contract
+
+type-gitはgitの**porcelain**および**機械可読**出力形式を使用して、信頼性の高いパースを実現します：
+
+| 操作 | フォーマット | 安定性 |
+|-----------|--------|-----------|
+| `status()` | `--porcelain=v2` | 安定 |
+| `log()` | カスタムフォーマット文字列 | 安定 |
+| `branch.list()` | `--format=%(...)` | 安定 |
+| `lsRemote()` | タブ区切り | 安定 |
+
+これにより、type-gitのパースは：
+- **予測可能**: gitバージョン間で出力形式が変わらない
+- **信頼性が高い**: 人間可読出力への正規表現ハックなし
+- **高速**: 最小限のパースオーバーヘッド
+
+## エラーハンドリング
+
+すべてのgitエラーは型付きの`GitError`にラップされます：
+
+```typescript
+import { GitError } from 'type-git';
+
+try {
+  await repo.push();
+} catch (error) {
+  if (error instanceof GitError) {
+    console.log(error.kind);     // 'NonZeroExit' | 'Aborted' | 'SpawnFailed'
+    console.log(error.category); // 'authentication' | 'network' | 'conflict' | ...
+    console.log(error.exitCode);
+    console.log(error.stderr);
+  }
+}
+```
+
+`category`プロパティはセマンティックなエラー分類を提供し、特定のエラータイプを簡単に処理できます。
+
+## 次のステップ
+
+- [クイックスタート](/type-git/ja/getting-started/) - type-gitを始める
+- [アーキテクチャ](/type-git/ja/guides/04-architecture/) - 内部設計を理解する

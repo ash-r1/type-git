@@ -1,11 +1,13 @@
 import starlight from '@astrojs/starlight'
 import { defineConfig } from 'astro/config'
+import mermaid from 'astro-mermaid'
 import starlightTypeDoc, { typeDocSidebarGroup } from 'starlight-typedoc'
 
 export default defineConfig({
   site: 'https://ash-r1.github.io',
   base: '/type-git',
   integrations: [
+    mermaid(), // Must come before starlight
     starlight({
       title: 'type-git',
       description:
@@ -41,6 +43,11 @@ export default defineConfig({
               label: 'Quick Start',
               link: '/getting-started/',
               translations: { ja: 'クイックスタート' },
+            },
+            {
+              label: 'Core Concepts',
+              link: '/core-concepts/',
+              translations: { ja: 'コアコンセプト' },
             },
           ],
         },
