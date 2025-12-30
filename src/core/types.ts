@@ -200,11 +200,11 @@ export type GitErrorCategory =
  * Git error with detailed context
  */
 export class GitError extends Error {
-  constructor(
+  public constructor(
     public readonly kind: GitErrorKind,
     message: string,
     public readonly context: {
-      argv?: string[];
+      argv?: Array<string>;
       workdir?: string;
       gitDir?: string;
       exitCode?: number;
@@ -222,17 +222,14 @@ export class GitError extends Error {
    *
    * Network errors and some LFS errors are typically retryable.
    */
-  isRetryable(): boolean {
-    return (
-      this.category === 'network' ||
-      (this.category === 'lfs' && this.kind === 'NonZeroExit')
-    );
+  public isRetryable(): boolean {
+    return this.category === 'network' || (this.category === 'lfs' && this.kind === 'NonZeroExit');
   }
 
   /**
    * Check if authentication is needed (§13.2)
    */
-  needsAuthentication(): boolean {
+  public needsAuthentication(): boolean {
     return this.category === 'auth';
   }
 }
@@ -339,9 +336,9 @@ export type CommandSpec<TOptions, TResult> = {
   /** Command name (e.g., "status", "log") */
   name: string;
   /** Subcommands (e.g., ["lfs", "pull"]) */
-  subcommands?: string[];
+  subcommands?: Array<string>;
   /** Build argv from options */
-  buildArgs: (options: TOptions) => string[];
+  buildArgs: (options: TOptions) => Array<string>;
   /** Output contract */
   outputContract: OutputContract;
   /** Parse stdout/stderr to result */
@@ -383,7 +380,7 @@ export type GitOpenOptions = {
   /** Additional environment variables */
   env?: Record<string, string>;
   /** Directories to prepend to PATH */
-  pathPrefix?: string[];
+  pathPrefix?: Array<string>;
   /** Credential configuration (§6.4) */
   credential?: CredentialConfig;
   /** LFS mode configuration */

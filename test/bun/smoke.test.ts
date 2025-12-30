@@ -1,13 +1,18 @@
 /**
  * Bun Smoke Tests
  *
- * Tests basic functionality of BunExecAdapter and BunFsAdapter.
+ * Tests basic functionality of BunExecAdapter, BunFsAdapter, and High-level API.
  * Run with: bun test test/bun/smoke.test.ts
  */
 
-import { describe, test, expect, beforeAll, afterAll } from 'bun:test';
+import { describe, test, expect, beforeAll, afterAll, beforeEach, afterEach } from 'bun:test';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { BunExecAdapter } from '../../src/adapters/bun/exec.js';
 import { BunFsAdapter } from '../../src/adapters/bun/fs.js';
+import { createBunAdapters } from '../../src/adapters/bun/index.js';
+import { createGit } from '../../src/impl/git-impl.js';
 
 describe('BunExecAdapter', () => {
   const adapter = new BunExecAdapter();
@@ -198,9 +203,10 @@ describe('BunFsAdapter', () => {
     test('streams new lines from file', async () => {
       const testFile = await adapter.createTempFile('tail-test-');
       const controller = new AbortController();
+      let handle: ReturnType<typeof adapter.tailStreaming> | undefined;
 
       try {
-        const handle = adapter.tailStreaming(testFile, {
+        handle = adapter.tailStreaming(testFile, {
           signal: controller.signal,
           pollInterval: 50,
         });
@@ -208,24 +214,23 @@ describe('BunFsAdapter', () => {
         // Write some lines
         await adapter.writeFile(testFile, 'line1\nline2\n');
 
-        // Read lines with timeout
+        // Read lines
         const lines: string[] = [];
-        const timeout = setTimeout(() => {
-          handle.stop();
-        }, 500);
 
         for await (const line of handle.lines) {
           lines.push(line);
           if (lines.length >= 2) {
-            handle.stop();
             break;
           }
         }
 
-        clearTimeout(timeout);
         expect(lines).toEqual(['line1', 'line2']);
       } finally {
+        // Ensure we stop the handle before aborting to clean up timers
+        handle?.stop();
         controller.abort();
+        // Give time for cleanup
+        await Bun.sleep(100);
         await adapter.deleteFile(testFile);
       }
     });
@@ -241,5 +246,146 @@ describe('Integration', () => {
 
     expect(result.exitCode).toBe(0);
     expect(result.stdout).toContain('git version');
+  });
+});
+
+describe('High-level API with Bun', () => {
+  let tempDir: string;
+  const git = createGit({ adapters: createBunAdapters() });
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), 'bun-git-test-'));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  test('can init a repository', async () => {
+    const repoPath = join(tempDir, 'repo');
+    const repo = await git.init(repoPath);
+
+    expect('workdir' in repo).toBe(true);
+    if ('workdir' in repo) {
+      expect(repo.workdir).toBe(repoPath);
+    }
+  });
+
+  test('can add and commit files', async () => {
+    const repoPath = join(tempDir, 'repo');
+    const repo = await git.init(repoPath);
+
+    if ('workdir' in repo) {
+      // Configure git user
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+
+      // Create and add a file
+      await writeFile(join(repoPath, 'test.txt'), 'hello bun');
+      await repo.add('test.txt');
+
+      // Check status
+      const status = await repo.status();
+      expect(status.entries.some((e) => e.path === 'test.txt' && e.index === 'A')).toBe(true);
+
+      // Commit
+      const result = await repo.commit({ message: 'Initial commit' });
+      expect(result.hash).toBeDefined();
+      expect(result.hash.length).toBeGreaterThan(0);
+    }
+  });
+
+  test('can create and list branches', async () => {
+    const repoPath = join(tempDir, 'repo');
+    const repo = await git.init(repoPath, { initialBranch: 'main' });
+
+    if ('workdir' in repo) {
+      // Create initial commit
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+      await writeFile(join(repoPath, 'README.md'), '# Test');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Initial commit' });
+
+      // Create a new branch
+      await repo.branch.create('feature');
+
+      // List branches
+      const branches = await repo.branch.list();
+      expect(branches.some((b) => b.name === 'main')).toBe(true);
+      expect(branches.some((b) => b.name === 'feature')).toBe(true);
+
+      // Get current branch
+      const current = await repo.branch.current();
+      expect(current).toBe('main');
+    }
+  });
+
+  test('can checkout branches', async () => {
+    const repoPath = join(tempDir, 'repo');
+    const repo = await git.init(repoPath, { initialBranch: 'main' });
+
+    if ('workdir' in repo) {
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+      await writeFile(join(repoPath, 'README.md'), '# Test');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Initial commit' });
+
+      // Create and checkout a new branch
+      await repo.checkout('feature', { createBranch: true });
+
+      const current = await repo.branch.current();
+      expect(current).toBe('feature');
+    }
+  });
+
+  test('can use stash operations', async () => {
+    const repoPath = join(tempDir, 'repo');
+    const repo = await git.init(repoPath);
+
+    if ('workdir' in repo) {
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+      await writeFile(join(repoPath, 'README.md'), '# Test');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Initial commit' });
+
+      // Modify file
+      await writeFile(join(repoPath, 'README.md'), '# Modified');
+
+      // Stash changes
+      await repo.stash.push({ message: 'WIP' });
+
+      // List stash
+      const stashList = await repo.stash.list();
+      expect(stashList.length).toBe(1);
+      expect(stashList[0].message).toContain('WIP');
+
+      // Pop stash
+      await repo.stash.pop();
+      const stashListAfter = await repo.stash.list();
+      expect(stashListAfter.length).toBe(0);
+    }
+  });
+
+  test('can create and list tags', async () => {
+    const repoPath = join(tempDir, 'repo');
+    const repo = await git.init(repoPath);
+
+    if ('workdir' in repo) {
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+      await writeFile(join(repoPath, 'README.md'), '# Test');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Initial commit' });
+
+      // Create tag
+      await repo.tag.create('v1.0.0', { message: 'Release 1.0.0' });
+
+      // List tags
+      const tags = await repo.tag.list();
+      expect(tags).toContain('v1.0.0');
+    }
   });
 });

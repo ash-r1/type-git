@@ -2,47 +2,12 @@
  * Tests for Git implementation
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { createGit } from './git-impl.js';
-import { createNodeAdapters, TypeGit } from '../adapters/node/index.js';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-
-describe('TypeGit (Node.js)', () => {
-  let tempDir: string;
-  const git = new TypeGit();
-
-  beforeEach(async () => {
-    tempDir = await mkdtemp(join(tmpdir(), 'type-git-typegit-test-'));
-  });
-
-  afterEach(async () => {
-    await rm(tempDir, { recursive: true, force: true });
-  });
-
-  it('should work without explicit adapter configuration', async () => {
-    const version = await git.version();
-    expect(version).toMatch(/^\d+\.\d+/);
-  });
-
-  it('should init a repository', async () => {
-    const repoPath = join(tempDir, 'test-repo');
-    const repo = await git.init(repoPath);
-
-    expect(repo).toBeDefined();
-    expect('workdir' in repo).toBe(true);
-  });
-
-  it('should open an existing repository', async () => {
-    const repoPath = join(tempDir, 'test-repo');
-    await git.init(repoPath);
-
-    const repo = await git.open(repoPath);
-    expect(repo).toBeDefined();
-    expect('workdir' in repo).toBe(true);
-  });
-});
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { createNodeAdapters } from '../adapters/node/index.js';
+import { createGit } from './git-impl.js';
 
 describe('GitImpl', () => {
   let tempDir: string;

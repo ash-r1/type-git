@@ -2,7 +2,7 @@
  * Repository interfaces - operations that require a repository context
  */
 
-import type { ExecOpts, RawResult, LfsMode, Progress, NonEmptyString } from './types.js';
+import type { ExecOpts, LfsMode, Progress, RawResult } from './types.js';
 
 /**
  * Base repository interface
@@ -11,7 +11,7 @@ export interface RepoBase {
   /**
    * Execute a raw git command in this repository context
    */
-  raw(argv: string[], opts?: ExecOpts): Promise<RawResult>;
+  raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult>;
 }
 
 /**
@@ -28,7 +28,7 @@ export type StatusEntry = {
  * Result from git status --porcelain
  */
 export type StatusPorcelain = {
-  entries: StatusEntry[];
+  entries: Array<StatusEntry>;
   branch?: string;
   upstream?: string;
   ahead?: number;
@@ -49,7 +49,7 @@ export type StatusOpts = {
 export type Commit = {
   hash: string;
   abbrevHash: string;
-  parents: string[];
+  parents: Array<string>;
   author: {
     name: string;
     email: string;
@@ -82,7 +82,7 @@ export type LogOpts = {
  */
 export type FetchOpts = {
   remote?: string;
-  refspec?: string | string[];
+  refspec?: string | Array<string>;
   prune?: boolean;
   tags?: boolean;
   depth?: number;
@@ -93,7 +93,7 @@ export type FetchOpts = {
  */
 export type PushOpts = {
   remote?: string;
-  refspec?: string | string[];
+  refspec?: string | Array<string>;
   force?: boolean;
   tags?: boolean;
   setUpstream?: boolean;
@@ -219,32 +219,23 @@ export type CommitResult = {
 };
 
 /**
- * Diff output mode - mutually exclusive options
- *
- * Only one of `nameOnly`, `nameStatus`, or `stat` can be specified.
- * For complex combinations, use `raw()` instead.
- */
-export type DiffOutputMode =
-  | { nameOnly: true; nameStatus?: never; stat?: never }
-  | { nameStatus: true; nameOnly?: never; stat?: never }
-  | { stat: true; nameOnly?: never; nameStatus?: never }
-  | { nameOnly?: false; nameStatus?: false; stat?: false };
-
-/**
  * Options for git diff
- *
- * Note: `nameOnly`, `nameStatus`, and `stat` are mutually exclusive.
- * TypeScript will error if you try to use more than one.
  */
-export type DiffOpts = DiffOutputMode & {
+export type DiffOpts = {
   /** Compare staged changes */
   staged?: boolean;
+  /** Show stat only */
+  stat?: boolean;
+  /** Show name only */
+  nameOnly?: boolean;
+  /** Show name and status */
+  nameStatus?: boolean;
   /** Number of context lines */
   context?: number;
   /** Ignore whitespace changes */
   ignoreWhitespace?: boolean;
   /** Pathspecs to filter */
-  paths?: string[];
+  paths?: Array<string>;
 };
 
 /**
@@ -259,53 +250,29 @@ export type DiffEntry = {
 };
 
 /**
- * Diff result for nameStatus mode
+ * Diff result
  */
-export type DiffNameStatusResult = {
-  files: DiffEntry[];
+export type DiffResult = {
+  files: Array<DiffEntry>;
+  raw?: string;
 };
-
-/**
- * Diff result for nameOnly mode
- */
-export type DiffNameOnlyResult = {
-  files: string[];
-};
-
-/**
- * Diff result for raw mode (default)
- */
-export type DiffRawResult = {
-  raw: string;
-};
-
-/**
- * Union type for diff results (used when mode is not statically known)
- */
-export type DiffResult = DiffNameStatusResult | DiffNameOnlyResult | DiffRawResult;
-
-/**
- * Merge fast-forward options - ff: 'only' and squash are mutually exclusive
- */
-export type MergeFfOpts =
-  | { ff?: 'no' | boolean; squash?: boolean }
-  | { ff: 'only'; squash?: never };
 
 /**
  * Options for git merge
- *
- * Note: `ff: 'only'` and `squash: true` are mutually exclusive.
- * TypeScript will error if you try to use both.
  */
-export type MergeOpts = MergeFfOpts & {
+export type MergeOpts = {
   /** Merge message */
   message?: string;
+  /** Fast-forward behavior */
+  ff?: 'only' | 'no' | boolean;
+  /** Squash merge */
+  squash?: boolean;
   /** No commit after merge */
   noCommit?: boolean;
   /** Strategy to use */
   strategy?: string;
   /** Strategy options */
-  strategyOption?: string | string[];
+  strategyOption?: string | Array<string>;
   /** Abort merge */
   abort?: boolean;
   /** Continue merge */
@@ -318,7 +285,7 @@ export type MergeOpts = MergeFfOpts & {
 export type MergeResult = {
   success: boolean;
   hash?: string;
-  conflicts?: string[];
+  conflicts?: Array<string>;
   fastForward?: boolean;
 };
 
@@ -385,7 +352,7 @@ export type StashPushOpts = {
   /** Keep index */
   keepIndex?: boolean;
   /** Specific paths to stash */
-  paths?: string[];
+  paths?: Array<string>;
 };
 
 /**
@@ -494,7 +461,7 @@ export type CleanOpts = {
   /** Dry run */
   dryRun?: boolean;
   /** Paths to clean */
-  paths?: string[];
+  paths?: Array<string>;
 };
 
 /**
@@ -528,26 +495,18 @@ export type RebaseOpts = {
 };
 
 /**
- * Restore conflict choice - ours and theirs are mutually exclusive
- */
-export type RestoreConflictChoice =
-  | { ours: true; theirs?: never }
-  | { theirs: true; ours?: never }
-  | { ours?: false; theirs?: false };
-
-/**
  * Options for git restore
- *
- * Note: `ours` and `theirs` are mutually exclusive.
- * TypeScript will error if you try to use both.
  */
-export type RestoreOpts = RestoreConflictChoice & {
+export type RestoreOpts = {
   /** Restore staged files */
   staged?: boolean;
   /** Restore working tree files */
   worktree?: boolean;
   /** Source to restore from */
   source?: string;
+  /** Ours or theirs for conflicts */
+  ours?: boolean;
+  theirs?: boolean;
 };
 
 /**
@@ -624,8 +583,8 @@ export type LfsStatus = {
 export type LfsPullOpts = {
   remote?: string;
   ref?: string;
-  include?: string[];
-  exclude?: string[];
+  include?: Array<string>;
+  exclude?: Array<string>;
 };
 
 /**
@@ -710,7 +669,7 @@ export interface WorktreeOperations {
   /**
    * List all worktrees (parses --porcelain output)
    */
-  list(opts?: ExecOpts): Promise<Worktree[]>;
+  list(opts?: ExecOpts): Promise<Array<Worktree>>;
 
   /**
    * Add a new worktree
@@ -725,7 +684,7 @@ export interface WorktreeOperations {
   /**
    * Prune stale worktree references
    */
-  prune(opts?: WorktreePruneOpts & ExecOpts): Promise<string[]>;
+  prune(opts?: WorktreePruneOpts & ExecOpts): Promise<Array<string>>;
 
   /**
    * Lock a worktree
@@ -765,7 +724,7 @@ export interface BranchOperations {
   /**
    * List branches
    */
-  list(opts?: BranchOpts & ExecOpts): Promise<BranchInfo[]>;
+  list(opts?: BranchOpts & ExecOpts): Promise<Array<BranchInfo>>;
 
   /**
    * Get current branch name
@@ -774,22 +733,18 @@ export interface BranchOperations {
 
   /**
    * Create a new branch
-   * @param name - Branch name (must be non-empty)
    */
-  create(name: NonEmptyString, opts?: BranchCreateOpts & ExecOpts): Promise<void>;
+  create(name: string, opts?: BranchCreateOpts & ExecOpts): Promise<void>;
 
   /**
    * Delete a branch
-   * @param name - Branch name to delete (must be non-empty)
    */
-  delete(name: NonEmptyString, opts?: BranchDeleteOpts & ExecOpts): Promise<void>;
+  delete(name: string, opts?: BranchDeleteOpts & ExecOpts): Promise<void>;
 
   /**
    * Rename a branch
-   * @param oldName - Current branch name (must be non-empty)
-   * @param newName - New branch name (must be non-empty)
    */
-  rename(oldName: NonEmptyString, newName: NonEmptyString, opts?: ExecOpts): Promise<void>;
+  rename(oldName: string, newName: string, opts?: ExecOpts): Promise<void>;
 }
 
 /**
@@ -799,7 +754,7 @@ export interface StashOperations {
   /**
    * List stash entries
    */
-  list(opts?: ExecOpts): Promise<StashEntry[]>;
+  list(opts?: ExecOpts): Promise<Array<StashEntry>>;
 
   /**
    * Push changes to stash
@@ -834,25 +789,22 @@ export interface TagOperations {
   /**
    * List tags
    */
-  list(opts?: TagListOpts & ExecOpts): Promise<string[]>;
+  list(opts?: TagListOpts & ExecOpts): Promise<Array<string>>;
 
   /**
    * Create a tag
-   * @param name - Tag name (must be non-empty)
    */
-  create(name: NonEmptyString, opts?: TagCreateOpts & ExecOpts): Promise<void>;
+  create(name: string, opts?: TagCreateOpts & ExecOpts): Promise<void>;
 
   /**
    * Delete a tag
-   * @param name - Tag name to delete (must be non-empty)
    */
-  delete(name: NonEmptyString, opts?: ExecOpts): Promise<void>;
+  delete(name: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * Get tag info
-   * @param name - Tag name (must be non-empty)
    */
-  show(name: NonEmptyString, opts?: ExecOpts): Promise<TagInfo>;
+  show(name: string, opts?: ExecOpts): Promise<TagInfo>;
 }
 
 /**
@@ -862,12 +814,12 @@ export interface SubmoduleOperations {
   /**
    * List submodules
    */
-  list(opts?: ExecOpts): Promise<SubmoduleInfo[]>;
+  list(opts?: ExecOpts): Promise<Array<SubmoduleInfo>>;
 
   /**
    * Initialize submodules
    */
-  init(paths?: string[], opts?: ExecOpts): Promise<void>;
+  init(paths?: Array<string>, opts?: ExecOpts): Promise<void>;
 
   /**
    * Update submodules
@@ -903,7 +855,7 @@ export interface WorktreeRepo extends RepoBase {
   /**
    * Get commit log
    */
-  log(opts?: LogOpts & ExecOpts): Promise<Commit[]>;
+  log(opts?: LogOpts & ExecOpts): Promise<Array<Commit>>;
 
   /**
    * Fetch from remote
@@ -937,7 +889,7 @@ export interface WorktreeRepo extends RepoBase {
   /**
    * Add files to the index
    */
-  add(paths: string | string[], opts?: AddOpts & ExecOpts): Promise<void>;
+  add(paths: string | Array<string>, opts?: AddOpts & ExecOpts): Promise<void>;
 
   /**
    * Branch operations
@@ -946,9 +898,8 @@ export interface WorktreeRepo extends RepoBase {
 
   /**
    * Checkout a branch, tag, or commit
-   * @param target - Branch, tag, or commit to checkout (must be non-empty)
    */
-  checkout(target: NonEmptyString, opts?: CheckoutOpts & ExecOpts): Promise<void>;
+  checkout(target: string, opts?: CheckoutOpts & ExecOpts): Promise<void>;
 
   /**
    * Create a commit
@@ -956,28 +907,14 @@ export interface WorktreeRepo extends RepoBase {
   commit(opts?: CommitOpts & ExecOpts): Promise<CommitResult>;
 
   /**
-   * Show changes with name-status format
-   * Returns structured entries with status codes (A/M/D/R/C/T/U/X)
+   * Show changes between commits, commit and working tree, etc.
    */
-  diff(target: string | undefined, opts: { nameStatus: true } & Omit<DiffOpts, 'nameStatus' | 'nameOnly' | 'stat'> & ExecOpts): Promise<DiffNameStatusResult>;
-
-  /**
-   * Show changes with name-only format
-   * Returns array of file paths
-   */
-  diff(target: string | undefined, opts: { nameOnly: true } & Omit<DiffOpts, 'nameStatus' | 'nameOnly' | 'stat'> & ExecOpts): Promise<DiffNameOnlyResult>;
-
-  /**
-   * Show changes in raw diff format (default)
-   * Returns the raw git diff output
-   */
-  diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffRawResult>;
+  diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffResult>;
 
   /**
    * Merge branches
-   * @param branch - Branch to merge (must be non-empty)
    */
-  merge(branch: NonEmptyString, opts?: MergeOpts & ExecOpts): Promise<MergeResult>;
+  merge(branch: string, opts?: MergeOpts & ExecOpts): Promise<MergeResult>;
 
   /**
    * Pull from remote (fetch + merge/rebase)
@@ -992,7 +929,7 @@ export interface WorktreeRepo extends RepoBase {
   /**
    * Remove files from the working tree and from the index
    */
-  rm(paths: string | string[], opts?: RmOpts & ExecOpts): Promise<void>;
+  rm(paths: string | Array<string>, opts?: RmOpts & ExecOpts): Promise<void>;
 
   /**
    * Stash operations
@@ -1001,9 +938,8 @@ export interface WorktreeRepo extends RepoBase {
 
   /**
    * Switch branches
-   * @param branch - Branch to switch to (must be non-empty)
    */
-  switch(branch: NonEmptyString, opts?: SwitchOpts & ExecOpts): Promise<void>;
+  switch(branch: string, opts?: SwitchOpts & ExecOpts): Promise<void>;
 
   /**
    * Tag operations
@@ -1016,14 +952,13 @@ export interface WorktreeRepo extends RepoBase {
 
   /**
    * Cherry-pick commits
-   * @param commits - Commit(s) to cherry-pick (must be non-empty)
    */
-  cherryPick(commits: NonEmptyString | NonEmptyString[], opts?: CherryPickOpts & ExecOpts): Promise<void>;
+  cherryPick(commits: string | Array<string>, opts?: CherryPickOpts & ExecOpts): Promise<void>;
 
   /**
    * Clean untracked files
    */
-  clean(opts?: CleanOpts & ExecOpts): Promise<string[]>;
+  clean(opts?: CleanOpts & ExecOpts): Promise<Array<string>>;
 
   /**
    * Move or rename files
@@ -1038,19 +973,17 @@ export interface WorktreeRepo extends RepoBase {
   /**
    * Restore working tree files
    */
-  restore(paths: string | string[], opts?: RestoreOpts & ExecOpts): Promise<void>;
+  restore(paths: string | Array<string>, opts?: RestoreOpts & ExecOpts): Promise<void>;
 
   /**
    * Revert commits
-   * @param commits - Commit(s) to revert (must be non-empty)
    */
-  revert(commits: NonEmptyString | NonEmptyString[], opts?: RevertOpts & ExecOpts): Promise<void>;
+  revert(commits: string | Array<string>, opts?: RevertOpts & ExecOpts): Promise<void>;
 
   /**
    * Show various types of objects
-   * @param object - Object to show (commit, tag, etc.) (must be non-empty)
    */
-  show(object: NonEmptyString, opts?: ShowOpts & ExecOpts): Promise<string>;
+  show(object: string, opts?: ShowOpts & ExecOpts): Promise<string>;
 
   /**
    * Submodule operations

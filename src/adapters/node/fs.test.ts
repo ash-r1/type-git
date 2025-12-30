@@ -2,11 +2,11 @@
  * Node.js FsAdapter smoke tests
  */
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { NodeFsAdapter } from './fs.js';
-import { writeFile, rm, mkdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { NodeFsAdapter } from './fs.js';
 
 describe('NodeFsAdapter', () => {
   const adapter = new NodeFsAdapter();
@@ -101,7 +101,7 @@ describe('NodeFsAdapter', () => {
       await writeFile(filePath, 'line1\nline2\n');
 
       const controller = new AbortController();
-      const lines: string[] = [];
+      const lines: Array<string> = [];
 
       // Start tailing
       const tailPromise = adapter.tail({
@@ -128,7 +128,7 @@ describe('NodeFsAdapter', () => {
       await writeFile(filePath, 'stream-line1\nstream-line2\n');
 
       const handle = adapter.tailStreaming(filePath);
-      const lines: string[] = [];
+      const lines: Array<string> = [];
 
       // Read a few lines then stop
       for await (const line of handle.lines) {

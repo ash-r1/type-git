@@ -2,15 +2,15 @@
  * Parser utilities tests
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  parseLines,
-  parseRecords,
+  parseGitProgress,
   parseJson,
   parseKeyValue,
-  parsePorcelainV2,
-  parseGitProgress,
   parseLfsProgress,
+  parseLines,
+  parsePorcelainV2,
+  parseRecords,
 } from './index.js';
 
 describe('parseLines', () => {

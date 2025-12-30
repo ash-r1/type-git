@@ -18,7 +18,7 @@ import type { Capabilities } from './types.js';
  */
 export type SpawnOptions = {
   /** Command and arguments (first element is the command) */
-  argv: string[];
+  argv: Array<string>;
   /** Additional environment variables */
   env?: Record<string, string>;
   /** Working directory */

@@ -2,9 +2,9 @@
  * BareRepo implementation - repository without working directory
  */
 
-import type { ExecOpts, RawResult, ExecutionContext } from '../core/types.js';
 import type { BareRepo, FetchOpts, PushOpts } from '../core/repo.js';
-import { CliRunner } from '../runner/cli-runner.js';
+import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
+import type { CliRunner } from '../runner/cli-runner.js';
 
 /**
  * BareRepo implementation
@@ -25,7 +25,7 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
+  async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
 

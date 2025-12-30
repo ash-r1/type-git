@@ -23,7 +23,7 @@ export function parseLines(
     /** Trim each line (default: true) */
     trim?: boolean;
   },
-): string[] {
+): Array<string> {
   const { keepEmpty = false, trim = true } = options ?? {};
 
   const lines = stdout.split('\n');
@@ -40,7 +40,7 @@ export function parseLines(
  * @param delimiter - Record delimiter (default: '\0')
  * @returns Array of records
  */
-export function parseRecords(stdout: string, delimiter: string = '\0'): string[] {
+export function parseRecords(stdout: string, delimiter: string = '\0'): Array<string> {
   if (!stdout) {
     return [];
   }
@@ -68,7 +68,7 @@ export function parseJson<T = unknown>(
     /** Parse as newline-delimited JSON (NDJSON) */
     ndjson?: boolean;
   },
-): T | T[] {
+): T | Array<T> {
   const { ndjson = false } = options ?? {};
 
   const trimmed = stdout.trim();
@@ -163,8 +163,8 @@ export type PorcelainV2Entry =
       path: string;
     };
 
-export function parsePorcelainV2(stdout: string): PorcelainV2Entry[] {
-  const entries: PorcelainV2Entry[] = [];
+export function parsePorcelainV2(stdout: string): Array<PorcelainV2Entry> {
+  const entries: Array<PorcelainV2Entry> = [];
   const lines = parseLines(stdout);
 
   for (const line of lines) {
@@ -261,10 +261,10 @@ export function parseGitProgress(line: string): GitProgressInfo | null {
 
   if (match) {
     return {
-      phase: match[1]!.trim(),
-      percent: parseInt(match[2]!, 10),
-      current: parseInt(match[3]!, 10),
-      total: parseInt(match[4]!, 10),
+      phase: match[1]?.trim() ?? '',
+      percent: Number.parseInt(match[2]!, 10),
+      current: Number.parseInt(match[3]!, 10),
+      total: Number.parseInt(match[4]!, 10),
       done: match[5] === 'done',
     };
   }
@@ -272,10 +272,10 @@ export function parseGitProgress(line: string): GitProgressInfo | null {
   // Pattern without percentage: "Phase: current/total"
   const simpleMatch = line.match(/^(.+?):\s*(\d+)\/(\d+)/);
   if (simpleMatch) {
-    const current = parseInt(simpleMatch[2]!, 10);
-    const total = parseInt(simpleMatch[3]!, 10);
+    const current = Number.parseInt(simpleMatch[2]!, 10);
+    const total = Number.parseInt(simpleMatch[3]!, 10);
     return {
-      phase: simpleMatch[1]!.trim(),
+      phase: simpleMatch[1]?.trim() ?? '',
       current,
       total,
       percent: total > 0 ? Math.round((current / total) * 100) : null,
@@ -315,7 +315,7 @@ export function parseLfsProgress(line: string): LfsProgressInfo | null {
   }
 
   const oid = parts[1]!;
-  const bytesMatch = parts[2]!.match(/^(\d+)\/(\d+)$/);
+  const bytesMatch = parts[2]?.match(/^(\d+)\/(\d+)$/);
   if (!bytesMatch) {
     return null;
   }
@@ -323,9 +323,9 @@ export function parseLfsProgress(line: string): LfsProgressInfo | null {
   return {
     direction,
     oid,
-    bytesSoFar: parseInt(bytesMatch[1]!, 10),
-    bytesTotal: parseInt(bytesMatch[2]!, 10),
-    bytesTransferred: parseInt(parts[3]!, 10),
+    bytesSoFar: Number.parseInt(bytesMatch[1]!, 10),
+    bytesTotal: Number.parseInt(bytesMatch[2]!, 10),
+    bytesTransferred: Number.parseInt(parts[3]!, 10),
   };
 }
 
@@ -346,8 +346,8 @@ export type LsRemoteRef = {
   name: string;
 };
 
-export function parseLsRemote(stdout: string): LsRemoteRef[] {
-  const refs: LsRemoteRef[] = [];
+export function parseLsRemote(stdout: string): Array<LsRemoteRef> {
+  const refs: Array<LsRemoteRef> = [];
   const lines = parseLines(stdout);
 
   for (const line of lines) {
@@ -370,7 +370,7 @@ export function parseLsRemote(stdout: string): LsRemoteRef[] {
 export type ParsedCommit = {
   hash: string;
   abbrevHash: string;
-  parents: string[];
+  parents: Array<string>;
   authorName: string;
   authorEmail: string;
   authorTimestamp: number;
@@ -395,8 +395,8 @@ export const GIT_LOG_FORMAT =
  * @param stdout - Raw stdout from `git log --format=<GIT_LOG_FORMAT>`
  * @returns Parsed commits
  */
-export function parseGitLog(stdout: string): ParsedCommit[] {
-  const commits: ParsedCommit[] = [];
+export function parseGitLog(stdout: string): Array<ParsedCommit> {
+  const commits: Array<ParsedCommit> = [];
 
   // Split by record separator (0x01)
   const records = stdout.split('\x01').filter((r) => r.trim());
@@ -414,10 +414,10 @@ export function parseGitLog(stdout: string): ParsedCommit[] {
       parents: fields[2] ? fields[2].split(' ').filter(Boolean) : [],
       authorName: fields[3]!,
       authorEmail: fields[4]!,
-      authorTimestamp: parseInt(fields[5]!, 10),
+      authorTimestamp: Number.parseInt(fields[5]!, 10),
       committerName: fields[6]!,
       committerEmail: fields[7]!,
-      committerTimestamp: parseInt(fields[8]!, 10),
+      committerTimestamp: Number.parseInt(fields[8]!, 10),
       subject: fields[9]!,
       body: fields[10]?.trim() ?? '',
     });
@@ -454,8 +454,8 @@ export type ParsedWorktree = {
  * @param stdout - Raw stdout from `git worktree list --porcelain`
  * @returns Parsed worktrees
  */
-export function parseWorktreeList(stdout: string): ParsedWorktree[] {
-  const worktrees: ParsedWorktree[] = [];
+export function parseWorktreeList(stdout: string): Array<ParsedWorktree> {
+  const worktrees: Array<ParsedWorktree> = [];
   const lines = parseLines(stdout, { keepEmpty: true });
 
   let current: Partial<ParsedWorktree> | null = null;
@@ -463,7 +463,7 @@ export function parseWorktreeList(stdout: string): ParsedWorktree[] {
   for (const line of lines) {
     if (line.startsWith('worktree ')) {
       // Save previous worktree if exists
-      if (current && current.path && current.head) {
+      if (current?.path && current.head) {
         worktrees.push({
           path: current.path,
           head: current.head,
@@ -502,7 +502,7 @@ export function parseWorktreeList(stdout: string): ParsedWorktree[] {
   }
 
   // Don't forget the last worktree
-  if (current && current.path && current.head) {
+  if (current?.path && current.head) {
     worktrees.push({
       path: current.path,
       head: current.head,

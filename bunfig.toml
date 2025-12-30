@@ -1,9 +1,6 @@
 # Bun configuration
 
 [test]
-# Test files pattern
-preload = []
-
 # Coverage is optional
 coverage = false
 

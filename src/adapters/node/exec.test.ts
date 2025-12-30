@@ -2,7 +2,7 @@
  * Node.js ExecAdapter smoke tests
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { NodeExecAdapter } from './exec.js';
 
 describe('NodeExecAdapter', () => {
@@ -85,8 +85,8 @@ describe('NodeExecAdapter', () => {
     });
 
     it('should call stream handlers', async () => {
-      const stdoutChunks: string[] = [];
-      const stderrChunks: string[] = [];
+      const stdoutChunks: Array<string> = [];
+      const stderrChunks: Array<string> = [];
 
       await adapter.spawn(
         {
@@ -109,7 +109,7 @@ describe('NodeExecAdapter', () => {
         argv: ['sh', '-c', 'echo line1 && echo line2 && echo line3'],
       });
 
-      const lines: string[] = [];
+      const lines: Array<string> = [];
       for await (const line of handle.stdout) {
         lines.push(line);
       }

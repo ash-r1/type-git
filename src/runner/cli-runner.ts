@@ -10,15 +10,15 @@
 import type { ExecAdapter, FsAdapter, RuntimeAdapters } from '../core/adapters.js';
 import type {
   ExecOpts,
-  RawResult,
-  Progress,
-  GitProgress,
-  LfsProgress,
   ExecutionContext,
   GitErrorKind,
+  GitProgress,
+  LfsProgress,
+  Progress,
+  RawResult,
 } from '../core/types.js';
 import { GitError } from '../core/types.js';
-import { parseGitProgress, parseLfsProgress, detectErrorCategory } from '../parsers/index.js';
+import { detectErrorCategory, parseGitProgress, parseLfsProgress } from '../parsers/index.js';
 
 /**
  * Options for CliRunner
@@ -56,7 +56,7 @@ export class CliRunner {
   /**
    * Build command argv based on execution context
    */
-  private buildArgv(context: ExecutionContext, args: string[]): string[] {
+  private buildArgv(context: ExecutionContext, args: Array<string>): Array<string> {
     const argv = [this.gitBinary];
 
     switch (context.type) {
@@ -78,11 +78,7 @@ export class CliRunner {
   /**
    * Run a Git command
    */
-  async run(
-    context: ExecutionContext,
-    args: string[],
-    opts?: ExecOpts,
-  ): Promise<RawResult> {
+  async run(context: ExecutionContext, args: Array<string>, opts?: ExecOpts): Promise<RawResult> {
     const argv = this.buildArgv(context, args);
     const { signal, onProgress } = opts ?? {};
 
@@ -94,16 +90,14 @@ export class CliRunner {
     if (onProgress) {
       try {
         lfsProgressFile = await this.fs.createTempFile('type-git-lfs-');
-        await this.fs.writeFile!(lfsProgressFile, '');
+        await this.fs.writeFile?.(lfsProgressFile, '');
         env.GIT_LFS_PROGRESS = lfsProgressFile;
         lfsAbortController = new AbortController();
 
         // Start tailing LFS progress file in background
-        this.tailLfsProgress(lfsProgressFile, lfsAbortController.signal, onProgress).catch(
-          () => {
-            // Ignore errors from tailing
-          },
-        );
+        this.tailLfsProgress(lfsProgressFile, lfsAbortController.signal, onProgress).catch(() => {
+          // Ignore errors from tailing
+        });
       } catch {
         // If we can't create temp file, continue without LFS progress
       }
@@ -148,16 +142,15 @@ export class CliRunner {
   /**
    * Parse Git progress from stderr chunk
    */
-  private parseStderrProgress(
-    chunk: string,
-    onProgress: (progress: Progress) => void,
-  ): void {
+  private parseStderrProgress(chunk: string, onProgress: (progress: Progress) => void): void {
     // Git progress often uses \r for in-place updates
     const lines = chunk.split(/[\r\n]+/);
 
     for (const line of lines) {
       const trimmed = line.trim();
-      if (!trimmed) continue;
+      if (!trimmed) {
+        continue;
+      }
 
       const progress = parseGitProgress(trimmed);
       if (progress) {
@@ -205,11 +198,7 @@ export class CliRunner {
   /**
    * Map Git result to GitError if needed
    */
-  mapError(
-    result: RawResult,
-    context: ExecutionContext,
-    argv: string[],
-  ): GitError | null {
+  mapError(result: RawResult, context: ExecutionContext, argv: Array<string>): GitError | null {
     if (result.aborted) {
       return new GitError('Aborted', 'Command was aborted', {
         argv,
@@ -286,7 +275,7 @@ export class CliRunner {
    */
   async runOrThrow(
     context: ExecutionContext,
-    args: string[],
+    args: Array<string>,
     opts?: ExecOpts,
   ): Promise<RawResult> {
     const result = await this.run(context, args, opts);

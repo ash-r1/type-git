@@ -2,16 +2,16 @@
  * Tests for parser utilities
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  parseLines,
-  parseRecords,
-  parseLsRemote,
+  detectErrorCategory,
   parseGitLog,
-  parseWorktreeList,
   parseGitProgress,
   parseLfsProgress,
-  detectErrorCategory,
+  parseLines,
+  parseLsRemote,
+  parseRecords,
+  parseWorktreeList,
 } from './index.js';
 
 describe('parseLines', () => {

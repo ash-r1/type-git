@@ -3,14 +3,14 @@
  */
 
 import type { RuntimeAdapters } from '../core/adapters.js';
-import type { ExecOpts, RawResult, GitOpenOptions } from '../core/types.js';
+import type { CloneOpts, Git, InitOpts, LsRemoteOpts, LsRemoteResult } from '../core/git.js';
+import type { BareRepo, WorktreeRepo } from '../core/repo.js';
+import type { ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
 import { GitError } from '../core/types.js';
-import type { Git, CloneOpts, InitOpts, LsRemoteOpts, LsRemoteResult } from '../core/git.js';
-import type { WorktreeRepo, BareRepo } from '../core/repo.js';
-import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
 import { parseLsRemote } from '../parsers/index.js';
-import { WorktreeRepoImpl } from './worktree-repo-impl.js';
+import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
 import { BareRepoImpl } from './bare-repo-impl.js';
+import { WorktreeRepoImpl } from './worktree-repo-impl.js';
 
 /**
  * Options for creating a Git instance
@@ -35,11 +35,17 @@ export class GitImpl implements Git {
    */
   async open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo> {
     // Check if it's a bare repository
-    const result = await this.runner.run({ type: 'worktree', workdir: path }, ['rev-parse', '--is-bare-repository']);
+    const result = await this.runner.run({ type: 'worktree', workdir: path }, [
+      'rev-parse',
+      '--is-bare-repository',
+    ]);
 
     if (result.exitCode !== 0) {
       // Try as git-dir directly
-      const bareResult = await this.runner.run({ type: 'bare', gitDir: path }, ['rev-parse', '--is-bare-repository']);
+      const bareResult = await this.runner.run({ type: 'bare', gitDir: path }, [
+        'rev-parse',
+        '--is-bare-repository',
+      ]);
 
       if (bareResult.exitCode !== 0) {
         throw new GitError('NonZeroExit', `Not a git repository: ${path}`, {
@@ -57,7 +63,10 @@ export class GitImpl implements Git {
 
     if (isBare) {
       // Find the actual git-dir
-      const gitDirResult = await this.runner.run({ type: 'worktree', workdir: path }, ['rev-parse', '--git-dir']);
+      const gitDirResult = await this.runner.run({ type: 'worktree', workdir: path }, [
+        'rev-parse',
+        '--git-dir',
+      ]);
       const gitDir = gitDirResult.stdout.trim();
       return new BareRepoImpl(this.runner, gitDir, opts);
     }
@@ -197,7 +206,7 @@ export class GitImpl implements Git {
   /**
    * Execute a raw git command (repository-agnostic)
    */
-  async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
+  async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run({ type: 'global' }, argv, opts);
   }
 }

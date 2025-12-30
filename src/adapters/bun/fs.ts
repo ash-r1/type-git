@@ -7,10 +7,10 @@
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import type { FsAdapter, TailOptions, TailHandle } from '../../core/adapters.js';
+import type { FsAdapter, TailHandle, TailOptions } from '../../core/adapters.js';
 
 export class BunFsAdapter implements FsAdapter {
-  async createTempFile(prefix = 'type-git-'): Promise<string> {
+  public async createTempFile(prefix: string = 'type-git-'): Promise<string> {
     const dir = await mkdtemp(join(tmpdir(), prefix));
     const filePath = join(dir, 'temp');
     // Create empty file
@@ -18,13 +18,13 @@ export class BunFsAdapter implements FsAdapter {
     return filePath;
   }
 
-  async tail(options: TailOptions): Promise<void> {
+  public async tail(options: TailOptions): Promise<void> {
     const { filePath, signal, onLine, pollInterval = 100 } = options;
 
     let position = 0;
     let buffer = '';
 
-    const poll = async () => {
+    const poll = async (): Promise<void> => {
       if (signal?.aborted) {
         return;
       }
@@ -40,7 +40,7 @@ export class BunFsAdapter implements FsAdapter {
 
           buffer += text;
           const lines = buffer.split('\n');
-          buffer = lines.pop() || '';
+          buffer = lines.pop() ?? '';
 
           for (const line of lines) {
             if (line) {
@@ -64,25 +64,25 @@ export class BunFsAdapter implements FsAdapter {
     await poll();
   }
 
-  async deleteFile(filePath: string): Promise<void> {
+  public async deleteFile(filePath: string): Promise<void> {
     await rm(filePath, { force: true, recursive: true });
   }
 
-  async exists(filePath: string): Promise<boolean> {
+  public async exists(filePath: string): Promise<boolean> {
     const file = Bun.file(filePath);
-    return file.exists();
+    return await file.exists();
   }
 
-  async readFile(filePath: string): Promise<string> {
+  public async readFile(filePath: string): Promise<string> {
     const file = Bun.file(filePath);
-    return file.text();
+    return await file.text();
   }
 
-  async writeFile(filePath: string, contents: string): Promise<void> {
+  public async writeFile(filePath: string, contents: string): Promise<void> {
     await Bun.write(filePath, contents);
   }
 
-  tailStreaming(
+  public tailStreaming(
     filePath: string,
     options?: { signal?: AbortSignal; pollInterval?: number },
   ): TailHandle {
@@ -92,10 +92,10 @@ export class BunFsAdapter implements FsAdapter {
     const state = {
       stopped: false,
       resolveNext: null as ResolverFn | null,
-      lineQueue: [] as string[],
+      lineQueue: [] as Array<string>,
     };
 
-    const stop = () => {
+    const stop = (): void => {
       state.stopped = true;
       if (state.resolveNext) {
         state.resolveNext({ done: true, value: undefined });
@@ -104,11 +104,11 @@ export class BunFsAdapter implements FsAdapter {
     };
 
     // Start polling in the background
-    (async () => {
+    const startPolling = async (): Promise<void> => {
       let position = 0;
       let buffer = '';
 
-      while (!state.stopped && !signal?.aborted) {
+      while (!(state.stopped || signal?.aborted)) {
         try {
           const file = Bun.file(filePath);
           const size = file.size;
@@ -120,7 +120,7 @@ export class BunFsAdapter implements FsAdapter {
 
             buffer += text;
             const lines = buffer.split('\n');
-            buffer = lines.pop() || '';
+            buffer = lines.pop() ?? '';
 
             for (const line of lines) {
               if (line) {
@@ -142,10 +142,12 @@ export class BunFsAdapter implements FsAdapter {
       }
 
       stop();
-    })();
+    };
+
+    void startPolling();
 
     const lines: AsyncIterable<string> = {
-      [Symbol.asyncIterator]() {
+      [Symbol.asyncIterator](): AsyncIterator<string> {
         return {
           next(): Promise<IteratorResult<string>> {
             if (state.stopped) {
@@ -153,7 +155,10 @@ export class BunFsAdapter implements FsAdapter {
             }
 
             if (state.lineQueue.length > 0) {
-              return Promise.resolve({ done: false, value: state.lineQueue.shift()! });
+              const value = state.lineQueue.shift();
+              if (value !== undefined) {
+                return Promise.resolve({ done: false, value });
+              }
             }
 
             return new Promise((resolve) => {

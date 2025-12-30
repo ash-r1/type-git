@@ -7,9 +7,9 @@
 
 import type {
   ExecAdapter,
+  SpawnHandle,
   SpawnOptions,
   SpawnResult,
-  SpawnHandle,
   StreamHandler,
 } from '../../core/adapters.js';
 import type { Capabilities } from '../../core/types.js';
@@ -19,7 +19,7 @@ declare const Deno: {
   Command: new (
     cmd: string,
     options?: {
-      args?: string[];
+      args?: Array<string>;
       cwd?: string;
       env?: Record<string, string>;
       stdin?: 'piped' | 'inherit' | 'null';
@@ -64,11 +64,13 @@ async function* streamToAsyncIterable(
   try {
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
+      if (done) {
+        break;
+      }
 
       buffer += decoder.decode(value, { stream: true });
       const lines = buffer.split('\n');
-      buffer = lines.pop() || '';
+      buffer = lines.pop() ?? '';
 
       for (const line of lines) {
         yield line;
@@ -95,7 +97,9 @@ async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
   try {
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
+      if (done) {
+        break;
+      }
       result += decoder.decode(value, { stream: true });
     }
     result += decoder.decode(); // Flush remaining
@@ -107,7 +111,7 @@ async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
 }
 
 export class DenoExecAdapter implements ExecAdapter {
-  getCapabilities(): Capabilities {
+  public getCapabilities(): Capabilities {
     return {
       canSpawnProcess: true,
       canReadEnv: true,
@@ -118,14 +122,14 @@ export class DenoExecAdapter implements ExecAdapter {
     };
   }
 
-  async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
+  public async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
     const { argv, env, cwd, signal } = options;
 
-    if (argv.length === 0) {
+    const command = argv[0];
+    if (command === undefined) {
       throw new Error('argv must not be empty');
     }
-
-    const [command, ...args] = argv;
+    const args = argv.slice(1);
     let aborted = false;
 
     // Check if already aborted
@@ -139,7 +143,7 @@ export class DenoExecAdapter implements ExecAdapter {
       };
     }
 
-    const cmd = new Deno.Command(command!, {
+    const cmd = new Deno.Command(command, {
       args,
       cwd,
       env: env ? { ...Deno.env.toObject(), ...env } : undefined,
@@ -151,7 +155,7 @@ export class DenoExecAdapter implements ExecAdapter {
     const child = cmd.spawn();
 
     // Handle abort signal
-    const abortHandler = () => {
+    const abortHandler = (): void => {
       aborted = true;
       try {
         child.kill('SIGTERM');
@@ -170,15 +174,19 @@ export class DenoExecAdapter implements ExecAdapter {
 
       if (handlers?.onStdout || handlers?.onStderr) {
         // Stream processing mode
-        const stdoutPromise = (async () => {
-          if (!child.stdout) return '';
+        const stdoutPromise = (async (): Promise<string> => {
+          if (!child.stdout) {
+            return '';
+          }
           const reader = child.stdout.getReader();
           const decoder = new TextDecoder();
           let result = '';
           try {
             while (true) {
               const { done, value } = await reader.read();
-              if (done) break;
+              if (done) {
+                break;
+              }
               const text = decoder.decode(value, { stream: true });
               result += text;
               handlers?.onStdout?.(text);
@@ -190,15 +198,19 @@ export class DenoExecAdapter implements ExecAdapter {
           return result;
         })();
 
-        const stderrPromise = (async () => {
-          if (!child.stderr) return '';
+        const stderrPromise = (async (): Promise<string> => {
+          if (!child.stderr) {
+            return '';
+          }
           const reader = child.stderr.getReader();
           const decoder = new TextDecoder();
           let result = '';
           try {
             while (true) {
               const { done, value } = await reader.read();
-              if (done) break;
+              if (done) {
+                break;
+              }
               const text = decoder.decode(value, { stream: true });
               result += text;
               handlers?.onStderr?.(text);
@@ -233,17 +245,17 @@ export class DenoExecAdapter implements ExecAdapter {
     }
   }
 
-  spawnStreaming(options: SpawnOptions): SpawnHandle {
+  public spawnStreaming(options: SpawnOptions): SpawnHandle {
     const { argv, env, cwd, signal } = options;
 
-    if (argv.length === 0) {
+    const command = argv[0];
+    if (command === undefined) {
       throw new Error('argv must not be empty');
     }
-
-    const [command, ...args] = argv;
+    const args = argv.slice(1);
     let aborted = false;
 
-    const cmd = new Deno.Command(command!, {
+    const cmd = new Deno.Command(command, {
       args,
       cwd,
       env: env ? { ...Deno.env.toObject(), ...env } : undefined,
@@ -254,7 +266,7 @@ export class DenoExecAdapter implements ExecAdapter {
 
     const child = cmd.spawn();
 
-    const abortHandler = () => {
+    const abortHandler = (): void => {
       aborted = true;
       try {
         child.kill('SIGTERM');
@@ -277,8 +289,15 @@ export class DenoExecAdapter implements ExecAdapter {
     }
 
     // Clone streams for both iteration and collection
-    const [stdout1, stdout2] = child.stdout!.tee();
-    const [stderr1, stderr2] = child.stderr!.tee();
+    const stdoutTee = child.stdout?.tee();
+    const stderrTee = child.stderr?.tee();
+
+    if (!(stdoutTee && stderrTee)) {
+      throw new Error('Failed to create stdio streams');
+    }
+
+    const [stdout1, stdout2] = stdoutTee;
+    const [stderr1, stderr2] = stderrTee;
 
     const waitPromise = (async (): Promise<SpawnResult> => {
       try {
@@ -303,8 +322,8 @@ export class DenoExecAdapter implements ExecAdapter {
     return {
       stdout: streamToAsyncIterable(stdout1),
       stderr: streamToAsyncIterable(stderr1),
-      wait: () => waitPromise,
-      kill: (sig?: 'SIGTERM' | 'SIGKILL') => {
+      wait: (): Promise<SpawnResult> => waitPromise,
+      kill: (sig?: 'SIGTERM' | 'SIGKILL'): void => {
         try {
           child.kill(sig ?? 'SIGTERM');
         } catch {

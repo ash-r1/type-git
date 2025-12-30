@@ -5,7 +5,7 @@
  * Requires --allow-read and --allow-write permissions.
  */
 
-import type { FsAdapter, TailOptions, TailHandle } from '../../core/adapters.js';
+import type { FsAdapter, TailHandle, TailOptions } from '../../core/adapters.js';
 
 // Deno global type declarations
 declare const Deno: {
@@ -37,7 +37,7 @@ function delay(ms: number): Promise<void> {
 }
 
 export class DenoFsAdapter implements FsAdapter {
-  async createTempFile(prefix = 'type-git-'): Promise<string> {
+  public async createTempFile(prefix: string = 'type-git-'): Promise<string> {
     const dir = await Deno.makeTempDir({ prefix });
     const filePath = `${dir}/temp`;
     // Create empty file
@@ -45,14 +45,14 @@ export class DenoFsAdapter implements FsAdapter {
     return filePath;
   }
 
-  async tail(options: TailOptions): Promise<void> {
+  public async tail(options: TailOptions): Promise<void> {
     const { filePath, signal, onLine, pollInterval = 100 } = options;
 
     let position = 0;
     const decoder = new TextDecoder();
     let buffer = '';
 
-    const poll = async () => {
+    const poll = async (): Promise<void> => {
       if (signal?.aborted) {
         return;
       }
@@ -71,7 +71,7 @@ export class DenoFsAdapter implements FsAdapter {
 
             buffer += decoder.decode(chunk, { stream: true });
             const lines = buffer.split('\n');
-            buffer = lines.pop() || '';
+            buffer = lines.pop() ?? '';
 
             for (const line of lines) {
               if (line) {
@@ -99,7 +99,7 @@ export class DenoFsAdapter implements FsAdapter {
     await poll();
   }
 
-  async deleteFile(filePath: string): Promise<void> {
+  public async deleteFile(filePath: string): Promise<void> {
     try {
       await Deno.remove(filePath, { recursive: true });
     } catch (error) {
@@ -111,7 +111,7 @@ export class DenoFsAdapter implements FsAdapter {
     }
   }
 
-  async exists(filePath: string): Promise<boolean> {
+  public async exists(filePath: string): Promise<boolean> {
     try {
       await Deno.stat(filePath);
       return true;
@@ -120,15 +120,15 @@ export class DenoFsAdapter implements FsAdapter {
     }
   }
 
-  async readFile(filePath: string): Promise<string> {
-    return Deno.readTextFile(filePath);
+  public async readFile(filePath: string): Promise<string> {
+    return await Deno.readTextFile(filePath);
   }
 
-  async writeFile(filePath: string, contents: string): Promise<void> {
+  public async writeFile(filePath: string, contents: string): Promise<void> {
     await Deno.writeTextFile(filePath, contents);
   }
 
-  tailStreaming(
+  public tailStreaming(
     filePath: string,
     options?: { signal?: AbortSignal; pollInterval?: number },
   ): TailHandle {
@@ -138,10 +138,10 @@ export class DenoFsAdapter implements FsAdapter {
     const state = {
       stopped: false,
       resolveNext: null as ResolverFn | null,
-      lineQueue: [] as string[],
+      lineQueue: [] as Array<string>,
     };
 
-    const stop = () => {
+    const stop = (): void => {
       state.stopped = true;
       if (state.resolveNext) {
         state.resolveNext({ done: true, value: undefined });
@@ -150,12 +150,12 @@ export class DenoFsAdapter implements FsAdapter {
     };
 
     // Start polling in the background
-    (async () => {
+    const startPolling = async (): Promise<void> => {
       let position = 0;
       const decoder = new TextDecoder();
       let buffer = '';
 
-      while (!state.stopped && !signal?.aborted) {
+      while (!(state.stopped || signal?.aborted)) {
         try {
           const stat = await Deno.stat(filePath);
           const size = stat.size;
@@ -170,7 +170,7 @@ export class DenoFsAdapter implements FsAdapter {
 
               buffer += decoder.decode(chunk, { stream: true });
               const lines = buffer.split('\n');
-              buffer = lines.pop() || '';
+              buffer = lines.pop() ?? '';
 
               for (const line of lines) {
                 if (line) {
@@ -195,10 +195,12 @@ export class DenoFsAdapter implements FsAdapter {
       }
 
       stop();
-    })();
+    };
+
+    void startPolling();
 
     const lines: AsyncIterable<string> = {
-      [Symbol.asyncIterator]() {
+      [Symbol.asyncIterator](): AsyncIterator<string> {
         return {
           next(): Promise<IteratorResult<string>> {
             if (state.stopped) {
@@ -206,7 +208,10 @@ export class DenoFsAdapter implements FsAdapter {
             }
 
             if (state.lineQueue.length > 0) {
-              return Promise.resolve({ done: false, value: state.lineQueue.shift()! });
+              const value = state.lineQueue.shift();
+              if (value !== undefined) {
+                return Promise.resolve({ done: false, value });
+              }
             }
 
             return new Promise((resolve) => {

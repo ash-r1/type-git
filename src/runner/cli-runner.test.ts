@@ -2,11 +2,11 @@
  * CliRunner tests
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { CliRunner } from './cli-runner.js';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { RuntimeAdapters, SpawnResult } from '../core/adapters.js';
-import type { Progress, ExecutionContext } from '../core/types.js';
+import type { ExecutionContext, Progress } from '../core/types.js';
 import { GitError } from '../core/types.js';
+import { CliRunner } from './cli-runner.js';
 
 // Mock adapters
 function createMockAdapters(spawnResult?: Partial<SpawnResult>): RuntimeAdapters {
@@ -225,7 +225,7 @@ describe('CliRunner', () => {
     it('should parse git progress from stderr', async () => {
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters);
-      const progressEvents: Progress[] = [];
+      const progressEvents: Array<Progress> = [];
 
       // Capture the onStderr handler
       let stderrHandler: ((chunk: string) => void) | undefined;

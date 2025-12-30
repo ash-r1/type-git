@@ -4,7 +4,7 @@
 
 import type { RuntimeAdapters } from '../../core/adapters.js';
 import type { Git } from '../../core/git.js';
-import { createGit, type CreateGitOptions } from '../../impl/git-impl.js';
+import { type CreateGitOptions, createGit } from '../../impl/git-impl.js';
 import { NodeExecAdapter } from './exec.js';
 import { NodeFsAdapter } from './fs.js';
 

@@ -1,7 +1,7 @@
 /**
  * Deno Smoke Tests
  *
- * Tests basic functionality of DenoExecAdapter and DenoFsAdapter.
+ * Tests basic functionality of DenoExecAdapter, DenoFsAdapter, and High-level API.
  * Run with: deno test --allow-run --allow-read --allow-write --allow-env test/deno/smoke.test.ts
  */
 
@@ -15,9 +15,13 @@ import {
   it,
   beforeAll,
   afterAll,
+  beforeEach,
+  afterEach,
 } from 'https://deno.land/std@0.224.0/testing/bdd.ts';
 import { DenoExecAdapter } from '../../src/adapters/deno/exec.ts';
 import { DenoFsAdapter } from '../../src/adapters/deno/fs.ts';
+import { createDenoAdapters } from '../../src/adapters/deno/index.ts';
+import { createGit } from '../../src/impl/git-impl.ts';
 
 describe('DenoExecAdapter', () => {
   const adapter = new DenoExecAdapter();
@@ -208,9 +212,10 @@ describe('DenoFsAdapter', () => {
     it('streams new lines from file', async () => {
       const testFile = await adapter.createTempFile('tail-test-');
       const controller = new AbortController();
+      let handle: ReturnType<typeof adapter.tailStreaming> | undefined;
 
       try {
-        const handle = adapter.tailStreaming(testFile, {
+        handle = adapter.tailStreaming(testFile, {
           signal: controller.signal,
           pollInterval: 50,
         });
@@ -220,22 +225,21 @@ describe('DenoFsAdapter', () => {
 
         // Read lines with timeout
         const lines: string[] = [];
-        const timeout = setTimeout(() => {
-          handle.stop();
-        }, 500);
 
         for await (const line of handle.lines) {
           lines.push(line);
           if (lines.length >= 2) {
-            handle.stop();
             break;
           }
         }
 
-        clearTimeout(timeout);
         assertEquals(lines, ['line1', 'line2']);
       } finally {
+        // Ensure we stop the handle before aborting to clean up timers
+        handle?.stop();
         controller.abort();
+        // Give time for cleanup
+        await new Promise((resolve) => setTimeout(resolve, 100));
         await adapter.deleteFile(testFile);
       }
     });
@@ -251,5 +255,159 @@ describe('Integration', () => {
 
     assertEquals(result.exitCode, 0);
     assert(result.stdout.includes('git version'));
+  });
+});
+
+describe('High-level API with Deno', () => {
+  let tempDir: string;
+  const git = createGit({ adapters: createDenoAdapters() });
+
+  beforeEach(async () => {
+    tempDir = await Deno.makeTempDir({ prefix: 'deno-git-test-' });
+  });
+
+  afterEach(async () => {
+    try {
+      await Deno.remove(tempDir, { recursive: true });
+    } catch {
+      // Ignore errors
+    }
+  });
+
+  it('can init a repository', async () => {
+    const repoPath = `${tempDir}/repo`;
+    const repo = await git.init(repoPath);
+
+    assertEquals('workdir' in repo, true);
+    if ('workdir' in repo) {
+      assertEquals(repo.workdir, repoPath);
+    }
+  });
+
+  it('can add and commit files', async () => {
+    const repoPath = `${tempDir}/repo`;
+    const repo = await git.init(repoPath);
+
+    if ('workdir' in repo) {
+      // Configure git user
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+
+      // Create and add a file
+      await Deno.writeTextFile(`${repoPath}/test.txt`, 'hello deno');
+      await repo.add('test.txt');
+
+      // Check status
+      const status = await repo.status();
+      assertEquals(
+        status.entries.some((e) => e.path === 'test.txt' && e.index === 'A'),
+        true,
+      );
+
+      // Commit
+      const result = await repo.commit({ message: 'Initial commit' });
+      assertExists(result.hash);
+      assert(result.hash.length > 0);
+    }
+  });
+
+  it('can create and list branches', async () => {
+    const repoPath = `${tempDir}/repo`;
+    const repo = await git.init(repoPath, { initialBranch: 'main' });
+
+    if ('workdir' in repo) {
+      // Create initial commit
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+      await Deno.writeTextFile(`${repoPath}/README.md`, '# Test');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Initial commit' });
+
+      // Create a new branch
+      await repo.branch.create('feature');
+
+      // List branches
+      const branches = await repo.branch.list();
+      assertEquals(
+        branches.some((b) => b.name === 'main'),
+        true,
+      );
+      assertEquals(
+        branches.some((b) => b.name === 'feature'),
+        true,
+      );
+
+      // Get current branch
+      const current = await repo.branch.current();
+      assertEquals(current, 'main');
+    }
+  });
+
+  it('can checkout branches', async () => {
+    const repoPath = `${tempDir}/repo`;
+    const repo = await git.init(repoPath, { initialBranch: 'main' });
+
+    if ('workdir' in repo) {
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+      await Deno.writeTextFile(`${repoPath}/README.md`, '# Test');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Initial commit' });
+
+      // Create and checkout a new branch
+      await repo.checkout('feature', { createBranch: true });
+
+      const current = await repo.branch.current();
+      assertEquals(current, 'feature');
+    }
+  });
+
+  it('can use stash operations', async () => {
+    const repoPath = `${tempDir}/repo`;
+    const repo = await git.init(repoPath);
+
+    if ('workdir' in repo) {
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+      await Deno.writeTextFile(`${repoPath}/README.md`, '# Test');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Initial commit' });
+
+      // Modify file
+      await Deno.writeTextFile(`${repoPath}/README.md`, '# Modified');
+
+      // Stash changes
+      await repo.stash.push({ message: 'WIP' });
+
+      // List stash
+      const stashList = await repo.stash.list();
+      assertEquals(stashList.length, 1);
+      assert(stashList[0].message.includes('WIP'));
+
+      // Pop stash
+      await repo.stash.pop();
+      const stashListAfter = await repo.stash.list();
+      assertEquals(stashListAfter.length, 0);
+    }
+  });
+
+  it('can create and list tags', async () => {
+    const repoPath = `${tempDir}/repo`;
+    const repo = await git.init(repoPath);
+
+    if ('workdir' in repo) {
+      await repo.raw(['config', 'user.email', 'test@example.com']);
+      await repo.raw(['config', 'user.name', 'Test User']);
+      await Deno.writeTextFile(`${repoPath}/README.md`, '# Test');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Initial commit' });
+
+      // Create tag
+      await repo.tag.create('v1.0.0', { message: 'Release 1.0.0' });
+
+      // List tags
+      const tags = await repo.tag.list();
+      assert(tags.includes('v1.0.0'));
+    }
   });
 });

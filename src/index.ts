@@ -2,36 +2,33 @@
  * type-git - Type-safe Git wrapper library with LFS support
  */
 
+// Adapters
+export * from './adapters/node/index.js';
 // Core types and interfaces
 export * from './core/index.js';
-
 // Implementation
-export { createGit, type CreateGitOptions } from './impl/index.js';
-
-// Runner
-export { CliRunner, type CliRunnerOptions } from './runner/index.js';
+export { type CreateGitOptions, createGit } from './impl/index.js';
 
 // Parsers (for advanced usage)
 export {
-  parseLines,
-  parseRecords,
-  parseJson,
-  parseKeyValue,
-  parsePorcelainV2,
-  parseGitProgress,
-  parseLfsProgress,
-  parseLsRemote,
-  parseGitLog,
-  parseWorktreeList,
   detectErrorCategory,
   GIT_LOG_FORMAT,
-  type PorcelainV2Entry,
   type GitProgressInfo,
   type LfsProgressInfo,
   type LsRemoteRef,
   type ParsedCommit,
   type ParsedWorktree,
+  type PorcelainV2Entry,
+  parseGitLog,
+  parseGitProgress,
+  parseJson,
+  parseKeyValue,
+  parseLfsProgress,
+  parseLines,
+  parseLsRemote,
+  parsePorcelainV2,
+  parseRecords,
+  parseWorktreeList,
 } from './parsers/index.js';
-
-// Adapters
-export * from './adapters/node/index.js';
+// Runner
+export { CliRunner, type CliRunnerOptions } from './runner/index.js';

@@ -6,9 +6,9 @@
 
 import type {
   ExecAdapter,
+  SpawnHandle,
   SpawnOptions,
   SpawnResult,
-  SpawnHandle,
   StreamHandler,
 } from '../../core/adapters.js';
 import type { Capabilities } from '../../core/types.js';
@@ -26,11 +26,13 @@ async function* streamToAsyncIterable(
   try {
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
+      if (done) {
+        break;
+      }
 
       buffer += decoder.decode(value, { stream: true });
       const lines = buffer.split('\n');
-      buffer = lines.pop() || '';
+      buffer = lines.pop() ?? '';
 
       for (const line of lines) {
         yield line;
@@ -57,7 +59,9 @@ async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
   try {
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
+      if (done) {
+        break;
+      }
       result += decoder.decode(value, { stream: true });
     }
     result += decoder.decode(); // Flush remaining
@@ -69,7 +73,7 @@ async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
 }
 
 export class BunExecAdapter implements ExecAdapter {
-  getCapabilities(): Capabilities {
+  public getCapabilities(): Capabilities {
     return {
       canSpawnProcess: true,
       canReadEnv: true,
@@ -80,14 +84,14 @@ export class BunExecAdapter implements ExecAdapter {
     };
   }
 
-  async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
+  public async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
     const { argv, env, cwd, signal } = options;
 
-    if (argv.length === 0) {
+    const command = argv[0];
+    if (command === undefined) {
       throw new Error('argv must not be empty');
     }
-
-    const [command, ...args] = argv;
+    const args = argv.slice(1);
     let aborted = false;
 
     // Check if already aborted
@@ -101,7 +105,7 @@ export class BunExecAdapter implements ExecAdapter {
       };
     }
 
-    const proc = Bun.spawn([command!, ...args], {
+    const proc = Bun.spawn([command, ...args], {
       cwd,
       env: env ? { ...Bun.env, ...env } : Bun.env,
       stdout: 'pipe',
@@ -110,7 +114,7 @@ export class BunExecAdapter implements ExecAdapter {
     });
 
     // Handle abort signal
-    const abortHandler = () => {
+    const abortHandler = (): void => {
       aborted = true;
       proc.kill('SIGTERM');
     };
@@ -126,15 +130,19 @@ export class BunExecAdapter implements ExecAdapter {
 
       if (handlers?.onStdout || handlers?.onStderr) {
         // Stream processing mode
-        const stdoutPromise = (async () => {
-          if (!proc.stdout) return '';
+        const stdoutPromise = (async (): Promise<string> => {
+          if (!proc.stdout) {
+            return '';
+          }
           const reader = proc.stdout.getReader();
           const decoder = new TextDecoder();
           let result = '';
           try {
             while (true) {
               const { done, value } = await reader.read();
-              if (done) break;
+              if (done) {
+                break;
+              }
               const text = decoder.decode(value, { stream: true });
               result += text;
               handlers?.onStdout?.(text);
@@ -146,15 +154,19 @@ export class BunExecAdapter implements ExecAdapter {
           return result;
         })();
 
-        const stderrPromise = (async () => {
-          if (!proc.stderr) return '';
+        const stderrPromise = (async (): Promise<string> => {
+          if (!proc.stderr) {
+            return '';
+          }
           const reader = proc.stderr.getReader();
           const decoder = new TextDecoder();
           let result = '';
           try {
             while (true) {
               const { done, value } = await reader.read();
-              if (done) break;
+              if (done) {
+                break;
+              }
               const text = decoder.decode(value, { stream: true });
               result += text;
               handlers?.onStderr?.(text);
@@ -189,17 +201,17 @@ export class BunExecAdapter implements ExecAdapter {
     }
   }
 
-  spawnStreaming(options: SpawnOptions): SpawnHandle {
+  public spawnStreaming(options: SpawnOptions): SpawnHandle {
     const { argv, env, cwd, signal } = options;
 
-    if (argv.length === 0) {
+    const command = argv[0];
+    if (command === undefined) {
       throw new Error('argv must not be empty');
     }
-
-    const [command, ...args] = argv;
+    const args = argv.slice(1);
     let aborted = false;
 
-    const proc = Bun.spawn([command!, ...args], {
+    const proc = Bun.spawn([command, ...args], {
       cwd,
       env: env ? { ...Bun.env, ...env } : Bun.env,
       stdout: 'pipe',
@@ -207,7 +219,7 @@ export class BunExecAdapter implements ExecAdapter {
       stdin: 'ignore',
     });
 
-    const abortHandler = () => {
+    const abortHandler = (): void => {
       aborted = true;
       proc.kill('SIGTERM');
     };
@@ -222,8 +234,15 @@ export class BunExecAdapter implements ExecAdapter {
     }
 
     // Clone streams for both iteration and collection
-    const [stdout1, stdout2] = proc.stdout!.tee();
-    const [stderr1, stderr2] = proc.stderr!.tee();
+    const stdoutTee = proc.stdout?.tee();
+    const stderrTee = proc.stderr?.tee();
+
+    if (!(stdoutTee && stderrTee)) {
+      throw new Error('Failed to create stdio streams');
+    }
+
+    const [stdout1, stdout2] = stdoutTee;
+    const [stderr1, stderr2] = stderrTee;
 
     const waitPromise = (async (): Promise<SpawnResult> => {
       try {
@@ -248,8 +267,8 @@ export class BunExecAdapter implements ExecAdapter {
     return {
       stdout: streamToAsyncIterable(stdout1),
       stderr: streamToAsyncIterable(stderr1),
-      wait: () => waitPromise,
-      kill: (sig?: 'SIGTERM' | 'SIGKILL') => {
+      wait: (): Promise<SpawnResult> => waitPromise,
+      kill: (sig?: 'SIGTERM' | 'SIGKILL'): void => {
         proc.kill(sig ?? 'SIGTERM');
       },
     };

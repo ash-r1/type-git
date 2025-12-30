@@ -2,8 +2,8 @@
  * Core Git interface - repository-agnostic operations
  */
 
-import type { ExecOpts, RawResult, GitOpenOptions } from './types.js';
-import type { WorktreeRepo, BareRepo } from './repo.js';
+import type { BareRepo, WorktreeRepo } from './repo.js';
+import type { ExecOpts, GitOpenOptions, RawResult } from './types.js';
 
 /**
  * Options for git clone
@@ -90,5 +90,5 @@ export interface Git {
   /**
    * Execute a raw git command (repository-agnostic)
    */
-  raw(argv: string[], opts?: ExecOpts): Promise<RawResult>;
+  raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult>;
 }
