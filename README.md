@@ -2,7 +2,7 @@
 
 Type-safe Git wrapper library with LFS support, progress tracking, and abort control for Node.js/Deno/Bun.
 
-**[Documentation](https://ash-r1.github.io/type-git/)** | **[API Reference](https://ash-r1.github.io/type-git/api/)**
+**[Documentation](https://ash-r1.github.io/type-git/)** | **[API Reference](https://ash-r1.github.io/type-git/api/readme/)**
 
 ## Features
 
