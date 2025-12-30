@@ -1054,25 +1054,149 @@ export type ConfigListOpts = {
   showScope?: boolean;
 };
 
+// =============================================================================
+// Typed Config Keys
+// =============================================================================
+
+/**
+ * Well-known git config keys with their expected value types
+ *
+ * This provides type safety for common config operations.
+ * For arbitrary keys, use getRaw/setRaw.
+ */
+export type ConfigSchema = {
+  // User settings
+  'user.name': string;
+  'user.email': string;
+  'user.signingkey': string;
+
+  // Core settings
+  'core.autocrlf': 'true' | 'false' | 'input';
+  'core.filemode': 'true' | 'false';
+  'core.ignorecase': 'true' | 'false';
+  'core.bare': 'true' | 'false';
+  'core.logallrefupdates': 'true' | 'false' | 'always';
+  'core.repositoryformatversion': string;
+  'core.quotepath': 'true' | 'false';
+  'core.editor': string;
+  'core.pager': string;
+  'core.excludesfile': string;
+  'core.attributesfile': string;
+  'core.hooksPath': string;
+  'core.sshCommand': string;
+
+  // Init settings
+  'init.defaultBranch': string;
+
+  // Commit settings
+  'commit.gpgsign': 'true' | 'false';
+  'commit.template': string;
+
+  // Tag settings
+  'tag.gpgsign': 'true' | 'false';
+  'tag.forcesignannotated': 'true' | 'false';
+
+  // Push settings
+  'push.default': 'nothing' | 'current' | 'upstream' | 'tracking' | 'simple' | 'matching';
+  'push.followTags': 'true' | 'false';
+  'push.autoSetupRemote': 'true' | 'false';
+  'push.gpgSign': 'true' | 'false' | 'if-asked';
+
+  // Pull settings
+  'pull.rebase': 'true' | 'false' | 'merges' | 'interactive';
+  'pull.ff': 'true' | 'false' | 'only';
+
+  // Fetch settings
+  'fetch.prune': 'true' | 'false';
+  'fetch.pruneTags': 'true' | 'false';
+
+  // Merge settings
+  'merge.ff': 'true' | 'false' | 'only';
+  'merge.conflictstyle': 'merge' | 'diff3' | 'zdiff3';
+
+  // Rebase settings
+  'rebase.autoStash': 'true' | 'false';
+  'rebase.autoSquash': 'true' | 'false';
+  'rebase.updateRefs': 'true' | 'false';
+
+  // Diff settings
+  'diff.algorithm': 'default' | 'minimal' | 'patience' | 'histogram';
+  'diff.colorMoved': 'no' | 'default' | 'plain' | 'blocks' | 'zebra' | 'dimmed-zebra';
+
+  // Color settings
+  'color.ui': 'auto' | 'always' | 'never' | 'true' | 'false';
+
+  // Credential settings
+  'credential.helper': string;
+
+  // GPG settings
+  'gpg.format': 'openpgp' | 'x509' | 'ssh';
+  'gpg.program': string;
+  'gpg.ssh.program': string;
+  'gpg.ssh.allowedSignersFile': string;
+
+  // HTTP settings
+  'http.proxy': string;
+  'http.sslVerify': 'true' | 'false';
+
+  // LFS settings
+  'lfs.fetchexclude': string;
+  'lfs.fetchinclude': string;
+
+  // Safe directory
+  'safe.directory': string;
+};
+
+/**
+ * Known config key names
+ */
+export type ConfigKey = keyof ConfigSchema;
+
 /**
  * Config operations interface (repository-level)
  */
 export interface ConfigOperations {
   /**
-   * Get a config value
+   * Get a typed config value
    * Returns undefined if not set
    */
-  get(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | Array<string> | undefined>;
+  get<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<ConfigSchema[K] | undefined>;
 
   /**
-   * Set a config value
+   * Get a typed config value with all option (for multi-valued keys)
    */
-  set(key: string, value: string, opts?: ConfigSetOpts & ExecOpts): Promise<void>;
+  getAll<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<Array<ConfigSchema[K]>>;
 
   /**
-   * Unset a config value
+   * Set a typed config value
    */
-  unset(key: string, opts?: ExecOpts): Promise<void>;
+  set<K extends ConfigKey>(key: K, value: ConfigSchema[K], opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Add a value to a multi-valued config key
+   */
+  add<K extends ConfigKey>(key: K, value: ConfigSchema[K], opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Unset a typed config value
+   */
+  unset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Get a raw config value (for arbitrary keys)
+   * Returns undefined if not set
+   */
+  getRaw(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | Array<string> | undefined>;
+
+  /**
+   * Set a raw config value (for arbitrary keys)
+   */
+  setRaw(key: string, value: string, opts?: ConfigSetOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Unset a raw config value (for arbitrary keys)
+   */
+  unsetRaw(key: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * List all config values

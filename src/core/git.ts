@@ -2,7 +2,15 @@
  * Core Git interface - repository-agnostic operations
  */
 
-import type { BareRepo, ConfigEntry, WorktreeRepo } from './repo.js';
+import type {
+  BareRepo,
+  ConfigEntry,
+  ConfigGetOpts,
+  ConfigKey,
+  ConfigSchema,
+  ConfigSetOpts,
+  WorktreeRepo,
+} from './repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from './types.js';
 
 /**
@@ -54,22 +62,6 @@ export type LsRemoteResult = {
 // =============================================================================
 
 /**
- * Options for global config get
- */
-export type GlobalConfigGetOpts = {
-  /** Get all values for multi-valued key */
-  all?: boolean;
-};
-
-/**
- * Options for global config set
- */
-export type GlobalConfigSetOpts = {
-  /** Add value to multi-valued key instead of replacing */
-  add?: boolean;
-};
-
-/**
  * Options for global config list
  */
 export type GlobalConfigListOpts = {
@@ -82,27 +74,51 @@ export type GlobalConfigListOpts = {
 /**
  * Global config operations interface
  *
- * Operates on ~/.gitconfig (user-level configuration)
+ * Operates on ~/.gitconfig (user-level configuration).
+ * Uses the same typed ConfigSchema as repository-level config.
  */
 export interface GlobalConfigOperations {
   /**
-   * Get a global config value
+   * Get a typed global config value
    * Returns undefined if not set
    */
-  get(
-    key: string,
-    opts?: GlobalConfigGetOpts & ExecOpts,
-  ): Promise<string | Array<string> | undefined>;
+  get<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<ConfigSchema[K] | undefined>;
 
   /**
-   * Set a global config value
+   * Get all values for a typed multi-valued global config key
    */
-  set(key: string, value: string, opts?: GlobalConfigSetOpts & ExecOpts): Promise<void>;
+  getAll<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<Array<ConfigSchema[K]>>;
 
   /**
-   * Unset a global config value
+   * Set a typed global config value
    */
-  unset(key: string, opts?: ExecOpts): Promise<void>;
+  set<K extends ConfigKey>(key: K, value: ConfigSchema[K], opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Add a value to a typed multi-valued global config key
+   */
+  add<K extends ConfigKey>(key: K, value: ConfigSchema[K], opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Unset a typed global config value
+   */
+  unset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Get a raw global config value (for arbitrary keys)
+   * Returns undefined if not set
+   */
+  getRaw(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | Array<string> | undefined>;
+
+  /**
+   * Set a raw global config value (for arbitrary keys)
+   */
+  setRaw(key: string, value: string, opts?: ConfigSetOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Unset a raw global config value (for arbitrary keys)
+   */
+  unsetRaw(key: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * List all global config values

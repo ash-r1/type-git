@@ -19,8 +19,10 @@ import type {
   CommitResult,
   ConfigEntry,
   ConfigGetOpts,
+  ConfigKey,
   ConfigListOpts,
   ConfigOperations,
+  ConfigSchema,
   ConfigSetOpts,
   DiffEntry,
   DiffOpts,
@@ -189,8 +191,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     // Initialize config operations (repository-level)
     this.config = {
       get: this.configGet.bind(this),
+      getAll: this.configGetAll.bind(this),
       set: this.configSet.bind(this),
+      add: this.configAdd.bind(this),
       unset: this.configUnset.bind(this),
+      getRaw: this.configGetRaw.bind(this),
+      setRaw: this.configSetRaw.bind(this),
+      unsetRaw: this.configUnsetRaw.bind(this),
       list: this.configList.bind(this),
     };
   }
@@ -2211,7 +2218,81 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Config Operations (Repository-level)
   // ==========================================================================
 
-  private async configGet(
+  /**
+   * Get a typed config value
+   */
+  private async configGet<K extends ConfigKey>(
+    key: K,
+    opts?: ExecOpts,
+  ): Promise<ConfigSchema[K] | undefined> {
+    const result = await this.runner.run(this.context, ['config', '--get', key], {
+      signal: opts?.signal,
+    });
+
+    if (result.exitCode !== 0) {
+      return undefined;
+    }
+
+    return result.stdout.trim() as ConfigSchema[K];
+  }
+
+  /**
+   * Get all values for a typed multi-valued config key
+   */
+  private async configGetAll<K extends ConfigKey>(
+    key: K,
+    opts?: ExecOpts,
+  ): Promise<Array<ConfigSchema[K]>> {
+    const result = await this.runner.run(this.context, ['config', '--get-all', key], {
+      signal: opts?.signal,
+    });
+
+    if (result.exitCode !== 0) {
+      return [];
+    }
+
+    return parseLines(result.stdout) as Array<ConfigSchema[K]>;
+  }
+
+  /**
+   * Set a typed config value
+   */
+  private async configSet<K extends ConfigKey>(
+    key: K,
+    value: ConfigSchema[K],
+    opts?: ExecOpts,
+  ): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['config', key, String(value)], {
+      signal: opts?.signal,
+    });
+  }
+
+  /**
+   * Add a value to a typed multi-valued config key
+   */
+  private async configAdd<K extends ConfigKey>(
+    key: K,
+    value: ConfigSchema[K],
+    opts?: ExecOpts,
+  ): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['config', '--add', key, String(value)], {
+      signal: opts?.signal,
+    });
+  }
+
+  /**
+   * Unset a typed config value
+   */
+  private async configUnset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['config', '--unset', key], {
+      signal: opts?.signal,
+    });
+  }
+
+  /**
+   * Get a raw config value (for arbitrary keys)
+   */
+  private async configGetRaw(
     key: string,
     opts?: ConfigGetOpts & ExecOpts,
   ): Promise<string | Array<string> | undefined> {
@@ -2230,7 +2311,6 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
 
     if (result.exitCode !== 0) {
-      // Key not found
       return undefined;
     }
 
@@ -2241,7 +2321,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     return result.stdout.trim();
   }
 
-  private async configSet(
+  /**
+   * Set a raw config value (for arbitrary keys)
+   */
+  private async configSetRaw(
     key: string,
     value: string,
     opts?: ConfigSetOpts & ExecOpts,
@@ -2259,12 +2342,18 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
   }
 
-  private async configUnset(key: string, opts?: ExecOpts): Promise<void> {
+  /**
+   * Unset a raw config value (for arbitrary keys)
+   */
+  private async configUnsetRaw(key: string, opts?: ExecOpts): Promise<void> {
     await this.runner.runOrThrow(this.context, ['config', '--unset', key], {
       signal: opts?.signal,
     });
   }
 
+  /**
+   * List all config values
+   */
   private async configList(opts?: ConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>> {
     const args = ['config', '--list'];
 

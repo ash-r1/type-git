@@ -6,15 +6,21 @@ import type { RuntimeAdapters } from '../core/adapters.js';
 import type {
   CloneOpts,
   Git,
-  GlobalConfigGetOpts,
   GlobalConfigListOpts,
   GlobalConfigOperations,
-  GlobalConfigSetOpts,
   InitOpts,
   LsRemoteOpts,
   LsRemoteResult,
 } from '../core/git.js';
-import type { BareRepo, ConfigEntry, WorktreeRepo } from '../core/repo.js';
+import type {
+  BareRepo,
+  ConfigEntry,
+  ConfigGetOpts,
+  ConfigKey,
+  ConfigSchema,
+  ConfigSetOpts,
+  WorktreeRepo,
+} from '../core/repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
 import { GitError } from '../core/types.js';
 import { parseLines, parseLsRemote } from '../parsers/index.js';
@@ -64,8 +70,13 @@ export class GitImpl implements Git {
     // Initialize global config operations
     this.config = {
       get: this.configGet.bind(this),
+      getAll: this.configGetAll.bind(this),
       set: this.configSet.bind(this),
+      add: this.configAdd.bind(this),
       unset: this.configUnset.bind(this),
+      getRaw: this.configGetRaw.bind(this),
+      setRaw: this.configSetRaw.bind(this),
+      unsetRaw: this.configUnsetRaw.bind(this),
       list: this.configList.bind(this),
     };
   }
@@ -266,9 +277,87 @@ export class GitImpl implements Git {
   // Global Config Operations
   // ==========================================================================
 
-  private async configGet(
+  /**
+   * Get a typed global config value
+   */
+  private async configGet<K extends ConfigKey>(
+    key: K,
+    opts?: ExecOpts,
+  ): Promise<ConfigSchema[K] | undefined> {
+    const result = await this.runner.run({ type: 'global' }, ['config', '--global', '--get', key], {
+      signal: opts?.signal,
+    });
+
+    if (result.exitCode !== 0) {
+      return undefined;
+    }
+
+    return result.stdout.trim() as ConfigSchema[K];
+  }
+
+  /**
+   * Get all values for a typed multi-valued global config key
+   */
+  private async configGetAll<K extends ConfigKey>(
+    key: K,
+    opts?: ExecOpts,
+  ): Promise<Array<ConfigSchema[K]>> {
+    const result = await this.runner.run(
+      { type: 'global' },
+      ['config', '--global', '--get-all', key],
+      { signal: opts?.signal },
+    );
+
+    if (result.exitCode !== 0) {
+      return [];
+    }
+
+    return parseLines(result.stdout) as Array<ConfigSchema[K]>;
+  }
+
+  /**
+   * Set a typed global config value
+   */
+  private async configSet<K extends ConfigKey>(
+    key: K,
+    value: ConfigSchema[K],
+    opts?: ExecOpts,
+  ): Promise<void> {
+    await this.runner.runOrThrow({ type: 'global' }, ['config', '--global', key, String(value)], {
+      signal: opts?.signal,
+    });
+  }
+
+  /**
+   * Add a value to a typed multi-valued global config key
+   */
+  private async configAdd<K extends ConfigKey>(
+    key: K,
+    value: ConfigSchema[K],
+    opts?: ExecOpts,
+  ): Promise<void> {
+    await this.runner.runOrThrow(
+      { type: 'global' },
+      ['config', '--global', '--add', key, String(value)],
+      { signal: opts?.signal },
+    );
+  }
+
+  /**
+   * Unset a typed global config value
+   */
+  private async configUnset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void> {
+    await this.runner.runOrThrow({ type: 'global' }, ['config', '--global', '--unset', key], {
+      signal: opts?.signal,
+    });
+  }
+
+  /**
+   * Get a raw global config value (for arbitrary keys)
+   */
+  private async configGetRaw(
     key: string,
-    opts?: GlobalConfigGetOpts & ExecOpts,
+    opts?: ConfigGetOpts & ExecOpts,
   ): Promise<string | Array<string> | undefined> {
     const args = ['config', '--global'];
 
@@ -285,7 +374,6 @@ export class GitImpl implements Git {
     });
 
     if (result.exitCode !== 0) {
-      // Key not found
       return undefined;
     }
 
@@ -296,10 +384,13 @@ export class GitImpl implements Git {
     return result.stdout.trim();
   }
 
-  private async configSet(
+  /**
+   * Set a raw global config value (for arbitrary keys)
+   */
+  private async configSetRaw(
     key: string,
     value: string,
-    opts?: GlobalConfigSetOpts & ExecOpts,
+    opts?: ConfigSetOpts & ExecOpts,
   ): Promise<void> {
     const args = ['config', '--global'];
 
@@ -314,12 +405,18 @@ export class GitImpl implements Git {
     });
   }
 
-  private async configUnset(key: string, opts?: ExecOpts): Promise<void> {
+  /**
+   * Unset a raw global config value (for arbitrary keys)
+   */
+  private async configUnsetRaw(key: string, opts?: ExecOpts): Promise<void> {
     await this.runner.runOrThrow({ type: 'global' }, ['config', '--global', '--unset', key], {
       signal: opts?.signal,
     });
   }
 
+  /**
+   * List all global config values
+   */
   private async configList(opts?: GlobalConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>> {
     const args = ['config', '--global', '--list'];
 
