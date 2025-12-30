@@ -3,7 +3,7 @@ title: Basic Usage
 description: Learn the core concepts of type-git
 ---
 
-## Architecture Overview
+## Overview
 
 type-git provides two main interfaces:
 
@@ -15,10 +15,9 @@ type-git provides two main interfaces:
 ### Cloning a Repository
 
 ```typescript
-import { TypeGit } from 'type-git';
-import { nodeAdapter } from 'type-git/node';
+import { TypeGit } from 'type-git/node';
 
-const git = new TypeGit(nodeAdapter);
+const git = new TypeGit();
 
 // Simple clone
 await git.clone('https://github.com/user/repo.git', './repo');
@@ -78,29 +77,10 @@ await repo.branch.create('feature/new-feature');
 await repo.switch('feature/new-feature');
 ```
 
-## Progress Tracking
+## Next Steps
 
-Long-running operations support progress callbacks:
-
-```typescript
-await git.clone('https://github.com/user/repo.git', './repo', {
-  progress: (p) => {
-    console.log(`${p.phase}: ${p.percent}%`);
-  },
-});
-```
-
-## Abort Control
-
-Cancel operations using AbortController:
-
-```typescript
-const controller = new AbortController();
-
-// Cancel after 30 seconds
-setTimeout(() => controller.abort(), 30000);
-
-await git.clone('https://github.com/user/repo.git', './repo', {
-  signal: controller.signal,
-});
-```
+See [Practical Patterns](/type-git/guides/03-practical-patterns/) for:
+- Git LFS operations
+- Progress tracking
+- Abort control
+- Error handling

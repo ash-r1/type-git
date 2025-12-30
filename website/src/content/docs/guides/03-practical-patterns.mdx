@@ -1,0 +1,260 @@
+---
+title: Practical Patterns
+description: LFS, progress tracking, abort control, and error handling
+---
+
+## Git LFS Basics
+
+type-git provides built-in support for Git LFS (Large File Storage).
+
+### Basic Operations
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+const git = new TypeGit();
+const repo = await git.open('./repo');
+
+// Pull LFS objects
+await repo.lfs.pull();
+
+// Push LFS objects
+await repo.lfs.push();
+
+// Check LFS status
+const status = await repo.lfs.status();
+console.log(status.files);
+```
+
+### LFS with Options
+
+```typescript
+// Pull specific files
+await repo.lfs.pull({
+  include: ['*.psd', '*.ai'],
+  exclude: ['archive/*'],
+});
+
+// Push to specific remote
+await repo.lfs.push({ remote: 'upstream' });
+```
+
+## Progress Tracking
+
+Long-running operations support progress callbacks for both Git and LFS operations.
+
+### Git Progress
+
+```typescript
+// Clone with progress
+await git.clone('https://github.com/user/repo.git', './repo', {
+  onProgress: (progress) => {
+    console.log(`${progress.phase}: ${progress.current}/${progress.total}`);
+    if (progress.percent !== undefined) {
+      console.log(`  ${progress.percent}%`);
+    }
+  },
+});
+
+// Fetch with progress
+await repo.fetch({
+  onProgress: (progress) => {
+    console.log(`${progress.phase}: ${progress.percent}%`);
+  },
+});
+```
+
+### LFS Progress
+
+```typescript
+// LFS pull with progress
+await repo.lfs.pull({
+  onLfsProgress: (progress) => {
+    console.log(`${progress.direction}: ${progress.filesCompleted}/${progress.filesTotal}`);
+    console.log(`  ${progress.bytesSoFar}/${progress.bytesTotal} bytes`);
+    if (progress.bitrate) {
+      console.log(`  ${progress.bitrate}`);
+    }
+  },
+});
+```
+
+### Combined Progress
+
+```typescript
+// Clone with both Git and LFS progress
+await git.clone('https://github.com/user/repo.git', './repo', {
+  onProgress: (p) => console.log(`Git: ${p.phase}`),
+  onLfsProgress: (p) => console.log(`LFS: ${p.percent}%`),
+});
+```
+
+## Abort Control
+
+Cancel long-running operations using the standard `AbortController` API.
+
+### Basic Usage
+
+```typescript
+const controller = new AbortController();
+
+// Cancel after 30 seconds
+const timeout = setTimeout(() => controller.abort(), 30000);
+
+try {
+  await git.clone('https://github.com/user/repo.git', './repo', {
+    signal: controller.signal,
+  });
+  clearTimeout(timeout);
+} catch (error) {
+  if (error.kind === 'Aborted') {
+    console.log('Clone was cancelled');
+  }
+}
+```
+
+### User-Initiated Cancel
+
+```typescript
+const controller = new AbortController();
+
+// UI cancel button
+cancelButton.onclick = () => controller.abort();
+
+await repo.fetch({ signal: controller.signal });
+```
+
+### Cleanup on Abort
+
+By default, type-git cleans up partially created directories when a clone is aborted:
+
+```typescript
+// Cleanup is enabled by default
+await git.clone(url, './repo', { signal });
+
+// Disable cleanup if needed
+await git.clone(url, './repo', {
+  signal,
+  cleanupOnAbort: false,
+});
+```
+
+## Error Handling
+
+type-git provides structured error information through the `GitError` class.
+
+### GitError Structure
+
+```typescript
+import { GitError } from 'type-git';
+
+try {
+  await repo.checkout('nonexistent-branch');
+} catch (error) {
+  if (error instanceof GitError) {
+    console.log('Kind:', error.kind);       // 'NonZeroExit' | 'Aborted' | 'SpawnFailed'
+    console.log('Message:', error.message);
+    console.log('Exit code:', error.exitCode);
+    console.log('stderr:', error.stderr);
+    console.log('Category:', error.category); // Semantic error category
+  }
+}
+```
+
+### Error Categories
+
+The `category` property provides semantic classification of errors:
+
+```typescript
+try {
+  await repo.push();
+} catch (error) {
+  if (error instanceof GitError) {
+    switch (error.category) {
+      case 'authentication':
+        console.log('Authentication failed - check credentials');
+        break;
+      case 'network':
+        console.log('Network error - check connection');
+        break;
+      case 'conflict':
+        console.log('Merge conflict detected');
+        break;
+      case 'not_found':
+        console.log('Reference not found');
+        break;
+      default:
+        console.log('Git error:', error.message);
+    }
+  }
+}
+```
+
+### Available Categories
+
+| Category | Description |
+|----------|-------------|
+| `authentication` | Auth failures, invalid credentials |
+| `network` | Connection issues, timeouts |
+| `conflict` | Merge/rebase conflicts |
+| `not_found` | Missing refs, files, or repos |
+| `permission` | File system permission errors |
+| `locked` | Resource locked by another process |
+| `dirty` | Uncommitted changes blocking operation |
+| `unknown` | Unclassified errors |
+
+## Advanced LFS Patterns
+
+For large repositories, you may want more control over when LFS objects are transferred.
+
+### 2-Phase Commit (Pre-Upload)
+
+Upload LFS objects before pushing refs for better reliability:
+
+```typescript
+// Phase 1: Stage and commit locally
+await repo.add(['large-file.psd']);
+await repo.commit({ message: 'Add large file' });
+
+// Phase 2: Upload LFS objects first
+const result = await repo.lfsExtra.preUpload({
+  onLfsProgress: (p) => {
+    console.log(`Uploading: ${p.percent}%`);
+  },
+});
+console.log(`Uploaded ${result.uploadedCount} objects (${result.uploadedBytes} bytes)`);
+
+// Phase 3: Push refs (fast, LFS already uploaded)
+await repo.push();
+```
+
+### 2-Phase Fetch (Pre-Download)
+
+Download LFS objects before checkout for controlled large file management:
+
+```typescript
+// Phase 1: Fetch refs only
+await repo.fetch();
+
+// Phase 2: Pre-download LFS objects for target branch
+const result = await repo.lfsExtra.preDownload({
+  ref: 'origin/feature-branch',
+  onLfsProgress: (p) => {
+    console.log(`Downloading: ${p.filesCompleted}/${p.filesTotal}`);
+  },
+});
+console.log(`Downloaded ${result.downloadedCount} objects`);
+
+// Phase 3: Checkout (fast, LFS already downloaded)
+await repo.checkout('feature-branch');
+```
+
+### Batch Size Control
+
+For Windows compatibility or network optimization:
+
+```typescript
+await repo.lfsExtra.preUpload({
+  batchSize: 25, // Smaller batches for Windows command line limits
+});
+```

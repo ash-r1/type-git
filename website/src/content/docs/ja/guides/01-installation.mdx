@@ -37,41 +37,40 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   </TabItem>
 </Tabs>
 
-## ランタイムアダプター
+## ランタイムセットアップ
 
-type-gitはプロセス実行を処理するためにランタイム固有のアダプターを使用します。使用するランタイムに適したアダプターをインポートしてください：
+type-gitは各ランタイム向けに事前設定されたクラスを提供します：
 
 ### Node.js
 
 ```typescript
-import { TypeGit } from 'type-git';
-import { nodeAdapter } from 'type-git/node';
+import { TypeGit } from 'type-git/node';
 
-const git = new TypeGit(nodeAdapter);
+const git = new TypeGit();
 ```
 
 ### Deno
 
 ```typescript
-import { TypeGit } from 'npm:type-git';
-import { denoAdapter } from 'npm:type-git/deno';
+import { TypeGit } from 'npm:type-git/deno';
 
-const git = new TypeGit(denoAdapter);
+const git = new TypeGit();
 ```
 
 ### Bun
 
 ```typescript
-import { TypeGit } from 'type-git';
-import { bunAdapter } from 'type-git/bun';
+import { TypeGit } from 'type-git/bun';
 
-const git = new TypeGit(bunAdapter);
+const git = new TypeGit();
 ```
 
 ## インストールの確認
 
 ```typescript
-const git = new TypeGit(nodeAdapter);
+import { TypeGit } from 'type-git/node';
+
+const git = new TypeGit();
 const version = await git.version();
 console.log('Gitバージョン:', version);
 ```

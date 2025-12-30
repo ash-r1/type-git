@@ -1,0 +1,334 @@
+---
+title: Core Concepts
+description: Key classes, interfaces, and advanced customization
+---
+
+## Key Interfaces
+
+### TypeGit
+
+Pre-configured convenience class for each runtime:
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+const git = new TypeGit();
+// Automatically configured with Node.js adapters
+```
+
+**When to use:** Most applications. Simplest way to get started.
+
+### Git
+
+The core interface for repository-agnostic operations:
+
+```typescript
+interface Git {
+  open(path: string): Promise<WorktreeRepo | BareRepo>;
+  clone(url: string, path: string, opts?: CloneOpts): Promise<WorktreeRepo | BareRepo>;
+  init(path: string, opts?: InitOpts): Promise<WorktreeRepo | BareRepo>;
+  lsRemote(url: string, opts?: LsRemoteOpts): Promise<LsRemoteResult>;
+  version(): Promise<string>;
+  raw(argv: string[]): Promise<RawResult>;
+}
+```
+
+**When to use:** When you need the underlying interface, or when using `createGit()` with custom adapters.
+
+### WorktreeRepo
+
+Standard repository with working directory:
+
+```typescript
+interface WorktreeRepo {
+  readonly workdir: string;
+
+  // Core operations
+  status(opts?: StatusOpts): Promise<StatusPorcelain>;
+  log(opts?: LogOpts): Promise<Commit[]>;
+  add(paths: string[], opts?: AddOpts): Promise<void>;
+  commit(opts?: CommitOpts): Promise<CommitResult>;
+
+  // Remote operations
+  fetch(opts?: FetchOpts): Promise<void>;
+  push(opts?: PushOpts): Promise<void>;
+  pull(opts?: PullOpts): Promise<void>;
+
+  // Nested operations
+  branch: BranchOperations;
+  stash: StashOperations;
+  tag: TagOperations;
+  lfs: LfsOperations;
+  lfsExtra: LfsExtraOperations;
+  worktree: WorktreeOperations;
+
+  // Raw access
+  raw(argv: string[]): Promise<RawResult>;
+}
+```
+
+### BareRepo
+
+Repository without working directory (mirrors, servers):
+
+```typescript
+interface BareRepo {
+  readonly gitDir: string;
+
+  fetch(opts?: FetchOpts): Promise<void>;
+  push(opts?: PushOpts): Promise<void>;
+  raw(argv: string[]): Promise<RawResult>;
+}
+```
+
+**Note:** Bare repos have limited operations since there's no working directory.
+
+### CliRunner
+
+Low-level command execution engine:
+
+```typescript
+class CliRunner {
+  constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions);
+
+  run(context: ExecutionContext, args: string[], opts?: ExecOpts): Promise<RawResult>;
+  runOrThrow(context: ExecutionContext, args: string[], opts?: ExecOpts): Promise<RawResult>;
+}
+```
+
+**When to use:** Building custom git wrappers or extending type-git.
+
+### GitError
+
+Structured error with semantic information:
+
+```typescript
+class GitError extends Error {
+  readonly kind: 'NonZeroExit' | 'Aborted' | 'SpawnFailed';
+  readonly category: GitErrorCategory;
+  readonly exitCode: number;
+  readonly stdout: string;
+  readonly stderr: string;
+  readonly argv: string[];
+}
+```
+
+## Nested Operations
+
+Several operations are grouped under namespaced properties:
+
+### branch
+
+```typescript
+await repo.branch.list();                    // List branches
+await repo.branch.current();                 // Get current branch name
+await repo.branch.create('feature-x');       // Create branch
+await repo.branch.delete('old-branch');      // Delete branch
+await repo.branch.rename('old', 'new');      // Rename branch
+```
+
+### stash
+
+```typescript
+await repo.stash.list();                     // List stash entries
+await repo.stash.push({ message: 'WIP' });   // Stash changes
+await repo.stash.pop();                      // Pop latest stash
+await repo.stash.apply({ index: 1 });        // Apply specific stash
+await repo.stash.drop(0);                    // Drop stash entry
+await repo.stash.clear();                    // Clear all stashes
+```
+
+### tag
+
+```typescript
+await repo.tag.list();                       // List tags
+await repo.tag.create('v1.0.0');             // Create lightweight tag
+await repo.tag.create('v1.0.0', {            // Create annotated tag
+  message: 'Release 1.0'
+});
+await repo.tag.delete('old-tag');            // Delete tag
+await repo.tag.show('v1.0.0');               // Get tag info
+```
+
+### lfs / lfsExtra
+
+```typescript
+// Basic LFS
+await repo.lfs.pull();
+await repo.lfs.push();
+await repo.lfs.status();
+
+// Advanced LFS (2-phase patterns)
+await repo.lfsExtra.preUpload();
+await repo.lfsExtra.preDownload({ ref: 'main' });
+```
+
+### worktree
+
+```typescript
+await repo.worktree.list();                  // List worktrees
+await repo.worktree.add('./wt', {            // Add worktree
+  branch: 'feature-x'
+});
+await repo.worktree.remove('./wt');          // Remove worktree
+await repo.worktree.lock('./wt');            // Lock worktree
+await repo.worktree.unlock('./wt');          // Unlock worktree
+```
+
+---
+
+## Advanced: Custom Adapters
+
+For special use cases, you can create custom adapters.
+
+### When to Create Custom Adapters
+
+- Testing with mocked git commands
+- Custom process spawning (containers, SSH)
+- Custom file system (virtual FS, cloud storage)
+- Logging/auditing all git operations
+
+### ExecAdapter Interface
+
+```typescript
+interface ExecAdapter {
+  getCapabilities(): Capabilities;
+  spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult>;
+  spawnStreaming?(options: SpawnOptions): SpawnHandle;
+}
+
+type SpawnOptions = {
+  argv: string[];
+  env?: Record<string, string>;
+  cwd?: string;
+  signal?: AbortSignal;
+};
+
+type SpawnResult = {
+  stdout: string;
+  stderr: string;
+  exitCode: number;
+  aborted: boolean;
+};
+```
+
+### FsAdapter Interface
+
+```typescript
+interface FsAdapter {
+  createTempFile(prefix?: string): Promise<string>;
+  deleteFile(filePath: string): Promise<void>;
+  deleteDirectory(dirPath: string): Promise<void>;
+  exists(filePath: string): Promise<boolean>;
+  tail(options: TailOptions): Promise<void>;
+  tailStreaming?(filePath: string, options?: TailStreamingOptions): TailHandle;
+}
+```
+
+### Example: Logging Adapter
+
+```typescript
+import { createGit, createNodeAdapters } from 'type-git/node';
+import type { ExecAdapter, SpawnOptions, SpawnResult } from 'type-git';
+
+class LoggingExecAdapter implements ExecAdapter {
+  private inner: ExecAdapter;
+
+  constructor(inner: ExecAdapter) {
+    this.inner = inner;
+  }
+
+  getCapabilities() {
+    return this.inner.getCapabilities();
+  }
+
+  async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
+    console.log('[GIT]', options.argv.join(' '));
+    const start = Date.now();
+
+    const result = await this.inner.spawn(options, handlers);
+
+    console.log(`[GIT] Completed in ${Date.now() - start}ms (exit: ${result.exitCode})`);
+    return result;
+  }
+}
+
+// Usage
+const nodeAdapters = createNodeAdapters();
+const git = createGit({
+  adapters: {
+    exec: new LoggingExecAdapter(nodeAdapters.exec),
+    fs: nodeAdapters.fs,
+  },
+});
+```
+
+### Example: Mock Adapter for Testing
+
+```typescript
+class MockExecAdapter implements ExecAdapter {
+  private responses: Map<string, SpawnResult> = new Map();
+
+  getCapabilities() {
+    return { runtime: 'node' as const };
+  }
+
+  mockCommand(pattern: string, result: Partial<SpawnResult>) {
+    this.responses.set(pattern, {
+      stdout: result.stdout ?? '',
+      stderr: result.stderr ?? '',
+      exitCode: result.exitCode ?? 0,
+      aborted: false,
+    });
+  }
+
+  async spawn(options: SpawnOptions): Promise<SpawnResult> {
+    const command = options.argv.join(' ');
+
+    for (const [pattern, result] of this.responses) {
+      if (command.includes(pattern)) {
+        return result;
+      }
+    }
+
+    throw new Error(`Unmocked command: ${command}`);
+  }
+}
+
+// Usage in tests
+const mockExec = new MockExecAdapter();
+mockExec.mockCommand('--version', { stdout: 'git version 2.40.0' });
+mockExec.mockCommand('status --porcelain', { stdout: '' });
+
+const git = createGit({
+  adapters: {
+    exec: mockExec,
+    fs: createMockFsAdapter(),
+  },
+});
+```
+
+### Using createGit
+
+For full control, use `createGit` instead of `TypeGit`:
+
+```typescript
+import { createGit, createNodeAdapters } from 'type-git/node';
+
+const git = createGit({
+  adapters: createNodeAdapters(),
+  gitBinary: '/custom/path/to/git',
+  env: { GIT_AUTHOR_NAME: 'Custom Author' },
+});
+```
+
+Available options:
+
+| Option | Description |
+|--------|-------------|
+| `adapters` | Runtime adapters (required) |
+| `gitBinary` | Path to git executable |
+| `env` | Additional environment variables |
+| `pathPrefix` | Directories to prepend to PATH |
+| `home` | Custom HOME directory |
+| `credential` | Credential helper configuration |

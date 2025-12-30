@@ -1,0 +1,260 @@
+---
+title: 実践パターン
+description: LFS、進捗トラッキング、中断制御、エラーハンドリング
+---
+
+## Git LFSの基本
+
+type-gitはGit LFS（Large File Storage）をビルトインでサポートしています。
+
+### 基本操作
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+const git = new TypeGit();
+const repo = await git.open('./repo');
+
+// LFSオブジェクトをプル
+await repo.lfs.pull();
+
+// LFSオブジェクトをプッシュ
+await repo.lfs.push();
+
+// LFSステータスを確認
+const status = await repo.lfs.status();
+console.log(status.files);
+```
+
+### オプション付きLFS
+
+```typescript
+// 特定のファイルをプル
+await repo.lfs.pull({
+  include: ['*.psd', '*.ai'],
+  exclude: ['archive/*'],
+});
+
+// 特定のリモートにプッシュ
+await repo.lfs.push({ remote: 'upstream' });
+```
+
+## 進捗トラッキング
+
+長時間実行される操作は、GitとLFSの両方で進捗コールバックをサポートしています。
+
+### Gitの進捗
+
+```typescript
+// クローン時の進捗
+await git.clone('https://github.com/user/repo.git', './repo', {
+  onProgress: (progress) => {
+    console.log(`${progress.phase}: ${progress.current}/${progress.total}`);
+    if (progress.percent !== undefined) {
+      console.log(`  ${progress.percent}%`);
+    }
+  },
+});
+
+// フェッチ時の進捗
+await repo.fetch({
+  onProgress: (progress) => {
+    console.log(`${progress.phase}: ${progress.percent}%`);
+  },
+});
+```
+
+### LFSの進捗
+
+```typescript
+// LFSプル時の進捗
+await repo.lfs.pull({
+  onLfsProgress: (progress) => {
+    console.log(`${progress.direction}: ${progress.filesCompleted}/${progress.filesTotal}`);
+    console.log(`  ${progress.bytesSoFar}/${progress.bytesTotal} bytes`);
+    if (progress.bitrate) {
+      console.log(`  ${progress.bitrate}`);
+    }
+  },
+});
+```
+
+### 複合進捗
+
+```typescript
+// GitとLFS両方の進捗を取得
+await git.clone('https://github.com/user/repo.git', './repo', {
+  onProgress: (p) => console.log(`Git: ${p.phase}`),
+  onLfsProgress: (p) => console.log(`LFS: ${p.percent}%`),
+});
+```
+
+## 中断制御
+
+標準の`AbortController` APIを使用して長時間実行される操作をキャンセルできます。
+
+### 基本的な使い方
+
+```typescript
+const controller = new AbortController();
+
+// 30秒後にキャンセル
+const timeout = setTimeout(() => controller.abort(), 30000);
+
+try {
+  await git.clone('https://github.com/user/repo.git', './repo', {
+    signal: controller.signal,
+  });
+  clearTimeout(timeout);
+} catch (error) {
+  if (error.kind === 'Aborted') {
+    console.log('クローンがキャンセルされました');
+  }
+}
+```
+
+### ユーザー操作によるキャンセル
+
+```typescript
+const controller = new AbortController();
+
+// UIのキャンセルボタン
+cancelButton.onclick = () => controller.abort();
+
+await repo.fetch({ signal: controller.signal });
+```
+
+### 中断時のクリーンアップ
+
+デフォルトでは、クローンが中断された場合、部分的に作成されたディレクトリはクリーンアップされます：
+
+```typescript
+// クリーンアップはデフォルトで有効
+await git.clone(url, './repo', { signal });
+
+// 必要に応じてクリーンアップを無効化
+await git.clone(url, './repo', {
+  signal,
+  cleanupOnAbort: false,
+});
+```
+
+## エラーハンドリング
+
+type-gitは`GitError`クラスを通じて構造化されたエラー情報を提供します。
+
+### GitErrorの構造
+
+```typescript
+import { GitError } from 'type-git';
+
+try {
+  await repo.checkout('nonexistent-branch');
+} catch (error) {
+  if (error instanceof GitError) {
+    console.log('Kind:', error.kind);       // 'NonZeroExit' | 'Aborted' | 'SpawnFailed'
+    console.log('Message:', error.message);
+    console.log('Exit code:', error.exitCode);
+    console.log('stderr:', error.stderr);
+    console.log('Category:', error.category); // セマンティックなエラーカテゴリ
+  }
+}
+```
+
+### エラーカテゴリ
+
+`category`プロパティはエラーのセマンティックな分類を提供します：
+
+```typescript
+try {
+  await repo.push();
+} catch (error) {
+  if (error instanceof GitError) {
+    switch (error.category) {
+      case 'authentication':
+        console.log('認証失敗 - 資格情報を確認してください');
+        break;
+      case 'network':
+        console.log('ネットワークエラー - 接続を確認してください');
+        break;
+      case 'conflict':
+        console.log('マージコンフリクトが発生しました');
+        break;
+      case 'not_found':
+        console.log('参照が見つかりません');
+        break;
+      default:
+        console.log('Gitエラー:', error.message);
+    }
+  }
+}
+```
+
+### 利用可能なカテゴリ
+
+| カテゴリ | 説明 |
+|----------|-------------|
+| `authentication` | 認証失敗、無効な資格情報 |
+| `network` | 接続問題、タイムアウト |
+| `conflict` | マージ/リベースのコンフリクト |
+| `not_found` | 参照、ファイル、リポジトリが見つからない |
+| `permission` | ファイルシステムの権限エラー |
+| `locked` | 他のプロセスによるリソースロック |
+| `dirty` | コミットされていない変更が操作をブロック |
+| `unknown` | 未分類のエラー |
+
+## 高度なLFSパターン
+
+大規模なリポジトリでは、LFSオブジェクトの転送タイミングをより細かく制御したい場合があります。
+
+### 2フェーズコミット（プリアップロード）
+
+信頼性向上のため、refのプッシュ前にLFSオブジェクトをアップロード：
+
+```typescript
+// フェーズ1: ローカルでステージングとコミット
+await repo.add(['large-file.psd']);
+await repo.commit({ message: '大きなファイルを追加' });
+
+// フェーズ2: まずLFSオブジェクトをアップロード
+const result = await repo.lfsExtra.preUpload({
+  onLfsProgress: (p) => {
+    console.log(`アップロード中: ${p.percent}%`);
+  },
+});
+console.log(`${result.uploadedCount}個のオブジェクトをアップロード (${result.uploadedBytes} bytes)`);
+
+// フェーズ3: refをプッシュ（高速、LFSは既にアップロード済み）
+await repo.push();
+```
+
+### 2フェーズフェッチ（プリダウンロード）
+
+大きなファイルの管理を制御するため、チェックアウト前にLFSオブジェクトをダウンロード：
+
+```typescript
+// フェーズ1: refのみフェッチ
+await repo.fetch();
+
+// フェーズ2: ターゲットブランチのLFSオブジェクトを事前ダウンロード
+const result = await repo.lfsExtra.preDownload({
+  ref: 'origin/feature-branch',
+  onLfsProgress: (p) => {
+    console.log(`ダウンロード中: ${p.filesCompleted}/${p.filesTotal}`);
+  },
+});
+console.log(`${result.downloadedCount}個のオブジェクトをダウンロード`);
+
+// フェーズ3: チェックアウト（高速、LFSは既にダウンロード済み）
+await repo.checkout('feature-branch');
+```
+
+### バッチサイズの制御
+
+Windows互換性やネットワーク最適化のため：
+
+```typescript
+await repo.lfsExtra.preUpload({
+  batchSize: 25, // Windowsコマンドライン制限に対応した小さなバッチ
+});
+```

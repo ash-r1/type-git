@@ -1,0 +1,334 @@
+---
+title: コアコンセプト
+description: 主要なクラス、インターフェース、高度なカスタマイズ
+---
+
+## 主要なインターフェース
+
+### TypeGit
+
+各ランタイム向けに事前設定された便利クラス：
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+const git = new TypeGit();
+// Node.jsアダプターで自動設定
+```
+
+**使用場面:** ほとんどのアプリケーション。最もシンプルな開始方法。
+
+### Git
+
+リポジトリ非依存の操作のためのコアインターフェース：
+
+```typescript
+interface Git {
+  open(path: string): Promise<WorktreeRepo | BareRepo>;
+  clone(url: string, path: string, opts?: CloneOpts): Promise<WorktreeRepo | BareRepo>;
+  init(path: string, opts?: InitOpts): Promise<WorktreeRepo | BareRepo>;
+  lsRemote(url: string, opts?: LsRemoteOpts): Promise<LsRemoteResult>;
+  version(): Promise<string>;
+  raw(argv: string[]): Promise<RawResult>;
+}
+```
+
+**使用場面:** 基礎となるインターフェースが必要な場合、またはカスタムアダプターで`createGit()`を使用する場合。
+
+### WorktreeRepo
+
+作業ディレクトリを持つ標準リポジトリ：
+
+```typescript
+interface WorktreeRepo {
+  readonly workdir: string;
+
+  // コア操作
+  status(opts?: StatusOpts): Promise<StatusPorcelain>;
+  log(opts?: LogOpts): Promise<Commit[]>;
+  add(paths: string[], opts?: AddOpts): Promise<void>;
+  commit(opts?: CommitOpts): Promise<CommitResult>;
+
+  // リモート操作
+  fetch(opts?: FetchOpts): Promise<void>;
+  push(opts?: PushOpts): Promise<void>;
+  pull(opts?: PullOpts): Promise<void>;
+
+  // ネストされた操作
+  branch: BranchOperations;
+  stash: StashOperations;
+  tag: TagOperations;
+  lfs: LfsOperations;
+  lfsExtra: LfsExtraOperations;
+  worktree: WorktreeOperations;
+
+  // rawアクセス
+  raw(argv: string[]): Promise<RawResult>;
+}
+```
+
+### BareRepo
+
+作業ディレクトリのないリポジトリ（ミラー、サーバー）：
+
+```typescript
+interface BareRepo {
+  readonly gitDir: string;
+
+  fetch(opts?: FetchOpts): Promise<void>;
+  push(opts?: PushOpts): Promise<void>;
+  raw(argv: string[]): Promise<RawResult>;
+}
+```
+
+**注意:** ベアリポジトリは作業ディレクトリがないため、操作が制限されます。
+
+### CliRunner
+
+低レベルのコマンド実行エンジン：
+
+```typescript
+class CliRunner {
+  constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions);
+
+  run(context: ExecutionContext, args: string[], opts?: ExecOpts): Promise<RawResult>;
+  runOrThrow(context: ExecutionContext, args: string[], opts?: ExecOpts): Promise<RawResult>;
+}
+```
+
+**使用場面:** カスタムgitラッパーの構築やtype-gitの拡張。
+
+### GitError
+
+セマンティック情報を持つ構造化エラー：
+
+```typescript
+class GitError extends Error {
+  readonly kind: 'NonZeroExit' | 'Aborted' | 'SpawnFailed';
+  readonly category: GitErrorCategory;
+  readonly exitCode: number;
+  readonly stdout: string;
+  readonly stderr: string;
+  readonly argv: string[];
+}
+```
+
+## ネストされた操作
+
+いくつかの操作は名前空間プロパティの下にグループ化されています：
+
+### branch
+
+```typescript
+await repo.branch.list();                    // ブランチ一覧
+await repo.branch.current();                 // 現在のブランチ名を取得
+await repo.branch.create('feature-x');       // ブランチ作成
+await repo.branch.delete('old-branch');      // ブランチ削除
+await repo.branch.rename('old', 'new');      // ブランチ名変更
+```
+
+### stash
+
+```typescript
+await repo.stash.list();                     // スタッシュ一覧
+await repo.stash.push({ message: 'WIP' });   // 変更をスタッシュ
+await repo.stash.pop();                      // 最新のスタッシュを適用
+await repo.stash.apply({ index: 1 });        // 特定のスタッシュを適用
+await repo.stash.drop(0);                    // スタッシュエントリを削除
+await repo.stash.clear();                    // 全スタッシュをクリア
+```
+
+### tag
+
+```typescript
+await repo.tag.list();                       // タグ一覧
+await repo.tag.create('v1.0.0');             // 軽量タグを作成
+await repo.tag.create('v1.0.0', {            // 注釈付きタグを作成
+  message: 'Release 1.0'
+});
+await repo.tag.delete('old-tag');            // タグ削除
+await repo.tag.show('v1.0.0');               // タグ情報を取得
+```
+
+### lfs / lfsExtra
+
+```typescript
+// 基本LFS
+await repo.lfs.pull();
+await repo.lfs.push();
+await repo.lfs.status();
+
+// 高度なLFS（2フェーズパターン）
+await repo.lfsExtra.preUpload();
+await repo.lfsExtra.preDownload({ ref: 'main' });
+```
+
+### worktree
+
+```typescript
+await repo.worktree.list();                  // ワークツリー一覧
+await repo.worktree.add('./wt', {            // ワークツリー追加
+  branch: 'feature-x'
+});
+await repo.worktree.remove('./wt');          // ワークツリー削除
+await repo.worktree.lock('./wt');            // ワークツリーをロック
+await repo.worktree.unlock('./wt');          // ワークツリーのロック解除
+```
+
+---
+
+## 上級編: カスタムアダプター
+
+特殊なユースケースでは、カスタムアダプターを作成できます。
+
+### カスタムアダプターを作成する場面
+
+- モックgitコマンドでのテスト
+- カスタムプロセス起動（コンテナ、SSH）
+- カスタムファイルシステム（仮想FS、クラウドストレージ）
+- 全gitオペレーションのログ/監査
+
+### ExecAdapterインターフェース
+
+```typescript
+interface ExecAdapter {
+  getCapabilities(): Capabilities;
+  spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult>;
+  spawnStreaming?(options: SpawnOptions): SpawnHandle;
+}
+
+type SpawnOptions = {
+  argv: string[];
+  env?: Record<string, string>;
+  cwd?: string;
+  signal?: AbortSignal;
+};
+
+type SpawnResult = {
+  stdout: string;
+  stderr: string;
+  exitCode: number;
+  aborted: boolean;
+};
+```
+
+### FsAdapterインターフェース
+
+```typescript
+interface FsAdapter {
+  createTempFile(prefix?: string): Promise<string>;
+  deleteFile(filePath: string): Promise<void>;
+  deleteDirectory(dirPath: string): Promise<void>;
+  exists(filePath: string): Promise<boolean>;
+  tail(options: TailOptions): Promise<void>;
+  tailStreaming?(filePath: string, options?: TailStreamingOptions): TailHandle;
+}
+```
+
+### 例: ロギングアダプター
+
+```typescript
+import { createGit, createNodeAdapters } from 'type-git/node';
+import type { ExecAdapter, SpawnOptions, SpawnResult } from 'type-git';
+
+class LoggingExecAdapter implements ExecAdapter {
+  private inner: ExecAdapter;
+
+  constructor(inner: ExecAdapter) {
+    this.inner = inner;
+  }
+
+  getCapabilities() {
+    return this.inner.getCapabilities();
+  }
+
+  async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
+    console.log('[GIT]', options.argv.join(' '));
+    const start = Date.now();
+
+    const result = await this.inner.spawn(options, handlers);
+
+    console.log(`[GIT] ${Date.now() - start}msで完了 (exit: ${result.exitCode})`);
+    return result;
+  }
+}
+
+// 使用方法
+const nodeAdapters = createNodeAdapters();
+const git = createGit({
+  adapters: {
+    exec: new LoggingExecAdapter(nodeAdapters.exec),
+    fs: nodeAdapters.fs,
+  },
+});
+```
+
+### 例: テスト用モックアダプター
+
+```typescript
+class MockExecAdapter implements ExecAdapter {
+  private responses: Map<string, SpawnResult> = new Map();
+
+  getCapabilities() {
+    return { runtime: 'node' as const };
+  }
+
+  mockCommand(pattern: string, result: Partial<SpawnResult>) {
+    this.responses.set(pattern, {
+      stdout: result.stdout ?? '',
+      stderr: result.stderr ?? '',
+      exitCode: result.exitCode ?? 0,
+      aborted: false,
+    });
+  }
+
+  async spawn(options: SpawnOptions): Promise<SpawnResult> {
+    const command = options.argv.join(' ');
+
+    for (const [pattern, result] of this.responses) {
+      if (command.includes(pattern)) {
+        return result;
+      }
+    }
+
+    throw new Error(`モックされていないコマンド: ${command}`);
+  }
+}
+
+// テストでの使用
+const mockExec = new MockExecAdapter();
+mockExec.mockCommand('--version', { stdout: 'git version 2.40.0' });
+mockExec.mockCommand('status --porcelain', { stdout: '' });
+
+const git = createGit({
+  adapters: {
+    exec: mockExec,
+    fs: createMockFsAdapter(),
+  },
+});
+```
+
+### createGitの使用
+
+完全な制御が必要な場合は、`TypeGit`の代わりに`createGit`を使用：
+
+```typescript
+import { createGit, createNodeAdapters } from 'type-git/node';
+
+const git = createGit({
+  adapters: createNodeAdapters(),
+  gitBinary: '/custom/path/to/git',
+  env: { GIT_AUTHOR_NAME: 'Custom Author' },
+});
+```
+
+利用可能なオプション：
+
+| オプション | 説明 |
+|--------|-------------|
+| `adapters` | ランタイムアダプター（必須） |
+| `gitBinary` | git実行ファイルへのパス |
+| `env` | 追加の環境変数 |
+| `pathPrefix` | PATHに追加するディレクトリ |
+| `home` | カスタムHOMEディレクトリ |
+| `credential` | 資格情報ヘルパーの設定 |

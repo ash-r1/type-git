@@ -1,0 +1,246 @@
+---
+title: アーキテクチャ
+description: type-gitの設計と構造を理解する
+---
+
+## 設計概要
+
+type-gitは3つの主要な原則で設計されています：
+
+1. **コンテキスト分離** - リポジトリ非依存とリポジトリ固有の操作を明確に区別
+2. **ランタイム抽象化** - アダプターを通じてNode.js、Deno、Bunをサポート
+3. **レイヤードAPI** - 用途に応じた3つの抽象化レベル
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    アプリケーション                       │
+├─────────────────────────────────────────────────────────┤
+│  TypeGit (便利クラス)    │  createGit() (高度な使用)     │
+├─────────────────────────────────────────────────────────┤
+│         Git              │       WorktreeRepo / BareRepo │
+│   (リポジトリ非依存)       │       (リポジトリ固有)         │
+├─────────────────────────────────────────────────────────┤
+│                      CliRunner                           │
+│            (コマンド構築、進捗トラッキング)                 │
+├─────────────────────────────────────────────────────────┤
+│     ExecAdapter          │         FsAdapter             │
+│   (プロセス起動)          │    (ファイル操作)              │
+├─────────────────────────────────────────────────────────┤
+│  Node.js  │    Deno     │     Bun                        │
+└─────────────────────────────────────────────────────────┘
+```
+
+## コンテキスト分離
+
+type-gitはリポジトリコンテキストの必要性に基づいて操作を分離しています。
+
+### Git（リポジトリ非依存）
+
+既存のリポジトリを必要としない操作：
+
+```typescript
+const git = new TypeGit();
+
+// リポジトリを開かずに実行可能
+await git.clone(url, path);      // リモートリポジトリをクローン
+await git.init(path);            // 新規リポジトリ作成
+await git.lsRemote(url);         // リモートrefを一覧表示
+await git.version();             // gitバージョン取得
+await git.raw(['help']);         // 任意のgitコマンド実行
+```
+
+### Repo（リポジトリ固有）
+
+リポジトリコンテキストが必要な操作：
+
+```typescript
+const repo = await git.open('./my-repo');
+
+// リポジトリが必要
+await repo.status();
+await repo.commit({ message: 'feat: 機能追加' });
+await repo.branch.create('feature-x');
+await repo.push();
+```
+
+### WorktreeRepo vs BareRepo
+
+type-gitは標準リポジトリとベアリポジトリを区別します：
+
+```typescript
+// 標準リポジトリ（作業ディレクトリあり）
+const worktree = await git.open('./repo');
+worktree.workdir;  // '/path/to/repo'
+await worktree.status();
+await worktree.add(['file.txt']);
+
+// ベアリポジトリ（作業ディレクトリなし）
+const bare = await git.open('./repo.git');
+bare.gitDir;  // '/path/to/repo.git'
+await bare.fetch();
+await bare.push();
+// bare.status()  // 利用不可 - 作業ディレクトリなし
+```
+
+## 3層API
+
+type-gitは3つの抽象化レベルを提供します：
+
+### 1. Raw API
+
+未処理の出力を直接取得：
+
+```typescript
+// { stdout, stderr, exitCode } を返す
+const result = await repo.raw(['log', '--oneline', '-5']);
+console.log(result.stdout);
+```
+
+使用場面：
+- 型付きAPIでカバーされていない出力が必要
+- 自分で出力を処理したい
+- カスタムgitコマンドを実行
+
+### 2. Typed API
+
+パースされた型安全な出力：
+
+```typescript
+// 型付きStatusPorcelainオブジェクトを返す
+const status = await repo.status();
+for (const entry of status.entries) {
+  console.log(entry.path, entry.index, entry.workdir);
+}
+
+// 型付きCommit配列を返す
+const commits = await repo.log({ maxCount: 10 });
+for (const commit of commits) {
+  console.log(commit.hash, commit.subject);
+}
+```
+
+使用場面：
+- 構造化データが必要
+- 型安全性が必要
+- 出力形式が予測可能（porcelain、JSON）
+
+### 3. High-Level API
+
+一般的なワークフロー向けの便利メソッド：
+
+```typescript
+// ブランチ操作
+await repo.branch.create('feature-x');
+await repo.branch.delete('old-branch');
+
+// スタッシュ操作
+await repo.stash.push({ message: 'WIP' });
+await repo.stash.pop();
+
+// タグ操作
+await repo.tag.create('v1.0.0', { message: 'Release 1.0' });
+```
+
+使用場面：
+- クリーンで直感的なAPIが必要
+- 一般的なgit操作を行う
+- メソッドチェーンスタイルを好む
+
+## ランタイム抽象化
+
+type-gitはアダプターを通じてランタイム固有のコードを抽象化します。
+
+### なぜアダプターが必要か？
+
+JavaScriptランタイムごとにAPIが異なります：
+
+| 操作 | Node.js | Deno | Bun |
+|-----------|---------|------|-----|
+| プロセス起動 | `child_process.spawn` | `Deno.Command` | `Bun.spawn` |
+| ファイル読み込み | `fs.readFile` | `Deno.readTextFile` | `Bun.file().text()` |
+| 一時ファイル | `os.tmpdir()` + `fs` | `Deno.makeTempFile` | `Bun.file` |
+
+### アダプターアーキテクチャ
+
+```typescript
+interface ExecAdapter {
+  spawn(options: SpawnOptions): Promise<SpawnResult>;
+  getCapabilities(): Capabilities;
+}
+
+interface FsAdapter {
+  createTempFile(): Promise<string>;
+  deleteFile(path: string): Promise<void>;
+  tail(options: TailOptions): Promise<void>;
+  // ...
+}
+
+interface RuntimeAdapters {
+  exec: ExecAdapter;
+  fs: FsAdapter;
+}
+```
+
+### 事前設定されたクラス
+
+各ランタイムには事前設定された`TypeGit`クラスがあります：
+
+```typescript
+// Node.js
+import { TypeGit } from 'type-git/node';
+
+// Deno
+import { TypeGit } from 'npm:type-git/deno';
+
+// Bun
+import { TypeGit } from 'type-git/bun';
+```
+
+これらは自動的にランタイムに適したアダプターを設定します。
+
+## コマンド実行フロー
+
+git操作を呼び出すと：
+
+```
+repo.status()
+    │
+    ▼
+WorktreeRepoImpl.status()
+    │ 引数を構築: ['status', '--porcelain=v2']
+    ▼
+CliRunner.run(context, args)
+    │ コンテキストを追加: ['git', '-C', '/path/to/repo', ...]
+    │ 環境変数を追加: { GIT_LFS_FORCE_PROGRESS: '1', ... }
+    ▼
+ExecAdapter.spawn(options)
+    │ プロセスを実行
+    │ stdout/stderrを収集
+    │ stderrから進捗をパース
+    ▼
+CliRunner
+    │ 終了コードをエラーにマッピング
+    │ 進捗コールバックを呼び出し
+    ▼
+WorktreeRepoImpl
+    │ stdoutをparsePorcelainV2()でパース
+    ▼
+StatusPorcelain (型付き結果)
+```
+
+## `cwd`に依存しない設計
+
+type-gitは作業ディレクトリを変更する代わりに`git -C <path>`を使用します：
+
+```typescript
+// type-gitの内部実行:
+// git -C /path/to/repo status
+
+// こうではない:
+// cd /path/to/repo && git status
+```
+
+メリット：
+- スレッドセーフ（グローバル状態なし）
+- 予測可能な動作
+- あらゆる実行コンテキストで動作
