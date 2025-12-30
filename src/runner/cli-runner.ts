@@ -18,7 +18,7 @@ import type {
   GitErrorKind,
 } from '../core/types.js';
 import { GitError } from '../core/types.js';
-import { parseGitProgress, parseLfsProgress } from '../parsers/index.js';
+import { parseGitProgress, parseLfsProgress, detectErrorCategory } from '../parsers/index.js';
 
 /**
  * Options for CliRunner
@@ -224,15 +224,21 @@ export class CliRunner {
     if (result.exitCode !== 0) {
       const kind = this.classifyError(result);
       const message = this.extractErrorMessage(result);
+      const category = detectErrorCategory(result.stderr);
 
-      return new GitError(kind, message, {
-        argv,
-        exitCode: result.exitCode,
-        stdout: result.stdout,
-        stderr: result.stderr,
-        ...(context.type === 'worktree' && { workdir: context.workdir }),
-        ...(context.type === 'bare' && { gitDir: context.gitDir }),
-      });
+      return new GitError(
+        kind,
+        message,
+        {
+          argv,
+          exitCode: result.exitCode,
+          stdout: result.stdout,
+          stderr: result.stderr,
+          ...(context.type === 'worktree' && { workdir: context.workdir }),
+          ...(context.type === 'bare' && { gitDir: context.gitDir }),
+        },
+        category,
+      );
     }
 
     return null;

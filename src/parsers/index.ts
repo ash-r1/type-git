@@ -295,7 +295,7 @@ export function parseGitProgress(line: string): GitProgressInfo | null {
  * @returns Parsed LFS progress or null if invalid
  */
 export type LfsProgressInfo = {
-  direction: 'download' | 'upload';
+  direction: 'download' | 'upload' | 'checkout';
   oid: string;
   bytesSoFar: number;
   bytesTotal: number;
@@ -309,8 +309,8 @@ export function parseLfsProgress(line: string): LfsProgressInfo | null {
     return null;
   }
 
-  const direction = parts[0] as 'download' | 'upload';
-  if (direction !== 'download' && direction !== 'upload') {
+  const direction = parts[0] as 'download' | 'upload' | 'checkout';
+  if (direction !== 'download' && direction !== 'upload' && direction !== 'checkout') {
     return null;
   }
 
@@ -327,4 +327,248 @@ export function parseLfsProgress(line: string): LfsProgressInfo | null {
     bytesTotal: parseInt(bytesMatch[2]!, 10),
     bytesTransferred: parseInt(parts[3]!, 10),
   };
+}
+
+// =============================================================================
+// ls-remote Parser
+// =============================================================================
+
+/**
+ * Parse git ls-remote output
+ *
+ * Format: <hash>\t<refname>
+ *
+ * @param stdout - Raw stdout from `git ls-remote`
+ * @returns Parsed refs
+ */
+export type LsRemoteRef = {
+  hash: string;
+  name: string;
+};
+
+export function parseLsRemote(stdout: string): LsRemoteRef[] {
+  const refs: LsRemoteRef[] = [];
+  const lines = parseLines(stdout);
+
+  for (const line of lines) {
+    const [hash, name] = line.split('\t');
+    if (hash && name) {
+      refs.push({ hash, name });
+    }
+  }
+
+  return refs;
+}
+
+// =============================================================================
+// git log Parser
+// =============================================================================
+
+/**
+ * Commit information from git log
+ */
+export type ParsedCommit = {
+  hash: string;
+  abbrevHash: string;
+  parents: string[];
+  authorName: string;
+  authorEmail: string;
+  authorTimestamp: number;
+  committerName: string;
+  committerEmail: string;
+  committerTimestamp: number;
+  subject: string;
+  body: string;
+};
+
+/**
+ * The format string used for git log parsing
+ *
+ * Uses %x00 (NUL) as field separator and %x01 as record separator
+ */
+export const GIT_LOG_FORMAT =
+  '%H%x00%h%x00%P%x00%an%x00%ae%x00%at%x00%cn%x00%ce%x00%ct%x00%s%x00%b%x01';
+
+/**
+ * Parse git log output with our custom format
+ *
+ * @param stdout - Raw stdout from `git log --format=<GIT_LOG_FORMAT>`
+ * @returns Parsed commits
+ */
+export function parseGitLog(stdout: string): ParsedCommit[] {
+  const commits: ParsedCommit[] = [];
+
+  // Split by record separator (0x01)
+  const records = stdout.split('\x01').filter((r) => r.trim());
+
+  for (const record of records) {
+    const fields = record.split('\x00');
+
+    if (fields.length < 11) {
+      continue;
+    }
+
+    commits.push({
+      hash: fields[0]!,
+      abbrevHash: fields[1]!,
+      parents: fields[2] ? fields[2].split(' ').filter(Boolean) : [],
+      authorName: fields[3]!,
+      authorEmail: fields[4]!,
+      authorTimestamp: parseInt(fields[5]!, 10),
+      committerName: fields[6]!,
+      committerEmail: fields[7]!,
+      committerTimestamp: parseInt(fields[8]!, 10),
+      subject: fields[9]!,
+      body: fields[10]?.trim() ?? '',
+    });
+  }
+
+  return commits;
+}
+
+// =============================================================================
+// git worktree list --porcelain Parser
+// =============================================================================
+
+/**
+ * Worktree information from git worktree list --porcelain
+ */
+export type ParsedWorktree = {
+  path: string;
+  head: string;
+  branch?: string;
+  locked: boolean;
+  prunable: boolean;
+};
+
+/**
+ * Parse git worktree list --porcelain output
+ *
+ * Format:
+ * worktree /path/to/worktree
+ * HEAD <sha>
+ * branch refs/heads/main
+ * [locked [reason]]
+ * [prunable]
+ *
+ * @param stdout - Raw stdout from `git worktree list --porcelain`
+ * @returns Parsed worktrees
+ */
+export function parseWorktreeList(stdout: string): ParsedWorktree[] {
+  const worktrees: ParsedWorktree[] = [];
+  const lines = parseLines(stdout, { keepEmpty: true });
+
+  let current: Partial<ParsedWorktree> | null = null;
+
+  for (const line of lines) {
+    if (line.startsWith('worktree ')) {
+      // Save previous worktree if exists
+      if (current && current.path && current.head) {
+        worktrees.push({
+          path: current.path,
+          head: current.head,
+          branch: current.branch,
+          locked: current.locked ?? false,
+          prunable: current.prunable ?? false,
+        });
+      }
+      // Start new worktree
+      current = {
+        path: line.slice('worktree '.length),
+        locked: false,
+        prunable: false,
+      };
+    } else if (line.startsWith('HEAD ') && current) {
+      current.head = line.slice('HEAD '.length);
+    } else if (line.startsWith('branch ') && current) {
+      current.branch = line.slice('branch '.length);
+    } else if (line.startsWith('detached') && current) {
+      // Detached HEAD - no branch
+    } else if (line.startsWith('locked') && current) {
+      current.locked = true;
+    } else if (line.startsWith('prunable') && current) {
+      current.prunable = true;
+    } else if (line === '' && current && current.path && current.head) {
+      // Empty line marks end of worktree entry
+      worktrees.push({
+        path: current.path,
+        head: current.head,
+        branch: current.branch,
+        locked: current.locked ?? false,
+        prunable: current.prunable ?? false,
+      });
+      current = null;
+    }
+  }
+
+  // Don't forget the last worktree
+  if (current && current.path && current.head) {
+    worktrees.push({
+      path: current.path,
+      head: current.head,
+      branch: current.branch,
+      locked: current.locked ?? false,
+      prunable: current.prunable ?? false,
+    });
+  }
+
+  return worktrees;
+}
+
+// =============================================================================
+// Error Category Detection (§13.3)
+// =============================================================================
+
+import type { GitErrorCategory } from '../core/types.js';
+
+/**
+ * Error detection patterns for category classification (§13.3)
+ */
+const ERROR_PATTERNS: Array<{ pattern: RegExp; category: GitErrorCategory }> = [
+  // Auth errors
+  { pattern: /fatal:\s*Authentication failed/i, category: 'auth' },
+  { pattern: /fatal:.*could not read Username/i, category: 'auth' },
+  { pattern: /Permission denied \(publickey\)/i, category: 'auth' },
+  { pattern: /HTTP\s+401/i, category: 'auth' },
+
+  // Network errors
+  { pattern: /fatal:\s*Could not resolve host/i, category: 'network' },
+  { pattern: /fatal:\s*unable to access.*Connection timed out/i, category: 'network' },
+  { pattern: /fatal:\s*unable to access.*Connection refused/i, category: 'network' },
+  { pattern: /fatal:\s*Could not read from remote repository/i, category: 'network' },
+
+  // Conflict errors
+  { pattern: /CONFLICT \(content\)/i, category: 'conflict' },
+  { pattern: /Automatic merge failed/i, category: 'conflict' },
+  { pattern: /error:\s*you need to resolve your current index first/i, category: 'conflict' },
+
+  // LFS errors
+  { pattern: /LFS:.*507 Insufficient Storage/i, category: 'lfs' },
+  { pattern: /batch response:.*error/i, category: 'lfs' },
+  { pattern: /smudge filter lfs failed/i, category: 'lfs' },
+
+  // Permission errors
+  { pattern: /error:\s*cannot lock ref/i, category: 'permission' },
+  { pattern: /fatal:\s*Unable to create.*Permission denied/i, category: 'permission' },
+  { pattern: /error:\s*unable to unlink.*Permission denied/i, category: 'permission' },
+
+  // Corruption errors
+  { pattern: /fatal:\s*bad object/i, category: 'corruption' },
+  { pattern: /fatal:\s*loose object.*is corrupt/i, category: 'corruption' },
+  { pattern: /error:\s*object file.*is empty/i, category: 'corruption' },
+];
+
+/**
+ * Detect error category from stderr content (§13.3)
+ *
+ * @param stderr - stderr content from git command
+ * @returns Detected error category
+ */
+export function detectErrorCategory(stderr: string): GitErrorCategory {
+  for (const { pattern, category } of ERROR_PATTERNS) {
+    if (pattern.test(stderr)) {
+      return category;
+    }
+  }
+  return 'unknown';
 }
