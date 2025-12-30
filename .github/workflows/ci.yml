@@ -78,6 +78,8 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+      - name: Install dependencies
+        run: deno install
       - name: Run smoke tests
         run: deno test --allow-run --allow-read --allow-write --allow-env --config deno.json test/deno/
 

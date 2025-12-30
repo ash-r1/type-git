@@ -43,7 +43,7 @@
     "docs:dev": "pnpm --filter type-git-docs dev",
     "docs:build": "pnpm --filter type-git-docs build",
     "docs:preview": "pnpm --filter type-git-docs preview",
-    "prepare": "husky"
+    "prepare": "husky || true && npm run build"
   },
   "keywords": [
     "git",

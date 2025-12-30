@@ -7,6 +7,7 @@
  * - Error mapping from Git exit codes
  */
 
+import process from 'node:process';
 import type { ExecAdapter, FsAdapter, RuntimeAdapters } from '../core/adapters.js';
 import type {
   ExecOpts,
