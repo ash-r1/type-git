@@ -42,6 +42,9 @@ import type {
   DiffOpts,
   DiffResult,
   DiffEntry,
+  DiffNameStatusResult,
+  DiffNameOnlyResult,
+  DiffRawResult,
   MergeOpts,
   MergeResult,
   PullOpts,
@@ -854,6 +857,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - diff
   // ==========================================================================
 
+  // Overload signatures
+  async diff(target: string | undefined, opts: { nameStatus: true } & Omit<DiffOpts, 'nameStatus' | 'nameOnly' | 'stat'> & ExecOpts): Promise<DiffNameStatusResult>;
+  async diff(target: string | undefined, opts: { nameOnly: true } & Omit<DiffOpts, 'nameStatus' | 'nameOnly' | 'stat'> & ExecOpts): Promise<DiffNameOnlyResult>;
+  async diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffRawResult>;
+
+  // Implementation
   async diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffResult> {
     const args = ['diff'];
 
@@ -861,11 +870,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--staged');
     }
 
-    if (opts?.nameOnly) {
+    if (opts && 'nameOnly' in opts && opts.nameOnly) {
       args.push('--name-only');
-    } else if (opts?.nameStatus) {
+    } else if (opts && 'nameStatus' in opts && opts.nameStatus) {
       args.push('--name-status');
-    } else if (opts?.stat) {
+    } else if (opts && 'stat' in opts && opts.stat) {
       args.push('--stat');
     }
 
@@ -889,9 +898,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       signal: opts?.signal,
     });
 
-    const files: DiffEntry[] = [];
-
-    if (opts?.nameStatus) {
+    // Return nameStatus result
+    if (opts && 'nameStatus' in opts && opts.nameStatus) {
+      const files: DiffEntry[] = [];
       for (const line of parseLines(result.stdout)) {
         const match = line.match(/^([AMDRTCUX])\t(.+?)(?:\t(.+))?$/);
         if (match) {
@@ -905,19 +914,20 @@ export class WorktreeRepoImpl implements WorktreeRepo {
           files.push(entry);
         }
       }
-    } else if (opts?.nameOnly) {
-      for (const line of parseLines(result.stdout)) {
-        files.push({
-          path: line,
-          status: 'M', // Default to modified for name-only
-        });
-      }
+      return { files } as DiffNameStatusResult;
     }
 
-    return {
-      files,
-      raw: opts?.nameOnly || opts?.nameStatus ? undefined : result.stdout,
-    };
+    // Return nameOnly result
+    if (opts && 'nameOnly' in opts && opts.nameOnly) {
+      const files: string[] = [];
+      for (const line of parseLines(result.stdout)) {
+        files.push(line);
+      }
+      return { files } as DiffNameOnlyResult;
+    }
+
+    // Return raw result (default)
+    return { raw: result.stdout } as DiffRawResult;
   }
 
   // ==========================================================================

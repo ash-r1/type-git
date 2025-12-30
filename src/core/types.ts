@@ -7,7 +7,74 @@
  * - Error types and handling
  * - Runtime capabilities
  * - Output contracts for typed parsing
+ * - Branded types for type safety
  */
+
+// =============================================================================
+// Branded Types for Type Safety
+// =============================================================================
+
+/**
+ * Brand symbol for NonEmptyString
+ * @internal
+ */
+declare const NonEmptyBrand: unique symbol;
+
+/**
+ * A string that is guaranteed to be non-empty at the type level.
+ *
+ * Use the `nonEmpty()` helper function to create NonEmptyString values,
+ * or cast string literals directly: `'main' as NonEmptyString`
+ *
+ * @example
+ * ```typescript
+ * // Using helper function (recommended for variables)
+ * const branch = nonEmpty(userInput);
+ * await repo.branch.create(branch);
+ *
+ * // Casting literals (safe for known values)
+ * await repo.checkout('main' as NonEmptyString);
+ * ```
+ */
+export type NonEmptyString = string & { readonly [NonEmptyBrand]: never };
+
+/**
+ * Validates and converts a string to NonEmptyString.
+ *
+ * @param s - The string to validate
+ * @returns The string as NonEmptyString
+ * @throws GitArgumentError if the string is empty
+ *
+ * @example
+ * ```typescript
+ * const branchName = nonEmpty('feature-branch'); // OK
+ * const invalid = nonEmpty(''); // throws GitArgumentError
+ * ```
+ */
+export function nonEmpty(s: string): NonEmptyString {
+  if (s === '') {
+    throw new GitArgumentError('Empty string is not allowed');
+  }
+  return s as NonEmptyString;
+}
+
+/**
+ * Type guard to check if a string is non-empty.
+ *
+ * @param s - The string to check
+ * @returns true if the string is non-empty
+ *
+ * @example
+ * ```typescript
+ * const input = getUserInput();
+ * if (isNonEmpty(input)) {
+ *   await repo.branch.create(input); // input is NonEmptyString here
+ * }
+ * ```
+ */
+export function isNonEmpty(s: string): s is NonEmptyString {
+  return s !== '';
+}
 
 // =============================================================================
 // Progress Events (#12: Progress イベントスキーマ確定)
@@ -167,6 +234,30 @@ export class GitError extends Error {
    */
   needsAuthentication(): boolean {
     return this.category === 'auth';
+  }
+}
+
+/**
+ * Error thrown when an argument is invalid (e.g., empty string where non-empty is required)
+ *
+ * This error is thrown at the API boundary before the git command is executed,
+ * providing early feedback for invalid arguments.
+ *
+ * @example
+ * ```typescript
+ * try {
+ *   await repo.branch.create(nonEmpty('')); // throws GitArgumentError
+ * } catch (e) {
+ *   if (e instanceof GitArgumentError) {
+ *     console.log('Invalid argument:', e.message);
+ *   }
+ * }
+ * ```
+ */
+export class GitArgumentError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'GitArgumentError';
   }
 }
 

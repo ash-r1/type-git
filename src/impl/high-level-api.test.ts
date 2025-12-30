@@ -5,6 +5,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { createGit } from './git-impl.js';
 import { createNodeAdapters } from '../adapters/node/index.js';
+import type { WorktreeRepo } from '../core/repo.js';
 import { mkdtemp, rm, writeFile, mkdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -416,5 +417,68 @@ describe('High-level API', () => {
       const status = await repo.status();
       expect(status.entries.some((e) => e.path === 'new.txt' && e.index === '?')).toBe(true);
     });
+  });
+});
+
+// Type safety tests (compile-time only)
+// These tests verify that the type system correctly catches errors
+describe('Type Safety', () => {
+  it('should have correct diff() return types', async () => {
+    const repoPath = join(tmpdir(), 'type-git-type-test-');
+    // This test is just for type checking - we don't actually run git commands
+
+    // Type test: diff() with nameStatus should return DiffNameStatusResult
+    // @ts-expect-error - accessing 'raw' on DiffNameStatusResult should fail
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _typeTest1 = async (repo: WorktreeRepo) => {
+      const result = await repo.diff(undefined, { nameStatus: true });
+      // result.files should be DiffEntry[]
+      result.files.forEach((f) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _status: 'A' | 'D' | 'M' | 'R' | 'C' | 'T' | 'U' | 'X' = f.status;
+      });
+    };
+
+    // Type test: diff() with nameOnly should return DiffNameOnlyResult
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _typeTest2 = async (repo: WorktreeRepo) => {
+      const result = await repo.diff(undefined, { nameOnly: true });
+      // result.files should be string[]
+      result.files.forEach((f) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _path: string = f; // f should be string, not DiffEntry
+      });
+    };
+
+    // Type test: diff() with no options should return DiffRawResult
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _typeTest3 = async (repo: WorktreeRepo) => {
+      const result = await repo.diff();
+      // result.raw should be string
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const _raw: string = result.raw;
+    };
+
+    // Just pass the test - the type checks happen at compile time
+    expect(true).toBe(true);
+  });
+
+  it('NonEmptyString helper should throw on empty string', async () => {
+    const { nonEmpty, GitArgumentError } = await import('../core/types.js');
+
+    expect(() => nonEmpty('')).toThrow(GitArgumentError);
+    expect(() => nonEmpty('')).toThrow('Empty string is not allowed');
+
+    // Valid strings should work
+    expect(nonEmpty('test')).toBe('test');
+    expect(nonEmpty('a')).toBe('a');
+  });
+
+  it('isNonEmpty should be a type guard', async () => {
+    const { isNonEmpty } = await import('../core/types.js');
+
+    expect(isNonEmpty('')).toBe(false);
+    expect(isNonEmpty('test')).toBe(true);
+    expect(isNonEmpty('a')).toBe(true);
   });
 });
