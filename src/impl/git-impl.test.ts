@@ -2,7 +2,7 @@
  * Tests for Git implementation
  */
 
-import { access, mkdtemp, rm } from 'node:fs/promises';
+import { access, mkdtemp, realpath, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -262,7 +262,9 @@ describe('WorktreeRepoImpl', () => {
       if ('workdir' in repo) {
         const result = await repo.raw(['rev-parse', '--show-toplevel']);
         expect(result.exitCode).toBe(0);
-        expect(result.stdout.trim()).toBe(repoPath);
+        // Use realpath to handle macOS symlinks (/tmp -> /private/tmp)
+        const expectedPath = await realpath(repoPath);
+        expect(result.stdout.trim()).toBe(expectedPath);
       }
     });
   });
@@ -283,7 +285,9 @@ describe('WorktreeRepoImpl', () => {
 
         const worktrees = await repo.worktree.list();
         expect(worktrees).toHaveLength(1);
-        expect(worktrees[0]?.path).toBe(repoPath);
+        // Use realpath to handle macOS symlinks (/tmp -> /private/tmp)
+        const expectedPath = await realpath(repoPath);
+        expect(worktrees[0]?.path).toBe(expectedPath);
       }
     });
   });

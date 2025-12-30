@@ -2,6 +2,7 @@
  * Node.js ExecAdapter smoke tests
  */
 
+import { realpath } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { NodeExecAdapter } from './exec.js';
 
@@ -50,12 +51,14 @@ describe('NodeExecAdapter', () => {
     });
 
     it('should respect working directory', async () => {
+      // Use realpath to handle macOS symlinks (/tmp -> /private/tmp)
+      const expectedPath = await realpath('/tmp');
       const result = await adapter.spawn({
         argv: ['pwd'],
         cwd: '/tmp',
       });
 
-      expect(result.stdout.trim()).toBe('/tmp');
+      expect(result.stdout.trim()).toBe(expectedPath);
     });
 
     it('should pass environment variables', async () => {
