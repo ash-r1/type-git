@@ -75,6 +75,8 @@ export type LogOpts = {
   author?: string;
   grep?: string;
   all?: boolean;
+  /** Follow only the first parent commit upon seeing a merge commit */
+  firstParent?: boolean;
 };
 
 /**
@@ -642,6 +644,20 @@ export type LfsStatusOpts = {
   json?: boolean;
 };
 
+/**
+ * Options for LFS prune
+ */
+export type LfsPruneOpts = {
+  /** Force prune (remove unreferenced objects immediately) */
+  force?: boolean;
+  /** Dry run - show what would be pruned without actually pruning */
+  dryRun?: boolean;
+  /** Verify remote copies before pruning */
+  verifyRemote?: boolean;
+  /** Verify unreferenced copies */
+  verifyUnreferenced?: boolean;
+};
+
 // =============================================================================
 // LFS 2-Phase Upload/Download (§10.3)
 // =============================================================================
@@ -815,6 +831,11 @@ export interface LfsOperations {
    * Get LFS status
    */
   status(opts?: LfsStatusOpts & ExecOpts): Promise<LfsStatus>;
+
+  /**
+   * Prune old and unreferenced LFS objects from local storage
+   */
+  prune(opts?: LfsPruneOpts & ExecOpts): Promise<void>;
 }
 
 /**
@@ -1388,6 +1409,54 @@ export interface WorktreeRepo extends RepoBase {
    * Show various types of objects
    */
   show(object: string, opts?: ShowOpts & ExecOpts): Promise<string>;
+
+  // ==========================================================================
+  // Plumbing Operations
+  // ==========================================================================
+
+  /**
+   * Parse revision specification and return the object name (SHA)
+   *
+   * Useful for resolving refs like HEAD, branch names, or relative refs like HEAD~1
+   *
+   * @example
+   * ```typescript
+   * const sha = await repo.revParse('HEAD');
+   * const parentSha = await repo.revParse('HEAD~1');
+   * const branchSha = await repo.revParse('main');
+   * ```
+   */
+  revParse(ref: string, opts?: ExecOpts): Promise<string>;
+
+  /**
+   * Count the number of commits reachable from a ref
+   *
+   * Equivalent to `git rev-list --count <ref>`
+   *
+   * @example
+   * ```typescript
+   * const count = await repo.revListCount('HEAD');
+   * const featureCommits = await repo.revListCount('main..feature');
+   * ```
+   */
+  revListCount(ref?: string, opts?: ExecOpts): Promise<number>;
+
+  /**
+   * Read or modify symbolic refs
+   *
+   * Without newRef: reads the symbolic ref (e.g., get what HEAD points to)
+   * With newRef: sets the symbolic ref to point to newRef
+   *
+   * @example
+   * ```typescript
+   * // Read what HEAD points to
+   * const branch = await repo.symbolicRef('HEAD');
+   *
+   * // Set HEAD to point to a branch
+   * await repo.symbolicRef('HEAD', 'refs/heads/main');
+   * ```
+   */
+  symbolicRef(name: string, newRef?: string, opts?: ExecOpts): Promise<string | undefined>;
 
   /**
    * Submodule operations

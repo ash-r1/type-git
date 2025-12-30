@@ -34,6 +34,7 @@ import type {
   LfsPreDownloadResult,
   LfsPreUploadOpts,
   LfsPreUploadResult,
+  LfsPruneOpts,
   LfsPullOpts,
   LfsPushOpts,
   LfsStatus,
@@ -124,6 +125,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       pull: this.lfsPull.bind(this),
       push: this.lfsPush.bind(this),
       status: this.lfsStatus.bind(this),
+      prune: this.lfsPrune.bind(this),
     };
 
     // Initialize LFS extra operations
@@ -355,6 +357,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.all) {
       args.push('--all');
+    }
+
+    if (opts?.firstParent) {
+      args.push('--first-parent');
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -770,6 +776,38 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     return { downloadedCount, downloadedBytes, skippedCount };
+  }
+
+  /**
+   * Prune old and unreferenced LFS objects from local storage
+   */
+  private async lfsPrune(opts?: LfsPruneOpts & ExecOpts): Promise<void> {
+    if (this._lfsMode === 'disabled') {
+      return;
+    }
+
+    const args = ['lfs', 'prune'];
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.dryRun) {
+      args.push('--dry-run');
+    }
+
+    if (opts?.verifyRemote) {
+      args.push('--verify-remote');
+    }
+
+    if (opts?.verifyUnreferenced) {
+      args.push('--verify-unreferenced');
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+      onProgress: opts?.onProgress,
+    });
   }
 
   // ==========================================================================
@@ -1987,6 +2025,64 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
 
     return result.stdout;
+  }
+
+  // ==========================================================================
+  // Plumbing Operations
+  // ==========================================================================
+
+  /**
+   * Parse revision specification and return the object name (SHA)
+   */
+  public async revParse(ref: string, opts?: ExecOpts): Promise<string> {
+    const result = await this.runner.runOrThrow(this.context, ['rev-parse', ref], {
+      signal: opts?.signal,
+    });
+
+    return result.stdout.trim();
+  }
+
+  /**
+   * Count the number of commits reachable from a ref
+   */
+  public async revListCount(ref?: string, opts?: ExecOpts): Promise<number> {
+    const args = ['rev-list', '--count'];
+
+    if (ref) {
+      args.push(ref);
+    } else {
+      args.push('HEAD');
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return Number.parseInt(result.stdout.trim(), 10);
+  }
+
+  /**
+   * Read or modify symbolic refs
+   */
+  public async symbolicRef(
+    name: string,
+    newRef?: string,
+    opts?: ExecOpts,
+  ): Promise<string | undefined> {
+    if (newRef !== undefined) {
+      // Set the symbolic ref
+      await this.runner.runOrThrow(this.context, ['symbolic-ref', name, newRef], {
+        signal: opts?.signal,
+      });
+      return undefined;
+    }
+
+    // Read the symbolic ref
+    const result = await this.runner.runOrThrow(this.context, ['symbolic-ref', name], {
+      signal: opts?.signal,
+    });
+
+    return result.stdout.trim();
   }
 
   // ==========================================================================
