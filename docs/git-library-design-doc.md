@@ -7,6 +7,20 @@ Node.js から Git を扱いたい場面は多々ある一方で、既存の `si
 
 本プロジェクトは、まずサーバ（または Electron の main process）で動作するライブラリとして設計し、将来的に「型互換のブラウザ対応版（実行アダプタ差し替え）」へ展開できることを目標とする。
 
+### 1.1 既存ライブラリの具体的制限
+
+実プロジェクトでの `simple-git` 使用経験から、以下の具体的な課題が浮上している：
+
+| 問題 | 影響 |
+|------|------|
+| **LFS 統合の欠如** | `git lfs` 系コマンドは全て `raw()` 経由が必要で、型安全性を失う |
+| **進捗コールバック非対応** | 長時間操作（clone, fetch, push, LFS 転送等）のユーザー体験が著しく低下 |
+| **環境変数制御の制限** | 認証・隔離環境の構築に `.env()` チェーンが必要で煩雑 |
+| **Worktree API の不足** | `worktree list --porcelain` の出力を手動パースする必要がある |
+| **特殊操作の非対応** | `symbolic-ref`、`rev-list --count` 等の plumbing コマンドが未サポート |
+
+これらの制限により、`simple-git` を使用しても結局 `raw()` メソッドを多用することになり、ライブラリの本来の抽象化メリットを享受できない状況が発生している。
+
 ---
 
 ## 2. 問題設定
@@ -18,6 +32,26 @@ Git CLI はオプションが豊富であり、任意のオプションを許可
 
 ### 2.3 LFS の成立条件（filters/hooks/protocol）
 LFS は pointer file・filter（clean/smudge/process）・pre-push hook・転送 API 等が絡むため、単純な Git 操作ラップより設計要件が増える。加えて push/pull の進捗通知や skip-smudge、LFS 有効/無効切替も必要となる。
+
+### 2.4 ファクトリパターンの設計欠陥
+
+`simple-git` では以下のような不整合が発生しやすい設計になっている：
+
+```typescript
+// SimpleGit の問題設計
+const git = simpleGit()           // リポジトリがまだ存在しない
+await git.clone(url, localPath)   // 意味論的に矛盾：どのリポジトリに対する操作？
+await git.status()                // どのリポジトリの status？（cwd に依存）
+```
+
+**問題点**:
+- `clone()` が「リポジトリを作成する」操作であるにも関わらず、既存リポジトリに紐づくインスタンスのメソッドになっている
+- `clone()` 後に作成されたリポジトリを操作するには、呼び出し側が `cwd` を変更するか新しいインスタンスを作成する必要がある
+- インスタンスの状態が暗黙的に変化し、追跡が困難
+
+**本ライブラリでの解決策**:
+- `clone()` / `init()` はファクトリ関数として `WorktreeRepo | BareRepo` を明示的に返す
+- リポジトリ前提の操作は `Repo` インスタンスのメソッドとして提供し、型レベルでライフサイクルを強制する
 
 ---
 
@@ -68,6 +102,40 @@ LFS は pointer file・filter（clean/smudge/process）・pre-push hook・転送
 ### 6.2 実行コンテキスト（cwd 排除）
 - repo 前提コマンドは **必ず `git -C <workdir>`** を付与する。
 - bare リポジトリ等は内部的に `--git-dir` / `--work-tree` 構成を用いる（workdir を持たない状態を型で表現する）。
+
+### 6.3 宣言的環境隔離（Environment Isolation）
+
+Git 操作のセキュリティと再現性を確保するため、宣言的な環境設定をサポートする：
+
+```typescript
+interface GitOpenOptions {
+  /** カスタム HOME ディレクトリ（~/.gitconfig の読み込み元） */
+  home?: string;
+  /** システム設定を無視（--config-env=GIT_CONFIG_GLOBAL=/dev/null 相当） */
+  ignoreSystemConfig?: boolean;
+  /** カスタム credential helper */
+  credentialHelper?: string;
+  /** 追加の環境変数 */
+  env?: Record<string, string>;
+  /** PATH の先頭に追加するディレクトリ */
+  pathPrefix?: string[];
+}
+
+// 使用例
+const git = await Git.open(repoPath, {
+  home: '/custom/git/home',
+  ignoreSystemConfig: true,
+  credentialHelper: 'custom-helper',
+  env: { GIT_TERMINAL_PROMPT: '0' },
+  pathPrefix: ['/custom/bin'],
+});
+```
+
+**設計意図**:
+- **CI/CD 環境**: システム設定干渉を防止し、再現性を確保
+- **並列操作**: 複数リポジトリの同時操作時に環境を分離
+- **認証カスタマイズ**: OAuth、AWS CodeCommit 等の credential helper を柔軟に設定
+- **ハングアップ防止**: `GIT_TERMINAL_PROMPT=0` により非対話環境での停止を回避
 
 ---
 
@@ -123,6 +191,83 @@ interface BareRepo extends RepoBase {
   push(opts?: PushOpts & ExecOpts): Promise<void>;
 }
 ```
+
+### 7.4 Worktree 完全サポート
+
+Git worktree は複数のチェックアウトを持つワークフローで重要である。本ライブラリでは完全なサポートを提供する：
+
+```typescript
+interface Worktree {
+  path: string;
+  head: string;
+  branch?: string;
+  locked: boolean;
+  prunable: boolean;
+}
+
+interface WorktreeOperations {
+  /** worktree の一覧取得（--porcelain パース） */
+  list(): Promise<Worktree[]>;
+  /** 新しい worktree を追加 */
+  add(path: string, opts?: { branch?: string; detach?: boolean; track?: boolean }): Promise<void>;
+  /** worktree を削除（強制オプションあり） */
+  remove(path: string, opts?: { force?: boolean }): Promise<void>;
+  /** 不要な worktree 参照を整理 */
+  prune(opts?: { dryRun?: boolean; verbose?: boolean }): Promise<string[]>;
+  /** worktree をロック */
+  lock(path: string, opts?: { reason?: string }): Promise<void>;
+  /** worktree のロックを解除 */
+  unlock(path: string): Promise<void>;
+}
+
+// WorktreeRepo に統合
+interface WorktreeRepo extends RepoBase {
+  // ... existing properties ...
+  worktree: WorktreeOperations;
+}
+```
+
+**実装**: `git worktree list --porcelain` 出力のパーサを実装し、型安全な `Worktree[]` を返却する。
+
+### 7.5 2-Phase Commit パターンサポート（将来拡張）
+
+**ステータス**: 将来実装（MVP 範囲外）
+
+複雑な Git/LFS 操作の信頼性を確保するため、トランザクション的なパターンをサポートする：
+
+```typescript
+interface GitTransaction {
+  /** LFS オブジェクトを事前にプッシュ（pre-push 相当） */
+  prePushLfsObjects(opts?: ExecOpts): Promise<void>;
+  /** コミットを作成 */
+  commit(message: string, opts?: CommitOpts & ExecOpts): Promise<string>;
+  /** リモートへプッシュ */
+  push(opts?: PushOpts & ExecOpts): Promise<void>;
+  /** トランザクション完了（クリーンアップ） */
+  complete(): Promise<void>;
+  /** トランザクションの巻き戻し（best-effort） */
+  rollback(): Promise<void>;
+}
+
+// 使用例
+const transaction = await repo.beginTransaction();
+try {
+  await transaction.prePushLfsObjects({ onProgress });
+  const commitHash = await transaction.commit('feat: add large files');
+  await transaction.push({ onProgress });
+  await transaction.complete();
+} catch (e) {
+  await transaction.rollback();
+  throw e;
+}
+```
+
+**用途**:
+- LFS push が失敗した場合のコミット巻き戻し
+- ネットワーク障害時の一貫性保証
+- CI/CD パイプラインでの確実なリリースフロー
+
+**注意**: Git 自体は完全な ACID トランザクションをサポートしないため、これは best-effort のパターンであり、完全なロールバックを保証しない。
 
 ---
 
@@ -183,10 +328,63 @@ interface BareRepo extends RepoBase {
 ---
 
 ## 13. エラー設計
-- 共通 `GitError` を定義し、最低限を保持する。
-  - `kind`: `SpawnFailed | NonZeroExit | ParseError | Aborted | CapabilityMissing` 等
-  - `argv`, `workdir/gitDir`, `exitCode`, `stdout`, `stderr`
-- `ParseError` は Typed API のみで発生しうる（stdout 契約違反を表す）。
+
+### 13.1 基本エラー種別
+
+共通 `GitError` を定義し、最低限を保持する：
+- `kind`: `SpawnFailed | NonZeroExit | ParseError | Aborted | CapabilityMissing` 等
+- `argv`, `workdir/gitDir`, `exitCode`, `stdout`, `stderr`
+- `ParseError` は Typed API のみで発生しうる（stdout 契約違反を表す）
+
+### 13.2 エラーカテゴリ（拡張）
+
+エラーの性質に基づくカテゴリ分類を追加し、エラーハンドリングを容易にする：
+
+```typescript
+type GitErrorCategory =
+  | 'auth'        // 認証エラー（401, credential 関連）
+  | 'network'     // ネットワークエラー（タイムアウト、DNS 解決失敗等）
+  | 'conflict'    // マージコンフリクト、リベースコンフリクト
+  | 'lfs'         // LFS 固有のエラー（ストレージ容量、転送失敗等）
+  | 'permission'  // 権限エラー（ディレクトリアクセス、ファイルロック）
+  | 'corruption'  // リポジトリ破損
+  | 'unknown';    // 分類不能
+
+class GitError extends Error {
+  readonly kind: GitErrorKind;
+  readonly category: GitErrorCategory;
+  readonly argv: string[];
+  readonly workdir?: string;
+  readonly exitCode?: number;
+  readonly stdout: string;
+  readonly stderr: string;
+
+  /** リトライ可能かどうかを判定 */
+  isRetryable(): boolean {
+    return this.category === 'network' ||
+           (this.category === 'lfs' && this.kind === 'NonZeroExit');
+  }
+
+  /** 認証が必要かどうかを判定 */
+  needsAuthentication(): boolean {
+    return this.category === 'auth';
+  }
+}
+```
+
+### 13.3 エラー検出パターン
+
+stderr/stdout から category を推定するパターンマッチング：
+
+| パターン | Category |
+|----------|----------|
+| `fatal: Authentication failed` | auth |
+| `fatal: Could not resolve host` | network |
+| `fatal: unable to access .* Connection timed out` | network |
+| `CONFLICT (content)` | conflict |
+| `LFS: .* 507 Insufficient Storage` | lfs |
+| `error: cannot lock ref` | permission |
+| `fatal: bad object` | corruption |
 
 ---
 
@@ -221,3 +419,45 @@ interface BareRepo extends RepoBase {
 - `log()` の固定フォーマット（区切り文字・エスケープ規約・パーサ仕様）
 - LFS 無効モードの具体（環境変数運用、install 設定の扱い、操作単位/リポジトリ単位の優先順位）
 - libgit2 を補助採用する具体コマンド範囲（対象と採用理由の明記）
+
+---
+
+## 18. パフォーマンス要件
+
+### 18.1 設計上の考慮事項
+
+本ライブラリでは、以下のパフォーマンス観点を設計に反映する：
+
+#### キャッシュ戦略
+- `status` 等の頻繁に呼ばれる操作に対するキャッシュ機構の検討
+- ファイルシステム監視（fswatch）による自動無効化の可能性
+
+#### ストリーミング対応
+- `diff` 等の大量出力が予想されるコマンドにはストリーミング API を検討
+- メモリ効率を重視した設計（巨大リポジトリ対応）
+
+```typescript
+// ストリーミング API の例（将来拡張）
+for await (const hunk of repo.diffStream({ cached: true })) {
+  console.log(hunk.header);
+}
+```
+
+#### LFS 並列転送
+- 複数 LFS オブジェクトの同時転送をサポート
+- `GIT_LFS_CONCURRENT_TRANSFERS` 相当の設定を公開
+
+#### Windows 固有の制約
+
+Windows の CreateProcess API にはコマンドライン長 8191 文字の制限がある。バッチ操作（多数ファイルの add 等）では自動的に分割実行する：
+
+```typescript
+// 内部実装で自動分割
+await repo.add(['file1.txt', 'file2.txt', /* ... 大量のファイル */]);
+// → 内部で `git add file1.txt file2.txt ... && git add ...` に分割
+```
+
+### 18.2 ベンチマーク方針
+
+- 主要操作（status, log, fetch, push）のベンチマークを CI に組み込む
+- リグレッション検出のための閾値設定を検討
