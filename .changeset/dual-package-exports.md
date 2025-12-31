@@ -2,6 +2,9 @@
 "type-git": patch
 ---
 
-Add `require` condition to package.json exports for CommonJS compatibility
+Add dual package support (ESM + CommonJS) using tsup
 
-This enables projects using `moduleResolution: "bundler"` without `"type": "module"` in their package.json to import type-git correctly.
+- Build outputs both `.js` (ESM) and `.cjs` (CommonJS) formats
+- Add proper `require` and `import` conditions to package.json exports
+- Enable `require('type-git')` for CommonJS projects
+- Works with all `moduleResolution` settings (`bundler`, `node16`, `nodenext`)
