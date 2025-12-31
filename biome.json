@@ -80,7 +80,7 @@
         "useConsistentArrayType": {
           "level": "error",
           "options": {
-            "syntax": "generic"
+            "syntax": "shorthand"
           }
         },
         "useConsistentCurlyBraces": "error",

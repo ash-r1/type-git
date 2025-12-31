@@ -101,7 +101,7 @@ describe('NodeFsAdapter', () => {
       await writeFile(filePath, 'line1\nline2\n');
 
       const controller = new AbortController();
-      const lines: Array<string> = [];
+      const lines: string[] = [];
 
       // Start tailing
       const tailPromise = adapter.tail({
@@ -128,7 +128,7 @@ describe('NodeFsAdapter', () => {
       await writeFile(filePath, 'stream-line1\nstream-line2\n');
 
       const handle = adapter.tailStreaming(filePath);
-      const lines: Array<string> = [];
+      const lines: string[] = [];
 
       // Read a few lines then stop
       for await (const line of handle.lines) {

@@ -12,7 +12,7 @@
  * Safely get an element from an array, throwing if undefined
  * @internal
  */
-function at<T>(arr: Array<T>, index: number, context: string): T {
+function at<T>(arr: T[], index: number, context: string): T {
   const value = arr[index];
   if (value === undefined) {
     throw new Error(`Parse error: expected element at index ${index} in ${context}`);
@@ -35,7 +35,7 @@ export function parseLines(
     /** Trim each line (default: true) */
     trim?: boolean;
   },
-): Array<string> {
+): string[] {
   const { keepEmpty = false, trim = true } = options ?? {};
 
   const lines = stdout.split('\n');
@@ -52,7 +52,7 @@ export function parseLines(
  * @param delimiter - Record delimiter (default: '\0')
  * @returns Array of records
  */
-export function parseRecords(stdout: string, delimiter: string = '\0'): Array<string> {
+export function parseRecords(stdout: string, delimiter: string = '\0'): string[] {
   if (!stdout) {
     return [];
   }
@@ -80,7 +80,7 @@ export function parseJson<T = unknown>(
     /** Parse as newline-delimited JSON (NDJSON) */
     ndjson?: boolean;
   },
-): T | Array<T> {
+): T | T[] {
   const { ndjson = false } = options ?? {};
 
   const trimmed = stdout.trim();
@@ -175,8 +175,8 @@ export type PorcelainV2Entry =
       path: string;
     };
 
-export function parsePorcelainV2(stdout: string): Array<PorcelainV2Entry> {
-  const entries: Array<PorcelainV2Entry> = [];
+export function parsePorcelainV2(stdout: string): PorcelainV2Entry[] {
+  const entries: PorcelainV2Entry[] = [];
   const lines = parseLines(stdout);
 
   for (const line of lines) {
@@ -512,8 +512,8 @@ export type LsRemoteRef = {
   name: string;
 };
 
-export function parseLsRemote(stdout: string): Array<LsRemoteRef> {
-  const refs: Array<LsRemoteRef> = [];
+export function parseLsRemote(stdout: string): LsRemoteRef[] {
+  const refs: LsRemoteRef[] = [];
   const lines = parseLines(stdout);
 
   for (const line of lines) {
@@ -536,7 +536,7 @@ export function parseLsRemote(stdout: string): Array<LsRemoteRef> {
 export type ParsedCommit = {
   hash: string;
   abbrevHash: string;
-  parents: Array<string>;
+  parents: string[];
   authorName: string;
   authorEmail: string;
   authorTimestamp: number;
@@ -561,8 +561,8 @@ export const GIT_LOG_FORMAT =
  * @param stdout - Raw stdout from `git log --format=<GIT_LOG_FORMAT>`
  * @returns Parsed commits
  */
-export function parseGitLog(stdout: string): Array<ParsedCommit> {
-  const commits: Array<ParsedCommit> = [];
+export function parseGitLog(stdout: string): ParsedCommit[] {
+  const commits: ParsedCommit[] = [];
 
   // Split by record separator (0x01)
   const records = stdout.split('\x01').filter((r) => r.trim());
@@ -646,8 +646,8 @@ export type ParsedWorktree = {
  * @param stdout - Raw stdout from `git worktree list --porcelain`
  * @returns Parsed worktrees
  */
-export function parseWorktreeList(stdout: string): Array<ParsedWorktree> {
-  const worktrees: Array<ParsedWorktree> = [];
+export function parseWorktreeList(stdout: string): ParsedWorktree[] {
+  const worktrees: ParsedWorktree[] = [];
   const lines = parseLines(stdout, { keepEmpty: true });
 
   let current: Partial<ParsedWorktree> | null = null;

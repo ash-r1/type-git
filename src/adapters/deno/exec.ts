@@ -19,7 +19,7 @@ declare const Deno: {
   Command: new (
     cmd: string,
     options?: {
-      args?: Array<string>;
+      args?: string[];
       cwd?: string;
       env?: Record<string, string>;
       stdin?: 'piped' | 'inherit' | 'null';

@@ -205,7 +205,7 @@ export class GitError extends Error {
     public readonly kind: GitErrorKind,
     message: string,
     public readonly context: {
-      argv?: Array<string>;
+      argv?: string[];
       workdir?: string;
       gitDir?: string;
       exitCode?: number;
@@ -337,9 +337,9 @@ export type CommandSpec<TOptions, TResult> = {
   /** Command name (e.g., "status", "log") */
   name: string;
   /** Subcommands (e.g., ["lfs", "pull"]) */
-  subcommands?: Array<string>;
+  subcommands?: string[];
   /** Build argv from options */
-  buildArgs: (options: TOptions) => Array<string>;
+  buildArgs: (options: TOptions) => string[];
   /** Output contract */
   outputContract: OutputContract;
   /** Parse stdout/stderr to result */
@@ -381,7 +381,7 @@ export type GitOpenOptions = {
   /** Additional environment variables */
   env?: Record<string, string>;
   /** Directories to prepend to PATH */
-  pathPrefix?: Array<string>;
+  pathPrefix?: string[];
   /** Credential configuration (§6.4) */
   credential?: CredentialConfig;
   /** LFS mode configuration */

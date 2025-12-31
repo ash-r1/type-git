@@ -61,7 +61,7 @@ export type CloneOpts = {
   /** Create a shallow clone with commits since the specified date */
   shallowSince?: string | Date;
   /** Create a shallow clone excluding commits reachable from specified revision */
-  shallowExclude?: string | Array<string>;
+  shallowExclude?: string | string[];
   /** Don't clone any tags, and make later fetches not follow them */
   noTags?: boolean;
   /** Also clone submodules shallowly */
@@ -296,7 +296,7 @@ export interface GlobalConfigOperations {
    *
    * Wraps: `git config --global --get-all <key>`
    */
-  getAll<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<Array<ConfigSchema[K]>>;
+  getAll<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<ConfigSchema[K][]>;
 
   /**
    * Set a typed global config value
@@ -326,7 +326,7 @@ export interface GlobalConfigOperations {
    *
    * @returns Config value or undefined if not set
    */
-  getRaw(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | Array<string> | undefined>;
+  getRaw(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | string[] | undefined>;
 
   /**
    * Set a raw global config value (for arbitrary keys)
@@ -347,7 +347,7 @@ export interface GlobalConfigOperations {
    *
    * Wraps: `git config --global --list`
    */
-  list(opts?: GlobalConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>>;
+  list(opts?: GlobalConfigListOpts & ExecOpts): Promise<ConfigEntry[]>;
 }
 
 /**
@@ -454,7 +454,7 @@ export interface Git {
    *
    * Wraps: `git <argv...>`
    */
-  raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult>;
+  raw(argv: string[], opts?: ExecOpts): Promise<RawResult>;
 
   /**
    * Global config operations
