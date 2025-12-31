@@ -150,7 +150,7 @@ export class DenoFsAdapter implements FsAdapter {
     type TailState = {
       stopped: boolean;
       resolveNext: ResolverFn | null;
-      lineQueue: Array<string>;
+      lineQueue: string[];
     };
     const state: TailState = {
       stopped: false,

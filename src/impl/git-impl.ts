@@ -561,7 +561,7 @@ export class GitImpl implements Git {
   /**
    * Execute a raw git command (repository-agnostic)
    */
-  public async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
+  public async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run({ type: 'global' }, argv, opts);
   }
 
@@ -593,7 +593,7 @@ export class GitImpl implements Git {
   private async configGetAll<K extends ConfigKey>(
     key: K,
     opts?: ExecOpts,
-  ): Promise<Array<ConfigSchema[K]>> {
+  ): Promise<ConfigSchema[K][]> {
     const result = await this.runner.run(
       { type: 'global' },
       ['config', '--global', '--get-all', key],
@@ -604,7 +604,7 @@ export class GitImpl implements Git {
       return [];
     }
 
-    return parseLines(result.stdout) as Array<ConfigSchema[K]>;
+    return parseLines(result.stdout) as ConfigSchema[K][];
   }
 
   /**
@@ -650,7 +650,7 @@ export class GitImpl implements Git {
   private async configGetRaw(
     key: string,
     opts?: ConfigGetOpts & ExecOpts,
-  ): Promise<string | Array<string> | undefined> {
+  ): Promise<string | string[] | undefined> {
     const args = ['config', '--global'];
 
     if (opts?.all) {
@@ -709,7 +709,7 @@ export class GitImpl implements Git {
   /**
    * List all global config values
    */
-  private async configList(opts?: GlobalConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>> {
+  private async configList(opts?: GlobalConfigListOpts & ExecOpts): Promise<ConfigEntry[]> {
     const args = ['config', '--global', '--list'];
 
     if (opts?.showOrigin) {
@@ -724,7 +724,7 @@ export class GitImpl implements Git {
       signal: opts?.signal,
     });
 
-    const entries: Array<ConfigEntry> = [];
+    const entries: ConfigEntry[] = [];
     for (const line of parseLines(result.stdout)) {
       let keyValue = line;
       if (opts?.showOrigin || opts?.showScope) {

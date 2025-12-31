@@ -400,7 +400,7 @@ describe('CliRunner', () => {
     it('should parse git progress from stderr', async () => {
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters);
-      const progressEvents: Array<GitProgress> = [];
+      const progressEvents: GitProgress[] = [];
 
       // Capture the onStderr handler
       let stderrHandler: ((chunk: string) => void) | undefined;
@@ -432,7 +432,7 @@ describe('CliRunner', () => {
     it('should parse LFS progress from stderr', async () => {
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters);
-      const lfsProgressEvents: Array<LfsProgress> = [];
+      const lfsProgressEvents: LfsProgress[] = [];
 
       (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
         async (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
@@ -461,7 +461,7 @@ describe('CliRunner', () => {
     it('should handle carriage return updates in LFS progress', async () => {
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters);
-      const lfsProgressEvents: Array<LfsProgress> = [];
+      const lfsProgressEvents: LfsProgress[] = [];
 
       (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
         async (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {

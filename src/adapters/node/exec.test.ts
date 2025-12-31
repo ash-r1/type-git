@@ -88,8 +88,8 @@ describe('NodeExecAdapter', () => {
     });
 
     it('should call stream handlers', async () => {
-      const stdoutChunks: Array<string> = [];
-      const stderrChunks: Array<string> = [];
+      const stdoutChunks: string[] = [];
+      const stderrChunks: string[] = [];
 
       await adapter.spawn(
         {
@@ -116,7 +116,7 @@ describe('NodeExecAdapter', () => {
         argv: ['sh', '-c', 'echo line1 && echo line2 && echo line3'],
       });
 
-      const lines: Array<string> = [];
+      const lines: string[] = [];
       for await (const line of handle.stdout) {
         lines.push(line);
       }

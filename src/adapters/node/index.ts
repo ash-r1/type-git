@@ -183,7 +183,7 @@ export class TypeGit {
   /**
    * Execute a raw git command (repository-agnostic)
    */
-  public get raw(): (argv: Array<string>, opts?: ExecOpts) => Promise<RawResult> {
+  public get raw(): (argv: string[], opts?: ExecOpts) => Promise<RawResult> {
     return this.git.raw.bind(this.git);
   }
 
