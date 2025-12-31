@@ -36,6 +36,66 @@ import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
 import { parseLines, parseLsRemote, parseLsTree } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
 
+// Regex for parsing git remote -v output: <name>\t<url> (fetch|push)
+const REMOTE_LINE_REGEX = /^(\S+)\t(.+?)\s+\((fetch|push)\)$/;
+
+// Regex for parsing pruned refs from git remote prune output
+const PRUNED_REF_REGEX = /\* \[pruned\] (.+)/;
+
+/**
+ * Parse a single line from git remote -v output
+ */
+function parseRemoteLine(
+  line: string,
+): { name: string; url: string; type: 'fetch' | 'push' } | null {
+  const match = line.match(REMOTE_LINE_REGEX);
+  if (!match) {
+    return null;
+  }
+  const name = match[1];
+  const url = match[2];
+  const type = match[3] as 'fetch' | 'push';
+  if (name === undefined || url === undefined) {
+    return null;
+  }
+  return { name, url, type };
+}
+
+/**
+ * Update remote info with fetch or push URL
+ */
+function updateRemoteUrl(
+  remotes: Map<string, RemoteInfo>,
+  name: string,
+  url: string,
+  type: 'fetch' | 'push',
+): void {
+  const existing = remotes.get(name);
+  if (existing) {
+    existing[type === 'fetch' ? 'fetchUrl' : 'pushUrl'] = url;
+  } else {
+    remotes.set(name, {
+      name,
+      fetchUrl: type === 'fetch' ? url : '',
+      pushUrl: type === 'push' ? url : '',
+    });
+  }
+}
+
+/**
+ * Ensure both fetchUrl and pushUrl are set (copy from one to another if missing)
+ */
+function normalizeRemoteUrls(remotes: Map<string, RemoteInfo>): void {
+  for (const remote of remotes.values()) {
+    if (!remote.fetchUrl && remote.pushUrl) {
+      remote.fetchUrl = remote.pushUrl;
+    }
+    if (!remote.pushUrl && remote.fetchUrl) {
+      remote.pushUrl = remote.fetchUrl;
+    }
+  }
+}
+
 /**
  * BareRepo implementation
  */
@@ -526,38 +586,13 @@ export class BareRepoImpl implements BareRepo {
     const remotes = new Map<string, RemoteInfo>();
 
     for (const line of parseLines(result.stdout)) {
-      const match = line.match(/^(\S+)\t(.+?)\s+\((fetch|push)\)$/);
-      if (match) {
-        const name = match[1];
-        const url = match[2];
-        const type = match[3];
-        if (name !== undefined && url !== undefined) {
-          const existing = remotes.get(name);
-          if (existing) {
-            if (type === 'fetch') {
-              existing.fetchUrl = url;
-            } else if (type === 'push') {
-              existing.pushUrl = url;
-            }
-          } else {
-            remotes.set(name, {
-              name,
-              fetchUrl: type === 'fetch' ? url : '',
-              pushUrl: type === 'push' ? url : '',
-            });
-          }
-        }
+      const parsed = parseRemoteLine(line);
+      if (parsed) {
+        updateRemoteUrl(remotes, parsed.name, parsed.url, parsed.type);
       }
     }
 
-    for (const remote of remotes.values()) {
-      if (!remote.fetchUrl && remote.pushUrl) {
-        remote.fetchUrl = remote.pushUrl;
-      }
-      if (!remote.pushUrl && remote.fetchUrl) {
-        remote.pushUrl = remote.fetchUrl;
-      }
-    }
+    normalizeRemoteUrls(remotes);
 
     return Array.from(remotes.values());
   }
@@ -692,7 +727,7 @@ export class BareRepoImpl implements BareRepo {
     // Parse pruned refs from output
     const pruned: string[] = [];
     for (const line of parseLines(result.stdout)) {
-      const match = line.match(/\* \[pruned\] (.+)/);
+      const match = line.match(PRUNED_REF_REGEX);
       const ref = match?.[1];
       if (ref) {
         pruned.push(ref);
