@@ -132,9 +132,93 @@ const git = createGit({
 });
 ```
 
+## 環境分離
+
+type-gitは以下のようなシナリオで環境分離をサポートしています：
+
+- git設定を分離するためのカスタムHOMEディレクトリの使用
+- カスタムパスにある特定バージョンのgitの使用
+- 資格情報ヘルパーの設定
+- カスタム環境変数でのgit実行
+
+### TypeGitオプション
+
+`TypeGit`クラスは`createGit`と同じオプション（`adapters`を除く）を受け付けます：
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+// git設定を分離するためにHOMEを変更
+const git = new TypeGit({
+  home: '/isolated/home',
+});
+
+// グローバル設定操作は /isolated/home/.gitconfig を使用
+await git.config.set('user.name', 'Test User');
+await git.config.set('user.email', 'test@example.com');
+
+// 分離された設定を使用してクローン
+const repo = await git.clone('https://github.com/user/repo.git', './repo');
+```
+
+### カスタムGitバイナリパス
+
+`pathPrefix`を設定して特定バージョンのgitを使用：
+
+```typescript
+const git = new TypeGit({
+  pathPrefix: ['/opt/git-2.45/bin'],  // PATHの先頭に追加
+});
+
+const version = await git.version();  // /opt/git-2.45/bin/git を使用
+```
+
+### 資格情報ヘルパーの設定
+
+認証用の資格情報ヘルパーを設定：
+
+```typescript
+const git = new TypeGit({
+  credential: {
+    helper: 'store',  // git-credential-store を使用
+  },
+});
+
+// またはカスタムヘルパーパスで
+const git = new TypeGit({
+  credential: {
+    helper: 'my-helper',
+    helperPath: '/path/to/git-credential-my-helper',
+  },
+});
+```
+
+### 組み合わせた例
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+// 完全に分離されたgit環境
+const git = new TypeGit({
+  home: '/app/git-home',           // 分離された .gitconfig
+  pathPrefix: ['/app/git/bin'],    // カスタムgitバイナリ
+  env: {
+    GIT_AUTHOR_NAME: 'CI Bot',
+    GIT_AUTHOR_EMAIL: 'ci@example.com',
+  },
+  credential: {
+    helper: 'store',
+  },
+});
+
+// すべての操作が分離された環境を使用
+await git.config.set('user.name', 'CI Bot');
+const repo = await git.clone('https://github.com/user/repo.git', './repo');
+```
+
 ## createGitの使用
 
-完全な制御が必要な場合は、`TypeGit`の代わりに`createGit`を使用：
+完全な制御（カスタムアダプターを含む）が必要な場合は、`TypeGit`の代わりに`createGit`を使用：
 
 ```typescript
 import { createGit, createNodeAdapters } from 'type-git/node';
@@ -146,13 +230,13 @@ const git = createGit({
 });
 ```
 
-利用可能なオプション：
+### 利用可能なオプション
 
 | オプション | 説明 |
 |--------|-------------|
-| `adapters` | ランタイムアダプター（必須） |
-| `gitBinary` | git実行ファイルへのパス |
+| `adapters` | ランタイムアダプター（`createGit`では必須、`TypeGit`では自動設定） |
+| `gitBinary` | git実行ファイル名（デフォルト: `'git'`） |
 | `env` | 追加の環境変数 |
-| `pathPrefix` | PATHに追加するディレクトリ |
-| `home` | カスタムHOMEディレクトリ |
+| `pathPrefix` | PATHの先頭に追加するディレクトリ |
+| `home` | カスタムHOMEディレクトリ（WindowsではUSERPROFILEも設定） |
 | `credential` | 資格情報ヘルパーの設定 |

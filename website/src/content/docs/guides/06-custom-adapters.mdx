@@ -132,9 +132,93 @@ const git = createGit({
 });
 ```
 
+## Environment Isolation
+
+type-git supports environment isolation for scenarios like:
+
+- Using a custom HOME directory for isolated git config
+- Using a specific version of git from a custom path
+- Setting up credential helpers
+- Running git with custom environment variables
+
+### TypeGit Options
+
+The `TypeGit` class accepts the same options as `createGit` (except `adapters`):
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+// Use isolated HOME for git config
+const git = new TypeGit({
+  home: '/isolated/home',
+});
+
+// Global config operations will use /isolated/home/.gitconfig
+await git.config.set('user.name', 'Test User');
+await git.config.set('user.email', 'test@example.com');
+
+// Clone using isolated config
+const repo = await git.clone('https://github.com/user/repo.git', './repo');
+```
+
+### Custom Git Binary Path
+
+Use a specific version of git by setting `pathPrefix`:
+
+```typescript
+const git = new TypeGit({
+  pathPrefix: ['/opt/git-2.45/bin'],  // Prepended to PATH
+});
+
+const version = await git.version();  // Uses /opt/git-2.45/bin/git
+```
+
+### Credential Helper Configuration
+
+Configure credential helpers for authentication:
+
+```typescript
+const git = new TypeGit({
+  credential: {
+    helper: 'store',  // Use git-credential-store
+  },
+});
+
+// Or with a custom helper path
+const git = new TypeGit({
+  credential: {
+    helper: 'my-helper',
+    helperPath: '/path/to/git-credential-my-helper',
+  },
+});
+```
+
+### Combined Example
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+// Fully isolated git environment
+const git = new TypeGit({
+  home: '/app/git-home',           // Isolated .gitconfig
+  pathPrefix: ['/app/git/bin'],    // Custom git binary
+  env: {
+    GIT_AUTHOR_NAME: 'CI Bot',
+    GIT_AUTHOR_EMAIL: 'ci@example.com',
+  },
+  credential: {
+    helper: 'store',
+  },
+});
+
+// All operations use the isolated environment
+await git.config.set('user.name', 'CI Bot');
+const repo = await git.clone('https://github.com/user/repo.git', './repo');
+```
+
 ## Using createGit
 
-For full control, use `createGit` instead of `TypeGit`:
+For full control (including custom adapters), use `createGit` instead of `TypeGit`:
 
 ```typescript
 import { createGit, createNodeAdapters } from 'type-git/node';
@@ -146,13 +230,13 @@ const git = createGit({
 });
 ```
 
-Available options:
+### Available Options
 
 | Option | Description |
 |--------|-------------|
-| `adapters` | Runtime adapters (required) |
-| `gitBinary` | Path to git executable |
+| `adapters` | Runtime adapters (required for `createGit`, auto-configured for `TypeGit`) |
+| `gitBinary` | Git executable name (default: `'git'`) |
 | `env` | Additional environment variables |
 | `pathPrefix` | Directories to prepend to PATH |
-| `home` | Custom HOME directory |
+| `home` | Custom HOME directory (also sets USERPROFILE on Windows) |
 | `credential` | Credential helper configuration |
