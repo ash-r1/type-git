@@ -41,7 +41,7 @@ jobs:
           title: 'chore: release package'
           commit: 'chore: release package'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
       - name: Create Git Tag
