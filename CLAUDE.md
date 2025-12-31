@@ -130,6 +130,28 @@ git push -u origin feature/my-feature
 # Then create a PR via GitHub
 ```
 
+### Claude Code: Commit, Push, PR Pattern
+
+When completing a task, follow this standard pattern:
+
+1. **Commit**: Stage and commit with conventional commit message
+2. **Push**: Push to remote (use `-u` for new branches)
+3. **PR**: Create or update a Pull Request
+
+```bash
+# For new branches
+git add <files>
+git commit -m "feat: description"
+git push -u origin <branch-name>
+gh pr create --title "feat: description" --body "## Summary\n- Changes\n\n## Test plan\n- [ ] Tests"
+
+# For existing PR branches
+git add <files>
+git commit -m "feat: description"
+git push
+# PR is automatically updated
+```
+
 ## Versioning & Release
 
 This project uses [Changesets](https://github.com/changesets/changesets) for version management and releases.
