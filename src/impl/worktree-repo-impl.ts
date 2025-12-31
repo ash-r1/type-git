@@ -55,6 +55,8 @@ import type {
   LfsTrackOpts,
   LfsUnlockOpts,
   LogOpts,
+  LsTreeEntry,
+  LsTreeOpts,
   MergeOpts,
   MergeResult,
   MvOpts,
@@ -127,6 +129,7 @@ import {
   parseGitLog,
   parseLines,
   parseLsRemote,
+  parseLsTree,
   parsePorcelainV2,
   parseWorktreeList,
 } from '../parsers/index.js';
@@ -312,7 +315,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     remote: string,
     opts?: RepoLsRemoteOpts & ExecOpts,
   ): Promise<RepoLsRemoteResult> {
-    const args = ['ls-remote'];
+    const args: string[] = ['ls-remote'];
 
     // Ref type filters
     if (opts?.heads) {
@@ -356,6 +359,72 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const refs = parseLsRemote(result.stdout);
 
     return { refs };
+  }
+
+  /**
+   * List contents of a tree object
+   */
+  public async lsTree(treeish: string, opts?: LsTreeOpts & ExecOpts): Promise<LsTreeEntry[]> {
+    const args: string[] = ['ls-tree'];
+
+    // Display options
+    if (opts?.recursive) {
+      args.push('-r');
+    }
+
+    if (opts?.treeOnly) {
+      args.push('-d');
+    }
+
+    if (opts?.showTrees) {
+      args.push('-t');
+    }
+
+    if (opts?.long) {
+      args.push('--long');
+    }
+
+    if (opts?.nameOnly) {
+      args.push('--name-only');
+    }
+
+    if (opts?.objectOnly) {
+      args.push('--object-only');
+    }
+
+    if (opts?.fullName) {
+      args.push('--full-name');
+    }
+
+    if (opts?.fullTree) {
+      args.push('--full-tree');
+    }
+
+    if (opts?.abbrev !== undefined) {
+      if (opts.abbrev === true) {
+        args.push('--abbrev');
+      } else if (typeof opts.abbrev === 'number') {
+        args.push(`--abbrev=${opts.abbrev}`);
+      }
+    }
+
+    // Add tree-ish (required)
+    args.push(treeish);
+
+    // Add optional paths
+    if (opts?.paths && opts.paths.length > 0) {
+      args.push('--', ...opts.paths);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return parseLsTree(result.stdout, {
+      nameOnly: opts?.nameOnly,
+      objectOnly: opts?.objectOnly,
+      long: opts?.long,
+    });
   }
 
   /**

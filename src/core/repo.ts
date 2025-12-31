@@ -77,6 +77,30 @@ export interface RepoBase {
    * ```
    */
   lsRemote(remote: string, opts?: RepoLsRemoteOpts & ExecOpts): Promise<RepoLsRemoteResult>;
+
+  /**
+   * List contents of a tree object
+   *
+   * Wraps: `git ls-tree <tree-ish> [<path>...]`
+   *
+   * Lists the contents of a given tree object (commit, tag, or tree hash).
+   *
+   * @example
+   * ```typescript
+   * // List all files in HEAD
+   * const entries = await repo.lsTree('HEAD');
+   *
+   * // List files recursively with names only
+   * const names = await repo.lsTree('HEAD', { recursive: true, nameOnly: true });
+   *
+   * // List files in a specific directory
+   * const entries = await repo.lsTree('main', { paths: ['src/'] });
+   *
+   * // Get file sizes
+   * const entries = await repo.lsTree('HEAD', { long: true });
+   * ```
+   */
+  lsTree(treeish: string, opts?: LsTreeOpts & ExecOpts): Promise<LsTreeEntry[]>;
 }
 
 /**
@@ -104,6 +128,53 @@ export type RepoLsRemoteOpts = {
  */
 export type RepoLsRemoteResult = {
   refs: LsRemoteRef[];
+};
+
+/**
+ * Object type in a tree
+ */
+export type LsTreeObjectType = 'blob' | 'tree' | 'commit';
+
+/**
+ * Entry from git ls-tree output
+ */
+export type LsTreeEntry = {
+  /** File mode (e.g., '100644' for regular file, '040000' for directory) */
+  mode: string;
+  /** Object type: blob (file), tree (directory), or commit (submodule) */
+  type: LsTreeObjectType;
+  /** Object hash (SHA-1 or SHA-256) */
+  hash: string;
+  /** File path relative to repository root */
+  path: string;
+  /** Object size in bytes (only for blobs when using --long option) */
+  size?: number;
+};
+
+/**
+ * Options for git ls-tree
+ */
+export type LsTreeOpts = {
+  /** Recurse into sub-trees (-r) */
+  recursive?: boolean;
+  /** Show only the named tree entry itself, not its children (-d) */
+  treeOnly?: boolean;
+  /** Show tree entries even when recursing (-t) */
+  showTrees?: boolean;
+  /** Show object size of blob entries (--long / -l) */
+  long?: boolean;
+  /** List only filenames (--name-only) */
+  nameOnly?: boolean;
+  /** List only object names/hashes (--object-only) */
+  objectOnly?: boolean;
+  /** Show full path names (--full-name) */
+  fullName?: boolean;
+  /** Do not limit listing to current working directory (--full-tree) */
+  fullTree?: boolean;
+  /** Abbreviate object names to at least n hexdigits (--abbrev) */
+  abbrev?: number | boolean;
+  /** Paths to filter (optional patterns to match) */
+  paths?: string[];
 };
 
 /**
