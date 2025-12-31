@@ -90,4 +90,40 @@ describe('Git interface overloads (type-level)', () => {
     };
     expect(true).toBe(true);
   });
+
+  it('open returns WorktreeRepo', () => {
+    const _typeTest = async (git: Git) => {
+      const repo = await git.open('/path');
+      // TypeScript should infer repo as WorktreeRepo
+      const _workdir: typeof repo extends WorktreeRepo ? true : false = true;
+      expect(_workdir).toBe(true);
+    };
+    expect(true).toBe(true);
+  });
+
+  it('openBare returns BareRepo', () => {
+    const _typeTest = async (git: Git) => {
+      const repo = await git.openBare('/path');
+      // TypeScript should infer repo as BareRepo
+      const _gitDir: typeof repo extends BareRepo ? true : false = true;
+      expect(_gitDir).toBe(true);
+    };
+    expect(true).toBe(true);
+  });
+
+  it('openRaw returns WorktreeRepo | BareRepo', () => {
+    const _typeTest = async (git: Git) => {
+      const repo = await git.openRaw('/path');
+      // TypeScript should infer repo as WorktreeRepo | BareRepo (union type)
+      // We can check that it's assignable to both possibilities
+      if ('workdir' in repo) {
+        const _workdir: WorktreeRepo = repo;
+        expect(_workdir).toBeDefined();
+      } else {
+        const _gitDir: BareRepo = repo;
+        expect(_gitDir).toBeDefined();
+      }
+    };
+    expect(true).toBe(true);
+  });
 });

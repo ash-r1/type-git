@@ -1393,6 +1393,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--long');
     }
 
+    // biome-ignore lint/style/useExplicitLengthCheck: size is a boolean option, not a length property
     if (opts?.size) {
       args.push('--size');
     }
@@ -1540,6 +1541,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       id: string;
       path: string;
       owner: { name: string };
+      // biome-ignore lint/style/useNamingConvention: locked_at is from git-lfs JSON output
       locked_at: string;
     };
 
@@ -1616,6 +1618,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       id: string;
       path: string;
       owner: { name: string };
+      // biome-ignore lint/style/useNamingConvention: locked_at is from git-lfs JSON output
       locked_at: string;
     }>;
 
@@ -1735,10 +1738,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
   }
 
-  private appendMigrateArgs(
-    args: Array<string>,
-    opts?: LfsMigrateInfoOpts,
-  ): void {
+  private appendMigrateArgs(args: Array<string>, opts?: LfsMigrateInfoOpts): void {
     if (opts?.everything) {
       args.push('--everything');
     }
@@ -1851,10 +1851,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         info.fetchRecentRefsIncludeRemotes =
           line.replace('FetchRecentRefsIncludeRemotes=', '').trim() === 'true';
       } else if (line.startsWith('PruneOffsetDays=')) {
-        info.pruneOffsetDays = Number.parseInt(
-          line.replace('PruneOffsetDays=', '').trim(),
-          10,
-        );
+        info.pruneOffsetDays = Number.parseInt(line.replace('PruneOffsetDays=', '').trim(), 10);
       } else if (line.startsWith('PruneVerifyRemoteAlways=')) {
         info.pruneVerifyRemoteAlways =
           line.replace('PruneVerifyRemoteAlways=', '').trim() === 'true';
