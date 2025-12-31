@@ -2,7 +2,7 @@
  * Tests for High-level API implementations
  */
 
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -157,6 +157,68 @@ describe('High-level API', () => {
 
       const current = await repo.branch.current();
       expect(current).toBe('new-feature');
+    });
+
+    it('should checkout specific files from index (pathspec mode)', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      // Modify the file that was created by initRepoWithCommit
+      const filePath = join(repoPath, 'README.md');
+      await writeFile(filePath, 'modified content');
+
+      // Verify modification
+      const beforeCheckout = await readFile(filePath, 'utf8');
+      expect(beforeCheckout).toBe('modified content');
+
+      // Checkout from index (discard working tree changes)
+      await repo.checkout(['README.md']);
+
+      // File should be restored to index state (original content)
+      const afterCheckout = await readFile(filePath, 'utf8');
+      expect(afterCheckout).toBe('# Test');
+    });
+
+    it('should checkout specific files from a commit (pathspec mode with source)', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      // Create second commit with modified file
+      const filePath = join(repoPath, 'README.md');
+      await writeFile(filePath, 'second version');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Second commit' });
+
+      // Modify file again (not committed)
+      await writeFile(filePath, 'third version');
+
+      // Checkout from HEAD (the committed version)
+      await repo.checkout(['README.md'], { source: 'HEAD' });
+
+      // File should be restored to HEAD state
+      const afterCheckout = await readFile(filePath, 'utf8');
+      expect(afterCheckout).toBe('second version');
+    });
+
+    it('should checkout files from specific commit hash', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+      const filePath = join(repoPath, 'README.md');
+
+      // Get the first commit hash
+      const logs = await repo.log({ maxCount: 1 });
+      const firstCommitHash = logs[0].hash;
+
+      // Create second commit
+      await writeFile(filePath, 'second version');
+      await repo.add('README.md');
+      await repo.commit({ message: 'Second commit' });
+
+      // Checkout from first commit using hash
+      await repo.checkout(['README.md'], { source: firstCommitHash });
+
+      const afterCheckout = await readFile(filePath, 'utf8');
+      expect(afterCheckout).toBe('# Test');
     });
   });
 
