@@ -3042,7 +3042,7 @@ export interface WorktreeRepo extends RepoBase {
    * await repo.checkout(['conflicted.txt'], { ours: true });
    * ```
    */
-  checkout(paths: Array<string>, opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
+  checkout(paths: string[], opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
 
   /**
    * Create a commit

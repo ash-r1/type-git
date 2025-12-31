@@ -2261,10 +2261,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // Overload: branch switching mode
   public async checkout(target: string, opts?: CheckoutBranchOpts & ExecOpts): Promise<void>;
   // Overload: pathspec mode
-  public async checkout(paths: Array<string>, opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
+  public async checkout(paths: string[], opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
   // Implementation
   public async checkout(
-    targetOrPaths: string | Array<string>,
+    targetOrPaths: string | string[],
     opts?: (CheckoutBranchOpts | CheckoutPathOpts) & ExecOpts,
   ): Promise<void> {
     const args = ['checkout'];
