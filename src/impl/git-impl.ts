@@ -170,13 +170,9 @@ export class GitImpl implements Git {
     const isBare = result.stdout.trim() === 'true';
 
     if (isBare) {
-      // Find the actual git-dir
-      const gitDirResult = await repoRunner.run({ type: 'worktree', workdir: path }, [
-        'rev-parse',
-        '--git-dir',
-      ]);
-      const gitDir = gitDirResult.stdout.trim();
-      return new BareRepoImpl(repoRunner, gitDir, opts);
+      // For bare repositories, use the path directly as gitDir
+      // (git-dir is typically '.' when queried from within a bare repo)
+      return new BareRepoImpl(repoRunner, path, opts);
     }
 
     return new WorktreeRepoImpl(repoRunner, path, opts);

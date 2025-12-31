@@ -277,6 +277,26 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   /**
+   * Check if this repository is a worktree repository (has working directory)
+   *
+   * For WorktreeRepoImpl, this returns the actual state from git.
+   */
+  public async isWorktree(): Promise<boolean> {
+    const result = await this.runner.run(this.context, ['rev-parse', '--is-inside-work-tree']);
+    return result.exitCode === 0 && result.stdout.trim() === 'true';
+  }
+
+  /**
+   * Check if this repository is a bare repository (no working directory)
+   *
+   * For WorktreeRepoImpl, this queries git and returns the actual state.
+   */
+  public async isBare(): Promise<boolean> {
+    const result = await this.runner.run(this.context, ['rev-parse', '--is-bare-repository']);
+    return result.exitCode === 0 && result.stdout.trim() === 'true';
+  }
+
+  /**
    * Get repository status
    */
   public async status(opts?: StatusOpts & ExecOpts): Promise<StatusPorcelain> {
@@ -534,6 +554,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.reverse) {
       args.push('--reverse');
+    }
+
+    // ref must be placed after all options (positional argument)
+    if (opts?.ref) {
+      args.push(opts.ref);
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
