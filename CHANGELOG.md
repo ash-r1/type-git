@@ -1,5 +1,11 @@
 # type-git
 
+## 0.0.5
+
+### Patch Changes
+
+- [#90](https://github.com/ash-r1/type-git/pull/90) [`6c9b01c`](https://github.com/ash-r1/type-git/commit/6c9b01cf841efabedd11bdb553955e59422a1232) Thanks [@ash-r1](https://github.com/ash-r1)! - Fix npm OIDC trusted publishing by updating to npm 11.5.1+
+
 ## 0.0.1
 
 ### Patch Changes
