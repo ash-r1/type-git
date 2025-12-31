@@ -1910,11 +1910,13 @@ export interface WorktreeOperations {
   list(opts?: ExecOpts): Promise<Array<Worktree>>;
 
   /**
-   * Add a new worktree
+   * Add a new worktree and return a repository object for it
    *
    * Wraps: `git worktree add <path>`
+   *
+   * @returns A WorktreeRepo instance for the newly created worktree
    */
-  add(path: string, opts?: WorktreeAddOpts & ExecOpts): Promise<void>;
+  add(path: string, opts?: WorktreeAddOpts & ExecOpts): Promise<WorktreeRepo>;
 
   /**
    * Remove a worktree

@@ -1872,7 +1872,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     return parseWorktreeList(result.stdout);
   }
 
-  private async worktreeAdd(path: string, opts?: WorktreeAddOpts & ExecOpts): Promise<void> {
+  private async worktreeAdd(
+    path: string,
+    opts?: WorktreeAddOpts & ExecOpts,
+  ): Promise<WorktreeRepo> {
     const args = ['worktree', 'add'];
 
     if (opts?.detach) {
@@ -1914,6 +1917,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
     });
+
+    // Return a new WorktreeRepo for the newly created worktree
+    return new WorktreeRepoImpl(this.runner, path);
   }
 
   private async worktreeRemove(path: string, opts?: WorktreeRemoveOpts & ExecOpts): Promise<void> {
