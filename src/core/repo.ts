@@ -96,14 +96,14 @@ export type RepoLsRemoteOpts = {
   /** Show symbolic refs in addition to object refs */
   symref?: boolean;
   /** Specific refs to query (branch names, tag names, or full ref paths) */
-  refs?: Array<string>;
+  refs?: string[];
 };
 
 /**
  * Result from repository-scoped git ls-remote
  */
 export type RepoLsRemoteResult = {
-  refs: Array<LsRemoteRef>;
+  refs: LsRemoteRef[];
 };
 
 /**
