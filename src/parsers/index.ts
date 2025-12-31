@@ -573,8 +573,8 @@ const LS_TREE_LONG_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\s+(-|\d+)\
 export function parseLsTree(
   stdout: string,
   opts?: { nameOnly?: boolean; objectOnly?: boolean; long?: boolean },
-): Array<ParsedLsTreeEntry> {
-  const entries: Array<ParsedLsTreeEntry> = [];
+): ParsedLsTreeEntry[] {
+  const entries: ParsedLsTreeEntry[] = [];
   const lines = parseLines(stdout);
 
   for (const line of lines) {
