@@ -7,6 +7,7 @@ import type {
   CloneOpts,
   Git,
   GlobalConfigOperations,
+  GlobalLfsOperations,
   InitOpts,
   LsRemoteOpts,
   LsRemoteResult,
@@ -159,5 +160,27 @@ export class TypeGit {
    */
   public get config(): GlobalConfigOperations {
     return this.git.config;
+  }
+
+  /**
+   * Global LFS operations
+   *
+   * Operates on ~/.gitconfig (user-level) or /etc/gitconfig (system-level).
+   * For repository-level LFS operations, use repo.lfs instead.
+   *
+   * @example
+   * ```typescript
+   * // Install LFS globally
+   * await git.lfs.install();
+   *
+   * // Install system-wide
+   * await git.lfs.install({ system: true });
+   *
+   * // Get LFS version
+   * const version = await git.lfs.version();
+   * ```
+   */
+  public get lfs(): GlobalLfsOperations {
+    return this.git.lfs;
   }
 }

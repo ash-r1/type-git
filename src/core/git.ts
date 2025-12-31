@@ -145,6 +145,121 @@ export type LsRemoteResult = {
 };
 
 // =============================================================================
+// Global LFS Operations
+// =============================================================================
+
+/**
+ * Options for global LFS install
+ *
+ * Used with `git.lfs.install()` for user-level (~/.gitconfig) or
+ * system-level (/etc/gitconfig) LFS configuration.
+ *
+ * @remarks
+ * Internally runs `git lfs install` without `--local` flag.
+ * For repository-level installation, use `repo.lfs.install()` instead.
+ */
+export type GlobalLfsInstallOpts = {
+  /** Overwrite existing hooks */
+  force?: boolean;
+  /**
+   * Install for all users (system-wide)
+   *
+   * @remarks
+   * Internally adds `--system` flag to install to /etc/gitconfig
+   * instead of ~/.gitconfig. Requires appropriate permissions.
+   */
+  system?: boolean;
+  /** Skip smudge filter (don't download during checkout) */
+  skipSmudge?: boolean;
+  /** Skip repository setup (only install filters) */
+  skipRepo?: boolean;
+  /** Print commands instead of executing */
+  manual?: boolean;
+};
+
+/**
+ * Options for global LFS uninstall
+ *
+ * Used with `git.lfs.uninstall()` for user-level or system-level
+ * LFS configuration removal.
+ *
+ * @remarks
+ * Internally runs `git lfs uninstall` without `--local` flag.
+ * For repository-level uninstallation, use `repo.lfs.uninstall()` instead.
+ */
+export type GlobalLfsUninstallOpts = {
+  /**
+   * Uninstall for all users (system-wide)
+   *
+   * @remarks
+   * Internally adds `--system` flag to modify /etc/gitconfig
+   * instead of ~/.gitconfig. Requires appropriate permissions.
+   */
+  system?: boolean;
+  /** Skip repository cleanup */
+  skipRepo?: boolean;
+};
+
+/**
+ * Global LFS operations
+ *
+ * Wraps: `git lfs` subcommands for user-level configuration
+ *
+ * Operates on ~/.gitconfig (user-level) or /etc/gitconfig (system-level).
+ * For repository-level LFS operations, use repo.lfs instead.
+ */
+export interface GlobalLfsOperations {
+  /**
+   * Install Git LFS hooks globally
+   *
+   * Wraps: `git lfs install`
+   *
+   * Sets up the clean and smudge filters under the name "lfs" in the
+   * global Git config (~/.gitconfig) or system config (/etc/gitconfig).
+   *
+   * @example
+   * ```typescript
+   * // Install globally (to ~/.gitconfig)
+   * await git.lfs.install();
+   *
+   * // Install system-wide (to /etc/gitconfig)
+   * await git.lfs.install({ system: true });
+   *
+   * // Install with skip-smudge (manual LFS pull required)
+   * await git.lfs.install({ skipSmudge: true });
+   * ```
+   */
+  install(opts?: GlobalLfsInstallOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Uninstall Git LFS hooks globally
+   *
+   * Wraps: `git lfs uninstall`
+   *
+   * Removes the clean and smudge filters from global or system config.
+   *
+   * @example
+   * ```typescript
+   * // Uninstall from global config
+   * await git.lfs.uninstall();
+   *
+   * // Uninstall from system config
+   * await git.lfs.uninstall({ system: true });
+   * ```
+   */
+  uninstall(opts?: GlobalLfsUninstallOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Get Git LFS version
+   *
+   * Wraps: `git lfs version`
+   *
+   * @returns LFS version string (e.g., "git-lfs/3.4.0")
+   */
+  version(opts?: ExecOpts): Promise<string>;
+}
+
+// =============================================================================
 // Global Config Operations
 // =============================================================================
 
@@ -350,4 +465,14 @@ export interface Git {
    * For repository-level config, use repo.config instead.
    */
   config: GlobalConfigOperations;
+
+  /**
+   * Global LFS operations
+   *
+   * Wraps: `git lfs` subcommands for user-level configuration
+   *
+   * Operates on ~/.gitconfig (user-level) or /etc/gitconfig (system-level).
+   * For repository-level LFS operations, use repo.lfs instead.
+   */
+  lfs: GlobalLfsOperations;
 }

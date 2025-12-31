@@ -33,7 +33,6 @@ import type {
   LfsExtraOperations,
   LfsFetchOpts,
   LfsFileEntry,
-  LfsInstallOpts,
   LfsLockEntry,
   LfsLockOpts,
   LfsLocksOpts,
@@ -53,7 +52,6 @@ import type {
   LfsStatusOpts,
   LfsTrackEntry,
   LfsTrackOpts,
-  LfsUninstallOpts,
   LfsUnlockOpts,
   LogOpts,
   MergeOpts,
@@ -71,6 +69,8 @@ import type {
   RemoteShowOpts,
   RemoteUpdateOpts,
   RemoteUrlOpts,
+  RepoLfsInstallOpts,
+  RepoLfsUninstallOpts,
   ResetOpts,
   RestoreOpts,
   RevertOpts,
@@ -1331,31 +1331,22 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
   }
 
-  private async lfsInstall(opts?: LfsInstallOpts & ExecOpts): Promise<void> {
+  private async lfsInstall(opts?: RepoLfsInstallOpts & ExecOpts): Promise<void> {
     const args = ['lfs', 'install'];
 
     if (opts?.force) {
       args.push('--force');
     }
 
-    if (opts?.local) {
-      args.push('--local');
-    }
-
-    if (opts?.system) {
-      args.push('--system');
-    }
-
+    // Use --worktree if specified, otherwise default to --local
     if (opts?.worktree) {
       args.push('--worktree');
+    } else {
+      args.push('--local');
     }
 
     if (opts?.skipSmudge) {
       args.push('--skip-smudge');
-    }
-
-    if (opts?.skipRepo) {
-      args.push('--skip-repo');
     }
 
     await this.runner.runOrThrow(this.context, args, {
@@ -1363,23 +1354,14 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
   }
 
-  private async lfsUninstall(opts?: LfsUninstallOpts & ExecOpts): Promise<void> {
+  private async lfsUninstall(opts?: RepoLfsUninstallOpts & ExecOpts): Promise<void> {
     const args = ['lfs', 'uninstall'];
 
-    if (opts?.local) {
-      args.push('--local');
-    }
-
-    if (opts?.system) {
-      args.push('--system');
-    }
-
+    // Use --worktree if specified, otherwise default to --local
     if (opts?.worktree) {
       args.push('--worktree');
-    }
-
-    if (opts?.skipRepo) {
-      args.push('--skip-repo');
+    } else {
+      args.push('--local');
     }
 
     await this.runner.runOrThrow(this.context, args, {

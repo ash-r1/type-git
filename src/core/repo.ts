@@ -1497,37 +1497,52 @@ export type LfsFetchOpts = {
 };
 
 /**
- * Options for LFS install
+ * Options for repository-level LFS install
+ *
+ * Used with `repo.lfs.install()` for repository-local LFS configuration.
+ *
+ * @remarks
+ * Internally runs `git lfs install --local` by default, which writes to
+ * the repository's .git/config file. This ensures LFS configuration is
+ * scoped to the current repository only.
+ *
+ * For global (user-level) or system-wide installation, use `git.lfs.install()` instead.
  */
-export type LfsInstallOpts = {
+export type RepoLfsInstallOpts = {
   /** Overwrite existing hooks */
   force?: boolean;
-  /** Install for local repository only */
-  local?: boolean;
-  /** Install for worktree only */
+  /**
+   * Install for worktree only (instead of repository)
+   *
+   * @remarks
+   * Internally uses `--worktree` flag instead of `--local`.
+   * Requires Git 2.20.0+ with worktreeConfig extension enabled.
+   */
   worktree?: boolean;
-  /** Print commands instead of executing */
-  manual?: boolean;
-  /** Install for all users */
-  system?: boolean;
   /** Skip smudge filter (don't download during checkout) */
   skipSmudge?: boolean;
-  /** Skip repository setup */
-  skipRepo?: boolean;
 };
 
 /**
- * Options for LFS uninstall
+ * Options for repository-level LFS uninstall
+ *
+ * Used with `repo.lfs.uninstall()` for repository-local LFS configuration removal.
+ *
+ * @remarks
+ * Internally runs `git lfs uninstall --local` by default, which modifies
+ * the repository's .git/config file only.
+ *
+ * For global or system-wide uninstallation, use `git.lfs.uninstall()` instead.
  */
-export type LfsUninstallOpts = {
-  /** Uninstall for local repository only */
-  local?: boolean;
-  /** Uninstall for worktree only */
+export type RepoLfsUninstallOpts = {
+  /**
+   * Uninstall for worktree only (instead of repository)
+   *
+   * @remarks
+   * Internally uses `--worktree` flag instead of `--local`.
+   * Requires Git 2.20.0+ with worktreeConfig extension enabled.
+   */
   worktree?: boolean;
-  /** Uninstall for all users */
-  system?: boolean;
-  /** Skip repository cleanup */
-  skipRepo?: boolean;
 };
 
 /**
@@ -2049,18 +2064,46 @@ export interface LfsOperations {
   fetch(opts?: LfsFetchOpts & ExecOpts): Promise<void>;
 
   /**
-   * Install Git LFS hooks
+   * Install Git LFS hooks for this repository
    *
-   * Wraps: `git lfs install`
+   * Wraps: `git lfs install --local`
+   *
+   * Installs LFS hooks to the repository's .git/config file.
+   * This ensures LFS configuration is scoped to this repository only.
+   *
+   * @remarks
+   * Internally always adds `--local` flag (or `--worktree` if specified).
+   * For global or system-wide installation, use `git.lfs.install()` instead.
+   *
+   * @example
+   * ```typescript
+   * // Install LFS locally for this repository
+   * await repo.lfs.install();
+   *
+   * // Install for worktree only (Git 2.20.0+)
+   * await repo.lfs.install({ worktree: true });
+   * ```
    */
-  install(opts?: LfsInstallOpts & ExecOpts): Promise<void>;
+  install(opts?: RepoLfsInstallOpts & ExecOpts): Promise<void>;
 
   /**
-   * Uninstall Git LFS hooks
+   * Uninstall Git LFS hooks from this repository
    *
-   * Wraps: `git lfs uninstall`
+   * Wraps: `git lfs uninstall --local`
+   *
+   * Removes LFS hooks from the repository's .git/config file.
+   *
+   * @remarks
+   * Internally always adds `--local` flag (or `--worktree` if specified).
+   * For global or system-wide uninstallation, use `git.lfs.uninstall()` instead.
+   *
+   * @example
+   * ```typescript
+   * // Uninstall LFS from this repository
+   * await repo.lfs.uninstall();
+   * ```
    */
-  uninstall(opts?: LfsUninstallOpts & ExecOpts): Promise<void>;
+  uninstall(opts?: RepoLfsUninstallOpts & ExecOpts): Promise<void>;
 
   /**
    * List LFS files in the repository

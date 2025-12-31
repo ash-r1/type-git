@@ -8,6 +8,9 @@ import type {
   Git,
   GlobalConfigListOpts,
   GlobalConfigOperations,
+  GlobalLfsInstallOpts,
+  GlobalLfsOperations,
+  GlobalLfsUninstallOpts,
   InitOpts,
   LsRemoteOpts,
   LsRemoteResult,
@@ -64,6 +67,7 @@ export class GitImpl implements Git {
   private readonly runner: CliRunner;
   private readonly adapters: RuntimeAdapters;
   public readonly config: GlobalConfigOperations;
+  public readonly lfs: GlobalLfsOperations;
 
   public constructor(options: CreateGitOptions) {
     this.runner = new CliRunner(options.adapters, options);
@@ -80,6 +84,13 @@ export class GitImpl implements Git {
       setRaw: this.configSetRaw.bind(this),
       unsetRaw: this.configUnsetRaw.bind(this),
       list: this.configList.bind(this),
+    };
+
+    // Initialize global LFS operations
+    this.lfs = {
+      install: this.lfsInstall.bind(this),
+      uninstall: this.lfsUninstall.bind(this),
+      version: this.lfsVersion.bind(this),
     };
   }
 
@@ -678,6 +689,71 @@ export class GitImpl implements Git {
     }
 
     return entries;
+  }
+
+  // ==========================================================================
+  // Global LFS Operations
+  // ==========================================================================
+
+  /**
+   * Install Git LFS hooks globally
+   */
+  private async lfsInstall(opts?: GlobalLfsInstallOpts & ExecOpts): Promise<void> {
+    const args = ['lfs', 'install'];
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.system) {
+      args.push('--system');
+    }
+
+    if (opts?.skipSmudge) {
+      args.push('--skip-smudge');
+    }
+
+    if (opts?.skipRepo) {
+      args.push('--skip-repo');
+    }
+
+    if (opts?.manual) {
+      args.push('--manual');
+    }
+
+    await this.runner.runOrThrow({ type: 'global' }, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  /**
+   * Uninstall Git LFS hooks globally
+   */
+  private async lfsUninstall(opts?: GlobalLfsUninstallOpts & ExecOpts): Promise<void> {
+    const args = ['lfs', 'uninstall'];
+
+    if (opts?.system) {
+      args.push('--system');
+    }
+
+    if (opts?.skipRepo) {
+      args.push('--skip-repo');
+    }
+
+    await this.runner.runOrThrow({ type: 'global' }, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  /**
+   * Get Git LFS version
+   */
+  private async lfsVersion(opts?: ExecOpts): Promise<string> {
+    const result = await this.runner.runOrThrow({ type: 'global' }, ['lfs', 'version'], {
+      signal: opts?.signal,
+    });
+
+    return result.stdout.trim();
   }
 }
 
