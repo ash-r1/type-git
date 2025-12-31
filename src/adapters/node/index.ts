@@ -3,7 +3,14 @@
  */
 
 import type { RuntimeAdapters } from '../../core/adapters.js';
-import type { CloneOpts, Git, InitOpts, LsRemoteOpts, LsRemoteResult } from '../../core/git.js';
+import type {
+  CloneOpts,
+  Git,
+  GlobalConfigOperations,
+  InitOpts,
+  LsRemoteOpts,
+  LsRemoteResult,
+} from '../../core/git.js';
 import type { BareRepo, WorktreeRepo } from '../../core/repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from '../../core/types.js';
 import { type CreateGitOptions, createGit } from '../../impl/git-impl.js';
@@ -142,5 +149,15 @@ export class TypeGit {
    */
   public get raw(): (argv: Array<string>, opts?: ExecOpts) => Promise<RawResult> {
     return this.git.raw.bind(this.git);
+  }
+
+  /**
+   * Global config operations
+   *
+   * Operates on ~/.gitconfig (user-level configuration).
+   * For repository-level config, use repo.config instead.
+   */
+  public get config(): GlobalConfigOperations {
+    return this.git.config;
   }
 }
