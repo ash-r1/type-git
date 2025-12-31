@@ -117,11 +117,13 @@ const git = createGit({ adapters: createNodeAdapters() });
 - **Do not push directly to main**: The main branch is protected
 - Always create a feature branch and submit a Pull Request
 - Branch naming: `feature/*`, `fix/*`, `chore/*`, etc.
+- **Include a changeset**: For any changes that affect the public API or behavior, add a changeset with `pnpm changeset`
 
 ```bash
 # Example workflow
 git checkout -b feature/my-feature
 # ... make changes ...
+pnpm changeset              # Add a changeset describing the change
 git add .
 git commit -m "feat: add my feature"
 git push -u origin feature/my-feature
