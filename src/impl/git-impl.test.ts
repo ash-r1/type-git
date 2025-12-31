@@ -10,6 +10,9 @@ import { createNodeAdapters } from '../adapters/node/index.js';
 import { GitError } from '../core/types.js';
 import { createGit } from './git-impl.js';
 
+// Regex pattern for validating git version format
+const GIT_VERSION_FORMAT_REGEX = /^\d+\.\d+/;
+
 async function exists(path: string): Promise<boolean> {
   try {
     await access(path);
@@ -34,7 +37,7 @@ describe('GitImpl', () => {
   describe('version', () => {
     it('should return git version', async () => {
       const version = await git.version();
-      expect(version).toMatch(/^\d+\.\d+/);
+      expect(version).toMatch(GIT_VERSION_FORMAT_REGEX);
     });
   });
 

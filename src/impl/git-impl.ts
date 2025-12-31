@@ -31,6 +31,9 @@ import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
 import { BareRepoImpl } from './bare-repo-impl.js';
 import { WorktreeRepoImpl } from './worktree-repo-impl.js';
 
+// Regex pattern for parsing git version output
+const GIT_VERSION_REGEX = /git version (\S+)/;
+
 /**
  * Options for creating a Git instance
  */
@@ -498,7 +501,7 @@ export class GitImpl implements Git {
     });
 
     // Parse "git version X.Y.Z" format
-    const match = result.stdout.match(/git version (\S+)/);
+    const match = result.stdout.match(GIT_VERSION_REGEX);
     const version = match?.[1];
     return version ?? result.stdout.trim();
   }
@@ -506,7 +509,7 @@ export class GitImpl implements Git {
   /**
    * Execute a raw git command (repository-agnostic)
    */
-  public async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
+  public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run({ type: 'global' }, argv, opts);
   }
 

@@ -36,6 +36,10 @@ import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
 import { parseLines, parseLsRemote, parseLsTree } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
 
+// Regex patterns for parsing git output
+const REMOTE_LINE_REGEX = /^(\S+)\t(.+?)\s+\((fetch|push)\)$/;
+const PRUNED_REF_REGEX = /\* \[pruned\] (.+)/;
+
 /**
  * BareRepo implementation
  */
@@ -526,7 +530,7 @@ export class BareRepoImpl implements BareRepo {
     const remotes = new Map<string, RemoteInfo>();
 
     for (const line of parseLines(result.stdout)) {
-      const match = line.match(/^(\S+)\t(.+?)\s+\((fetch|push)\)$/);
+      const match = line.match(REMOTE_LINE_REGEX);
       if (match) {
         const name = match[1];
         const url = match[2];
@@ -692,7 +696,7 @@ export class BareRepoImpl implements BareRepo {
     // Parse pruned refs from output
     const pruned: string[] = [];
     for (const line of parseLines(result.stdout)) {
-      const match = line.match(/\* \[pruned\] (.+)/);
+      const match = line.match(PRUNED_REF_REGEX);
       const ref = match?.[1];
       if (ref) {
         pruned.push(ref);
