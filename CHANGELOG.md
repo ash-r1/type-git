@@ -1,8 +1,8 @@
 # type-git
 
-## 0.1.0
+## 0.0.1
 
-### Minor Changes
+### Patch Changes
 
 - [#81](https://github.com/ash-r1/type-git/pull/81) [`9aa2cb9`](https://github.com/ash-r1/type-git/commit/9aa2cb98f1304c5e1487bf7b1aeab6265f4e377a) Thanks [@ash-r1](https://github.com/ash-r1)! - Add lsTree method to RepoBase
 
@@ -21,8 +21,6 @@
   - Add `revParse()` method to WorktreeRepo and BareRepo
   - Support various rev-parse options: `abbrevRef`, `symbolic`, `short`, `verify`, etc.
   - Parse output based on option combinations for type-safe results
-
-### Patch Changes
 
 - [#86](https://github.com/ash-r1/type-git/pull/86) [`6d0ebda`](https://github.com/ash-r1/type-git/commit/6d0ebda2dea78f3dc0dbd0147318acbd5ea7daa6) Thanks [@ash-r1](https://github.com/ash-r1)! - Add dual package support (ESM + CommonJS) using tsup
 
