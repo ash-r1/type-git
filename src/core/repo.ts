@@ -1947,11 +1947,13 @@ export interface WorktreeOperations {
   unlock(path: string, opts?: ExecOpts): Promise<void>;
 
   /**
-   * Move a worktree to a new location
+   * Move a worktree to a new location and return a repository object for it
    *
    * Wraps: `git worktree move <src> <dst>`
+   *
+   * @returns A WorktreeRepo instance for the worktree at the new location
    */
-  move(src: string, dst: string, opts?: WorktreeMoveOpts & ExecOpts): Promise<void>;
+  move(src: string, dst: string, opts?: WorktreeMoveOpts & ExecOpts): Promise<WorktreeRepo>;
 
   /**
    * Repair worktree administrative files

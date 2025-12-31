@@ -1981,7 +1981,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     src: string,
     dst: string,
     opts?: WorktreeMoveOpts & ExecOpts,
-  ): Promise<void> {
+  ): Promise<WorktreeRepo> {
     const args = ['worktree', 'move'];
 
     if (opts?.force) {
@@ -1993,6 +1993,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
+
+    // Return a new WorktreeRepo for the worktree at the new location
+    return new WorktreeRepoImpl(this.runner, dst);
   }
 
   private async worktreeRepair(paths?: Array<string>, opts?: ExecOpts): Promise<void> {
