@@ -1912,7 +1912,23 @@ export type Worktree = {
  * Options for adding a worktree
  */
 export type WorktreeAddOpts = {
-  /** Branch name to create or checkout */
+  /**
+   * Commit-ish to checkout (branch, tag, or commit hash)
+   *
+   * @example
+   * ```typescript
+   * // Checkout a specific commit in detached mode
+   * await repo.worktree.add('/tmp/worktree', { detach: true, commitish: 'abc1234' });
+   *
+   * // Checkout a tag
+   * await repo.worktree.add('/tmp/worktree', { detach: true, commitish: 'v1.0.0' });
+   *
+   * // Checkout a branch
+   * await repo.worktree.add('/tmp/worktree', { commitish: 'feature-branch' });
+   * ```
+   */
+  commitish?: string;
+  /** Branch name to create (-b flag) */
   branch?: string;
   /** Create detached HEAD */
   detach?: boolean;

@@ -1910,12 +1910,16 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--orphan');
     }
 
+    // -b must come before path
+    if (opts?.branch && !(opts.detach || opts.orphan)) {
+      args.push('-b', opts.branch);
+    }
+
     args.push(path);
 
-    if (opts?.branch) {
-      if (!(opts.detach || opts.orphan)) {
-        args.push('-b', opts.branch);
-      }
+    // Add commit-ish after path (e.g., branch name, tag, or commit hash)
+    if (opts?.commitish) {
+      args.push(opts.commitish);
     }
 
     await this.runner.runOrThrow(this.context, args, {
