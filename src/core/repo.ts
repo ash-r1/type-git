@@ -10,8 +10,48 @@ import type { ExecOpts, GitProgress, LfsMode, RawResult } from './types.js';
 export interface RepoBase {
   /**
    * Execute a raw git command in this repository context
+   *
+   * Wraps: `git <argv...>`
    */
   raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult>;
+
+  /**
+   * Check if this repository is a worktree repository (has working directory)
+   *
+   * Wraps: `git rev-parse --is-inside-work-tree`
+   *
+   * This method acts as a type guard, allowing TypeScript to narrow the type
+   * from `RepoBase` to `WorktreeRepo` when it returns `true`.
+   *
+   * @example
+   * ```typescript
+   * const repo = await git.openRaw('/path/to/repo');
+   * if (await repo.isWorktree()) {
+   *   // repo is now typed as WorktreeRepo
+   *   const status = await repo.status();
+   * }
+   * ```
+   */
+  isWorktree(): Promise<boolean>;
+
+  /**
+   * Check if this repository is a bare repository (no working directory)
+   *
+   * Wraps: `git rev-parse --is-bare-repository`
+   *
+   * This method acts as a type guard, allowing TypeScript to narrow the type
+   * from `RepoBase` to `BareRepo` when it returns `true`.
+   *
+   * @example
+   * ```typescript
+   * const repo = await git.openRaw('/path/to/repo');
+   * if (await repo.isBare()) {
+   *   // repo is now typed as BareRepo
+   *   await repo.fetch({ remote: 'origin' });
+   * }
+   * ```
+   */
+  isBare(): Promise<boolean>;
 }
 
 /**

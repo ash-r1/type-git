@@ -292,3 +292,113 @@ describe('WorktreeRepoImpl', () => {
     });
   });
 });
+
+describe('openRaw and type guards', () => {
+  let tempDir: string;
+  const git = createGit({ adapters: createNodeAdapters() });
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), 'type-git-test-'));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  describe('openRaw', () => {
+    it('should open a worktree repository', async () => {
+      const repoPath = join(tempDir, 'test-repo');
+      await git.init(repoPath);
+
+      const repo = await git.openRaw(repoPath);
+      expect(repo).toBeDefined();
+      expect(await repo.isWorktree()).toBe(true);
+      expect(await repo.isBare()).toBe(false);
+    });
+
+    it('should open a bare repository', async () => {
+      const repoPath = join(tempDir, 'test-bare.git');
+      await git.init(repoPath, { bare: true });
+
+      const repo = await git.openRaw(repoPath);
+      expect(repo).toBeDefined();
+      expect(await repo.isWorktree()).toBe(false);
+      expect(await repo.isBare()).toBe(true);
+    });
+
+    it('should throw for non-repository path', async () => {
+      await expect(git.openRaw(tempDir)).rejects.toThrow();
+    });
+  });
+
+  describe('isWorktree type guard', () => {
+    it('should return true for worktree repository', async () => {
+      const repoPath = join(tempDir, 'test-repo');
+      await git.init(repoPath);
+
+      const repo = await git.openRaw(repoPath);
+      const isWorktree = await repo.isWorktree();
+      expect(isWorktree).toBe(true);
+
+      // TypeScript type narrowing demonstration
+      if (isWorktree) {
+        // In actual usage, after this check, repo would be narrowed to WorktreeRepo
+        // For the test, we just verify the boolean value
+        expect(typeof isWorktree).toBe('boolean');
+      }
+    });
+
+    it('should return false for bare repository', async () => {
+      const repoPath = join(tempDir, 'test-bare.git');
+      await git.init(repoPath, { bare: true });
+
+      const repo = await git.openRaw(repoPath);
+      expect(await repo.isWorktree()).toBe(false);
+    });
+  });
+
+  describe('isBare type guard', () => {
+    it('should return true for bare repository', async () => {
+      const repoPath = join(tempDir, 'test-bare.git');
+      await git.init(repoPath, { bare: true });
+
+      const repo = await git.openRaw(repoPath);
+      const isBare = await repo.isBare();
+      expect(isBare).toBe(true);
+
+      // TypeScript type narrowing demonstration
+      if (isBare) {
+        // In actual usage, after this check, repo would be narrowed to BareRepo
+        expect(typeof isBare).toBe('boolean');
+      }
+    });
+
+    it('should return false for worktree repository', async () => {
+      const repoPath = join(tempDir, 'test-repo');
+      await git.init(repoPath);
+
+      const repo = await git.openRaw(repoPath);
+      expect(await repo.isBare()).toBe(false);
+    });
+  });
+
+  describe('type narrowing with open()', () => {
+    it('should work with WorktreeRepo from open()', async () => {
+      const repoPath = join(tempDir, 'test-repo');
+      const repo = await git.init(repoPath);
+
+      // Even with open(), we can still use the type guards
+      expect(await repo.isWorktree()).toBe(true);
+      expect(await repo.isBare()).toBe(false);
+    });
+
+    it('should work with BareRepo from open()', async () => {
+      const repoPath = join(tempDir, 'test-bare.git');
+      const repo = await git.init(repoPath, { bare: true });
+
+      // Even with open(), we can still use the type guards
+      expect(await repo.isWorktree()).toBe(false);
+      expect(await repo.isBare()).toBe(true);
+    });
+  });
+});

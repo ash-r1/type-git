@@ -19,6 +19,7 @@ import type {
   ConfigKey,
   ConfigSchema,
   ConfigSetOpts,
+  RepoBase,
   WorktreeRepo,
 } from '../core/repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
@@ -127,6 +128,44 @@ export class GitImpl implements Git {
       return new BareRepoImpl(repoRunner, gitDir, opts);
     }
 
+    return new WorktreeRepoImpl(repoRunner, path, opts);
+  }
+
+  /**
+   * Open an existing repository without type detection
+   *
+   * Returns a RepoBase that can be narrowed to WorktreeRepo or BareRepo
+   * using the isWorktree() and isBare() type guard methods.
+   */
+  public async openRaw(path: string, opts?: GitOpenOptions): Promise<RepoBase> {
+    // Create a runner with custom options if provided
+    const repoRunner = opts ? this.runner.withOptions(toCliRunnerOptions(opts)) : this.runner;
+
+    // Verify it's a valid git repository first
+    const result = await repoRunner.run({ type: 'worktree', workdir: path }, [
+      'rev-parse',
+      '--git-dir',
+    ]);
+
+    if (result.exitCode !== 0) {
+      // Try as git-dir directly
+      const bareResult = await repoRunner.run({ type: 'bare', gitDir: path }, [
+        'rev-parse',
+        '--git-dir',
+      ]);
+
+      if (bareResult.exitCode !== 0) {
+        throw new GitError('NonZeroExit', `Not a git repository: ${path}`, {
+          exitCode: bareResult.exitCode,
+          stderr: bareResult.stderr,
+        });
+      }
+
+      // It's a valid bare repository path
+      return new BareRepoImpl(repoRunner, path, opts);
+    }
+
+    // Default to WorktreeRepoImpl - the caller can use isWorktree/isBare to detect
     return new WorktreeRepoImpl(repoRunner, path, opts);
   }
 

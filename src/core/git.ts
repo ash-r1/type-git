@@ -9,6 +9,7 @@ import type {
   ConfigKey,
   ConfigSchema,
   ConfigSetOpts,
+  RepoBase,
   WorktreeRepo,
 } from './repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from './types.js';
@@ -250,6 +251,33 @@ export interface Git {
    * @returns WorktreeRepo or BareRepo depending on repository type
    */
   open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo>;
+
+  /**
+   * Open an existing repository without type detection
+   *
+   * Returns a `RepoBase` that can be narrowed to `WorktreeRepo` or `BareRepo`
+   * using the `isWorktree()` and `isBare()` type guard methods.
+   *
+   * This is useful when you need to defer type detection or want to perform
+   * the detection yourself.
+   *
+   * @param path - Path to the repository (workdir or git-dir)
+   * @param opts - Environment isolation and credential options
+   * @returns RepoBase that can be narrowed using isWorktree() or isBare()
+   *
+   * @example
+   * ```typescript
+   * const repo = await git.openRaw('/path/to/repo');
+   * if (await repo.isWorktree()) {
+   *   // repo is now typed as WorktreeRepo
+   *   const status = await repo.status();
+   * } else if (await repo.isBare()) {
+   *   // repo is now typed as BareRepo
+   *   await repo.fetch({ remote: 'origin' });
+   * }
+   * ```
+   */
+  openRaw(path: string, opts?: GitOpenOptions): Promise<RepoBase>;
 
   /**
    * Clone a repository

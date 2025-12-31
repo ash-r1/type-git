@@ -277,6 +277,26 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   /**
+   * Check if this repository is a worktree repository (has working directory)
+   *
+   * For WorktreeRepoImpl, this returns the actual state from git.
+   */
+  public async isWorktree(): Promise<boolean> {
+    const result = await this.runner.run(this.context, ['rev-parse', '--is-inside-work-tree']);
+    return result.exitCode === 0 && result.stdout.trim() === 'true';
+  }
+
+  /**
+   * Check if this repository is a bare repository (no working directory)
+   *
+   * For WorktreeRepoImpl, this always returns false.
+   */
+  public async isBare(): Promise<boolean> {
+    const result = await this.runner.run(this.context, ['rev-parse', '--is-bare-repository']);
+    return result.exitCode === 0 && result.stdout.trim() === 'true';
+  }
+
+  /**
    * Get repository status
    */
   public async status(opts?: StatusOpts & ExecOpts): Promise<StatusPorcelain> {
