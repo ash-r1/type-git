@@ -50,7 +50,7 @@ export type CliRunnerOptions = {
   /** Additional environment variables */
   env?: Record<string, string>;
   /** Directories to prepend to PATH */
-  pathPrefix?: Array<string>;
+  pathPrefix?: string[];
   /** Custom HOME directory for git config isolation */
   home?: string;
   /** Credential helper configuration */
@@ -70,7 +70,7 @@ export class CliRunner {
   private readonly exec: ExecAdapter;
   private readonly gitBinary: string;
   private readonly baseEnv: Record<string, string>;
-  private readonly pathPrefix: Array<string>;
+  private readonly pathPrefix: string[];
   private readonly home: string | undefined;
   private readonly credential: CredentialHelperConfig | undefined;
 
@@ -118,7 +118,7 @@ export class CliRunner {
   /**
    * Build command argv based on execution context
    */
-  private buildArgv(context: ExecutionContext, args: Array<string>): Array<string> {
+  private buildArgv(context: ExecutionContext, args: string[]): string[] {
     const argv = [this.gitBinary];
 
     // Add credential helper configuration before context flags
@@ -193,11 +193,7 @@ export class CliRunner {
   /**
    * Run a Git command
    */
-  public async run(
-    context: ExecutionContext,
-    args: Array<string>,
-    opts?: ExecOpts,
-  ): Promise<RawResult> {
+  public async run(context: ExecutionContext, args: string[], opts?: ExecOpts): Promise<RawResult> {
     const argv = this.buildArgv(context, args);
     const { signal, onProgress, onLfsProgress } = opts ?? {};
 
@@ -319,11 +315,7 @@ export class CliRunner {
   /**
    * Map Git result to GitError if needed
    */
-  public mapError(
-    result: RawResult,
-    context: ExecutionContext,
-    argv: Array<string>,
-  ): GitError | null {
+  public mapError(result: RawResult, context: ExecutionContext, argv: string[]): GitError | null {
     if (result.aborted) {
       return new GitError('Aborted', 'Command was aborted', {
         argv,
@@ -402,7 +394,7 @@ export class CliRunner {
    */
   public async runOrThrow(
     context: ExecutionContext,
-    args: Array<string>,
+    args: string[],
     opts?: ExecOpts,
   ): Promise<RawResult> {
     const result = await this.run(context, args, opts);

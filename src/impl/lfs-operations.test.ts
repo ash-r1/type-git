@@ -8,7 +8,7 @@ import { CliRunner } from '../runner/cli-runner.js';
 import { WorktreeRepoImpl } from './worktree-repo-impl.js';
 
 // Mock adapters for testing
-function createMockAdapters(spawnResults?: Array<Partial<SpawnResult>>): RuntimeAdapters {
+function createMockAdapters(spawnResults?: Partial<SpawnResult>[]): RuntimeAdapters {
   let callIndex = 0;
   return {
     exec: {

@@ -13,7 +13,7 @@ export interface RepoBase {
    *
    * Wraps: `git <argv...>`
    */
-  raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult>;
+  raw(argv: string[], opts?: ExecOpts): Promise<RawResult>;
 
   /**
    * Check if this repository is a worktree repository (has working directory)
@@ -70,7 +70,7 @@ export type StatusEntry = {
  * Result from git status --porcelain
  */
 export type StatusPorcelain = {
-  entries: Array<StatusEntry>;
+  entries: StatusEntry[];
   branch?: string;
   upstream?: string;
   ahead?: number;
@@ -112,7 +112,7 @@ export type StatusOpts = {
 export type Commit = {
   hash: string;
   abbrevHash: string;
-  parents: Array<string>;
+  parents: string[];
   author: {
     name: string;
     email: string;
@@ -192,7 +192,7 @@ export type FetchOpts = {
   /** Remote name to fetch from */
   remote?: string;
   /** Refspec(s) to fetch */
-  refspec?: string | Array<string>;
+  refspec?: string | string[];
   /** Remove remote-tracking refs that no longer exist on the remote */
   prune?: boolean;
   /** Fetch all tags from the remote */
@@ -238,7 +238,7 @@ export type FetchOpts = {
   /** Deepen a shallow repository by date */
   shallowSince?: string | Date;
   /** Deepen a shallow repository excluding specified revision */
-  shallowExclude?: string | Array<string>;
+  shallowExclude?: string | string[];
   /** Deepen a shallow repository by specified number of commits */
   deepen?: number;
   /** Convert a shallow repository to a complete one */
@@ -279,7 +279,7 @@ export type PushOpts = {
   /** Remote name to push to */
   remote?: string;
   /** Refspec(s) to push */
-  refspec?: string | Array<string>;
+  refspec?: string | string[];
   /** Force updates even if they are not fast-forward */
   force?: boolean;
   /**
@@ -331,7 +331,7 @@ export type PushOpts = {
   /** Use atomic transaction to update refs */
   atomic?: boolean;
   /** Transmit push options to the server */
-  pushOption?: string | Array<string>;
+  pushOption?: string | string[];
   /** Use IPv4 addresses only */
   ipv4?: boolean;
   /** Use IPv6 addresses only */
@@ -568,7 +568,7 @@ export type CommitOpts = {
   /** Override author date and ignore cached author identity */
   resetAuthor?: boolean;
   /** Add trailers to the commit message */
-  trailer?: string | Array<string>;
+  trailer?: string | string[];
   /** Add Signed-off-by trailer */
   signoff?: boolean;
   /** How to clean up the commit message */
@@ -623,7 +623,7 @@ export type DiffOpts = {
   /** Ignore whitespace changes */
   ignoreWhitespace?: boolean;
   /** Pathspecs to filter */
-  paths?: Array<string>;
+  paths?: string[];
 
   // New options
   /** Use NUL as line terminator */
@@ -681,7 +681,7 @@ export type DiffEntry = {
  * Diff result
  */
 export type DiffResult = {
-  files: Array<DiffEntry>;
+  files: DiffEntry[];
   raw?: string;
 };
 
@@ -701,7 +701,7 @@ export type MergeOpts = {
   /** Strategy to use */
   strategy?: string;
   /** Strategy options */
-  strategyOption?: string | Array<string>;
+  strategyOption?: string | string[];
   /** Abort merge */
   abort?: boolean;
   /** Continue merge */
@@ -750,7 +750,7 @@ export type MergeOpts = {
 export type MergeResult = {
   success: boolean;
   hash?: string;
-  conflicts?: Array<string>;
+  conflicts?: string[];
   fastForward?: boolean;
 };
 
@@ -806,7 +806,7 @@ export type PullOpts = {
   /** Merge strategy to use */
   strategy?: string;
   /** Strategy options */
-  strategyOption?: string | Array<string>;
+  strategyOption?: string | string[];
   /** GPG-sign the merge commit (optionally with key id) */
   gpgSign?: boolean | string;
   /** Allow merging histories that do not share a common ancestor */
@@ -828,7 +828,7 @@ export type PullOpts = {
   /** Deepen shallow clone since date */
   shallowSince?: string | Date;
   /** Deepen shallow clone excluding revision */
-  shallowExclude?: string | Array<string>;
+  shallowExclude?: string | string[];
   /** Deepen shallow clone by specified commits */
   deepen?: number;
   /** Convert shallow repository to complete one */
@@ -911,7 +911,7 @@ export type StashPushOpts = {
   /** Keep index */
   keepIndex?: boolean;
   /** Specific paths to stash */
-  paths?: Array<string>;
+  paths?: string[];
 
   // New options
   /** Stash only staged changes */
@@ -1033,7 +1033,7 @@ export type TagCreateOpts = {
   /** Read tag message from file */
   file?: string;
   /** Add trailers to the tag message */
-  trailer?: string | Array<string>;
+  trailer?: string | string[];
   /** How to clean up the tag message */
   cleanup?: string;
   /** Key to use for GPG signing */
@@ -1076,7 +1076,7 @@ export type CherryPickOpts = {
   /** Automatically update rerere state */
   rerereAutoupdate?: boolean;
   /** Strategy options */
-  strategyOption?: string | Array<string>;
+  strategyOption?: string | string[];
   /** GPG-sign the commit (optionally with key id) */
   gpgSign?: boolean | string;
   /** Append (cherry picked from ...) line to original message */
@@ -1107,13 +1107,13 @@ export type CleanOpts = {
   /** Dry run */
   dryRun?: boolean;
   /** Paths to clean */
-  paths?: Array<string>;
+  paths?: string[];
 
   // New options
   /** Suppress output */
   quiet?: boolean;
   /** Exclude files matching pattern */
-  exclude?: string | Array<string>;
+  exclude?: string | string[];
 };
 
 /**
@@ -1199,7 +1199,7 @@ export type RebaseOpts = {
   /** Merge strategy */
   strategy?: string;
   /** Strategy options */
-  strategyOption?: string | Array<string>;
+  strategyOption?: string | string[];
   /** Rebase from root commit */
   root?: boolean;
   /** Reschedule failed exec commands */
@@ -1274,7 +1274,7 @@ export type RevertOpts = {
   /** Merge strategy */
   strategy?: string;
   /** Strategy options */
-  strategyOption?: string | Array<string>;
+  strategyOption?: string | string[];
   /** GPG-sign the commit */
   gpgSign?: boolean | string;
   /** Add reference to reverted commit */
@@ -1438,8 +1438,8 @@ export type LfsStatus = {
 export type LfsPullOpts = {
   remote?: string;
   ref?: string;
-  include?: Array<string>;
-  exclude?: Array<string>;
+  include?: string[];
+  exclude?: string[];
 };
 
 /**
@@ -1452,8 +1452,8 @@ export type LfsPushOpts = {
   // New options
   /** Dry run - show what would be pushed without actually pushing */
   dryRun?: boolean;
-  /** Push specified object IDs */
-  objectId?: boolean;
+  /** Push specified object IDs (OID hashes) instead of all objects */
+  objectId?: string | string[];
 };
 
 /**
@@ -1496,9 +1496,9 @@ export type LfsFetchOpts = {
   /** Fetch all LFS objects for all refs */
   all?: boolean;
   /** Include patterns */
-  include?: string | Array<string>;
+  include?: string | string[];
   /** Exclude patterns */
-  exclude?: string | Array<string>;
+  exclude?: string | string[];
   /** Only fetch recent objects */
   recent?: boolean;
   /** Prune old objects after fetch */
@@ -1512,7 +1512,7 @@ export type LfsFetchOpts = {
   /** Remote to fetch from */
   remote?: string;
   /** Refs to fetch */
-  refs?: string | Array<string>;
+  refs?: string | string[];
 };
 
 /**
@@ -1593,9 +1593,9 @@ export type LfsLsFilesOpts = {
   /** Show deleted files */
   deleted?: boolean;
   /** Include patterns */
-  include?: string | Array<string>;
+  include?: string | string[];
   /** Exclude patterns */
-  exclude?: string | Array<string>;
+  exclude?: string | string[];
   /** Show filenames only */
   nameOnly?: boolean;
   /** Output in JSON format */
@@ -1711,9 +1711,9 @@ export type LfsCheckoutOpts = {
   /** Write to file instead of working tree */
   to?: string;
   /** Include patterns */
-  include?: string | Array<string>;
+  include?: string | string[];
   /** Exclude patterns */
-  exclude?: string | Array<string>;
+  exclude?: string | string[];
 };
 
 /**
@@ -1731,13 +1731,13 @@ export type LfsMigrateInfoOpts = {
   /** Fix up tracking patterns */
   fixup?: boolean;
   /** Include patterns */
-  include?: string | Array<string>;
+  include?: string | string[];
   /** Exclude patterns */
-  exclude?: string | Array<string>;
+  exclude?: string | string[];
   /** Include refs */
-  includeRef?: string | Array<string>;
+  includeRef?: string | string[];
   /** Exclude refs */
-  excludeRef?: string | Array<string>;
+  excludeRef?: string | string[];
   /** Skip fetching from remote */
   skipFetch?: boolean;
   /** Operate on all refs */
@@ -1759,7 +1759,7 @@ export type LfsMigrateImportOpts = LfsMigrateInfoOpts & {
   /** Commit message for fixup */
   message?: string;
   /** Object IDs to import */
-  object?: string | Array<string>;
+  object?: string | string[];
 };
 
 /**
@@ -1838,7 +1838,7 @@ export type LfsEnvInfo = {
  */
 export type LfsPreUploadOpts = {
   /** Object IDs to upload (if omitted, auto-detect pending objects) */
-  oids?: Array<string>;
+  oids?: string[];
   /** Batch size for upload (default: 50, considers Windows 8KB limit) */
   batchSize?: number;
   /** Remote name (default: 'origin') */
@@ -1865,7 +1865,7 @@ export type LfsPreUploadResult = {
  */
 export type LfsPreDownloadOpts = {
   /** Object IDs to download (if omitted, auto-detect from ref) */
-  oids?: Array<string>;
+  oids?: string[];
   /** Git ref to get LFS objects for (branch, tag, or commit) */
   ref?: string;
   /** Batch size for download (default: 50) */
@@ -2001,7 +2001,7 @@ export interface WorktreeOperations {
    *
    * Wraps: `git worktree list --porcelain`
    */
-  list(opts?: ExecOpts): Promise<Array<Worktree>>;
+  list(opts?: ExecOpts): Promise<Worktree[]>;
 
   /**
    * Add a new worktree and return a repository object for it
@@ -2024,7 +2024,7 @@ export interface WorktreeOperations {
    *
    * Wraps: `git worktree prune`
    */
-  prune(opts?: WorktreePruneOpts & ExecOpts): Promise<Array<string>>;
+  prune(opts?: WorktreePruneOpts & ExecOpts): Promise<string[]>;
 
   /**
    * Lock a worktree
@@ -2054,7 +2054,7 @@ export interface WorktreeOperations {
    *
    * Wraps: `git worktree repair`
    */
-  repair(paths?: Array<string>, opts?: ExecOpts): Promise<void>;
+  repair(paths?: string[], opts?: ExecOpts): Promise<void>;
 }
 
 /**
@@ -2145,28 +2145,28 @@ export interface LfsOperations {
    *
    * Wraps: `git lfs ls-files`
    */
-  lsFiles(opts?: LfsLsFilesOpts & ExecOpts): Promise<Array<LfsFileEntry>>;
+  lsFiles(opts?: LfsLsFilesOpts & ExecOpts): Promise<LfsFileEntry[]>;
 
   /**
    * Track files with LFS
    *
    * Wraps: `git lfs track <pattern>...`
    */
-  track(patterns: string | Array<string>, opts?: LfsTrackOpts & ExecOpts): Promise<void>;
+  track(patterns: string | string[], opts?: LfsTrackOpts & ExecOpts): Promise<void>;
 
   /**
    * List tracked patterns
    *
    * Wraps: `git lfs track` (without arguments)
    */
-  trackList(opts?: ExecOpts): Promise<Array<LfsTrackEntry>>;
+  trackList(opts?: ExecOpts): Promise<LfsTrackEntry[]>;
 
   /**
    * Untrack files from LFS
    *
    * Wraps: `git lfs untrack <pattern>...`
    */
-  untrack(patterns: string | Array<string>, opts?: ExecOpts): Promise<void>;
+  untrack(patterns: string | string[], opts?: ExecOpts): Promise<void>;
 
   /**
    * Lock a file
@@ -2187,14 +2187,14 @@ export interface LfsOperations {
    *
    * Wraps: `git lfs locks`
    */
-  locks(opts?: LfsLocksOpts & ExecOpts): Promise<Array<LfsLockEntry>>;
+  locks(opts?: LfsLocksOpts & ExecOpts): Promise<LfsLockEntry[]>;
 
   /**
    * Checkout LFS files (replace pointer files with actual content)
    *
    * Wraps: `git lfs checkout`
    */
-  checkout(patterns?: string | Array<string>, opts?: LfsCheckoutOpts & ExecOpts): Promise<void>;
+  checkout(patterns?: string | string[], opts?: LfsCheckoutOpts & ExecOpts): Promise<void>;
 
   /**
    * Show information about LFS files that would be migrated
@@ -2279,7 +2279,7 @@ export interface BranchOperations {
    *
    * Wraps: `git branch --list`
    */
-  list(opts?: BranchOpts & ExecOpts): Promise<Array<BranchInfo>>;
+  list(opts?: BranchOpts & ExecOpts): Promise<BranchInfo[]>;
 
   /**
    * Get current branch name
@@ -2321,7 +2321,7 @@ export interface StashOperations {
    *
    * Wraps: `git stash list`
    */
-  list(opts?: ExecOpts): Promise<Array<StashEntry>>;
+  list(opts?: ExecOpts): Promise<StashEntry[]>;
 
   /**
    * Push changes to stash
@@ -2370,7 +2370,7 @@ export interface TagOperations {
    *
    * Wraps: `git tag --list`
    */
-  list(opts?: TagListOpts & ExecOpts): Promise<Array<string>>;
+  list(opts?: TagListOpts & ExecOpts): Promise<string[]>;
 
   /**
    * Create a tag
@@ -2487,7 +2487,7 @@ export interface RemoteOperations {
    *
    * Wraps: `git remote -v`
    */
-  list(opts?: ExecOpts): Promise<Array<RemoteInfo>>;
+  list(opts?: ExecOpts): Promise<RemoteInfo[]>;
 
   /**
    * Add a remote
@@ -2543,14 +2543,14 @@ export interface RemoteOperations {
    *
    * Wraps: `git remote prune <remote>`
    */
-  prune(remote: string, opts?: RemotePruneOpts & ExecOpts): Promise<Array<string>>;
+  prune(remote: string, opts?: RemotePruneOpts & ExecOpts): Promise<string[]>;
 
   /**
    * Update remotes
    *
    * Wraps: `git remote update`
    */
-  update(remotes?: Array<string>, opts?: RemoteUpdateOpts & ExecOpts): Promise<void>;
+  update(remotes?: string[], opts?: RemoteUpdateOpts & ExecOpts): Promise<void>;
 
   /**
    * Set tracked branches for a remote
@@ -2559,7 +2559,7 @@ export interface RemoteOperations {
    */
   setBranches(
     remote: string,
-    branches: Array<string>,
+    branches: string[],
     opts?: RemoteSetBranchesOpts & ExecOpts,
   ): Promise<void>;
 }
@@ -2734,7 +2734,7 @@ export interface ConfigOperations {
    *
    * Wraps: `git config --get-all <key>`
    */
-  getAll<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<Array<ConfigSchema[K]>>;
+  getAll<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<ConfigSchema[K][]>;
 
   /**
    * Set a typed config value
@@ -2764,7 +2764,7 @@ export interface ConfigOperations {
    *
    * @returns Config value or undefined if not set
    */
-  getRaw(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | Array<string> | undefined>;
+  getRaw(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | string[] | undefined>;
 
   /**
    * Set a raw config value (for arbitrary keys)
@@ -2785,7 +2785,7 @@ export interface ConfigOperations {
    *
    * Wraps: `git config --list`
    */
-  list(opts?: ConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>>;
+  list(opts?: ConfigListOpts & ExecOpts): Promise<ConfigEntry[]>;
 
   /**
    * Rename a config section
@@ -2813,14 +2813,14 @@ export interface SubmoduleOperations {
    *
    * Wraps: `git submodule status`
    */
-  list(opts?: ExecOpts): Promise<Array<SubmoduleInfo>>;
+  list(opts?: ExecOpts): Promise<SubmoduleInfo[]>;
 
   /**
    * Initialize submodules
    *
    * Wraps: `git submodule init`
    */
-  init(paths?: Array<string>, opts?: ExecOpts): Promise<void>;
+  init(paths?: string[], opts?: ExecOpts): Promise<void>;
 
   /**
    * Update submodules
@@ -2848,7 +2848,7 @@ export interface SubmoduleOperations {
    *
    * Wraps: `git submodule status`
    */
-  status(paths?: Array<string>, opts?: SubmoduleStatusOpts & ExecOpts): Promise<string>;
+  status(paths?: string[], opts?: SubmoduleStatusOpts & ExecOpts): Promise<string>;
 
   /**
    * Get submodule summary
@@ -2869,7 +2869,7 @@ export interface SubmoduleOperations {
    *
    * Wraps: `git submodule sync`
    */
-  sync(paths?: Array<string>, opts?: SubmoduleSyncOpts & ExecOpts): Promise<void>;
+  sync(paths?: string[], opts?: SubmoduleSyncOpts & ExecOpts): Promise<void>;
 
   /**
    * Absorb git directories of submodules into the superproject
@@ -2932,7 +2932,7 @@ export interface WorktreeRepo extends RepoBase {
    * const commits = await repo.log({ maxCount: 10 });
    * ```
    */
-  log(opts?: LogOpts & ExecOpts): Promise<Array<Commit>>;
+  log(opts?: LogOpts & ExecOpts): Promise<Commit[]>;
 
   /**
    * Fetch from remote
@@ -2999,7 +2999,7 @@ export interface WorktreeRepo extends RepoBase {
    * await repo.add('.', { all: true });
    * ```
    */
-  add(paths: string | Array<string>, opts?: AddOpts & ExecOpts): Promise<void>;
+  add(paths: string | string[], opts?: AddOpts & ExecOpts): Promise<void>;
 
   /**
    * Git branch operations
@@ -3042,7 +3042,7 @@ export interface WorktreeRepo extends RepoBase {
    * await repo.checkout(['conflicted.txt'], { ours: true });
    * ```
    */
-  checkout(paths: Array<string>, opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
+  checkout(paths: string[], opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
 
   /**
    * Create a commit
@@ -3118,7 +3118,7 @@ export interface WorktreeRepo extends RepoBase {
    * await repo.rm('dir/', { recursive: true });
    * ```
    */
-  rm(paths: string | Array<string>, opts?: RmOpts & ExecOpts): Promise<void>;
+  rm(paths: string | string[], opts?: RmOpts & ExecOpts): Promise<void>;
 
   /**
    * Git stash operations
@@ -3162,7 +3162,7 @@ export interface WorktreeRepo extends RepoBase {
    * await repo.cherryPick(['abc123', 'def456']);
    * ```
    */
-  cherryPick(commits: string | Array<string>, opts?: CherryPickOpts & ExecOpts): Promise<void>;
+  cherryPick(commits: string | string[], opts?: CherryPickOpts & ExecOpts): Promise<void>;
 
   /**
    * Remove untracked files from the working tree
@@ -3174,7 +3174,7 @@ export interface WorktreeRepo extends RepoBase {
    * const removed = await repo.clean({ force: true, directories: true });
    * ```
    */
-  clean(opts?: CleanOpts & ExecOpts): Promise<Array<string>>;
+  clean(opts?: CleanOpts & ExecOpts): Promise<string[]>;
 
   /**
    * Move or rename files
@@ -3212,7 +3212,7 @@ export interface WorktreeRepo extends RepoBase {
    * await repo.restore(['.'], { source: 'HEAD' });
    * ```
    */
-  restore(paths: string | Array<string>, opts?: RestoreOpts & ExecOpts): Promise<void>;
+  restore(paths: string | string[], opts?: RestoreOpts & ExecOpts): Promise<void>;
 
   /**
    * Revert existing commits
@@ -3225,7 +3225,7 @@ export interface WorktreeRepo extends RepoBase {
    * await repo.revert(['abc123', 'def456'], { noCommit: true });
    * ```
    */
-  revert(commits: string | Array<string>, opts?: RevertOpts & ExecOpts): Promise<void>;
+  revert(commits: string | string[], opts?: RevertOpts & ExecOpts): Promise<void>;
 
   /**
    * Show various types of objects
