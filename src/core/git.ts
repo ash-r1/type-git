@@ -271,10 +271,23 @@ export interface Git {
    *
    * Returns either WorktreeRepo or BareRepo depending on the repository type.
    * Use this when you don't know the repository type at compile time.
+   * You can use `isWorktree()` or `isBare()` methods for runtime type checking.
    *
    * @param path - Path to the repository (workdir or git-dir)
    * @param opts - Environment isolation and credential options
    * @returns WorktreeRepo or BareRepo depending on repository type
+   *
+   * @example
+   * ```typescript
+   * const repo = await git.openRaw('/path/to/repo');
+   * if (await repo.isWorktree()) {
+   *   // repo is WorktreeRepo at runtime
+   *   const status = await (repo as WorktreeRepo).status();
+   * } else if (await repo.isBare()) {
+   *   // repo is BareRepo at runtime
+   *   await (repo as BareRepo).fetch({ remote: 'origin' });
+   * }
+   * ```
    */
   openRaw(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo>;
 
