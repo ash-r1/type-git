@@ -170,7 +170,11 @@ export type GitErrorKind =
   /** Command was aborted via AbortSignal */
   | 'Aborted'
   /** Required capability is missing (e.g., Deno permissions) */
-  | 'CapabilityMissing';
+  | 'CapabilityMissing'
+  /** Expected a worktree repository but found bare repository */
+  | 'NotWorktreeRepo'
+  /** Expected a bare repository but found worktree repository */
+  | 'NotBareRepo';
 
 /**
  * Git error category for error handling (§13.2)

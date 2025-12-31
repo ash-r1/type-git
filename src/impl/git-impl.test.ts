@@ -123,7 +123,7 @@ describe('GitImpl', () => {
   });
 
   describe('open', () => {
-    it('should open an existing repository', async () => {
+    it('should open a worktree repository', async () => {
       const repoPath = join(tempDir, 'test-repo');
       await git.init(repoPath);
 
@@ -132,17 +132,63 @@ describe('GitImpl', () => {
       expect('workdir' in repo).toBe(true);
     });
 
+    it('should throw for bare repository', async () => {
+      const repoPath = join(tempDir, 'test-bare.git');
+      await git.init(repoPath, { bare: true });
+
+      await expect(git.open(repoPath)).rejects.toThrow(GitError);
+      await expect(git.open(repoPath)).rejects.toMatchObject({ kind: 'NotWorktreeRepo' });
+    });
+
+    it('should throw for non-repository path', async () => {
+      await expect(git.open(tempDir)).rejects.toThrow();
+    });
+  });
+
+  describe('openBare', () => {
     it('should open a bare repository', async () => {
       const repoPath = join(tempDir, 'test-bare.git');
       await git.init(repoPath, { bare: true });
 
-      const repo = await git.open(repoPath);
+      const repo = await git.openBare(repoPath);
+      expect(repo).toBeDefined();
+      expect('gitDir' in repo).toBe(true);
+    });
+
+    it('should throw for worktree repository', async () => {
+      const repoPath = join(tempDir, 'test-repo');
+      await git.init(repoPath);
+
+      await expect(git.openBare(repoPath)).rejects.toThrow(GitError);
+      await expect(git.openBare(repoPath)).rejects.toMatchObject({ kind: 'NotBareRepo' });
+    });
+
+    it('should throw for non-repository path', async () => {
+      await expect(git.openBare(tempDir)).rejects.toThrow();
+    });
+  });
+
+  describe('openRaw', () => {
+    it('should open a worktree repository', async () => {
+      const repoPath = join(tempDir, 'test-repo');
+      await git.init(repoPath);
+
+      const repo = await git.openRaw(repoPath);
+      expect(repo).toBeDefined();
+      expect('workdir' in repo).toBe(true);
+    });
+
+    it('should open a bare repository', async () => {
+      const repoPath = join(tempDir, 'test-bare.git');
+      await git.init(repoPath, { bare: true });
+
+      const repo = await git.openRaw(repoPath);
       expect(repo).toBeDefined();
       expect('gitDir' in repo).toBe(true);
     });
 
     it('should throw for non-repository path', async () => {
-      await expect(git.open(tempDir)).rejects.toThrow();
+      await expect(git.openRaw(tempDir)).rejects.toThrow();
     });
   });
 

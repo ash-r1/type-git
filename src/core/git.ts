@@ -243,13 +243,40 @@ export interface GlobalConfigOperations {
  */
 export interface Git {
   /**
-   * Open an existing repository
+   * Open an existing worktree repository
+   *
+   * This is the most common use case. Throws GitError if the repository is bare.
+   *
+   * @param path - Path to the repository working directory
+   * @param opts - Environment isolation and credential options
+   * @returns WorktreeRepo
+   * @throws GitError with kind 'NotWorktreeRepo' if the repository is bare
+   */
+  open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo>;
+
+  /**
+   * Open an existing bare repository
+   *
+   * Throws GitError if the repository is not bare.
+   *
+   * @param path - Path to the bare repository (git-dir)
+   * @param opts - Environment isolation and credential options
+   * @returns BareRepo
+   * @throws GitError with kind 'NotBareRepo' if the repository is not bare
+   */
+  openBare(path: string, opts?: GitOpenOptions): Promise<BareRepo>;
+
+  /**
+   * Open an existing repository without type guarantee
+   *
+   * Returns either WorktreeRepo or BareRepo depending on the repository type.
+   * Use this when you don't know the repository type at compile time.
    *
    * @param path - Path to the repository (workdir or git-dir)
    * @param opts - Environment isolation and credential options
    * @returns WorktreeRepo or BareRepo depending on repository type
    */
-  open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo>;
+  openRaw(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo>;
 
   /**
    * Clone a repository

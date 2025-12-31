@@ -53,10 +53,35 @@ export class TypeGit {
   }
 
   /**
-   * Open an existing repository
+   * Open an existing worktree repository
+   *
+   * This is the most common use case. Throws GitError if the repository is bare.
+   *
+   * @throws GitError with kind 'NotWorktreeRepo' if the repository is bare
    */
-  public get open(): (path: string, opts?: GitOpenOptions) => Promise<WorktreeRepo | BareRepo> {
+  public get open(): (path: string, opts?: GitOpenOptions) => Promise<WorktreeRepo> {
     return this.git.open.bind(this.git);
+  }
+
+  /**
+   * Open an existing bare repository
+   *
+   * Throws GitError if the repository is not bare.
+   *
+   * @throws GitError with kind 'NotBareRepo' if the repository is not bare
+   */
+  public get openBare(): (path: string, opts?: GitOpenOptions) => Promise<BareRepo> {
+    return this.git.openBare.bind(this.git);
+  }
+
+  /**
+   * Open an existing repository without type guarantee
+   *
+   * Returns either WorktreeRepo or BareRepo depending on the repository type.
+   * Use this when you don't know the repository type at compile time.
+   */
+  public get openRaw(): (path: string, opts?: GitOpenOptions) => Promise<WorktreeRepo | BareRepo> {
+    return this.git.openRaw.bind(this.git);
   }
 
   /**
