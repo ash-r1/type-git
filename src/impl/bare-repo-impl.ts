@@ -83,7 +83,7 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  public raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
+  public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
 
@@ -395,7 +395,7 @@ export class BareRepoImpl implements BareRepo {
   // Remote Operations
   // ==========================================================================
 
-  private async remoteList(opts?: ExecOpts): Promise<Array<RemoteInfo>> {
+  private async remoteList(opts?: ExecOpts): Promise<RemoteInfo[]> {
     const result = await this.runner.runOrThrow(this.context, ['remote', '-v'], {
       signal: opts?.signal,
     });
@@ -553,10 +553,7 @@ export class BareRepoImpl implements BareRepo {
     return result.stdout;
   }
 
-  private async remotePrune(
-    remote: string,
-    opts?: RemotePruneOpts & ExecOpts,
-  ): Promise<Array<string>> {
+  private async remotePrune(remote: string, opts?: RemotePruneOpts & ExecOpts): Promise<string[]> {
     const args = ['remote', 'prune'];
 
     if (opts?.dryRun) {
@@ -570,7 +567,7 @@ export class BareRepoImpl implements BareRepo {
     });
 
     // Parse pruned refs from output
-    const pruned: Array<string> = [];
+    const pruned: string[] = [];
     for (const line of parseLines(result.stdout)) {
       const match = line.match(/\* \[pruned\] (.+)/);
       const ref = match?.[1];
@@ -583,7 +580,7 @@ export class BareRepoImpl implements BareRepo {
   }
 
   private async remoteUpdate(
-    remotes?: Array<string>,
+    remotes?: string[],
     opts?: RemoteUpdateOpts & ExecOpts,
   ): Promise<void> {
     const args = ['remote', 'update'];
@@ -603,7 +600,7 @@ export class BareRepoImpl implements BareRepo {
 
   private async remoteSetBranches(
     remote: string,
-    branches: Array<string>,
+    branches: string[],
     opts?: RemoteSetBranchesOpts & ExecOpts,
   ): Promise<void> {
     const args = ['remote', 'set-branches'];
@@ -647,7 +644,7 @@ export class BareRepoImpl implements BareRepo {
   private async configGetAll<K extends ConfigKey>(
     key: K,
     opts?: ExecOpts,
-  ): Promise<Array<ConfigSchema[K]>> {
+  ): Promise<ConfigSchema[K][]> {
     const result = await this.runner.run(this.context, ['config', '--get-all', key], {
       signal: opts?.signal,
     });
@@ -656,7 +653,7 @@ export class BareRepoImpl implements BareRepo {
       return [];
     }
 
-    return parseLines(result.stdout) as Array<ConfigSchema[K]>;
+    return parseLines(result.stdout) as ConfigSchema[K][];
   }
 
   /**
@@ -700,7 +697,7 @@ export class BareRepoImpl implements BareRepo {
   private async configGetRaw(
     key: string,
     opts?: ConfigGetOpts & ExecOpts,
-  ): Promise<string | Array<string> | undefined> {
+  ): Promise<string | string[] | undefined> {
     const args = ['config'];
 
     if (opts?.all) {
@@ -759,7 +756,7 @@ export class BareRepoImpl implements BareRepo {
   /**
    * List all config values
    */
-  private async configList(opts?: ConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>> {
+  private async configList(opts?: ConfigListOpts & ExecOpts): Promise<ConfigEntry[]> {
     const args = ['config', '--list'];
 
     if (opts?.showOrigin) {
@@ -782,7 +779,7 @@ export class BareRepoImpl implements BareRepo {
       signal: opts?.signal,
     });
 
-    const entries: Array<ConfigEntry> = [];
+    const entries: ConfigEntry[] = [];
     for (const line of parseLines(result.stdout)) {
       let keyValue = line;
       if (opts?.showOrigin || opts?.showScope) {
