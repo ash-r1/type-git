@@ -3384,12 +3384,12 @@ export interface WorktreeRepo extends RepoBase {
   revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
   revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
-  revParse(opts: RevParseListQuery & ExecOpts): Promise<Array<string>>;
+  revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
   revParse(
     opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
   ): Promise<string>;
   revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
-  revParse(opts: { localEnvVars: true } & ExecOpts): Promise<Array<string>>;
+  revParse(opts: { localEnvVars: true } & ExecOpts): Promise<string[]>;
 
   /**
    * Count the number of commits reachable from a ref
@@ -3498,10 +3498,10 @@ export interface BareRepo extends RepoBase {
   revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
   revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
-  revParse(opts: RevParseListQuery & ExecOpts): Promise<Array<string>>;
+  revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
   revParse(
     opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
   ): Promise<string>;
   revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
-  revParse(opts: { localEnvVars: true } & ExecOpts): Promise<Array<string>>;
+  revParse(opts: { localEnvVars: true } & ExecOpts): Promise<string[]>;
 }

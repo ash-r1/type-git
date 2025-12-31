@@ -113,12 +113,12 @@ export class BareRepoImpl implements BareRepo {
   public revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
   public revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   public revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
-  public revParse(opts: RevParseListQuery & ExecOpts): Promise<Array<string>>;
+  public revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
   public revParse(
     opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
   ): Promise<string>;
   public revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
-  public revParse(opts: { localEnvVars: true } & ExecOpts): Promise<Array<string>>;
+  public revParse(opts: { localEnvVars: true } & ExecOpts): Promise<string[]>;
   public async revParse(
     refOrOpts:
       | string
@@ -129,8 +129,8 @@ export class BareRepoImpl implements BareRepo {
       | ({ showRefFormat: true } & ExecOpts)
       | ({ localEnvVars: true } & ExecOpts),
     opts?: RevParseRefOpts & ExecOpts,
-  ): Promise<string | boolean | Array<string>> {
-    const args: Array<string> = ['rev-parse'];
+  ): Promise<string | boolean | string[]> {
+    const args: string[] = ['rev-parse'];
 
     // Handle ref string case (first overload)
     if (typeof refOrOpts === 'string') {
