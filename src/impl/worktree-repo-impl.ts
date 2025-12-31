@@ -1915,8 +1915,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       onProgress: opts?.onProgress,
     });
 
-    // Return a new WorktreeRepo for the newly created worktree
-    return new WorktreeRepoImpl(this.runner, path);
+    // Return a new WorktreeRepo for the newly created worktree, preserving LFS mode
+    return new WorktreeRepoImpl(this.runner, path, { lfs: this._lfsMode });
   }
 
   private async worktreeRemove(path: string, opts?: WorktreeRemoveOpts & ExecOpts): Promise<void> {
@@ -1994,8 +1994,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       signal: opts?.signal,
     });
 
-    // Return a new WorktreeRepo for the worktree at the new location
-    return new WorktreeRepoImpl(this.runner, dst);
+    // Return a new WorktreeRepo for the worktree at the new location, preserving LFS mode
+    return new WorktreeRepoImpl(this.runner, dst, { lfs: this._lfsMode });
   }
 
   private async worktreeRepair(paths?: Array<string>, opts?: ExecOpts): Promise<void> {
