@@ -527,6 +527,123 @@ export function parseLsRemote(stdout: string): LsRemoteRef[] {
 }
 
 // =============================================================================
+// ls-tree Parser
+// =============================================================================
+
+/**
+ * Object type in a tree
+ */
+export type LsTreeObjectType = 'blob' | 'tree' | 'commit';
+
+/**
+ * Entry from git ls-tree output
+ */
+export type ParsedLsTreeEntry = {
+  /** File mode (e.g., '100644' for regular file, '040000' for directory) */
+  mode: string;
+  /** Object type: blob (file), tree (directory), or commit (submodule) */
+  type: LsTreeObjectType;
+  /** Object hash (SHA-1 or SHA-256) */
+  hash: string;
+  /** File path relative to repository root */
+  path: string;
+  /** Object size in bytes (only for blobs when using --long option) */
+  size?: number;
+};
+
+// Regex for standard ls-tree output: <mode> <type> <hash>\t<path>
+const LS_TREE_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\t(.+)$/;
+
+// Regex for ls-tree --long output: <mode> <type> <hash> <size>\t<path>
+const LS_TREE_LONG_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\s+(-|\d+)\t(.+)$/;
+
+/**
+ * Parse git ls-tree output
+ *
+ * Supports multiple output formats:
+ * - Default: <mode> <type> <hash>\t<path>
+ * - With --long: <mode> <type> <hash> <size>\t<path>
+ * - With --name-only: <path>
+ * - With --object-only: <hash>
+ *
+ * @param stdout - Raw stdout from `git ls-tree`
+ * @param opts - Parser options to handle different output modes
+ * @returns Parsed tree entries
+ */
+export function parseLsTree(
+  stdout: string,
+  opts?: { nameOnly?: boolean; objectOnly?: boolean; long?: boolean },
+): Array<ParsedLsTreeEntry> {
+  const entries: Array<ParsedLsTreeEntry> = [];
+  const lines = parseLines(stdout);
+
+  for (const line of lines) {
+    // Handle --name-only output (just paths)
+    if (opts?.nameOnly) {
+      entries.push({
+        mode: '',
+        type: 'blob',
+        hash: '',
+        path: line,
+      });
+      continue;
+    }
+
+    // Handle --object-only output (just hashes)
+    if (opts?.objectOnly) {
+      entries.push({
+        mode: '',
+        type: 'blob',
+        hash: line,
+        path: '',
+      });
+      continue;
+    }
+
+    // Try parsing --long format first
+    if (opts?.long) {
+      const longMatch = line.match(LS_TREE_LONG_REGEX);
+      if (longMatch) {
+        const mode = longMatch[1];
+        const type = longMatch[2];
+        const hash = longMatch[3];
+        const sizeStr = longMatch[4];
+        const path = longMatch[5];
+        if (mode && type && hash && path) {
+          entries.push({
+            mode,
+            type: type as LsTreeObjectType,
+            hash,
+            path,
+            size: sizeStr === '-' || !sizeStr ? undefined : Number.parseInt(sizeStr, 10),
+          });
+        }
+        continue;
+      }
+    }
+
+    // Parse standard format
+    const match = line.match(LS_TREE_REGEX);
+    if (match) {
+      const mode = match[1];
+      const type = match[2];
+      const hash = match[3];
+      const path = match[4];
+      if (mode && type && hash && path) {
+        entries.push({
+          mode,
+          type: type as LsTreeObjectType,
+          hash,
+          path,
+        });
+      }
+    }
+  }
+
+  return entries;
+}
+
+// =============================================================================
 // git log Parser
 // =============================================================================
 

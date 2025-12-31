@@ -12,6 +12,8 @@ import type {
   ConfigSchema,
   ConfigSetOpts,
   FetchOpts,
+  LsTreeEntry,
+  LsTreeOpts,
   PushOpts,
   RemoteAddOpts,
   RemoteInfo,
@@ -31,7 +33,7 @@ import type {
   RevParseRefOpts,
 } from '../core/repo.js';
 import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
-import { parseLines, parseLsRemote } from '../parsers/index.js';
+import { parseLines, parseLsRemote, parseLsTree } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
 
 /**
@@ -160,6 +162,72 @@ export class BareRepoImpl implements BareRepo {
     const refs = parseLsRemote(result.stdout);
 
     return { refs };
+  }
+
+  /**
+   * List contents of a tree object
+   */
+  public async lsTree(treeish: string, opts?: LsTreeOpts & ExecOpts): Promise<LsTreeEntry[]> {
+    const args: string[] = ['ls-tree'];
+
+    // Display options
+    if (opts?.recursive) {
+      args.push('-r');
+    }
+
+    if (opts?.treeOnly) {
+      args.push('-d');
+    }
+
+    if (opts?.showTrees) {
+      args.push('-t');
+    }
+
+    if (opts?.long) {
+      args.push('--long');
+    }
+
+    if (opts?.nameOnly) {
+      args.push('--name-only');
+    }
+
+    if (opts?.objectOnly) {
+      args.push('--object-only');
+    }
+
+    if (opts?.fullName) {
+      args.push('--full-name');
+    }
+
+    if (opts?.fullTree) {
+      args.push('--full-tree');
+    }
+
+    if (opts?.abbrev !== undefined) {
+      if (opts.abbrev === true) {
+        args.push('--abbrev');
+      } else if (typeof opts.abbrev === 'number') {
+        args.push(`--abbrev=${opts.abbrev}`);
+      }
+    }
+
+    // Add tree-ish (required)
+    args.push(treeish);
+
+    // Add optional paths
+    if (opts?.paths && opts.paths.length > 0) {
+      args.push('--', ...opts.paths);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return parseLsTree(result.stdout, {
+      nameOnly: opts?.nameOnly,
+      objectOnly: opts?.objectOnly,
+      long: opts?.long,
+    });
   }
 
   /**
