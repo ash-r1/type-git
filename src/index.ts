@@ -4,8 +4,20 @@
 
 // Adapters
 export * from './adapters/node/index.js';
+// Core backend types
+export type {
+  BackendCapabilities,
+  BackendType,
+  GitBackend,
+} from './core/backend.js';
 // Core types and interfaces
 export * from './core/index.js';
+// Backend-based implementation
+export {
+  BackendGitImpl,
+  type CreateBackendGitOptions,
+  createBackendGit,
+} from './impl/backend-git-impl.js';
 // Implementation
 export { type CreateGitOptions, createGit } from './impl/index.js';
 
