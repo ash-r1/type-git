@@ -459,10 +459,11 @@ export type BranchDeleteOpts = {
 };
 
 /**
- * Options for git checkout
+ * Options for git checkout (branch switching mode)
+ *
+ * Used for: `git checkout <branch>`
  */
-export type CheckoutOpts = {
-  // Existing options
+export type CheckoutBranchOpts = {
   /** Force checkout (discard local changes) */
   force?: boolean;
   /** Create new branch */
@@ -471,16 +472,12 @@ export type CheckoutOpts = {
   startPoint?: string;
   /** Track remote branch */
   track?: boolean;
-
-  // New options
   /** Create or reset and checkout branch (like -b but forces) */
   forceCreateBranch?: boolean;
   /** Create reflog for new branch */
   createReflog?: boolean;
   /** Try to guess remote tracking branch if target not found */
   guess?: boolean;
-  /** Allow overlapping paths when checking out from tree-ish */
-  overlay?: boolean;
   /** Suppress progress reporting */
   quiet?: boolean;
   /** Update submodules */
@@ -497,6 +494,22 @@ export type CheckoutOpts = {
   overwriteIgnore?: boolean;
   /** Ignore if branch is checked out in other worktrees */
   ignoreOtherWorktrees?: boolean;
+};
+
+/**
+ * Options for git checkout (pathspec mode)
+ *
+ * Used for: `git checkout [<tree-ish>] -- <pathspec>...`
+ */
+export type CheckoutPathOpts = {
+  /** Force checkout (discard local changes) */
+  force?: boolean;
+  /** Source tree-ish to checkout from (default: index) */
+  source?: string;
+  /** Suppress progress reporting */
+  quiet?: boolean;
+  /** Allow overlapping paths when checking out from tree-ish */
+  overlay?: boolean;
   /** Check out 'our' version for unmerged files */
   ours?: boolean;
   /** Check out 'their' version for unmerged files */
@@ -504,6 +517,12 @@ export type CheckoutOpts = {
   /** Read pathspecs from file instead of command line */
   pathspecFromFile?: string;
 };
+
+/**
+ * Options for git checkout (legacy combined type)
+ * @deprecated Use CheckoutBranchOpts or CheckoutPathOpts for type safety
+ */
+export type CheckoutOpts = CheckoutBranchOpts & CheckoutPathOpts;
 
 /**
  * Options for git commit
@@ -2990,17 +3009,40 @@ export interface WorktreeRepo extends RepoBase {
   branch: BranchOperations;
 
   /**
-   * Checkout a branch, tag, or commit
+   * Checkout a branch, tag, or commit (branch switching mode)
    *
-   * Wraps: `git checkout`
+   * Wraps: `git checkout <branch>`
    *
    * @example
    * ```typescript
    * await repo.checkout('main');
-   * await repo.checkout('feature', { create: true });
+   * await repo.checkout('feature', { createBranch: true });
+   * await repo.checkout('feature', { createBranch: true, startPoint: 'origin/main' });
    * ```
    */
-  checkout(target: string, opts?: CheckoutOpts & ExecOpts): Promise<void>;
+  checkout(target: string, opts?: CheckoutBranchOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Checkout specific files from a tree-ish (pathspec mode)
+   *
+   * Wraps: `git checkout [<tree-ish>] -- <pathspec>...`
+   *
+   * @example
+   * ```typescript
+   * // Restore file from index (discard working tree changes)
+   * await repo.checkout(['file.txt']);
+   *
+   * // Restore file from HEAD
+   * await repo.checkout(['file.txt'], { source: 'HEAD' });
+   *
+   * // Restore file from specific commit
+   * await repo.checkout(['src/'], { source: 'abc123' });
+   *
+   * // Resolve conflict with ours/theirs
+   * await repo.checkout(['conflicted.txt'], { ours: true });
+   * ```
+   */
+  checkout(paths: Array<string>, opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
 
   /**
    * Create a commit
