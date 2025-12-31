@@ -108,3 +108,19 @@ const git = createGit({ adapters: createNodeAdapters() });
 - Single quotes, semicolons, 2-space indent
 - Max line width: 100 characters
 - Strict TypeScript (no explicit any, no unused variables)
+
+## Git Workflow
+
+- **Do not push directly to main**: The main branch is protected
+- Always create a feature branch and submit a Pull Request
+- Branch naming: `feature/*`, `fix/*`, `chore/*`, etc.
+
+```bash
+# Example workflow
+git checkout -b feature/my-feature
+# ... make changes ...
+git add .
+git commit -m "feat: add my feature"
+git push -u origin feature/my-feature
+# Then create a PR via GitHub
+```
