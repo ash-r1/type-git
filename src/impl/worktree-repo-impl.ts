@@ -1869,7 +1869,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     return parseWorktreeList(result.stdout);
   }
 
-  private async worktreeAdd(path: string, opts?: WorktreeAddOpts & ExecOpts): Promise<void> {
+  private async worktreeAdd(
+    path: string,
+    opts?: WorktreeAddOpts & ExecOpts,
+  ): Promise<WorktreeRepo> {
     const args = ['worktree', 'add'];
 
     if (opts?.detach) {
@@ -1911,6 +1914,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
     });
+
+    // Return a new WorktreeRepo for the newly created worktree, preserving LFS mode
+    return new WorktreeRepoImpl(this.runner, path, { lfs: this._lfsMode });
   }
 
   private async worktreeRemove(path: string, opts?: WorktreeRemoveOpts & ExecOpts): Promise<void> {
@@ -1975,7 +1981,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     src: string,
     dst: string,
     opts?: WorktreeMoveOpts & ExecOpts,
-  ): Promise<void> {
+  ): Promise<WorktreeRepo> {
     const args = ['worktree', 'move'];
 
     if (opts?.force) {
@@ -1987,6 +1993,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
+
+    // Return a new WorktreeRepo for the worktree at the new location, preserving LFS mode
+    return new WorktreeRepoImpl(this.runner, dst, { lfs: this._lfsMode });
   }
 
   private async worktreeRepair(paths?: Array<string>, opts?: ExecOpts): Promise<void> {

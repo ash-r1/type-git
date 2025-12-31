@@ -1910,11 +1910,13 @@ export interface WorktreeOperations {
   list(opts?: ExecOpts): Promise<Array<Worktree>>;
 
   /**
-   * Add a new worktree
+   * Add a new worktree and return a repository object for it
    *
    * Wraps: `git worktree add <path>`
+   *
+   * @returns A WorktreeRepo instance for the newly created worktree
    */
-  add(path: string, opts?: WorktreeAddOpts & ExecOpts): Promise<void>;
+  add(path: string, opts?: WorktreeAddOpts & ExecOpts): Promise<WorktreeRepo>;
 
   /**
    * Remove a worktree
@@ -1945,11 +1947,13 @@ export interface WorktreeOperations {
   unlock(path: string, opts?: ExecOpts): Promise<void>;
 
   /**
-   * Move a worktree to a new location
+   * Move a worktree to a new location and return a repository object for it
    *
    * Wraps: `git worktree move <src> <dst>`
+   *
+   * @returns A WorktreeRepo instance for the worktree at the new location
    */
-  move(src: string, dst: string, opts?: WorktreeMoveOpts & ExecOpts): Promise<void>;
+  move(src: string, dst: string, opts?: WorktreeMoveOpts & ExecOpts): Promise<WorktreeRepo>;
 
   /**
    * Repair worktree administrative files
