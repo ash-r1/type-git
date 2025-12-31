@@ -479,4 +479,133 @@ describe('High-level API', () => {
       expect(status.entries.some((e) => e.path === 'new.txt' && e.index === '?')).toBe(true);
     });
   });
+
+  describe('revParse', () => {
+    it('should resolve HEAD to SHA', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const sha = await repo.revParse('HEAD');
+      expect(sha).toMatch(/^[a-f0-9]{40}$/);
+    });
+
+    it('should resolve HEAD with short option', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const shortSha = await repo.revParse('HEAD', { short: true });
+      expect(shortSha.length).toBeLessThan(40);
+      expect(shortSha).toMatch(/^[a-f0-9]+$/);
+    });
+
+    it('should resolve HEAD with specific short length', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const shortSha = await repo.revParse('HEAD', { short: 8 });
+      expect(shortSha.length).toBeLessThanOrEqual(8);
+    });
+
+    it('should get branch name with abbrevRef', async () => {
+      const repoPath = join(tempDir, 'repo');
+      await git.init(repoPath, { initialBranch: 'main' });
+      const repo = await git.open(repoPath);
+
+      if ('workdir' in repo) {
+        await repo.raw(['config', 'user.email', 'test@example.com']);
+        await repo.raw(['config', 'user.name', 'Test User']);
+        await writeFile(join(repoPath, 'README.md'), '# Test');
+        await repo.add('README.md');
+        await repo.commit({ message: 'Initial commit' });
+
+        const branchName = await repo.revParse('HEAD', { abbrevRef: true });
+        expect(branchName).toBe('main');
+      }
+    });
+
+    it('should get git directory path', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const gitDir = await repo.revParse({ gitDir: true });
+      expect(gitDir).toContain('.git');
+    });
+
+    it('should get repository toplevel', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const toplevel = await repo.revParse({ showToplevel: true });
+      expect(toplevel).toContain('repo');
+    });
+
+    it('should check if inside work tree', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const isWorkTree = await repo.revParse({ isInsideWorkTree: true });
+      expect(isWorkTree).toBe(true);
+    });
+
+    it('should check if bare repository', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const isBare = await repo.revParse({ isBareRepository: true });
+      expect(isBare).toBe(false);
+    });
+
+    it('should check if shallow repository', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const isShallow = await repo.revParse({ isShallowRepository: true });
+      expect(isShallow).toBe(false);
+    });
+
+    it('should list all branches', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      // Create another branch
+      await repo.branch.create('feature');
+
+      const branches = await repo.revParse({ branches: true });
+      expect(branches).toBeInstanceOf(Array);
+      expect(branches.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('should get symbolic full name', async () => {
+      const repoPath = join(tempDir, 'repo');
+      await git.init(repoPath, { initialBranch: 'main' });
+      const repo = await git.open(repoPath);
+
+      if ('workdir' in repo) {
+        await repo.raw(['config', 'user.email', 'test@example.com']);
+        await repo.raw(['config', 'user.name', 'Test User']);
+        await writeFile(join(repoPath, 'README.md'), '# Test');
+        await repo.add('README.md');
+        await repo.commit({ message: 'Initial commit' });
+
+        const fullName = await repo.revParse('HEAD', { symbolicFullName: true });
+        expect(fullName).toBe('refs/heads/main');
+      }
+    });
+
+    it('should verify a valid ref', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const sha = await repo.revParse('HEAD', { verify: true });
+      expect(sha).toMatch(/^[a-f0-9]{40}$/);
+    });
+
+    it('should get object format', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      const format = await repo.revParse({ showObjectFormat: true });
+      expect(format).toBe('sha1');
+    });
+  });
 });

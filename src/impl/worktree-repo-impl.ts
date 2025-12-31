@@ -75,6 +75,11 @@ import type {
   ResetOpts,
   RestoreOpts,
   RevertOpts,
+  RevParseBooleanQuery,
+  RevParseListQuery,
+  RevParsePathOpts,
+  RevParsePathQuery,
+  RevParseRefOpts,
   RmOpts,
   ShowOpts,
   StashApplyOpts,
@@ -4181,14 +4186,215 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // ==========================================================================
 
   /**
-   * Parse revision specification and return the object name (SHA)
+   * Parse revision specification and return information about the repository
+   *
+   * Overloaded implementation handling all rev-parse variants.
    */
-  public async revParse(ref: string, opts?: ExecOpts): Promise<string> {
-    const result = await this.runner.runOrThrow(this.context, ['rev-parse', ref], {
-      signal: opts?.signal,
+  public revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  public revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
+  public revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
+  public revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
+  public revParse(
+    opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
+  ): Promise<string>;
+  public revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
+  public revParse(opts: { localEnvVars: true } & ExecOpts): Promise<string[]>;
+  public async revParse(
+    refOrOpts:
+      | string
+      | (RevParsePathQuery & RevParsePathOpts & ExecOpts)
+      | (RevParseBooleanQuery & ExecOpts)
+      | (RevParseListQuery & ExecOpts)
+      | ({ showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts)
+      | ({ showRefFormat: true } & ExecOpts)
+      | ({ localEnvVars: true } & ExecOpts),
+    opts?: RevParseRefOpts & ExecOpts,
+  ): Promise<string | boolean | string[]> {
+    const args: string[] = ['rev-parse'];
+
+    // Handle ref string case (first overload)
+    if (typeof refOrOpts === 'string') {
+      // Add ref resolution options
+      if (opts?.verify) {
+        args.push('--verify');
+      }
+      if (opts?.short !== undefined) {
+        if (typeof opts.short === 'number') {
+          args.push(`--short=${opts.short}`);
+        } else if (opts.short) {
+          args.push('--short');
+        }
+      }
+      if (opts?.abbrevRef !== undefined) {
+        if (opts.abbrevRef === 'strict') {
+          args.push('--abbrev-ref=strict');
+        } else if (opts.abbrevRef === 'loose') {
+          args.push('--abbrev-ref=loose');
+        } else if (opts.abbrevRef) {
+          args.push('--abbrev-ref');
+        }
+      }
+      if (opts?.symbolic) {
+        args.push('--symbolic');
+      }
+      if (opts?.symbolicFullName) {
+        args.push('--symbolic-full-name');
+      }
+      if (opts?.quiet) {
+        args.push('--quiet');
+      }
+
+      args.push(refOrOpts);
+
+      const result = await this.runner.runOrThrow(this.context, args, {
+        signal: opts?.signal,
+      });
+      return result.stdout.trim();
+    }
+
+    // Handle options object cases
+    const queryOpts = refOrOpts;
+
+    // Path queries
+    if ('gitDir' in queryOpts && queryOpts.gitDir) {
+      args.push('--git-dir');
+    } else if ('absoluteGitDir' in queryOpts && queryOpts.absoluteGitDir) {
+      args.push('--absolute-git-dir');
+    } else if ('gitCommonDir' in queryOpts && queryOpts.gitCommonDir) {
+      args.push('--git-common-dir');
+    } else if ('showToplevel' in queryOpts && queryOpts.showToplevel) {
+      args.push('--show-toplevel');
+    } else if ('showCdup' in queryOpts && queryOpts.showCdup) {
+      args.push('--show-cdup');
+    } else if ('showPrefix' in queryOpts && queryOpts.showPrefix) {
+      args.push('--show-prefix');
+    } else if (
+      'showSuperprojectWorkingTree' in queryOpts &&
+      queryOpts.showSuperprojectWorkingTree
+    ) {
+      args.push('--show-superproject-working-tree');
+    } else if ('sharedIndexPath' in queryOpts && queryOpts.sharedIndexPath) {
+      args.push('--shared-index-path');
+    } else if ('gitPath' in queryOpts && typeof queryOpts.gitPath === 'string') {
+      args.push('--git-path', queryOpts.gitPath);
+    } else if ('resolveGitDir' in queryOpts && typeof queryOpts.resolveGitDir === 'string') {
+      args.push('--resolve-git-dir', queryOpts.resolveGitDir);
+    }
+    // Boolean queries
+    else if ('isInsideGitDir' in queryOpts && queryOpts.isInsideGitDir) {
+      args.push('--is-inside-git-dir');
+    } else if ('isInsideWorkTree' in queryOpts && queryOpts.isInsideWorkTree) {
+      args.push('--is-inside-work-tree');
+    } else if ('isBareRepository' in queryOpts && queryOpts.isBareRepository) {
+      args.push('--is-bare-repository');
+    } else if ('isShallowRepository' in queryOpts && queryOpts.isShallowRepository) {
+      args.push('--is-shallow-repository');
+    }
+    // List queries
+    else if ('all' in queryOpts && queryOpts.all) {
+      if ('exclude' in queryOpts && queryOpts.exclude) {
+        args.push(`--exclude=${queryOpts.exclude}`);
+      }
+      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
+        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
+      }
+      args.push('--all');
+    } else if ('branches' in queryOpts && queryOpts.branches) {
+      if ('exclude' in queryOpts && queryOpts.exclude) {
+        args.push(`--exclude=${queryOpts.exclude}`);
+      }
+      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
+        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
+      }
+      if (typeof queryOpts.branches === 'string') {
+        args.push(`--branches=${queryOpts.branches}`);
+      } else {
+        args.push('--branches');
+      }
+    } else if ('tags' in queryOpts && queryOpts.tags) {
+      if ('exclude' in queryOpts && queryOpts.exclude) {
+        args.push(`--exclude=${queryOpts.exclude}`);
+      }
+      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
+        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
+      }
+      if (typeof queryOpts.tags === 'string') {
+        args.push(`--tags=${queryOpts.tags}`);
+      } else {
+        args.push('--tags');
+      }
+    } else if ('remotes' in queryOpts && queryOpts.remotes) {
+      if ('exclude' in queryOpts && queryOpts.exclude) {
+        args.push(`--exclude=${queryOpts.exclude}`);
+      }
+      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
+        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
+      }
+      if (typeof queryOpts.remotes === 'string') {
+        args.push(`--remotes=${queryOpts.remotes}`);
+      } else {
+        args.push('--remotes');
+      }
+    } else if ('glob' in queryOpts && typeof queryOpts.glob === 'string') {
+      if ('exclude' in queryOpts && queryOpts.exclude) {
+        args.push(`--exclude=${queryOpts.exclude}`);
+      }
+      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
+        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
+      }
+      args.push(`--glob=${queryOpts.glob}`);
+    } else if ('disambiguate' in queryOpts && typeof queryOpts.disambiguate === 'string') {
+      args.push(`--disambiguate=${queryOpts.disambiguate}`);
+    }
+    // Other queries
+    else if ('showObjectFormat' in queryOpts && queryOpts.showObjectFormat) {
+      if (queryOpts.showObjectFormat === true) {
+        args.push('--show-object-format');
+      } else {
+        args.push(`--show-object-format=${queryOpts.showObjectFormat}`);
+      }
+    } else if ('showRefFormat' in queryOpts && queryOpts.showRefFormat) {
+      args.push('--show-ref-format');
+    } else if ('localEnvVars' in queryOpts && queryOpts.localEnvVars) {
+      args.push('--local-env-vars');
+    }
+
+    // Add path format option if present
+    if ('pathFormat' in queryOpts && queryOpts.pathFormat) {
+      args.push(`--path-format=${queryOpts.pathFormat}`);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: queryOpts.signal,
     });
 
-    return result.stdout.trim();
+    const output = result.stdout.trim();
+
+    // Boolean queries
+    if (
+      ('isInsideGitDir' in queryOpts && queryOpts.isInsideGitDir) ||
+      ('isInsideWorkTree' in queryOpts && queryOpts.isInsideWorkTree) ||
+      ('isBareRepository' in queryOpts && queryOpts.isBareRepository) ||
+      ('isShallowRepository' in queryOpts && queryOpts.isShallowRepository)
+    ) {
+      return output === 'true';
+    }
+
+    // List queries
+    if (
+      ('all' in queryOpts && queryOpts.all) ||
+      ('branches' in queryOpts && queryOpts.branches) ||
+      ('tags' in queryOpts && queryOpts.tags) ||
+      ('remotes' in queryOpts && queryOpts.remotes) ||
+      ('glob' in queryOpts && queryOpts.glob) ||
+      ('disambiguate' in queryOpts && queryOpts.disambiguate) ||
+      ('localEnvVars' in queryOpts && queryOpts.localEnvVars)
+    ) {
+      return output ? output.split('\n').filter((line) => line.length > 0) : [];
+    }
+
+    // Path and other queries return string
+    return output;
   }
 
   /**
