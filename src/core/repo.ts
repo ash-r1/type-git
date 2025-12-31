@@ -1291,6 +1291,109 @@ export type ShowOpts = {
   decorate?: 'short' | 'full' | 'auto' | 'no';
 };
 
+// ==========================================================================
+// rev-parse Types
+// ==========================================================================
+
+/**
+ * Options that return a single path from rev-parse
+ *
+ * These options are mutually exclusive - only one can be specified at a time.
+ */
+export type RevParsePathQuery =
+  | { gitDir: true }
+  | { absoluteGitDir: true }
+  | { gitCommonDir: true }
+  | { showToplevel: true }
+  | { showCdup: true }
+  | { showPrefix: true }
+  | { showSuperprojectWorkingTree: true }
+  | { sharedIndexPath: true }
+  | { gitPath: string }
+  | { resolveGitDir: string };
+
+/**
+ * Options that return a boolean from rev-parse
+ *
+ * These options are mutually exclusive - only one can be specified at a time.
+ */
+export type RevParseBooleanQuery =
+  | { isInsideGitDir: true }
+  | { isInsideWorkTree: true }
+  | { isBareRepository: true }
+  | { isShallowRepository: true };
+
+/**
+ * Common options for list queries
+ */
+export type RevParseListOpts = {
+  /** Exclude refs matching pattern */
+  exclude?: string;
+  /**
+   * Exclude refs that would be hidden by the specified operation.
+   * - 'fetch': hidden by `transfer.hideRefs` for fetch
+   * - 'receive': hidden by `receive.hideRefs`
+   * - 'uploadpack': hidden by `uploadpack.hideRefs`
+   */
+  excludeHidden?: 'fetch' | 'receive' | 'uploadpack';
+};
+
+/**
+ * Options that return a list of refs from rev-parse
+ *
+ * These options are mutually exclusive - only one can be specified at a time.
+ * For branches/tags/remotes, you can pass `true` to list all, or a pattern string to filter.
+ */
+export type RevParseListQuery =
+  | ({ all: true } & RevParseListOpts)
+  | ({ branches: true | string } & RevParseListOpts)
+  | ({ tags: true | string } & RevParseListOpts)
+  | ({ remotes: true | string } & RevParseListOpts)
+  | ({ glob: string } & RevParseListOpts)
+  | { disambiguate: string };
+
+/**
+ * Options that modify how a ref is resolved
+ */
+export type RevParseRefOpts = {
+  /** Verify that the parameter can be turned into a raw SHA-1 (stricter parsing) */
+  verify?: boolean;
+  /** Shorten to unique prefix (true for default length, number for specific length) */
+  short?: boolean | number;
+  /** Output abbreviated ref name (e.g., "main" instead of SHA) */
+  abbrevRef?: boolean | 'strict' | 'loose';
+  /** Output in a form as close to the original input as possible */
+  symbolic?: boolean;
+  /** Output full refname (e.g., "refs/heads/main" instead of "main") */
+  symbolicFullName?: boolean;
+  /**
+   * In --verify mode, exit silently with non-zero status on invalid input
+   * instead of outputting an error message. Only works with --verify.
+   */
+  quiet?: boolean;
+};
+
+/**
+ * Options that return other information from rev-parse
+ */
+export type RevParseOtherQuery =
+  | { showObjectFormat: true | 'storage' | 'input' | 'output' }
+  | { showRefFormat: true }
+  | { localEnvVars: true };
+
+/**
+ * Path format option for path queries
+ */
+export type RevParsePathFormat = 'absolute' | 'relative';
+
+/**
+ * Additional options for path queries
+ */
+export type RevParsePathOpts = {
+  /** Control whether paths are output as absolute or relative */
+  pathFormat?: RevParsePathFormat;
+};
+
 /**
  * Options for git submodule
  */
@@ -3187,20 +3290,48 @@ export interface WorktreeRepo extends RepoBase {
   // ==========================================================================
 
   /**
-   * Parse revision specification and return the object name (SHA)
+   * Parse revision specification and return information about the repository
    *
    * Wraps: `git rev-parse`
    *
-   * Useful for resolving refs like HEAD, branch names, or relative refs like HEAD~1
+   * This is a versatile command with multiple use cases based on the options provided:
    *
-   * @example
+   * **Resolve ref to SHA:**
    * ```typescript
    * const sha = await repo.revParse('HEAD');
    * const parentSha = await repo.revParse('HEAD~1');
-   * const branchSha = await repo.revParse('main');
+   * const short = await repo.revParse('HEAD', { short: true });
+   * const branch = await repo.revParse('HEAD', { abbrevRef: true });
+   * ```
+   *
+   * **Query paths:**
+   * ```typescript
+   * const gitDir = await repo.revParse({ gitDir: true });
+   * const toplevel = await repo.revParse({ showToplevel: true });
+   * ```
+   *
+   * **Query repository state:**
+   * ```typescript
+   * const isShallow = await repo.revParse({ isShallowRepository: true });
+   * const isBare = await repo.revParse({ isBareRepository: true });
+   * ```
+   *
+   * **List refs:**
+   * ```typescript
+   * const allRefs = await repo.revParse({ all: true });
+   * const branches = await repo.revParse({ branches: true });
+   * const featureBranches = await repo.revParse({ branches: 'feature/*' });
    * ```
    */
-  revParse(ref: string, opts?: ExecOpts): Promise<string>;
+  revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
+  revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
+  revParse(opts: RevParseListQuery & ExecOpts): Promise<Array<string>>;
+  revParse(
+    opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
+  ): Promise<string>;
+  revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
+  revParse(opts: { localEnvVars: true } & ExecOpts): Promise<Array<string>>;
 
   /**
    * Count the number of commits reachable from a ref
@@ -3293,4 +3424,26 @@ export interface BareRepo extends RepoBase {
    * Wraps: `git config` subcommands
    */
   config: ConfigOperations;
+
+  /**
+   * Parse revision specification and return information about the repository
+   *
+   * Wraps: `git rev-parse`
+   *
+   * @example
+   * ```typescript
+   * const sha = await repo.revParse('HEAD');
+   * const gitDir = await repo.revParse({ gitDir: true });
+   * const isShallow = await repo.revParse({ isShallowRepository: true });
+   * ```
+   */
+  revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
+  revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
+  revParse(opts: RevParseListQuery & ExecOpts): Promise<Array<string>>;
+  revParse(
+    opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
+  ): Promise<string>;
+  revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
+  revParse(opts: { localEnvVars: true } & ExecOpts): Promise<Array<string>>;
 }
