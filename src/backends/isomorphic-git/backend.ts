@@ -17,12 +17,20 @@ import type { CloneOpts, InitOpts } from '../../core/git.js';
 import type {
   BranchInfo,
   BranchOpts,
+  CheckoutBranchOpts,
   Commit,
   CommitOpts,
   CommitResult,
+  FetchOpts,
   LogOpts,
+  MergeOpts,
+  MergeResult,
+  PullOpts,
+  PushOpts,
   StatusOpts,
   StatusPorcelain,
+  TagCreateOpts,
+  TagListOpts,
 } from '../../core/repo.js';
 import { GitError } from '../../core/types.js';
 import {
@@ -96,6 +104,73 @@ interface IsomorphicGit {
   }) => Promise<string | undefined>;
   resolveRef: (opts: { fs: unknown; dir: string; ref: string }) => Promise<string>;
   findRoot: (opts: { fs: unknown; filepath: string }) => Promise<string>;
+  // Extended operations
+  fetch: (opts: {
+    fs: unknown;
+    http?: unknown;
+    dir: string;
+    remote?: string;
+    ref?: string;
+    depth?: number;
+    prune?: boolean;
+    tags?: boolean;
+    singleBranch?: boolean;
+    onProgress?: (progress: { phase: string; loaded: number; total: number }) => void;
+    onAuth?: (url: string) => { username: string; password: string } | undefined;
+    onAuthFailure?: (
+      url: string,
+      auth: { username: string; password: string },
+    ) => { username: string; password: string } | undefined;
+  }) => Promise<{ fetchHead: string | null; fetchHeadDescription: string | null }>;
+  push: (opts: {
+    fs: unknown;
+    http?: unknown;
+    dir: string;
+    remote?: string;
+    ref?: string;
+    force?: boolean;
+    delete?: boolean;
+    onProgress?: (progress: { phase: string; loaded: number; total: number }) => void;
+    onAuth?: (url: string) => { username: string; password: string } | undefined;
+    onAuthFailure?: (
+      url: string,
+      auth: { username: string; password: string },
+    ) => { username: string; password: string } | undefined;
+  }) => Promise<{ ok: boolean; error?: string }>;
+  checkout: (opts: {
+    fs: unknown;
+    dir: string;
+    ref?: string;
+    filepaths?: string[];
+    remote?: string;
+    force?: boolean;
+    noCheckout?: boolean;
+    onProgress?: (progress: { phase: string; loaded: number; total: number }) => void;
+  }) => Promise<void>;
+  merge: (opts: {
+    fs: unknown;
+    dir: string;
+    ours?: string;
+    theirs: string;
+    fastForward?: boolean;
+    fastForwardOnly?: boolean;
+    dryRun?: boolean;
+    noUpdateBranch?: boolean;
+    abortOnConflict?: boolean;
+    message?: string;
+    author?: { name: string; email: string };
+    committer?: { name: string; email: string };
+  }) => Promise<{ oid?: string; alreadyMerged?: boolean; fastForward?: boolean; tree?: string }>;
+  listTags: (opts: { fs: unknown; dir: string }) => Promise<string[]>;
+  tag: (opts: {
+    fs: unknown;
+    dir: string;
+    ref: string;
+    object?: string;
+    force?: boolean;
+    message?: string;
+    signature?: { name: string; email: string };
+  }) => Promise<void>;
 }
 
 /**
@@ -437,6 +512,250 @@ export class IsomorphicGitBackend implements GitBackend {
       throw this.mapError(error);
     }
   }
+
+  // ===========================================================================
+  // Extended Operations (Tier 1 + Tier 2)
+  // ===========================================================================
+
+  public async fetch(workdir: string, opts?: FetchOpts & BackendExecOpts): Promise<void> {
+    const git = await this.getGit();
+
+    try {
+      await git.fetch({
+        fs: this.fs,
+        http: this.http,
+        dir: workdir,
+        remote: opts?.remote,
+        ref: opts?.refspec
+          ? Array.isArray(opts.refspec)
+            ? opts.refspec[0]
+            : opts.refspec
+          : undefined,
+        depth: opts?.depth,
+        prune: opts?.prune,
+        tags: opts?.tags,
+        singleBranch: false,
+        onProgress: opts?.onProgress
+          ? (progress) => {
+              opts.onProgress?.({
+                phase: progress.phase,
+                current: progress.loaded,
+                total: progress.total,
+                percent:
+                  progress.total > 0 ? Math.round((progress.loaded / progress.total) * 100) : null,
+              });
+            }
+          : undefined,
+        onAuth: this.onAuth,
+        onAuthFailure: this.onAuthFailure,
+      });
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async push(workdir: string, opts?: PushOpts & BackendExecOpts): Promise<void> {
+    const git = await this.getGit();
+
+    try {
+      const result = await git.push({
+        fs: this.fs,
+        http: this.http,
+        dir: workdir,
+        remote: opts?.remote,
+        ref: opts?.refspec
+          ? Array.isArray(opts.refspec)
+            ? opts.refspec[0]
+            : opts.refspec
+          : undefined,
+        force: opts?.force,
+        delete: opts?.deleteRefs,
+        onProgress: opts?.onProgress
+          ? (progress) => {
+              opts.onProgress?.({
+                phase: progress.phase,
+                current: progress.loaded,
+                total: progress.total,
+                percent:
+                  progress.total > 0 ? Math.round((progress.loaded / progress.total) * 100) : null,
+              });
+            }
+          : undefined,
+        onAuth: this.onAuth,
+        onAuthFailure: this.onAuthFailure,
+      });
+
+      if (!result.ok && result.error) {
+        throw new GitError('NonZeroExit', result.error, {});
+      }
+    } catch (error) {
+      if (error instanceof GitError) {
+        throw error;
+      }
+      throw this.mapError(error);
+    }
+  }
+
+  public async checkout(
+    workdir: string,
+    target: string,
+    opts?: CheckoutBranchOpts & BackendExecOpts,
+  ): Promise<void> {
+    const git = await this.getGit();
+
+    try {
+      // If creating a new branch, create it first
+      if (opts?.createBranch || opts?.forceCreateBranch) {
+        await git.branch({
+          fs: this.fs,
+          dir: workdir,
+          ref: target,
+          object: opts.startPoint,
+          force: opts.forceCreateBranch,
+        });
+      }
+
+      await git.checkout({
+        fs: this.fs,
+        dir: workdir,
+        ref: target,
+        force: opts?.force,
+        onProgress: opts?.onProgress
+          ? (progress) => {
+              opts.onProgress?.({
+                phase: progress.phase,
+                current: progress.loaded,
+                total: progress.total,
+                percent:
+                  progress.total > 0 ? Math.round((progress.loaded / progress.total) * 100) : null,
+              });
+            }
+          : undefined,
+      });
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async merge(
+    workdir: string,
+    branch: string,
+    opts?: MergeOpts & BackendExecOpts,
+  ): Promise<MergeResult> {
+    const git = await this.getGit();
+
+    try {
+      // Parse author if provided in message or from config
+      let author: { name: string; email: string } | undefined;
+
+      const result = await git.merge({
+        fs: this.fs,
+        dir: workdir,
+        theirs: branch,
+        fastForward: opts?.ff !== 'no' && opts?.ff !== false,
+        fastForwardOnly: opts?.ff === 'only',
+        message: opts?.message,
+        author,
+        abortOnConflict: true, // Always abort on conflict for now
+      });
+
+      return {
+        success: true,
+        hash: result.oid,
+        fastForward: result.fastForward,
+      };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+
+      // Check if it's a conflict error
+      if (
+        message.includes('MergeNotSupportedError') ||
+        message.includes('conflict') ||
+        message.includes('Merge conflict')
+      ) {
+        return {
+          success: false,
+          conflicts: [], // isomorphic-git doesn't provide conflict list easily
+        };
+      }
+
+      throw this.mapError(error);
+    }
+  }
+
+  public async pull(workdir: string, opts?: PullOpts & BackendExecOpts): Promise<void> {
+    // isomorphic-git doesn't have a native pull, so we compose fetch + merge
+    const git = await this.getGit();
+
+    try {
+      // Fetch first
+      await this.fetch(workdir, {
+        remote: opts?.remote,
+        tags: opts?.tags,
+        prune: opts?.prune,
+        depth: opts?.depth,
+        onProgress: opts?.onProgress,
+      });
+
+      // Get the current branch
+      const currentBranch = await git.currentBranch({ fs: this.fs, dir: workdir });
+      if (!currentBranch) {
+        throw new GitError('NonZeroExit', 'Not on any branch', {});
+      }
+
+      // Merge remote tracking branch
+      const remote = opts?.remote ?? 'origin';
+      const remoteBranch = `${remote}/${opts?.branch ?? currentBranch}`;
+
+      await this.merge(workdir, remoteBranch, {
+        ff: opts?.ff,
+        message: `Merge ${remoteBranch} into ${currentBranch}`,
+      });
+    } catch (error) {
+      if (error instanceof GitError) {
+        throw error;
+      }
+      throw this.mapError(error);
+    }
+  }
+
+  public async tagList(workdir: string, _opts?: TagListOpts & BackendExecOpts): Promise<string[]> {
+    const git = await this.getGit();
+
+    try {
+      const tags = await git.listTags({ fs: this.fs, dir: workdir });
+      return tags;
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async tagCreate(
+    workdir: string,
+    name: string,
+    opts?: TagCreateOpts & BackendExecOpts,
+  ): Promise<void> {
+    const git = await this.getGit();
+
+    try {
+      await git.tag({
+        fs: this.fs,
+        dir: workdir,
+        ref: name,
+        object: opts?.commit,
+        force: opts?.force,
+        message: opts?.message,
+      });
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  // Note: The following operations are NOT supported by isomorphic-git:
+  // - checkoutPaths (path-based checkout)
+  // - diff (no native diff API)
+  // - reset (limited - only resetIndex for mixed/soft)
+  // - stashPush/stashPop/stashList (no stash support)
 
   // ===========================================================================
   // Private Helpers

@@ -11,12 +11,27 @@ import type { CloneOpts, InitOpts } from './git.js';
 import type {
   BranchInfo,
   BranchOpts,
+  CheckoutBranchOpts,
+  CheckoutPathOpts,
   Commit,
   CommitOpts,
   CommitResult,
+  DiffOpts,
+  DiffResult,
+  FetchOpts,
   LogOpts,
+  MergeOpts,
+  MergeResult,
+  PullOpts,
+  PushOpts,
+  ResetOpts,
+  StashApplyOpts,
+  StashEntry,
+  StashPushOpts,
   StatusOpts,
   StatusPorcelain,
+  TagCreateOpts,
+  TagListOpts,
 } from './repo.js';
 import type { ExecOpts, ExecutionContext, GitProgress, RawResult } from './types.js';
 
@@ -197,6 +212,177 @@ export interface GitBackend {
     name: string,
     opts?: BackendBranchCreateOpts & BackendExecOpts,
   ): Promise<void>;
+
+  // ===========================================================================
+  // Raw/Fallback Operations (CLI only)
+  // ===========================================================================
+
+  // ===========================================================================
+  // Extended Operations (Tier 1 + Tier 2)
+  // These are optional - backends implement what they support
+  // ===========================================================================
+
+  /**
+   * Fetch refs and objects from remote
+   *
+   * Supported by: CLI, isomorphic-git, nodegit, wasm-git
+   *
+   * @param workdir - Working directory path
+   * @param opts - Fetch options
+   */
+  fetch?(workdir: string, opts?: FetchOpts & BackendExecOpts): Promise<void>;
+
+  /**
+   * Push refs and objects to remote
+   *
+   * Supported by: CLI, isomorphic-git, nodegit, wasm-git
+   *
+   * @param workdir - Working directory path
+   * @param opts - Push options
+   */
+  push?(workdir: string, opts?: PushOpts & BackendExecOpts): Promise<void>;
+
+  /**
+   * Checkout a branch or commit
+   *
+   * Supported by: CLI, isomorphic-git, nodegit, wasm-git
+   *
+   * @param workdir - Working directory path
+   * @param target - Branch name or commit hash
+   * @param opts - Checkout options
+   */
+  checkout?(
+    workdir: string,
+    target: string,
+    opts?: CheckoutBranchOpts & BackendExecOpts,
+  ): Promise<void>;
+
+  /**
+   * Checkout specific paths from tree-ish
+   *
+   * Supported by: CLI, nodegit, wasm-git
+   * Not supported by: isomorphic-git
+   *
+   * @param workdir - Working directory path
+   * @param paths - Paths to checkout
+   * @param opts - Checkout options
+   */
+  checkoutPaths?(
+    workdir: string,
+    paths: string[],
+    opts?: CheckoutPathOpts & BackendExecOpts,
+  ): Promise<void>;
+
+  /**
+   * Show changes between commits, commit and working tree, etc.
+   *
+   * Supported by: CLI, nodegit, wasm-git
+   * Not supported by: isomorphic-git (no native diff API)
+   *
+   * @param workdir - Working directory path
+   * @param target - Target to diff against (commit, branch, etc.)
+   * @param opts - Diff options
+   * @returns Diff result with file entries
+   */
+  diff?(workdir: string, target?: string, opts?: DiffOpts & BackendExecOpts): Promise<DiffResult>;
+
+  /**
+   * Reset current HEAD to specified state
+   *
+   * Supported by: CLI, nodegit, wasm-git
+   * Partial support: isomorphic-git (soft/mixed only via resetIndex)
+   *
+   * @param workdir - Working directory path
+   * @param target - Target to reset to (commit, branch, etc.)
+   * @param opts - Reset options
+   */
+  reset?(workdir: string, target?: string, opts?: ResetOpts & BackendExecOpts): Promise<void>;
+
+  /**
+   * Join two or more development histories together
+   *
+   * Supported by: CLI, isomorphic-git, nodegit, wasm-git
+   *
+   * @param workdir - Working directory path
+   * @param branch - Branch to merge
+   * @param opts - Merge options
+   * @returns Merge result with success status and conflicts
+   */
+  merge?(
+    workdir: string,
+    branch: string,
+    opts?: MergeOpts & BackendExecOpts,
+  ): Promise<MergeResult>;
+
+  /**
+   * Fetch and merge changes from remote
+   *
+   * Supported by: CLI
+   * Composed support: isomorphic-git, nodegit, wasm-git (fetch + merge)
+   *
+   * @param workdir - Working directory path
+   * @param opts - Pull options
+   */
+  pull?(workdir: string, opts?: PullOpts & BackendExecOpts): Promise<void>;
+
+  /**
+   * Stash changes in working directory
+   *
+   * Supported by: CLI
+   * Limited support: nodegit, wasm-git
+   * Not supported by: isomorphic-git
+   *
+   * @param workdir - Working directory path
+   * @param opts - Stash push options
+   */
+  stashPush?(workdir: string, opts?: StashPushOpts & BackendExecOpts): Promise<void>;
+
+  /**
+   * Apply and remove stashed changes
+   *
+   * Supported by: CLI
+   * Limited support: nodegit, wasm-git
+   * Not supported by: isomorphic-git
+   *
+   * @param workdir - Working directory path
+   * @param opts - Stash apply options
+   */
+  stashPop?(workdir: string, opts?: StashApplyOpts & BackendExecOpts): Promise<void>;
+
+  /**
+   * List stashed changes
+   *
+   * Supported by: CLI
+   * Limited support: nodegit, wasm-git
+   * Not supported by: isomorphic-git
+   *
+   * @param workdir - Working directory path
+   * @param opts - Execution options
+   * @returns Array of stash entries
+   */
+  stashList?(workdir: string, opts?: BackendExecOpts): Promise<StashEntry[]>;
+
+  /**
+   * List tags
+   *
+   * Supported by: CLI, isomorphic-git, nodegit, wasm-git
+   *
+   * @param workdir - Working directory path
+   * @param opts - Tag list options
+   * @returns Array of tag names
+   */
+  tagList?(workdir: string, opts?: TagListOpts & BackendExecOpts): Promise<string[]>;
+
+  /**
+   * Create a tag
+   *
+   * Supported by: CLI, isomorphic-git, nodegit, wasm-git
+   *
+   * @param workdir - Working directory path
+   * @param name - Tag name
+   * @param opts - Tag creation options
+   */
+  tagCreate?(workdir: string, name: string, opts?: TagCreateOpts & BackendExecOpts): Promise<void>;
 
   // ===========================================================================
   // Raw/Fallback Operations (CLI only)
