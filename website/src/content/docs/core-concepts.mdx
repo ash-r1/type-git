@@ -102,6 +102,50 @@ await repo.push();
 
 This separation ensures you can't accidentally call repository-specific operations without a valid repository context.
 
+## Repository Opening
+
+type-git provides **three ways to open repositories** with different type guarantees:
+
+### open() - Worktree Repository
+
+The most common use case. Returns a `WorktreeRepo` type:
+
+```typescript
+const repo = await git.open('./my-repo');
+// repo is WorktreeRepo - full access to status(), commit(), etc.
+
+// Throws GitError with kind 'NotWorktreeRepo' if the repo is bare
+```
+
+### openBare() - Bare Repository
+
+For server-side or backup repositories. Returns a `BareRepo` type:
+
+```typescript
+const bareRepo = await git.openBare('./my-repo.git');
+// bareRepo is BareRepo - limited to fetch(), push(), etc.
+
+// Throws GitError with kind 'NotBareRepo' if the repo is not bare
+```
+
+### openRaw() - Unknown Repository Type
+
+When you don't know the repository type at compile time:
+
+```typescript
+const repo = await git.openRaw(path);
+// repo is WorktreeRepo | BareRepo
+
+// Use type guards to narrow the type
+if ('workdir' in repo) {
+  // repo is WorktreeRepo
+  await repo.status();
+} else {
+  // repo is BareRepo
+  await repo.fetch('origin');
+}
+```
+
 ## Output Contract
 
 type-git uses git's **porcelain** and **machine-readable** output formats for reliable parsing:
@@ -129,13 +173,25 @@ try {
   await repo.push();
 } catch (error) {
   if (error instanceof GitError) {
-    console.log(error.kind);     // 'NonZeroExit' | 'Aborted' | 'SpawnFailed'
+    console.log(error.kind);     // 'NonZeroExit' | 'Aborted' | 'SpawnFailed' | ...
     console.log(error.category); // 'authentication' | 'network' | 'conflict' | ...
     console.log(error.exitCode);
     console.log(error.stderr);
   }
 }
 ```
+
+### Error Kinds
+
+| Kind | Description |
+|------|-------------|
+| `NonZeroExit` | Git command exited with non-zero code |
+| `Aborted` | Operation was cancelled via AbortSignal |
+| `SpawnFailed` | Failed to spawn git process |
+| `ParseError` | Failed to parse git output |
+| `NotWorktreeRepo` | Expected worktree but found bare repository |
+| `NotBareRepo` | Expected bare but found worktree repository |
+| `CapabilityMissing` | Required capability is missing |
 
 The `category` property provides semantic error classification, making it easy to handle specific error types.
 

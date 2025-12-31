@@ -84,9 +84,50 @@ export class GitImpl implements Git {
   }
 
   /**
-   * Open an existing repository
+   * Open an existing worktree repository
+   * Throws GitError if the repository is bare.
    */
-  public async open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo> {
+  public async open(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo> {
+    const repo = await this.openRaw(path, opts);
+
+    if (!('workdir' in repo)) {
+      throw new GitError(
+        'NotWorktreeRepo',
+        `Expected worktree repository but found bare repository: ${path}`,
+        {
+          gitDir: path,
+        },
+      );
+    }
+
+    return repo;
+  }
+
+  /**
+   * Open an existing bare repository
+   * Throws GitError if the repository is not bare.
+   */
+  public async openBare(path: string, opts?: GitOpenOptions): Promise<BareRepo> {
+    const repo = await this.openRaw(path, opts);
+
+    if ('workdir' in repo) {
+      throw new GitError(
+        'NotBareRepo',
+        `Expected bare repository but found worktree repository: ${path}`,
+        {
+          workdir: path,
+        },
+      );
+    }
+
+    return repo;
+  }
+
+  /**
+   * Open an existing repository without type guarantee
+   * Returns either WorktreeRepo or BareRepo depending on the repository type.
+   */
+  public async openRaw(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo> {
     // Create a runner with custom options if provided
     const repoRunner = opts ? this.runner.withOptions(toCliRunnerOptions(opts)) : this.runner;
 
