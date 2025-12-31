@@ -282,25 +282,26 @@ export interface Git {
   /**
    * Open an existing repository without type detection
    *
-   * Returns a `RepoBase` that can be narrowed to `WorktreeRepo` or `BareRepo`
-   * using the `isWorktree()` and `isBare()` type guard methods.
+   * Returns a `RepoBase` that provides runtime type checking via `isWorktree()`
+   * and `isBare()` methods. Use type assertions after checking to access
+   * type-specific methods.
    *
    * This is useful when you need to defer type detection or want to perform
    * the detection yourself.
    *
    * @param path - Path to the repository (workdir or git-dir)
    * @param opts - Environment isolation and credential options
-   * @returns RepoBase that can be narrowed using isWorktree() or isBare()
+   * @returns RepoBase with runtime type checking methods
    *
    * @example
    * ```typescript
    * const repo = await git.openRaw('/path/to/repo');
    * if (await repo.isWorktree()) {
-   *   // repo is now typed as WorktreeRepo
-   *   const status = await repo.status();
+   *   // Use type assertion after runtime check
+   *   const status = await (repo as WorktreeRepo).status();
    * } else if (await repo.isBare()) {
-   *   // repo is now typed as BareRepo
-   *   await repo.fetch({ remote: 'origin' });
+   *   // Use type assertion after runtime check
+   *   await (repo as BareRepo).fetch({ remote: 'origin' });
    * }
    * ```
    */

@@ -289,7 +289,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Check if this repository is a bare repository (no working directory)
    *
-   * For WorktreeRepoImpl, this always returns false.
+   * For WorktreeRepoImpl, this queries git and returns the actual state.
    */
   public async isBare(): Promise<boolean> {
     const result = await this.runner.run(this.context, ['rev-parse', '--is-bare-repository']);
@@ -554,6 +554,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.reverse) {
       args.push('--reverse');
+    }
+
+    // ref must be placed after all options (positional argument)
+    if (opts?.ref) {
+      args.push(opts.ref);
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {

@@ -85,7 +85,7 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Check if this repository is a worktree repository (has working directory)
    *
-   * For BareRepoImpl, this always returns false.
+   * For BareRepoImpl, this queries git and returns the actual state.
    */
   public async isWorktree(): Promise<boolean> {
     const result = await this.runner.run(this.context, ['rev-parse', '--is-inside-work-tree']);

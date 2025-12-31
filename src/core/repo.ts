@@ -20,15 +20,16 @@ export interface RepoBase {
    *
    * Wraps: `git rev-parse --is-inside-work-tree`
    *
-   * This method acts as a type guard, allowing TypeScript to narrow the type
-   * from `RepoBase` to `WorktreeRepo` when it returns `true`.
+   * This is a runtime check that queries git to determine the repository type.
+   * Note: TypeScript cannot automatically narrow the type based on this check
+   * since it returns `Promise<boolean>`. Use type assertions after checking.
    *
    * @example
    * ```typescript
    * const repo = await git.openRaw('/path/to/repo');
    * if (await repo.isWorktree()) {
-   *   // repo is now typed as WorktreeRepo
-   *   const status = await repo.status();
+   *   // Use type assertion to access WorktreeRepo methods
+   *   const status = await (repo as WorktreeRepo).status();
    * }
    * ```
    */
@@ -39,15 +40,16 @@ export interface RepoBase {
    *
    * Wraps: `git rev-parse --is-bare-repository`
    *
-   * This method acts as a type guard, allowing TypeScript to narrow the type
-   * from `RepoBase` to `BareRepo` when it returns `true`.
+   * This is a runtime check that queries git to determine the repository type.
+   * Note: TypeScript cannot automatically narrow the type based on this check
+   * since it returns `Promise<boolean>`. Use type assertions after checking.
    *
    * @example
    * ```typescript
    * const repo = await git.openRaw('/path/to/repo');
    * if (await repo.isBare()) {
-   *   // repo is now typed as BareRepo
-   *   await repo.fetch({ remote: 'origin' });
+   *   // Use type assertion to access BareRepo methods
+   *   await (repo as BareRepo).fetch({ remote: 'origin' });
    * }
    * ```
    */
@@ -178,6 +180,8 @@ export type LogOpts = {
   after?: string | Date;
   /** Alias for until */
   before?: string | Date;
+  /** Revision or revision range to show (e.g., 'main', 'HEAD~5..HEAD', 'v1.0.0') */
+  ref?: string;
 };
 
 /**
