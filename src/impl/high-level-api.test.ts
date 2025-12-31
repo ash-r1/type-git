@@ -5,13 +5,19 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
+import type { Git } from '../core/git.js';
+import type { WorktreeRepo } from '../core/repo.js';
 import { createGit } from './git-impl.js';
 
 describe('High-level API', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createNodeAdapters() });
+  let git: Git;
+
+  beforeAll(async () => {
+    git = await createGit({ adapters: createNodeAdapters() });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'type-git-highlevel-'));
@@ -21,7 +27,7 @@ describe('High-level API', () => {
     await rm(tempDir, { recursive: true, force: true });
   });
 
-  async function initRepoWithCommit(path: string) {
+  async function initRepoWithCommit(path: string): Promise<WorktreeRepo> {
     const repo = await git.init(path);
     if ('workdir' in repo) {
       await repo.raw(['config', 'user.email', 'test@example.com']);
@@ -415,6 +421,9 @@ describe('High-level API', () => {
       // Get the current branch name (might be master or main)
       const mainBranch = await repo.branch.current();
       expect(mainBranch).not.toBeNull();
+      if (!mainBranch) {
+        throw new Error('Expected main branch to be set');
+      }
 
       // Create feature branch and add a commit
       await repo.switch('feature', { create: true });
@@ -423,7 +432,7 @@ describe('High-level API', () => {
       await repo.commit({ message: 'Add feature' });
 
       // Switch back to original branch and merge
-      await repo.switch(mainBranch!);
+      await repo.switch(mainBranch);
       const result = await repo.merge('feature');
 
       expect(result.success).toBe(true);

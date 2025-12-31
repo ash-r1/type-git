@@ -32,12 +32,67 @@ import { BareRepoImpl } from './bare-repo-impl.js';
 import { WorktreeRepoImpl } from './worktree-repo-impl.js';
 
 /**
+ * Minimum supported Git version
+ */
+export const MIN_GIT_VERSION = '2.20.0';
+
+/**
+ * Recommended Git version
+ */
+export const RECOMMENDED_GIT_VERSION = '2.30.0';
+
+/**
  * Options for creating a Git instance
  */
 export type CreateGitOptions = CliRunnerOptions & {
   /** Runtime adapters (exec, fs) */
   adapters: RuntimeAdapters;
+  /**
+   * Skip version check during initialization.
+   * When false (default), throws GitError if Git version is below minimum.
+   * @default false
+   */
+  skipVersionCheck?: boolean;
 };
+
+/**
+ * Regex for parsing version strings
+ */
+const VERSION_REGEX = /^(\d+)\.(\d+)\.(\d+)/;
+
+/**
+ * Parse a version string into an array of numbers
+ * Handles formats like "2.30.0", "2.30.0.windows.1", "2.30.0-rc0"
+ */
+function parseVersion(version: string): [number, number, number] {
+  // Extract the semantic version part (e.g., "2.30.0" from "2.30.0.windows.1")
+  const match = version.match(VERSION_REGEX);
+  if (!match) {
+    return [0, 0, 0];
+  }
+  return [
+    Number.parseInt(match[1] as string, 10),
+    Number.parseInt(match[2] as string, 10),
+    Number.parseInt(match[3] as string, 10),
+  ];
+}
+
+/**
+ * Compare two version strings
+ * @returns negative if a < b, 0 if a == b, positive if a > b
+ */
+function compareVersions(a: string, b: string): number {
+  const [aMajor, aMinor, aPatch] = parseVersion(a);
+  const [bMajor, bMinor, bPatch] = parseVersion(b);
+
+  if (aMajor !== bMajor) {
+    return aMajor - bMajor;
+  }
+  if (aMinor !== bMinor) {
+    return aMinor - bMinor;
+  }
+  return aPatch - bPatch;
+}
 
 /**
  * Convert GitOpenOptions to CliRunnerOptions
@@ -758,11 +813,36 @@ export class GitImpl implements Git {
 }
 
 /**
- * Create a new Git instance
+ * Create a new Git instance (synchronous, no version check)
  *
  * @param options - Creation options including runtime adapters
  * @returns Git instance
+ * @deprecated Use createGit instead for version checking
  */
-export function createGit(options: CreateGitOptions): Git {
+export function createGitSync(options: CreateGitOptions): Git {
   return new GitImpl(options);
+}
+
+/**
+ * Create a new Git instance with optional version check
+ *
+ * @param options - Creation options including runtime adapters
+ * @returns Git instance
+ * @throws GitError with kind 'UnsupportedGitVersion' if Git version is below minimum
+ */
+export async function createGit(options: CreateGitOptions): Promise<Git> {
+  const git = new GitImpl(options);
+
+  if (!options.skipVersionCheck) {
+    const versionString = await git.version();
+    if (compareVersions(versionString, MIN_GIT_VERSION) < 0) {
+      throw new GitError(
+        'UnsupportedGitVersion',
+        `Git version ${versionString} is not supported. Minimum required version is ${MIN_GIT_VERSION}.`,
+        {},
+      );
+    }
+  }
+
+  return git;
 }

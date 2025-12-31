@@ -7,7 +7,13 @@ export * from './adapters/node/index.js';
 // Core types and interfaces
 export * from './core/index.js';
 // Implementation
-export { type CreateGitOptions, createGit } from './impl/index.js';
+export {
+  type CreateGitOptions,
+  createGit,
+  createGitSync,
+  MIN_GIT_VERSION,
+  RECOMMENDED_GIT_VERSION,
+} from './impl/index.js';
 
 // Parsers (for advanced usage)
 export {

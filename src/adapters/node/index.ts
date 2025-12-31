@@ -14,7 +14,7 @@ import type {
 } from '../../core/git.js';
 import type { BareRepo, WorktreeRepo } from '../../core/repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from '../../core/types.js';
-import { type CreateGitOptions, createGit } from '../../impl/git-impl.js';
+import { type CreateGitOptions, createGit, createGitSync } from '../../impl/git-impl.js';
 import { NodeExecAdapter } from './exec.js';
 import { NodeFsAdapter } from './fs.js';
 
@@ -46,18 +46,53 @@ export type TypeGitOptions = Omit<CreateGitOptions, 'adapters'>;
  * ```typescript
  * import { TypeGit } from 'type-git/node';
  *
+ * // Recommended: Use create() for version check
+ * const git = await TypeGit.create();
+ *
+ * // Skip version check (not recommended)
+ * const git = await TypeGit.create({ skipVersionCheck: true });
+ *
+ * // Legacy: constructor (no version check, deprecated)
  * const git = new TypeGit();
+ *
  * const repo = await git.open('/path/to/repo');
  * ```
  */
 export class TypeGit {
   private readonly git: Git;
 
-  public constructor(options?: TypeGitOptions) {
-    this.git = createGit({
-      ...options,
+  /**
+   * Create a TypeGit instance with Git version check
+   *
+   * @param createOpts - Options including skipVersionCheck
+   * @returns TypeGit instance
+   * @throws GitError with kind 'UnsupportedGitVersion' if Git version is below minimum
+   */
+  public static async create(createOpts?: TypeGitOptions): Promise<TypeGit> {
+    const gitInstance = await createGit({
+      ...createOpts,
       adapters: createNodeAdapters(),
     });
+    return new TypeGit(gitInstance);
+  }
+
+  /**
+   * @deprecated Use TypeGit.create() instead for version checking
+   */
+  public constructor(constructorOpts?: TypeGitOptions);
+  /** @internal */
+  public constructor(existingGit: Git);
+  public constructor(optionsOrGit?: TypeGitOptions | Git) {
+    if (optionsOrGit && 'open' in optionsOrGit) {
+      // Internal: passed a Git instance
+      this.git = optionsOrGit;
+    } else {
+      // Legacy: construct synchronously without version check
+      this.git = createGitSync({
+        ...optionsOrGit,
+        adapters: createNodeAdapters(),
+      });
+    }
   }
 
   /**

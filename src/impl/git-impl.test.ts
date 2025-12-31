@@ -5,10 +5,13 @@
 import { access, mkdtemp, realpath, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
+import type { Git } from '../core/git.js';
 import { GitError } from '../core/types.js';
-import { createGit } from './git-impl.js';
+import { createGit, createGitSync, MIN_GIT_VERSION, RECOMMENDED_GIT_VERSION } from './git-impl.js';
+
+const VERSION_REGEX = /^\d+\.\d+/;
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -19,9 +22,38 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
+describe('createGit version check', () => {
+  it('should check version by default and pass for current git', async () => {
+    // This should pass since we expect git >= 2.20 to be installed
+    const git = await createGit({ adapters: createNodeAdapters() });
+    expect(git).toBeDefined();
+    const version = await git.version();
+    expect(version).toMatch(VERSION_REGEX);
+  });
+
+  it('should skip version check when skipVersionCheck is true', async () => {
+    const git = await createGit({ adapters: createNodeAdapters(), skipVersionCheck: true });
+    expect(git).toBeDefined();
+  });
+
+  it('should export version constants', () => {
+    expect(MIN_GIT_VERSION).toBe('2.20.0');
+    expect(RECOMMENDED_GIT_VERSION).toBe('2.30.0');
+  });
+
+  it('createGitSync should create git instance without version check', () => {
+    const git = createGitSync({ adapters: createNodeAdapters() });
+    expect(git).toBeDefined();
+  });
+});
+
 describe('GitImpl', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createNodeAdapters() });
+  let git: Git;
+
+  beforeAll(async () => {
+    git = await createGit({ adapters: createNodeAdapters() });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'type-git-test-'));
@@ -34,7 +66,7 @@ describe('GitImpl', () => {
   describe('version', () => {
     it('should return git version', async () => {
       const version = await git.version();
-      expect(version).toMatch(/^\d+\.\d+/);
+      expect(version).toMatch(VERSION_REGEX);
     });
   });
 
@@ -203,7 +235,11 @@ describe('GitImpl', () => {
 
 describe('WorktreeRepoImpl', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createNodeAdapters() });
+  let git: Git;
+
+  beforeAll(async () => {
+    git = await createGit({ adapters: createNodeAdapters() });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'type-git-test-'));
@@ -341,7 +377,11 @@ describe('WorktreeRepoImpl', () => {
 
 describe('openRaw and type guards', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createNodeAdapters() });
+  let git: Git;
+
+  beforeAll(async () => {
+    git = await createGit({ adapters: createNodeAdapters() });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'type-git-test-'));
