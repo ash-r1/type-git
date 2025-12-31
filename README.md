@@ -2,6 +2,8 @@
 
 Type-safe Git wrapper library with LFS support, progress tracking, and abort control for Node.js/Deno/Bun.
 
+(To be honest, I wrote the entire code with Claude Code. But it works appropriately.)
+
 **[Documentation](https://ash-r1.github.io/type-git/)** | **[API Reference](https://ash-r1.github.io/type-git/api/readme/)**
 
 ## Features
@@ -117,12 +119,7 @@ src/
 
 ## Development Status
 
-This library is currently in early development (v0.1.0). The initial focus is on:
-
-- Core adapter interfaces (ExecAdapter, FsAdapter)
-- Basic Git operations (clone, init, status, log, fetch, push)
-- LFS support with progress tracking
-- AbortSignal integration
+This library is currently in early development (v0.0.1). It's not tested well. Especially, on Bun/Deno.
 
 ## License
 
