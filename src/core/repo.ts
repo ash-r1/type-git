@@ -2,6 +2,7 @@
  * Repository interfaces - operations that require a repository context
  */
 
+import type { LsRemoteRef } from '../parsers/index.js';
 import type { ExecOpts, GitProgress, LfsMode, RawResult } from './types.js';
 
 /**
@@ -54,7 +55,56 @@ export interface RepoBase {
    * ```
    */
   isBare(): Promise<boolean>;
+
+  /**
+   * List references in a remote repository
+   *
+   * Wraps: `git ls-remote <remote> [refs...]`
+   *
+   * Unlike the global `git.lsRemote(url)`, this method operates in the context
+   * of a repository and accepts a remote name (e.g., 'origin') instead of a URL.
+   *
+   * @example
+   * ```typescript
+   * // List all refs from origin
+   * const result = await repo.lsRemote('origin');
+   *
+   * // List specific branch
+   * const result = await repo.lsRemote('origin', { refs: ['main'] });
+   *
+   * // List only tags
+   * const result = await repo.lsRemote('origin', { tags: true });
+   * ```
+   */
+  lsRemote(remote: string, opts?: RepoLsRemoteOpts & ExecOpts): Promise<RepoLsRemoteResult>;
 }
+
+/**
+ * Options for repository-scoped git ls-remote
+ */
+export type RepoLsRemoteOpts = {
+  /** Limit to refs/heads (branches) */
+  heads?: boolean;
+  /** Limit to refs/tags */
+  tags?: boolean;
+  /** Show only actual refs (not peeled tags) */
+  refsOnly?: boolean;
+  /** Show remote URL instead of listing refs */
+  getUrl?: boolean;
+  /** Sort refs by the given key (e.g., 'version:refname') */
+  sort?: string;
+  /** Show symbolic refs in addition to object refs */
+  symref?: boolean;
+  /** Specific refs to query (branch names, tag names, or full ref paths) */
+  refs?: Array<string>;
+};
+
+/**
+ * Result from repository-scoped git ls-remote
+ */
+export type RepoLsRemoteResult = {
+  refs: Array<LsRemoteRef>;
+};
 
 /**
  * Status file entry

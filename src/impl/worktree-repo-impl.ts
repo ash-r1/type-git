@@ -72,6 +72,8 @@ import type {
   RemoteUrlOpts,
   RepoLfsInstallOpts,
   RepoLfsUninstallOpts,
+  RepoLsRemoteOpts,
+  RepoLsRemoteResult,
   ResetOpts,
   RestoreOpts,
   RevertOpts,
@@ -124,6 +126,7 @@ import {
   GIT_LOG_FORMAT,
   parseGitLog,
   parseLines,
+  parseLsRemote,
   parsePorcelainV2,
   parseWorktreeList,
 } from '../parsers/index.js';
@@ -300,6 +303,59 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async isBare(): Promise<boolean> {
     const result = await this.runner.run(this.context, ['rev-parse', '--is-bare-repository']);
     return result.exitCode === 0 && result.stdout.trim() === 'true';
+  }
+
+  /**
+   * List references in a remote repository
+   */
+  public async lsRemote(
+    remote: string,
+    opts?: RepoLsRemoteOpts & ExecOpts,
+  ): Promise<RepoLsRemoteResult> {
+    const args = ['ls-remote'];
+
+    // Ref type filters
+    if (opts?.heads) {
+      args.push('--heads');
+    }
+
+    if (opts?.tags) {
+      args.push('--tags');
+    }
+
+    if (opts?.refsOnly) {
+      args.push('--refs');
+    }
+
+    // Output options
+    if (opts?.getUrl) {
+      args.push('--get-url');
+    }
+
+    if (opts?.sort) {
+      args.push('--sort', opts.sort);
+    }
+
+    if (opts?.symref) {
+      args.push('--symref');
+    }
+
+    // Add remote name
+    args.push(remote);
+
+    // Add specific refs if provided
+    if (opts?.refs && opts.refs.length > 0) {
+      args.push(...opts.refs);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+      onProgress: opts?.onProgress,
+    });
+
+    const refs = parseLsRemote(result.stdout);
+
+    return { refs };
   }
 
   /**
