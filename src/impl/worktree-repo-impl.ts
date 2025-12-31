@@ -10,7 +10,8 @@ import type {
   BranchInfo,
   BranchOperations,
   BranchOpts,
-  CheckoutOpts,
+  CheckoutBranchOpts,
+  CheckoutPathOpts,
   // Medium priority types
   CherryPickOpts,
   CleanOpts,
@@ -2253,85 +2254,119 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // High-level API - checkout
   // ==========================================================================
 
-  public async checkout(target: string, opts?: CheckoutOpts & ExecOpts): Promise<void> {
+  // Overload: branch switching mode
+  public async checkout(target: string, opts?: CheckoutBranchOpts & ExecOpts): Promise<void>;
+  // Overload: pathspec mode
+  public async checkout(paths: Array<string>, opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
+  // Implementation
+  public async checkout(
+    targetOrPaths: string | Array<string>,
+    opts?: (CheckoutBranchOpts | CheckoutPathOpts) & ExecOpts,
+  ): Promise<void> {
     const args = ['checkout'];
 
-    // Existing options
-    if (opts?.force) {
-      args.push('--force');
-    }
+    // Determine mode based on first argument type
+    const isPathMode = Array.isArray(targetOrPaths);
 
-    if (opts?.forceCreateBranch) {
-      args.push('-B');
-    } else if (opts?.createBranch) {
-      args.push('-b');
-    }
+    if (isPathMode) {
+      // Pathspec mode: git checkout [<tree-ish>] -- <pathspec>...
+      const pathOpts = opts as (CheckoutPathOpts & ExecOpts) | undefined;
 
-    if (opts?.track) {
-      args.push('--track');
-    }
+      if (pathOpts?.force) {
+        args.push('--force');
+      }
 
-    // New options
-    if (opts?.createReflog) {
-      args.push('-l');
-    }
+      if (pathOpts?.quiet) {
+        args.push('--quiet');
+      }
 
-    if (opts?.guess !== undefined) {
-      args.push(opts.guess ? '--guess' : '--no-guess');
-    }
+      if (pathOpts?.overlay !== undefined) {
+        args.push(pathOpts.overlay ? '--overlay' : '--no-overlay');
+      }
 
-    if (opts?.overlay !== undefined) {
-      args.push(opts.overlay ? '--overlay' : '--no-overlay');
-    }
+      if (pathOpts?.ours) {
+        args.push('--ours');
+      }
 
-    if (opts?.quiet) {
-      args.push('--quiet');
-    }
+      if (pathOpts?.theirs) {
+        args.push('--theirs');
+      }
 
-    if (opts?.recurseSubmodules) {
-      args.push('--recurse-submodules');
-    }
+      if (pathOpts?.pathspecFromFile) {
+        args.push(`--pathspec-from-file=${pathOpts.pathspecFromFile}`);
+      }
 
-    if (opts?.merge) {
-      args.push('--merge');
-    }
+      // Add source tree-ish if specified
+      if (pathOpts?.source) {
+        args.push(pathOpts.source);
+      }
 
-    if (opts?.conflict) {
-      args.push(`--conflict=${opts.conflict}`);
-    }
+      // Add -- separator and pathspecs
+      args.push('--');
+      args.push(...targetOrPaths);
+    } else {
+      // Branch switching mode: git checkout <branch>
+      const branchOpts = opts as (CheckoutBranchOpts & ExecOpts) | undefined;
 
-    if (opts?.detach) {
-      args.push('--detach');
-    }
+      if (branchOpts?.force) {
+        args.push('--force');
+      }
 
-    if (opts?.orphan) {
-      args.push('--orphan');
-    }
+      if (branchOpts?.forceCreateBranch) {
+        args.push('-B');
+      } else if (branchOpts?.createBranch) {
+        args.push('-b');
+      }
 
-    if (opts?.overwriteIgnore === false) {
-      args.push('--no-overwrite-ignore');
-    }
+      if (branchOpts?.track) {
+        args.push('--track');
+      }
 
-    if (opts?.ignoreOtherWorktrees) {
-      args.push('--ignore-other-worktrees');
-    }
+      if (branchOpts?.createReflog) {
+        args.push('-l');
+      }
 
-    if (opts?.ours) {
-      args.push('--ours');
-    }
+      if (branchOpts?.guess !== undefined) {
+        args.push(branchOpts.guess ? '--guess' : '--no-guess');
+      }
 
-    if (opts?.theirs) {
-      args.push('--theirs');
-    }
+      if (branchOpts?.quiet) {
+        args.push('--quiet');
+      }
 
-    if (opts?.pathspecFromFile) {
-      args.push(`--pathspec-from-file=${opts.pathspecFromFile}`);
-    }
+      if (branchOpts?.recurseSubmodules) {
+        args.push('--recurse-submodules');
+      }
 
-    args.push(target);
+      if (branchOpts?.merge) {
+        args.push('--merge');
+      }
 
-    if (opts?.startPoint) {
-      args.push(opts.startPoint);
+      if (branchOpts?.conflict) {
+        args.push(`--conflict=${branchOpts.conflict}`);
+      }
+
+      if (branchOpts?.detach) {
+        args.push('--detach');
+      }
+
+      if (branchOpts?.orphan) {
+        args.push('--orphan');
+      }
+
+      if (branchOpts?.overwriteIgnore === false) {
+        args.push('--no-overwrite-ignore');
+      }
+
+      if (branchOpts?.ignoreOtherWorktrees) {
+        args.push('--ignore-other-worktrees');
+      }
+
+      args.push(targetOrPaths);
+
+      if (branchOpts?.startPoint) {
+        args.push(branchOpts.startPoint);
+      }
     }
 
     await this.runner.runOrThrow(this.context, args, {
