@@ -61,23 +61,41 @@ export class TypeGit {
 
   /**
    * Clone a repository
+   *
+   * The return type depends on the `bare` or `mirror` option:
+   * - `{ bare: true }` or `{ mirror: true }` → `BareRepo`
+   * - Otherwise → `WorktreeRepo`
    */
-  public get clone(): (
+  public clone(
+    url: string,
+    path: string,
+    opts: CloneOpts & { bare: true } & ExecOpts,
+  ): Promise<BareRepo>;
+  public clone(
+    url: string,
+    path: string,
+    opts: CloneOpts & { mirror: true } & ExecOpts,
+  ): Promise<BareRepo>;
+  public clone(url: string, path: string, opts?: CloneOpts & ExecOpts): Promise<WorktreeRepo>;
+  public clone(
     url: string,
     path: string,
     opts?: CloneOpts & ExecOpts,
-  ) => Promise<WorktreeRepo | BareRepo> {
-    return this.git.clone.bind(this.git);
+  ): Promise<WorktreeRepo | BareRepo> {
+    return this.git.clone(url, path, opts);
   }
 
   /**
    * Initialize a new repository
+   *
+   * The return type depends on the `bare` option:
+   * - `{ bare: true }` → `BareRepo`
+   * - Otherwise → `WorktreeRepo`
    */
-  public get init(): (
-    path: string,
-    opts?: InitOpts & ExecOpts,
-  ) => Promise<WorktreeRepo | BareRepo> {
-    return this.git.init.bind(this.git);
+  public init(path: string, opts: InitOpts & { bare: true } & ExecOpts): Promise<BareRepo>;
+  public init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo>;
+  public init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo | BareRepo> {
+    return this.git.init(path, opts);
   }
 
   /**

@@ -158,15 +158,30 @@ export interface Git {
    *
    * Returns the newly created repository, addressing the factory pattern
    * design flaw in simple-git (§2.4).
+   *
+   * The return type depends on the `bare` or `mirror` option:
+   * - `{ bare: true }` or `{ mirror: true }` → `BareRepo`
+   * - Otherwise → `WorktreeRepo`
    */
-  clone(url: string, path: string, opts?: CloneOpts & ExecOpts): Promise<WorktreeRepo | BareRepo>;
+  clone(url: string, path: string, opts: CloneOpts & { bare: true } & ExecOpts): Promise<BareRepo>;
+  clone(
+    url: string,
+    path: string,
+    opts: CloneOpts & { mirror: true } & ExecOpts,
+  ): Promise<BareRepo>;
+  clone(url: string, path: string, opts?: CloneOpts & ExecOpts): Promise<WorktreeRepo>;
 
   /**
    * Initialize a new repository
    *
    * Returns the newly created repository.
+   *
+   * The return type depends on the `bare` option:
+   * - `{ bare: true }` → `BareRepo`
+   * - Otherwise → `WorktreeRepo`
    */
-  init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo | BareRepo>;
+  init(path: string, opts: InitOpts & { bare: true } & ExecOpts): Promise<BareRepo>;
+  init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo>;
 
   /**
    * List references in a remote repository

@@ -133,6 +133,17 @@ export class GitImpl implements Git {
   /**
    * Clone a repository
    */
+  public clone(
+    url: string,
+    path: string,
+    opts: CloneOpts & { bare: true } & ExecOpts,
+  ): Promise<BareRepo>;
+  public clone(
+    url: string,
+    path: string,
+    opts: CloneOpts & { mirror: true } & ExecOpts,
+  ): Promise<BareRepo>;
+  public clone(url: string, path: string, opts?: CloneOpts & ExecOpts): Promise<WorktreeRepo>;
   public async clone(
     url: string,
     path: string,
@@ -203,6 +214,8 @@ export class GitImpl implements Git {
   /**
    * Initialize a new repository
    */
+  public init(path: string, opts: InitOpts & { bare: true } & ExecOpts): Promise<BareRepo>;
+  public init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo>;
   public async init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo | BareRepo> {
     const args = ['init'];
 
