@@ -39,8 +39,29 @@ export type StatusPorcelain = {
  * Options for git status
  */
 export type StatusOpts = {
+  // Existing options
+  /** Porcelain output format version (1 or 2) */
   porcelain?: 1 | 2;
+  /** How to show untracked files */
   untracked?: 'no' | 'normal' | 'all';
+
+  // New options
+  /** Give the output in verbose format */
+  verbose?: boolean;
+  /** Show stash information */
+  showStash?: boolean;
+  /** Compute ahead/behind counts for the branch */
+  aheadBehind?: boolean;
+  /** Use NUL as line terminator */
+  nullTerminated?: boolean;
+  /** How to show ignored files */
+  ignored?: 'traditional' | 'no' | 'matching';
+  /** How to handle submodules */
+  ignoreSubmodules?: 'none' | 'untracked' | 'dirty' | 'all';
+  /** Do not detect renames */
+  noRenames?: boolean;
+  /** Detect renames (optionally with similarity threshold) */
+  findRenames?: boolean | number;
 };
 
 /**
@@ -68,26 +89,132 @@ export type Commit = {
  * Options for git log
  */
 export type LogOpts = {
+  // Existing options
+  /** Limit the number of commits to output */
   maxCount?: number;
+  /** Skip number of commits before starting to show the output */
   skip?: number;
+  /** Show commits more recent than a specific date */
   since?: string | Date;
+  /** Show commits older than a specific date */
   until?: string | Date;
+  /** Limit commits to those by a specific author */
   author?: string;
+  /** Limit commits to those with log message matching the pattern */
   grep?: string;
+  /** Pretend as if all refs are listed on the command line */
   all?: boolean;
   /** Follow only the first parent commit upon seeing a merge commit */
   firstParent?: boolean;
+
+  // New options
+  /** Print out the ref name given on the command line by which each commit was reached */
+  source?: boolean;
+  /** Use mailmap file to map author names */
+  useMailmap?: boolean;
+  /** If no --decorate-refs is given, pretend as if all refs were included */
+  decorateRefs?: string;
+  /** Do not include refs matching the pattern */
+  decorateRefsExclude?: string;
+  /** Print out the ref names of any commits that are shown */
+  decorate?: 'short' | 'full' | 'auto' | 'no';
+  /** Generate a diffstat */
+  stat?: boolean;
+  /** Output only the last line of the stat */
+  shortstat?: boolean;
+  /** Show only names of changed files */
+  nameOnly?: boolean;
+  /** Show only names and status of changed files */
+  nameStatus?: boolean;
+  /** Show only merge commits */
+  merges?: boolean;
+  /** Do not show merge commits */
+  noMerges?: boolean;
+  /** Only display commits that are ancestors of the specified commit */
+  ancestryPath?: boolean;
+  /** Output commits in reverse order */
+  reverse?: boolean;
+  /** Alias for since */
+  after?: string | Date;
+  /** Alias for until */
+  before?: string | Date;
 };
 
 /**
  * Options for git fetch
  */
 export type FetchOpts = {
+  // Existing options
+  /** Remote name to fetch from */
   remote?: string;
+  /** Refspec(s) to fetch */
   refspec?: string | Array<string>;
+  /** Remove remote-tracking refs that no longer exist on the remote */
   prune?: boolean;
+  /** Fetch all tags from the remote */
   tags?: boolean;
+  /** Limit fetching to the specified number of commits */
   depth?: number;
+
+  // New options
+  /** Be more verbose */
+  verbose?: boolean;
+  /** Operate quietly (suppress progress reporting) */
+  quiet?: boolean;
+  /** Fetch from all remotes */
+  all?: boolean;
+  /** Set upstream tracking for the fetched branches */
+  setUpstream?: boolean;
+  /** Append ref names and object names of fetched refs to .git/FETCH_HEAD */
+  append?: boolean;
+  /** Use atomic transaction to update refs */
+  atomic?: boolean;
+  /** Force update of local branches */
+  force?: boolean;
+  /** Allow fetching from multiple remotes */
+  multiple?: boolean;
+  /** Do not fetch any tags */
+  noTags?: boolean;
+  /** Number of parallel children for fetching submodules */
+  jobs?: number;
+  /** Modify the configured refspec to place all refs into refs/prefetch/ */
+  prefetch?: boolean;
+  /** Also prune tags that are no longer on the remote */
+  pruneTags?: boolean;
+  /** Fetch submodules recursively */
+  recurseSubmodules?: boolean | 'yes' | 'on-demand' | 'no';
+  /** Dry run - show what would be done without making changes */
+  dryRun?: boolean;
+  /** Allow updating FETCH_HEAD */
+  writeFetchHead?: boolean;
+  /** Keep downloaded pack */
+  keep?: boolean;
+  /** Allow updating the current branch head */
+  updateHeadOk?: boolean;
+  /** Deepen a shallow repository by date */
+  shallowSince?: string | Date;
+  /** Deepen a shallow repository excluding specified revision */
+  shallowExclude?: string | Array<string>;
+  /** Deepen a shallow repository by specified number of commits */
+  deepen?: number;
+  /** Convert a shallow repository to a complete one */
+  unshallow?: boolean;
+  /** Re-fetch all objects even if we already have them */
+  refetch?: boolean;
+  /** Update shallow boundary if new refs need it */
+  updateShallow?: boolean;
+  /** Override the default refspec */
+  refmap?: string;
+  /** Use IPv4 addresses only */
+  ipv4?: boolean;
+  /** Use IPv6 addresses only */
+  ipv6?: boolean;
+  /** Partial clone filter specification */
+  filter?: string;
+  /** Check for forced updates */
+  showForcedUpdates?: boolean;
+  /** Write commit graph after fetching */
+  writeCommitGraph?: boolean;
 };
 
 /**
@@ -104,8 +231,12 @@ export type ForceWithLeaseOpts = {
  * Options for git push
  */
 export type PushOpts = {
+  // Existing options
+  /** Remote name to push to */
   remote?: string;
+  /** Refspec(s) to push */
   refspec?: string | Array<string>;
+  /** Force updates even if they are not fast-forward */
   force?: boolean;
   /**
    * Force with lease - safer force push that fails if remote has been updated
@@ -113,7 +244,9 @@ export type PushOpts = {
    * - ForceWithLeaseOpts: specify refname and optional expected value
    */
   forceWithLease?: boolean | ForceWithLeaseOpts;
+  /** Push all tags */
   tags?: boolean;
+  /** Set upstream tracking for the pushed branches */
   setUpstream?: boolean;
   /** Bypass pre-push hook */
   noVerify?: boolean;
@@ -123,6 +256,42 @@ export type PushOpts = {
    * - 'if-asked': sign only if server supports and requests it
    */
   signed?: boolean | 'if-asked';
+
+  // New options
+  /** Be more verbose */
+  verbose?: boolean;
+  /** Operate quietly (suppress progress reporting) */
+  quiet?: boolean;
+  /** Override the default repository */
+  repo?: string;
+  /** Push all branches */
+  all?: boolean;
+  /** Push all branches (alias for all) */
+  branches?: boolean;
+  /** Mirror mode - push all refs */
+  mirror?: boolean;
+  /** Delete the specified refs from the remote */
+  deleteRefs?: boolean;
+  /** Dry run - show what would be pushed without pushing */
+  dryRun?: boolean;
+  /** Force only if the remote tip is included in local history */
+  forceIfIncludes?: boolean;
+  /** Push submodules recursively */
+  recurseSubmodules?: 'check' | 'on-demand' | 'only' | 'no';
+  /** Use thin pack transfer */
+  thin?: boolean;
+  /** Prune remote-tracking branches that are deleted locally */
+  prune?: boolean;
+  /** Push all refs under refs/tags with the commits */
+  followTags?: boolean;
+  /** Use atomic transaction to update refs */
+  atomic?: boolean;
+  /** Transmit push options to the server */
+  pushOption?: string | Array<string>;
+  /** Use IPv4 addresses only */
+  ipv4?: boolean;
+  /** Use IPv6 addresses only */
+  ipv6?: boolean;
 };
 
 // =============================================================================
@@ -133,6 +302,7 @@ export type PushOpts = {
  * Options for git add
  */
 export type AddOpts = {
+  // Existing options
   /** Add all files (including untracked) */
   all?: boolean;
   /** Dry run - show what would be added */
@@ -145,6 +315,28 @@ export type AddOpts = {
   interactive?: never;
   /** Add changes in patch mode (not supported - use raw) */
   patch?: never;
+
+  // New options
+  /** Be verbose */
+  verbose?: boolean;
+  /** Record only the fact that the path will be added later */
+  intentToAdd?: boolean;
+  /** Apply the clean process freshly to all tracked files */
+  renormalize?: boolean;
+  /** Ignore removal of files from working tree */
+  ignoreRemoval?: boolean;
+  /** Don't add files, just refresh their stat info in the index */
+  refresh?: boolean;
+  /** If some files could not be added, continue adding others */
+  ignoreErrors?: boolean;
+  /** Don't report missing files (with --dry-run) */
+  ignoreMissing?: boolean;
+  /** Allow updating index entries outside of sparse-checkout cone */
+  sparse?: boolean;
+  /** Override the executable bit of the listed files */
+  chmod?: '+x' | '-x';
+  /** Read pathspecs from file instead of command line */
+  pathspecFromFile?: string;
 };
 
 /**
@@ -162,24 +354,54 @@ export type BranchInfo = {
  * Options for git branch
  */
 export type BranchOpts = {
+  // Existing options
   /** List all branches (including remote) */
   all?: boolean;
   /** List remote branches only */
   remotes?: boolean;
   /** Show verbose info */
   verbose?: boolean;
+
+  // New options
+  /** Suppress informational messages */
+  quiet?: boolean;
+  /** Only list branches that contain the specified commit */
+  contains?: string;
+  /** Only list branches that don't contain the specified commit */
+  noContains?: string;
+  /** Abbreviate object names to specified length */
+  abbrev?: number;
+  /** Only list branches whose tips are reachable from the specified commit */
+  merged?: string;
+  /** Only list branches whose tips are not reachable from the specified commit */
+  noMerged?: string;
+  /** Sorting key (e.g., -committerdate, refname) */
+  sort?: string;
+  /** Only list branches that point at the specified object */
+  pointsAt?: string;
+  /** Sorting and filtering are case insensitive */
+  ignoreCase?: boolean;
 };
 
 /**
  * Options for creating a branch
  */
 export type BranchCreateOpts = {
+  // Existing options
   /** Start point (commit, branch, or tag) */
   startPoint?: string;
   /** Force creation (overwrite existing) */
   force?: boolean;
   /** Set up tracking */
   track?: boolean;
+
+  // New options
+  /** Set up upstream configuration for the new branch */
+  setUpstreamTo?: string;
+  /** Create the branch's reflog */
+  createReflog?: boolean;
+  /** Also update submodules */
+  recurseSubmodules?: boolean;
 };
 
 /**
@@ -196,6 +418,7 @@ export type BranchDeleteOpts = {
  * Options for git checkout
  */
 export type CheckoutOpts = {
+  // Existing options
   /** Force checkout (discard local changes) */
   force?: boolean;
   /** Create new branch */
@@ -204,12 +427,45 @@ export type CheckoutOpts = {
   startPoint?: string;
   /** Track remote branch */
   track?: boolean;
+
+  // New options
+  /** Create or reset and checkout branch (like -b but forces) */
+  forceCreateBranch?: boolean;
+  /** Create reflog for new branch */
+  createReflog?: boolean;
+  /** Try to guess remote tracking branch if target not found */
+  guess?: boolean;
+  /** Allow overlapping paths when checking out from tree-ish */
+  overlay?: boolean;
+  /** Suppress progress reporting */
+  quiet?: boolean;
+  /** Update submodules */
+  recurseSubmodules?: boolean;
+  /** Merge local modifications with the new branch */
+  merge?: boolean;
+  /** Conflict style for merge conflicts */
+  conflict?: 'merge' | 'diff3' | 'zdiff3';
+  /** Detach HEAD at specified commit */
+  detach?: boolean;
+  /** Create new orphan branch */
+  orphan?: boolean;
+  /** Silently overwrite ignored files */
+  overwriteIgnore?: boolean;
+  /** Ignore if branch is checked out in other worktrees */
+  ignoreOtherWorktrees?: boolean;
+  /** Check out 'our' version for unmerged files */
+  ours?: boolean;
+  /** Check out 'their' version for unmerged files */
+  theirs?: boolean;
+  /** Read pathspecs from file instead of command line */
+  pathspecFromFile?: string;
 };
 
 /**
  * Options for git commit
  */
 export type CommitOpts = {
+  // Existing options
   /** Commit message */
   message?: string;
   /** Allow empty commit */
@@ -230,6 +486,42 @@ export type CommitOpts = {
   gpgSign?: boolean;
   /** Do not GPG-sign the commit (override commit.gpgSign config) */
   noGpgSign?: boolean;
+
+  // New options
+  /** Suppress commit summary message */
+  quiet?: boolean;
+  /** Show unified diff between HEAD and working tree */
+  verbose?: boolean;
+  /** Read commit message from file */
+  file?: string;
+  /** Take existing commit message and re-edit it */
+  reeditMessage?: string;
+  /** Take existing commit message and reuse it */
+  reuseMessage?: string;
+  /** Create a fixup commit for the specified commit */
+  fixup?: string;
+  /** Create a squash commit for the specified commit */
+  squash?: string;
+  /** Override author date and ignore cached author identity */
+  resetAuthor?: boolean;
+  /** Add trailers to the commit message */
+  trailer?: string | Array<string>;
+  /** Add Signed-off-by trailer */
+  signoff?: boolean;
+  /** How to clean up the commit message */
+  cleanup?: 'strip' | 'whitespace' | 'verbatim' | 'scissors' | 'default';
+  /** Before committing, also stage specified paths */
+  include?: boolean;
+  /** Commit only specified paths, ignoring staged changes */
+  only?: boolean;
+  /** Bypass post-rewrite hook */
+  noPostRewrite?: boolean;
+  /** How to show untracked files */
+  untrackedFiles?: 'no' | 'normal' | 'all';
+  /** Read pathspecs from file instead of command line */
+  pathspecFromFile?: string;
+  /** Allow commit with empty message */
+  allowEmptyMessage?: boolean;
 };
 
 /**
@@ -254,6 +546,7 @@ export type CommitResult = {
  * Options for git diff
  */
 export type DiffOpts = {
+  // Existing options
   /** Compare staged changes */
   staged?: boolean;
   /** Show stat only */
@@ -268,6 +561,46 @@ export type DiffOpts = {
   ignoreWhitespace?: boolean;
   /** Pathspecs to filter */
   paths?: Array<string>;
+
+  // New options
+  /** Use NUL as line terminator */
+  nullTerminated?: boolean;
+  /** Generate patch output */
+  patch?: boolean;
+  /** Generate patch and raw format together */
+  patchWithRaw?: boolean;
+  /** Show number of added/deleted lines in decimal notation */
+  numstat?: boolean;
+  /** Generate patch and diffstat together */
+  patchWithStat?: boolean;
+  /** Show full 40-byte hexadecimal object name in diff */
+  fullIndex?: boolean;
+  /** Abbreviate object names to specified length */
+  abbrev?: number;
+  /** Swap two inputs (show reverse diff) */
+  reverse?: boolean;
+  /** Detect rewrites (optionally with threshold like '50%') */
+  detectRewrites?: boolean | string;
+  /** Detect renames (optionally with threshold like '50%') */
+  detectRenames?: boolean | string;
+  /** Detect copies (optionally with threshold like '50%') */
+  detectCopies?: boolean | string;
+  /** Find copies harder (inspects unmodified files as source) */
+  findCopiesHarder?: boolean;
+  /** Rename limit threshold */
+  renameLimit?: number;
+  /** Look for string added/removed in a change (pickaxe) */
+  pickaxe?: string;
+  /** Show all files that changed, not just those with pickaxe match */
+  pickaxeAll?: boolean;
+  /** Treat all files as text */
+  text?: boolean;
+  /** Show changes relative to a merge base */
+  mergeBase?: string;
+  /** Compare two paths on filesystem (not in repository) */
+  noIndex?: boolean;
+  /** Show word diff */
+  wordDiff?: 'color' | 'plain' | 'porcelain' | 'none';
 };
 
 /**
@@ -293,6 +626,7 @@ export type DiffResult = {
  * Options for git merge
  */
 export type MergeOpts = {
+  // Existing options
   /** Merge message */
   message?: string;
   /** Fast-forward behavior */
@@ -311,6 +645,40 @@ export type MergeOpts = {
   continue?: boolean;
   /** Bypass pre-merge-commit hook */
   noVerify?: boolean;
+
+  // New options
+  /** Do not show diffstat at end of merge */
+  noDiffstat?: boolean;
+  /** Show diffstat at end of merge */
+  stat?: boolean;
+  /** Show compact summary of changed files */
+  compactSummary?: boolean;
+  /** Add log of commits being merged (optionally with count) */
+  log?: boolean | number;
+  /** How to clean up the commit message */
+  cleanup?: 'strip' | 'whitespace' | 'verbatim' | 'scissors' | 'default';
+  /** Automatically update rerere state */
+  rerereAutoupdate?: boolean;
+  /** Verify that commit is signed with a valid key */
+  verifySignatures?: boolean;
+  /** Be verbose */
+  verbose?: boolean;
+  /** Be quiet */
+  quiet?: boolean;
+  /** Quit the current in-progress merge without cleanup */
+  quit?: boolean;
+  /** Allow merging histories that do not share a common ancestor */
+  allowUnrelatedHistories?: boolean;
+  /** GPG-sign the merge commit (optionally with key id) */
+  gpgSign?: boolean | string;
+  /** Automatically stash before merge and unstash after */
+  autostash?: boolean;
+  /** Silently overwrite ignored files */
+  overwriteIgnore?: boolean;
+  /** Add Signed-off-by trailer */
+  signoff?: boolean;
+  /** Use custom branch name in merge commit message */
+  intoName?: string;
 };
 
 /**
@@ -327,6 +695,7 @@ export type MergeResult = {
  * Options for git pull
  */
 export type PullOpts = {
+  // Existing options
   /** Remote name */
   remote?: string;
   /** Branch to pull */
@@ -341,20 +710,102 @@ export type PullOpts = {
   prune?: boolean;
   /** Progress callback */
   onProgress?: (progress: GitProgress) => void;
+
+  // New options
+  /** Be verbose */
+  verbose?: boolean;
+  /** Be quiet */
+  quiet?: boolean;
+  /** Fetch submodules recursively */
+  recurseSubmodules?: boolean | 'yes' | 'on-demand' | 'no';
+  /** Do not show diffstat at end of merge */
+  noStat?: boolean;
+  /** Show diffstat at end of merge */
+  stat?: boolean;
+  /** Show compact summary of changed files */
+  compactSummary?: boolean;
+  /** Add log of commits being merged (optionally with count) */
+  log?: boolean | number;
+  /** Add Signed-off-by trailer */
+  signoff?: boolean;
+  /** Squash merge */
+  squash?: boolean;
+  /** Perform merge and commit (or not) */
+  commit?: boolean;
+  /** How to clean up the commit message */
+  cleanup?: string;
+  /** Run hooks or not */
+  verify?: boolean;
+  /** Verify that commit is signed with a valid key */
+  verifySignatures?: boolean;
+  /** Automatically stash before pull and unstash after */
+  autostash?: boolean;
+  /** Merge strategy to use */
+  strategy?: string;
+  /** Strategy options */
+  strategyOption?: string | Array<string>;
+  /** GPG-sign the merge commit (optionally with key id) */
+  gpgSign?: boolean | string;
+  /** Allow merging histories that do not share a common ancestor */
+  allowUnrelatedHistories?: boolean;
+  /** Fetch from all remotes */
+  all?: boolean;
+  /** Append ref names and object names to FETCH_HEAD */
+  append?: boolean;
+  /** Force update of local branches */
+  force?: boolean;
+  /** Number of parallel children for fetching submodules */
+  jobs?: number;
+  /** Dry run */
+  dryRun?: boolean;
+  /** Keep downloaded pack */
+  keep?: boolean;
+  /** Limit fetching depth */
+  depth?: number;
+  /** Deepen shallow clone since date */
+  shallowSince?: string | Date;
+  /** Deepen shallow clone excluding revision */
+  shallowExclude?: string | Array<string>;
+  /** Deepen shallow clone by specified commits */
+  deepen?: number;
+  /** Convert shallow repository to complete one */
+  unshallow?: boolean;
+  /** Update shallow boundary if new refs need it */
+  updateShallow?: boolean;
+  /** Use IPv4 addresses only */
+  ipv4?: boolean;
+  /** Use IPv6 addresses only */
+  ipv6?: boolean;
+  /** Set upstream tracking for the current branch */
+  setUpstream?: boolean;
 };
 
 /**
  * Options for git reset
  */
 export type ResetOpts = {
+  // Existing options
   /** Reset mode */
   mode?: 'soft' | 'mixed' | 'hard' | 'merge' | 'keep';
+
+  // New options
+  /** Be quiet (report only errors) */
+  quiet?: boolean;
+  /** Skip refreshing the index after reset */
+  noRefresh?: boolean;
+  /** Reset submodules */
+  recurseSubmodules?: boolean;
+  /** Record intention to add unstaged files */
+  intentToAdd?: boolean;
+  /** Read pathspecs from file instead of command line */
+  pathspecFromFile?: string;
 };
 
 /**
  * Options for git rm
  */
 export type RmOpts = {
+  // Existing options
   /** Force removal */
   force?: boolean;
   /** Remove from index only (keep in working tree) */
@@ -363,6 +814,16 @@ export type RmOpts = {
   recursive?: boolean;
   /** Dry run */
   dryRun?: boolean;
+
+  // New options
+  /** Suppress output */
+  quiet?: boolean;
+  /** Exit with zero status even if no files matched */
+  ignoreUnmatch?: boolean;
+  /** Allow removing files outside of sparse-checkout cone */
+  sparse?: boolean;
+  /** Read pathspecs from file instead of command line */
+  pathspecFromFile?: string;
 };
 
 /**
@@ -379,6 +840,7 @@ export type StashEntry = {
  * Options for git stash push
  */
 export type StashPushOpts = {
+  // Existing options
   /** Stash message */
   message?: string;
   /** Include untracked files */
@@ -387,6 +849,16 @@ export type StashPushOpts = {
   keepIndex?: boolean;
   /** Specific paths to stash */
   paths?: Array<string>;
+
+  // New options
+  /** Stash only staged changes */
+  staged?: boolean;
+  /** Suppress output */
+  quiet?: boolean;
+  /** Stash all files including untracked and ignored */
+  all?: boolean;
+  /** Read pathspecs from file instead of command line */
+  pathspecFromFile?: string;
 };
 
 /**
@@ -403,6 +875,7 @@ export type StashApplyOpts = {
  * Options for git switch
  */
 export type SwitchOpts = {
+  // Existing options
   /** Create new branch */
   create?: boolean;
   /** Force create (overwrite existing) */
@@ -415,6 +888,26 @@ export type SwitchOpts = {
   track?: boolean;
   /** Detach HEAD */
   detach?: boolean;
+
+  // New options
+  /** Try to guess remote tracking branch if target not found */
+  guess?: boolean;
+  /** Suppress progress reporting */
+  quiet?: boolean;
+  /** Update submodules */
+  recurseSubmodules?: boolean;
+  /** Merge local modifications with the new branch */
+  merge?: boolean;
+  /** Conflict style for merge conflicts */
+  conflict?: 'merge' | 'diff3' | 'zdiff3';
+  /** Force switch (throw away local modifications) */
+  force?: boolean;
+  /** Create new orphan branch */
+  orphan?: boolean;
+  /** Silently overwrite ignored files */
+  overwriteIgnore?: boolean;
+  /** Ignore if branch is checked out in other worktrees */
+  ignoreOtherWorktrees?: boolean;
 };
 
 /**
@@ -436,16 +929,34 @@ export type TagInfo = {
  * Options for git tag (list)
  */
 export type TagListOpts = {
+  // Existing options
   /** List pattern */
   pattern?: string;
   /** Sort by */
   sort?: string;
+
+  // New options
+  /** Print n lines of tag message */
+  lines?: number;
+  /** Only list tags that contain the specified commit */
+  contains?: string;
+  /** Only list tags that don't contain the specified commit */
+  noContains?: string;
+  /** Only list tags whose tips are reachable from the specified commit */
+  merged?: string;
+  /** Only list tags whose tips are not reachable from the specified commit */
+  noMerged?: string;
+  /** Only list tags that point at the specified object */
+  pointsAt?: string;
+  /** Sorting and filtering are case insensitive */
+  ignoreCase?: boolean;
 };
 
 /**
  * Options for creating a tag
  */
 export type TagCreateOpts = {
+  // Existing options
   /** Tag message (creates annotated tag) */
   message?: string;
   /** Force (overwrite existing tag) */
@@ -454,6 +965,18 @@ export type TagCreateOpts = {
   commit?: string;
   /** GPG-sign the tag with the default key */
   sign?: boolean;
+
+  // New options
+  /** Read tag message from file */
+  file?: string;
+  /** Add trailers to the tag message */
+  trailer?: string | Array<string>;
+  /** How to clean up the tag message */
+  cleanup?: string;
+  /** Key to use for GPG signing */
+  localUser?: string;
+  /** Create the tag's reflog */
+  createReflog?: boolean;
 };
 
 // =============================================================================
@@ -464,6 +987,7 @@ export type TagCreateOpts = {
  * Options for git cherry-pick
  */
 export type CherryPickOpts = {
+  // Existing options
   /** Edit commit message */
   edit?: boolean;
   /** No commit after cherry-pick */
@@ -482,12 +1006,33 @@ export type CherryPickOpts = {
   skip?: boolean;
   /** Bypass pre-commit hook */
   noVerify?: boolean;
+
+  // New options
+  /** How to clean up the commit message */
+  cleanup?: 'strip' | 'whitespace' | 'verbatim' | 'scissors' | 'default';
+  /** Automatically update rerere state */
+  rerereAutoupdate?: boolean;
+  /** Strategy options */
+  strategyOption?: string | Array<string>;
+  /** GPG-sign the commit (optionally with key id) */
+  gpgSign?: boolean | string;
+  /** Append (cherry picked from ...) line to original message */
+  appendCommitName?: boolean;
+  /** Fast-forward if possible */
+  ff?: boolean;
+  /** Allow recording empty commits */
+  allowEmpty?: boolean;
+  /** Allow empty commit messages */
+  allowEmptyMessage?: boolean;
+  /** How to handle originally empty commits */
+  empty?: 'drop' | 'keep' | 'stop';
 };
 
 /**
  * Options for git clean
  */
 export type CleanOpts = {
+  // Existing options
   /** Force clean */
   force?: boolean;
   /** Remove directories too */
@@ -500,22 +1045,38 @@ export type CleanOpts = {
   dryRun?: boolean;
   /** Paths to clean */
   paths?: Array<string>;
+
+  // New options
+  /** Suppress output */
+  quiet?: boolean;
+  /** Exclude files matching pattern */
+  exclude?: string | Array<string>;
 };
 
 /**
  * Options for git mv
  */
 export type MvOpts = {
+  // Existing options
   /** Force move */
   force?: boolean;
   /** Dry run */
   dryRun?: boolean;
+
+  // New options
+  /** Be verbose */
+  verbose?: boolean;
+  /** Skip errors */
+  skipErrors?: boolean;
+  /** Allow moving files outside of sparse-checkout cone */
+  sparse?: boolean;
 };
 
 /**
  * Options for git rebase
  */
 export type RebaseOpts = {
+  // Existing options
   /** Upstream branch */
   upstream?: string;
   /** Onto target */
@@ -532,12 +1093,63 @@ export type RebaseOpts = {
   skip?: boolean;
   /** Bypass pre-rebase hook */
   noVerify?: boolean;
+
+  // New options
+  /** Keep the commits at the base unchanged */
+  keepBase?: boolean;
+  /** Be quiet */
+  quiet?: boolean;
+  /** Be verbose */
+  verbose?: boolean;
+  /** Add signoff */
+  signoff?: boolean;
+  /** Set committer date to author date */
+  committerDateIsAuthorDate?: boolean;
+  /** Set author date to committer date */
+  resetAuthorDate?: boolean;
+  /** Ignore whitespace differences */
+  ignoreWhitespace?: boolean;
+  /** Whitespace handling mode */
+  whitespace?: string;
+  /** Force rebase even if already up-to-date */
+  forceRebase?: boolean;
+  /** Create merge commit instead of rebasing */
+  noFf?: boolean;
+  /** Use apply strategy */
+  apply?: boolean;
+  /** Automatically update rerere state */
+  rerereAutoupdate?: boolean;
+  /** How to handle empty commits */
+  empty?: 'drop' | 'keep' | 'ask';
+  /** Automatically squash fixup commits */
+  autosquash?: boolean;
+  /** Update refs that point to rebased commits */
+  updateRefs?: boolean;
+  /** GPG-sign commits */
+  gpgSign?: boolean | string;
+  /** Automatically stash/unstash */
+  autostash?: boolean;
+  /** Execute command after each commit */
+  exec?: string;
+  /** Use fork point for base */
+  forkPoint?: boolean;
+  /** Merge strategy */
+  strategy?: string;
+  /** Strategy options */
+  strategyOption?: string | Array<string>;
+  /** Rebase from root commit */
+  root?: boolean;
+  /** Reschedule failed exec commands */
+  rescheduleFailedExec?: boolean;
+  /** Reapply cherry-picks */
+  reapplyCherryPicks?: boolean;
 };
 
 /**
  * Options for git restore
  */
 export type RestoreOpts = {
+  // Existing options
   /** Restore staged files */
   staged?: boolean;
   /** Restore working tree files */
@@ -547,12 +1159,33 @@ export type RestoreOpts = {
   /** Ours or theirs for conflicts */
   ours?: boolean;
   theirs?: boolean;
+
+  // New options
+  /** Ignore unmerged entries */
+  ignoreUnmerged?: boolean;
+  /** Allow overlay mode (default is no-overlay) */
+  overlay?: boolean;
+  /** Suppress output */
+  quiet?: boolean;
+  /** Recurse into submodules */
+  recurseSubmodules?: boolean;
+  /** Show progress */
+  progress?: boolean;
+  /** Attempt to recreate merge conflicts */
+  merge?: boolean;
+  /** Conflict style for merge conflicts */
+  conflict?: 'merge' | 'diff3' | 'zdiff3';
+  /** Ignore skip-worktree bits */
+  ignoreSkipWorktreeBits?: boolean;
+  /** Read pathspecs from file */
+  pathspecFromFile?: string;
 };
 
 /**
  * Options for git revert
  */
 export type RevertOpts = {
+  // Existing options
   /** Edit commit message */
   edit?: boolean;
   /** No commit after revert */
@@ -567,12 +1200,29 @@ export type RevertOpts = {
   skip?: boolean;
   /** Bypass pre-commit hook */
   noVerify?: boolean;
+
+  // New options
+  /** How to clean up the commit message */
+  cleanup?: 'strip' | 'whitespace' | 'verbatim' | 'scissors' | 'default';
+  /** Add signoff */
+  signoff?: boolean;
+  /** Automatically update rerere state */
+  rerereAutoupdate?: boolean;
+  /** Merge strategy */
+  strategy?: string;
+  /** Strategy options */
+  strategyOption?: string | Array<string>;
+  /** GPG-sign the commit */
+  gpgSign?: boolean | string;
+  /** Add reference to reverted commit */
+  reference?: boolean;
 };
 
 /**
  * Options for git show
  */
 export type ShowOpts = {
+  // Existing options
   /** Show stat only */
   stat?: boolean;
   /** Show name only */
@@ -581,6 +1231,20 @@ export type ShowOpts = {
   nameStatus?: boolean;
   /** Format string */
   format?: string;
+
+  // New options
+  /** Suppress output */
+  quiet?: boolean;
+  /** Show source ref for each commit */
+  source?: boolean;
+  /** Use mailmap for author/committer names */
+  useMailmap?: boolean;
+  /** Only decorate refs matching pattern */
+  decorateRefs?: string;
+  /** Exclude refs matching pattern from decoration */
+  decorateRefsExclude?: string;
+  /** Decorate style */
+  decorate?: 'short' | 'full' | 'auto' | 'no';
 };
 
 /**
@@ -595,6 +1259,92 @@ export type SubmoduleOpts = {
   remote?: boolean;
   /** Force update */
   force?: boolean;
+
+  // New options
+  /** Do not fetch from remotes */
+  noFetch?: boolean;
+  /** Checkout the superproject's recorded commit */
+  checkout?: boolean;
+  /** Merge the commit into the current branch */
+  merge?: boolean;
+  /** Rebase the current branch onto the commit */
+  rebase?: boolean;
+  /** Use recommended shallow clone depth */
+  recommendShallow?: boolean;
+  /** Reference repository for shared clone */
+  reference?: string;
+  /** Clone only one branch */
+  singleBranch?: boolean;
+  /** Partial clone filter specification */
+  filter?: string;
+};
+
+/**
+ * Options for adding a submodule
+ */
+export type SubmoduleAddOpts = {
+  /** Branch to track */
+  branch?: string;
+  /** Force addition */
+  force?: boolean;
+  /** Submodule name (if different from path) */
+  name?: string;
+  /** Reference repository */
+  reference?: string;
+  /** Depth for shallow clone */
+  depth?: number;
+};
+
+/**
+ * Options for deinitializing a submodule
+ */
+export type SubmoduleDeinitOpts = {
+  /** Force deinitialization */
+  force?: boolean;
+  /** Deinitialize all submodules */
+  all?: boolean;
+};
+
+/**
+ * Options for submodule status
+ */
+export type SubmoduleStatusOpts = {
+  /** Check submodules recursively */
+  recursive?: boolean;
+};
+
+/**
+ * Options for submodule summary
+ */
+export type SubmoduleSummaryOpts = {
+  /** Limit to the specified number of commits */
+  limit?: number;
+  /** Show files in the summary */
+  files?: boolean;
+};
+
+/**
+ * Options for submodule foreach
+ */
+export type SubmoduleForeachOpts = {
+  /** Run the command recursively in nested submodules */
+  recursive?: boolean;
+};
+
+/**
+ * Options for submodule sync
+ */
+export type SubmoduleSyncOpts = {
+  /** Sync recursively in nested submodules */
+  recursive?: boolean;
+};
+
+/**
+ * Options for submodule set-branch
+ */
+export type SubmoduleSetBranchOpts = {
+  /** Set the default tracking branch */
+  default?: boolean;
 };
 
 /**
@@ -635,6 +1385,12 @@ export type LfsPullOpts = {
 export type LfsPushOpts = {
   remote?: string;
   ref?: string;
+
+  // New options
+  /** Dry run - show what would be pushed without actually pushing */
+  dryRun?: boolean;
+  /** Push specified object IDs */
+  objectId?: boolean;
 };
 
 /**
@@ -642,6 +1398,10 @@ export type LfsPushOpts = {
  */
 export type LfsStatusOpts = {
   json?: boolean;
+
+  // New options
+  /** Machine-readable output */
+  porcelain?: boolean;
 };
 
 /**
@@ -656,6 +1416,336 @@ export type LfsPruneOpts = {
   verifyRemote?: boolean;
   /** Verify unreferenced copies */
   verifyUnreferenced?: boolean;
+
+  // New options
+  /** Only prune objects not accessed recently */
+  recent?: boolean;
+  /** Show verbose output */
+  verbose?: boolean;
+  /** When unverified behavior: panic or ignore */
+  whenUnverified?: 'panic' | 'ignore';
+};
+
+/**
+ * Options for LFS fetch
+ */
+export type LfsFetchOpts = {
+  /** Fetch all LFS objects for all refs */
+  all?: boolean;
+  /** Include patterns */
+  include?: string | Array<string>;
+  /** Exclude patterns */
+  exclude?: string | Array<string>;
+  /** Only fetch recent objects */
+  recent?: boolean;
+  /** Prune old objects after fetch */
+  prune?: boolean;
+  /** Refetch objects even if already local */
+  refetch?: boolean;
+  /** Dry run - show what would be fetched */
+  dryRun?: boolean;
+  /** Output in JSON format */
+  json?: boolean;
+  /** Remote to fetch from */
+  remote?: string;
+  /** Refs to fetch */
+  refs?: string | Array<string>;
+};
+
+/**
+ * Options for LFS install
+ */
+export type LfsInstallOpts = {
+  /** Overwrite existing hooks */
+  force?: boolean;
+  /** Install for local repository only */
+  local?: boolean;
+  /** Install for worktree only */
+  worktree?: boolean;
+  /** Print commands instead of executing */
+  manual?: boolean;
+  /** Install for all users */
+  system?: boolean;
+  /** Skip smudge filter (don't download during checkout) */
+  skipSmudge?: boolean;
+  /** Skip repository setup */
+  skipRepo?: boolean;
+};
+
+/**
+ * Options for LFS uninstall
+ */
+export type LfsUninstallOpts = {
+  /** Uninstall for local repository only */
+  local?: boolean;
+  /** Uninstall for worktree only */
+  worktree?: boolean;
+  /** Uninstall for all users */
+  system?: boolean;
+  /** Skip repository cleanup */
+  skipRepo?: boolean;
+};
+
+/**
+ * LFS file entry
+ */
+export type LfsFileEntry = {
+  /** File path */
+  path: string;
+  /** Object ID (SHA-256) */
+  oid: string;
+  /** File size in bytes */
+  size?: number;
+  /** Checkout status */
+  status: 'checked-out' | 'not-checked-out';
+};
+
+/**
+ * Options for LFS ls-files
+ */
+export type LfsLsFilesOpts = {
+  /** Show full OID (not abbreviated) */
+  long?: boolean;
+  /** Show file sizes */
+  size?: boolean;
+  /** Show debug information */
+  debug?: boolean;
+  /** Show all LFS files (not just current ref) */
+  all?: boolean;
+  /** Show deleted files */
+  deleted?: boolean;
+  /** Include patterns */
+  include?: string | Array<string>;
+  /** Exclude patterns */
+  exclude?: string | Array<string>;
+  /** Show filenames only */
+  nameOnly?: boolean;
+  /** Output in JSON format */
+  json?: boolean;
+  /** Ref to list files for */
+  ref?: string;
+};
+
+/**
+ * LFS track entry
+ */
+export type LfsTrackEntry = {
+  /** Pattern being tracked */
+  pattern: string;
+  /** Source file (e.g., .gitattributes) */
+  source: string;
+  /** Whether files matching pattern are lockable */
+  lockable: boolean;
+};
+
+/**
+ * Options for LFS track
+ */
+export type LfsTrackOpts = {
+  /** Show verbose output */
+  verbose?: boolean;
+  /** Dry run - show what would be tracked */
+  dryRun?: boolean;
+  /** Treat pattern as filename, not glob */
+  filename?: boolean;
+  /** Make files lockable */
+  lockable?: boolean;
+  /** Make files not lockable */
+  notLockable?: boolean;
+  /** Don't exclude from export */
+  noExcluded?: boolean;
+  /** Don't modify .gitattributes */
+  noModifyAttrs?: boolean;
+};
+
+/**
+ * LFS lock entry
+ */
+export type LfsLockEntry = {
+  /** Lock ID */
+  id: string;
+  /** Locked file path */
+  path: string;
+  /** Lock owner */
+  owner: {
+    name: string;
+  };
+  /** Lock timestamp */
+  lockedAt: Date;
+};
+
+/**
+ * Options for LFS lock
+ */
+export type LfsLockOpts = {
+  /** Remote name */
+  remote?: string;
+  /** Output in JSON format */
+  json?: boolean;
+};
+
+/**
+ * Options for LFS unlock
+ */
+export type LfsUnlockOpts = {
+  /** Remote name */
+  remote?: string;
+  /** Force unlock (even if owned by another user) */
+  force?: boolean;
+  /** Unlock by ID instead of path */
+  id?: string;
+  /** Output in JSON format */
+  json?: boolean;
+};
+
+/**
+ * Options for LFS locks
+ */
+export type LfsLocksOpts = {
+  /** Remote name */
+  remote?: string;
+  /** Filter by lock ID */
+  id?: string;
+  /** Filter by path */
+  path?: string;
+  /** Show local cache only */
+  local?: boolean;
+  /** Show cached locks */
+  cached?: boolean;
+  /** Verify locks with server */
+  verify?: boolean;
+  /** Limit number of results */
+  limit?: number;
+  /** Output in JSON format */
+  json?: boolean;
+};
+
+/**
+ * Options for LFS checkout
+ */
+export type LfsCheckoutOpts = {
+  /** Use base version for conflicts */
+  base?: boolean;
+  /** Use ours version for conflicts */
+  ours?: boolean;
+  /** Use theirs version for conflicts */
+  theirs?: boolean;
+  /** Write to file instead of working tree */
+  to?: string;
+  /** Include patterns */
+  include?: string | Array<string>;
+  /** Exclude patterns */
+  exclude?: string | Array<string>;
+};
+
+/**
+ * Options for LFS migrate info
+ */
+export type LfsMigrateInfoOpts = {
+  /** Only show files above this size */
+  above?: string | number;
+  /** Show top N files */
+  top?: number;
+  /** Size unit (b, kb, mb, gb) */
+  unit?: 'b' | 'kb' | 'mb' | 'gb';
+  /** Show pointer files */
+  pointers?: 'follow' | 'no-follow' | 'ignore';
+  /** Fix up tracking patterns */
+  fixup?: boolean;
+  /** Include patterns */
+  include?: string | Array<string>;
+  /** Exclude patterns */
+  exclude?: string | Array<string>;
+  /** Include refs */
+  includeRef?: string | Array<string>;
+  /** Exclude refs */
+  excludeRef?: string | Array<string>;
+  /** Skip fetching from remote */
+  skipFetch?: boolean;
+  /** Operate on all refs */
+  everything?: boolean;
+  /** Confirm destructive operation */
+  yesReally?: boolean;
+};
+
+/**
+ * Options for LFS migrate import
+ */
+export type LfsMigrateImportOpts = LfsMigrateInfoOpts & {
+  /** Show verbose output */
+  verbose?: boolean;
+  /** Write object map file */
+  objectMap?: string;
+  /** Don't rewrite history */
+  noRewrite?: boolean;
+  /** Commit message for fixup */
+  message?: string;
+  /** Object IDs to import */
+  object?: string | Array<string>;
+};
+
+/**
+ * Options for LFS migrate export
+ */
+export type LfsMigrateExportOpts = LfsMigrateInfoOpts & {
+  /** Show verbose output */
+  verbose?: boolean;
+  /** Write object map file */
+  objectMap?: string;
+  /** Remote name */
+  remote?: string;
+};
+
+/**
+ * LFS environment info
+ */
+export type LfsEnvInfo = {
+  /** LFS version */
+  lfsVersion: string;
+  /** Git version */
+  gitVersion: string;
+  /** Endpoint URL */
+  endpoint: string;
+  /** SSH endpoint */
+  sshEndpoint?: string;
+  /** Local working directory */
+  localWorkingDir?: string;
+  /** Local git directory */
+  localGitDir?: string;
+  /** Local git storage directory */
+  localGitStorageDir?: string;
+  /** Local media directory */
+  localMediaDir?: string;
+  /** Local reference directories */
+  localReferenceDirs?: string;
+  /** Temp directory */
+  tempDir?: string;
+  /** Concurrent transfers */
+  concurrentTransfers?: number;
+  /** TUS transfers enabled */
+  tusTransfers?: boolean;
+  /** Basic transfers only */
+  basicTransfersOnly?: boolean;
+  /** Skip download errors */
+  skipDownloadErrors?: boolean;
+  /** Fetch recent always */
+  fetchRecentAlways?: boolean;
+  /** Fetch recent refs days */
+  fetchRecentRefsDays?: number;
+  /** Fetch recent commits days */
+  fetchRecentCommitsDays?: number;
+  /** Fetch recent refs include remotes */
+  fetchRecentRefsIncludeRemotes?: boolean;
+  /** Prune offset days */
+  pruneOffsetDays?: number;
+  /** Prune verify remote always */
+  pruneVerifyRemoteAlways?: boolean;
+  /** Prune remote name */
+  pruneRemoteName?: string;
+  /** Access mode for downloads */
+  accessDownload?: string;
+  /** Access mode for uploads */
+  accessUpload?: string;
 };
 
 // =============================================================================
@@ -750,6 +1840,16 @@ export type WorktreeAddOpts = {
   detach?: boolean;
   /** Track remote branch */
   track?: boolean;
+
+  // New options
+  /** Force creation even if branch is already checked out */
+  force?: boolean;
+  /** Checkout the worktree (true) or not (false) */
+  checkout?: boolean;
+  /** Keep the worktree locked after creation */
+  lock?: boolean;
+  /** Create worktree with orphan branch */
+  orphan?: boolean;
 };
 
 /**
@@ -768,7 +1868,25 @@ export type WorktreePruneOpts = {
   dryRun?: boolean;
   /** Show more details */
   verbose?: boolean;
+
+  // New options
+  /** Expire worktrees older than the given time */
+  expire?: string;
 };
+
+/**
+ * Options for worktree move
+ */
+export type WorktreeMoveOpts = {
+  /** Force move even if destination exists */
+  force?: boolean;
+};
+
+/**
+ * Options for worktree repair
+ */
+// biome-ignore lint/complexity/noBannedTypes: Reserved for future options
+export type WorktreeRepairOpts = {};
 
 /**
  * Options for locking a worktree
@@ -811,6 +1929,16 @@ export interface WorktreeOperations {
    * Unlock a worktree
    */
   unlock(path: string, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Move a worktree to a new location
+   */
+  move(src: string, dst: string, opts?: WorktreeMoveOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Repair worktree administrative files
+   */
+  repair(paths?: Array<string>, opts?: ExecOpts): Promise<void>;
 }
 
 /**
@@ -836,6 +1964,86 @@ export interface LfsOperations {
    * Prune old and unreferenced LFS objects from local storage
    */
   prune(opts?: LfsPruneOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Fetch LFS objects from remote
+   */
+  fetch(opts?: LfsFetchOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Install Git LFS hooks
+   */
+  install(opts?: LfsInstallOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Uninstall Git LFS hooks
+   */
+  uninstall(opts?: LfsUninstallOpts & ExecOpts): Promise<void>;
+
+  /**
+   * List LFS files in the repository
+   */
+  lsFiles(opts?: LfsLsFilesOpts & ExecOpts): Promise<Array<LfsFileEntry>>;
+
+  /**
+   * Track files with LFS
+   */
+  track(patterns: string | Array<string>, opts?: LfsTrackOpts & ExecOpts): Promise<void>;
+
+  /**
+   * List tracked patterns
+   */
+  trackList(opts?: ExecOpts): Promise<Array<LfsTrackEntry>>;
+
+  /**
+   * Untrack files from LFS
+   */
+  untrack(patterns: string | Array<string>, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Lock a file
+   */
+  lock(path: string, opts?: LfsLockOpts & ExecOpts): Promise<LfsLockEntry>;
+
+  /**
+   * Unlock a file
+   */
+  unlock(pathOrId: string, opts?: LfsUnlockOpts & ExecOpts): Promise<void>;
+
+  /**
+   * List locked files
+   */
+  locks(opts?: LfsLocksOpts & ExecOpts): Promise<Array<LfsLockEntry>>;
+
+  /**
+   * Checkout LFS files (replace pointer files with actual content)
+   */
+  checkout(patterns?: string | Array<string>, opts?: LfsCheckoutOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Show information about LFS files that would be migrated
+   */
+  migrateInfo(opts?: LfsMigrateInfoOpts & ExecOpts): Promise<string>;
+
+  /**
+   * Import files into LFS
+   */
+  migrateImport(opts?: LfsMigrateImportOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Export files from LFS
+   */
+  migrateExport(opts?: LfsMigrateExportOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Get LFS environment information
+   */
+  env(opts?: ExecOpts): Promise<LfsEnvInfo>;
+
+  /**
+   * Get Git LFS version
+   */
+  version(opts?: ExecOpts): Promise<string>;
 }
 
 /**
@@ -990,6 +2198,52 @@ export type RemoteAddOpts = {
   fetch?: boolean;
   /** Set up as mirror */
   mirror?: 'fetch' | 'push';
+
+  // New options
+  /** Import tags from remote (true) or not (false) */
+  tags?: boolean;
+};
+
+/**
+ * Options for remote set-head
+ */
+export type RemoteSetHeadOpts = {
+  /** Automatically determine remote HEAD */
+  auto?: boolean;
+  /** Delete the symbolic-ref for remote HEAD */
+  delete?: boolean;
+};
+
+/**
+ * Options for remote show
+ */
+export type RemoteShowOpts = {
+  /** Do not query remote heads */
+  noQuery?: boolean;
+};
+
+/**
+ * Options for remote prune
+ */
+export type RemotePruneOpts = {
+  /** Dry run - show what would be pruned */
+  dryRun?: boolean;
+};
+
+/**
+ * Options for remote update
+ */
+export type RemoteUpdateOpts = {
+  /** Prune remote-tracking branches */
+  prune?: boolean;
+};
+
+/**
+ * Options for remote set-branches
+ */
+export type RemoteSetBranchesOpts = {
+  /** Add branches instead of replacing */
+  add?: boolean;
 };
 
 /**
@@ -1033,6 +2287,31 @@ export interface RemoteOperations {
    * Set remote URL
    */
   setUrl(name: string, url: string, opts?: RemoteUrlOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Set remote HEAD
+   */
+  setHead(remote: string, branch?: string, opts?: RemoteSetHeadOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Show information about a remote
+   */
+  show(remote: string, opts?: RemoteShowOpts & ExecOpts): Promise<string>;
+
+  /**
+   * Prune stale remote-tracking branches
+   */
+  prune(remote: string, opts?: RemotePruneOpts & ExecOpts): Promise<Array<string>>;
+
+  /**
+   * Update remotes
+   */
+  update(remotes?: Array<string>, opts?: RemoteUpdateOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Set tracked branches for a remote
+   */
+  setBranches(remote: string, branches: Array<string>, opts?: RemoteSetBranchesOpts & ExecOpts): Promise<void>;
 }
 
 // =============================================================================
@@ -1055,6 +2334,12 @@ export type ConfigEntry = {
 export type ConfigGetOpts = {
   /** Get all values for multi-valued key */
   all?: boolean;
+
+  // New options
+  /** Type to interpret the value as */
+  type?: 'bool' | 'int' | 'bool-or-int' | 'path' | 'expiry-date' | 'color';
+  /** Default value to use if the key is not set */
+  default?: string;
 };
 
 /**
@@ -1073,6 +2358,12 @@ export type ConfigListOpts = {
   showOrigin?: boolean;
   /** Show scope of each value */
   showScope?: boolean;
+
+  // New options
+  /** Respect include directives */
+  includes?: boolean;
+  /** Only show config key names */
+  nameOnly?: boolean;
 };
 
 // =============================================================================
@@ -1223,6 +2514,16 @@ export interface ConfigOperations {
    * List all config values
    */
   list(opts?: ConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>>;
+
+  /**
+   * Rename a config section
+   */
+  renameSection(oldName: string, newName: string, opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Remove a config section
+   */
+  removeSection(name: string, opts?: ExecOpts): Promise<void>;
 }
 
 /**
@@ -1247,12 +2548,47 @@ export interface SubmoduleOperations {
   /**
    * Add a submodule
    */
-  add(url: string, path: string, opts?: ExecOpts): Promise<void>;
+  add(url: string, path: string, opts?: SubmoduleAddOpts & ExecOpts): Promise<void>;
 
   /**
    * Deinitialize a submodule
    */
-  deinit(path: string, opts?: ExecOpts): Promise<void>;
+  deinit(path: string, opts?: SubmoduleDeinitOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Get submodule status
+   */
+  status(paths?: Array<string>, opts?: SubmoduleStatusOpts & ExecOpts): Promise<string>;
+
+  /**
+   * Get submodule summary
+   */
+  summary(opts?: SubmoduleSummaryOpts & ExecOpts): Promise<string>;
+
+  /**
+   * Run a command in each submodule
+   */
+  foreach(command: string, opts?: SubmoduleForeachOpts & ExecOpts): Promise<string>;
+
+  /**
+   * Sync submodule URL configuration
+   */
+  sync(paths?: Array<string>, opts?: SubmoduleSyncOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Absorb git directories of submodules into the superproject
+   */
+  absorbGitDirs(opts?: ExecOpts): Promise<void>;
+
+  /**
+   * Set the branch for a submodule
+   */
+  setBranch(path: string, branch: string, opts?: SubmoduleSetBranchOpts & ExecOpts): Promise<void>;
+
+  /**
+   * Set the URL for a submodule
+   */
+  setUrl(path: string, url: string, opts?: ExecOpts): Promise<void>;
 }
 
 /**

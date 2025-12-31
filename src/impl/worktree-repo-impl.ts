@@ -28,7 +28,19 @@ import type {
   DiffOpts,
   DiffResult,
   FetchOpts,
+  LfsCheckoutOpts,
+  LfsEnvInfo,
   LfsExtraOperations,
+  LfsFetchOpts,
+  LfsFileEntry,
+  LfsInstallOpts,
+  LfsLockEntry,
+  LfsLockOpts,
+  LfsLocksOpts,
+  LfsLsFilesOpts,
+  LfsMigrateExportOpts,
+  LfsMigrateImportOpts,
+  LfsMigrateInfoOpts,
   LfsOperations,
   LfsPreDownloadOpts,
   LfsPreDownloadResult,
@@ -39,6 +51,10 @@ import type {
   LfsPushOpts,
   LfsStatus,
   LfsStatusOpts,
+  LfsTrackEntry,
+  LfsTrackOpts,
+  LfsUninstallOpts,
+  LfsUnlockOpts,
   LogOpts,
   MergeOpts,
   MergeResult,
@@ -49,6 +65,11 @@ import type {
   RemoteAddOpts,
   RemoteInfo,
   RemoteOperations,
+  RemotePruneOpts,
+  RemoteSetBranchesOpts,
+  RemoteSetHeadOpts,
+  RemoteShowOpts,
+  RemoteUpdateOpts,
   RemoteUrlOpts,
   ResetOpts,
   RestoreOpts,
@@ -62,9 +83,16 @@ import type {
   StatusEntry,
   StatusOpts,
   StatusPorcelain,
+  SubmoduleAddOpts,
+  SubmoduleDeinitOpts,
+  SubmoduleForeachOpts,
   SubmoduleInfo,
   SubmoduleOperations,
   SubmoduleOpts,
+  SubmoduleSetBranchOpts,
+  SubmoduleStatusOpts,
+  SubmoduleSummaryOpts,
+  SubmoduleSyncOpts,
   SwitchOpts,
   TagCreateOpts,
   TagInfo,
@@ -73,6 +101,7 @@ import type {
   Worktree,
   WorktreeAddOpts,
   WorktreeLockOpts,
+  WorktreeMoveOpts,
   WorktreeOperations,
   WorktreePruneOpts,
   WorktreeRemoveOpts,
@@ -126,6 +155,22 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       push: this.lfsPush.bind(this),
       status: this.lfsStatus.bind(this),
       prune: this.lfsPrune.bind(this),
+      fetch: this.lfsFetch.bind(this),
+      install: this.lfsInstall.bind(this),
+      uninstall: this.lfsUninstall.bind(this),
+      lsFiles: this.lfsLsFiles.bind(this),
+      track: this.lfsTrack.bind(this),
+      trackList: this.lfsTrackList.bind(this),
+      untrack: this.lfsUntrack.bind(this),
+      lock: this.lfsLock.bind(this),
+      unlock: this.lfsUnlock.bind(this),
+      locks: this.lfsLocks.bind(this),
+      checkout: this.lfsCheckout.bind(this),
+      migrateInfo: this.lfsMigrateInfo.bind(this),
+      migrateImport: this.lfsMigrateImport.bind(this),
+      migrateExport: this.lfsMigrateExport.bind(this),
+      env: this.lfsEnv.bind(this),
+      version: this.lfsVersion.bind(this),
     };
 
     // Initialize LFS extra operations
@@ -142,6 +187,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       prune: this.worktreePrune.bind(this),
       lock: this.worktreeLock.bind(this),
       unlock: this.worktreeUnlock.bind(this),
+      move: this.worktreeMove.bind(this),
+      repair: this.worktreeRepair.bind(this),
     };
 
     // Initialize branch operations
@@ -178,6 +225,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       update: this.submoduleUpdate.bind(this),
       add: this.submoduleAdd.bind(this),
       deinit: this.submoduleDeinit.bind(this),
+      status: this.submoduleStatus.bind(this),
+      summary: this.submoduleSummary.bind(this),
+      foreach: this.submoduleForeach.bind(this),
+      sync: this.submoduleSync.bind(this),
+      absorbGitDirs: this.submoduleAbsorbGitDirs.bind(this),
+      setBranch: this.submoduleSetBranch.bind(this),
+      setUrl: this.submoduleSetUrl.bind(this),
     };
 
     // Initialize remote operations
@@ -188,6 +242,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       rename: this.remoteRename.bind(this),
       getUrl: this.remoteGetUrl.bind(this),
       setUrl: this.remoteSetUrl.bind(this),
+      setHead: this.remoteSetHead.bind(this),
+      show: this.remoteShow.bind(this),
+      prune: this.remotePrune.bind(this),
+      update: this.remoteUpdate.bind(this),
+      setBranches: this.remoteSetBranches.bind(this),
     };
 
     // Initialize config operations (repository-level)
@@ -201,6 +260,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       setRaw: this.configSetRaw.bind(this),
       unsetRaw: this.configUnsetRaw.bind(this),
       list: this.configList.bind(this),
+      renameSection: this.configRenameSection.bind(this),
+      removeSection: this.configRemoveSection.bind(this),
     };
   }
 
@@ -221,6 +282,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async status(opts?: StatusOpts & ExecOpts): Promise<StatusPorcelain> {
     const args = ['status', '--porcelain=v2'];
 
+    // Verbosity options
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    // Untracked files handling
     if (opts?.untracked) {
       switch (opts.untracked) {
         case 'no':
@@ -237,6 +304,52 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     // Add branch info
     args.push('--branch');
+
+    // Show stash information
+    if (opts?.showStash) {
+      args.push('--show-stash');
+    }
+
+    // Ahead/behind tracking
+    if (opts?.aheadBehind === false) {
+      args.push('--no-ahead-behind');
+    }
+
+    // NUL terminator
+    if (opts?.nullTerminated) {
+      args.push('-z');
+    }
+
+    // Ignored files handling
+    if (opts?.ignored) {
+      switch (opts.ignored) {
+        case 'traditional':
+          args.push('--ignored=traditional');
+          break;
+        case 'no':
+          args.push('--ignored=no');
+          break;
+        case 'matching':
+          args.push('--ignored=matching');
+          break;
+      }
+    }
+
+    // Submodule handling
+    if (opts?.ignoreSubmodules) {
+      args.push(`--ignore-submodules=${opts.ignoreSubmodules}`);
+    }
+
+    // Rename detection
+    if (opts?.noRenames) {
+      args.push('--no-renames');
+    } else if (opts?.findRenames !== undefined) {
+      if (opts.findRenames === true) {
+        args.push('--find-renames');
+      } else if (typeof opts.findRenames === 'number') {
+        args.push(`--find-renames=${opts.findRenames}`);
+      }
+    }
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -337,14 +450,21 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push(`--skip=${opts.skip}`);
     }
 
+    // Date filters (since/after and until/before are aliases)
     if (opts?.since) {
       const since = opts.since instanceof Date ? opts.since.toISOString() : opts.since;
       args.push(`--since=${since}`);
+    } else if (opts?.after) {
+      const after = opts.after instanceof Date ? opts.after.toISOString() : opts.after;
+      args.push(`--after=${after}`);
     }
 
     if (opts?.until) {
       const until = opts.until instanceof Date ? opts.until.toISOString() : opts.until;
       args.push(`--until=${until}`);
+    } else if (opts?.before) {
+      const before = opts.before instanceof Date ? opts.before.toISOString() : opts.before;
+      args.push(`--before=${before}`);
     }
 
     if (opts?.author) {
@@ -361,6 +481,59 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.firstParent) {
       args.push('--first-parent');
+    }
+
+    // New options
+    if (opts?.source) {
+      args.push('--source');
+    }
+
+    if (opts?.useMailmap) {
+      args.push('--use-mailmap');
+    }
+
+    if (opts?.decorateRefs) {
+      args.push(`--decorate-refs=${opts.decorateRefs}`);
+    }
+
+    if (opts?.decorateRefsExclude) {
+      args.push(`--decorate-refs-exclude=${opts.decorateRefsExclude}`);
+    }
+
+    if (opts?.decorate) {
+      args.push(`--decorate=${opts.decorate}`);
+    }
+
+    if (opts?.stat) {
+      args.push('--stat');
+    }
+
+    if (opts?.shortstat) {
+      args.push('--shortstat');
+    }
+
+    if (opts?.nameOnly) {
+      args.push('--name-only');
+    }
+
+    if (opts?.nameStatus) {
+      args.push('--name-status');
+    }
+
+    if (opts?.merges) {
+      args.push('--merges');
+    }
+
+    if (opts?.noMerges) {
+      args.push('--no-merges');
+    }
+
+    if (opts?.ancestryPath) {
+      args.push('--ancestry-path');
+    }
+
+    if (opts?.reverse) {
+      args.push('--reverse');
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -394,22 +567,175 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async fetch(opts?: FetchOpts & ExecOpts): Promise<void> {
     const args = ['fetch'];
 
+    // Progress tracking
     if (opts?.onProgress) {
       args.push('--progress');
     }
 
+    // Verbosity options
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    // Fetch from all remotes
+    if (opts?.all) {
+      args.push('--all');
+    }
+
+    // Set upstream tracking
+    if (opts?.setUpstream) {
+      args.push('--set-upstream');
+    }
+
+    // Append to FETCH_HEAD
+    if (opts?.append) {
+      args.push('--append');
+    }
+
+    // Atomic transaction
+    if (opts?.atomic) {
+      args.push('--atomic');
+    }
+
+    // Force update
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    // Multiple remotes
+    if (opts?.multiple) {
+      args.push('--multiple');
+    }
+
+    // Prune options
     if (opts?.prune) {
       args.push('--prune');
     }
 
-    if (opts?.tags) {
-      args.push('--tags');
+    if (opts?.pruneTags) {
+      args.push('--prune-tags');
     }
 
+    // Tag handling
+    if (opts?.tags) {
+      args.push('--tags');
+    } else if (opts?.noTags) {
+      args.push('--no-tags');
+    }
+
+    // Parallel jobs for submodules
+    if (opts?.jobs !== undefined) {
+      args.push(`--jobs=${opts.jobs}`);
+    }
+
+    // Prefetch mode
+    if (opts?.prefetch) {
+      args.push('--prefetch');
+    }
+
+    // Submodule recursion
+    if (opts?.recurseSubmodules !== undefined) {
+      if (opts.recurseSubmodules === true || opts.recurseSubmodules === 'yes') {
+        args.push('--recurse-submodules=yes');
+      } else if (opts.recurseSubmodules === 'on-demand') {
+        args.push('--recurse-submodules=on-demand');
+      } else if (opts.recurseSubmodules === 'no' || opts.recurseSubmodules === false) {
+        args.push('--recurse-submodules=no');
+      }
+    }
+
+    // Dry run
+    if (opts?.dryRun) {
+      args.push('--dry-run');
+    }
+
+    // FETCH_HEAD writing
+    if (opts?.writeFetchHead === false) {
+      args.push('--no-write-fetch-head');
+    }
+
+    // Keep downloaded pack
+    if (opts?.keep) {
+      args.push('--keep');
+    }
+
+    // Update head
+    if (opts?.updateHeadOk) {
+      args.push('--update-head-ok');
+    }
+
+    // Shallow clone options
     if (opts?.depth !== undefined) {
       args.push(`--depth=${opts.depth}`);
     }
 
+    if (opts?.shallowSince) {
+      const since =
+        opts.shallowSince instanceof Date ? opts.shallowSince.toISOString() : opts.shallowSince;
+      args.push(`--shallow-since=${since}`);
+    }
+
+    if (opts?.shallowExclude) {
+      const excludes = Array.isArray(opts.shallowExclude)
+        ? opts.shallowExclude
+        : [opts.shallowExclude];
+      for (const exclude of excludes) {
+        args.push(`--shallow-exclude=${exclude}`);
+      }
+    }
+
+    if (opts?.deepen !== undefined) {
+      args.push(`--deepen=${opts.deepen}`);
+    }
+
+    if (opts?.unshallow) {
+      args.push('--unshallow');
+    }
+
+    // Refetch all objects
+    if (opts?.refetch) {
+      args.push('--refetch');
+    }
+
+    // Update shallow boundary
+    if (opts?.updateShallow) {
+      args.push('--update-shallow');
+    }
+
+    // Refmap override
+    if (opts?.refmap) {
+      args.push(`--refmap=${opts.refmap}`);
+    }
+
+    // Network options
+    if (opts?.ipv4) {
+      args.push('--ipv4');
+    }
+
+    if (opts?.ipv6) {
+      args.push('--ipv6');
+    }
+
+    // Partial clone filter
+    if (opts?.filter) {
+      args.push(`--filter=${opts.filter}`);
+    }
+
+    // Show forced updates
+    if (opts?.showForcedUpdates === false) {
+      args.push('--no-show-forced-updates');
+    }
+
+    // Write commit graph
+    if (opts?.writeCommitGraph) {
+      args.push('--write-commit-graph');
+    }
+
+    // Remote and refspec (must be last)
     if (opts?.remote) {
       args.push(opts.remote);
     }
@@ -431,10 +757,43 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async push(opts?: PushOpts & ExecOpts): Promise<void> {
     const args = ['push'];
 
+    // Progress tracking
     if (opts?.onProgress) {
       args.push('--progress');
     }
 
+    // Verbosity options
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    // Repository override
+    if (opts?.repo) {
+      args.push(`--repo=${opts.repo}`);
+    }
+
+    // Push all branches
+    if (opts?.all) {
+      args.push('--all');
+    } else if (opts?.branches) {
+      args.push('--branches');
+    }
+
+    // Mirror mode
+    if (opts?.mirror) {
+      args.push('--mirror');
+    }
+
+    // Delete refs
+    if (opts?.deleteRefs) {
+      args.push('--delete');
+    }
+
+    // Force options
     if (opts?.force) {
       args.push('--force');
     } else if (opts?.forceWithLease !== undefined && opts.forceWithLease !== false) {
@@ -451,18 +810,63 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       }
     }
 
+    if (opts?.forceIfIncludes) {
+      args.push('--force-if-includes');
+    }
+
+    // Dry run
+    if (opts?.dryRun) {
+      args.push('--dry-run');
+    }
+
+    // Submodule recursion
+    if (opts?.recurseSubmodules) {
+      args.push(`--recurse-submodules=${opts.recurseSubmodules}`);
+    }
+
+    // Thin pack
+    if (opts?.thin === false) {
+      args.push('--no-thin');
+    }
+
+    // Prune remote-tracking branches
+    if (opts?.prune) {
+      args.push('--prune');
+    }
+
+    // Tag handling
     if (opts?.tags) {
       args.push('--tags');
     }
 
+    if (opts?.followTags) {
+      args.push('--follow-tags');
+    }
+
+    // Atomic transaction
+    if (opts?.atomic) {
+      args.push('--atomic');
+    }
+
+    // Push options
+    if (opts?.pushOption) {
+      const pushOptions = Array.isArray(opts.pushOption) ? opts.pushOption : [opts.pushOption];
+      for (const opt of pushOptions) {
+        args.push('--push-option', opt);
+      }
+    }
+
+    // Set upstream tracking
     if (opts?.setUpstream) {
       args.push('--set-upstream');
     }
 
+    // Bypass pre-push hook
     if (opts?.noVerify) {
       args.push('--no-verify');
     }
 
+    // GPG signing
     if (opts?.signed !== undefined) {
       if (opts.signed === true) {
         args.push('--signed');
@@ -471,6 +875,16 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       }
     }
 
+    // Network options
+    if (opts?.ipv4) {
+      args.push('--ipv4');
+    }
+
+    if (opts?.ipv6) {
+      args.push('--ipv6');
+    }
+
+    // Remote and refspec (must be last)
     if (opts?.remote) {
       args.push(opts.remote);
     }
@@ -531,7 +945,21 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return;
     }
 
-    const args = ['lfs', 'push', '--all'];
+    const args = ['lfs', 'push'];
+
+    if (opts?.dryRun) {
+      args.push('--dry-run');
+    }
+
+    if (opts?.objectId) {
+      const oids = Array.isArray(opts.objectId) ? opts.objectId : [opts.objectId];
+      for (const oid of oids) {
+        args.push('--object-id', oid);
+      }
+    } else {
+      // Default to --all if not pushing specific objects
+      args.push('--all');
+    }
 
     if (opts?.remote) {
       args.push(opts.remote);
@@ -554,6 +982,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.json) {
       args.push('--json');
+    }
+
+    if (opts?.porcelain) {
+      args.push('--porcelain');
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -804,10 +1236,628 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--verify-unreferenced');
     }
 
+    if (opts?.recent) {
+      args.push('--recent');
+    }
+
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.whenUnverified) {
+      args.push(`--when-unverified=${opts.whenUnverified}`);
+    }
+
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
     });
+  }
+
+  private async lfsFetch(opts?: LfsFetchOpts & ExecOpts): Promise<void> {
+    if (this._lfsMode === 'disabled') {
+      return;
+    }
+
+    const args = ['lfs', 'fetch'];
+
+    if (opts?.onProgress) {
+      args.push('--progress');
+    }
+
+    if (opts?.all) {
+      args.push('--all');
+    }
+
+    if (opts?.prune) {
+      args.push('--prune');
+    }
+
+    if (opts?.recent) {
+      args.push('--recent');
+    }
+
+    if (opts?.include) {
+      const patterns = Array.isArray(opts.include) ? opts.include : [opts.include];
+      for (const pattern of patterns) {
+        args.push('--include', pattern);
+      }
+    }
+
+    if (opts?.exclude) {
+      const patterns = Array.isArray(opts.exclude) ? opts.exclude : [opts.exclude];
+      for (const pattern of patterns) {
+        args.push('--exclude', pattern);
+      }
+    }
+
+    if (opts?.remote) {
+      args.push(opts.remote);
+    }
+
+    if (opts?.refs) {
+      const refList = Array.isArray(opts.refs) ? opts.refs : [opts.refs];
+      args.push(...refList);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+      onProgress: opts?.onProgress,
+    });
+  }
+
+  private async lfsInstall(opts?: LfsInstallOpts & ExecOpts): Promise<void> {
+    const args = ['lfs', 'install'];
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.local) {
+      args.push('--local');
+    }
+
+    if (opts?.system) {
+      args.push('--system');
+    }
+
+    if (opts?.worktree) {
+      args.push('--worktree');
+    }
+
+    if (opts?.skipSmudge) {
+      args.push('--skip-smudge');
+    }
+
+    if (opts?.skipRepo) {
+      args.push('--skip-repo');
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async lfsUninstall(opts?: LfsUninstallOpts & ExecOpts): Promise<void> {
+    const args = ['lfs', 'uninstall'];
+
+    if (opts?.local) {
+      args.push('--local');
+    }
+
+    if (opts?.system) {
+      args.push('--system');
+    }
+
+    if (opts?.worktree) {
+      args.push('--worktree');
+    }
+
+    if (opts?.skipRepo) {
+      args.push('--skip-repo');
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async lfsLsFiles(opts?: LfsLsFilesOpts & ExecOpts): Promise<Array<LfsFileEntry>> {
+    if (this._lfsMode === 'disabled') {
+      return [];
+    }
+
+    const args = ['lfs', 'ls-files'];
+
+    if (opts?.long) {
+      args.push('--long');
+    }
+
+    if (opts?.size) {
+      args.push('--size');
+    }
+
+    if (opts?.debug) {
+      args.push('--debug');
+    }
+
+    if (opts?.all) {
+      args.push('--all');
+    }
+
+    if (opts?.deleted) {
+      args.push('--deleted');
+    }
+
+    if (opts?.include) {
+      const patterns = Array.isArray(opts.include) ? opts.include : [opts.include];
+      for (const pattern of patterns) {
+        args.push('--include', pattern);
+      }
+    }
+
+    if (opts?.exclude) {
+      const patterns = Array.isArray(opts.exclude) ? opts.exclude : [opts.exclude];
+      for (const pattern of patterns) {
+        args.push('--exclude', pattern);
+      }
+    }
+
+    if (opts?.ref) {
+      args.push(opts.ref);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    const entries: Array<LfsFileEntry> = [];
+    for (const line of parseLines(result.stdout)) {
+      // Format: <oid> <status> <filename> [size]
+      // Status: - (not checked out), * (checked out)
+      const match = line.match(/^([0-9a-f]+)\s+([-*])\s+(.+?)(?:\s+\((\d+)\s*(?:B|bytes)?\))?$/);
+      if (match) {
+        entries.push({
+          oid: match[1]!,
+          path: match[3]!,
+          size: match[4] ? Number.parseInt(match[4], 10) : undefined,
+          status: match[2] === '*' ? 'checked-out' : 'not-checked-out',
+        });
+      }
+    }
+
+    return entries;
+  }
+
+  private async lfsTrack(
+    patterns: string | Array<string>,
+    opts?: LfsTrackOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['lfs', 'track'];
+
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.dryRun) {
+      args.push('--dry-run');
+    }
+
+    if (opts?.lockable) {
+      args.push('--lockable');
+    }
+
+    if (opts?.noModifyAttrs) {
+      args.push('--no-modify-attrs');
+    }
+
+    if (opts?.noExcluded) {
+      args.push('--no-excluded');
+    }
+
+    const patternList = Array.isArray(patterns) ? patterns : [patterns];
+    args.push(...patternList);
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async lfsTrackList(opts?: ExecOpts): Promise<Array<LfsTrackEntry>> {
+    if (this._lfsMode === 'disabled') {
+      return [];
+    }
+
+    const result = await this.runner.runOrThrow(this.context, ['lfs', 'track'], {
+      signal: opts?.signal,
+    });
+
+    const entries: Array<LfsTrackEntry> = [];
+    for (const line of parseLines(result.stdout)) {
+      // Format: "Listing tracked patterns\n    *.psd (.gitattributes)\n    *.bin (.gitattributes) [lockable]"
+      const match = line.match(/^\s+(\S+)\s+\(([^)]+)\)(?:\s+\[lockable\])?$/);
+      if (match) {
+        entries.push({
+          pattern: match[1]!,
+          source: match[2]!,
+          lockable: line.includes('[lockable]'),
+        });
+      }
+    }
+
+    return entries;
+  }
+
+  private async lfsUntrack(patterns: string | Array<string>, opts?: ExecOpts): Promise<void> {
+    const args = ['lfs', 'untrack'];
+
+    const patternList = Array.isArray(patterns) ? patterns : [patterns];
+    args.push(...patternList);
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async lfsLock(path: string, opts?: LfsLockOpts & ExecOpts): Promise<LfsLockEntry> {
+    if (this._lfsMode === 'disabled') {
+      throw new Error('LFS is disabled');
+    }
+
+    const args = ['lfs', 'lock', '--json'];
+
+    if (opts?.remote) {
+      args.push('--remote', opts.remote);
+    }
+
+    args.push(path);
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    const data = JSON.parse(result.stdout) as {
+      id: string;
+      path: string;
+      owner: { name: string };
+      locked_at: string;
+    };
+
+    return {
+      id: data.id,
+      path: data.path,
+      owner: { name: data.owner.name },
+      lockedAt: new Date(data.locked_at),
+    };
+  }
+
+  private async lfsUnlock(pathOrId: string, opts?: LfsUnlockOpts & ExecOpts): Promise<void> {
+    if (this._lfsMode === 'disabled') {
+      return;
+    }
+
+    const args = ['lfs', 'unlock'];
+
+    if (opts?.id) {
+      args.push('--id');
+    }
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.remote) {
+      args.push('--remote', opts.remote);
+    }
+
+    args.push(pathOrId);
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async lfsLocks(opts?: LfsLocksOpts & ExecOpts): Promise<Array<LfsLockEntry>> {
+    if (this._lfsMode === 'disabled') {
+      return [];
+    }
+
+    const args = ['lfs', 'locks', '--json'];
+
+    if (opts?.remote) {
+      args.push('--remote', opts.remote);
+    }
+
+    if (opts?.path) {
+      args.push('--path', opts.path);
+    }
+
+    if (opts?.id) {
+      args.push('--id', opts.id);
+    }
+
+    if (opts?.local) {
+      args.push('--local');
+    }
+
+    if (opts?.cached) {
+      args.push('--cached');
+    }
+
+    if (opts?.limit !== undefined) {
+      args.push('--limit', String(opts.limit));
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    const data = JSON.parse(result.stdout) as Array<{
+      id: string;
+      path: string;
+      owner: { name: string };
+      locked_at: string;
+    }>;
+
+    return data.map((lock) => ({
+      id: lock.id,
+      path: lock.path,
+      owner: { name: lock.owner.name },
+      lockedAt: new Date(lock.locked_at),
+    }));
+  }
+
+  private async lfsCheckout(
+    patterns?: string | Array<string>,
+    opts?: LfsCheckoutOpts & ExecOpts,
+  ): Promise<void> {
+    if (this._lfsMode === 'disabled') {
+      return;
+    }
+
+    const args = ['lfs', 'checkout'];
+
+    if (opts?.onProgress) {
+      args.push('--progress');
+    }
+
+    if (opts?.include) {
+      const includes = Array.isArray(opts.include) ? opts.include : [opts.include];
+      for (const pattern of includes) {
+        args.push('--include', pattern);
+      }
+    }
+
+    if (opts?.exclude) {
+      const excludes = Array.isArray(opts.exclude) ? opts.exclude : [opts.exclude];
+      for (const pattern of excludes) {
+        args.push('--exclude', pattern);
+      }
+    }
+
+    if (patterns) {
+      const patternList = Array.isArray(patterns) ? patterns : [patterns];
+      args.push(...patternList);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+      onProgress: opts?.onProgress,
+    });
+  }
+
+  private async lfsMigrateInfo(opts?: LfsMigrateInfoOpts & ExecOpts): Promise<string> {
+    if (this._lfsMode === 'disabled') {
+      return '';
+    }
+
+    const args = ['lfs', 'migrate', 'info'];
+
+    this.appendMigrateArgs(args, opts);
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return result.stdout;
+  }
+
+  private async lfsMigrateImport(opts?: LfsMigrateImportOpts & ExecOpts): Promise<void> {
+    if (this._lfsMode === 'disabled') {
+      return;
+    }
+
+    const args = ['lfs', 'migrate', 'import'];
+
+    this.appendMigrateArgs(args, opts);
+
+    if (opts?.noRewrite) {
+      args.push('--no-rewrite');
+    }
+
+    if (opts?.object) {
+      const objects = Array.isArray(opts.object) ? opts.object : [opts.object];
+      for (const obj of objects) {
+        args.push('--object', obj);
+      }
+    }
+
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+      onProgress: opts?.onProgress,
+    });
+  }
+
+  private async lfsMigrateExport(opts?: LfsMigrateExportOpts & ExecOpts): Promise<void> {
+    if (this._lfsMode === 'disabled') {
+      return;
+    }
+
+    const args = ['lfs', 'migrate', 'export'];
+
+    this.appendMigrateArgs(args, opts);
+
+    if (opts?.remote) {
+      args.push('--remote', opts.remote);
+    }
+
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+      onProgress: opts?.onProgress,
+    });
+  }
+
+  private appendMigrateArgs(
+    args: Array<string>,
+    opts?: LfsMigrateInfoOpts,
+  ): void {
+    if (opts?.everything) {
+      args.push('--everything');
+    }
+
+    if (opts?.include) {
+      const patterns = Array.isArray(opts.include) ? opts.include : [opts.include];
+      for (const pattern of patterns) {
+        args.push('--include', pattern);
+      }
+    }
+
+    if (opts?.exclude) {
+      const patterns = Array.isArray(opts.exclude) ? opts.exclude : [opts.exclude];
+      for (const pattern of patterns) {
+        args.push('--exclude', pattern);
+      }
+    }
+
+    if (opts?.includeRef) {
+      const refs = Array.isArray(opts.includeRef) ? opts.includeRef : [opts.includeRef];
+      for (const ref of refs) {
+        args.push('--include-ref', ref);
+      }
+    }
+
+    if (opts?.excludeRef) {
+      const refs = Array.isArray(opts.excludeRef) ? opts.excludeRef : [opts.excludeRef];
+      for (const ref of refs) {
+        args.push('--exclude-ref', ref);
+      }
+    }
+
+    if (opts?.above !== undefined) {
+      args.push('--above', String(opts.above));
+    }
+
+    if (opts?.top !== undefined) {
+      args.push('--top', String(opts.top));
+    }
+
+    if (opts?.skipFetch) {
+      args.push('--skip-fetch');
+    }
+
+    if (opts?.yesReally) {
+      args.push('--yes');
+    }
+
+    if (opts?.fixup) {
+      args.push('--fixup');
+    }
+  }
+
+  private async lfsEnv(opts?: ExecOpts): Promise<LfsEnvInfo> {
+    const result = await this.runner.runOrThrow(this.context, ['lfs', 'env'], {
+      signal: opts?.signal,
+    });
+
+    const info: LfsEnvInfo = {
+      gitVersion: '',
+      lfsVersion: '',
+      endpoint: '',
+    };
+
+    for (const line of parseLines(result.stdout)) {
+      if (line.startsWith('git version')) {
+        info.gitVersion = line.replace('git version ', '').trim();
+      } else if (line.startsWith('git-lfs/')) {
+        info.lfsVersion = line.split(' ')[0]?.replace('git-lfs/', '') ?? '';
+      } else if (line.startsWith('Endpoint=')) {
+        info.endpoint = line.replace('Endpoint=', '').trim();
+      } else if (line.startsWith('  SSH=')) {
+        info.sshEndpoint = line.replace('  SSH=', '').trim();
+      } else if (line.startsWith('LocalWorkingDir=')) {
+        info.localWorkingDir = line.replace('LocalWorkingDir=', '').trim();
+      } else if (line.startsWith('LocalGitDir=')) {
+        info.localGitDir = line.replace('LocalGitDir=', '').trim();
+      } else if (line.startsWith('LocalGitStorageDir=')) {
+        info.localGitStorageDir = line.replace('LocalGitStorageDir=', '').trim();
+      } else if (line.startsWith('LocalMediaDir=')) {
+        info.localMediaDir = line.replace('LocalMediaDir=', '').trim();
+      } else if (line.startsWith('LocalReferenceDirs=')) {
+        info.localReferenceDirs = line.replace('LocalReferenceDirs=', '').trim();
+      } else if (line.startsWith('TempDir=')) {
+        info.tempDir = line.replace('TempDir=', '').trim();
+      } else if (line.startsWith('ConcurrentTransfers=')) {
+        info.concurrentTransfers = Number.parseInt(
+          line.replace('ConcurrentTransfers=', '').trim(),
+          10,
+        );
+      } else if (line.startsWith('TusTransfers=')) {
+        info.tusTransfers = line.replace('TusTransfers=', '').trim() === 'true';
+      } else if (line.startsWith('BasicTransfersOnly=')) {
+        info.basicTransfersOnly = line.replace('BasicTransfersOnly=', '').trim() === 'true';
+      } else if (line.startsWith('SkipDownloadErrors=')) {
+        info.skipDownloadErrors = line.replace('SkipDownloadErrors=', '').trim() === 'true';
+      } else if (line.startsWith('FetchRecentAlways=')) {
+        info.fetchRecentAlways = line.replace('FetchRecentAlways=', '').trim() === 'true';
+      } else if (line.startsWith('FetchRecentRefsDays=')) {
+        info.fetchRecentRefsDays = Number.parseInt(
+          line.replace('FetchRecentRefsDays=', '').trim(),
+          10,
+        );
+      } else if (line.startsWith('FetchRecentCommitsDays=')) {
+        info.fetchRecentCommitsDays = Number.parseInt(
+          line.replace('FetchRecentCommitsDays=', '').trim(),
+          10,
+        );
+      } else if (line.startsWith('FetchRecentRefsIncludeRemotes=')) {
+        info.fetchRecentRefsIncludeRemotes =
+          line.replace('FetchRecentRefsIncludeRemotes=', '').trim() === 'true';
+      } else if (line.startsWith('PruneOffsetDays=')) {
+        info.pruneOffsetDays = Number.parseInt(
+          line.replace('PruneOffsetDays=', '').trim(),
+          10,
+        );
+      } else if (line.startsWith('PruneVerifyRemoteAlways=')) {
+        info.pruneVerifyRemoteAlways =
+          line.replace('PruneVerifyRemoteAlways=', '').trim() === 'true';
+      } else if (line.startsWith('PruneRemoteName=')) {
+        info.pruneRemoteName = line.replace('PruneRemoteName=', '').trim();
+      } else if (line.startsWith('AccessDownload=')) {
+        info.accessDownload = line.replace('AccessDownload=', '').trim();
+      } else if (line.startsWith('AccessUpload=')) {
+        info.accessUpload = line.replace('AccessUpload=', '').trim();
+      }
+    }
+
+    return info;
+  }
+
+  private async lfsVersion(opts?: ExecOpts): Promise<string> {
+    const result = await this.runner.runOrThrow(this.context, ['lfs', 'version'], {
+      signal: opts?.signal,
+    });
+
+    // Format: "git-lfs/3.4.0 (GitHub; linux amd64; go 1.21.1)"
+    const match = result.stdout.match(/git-lfs\/(\S+)/);
+    return match?.[1] ?? result.stdout.trim();
   }
 
   // ==========================================================================
@@ -833,10 +1883,29 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--track');
     }
 
+    // New options
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.checkout === true) {
+      args.push('--checkout');
+    } else if (opts?.checkout === false) {
+      args.push('--no-checkout');
+    }
+
+    if (opts?.lock) {
+      args.push('--lock');
+    }
+
+    if (opts?.orphan) {
+      args.push('--orphan');
+    }
+
     args.push(path);
 
     if (opts?.branch) {
-      if (!opts.detach) {
+      if (!(opts.detach || opts.orphan)) {
         args.push('-b', opts.branch);
       }
     }
@@ -872,6 +1941,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--verbose');
     }
 
+    // New options
+    if (opts?.expire) {
+      args.push(`--expire=${opts.expire}`);
+    }
+
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
@@ -900,6 +1974,36 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     });
   }
 
+  private async worktreeMove(
+    src: string,
+    dst: string,
+    opts?: WorktreeMoveOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['worktree', 'move'];
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    args.push(src, dst);
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async worktreeRepair(paths?: Array<string>, opts?: ExecOpts): Promise<void> {
+    const args = ['worktree', 'repair'];
+
+    if (paths && paths.length > 0) {
+      args.push(...paths);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
   // ==========================================================================
   // High-level API - add
   // ==========================================================================
@@ -907,6 +2011,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async add(paths: string | Array<string>, opts?: AddOpts & ExecOpts): Promise<void> {
     const args = ['add'];
 
+    // Verbosity
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    // Main options
     if (opts?.all) {
       args.push('--all');
     }
@@ -921,6 +2031,43 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.force) {
       args.push('--force');
+    }
+
+    // New options
+    if (opts?.intentToAdd) {
+      args.push('--intent-to-add');
+    }
+
+    if (opts?.renormalize) {
+      args.push('--renormalize');
+    }
+
+    if (opts?.ignoreRemoval) {
+      args.push('--ignore-removal');
+    }
+
+    if (opts?.refresh) {
+      args.push('--refresh');
+    }
+
+    if (opts?.ignoreErrors) {
+      args.push('--ignore-errors');
+    }
+
+    if (opts?.ignoreMissing) {
+      args.push('--ignore-missing');
+    }
+
+    if (opts?.sparse) {
+      args.push('--sparse');
+    }
+
+    if (opts?.chmod) {
+      args.push(`--chmod=${opts.chmod}`);
+    }
+
+    if (opts?.pathspecFromFile) {
+      args.push(`--pathspec-from-file=${opts.pathspecFromFile}`);
     }
 
     const pathList = Array.isArray(paths) ? paths : [paths];
@@ -942,12 +2089,50 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       '--format=%(refname:short)%00%(objectname:short)%00%(upstream:short)%00%(upstream:track,nobracket)%00%(HEAD)',
     ];
 
+    // Existing options
     if (opts?.all) {
       args.push('--all');
     }
 
     if (opts?.remotes) {
       args.push('--remotes');
+    }
+
+    // New options
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.contains) {
+      args.push(`--contains=${opts.contains}`);
+    }
+
+    if (opts?.noContains) {
+      args.push(`--no-contains=${opts.noContains}`);
+    }
+
+    if (opts?.abbrev !== undefined) {
+      args.push(`--abbrev=${opts.abbrev}`);
+    }
+
+    if (opts?.merged) {
+      args.push(`--merged=${opts.merged}`);
+    }
+
+    if (opts?.noMerged) {
+      args.push(`--no-merged=${opts.noMerged}`);
+    }
+
+    if (opts?.sort) {
+      args.push(`--sort=${opts.sort}`);
+    }
+
+    if (opts?.pointsAt) {
+      args.push(`--points-at=${opts.pointsAt}`);
+    }
+
+    if (opts?.ignoreCase) {
+      args.push('--ignore-case');
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -992,12 +2177,26 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   private async branchCreate(name: string, opts?: BranchCreateOpts & ExecOpts): Promise<void> {
     const args = ['branch'];
 
+    // Existing options
     if (opts?.force) {
       args.push('--force');
     }
 
     if (opts?.track) {
       args.push('--track');
+    }
+
+    // New options
+    if (opts?.setUpstreamTo) {
+      args.push(`--set-upstream-to=${opts.setUpstreamTo}`);
+    }
+
+    if (opts?.createReflog) {
+      args.push('--create-reflog');
+    }
+
+    if (opts?.recurseSubmodules) {
+      args.push('--recurse-submodules');
     }
 
     args.push(name);
@@ -1044,16 +2243,76 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async checkout(target: string, opts?: CheckoutOpts & ExecOpts): Promise<void> {
     const args = ['checkout'];
 
+    // Existing options
     if (opts?.force) {
       args.push('--force');
     }
 
-    if (opts?.createBranch) {
+    if (opts?.forceCreateBranch) {
+      args.push('-B');
+    } else if (opts?.createBranch) {
       args.push('-b');
     }
 
     if (opts?.track) {
       args.push('--track');
+    }
+
+    // New options
+    if (opts?.createReflog) {
+      args.push('-l');
+    }
+
+    if (opts?.guess !== undefined) {
+      args.push(opts.guess ? '--guess' : '--no-guess');
+    }
+
+    if (opts?.overlay !== undefined) {
+      args.push(opts.overlay ? '--overlay' : '--no-overlay');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.recurseSubmodules) {
+      args.push('--recurse-submodules');
+    }
+
+    if (opts?.merge) {
+      args.push('--merge');
+    }
+
+    if (opts?.conflict) {
+      args.push(`--conflict=${opts.conflict}`);
+    }
+
+    if (opts?.detach) {
+      args.push('--detach');
+    }
+
+    if (opts?.orphan) {
+      args.push('--orphan');
+    }
+
+    if (opts?.overwriteIgnore === false) {
+      args.push('--no-overwrite-ignore');
+    }
+
+    if (opts?.ignoreOtherWorktrees) {
+      args.push('--ignore-other-worktrees');
+    }
+
+    if (opts?.ours) {
+      args.push('--ours');
+    }
+
+    if (opts?.theirs) {
+      args.push('--theirs');
+    }
+
+    if (opts?.pathspecFromFile) {
+      args.push(`--pathspec-from-file=${opts.pathspecFromFile}`);
     }
 
     args.push(target);
@@ -1074,6 +2333,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async commit(opts?: CommitOpts & ExecOpts): Promise<CommitResult> {
     const args = ['commit'];
 
+    // Existing options
     if (opts?.message) {
       args.push('-m', opts.message);
     }
@@ -1111,6 +2371,78 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('-S');
     } else if (opts?.noGpgSign) {
       args.push('--no-gpg-sign');
+    }
+
+    // New options
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.file) {
+      args.push('--file', opts.file);
+    }
+
+    if (opts?.reeditMessage) {
+      args.push('--reedit-message', opts.reeditMessage);
+    }
+
+    if (opts?.reuseMessage) {
+      args.push('--reuse-message', opts.reuseMessage);
+    }
+
+    if (opts?.fixup) {
+      args.push('--fixup', opts.fixup);
+    }
+
+    if (opts?.squash) {
+      args.push('--squash', opts.squash);
+    }
+
+    if (opts?.resetAuthor) {
+      args.push('--reset-author');
+    }
+
+    if (opts?.trailer) {
+      const trailers = Array.isArray(opts.trailer) ? opts.trailer : [opts.trailer];
+      for (const trailer of trailers) {
+        args.push('--trailer', trailer);
+      }
+    }
+
+    if (opts?.signoff) {
+      args.push('--signoff');
+    }
+
+    if (opts?.cleanup) {
+      args.push(`--cleanup=${opts.cleanup}`);
+    }
+
+    if (opts?.include) {
+      args.push('--include');
+    }
+
+    if (opts?.only) {
+      args.push('--only');
+    }
+
+    if (opts?.noPostRewrite) {
+      args.push('--no-post-rewrite');
+    }
+
+    if (opts?.untrackedFiles) {
+      args.push(`--untracked-files=${opts.untrackedFiles}`);
+    }
+
+    if (opts?.pathspecFromFile) {
+      args.push(`--pathspec-from-file=${opts.pathspecFromFile}`);
+    }
+
+    if (opts?.allowEmptyMessage) {
+      args.push('--allow-empty-message');
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
@@ -1171,6 +2503,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffResult> {
     const args = ['diff'];
 
+    // Existing options
     if (opts?.staged) {
       args.push('--staged');
     }
@@ -1189,6 +2522,95 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.ignoreWhitespace) {
       args.push('-w');
+    }
+
+    // New options
+    if (opts?.nullTerminated) {
+      args.push('-z');
+    }
+
+    if (opts?.patch) {
+      args.push('-p');
+    }
+
+    if (opts?.patchWithRaw) {
+      args.push('--patch-with-raw');
+    }
+
+    if (opts?.numstat) {
+      args.push('--numstat');
+    }
+
+    if (opts?.patchWithStat) {
+      args.push('--patch-with-stat');
+    }
+
+    if (opts?.fullIndex) {
+      args.push('--full-index');
+    }
+
+    if (opts?.abbrev !== undefined) {
+      args.push(`--abbrev=${opts.abbrev}`);
+    }
+
+    if (opts?.reverse) {
+      args.push('-R');
+    }
+
+    if (opts?.detectRewrites !== undefined) {
+      if (opts.detectRewrites === true) {
+        args.push('-B');
+      } else if (typeof opts.detectRewrites === 'string') {
+        args.push(`-B${opts.detectRewrites}`);
+      }
+    }
+
+    if (opts?.detectRenames !== undefined) {
+      if (opts.detectRenames === true) {
+        args.push('-M');
+      } else if (typeof opts.detectRenames === 'string') {
+        args.push(`-M${opts.detectRenames}`);
+      }
+    }
+
+    if (opts?.detectCopies !== undefined) {
+      if (opts.detectCopies === true) {
+        args.push('-C');
+      } else if (typeof opts.detectCopies === 'string') {
+        args.push(`-C${opts.detectCopies}`);
+      }
+    }
+
+    if (opts?.findCopiesHarder) {
+      args.push('--find-copies-harder');
+    }
+
+    if (opts?.renameLimit !== undefined) {
+      args.push(`-l${opts.renameLimit}`);
+    }
+
+    if (opts?.pickaxe) {
+      args.push(`-S${opts.pickaxe}`);
+    }
+
+    if (opts?.pickaxeAll) {
+      args.push('--pickaxe-all');
+    }
+
+    if (opts?.text) {
+      args.push('--text');
+    }
+
+    if (opts?.mergeBase) {
+      args.push(`--merge-base=${opts.mergeBase}`);
+    }
+
+    if (opts?.noIndex) {
+      args.push('--no-index');
+    }
+
+    if (opts?.wordDiff) {
+      args.push(`--word-diff=${opts.wordDiff}`);
     }
 
     if (target) {
@@ -1262,6 +2684,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     const args = ['merge'];
 
+    // Existing options
     if (opts?.message) {
       args.push('-m', opts.message);
     }
@@ -1295,6 +2718,73 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.noVerify) {
       args.push('--no-verify');
+    }
+
+    // New options
+    if (opts?.noDiffstat) {
+      args.push('-n');
+    } else if (opts?.stat) {
+      args.push('--stat');
+    }
+
+    if (opts?.compactSummary) {
+      args.push('--compact-summary');
+    }
+
+    if (opts?.log !== undefined) {
+      if (opts.log === true) {
+        args.push('--log');
+      } else if (typeof opts.log === 'number') {
+        args.push(`--log=${opts.log}`);
+      }
+    }
+
+    if (opts?.cleanup) {
+      args.push(`--cleanup=${opts.cleanup}`);
+    }
+
+    if (opts?.rerereAutoupdate !== undefined) {
+      args.push(opts.rerereAutoupdate ? '--rerere-autoupdate' : '--no-rerere-autoupdate');
+    }
+
+    if (opts?.verifySignatures) {
+      args.push('--verify-signatures');
+    }
+
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.allowUnrelatedHistories) {
+      args.push('--allow-unrelated-histories');
+    }
+
+    if (opts?.gpgSign !== undefined) {
+      if (opts.gpgSign === true) {
+        args.push('-S');
+      } else if (typeof opts.gpgSign === 'string') {
+        args.push(`-S${opts.gpgSign}`);
+      }
+    }
+
+    if (opts?.autostash) {
+      args.push('--autostash');
+    }
+
+    if (opts?.overwriteIgnore === false) {
+      args.push('--no-overwrite-ignore');
+    }
+
+    if (opts?.signoff) {
+      args.push('--signoff');
+    }
+
+    if (opts?.intoName) {
+      args.push(`--into-name=${opts.intoName}`);
     }
 
     args.push(branch);
@@ -1343,10 +2833,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async pull(opts?: PullOpts & ExecOpts): Promise<void> {
     const args = ['pull'];
 
+    // Progress tracking
     if (opts?.onProgress) {
       args.push('--progress');
     }
 
+    // Existing options
     if (opts?.rebase === true) {
       args.push('--rebase');
     } else if (opts?.rebase === 'merges') {
@@ -1369,6 +2861,164 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--prune');
     }
 
+    // New options
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.recurseSubmodules !== undefined) {
+      if (opts.recurseSubmodules === true || opts.recurseSubmodules === 'yes') {
+        args.push('--recurse-submodules=yes');
+      } else if (opts.recurseSubmodules === 'on-demand') {
+        args.push('--recurse-submodules=on-demand');
+      } else if (opts.recurseSubmodules === 'no' || opts.recurseSubmodules === false) {
+        args.push('--recurse-submodules=no');
+      }
+    }
+
+    if (opts?.noStat) {
+      args.push('-n');
+    } else if (opts?.stat) {
+      args.push('--stat');
+    }
+
+    if (opts?.compactSummary) {
+      args.push('--compact-summary');
+    }
+
+    if (opts?.log !== undefined) {
+      if (opts.log === true) {
+        args.push('--log');
+      } else if (typeof opts.log === 'number') {
+        args.push(`--log=${opts.log}`);
+      }
+    }
+
+    if (opts?.signoff) {
+      args.push('--signoff');
+    }
+
+    if (opts?.squash) {
+      args.push('--squash');
+    }
+
+    if (opts?.commit !== undefined) {
+      args.push(opts.commit ? '--commit' : '--no-commit');
+    }
+
+    if (opts?.cleanup) {
+      args.push(`--cleanup=${opts.cleanup}`);
+    }
+
+    if (opts?.verify !== undefined) {
+      args.push(opts.verify ? '--verify' : '--no-verify');
+    }
+
+    if (opts?.verifySignatures) {
+      args.push('--verify-signatures');
+    }
+
+    if (opts?.autostash) {
+      args.push('--autostash');
+    }
+
+    if (opts?.strategy) {
+      args.push(`--strategy=${opts.strategy}`);
+    }
+
+    if (opts?.strategyOption) {
+      const strategyOpts = Array.isArray(opts.strategyOption)
+        ? opts.strategyOption
+        : [opts.strategyOption];
+      for (const opt of strategyOpts) {
+        args.push('-X', opt);
+      }
+    }
+
+    if (opts?.gpgSign !== undefined) {
+      if (opts.gpgSign === true) {
+        args.push('-S');
+      } else if (typeof opts.gpgSign === 'string') {
+        args.push(`-S${opts.gpgSign}`);
+      }
+    }
+
+    if (opts?.allowUnrelatedHistories) {
+      args.push('--allow-unrelated-histories');
+    }
+
+    if (opts?.all) {
+      args.push('--all');
+    }
+
+    if (opts?.append) {
+      args.push('--append');
+    }
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.jobs !== undefined) {
+      args.push(`--jobs=${opts.jobs}`);
+    }
+
+    if (opts?.dryRun) {
+      args.push('--dry-run');
+    }
+
+    if (opts?.keep) {
+      args.push('--keep');
+    }
+
+    if (opts?.depth !== undefined) {
+      args.push(`--depth=${opts.depth}`);
+    }
+
+    if (opts?.shallowSince) {
+      const since =
+        opts.shallowSince instanceof Date ? opts.shallowSince.toISOString() : opts.shallowSince;
+      args.push(`--shallow-since=${since}`);
+    }
+
+    if (opts?.shallowExclude) {
+      const excludes = Array.isArray(opts.shallowExclude)
+        ? opts.shallowExclude
+        : [opts.shallowExclude];
+      for (const exclude of excludes) {
+        args.push(`--shallow-exclude=${exclude}`);
+      }
+    }
+
+    if (opts?.deepen !== undefined) {
+      args.push(`--deepen=${opts.deepen}`);
+    }
+
+    if (opts?.unshallow) {
+      args.push('--unshallow');
+    }
+
+    if (opts?.updateShallow) {
+      args.push('--update-shallow');
+    }
+
+    if (opts?.ipv4) {
+      args.push('--ipv4');
+    }
+
+    if (opts?.ipv6) {
+      args.push('--ipv6');
+    }
+
+    if (opts?.setUpstream) {
+      args.push('--set-upstream');
+    }
+
+    // Remote and branch (must be last)
     if (opts?.remote) {
       args.push(opts.remote);
     }
@@ -1390,8 +3040,30 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async reset(target?: string, opts?: ResetOpts & ExecOpts): Promise<void> {
     const args = ['reset'];
 
+    // Existing options
     if (opts?.mode) {
       args.push(`--${opts.mode}`);
+    }
+
+    // New options
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.noRefresh) {
+      args.push('--no-refresh');
+    }
+
+    if (opts?.recurseSubmodules) {
+      args.push('--recurse-submodules');
+    }
+
+    if (opts?.intentToAdd) {
+      args.push('--intent-to-add');
+    }
+
+    if (opts?.pathspecFromFile) {
+      args.push(`--pathspec-from-file=${opts.pathspecFromFile}`);
     }
 
     if (target) {
@@ -1410,6 +3082,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async rm(paths: string | Array<string>, opts?: RmOpts & ExecOpts): Promise<void> {
     const args = ['rm'];
 
+    // Existing options
     if (opts?.force) {
       args.push('--force');
     }
@@ -1424,6 +3097,23 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.dryRun) {
       args.push('--dry-run');
+    }
+
+    // New options
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.ignoreUnmatch) {
+      args.push('--ignore-unmatch');
+    }
+
+    if (opts?.sparse) {
+      args.push('--sparse');
+    }
+
+    if (opts?.pathspecFromFile) {
+      args.push(`--pathspec-from-file=${opts.pathspecFromFile}`);
     }
 
     const pathList = Array.isArray(paths) ? paths : [paths];
@@ -1485,6 +3175,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   private async stashPush(opts?: StashPushOpts & ExecOpts): Promise<void> {
     const args = ['stash', 'push'];
 
+    // Existing options
     if (opts?.message) {
       args.push('-m', opts.message);
     }
@@ -1495,6 +3186,23 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.keepIndex) {
       args.push('--keep-index');
+    }
+
+    // New options
+    if (opts?.staged) {
+      args.push('--staged');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.all) {
+      args.push('--all');
+    }
+
+    if (opts?.pathspecFromFile) {
+      args.push(`--pathspec-from-file=${opts.pathspecFromFile}`);
     }
 
     if (opts?.paths && opts.paths.length > 0) {
@@ -1563,6 +3271,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async switch(branch: string, opts?: SwitchOpts & ExecOpts): Promise<void> {
     const args = ['switch'];
 
+    // Existing options
     if (opts?.create) {
       args.push('-c');
     } else if (opts?.forceCreate) {
@@ -1579,6 +3288,43 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.detach) {
       args.push('--detach');
+    }
+
+    // New options
+    if (opts?.guess !== undefined) {
+      args.push(opts.guess ? '--guess' : '--no-guess');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.recurseSubmodules) {
+      args.push('--recurse-submodules');
+    }
+
+    if (opts?.merge) {
+      args.push('--merge');
+    }
+
+    if (opts?.conflict) {
+      args.push(`--conflict=${opts.conflict}`);
+    }
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.orphan) {
+      args.push('--orphan');
+    }
+
+    if (opts?.overwriteIgnore === false) {
+      args.push('--no-overwrite-ignore');
+    }
+
+    if (opts?.ignoreOtherWorktrees) {
+      args.push('--ignore-other-worktrees');
     }
 
     args.push(branch);
@@ -1599,8 +3345,38 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   private async tagList(opts?: TagListOpts & ExecOpts): Promise<Array<string>> {
     const args = ['tag', '--list'];
 
+    // Existing options
     if (opts?.sort) {
       args.push(`--sort=${opts.sort}`);
+    }
+
+    // New options
+    if (opts?.lines !== undefined) {
+      args.push(`-n${opts.lines}`);
+    }
+
+    if (opts?.contains) {
+      args.push(`--contains=${opts.contains}`);
+    }
+
+    if (opts?.noContains) {
+      args.push(`--no-contains=${opts.noContains}`);
+    }
+
+    if (opts?.merged) {
+      args.push(`--merged=${opts.merged}`);
+    }
+
+    if (opts?.noMerged) {
+      args.push(`--no-merged=${opts.noMerged}`);
+    }
+
+    if (opts?.pointsAt) {
+      args.push(`--points-at=${opts.pointsAt}`);
+    }
+
+    if (opts?.ignoreCase) {
+      args.push('--ignore-case');
     }
 
     if (opts?.pattern) {
@@ -1617,6 +3393,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   private async tagCreate(name: string, opts?: TagCreateOpts & ExecOpts): Promise<void> {
     const args = ['tag'];
 
+    // Existing options
     if (opts?.sign) {
       args.push('-s');
     }
@@ -1631,6 +3408,34 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.force) {
       args.push('--force');
+    }
+
+    // New options
+    if (opts?.file) {
+      // If using file, we need -a for annotated tag (unless signing)
+      if (!(opts.sign || opts.message)) {
+        args.push('-a');
+      }
+      args.push('--file', opts.file);
+    }
+
+    if (opts?.trailer) {
+      const trailers = Array.isArray(opts.trailer) ? opts.trailer : [opts.trailer];
+      for (const trailer of trailers) {
+        args.push('--trailer', trailer);
+      }
+    }
+
+    if (opts?.cleanup) {
+      args.push(`--cleanup=${opts.cleanup}`);
+    }
+
+    if (opts?.localUser) {
+      args.push(`--local-user=${opts.localUser}`);
+    }
+
+    if (opts?.createReflog) {
+      args.push('--create-reflog');
     }
 
     args.push(name);
@@ -1780,6 +3585,52 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--no-verify');
     }
 
+    // New options
+    if (opts?.cleanup) {
+      args.push('--cleanup', opts.cleanup);
+    }
+
+    if (opts?.rerereAutoupdate === true) {
+      args.push('--rerere-autoupdate');
+    } else if (opts?.rerereAutoupdate === false) {
+      args.push('--no-rerere-autoupdate');
+    }
+
+    if (opts?.strategyOption) {
+      const strategyOptions = Array.isArray(opts.strategyOption)
+        ? opts.strategyOption
+        : [opts.strategyOption];
+      for (const so of strategyOptions) {
+        args.push('-X', so);
+      }
+    }
+
+    if (opts?.gpgSign === true) {
+      args.push('-S');
+    } else if (typeof opts?.gpgSign === 'string') {
+      args.push(`-S${opts.gpgSign}`);
+    }
+
+    if (opts?.appendCommitName) {
+      args.push('-x');
+    }
+
+    if (opts?.ff) {
+      args.push('--ff');
+    }
+
+    if (opts?.allowEmpty) {
+      args.push('--allow-empty');
+    }
+
+    if (opts?.allowEmptyMessage) {
+      args.push('--allow-empty-message');
+    }
+
+    if (opts?.empty) {
+      args.push('--empty', opts.empty);
+    }
+
     const commitList = Array.isArray(commits) ? commits : [commits];
     args.push(...commitList);
 
@@ -1811,6 +3662,18 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.dryRun) {
       args.push('-n');
+    }
+
+    // New options
+    if (opts?.quiet) {
+      args.push('-q');
+    }
+
+    if (opts?.exclude) {
+      const excludes = Array.isArray(opts.exclude) ? opts.exclude : [opts.exclude];
+      for (const pattern of excludes) {
+        args.push('-e', pattern);
+      }
     }
 
     if (opts?.paths && opts.paths.length > 0) {
@@ -1848,6 +3711,19 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.dryRun) {
       args.push('-n');
+    }
+
+    // New options
+    if (opts?.verbose) {
+      args.push('-v');
+    }
+
+    if (opts?.skipErrors) {
+      args.push('-k');
+    }
+
+    if (opts?.sparse) {
+      args.push('--sparse');
     }
 
     args.push(source, destination);
@@ -1897,6 +3773,127 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--no-verify');
     }
 
+    // New options
+    if (opts?.keepBase) {
+      args.push('--keep-base');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.signoff) {
+      args.push('--signoff');
+    }
+
+    if (opts?.committerDateIsAuthorDate) {
+      args.push('--committer-date-is-author-date');
+    }
+
+    if (opts?.resetAuthorDate) {
+      args.push('--reset-author-date');
+    }
+
+    if (opts?.ignoreWhitespace) {
+      args.push('--ignore-whitespace');
+    }
+
+    if (opts?.whitespace) {
+      args.push('--whitespace', opts.whitespace);
+    }
+
+    if (opts?.forceRebase) {
+      args.push('--force-rebase');
+    }
+
+    if (opts?.noFf) {
+      args.push('--no-ff');
+    }
+
+    if (opts?.apply) {
+      args.push('--apply');
+    }
+
+    if (opts?.rerereAutoupdate === true) {
+      args.push('--rerere-autoupdate');
+    } else if (opts?.rerereAutoupdate === false) {
+      args.push('--no-rerere-autoupdate');
+    }
+
+    if (opts?.empty) {
+      args.push('--empty', opts.empty);
+    }
+
+    if (opts?.autosquash === true) {
+      args.push('--autosquash');
+    } else if (opts?.autosquash === false) {
+      args.push('--no-autosquash');
+    }
+
+    if (opts?.updateRefs === true) {
+      args.push('--update-refs');
+    } else if (opts?.updateRefs === false) {
+      args.push('--no-update-refs');
+    }
+
+    if (opts?.gpgSign === true) {
+      args.push('-S');
+    } else if (typeof opts?.gpgSign === 'string') {
+      args.push(`-S${opts.gpgSign}`);
+    }
+
+    if (opts?.autostash === true) {
+      args.push('--autostash');
+    } else if (opts?.autostash === false) {
+      args.push('--no-autostash');
+    }
+
+    if (opts?.exec) {
+      const execs = Array.isArray(opts.exec) ? opts.exec : [opts.exec];
+      for (const cmd of execs) {
+        args.push('--exec', cmd);
+      }
+    }
+
+    if (opts?.forkPoint === true) {
+      args.push('--fork-point');
+    } else if (opts?.forkPoint === false) {
+      args.push('--no-fork-point');
+    }
+
+    if (opts?.strategy) {
+      args.push('--strategy', opts.strategy);
+    }
+
+    if (opts?.strategyOption) {
+      const strategyOptions = Array.isArray(opts.strategyOption)
+        ? opts.strategyOption
+        : [opts.strategyOption];
+      for (const so of strategyOptions) {
+        args.push('-X', so);
+      }
+    }
+
+    if (opts?.root) {
+      args.push('--root');
+    }
+
+    if (opts?.rescheduleFailedExec === true) {
+      args.push('--reschedule-failed-exec');
+    } else if (opts?.rescheduleFailedExec === false) {
+      args.push('--no-reschedule-failed-exec');
+    }
+
+    if (opts?.reapplyCherryPicks === true) {
+      args.push('--reapply-cherry-picks');
+    } else if (opts?.reapplyCherryPicks === false) {
+      args.push('--no-reapply-cherry-picks');
+    }
+
     if (opts?.upstream) {
       args.push(opts.upstream);
     }
@@ -1932,6 +3929,49 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--ours');
     } else if (opts?.theirs) {
       args.push('--theirs');
+    }
+
+    // New options
+    if (opts?.ignoreUnmerged) {
+      args.push('--ignore-unmerged');
+    }
+
+    if (opts?.overlay === true) {
+      args.push('--overlay');
+    } else if (opts?.overlay === false) {
+      args.push('--no-overlay');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.recurseSubmodules === true) {
+      args.push('--recurse-submodules');
+    } else if (opts?.recurseSubmodules === false) {
+      args.push('--no-recurse-submodules');
+    }
+
+    if (opts?.progress === true) {
+      args.push('--progress');
+    } else if (opts?.progress === false) {
+      args.push('--no-progress');
+    }
+
+    if (opts?.merge) {
+      args.push('--merge');
+    }
+
+    if (opts?.conflict) {
+      args.push('--conflict', opts.conflict);
+    }
+
+    if (opts?.ignoreSkipWorktreeBits) {
+      args.push('--ignore-skip-worktree-bits');
+    }
+
+    if (opts?.pathspecFromFile) {
+      args.push('--pathspec-from-file', opts.pathspecFromFile);
     }
 
     const pathList = Array.isArray(paths) ? paths : [paths];
@@ -1989,6 +4029,44 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--no-verify');
     }
 
+    // New options
+    if (opts?.cleanup) {
+      args.push('--cleanup', opts.cleanup);
+    }
+
+    if (opts?.signoff) {
+      args.push('--signoff');
+    }
+
+    if (opts?.rerereAutoupdate === true) {
+      args.push('--rerere-autoupdate');
+    } else if (opts?.rerereAutoupdate === false) {
+      args.push('--no-rerere-autoupdate');
+    }
+
+    if (opts?.strategy) {
+      args.push('--strategy', opts.strategy);
+    }
+
+    if (opts?.strategyOption) {
+      const strategyOptions = Array.isArray(opts.strategyOption)
+        ? opts.strategyOption
+        : [opts.strategyOption];
+      for (const so of strategyOptions) {
+        args.push('-X', so);
+      }
+    }
+
+    if (opts?.gpgSign === true) {
+      args.push('-S');
+    } else if (typeof opts?.gpgSign === 'string') {
+      args.push(`-S${opts.gpgSign}`);
+    }
+
+    if (opts?.reference) {
+      args.push('--reference');
+    }
+
     const commitList = Array.isArray(commits) ? commits : [commits];
     args.push(...commitList);
 
@@ -2016,6 +4094,31 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.format) {
       args.push(`--format=${opts.format}`);
+    }
+
+    // New options
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    if (opts?.source) {
+      args.push('--source');
+    }
+
+    if (opts?.useMailmap) {
+      args.push('--use-mailmap');
+    }
+
+    if (opts?.decorateRefs) {
+      args.push('--decorate-refs', opts.decorateRefs);
+    }
+
+    if (opts?.decorateRefsExclude) {
+      args.push('--decorate-refs-exclude', opts.decorateRefsExclude);
+    }
+
+    if (opts?.decorate) {
+      args.push(`--decorate=${opts.decorate}`);
     }
 
     args.push(object);
@@ -2168,19 +4271,204 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--force');
     }
 
+    // New options
+    if (opts?.noFetch) {
+      args.push('--no-fetch');
+    }
+
+    if (opts?.checkout) {
+      args.push('--checkout');
+    }
+
+    if (opts?.merge) {
+      args.push('--merge');
+    }
+
+    if (opts?.rebase) {
+      args.push('--rebase');
+    }
+
+    if (opts?.recommendShallow) {
+      args.push('--recommend-shallow');
+    }
+
+    if (opts?.reference) {
+      args.push(`--reference=${opts.reference}`);
+    }
+
+    if (opts?.singleBranch) {
+      args.push('--single-branch');
+    }
+
+    if (opts?.filter) {
+      args.push(`--filter=${opts.filter}`);
+    }
+
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
   }
 
-  private async submoduleAdd(url: string, path: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['submodule', 'add', url, path], {
+  private async submoduleAdd(
+    url: string,
+    path: string,
+    opts?: SubmoduleAddOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['submodule', 'add'];
+
+    if (opts?.branch) {
+      args.push('-b', opts.branch);
+    }
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.name) {
+      args.push('--name', opts.name);
+    }
+
+    if (opts?.reference) {
+      args.push('--reference', opts.reference);
+    }
+
+    if (opts?.depth !== undefined) {
+      args.push('--depth', String(opts.depth));
+    }
+
+    args.push(url, path);
+
+    await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
   }
 
-  private async submoduleDeinit(path: string, opts?: ExecOpts): Promise<void> {
-    await this.runner.runOrThrow(this.context, ['submodule', 'deinit', path], {
+  private async submoduleDeinit(
+    path: string,
+    opts?: SubmoduleDeinitOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['submodule', 'deinit'];
+
+    if (opts?.force) {
+      args.push('--force');
+    }
+
+    if (opts?.all) {
+      args.push('--all');
+    } else {
+      args.push(path);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async submoduleStatus(
+    paths?: Array<string>,
+    opts?: SubmoduleStatusOpts & ExecOpts,
+  ): Promise<string> {
+    const args = ['submodule', 'status'];
+
+    if (opts?.recursive) {
+      args.push('--recursive');
+    }
+
+    if (paths && paths.length > 0) {
+      args.push('--', ...paths);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return result.stdout;
+  }
+
+  private async submoduleSummary(opts?: SubmoduleSummaryOpts & ExecOpts): Promise<string> {
+    const args = ['submodule', 'summary'];
+
+    if (opts?.limit !== undefined) {
+      args.push('-n', String(opts.limit));
+    }
+
+    if (opts?.files) {
+      args.push('--files');
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return result.stdout;
+  }
+
+  private async submoduleForeach(
+    command: string,
+    opts?: SubmoduleForeachOpts & ExecOpts,
+  ): Promise<string> {
+    const args = ['submodule', 'foreach'];
+
+    if (opts?.recursive) {
+      args.push('--recursive');
+    }
+
+    args.push(command);
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return result.stdout;
+  }
+
+  private async submoduleSync(
+    paths?: Array<string>,
+    opts?: SubmoduleSyncOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['submodule', 'sync'];
+
+    if (opts?.recursive) {
+      args.push('--recursive');
+    }
+
+    if (paths && paths.length > 0) {
+      args.push('--', ...paths);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async submoduleAbsorbGitDirs(opts?: ExecOpts): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['submodule', 'absorbgitdirs'], {
+      signal: opts?.signal,
+    });
+  }
+
+  private async submoduleSetBranch(
+    path: string,
+    branch: string,
+    opts?: SubmoduleSetBranchOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['submodule', 'set-branch'];
+
+    if (opts?.default) {
+      args.push('--default');
+    } else {
+      args.push('--branch', branch);
+    }
+
+    args.push('--', path);
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async submoduleSetUrl(path: string, url: string, opts?: ExecOpts): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['submodule', 'set-url', '--', path, url], {
       signal: opts?.signal,
     });
   }
@@ -2257,6 +4545,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--mirror=push');
     }
 
+    // New option
+    if (opts?.tags === true) {
+      args.push('--tags');
+    } else if (opts?.tags === false) {
+      args.push('--no-tags');
+    }
+
     args.push(name, url);
 
     await this.runner.runOrThrow(this.context, args, {
@@ -2304,6 +4599,113 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     args.push(name, url);
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async remoteSetHead(
+    remote: string,
+    branch?: string,
+    opts?: RemoteSetHeadOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['remote', 'set-head'];
+
+    if (opts?.auto) {
+      args.push('--auto');
+    } else if (opts?.delete) {
+      args.push('--delete');
+    }
+
+    args.push(remote);
+
+    if (branch && !opts?.auto && !opts?.delete) {
+      args.push(branch);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async remoteShow(remote: string, opts?: RemoteShowOpts & ExecOpts): Promise<string> {
+    const args = ['remote', 'show'];
+
+    if (opts?.noQuery) {
+      args.push('-n');
+    }
+
+    args.push(remote);
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return result.stdout;
+  }
+
+  private async remotePrune(
+    remote: string,
+    opts?: RemotePruneOpts & ExecOpts,
+  ): Promise<Array<string>> {
+    const args = ['remote', 'prune'];
+
+    if (opts?.dryRun) {
+      args.push('--dry-run');
+    }
+
+    args.push(remote);
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    // Parse pruned refs from output
+    const pruned: Array<string> = [];
+    for (const line of parseLines(result.stdout)) {
+      // Output is like " * [pruned] origin/some-branch"
+      const match = line.match(/\* \[pruned\] (.+)/);
+      const ref = match?.[1];
+      if (ref) {
+        pruned.push(ref);
+      }
+    }
+
+    return pruned;
+  }
+
+  private async remoteUpdate(
+    remotes?: Array<string>,
+    opts?: RemoteUpdateOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['remote', 'update'];
+
+    if (opts?.prune) {
+      args.push('--prune');
+    }
+
+    if (remotes && remotes.length > 0) {
+      args.push(...remotes);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async remoteSetBranches(
+    remote: string,
+    branches: Array<string>,
+    opts?: RemoteSetBranchesOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['remote', 'set-branches'];
+
+    if (opts?.add) {
+      args.push('--add');
+    }
+
+    args.push(remote, ...branches);
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -2394,6 +4796,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   ): Promise<string | Array<string> | undefined> {
     const args = ['config'];
 
+    // New options
+    if (opts?.type) {
+      args.push(`--type=${opts.type}`);
+    }
+
+    if (opts?.default !== undefined) {
+      args.push('--default', opts.default);
+    }
+
     if (opts?.all) {
       args.push('--get-all');
     } else {
@@ -2461,6 +4872,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--show-scope');
     }
 
+    // New options
+    if (opts?.includes) {
+      args.push('--includes');
+    }
+
+    if (opts?.nameOnly) {
+      args.push('--name-only');
+    }
+
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
@@ -2477,15 +4897,39 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         }
       }
 
-      const eqIndex = keyValue.indexOf('=');
-      if (eqIndex !== -1) {
+      // For nameOnly, there's no '=' separator
+      if (opts?.nameOnly) {
         entries.push({
-          key: keyValue.slice(0, eqIndex),
-          value: keyValue.slice(eqIndex + 1),
+          key: keyValue,
+          value: '',
         });
+      } else {
+        const eqIndex = keyValue.indexOf('=');
+        if (eqIndex !== -1) {
+          entries.push({
+            key: keyValue.slice(0, eqIndex),
+            value: keyValue.slice(eqIndex + 1),
+          });
+        }
       }
     }
 
     return entries;
+  }
+
+  private async configRenameSection(
+    oldName: string,
+    newName: string,
+    opts?: ExecOpts,
+  ): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['config', '--rename-section', oldName, newName], {
+      signal: opts?.signal,
+    });
+  }
+
+  private async configRemoveSection(name: string, opts?: ExecOpts): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['config', '--remove-section', name], {
+      signal: opts?.signal,
+    });
   }
 }

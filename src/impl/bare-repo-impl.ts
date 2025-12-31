@@ -16,6 +16,11 @@ import type {
   RemoteAddOpts,
   RemoteInfo,
   RemoteOperations,
+  RemotePruneOpts,
+  RemoteSetBranchesOpts,
+  RemoteSetHeadOpts,
+  RemoteShowOpts,
+  RemoteUpdateOpts,
   RemoteUrlOpts,
 } from '../core/repo.js';
 import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
@@ -43,6 +48,11 @@ export class BareRepoImpl implements BareRepo {
       rename: this.remoteRename.bind(this),
       getUrl: this.remoteGetUrl.bind(this),
       setUrl: this.remoteSetUrl.bind(this),
+      setHead: this.remoteSetHead.bind(this),
+      show: this.remoteShow.bind(this),
+      prune: this.remotePrune.bind(this),
+      update: this.remoteUpdate.bind(this),
+      setBranches: this.remoteSetBranches.bind(this),
     };
 
     // Initialize config operations (repository-level)
@@ -56,6 +66,8 @@ export class BareRepoImpl implements BareRepo {
       setRaw: this.configSetRaw.bind(this),
       unsetRaw: this.configUnsetRaw.bind(this),
       list: this.configList.bind(this),
+      renameSection: this.configRenameSection.bind(this),
+      removeSection: this.configRemoveSection.bind(this),
     };
   }
 
@@ -66,7 +78,7 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  public async raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
+  public raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
 
@@ -266,6 +278,112 @@ export class BareRepoImpl implements BareRepo {
     });
   }
 
+  private async remoteSetHead(
+    remote: string,
+    branch?: string,
+    opts?: RemoteSetHeadOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['remote', 'set-head'];
+
+    if (opts?.auto) {
+      args.push('--auto');
+    } else if (opts?.delete) {
+      args.push('--delete');
+    }
+
+    args.push(remote);
+
+    if (branch && !opts?.auto && !opts?.delete) {
+      args.push(branch);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async remoteShow(remote: string, opts?: RemoteShowOpts & ExecOpts): Promise<string> {
+    const args = ['remote', 'show'];
+
+    if (opts?.noQuery) {
+      args.push('-n');
+    }
+
+    args.push(remote);
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return result.stdout;
+  }
+
+  private async remotePrune(
+    remote: string,
+    opts?: RemotePruneOpts & ExecOpts,
+  ): Promise<Array<string>> {
+    const args = ['remote', 'prune'];
+
+    if (opts?.dryRun) {
+      args.push('--dry-run');
+    }
+
+    args.push(remote);
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    // Parse pruned refs from output
+    const pruned: Array<string> = [];
+    for (const line of parseLines(result.stdout)) {
+      const match = line.match(/\* \[pruned\] (.+)/);
+      const ref = match?.[1];
+      if (ref) {
+        pruned.push(ref);
+      }
+    }
+
+    return pruned;
+  }
+
+  private async remoteUpdate(
+    remotes?: Array<string>,
+    opts?: RemoteUpdateOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['remote', 'update'];
+
+    if (opts?.prune) {
+      args.push('--prune');
+    }
+
+    if (remotes && remotes.length > 0) {
+      args.push(...remotes);
+    }
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
+  private async remoteSetBranches(
+    remote: string,
+    branches: Array<string>,
+    opts?: RemoteSetBranchesOpts & ExecOpts,
+  ): Promise<void> {
+    const args = ['remote', 'set-branches'];
+
+    if (opts?.add) {
+      args.push('--add');
+    }
+
+    args.push(remote, ...branches);
+
+    await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+  }
+
   // ==========================================================================
   // Config Operations (Repository-level)
   // ==========================================================================
@@ -417,6 +535,14 @@ export class BareRepoImpl implements BareRepo {
       args.push('--show-scope');
     }
 
+    if (opts?.includes) {
+      args.push('--includes');
+    }
+
+    if (opts?.nameOnly) {
+      args.push('--name-only');
+    }
+
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
     });
@@ -431,15 +557,38 @@ export class BareRepoImpl implements BareRepo {
         }
       }
 
-      const eqIndex = keyValue.indexOf('=');
-      if (eqIndex !== -1) {
+      if (opts?.nameOnly) {
         entries.push({
-          key: keyValue.slice(0, eqIndex),
-          value: keyValue.slice(eqIndex + 1),
+          key: keyValue,
+          value: '',
         });
+      } else {
+        const eqIndex = keyValue.indexOf('=');
+        if (eqIndex !== -1) {
+          entries.push({
+            key: keyValue.slice(0, eqIndex),
+            value: keyValue.slice(eqIndex + 1),
+          });
+        }
       }
     }
 
     return entries;
+  }
+
+  private async configRenameSection(
+    oldName: string,
+    newName: string,
+    opts?: ExecOpts,
+  ): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['config', '--rename-section', oldName, newName], {
+      signal: opts?.signal,
+    });
+  }
+
+  private async configRemoveSection(name: string, opts?: ExecOpts): Promise<void> {
+    await this.runner.runOrThrow(this.context, ['config', '--remove-section', name], {
+      signal: opts?.signal,
+    });
   }
 }

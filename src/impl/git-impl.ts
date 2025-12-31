@@ -156,14 +156,49 @@ export class GitImpl implements Git {
       args.push('--progress');
     }
 
+    // Verbosity options
+    if (opts?.verbose) {
+      args.push('--verbose');
+    }
+
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    // Repository type options
     if (opts?.bare) {
       args.push('--bare');
     }
 
+    if (opts?.mirror) {
+      args.push('--mirror');
+    }
+
+    // Shallow clone options
     if (opts?.depth !== undefined) {
       args.push('--depth', String(opts.depth));
     }
 
+    if (opts?.shallowSince) {
+      const since =
+        opts.shallowSince instanceof Date ? opts.shallowSince.toISOString() : opts.shallowSince;
+      args.push('--shallow-since', since);
+    }
+
+    if (opts?.shallowExclude) {
+      const excludes = Array.isArray(opts.shallowExclude)
+        ? opts.shallowExclude
+        : [opts.shallowExclude];
+      for (const exclude of excludes) {
+        args.push('--shallow-exclude', exclude);
+      }
+    }
+
+    if (opts?.rejectShallow) {
+      args.push('--reject-shallow');
+    }
+
+    // Branch options
     if (opts?.branch) {
       args.push('--branch', opts.branch);
     }
@@ -172,20 +207,98 @@ export class GitImpl implements Git {
       args.push('--single-branch');
     }
 
-    if (opts?.mirror) {
-      args.push('--mirror');
-    }
-
+    // Checkout options
     if (opts?.noCheckout) {
       args.push('--no-checkout');
     }
 
+    if (opts?.sparse) {
+      args.push('--sparse');
+    }
+
+    // Local clone options
+    if (opts?.local) {
+      args.push('--local');
+    }
+
+    if (opts?.noHardlinks) {
+      args.push('--no-hardlinks');
+    }
+
+    if (opts?.shared) {
+      args.push('--shared');
+    }
+
+    // Reference options
+    if (opts?.reference) {
+      args.push('--reference', opts.reference);
+    }
+
+    if (opts?.referenceIfAble) {
+      args.push('--reference-if-able', opts.referenceIfAble);
+    }
+
+    if (opts?.dissociate) {
+      args.push('--dissociate');
+    }
+
+    // Submodule options
     if (opts?.recurseSubmodules) {
       args.push('--recurse-submodules');
     }
 
+    if (opts?.shallowSubmodules) {
+      args.push('--shallow-submodules');
+    }
+
+    if (opts?.remoteSubmodules) {
+      args.push('--remote-submodules');
+    }
+
+    if (opts?.jobs !== undefined) {
+      args.push('--jobs', String(opts.jobs));
+    }
+
+    // Tag options
+    if (opts?.noTags) {
+      args.push('--no-tags');
+    }
+
+    // Template and config options
+    if (opts?.template) {
+      args.push('--template', opts.template);
+    }
+
+    if (opts?.origin) {
+      args.push('--origin', opts.origin);
+    }
+
     if (opts?.separateGitDir) {
       args.push('--separate-git-dir', opts.separateGitDir);
+    }
+
+    if (opts?.config) {
+      for (const [key, value] of Object.entries(opts.config)) {
+        args.push('-c', `${key}=${value}`);
+      }
+    }
+
+    // Partial clone options
+    if (opts?.filter) {
+      args.push('--filter', opts.filter);
+    }
+
+    if (opts?.alsoFilterSubmodules) {
+      args.push('--also-filter-submodules');
+    }
+
+    // Network options
+    if (opts?.ipv4) {
+      args.push('--ipv4');
+    }
+
+    if (opts?.ipv6) {
+      args.push('--ipv6');
     }
 
     args.push(url, path);
@@ -219,14 +332,45 @@ export class GitImpl implements Git {
   public async init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo | BareRepo> {
     const args = ['init'];
 
+    // Quiet mode
+    if (opts?.quiet) {
+      args.push('--quiet');
+    }
+
+    // Repository type
     if (opts?.bare) {
       args.push('--bare');
     }
 
+    // Template
+    if (opts?.template) {
+      args.push('--template', opts.template);
+    }
+
+    // Sharing
+    if (opts?.shared !== undefined) {
+      if (typeof opts.shared === 'boolean') {
+        if (opts.shared) {
+          args.push('--shared');
+        }
+      } else if (typeof opts.shared === 'number') {
+        args.push(`--shared=${opts.shared.toString(8)}`);
+      } else {
+        args.push(`--shared=${opts.shared}`);
+      }
+    }
+
+    // Initial branch
     if (opts?.initialBranch) {
       args.push('--initial-branch', opts.initialBranch);
     }
 
+    // Object format
+    if (opts?.objectFormat) {
+      args.push('--object-format', opts.objectFormat);
+    }
+
+    // Separate git dir
     if (opts?.separateGitDir) {
       args.push('--separate-git-dir', opts.separateGitDir);
     }
@@ -259,6 +403,7 @@ export class GitImpl implements Git {
   public async lsRemote(url: string, opts?: LsRemoteOpts & ExecOpts): Promise<LsRemoteResult> {
     const args = ['ls-remote'];
 
+    // Ref type filters
     if (opts?.heads) {
       args.push('--heads');
     }
@@ -269,6 +414,19 @@ export class GitImpl implements Git {
 
     if (opts?.refs) {
       args.push('--refs');
+    }
+
+    // New options
+    if (opts?.getUrl) {
+      args.push('--get-url');
+    }
+
+    if (opts?.sort) {
+      args.push('--sort', opts.sort);
+    }
+
+    if (opts?.symref) {
+      args.push('--symref');
     }
 
     args.push(url);

@@ -17,6 +17,7 @@ import type { ExecOpts, GitOpenOptions, RawResult } from './types.js';
  * Options for git clone
  */
 export type CloneOpts = {
+  // Existing options
   bare?: boolean;
   depth?: number;
   branch?: string;
@@ -31,12 +32,61 @@ export type CloneOpts = {
    * @default true
    */
   cleanupOnAbort?: boolean;
+
+  // New options
+  /** Be more verbose */
+  verbose?: boolean;
+  /** Operate quietly (suppress progress reporting) */
+  quiet?: boolean;
+  /** Reject cloning a shallow repository */
+  rejectShallow?: boolean;
+  /** Clone from a local repository (use hard links) */
+  local?: boolean;
+  /** Don't use hard links for local clone */
+  noHardlinks?: boolean;
+  /** Share objects with a reference repository */
+  shared?: boolean;
+  /** Number of submodules to clone in parallel */
+  jobs?: number;
+  /** Directory with templates for the new repository */
+  template?: string;
+  /** Reference repository for object sharing */
+  reference?: string;
+  /** Reference repository if available (no error if not) */
+  referenceIfAble?: string;
+  /** Disconnect from reference repository after clone */
+  dissociate?: boolean;
+  /** Name of the remote (default: origin) */
+  origin?: string;
+  /** Create a shallow clone with commits since the specified date */
+  shallowSince?: string | Date;
+  /** Create a shallow clone excluding commits reachable from specified revision */
+  shallowExclude?: string | Array<string>;
+  /** Don't clone any tags, and make later fetches not follow them */
+  noTags?: boolean;
+  /** Also clone submodules shallowly */
+  shallowSubmodules?: boolean;
+  /** Set config options for the new repository */
+  config?: Record<string, string>;
+  /** Use IPv4 addresses only */
+  ipv4?: boolean;
+  /** Use IPv6 addresses only */
+  ipv6?: boolean;
+  /** A partial clone filter specification (e.g., 'blob:none') */
+  filter?: string;
+  /** Also apply the partial clone filter to submodules */
+  alsoFilterSubmodules?: boolean;
+  /** Clone submodules from their remote tracking branch */
+  remoteSubmodules?: boolean;
+  /** Initialize sparse-checkout (clone only root files initially) */
+  sparse?: boolean;
 };
 
 /**
  * Options for git init
  */
 export type InitOpts = {
+  // Existing options
   bare?: boolean;
   initialBranch?: string;
   /** Store .git directory at specified path instead of inside the repository */
@@ -46,15 +96,42 @@ export type InitOpts = {
    * @default true
    */
   cleanupOnAbort?: boolean;
+
+  // New options
+  /** Directory with templates for the new repository */
+  template?: string;
+  /**
+   * Set repository sharing level
+   * - 'group': Group writable
+   * - 'all'/'world'/'everybody': World readable
+   * - number: Octal permissions
+   */
+  shared?: boolean | 'group' | 'all' | 'world' | 'everybody' | number;
+  /** Operate quietly (suppress output) */
+  quiet?: boolean;
+  /** Specify the hash algorithm to use (sha1 or sha256) */
+  objectFormat?: 'sha1' | 'sha256';
 };
 
 /**
  * Options for git ls-remote
  */
 export type LsRemoteOpts = {
+  // Existing options
+  /** Limit to refs/heads (branches) */
   heads?: boolean;
+  /** Limit to refs/tags */
   tags?: boolean;
+  /** Show only actual refs (not peeled tags) */
   refs?: boolean;
+
+  // New options
+  /** Show remote URL instead of listing refs */
+  getUrl?: boolean;
+  /** Sort refs by the given key (e.g., 'version:refname') */
+  sort?: string;
+  /** Show symbolic refs in addition to object refs */
+  symref?: boolean;
 };
 
 /**
