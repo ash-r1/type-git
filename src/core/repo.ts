@@ -1897,151 +1897,211 @@ export type WorktreeLockOpts = {
 };
 
 /**
- * Worktree operations interface (§7.4)
+ * Worktree operations
+ *
+ * Wraps: `git worktree` subcommands
  */
 export interface WorktreeOperations {
   /**
-   * List all worktrees (parses --porcelain output)
+   * List all worktrees
+   *
+   * Wraps: `git worktree list --porcelain`
    */
   list(opts?: ExecOpts): Promise<Array<Worktree>>;
 
   /**
    * Add a new worktree
+   *
+   * Wraps: `git worktree add <path>`
    */
   add(path: string, opts?: WorktreeAddOpts & ExecOpts): Promise<void>;
 
   /**
    * Remove a worktree
+   *
+   * Wraps: `git worktree remove <path>`
    */
   remove(path: string, opts?: WorktreeRemoveOpts & ExecOpts): Promise<void>;
 
   /**
    * Prune stale worktree references
+   *
+   * Wraps: `git worktree prune`
    */
   prune(opts?: WorktreePruneOpts & ExecOpts): Promise<Array<string>>;
 
   /**
    * Lock a worktree
+   *
+   * Wraps: `git worktree lock <path>`
    */
   lock(path: string, opts?: WorktreeLockOpts & ExecOpts): Promise<void>;
 
   /**
    * Unlock a worktree
+   *
+   * Wraps: `git worktree unlock <path>`
    */
   unlock(path: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * Move a worktree to a new location
+   *
+   * Wraps: `git worktree move <src> <dst>`
    */
   move(src: string, dst: string, opts?: WorktreeMoveOpts & ExecOpts): Promise<void>;
 
   /**
    * Repair worktree administrative files
+   *
+   * Wraps: `git worktree repair`
    */
   repair(paths?: Array<string>, opts?: ExecOpts): Promise<void>;
 }
 
 /**
- * LFS operations interface
+ * LFS operations
+ *
+ * Wraps: `git lfs` subcommands
  */
 export interface LfsOperations {
   /**
    * Pull LFS objects
+   *
+   * Wraps: `git lfs pull`
    */
   pull(opts?: LfsPullOpts & ExecOpts): Promise<void>;
 
   /**
    * Push LFS objects
+   *
+   * Wraps: `git lfs push`
    */
   push(opts?: LfsPushOpts & ExecOpts): Promise<void>;
 
   /**
    * Get LFS status
+   *
+   * Wraps: `git lfs status`
    */
   status(opts?: LfsStatusOpts & ExecOpts): Promise<LfsStatus>;
 
   /**
    * Prune old and unreferenced LFS objects from local storage
+   *
+   * Wraps: `git lfs prune`
    */
   prune(opts?: LfsPruneOpts & ExecOpts): Promise<void>;
 
   /**
    * Fetch LFS objects from remote
+   *
+   * Wraps: `git lfs fetch`
    */
   fetch(opts?: LfsFetchOpts & ExecOpts): Promise<void>;
 
   /**
    * Install Git LFS hooks
+   *
+   * Wraps: `git lfs install`
    */
   install(opts?: LfsInstallOpts & ExecOpts): Promise<void>;
 
   /**
    * Uninstall Git LFS hooks
+   *
+   * Wraps: `git lfs uninstall`
    */
   uninstall(opts?: LfsUninstallOpts & ExecOpts): Promise<void>;
 
   /**
    * List LFS files in the repository
+   *
+   * Wraps: `git lfs ls-files`
    */
   lsFiles(opts?: LfsLsFilesOpts & ExecOpts): Promise<Array<LfsFileEntry>>;
 
   /**
    * Track files with LFS
+   *
+   * Wraps: `git lfs track <pattern>...`
    */
   track(patterns: string | Array<string>, opts?: LfsTrackOpts & ExecOpts): Promise<void>;
 
   /**
    * List tracked patterns
+   *
+   * Wraps: `git lfs track` (without arguments)
    */
   trackList(opts?: ExecOpts): Promise<Array<LfsTrackEntry>>;
 
   /**
    * Untrack files from LFS
+   *
+   * Wraps: `git lfs untrack <pattern>...`
    */
   untrack(patterns: string | Array<string>, opts?: ExecOpts): Promise<void>;
 
   /**
    * Lock a file
+   *
+   * Wraps: `git lfs lock <path>`
    */
   lock(path: string, opts?: LfsLockOpts & ExecOpts): Promise<LfsLockEntry>;
 
   /**
    * Unlock a file
+   *
+   * Wraps: `git lfs unlock <path>`
    */
   unlock(pathOrId: string, opts?: LfsUnlockOpts & ExecOpts): Promise<void>;
 
   /**
    * List locked files
+   *
+   * Wraps: `git lfs locks`
    */
   locks(opts?: LfsLocksOpts & ExecOpts): Promise<Array<LfsLockEntry>>;
 
   /**
    * Checkout LFS files (replace pointer files with actual content)
+   *
+   * Wraps: `git lfs checkout`
    */
   checkout(patterns?: string | Array<string>, opts?: LfsCheckoutOpts & ExecOpts): Promise<void>;
 
   /**
    * Show information about LFS files that would be migrated
+   *
+   * Wraps: `git lfs migrate info`
    */
   migrateInfo(opts?: LfsMigrateInfoOpts & ExecOpts): Promise<string>;
 
   /**
    * Import files into LFS
+   *
+   * Wraps: `git lfs migrate import`
    */
   migrateImport(opts?: LfsMigrateImportOpts & ExecOpts): Promise<void>;
 
   /**
    * Export files from LFS
+   *
+   * Wraps: `git lfs migrate export`
    */
   migrateExport(opts?: LfsMigrateExportOpts & ExecOpts): Promise<void>;
 
   /**
    * Get LFS environment information
+   *
+   * Wraps: `git lfs env`
    */
   env(opts?: ExecOpts): Promise<LfsEnvInfo>;
 
   /**
    * Get Git LFS version
+   *
+   * Wraps: `git lfs version`
    */
   version(opts?: ExecOpts): Promise<string>;
 }
@@ -2083,91 +2143,127 @@ export interface LfsExtraOperations {
 }
 
 /**
- * Branch operations interface
+ * Branch operations
+ *
+ * Wraps: `git branch` subcommands
  */
 export interface BranchOperations {
   /**
    * List branches
+   *
+   * Wraps: `git branch --list`
    */
   list(opts?: BranchOpts & ExecOpts): Promise<Array<BranchInfo>>;
 
   /**
    * Get current branch name
+   *
+   * Wraps: `git branch --show-current`
    */
   current(opts?: ExecOpts): Promise<string | null>;
 
   /**
    * Create a new branch
+   *
+   * Wraps: `git branch <name>`
    */
   create(name: string, opts?: BranchCreateOpts & ExecOpts): Promise<void>;
 
   /**
    * Delete a branch
+   *
+   * Wraps: `git branch -d|-D <name>`
    */
   delete(name: string, opts?: BranchDeleteOpts & ExecOpts): Promise<void>;
 
   /**
    * Rename a branch
+   *
+   * Wraps: `git branch -m <old> <new>`
    */
   rename(oldName: string, newName: string, opts?: ExecOpts): Promise<void>;
 }
 
 /**
- * Stash operations interface
+ * Stash operations
+ *
+ * Wraps: `git stash` subcommands
  */
 export interface StashOperations {
   /**
    * List stash entries
+   *
+   * Wraps: `git stash list`
    */
   list(opts?: ExecOpts): Promise<Array<StashEntry>>;
 
   /**
    * Push changes to stash
+   *
+   * Wraps: `git stash push`
    */
   push(opts?: StashPushOpts & ExecOpts): Promise<void>;
 
   /**
    * Pop stash entry
+   *
+   * Wraps: `git stash pop`
    */
   pop(opts?: StashApplyOpts & ExecOpts): Promise<void>;
 
   /**
    * Apply stash entry (without removing from stash)
+   *
+   * Wraps: `git stash apply`
    */
   apply(opts?: StashApplyOpts & ExecOpts): Promise<void>;
 
   /**
    * Drop a stash entry
+   *
+   * Wraps: `git stash drop`
    */
   drop(index?: number, opts?: ExecOpts): Promise<void>;
 
   /**
    * Clear all stash entries
+   *
+   * Wraps: `git stash clear`
    */
   clear(opts?: ExecOpts): Promise<void>;
 }
 
 /**
- * Tag operations interface
+ * Tag operations
+ *
+ * Wraps: `git tag` subcommands
  */
 export interface TagOperations {
   /**
    * List tags
+   *
+   * Wraps: `git tag --list`
    */
   list(opts?: TagListOpts & ExecOpts): Promise<Array<string>>;
 
   /**
    * Create a tag
+   *
+   * Wraps: `git tag <name>`
    */
   create(name: string, opts?: TagCreateOpts & ExecOpts): Promise<void>;
 
   /**
    * Delete a tag
+   *
+   * Wraps: `git tag -d <name>`
    */
   delete(name: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * Get tag info
+   *
+   * Wraps: `git tag -v <name>` / `git show <tag>`
    */
   show(name: string, opts?: ExecOpts): Promise<TagInfo>;
 }
@@ -2255,63 +2351,91 @@ export type RemoteUrlOpts = {
 };
 
 /**
- * Remote operations interface
+ * Remote operations
+ *
+ * Wraps: `git remote` subcommands
  */
 export interface RemoteOperations {
   /**
    * List remotes
+   *
+   * Wraps: `git remote -v`
    */
   list(opts?: ExecOpts): Promise<Array<RemoteInfo>>;
 
   /**
    * Add a remote
+   *
+   * Wraps: `git remote add <name> <url>`
    */
   add(name: string, url: string, opts?: RemoteAddOpts & ExecOpts): Promise<void>;
 
   /**
    * Remove a remote
+   *
+   * Wraps: `git remote remove <name>`
    */
   remove(name: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * Rename a remote
+   *
+   * Wraps: `git remote rename <old> <new>`
    */
   rename(oldName: string, newName: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * Get remote URL
+   *
+   * Wraps: `git remote get-url <name>`
    */
   getUrl(name: string, opts?: RemoteUrlOpts & ExecOpts): Promise<string>;
 
   /**
    * Set remote URL
+   *
+   * Wraps: `git remote set-url <name> <url>`
    */
   setUrl(name: string, url: string, opts?: RemoteUrlOpts & ExecOpts): Promise<void>;
 
   /**
    * Set remote HEAD
+   *
+   * Wraps: `git remote set-head <remote> <branch>`
    */
   setHead(remote: string, branch?: string, opts?: RemoteSetHeadOpts & ExecOpts): Promise<void>;
 
   /**
    * Show information about a remote
+   *
+   * Wraps: `git remote show <remote>`
    */
   show(remote: string, opts?: RemoteShowOpts & ExecOpts): Promise<string>;
 
   /**
    * Prune stale remote-tracking branches
+   *
+   * Wraps: `git remote prune <remote>`
    */
   prune(remote: string, opts?: RemotePruneOpts & ExecOpts): Promise<Array<string>>;
 
   /**
    * Update remotes
+   *
+   * Wraps: `git remote update`
    */
   update(remotes?: Array<string>, opts?: RemoteUpdateOpts & ExecOpts): Promise<void>;
 
   /**
    * Set tracked branches for a remote
+   *
+   * Wraps: `git remote set-branches <remote> <branch>...`
    */
-  setBranches(remote: string, branches: Array<string>, opts?: RemoteSetBranchesOpts & ExecOpts): Promise<void>;
+  setBranches(
+    remote: string,
+    branches: Array<string>,
+    opts?: RemoteSetBranchesOpts & ExecOpts,
+  ): Promise<void>;
 }
 
 // =============================================================================
@@ -2465,136 +2589,193 @@ export type ConfigSchema = {
 export type ConfigKey = keyof ConfigSchema;
 
 /**
- * Config operations interface (repository-level)
+ * Config operations (repository-level)
+ *
+ * Wraps: `git config` subcommands
  */
 export interface ConfigOperations {
   /**
    * Get a typed config value
-   * Returns undefined if not set
+   *
+   * Wraps: `git config --get <key>`
+   *
+   * @returns Config value or undefined if not set
    */
   get<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<ConfigSchema[K] | undefined>;
 
   /**
-   * Get a typed config value with all option (for multi-valued keys)
+   * Get all values for a multi-valued config key
+   *
+   * Wraps: `git config --get-all <key>`
    */
   getAll<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<Array<ConfigSchema[K]>>;
 
   /**
    * Set a typed config value
+   *
+   * Wraps: `git config <key> <value>`
    */
   set<K extends ConfigKey>(key: K, value: ConfigSchema[K], opts?: ExecOpts): Promise<void>;
 
   /**
    * Add a value to a multi-valued config key
+   *
+   * Wraps: `git config --add <key> <value>`
    */
   add<K extends ConfigKey>(key: K, value: ConfigSchema[K], opts?: ExecOpts): Promise<void>;
 
   /**
    * Unset a typed config value
+   *
+   * Wraps: `git config --unset <key>`
    */
   unset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void>;
 
   /**
    * Get a raw config value (for arbitrary keys)
-   * Returns undefined if not set
+   *
+   * Wraps: `git config --get <key>`
+   *
+   * @returns Config value or undefined if not set
    */
   getRaw(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | Array<string> | undefined>;
 
   /**
    * Set a raw config value (for arbitrary keys)
+   *
+   * Wraps: `git config <key> <value>`
    */
   setRaw(key: string, value: string, opts?: ConfigSetOpts & ExecOpts): Promise<void>;
 
   /**
    * Unset a raw config value (for arbitrary keys)
+   *
+   * Wraps: `git config --unset <key>`
    */
   unsetRaw(key: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * List all config values
+   *
+   * Wraps: `git config --list`
    */
   list(opts?: ConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>>;
 
   /**
    * Rename a config section
+   *
+   * Wraps: `git config --rename-section <old> <new>`
    */
   renameSection(oldName: string, newName: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * Remove a config section
+   *
+   * Wraps: `git config --remove-section <name>`
    */
   removeSection(name: string, opts?: ExecOpts): Promise<void>;
 }
 
 /**
- * Submodule operations interface
+ * Submodule operations
+ *
+ * Wraps: `git submodule` subcommands
  */
 export interface SubmoduleOperations {
   /**
    * List submodules
+   *
+   * Wraps: `git submodule status`
    */
   list(opts?: ExecOpts): Promise<Array<SubmoduleInfo>>;
 
   /**
    * Initialize submodules
+   *
+   * Wraps: `git submodule init`
    */
   init(paths?: Array<string>, opts?: ExecOpts): Promise<void>;
 
   /**
    * Update submodules
+   *
+   * Wraps: `git submodule update`
    */
   update(opts?: SubmoduleOpts & ExecOpts): Promise<void>;
 
   /**
    * Add a submodule
+   *
+   * Wraps: `git submodule add <url> <path>`
    */
   add(url: string, path: string, opts?: SubmoduleAddOpts & ExecOpts): Promise<void>;
 
   /**
    * Deinitialize a submodule
+   *
+   * Wraps: `git submodule deinit <path>`
    */
   deinit(path: string, opts?: SubmoduleDeinitOpts & ExecOpts): Promise<void>;
 
   /**
    * Get submodule status
+   *
+   * Wraps: `git submodule status`
    */
   status(paths?: Array<string>, opts?: SubmoduleStatusOpts & ExecOpts): Promise<string>;
 
   /**
    * Get submodule summary
+   *
+   * Wraps: `git submodule summary`
    */
   summary(opts?: SubmoduleSummaryOpts & ExecOpts): Promise<string>;
 
   /**
    * Run a command in each submodule
+   *
+   * Wraps: `git submodule foreach <command>`
    */
   foreach(command: string, opts?: SubmoduleForeachOpts & ExecOpts): Promise<string>;
 
   /**
    * Sync submodule URL configuration
+   *
+   * Wraps: `git submodule sync`
    */
   sync(paths?: Array<string>, opts?: SubmoduleSyncOpts & ExecOpts): Promise<void>;
 
   /**
    * Absorb git directories of submodules into the superproject
+   *
+   * Wraps: `git submodule absorbgitdirs`
    */
   absorbGitDirs(opts?: ExecOpts): Promise<void>;
 
   /**
    * Set the branch for a submodule
+   *
+   * Wraps: `git submodule set-branch --branch <branch> -- <path>`
    */
   setBranch(path: string, branch: string, opts?: SubmoduleSetBranchOpts & ExecOpts): Promise<void>;
 
   /**
    * Set the URL for a submodule
+   *
+   * Wraps: `git submodule set-url -- <path> <url>`
    */
   setUrl(path: string, url: string, opts?: ExecOpts): Promise<void>;
 }
 
 /**
- * Worktree repository with full working directory support
+ * Repository with working directory
+ *
+ * Provides type-safe wrappers for Git commands that operate on repositories
+ * with a working tree. Each method corresponds to a specific Git CLI command
+ * or subcommand.
  */
 export interface WorktreeRepo extends RepoBase {
+  /** Path to the working directory */
   readonly workdir: string;
 
   // ==========================================================================
@@ -2603,38 +2784,72 @@ export interface WorktreeRepo extends RepoBase {
 
   /**
    * Get repository status
+   *
+   * Wraps: `git status`
+   *
+   * @example
+   * ```typescript
+   * const status = await repo.status();
+   * console.log(status.entries); // Changed files
+   * console.log(status.branch);  // Current branch
+   * ```
    */
   status(opts?: StatusOpts & ExecOpts): Promise<StatusPorcelain>;
 
   /**
    * Get commit log
+   *
+   * Wraps: `git log`
+   *
+   * @example
+   * ```typescript
+   * const commits = await repo.log({ maxCount: 10 });
+   * ```
    */
   log(opts?: LogOpts & ExecOpts): Promise<Array<Commit>>;
 
   /**
    * Fetch from remote
+   *
+   * Wraps: `git fetch`
+   *
+   * @example
+   * ```typescript
+   * await repo.fetch({ remote: 'origin', prune: true });
+   * ```
    */
   fetch(opts?: FetchOpts & ExecOpts): Promise<void>;
 
   /**
    * Push to remote
+   *
+   * Wraps: `git push`
+   *
+   * @example
+   * ```typescript
+   * await repo.push({ remote: 'origin', refspec: 'main' });
+   * ```
    */
   push(opts?: PushOpts & ExecOpts): Promise<void>;
 
   /**
-   * LFS operations
+   * Git LFS operations
+   *
+   * Wraps: `git lfs *` commands
    */
   lfs: LfsOperations;
 
   /**
-   * LFS extra operations (inspired by fs-extra)
+   * Git LFS extra operations (inspired by fs-extra)
    *
    * Additional utilities for advanced LFS patterns like 2-phase commit/fetch.
    */
   lfsExtra: LfsExtraOperations;
 
   /**
-   * Worktree operations (§7.4)
+   * Git worktree operations
+   *
+   * Wraps: `git worktree *` commands
    */
   worktree: WorktreeOperations;
 
@@ -2649,61 +2864,137 @@ export interface WorktreeRepo extends RepoBase {
 
   /**
    * Add files to the index
+   *
+   * Wraps: `git add`
+   *
+   * @example
+   * ```typescript
+   * await repo.add(['file1.txt', 'file2.txt']);
+   * await repo.add('.', { all: true });
+   * ```
    */
   add(paths: string | Array<string>, opts?: AddOpts & ExecOpts): Promise<void>;
 
   /**
-   * Branch operations
+   * Git branch operations
+   *
+   * Wraps: `git branch *` commands
    */
   branch: BranchOperations;
 
   /**
    * Checkout a branch, tag, or commit
+   *
+   * Wraps: `git checkout`
+   *
+   * @example
+   * ```typescript
+   * await repo.checkout('main');
+   * await repo.checkout('feature', { create: true });
+   * ```
    */
   checkout(target: string, opts?: CheckoutOpts & ExecOpts): Promise<void>;
 
   /**
    * Create a commit
+   *
+   * Wraps: `git commit`
+   *
+   * @example
+   * ```typescript
+   * const result = await repo.commit({ message: 'feat: add new feature' });
+   * console.log(result.hash);
+   * ```
    */
   commit(opts?: CommitOpts & ExecOpts): Promise<CommitResult>;
 
   /**
    * Show changes between commits, commit and working tree, etc.
+   *
+   * Wraps: `git diff`
+   *
+   * @example
+   * ```typescript
+   * const diff = await repo.diff('HEAD~1');
+   * const staged = await repo.diff({ staged: true });
+   * ```
    */
   diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffResult>;
 
   /**
    * Merge branches
+   *
+   * Wraps: `git merge`
+   *
+   * @example
+   * ```typescript
+   * const result = await repo.merge('feature-branch');
+   * ```
    */
   merge(branch: string, opts?: MergeOpts & ExecOpts): Promise<MergeResult>;
 
   /**
    * Pull from remote (fetch + merge/rebase)
+   *
+   * Wraps: `git pull`
+   *
+   * @example
+   * ```typescript
+   * await repo.pull({ remote: 'origin', rebase: true });
+   * ```
    */
   pull(opts?: PullOpts & ExecOpts): Promise<void>;
 
   /**
    * Reset current HEAD to the specified state
+   *
+   * Wraps: `git reset`
+   *
+   * @example
+   * ```typescript
+   * await repo.reset('HEAD~1', { hard: true });
+   * await repo.reset({ soft: true });
+   * ```
    */
   reset(target?: string, opts?: ResetOpts & ExecOpts): Promise<void>;
 
   /**
    * Remove files from the working tree and from the index
+   *
+   * Wraps: `git rm`
+   *
+   * @example
+   * ```typescript
+   * await repo.rm('file.txt');
+   * await repo.rm('dir/', { recursive: true });
+   * ```
    */
   rm(paths: string | Array<string>, opts?: RmOpts & ExecOpts): Promise<void>;
 
   /**
-   * Stash operations
+   * Git stash operations
+   *
+   * Wraps: `git stash *` commands
    */
   stash: StashOperations;
 
   /**
    * Switch branches
+   *
+   * Wraps: `git switch`
+   *
+   * @example
+   * ```typescript
+   * await repo.switch('main');
+   * await repo.switch('new-branch', { create: true });
+   * ```
    */
   switch(branch: string, opts?: SwitchOpts & ExecOpts): Promise<void>;
 
   /**
-   * Tag operations
+   * Git tag operations
+   *
+   * Wraps: `git tag *` commands
    */
   tag: TagOperations;
 
@@ -2712,37 +3003,91 @@ export interface WorktreeRepo extends RepoBase {
   // ==========================================================================
 
   /**
-   * Cherry-pick commits
+   * Apply changes from existing commits
+   *
+   * Wraps: `git cherry-pick`
+   *
+   * @example
+   * ```typescript
+   * await repo.cherryPick('abc123');
+   * await repo.cherryPick(['abc123', 'def456']);
+   * ```
    */
   cherryPick(commits: string | Array<string>, opts?: CherryPickOpts & ExecOpts): Promise<void>;
 
   /**
-   * Clean untracked files
+   * Remove untracked files from the working tree
+   *
+   * Wraps: `git clean`
+   *
+   * @example
+   * ```typescript
+   * const removed = await repo.clean({ force: true, directories: true });
+   * ```
    */
   clean(opts?: CleanOpts & ExecOpts): Promise<Array<string>>;
 
   /**
    * Move or rename files
+   *
+   * Wraps: `git mv`
+   *
+   * @example
+   * ```typescript
+   * await repo.mv('old-name.txt', 'new-name.txt');
+   * ```
    */
   mv(source: string, destination: string, opts?: MvOpts & ExecOpts): Promise<void>;
 
   /**
-   * Rebase commits
+   * Reapply commits on top of another base
+   *
+   * Wraps: `git rebase`
+   *
+   * @example
+   * ```typescript
+   * await repo.rebase({ onto: 'main' });
+   * await repo.rebase({ abort: true });
+   * ```
    */
   rebase(opts?: RebaseOpts & ExecOpts): Promise<void>;
 
   /**
    * Restore working tree files
+   *
+   * Wraps: `git restore`
+   *
+   * @example
+   * ```typescript
+   * await repo.restore(['file.txt'], { staged: true });
+   * await repo.restore(['.'], { source: 'HEAD' });
+   * ```
    */
   restore(paths: string | Array<string>, opts?: RestoreOpts & ExecOpts): Promise<void>;
 
   /**
-   * Revert commits
+   * Revert existing commits
+   *
+   * Wraps: `git revert`
+   *
+   * @example
+   * ```typescript
+   * await repo.revert('abc123');
+   * await repo.revert(['abc123', 'def456'], { noCommit: true });
+   * ```
    */
   revert(commits: string | Array<string>, opts?: RevertOpts & ExecOpts): Promise<void>;
 
   /**
    * Show various types of objects
+   *
+   * Wraps: `git show`
+   *
+   * @example
+   * ```typescript
+   * const content = await repo.show('HEAD:README.md');
+   * const commitInfo = await repo.show('abc123');
+   * ```
    */
   show(object: string, opts?: ShowOpts & ExecOpts): Promise<string>;
 
@@ -2752,6 +3097,8 @@ export interface WorktreeRepo extends RepoBase {
 
   /**
    * Parse revision specification and return the object name (SHA)
+   *
+   * Wraps: `git rev-parse`
    *
    * Useful for resolving refs like HEAD, branch names, or relative refs like HEAD~1
    *
@@ -2767,7 +3114,7 @@ export interface WorktreeRepo extends RepoBase {
   /**
    * Count the number of commits reachable from a ref
    *
-   * Equivalent to `git rev-list --count <ref>`
+   * Wraps: `git rev-list --count`
    *
    * @example
    * ```typescript
@@ -2779,6 +3126,8 @@ export interface WorktreeRepo extends RepoBase {
 
   /**
    * Read or modify symbolic refs
+   *
+   * Wraps: `git symbolic-ref`
    *
    * Without newRef: reads the symbolic ref (e.g., get what HEAD points to)
    * With newRef: sets the symbolic ref to point to newRef
@@ -2795,44 +3144,62 @@ export interface WorktreeRepo extends RepoBase {
   symbolicRef(name: string, newRef?: string, opts?: ExecOpts): Promise<string | undefined>;
 
   /**
-   * Submodule operations
+   * Git submodule operations
+   *
+   * Wraps: `git submodule *` commands
    */
   submodule: SubmoduleOperations;
 
   /**
-   * Remote operations
+   * Git remote operations
+   *
+   * Wraps: `git remote *` commands
    */
   remote: RemoteOperations;
 
   /**
-   * Config operations (repository-level)
+   * Git config operations (repository-level)
+   *
+   * Wraps: `git config` (without --global)
    */
   config: ConfigOperations;
 }
 
 /**
  * Bare repository (no working directory)
+ *
+ * A bare repository contains only the Git data without a working tree.
+ * Typically used for shared/server repositories.
  */
 export interface BareRepo extends RepoBase {
+  /** Path to the git directory */
   readonly gitDir: string;
 
   /**
    * Fetch from remote
+   *
+   * Wraps: `git fetch`
    */
   fetch(opts?: FetchOpts & ExecOpts): Promise<void>;
 
   /**
    * Push to remote
+   *
+   * Wraps: `git push`
    */
   push(opts?: PushOpts & ExecOpts): Promise<void>;
 
   /**
    * Remote operations
+   *
+   * Wraps: `git remote` subcommands
    */
   remote: RemoteOperations;
 
   /**
    * Config operations (repository-level)
+   *
+   * Wraps: `git config` subcommands
    */
   config: ConfigOperations;
 }

@@ -159,7 +159,9 @@ export type GlobalConfigListOpts = {
 };
 
 /**
- * Global config operations interface
+ * Global config operations
+ *
+ * Wraps: `git config --global` subcommands
  *
  * Operates on ~/.gitconfig (user-level configuration).
  * Uses the same typed ConfigSchema as repository-level config.
@@ -167,48 +169,68 @@ export type GlobalConfigListOpts = {
 export interface GlobalConfigOperations {
   /**
    * Get a typed global config value
-   * Returns undefined if not set
+   *
+   * Wraps: `git config --global --get <key>`
+   *
+   * @returns Config value or undefined if not set
    */
   get<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<ConfigSchema[K] | undefined>;
 
   /**
    * Get all values for a typed multi-valued global config key
+   *
+   * Wraps: `git config --global --get-all <key>`
    */
   getAll<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<Array<ConfigSchema[K]>>;
 
   /**
    * Set a typed global config value
+   *
+   * Wraps: `git config --global <key> <value>`
    */
   set<K extends ConfigKey>(key: K, value: ConfigSchema[K], opts?: ExecOpts): Promise<void>;
 
   /**
    * Add a value to a typed multi-valued global config key
+   *
+   * Wraps: `git config --global --add <key> <value>`
    */
   add<K extends ConfigKey>(key: K, value: ConfigSchema[K], opts?: ExecOpts): Promise<void>;
 
   /**
    * Unset a typed global config value
+   *
+   * Wraps: `git config --global --unset <key>`
    */
   unset<K extends ConfigKey>(key: K, opts?: ExecOpts): Promise<void>;
 
   /**
    * Get a raw global config value (for arbitrary keys)
-   * Returns undefined if not set
+   *
+   * Wraps: `git config --global --get <key>`
+   *
+   * @returns Config value or undefined if not set
    */
   getRaw(key: string, opts?: ConfigGetOpts & ExecOpts): Promise<string | Array<string> | undefined>;
 
   /**
    * Set a raw global config value (for arbitrary keys)
+   *
+   * Wraps: `git config --global <key> <value>`
    */
   setRaw(key: string, value: string, opts?: ConfigSetOpts & ExecOpts): Promise<void>;
 
   /**
    * Unset a raw global config value (for arbitrary keys)
+   *
+   * Wraps: `git config --global --unset <key>`
    */
   unsetRaw(key: string, opts?: ExecOpts): Promise<void>;
 
   /**
    * List all global config values
+   *
+   * Wraps: `git config --global --list`
    */
   list(opts?: GlobalConfigListOpts & ExecOpts): Promise<Array<ConfigEntry>>;
 }
@@ -216,13 +238,12 @@ export interface GlobalConfigOperations {
 /**
  * Main Git interface for repository-agnostic operations
  *
- * Design doc references:
- * - §7.1: Repository-agnostic operations (clone, init, lsRemote, raw, version)
- * - §6.3: open() with environment isolation options
+ * Provides type-safe wrappers for Git commands that don't require a repository context.
+ * Each method corresponds to a specific Git CLI command.
  */
 export interface Git {
   /**
-   * Open an existing repository with optional environment isolation (§6.3)
+   * Open an existing repository
    *
    * @param path - Path to the repository (workdir or git-dir)
    * @param opts - Environment isolation and credential options
@@ -233,8 +254,7 @@ export interface Git {
   /**
    * Clone a repository
    *
-   * Returns the newly created repository, addressing the factory pattern
-   * design flaw in simple-git (§2.4).
+   * Wraps: `git clone <url> <path>`
    *
    * The return type depends on the `bare` or `mirror` option:
    * - `{ bare: true }` or `{ mirror: true }` → `BareRepo`
@@ -251,7 +271,7 @@ export interface Git {
   /**
    * Initialize a new repository
    *
-   * Returns the newly created repository.
+   * Wraps: `git init <path>`
    *
    * The return type depends on the `bare` option:
    * - `{ bare: true }` → `BareRepo`
@@ -262,21 +282,29 @@ export interface Git {
 
   /**
    * List references in a remote repository
+   *
+   * Wraps: `git ls-remote <url>`
    */
   lsRemote(url: string, opts?: LsRemoteOpts & ExecOpts): Promise<LsRemoteResult>;
 
   /**
    * Get git version
+   *
+   * Wraps: `git --version`
    */
   version(opts?: ExecOpts): Promise<string>;
 
   /**
    * Execute a raw git command (repository-agnostic)
+   *
+   * Wraps: `git <argv...>`
    */
   raw(argv: Array<string>, opts?: ExecOpts): Promise<RawResult>;
 
   /**
-   * Global config operations (--global flag)
+   * Global config operations
+   *
+   * Wraps: `git config --global` subcommands
    *
    * Operates on ~/.gitconfig (user-level configuration).
    * For repository-level config, use repo.config instead.
