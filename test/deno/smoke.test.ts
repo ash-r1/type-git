@@ -260,7 +260,11 @@ describe('Integration', () => {
 
 describe('High-level API with Deno', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createDenoAdapters() });
+  let git: Awaited<ReturnType<typeof createGit>>;
+
+  beforeAll(async () => {
+    git = await createGit({ adapters: createDenoAdapters() });
+  });
 
   beforeEach(async () => {
     tempDir = await Deno.makeTempDir({ prefix: 'deno-git-test-' });

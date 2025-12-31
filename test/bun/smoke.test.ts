@@ -251,7 +251,11 @@ describe('Integration', () => {
 
 describe('High-level API with Bun', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createBunAdapters() });
+  let git: Awaited<ReturnType<typeof createGit>>;
+
+  beforeAll(async () => {
+    git = await createGit({ adapters: createBunAdapters() });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'bun-git-test-'));
