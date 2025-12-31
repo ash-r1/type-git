@@ -22,6 +22,8 @@ import type {
   RemoteShowOpts,
   RemoteUpdateOpts,
   RemoteUrlOpts,
+  RepoLsRemoteOpts,
+  RepoLsRemoteResult,
   RevParseBooleanQuery,
   RevParseListQuery,
   RevParsePathOpts,
@@ -29,7 +31,7 @@ import type {
   RevParseRefOpts,
 } from '../core/repo.js';
 import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
-import { parseLines } from '../parsers/index.js';
+import { parseLines, parseLsRemote } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
 
 /**
@@ -105,6 +107,59 @@ export class BareRepoImpl implements BareRepo {
   public async isBare(): Promise<boolean> {
     const result = await this.runner.run(this.context, ['rev-parse', '--is-bare-repository']);
     return result.exitCode === 0 && result.stdout.trim() === 'true';
+  }
+
+  /**
+   * List references in a remote repository
+   */
+  public async lsRemote(
+    remote: string,
+    opts?: RepoLsRemoteOpts & ExecOpts,
+  ): Promise<RepoLsRemoteResult> {
+    const args: string[] = ['ls-remote'];
+
+    // Ref type filters
+    if (opts?.heads) {
+      args.push('--heads');
+    }
+
+    if (opts?.tags) {
+      args.push('--tags');
+    }
+
+    if (opts?.refsOnly) {
+      args.push('--refs');
+    }
+
+    // Output options
+    if (opts?.getUrl) {
+      args.push('--get-url');
+    }
+
+    if (opts?.sort) {
+      args.push('--sort', opts.sort);
+    }
+
+    if (opts?.symref) {
+      args.push('--symref');
+    }
+
+    // Add remote name
+    args.push(remote);
+
+    // Add specific refs if provided
+    if (opts?.refs && opts.refs.length > 0) {
+      args.push(...opts.refs);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+      onProgress: opts?.onProgress,
+    });
+
+    const refs = parseLsRemote(result.stdout);
+
+    return { refs };
   }
 
   /**
