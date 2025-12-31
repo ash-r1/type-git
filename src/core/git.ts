@@ -9,7 +9,6 @@ import type {
   ConfigKey,
   ConfigSchema,
   ConfigSetOpts,
-  RepoBase,
   WorktreeRepo,
 } from './repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from './types.js';
@@ -272,40 +271,25 @@ export interface Git {
    *
    * Returns either WorktreeRepo or BareRepo depending on the repository type.
    * Use this when you don't know the repository type at compile time.
+   * You can use `isWorktree()` or `isBare()` methods for runtime type checking.
    *
    * @param path - Path to the repository (workdir or git-dir)
    * @param opts - Environment isolation and credential options
    * @returns WorktreeRepo or BareRepo depending on repository type
-   */
-  openRaw(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo>;
-
-  /**
-   * Open an existing repository without type detection
-   *
-   * Returns a `RepoBase` that provides runtime type checking via `isWorktree()`
-   * and `isBare()` methods. Use type assertions after checking to access
-   * type-specific methods.
-   *
-   * This is useful when you need to defer type detection or want to perform
-   * the detection yourself.
-   *
-   * @param path - Path to the repository (workdir or git-dir)
-   * @param opts - Environment isolation and credential options
-   * @returns RepoBase with runtime type checking methods
    *
    * @example
    * ```typescript
    * const repo = await git.openRaw('/path/to/repo');
    * if (await repo.isWorktree()) {
-   *   // Use type assertion after runtime check
+   *   // repo is WorktreeRepo at runtime
    *   const status = await (repo as WorktreeRepo).status();
    * } else if (await repo.isBare()) {
-   *   // Use type assertion after runtime check
+   *   // repo is BareRepo at runtime
    *   await (repo as BareRepo).fetch({ remote: 'origin' });
    * }
    * ```
    */
-  openRaw(path: string, opts?: GitOpenOptions): Promise<RepoBase>;
+  openRaw(path: string, opts?: GitOpenOptions): Promise<WorktreeRepo | BareRepo>;
 
   /**
    * Clone a repository
