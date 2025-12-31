@@ -117,15 +117,39 @@ const git = createGit({ adapters: createNodeAdapters() });
 - **Do not push directly to main**: The main branch is protected
 - Always create a feature branch and submit a Pull Request
 - Branch naming: `feature/*`, `fix/*`, `chore/*`, etc.
+- **Include a changeset**: For any changes that affect the public API or behavior, add a changeset with `pnpm changeset`
 
 ```bash
 # Example workflow
 git checkout -b feature/my-feature
 # ... make changes ...
+pnpm changeset              # Add a changeset describing the change
 git add .
 git commit -m "feat: add my feature"
 git push -u origin feature/my-feature
 # Then create a PR via GitHub
+```
+
+### Claude Code: Commit, Push, PR Pattern
+
+When completing a task, follow this standard pattern:
+
+1. **Commit**: Stage and commit with conventional commit message
+2. **Push**: Push to remote (use `-u` for new branches)
+3. **PR**: Create or update a Pull Request
+
+```bash
+# For new branches
+git add <files>
+git commit -m "feat: description"
+git push -u origin <branch-name>
+gh pr create --title "feat: description" --body "## Summary\n- Changes\n\n## Test plan\n- [ ] Tests"
+
+# For existing PR branches
+git add <files>
+git commit -m "feat: description"
+git push
+# PR is automatically updated
 ```
 
 ## Versioning & Release
