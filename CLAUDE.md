@@ -70,6 +70,9 @@ pnpm check:fix       # Fix all issues
 
 # Type Check
 pnpm typecheck       # TypeScript --noEmit
+
+# Changeset (versioning)
+pnpm changeset       # Create a new changeset
 ```
 
 ## Usage Examples
@@ -124,3 +127,31 @@ git commit -m "feat: add my feature"
 git push -u origin feature/my-feature
 # Then create a PR via GitHub
 ```
+
+## Versioning & Release
+
+This project uses [Changesets](https://github.com/changesets/changesets) for version management and releases.
+
+### Adding a Changeset
+
+When making changes that should be released, add a changeset:
+
+```bash
+pnpm changeset
+```
+
+This will prompt you to:
+1. Select the type of change (major/minor/patch)
+2. Write a summary of the changes
+
+Changeset files are committed with your PR and describe what changes will be included in the next release.
+
+### Release Process
+
+1. When PRs with changesets are merged to `main`, the release workflow automatically creates/updates a "Release PR"
+2. The Release PR accumulates all changesets and shows the pending version bump
+3. When the Release PR is merged:
+   - Package version is updated
+   - CHANGELOG.md is generated
+   - Package is published to npm
+   - Git tag (e.g., `v1.0.0`) is created
