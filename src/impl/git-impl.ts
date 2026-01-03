@@ -31,8 +31,101 @@ import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
 import { BareRepoImpl } from './bare-repo-impl.js';
 import { WorktreeRepoImpl } from './worktree-repo-impl.js';
 
-// Regex pattern for parsing git version output
+// Regex for parsing git version output
 const GIT_VERSION_REGEX = /git version (\S+)/;
+
+/**
+ * Build clone command arguments from options using a data-driven approach
+ */
+function buildCloneArgs(opts?: CloneOpts): string[] {
+  const args: string[] = ['clone'];
+
+  if (!opts) {
+    return args;
+  }
+
+  // Boolean flags that just add a flag
+  const booleanFlags: [keyof CloneOpts, string][] = [
+    ['verbose', '--verbose'],
+    ['quiet', '--quiet'],
+    ['bare', '--bare'],
+    ['mirror', '--mirror'],
+    ['rejectShallow', '--reject-shallow'],
+    ['singleBranch', '--single-branch'],
+    ['noCheckout', '--no-checkout'],
+    ['sparse', '--sparse'],
+    ['local', '--local'],
+    ['noHardlinks', '--no-hardlinks'],
+    ['shared', '--shared'],
+    ['dissociate', '--dissociate'],
+    ['recurseSubmodules', '--recurse-submodules'],
+    ['shallowSubmodules', '--shallow-submodules'],
+    ['remoteSubmodules', '--remote-submodules'],
+    ['noTags', '--no-tags'],
+    ['alsoFilterSubmodules', '--also-filter-submodules'],
+    ['ipv4', '--ipv4'],
+    ['ipv6', '--ipv6'],
+  ];
+
+  for (const [key, flag] of booleanFlags) {
+    if (opts[key]) {
+      args.push(flag);
+    }
+  }
+
+  // String flags with values
+  const stringFlags: [keyof CloneOpts, string][] = [
+    ['branch', '--branch'],
+    ['reference', '--reference'],
+    ['referenceIfAble', '--reference-if-able'],
+    ['template', '--template'],
+    ['origin', '--origin'],
+    ['separateGitDir', '--separate-git-dir'],
+    ['filter', '--filter'],
+  ];
+
+  for (const [key, flag] of stringFlags) {
+    const value = opts[key];
+    if (typeof value === 'string') {
+      args.push(flag, value);
+    }
+  }
+
+  // Numeric flags
+  if (opts.depth !== undefined) {
+    args.push('--depth', String(opts.depth));
+  }
+
+  if (opts.jobs !== undefined) {
+    args.push('--jobs', String(opts.jobs));
+  }
+
+  // Special: shallowSince can be Date or string
+  if (opts.shallowSince) {
+    const since =
+      opts.shallowSince instanceof Date ? opts.shallowSince.toISOString() : opts.shallowSince;
+    args.push('--shallow-since', since);
+  }
+
+  // Special: shallowExclude can be string or array
+  if (opts.shallowExclude) {
+    const excludes = Array.isArray(opts.shallowExclude)
+      ? opts.shallowExclude
+      : [opts.shallowExclude];
+    for (const exclude of excludes) {
+      args.push('--shallow-exclude', exclude);
+    }
+  }
+
+  // Special: config is key-value pairs
+  if (opts.config) {
+    for (const [key, value] of Object.entries(opts.config)) {
+      args.push('-c', `${key}=${value}`);
+    }
+  }
+
+  return args;
+}
 
 /**
  * Options for creating a Git instance
@@ -200,156 +293,11 @@ export class GitImpl implements Git {
     path: string,
     opts?: CloneOpts & ExecOpts,
   ): Promise<WorktreeRepo | BareRepo> {
-    const args = ['clone'];
+    const args = buildCloneArgs(opts);
 
-    // Add progress flag for progress tracking
+    // Add progress flag for progress tracking (from ExecOpts)
     if (opts?.onProgress) {
       args.push('--progress');
-    }
-
-    // Verbosity options
-    if (opts?.verbose) {
-      args.push('--verbose');
-    }
-
-    if (opts?.quiet) {
-      args.push('--quiet');
-    }
-
-    // Repository type options
-    if (opts?.bare) {
-      args.push('--bare');
-    }
-
-    if (opts?.mirror) {
-      args.push('--mirror');
-    }
-
-    // Shallow clone options
-    if (opts?.depth !== undefined) {
-      args.push('--depth', String(opts.depth));
-    }
-
-    if (opts?.shallowSince) {
-      const since =
-        opts.shallowSince instanceof Date ? opts.shallowSince.toISOString() : opts.shallowSince;
-      args.push('--shallow-since', since);
-    }
-
-    if (opts?.shallowExclude) {
-      const excludes = Array.isArray(opts.shallowExclude)
-        ? opts.shallowExclude
-        : [opts.shallowExclude];
-      for (const exclude of excludes) {
-        args.push('--shallow-exclude', exclude);
-      }
-    }
-
-    if (opts?.rejectShallow) {
-      args.push('--reject-shallow');
-    }
-
-    // Branch options
-    if (opts?.branch) {
-      args.push('--branch', opts.branch);
-    }
-
-    if (opts?.singleBranch) {
-      args.push('--single-branch');
-    }
-
-    // Checkout options
-    if (opts?.noCheckout) {
-      args.push('--no-checkout');
-    }
-
-    if (opts?.sparse) {
-      args.push('--sparse');
-    }
-
-    // Local clone options
-    if (opts?.local) {
-      args.push('--local');
-    }
-
-    if (opts?.noHardlinks) {
-      args.push('--no-hardlinks');
-    }
-
-    if (opts?.shared) {
-      args.push('--shared');
-    }
-
-    // Reference options
-    if (opts?.reference) {
-      args.push('--reference', opts.reference);
-    }
-
-    if (opts?.referenceIfAble) {
-      args.push('--reference-if-able', opts.referenceIfAble);
-    }
-
-    if (opts?.dissociate) {
-      args.push('--dissociate');
-    }
-
-    // Submodule options
-    if (opts?.recurseSubmodules) {
-      args.push('--recurse-submodules');
-    }
-
-    if (opts?.shallowSubmodules) {
-      args.push('--shallow-submodules');
-    }
-
-    if (opts?.remoteSubmodules) {
-      args.push('--remote-submodules');
-    }
-
-    if (opts?.jobs !== undefined) {
-      args.push('--jobs', String(opts.jobs));
-    }
-
-    // Tag options
-    if (opts?.noTags) {
-      args.push('--no-tags');
-    }
-
-    // Template and config options
-    if (opts?.template) {
-      args.push('--template', opts.template);
-    }
-
-    if (opts?.origin) {
-      args.push('--origin', opts.origin);
-    }
-
-    if (opts?.separateGitDir) {
-      args.push('--separate-git-dir', opts.separateGitDir);
-    }
-
-    if (opts?.config) {
-      for (const [key, value] of Object.entries(opts.config)) {
-        args.push('-c', `${key}=${value}`);
-      }
-    }
-
-    // Partial clone options
-    if (opts?.filter) {
-      args.push('--filter', opts.filter);
-    }
-
-    if (opts?.alsoFilterSubmodules) {
-      args.push('--also-filter-submodules');
-    }
-
-    // Network options
-    if (opts?.ipv4) {
-      args.push('--ipv4');
-    }
-
-    if (opts?.ipv6) {
-      args.push('--ipv6');
     }
 
     args.push(url, path);

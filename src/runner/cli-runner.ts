@@ -32,6 +32,74 @@ const ERROR_PATTERN = /error:\s*(.+)/i;
 const LINE_SEPARATOR_PATTERN = /\r|\n/;
 
 /**
+ * Convert parsed LFS stderr progress to LfsProgress type
+ */
+function toLfsProgress(info: ReturnType<typeof parseLfsStderrProgress>): LfsProgress | null {
+  if (!info) {
+    return null;
+  }
+  return {
+    direction: info.direction,
+    bytesSoFar: info.bytesSoFar,
+    bytesTotal: info.bytesTotal,
+    bitrate: info.bitrate ?? undefined,
+    filesCompleted: info.filesCompleted,
+    filesTotal: info.filesTotal,
+    percent: info.percent,
+  };
+}
+
+/**
+ * Convert parsed Git progress to GitProgress type
+ */
+function toGitProgress(
+  info: ReturnType<typeof parseGitProgress>,
+  message: string,
+): GitProgress | null {
+  if (!info) {
+    return null;
+  }
+  return {
+    phase: info.phase,
+    current: info.current,
+    total: info.total,
+    percent: info.percent,
+    message,
+  };
+}
+
+/**
+ * Process a single line for progress callbacks
+ */
+function processProgressLine(
+  line: string,
+  onProgress: ((progress: GitProgress) => void) | undefined,
+  onLfsProgress: ((progress: LfsProgress) => void) | undefined,
+): void {
+  const trimmed = line.trim();
+  if (!trimmed) {
+    return;
+  }
+
+  // Try to parse as LFS progress first (more specific patterns)
+  if (onLfsProgress) {
+    const lfsProgress = toLfsProgress(parseLfsStderrProgress(trimmed));
+    if (lfsProgress) {
+      onLfsProgress(lfsProgress);
+      return;
+    }
+  }
+
+  // Try to parse as Git progress
+  if (onProgress) {
+    const gitProgress = toGitProgress(parseGitProgress(trimmed), trimmed);
+    if (gitProgress) {
+      onProgress(gitProgress);
+    }
+  }
+}
+
+/**
  * Credential helper configuration
  */
 export type CredentialHelperConfig = {
@@ -226,43 +294,7 @@ export class CliRunner {
               stderrBuffer = lines.pop() ?? '';
 
               for (const line of lines) {
-                const trimmed = line.trim();
-                if (!trimmed) {
-                  continue;
-                }
-
-                // Try to parse as LFS progress first (more specific patterns)
-                if (onLfsProgress) {
-                  const lfsProgressInfo = parseLfsStderrProgress(trimmed);
-                  if (lfsProgressInfo) {
-                    const lfsProgress: LfsProgress = {
-                      direction: lfsProgressInfo.direction,
-                      bytesSoFar: lfsProgressInfo.bytesSoFar,
-                      bytesTotal: lfsProgressInfo.bytesTotal,
-                      bitrate: lfsProgressInfo.bitrate ?? undefined,
-                      filesCompleted: lfsProgressInfo.filesCompleted,
-                      filesTotal: lfsProgressInfo.filesTotal,
-                      percent: lfsProgressInfo.percent,
-                    };
-                    onLfsProgress(lfsProgress);
-                    continue;
-                  }
-                }
-
-                // Try to parse as Git progress
-                if (onProgress) {
-                  const gitProgressInfo = parseGitProgress(trimmed);
-                  if (gitProgressInfo) {
-                    const gitProgress: GitProgress = {
-                      phase: gitProgressInfo.phase,
-                      current: gitProgressInfo.current,
-                      total: gitProgressInfo.total,
-                      percent: gitProgressInfo.percent,
-                      message: trimmed,
-                    };
-                    onProgress(gitProgress);
-                  }
-                }
+                processProgressLine(line, onProgress, onLfsProgress);
               }
             },
           }
@@ -271,37 +303,7 @@ export class CliRunner {
 
     // Process any remaining content in buffer
     if (stderrBuffer.trim() && (onProgress || onLfsProgress)) {
-      const trimmed = stderrBuffer.trim();
-
-      if (onLfsProgress) {
-        const lfsProgressInfo = parseLfsStderrProgress(trimmed);
-        if (lfsProgressInfo) {
-          const lfsProgress: LfsProgress = {
-            direction: lfsProgressInfo.direction,
-            bytesSoFar: lfsProgressInfo.bytesSoFar,
-            bytesTotal: lfsProgressInfo.bytesTotal,
-            bitrate: lfsProgressInfo.bitrate ?? undefined,
-            filesCompleted: lfsProgressInfo.filesCompleted,
-            filesTotal: lfsProgressInfo.filesTotal,
-            percent: lfsProgressInfo.percent,
-          };
-          onLfsProgress(lfsProgress);
-        }
-      }
-
-      if (onProgress && !onLfsProgress) {
-        const gitProgressInfo = parseGitProgress(trimmed);
-        if (gitProgressInfo) {
-          const gitProgress: GitProgress = {
-            phase: gitProgressInfo.phase,
-            current: gitProgressInfo.current,
-            total: gitProgressInfo.total,
-            percent: gitProgressInfo.percent,
-            message: trimmed,
-          };
-          onProgress(gitProgress);
-        }
-      }
+      processProgressLine(stderrBuffer, onProgress, onLfsProgress);
     }
 
     return {
