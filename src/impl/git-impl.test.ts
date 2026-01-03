@@ -94,8 +94,14 @@ describe('GitImpl', () => {
         const gitFileStat = await stat(gitFile);
         expect(gitFileStat.isFile()).toBe(true);
 
+        // Parse gitdir path from .git file and compare using realpath
+        // to handle Windows 8.3 short names (RUNNER~1 vs runneradmin)
         const gitFileContent = await readFile(gitFile, 'utf-8');
-        expect(normalizePath(gitFileContent)).toContain(normalizePath(gitDirPath));
+        const gitdirMatch = gitFileContent.match(/gitdir:\s*(.+)/);
+        expect(gitdirMatch).not.toBeNull();
+        const gitdirFromFile = normalizePath(await realpath(gitdirMatch![1].trim()));
+        const expectedGitDir = normalizePath(await realpath(gitDirPath));
+        expect(gitdirFromFile).toBe(expectedGitDir);
 
         // Verify the separate git directory exists and contains git objects
         const gitDirStat = await stat(gitDirPath);
