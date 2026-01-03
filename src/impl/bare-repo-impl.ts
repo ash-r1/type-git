@@ -36,43 +36,40 @@ import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
 import { parseLines, parseLsRemote, parseLsTree } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
 
-// Regex for parsing git remote -v output: <name>\t<url> (fetch|push)
-const REMOTE_LINE_REGEX = /^(\S+)\t(.+?)\s+\((fetch|push)\)$/;
+// =============================================================================
+// Regex patterns
+// =============================================================================
 
-// Regex for parsing pruned refs from git remote prune output
-const PRUNED_REF_REGEX = /\* \[pruned\] (.+)/;
+/** Pattern for parsing remote -v output: name<tab>url (fetch|push) */
+const REMOTE_LINE_PATTERN = /^(\S+)\t(.+?)\s+\((fetch|push)\)$/;
+
+/** Pattern for parsing pruned refs from remote prune output */
+const PRUNED_REF_PATTERN = /\* \[pruned\] (.+)/;
+
+// =============================================================================
+// remote list helper functions
+// =============================================================================
 
 /**
- * Parse a single line from git remote -v output
+ * Parse a single line from 'git remote -v' output and update the remotes map
  */
-function parseRemoteLine(
-  line: string,
-): { name: string; url: string; type: 'fetch' | 'push' } | null {
-  const match = line.match(REMOTE_LINE_REGEX);
+function parseRemoteLine(line: string, remotes: Map<string, RemoteInfo>): void {
+  const match = line.match(REMOTE_LINE_PATTERN);
   if (!match) {
-    return null;
+    return;
   }
+
   const name = match[1];
   const url = match[2];
-  const type = match[3] as 'fetch' | 'push';
-  if (name === undefined || url === undefined) {
-    return null;
-  }
-  return { name, url, type };
-}
+  const type = match[3];
 
-/**
- * Update remote info with fetch or push URL
- */
-function updateRemoteUrl(
-  remotes: Map<string, RemoteInfo>,
-  name: string,
-  url: string,
-  type: 'fetch' | 'push',
-): void {
+  if (name === undefined || url === undefined) {
+    return;
+  }
+
   const existing = remotes.get(name);
   if (existing) {
-    existing[type === 'fetch' ? 'fetchUrl' : 'pushUrl'] = url;
+    updateRemoteUrl(existing, type, url);
   } else {
     remotes.set(name, {
       name,
@@ -83,7 +80,18 @@ function updateRemoteUrl(
 }
 
 /**
- * Ensure both fetchUrl and pushUrl are set (copy from one to another if missing)
+ * Update fetch or push URL on an existing remote entry
+ */
+function updateRemoteUrl(remote: RemoteInfo, type: string | undefined, url: string): void {
+  if (type === 'fetch') {
+    remote.fetchUrl = url;
+  } else if (type === 'push') {
+    remote.pushUrl = url;
+  }
+}
+
+/**
+ * Normalize remote URLs by filling in missing fetch/push with the other value
  */
 function normalizeRemoteUrls(remotes: Map<string, RemoteInfo>): void {
   for (const remote of remotes.values()) {
@@ -94,6 +102,226 @@ function normalizeRemoteUrls(remotes: Map<string, RemoteInfo>): void {
       remote.pushUrl = remote.fetchUrl;
     }
   }
+}
+
+// =============================================================================
+// rev-parse helper functions
+// =============================================================================
+
+/**
+ * Add ref resolution options to args
+ */
+function addRefOptions(args: string[], opts?: RevParseRefOpts): void {
+  if (!opts) {
+    return;
+  }
+
+  if (opts.verify) {
+    args.push('--verify');
+  }
+
+  if (opts.short !== undefined) {
+    if (typeof opts.short === 'number') {
+      args.push(`--short=${opts.short}`);
+    } else if (opts.short) {
+      args.push('--short');
+    }
+  }
+
+  if (opts.abbrevRef !== undefined) {
+    if (opts.abbrevRef === 'strict') {
+      args.push('--abbrev-ref=strict');
+    } else if (opts.abbrevRef === 'loose') {
+      args.push('--abbrev-ref=loose');
+    } else if (opts.abbrevRef) {
+      args.push('--abbrev-ref');
+    }
+  }
+
+  if (opts.symbolic) {
+    args.push('--symbolic');
+  }
+
+  if (opts.symbolicFullName) {
+    args.push('--symbolic-full-name');
+  }
+
+  if (opts.quiet) {
+    args.push('--quiet');
+  }
+}
+
+// Path query mappings: key -> flag
+const PATH_QUERY_FLAGS: [string, string][] = [
+  ['gitDir', '--git-dir'],
+  ['absoluteGitDir', '--absolute-git-dir'],
+  ['gitCommonDir', '--git-common-dir'],
+  ['showToplevel', '--show-toplevel'],
+  ['showCdup', '--show-cdup'],
+  ['showPrefix', '--show-prefix'],
+  ['showSuperprojectWorkingTree', '--show-superproject-working-tree'],
+  ['sharedIndexPath', '--shared-index-path'],
+];
+
+// Path query mappings with values: key -> flag (value is appended)
+const PATH_QUERY_VALUE_FLAGS: [string, string][] = [
+  ['gitPath', '--git-path'],
+  ['resolveGitDir', '--resolve-git-dir'],
+];
+
+// Boolean query mappings: key -> flag
+const BOOLEAN_QUERY_FLAGS: [string, string][] = [
+  ['isInsideGitDir', '--is-inside-git-dir'],
+  ['isInsideWorkTree', '--is-inside-work-tree'],
+  ['isBareRepository', '--is-bare-repository'],
+  ['isShallowRepository', '--is-shallow-repository'],
+];
+
+// List query mappings: key -> flag (some have optional pattern value)
+const LIST_QUERY_FLAGS: [string, string][] = [
+  ['all', '--all'],
+  ['branches', '--branches'],
+  ['tags', '--tags'],
+  ['remotes', '--remotes'],
+];
+
+/**
+ * Add exclude options to args (for list queries)
+ */
+function addExcludeOptions(args: string[], opts: Record<string, unknown>): void {
+  if ('exclude' in opts && opts.exclude) {
+    args.push(`--exclude=${opts.exclude}`);
+  }
+  if ('excludeHidden' in opts && opts.excludeHidden) {
+    args.push(`--exclude-hidden=${opts.excludeHidden}`);
+  }
+}
+
+/**
+ * Try to add path query flag to args
+ * @returns true if a path query was matched
+ */
+function tryAddPathQuery(args: string[], opts: Record<string, unknown>): boolean {
+  // Simple boolean path queries
+  for (const [key, flag] of PATH_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      args.push(flag);
+      return true;
+    }
+  }
+
+  // Path queries with values
+  for (const [key, flag] of PATH_QUERY_VALUE_FLAGS) {
+    if (key in opts && typeof opts[key] === 'string') {
+      args.push(flag, opts[key] as string);
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Try to add boolean query flag to args
+ * @returns true if a boolean query was matched
+ */
+function tryAddBooleanQuery(args: string[], opts: Record<string, unknown>): boolean {
+  for (const [key, flag] of BOOLEAN_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      args.push(flag);
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Try to add list query flag to args
+ * @returns true if a list query was matched
+ */
+function tryAddListQuery(args: string[], opts: Record<string, unknown>): boolean {
+  // Standard list queries with optional pattern
+  for (const [key, flag] of LIST_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      addExcludeOptions(args, opts);
+      if (typeof opts[key] === 'string') {
+        args.push(`${flag}=${opts[key]}`);
+      } else {
+        args.push(flag);
+      }
+      return true;
+    }
+  }
+
+  // glob query
+  if ('glob' in opts && typeof opts.glob === 'string') {
+    addExcludeOptions(args, opts);
+    args.push(`--glob=${opts.glob}`);
+    return true;
+  }
+
+  // disambiguate query
+  if ('disambiguate' in opts && typeof opts.disambiguate === 'string') {
+    args.push(`--disambiguate=${opts.disambiguate}`);
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Try to add other query flag to args
+ * @returns true if another query was matched
+ */
+function tryAddOtherQuery(args: string[], opts: Record<string, unknown>): boolean {
+  if ('showObjectFormat' in opts && opts.showObjectFormat) {
+    if (opts.showObjectFormat === true) {
+      args.push('--show-object-format');
+    } else {
+      args.push(`--show-object-format=${opts.showObjectFormat}`);
+    }
+    return true;
+  }
+
+  if ('showRefFormat' in opts && opts.showRefFormat) {
+    args.push('--show-ref-format');
+    return true;
+  }
+
+  if ('localEnvVars' in opts && opts.localEnvVars) {
+    args.push('--local-env-vars');
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Check if options represent a boolean query
+ */
+function isBooleanQuery(opts: Record<string, unknown>): boolean {
+  for (const [key] of BOOLEAN_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Check if options represent a list query
+ */
+function isListQuery(opts: Record<string, unknown>): boolean {
+  for (const [key] of LIST_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      return true;
+    }
+  }
+  return (
+    ('glob' in opts && !!opts.glob) ||
+    ('disambiguate' in opts && !!opts.disambiguate) ||
+    ('localEnvVars' in opts && !!opts.localEnvVars)
+  );
 }
 
 /**
@@ -317,36 +545,7 @@ export class BareRepoImpl implements BareRepo {
 
     // Handle ref string case (first overload)
     if (typeof refOrOpts === 'string') {
-      // Add ref resolution options
-      if (opts?.verify) {
-        args.push('--verify');
-      }
-      if (opts?.short !== undefined) {
-        if (typeof opts.short === 'number') {
-          args.push(`--short=${opts.short}`);
-        } else if (opts.short) {
-          args.push('--short');
-        }
-      }
-      if (opts?.abbrevRef !== undefined) {
-        if (opts.abbrevRef === 'strict') {
-          args.push('--abbrev-ref=strict');
-        } else if (opts.abbrevRef === 'loose') {
-          args.push('--abbrev-ref=loose');
-        } else if (opts.abbrevRef) {
-          args.push('--abbrev-ref');
-        }
-      }
-      if (opts?.symbolic) {
-        args.push('--symbolic');
-      }
-      if (opts?.symbolicFullName) {
-        args.push('--symbolic-full-name');
-      }
-      if (opts?.quiet) {
-        args.push('--quiet');
-      }
-
+      addRefOptions(args, opts);
       args.push(refOrOpts);
 
       const result = await this.runner.runOrThrow(this.context, args, {
@@ -356,143 +555,31 @@ export class BareRepoImpl implements BareRepo {
     }
 
     // Handle options object cases
-    const queryOpts = refOrOpts;
+    const queryOpts = refOrOpts as Record<string, unknown>;
 
-    // Path queries
-    if ('gitDir' in queryOpts && queryOpts.gitDir) {
-      args.push('--git-dir');
-    } else if ('absoluteGitDir' in queryOpts && queryOpts.absoluteGitDir) {
-      args.push('--absolute-git-dir');
-    } else if ('gitCommonDir' in queryOpts && queryOpts.gitCommonDir) {
-      args.push('--git-common-dir');
-    } else if ('showToplevel' in queryOpts && queryOpts.showToplevel) {
-      args.push('--show-toplevel');
-    } else if ('showCdup' in queryOpts && queryOpts.showCdup) {
-      args.push('--show-cdup');
-    } else if ('showPrefix' in queryOpts && queryOpts.showPrefix) {
-      args.push('--show-prefix');
-    } else if (
-      'showSuperprojectWorkingTree' in queryOpts &&
-      queryOpts.showSuperprojectWorkingTree
-    ) {
-      args.push('--show-superproject-working-tree');
-    } else if ('sharedIndexPath' in queryOpts && queryOpts.sharedIndexPath) {
-      args.push('--shared-index-path');
-    } else if ('gitPath' in queryOpts && typeof queryOpts.gitPath === 'string') {
-      args.push('--git-path', queryOpts.gitPath);
-    } else if ('resolveGitDir' in queryOpts && typeof queryOpts.resolveGitDir === 'string') {
-      args.push('--resolve-git-dir', queryOpts.resolveGitDir);
-    }
-    // Boolean queries
-    else if ('isInsideGitDir' in queryOpts && queryOpts.isInsideGitDir) {
-      args.push('--is-inside-git-dir');
-    } else if ('isInsideWorkTree' in queryOpts && queryOpts.isInsideWorkTree) {
-      args.push('--is-inside-work-tree');
-    } else if ('isBareRepository' in queryOpts && queryOpts.isBareRepository) {
-      args.push('--is-bare-repository');
-    } else if ('isShallowRepository' in queryOpts && queryOpts.isShallowRepository) {
-      args.push('--is-shallow-repository');
-    }
-    // List queries
-    else if ('all' in queryOpts && queryOpts.all) {
-      if ('exclude' in queryOpts && queryOpts.exclude) {
-        args.push(`--exclude=${queryOpts.exclude}`);
-      }
-      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
-        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
-      }
-      args.push('--all');
-    } else if ('branches' in queryOpts && queryOpts.branches) {
-      if ('exclude' in queryOpts && queryOpts.exclude) {
-        args.push(`--exclude=${queryOpts.exclude}`);
-      }
-      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
-        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
-      }
-      if (typeof queryOpts.branches === 'string') {
-        args.push(`--branches=${queryOpts.branches}`);
-      } else {
-        args.push('--branches');
-      }
-    } else if ('tags' in queryOpts && queryOpts.tags) {
-      if ('exclude' in queryOpts && queryOpts.exclude) {
-        args.push(`--exclude=${queryOpts.exclude}`);
-      }
-      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
-        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
-      }
-      if (typeof queryOpts.tags === 'string') {
-        args.push(`--tags=${queryOpts.tags}`);
-      } else {
-        args.push('--tags');
-      }
-    } else if ('remotes' in queryOpts && queryOpts.remotes) {
-      if ('exclude' in queryOpts && queryOpts.exclude) {
-        args.push(`--exclude=${queryOpts.exclude}`);
-      }
-      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
-        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
-      }
-      if (typeof queryOpts.remotes === 'string') {
-        args.push(`--remotes=${queryOpts.remotes}`);
-      } else {
-        args.push('--remotes');
-      }
-    } else if ('glob' in queryOpts && typeof queryOpts.glob === 'string') {
-      if ('exclude' in queryOpts && queryOpts.exclude) {
-        args.push(`--exclude=${queryOpts.exclude}`);
-      }
-      if ('excludeHidden' in queryOpts && queryOpts.excludeHidden) {
-        args.push(`--exclude-hidden=${queryOpts.excludeHidden}`);
-      }
-      args.push(`--glob=${queryOpts.glob}`);
-    } else if ('disambiguate' in queryOpts && typeof queryOpts.disambiguate === 'string') {
-      args.push(`--disambiguate=${queryOpts.disambiguate}`);
-    }
-    // Other queries
-    else if ('showObjectFormat' in queryOpts && queryOpts.showObjectFormat) {
-      if (queryOpts.showObjectFormat === true) {
-        args.push('--show-object-format');
-      } else {
-        args.push(`--show-object-format=${queryOpts.showObjectFormat}`);
-      }
-    } else if ('showRefFormat' in queryOpts && queryOpts.showRefFormat) {
-      args.push('--show-ref-format');
-    } else if ('localEnvVars' in queryOpts && queryOpts.localEnvVars) {
-      args.push('--local-env-vars');
-    }
+    // Try each query type in order (mutually exclusive)
+    tryAddPathQuery(args, queryOpts) ||
+      tryAddBooleanQuery(args, queryOpts) ||
+      tryAddListQuery(args, queryOpts) ||
+      tryAddOtherQuery(args, queryOpts);
 
-    // Add path format option if present
+    // Add path format option if present (applies to path queries)
     if ('pathFormat' in queryOpts && queryOpts.pathFormat) {
       args.push(`--path-format=${queryOpts.pathFormat}`);
     }
 
     const result = await this.runner.runOrThrow(this.context, args, {
-      signal: queryOpts.signal,
+      signal: refOrOpts.signal,
     });
 
     const output = result.stdout.trim();
 
-    // Boolean queries
-    if (
-      ('isInsideGitDir' in queryOpts && queryOpts.isInsideGitDir) ||
-      ('isInsideWorkTree' in queryOpts && queryOpts.isInsideWorkTree) ||
-      ('isBareRepository' in queryOpts && queryOpts.isBareRepository) ||
-      ('isShallowRepository' in queryOpts && queryOpts.isShallowRepository)
-    ) {
+    // Determine return type based on query type
+    if (isBooleanQuery(queryOpts)) {
       return output === 'true';
     }
 
-    // List queries
-    if (
-      ('all' in queryOpts && queryOpts.all) ||
-      ('branches' in queryOpts && queryOpts.branches) ||
-      ('tags' in queryOpts && queryOpts.tags) ||
-      ('remotes' in queryOpts && queryOpts.remotes) ||
-      ('glob' in queryOpts && queryOpts.glob) ||
-      ('disambiguate' in queryOpts && queryOpts.disambiguate) ||
-      ('localEnvVars' in queryOpts && queryOpts.localEnvVars)
-    ) {
+    if (isListQuery(queryOpts)) {
       return output ? output.split('\n').filter((line) => line.length > 0) : [];
     }
 
@@ -586,10 +673,7 @@ export class BareRepoImpl implements BareRepo {
     const remotes = new Map<string, RemoteInfo>();
 
     for (const line of parseLines(result.stdout)) {
-      const parsed = parseRemoteLine(line);
-      if (parsed) {
-        updateRemoteUrl(remotes, parsed.name, parsed.url, parsed.type);
-      }
+      parseRemoteLine(line, remotes);
     }
 
     normalizeRemoteUrls(remotes);
@@ -727,7 +811,7 @@ export class BareRepoImpl implements BareRepo {
     // Parse pruned refs from output
     const pruned: string[] = [];
     for (const line of parseLines(result.stdout)) {
-      const match = line.match(PRUNED_REF_REGEX);
+      const match = line.match(PRUNED_REF_PATTERN);
       const ref = match?.[1];
       if (ref) {
         pruned.push(ref);
