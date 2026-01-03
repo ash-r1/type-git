@@ -13,7 +13,6 @@ export {
   createGitSync,
   LEGACY_GIT_VERSION,
   MIN_GIT_VERSION,
-  RECOMMENDED_GIT_VERSION,
 } from './impl/index.js';
 
 // Parsers (for advanced usage)

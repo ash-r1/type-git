@@ -16,7 +16,6 @@ import {
   LEGACY_GIT_VERSION,
   MIN_GIT_VERSION,
   parseVersion,
-  RECOMMENDED_GIT_VERSION,
 } from './git-impl.js';
 
 /**
@@ -63,7 +62,6 @@ describe('createGit version check', () => {
   it('should export version constants', () => {
     expect(MIN_GIT_VERSION).toBe('2.30.0');
     expect(LEGACY_GIT_VERSION).toBe('2.25.0');
-    expect(RECOMMENDED_GIT_VERSION).toBe('2.30.0');
   });
 
   it('createGitSync should create git instance without version check', () => {

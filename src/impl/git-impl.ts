@@ -144,11 +144,6 @@ export const MIN_GIT_VERSION = '2.30.0';
 export const LEGACY_GIT_VERSION = '2.25.0';
 
 /**
- * Recommended Git version
- */
-export const RECOMMENDED_GIT_VERSION = '2.30.0';
-
-/**
  * Options for creating a Git instance
  */
 export type CreateGitOptions = CliRunnerOptions & {
