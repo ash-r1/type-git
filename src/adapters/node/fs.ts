@@ -7,6 +7,11 @@ import { access, mkdtemp, open, readFile, rm, writeFile } from 'node:fs/promises
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { FsAdapter, TailHandle, TailOptions } from '../../core/adapters.js';
+import {
+  createTailPolling,
+  type FilePollingAdapter,
+  runTailPolling,
+} from '../../internal/file-polling.js';
 
 export class NodeFsAdapter implements FsAdapter {
   public async createTempFile(prefix: string = 'type-git-'): Promise<string> {
@@ -15,55 +20,39 @@ export class NodeFsAdapter implements FsAdapter {
   }
 
   public async tail(options: TailOptions): Promise<void> {
-    const { filePath, signal, onLine } = options;
+    const { filePath, signal, onLine, pollInterval = 100 } = options;
 
-    const file = await open(filePath, 'r');
-    let position = 0;
+    const state: { file: FileHandle | null } = { file: null };
     const decoder = new TextDecoder();
-    let buffer = '';
 
-    const poll = async (): Promise<void> => {
-      if (signal?.aborted) {
-        await file.close();
-        return;
-      }
-
-      try {
-        const { bytesRead, buffer: chunk } = await file.read({
-          buffer: Buffer.alloc(4096),
-          position,
-        });
-
-        if (bytesRead > 0) {
-          position += bytesRead;
-          buffer += decoder.decode(chunk.subarray(0, bytesRead), { stream: true });
-
-          const lines = buffer.split('\n');
-          buffer = lines.pop() ?? '';
-
-          for (const line of lines) {
-            if (line) {
-              onLine(line);
-            }
+    const adapter: FilePollingAdapter = {
+      readChunk: async (position: number) => {
+        try {
+          if (!state.file) {
+            state.file = await open(filePath, 'r');
           }
-        }
-      } catch (error) {
-        await file.close();
-        throw error;
-      }
-
-      if (!signal?.aborted) {
-        setTimeout(() => {
-          poll().catch(() => {
-            // Intentionally ignored - poll handles its own errors
+          const { bytesRead, buffer: chunk } = await state.file.read({
+            buffer: Buffer.alloc(4096),
+            position,
           });
-        }, 100);
-      } else {
-        await file.close();
-      }
+          return {
+            data: decoder.decode(chunk.subarray(0, bytesRead), { stream: true }),
+            newPosition: position + bytesRead,
+          };
+        } catch {
+          return null;
+        }
+      },
+      sleep: (ms: number) => new Promise((resolve) => setTimeout(resolve, ms)),
     };
 
-    await poll();
+    try {
+      await runTailPolling({ adapter, signal, pollInterval, onLine });
+    } finally {
+      if (state.file) {
+        await state.file.close();
+      }
+    }
   }
 
   public async deleteFile(filePath: string): Promise<void> {
@@ -97,104 +86,44 @@ export class NodeFsAdapter implements FsAdapter {
   ): TailHandle {
     const { signal, pollInterval = 100 } = options ?? {};
 
-    type ResolverFn = (value: IteratorResult<string, undefined>) => void;
-    type TailState = {
-      stopped: boolean;
-      resolveNext: ResolverFn | null;
-      lineQueue: string[];
-    };
-    const state: TailState = {
-      stopped: false,
-      resolveNext: null,
-      lineQueue: [],
-    };
+    const state: { file: FileHandle | null } = { file: null };
+    const decoder = new TextDecoder();
 
-    const stop = (): void => {
-      state.stopped = true;
-      if (state.resolveNext) {
-        state.resolveNext({ done: true, value: undefined });
-        state.resolveNext = null;
-      }
-    };
-
-    // Start polling in the background
-    const startPolling = async (): Promise<void> => {
-      let file: FileHandle;
-      try {
-        file = await open(filePath, 'r');
-      } catch {
-        stop();
-        return;
-      }
-
-      let position = 0;
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (!(state.stopped || signal?.aborted)) {
+    const adapter: FilePollingAdapter = {
+      readChunk: async (position: number) => {
         try {
-          const { bytesRead, buffer: chunk } = await file.read({
+          if (!state.file) {
+            state.file = await open(filePath, 'r');
+          }
+          const { bytesRead, buffer: chunk } = await state.file.read({
             buffer: Buffer.alloc(4096),
             position,
           });
-
-          if (bytesRead > 0) {
-            position += bytesRead;
-            buffer += decoder.decode(chunk.subarray(0, bytesRead), { stream: true });
-
-            const lines = buffer.split('\n');
-            buffer = lines.pop() ?? '';
-
-            for (const line of lines) {
-              if (line) {
-                if (state.resolveNext) {
-                  const resolver = state.resolveNext;
-                  state.resolveNext = null;
-                  resolver({ done: false, value: line });
-                } else {
-                  state.lineQueue.push(line);
-                }
-              }
-            }
-          }
+          return {
+            data: decoder.decode(chunk.subarray(0, bytesRead), { stream: true }),
+            newPosition: position + bytesRead,
+          };
         } catch {
-          break;
+          return null;
         }
-
-        await new Promise<void>((resolve) => setTimeout(resolve, pollInterval));
-      }
-
-      await file.close();
-      stop();
-    };
-
-    startPolling().catch(() => {
-      // Intentionally ignored - startPolling handles its own cleanup
-    });
-
-    const lines: AsyncIterable<string> = {
-      [Symbol.asyncIterator](): AsyncIterator<string> {
-        return {
-          next(): Promise<IteratorResult<string>> {
-            if (state.stopped) {
-              return Promise.resolve({ done: true, value: undefined });
-            }
-
-            if (state.lineQueue.length > 0) {
-              const value = state.lineQueue.shift();
-              if (value !== undefined) {
-                return Promise.resolve({ done: false, value });
-              }
-            }
-
-            return new Promise((resolve) => {
-              state.resolveNext = resolve;
-            });
-          },
-        };
       },
+      sleep: (ms: number) => new Promise((resolve) => setTimeout(resolve, ms)),
     };
 
-    return { lines, stop };
+    const polling = createTailPolling({ adapter, signal, pollInterval });
+
+    // Wrap stop to close file handle
+    const originalStop = polling.stop;
+    const enhancedStop = (): void => {
+      originalStop();
+      if (state.file) {
+        state.file.close().catch(() => {
+          // Intentionally ignored - cleanup on stop
+        });
+        state.file = null;
+      }
+    };
+
+    return { lines: polling.lines, stop: enhancedStop };
   }
 }
