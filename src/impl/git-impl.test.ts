@@ -9,9 +9,21 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { Git } from '../core/git.js';
 import { GitError } from '../core/types.js';
-import { createGit, createGitSync, MIN_GIT_VERSION, RECOMMENDED_GIT_VERSION } from './git-impl.js';
+import {
+  createGit,
+  createGitSync,
+  LEGACY_GIT_VERSION,
+  MIN_GIT_VERSION,
+  RECOMMENDED_GIT_VERSION,
+} from './git-impl.js';
 
 const VERSION_REGEX = /^\d+\.\d+/;
+
+/**
+ * Whether to use legacy Git version mode.
+ * Set TYPE_GIT_USE_LEGACY_VERSION=true for testing with Git 2.25.x
+ */
+const USE_LEGACY_VERSION = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -24,8 +36,11 @@ async function exists(path: string): Promise<boolean> {
 
 describe('createGit version check', () => {
   it('should check version by default and pass for current git', async () => {
-    // This should pass since we expect git >= 2.20 to be installed
-    const git = await createGit({ adapters: createNodeAdapters() });
+    // Use legacy version mode if environment variable is set (for Git 2.25.x testing)
+    const git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
     expect(git).toBeDefined();
     const version = await git.version();
     expect(version).toMatch(VERSION_REGEX);
@@ -36,8 +51,15 @@ describe('createGit version check', () => {
     expect(git).toBeDefined();
   });
 
+  it('should allow legacy version with useLegacyVersion option', async () => {
+    // This should pass since we expect git >= 2.25 to be installed
+    const git = await createGit({ adapters: createNodeAdapters(), useLegacyVersion: true });
+    expect(git).toBeDefined();
+  });
+
   it('should export version constants', () => {
-    expect(MIN_GIT_VERSION).toBe('2.20.0');
+    expect(MIN_GIT_VERSION).toBe('2.30.0');
+    expect(LEGACY_GIT_VERSION).toBe('2.25.0');
     expect(RECOMMENDED_GIT_VERSION).toBe('2.30.0');
   });
 
@@ -52,7 +74,10 @@ describe('GitImpl', () => {
   let git: Git;
 
   beforeAll(async () => {
-    git = await createGit({ adapters: createNodeAdapters() });
+    git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
   });
 
   beforeEach(async () => {
@@ -238,7 +263,10 @@ describe('WorktreeRepoImpl', () => {
   let git: Git;
 
   beforeAll(async () => {
-    git = await createGit({ adapters: createNodeAdapters() });
+    git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
   });
 
   beforeEach(async () => {
@@ -380,7 +408,10 @@ describe('openRaw and type guards', () => {
   let git: Git;
 
   beforeAll(async () => {
-    git = await createGit({ adapters: createNodeAdapters() });
+    git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
   });
 
   beforeEach(async () => {

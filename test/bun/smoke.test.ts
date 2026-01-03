@@ -14,6 +14,12 @@ import { BunFsAdapter } from '../../src/adapters/bun/fs.js';
 import { createBunAdapters } from '../../src/adapters/bun/index.js';
 import { createGit } from '../../src/impl/git-impl.js';
 
+/**
+ * Whether to use legacy Git version mode.
+ * Set TYPE_GIT_USE_LEGACY_VERSION=true for testing with Git 2.25.x
+ */
+const USE_LEGACY_VERSION = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+
 describe('BunExecAdapter', () => {
   const adapter = new BunExecAdapter();
 
@@ -254,7 +260,10 @@ describe('High-level API with Bun', () => {
   let git: Awaited<ReturnType<typeof createGit>>;
 
   beforeAll(async () => {
-    git = await createGit({ adapters: createBunAdapters() });
+    git = await createGit({
+      adapters: createBunAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
   });
 
   beforeEach(async () => {

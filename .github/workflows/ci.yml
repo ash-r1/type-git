@@ -57,6 +57,34 @@ jobs:
       - name: Run tests
         run: pnpm test:ci
 
+  test-legacy-git:
+    name: Test (Legacy Git 2.25)
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Remove git PPA and reinstall default git
+        run: |
+          # GitHub Actions runner has git from PPA, remove it and use Ubuntu default
+          sudo apt-get remove -y git git-man || true
+          sudo add-apt-repository --remove ppa:git-core/ppa -y || true
+          sudo apt-get update
+          sudo apt-get install -y git
+          git --version  # Should show 2.25.1
+
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests with legacy git
+        run: pnpm test:ci
+        env:
+          TYPE_GIT_USE_LEGACY_VERSION: 'true'
+
   test-bun:
     name: Test (Bun)
     runs-on: ubuntu-latest

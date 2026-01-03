@@ -32,9 +32,20 @@ import { BareRepoImpl } from './bare-repo-impl.js';
 import { WorktreeRepoImpl } from './worktree-repo-impl.js';
 
 /**
- * Minimum supported Git version
+ * Minimum supported Git version (default)
+ *
+ * This is the recommended minimum version that provides full functionality.
+ * Use `useLegacyVersion: true` to allow older Git versions (2.25.0+).
  */
-export const MIN_GIT_VERSION = '2.20.0';
+export const MIN_GIT_VERSION = '2.30.0';
+
+/**
+ * Legacy minimum Git version
+ *
+ * When `useLegacyVersion: true` is set, this version is used as the minimum.
+ * Git 2.25.0 is the default version on Ubuntu 20.04 LTS.
+ */
+export const LEGACY_GIT_VERSION = '2.25.0';
 
 /**
  * Recommended Git version
@@ -53,6 +64,15 @@ export type CreateGitOptions = CliRunnerOptions & {
    * @default false
    */
   skipVersionCheck?: boolean;
+  /**
+   * Allow legacy Git versions (2.25.0+) instead of requiring 2.30.0+.
+   *
+   * Use this for environments with older Git installations such as
+   * Ubuntu 20.04 LTS which ships with Git 2.25.1 by default.
+   *
+   * @default false
+   */
+  useLegacyVersion?: boolean;
 };
 
 /**
@@ -835,10 +855,11 @@ export async function createGit(options: CreateGitOptions): Promise<Git> {
 
   if (!options.skipVersionCheck) {
     const versionString = await git.version();
-    if (compareVersions(versionString, MIN_GIT_VERSION) < 0) {
+    const minVersion = options.useLegacyVersion ? LEGACY_GIT_VERSION : MIN_GIT_VERSION;
+    if (compareVersions(versionString, minVersion) < 0) {
       throw new GitError(
         'UnsupportedGitVersion',
-        `Git version ${versionString} is not supported. Minimum required version is ${MIN_GIT_VERSION}.`,
+        `Git version ${versionString} is not supported. Minimum required version is ${minVersion}.`,
         {},
       );
     }

@@ -23,6 +23,12 @@ import { DenoFsAdapter } from '../../src/adapters/deno/fs.ts';
 import { createDenoAdapters } from '../../src/adapters/deno/index.ts';
 import { createGit } from '../../src/impl/git-impl.ts';
 
+/**
+ * Whether to use legacy Git version mode.
+ * Set TYPE_GIT_USE_LEGACY_VERSION=true for testing with Git 2.25.x
+ */
+const USE_LEGACY_VERSION = Deno.env.get('TYPE_GIT_USE_LEGACY_VERSION') === 'true';
+
 describe('DenoExecAdapter', () => {
   const adapter = new DenoExecAdapter();
 
@@ -263,7 +269,10 @@ describe('High-level API with Deno', () => {
   let git: Awaited<ReturnType<typeof createGit>>;
 
   beforeAll(async () => {
-    git = await createGit({ adapters: createDenoAdapters() });
+    git = await createGit({
+      adapters: createDenoAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
   });
 
   beforeEach(async () => {

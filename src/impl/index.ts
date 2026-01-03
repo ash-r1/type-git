@@ -8,6 +8,7 @@ export {
   createGit,
   createGitSync,
   GitImpl,
+  LEGACY_GIT_VERSION,
   MIN_GIT_VERSION,
   RECOMMENDED_GIT_VERSION,
 } from './git-impl.js';

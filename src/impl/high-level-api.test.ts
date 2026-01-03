@@ -11,12 +11,21 @@ import type { Git } from '../core/git.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { createGit } from './git-impl.js';
 
+/**
+ * Whether to use legacy Git version mode.
+ * Set TYPE_GIT_USE_LEGACY_VERSION=true for testing with Git 2.25.x
+ */
+const USE_LEGACY_VERSION = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+
 describe('High-level API', () => {
   let tempDir: string;
   let git: Git;
 
   beforeAll(async () => {
-    git = await createGit({ adapters: createNodeAdapters() });
+    git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
   });
 
   beforeEach(async () => {
