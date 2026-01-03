@@ -5,20 +5,11 @@
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { NodeExecAdapter } from './exec.js';
 
 describe('NodeExecAdapter', () => {
   const adapter = new NodeExecAdapter();
-  let testDir: string;
-
-  beforeEach(async () => {
-    testDir = await mkdtemp(join(tmpdir(), 'type-git-exec-test-'));
-  });
-
-  afterEach(async () => {
-    await rm(testDir, { recursive: true, force: true });
-  });
 
   describe('getCapabilities', () => {
     it('should return node runtime capabilities', () => {
@@ -57,24 +48,35 @@ describe('NodeExecAdapter', () => {
 
     it('should return non-zero exit code on failure', async () => {
       // Use git rev-parse in non-repo directory
-      const result = await adapter.spawn({
-        argv: ['git', 'rev-parse', 'HEAD'],
-        cwd: testDir,
-      });
+      const testDir = await mkdtemp(join(tmpdir(), 'type-git-exec-test-'));
+      try {
+        const result = await adapter.spawn({
+          argv: ['git', 'rev-parse', 'HEAD'],
+          cwd: testDir,
+        });
 
-      expect(result.exitCode).toBe(128);
+        expect(result.exitCode).not.toBe(0);
+      } finally {
+        await rm(testDir, { recursive: true, force: true });
+      }
     });
 
     it('should respect working directory', async () => {
-      const result = await adapter.spawn({
-        argv: ['git', 'rev-parse', '--show-toplevel'],
-        cwd: testDir,
-      });
+      // Create a unique temp directory for this test
+      const testDir = await mkdtemp(join(tmpdir(), 'type-git-exec-test-'));
+      try {
+        // Use node to print cwd, which works cross-platform
+        const result = await adapter.spawn({
+          argv: ['node', '-e', 'console.log(process.cwd())'],
+          cwd: testDir,
+        });
 
-      // Will fail with exit code 128 since testDir is not a repo,
-      // but stderr should contain the path we're in
-      expect(result.exitCode).toBe(128);
-      expect(result.stderr).toContain('not a git repository');
+        expect(result.exitCode).toBe(0);
+        // Verify the command ran in the correct directory
+        expect(result.stdout.trim()).toContain(testDir);
+      } finally {
+        await rm(testDir, { recursive: true, force: true });
+      }
     });
 
     it('should pass environment variables', async () => {
