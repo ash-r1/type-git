@@ -7,7 +7,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
+import type { WorktreeRepo } from '../core/repo.js';
 import { createGit } from './git-impl.js';
+
+// Regex patterns for test assertions
+const SHA40_REGEX = /^[a-f0-9]{40}$/;
+const HEX_STRING_REGEX = /^[a-f0-9]+$/;
 
 describe('High-level API', () => {
   let tempDir: string;
@@ -21,7 +26,7 @@ describe('High-level API', () => {
     await rm(tempDir, { recursive: true, force: true });
   });
 
-  async function initRepoWithCommit(path: string) {
+  async function initRepoWithCommit(path: string): Promise<WorktreeRepo> {
     const repo = await git.init(path);
     if ('workdir' in repo) {
       await repo.raw(['config', 'user.email', 'test@example.com']);
@@ -486,7 +491,7 @@ describe('High-level API', () => {
       const repo = await initRepoWithCommit(repoPath);
 
       const sha = await repo.revParse('HEAD');
-      expect(sha).toMatch(/^[a-f0-9]{40}$/);
+      expect(sha).toMatch(SHA40_REGEX);
     });
 
     it('should resolve HEAD with short option', async () => {
@@ -495,7 +500,7 @@ describe('High-level API', () => {
 
       const shortSha = await repo.revParse('HEAD', { short: true });
       expect(shortSha.length).toBeLessThan(40);
-      expect(shortSha).toMatch(/^[a-f0-9]+$/);
+      expect(shortSha).toMatch(HEX_STRING_REGEX);
     });
 
     it('should resolve HEAD with specific short length', async () => {
@@ -597,7 +602,7 @@ describe('High-level API', () => {
       const repo = await initRepoWithCommit(repoPath);
 
       const sha = await repo.revParse('HEAD', { verify: true });
-      expect(sha).toMatch(/^[a-f0-9]{40}$/);
+      expect(sha).toMatch(SHA40_REGEX);
     });
 
     it('should get object format', async () => {
