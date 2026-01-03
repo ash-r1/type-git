@@ -59,8 +59,9 @@ export type CreateGitOptions = CliRunnerOptions & {
   /** Runtime adapters (exec, fs) */
   adapters: RuntimeAdapters;
   /**
-   * Skip version check during initialization.
-   * When false (default), throws GitError if Git version is below minimum.
+   * Controls whether to perform a Git version check during initialization.
+   * When true, skips the Git version check. When false (default), throws
+   * GitError if Git version is below the minimum required version.
    * @default false
    */
   skipVersionCheck?: boolean;
