@@ -24,6 +24,12 @@ import {
  */
 const USE_LEGACY_VERSION = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 
+// Normalize path separators for cross-platform comparison
+// Git on Windows outputs forward slashes, but Node.js path functions use backslashes
+function normalizePath(p: string): string {
+  return p.replace(/\\/g, '/');
+}
+
 // Regex pattern for validating git version format
 const GIT_VERSION_FORMAT_REGEX = /^\d+\.\d+/;
 
@@ -304,8 +310,14 @@ describe('GitImpl', () => {
         const gitFileStat = await stat(gitFile);
         expect(gitFileStat.isFile()).toBe(true);
 
+        // Parse gitdir path from .git file and compare using realpath
+        // to handle Windows 8.3 short names (RUNNER~1 vs runneradmin)
         const gitFileContent = await readFile(gitFile, 'utf-8');
-        expect(gitFileContent).toContain(gitDirPath);
+        const gitdirMatch = gitFileContent.match(/gitdir:\s*(.+)/);
+        expect(gitdirMatch).not.toBeNull();
+        const gitdirFromFile = normalizePath(await realpath(gitdirMatch![1].trim()));
+        const expectedGitDir = normalizePath(await realpath(gitDirPath));
+        expect(gitdirFromFile).toBe(expectedGitDir);
 
         // Verify the separate git directory exists and contains git objects
         const gitDirStat = await stat(gitDirPath);
@@ -535,8 +547,9 @@ describe('WorktreeRepoImpl', () => {
         const result = await repo.raw(['rev-parse', '--show-toplevel']);
         expect(result.exitCode).toBe(0);
         // Use realpath to handle macOS symlinks (/tmp -> /private/tmp)
-        const expectedPath = await realpath(repoPath);
-        expect(result.stdout.trim()).toBe(expectedPath);
+        // Normalize paths for cross-platform comparison (Git uses forward slashes on Windows)
+        const expectedPath = normalizePath(await realpath(repoPath));
+        expect(normalizePath(result.stdout.trim())).toBe(expectedPath);
       }
     });
   });
@@ -558,8 +571,9 @@ describe('WorktreeRepoImpl', () => {
         const worktrees = await repo.worktree.list();
         expect(worktrees).toHaveLength(1);
         // Use realpath to handle macOS symlinks (/tmp -> /private/tmp)
-        const expectedPath = await realpath(repoPath);
-        expect(worktrees[0]?.path).toBe(expectedPath);
+        // Normalize paths for cross-platform comparison (Git uses forward slashes on Windows)
+        const expectedPath = normalizePath(await realpath(repoPath));
+        expect(normalizePath(worktrees[0]?.path ?? '')).toBe(expectedPath);
       }
     });
   });
