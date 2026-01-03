@@ -8,6 +8,11 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { NodeExecAdapter } from './exec.js';
 
+// Normalize path separators for cross-platform comparison
+function normalizePath(p: string): string {
+  return p.replace(/\\/g, '/');
+}
+
 describe('NodeExecAdapter', () => {
   const adapter = new NodeExecAdapter();
 
@@ -73,7 +78,8 @@ describe('NodeExecAdapter', () => {
 
         expect(result.exitCode).toBe(0);
         // Verify the command ran in the correct directory
-        expect(result.stdout.trim()).toContain(testDir);
+        // Normalize paths for cross-platform comparison
+        expect(normalizePath(result.stdout.trim())).toContain(normalizePath(testDir));
       } finally {
         await rm(testDir, { recursive: true, force: true });
       }
