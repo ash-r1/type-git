@@ -6,6 +6,11 @@
  */
 
 import type { FsAdapter, TailHandle, TailOptions } from '../../core/adapters.js';
+import {
+  createTailPolling,
+  type FilePollingAdapter,
+  runTailPolling,
+} from '../../internal/file-polling.js';
 
 // Deno global type declarations
 declare const Deno: {
@@ -47,56 +52,36 @@ export class DenoFsAdapter implements FsAdapter {
 
   public async tail(options: TailOptions): Promise<void> {
     const { filePath, signal, onLine, pollInterval = 100 } = options;
-
-    let position = 0;
     const decoder = new TextDecoder();
-    let buffer = '';
 
-    const poll = async (): Promise<void> => {
-      if (signal?.aborted) {
-        return;
-      }
-
-      try {
-        const stat = await Deno.stat(filePath);
-        const size = stat.size;
-
-        if (size > position) {
+    const adapter: FilePollingAdapter = {
+      readChunk: async (position: number) => {
+        try {
+          const stat = await Deno.stat(filePath);
+          const size = stat.size;
+          if (size <= position) {
+            return null;
+          }
           const file = await Deno.open(filePath, { read: true });
           try {
             await file.seek(position, Deno.SeekMode.Start);
             const chunk = new Uint8Array(size - position);
             await file.read(chunk);
-            position = size;
-
-            buffer += decoder.decode(chunk, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop() ?? '';
-
-            for (const line of lines) {
-              if (line) {
-                onLine(line);
-              }
-            }
+            return {
+              data: decoder.decode(chunk, { stream: true }),
+              newPosition: size,
+            };
           } finally {
             file.close();
           }
+        } catch {
+          return null;
         }
-      } catch (error) {
-        // File may not exist yet, ignore ENOENT
-        const err = error as Error & { code?: string };
-        if (err.name !== 'NotFound' && err.code !== 'ENOENT') {
-          throw error;
-        }
-      }
-
-      if (!signal?.aborted) {
-        await delay(pollInterval);
-        await poll();
-      }
+      },
+      sleep: (ms: number) => delay(ms),
     };
 
-    await poll();
+    await runTailPolling({ adapter, signal, pollInterval, onLine });
   }
 
   public async deleteFile(filePath: string): Promise<void> {
@@ -145,102 +130,35 @@ export class DenoFsAdapter implements FsAdapter {
     options?: { signal?: AbortSignal; pollInterval?: number },
   ): TailHandle {
     const { signal, pollInterval = 100 } = options ?? {};
+    const decoder = new TextDecoder();
 
-    type ResolverFn = (value: IteratorResult<string, undefined>) => void;
-    type TailState = {
-      stopped: boolean;
-      resolveNext: ResolverFn | null;
-      lineQueue: string[];
-    };
-    const state: TailState = {
-      stopped: false,
-      resolveNext: null,
-      lineQueue: [],
-    };
-
-    const stop = (): void => {
-      state.stopped = true;
-      if (state.resolveNext) {
-        state.resolveNext({ done: true, value: undefined });
-        state.resolveNext = null;
-      }
-    };
-
-    // Start polling in the background
-    const startPolling = async (): Promise<void> => {
-      let position = 0;
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (!(state.stopped || signal?.aborted)) {
+    const adapter: FilePollingAdapter = {
+      readChunk: async (position: number) => {
         try {
           const stat = await Deno.stat(filePath);
           const size = stat.size;
-
-          if (size > position) {
-            const file = await Deno.open(filePath, { read: true });
-            try {
-              await file.seek(position, Deno.SeekMode.Start);
-              const chunk = new Uint8Array(size - position);
-              await file.read(chunk);
-              position = size;
-
-              buffer += decoder.decode(chunk, { stream: true });
-              const lines = buffer.split('\n');
-              buffer = lines.pop() ?? '';
-
-              for (const line of lines) {
-                if (line) {
-                  if (state.resolveNext) {
-                    const resolver = state.resolveNext;
-                    state.resolveNext = null;
-                    resolver({ done: false, value: line });
-                  } else {
-                    state.lineQueue.push(line);
-                  }
-                }
-              }
-            } finally {
-              file.close();
-            }
+          if (size <= position) {
+            return null;
+          }
+          const file = await Deno.open(filePath, { read: true });
+          try {
+            await file.seek(position, Deno.SeekMode.Start);
+            const chunk = new Uint8Array(size - position);
+            await file.read(chunk);
+            return {
+              data: decoder.decode(chunk, { stream: true }),
+              newPosition: size,
+            };
+          } finally {
+            file.close();
           }
         } catch {
-          // Ignore errors, file may not exist yet
+          return null;
         }
-
-        await delay(pollInterval);
-      }
-
-      stop();
-    };
-
-    startPolling().catch(() => {
-      // Intentionally ignored - startPolling handles its own cleanup
-    });
-
-    const lines: AsyncIterable<string> = {
-      [Symbol.asyncIterator](): AsyncIterator<string> {
-        return {
-          next(): Promise<IteratorResult<string>> {
-            if (state.stopped) {
-              return Promise.resolve({ done: true, value: undefined });
-            }
-
-            if (state.lineQueue.length > 0) {
-              const value = state.lineQueue.shift();
-              if (value !== undefined) {
-                return Promise.resolve({ done: false, value });
-              }
-            }
-
-            return new Promise((resolve) => {
-              state.resolveNext = resolve;
-            });
-          },
-        };
       },
+      sleep: (ms: number) => delay(ms),
     };
 
-    return { lines, stop };
+    return createTailPolling({ adapter, signal, pollInterval });
   }
 }
