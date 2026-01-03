@@ -12,6 +12,8 @@ import type {
   ConfigSchema,
   ConfigSetOpts,
   FetchOpts,
+  LsTreeEntry,
+  LsTreeOpts,
   PushOpts,
   RemoteAddOpts,
   RemoteInfo,
@@ -22,10 +24,305 @@ import type {
   RemoteShowOpts,
   RemoteUpdateOpts,
   RemoteUrlOpts,
+  RepoLsRemoteOpts,
+  RepoLsRemoteResult,
+  RevParseBooleanQuery,
+  RevParseListQuery,
+  RevParsePathOpts,
+  RevParsePathQuery,
+  RevParseRefOpts,
 } from '../core/repo.js';
 import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
-import { parseLines } from '../parsers/index.js';
+import { parseLines, parseLsRemote, parseLsTree } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
+
+// =============================================================================
+// Regex patterns
+// =============================================================================
+
+/** Pattern for parsing remote -v output: name<tab>url (fetch|push) */
+const REMOTE_LINE_PATTERN = /^(\S+)\t(.+?)\s+\((fetch|push)\)$/;
+
+/** Pattern for parsing pruned refs from remote prune output */
+const PRUNED_REF_PATTERN = /\* \[pruned\] (.+)/;
+
+// =============================================================================
+// remote list helper functions
+// =============================================================================
+
+/**
+ * Parse a single line from 'git remote -v' output and update the remotes map
+ */
+function parseRemoteLine(line: string, remotes: Map<string, RemoteInfo>): void {
+  const match = line.match(REMOTE_LINE_PATTERN);
+  if (!match) {
+    return;
+  }
+
+  const name = match[1];
+  const url = match[2];
+  const type = match[3];
+
+  if (name === undefined || url === undefined) {
+    return;
+  }
+
+  const existing = remotes.get(name);
+  if (existing) {
+    updateRemoteUrl(existing, type, url);
+  } else {
+    remotes.set(name, {
+      name,
+      fetchUrl: type === 'fetch' ? url : '',
+      pushUrl: type === 'push' ? url : '',
+    });
+  }
+}
+
+/**
+ * Update fetch or push URL on an existing remote entry
+ */
+function updateRemoteUrl(remote: RemoteInfo, type: string | undefined, url: string): void {
+  if (type === 'fetch') {
+    remote.fetchUrl = url;
+  } else if (type === 'push') {
+    remote.pushUrl = url;
+  }
+}
+
+/**
+ * Normalize remote URLs by filling in missing fetch/push with the other value
+ */
+function normalizeRemoteUrls(remotes: Map<string, RemoteInfo>): void {
+  for (const remote of remotes.values()) {
+    if (!remote.fetchUrl && remote.pushUrl) {
+      remote.fetchUrl = remote.pushUrl;
+    }
+    if (!remote.pushUrl && remote.fetchUrl) {
+      remote.pushUrl = remote.fetchUrl;
+    }
+  }
+}
+
+// =============================================================================
+// rev-parse helper functions
+// =============================================================================
+
+/**
+ * Add ref resolution options to args
+ */
+function addRefOptions(args: string[], opts?: RevParseRefOpts): void {
+  if (!opts) {
+    return;
+  }
+
+  if (opts.verify) {
+    args.push('--verify');
+  }
+
+  if (opts.short !== undefined) {
+    if (typeof opts.short === 'number') {
+      args.push(`--short=${opts.short}`);
+    } else if (opts.short) {
+      args.push('--short');
+    }
+  }
+
+  if (opts.abbrevRef !== undefined) {
+    if (opts.abbrevRef === 'strict') {
+      args.push('--abbrev-ref=strict');
+    } else if (opts.abbrevRef === 'loose') {
+      args.push('--abbrev-ref=loose');
+    } else if (opts.abbrevRef) {
+      args.push('--abbrev-ref');
+    }
+  }
+
+  if (opts.symbolic) {
+    args.push('--symbolic');
+  }
+
+  if (opts.symbolicFullName) {
+    args.push('--symbolic-full-name');
+  }
+
+  if (opts.quiet) {
+    args.push('--quiet');
+  }
+}
+
+// Path query mappings: key -> flag
+const PATH_QUERY_FLAGS: [string, string][] = [
+  ['gitDir', '--git-dir'],
+  ['absoluteGitDir', '--absolute-git-dir'],
+  ['gitCommonDir', '--git-common-dir'],
+  ['showToplevel', '--show-toplevel'],
+  ['showCdup', '--show-cdup'],
+  ['showPrefix', '--show-prefix'],
+  ['showSuperprojectWorkingTree', '--show-superproject-working-tree'],
+  ['sharedIndexPath', '--shared-index-path'],
+];
+
+// Path query mappings with values: key -> flag (value is appended)
+const PATH_QUERY_VALUE_FLAGS: [string, string][] = [
+  ['gitPath', '--git-path'],
+  ['resolveGitDir', '--resolve-git-dir'],
+];
+
+// Boolean query mappings: key -> flag
+const BOOLEAN_QUERY_FLAGS: [string, string][] = [
+  ['isInsideGitDir', '--is-inside-git-dir'],
+  ['isInsideWorkTree', '--is-inside-work-tree'],
+  ['isBareRepository', '--is-bare-repository'],
+  ['isShallowRepository', '--is-shallow-repository'],
+];
+
+// List query mappings: key -> flag (some have optional pattern value)
+const LIST_QUERY_FLAGS: [string, string][] = [
+  ['all', '--all'],
+  ['branches', '--branches'],
+  ['tags', '--tags'],
+  ['remotes', '--remotes'],
+];
+
+/**
+ * Add exclude options to args (for list queries)
+ */
+function addExcludeOptions(args: string[], opts: Record<string, unknown>): void {
+  if ('exclude' in opts && opts.exclude) {
+    args.push(`--exclude=${opts.exclude}`);
+  }
+  if ('excludeHidden' in opts && opts.excludeHidden) {
+    args.push(`--exclude-hidden=${opts.excludeHidden}`);
+  }
+}
+
+/**
+ * Try to add path query flag to args
+ * @returns true if a path query was matched
+ */
+function tryAddPathQuery(args: string[], opts: Record<string, unknown>): boolean {
+  // Simple boolean path queries
+  for (const [key, flag] of PATH_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      args.push(flag);
+      return true;
+    }
+  }
+
+  // Path queries with values
+  for (const [key, flag] of PATH_QUERY_VALUE_FLAGS) {
+    if (key in opts && typeof opts[key] === 'string') {
+      args.push(flag, opts[key] as string);
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Try to add boolean query flag to args
+ * @returns true if a boolean query was matched
+ */
+function tryAddBooleanQuery(args: string[], opts: Record<string, unknown>): boolean {
+  for (const [key, flag] of BOOLEAN_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      args.push(flag);
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Try to add list query flag to args
+ * @returns true if a list query was matched
+ */
+function tryAddListQuery(args: string[], opts: Record<string, unknown>): boolean {
+  // Standard list queries with optional pattern
+  for (const [key, flag] of LIST_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      addExcludeOptions(args, opts);
+      if (typeof opts[key] === 'string') {
+        args.push(`${flag}=${opts[key]}`);
+      } else {
+        args.push(flag);
+      }
+      return true;
+    }
+  }
+
+  // glob query
+  if ('glob' in opts && typeof opts.glob === 'string') {
+    addExcludeOptions(args, opts);
+    args.push(`--glob=${opts.glob}`);
+    return true;
+  }
+
+  // disambiguate query
+  if ('disambiguate' in opts && typeof opts.disambiguate === 'string') {
+    args.push(`--disambiguate=${opts.disambiguate}`);
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Try to add other query flag to args
+ * @returns true if another query was matched
+ */
+function tryAddOtherQuery(args: string[], opts: Record<string, unknown>): boolean {
+  if ('showObjectFormat' in opts && opts.showObjectFormat) {
+    if (opts.showObjectFormat === true) {
+      args.push('--show-object-format');
+    } else {
+      args.push(`--show-object-format=${opts.showObjectFormat}`);
+    }
+    return true;
+  }
+
+  if ('showRefFormat' in opts && opts.showRefFormat) {
+    args.push('--show-ref-format');
+    return true;
+  }
+
+  if ('localEnvVars' in opts && opts.localEnvVars) {
+    args.push('--local-env-vars');
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Check if options represent a boolean query
+ */
+function isBooleanQuery(opts: Record<string, unknown>): boolean {
+  for (const [key] of BOOLEAN_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Check if options represent a list query
+ */
+function isListQuery(opts: Record<string, unknown>): boolean {
+  for (const [key] of LIST_QUERY_FLAGS) {
+    if (key in opts && opts[key]) {
+      return true;
+    }
+  }
+  return (
+    ('glob' in opts && !!opts.glob) ||
+    ('disambiguate' in opts && !!opts.disambiguate) ||
+    ('localEnvVars' in opts && !!opts.localEnvVars)
+  );
+}
 
 /**
  * BareRepo implementation
@@ -100,6 +397,194 @@ export class BareRepoImpl implements BareRepo {
   public async isBare(): Promise<boolean> {
     const result = await this.runner.run(this.context, ['rev-parse', '--is-bare-repository']);
     return result.exitCode === 0 && result.stdout.trim() === 'true';
+  }
+
+  /**
+   * List references in a remote repository
+   */
+  public async lsRemote(
+    remote: string,
+    opts?: RepoLsRemoteOpts & ExecOpts,
+  ): Promise<RepoLsRemoteResult> {
+    const args: string[] = ['ls-remote'];
+
+    // Ref type filters
+    if (opts?.heads) {
+      args.push('--heads');
+    }
+
+    if (opts?.tags) {
+      args.push('--tags');
+    }
+
+    if (opts?.refsOnly) {
+      args.push('--refs');
+    }
+
+    // Output options
+    if (opts?.getUrl) {
+      args.push('--get-url');
+    }
+
+    if (opts?.sort) {
+      args.push('--sort', opts.sort);
+    }
+
+    if (opts?.symref) {
+      args.push('--symref');
+    }
+
+    // Add remote name
+    args.push(remote);
+
+    // Add specific refs if provided
+    if (opts?.refs && opts.refs.length > 0) {
+      args.push(...opts.refs);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+      onProgress: opts?.onProgress,
+    });
+
+    const refs = parseLsRemote(result.stdout);
+
+    return { refs };
+  }
+
+  /**
+   * List contents of a tree object
+   */
+  public async lsTree(treeish: string, opts?: LsTreeOpts & ExecOpts): Promise<LsTreeEntry[]> {
+    const args: string[] = ['ls-tree'];
+
+    // Display options
+    if (opts?.recursive) {
+      args.push('-r');
+    }
+
+    if (opts?.treeOnly) {
+      args.push('-d');
+    }
+
+    if (opts?.showTrees) {
+      args.push('-t');
+    }
+
+    if (opts?.long) {
+      args.push('--long');
+    }
+
+    if (opts?.nameOnly) {
+      args.push('--name-only');
+    }
+
+    if (opts?.objectOnly) {
+      args.push('--object-only');
+    }
+
+    if (opts?.fullName) {
+      args.push('--full-name');
+    }
+
+    if (opts?.fullTree) {
+      args.push('--full-tree');
+    }
+
+    if (opts?.abbrev !== undefined) {
+      if (opts.abbrev === true) {
+        args.push('--abbrev');
+      } else if (typeof opts.abbrev === 'number') {
+        args.push(`--abbrev=${opts.abbrev}`);
+      }
+    }
+
+    // Add tree-ish (required)
+    args.push(treeish);
+
+    // Add optional paths
+    if (opts?.paths && opts.paths.length > 0) {
+      args.push('--', ...opts.paths);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: opts?.signal,
+    });
+
+    return parseLsTree(result.stdout, {
+      nameOnly: opts?.nameOnly,
+      objectOnly: opts?.objectOnly,
+      long: opts?.long,
+    });
+  }
+
+  /**
+   * Parse revision specification and return information about the repository
+   */
+  public revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  public revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
+  public revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
+  public revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
+  public revParse(
+    opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
+  ): Promise<string>;
+  public revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
+  public revParse(opts: { localEnvVars: true } & ExecOpts): Promise<string[]>;
+  public async revParse(
+    refOrOpts:
+      | string
+      | (RevParsePathQuery & RevParsePathOpts & ExecOpts)
+      | (RevParseBooleanQuery & ExecOpts)
+      | (RevParseListQuery & ExecOpts)
+      | ({ showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts)
+      | ({ showRefFormat: true } & ExecOpts)
+      | ({ localEnvVars: true } & ExecOpts),
+    opts?: RevParseRefOpts & ExecOpts,
+  ): Promise<string | boolean | string[]> {
+    const args: string[] = ['rev-parse'];
+
+    // Handle ref string case (first overload)
+    if (typeof refOrOpts === 'string') {
+      addRefOptions(args, opts);
+      args.push(refOrOpts);
+
+      const result = await this.runner.runOrThrow(this.context, args, {
+        signal: opts?.signal,
+      });
+      return result.stdout.trim();
+    }
+
+    // Handle options object cases
+    const queryOpts = refOrOpts as Record<string, unknown>;
+
+    // Try each query type in order (mutually exclusive)
+    tryAddPathQuery(args, queryOpts) ||
+      tryAddBooleanQuery(args, queryOpts) ||
+      tryAddListQuery(args, queryOpts) ||
+      tryAddOtherQuery(args, queryOpts);
+
+    // Add path format option if present (applies to path queries)
+    if ('pathFormat' in queryOpts && queryOpts.pathFormat) {
+      args.push(`--path-format=${queryOpts.pathFormat}`);
+    }
+
+    const result = await this.runner.runOrThrow(this.context, args, {
+      signal: refOrOpts.signal,
+    });
+
+    const output = result.stdout.trim();
+
+    // Determine return type based on query type
+    if (isBooleanQuery(queryOpts)) {
+      return output === 'true';
+    }
+
+    if (isListQuery(queryOpts)) {
+      return output ? output.split('\n').filter((line) => line.length > 0) : [];
+    }
+
+    // Path and other queries return string
+    return output;
   }
 
   /**
@@ -188,38 +673,10 @@ export class BareRepoImpl implements BareRepo {
     const remotes = new Map<string, RemoteInfo>();
 
     for (const line of parseLines(result.stdout)) {
-      const match = line.match(/^(\S+)\t(.+?)\s+\((fetch|push)\)$/);
-      if (match) {
-        const name = match[1];
-        const url = match[2];
-        const type = match[3];
-        if (name !== undefined && url !== undefined) {
-          const existing = remotes.get(name);
-          if (existing) {
-            if (type === 'fetch') {
-              existing.fetchUrl = url;
-            } else if (type === 'push') {
-              existing.pushUrl = url;
-            }
-          } else {
-            remotes.set(name, {
-              name,
-              fetchUrl: type === 'fetch' ? url : '',
-              pushUrl: type === 'push' ? url : '',
-            });
-          }
-        }
-      }
+      parseRemoteLine(line, remotes);
     }
 
-    for (const remote of remotes.values()) {
-      if (!remote.fetchUrl && remote.pushUrl) {
-        remote.fetchUrl = remote.pushUrl;
-      }
-      if (!remote.pushUrl && remote.fetchUrl) {
-        remote.pushUrl = remote.fetchUrl;
-      }
-    }
+    normalizeRemoteUrls(remotes);
 
     return Array.from(remotes.values());
   }
@@ -354,7 +811,7 @@ export class BareRepoImpl implements BareRepo {
     // Parse pruned refs from output
     const pruned: string[] = [];
     for (const line of parseLines(result.stdout)) {
-      const match = line.match(/\* \[pruned\] (.+)/);
+      const match = line.match(PRUNED_REF_PATTERN);
       const ref = match?.[1];
       if (ref) {
         pruned.push(ref);

@@ -8,6 +8,19 @@
  * - parseKeyValue: Parse key-value pairs
  */
 
+// Regex patterns for parsing git output
+const GIT_PROGRESS_PERCENT_REGEX = /^(.+?):\s*(\d+)%\s*\((\d+)\/(\d+)\)(?:,\s*(done))?/;
+const GIT_PROGRESS_SIMPLE_REGEX = /^(.+?):\s*(\d+)\/(\d+)/;
+const WHITESPACE_REGEX = /\s+/;
+const BYTES_RATIO_REGEX = /^(\d+)\/(\d+)$/;
+const SIZE_REGEX = /^([\d.]+)\s*(B|KB|MB|GB|TB)?$/i;
+const BITRATE_REGEX = /^([\d.]+)\s*(B|KB|MB|GB)\/s$/i;
+const LFS_DOWNLOAD_REGEX = /downloading|filtering/i;
+const LFS_UPLOAD_REGEX = /uploading/i;
+const LFS_CHECKOUT_REGEX = /checking out/i;
+const LFS_PROGRESS_REGEX =
+  /(\d+)%\s*\((\d+)\/(\d+)\)(?:,\s*([\d.]+\s*(?:B|KB|MB|GB|TB)?)\s*(?:\|\s*([\d.]+\s*(?:B|KB|MB|GB)\/s))?)?/i;
+
 /**
  * Safely get an element from an array, throwing if undefined
  * @internal
@@ -269,7 +282,7 @@ export type GitProgressInfo = {
 
 export function parseGitProgress(line: string): GitProgressInfo | null {
   // Pattern: "Phase: XX% (current/total), done." or "Phase: XX% (current/total)"
-  const match = line.match(/^(.+?):\s*(\d+)%\s*\((\d+)\/(\d+)\)(?:,\s*(done))?/);
+  const match = line.match(GIT_PROGRESS_PERCENT_REGEX);
 
   if (match) {
     const percent = match[2];
@@ -288,7 +301,7 @@ export function parseGitProgress(line: string): GitProgressInfo | null {
   }
 
   // Pattern without percentage: "Phase: current/total"
-  const simpleMatch = line.match(/^(.+?):\s*(\d+)\/(\d+)/);
+  const simpleMatch = line.match(GIT_PROGRESS_SIMPLE_REGEX);
   if (simpleMatch) {
     const currentStr = simpleMatch[2];
     const totalStr = simpleMatch[3];
@@ -326,7 +339,7 @@ export type LfsProgressInfo = {
 };
 
 export function parseLfsProgress(line: string): LfsProgressInfo | null {
-  const parts = line.trim().split(/\s+/);
+  const parts = line.trim().split(WHITESPACE_REGEX);
 
   if (parts.length < 4) {
     return null;
@@ -345,7 +358,7 @@ export function parseLfsProgress(line: string): LfsProgressInfo | null {
     return null;
   }
 
-  const bytesMatch = bytesStr.match(/^(\d+)\/(\d+)$/);
+  const bytesMatch = bytesStr.match(BYTES_RATIO_REGEX);
   if (!bytesMatch) {
     return null;
   }
@@ -388,7 +401,7 @@ export type LfsStderrProgressInfo = {
  * Parse size string like "1.2 MB", "500 KB", "10 GB" to bytes
  */
 function parseSizeToBytes(sizeStr: string): number {
-  const match = sizeStr.match(/^([\d.]+)\s*(B|KB|MB|GB|TB)?$/i);
+  const match = sizeStr.match(SIZE_REGEX);
   if (!match) {
     return 0;
   }
@@ -411,7 +424,7 @@ function parseSizeToBytes(sizeStr: string): number {
  * Parse bitrate string like "500 KB/s", "1.5 MB/s" to bytes per second
  */
 function parseBitrateToBytes(bitrateStr: string): number | null {
-  const match = bitrateStr.match(/^([\d.]+)\s*(B|KB|MB|GB)\/s$/i);
+  const match = bitrateStr.match(BITRATE_REGEX);
   if (!match) {
     return null;
   }
@@ -444,11 +457,11 @@ function parseBitrateToBytes(bitrateStr: string): number | null {
 export function parseLfsStderrProgress(line: string): LfsStderrProgressInfo | null {
   // Determine direction
   let direction: 'download' | 'upload' | 'checkout';
-  if (/downloading|filtering/i.test(line)) {
+  if (LFS_DOWNLOAD_REGEX.test(line)) {
     direction = 'download';
-  } else if (/uploading/i.test(line)) {
+  } else if (LFS_UPLOAD_REGEX.test(line)) {
     direction = 'upload';
-  } else if (/checking out/i.test(line)) {
+  } else if (LFS_CHECKOUT_REGEX.test(line)) {
     direction = 'checkout';
   } else {
     return null;
@@ -456,9 +469,7 @@ export function parseLfsStderrProgress(line: string): LfsStderrProgressInfo | nu
 
   // Match: percent% (filesCompleted/filesTotal), size | bitrate[, done.]
   // Also handle format without size: percent% (filesCompleted/filesTotal)
-  const progressMatch = line.match(
-    /(\d+)%\s*\((\d+)\/(\d+)\)(?:,\s*([\d.]+\s*(?:B|KB|MB|GB|TB)?)\s*(?:\|\s*([\d.]+\s*(?:B|KB|MB|GB)\/s))?)?/i,
-  );
+  const progressMatch = line.match(LFS_PROGRESS_REGEX);
 
   if (!progressMatch) {
     return null;
@@ -524,6 +535,123 @@ export function parseLsRemote(stdout: string): LsRemoteRef[] {
   }
 
   return refs;
+}
+
+// =============================================================================
+// ls-tree Parser
+// =============================================================================
+
+/**
+ * Object type in a tree
+ */
+export type LsTreeObjectType = 'blob' | 'tree' | 'commit';
+
+/**
+ * Entry from git ls-tree output
+ */
+export type ParsedLsTreeEntry = {
+  /** File mode (e.g., '100644' for regular file, '040000' for directory) */
+  mode: string;
+  /** Object type: blob (file), tree (directory), or commit (submodule) */
+  type: LsTreeObjectType;
+  /** Object hash (SHA-1 or SHA-256) */
+  hash: string;
+  /** File path relative to repository root */
+  path: string;
+  /** Object size in bytes (only for blobs when using --long option) */
+  size?: number;
+};
+
+// Regex for standard ls-tree output: <mode> <type> <hash>\t<path>
+const LS_TREE_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\t(.+)$/;
+
+// Regex for ls-tree --long output: <mode> <type> <hash> <size>\t<path>
+const LS_TREE_LONG_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\s+(-|\d+)\t(.+)$/;
+
+/**
+ * Parse git ls-tree output
+ *
+ * Supports multiple output formats:
+ * - Default: <mode> <type> <hash>\t<path>
+ * - With --long: <mode> <type> <hash> <size>\t<path>
+ * - With --name-only: <path>
+ * - With --object-only: <hash>
+ *
+ * @param stdout - Raw stdout from `git ls-tree`
+ * @param opts - Parser options to handle different output modes
+ * @returns Parsed tree entries
+ */
+export function parseLsTree(
+  stdout: string,
+  opts?: { nameOnly?: boolean; objectOnly?: boolean; long?: boolean },
+): ParsedLsTreeEntry[] {
+  const entries: ParsedLsTreeEntry[] = [];
+  const lines = parseLines(stdout);
+
+  for (const line of lines) {
+    // Handle --name-only output (just paths)
+    if (opts?.nameOnly) {
+      entries.push({
+        mode: '',
+        type: 'blob',
+        hash: '',
+        path: line,
+      });
+      continue;
+    }
+
+    // Handle --object-only output (just hashes)
+    if (opts?.objectOnly) {
+      entries.push({
+        mode: '',
+        type: 'blob',
+        hash: line,
+        path: '',
+      });
+      continue;
+    }
+
+    // Try parsing --long format first
+    if (opts?.long) {
+      const longMatch = line.match(LS_TREE_LONG_REGEX);
+      if (longMatch) {
+        const mode = longMatch[1];
+        const type = longMatch[2];
+        const hash = longMatch[3];
+        const sizeStr = longMatch[4];
+        const path = longMatch[5];
+        if (mode && type && hash && path) {
+          entries.push({
+            mode,
+            type: type as LsTreeObjectType,
+            hash,
+            path,
+            size: sizeStr === '-' || !sizeStr ? undefined : Number.parseInt(sizeStr, 10),
+          });
+        }
+        continue;
+      }
+    }
+
+    // Parse standard format
+    const match = line.match(LS_TREE_REGEX);
+    if (match) {
+      const mode = match[1];
+      const type = match[2];
+      const hash = match[3];
+      const path = match[4];
+      if (mode && type && hash && path) {
+        entries.push({
+          mode,
+          type: type as LsTreeObjectType,
+          hash,
+          path,
+        });
+      }
+    }
+  }
+
+  return entries;
 }
 
 // =============================================================================

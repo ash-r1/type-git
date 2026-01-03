@@ -19,13 +19,14 @@ import {
   RECOMMENDED_GIT_VERSION,
 } from './git-impl.js';
 
-const VERSION_REGEX = /^\d+\.\d+/;
-
 /**
  * Whether to use legacy Git version mode.
  * Set TYPE_GIT_USE_LEGACY_VERSION=true for testing with Git 2.25.x
  */
 const USE_LEGACY_VERSION = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+
+// Regex pattern for validating git version format
+const GIT_VERSION_FORMAT_REGEX = /^\d+\.\d+/;
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -45,7 +46,7 @@ describe('createGit version check', () => {
     });
     expect(git).toBeDefined();
     const version = await git.version();
-    expect(version).toMatch(VERSION_REGEX);
+    expect(version).toMatch(GIT_VERSION_FORMAT_REGEX);
   });
 
   it('should skip version check when skipVersionCheck is true', async () => {
@@ -254,7 +255,7 @@ describe('GitImpl', () => {
   describe('version', () => {
     it('should return git version', async () => {
       const version = await git.version();
-      expect(version).toMatch(VERSION_REGEX);
+      expect(version).toMatch(GIT_VERSION_FORMAT_REGEX);
     });
   });
 

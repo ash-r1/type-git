@@ -2,6 +2,7 @@
  * Repository interfaces - operations that require a repository context
  */
 
+import type { LsRemoteRef } from '../parsers/index.js';
 import type { ExecOpts, GitProgress, LfsMode, RawResult } from './types.js';
 
 /**
@@ -54,7 +55,127 @@ export interface RepoBase {
    * ```
    */
   isBare(): Promise<boolean>;
+
+  /**
+   * List references in a remote repository
+   *
+   * Wraps: `git ls-remote <remote> [refs...]`
+   *
+   * Unlike the global `git.lsRemote(url)`, this method operates in the context
+   * of a repository and accepts a remote name (e.g., 'origin') instead of a URL.
+   *
+   * @example
+   * ```typescript
+   * // List all refs from origin
+   * const result = await repo.lsRemote('origin');
+   *
+   * // List specific branch
+   * const result = await repo.lsRemote('origin', { refs: ['main'] });
+   *
+   * // List only tags
+   * const result = await repo.lsRemote('origin', { tags: true });
+   * ```
+   */
+  lsRemote(remote: string, opts?: RepoLsRemoteOpts & ExecOpts): Promise<RepoLsRemoteResult>;
+
+  /**
+   * List contents of a tree object
+   *
+   * Wraps: `git ls-tree <tree-ish> [<path>...]`
+   *
+   * Lists the contents of a given tree object (commit, tag, or tree hash).
+   *
+   * @example
+   * ```typescript
+   * // List all files in HEAD
+   * const entries = await repo.lsTree('HEAD');
+   *
+   * // List files recursively with names only
+   * const names = await repo.lsTree('HEAD', { recursive: true, nameOnly: true });
+   *
+   * // List files in a specific directory
+   * const entries = await repo.lsTree('main', { paths: ['src/'] });
+   *
+   * // Get file sizes
+   * const entries = await repo.lsTree('HEAD', { long: true });
+   * ```
+   */
+  lsTree(treeish: string, opts?: LsTreeOpts & ExecOpts): Promise<LsTreeEntry[]>;
 }
+
+/**
+ * Options for repository-scoped git ls-remote
+ */
+export type RepoLsRemoteOpts = {
+  /** Limit to refs/heads (branches) */
+  heads?: boolean;
+  /** Limit to refs/tags */
+  tags?: boolean;
+  /** Show only actual refs (not peeled tags) */
+  refsOnly?: boolean;
+  /** Show remote URL instead of listing refs */
+  getUrl?: boolean;
+  /** Sort refs by the given key (e.g., 'version:refname') */
+  sort?: string;
+  /** Show symbolic refs in addition to object refs */
+  symref?: boolean;
+  /** Specific refs to query (branch names, tag names, or full ref paths) */
+  refs?: string[];
+};
+
+/**
+ * Result from repository-scoped git ls-remote
+ */
+export type RepoLsRemoteResult = {
+  refs: LsRemoteRef[];
+};
+
+/**
+ * Object type in a tree
+ */
+export type LsTreeObjectType = 'blob' | 'tree' | 'commit';
+
+/**
+ * Entry from git ls-tree output
+ */
+export type LsTreeEntry = {
+  /** File mode (e.g., '100644' for regular file, '040000' for directory) */
+  mode: string;
+  /** Object type: blob (file), tree (directory), or commit (submodule) */
+  type: LsTreeObjectType;
+  /** Object hash (SHA-1 or SHA-256) */
+  hash: string;
+  /** File path relative to repository root */
+  path: string;
+  /** Object size in bytes (only for blobs when using --long option) */
+  size?: number;
+};
+
+/**
+ * Options for git ls-tree
+ */
+export type LsTreeOpts = {
+  /** Recurse into sub-trees (-r) */
+  recursive?: boolean;
+  /** Show only the named tree entry itself, not its children (-d) */
+  treeOnly?: boolean;
+  /** Show tree entries even when recursing (-t) */
+  showTrees?: boolean;
+  /** Show object size of blob entries (--long / -l) */
+  long?: boolean;
+  /** List only filenames (--name-only) */
+  nameOnly?: boolean;
+  /** List only object names/hashes (--object-only) */
+  objectOnly?: boolean;
+  /** Show full path names (--full-name) */
+  fullName?: boolean;
+  /** Do not limit listing to current working directory (--full-tree) */
+  fullTree?: boolean;
+  /** Abbreviate object names to at least n hexdigits (--abbrev) */
+  abbrev?: number | boolean;
+  /** Paths to filter (optional patterns to match) */
+  paths?: string[];
+};
 
 /**
  * Status file entry
@@ -1308,6 +1429,109 @@ export type ShowOpts = {
   decorateRefsExclude?: string;
   /** Decorate style */
   decorate?: 'short' | 'full' | 'auto' | 'no';
+};
+
+// ==========================================================================
+// rev-parse Types
+// ==========================================================================
+
+/**
+ * Options that return a single path from rev-parse
+ *
+ * These options are mutually exclusive - only one can be specified at a time.
+ */
+export type RevParsePathQuery =
+  | { gitDir: true }
+  | { absoluteGitDir: true }
+  | { gitCommonDir: true }
+  | { showToplevel: true }
+  | { showCdup: true }
+  | { showPrefix: true }
+  | { showSuperprojectWorkingTree: true }
+  | { sharedIndexPath: true }
+  | { gitPath: string }
+  | { resolveGitDir: string };
+
+/**
+ * Options that return a boolean from rev-parse
+ *
+ * These options are mutually exclusive - only one can be specified at a time.
+ */
+export type RevParseBooleanQuery =
+  | { isInsideGitDir: true }
+  | { isInsideWorkTree: true }
+  | { isBareRepository: true }
+  | { isShallowRepository: true };
+
+/**
+ * Common options for list queries
+ */
+export type RevParseListOpts = {
+  /** Exclude refs matching pattern */
+  exclude?: string;
+  /**
+   * Exclude refs that would be hidden by the specified operation.
+   * - 'fetch': hidden by `transfer.hideRefs` for fetch
+   * - 'receive': hidden by `receive.hideRefs`
+   * - 'uploadpack': hidden by `uploadpack.hideRefs`
+   */
+  excludeHidden?: 'fetch' | 'receive' | 'uploadpack';
+};
+
+/**
+ * Options that return a list of refs from rev-parse
+ *
+ * These options are mutually exclusive - only one can be specified at a time.
+ * For branches/tags/remotes, you can pass `true` to list all, or a pattern string to filter.
+ */
+export type RevParseListQuery =
+  | ({ all: true } & RevParseListOpts)
+  | ({ branches: true | string } & RevParseListOpts)
+  | ({ tags: true | string } & RevParseListOpts)
+  | ({ remotes: true | string } & RevParseListOpts)
+  | ({ glob: string } & RevParseListOpts)
+  | { disambiguate: string };
+
+/**
+ * Options that modify how a ref is resolved
+ */
+export type RevParseRefOpts = {
+  /** Verify that the parameter can be turned into a raw SHA-1 (stricter parsing) */
+  verify?: boolean;
+  /** Shorten to unique prefix (true for default length, number for specific length) */
+  short?: boolean | number;
+  /** Output abbreviated ref name (e.g., "main" instead of SHA) */
+  abbrevRef?: boolean | 'strict' | 'loose';
+  /** Output in a form as close to the original input as possible */
+  symbolic?: boolean;
+  /** Output full refname (e.g., "refs/heads/main" instead of "main") */
+  symbolicFullName?: boolean;
+  /**
+   * In --verify mode, exit silently with non-zero status on invalid input
+   * instead of outputting an error message. Only works with --verify.
+   */
+  quiet?: boolean;
+};
+
+/**
+ * Options that return other information from rev-parse
+ */
+export type RevParseOtherQuery =
+  | { showObjectFormat: true | 'storage' | 'input' | 'output' }
+  | { showRefFormat: true }
+  | { localEnvVars: true };
+
+/**
+ * Path format option for path queries
+ */
+export type RevParsePathFormat = 'absolute' | 'relative';
+
+/**
+ * Additional options for path queries
+ */
+export type RevParsePathOpts = {
+  /** Control whether paths are output as absolute or relative */
+  pathFormat?: RevParsePathFormat;
 };
 
 /**
@@ -3245,20 +3469,48 @@ export interface WorktreeRepo extends RepoBase {
   // ==========================================================================
 
   /**
-   * Parse revision specification and return the object name (SHA)
+   * Parse revision specification and return information about the repository
    *
    * Wraps: `git rev-parse`
    *
-   * Useful for resolving refs like HEAD, branch names, or relative refs like HEAD~1
+   * This is a versatile command with multiple use cases based on the options provided:
    *
-   * @example
+   * **Resolve ref to SHA:**
    * ```typescript
    * const sha = await repo.revParse('HEAD');
    * const parentSha = await repo.revParse('HEAD~1');
-   * const branchSha = await repo.revParse('main');
+   * const short = await repo.revParse('HEAD', { short: true });
+   * const branch = await repo.revParse('HEAD', { abbrevRef: true });
+   * ```
+   *
+   * **Query paths:**
+   * ```typescript
+   * const gitDir = await repo.revParse({ gitDir: true });
+   * const toplevel = await repo.revParse({ showToplevel: true });
+   * ```
+   *
+   * **Query repository state:**
+   * ```typescript
+   * const isShallow = await repo.revParse({ isShallowRepository: true });
+   * const isBare = await repo.revParse({ isBareRepository: true });
+   * ```
+   *
+   * **List refs:**
+   * ```typescript
+   * const allRefs = await repo.revParse({ all: true });
+   * const branches = await repo.revParse({ branches: true });
+   * const featureBranches = await repo.revParse({ branches: 'feature/*' });
    * ```
    */
-  revParse(ref: string, opts?: ExecOpts): Promise<string>;
+  revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
+  revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
+  revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
+  revParse(
+    opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
+  ): Promise<string>;
+  revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
+  revParse(opts: { localEnvVars: true } & ExecOpts): Promise<string[]>;
 
   /**
    * Count the number of commits reachable from a ref
@@ -3351,4 +3603,26 @@ export interface BareRepo extends RepoBase {
    * Wraps: `git config` subcommands
    */
   config: ConfigOperations;
+
+  /**
+   * Parse revision specification and return information about the repository
+   *
+   * Wraps: `git rev-parse`
+   *
+   * @example
+   * ```typescript
+   * const sha = await repo.revParse('HEAD');
+   * const gitDir = await repo.revParse({ gitDir: true });
+   * const isShallow = await repo.revParse({ isShallowRepository: true });
+   * ```
+   */
+  revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
+  revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
+  revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
+  revParse(
+    opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
+  ): Promise<string>;
+  revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
+  revParse(opts: { localEnvVars: true } & ExecOpts): Promise<string[]>;
 }
