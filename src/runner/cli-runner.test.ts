@@ -405,7 +405,7 @@ describe('CliRunner', () => {
       // Capture the onStderr handler
       let stderrHandler: ((chunk: string) => void) | undefined;
       (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
-        async (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
+        (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
           stderrHandler = handlers?.onStderr;
           // Simulate progress output
           if (stderrHandler) {
@@ -417,7 +417,7 @@ describe('CliRunner', () => {
       );
 
       await runner.run({ type: 'global' }, ['fetch'], {
-        onProgress: (p) => progressEvents.push(p),
+        onProgress: (p: GitProgress) => progressEvents.push(p),
       });
 
       expect(progressEvents.length).toBeGreaterThan(0);
@@ -435,7 +435,7 @@ describe('CliRunner', () => {
       const lfsProgressEvents: LfsProgress[] = [];
 
       (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
-        async (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
+        (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
           // Simulate LFS progress output with carriage returns
           if (handlers?.onStderr) {
             handlers.onStderr('Downloading LFS objects:  50% (1/2), 1.5 MB | 500 KB/s\r');
@@ -446,7 +446,7 @@ describe('CliRunner', () => {
       );
 
       await runner.run({ type: 'global' }, ['lfs', 'pull'], {
-        onLfsProgress: (p) => lfsProgressEvents.push(p),
+        onLfsProgress: (p: LfsProgress) => lfsProgressEvents.push(p),
       });
 
       expect(lfsProgressEvents.length).toBeGreaterThan(0);
@@ -464,7 +464,7 @@ describe('CliRunner', () => {
       const lfsProgressEvents: LfsProgress[] = [];
 
       (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
-        async (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
+        (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
           // Simulate LFS progress with multiple CR updates in single chunk
           if (handlers?.onStderr) {
             handlers.onStderr(
@@ -478,7 +478,7 @@ describe('CliRunner', () => {
       );
 
       await runner.run({ type: 'global' }, ['lfs', 'pull'], {
-        onLfsProgress: (p) => lfsProgressEvents.push(p),
+        onLfsProgress: (p: LfsProgress) => lfsProgressEvents.push(p),
       });
 
       // Should have parsed multiple progress events from CR-separated lines
