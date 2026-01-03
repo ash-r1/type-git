@@ -20,7 +20,7 @@ function createMockAdapters(spawnResults?: Partial<SpawnResult>[]): RuntimeAdapt
         supportsKillSignal: true,
         runtime: 'node' as const,
       }),
-      spawn: vi.fn().mockImplementation(async () => {
+      spawn: vi.fn().mockImplementation(() => {
         const result = spawnResults?.[callIndex] ?? {
           stdout: '',
           stderr: '',

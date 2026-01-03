@@ -8,6 +8,11 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { FsAdapter, TailHandle, TailOptions } from '../../core/adapters.js';
+import {
+  createTailPolling,
+  type FilePollingAdapter,
+  runTailPolling,
+} from '../../internal/file-polling.js';
 
 export class BunFsAdapter implements FsAdapter {
   public async createTempFile(prefix: string = 'type-git-'): Promise<string> {
@@ -21,47 +26,25 @@ export class BunFsAdapter implements FsAdapter {
   public async tail(options: TailOptions): Promise<void> {
     const { filePath, signal, onLine, pollInterval = 100 } = options;
 
-    let position = 0;
-    let buffer = '';
-
-    const poll = async (): Promise<void> => {
-      if (signal?.aborted) {
-        return;
-      }
-
-      try {
-        const file = Bun.file(filePath);
-        const size = file.size;
-
-        if (size > position) {
+    const adapter: FilePollingAdapter = {
+      readChunk: async (position: number) => {
+        try {
+          const file = Bun.file(filePath);
+          const size = file.size;
+          if (size <= position) {
+            return null;
+          }
           const slice = file.slice(position, size);
           const text = await slice.text();
-          position = size;
-
-          buffer += text;
-          const lines = buffer.split('\n');
-          buffer = lines.pop() ?? '';
-
-          for (const line of lines) {
-            if (line) {
-              onLine(line);
-            }
-          }
+          return { data: text, newPosition: size };
+        } catch {
+          return null;
         }
-      } catch (error) {
-        // File may not exist yet, ignore and retry
-        if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
-          throw error;
-        }
-      }
-
-      if (!signal?.aborted) {
-        await Bun.sleep(pollInterval);
-        await poll();
-      }
+      },
+      sleep: (ms: number) => Bun.sleep(ms),
     };
 
-    await poll();
+    await runTailPolling({ adapter, signal, pollInterval, onLine });
   }
 
   public async deleteFile(filePath: string): Promise<void> {
@@ -92,94 +75,24 @@ export class BunFsAdapter implements FsAdapter {
   ): TailHandle {
     const { signal, pollInterval = 100 } = options ?? {};
 
-    type ResolverFn = (value: IteratorResult<string, undefined>) => void;
-    type TailState = {
-      stopped: boolean;
-      resolveNext: ResolverFn | null;
-      lineQueue: string[];
-    };
-    const state: TailState = {
-      stopped: false,
-      resolveNext: null,
-      lineQueue: [],
-    };
-
-    const stop = (): void => {
-      state.stopped = true;
-      if (state.resolveNext) {
-        state.resolveNext({ done: true, value: undefined });
-        state.resolveNext = null;
-      }
-    };
-
-    // Start polling in the background
-    const startPolling = async (): Promise<void> => {
-      let position = 0;
-      let buffer = '';
-
-      while (!(state.stopped || signal?.aborted)) {
+    const adapter: FilePollingAdapter = {
+      readChunk: async (position: number) => {
         try {
           const file = Bun.file(filePath);
           const size = file.size;
-
-          if (size > position) {
-            const slice = file.slice(position, size);
-            const text = await slice.text();
-            position = size;
-
-            buffer += text;
-            const lines = buffer.split('\n');
-            buffer = lines.pop() ?? '';
-
-            for (const line of lines) {
-              if (line) {
-                if (state.resolveNext) {
-                  const resolver = state.resolveNext;
-                  state.resolveNext = null;
-                  resolver({ done: false, value: line });
-                } else {
-                  state.lineQueue.push(line);
-                }
-              }
-            }
+          if (size <= position) {
+            return null;
           }
+          const slice = file.slice(position, size);
+          const text = await slice.text();
+          return { data: text, newPosition: size };
         } catch {
-          // Ignore errors, file may not exist yet
+          return null;
         }
-
-        await Bun.sleep(pollInterval);
-      }
-
-      stop();
-    };
-
-    startPolling().catch(() => {
-      // Intentionally ignored - startPolling handles its own cleanup
-    });
-
-    const lines: AsyncIterable<string> = {
-      [Symbol.asyncIterator](): AsyncIterator<string> {
-        return {
-          next(): Promise<IteratorResult<string>> {
-            if (state.stopped) {
-              return Promise.resolve({ done: true, value: undefined });
-            }
-
-            if (state.lineQueue.length > 0) {
-              const value = state.lineQueue.shift();
-              if (value !== undefined) {
-                return Promise.resolve({ done: false, value });
-              }
-            }
-
-            return new Promise((resolve) => {
-              state.resolveNext = resolve;
-            });
-          },
-        };
       },
+      sleep: (ms: number) => Bun.sleep(ms),
     };
 
-    return { lines, stop };
+    return createTailPolling({ adapter, signal, pollInterval });
   }
 }
