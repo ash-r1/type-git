@@ -174,7 +174,9 @@ export type GitErrorKind =
   /** Expected a worktree repository but found bare repository */
   | 'NotWorktreeRepo'
   /** Expected a bare repository but found worktree repository */
-  | 'NotBareRepo';
+  | 'NotBareRepo'
+  /** Git version is below minimum supported version */
+  | 'UnsupportedGitVersion';
 
 /**
  * Git error category for error handling (§13.2)

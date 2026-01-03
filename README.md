@@ -25,6 +25,22 @@ This library wraps Git CLI (and optionally libgit2) with a focus on:
 3. **Worktree vs Bare**: Type-safe distinction between worktree and bare repositories
 4. **Raw Escape Hatch**: Arbitrary git commands via `raw()` when needed
 
+## Requirements
+
+- **Node.js 20+**, Deno 2+, or Bun
+- **Git 2.30.0+** (recommended)
+  - Legacy mode supports Git 2.25.0+ with `useLegacyVersion: true`
+
+### Git Version Compatibility
+
+| Feature | Minimum Git Version |
+|---------|---------------------|
+| Core functionality (status, log, etc.) | 2.25.0 |
+| `--show-stash` in status | 2.35.0 |
+| Partial clone (`--filter`) | 2.18.0 |
+| Sparse checkout (`--sparse`) | 2.25.0 |
+| SHA-256 repositories | 2.29.0 |
+
 ## Installation
 
 ```bash
@@ -45,7 +61,8 @@ import { TypeGit } from 'type-git/node';
 // Deno
 // import { TypeGit } from 'type-git/deno';
 
-const git = new TypeGit();
+// Create instance with Git version check (recommended)
+const git = await TypeGit.create();
 
 // Open an existing repository
 const repo = await git.open('/path/to/repo');
@@ -58,6 +75,17 @@ const clonedRepo = await git.clone('https://github.com/user/repo.git', '/path/to
 const newRepo = await git.init('/path/to/new-repo');
 ```
 
+### Using with Older Git Versions
+
+For environments with Git 2.25.0 - 2.29.x (e.g., Ubuntu 20.04 LTS):
+
+```typescript
+import { TypeGit } from 'type-git/node';
+
+// Enable legacy mode for Git 2.25.0+
+const git = await TypeGit.create({ useLegacyVersion: true });
+```
+
 ### Advanced Usage
 
 For more control over adapters, you can use the factory function:
@@ -66,9 +94,10 @@ For more control over adapters, you can use the factory function:
 import { createGit } from 'type-git';
 import { createNodeAdapters } from 'type-git/node';
 
-const git = createGit({
+const git = await createGit({
   adapters: createNodeAdapters(),
-  // Additional options...
+  // useLegacyVersion: true,  // For Git 2.25.0+
+  // skipVersionCheck: true,  // Skip version check entirely
 });
 ```
 
@@ -77,7 +106,7 @@ const git = createGit({
 ```typescript
 import { TypeGit } from 'type-git/node';
 
-const git = new TypeGit();
+const git = await TypeGit.create();
 
 // Clone a repository with progress tracking
 const repo = await git.clone('https://github.com/user/repo.git', '/path/to/clone', {

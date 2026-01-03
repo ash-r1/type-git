@@ -5,10 +5,24 @@
 import { access, mkdtemp, realpath, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
+import type { Git } from '../core/git.js';
 import { GitError } from '../core/types.js';
-import { createGit } from './git-impl.js';
+import {
+  compareVersions,
+  createGit,
+  createGitSync,
+  LEGACY_GIT_VERSION,
+  MIN_GIT_VERSION,
+  parseVersion,
+} from './git-impl.js';
+
+/**
+ * Whether to use legacy Git version mode.
+ * Set TYPE_GIT_USE_LEGACY_VERSION=true for testing with Git 2.25.x
+ */
+const USE_LEGACY_VERSION = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 
 // Normalize path separators for cross-platform comparison
 // Git on Windows outputs forward slashes, but Node.js path functions use backslashes
@@ -28,9 +42,211 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
+describe('createGit version check', () => {
+  it('should check version by default and pass for current git', async () => {
+    // Use legacy version mode if environment variable is set (for Git 2.25.x testing)
+    const git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
+    expect(git).toBeDefined();
+    const version = await git.version();
+    expect(version).toMatch(GIT_VERSION_FORMAT_REGEX);
+  });
+
+  it('should skip version check when skipVersionCheck is true', async () => {
+    const git = await createGit({ adapters: createNodeAdapters(), skipVersionCheck: true });
+    expect(git).toBeDefined();
+  });
+
+  it('should allow legacy version with useLegacyVersion option', async () => {
+    // This should pass since we expect git >= 2.25 to be installed
+    const git = await createGit({ adapters: createNodeAdapters(), useLegacyVersion: true });
+    expect(git).toBeDefined();
+  });
+
+  it('should export version constants', () => {
+    expect(MIN_GIT_VERSION).toBe('2.30.0');
+    expect(LEGACY_GIT_VERSION).toBe('2.25.0');
+  });
+
+  it('createGitSync should create git instance without version check', () => {
+    const git = createGitSync({ adapters: createNodeAdapters() });
+    expect(git).toBeDefined();
+  });
+});
+
+describe('parseVersion', () => {
+  it('should parse standard version strings', () => {
+    expect(parseVersion('2.30.0')).toEqual([2, 30, 0]);
+    expect(parseVersion('2.25.1')).toEqual([2, 25, 1]);
+    expect(parseVersion('1.0.0')).toEqual([1, 0, 0]);
+  });
+
+  it('should handle Windows-style versions (e.g., 2.30.0.windows.1)', () => {
+    expect(parseVersion('2.30.0.windows.1')).toEqual([2, 30, 0]);
+    expect(parseVersion('2.39.3.windows.2')).toEqual([2, 39, 3]);
+  });
+
+  it('should handle pre-release versions (e.g., 2.30.0-rc0)', () => {
+    expect(parseVersion('2.30.0-rc0')).toEqual([2, 30, 0]);
+    expect(parseVersion('2.31.0-rc1')).toEqual([2, 31, 0]);
+    expect(parseVersion('2.32.0-alpha')).toEqual([2, 32, 0]);
+  });
+
+  it('should return [0, 0, 0] for malformed versions', () => {
+    expect(parseVersion('')).toEqual([0, 0, 0]);
+    expect(parseVersion('invalid')).toEqual([0, 0, 0]);
+    expect(parseVersion('not-a-version')).toEqual([0, 0, 0]);
+    expect(parseVersion('v2.30.0')).toEqual([0, 0, 0]); // Leading 'v' not supported
+  });
+
+  it('should handle versions with only major.minor', () => {
+    // The regex requires major.minor.patch, so this returns [0, 0, 0]
+    expect(parseVersion('2.30')).toEqual([0, 0, 0]);
+  });
+});
+
+describe('compareVersions', () => {
+  it('should return 0 for equal versions', () => {
+    expect(compareVersions('2.30.0', '2.30.0')).toBe(0);
+    expect(compareVersions('1.0.0', '1.0.0')).toBe(0);
+  });
+
+  it('should return negative when first version is smaller', () => {
+    expect(compareVersions('2.25.0', '2.30.0')).toBeLessThan(0);
+    expect(compareVersions('1.0.0', '2.0.0')).toBeLessThan(0);
+    expect(compareVersions('2.30.0', '2.30.1')).toBeLessThan(0);
+  });
+
+  it('should return positive when first version is larger', () => {
+    expect(compareVersions('2.30.0', '2.25.0')).toBeGreaterThan(0);
+    expect(compareVersions('3.0.0', '2.99.99')).toBeGreaterThan(0);
+    expect(compareVersions('2.30.1', '2.30.0')).toBeGreaterThan(0);
+  });
+
+  it('should compare major version first', () => {
+    expect(compareVersions('3.0.0', '2.99.99')).toBeGreaterThan(0);
+    expect(compareVersions('1.99.99', '2.0.0')).toBeLessThan(0);
+  });
+
+  it('should compare minor version when major is equal', () => {
+    expect(compareVersions('2.31.0', '2.30.99')).toBeGreaterThan(0);
+    expect(compareVersions('2.29.99', '2.30.0')).toBeLessThan(0);
+  });
+
+  it('should compare patch version when major and minor are equal', () => {
+    expect(compareVersions('2.30.1', '2.30.0')).toBeGreaterThan(0);
+    expect(compareVersions('2.30.0', '2.30.1')).toBeLessThan(0);
+  });
+
+  it('should handle platform-specific versions', () => {
+    // Windows versions should compare the base version
+    expect(compareVersions('2.30.0.windows.1', '2.30.0')).toBe(0);
+    expect(compareVersions('2.30.0.windows.1', '2.25.0')).toBeGreaterThan(0);
+  });
+
+  it('should handle pre-release versions', () => {
+    // Pre-release suffixes are ignored, so 2.30.0-rc0 == 2.30.0
+    expect(compareVersions('2.30.0-rc0', '2.30.0')).toBe(0);
+    expect(compareVersions('2.30.0-rc0', '2.29.0')).toBeGreaterThan(0);
+  });
+
+  it('should handle malformed versions by treating them as 0.0.0', () => {
+    expect(compareVersions('invalid', '2.30.0')).toBeLessThan(0);
+    expect(compareVersions('2.30.0', 'invalid')).toBeGreaterThan(0);
+    expect(compareVersions('invalid', 'also-invalid')).toBe(0);
+  });
+});
+
+describe('version validation errors', () => {
+  it('should throw UnsupportedGitVersion for versions below MIN_GIT_VERSION', async () => {
+    // Create a mock adapter that returns an old version
+    const mockAdapters = createNodeAdapters();
+    const originalSpawn = mockAdapters.exec.spawn.bind(mockAdapters.exec);
+
+    mockAdapters.exec.spawn = async (options, handlers) => {
+      // Intercept version check
+      if (options.argv.includes('--version')) {
+        return {
+          stdout: 'git version 2.20.0\n',
+          stderr: '',
+          exitCode: 0,
+          aborted: false,
+        };
+      }
+      return originalSpawn(options, handlers);
+    };
+
+    await expect(createGit({ adapters: mockAdapters })).rejects.toThrow(GitError);
+
+    await expect(createGit({ adapters: mockAdapters })).rejects.toMatchObject({
+      kind: 'UnsupportedGitVersion',
+    });
+  });
+
+  it('should accept version between LEGACY and MIN when useLegacyVersion is true', async () => {
+    // Create a mock adapter that returns a version in the legacy range
+    const mockAdapters = createNodeAdapters();
+    const originalSpawn = mockAdapters.exec.spawn.bind(mockAdapters.exec);
+
+    mockAdapters.exec.spawn = async (options, handlers) => {
+      // Intercept version check
+      if (options.argv.includes('--version')) {
+        return {
+          stdout: 'git version 2.27.0\n', // Between 2.25.0 and 2.30.0
+          stderr: '',
+          exitCode: 0,
+          aborted: false,
+        };
+      }
+      return originalSpawn(options, handlers);
+    };
+
+    // Should reject without useLegacyVersion
+    await expect(createGit({ adapters: mockAdapters })).rejects.toMatchObject({
+      kind: 'UnsupportedGitVersion',
+    });
+
+    // Should accept with useLegacyVersion
+    const git = await createGit({ adapters: mockAdapters, useLegacyVersion: true });
+    expect(git).toBeDefined();
+  });
+
+  it('should reject version below LEGACY_GIT_VERSION even with useLegacyVersion', async () => {
+    const mockAdapters = createNodeAdapters();
+    const originalSpawn = mockAdapters.exec.spawn.bind(mockAdapters.exec);
+
+    mockAdapters.exec.spawn = async (options, handlers) => {
+      if (options.argv.includes('--version')) {
+        return {
+          stdout: 'git version 2.20.0\n', // Below 2.25.0
+          stderr: '',
+          exitCode: 0,
+          aborted: false,
+        };
+      }
+      return originalSpawn(options, handlers);
+    };
+
+    await expect(
+      createGit({ adapters: mockAdapters, useLegacyVersion: true }),
+    ).rejects.toMatchObject({
+      kind: 'UnsupportedGitVersion',
+    });
+  });
+});
+
 describe('GitImpl', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createNodeAdapters() });
+  let git: Git;
+
+  beforeAll(async () => {
+    git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'type-git-test-'));
@@ -218,7 +434,14 @@ describe('GitImpl', () => {
 
 describe('WorktreeRepoImpl', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createNodeAdapters() });
+  let git: Git;
+
+  beforeAll(async () => {
+    git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'type-git-test-'));
@@ -358,7 +581,14 @@ describe('WorktreeRepoImpl', () => {
 
 describe('openRaw and type guards', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createNodeAdapters() });
+  let git: Git;
+
+  beforeAll(async () => {
+    git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'type-git-test-'));

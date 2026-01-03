@@ -128,12 +128,89 @@ function buildCloneArgs(opts?: CloneOpts): string[] {
 }
 
 /**
+ * Default minimum supported Git version.
+ *
+ * This is the minimum version required when `useLegacyVersion` is false (the default).
+ * Use `useLegacyVersion: true` to allow older Git versions (2.25.0+).
+ */
+export const MIN_GIT_VERSION = '2.30.0';
+
+/**
+ * Legacy minimum Git version
+ *
+ * When `useLegacyVersion: true` is set, this version is used as the minimum.
+ * Git 2.25.0 is the default version on Ubuntu 20.04 LTS.
+ */
+export const LEGACY_GIT_VERSION = '2.25.0';
+
+/**
  * Options for creating a Git instance
  */
 export type CreateGitOptions = CliRunnerOptions & {
   /** Runtime adapters (exec, fs) */
   adapters: RuntimeAdapters;
+  /**
+   * Controls whether to perform a Git version check during initialization.
+   * When true, skips the Git version check. When false (default), throws
+   * GitError if Git version is below the minimum required version.
+   * @default false
+   */
+  skipVersionCheck?: boolean;
+  /**
+   * Allow legacy Git versions (2.25.0+) instead of requiring 2.30.0+.
+   *
+   * Use this for environments with older Git installations such as
+   * Ubuntu 20.04 LTS which ships with Git 2.25.1 by default.
+   *
+   * @default false
+   */
+  useLegacyVersion?: boolean;
 };
+
+/**
+ * Regex for parsing version strings
+ */
+const VERSION_REGEX = /^(\d+)\.(\d+)\.(\d+)/;
+
+/**
+ * Parse a version string into an array of numbers
+ * Handles formats like "2.30.0", "2.30.0.windows.1", "2.30.0-rc0"
+ *
+ * @param version - Version string to parse
+ * @returns Tuple of [major, minor, patch] version numbers. Returns [0, 0, 0] for malformed versions.
+ */
+export function parseVersion(version: string): [number, number, number] {
+  // Extract the semantic version part (e.g., "2.30.0" from "2.30.0.windows.1")
+  const match = version.match(VERSION_REGEX);
+  if (!match) {
+    return [0, 0, 0];
+  }
+  return [
+    Number.parseInt(match[1] as string, 10),
+    Number.parseInt(match[2] as string, 10),
+    Number.parseInt(match[3] as string, 10),
+  ];
+}
+
+/**
+ * Compare two version strings
+ *
+ * @param a - First version string
+ * @param b - Second version string
+ * @returns negative if a < b, 0 if a == b, positive if a > b
+ */
+export function compareVersions(a: string, b: string): number {
+  const [aMajor, aMinor, aPatch] = parseVersion(a);
+  const [bMajor, bMinor, bPatch] = parseVersion(b);
+
+  if (aMajor !== bMajor) {
+    return aMajor - bMajor;
+  }
+  if (aMinor !== bMinor) {
+    return aMinor - bMinor;
+  }
+  return aPatch - bPatch;
+}
 
 /**
  * Convert GitOpenOptions to CliRunnerOptions
@@ -709,11 +786,37 @@ export class GitImpl implements Git {
 }
 
 /**
- * Create a new Git instance
+ * Create a new Git instance (synchronous, no version check)
  *
  * @param options - Creation options including runtime adapters
  * @returns Git instance
+ * @deprecated Use createGit instead for version checking
  */
-export function createGit(options: CreateGitOptions): Git {
+export function createGitSync(options: CreateGitOptions): Git {
   return new GitImpl(options);
+}
+
+/**
+ * Create a new Git instance with optional version check
+ *
+ * @param options - Creation options including runtime adapters
+ * @returns Git instance
+ * @throws GitError with kind 'UnsupportedGitVersion' if Git version is below minimum
+ */
+export async function createGit(options: CreateGitOptions): Promise<Git> {
+  const git = new GitImpl(options);
+
+  if (!options.skipVersionCheck) {
+    const versionString = await git.version();
+    const minVersion = options.useLegacyVersion ? LEGACY_GIT_VERSION : MIN_GIT_VERSION;
+    if (compareVersions(versionString, minVersion) < 0) {
+      throw new GitError(
+        'UnsupportedGitVersion',
+        `Git version ${versionString} is not supported. Minimum required version is ${minVersion}.`,
+        {},
+      );
+    }
+  }
+
+  return git;
 }

@@ -5,10 +5,17 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
+import type { Git } from '../core/git.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { createGit } from './git-impl.js';
+
+/**
+ * Whether to use legacy Git version mode.
+ * Set TYPE_GIT_USE_LEGACY_VERSION=true for testing with Git 2.25.x
+ */
+const USE_LEGACY_VERSION = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 
 // Regex patterns for test assertions
 const SHA40_REGEX = /^[a-f0-9]{40}$/;
@@ -16,7 +23,14 @@ const HEX_STRING_REGEX = /^[a-f0-9]+$/;
 
 describe('High-level API', () => {
   let tempDir: string;
-  const git = createGit({ adapters: createNodeAdapters() });
+  let git: Git;
+
+  beforeAll(async () => {
+    git = await createGit({
+      adapters: createNodeAdapters(),
+      useLegacyVersion: USE_LEGACY_VERSION,
+    });
+  });
 
   beforeEach(async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'type-git-highlevel-'));
@@ -420,6 +434,9 @@ describe('High-level API', () => {
       // Get the current branch name (might be master or main)
       const mainBranch = await repo.branch.current();
       expect(mainBranch).not.toBeNull();
+      if (!mainBranch) {
+        throw new Error('Expected main branch to be set');
+      }
 
       // Create feature branch and add a commit
       await repo.switch('feature', { create: true });
@@ -428,7 +445,7 @@ describe('High-level API', () => {
       await repo.commit({ message: 'Add feature' });
 
       // Switch back to original branch and merge
-      await repo.switch(mainBranch!);
+      await repo.switch(mainBranch);
       const result = await repo.merge('feature');
 
       expect(result.success).toBe(true);
