@@ -8,22 +8,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
       "import": "./dist/index.js"
     },
     "./node": {
       "types": "./dist/adapters/node/index.d.ts",
-      "require": "./dist/adapters/node/index.js",
       "import": "./dist/adapters/node/index.js"
     },
     "./bun": {
       "types": "./dist/adapters/bun/index.d.ts",
-      "require": "./dist/adapters/bun/index.js",
       "import": "./dist/adapters/bun/index.js"
     },
     "./deno": {
       "types": "./dist/adapters/deno/index.d.ts",
-      "require": "./dist/adapters/deno/index.js",
       "import": "./dist/adapters/deno/index.js"
     }
   },

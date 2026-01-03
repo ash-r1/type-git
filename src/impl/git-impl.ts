@@ -32,9 +32,9 @@ import { BareRepoImpl } from './bare-repo-impl.js';
 import { WorktreeRepoImpl } from './worktree-repo-impl.js';
 
 /**
- * Minimum supported Git version (default)
+ * Default minimum supported Git version.
  *
- * This is the recommended minimum version that provides full functionality.
+ * This is the minimum version required when `useLegacyVersion` is false (the default).
  * Use `useLegacyVersion: true` to allow older Git versions (2.25.0+).
  */
 export const MIN_GIT_VERSION = '2.30.0';
@@ -83,8 +83,11 @@ const VERSION_REGEX = /^(\d+)\.(\d+)\.(\d+)/;
 /**
  * Parse a version string into an array of numbers
  * Handles formats like "2.30.0", "2.30.0.windows.1", "2.30.0-rc0"
+ *
+ * @param version - Version string to parse
+ * @returns Tuple of [major, minor, patch] version numbers. Returns [0, 0, 0] for malformed versions.
  */
-function parseVersion(version: string): [number, number, number] {
+export function parseVersion(version: string): [number, number, number] {
   // Extract the semantic version part (e.g., "2.30.0" from "2.30.0.windows.1")
   const match = version.match(VERSION_REGEX);
   if (!match) {
@@ -99,9 +102,12 @@ function parseVersion(version: string): [number, number, number] {
 
 /**
  * Compare two version strings
+ *
+ * @param a - First version string
+ * @param b - Second version string
  * @returns negative if a < b, 0 if a == b, positive if a > b
  */
-function compareVersions(a: string, b: string): number {
+export function compareVersions(a: string, b: string): number {
   const [aMajor, aMinor, aPatch] = parseVersion(a);
   const [bMajor, bMinor, bPatch] = parseVersion(b);
 
