@@ -6,6 +6,11 @@ export default defineConfig({
     'adapters/node/index': 'src/adapters/node/index.ts',
     'adapters/bun/index': 'src/adapters/bun/index.ts',
     'adapters/deno/index': 'src/adapters/deno/index.ts',
+    // Backend entry points
+    'backends/cli/index': 'src/backends/cli/index.ts',
+    'backends/isomorphic-git/index': 'src/backends/isomorphic-git/index.ts',
+    'backends/nodegit/index': 'src/backends/nodegit/index.ts',
+    'backends/wasm-git/index': 'src/backends/wasm-git/index.ts',
   },
   format: ['esm', 'cjs'],
   dts: true,
