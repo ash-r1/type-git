@@ -64,16 +64,39 @@ jobs:
 
   test-legacy-git:
     name: Test (Legacy Git 2.25)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - name: Remove git PPA and reinstall default git
+      - name: Cache Git 2.25.1
+        id: cache-git
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.home }}/git-2.25.1
+          key: git-2.25.1-${{ runner.os }}-v1
+
+      - name: Build Git 2.25.1 from source
+        if: steps.cache-git.outputs.cache-hit != 'true'
         run: |
-          # GitHub Actions runner has git from PPA, remove it and use Ubuntu default
-          sudo apt-get remove -y git git-man || true
-          sudo add-apt-repository --remove ppa:git-core/ppa -y || true
+          # Install build dependencies
           sudo apt-get update
-          sudo apt-get install -y git
-          git --version  # Should show 2.25.1
+          sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip zlib1g-dev
+
+          # Download and build Git 2.25.1
+          cd /tmp
+          curl -fsS --retry 3 https://www.kernel.org/pub/software/scm/git/git-2.25.1.tar.gz -o git.tar.gz
+          tar -xzf git.tar.gz
+          cd git-2.25.1
+          make prefix=$HOME/git-2.25.1 all -j$(nproc)
+          make prefix=$HOME/git-2.25.1 install
+
+      - name: Install cached Git to system
+        run: |
+          if [ ! -x "$HOME/git-2.25.1/bin/git" ]; then
+            echo "Expected Git binary not found at $HOME/git-2.25.1/bin/git. Cache or build may be corrupted."
+            exit 1
+          fi
+
+          sudo cp -r "$HOME/git-2.25.1/"* /usr/local/
+          /usr/local/bin/git --version  # Should show 2.25.1
 
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
