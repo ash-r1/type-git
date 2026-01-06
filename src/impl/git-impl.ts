@@ -462,8 +462,11 @@ export class GitImpl implements Git {
 
       // For Git < 2.28, manually set initial branch if requested
       if (opts?.initialBranch && !(await this.supportsInitialBranch())) {
+        const context = opts?.bare
+          ? { type: 'bare' as const, gitDir: path }
+          : { type: 'worktree' as const, workdir: path };
         await this.runner.runOrThrow(
-          { type: 'repo', path },
+          context,
           ['symbolic-ref', 'HEAD', `refs/heads/${opts.initialBranch}`],
           {
             signal: opts?.signal,
