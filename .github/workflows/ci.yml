@@ -82,7 +82,7 @@ jobs:
 
           # Download and build Git 2.25.1
           cd /tmp
-          curl -fsS --retry 3 https://github.com/git/git/archive/refs/tags/v2.25.1.tar.gz -o git.tar.gz
+          curl -fsS --retry 3 https://www.kernel.org/pub/software/scm/git/git-2.25.1.tar.gz -o git.tar.gz
           tar -xzf git.tar.gz
           cd git-2.25.1
           make prefix=$HOME/git-2.25.1 all -j$(nproc)
