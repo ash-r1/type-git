@@ -18,12 +18,27 @@ import type { CloneOpts, InitOpts } from '../../core/git.js';
 import type {
   BranchInfo,
   BranchOpts,
+  CheckoutBranchOpts,
+  CheckoutPathOpts,
   Commit,
   CommitOpts,
   CommitResult,
+  DiffOpts,
+  DiffResult,
+  FetchOpts,
   LogOpts,
+  MergeOpts,
+  MergeResult,
+  PullOpts,
+  PushOpts,
+  ResetOpts,
+  StashApplyOpts,
+  StashEntry,
+  StashPushOpts,
   StatusOpts,
   StatusPorcelain,
+  TagCreateOpts,
+  TagListOpts,
 } from '../../core/repo.js';
 import { GitError } from '../../core/types.js';
 import {
@@ -64,6 +79,76 @@ interface NodeGitModule {
     userpassPlaintextNew(username: string, password: string): unknown;
     sshKeyFromAgent(username: string): unknown;
   };
+  // Extended operations - optional since they may not exist in older nodegit versions
+  Remote?: {
+    lookup(repo: NodeGitRepositoryImpl, name: string): Promise<NodeGitRemote>;
+  };
+  Checkout?: {
+    head(repo: NodeGitRepositoryImpl, options?: unknown): Promise<void>;
+    tree(repo: NodeGitRepositoryImpl, treeish: unknown, options?: unknown): Promise<void>;
+  };
+  Merge?: {
+    merge(
+      repo: NodeGitRepositoryImpl,
+      theirHead: unknown,
+      mergeOpts: unknown,
+      checkoutOpts: unknown,
+    ): Promise<void>;
+    commits(repo: NodeGitRepositoryImpl, ourCommit: unknown, theirCommit: unknown): Promise<void>;
+  };
+  Reset?: {
+    reset(repo: NodeGitRepositoryImpl, commit: NodeGitCommit, resetType: number): Promise<void>;
+    SOFT: 1;
+    MIXED: 2;
+    HARD: 3;
+  };
+  Stash?: {
+    save(
+      repo: NodeGitRepositoryImpl,
+      stasher: unknown,
+      message: string,
+      flags: number,
+    ): Promise<unknown>;
+    pop(repo: NodeGitRepositoryImpl, index: number, options?: unknown): Promise<void>;
+    foreach(repo: NodeGitRepositoryImpl, callback: StashForeachCallback): Promise<void>;
+    APPLY_DEFAULT: 0;
+    INCLUDE_UNTRACKED: 1;
+    KEEP_INDEX: 2;
+  };
+  Tag?: {
+    list(repo: NodeGitRepositoryImpl): Promise<string[]>;
+    create(
+      repo: NodeGitRepositoryImpl,
+      name: string,
+      target: unknown,
+      tagger: unknown,
+      message: string,
+      force: number,
+    ): Promise<unknown>;
+    createLightweight(
+      repo: NodeGitRepositoryImpl,
+      name: string,
+      target: unknown,
+      force: number,
+    ): Promise<unknown>;
+  };
+}
+
+/**
+ * Stash foreach callback type
+ */
+type StashForeachCallback = (index: number, message: string, stashOid: unknown) => number;
+
+/**
+ * nodegit Remote interface
+ */
+interface NodeGitRemote {
+  fetch(
+    refSpecs: string[],
+    options: unknown,
+    message: string,
+  ): Promise<void>;
+  push(refSpecs: string[], options: unknown): Promise<number>;
 }
 
 /**
@@ -82,6 +167,18 @@ interface NodeGitRepositoryImpl extends NodeGitRepository {
     message: string,
   ): Promise<string>;
   createBranch(name: string, commit: NodeGitCommit, force: boolean): Promise<NodeGitReference>;
+  getRemote(name: string): Promise<NodeGitRemote>;
+  setHead(refname: string): Promise<void>;
+  checkoutBranch(branch: string, options?: unknown): Promise<NodeGitReference>;
+  getBranchCommit(name: string): Promise<NodeGitCommit>;
+  getTagByName(name: string): Promise<NodeGitTag>;
+  mergeBranches(
+    to: string,
+    from: string,
+    signature: unknown,
+    preference: number,
+    options?: unknown,
+  ): Promise<unknown>;
 }
 
 /**
@@ -92,6 +189,13 @@ interface NodeGitIndex {
   addByPath(path: string): Promise<void>;
   write(): Promise<void>;
   writeTree(): Promise<unknown>;
+}
+
+/**
+ * nodegit Tag interface
+ */
+interface NodeGitTag {
+  targetId(): { tostrS(): string };
 }
 
 /**
@@ -447,6 +551,581 @@ export class NodeGitBackend implements GitBackend {
       }
 
       await nodegit.Branch.create(repo, name, commit, opts?.force ?? false);
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  // ===========================================================================
+  // Extended Operations (Tier 1 + Tier 2)
+  // ===========================================================================
+
+  public async fetch(workdir: string, opts?: FetchOpts & BackendExecOpts): Promise<void> {
+    const nodegit = await this.getNodeGit();
+
+    if (!nodegit.Remote) {
+      throw new GitError('CapabilityMissing', 'Fetch is not supported by this nodegit version.', {});
+    }
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+      const remoteName = opts?.remote ?? 'origin';
+      const remote = await nodegit.Remote.lookup(repo, remoteName);
+
+      const fetchOpts: Record<string, unknown> = {
+        callbacks: {} as Record<string, unknown>,
+      };
+
+      // Certificate check
+      if (this.certificateCheck) {
+        (fetchOpts.callbacks as Record<string, unknown>).certificateCheck = this.certificateCheck;
+      }
+
+      // Credentials
+      if (this.credentials) {
+        (fetchOpts.callbacks as Record<string, unknown>).credentials = this.credentials;
+      }
+
+      // Progress tracking
+      if (opts?.onProgress) {
+        (fetchOpts.callbacks as Record<string, unknown>).transferProgress = (stats: {
+          receivedObjects(): number;
+          totalObjects(): number;
+        }) => {
+          opts.onProgress?.({
+            phase: 'Receiving objects',
+            current: stats.receivedObjects(),
+            total: stats.totalObjects(),
+            percent:
+              stats.totalObjects() > 0
+                ? Math.round((stats.receivedObjects() / stats.totalObjects()) * 100)
+                : null,
+          });
+        };
+      }
+
+      await remote.fetch([], fetchOpts, 'Fetch');
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async push(workdir: string, opts?: PushOpts & BackendExecOpts): Promise<void> {
+    const nodegit = await this.getNodeGit();
+
+    if (!nodegit.Remote) {
+      throw new GitError('CapabilityMissing', 'Push is not supported by this nodegit version.', {});
+    }
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+      const remoteName = opts?.remote ?? 'origin';
+      const remote = await nodegit.Remote.lookup(repo, remoteName);
+
+      const pushOpts: Record<string, unknown> = {
+        callbacks: {} as Record<string, unknown>,
+      };
+
+      // Certificate check
+      if (this.certificateCheck) {
+        (pushOpts.callbacks as Record<string, unknown>).certificateCheck = this.certificateCheck;
+      }
+
+      // Credentials
+      if (this.credentials) {
+        (pushOpts.callbacks as Record<string, unknown>).credentials = this.credentials;
+      }
+
+      // Build refspecs
+      const refSpecs: string[] = [];
+
+      if (opts?.refspec) {
+        // Use provided refspec(s)
+        const specs = Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec];
+        for (const spec of specs) {
+          if (opts?.force && !spec.startsWith('+')) {
+            refSpecs.push(`+${spec}`);
+          } else {
+            refSpecs.push(spec);
+          }
+        }
+      } else {
+        // Default: push current branch
+        const repo = await nodegit.Repository.open(workdir);
+        const head = await repo.head();
+        const branch = head.shorthand();
+        if (opts?.force) {
+          refSpecs.push(`+refs/heads/${branch}:refs/heads/${branch}`);
+        } else {
+          refSpecs.push(`refs/heads/${branch}:refs/heads/${branch}`);
+        }
+      }
+
+      await remote.push(refSpecs, pushOpts);
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async checkout(
+    workdir: string,
+    target: string,
+    opts?: CheckoutBranchOpts & BackendExecOpts,
+  ): Promise<void> {
+    const nodegit = await this.getNodeGit();
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+
+      const checkoutOpts: Record<string, unknown> = {};
+
+      if (opts?.force) {
+        // FORCE = 2 in libgit2
+        checkoutOpts.checkoutStrategy = 2;
+      }
+
+      if (opts?.createBranch || opts?.forceCreateBranch) {
+        // Create new branch and checkout
+        let startCommit: NodeGitCommit;
+        if (opts?.startPoint) {
+          startCommit = await (
+            repo as unknown as { getCommit(ref: string): Promise<NodeGitCommit> }
+          ).getCommit(opts.startPoint);
+        } else {
+          startCommit = await repo.getHeadCommit();
+        }
+        await nodegit.Branch.create(repo, target, startCommit, opts?.forceCreateBranch ?? false);
+        await repo.checkoutBranch(target, checkoutOpts);
+      } else {
+        // Try to checkout existing branch/commit
+        try {
+          await repo.checkoutBranch(target, checkoutOpts);
+        } catch {
+          // Not a branch, try as commit
+          if (!nodegit.Checkout) {
+            throw new GitError('CapabilityMissing', 'Checkout is not supported by this nodegit version.', {});
+          }
+          const commit = await (
+            repo as unknown as { getCommit(ref: string): Promise<NodeGitCommit> }
+          ).getCommit(target);
+          await nodegit.Checkout.tree(repo, commit, checkoutOpts);
+          await repo.setHead(`refs/heads/${target}`);
+        }
+      }
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async checkoutPaths(
+    workdir: string,
+    paths: string[],
+    opts?: CheckoutPathOpts & BackendExecOpts,
+  ): Promise<void> {
+    const nodegit = await this.getNodeGit();
+
+    if (!nodegit.Checkout) {
+      throw new GitError('CapabilityMissing', 'CheckoutPaths is not supported by this nodegit version.', {});
+    }
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+
+      const checkoutOpts: Record<string, unknown> = {
+        paths,
+      };
+
+      if (opts?.source) {
+        // Checkout from specific commit/branch
+        const commit = await (
+          repo as unknown as { getCommit(ref: string): Promise<NodeGitCommit> }
+        ).getCommit(opts.source);
+        await nodegit.Checkout.tree(repo, commit, checkoutOpts);
+      } else {
+        // Checkout from HEAD
+        await nodegit.Checkout.head(repo, checkoutOpts);
+      }
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async diff(
+    workdir: string,
+    target?: string,
+    opts?: DiffOpts & BackendExecOpts,
+  ): Promise<DiffResult> {
+    const nodegit = await this.getNodeGit();
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+
+      // nodegit has complex diff APIs, using simplified approach
+      type DiffEntry = {
+        oldFile(): { path(): string };
+        newFile(): { path(): string };
+        status(): number;
+        isAdded(): boolean;
+        isDeleted(): boolean;
+        isModified(): boolean;
+        isRenamed(): boolean;
+        isTypeChange(): boolean;
+      };
+
+      type NodeGitDiff = {
+        patches(): Promise<DiffEntry[]>;
+        numDeltas(): number;
+      };
+
+      let diff: NodeGitDiff;
+
+      if (target) {
+        // Diff between target and HEAD
+        const commit = await (
+          repo as unknown as { getCommit(ref: string): Promise<NodeGitCommit> }
+        ).getCommit(target);
+        const tree = await (
+          commit as unknown as { getTree(): Promise<unknown> }
+        ).getTree();
+        const headCommit = await repo.getHeadCommit();
+        const headTree = await (
+          headCommit as unknown as { getTree(): Promise<unknown> }
+        ).getTree();
+        diff = await (
+          repo as unknown as {
+            diffTreeToTree(
+              oldTree: unknown,
+              newTree: unknown,
+              opts?: unknown,
+            ): Promise<NodeGitDiff>;
+          }
+        ).diffTreeToTree(tree, headTree, undefined);
+      } else if (opts?.staged) {
+        // Diff of staged changes
+        const headCommit = await repo.getHeadCommit();
+        const tree = await (
+          headCommit as unknown as { getTree(): Promise<unknown> }
+        ).getTree();
+        diff = await (
+          repo as unknown as {
+            diffTreeToIndex(tree: unknown, index?: unknown, opts?: unknown): Promise<NodeGitDiff>;
+          }
+        ).diffTreeToIndex(tree, undefined, undefined);
+      } else {
+        // Diff of unstaged changes
+        diff = await (
+          repo as unknown as {
+            diffIndexToWorkdir(index?: unknown, opts?: unknown): Promise<NodeGitDiff>;
+          }
+        ).diffIndexToWorkdir(undefined, undefined);
+      }
+
+      // Convert patches to file entries
+      const patches = await diff.patches();
+      const files = patches.map((patch) => {
+        let status: 'A' | 'D' | 'M' | 'R' | 'T' | 'U' = 'M';
+        if (patch.isAdded()) {
+          status = 'A';
+        }
+        if (patch.isDeleted()) {
+          status = 'D';
+        }
+        if (patch.isRenamed()) {
+          status = 'R';
+        }
+        if (patch.isTypeChange()) {
+          status = 'T';
+        }
+
+        return {
+          path: patch.newFile().path() || patch.oldFile().path(),
+          status,
+          oldPath: patch.isRenamed() ? patch.oldFile().path() : undefined,
+        };
+      });
+
+      return { files };
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async reset(
+    workdir: string,
+    target?: string,
+    opts?: ResetOpts & BackendExecOpts,
+  ): Promise<void> {
+    const nodegit = await this.getNodeGit();
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+
+      // Get target commit
+      let commit: NodeGitCommit;
+      if (target) {
+        commit = await (
+          repo as unknown as { getCommit(ref: string): Promise<NodeGitCommit> }
+        ).getCommit(target);
+      } else {
+        commit = await repo.getHeadCommit();
+      }
+
+      // Determine reset type
+      // Default reset type values from libgit2: SOFT=1, MIXED=2, HARD=3
+      const RESET_SOFT = 1;
+      const RESET_MIXED = 2;
+      const RESET_HARD = 3;
+
+      let resetType = RESET_MIXED; // default
+      if (opts?.mode === 'soft') {
+        resetType = RESET_SOFT;
+      } else if (opts?.mode === 'hard') {
+        resetType = RESET_HARD;
+      } else if (opts?.mode === 'merge' || opts?.mode === 'keep') {
+        // nodegit doesn't directly support merge/keep modes
+        // Fall back to mixed
+        resetType = RESET_MIXED;
+      }
+
+      if (!nodegit.Reset) {
+        throw new GitError('CapabilityMissing', 'Reset is not supported by this nodegit version.', {});
+      }
+
+      await nodegit.Reset.reset(repo, commit, resetType);
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async merge(
+    workdir: string,
+    branch: string,
+    opts?: MergeOpts & BackendExecOpts,
+  ): Promise<MergeResult> {
+    const nodegit = await this.getNodeGit();
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+
+      // Get current branch
+      const head = await repo.head();
+      const currentBranch = head.shorthand();
+
+      // Get signature for merge commit
+      let signature: unknown;
+      try {
+        signature = await nodegit.Signature.default(repo);
+      } catch {
+        signature = nodegit.Signature.now('type-git', 'type-git@localhost');
+      }
+
+      // Merge preference (0 = no fast-forward, 1 = fast-forward only, 2 = fast-forward if possible)
+      let preference = 2; // default: fast-forward if possible
+      if (opts?.ff === 'only') {
+        preference = 1;
+      } else if (opts?.ff === 'no' || opts?.ff === false) {
+        preference = 0;
+      }
+
+      try {
+        await repo.mergeBranches(currentBranch, branch, signature, preference, undefined);
+        return { success: true, conflicts: [] };
+      } catch (error) {
+        const errorObj = error as { message?: string };
+        if (errorObj.message?.includes('conflict')) {
+          // Get list of conflicting files from status
+          const statusFiles = await repo.getStatus();
+          const conflicts = statusFiles
+            .filter((f) => {
+              const flags = f.status();
+              return flags.includes(32768); // STATUS_CONFLICTED
+            })
+            .map((f) => f.path());
+
+          return { success: false, conflicts };
+        }
+        throw error;
+      }
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async pull(workdir: string, opts?: PullOpts & BackendExecOpts): Promise<void> {
+    // Pull is composed as fetch + merge
+    await this.fetch(workdir, {
+      remote: opts?.remote,
+      onProgress: opts?.onProgress,
+      signal: opts?.signal,
+    });
+
+    // Get remote tracking branch
+    const nodegit = await this.getNodeGit();
+    const repo = await nodegit.Repository.open(workdir);
+    const head = await repo.head();
+    const branchName = head.shorthand();
+    const remote = opts?.remote ?? 'origin';
+
+    await this.merge(workdir, `${remote}/${branchName}`, {
+      ff: opts?.ff,
+    });
+  }
+
+  public async stashPush(workdir: string, opts?: StashPushOpts & BackendExecOpts): Promise<void> {
+    const nodegit = await this.getNodeGit();
+
+    if (!nodegit.Stash) {
+      throw new GitError('CapabilityMissing', 'Stash is not supported by this nodegit version.', {});
+    }
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+
+      // Get signature
+      let signature: unknown;
+      try {
+        signature = await nodegit.Signature.default(repo);
+      } catch {
+        signature = nodegit.Signature.now('type-git', 'type-git@localhost');
+      }
+
+      const message = opts?.message ?? '';
+      let flags = 0;
+
+      if (opts?.includeUntracked) {
+        flags |= nodegit.Stash.INCLUDE_UNTRACKED;
+      }
+      if (opts?.keepIndex) {
+        flags |= nodegit.Stash.KEEP_INDEX;
+      }
+
+      await nodegit.Stash.save(repo, signature, message, flags);
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async stashPop(workdir: string, opts?: StashApplyOpts & BackendExecOpts): Promise<void> {
+    const nodegit = await this.getNodeGit();
+
+    if (!nodegit.Stash) {
+      throw new GitError('CapabilityMissing', 'Stash is not supported by this nodegit version.', {});
+    }
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+      const index = opts?.index ?? 0;
+
+      await nodegit.Stash.pop(repo, index, undefined);
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async stashList(workdir: string, _opts?: BackendExecOpts): Promise<StashEntry[]> {
+    const nodegit = await this.getNodeGit();
+
+    if (!nodegit.Stash) {
+      throw new GitError('CapabilityMissing', 'Stash is not supported by this nodegit version.', {});
+    }
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+      const entries: StashEntry[] = [];
+
+      await nodegit.Stash.foreach(repo, (index, message, stashOid) => {
+        entries.push({
+          index,
+          message,
+          branch: undefined, // nodegit doesn't provide branch info easily
+          commit: typeof stashOid === 'object' && stashOid !== null && 'tostrS' in stashOid
+            ? (stashOid as { tostrS(): string }).tostrS().substring(0, 7)
+            : String(stashOid).substring(0, 7),
+        });
+        return 0; // Continue iteration
+      });
+
+      return entries;
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async tagList(workdir: string, opts?: TagListOpts & BackendExecOpts): Promise<string[]> {
+    const nodegit = await this.getNodeGit();
+
+    if (!nodegit.Tag) {
+      throw new GitError('CapabilityMissing', 'Tag is not supported by this nodegit version.', {});
+    }
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+      let tags = await nodegit.Tag.list(repo);
+
+      // Apply pattern filter if specified
+      if (opts?.pattern) {
+        const regex = new RegExp(
+          opts.pattern.replace(/\*/g, '.*').replace(/\?/g, '.'),
+        );
+        tags = tags.filter((tag) => regex.test(tag));
+      }
+
+      return tags;
+    } catch (error) {
+      throw this.mapError(error);
+    }
+  }
+
+  public async tagCreate(
+    workdir: string,
+    name: string,
+    opts?: TagCreateOpts & BackendExecOpts,
+  ): Promise<void> {
+    const nodegit = await this.getNodeGit();
+
+    if (!nodegit.Tag) {
+      throw new GitError('CapabilityMissing', 'Tag is not supported by this nodegit version.', {});
+    }
+
+    try {
+      const repo = await nodegit.Repository.open(workdir);
+
+      // Get target commit
+      let targetCommit: NodeGitCommit;
+      if (opts?.commit) {
+        targetCommit = await (
+          repo as unknown as { getCommit(ref: string): Promise<NodeGitCommit> }
+        ).getCommit(opts.commit);
+      } else {
+        targetCommit = await repo.getHeadCommit();
+      }
+
+      if (opts?.message) {
+        // Annotated tag
+        let signature: unknown;
+        try {
+          signature = await nodegit.Signature.default(repo);
+        } catch {
+          signature = nodegit.Signature.now('type-git', 'type-git@localhost');
+        }
+
+        await nodegit.Tag.create(
+          repo,
+          name,
+          targetCommit,
+          signature,
+          opts.message,
+          opts?.force ? 1 : 0,
+        );
+      } else {
+        // Lightweight tag
+        await nodegit.Tag.createLightweight(
+          repo,
+          name,
+          targetCommit,
+          opts?.force ? 1 : 0,
+        );
+      }
     } catch (error) {
       throw this.mapError(error);
     }

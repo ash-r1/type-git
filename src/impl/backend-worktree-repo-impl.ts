@@ -10,25 +10,38 @@ import type {
   AddOpts,
   BranchInfo,
   BranchOpts,
+  CheckoutBranchOpts,
+  CheckoutPathOpts,
   Commit,
   CommitOpts,
   CommitResult,
   ConfigOperations,
+  DiffOpts,
   DiffResult,
+  FetchOpts,
   LfsExtraOperations,
   LogOpts,
   LsTreeEntry,
   LsTreeOpts,
+  MergeOpts,
   MergeResult,
+  PullOpts,
+  PushOpts,
   RepoLsRemoteOpts,
   RepoLsRemoteResult,
+  ResetOpts,
   RevParseBooleanQuery,
   RevParseListQuery,
   RevParsePathOpts,
   RevParsePathQuery,
   RevParseRefOpts,
+  StashApplyOpts,
+  StashEntry,
+  StashPushOpts,
   StatusOpts,
   StatusPorcelain,
+  TagCreateOpts,
+  TagListOpts,
   WorktreeRepo,
 } from '../core/repo.js';
 import type { ExecOpts, LfsMode, RawResult } from '../core/types.js';
@@ -68,11 +81,11 @@ export class BackendWorktreeRepoImpl implements WorktreeRepo {
       rename: this.unsupportedOp.bind(this, 'branch.rename'),
     };
 
-    // Initialize stash operations (not supported)
+    // Initialize stash operations (delegate to backend if supported)
     this.stash = {
-      list: this.unsupportedOp.bind(this, 'stash.list'),
-      push: this.unsupportedOp.bind(this, 'stash.push'),
-      pop: this.unsupportedOp.bind(this, 'stash.pop'),
+      list: this.stashList.bind(this),
+      push: this.stashPush.bind(this),
+      pop: this.stashPop.bind(this),
       apply: this.unsupportedOp.bind(this, 'stash.apply'),
       drop: this.unsupportedOp.bind(this, 'stash.drop'),
       clear: this.unsupportedOp.bind(this, 'stash.clear'),
@@ -108,10 +121,10 @@ export class BackendWorktreeRepoImpl implements WorktreeRepo {
       removeSection: this.unsupportedOp.bind(this, 'config.removeSection'),
     };
 
-    // Initialize tag operations (not supported)
+    // Initialize tag operations (delegate to backend if supported)
     this.tag = {
-      list: this.unsupportedOp.bind(this, 'tag.list'),
-      create: this.unsupportedOp.bind(this, 'tag.create'),
+      list: this.tagList.bind(this),
+      create: this.tagCreate.bind(this),
       delete: this.unsupportedOp.bind(this, 'tag.delete'),
       show: this.unsupportedOp.bind(this, 'tag.show'),
     };
@@ -343,31 +356,59 @@ export class BackendWorktreeRepoImpl implements WorktreeRepo {
   }
 
   // ===========================================================================
-  // Unsupported Operations
+  // Extended Operations (delegate to backend if supported)
   // ===========================================================================
 
-  public async fetch(): Promise<void> {
-    return this.unsupportedOp('fetch');
+  public async fetch(opts?: FetchOpts & ExecOpts): Promise<void> {
+    if (!this.backend.fetch) {
+      return this.unsupportedOp('fetch');
+    }
+    return this.backend.fetch(this.workdir, opts);
   }
 
-  public async push(): Promise<void> {
-    return this.unsupportedOp('push');
+  public async push(opts?: PushOpts & ExecOpts): Promise<void> {
+    if (!this.backend.push) {
+      return this.unsupportedOp('push');
+    }
+    return this.backend.push(this.workdir, opts);
   }
 
-  public async pull(): Promise<void> {
-    return this.unsupportedOp('pull');
+  public async pull(opts?: PullOpts & ExecOpts): Promise<void> {
+    if (!this.backend.pull) {
+      return this.unsupportedOp('pull');
+    }
+    return this.backend.pull(this.workdir, opts);
   }
 
-  public async checkout(): Promise<void> {
-    return this.unsupportedOp('checkout');
+  public checkout(target: string, opts?: CheckoutBranchOpts & ExecOpts): Promise<void>;
+  public checkout(paths: string[], opts?: CheckoutPathOpts & ExecOpts): Promise<void>;
+  public async checkout(
+    targetOrPaths: string | string[],
+    opts?: (CheckoutBranchOpts | CheckoutPathOpts) & ExecOpts,
+  ): Promise<void> {
+    if (Array.isArray(targetOrPaths)) {
+      // Path-based checkout
+      if (!this.backend.checkoutPaths) {
+        return this.unsupportedOp('checkout (paths)');
+      }
+      return this.backend.checkoutPaths(this.workdir, targetOrPaths, opts as CheckoutPathOpts);
+    }
+    // Branch/commit checkout
+    if (!this.backend.checkout) {
+      return this.unsupportedOp('checkout');
+    }
+    return this.backend.checkout(this.workdir, targetOrPaths, opts as CheckoutBranchOpts);
   }
 
   public async switch(): Promise<void> {
     return this.unsupportedOp('switch');
   }
 
-  public async merge(): Promise<MergeResult> {
-    return this.unsupportedOp('merge');
+  public async merge(branch: string, opts?: MergeOpts & ExecOpts): Promise<MergeResult> {
+    if (!this.backend.merge) {
+      return this.unsupportedOp('merge');
+    }
+    return this.backend.merge(this.workdir, branch, opts);
   }
 
   public async rebase(): Promise<void> {
@@ -382,8 +423,11 @@ export class BackendWorktreeRepoImpl implements WorktreeRepo {
     return this.unsupportedOp('revert');
   }
 
-  public async reset(): Promise<void> {
-    return this.unsupportedOp('reset');
+  public async reset(target?: string, opts?: ResetOpts & ExecOpts): Promise<void> {
+    if (!this.backend.reset) {
+      return this.unsupportedOp('reset');
+    }
+    return this.backend.reset(this.workdir, target, opts);
   }
 
   public async clean(): Promise<string[]> {
@@ -402,13 +446,63 @@ export class BackendWorktreeRepoImpl implements WorktreeRepo {
     return this.unsupportedOp('restore');
   }
 
-  public async diff(): Promise<DiffResult> {
-    return this.unsupportedOp('diff');
+  public async diff(target?: string, opts?: DiffOpts & ExecOpts): Promise<DiffResult> {
+    if (!this.backend.diff) {
+      return this.unsupportedOp('diff');
+    }
+    return this.backend.diff(this.workdir, target, opts);
   }
 
   public async show(): Promise<string> {
     return this.unsupportedOp('show');
   }
+
+  // ===========================================================================
+  // Stash Operations
+  // ===========================================================================
+
+  private async stashList(opts?: ExecOpts): Promise<StashEntry[]> {
+    if (!this.backend.stashList) {
+      return this.unsupportedOp('stash.list');
+    }
+    return this.backend.stashList(this.workdir, opts);
+  }
+
+  private async stashPush(opts?: StashPushOpts & ExecOpts): Promise<void> {
+    if (!this.backend.stashPush) {
+      return this.unsupportedOp('stash.push');
+    }
+    return this.backend.stashPush(this.workdir, opts);
+  }
+
+  private async stashPop(opts?: StashApplyOpts & ExecOpts): Promise<void> {
+    if (!this.backend.stashPop) {
+      return this.unsupportedOp('stash.pop');
+    }
+    return this.backend.stashPop(this.workdir, opts);
+  }
+
+  // ===========================================================================
+  // Tag Operations
+  // ===========================================================================
+
+  private async tagList(opts?: TagListOpts & ExecOpts): Promise<string[]> {
+    if (!this.backend.tagList) {
+      return this.unsupportedOp('tag.list');
+    }
+    return this.backend.tagList(this.workdir, opts);
+  }
+
+  private async tagCreate(name: string, opts?: TagCreateOpts & ExecOpts): Promise<void> {
+    if (!this.backend.tagCreate) {
+      return this.unsupportedOp('tag.create');
+    }
+    return this.backend.tagCreate(this.workdir, name, opts);
+  }
+
+  // ===========================================================================
+  // Unsupported Operations
+  // ===========================================================================
 
   public revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
   public revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
