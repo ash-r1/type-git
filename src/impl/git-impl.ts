@@ -239,6 +239,7 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
 export class GitImpl implements Git {
   private readonly runner: CliRunner;
   private readonly adapters: RuntimeAdapters;
+  private cachedVersion: string | null = null;
   public readonly config: GlobalConfigOperations;
   public readonly lfs: GlobalLfsOperations;
 
@@ -436,8 +437,8 @@ export class GitImpl implements Git {
       }
     }
 
-    // Initial branch
-    if (opts?.initialBranch) {
+    // Initial branch (Git 2.28+)
+    if (opts?.initialBranch && (await this.supportsInitialBranch())) {
       args.push('--initial-branch', opts.initialBranch);
     }
 
@@ -521,14 +522,28 @@ export class GitImpl implements Git {
    * Get git version
    */
   public async version(opts?: ExecOpts): Promise<string> {
+    if (this.cachedVersion) {
+      return this.cachedVersion;
+    }
+
     const result = await this.runner.runOrThrow({ type: 'global' }, ['--version'], {
       signal: opts?.signal,
     });
 
     // Parse "git version X.Y.Z" format
     const match = result.stdout.match(GIT_VERSION_REGEX);
-    const version = match?.[1];
-    return version ?? result.stdout.trim();
+    const version = match?.[1] ?? result.stdout.trim();
+
+    this.cachedVersion = version;
+    return version;
+  }
+
+  /**
+   * Check if Git version supports --initial-branch option (Git 2.28+)
+   */
+  private async supportsInitialBranch(): Promise<boolean> {
+    const version = await this.version();
+    return compareVersions(version, '2.28.0') >= 0;
   }
 
   /**
