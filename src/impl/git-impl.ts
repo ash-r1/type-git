@@ -459,6 +459,17 @@ export class GitImpl implements Git {
         signal: opts?.signal,
         onProgress: opts?.onProgress,
       });
+
+      // For Git < 2.28, manually set initial branch if requested
+      if (opts?.initialBranch && !(await this.supportsInitialBranch())) {
+        await this.runner.runOrThrow(
+          { type: 'repo', path },
+          ['symbolic-ref', 'HEAD', `refs/heads/${opts.initialBranch}`],
+          {
+            signal: opts?.signal,
+          },
+        );
+      }
     } catch (error) {
       // Clean up on abort if cleanupOnAbort is true (default)
       if (error instanceof GitError && error.kind === 'Aborted' && opts?.cleanupOnAbort !== false) {
