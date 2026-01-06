@@ -70,19 +70,19 @@ jobs:
         id: cache-git
         uses: actions/cache@v4
         with:
-          path: ~/git-2.25.1
-          key: git-2.25.1-${{ runner.os }}
+          path: ${{ runner.home }}/git-2.25.1
+          key: git-2.25.1-${{ runner.os }}-v1
 
       - name: Build Git 2.25.1 from source
         if: steps.cache-git.outputs.cache-hit != 'true'
         run: |
           # Install build dependencies
           sudo apt-get update
-          sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip
+          sudo apt-get install -y build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip zlib1g-dev
 
           # Download and build Git 2.25.1
           cd /tmp
-          curl -fsSL https://github.com/git/git/archive/refs/tags/v2.25.1.tar.gz -o git.tar.gz
+          curl -fsS --retry 3 https://github.com/git/git/archive/refs/tags/v2.25.1.tar.gz -o git.tar.gz
           tar -xzf git.tar.gz
           cd git-2.25.1
           make prefix=$HOME/git-2.25.1 all -j$(nproc)
@@ -90,8 +90,13 @@ jobs:
 
       - name: Install cached Git to system
         run: |
-          sudo cp -r $HOME/git-2.25.1/* /usr/local/
-          git --version  # Should show 2.25.1
+          if [ ! -x "$HOME/git-2.25.1/bin/git" ]; then
+            echo "Expected Git binary not found at $HOME/git-2.25.1/bin/git. Cache or build may be corrupted."
+            exit 1
+          fi
+
+          sudo cp -r "$HOME/git-2.25.1/"* /usr/local/
+          /usr/local/bin/git --version  # Should show 2.25.1
 
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
