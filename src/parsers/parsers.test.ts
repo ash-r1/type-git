@@ -106,6 +106,20 @@ describe('parseGitLog', () => {
     expect(commits[1]?.subject).toBe('Subject2');
     expect(commits[1]?.parents).toEqual(['hash1']);
   });
+
+  it('should trim hash when body ends with newline', () => {
+    // When body ends with newline, the next record starts with that newline
+    // which would pollute the hash field if not trimmed
+    const stdout =
+      'hash1\x00h1\x00\x00Author\x00a@e.com\x001000\x00Committer\x00c@e.com\x001001\x00Subject1\x00Body with trailing newline\n\x01' +
+      '\nhash2\x00h2\x00hash1\x00Author\x00a@e.com\x001002\x00Committer\x00c@e.com\x001003\x00Subject2\x00\x01';
+
+    const commits = parseGitLog(stdout);
+    expect(commits).toHaveLength(2);
+    expect(commits[0]?.hash).toBe('hash1');
+    expect(commits[0]?.body).toBe('Body with trailing newline');
+    expect(commits[1]?.hash).toBe('hash2');
+  });
 });
 
 describe('parseWorktreeList', () => {
