@@ -1,5 +1,11 @@
 # type-git
 
+## 0.1.1
+
+### Patch Changes
+
+- [#105](https://github.com/ash-r1/type-git/pull/105) [`9118d58`](https://github.com/ash-r1/type-git/commit/9118d58f94fd86ef780f65f25a100c2b5ed20715) Thanks [@ash-r1](https://github.com/ash-r1)! - Fix parseGitLog hash field not being trimmed when previous commit body ends with newline
+
 ## 0.1.0
 
 ### Minor Changes
