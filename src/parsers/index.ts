@@ -702,7 +702,7 @@ export function parseGitLog(stdout: string): ParsedCommit[] {
       continue;
     }
 
-    const hash = fields[0];
+    const hash = fields[0]?.trim();
     const abbrevHash = fields[1];
     const parentsStr = fields[2];
     const authorName = fields[3];
