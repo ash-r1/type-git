@@ -62,6 +62,24 @@ else
     echo "❌ git-lfs not found"
 fi
 
+# Verify GitHub CLI
+if command -v gh &> /dev/null; then
+    echo "✅ GitHub CLI is installed"
+    gh --version
+else
+    echo "❌ GitHub CLI not found"
+fi
+
+# Install Claude Code
+echo "📦 Installing Claude Code..."
+curl -fsSL https://claude.ai/install.sh | bash
+if command -v claude &> /dev/null; then
+    echo "✅ Claude Code is installed"
+    claude --version
+else
+    echo "❌ Claude Code installation failed"
+fi
+
 echo ""
 echo "📋 Available test commands:"
 echo "   pnpm test        - Run Node.js tests (vitest)"

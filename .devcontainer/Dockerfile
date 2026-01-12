@@ -1,22 +1,5 @@
-FROM node:20-bullseye
-
-# Install basic tools and unzip (required for Bun)
-RUN apt-get update && apt-get install -y \
-    git \
-    git-lfs \
-    curl \
-    wget \
-    sudo \
-    vim \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
-
-# Setup git-lfs
-RUN git lfs install
-
-# Setup node user with sudo access
-RUN usermod -aG sudo node && \
-    echo "node ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# Microsoft TypeScript Dev Container
+FROM mcr.microsoft.com/devcontainers/typescript-node:20
 
 # Install Deno (system-wide)
 ENV DENO_INSTALL="/usr/local"
