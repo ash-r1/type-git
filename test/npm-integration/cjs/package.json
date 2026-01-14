@@ -1,0 +1,8 @@
+{
+  "name": "cjs-integration-test",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "node test.cjs"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "typescript-integration-test",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}
