@@ -131,8 +131,9 @@ export function createTailPolling(options: FilePollingOptions): TailStreamingHan
     }
   };
 
-  // Start polling in background
-  startPollingLoop(adapter, state, signal, pollInterval, stop).catch(() => {
+  // Start polling in background and keep reference for disposal
+  const pollingPromise = startPollingLoop(adapter, state, signal, pollInterval, stop);
+  pollingPromise.catch(() => {
     // Intentionally ignored - startPollingLoop handles its own cleanup
   });
 
@@ -162,9 +163,12 @@ export function createTailPolling(options: FilePollingOptions): TailStreamingHan
   return {
     lines,
     stop,
-    [Symbol.asyncDispose]: (): Promise<void> => {
+    [Symbol.asyncDispose]: async (): Promise<void> => {
       stop();
-      return Promise.resolve();
+      // Wait for the polling loop to actually finish
+      await pollingPromise.catch(() => {
+        // Ignore errors during cleanup
+      });
     },
   };
 }
@@ -205,6 +209,10 @@ async function startPollingLoop(
       }
     }
 
+    // Check stopped before sleeping to allow faster shutdown
+    if (state.stopped || signal?.aborted) {
+      break;
+    }
     await adapter.sleep(pollInterval);
   }
 

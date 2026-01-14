@@ -154,10 +154,8 @@ describe('NodeFsAdapter', () => {
       expect(typeof handle[Symbol.asyncDispose]).toBe('function');
 
       // Call dispose and verify it cleans up properly
+      // dispose() now properly waits for the polling loop to finish
       await handle[Symbol.asyncDispose]();
-
-      // Wait for background polling loop to fully stop (helps Windows file locking)
-      await new Promise((resolve) => setTimeout(resolve, 150));
     });
 
     it('should work with await using syntax', async () => {
