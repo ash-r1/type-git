@@ -175,4 +175,132 @@ describe('NodeFsAdapter', () => {
       // If we reach here without hanging, disposal worked
     });
   });
+
+  describe('resource management patterns', () => {
+    describe('legacy pattern (try-finally)', () => {
+      it('should cleanup with explicit stop() in finally block', async () => {
+        const filePath = join(testDir, 'legacy-finally.txt');
+        await writeFile(filePath, 'line1\nline2\n');
+
+        const handle = adapter.tailStreaming(filePath);
+        const lines: string[] = [];
+
+        try {
+          for await (const line of handle.lines) {
+            lines.push(line);
+            if (lines.length >= 2) {
+              break;
+            }
+          }
+        } finally {
+          handle.stop();
+        }
+
+        expect(lines).toContain('line1');
+        expect(lines).toContain('line2');
+      });
+
+      it('should cleanup with explicit stop() on exception', async () => {
+        const filePath = join(testDir, 'legacy-exception.txt');
+        await writeFile(filePath, 'line1\n');
+
+        const handle = adapter.tailStreaming(filePath);
+
+        try {
+          for await (const line of handle.lines) {
+            expect(line).toBe('line1');
+            throw new Error('Simulated error');
+          }
+        } catch {
+          // Expected
+        } finally {
+          handle.stop();
+        }
+
+        // If we reach here, stop() worked
+      });
+    });
+
+    describe('modern pattern (await using)', () => {
+      it('should auto-cleanup when scope exits normally', async () => {
+        const filePath = join(testDir, 'modern-normal.txt');
+        await writeFile(filePath, 'line1\nline2\n');
+
+        const lines: string[] = [];
+
+        await (async () => {
+          await using handle = adapter.tailStreaming(filePath);
+
+          for await (const line of handle.lines) {
+            lines.push(line);
+            if (lines.length >= 2) {
+              break;
+            }
+          }
+          // Scope exits - dispose is called automatically
+        })();
+
+        expect(lines).toContain('line1');
+        expect(lines).toContain('line2');
+      });
+
+      it('should auto-cleanup when exception is thrown', async () => {
+        const filePath = join(testDir, 'modern-exception.txt');
+        await writeFile(filePath, 'line1\n');
+
+        try {
+          await using handle = adapter.tailStreaming(filePath);
+
+          for await (const line of handle.lines) {
+            expect(line).toBe('line1');
+            throw new Error('Simulated error');
+          }
+        } catch {
+          // Expected
+        }
+
+        // If we reach here without hanging, dispose worked
+      });
+    });
+
+    describe('pattern comparison', () => {
+      it('both patterns should produce equivalent results', async () => {
+        const filePath = join(testDir, 'pattern-compare.txt');
+        await writeFile(filePath, 'compare-line1\ncompare-line2\n');
+
+        // Legacy pattern
+        const legacyHandle = adapter.tailStreaming(filePath);
+        const legacyLines: string[] = [];
+        try {
+          for await (const line of legacyHandle.lines) {
+            legacyLines.push(line);
+            if (legacyLines.length >= 2) {
+              break;
+            }
+          }
+        } finally {
+          legacyHandle.stop();
+        }
+
+        // Rewrite file for modern pattern test
+        await writeFile(filePath, 'compare-line1\ncompare-line2\n');
+
+        // Modern pattern
+        const modernLines: string[] = [];
+        await (async () => {
+          await using handle = adapter.tailStreaming(filePath);
+
+          for await (const line of handle.lines) {
+            modernLines.push(line);
+            if (modernLines.length >= 2) {
+              break;
+            }
+          }
+        })();
+
+        // Both should produce same results
+        expect(legacyLines).toEqual(modernLines);
+      });
+    });
+  });
 });
