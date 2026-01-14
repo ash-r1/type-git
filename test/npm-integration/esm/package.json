@@ -1,0 +1,11 @@
+{
+  "name": "esm-integration-test",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "type-git": "file:../../../type-git-0.1.1.tgz"
+  }
+}
