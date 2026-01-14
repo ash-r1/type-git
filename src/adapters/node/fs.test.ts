@@ -18,7 +18,8 @@ describe('NodeFsAdapter', () => {
   });
 
   afterEach(async () => {
-    await rm(testDir, { recursive: true, force: true });
+    // maxRetries helps with Windows file locking issues
+    await rm(testDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 100 });
   });
 
   describe('createTempFile', () => {
@@ -154,6 +155,9 @@ describe('NodeFsAdapter', () => {
 
       // Call dispose and verify it cleans up properly
       await handle[Symbol.asyncDispose]();
+
+      // Wait for background polling loop to fully stop (helps Windows file locking)
+      await new Promise((resolve) => setTimeout(resolve, 150));
     });
 
     it('should work with await using syntax', async () => {
