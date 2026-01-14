@@ -330,6 +330,16 @@ export class DenoExecAdapter implements ExecAdapter {
           // Process may have already exited
         }
       },
+      [Symbol.asyncDispose]: async (): Promise<void> => {
+        try {
+          child.kill('SIGTERM');
+        } catch {
+          // Process may have already exited
+        }
+        await waitPromise.catch(() => {
+          // Ignore errors during cleanup
+        });
+      },
     };
   }
 }

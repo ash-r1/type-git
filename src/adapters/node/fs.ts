@@ -124,6 +124,18 @@ export class NodeFsAdapter implements FsAdapter {
       }
     };
 
-    return { lines: polling.lines, stop: enhancedStop };
+    return {
+      lines: polling.lines,
+      stop: enhancedStop,
+      [Symbol.asyncDispose]: async (): Promise<void> => {
+        originalStop();
+        if (state.file) {
+          await state.file.close().catch(() => {
+            // Intentionally ignored - cleanup on dispose
+          });
+          state.file = null;
+        }
+      },
+    };
   }
 }

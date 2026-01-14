@@ -142,5 +142,37 @@ describe('NodeFsAdapter', () => {
       expect(lines).toContain('stream-line1');
       expect(lines).toContain('stream-line2');
     });
+
+    it('should support Symbol.asyncDispose', async () => {
+      const filePath = join(testDir, 'tail-dispose.txt');
+      await writeFile(filePath, 'dispose-line\n');
+
+      const handle = adapter.tailStreaming(filePath);
+
+      // Verify Symbol.asyncDispose exists
+      expect(typeof handle[Symbol.asyncDispose]).toBe('function');
+
+      // Call dispose and verify it cleans up properly
+      await handle[Symbol.asyncDispose]();
+    });
+
+    it('should work with await using syntax', async () => {
+      const filePath = join(testDir, 'tail-using.txt');
+      await writeFile(filePath, 'using-line1\nusing-line2\n');
+
+      // Test that await using syntax compiles and executes without error
+      await (async () => {
+        await using handle = adapter.tailStreaming(filePath);
+
+        // Read one line then exit scope
+        for await (const line of handle.lines) {
+          expect(line).toBe('using-line1');
+          break;
+        }
+        // Handle will be disposed when scope exits
+      })();
+
+      // If we reach here without hanging, disposal worked
+    });
   });
 });

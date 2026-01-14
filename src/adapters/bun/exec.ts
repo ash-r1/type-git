@@ -271,6 +271,14 @@ export class BunExecAdapter implements ExecAdapter {
       kill: (sig?: 'SIGTERM' | 'SIGKILL'): void => {
         proc.kill(sig ?? 'SIGTERM');
       },
+      [Symbol.asyncDispose]: async (): Promise<void> => {
+        if (proc.exitCode === null) {
+          proc.kill('SIGTERM');
+        }
+        await waitPromise.catch(() => {
+          // Ignore errors during cleanup
+        });
+      },
     };
   }
 }

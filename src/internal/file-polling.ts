@@ -37,8 +37,10 @@ export interface FilePollingOptions {
 
 /**
  * Handle returned by tail streaming
+ *
+ * Implements AsyncDisposable for use with `await using`.
  */
-export interface TailStreamingHandle {
+export interface TailStreamingHandle extends AsyncDisposable {
   /** Async iterable for reading lines */
   lines: AsyncIterable<string>;
   /** Stop polling and close resources */
@@ -157,7 +159,14 @@ export function createTailPolling(options: FilePollingOptions): TailStreamingHan
     },
   };
 
-  return { lines, stop };
+  return {
+    lines,
+    stop,
+    [Symbol.asyncDispose]: (): Promise<void> => {
+      stop();
+      return Promise.resolve();
+    },
+  };
 }
 
 /**

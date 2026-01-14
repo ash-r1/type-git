@@ -61,8 +61,25 @@ export type StreamHandler = {
  * Handle to a spawned process
  *
  * Allows streaming output and waiting for completion.
+ * Implements AsyncDisposable for use with `await using`.
+ *
+ * @example
+ * ```typescript
+ * // Traditional usage
+ * const handle = adapter.spawnStreaming({ argv: ['git', 'fetch'] });
+ * try {
+ *   for await (const line of handle.stdout) { console.log(line); }
+ * } finally {
+ *   handle.kill();
+ * }
+ *
+ * // With await using (recommended)
+ * await using handle = adapter.spawnStreaming({ argv: ['git', 'fetch'] });
+ * for await (const line of handle.stdout) { console.log(line); }
+ * // Automatically disposed when scope exits
+ * ```
  */
-export interface SpawnHandle {
+export interface SpawnHandle extends AsyncDisposable {
   /** Async iterator for stdout lines */
   readonly stdout: AsyncIterable<string>;
   /** Async iterator for stderr lines */
@@ -124,8 +141,26 @@ export type TailOptions = {
 
 /**
  * Handle to a tail operation
+ *
+ * Implements AsyncDisposable for use with `await using`.
+ *
+ * @example
+ * ```typescript
+ * // Traditional usage
+ * const handle = adapter.tailStreaming('/path/to/file');
+ * try {
+ *   for await (const line of handle.lines) { console.log(line); }
+ * } finally {
+ *   handle.stop();
+ * }
+ *
+ * // With await using (recommended)
+ * await using handle = adapter.tailStreaming('/path/to/file');
+ * for await (const line of handle.lines) { console.log(line); }
+ * // Automatically stopped when scope exits
+ * ```
  */
-export interface TailHandle {
+export interface TailHandle extends AsyncDisposable {
   /** Async iterator for new lines */
   readonly lines: AsyncIterable<string>;
   /** Stop tailing */
