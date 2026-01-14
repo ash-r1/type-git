@@ -134,9 +134,7 @@ export class NodeFsAdapter implements FsAdapter {
       lines: polling.lines,
       stop: enhancedStop,
       [Symbol.asyncDispose]: async (): Promise<void> => {
-        // Wait for polling loop to finish (this also calls stop internally)
         await polling[Symbol.asyncDispose]();
-        // Then close the file handle (awaited for proper cleanup)
         await closeFileHandle();
       },
     };
