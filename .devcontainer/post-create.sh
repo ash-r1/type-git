@@ -3,6 +3,10 @@ set -e
 
 echo "🚀 Running post-create setup..."
 
+# Fix ownership of /home/node/.local (volumes may be owned by root)
+echo "🔧 Fixing /home/node/.local permissions..."
+sudo chown -R node:node /home/node/.local 2>/dev/null || true
+
 # Ensure node_modules directory exists with correct permissions
 if [ ! -d "node_modules" ]; then
     echo "📁 Creating node_modules directory..."
@@ -16,7 +20,7 @@ sudo chown -R node:node node_modules 2>/dev/null || true
 # Install dependencies with pnpm
 if [ -f "package.json" ]; then
     echo "📦 Installing dependencies with pnpm..."
-    pnpm install
+    COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install
 
     # Fix permissions again after install
     echo "🔧 Fixing permissions after install..."
