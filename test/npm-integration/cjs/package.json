@@ -4,8 +4,5 @@
   "type": "commonjs",
   "scripts": {
     "test": "node test.cjs"
-  },
-  "dependencies": {
-    "type-git": "file:../../../type-git-0.1.1.tgz"
   }
 }
