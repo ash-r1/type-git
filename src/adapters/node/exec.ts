@@ -193,6 +193,14 @@ export class NodeExecAdapter implements ExecAdapter {
       kill: (sig?: 'SIGTERM' | 'SIGKILL'): void => {
         child.kill(sig ?? 'SIGTERM');
       },
+      [Symbol.asyncDispose]: async (): Promise<void> => {
+        if (child.exitCode === null) {
+          child.kill('SIGTERM');
+        }
+        await waitPromise.catch(() => {
+          // Ignore errors during cleanup
+        });
+      },
     };
   }
 }

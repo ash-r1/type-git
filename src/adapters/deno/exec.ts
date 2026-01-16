@@ -299,6 +299,9 @@ export class DenoExecAdapter implements ExecAdapter {
     const [stdout1, stdout2] = stdoutTee;
     const [stderr1, stderr2] = stderrTee;
 
+    // Track whether process has exited (Deno doesn't have synchronous exitCode)
+    let exited = false;
+
     const waitPromise = (async (): Promise<SpawnResult> => {
       try {
         const [stdout, stderr, status] = await Promise.all([
@@ -307,6 +310,7 @@ export class DenoExecAdapter implements ExecAdapter {
           child.status,
         ]);
 
+        exited = true;
         return {
           stdout,
           stderr,
@@ -324,11 +328,26 @@ export class DenoExecAdapter implements ExecAdapter {
       stderr: streamToAsyncIterable(stderr1),
       wait: (): Promise<SpawnResult> => waitPromise,
       kill: (sig?: 'SIGTERM' | 'SIGKILL'): void => {
+        if (exited) {
+          return;
+        }
         try {
           child.kill(sig ?? 'SIGTERM');
         } catch {
           // Process may have already exited
         }
+      },
+      [Symbol.asyncDispose]: async (): Promise<void> => {
+        if (!exited) {
+          try {
+            child.kill('SIGTERM');
+          } catch {
+            // Process may have already exited
+          }
+        }
+        await waitPromise.catch(() => {
+          // Ignore errors during cleanup
+        });
       },
     };
   }

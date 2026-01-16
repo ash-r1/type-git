@@ -112,18 +112,33 @@ export class NodeFsAdapter implements FsAdapter {
 
     const polling = createTailPolling({ adapter, signal, pollInterval });
 
-    // Wrap stop to close file handle
-    const originalStop = polling.stop;
-    const enhancedStop = (): void => {
-      originalStop();
+    // Helper to close file handle (used by both stop and dispose)
+    const closeFileHandle = async (): Promise<void> => {
       if (state.file) {
-        state.file.close().catch(() => {
-          // Intentionally ignored - cleanup on stop
+        await state.file.close().catch(() => {
+          // Intentionally ignored - cleanup
         });
         state.file = null;
       }
     };
 
-    return { lines: polling.lines, stop: enhancedStop };
+    // Wrap stop to close file handle
+    const originalStop = polling.stop;
+    const enhancedStop = (): void => {
+      originalStop();
+      // Fire-and-forget close for sync stop()
+      void closeFileHandle();
+    };
+
+    return {
+      lines: polling.lines,
+      stop: enhancedStop,
+      [Symbol.asyncDispose]: async (): Promise<void> => {
+        // Wait for polling loop to finish (this also calls stop internally)
+        await polling[Symbol.asyncDispose]();
+        // Then close the file handle (awaited for proper cleanup)
+        await closeFileHandle();
+      },
+    };
   }
 }

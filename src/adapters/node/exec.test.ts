@@ -180,5 +180,173 @@ describe('NodeExecAdapter', () => {
 
       expect(result.signal).toBeDefined();
     });
+
+    it('should support Symbol.asyncDispose', async () => {
+      const handle = adapter.spawnStreaming({
+        argv: ['git', '--version'],
+      });
+
+      // Verify Symbol.asyncDispose exists
+      expect(typeof handle[Symbol.asyncDispose]).toBe('function');
+
+      // Call dispose and verify it cleans up properly
+      await handle[Symbol.asyncDispose]();
+    });
+
+    it('should work with await using syntax', async () => {
+      // Test that await using syntax compiles and executes without error
+      // The disposal is implicit - we verify the process completes cleanly
+      await (async () => {
+        await using handle = adapter.spawnStreaming({
+          argv: ['git', '--version'],
+        });
+
+        // Use the handle
+        for await (const line of handle.stdout) {
+          expect(line).toContain('git');
+          break; // Just read one line
+        }
+        // Handle will be disposed when scope exits
+      })();
+
+      // If we reach here without hanging, disposal worked
+    });
+
+    it('should dispose properly on early exit', async () => {
+      // Test that disposal happens even when exception is thrown
+      const startTime = Date.now();
+
+      try {
+        await using _handle = adapter.spawnStreaming({
+          argv: ['node', '-e', 'setTimeout(() => {}, 10000)'],
+        });
+
+        // Throw to simulate early exit
+        throw new Error('Early exit');
+      } catch {
+        // Expected error
+      }
+
+      // If disposal didn't kill the process, this would take 10 seconds
+      // Instead it should be nearly instant
+      const elapsed = Date.now() - startTime;
+      expect(elapsed).toBeLessThan(5000);
+      await Promise.resolve(); // Satisfy lint rule
+    });
+  });
+
+  describe('resource management patterns', () => {
+    describe('legacy pattern (try-finally)', () => {
+      it('should cleanup with explicit kill() in finally block', async () => {
+        const handle = adapter.spawnStreaming({
+          argv: ['node', '-e', 'setTimeout(() => {}, 10000)'],
+        });
+
+        try {
+          // Simulate some work
+          const iterator = handle.stdout[Symbol.asyncIterator]();
+          // Don't consume - just verify we can access it
+          expect(iterator).toBeDefined();
+        } finally {
+          handle.kill();
+        }
+
+        const result = await handle.wait();
+        expect(result.signal).toBeDefined();
+      });
+
+      it('should cleanup with explicit kill() on exception', async () => {
+        const handle = adapter.spawnStreaming({
+          argv: ['node', '-e', 'setTimeout(() => {}, 10000)'],
+        });
+
+        try {
+          throw new Error('Simulated error');
+        } catch {
+          // Expected
+        } finally {
+          handle.kill();
+        }
+
+        const result = await handle.wait();
+        expect(result.signal).toBeDefined();
+      });
+    });
+
+    describe('modern pattern (await using)', () => {
+      it('should auto-cleanup when scope exits normally', async () => {
+        const startTime = Date.now();
+
+        await (async () => {
+          await using handle = adapter.spawnStreaming({
+            argv: ['node', '-e', 'setTimeout(() => {}, 10000)'],
+          });
+
+          // Simulate some work
+          const iterator = handle.stdout[Symbol.asyncIterator]();
+          expect(iterator).toBeDefined();
+          // Scope exits - dispose is called automatically
+        })();
+
+        // Should complete quickly (process killed by dispose)
+        const elapsed = Date.now() - startTime;
+        expect(elapsed).toBeLessThan(5000);
+      });
+
+      it('should auto-cleanup when exception is thrown', async () => {
+        const startTime = Date.now();
+
+        try {
+          await using _handle = adapter.spawnStreaming({
+            argv: ['node', '-e', 'setTimeout(() => {}, 10000)'],
+          });
+
+          throw new Error('Simulated error');
+        } catch {
+          // Expected
+        }
+
+        // Should complete quickly (process killed by dispose)
+        const elapsed = Date.now() - startTime;
+        expect(elapsed).toBeLessThan(5000);
+        await Promise.resolve(); // Satisfy lint rule
+      });
+    });
+
+    describe('pattern comparison', () => {
+      it('both patterns should produce equivalent results', async () => {
+        // Legacy pattern
+        const legacyHandle = adapter.spawnStreaming({
+          argv: ['git', '--version'],
+        });
+        let legacyOutput = '';
+        try {
+          for await (const line of legacyHandle.stdout) {
+            legacyOutput += line;
+          }
+        } finally {
+          // kill() is optional here since process completed naturally
+        }
+        const legacyResult = await legacyHandle.wait();
+
+        // Modern pattern
+        let modernOutput = '';
+        let modernResult: Awaited<ReturnType<typeof legacyHandle.wait>> | undefined;
+        await (async () => {
+          await using handle = adapter.spawnStreaming({
+            argv: ['git', '--version'],
+          });
+          for await (const line of handle.stdout) {
+            modernOutput += line;
+          }
+          modernResult = await handle.wait();
+        })();
+
+        // Both should produce same results
+        expect(legacyOutput).toBe(modernOutput);
+        expect(legacyResult.exitCode).toBe(modernResult?.exitCode);
+        expect(legacyResult.stdout).toBe(modernResult?.stdout);
+      });
+    });
   });
 });

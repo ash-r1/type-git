@@ -37,8 +37,10 @@ export interface FilePollingOptions {
 
 /**
  * Handle returned by tail streaming
+ *
+ * Implements AsyncDisposable for use with `await using`.
  */
-export interface TailStreamingHandle {
+export interface TailStreamingHandle extends AsyncDisposable {
   /** Async iterable for reading lines */
   lines: AsyncIterable<string>;
   /** Stop polling and close resources */
@@ -129,8 +131,9 @@ export function createTailPolling(options: FilePollingOptions): TailStreamingHan
     }
   };
 
-  // Start polling in background
-  startPollingLoop(adapter, state, signal, pollInterval, stop).catch(() => {
+  // Start polling in background and keep reference for disposal
+  const pollingPromise = startPollingLoop(adapter, state, signal, pollInterval, stop);
+  pollingPromise.catch(() => {
     // Intentionally ignored - startPollingLoop handles its own cleanup
   });
 
@@ -157,7 +160,17 @@ export function createTailPolling(options: FilePollingOptions): TailStreamingHan
     },
   };
 
-  return { lines, stop };
+  return {
+    lines,
+    stop,
+    [Symbol.asyncDispose]: async (): Promise<void> => {
+      stop();
+      // Wait for the polling loop to actually finish
+      await pollingPromise.catch(() => {
+        // Ignore errors during cleanup
+      });
+    },
+  };
 }
 
 /**
@@ -196,6 +209,10 @@ async function startPollingLoop(
       }
     }
 
+    // Check stopped before sleeping to allow faster shutdown
+    if (state.stopped || signal?.aborted) {
+      break;
+    }
     await adapter.sleep(pollInterval);
   }
 
