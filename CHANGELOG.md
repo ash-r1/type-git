@@ -1,5 +1,37 @@
 # type-git
 
+## 0.2.0
+
+### Minor Changes
+
+- [#110](https://github.com/ash-r1/type-git/pull/110) [`1874124`](https://github.com/ash-r1/type-git/commit/187412417648551e88d8263e690d53bb28c98a13) Thanks [@ash-r1](https://github.com/ash-r1)! - Add `await using` support with `Symbol.asyncDispose` for automatic resource cleanup
+
+  - `SpawnHandle` now implements `AsyncDisposable`, allowing automatic process cleanup with `await using`
+  - `TailHandle` now implements `AsyncDisposable`, allowing automatic file handle cleanup with `await using`
+  - Added `ESNext.Disposable` to TypeScript lib configuration
+  - Backward compatible: existing `kill()` and `stop()` methods continue to work as before
+
+  Example usage:
+
+  ```typescript
+  // Automatic cleanup when scope exits (new)
+  await using handle = adapter.spawnStreaming({ argv: ['git', 'fetch'] });
+  for await (const line of handle.stdout) {
+    console.log(line);
+  }
+  // Process automatically terminated and cleaned up
+
+  // Traditional usage still works (existing)
+  const handle = adapter.spawnStreaming({ argv: ['git', 'fetch'] });
+  try {
+    for await (const line of handle.stdout) {
+      console.log(line);
+    }
+  } finally {
+    handle.kill();
+  }
+  ```
+
 ## 0.1.1
 
 ### Patch Changes
