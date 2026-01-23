@@ -35,8 +35,9 @@ const LINE_SEPARATOR_PATTERN = /\r|\n/;
 /**
  * Regex pattern for GIT_TRACE output lines
  * Format: "HH:MM:SS.microseconds trace: ..." or "HH:MM:SS.microseconds git.c:..."
+ * Must match the trace: prefix or a source file pattern (e.g., git.c:, run-command.c:)
  */
-const GIT_TRACE_PATTERN = /^\d{2}:\d{2}:\d{2}\.\d+\s/;
+const GIT_TRACE_PATTERN = /^\d{2}:\d{2}:\d{2}\.\d+\s+(?:trace:|[A-Za-z0-9_.-]+\.c:)/;
 
 /**
  * Convert parsed LFS stderr progress to LfsProgress type
@@ -256,9 +257,17 @@ export class CliRunner {
       env.PATH = [...allPathPrefixes, currentPath].join(separator);
     }
 
-    // Enable GIT_TRACE when trace callback is provided
+    // Enable GIT_TRACE when trace callback is provided (only if not already set)
     if (this.audit?.onTrace) {
-      env.GIT_TRACE = '1';
+      if (env.GIT_TRACE === undefined) {
+        env.GIT_TRACE = '1';
+      } else if (!env.GIT_TRACE || env.GIT_TRACE === '0') {
+        // Warn if user explicitly disabled GIT_TRACE but provided onTrace callback
+        console.warn(
+          'type-git: onTrace callback provided but GIT_TRACE is disabled. ' +
+            'Trace events will not be emitted.',
+        );
+      }
     }
 
     return env;
@@ -353,7 +362,7 @@ export class CliRunner {
           stdout: '',
           stderr: error instanceof Error ? error.message : String(error),
           exitCode: -1,
-          aborted: false,
+          aborted: signal?.aborted ?? false,
           duration: endTimestamp - startTimestamp,
         });
       }

@@ -695,5 +695,129 @@ describe('CliRunner', () => {
         expect(auditEvents[1].duration).toBeGreaterThanOrEqual(0);
       }
     });
+
+    it('should derive aborted flag from signal when spawn throws', async () => {
+      const adapters = createMockAdapters();
+      (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('Aborted'));
+
+      const auditEvents: AuditEvent[] = [];
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onAudit: (event: AuditEvent) => auditEvents.push(event),
+        },
+      });
+
+      const controller = new AbortController();
+      controller.abort();
+
+      await expect(
+        runner.run({ type: 'global' }, ['clone', 'url'], { signal: controller.signal }),
+      ).rejects.toThrow('Aborted');
+
+      expect(auditEvents[1].type).toBe('end');
+      if (auditEvents[1].type === 'end') {
+        expect(auditEvents[1].aborted).toBe(true);
+      }
+    });
+
+    it('should not override user-provided GIT_TRACE value', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        env: { GIT_TRACE: '2' },
+        audit: {
+          onTrace: () => {
+            // No-op callback for testing
+          },
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      expect(spawnCall[0].env.GIT_TRACE).toBe('2');
+    });
+
+    it('should warn when GIT_TRACE is disabled but onTrace is provided', async () => {
+      const adapters = createMockAdapters();
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {
+        // Suppress console output during test
+      });
+
+      const runner = new CliRunner(adapters, {
+        env: { GIT_TRACE: '0' },
+        audit: {
+          onTrace: () => {
+            // No-op callback for testing
+          },
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('onTrace callback provided but GIT_TRACE is disabled'),
+      );
+
+      warnSpy.mockRestore();
+    });
+
+    it('should warn when GIT_TRACE is empty string but onTrace is provided', async () => {
+      const adapters = createMockAdapters();
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {
+        // Suppress console output during test
+      });
+
+      const runner = new CliRunner(adapters, {
+        env: { GIT_TRACE: '' },
+        audit: {
+          onTrace: () => {
+            // No-op callback for testing
+          },
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('onTrace callback provided but GIT_TRACE is disabled'),
+      );
+
+      warnSpy.mockRestore();
+    });
+
+    it('should not parse non-trace lines as trace events (stricter regex)', async () => {
+      const adapters = createMockAdapters();
+      const traceEvents: TraceEvent[] = [];
+      const progressEvents: GitProgress[] = [];
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onTrace: (trace: TraceEvent) => traceEvents.push(trace),
+        },
+      });
+
+      // Simulate stderr output that looks like a timestamp but isn't trace output
+      (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
+        (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
+          if (handlers?.onStderr) {
+            // This matches old regex but not new stricter regex
+            handlers.onStderr('12:34:56.789012 some random message\n');
+            // This matches the stricter regex (has trace: prefix)
+            handlers.onStderr('12:34:56.789012 trace: actual trace output\n');
+            // This matches the stricter regex (has .c: pattern)
+            handlers.onStderr('12:34:56.789012 git.c:123 another trace\n');
+          }
+          return { stdout: '', stderr: '', exitCode: 0, aborted: false };
+        },
+      );
+
+      await runner.run({ type: 'global' }, ['status'], {
+        onProgress: (p: GitProgress) => progressEvents.push(p),
+      });
+
+      // Only the actual trace lines should be captured (not the random message)
+      expect(traceEvents.length).toBe(2);
+      expect(traceEvents[0].line).toContain('trace: actual trace output');
+      expect(traceEvents[1].line).toContain('git.c:123');
+    });
   });
 });
