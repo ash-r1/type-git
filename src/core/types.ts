@@ -441,3 +441,135 @@ export type CredentialConfig = {
   /** Callback when authentication fails */
   onAuthFailure?: (error: Error, request: CredentialRequest) => void;
 };
+
+// =============================================================================
+// Audit Mode (Command Auditing & Tracing)
+// =============================================================================
+
+/**
+ * Audit event fired when a Git command starts execution
+ */
+export type AuditEventStart = {
+  /** Event type discriminator */
+  type: 'start';
+  /** Timestamp in milliseconds since epoch */
+  timestamp: number;
+  /** Command arguments (e.g., ['git', '-C', '/path', 'status']) */
+  argv: string[];
+  /** Execution context (global, worktree, or bare) */
+  context: ExecutionContext;
+};
+
+/**
+ * Audit event fired when a Git command completes
+ */
+export type AuditEventEnd = {
+  /** Event type discriminator */
+  type: 'end';
+  /** Timestamp in milliseconds since epoch */
+  timestamp: number;
+  /** Command arguments (same as start event) */
+  argv: string[];
+  /** Execution context (same as start event) */
+  context: ExecutionContext;
+  /** Standard output from the command */
+  stdout: string;
+  /** Standard error from the command */
+  stderr: string;
+  /** Exit code (0 = success) */
+  exitCode: number;
+  /** Whether command was aborted via AbortSignal */
+  aborted: boolean;
+  /** Duration in milliseconds */
+  duration: number;
+};
+
+/**
+ * Audit event for Git command execution lifecycle
+ *
+ * Discriminated union based on event type.
+ *
+ * @example
+ * ```typescript
+ * const git = await createGit({
+ *   adapters: createNodeAdapters(),
+ *   audit: {
+ *     onAudit: (event) => {
+ *       if (event.type === 'start') {
+ *         console.log(`→ ${event.argv.join(' ')}`);
+ *       } else {
+ *         console.log(`✓ completed in ${event.duration}ms (exit ${event.exitCode})`);
+ *       }
+ *     }
+ *   }
+ * });
+ * ```
+ */
+export type AuditEvent = AuditEventStart | AuditEventEnd;
+
+/**
+ * Trace output from GIT_TRACE environment variable
+ *
+ * Captures Git's internal debug output when GIT_TRACE is enabled.
+ * Automatically enabled when onTrace callback is provided.
+ *
+ * @example
+ * ```typescript
+ * const git = await createGit({
+ *   adapters: createNodeAdapters(),
+ *   audit: {
+ *     onTrace: (trace) => {
+ *       console.log(`[GIT_TRACE] ${trace.line}`);
+ *     }
+ *   }
+ * });
+ * ```
+ */
+export type TraceEvent = {
+  /** Timestamp in milliseconds since epoch */
+  timestamp: number;
+  /** Raw trace output line from git stderr */
+  line: string;
+};
+
+/**
+ * Audit configuration for Git instance
+ *
+ * Provides hooks for observing Git command execution lifecycle
+ * and internal Git trace output.
+ *
+ * @example
+ * ```typescript
+ * const git = await createGit({
+ *   adapters: createNodeAdapters(),
+ *   audit: {
+ *     onAudit: (event) => {
+ *       if (event.type === 'start') {
+ *         console.log(`[AUDIT] Starting: ${event.argv.join(' ')}`);
+ *       } else {
+ *         console.log(`[AUDIT] Completed: exit ${event.exitCode}, ${event.duration}ms`);
+ *       }
+ *     },
+ *     onTrace: (trace) => {
+ *       console.log(`[TRACE] ${trace.line}`);
+ *     }
+ *   }
+ * });
+ * ```
+ */
+export type AuditConfig = {
+  /**
+   * Callback invoked for each Git command lifecycle event
+   *
+   * Receives 'start' event before command execution and 'end' event after.
+   */
+  onAudit?: (event: AuditEvent) => void;
+
+  /**
+   * Callback invoked for GIT_TRACE output
+   *
+   * When provided, GIT_TRACE=1 is automatically set.
+   * Trace output is parsed from stderr lines.
+   */
+  onTrace?: (trace: TraceEvent) => void;
+};

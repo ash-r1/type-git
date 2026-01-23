@@ -10,6 +10,7 @@
 import process from 'node:process';
 import type { ExecAdapter, RuntimeAdapters } from '../core/adapters.js';
 import type {
+  AuditConfig,
   ExecOpts,
   ExecutionContext,
   GitErrorKind,
@@ -30,6 +31,13 @@ const ERROR_PATTERN = /error:\s*(.+)/i;
  * Regex pattern for splitting lines by carriage return or newline
  */
 const LINE_SEPARATOR_PATTERN = /\r|\n/;
+
+/**
+ * Regex pattern for GIT_TRACE output lines
+ * Format: "HH:MM:SS.microseconds trace: ..." or "HH:MM:SS.microseconds git.c:..."
+ * Must match the trace: prefix or a source file pattern (e.g., git.c:, run-command.c:)
+ */
+const GIT_TRACE_PATTERN = /^\d{2}:\d{2}:\d{2}\.\d+\s+(?:trace:|[A-Za-z0-9_.-]+\.c:)/;
 
 /**
  * Convert parsed LFS stderr progress to LfsProgress type
@@ -123,6 +131,8 @@ export type CliRunnerOptions = {
   home?: string;
   /** Credential helper configuration */
   credential?: CredentialHelperConfig;
+  /** Audit configuration for command tracking and tracing */
+  audit?: AuditConfig;
 };
 
 /**
@@ -141,6 +151,7 @@ export class CliRunner {
   private readonly pathPrefix: string[];
   private readonly home: string | undefined;
   private readonly credential: CredentialHelperConfig | undefined;
+  private readonly audit: AuditConfig | undefined;
 
   public constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
     this.exec = adapters.exec;
@@ -149,6 +160,7 @@ export class CliRunner {
     this.pathPrefix = options?.pathPrefix ?? [];
     this.home = options?.home;
     this.credential = options?.credential;
+    this.audit = options?.audit;
   }
 
   /**
@@ -161,6 +173,7 @@ export class CliRunner {
     const mergedPathPrefix = [...this.pathPrefix, ...(options.pathPrefix ?? [])];
     const home = options.home ?? this.home;
     const credential = options.credential ?? this.credential;
+    const audit = options.audit ?? this.audit;
 
     return new CliRunner(
       {
@@ -179,6 +192,7 @@ export class CliRunner {
         pathPrefix: mergedPathPrefix,
         home,
         credential,
+        audit,
       },
     );
   }
@@ -243,6 +257,19 @@ export class CliRunner {
       env.PATH = [...allPathPrefixes, currentPath].join(separator);
     }
 
+    // Enable GIT_TRACE when trace callback is provided (only if not already set)
+    if (this.audit?.onTrace) {
+      if (env.GIT_TRACE === undefined) {
+        env.GIT_TRACE = '1';
+      } else if (!env.GIT_TRACE || env.GIT_TRACE === '0') {
+        // Warn if user explicitly disabled GIT_TRACE but provided onTrace callback
+        console.warn(
+          'type-git: onTrace callback provided but GIT_TRACE is disabled. ' +
+            'Trace events will not be emitted.',
+        );
+      }
+    }
+
     return env;
   }
 
@@ -272,38 +299,90 @@ export class CliRunner {
       env.GIT_LFS_FORCE_PROGRESS = '1';
     }
 
+    // Capture start timestamp for duration calculation
+    const startTimestamp = Date.now();
+
+    // Emit audit start event
+    if (this.audit?.onAudit) {
+      this.audit.onAudit({
+        type: 'start',
+        timestamp: startTimestamp,
+        argv,
+        context,
+      });
+    }
+
     // Buffer for handling carriage return lines (LFS uses \r for in-place updates)
     let stderrBuffer = '';
 
-    const result = await this.exec.spawn(
-      {
+    // Determine if we need stderr streaming
+    const needsStderrStreaming = onProgress || onLfsProgress || this.audit?.onTrace;
+
+    let result: Awaited<ReturnType<ExecAdapter['spawn']>>;
+    try {
+      result = await this.exec.spawn(
+        {
+          argv,
+          env,
+          cwd: context.type === 'worktree' ? context.workdir : undefined,
+          signal,
+        },
+        needsStderrStreaming
+          ? {
+              onStderr: (chunk: string) => {
+                // Accumulate chunk into buffer
+                stderrBuffer += chunk;
+
+                // Process complete lines (split by \r or \n)
+                // Keep incomplete line in buffer
+                const lines = stderrBuffer.split(LINE_SEPARATOR_PATTERN);
+                stderrBuffer = lines.pop() ?? '';
+
+                for (const line of lines) {
+                  this.processStderrLine(line, onProgress, onLfsProgress);
+                }
+              },
+            }
+          : undefined,
+      );
+
+      // Process any remaining content in buffer
+      if (stderrBuffer.trim() && needsStderrStreaming) {
+        this.processStderrLine(stderrBuffer, onProgress, onLfsProgress);
+      }
+    } catch (error) {
+      // Emit audit end event for spawn failures
+      if (this.audit?.onAudit) {
+        const endTimestamp = Date.now();
+        this.audit.onAudit({
+          type: 'end',
+          timestamp: endTimestamp,
+          argv,
+          context,
+          stdout: '',
+          stderr: error instanceof Error ? error.message : String(error),
+          exitCode: -1,
+          aborted: signal?.aborted ?? false,
+          duration: endTimestamp - startTimestamp,
+        });
+      }
+      throw error;
+    }
+
+    // Emit audit end event
+    if (this.audit?.onAudit) {
+      const endTimestamp = Date.now();
+      this.audit.onAudit({
+        type: 'end',
+        timestamp: endTimestamp,
         argv,
-        env,
-        cwd: context.type === 'worktree' ? context.workdir : undefined,
-        signal,
-      },
-      onProgress || onLfsProgress
-        ? {
-            onStderr: (chunk: string) => {
-              // Accumulate chunk into buffer
-              stderrBuffer += chunk;
-
-              // Process complete lines (split by \r or \n)
-              // Keep incomplete line in buffer
-              const lines = stderrBuffer.split(LINE_SEPARATOR_PATTERN);
-              stderrBuffer = lines.pop() ?? '';
-
-              for (const line of lines) {
-                processProgressLine(line, onProgress, onLfsProgress);
-              }
-            },
-          }
-        : undefined,
-    );
-
-    // Process any remaining content in buffer
-    if (stderrBuffer.trim() && (onProgress || onLfsProgress)) {
-      processProgressLine(stderrBuffer, onProgress, onLfsProgress);
+        context,
+        stdout: result.stdout,
+        stderr: result.stderr,
+        exitCode: result.exitCode,
+        aborted: result.aborted,
+        duration: endTimestamp - startTimestamp,
+      });
     }
 
     return {
@@ -312,6 +391,32 @@ export class CliRunner {
       exitCode: result.exitCode,
       aborted: result.aborted,
     };
+  }
+
+  /**
+   * Process a single line from stderr for progress and trace callbacks
+   */
+  private processStderrLine(
+    line: string,
+    onProgress: ((progress: GitProgress) => void) | undefined,
+    onLfsProgress: ((progress: LfsProgress) => void) | undefined,
+  ): void {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      return;
+    }
+
+    // Check for trace output (GIT_TRACE lines start with specific patterns)
+    if (this.audit?.onTrace && GIT_TRACE_PATTERN.test(trimmed)) {
+      this.audit.onTrace({
+        timestamp: Date.now(),
+        line: trimmed,
+      });
+      return;
+    }
+
+    // Process progress lines
+    processProgressLine(line, onProgress, onLfsProgress);
   }
 
   /**
