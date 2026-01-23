@@ -4,7 +4,13 @@
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { RuntimeAdapters, SpawnResult } from '../core/adapters.js';
-import type { ExecutionContext, GitProgress, LfsProgress } from '../core/types.js';
+import type {
+  AuditEvent,
+  ExecutionContext,
+  GitProgress,
+  LfsProgress,
+  TraceEvent,
+} from '../core/types.js';
 import { GitError } from '../core/types.js';
 import { CliRunner } from './cli-runner.js';
 
@@ -486,6 +492,208 @@ describe('CliRunner', () => {
       expect(lfsProgressEvents[0].percent).toBe(25);
       expect(lfsProgressEvents[1].percent).toBe(50);
       expect(lfsProgressEvents[2].percent).toBe(75);
+    });
+  });
+
+  describe('audit mode', () => {
+    it('should emit start and end audit events', async () => {
+      const adapters = createMockAdapters({ stdout: 'output', exitCode: 0 });
+      const auditEvents: AuditEvent[] = [];
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onAudit: (event: AuditEvent) => auditEvents.push(event),
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      expect(auditEvents.length).toBe(2);
+
+      // Start event
+      expect(auditEvents[0].type).toBe('start');
+      if (auditEvents[0].type === 'start') {
+        expect(auditEvents[0].argv).toEqual(['git', 'version']);
+        expect(auditEvents[0].context).toEqual({ type: 'global' });
+        expect(auditEvents[0].timestamp).toBeGreaterThan(0);
+      }
+
+      // End event
+      expect(auditEvents[1].type).toBe('end');
+      if (auditEvents[1].type === 'end') {
+        expect(auditEvents[1].argv).toEqual(['git', 'version']);
+        expect(auditEvents[1].context).toEqual({ type: 'global' });
+        expect(auditEvents[1].stdout).toBe('output');
+        expect(auditEvents[1].stderr).toBe('');
+        expect(auditEvents[1].exitCode).toBe(0);
+        expect(auditEvents[1].aborted).toBe(false);
+        expect(auditEvents[1].duration).toBeGreaterThanOrEqual(0);
+      }
+    });
+
+    it('should include worktree context in audit events', async () => {
+      const adapters = createMockAdapters();
+      const auditEvents: AuditEvent[] = [];
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onAudit: (event: AuditEvent) => auditEvents.push(event),
+        },
+      });
+
+      await runner.run({ type: 'worktree', workdir: '/repo' }, ['status']);
+
+      expect(auditEvents[0].context).toEqual({ type: 'worktree', workdir: '/repo' });
+      if (auditEvents[0].type === 'start') {
+        expect(auditEvents[0].argv).toEqual(['git', '-C', '/repo', 'status']);
+      }
+    });
+
+    it('should emit end event with error info on failure', async () => {
+      const adapters = createMockAdapters({
+        stderr: 'fatal: not a git repository',
+        exitCode: 128,
+      });
+      const auditEvents: AuditEvent[] = [];
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onAudit: (event: AuditEvent) => auditEvents.push(event),
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['status']);
+
+      expect(auditEvents[1].type).toBe('end');
+      if (auditEvents[1].type === 'end') {
+        expect(auditEvents[1].exitCode).toBe(128);
+        expect(auditEvents[1].stderr).toBe('fatal: not a git repository');
+      }
+    });
+
+    it('should set GIT_TRACE=1 when onTrace callback is provided', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onTrace: () => {
+            // No-op callback for testing environment setup
+          },
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      expect(adapters.exec.spawn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          env: expect.objectContaining({
+            GIT_TRACE: '1',
+          }),
+        }),
+        expect.objectContaining({
+          onStderr: expect.any(Function),
+        }),
+      );
+    });
+
+    it('should emit trace events for GIT_TRACE output', async () => {
+      const adapters = createMockAdapters();
+      const traceEvents: TraceEvent[] = [];
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onTrace: (trace: TraceEvent) => traceEvents.push(trace),
+        },
+      });
+
+      // Simulate GIT_TRACE output
+      (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(
+        (_opts: unknown, handlers?: { onStderr?: (chunk: string) => void }) => {
+          if (handlers?.onStderr) {
+            handlers.onStderr(
+              '12:34:56.789012 git.c:439               trace: built-in: git status\n',
+            );
+            handlers.onStderr(
+              '12:34:56.790123 run-command.c:123       trace: run_command: ls-files\n',
+            );
+          }
+          return { stdout: '', stderr: '', exitCode: 0, aborted: false };
+        },
+      );
+
+      await runner.run({ type: 'global' }, ['status']);
+
+      expect(traceEvents.length).toBe(2);
+      expect(traceEvents[0].line).toContain('trace: built-in: git status');
+      expect(traceEvents[1].line).toContain('trace: run_command: ls-files');
+      expect(traceEvents[0].timestamp).toBeGreaterThan(0);
+    });
+
+    it('should propagate audit config through withOptions()', async () => {
+      const adapters = createMockAdapters();
+      const auditEvents: AuditEvent[] = [];
+      const baseRunner = new CliRunner(adapters, {
+        audit: {
+          onAudit: (event: AuditEvent) => auditEvents.push(event),
+        },
+      });
+
+      const derivedRunner = baseRunner.withOptions({
+        env: { CUSTOM_VAR: 'value' },
+      });
+
+      await derivedRunner.run({ type: 'global' }, ['version']);
+
+      expect(auditEvents.length).toBe(2);
+      expect(auditEvents[0].type).toBe('start');
+      expect(auditEvents[1].type).toBe('end');
+    });
+
+    it('should not emit audit events when audit is not configured', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+
+      // This should not throw and should complete normally
+      const result = await runner.run({ type: 'global' }, ['version']);
+
+      expect(result.exitCode).toBe(0);
+    });
+
+    it('should not set GIT_TRACE when only onAudit is provided', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onAudit: () => {
+            // No-op callback for testing environment setup
+          },
+        },
+      });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      expect(spawnCall[0].env.GIT_TRACE).toBeUndefined();
+    });
+
+    it('should emit end event even when spawn throws an exception', async () => {
+      const adapters = createMockAdapters();
+      (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockRejectedValue(
+        new Error('Spawn failed: command not found'),
+      );
+
+      const auditEvents: AuditEvent[] = [];
+      const runner = new CliRunner(adapters, {
+        audit: {
+          onAudit: (event: AuditEvent) => auditEvents.push(event),
+        },
+      });
+
+      await expect(runner.run({ type: 'global' }, ['version'])).rejects.toThrow('Spawn failed');
+
+      expect(auditEvents.length).toBe(2);
+      expect(auditEvents[0].type).toBe('start');
+      expect(auditEvents[1].type).toBe('end');
+
+      if (auditEvents[1].type === 'end') {
+        expect(auditEvents[1].exitCode).toBe(-1);
+        expect(auditEvents[1].stderr).toBe('Spawn failed: command not found');
+        expect(auditEvents[1].duration).toBeGreaterThanOrEqual(0);
+      }
     });
   });
 });

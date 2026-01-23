@@ -8,6 +8,7 @@ import { join } from 'node:path';
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { Git } from '../core/git.js';
+import type { AuditEvent } from '../core/types.js';
 import { GitError } from '../core/types.js';
 import {
   compareVersions,
@@ -692,6 +693,78 @@ describe('openRaw and type guards', () => {
       // Even with open(), we can still use the type guards
       expect(await repo.isWorktree()).toBe(false);
       expect(await repo.isBare()).toBe(true);
+    });
+  });
+
+  describe('audit mode integration', () => {
+    it('should emit audit events for all git operations', async () => {
+      const auditEvents: AuditEvent[] = [];
+      const gitWithAudit = await createGit({
+        adapters: createNodeAdapters(),
+        useLegacyVersion: USE_LEGACY_VERSION,
+        audit: {
+          onAudit: (event: AuditEvent) => auditEvents.push(event),
+        },
+      });
+
+      // Initialize a repository
+      const repoPath = join(tempDir, 'audit-test-repo');
+      await gitWithAudit.init(repoPath);
+
+      // Open and run status
+      const repo = await gitWithAudit.open(repoPath);
+      await repo.status();
+
+      // Should have events for: init, rev-parse (from open), status
+      // At minimum, we should see start/end pairs
+      expect(auditEvents.length).toBeGreaterThanOrEqual(4);
+
+      // Check that all events have proper structure
+      for (const event of auditEvents) {
+        expect(event.timestamp).toBeGreaterThan(0);
+        expect(event.argv).toBeInstanceOf(Array);
+        expect(event.argv[0]).toBe('git');
+
+        if (event.type === 'end') {
+          expect(typeof event.exitCode).toBe('number');
+          expect(typeof event.duration).toBe('number');
+          expect(event.duration).toBeGreaterThanOrEqual(0);
+        }
+      }
+
+      // Verify start/end pairing
+      const startEvents = auditEvents.filter((e) => e.type === 'start');
+      const endEvents = auditEvents.filter((e) => e.type === 'end');
+      expect(startEvents.length).toBe(endEvents.length);
+    });
+
+    it('should propagate audit config to repository operations', async () => {
+      const auditEvents: AuditEvent[] = [];
+      const gitWithAudit = await createGit({
+        adapters: createNodeAdapters(),
+        useLegacyVersion: USE_LEGACY_VERSION,
+        audit: {
+          onAudit: (event: AuditEvent) => auditEvents.push(event),
+        },
+      });
+
+      const repoPath = join(tempDir, 'audit-repo-test');
+      const repo = await gitWithAudit.init(repoPath);
+
+      // Clear events from init
+      auditEvents.length = 0;
+
+      // Run repository operation
+      await repo.status();
+
+      // Should have start and end events for status
+      expect(auditEvents.length).toBe(2);
+      expect(auditEvents[0].type).toBe('start');
+      expect(auditEvents[1].type).toBe('end');
+
+      // Verify status command was captured
+      const statusCmd = auditEvents.find((e) => e.type === 'start' && e.argv.includes('status'));
+      expect(statusCmd).toBeDefined();
     });
   });
 });

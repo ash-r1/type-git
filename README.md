@@ -12,6 +12,7 @@ Type-safe Git wrapper library with LFS support, progress tracking, and abort con
 - **Repository-context aware**: Distinguishes between repository-agnostic and repository-specific operations
 - **Git LFS support**: Built-in support for Git LFS with progress tracking
 - **Progress tracking**: Real-time progress events for clone, fetch, push, and LFS operations
+- **Audit mode**: Track all Git command executions with start/end events and optional GIT_TRACE output
 - **Abort control**: Cancel operations using AbortController
 - **Cross-runtime**: Works with Node.js, Deno, and Bun
 - **No cwd dependency**: Uses `git -C` for clean repository context management
@@ -130,6 +131,43 @@ const lfsStatus = await repo.lfs.status();
 // Raw escape hatch when needed
 const result = await repo.raw(['rev-parse', 'HEAD']);
 ```
+
+### Audit Mode
+
+Track all Git command executions for logging, debugging, or monitoring:
+
+```typescript
+import { createGit } from 'type-git';
+import { createNodeAdapters } from 'type-git/node';
+
+const git = await createGit({
+  adapters: createNodeAdapters(),
+  audit: {
+    // Called before and after every Git command
+    onAudit: (event) => {
+      if (event.type === 'start') {
+        console.log(`[START] ${event.argv.join(' ')}`);
+      } else {
+        console.log(`[END] exit ${event.exitCode}, ${event.duration}ms`);
+        // event.stdout, event.stderr also available
+      }
+    },
+    // Optional: Capture GIT_TRACE output (automatically sets GIT_TRACE=1)
+    onTrace: (trace) => {
+      console.log(`[TRACE] ${trace.line}`);
+    },
+  },
+});
+
+// All operations will now emit audit events
+const repo = await git.open('/path/to/repo');
+await repo.status();
+```
+
+**Audit Event Types:**
+- `AuditEventStart`: Emitted before command execution with `argv`, `context`, `timestamp`
+- `AuditEventEnd`: Emitted after completion with `stdout`, `stderr`, `exitCode`, `duration`, `aborted`
+- `TraceEvent`: GIT_TRACE output lines with `timestamp` and `line`
 
 ## Architecture
 
