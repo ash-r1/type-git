@@ -384,6 +384,7 @@ export class GitImpl implements Git {
       await this.runner.runOrThrow({ type: 'global' }, args, {
         signal: opts?.signal,
         onProgress: opts?.onProgress,
+        onLfsProgress: opts?.onLfsProgress,
       });
     } catch (error) {
       // Clean up on abort if cleanupOnAbort is true (default)
