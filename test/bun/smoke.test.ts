@@ -73,6 +73,36 @@ describe('BunExecAdapter', () => {
       expect(result.stdout.trim()).toBe('test_value');
     });
 
+    test('does not leak the parent environment when inheritEnv is false', async () => {
+      process.env.TYPE_GIT_SMOKE_SECRET = 'leaked';
+      try {
+        const result = await adapter.spawn({
+          // Provide PATH so `sh` can still be located, but nothing else.
+          argv: ['sh', '-c', 'echo "${TYPE_GIT_SMOKE_SECRET:-undefined}"'],
+          env: { PATH: process.env.PATH ?? '' },
+          inheritEnv: false,
+        });
+
+        expect(result.stdout.trim()).toBe('undefined');
+      } finally {
+        delete process.env.TYPE_GIT_SMOKE_SECRET;
+      }
+    });
+
+    test('inherits the parent environment by default', async () => {
+      process.env.TYPE_GIT_SMOKE_SECRET = 'inherited';
+      try {
+        const result = await adapter.spawn({
+          argv: ['sh', '-c', 'echo "${TYPE_GIT_SMOKE_SECRET:-undefined}"'],
+          env: { OTHER: 'x' },
+        });
+
+        expect(result.stdout.trim()).toBe('inherited');
+      } finally {
+        delete process.env.TYPE_GIT_SMOKE_SECRET;
+      }
+    });
+
     test('handles abort signal', async () => {
       const controller = new AbortController();
 
