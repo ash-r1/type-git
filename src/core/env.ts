@@ -64,6 +64,18 @@ export const DEFAULT_ENV_ALLOWLIST: readonly string[] = [
   // SSH agent (required for Git-over-SSH authentication)
   'SSH_AUTH_SOCK',
   'SSH_AGENT_PID',
+  // Git transport / TLS / askpass configuration (non-secret; commonly required for
+  // network operations such as fetch/push to keep working under the default allowlist)
+  'GIT_SSH',
+  'GIT_SSH_COMMAND',
+  'GIT_SSH_VARIANT',
+  'GIT_SSL_CAINFO',
+  'GIT_SSL_CAPATH',
+  'GIT_PROXY_COMMAND',
+  'GIT_ASKPASS',
+  'SSH_ASKPASS',
+  'GIT_TERMINAL_PROMPT',
+  'GIT_CONFIG_NOSYSTEM',
   // HTTP(S) proxy configuration (required for Git network operations behind a proxy)
   'HTTP_PROXY',
   'HTTPS_PROXY',

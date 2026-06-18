@@ -105,5 +105,18 @@ describe('resolveInheritedEnv', () => {
       expect(DEFAULT_ENV_ALLOWLIST).toContain('PATH');
       expect(DEFAULT_ENV_ALLOWLIST).toContain('HOME');
     });
+
+    it('includes common Git transport configuration variables', () => {
+      // Non-secret Git config vars needed for fetch/push to keep working by default
+      expect(DEFAULT_ENV_ALLOWLIST).toContain('GIT_SSH_COMMAND');
+      expect(DEFAULT_ENV_ALLOWLIST).toContain('GIT_SSL_CAINFO');
+      expect(DEFAULT_ENV_ALLOWLIST).toContain('GIT_PROXY_COMMAND');
+    });
+  });
+
+  it('inherits a custom GIT_SSH_COMMAND by default', () => {
+    const result = resolveInheritedEnv({ GIT_SSH_COMMAND: 'ssh -i /path/to/key' });
+
+    expect(result.GIT_SSH_COMMAND).toBe('ssh -i /path/to/key');
   });
 });
