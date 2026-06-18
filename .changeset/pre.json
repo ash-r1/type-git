@@ -5,5 +5,8 @@
     "type-git": "0.2.0",
     "type-git-docs": "0.0.1"
   },
-  "changesets": []
+  "changesets": [
+    "audit-mode",
+    "clone-push-lfs-progress"
+  ]
 }
