@@ -99,9 +99,12 @@ describe('NodeExecAdapter', () => {
       vi.stubEnv('TYPE_GIT_PARENT_ONLY', 'leaked');
       try {
         // Provide PATH explicitly so node can still be located, but nothing else.
+        // Resolve the PATH key case-insensitively (Windows uses `Path`) so the value is
+        // not empty there, which would prevent `node` from being found.
+        const pathKey = Object.keys(process.env).find((key) => key.toLowerCase() === 'path');
         const result = await adapter.spawn({
           argv: ['node', '-e', 'console.log(process.env.TYPE_GIT_PARENT_ONLY ?? "undefined")'],
-          env: { PATH: process.env.PATH ?? '' },
+          env: { [pathKey ?? 'PATH']: (pathKey && process.env[pathKey]) || '' },
           inheritEnv: false,
         });
 

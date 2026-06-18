@@ -45,6 +45,10 @@ function createMockAdapters(spawnResult?: Partial<SpawnResult>): RuntimeAdapters
   };
 }
 
+// The PATH variable key as it appears in this platform's process.env.
+// Windows commonly stores it as `Path` (case-insensitive), other platforms use `PATH`.
+const PATH_KEY = Object.keys(process.env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
+
 describe('CliRunner', () => {
   describe('run', () => {
     it('should execute command with global context', async () => {
@@ -265,16 +269,16 @@ describe('CliRunner', () => {
 
     it('should apply PATH prefix', async () => {
       const adapters = createMockAdapters();
-      const originalPath = process.env.PATH;
+      const originalPath = process.env[PATH_KEY];
       const runner = new CliRunner(adapters, { pathPrefix: ['/custom/bin', '/another/bin'] });
 
       await runner.run({ type: 'global' }, ['version']);
 
       const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
       const envArg = spawnCall[0].env;
-      expect(envArg.PATH).toContain('/custom/bin');
-      expect(envArg.PATH).toContain('/another/bin');
-      expect(envArg.PATH).toContain(originalPath);
+      expect(envArg[PATH_KEY]).toContain('/custom/bin');
+      expect(envArg[PATH_KEY]).toContain('/another/bin');
+      expect(envArg[PATH_KEY]).toContain(originalPath);
     });
 
     it('should merge options with withOptions()', async () => {
@@ -361,7 +365,7 @@ describe('CliRunner', () => {
         const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
         expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBeUndefined();
         // But allowlisted vars such as PATH are still inherited
-        expect(spawnCall[0].env.PATH).toBeDefined();
+        expect(spawnCall[0].env[PATH_KEY]).toBeDefined();
       } finally {
         vi.unstubAllEnvs();
       }
