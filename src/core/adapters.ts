@@ -21,6 +21,16 @@ export type SpawnOptions = {
   argv: string[];
   /** Additional environment variables */
   env?: Record<string, string>;
+  /**
+   * Whether to merge the parent process environment underneath `env`.
+   *
+   * - `true` (default when omitted): the parent environment is merged underneath `env`,
+   *   so the child inherits the full parent environment with `env` overrides on top.
+   * - `false`: the child receives only the variables in `env` (and nothing from the
+   *   parent process). This prevents implicit environment variable traversal — used by
+   *   {@link CliRunner}, which resolves the inherited variables itself.
+   */
+  inheritEnv?: boolean;
   /** Working directory */
   cwd?: string;
   /** AbortSignal for cancellation */

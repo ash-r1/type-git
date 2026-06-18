@@ -9,6 +9,7 @@
 
 import process from 'node:process';
 import type { ExecAdapter, RuntimeAdapters } from '../core/adapters.js';
+import { type EnvInheritance, resolveInheritedEnv } from '../core/env.js';
 import type {
   AuditConfig,
   ExecOpts,
@@ -125,6 +126,16 @@ export type CliRunnerOptions = {
   gitBinary?: string;
   /** Additional environment variables */
   env?: Record<string, string>;
+  /**
+   * Controls how the parent process environment is inherited by spawned Git commands.
+   *
+   * By default, only a curated allowlist of variables that Git needs to operate is
+   * inherited (environment variable traversal prevention); the full parent environment is
+   * NOT forwarded. See {@link EnvInheritance} for all options.
+   *
+   * @default undefined (inherit the default allowlist)
+   */
+  inheritEnv?: EnvInheritance;
   /** Directories to prepend to PATH */
   pathPrefix?: string[];
   /** Custom HOME directory for git config isolation */
@@ -148,6 +159,7 @@ export class CliRunner {
   private readonly exec: ExecAdapter;
   private readonly gitBinary: string;
   private readonly baseEnv: Record<string, string>;
+  private readonly inheritEnv: EnvInheritance | undefined;
   private readonly pathPrefix: string[];
   private readonly home: string | undefined;
   private readonly credential: CredentialHelperConfig | undefined;
@@ -157,6 +169,7 @@ export class CliRunner {
     this.exec = adapters.exec;
     this.gitBinary = options?.gitBinary ?? 'git';
     this.baseEnv = options?.env ?? {};
+    this.inheritEnv = options?.inheritEnv;
     this.pathPrefix = options?.pathPrefix ?? [];
     this.home = options?.home;
     this.credential = options?.credential;
@@ -171,6 +184,7 @@ export class CliRunner {
   public withOptions(options: CliRunnerOptions): CliRunner {
     const mergedEnv = { ...this.baseEnv, ...options.env };
     const mergedPathPrefix = [...this.pathPrefix, ...(options.pathPrefix ?? [])];
+    const inheritEnv = options.inheritEnv ?? this.inheritEnv;
     const home = options.home ?? this.home;
     const credential = options.credential ?? this.credential;
     const audit = options.audit ?? this.audit;
@@ -189,6 +203,7 @@ export class CliRunner {
       {
         gitBinary: options.gitBinary ?? this.gitBinary,
         env: mergedEnv,
+        inheritEnv,
         pathPrefix: mergedPathPrefix,
         home,
         credential,
@@ -227,10 +242,16 @@ export class CliRunner {
   /**
    * Build the effective environment for command execution
    *
-   * Applies home directory and PATH prefix overrides
+   * Seeds the environment from the inherited (allowlisted) parent variables, then layers
+   * the configured `env`, home directory, and PATH prefix overrides on top. The parent
+   * process environment is never forwarded wholesale unless `inheritEnv: true` is set
+   * (environment variable traversal prevention).
    */
   private buildEnv(): Record<string, string> {
-    const env: Record<string, string> = { ...this.baseEnv };
+    const env: Record<string, string> = {
+      ...resolveInheritedEnv(process.env, this.inheritEnv, process.platform),
+      ...this.baseEnv,
+    };
 
     // Apply home directory override
     if (this.home) {
@@ -252,9 +273,18 @@ export class CliRunner {
 
     // Apply PATH prefix
     if (allPathPrefixes.length > 0) {
-      const separator = process.platform === 'win32' ? ';' : ':';
-      const currentPath = process.env.PATH ?? '';
-      env.PATH = [...allPathPrefixes, currentPath].join(separator);
+      const isWindows = process.platform === 'win32';
+      const separator = isWindows ? ';' : ':';
+      // On Windows, env var names are case-insensitive and PATH is commonly stored as
+      // `Path`; reuse whatever case variant exists so the prefix is applied to the
+      // inherited value instead of orphaning it under a duplicate `PATH` key. On other
+      // platforms names are case-sensitive, so always use the canonical `PATH`.
+      const pathKey = isWindows
+        ? (Object.keys(env).find((key) => key.toLowerCase() === 'path') ?? 'PATH')
+        : 'PATH';
+      // Prepend to the already-resolved PATH (which respects the inheritEnv allowlist)
+      const currentPath = env[pathKey] ?? '';
+      env[pathKey] = [...allPathPrefixes, currentPath].join(separator);
     }
 
     // Enable GIT_TRACE when trace callback is provided (only if not already set)
@@ -324,6 +354,9 @@ export class CliRunner {
         {
           argv,
           env,
+          // The env above is already fully resolved (including any inherited variables),
+          // so the adapter must not merge the parent environment on top of it.
+          inheritEnv: false,
           cwd: context.type === 'worktree' ? context.workdir : undefined,
           signal,
         },

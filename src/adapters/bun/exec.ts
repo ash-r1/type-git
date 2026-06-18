@@ -14,6 +14,23 @@ import type {
 import type { Capabilities } from '../../core/types.js';
 
 /**
+ * Resolve the environment passed to the child process.
+ *
+ * When `inheritEnv` is `false`, only the explicitly provided `env` is used so the parent
+ * process environment is not implicitly forwarded (environment variable traversal
+ * prevention). Otherwise the parent environment is merged underneath `env`.
+ */
+function resolveChildEnv(
+  env: Record<string, string> | undefined,
+  inheritEnv: boolean | undefined,
+): Record<string, string | undefined> {
+  if (inheritEnv === false) {
+    return env ?? {};
+  }
+  return env ? { ...Bun.env, ...env } : Bun.env;
+}
+
+/**
  * Create an async iterable from a ReadableStream
  */
 async function* streamToAsyncIterable(
@@ -85,7 +102,7 @@ export class BunExecAdapter implements ExecAdapter {
   }
 
   public async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
-    const { argv, env, cwd, signal } = options;
+    const { argv, env, inheritEnv, cwd, signal } = options;
 
     const command = argv[0];
     if (command === undefined) {
@@ -107,7 +124,7 @@ export class BunExecAdapter implements ExecAdapter {
 
     const proc = Bun.spawn([command, ...args], {
       cwd,
-      env: env ? { ...Bun.env, ...env } : Bun.env,
+      env: resolveChildEnv(env, inheritEnv),
       stdout: 'pipe',
       stderr: 'pipe',
       stdin: 'ignore',
@@ -202,7 +219,7 @@ export class BunExecAdapter implements ExecAdapter {
   }
 
   public spawnStreaming(options: SpawnOptions): SpawnHandle {
-    const { argv, env, cwd, signal } = options;
+    const { argv, env, inheritEnv, cwd, signal } = options;
 
     const command = argv[0];
     if (command === undefined) {
@@ -213,7 +230,7 @@ export class BunExecAdapter implements ExecAdapter {
 
     const proc = Bun.spawn([command, ...args], {
       cwd,
-      env: env ? { ...Bun.env, ...env } : Bun.env,
+      env: resolveChildEnv(env, inheritEnv),
       stdout: 'pipe',
       stderr: 'pipe',
       stdin: 'ignore',

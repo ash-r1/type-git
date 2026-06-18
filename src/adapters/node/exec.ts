@@ -13,6 +13,23 @@ import type {
 import type { Capabilities } from '../../core/types.js';
 
 /**
+ * Resolve the environment passed to the child process.
+ *
+ * When `inheritEnv` is `false`, only the explicitly provided `env` is used so the parent
+ * process environment is not implicitly forwarded (environment variable traversal
+ * prevention). Otherwise the parent environment is merged underneath `env`.
+ */
+function resolveChildEnv(
+  env: Record<string, string> | undefined,
+  inheritEnv: boolean | undefined,
+): NodeJS.ProcessEnv {
+  if (inheritEnv === false) {
+    return env ?? {};
+  }
+  return env ? { ...process.env, ...env } : process.env;
+}
+
+/**
  * Create an async iterable from a readable stream
  */
 async function* streamToAsyncIterable(
@@ -49,7 +66,7 @@ export class NodeExecAdapter implements ExecAdapter {
   }
 
   public spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
-    const { argv, env, cwd, signal } = options;
+    const { argv, env, inheritEnv, cwd, signal } = options;
 
     const command = argv[0];
     if (command === undefined) {
@@ -60,7 +77,7 @@ export class NodeExecAdapter implements ExecAdapter {
     return new Promise((resolve, reject) => {
       const child = spawn(command, args, {
         cwd,
-        env: env ? { ...process.env, ...env } : process.env,
+        env: resolveChildEnv(env, inheritEnv),
         stdio: ['ignore', 'pipe', 'pipe'],
       });
 
@@ -116,7 +133,7 @@ export class NodeExecAdapter implements ExecAdapter {
   }
 
   public spawnStreaming(options: SpawnOptions): SpawnHandle {
-    const { argv, env, cwd, signal } = options;
+    const { argv, env, inheritEnv, cwd, signal } = options;
 
     const command = argv[0];
     if (command === undefined) {
@@ -126,7 +143,7 @@ export class NodeExecAdapter implements ExecAdapter {
 
     const child = spawn(command, args, {
       cwd,
-      env: env ? { ...process.env, ...env } : process.env,
+      env: resolveChildEnv(env, inheritEnv),
       stdio: ['ignore', 'pipe', 'pipe'],
     });
 

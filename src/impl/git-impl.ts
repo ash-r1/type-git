@@ -222,6 +222,7 @@ function toCliRunnerOptions(opts?: GitOpenOptions): CliRunnerOptions {
 
   return {
     env: opts.env,
+    inheritEnv: opts.inheritEnv,
     pathPrefix: opts.pathPrefix,
     home: opts.home,
     credential: opts.credential

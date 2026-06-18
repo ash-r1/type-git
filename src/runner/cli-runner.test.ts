@@ -45,6 +45,10 @@ function createMockAdapters(spawnResult?: Partial<SpawnResult>): RuntimeAdapters
   };
 }
 
+// The PATH variable key as it appears in this platform's process.env.
+// Windows commonly stores it as `Path` (case-insensitive), other platforms use `PATH`.
+const PATH_KEY = Object.keys(process.env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
+
 describe('CliRunner', () => {
   describe('run', () => {
     it('should execute command with global context', async () => {
@@ -265,16 +269,16 @@ describe('CliRunner', () => {
 
     it('should apply PATH prefix', async () => {
       const adapters = createMockAdapters();
-      const originalPath = process.env.PATH;
+      const originalPath = process.env[PATH_KEY];
       const runner = new CliRunner(adapters, { pathPrefix: ['/custom/bin', '/another/bin'] });
 
       await runner.run({ type: 'global' }, ['version']);
 
       const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
       const envArg = spawnCall[0].env;
-      expect(envArg.PATH).toContain('/custom/bin');
-      expect(envArg.PATH).toContain('/another/bin');
-      expect(envArg.PATH).toContain(originalPath);
+      expect(envArg[PATH_KEY]).toContain('/custom/bin');
+      expect(envArg[PATH_KEY]).toContain('/another/bin');
+      expect(envArg[PATH_KEY]).toContain(originalPath);
     });
 
     it('should merge options with withOptions()', async () => {
@@ -316,6 +320,103 @@ describe('CliRunner', () => {
 
       const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
       expect(spawnCall[0].env.SHARED_VAR).toBe('derived');
+    });
+
+    it('should apply the PATH prefix to the platform PATH key without orphaning it', async () => {
+      // On Windows the PATH variable is commonly named `Path` and matched
+      // case-insensitively, so the prefix logic must reuse that key. On other platforms
+      // names are case-sensitive and the canonical `PATH` is always used.
+      const pathKey = process.platform === 'win32' ? 'Path' : 'PATH';
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters, {
+        // Disable allowlist inheritance so the only PATH key is the one provided below
+        inheritEnv: false,
+        env: { [pathKey]: '/inherited/bin' },
+        pathPrefix: ['/custom/bin'],
+      });
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      const envArg = spawnCall[0].env;
+      // The prefix is applied to the platform PATH key and the inherited value is retained
+      expect(envArg[pathKey]).toContain('/custom/bin');
+      expect(envArg[pathKey]).toContain('/inherited/bin');
+    });
+
+    it('should instruct the adapter not to inherit the parent environment', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      expect(spawnCall[0].inheritEnv).toBe(false);
+    });
+
+    it('should not forward sensitive parent env vars by default', async () => {
+      const adapters = createMockAdapters();
+      vi.stubEnv('TYPE_GIT_TEST_SECRET', 'super-secret');
+      try {
+        const runner = new CliRunner(adapters);
+
+        await runner.run({ type: 'global' }, ['version']);
+
+        const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+        expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBeUndefined();
+        // But allowlisted vars such as PATH are still inherited
+        expect(spawnCall[0].env[PATH_KEY]).toBeDefined();
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    });
+
+    it('should forward all parent env vars when inheritEnv is true', async () => {
+      const adapters = createMockAdapters();
+      vi.stubEnv('TYPE_GIT_TEST_SECRET', 'super-secret');
+      try {
+        const runner = new CliRunner(adapters, { inheritEnv: true });
+
+        await runner.run({ type: 'global' }, ['version']);
+
+        const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+        expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBe('super-secret');
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    });
+
+    it('should opt specific parent env vars back in via inheritEnv array', async () => {
+      const adapters = createMockAdapters();
+      vi.stubEnv('TYPE_GIT_TEST_OPT_IN', 'opt-in-value');
+      vi.stubEnv('TYPE_GIT_TEST_SECRET', 'super-secret');
+      try {
+        const runner = new CliRunner(adapters, { inheritEnv: ['TYPE_GIT_TEST_OPT_IN'] });
+
+        await runner.run({ type: 'global' }, ['version']);
+
+        const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+        expect(spawnCall[0].env.TYPE_GIT_TEST_OPT_IN).toBe('opt-in-value');
+        expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBeUndefined();
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    });
+
+    it('should propagate inheritEnv through withOptions()', async () => {
+      const adapters = createMockAdapters();
+      vi.stubEnv('TYPE_GIT_TEST_SECRET', 'super-secret');
+      try {
+        const baseRunner = new CliRunner(adapters, { inheritEnv: true });
+        const derivedRunner = baseRunner.withOptions({ env: { EXTRA: 'x' } });
+
+        await derivedRunner.run({ type: 'global' }, ['version']);
+
+        const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+        expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBe('super-secret');
+      } finally {
+        vi.unstubAllEnvs();
+      }
     });
   });
 
