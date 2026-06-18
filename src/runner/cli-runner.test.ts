@@ -318,15 +318,16 @@ describe('CliRunner', () => {
       expect(spawnCall[0].env.SHARED_VAR).toBe('derived');
     });
 
-    it('should reuse an existing case-variant PATH key when applying the prefix', async () => {
-      // On Windows the inherited variable is commonly named `Path`. The prefix logic must
-      // reuse that key instead of creating a separate uppercase `PATH`, which would orphan
-      // the inherited value.
+    it('should apply the PATH prefix to the platform PATH key without orphaning it', async () => {
+      // On Windows the PATH variable is commonly named `Path` and matched
+      // case-insensitively, so the prefix logic must reuse that key. On other platforms
+      // names are case-sensitive and the canonical `PATH` is always used.
+      const pathKey = process.platform === 'win32' ? 'Path' : 'PATH';
       const adapters = createMockAdapters();
       const runner = new CliRunner(adapters, {
-        // Disable allowlist inheritance so the only PATH-like key is the case variant below
+        // Disable allowlist inheritance so the only PATH key is the one provided below
         inheritEnv: false,
-        env: { Path: '/inherited/bin' },
+        env: { [pathKey]: '/inherited/bin' },
         pathPrefix: ['/custom/bin'],
       });
 
@@ -334,11 +335,9 @@ describe('CliRunner', () => {
 
       const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
       const envArg = spawnCall[0].env;
-      // The original key is reused and retains the inherited value
-      expect(envArg.Path).toContain('/custom/bin');
-      expect(envArg.Path).toContain('/inherited/bin');
-      // No duplicate uppercase PATH containing only the prefix
-      expect(envArg.PATH).toBeUndefined();
+      // The prefix is applied to the platform PATH key and the inherited value is retained
+      expect(envArg[pathKey]).toContain('/custom/bin');
+      expect(envArg[pathKey]).toContain('/inherited/bin');
     });
 
     it('should instruct the adapter not to inherit the parent environment', async () => {

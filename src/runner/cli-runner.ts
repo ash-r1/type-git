@@ -273,11 +273,15 @@ export class CliRunner {
 
     // Apply PATH prefix
     if (allPathPrefixes.length > 0) {
-      const separator = process.platform === 'win32' ? ';' : ':';
-      // Locate the existing PATH variable case-insensitively. Windows commonly uses
-      // `Path`, so writing to `PATH` would orphan the inherited value and break command
-      // resolution. Reuse the existing key (or default to `PATH`) to avoid duplicates.
-      const pathKey = Object.keys(env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
+      const isWindows = process.platform === 'win32';
+      const separator = isWindows ? ';' : ':';
+      // On Windows, env var names are case-insensitive and PATH is commonly stored as
+      // `Path`; reuse whatever case variant exists so the prefix is applied to the
+      // inherited value instead of orphaning it under a duplicate `PATH` key. On other
+      // platforms names are case-sensitive, so always use the canonical `PATH`.
+      const pathKey = isWindows
+        ? (Object.keys(env).find((key) => key.toLowerCase() === 'path') ?? 'PATH')
+        : 'PATH';
       // Prepend to the already-resolved PATH (which respects the inheritEnv allowlist)
       const currentPath = env[pathKey] ?? '';
       env[pathKey] = [...allPathPrefixes, currentPath].join(separator);
