@@ -22,6 +22,7 @@ declare const Deno: {
       args?: string[];
       cwd?: string;
       env?: Record<string, string>;
+      clearEnv?: boolean;
       stdin?: 'piped' | 'inherit' | 'null';
       stdout?: 'piped' | 'inherit' | 'null';
       stderr?: 'piped' | 'inherit' | 'null';
@@ -50,6 +51,24 @@ declare const Deno: {
     toObject(): Record<string, string>;
   };
 };
+
+/**
+ * Resolve the environment options passed to `Deno.Command`.
+ *
+ * Deno merges the provided `env` on top of the parent environment unless `clearEnv` is
+ * set. When `inheritEnv` is `false`, `clearEnv: true` is used so only the explicitly
+ * provided `env` reaches the child (environment variable traversal prevention).
+ * Otherwise the parent environment is merged underneath `env`.
+ */
+function resolveChildEnvOptions(
+  env: Record<string, string> | undefined,
+  inheritEnv: boolean | undefined,
+): { env?: Record<string, string>; clearEnv?: boolean } {
+  if (inheritEnv === false) {
+    return { env: env ?? {}, clearEnv: true };
+  }
+  return { env: env ? { ...Deno.env.toObject(), ...env } : undefined };
+}
 
 /**
  * Create an async iterable from a ReadableStream
@@ -123,7 +142,7 @@ export class DenoExecAdapter implements ExecAdapter {
   }
 
   public async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
-    const { argv, env, cwd, signal } = options;
+    const { argv, env, inheritEnv, cwd, signal } = options;
 
     const command = argv[0];
     if (command === undefined) {
@@ -146,7 +165,7 @@ export class DenoExecAdapter implements ExecAdapter {
     const cmd = new Deno.Command(command, {
       args,
       cwd,
-      env: env ? { ...Deno.env.toObject(), ...env } : undefined,
+      ...resolveChildEnvOptions(env, inheritEnv),
       stdin: 'null',
       stdout: 'piped',
       stderr: 'piped',
@@ -246,7 +265,7 @@ export class DenoExecAdapter implements ExecAdapter {
   }
 
   public spawnStreaming(options: SpawnOptions): SpawnHandle {
-    const { argv, env, cwd, signal } = options;
+    const { argv, env, inheritEnv, cwd, signal } = options;
 
     const command = argv[0];
     if (command === undefined) {
@@ -258,7 +277,7 @@ export class DenoExecAdapter implements ExecAdapter {
     const cmd = new Deno.Command(command, {
       args,
       cwd,
-      env: env ? { ...Deno.env.toObject(), ...env } : undefined,
+      ...resolveChildEnvOptions(env, inheritEnv),
       stdin: 'null',
       stdout: 'piped',
       stderr: 'piped',

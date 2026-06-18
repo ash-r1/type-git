@@ -5,7 +5,7 @@
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { NodeExecAdapter } from './exec.js';
 
 // Normalize path separators for cross-platform comparison
@@ -93,6 +93,36 @@ describe('NodeExecAdapter', () => {
       });
 
       expect(result.stdout.trim()).toBe('test-value');
+    });
+
+    it('should not inherit the parent environment when inheritEnv is false', async () => {
+      vi.stubEnv('TYPE_GIT_PARENT_ONLY', 'leaked');
+      try {
+        // Provide PATH explicitly so node can still be located, but nothing else.
+        const result = await adapter.spawn({
+          argv: ['node', '-e', 'console.log(process.env.TYPE_GIT_PARENT_ONLY ?? "undefined")'],
+          env: { PATH: process.env.PATH ?? '' },
+          inheritEnv: false,
+        });
+
+        expect(result.stdout.trim()).toBe('undefined');
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    });
+
+    it('should inherit the parent environment by default', async () => {
+      vi.stubEnv('TYPE_GIT_PARENT_ONLY', 'inherited');
+      try {
+        const result = await adapter.spawn({
+          argv: ['node', '-e', 'console.log(process.env.TYPE_GIT_PARENT_ONLY ?? "undefined")'],
+          env: { OTHER: 'x' },
+        });
+
+        expect(result.stdout.trim()).toBe('inherited');
+      } finally {
+        vi.unstubAllEnvs();
+      }
     });
 
     it('should support AbortSignal', async () => {

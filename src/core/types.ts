@@ -10,6 +10,8 @@
  * - Branded types for type safety
  */
 
+import type { EnvInheritance } from './env.js';
+
 // =============================================================================
 // Branded Types for Type Safety
 // =============================================================================
@@ -382,6 +384,15 @@ export type GitOpenOptions = {
   credentialHelper?: string;
   /** Additional environment variables */
   env?: Record<string, string>;
+  /**
+   * Controls how the parent process environment is inherited by spawned Git commands.
+   *
+   * By default, only a curated allowlist of variables that Git needs to operate is
+   * inherited (environment variable traversal prevention). Set to `true` to inherit the
+   * full parent environment, or provide an array of variable names to opt additional
+   * variables back in.
+   */
+  inheritEnv?: EnvInheritance;
   /** Directories to prepend to PATH */
   pathPrefix?: string[];
   /** Credential configuration (§6.4) */

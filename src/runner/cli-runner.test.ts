@@ -317,6 +317,81 @@ describe('CliRunner', () => {
       const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
       expect(spawnCall[0].env.SHARED_VAR).toBe('derived');
     });
+
+    it('should instruct the adapter not to inherit the parent environment', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+
+      await runner.run({ type: 'global' }, ['version']);
+
+      const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+      expect(spawnCall[0].inheritEnv).toBe(false);
+    });
+
+    it('should not forward sensitive parent env vars by default', async () => {
+      const adapters = createMockAdapters();
+      vi.stubEnv('TYPE_GIT_TEST_SECRET', 'super-secret');
+      try {
+        const runner = new CliRunner(adapters);
+
+        await runner.run({ type: 'global' }, ['version']);
+
+        const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+        expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBeUndefined();
+        // But allowlisted vars such as PATH are still inherited
+        expect(spawnCall[0].env.PATH).toBeDefined();
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    });
+
+    it('should forward all parent env vars when inheritEnv is true', async () => {
+      const adapters = createMockAdapters();
+      vi.stubEnv('TYPE_GIT_TEST_SECRET', 'super-secret');
+      try {
+        const runner = new CliRunner(adapters, { inheritEnv: true });
+
+        await runner.run({ type: 'global' }, ['version']);
+
+        const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+        expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBe('super-secret');
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    });
+
+    it('should opt specific parent env vars back in via inheritEnv array', async () => {
+      const adapters = createMockAdapters();
+      vi.stubEnv('TYPE_GIT_TEST_OPT_IN', 'opt-in-value');
+      vi.stubEnv('TYPE_GIT_TEST_SECRET', 'super-secret');
+      try {
+        const runner = new CliRunner(adapters, { inheritEnv: ['TYPE_GIT_TEST_OPT_IN'] });
+
+        await runner.run({ type: 'global' }, ['version']);
+
+        const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+        expect(spawnCall[0].env.TYPE_GIT_TEST_OPT_IN).toBe('opt-in-value');
+        expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBeUndefined();
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    });
+
+    it('should propagate inheritEnv through withOptions()', async () => {
+      const adapters = createMockAdapters();
+      vi.stubEnv('TYPE_GIT_TEST_SECRET', 'super-secret');
+      try {
+        const baseRunner = new CliRunner(adapters, { inheritEnv: true });
+        const derivedRunner = baseRunner.withOptions({ env: { EXTRA: 'x' } });
+
+        await derivedRunner.run({ type: 'global' }, ['version']);
+
+        const spawnCall = (adapters.exec.spawn as ReturnType<typeof vi.fn>).mock.calls[0];
+        expect(spawnCall[0].env.TYPE_GIT_TEST_SECRET).toBe('super-secret');
+      } finally {
+        vi.unstubAllEnvs();
+      }
+    });
   });
 
   describe('credential helper', () => {
