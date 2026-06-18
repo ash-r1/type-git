@@ -274,9 +274,13 @@ export class CliRunner {
     // Apply PATH prefix
     if (allPathPrefixes.length > 0) {
       const separator = process.platform === 'win32' ? ';' : ':';
+      // Locate the existing PATH variable case-insensitively. Windows commonly uses
+      // `Path`, so writing to `PATH` would orphan the inherited value and break command
+      // resolution. Reuse the existing key (or default to `PATH`) to avoid duplicates.
+      const pathKey = Object.keys(env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
       // Prepend to the already-resolved PATH (which respects the inheritEnv allowlist)
-      const currentPath = env.PATH ?? '';
-      env.PATH = [...allPathPrefixes, currentPath].join(separator);
+      const currentPath = env[pathKey] ?? '';
+      env[pathKey] = [...allPathPrefixes, currentPath].join(separator);
     }
 
     // Enable GIT_TRACE when trace callback is provided (only if not already set)
