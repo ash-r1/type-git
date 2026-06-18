@@ -106,11 +106,23 @@ describe('resolveInheritedEnv', () => {
       expect(DEFAULT_ENV_ALLOWLIST).toContain('HOME');
     });
 
-    it('includes common Git transport configuration variables', () => {
+    it('includes all common Git transport configuration variables', () => {
       // Non-secret Git config vars needed for fetch/push to keep working by default
-      expect(DEFAULT_ENV_ALLOWLIST).toContain('GIT_SSH_COMMAND');
-      expect(DEFAULT_ENV_ALLOWLIST).toContain('GIT_SSL_CAINFO');
-      expect(DEFAULT_ENV_ALLOWLIST).toContain('GIT_PROXY_COMMAND');
+      const gitTransportVars = [
+        'GIT_SSH',
+        'GIT_SSH_COMMAND',
+        'GIT_SSH_VARIANT',
+        'GIT_SSL_CAINFO',
+        'GIT_SSL_CAPATH',
+        'GIT_PROXY_COMMAND',
+        'GIT_ASKPASS',
+        'SSH_ASKPASS',
+        'GIT_TERMINAL_PROMPT',
+        'GIT_CONFIG_NOSYSTEM',
+      ];
+      for (const name of gitTransportVars) {
+        expect(DEFAULT_ENV_ALLOWLIST).toContain(name);
+      }
     });
   });
 
