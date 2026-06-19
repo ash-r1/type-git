@@ -60,9 +60,11 @@ describe('onLfsProgress wiring', () => {
 
     expect(events.length).toBeGreaterThan(0);
     expect(events[0]).toMatchObject({ direction: 'download', percent: 50 });
-    // LFS progress output is enabled via env var, independent of --progress.
+    // `--progress` is added when only onLfsProgress is set, and LFS progress
+    // output is additionally forced via GIT_LFS_FORCE_PROGRESS.
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
       expect.objectContaining({
+        argv: expect.arrayContaining(['--progress']),
         env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
       }),
       expect.objectContaining({ onStderr: expect.any(Function) }),
@@ -79,6 +81,7 @@ describe('onLfsProgress wiring', () => {
     expect(events.length).toBeGreaterThan(0);
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
       expect.objectContaining({
+        argv: expect.arrayContaining(['--progress']),
         env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
       }),
       expect.objectContaining({ onStderr: expect.any(Function) }),
@@ -95,6 +98,7 @@ describe('onLfsProgress wiring', () => {
     expect(events.length).toBeGreaterThan(0);
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
       expect.objectContaining({
+        argv: expect.arrayContaining(['--progress']),
         env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
       }),
       expect.objectContaining({ onStderr: expect.any(Function) }),
@@ -109,14 +113,20 @@ describe('onLfsProgress wiring', () => {
     await repo.pull({ onLfsProgress: (p) => events.push(p) });
 
     expect(events.length).toBeGreaterThan(0);
+    // The progress gate is broadened to onProgress || onLfsProgress, so
+    // `--progress` must be added even though only onLfsProgress is provided.
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
       expect.objectContaining({
+        argv: expect.arrayContaining(['--progress']),
         env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
       }),
       expect.objectContaining({ onStderr: expect.any(Function) }),
     );
   });
 
+  // `git lfs pull/push` (and the batched preUpload/preDownload helpers) do not
+  // take a `--progress` flag; LFS progress is forced purely via the
+  // GIT_LFS_FORCE_PROGRESS env var, so these tests assert only on that.
   it('lfs.pull forwards onLfsProgress to the runner', async () => {
     const adapters = createMockAdapters();
     const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
@@ -157,8 +167,11 @@ describe('onLfsProgress wiring', () => {
     await repo.lfs.fetch({ onLfsProgress: (p) => events.push(p) });
 
     expect(events.length).toBeGreaterThan(0);
+    // `git lfs fetch` does take `--progress`; the broadened gate must add it
+    // when only onLfsProgress is provided.
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
       expect.objectContaining({
+        argv: expect.arrayContaining(['--progress']),
         env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
       }),
       expect.objectContaining({ onStderr: expect.any(Function) }),
