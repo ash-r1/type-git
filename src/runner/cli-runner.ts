@@ -149,10 +149,11 @@ export type CliRunnerOptions = {
 /**
  * Per-call options for {@link CliRunner.run} / {@link CliRunner.runOrThrow}.
  *
- * Extends the public {@link ExecOpts} with an internal `env` overlay so callers
- * (e.g. the repository implementations) can inject command-specific environment
- * variables — such as `GIT_LFS_SKIP_SMUDGE` for an LFS skip-smudge mode —
- * without widening the public API surface.
+ * Extends {@link ExecOpts} with an `env` overlay so callers (e.g. the repository
+ * implementations) can inject command-specific environment variables — such as
+ * `GIT_LFS_SKIP_SMUDGE` for an LFS skip-smudge mode. This keeps `env` out of the
+ * public `ExecOpts` / repository operation option types, scoping it to the
+ * runner's own `run` / `runOrThrow` entry points.
  */
 export type RunOptions = ExecOpts & {
   /**

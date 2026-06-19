@@ -1069,7 +1069,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
    *
    * When the repository was opened (or reconfigured) with an object-form LFS
    * mode requesting `skipSmudge` and/or `skipDownload`, working-tree-populating
-   * operations (checkout, switch, reset, merge, pull, restore) run with
+   * operations (checkout, switch, reset, merge, pull, rebase, restore) run with
    * `GIT_LFS_SKIP_SMUDGE=1`. Git then leaves LFS pointer files in place instead
    * of downloading their contents during the implicit checkout.
    *
