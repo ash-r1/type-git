@@ -8,6 +8,10 @@
   "changesets": [
     "audit-mode",
     "clone-push-lfs-progress",
-    "env-var-traversal-prevention"
+    "env-var-traversal-prevention",
+    "git-transport-env-allowlist",
+    "inherit-env-remove-predicate",
+    "lfs-progress-pull-fetch-preupload",
+    "lfs-skip-smudge-mode"
   ]
 }
