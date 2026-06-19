@@ -301,15 +301,23 @@ export type Capabilities = {
 // =============================================================================
 
 /**
- * LFS mode configuration
+ * LFS mode configuration.
+ *
+ * - `'enabled'` (default): LFS behaves normally.
+ * - `'disabled'`: the `repo.lfs.*` / `repo.lfsExtra.*` helpers become no-ops.
+ * - object form: working-tree-populating operations (`checkout`, `switch`,
+ *   `reset`, `merge`, `pull`, `rebase`, `restore`) run with
+ *   `GIT_LFS_SKIP_SMUDGE=1` so Git leaves LFS pointer files in place instead of
+ *   downloading their contents. The objects can be materialized later via the
+ *   explicit `repo.lfs.pull()` / `repo.lfs.checkout()` helpers.
  */
 export type LfsMode =
   | 'enabled'
   | 'disabled'
   | {
-      /** Skip smudge filter (don't download LFS files on checkout) */
+      /** Skip smudge filter (don't download LFS files on checkout). */
       skipSmudge?: boolean;
-      /** Skip download (keep pointer files) */
+      /** Skip download, keeping pointer files (also implies skip-smudge). */
       skipDownload?: boolean;
     };
 
