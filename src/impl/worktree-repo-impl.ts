@@ -913,8 +913,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async push(opts?: PushOpts & ExecOpts): Promise<void> {
     const args = ['push'];
 
-    // Progress tracking
-    if (opts?.onProgress) {
+    // Progress tracking (git and/or LFS progress are streamed over stderr)
+    if (opts?.onProgress || opts?.onLfsProgress) {
       args.push('--progress');
     }
 
@@ -1118,6 +1118,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
+      onLfsProgress: opts?.onLfsProgress,
     });
   }
 
@@ -1155,6 +1156,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
+      onLfsProgress: opts?.onLfsProgress,
     });
   }
 
@@ -1262,6 +1264,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       const result = await this.runner.run(this.context, args, {
         signal: opts?.signal,
         onProgress: opts?.onProgress,
+        onLfsProgress: opts?.onLfsProgress,
       });
 
       if (result.exitCode === 0) {
@@ -1361,6 +1364,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       const result = await this.runner.run(this.context, args, {
         signal: opts?.signal,
         onProgress: opts?.onProgress,
+        onLfsProgress: opts?.onLfsProgress,
       });
 
       if (result.exitCode === 0) {
@@ -1442,7 +1446,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     const args = ['lfs', 'fetch'];
 
-    if (opts?.onProgress) {
+    if (opts?.onProgress || opts?.onLfsProgress) {
       args.push('--progress');
     }
 
@@ -1484,6 +1488,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
+      onLfsProgress: opts?.onLfsProgress,
     });
   }
 
@@ -3042,8 +3047,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   public async pull(opts?: PullOpts & ExecOpts): Promise<void> {
     const args = ['pull'];
 
-    // Progress tracking
-    if (opts?.onProgress) {
+    // Progress tracking (git and/or LFS progress are streamed over stderr)
+    if (opts?.onProgress || opts?.onLfsProgress) {
       args.push('--progress');
     }
 
