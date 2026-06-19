@@ -374,8 +374,9 @@ export class GitImpl implements Git {
   ): Promise<WorktreeRepo | BareRepo> {
     const args = buildCloneArgs(opts);
 
-    // Add progress flag for progress tracking (from ExecOpts)
-    if (opts?.onProgress) {
+    // Add progress flag for progress tracking (from ExecOpts).
+    // LFS progress is delivered via stderr too, so enable it for onLfsProgress as well.
+    if (opts?.onProgress || opts?.onLfsProgress) {
       args.push('--progress');
     }
 
