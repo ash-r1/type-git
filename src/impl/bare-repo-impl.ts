@@ -630,7 +630,7 @@ export class BareRepoImpl implements BareRepo {
   public async push(opts?: PushOpts & ExecOpts): Promise<void> {
     const args = ['push'];
 
-    if (opts?.onProgress) {
+    if (opts?.onProgress || opts?.onLfsProgress) {
       args.push('--progress');
     }
 

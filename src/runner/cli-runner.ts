@@ -147,6 +147,24 @@ export type CliRunnerOptions = {
 };
 
 /**
+ * Per-call options for {@link CliRunner.run} / {@link CliRunner.runOrThrow}.
+ *
+ * Extends {@link ExecOpts} with an `env` overlay so callers (e.g. the repository
+ * implementations) can inject command-specific environment variables — such as
+ * `GIT_LFS_SKIP_SMUDGE` for an LFS skip-smudge mode. This keeps `env` out of the
+ * public `ExecOpts` / repository operation option types, scoping it to the
+ * runner's own `run` / `runOrThrow` entry points.
+ */
+export type RunOptions = ExecOpts & {
+  /**
+   * Extra environment variables merged on top of the resolved environment for
+   * this single command. Values here take precedence over the configured
+   * environment but do not persist across calls.
+   */
+  env?: Record<string, string>;
+};
+
+/**
  * CLI Runner for executing Git commands
  *
  * Handles:
@@ -318,11 +336,21 @@ export class CliRunner {
   /**
    * Run a Git command
    */
-  public async run(context: ExecutionContext, args: string[], opts?: ExecOpts): Promise<RawResult> {
+  public async run(
+    context: ExecutionContext,
+    args: string[],
+    opts?: RunOptions,
+  ): Promise<RawResult> {
     const argv = this.buildArgv(context, args);
-    const { signal, onProgress, onLfsProgress } = opts ?? {};
+    const { signal, onProgress, onLfsProgress, env: envOverride } = opts ?? {};
 
     const env = this.buildEnv();
+
+    // Apply per-call environment overrides (e.g. GIT_LFS_SKIP_SMUDGE) on top of
+    // the resolved environment.
+    if (envOverride) {
+      Object.assign(env, envOverride);
+    }
 
     // Enable LFS progress output to stderr when LFS progress callback is provided
     if (onLfsProgress) {
@@ -535,7 +563,7 @@ export class CliRunner {
   public async runOrThrow(
     context: ExecutionContext,
     args: string[],
-    opts?: ExecOpts,
+    opts?: RunOptions,
   ): Promise<RawResult> {
     const result = await this.run(context, args, opts);
     const error = this.mapError(result, context, this.buildArgv(context, args));
