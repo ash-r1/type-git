@@ -1,5 +1,67 @@
 # type-git
 
+## 0.3.0-alpha.2
+
+### Minor Changes
+
+- [#122](https://github.com/ash-r1/type-git/pull/122) [`49edd4e`](https://github.com/ash-r1/type-git/commit/49edd4ec68fd01adbb1e2999b24d415b85c29ad6) Thanks [@ash-r1](https://github.com/ash-r1)! - Add deny-list and predicate forms to `inheritEnv`
+
+  `inheritEnv` previously only accepted `true` / `false` / `string[]`, so the
+  default allowlist could be extended but never trimmed — dropping a single
+  default entry (e.g. `SSH_AUTH_SOCK` for an HTTPS-only app) meant rebuilding the
+  whole list by hand.
+
+  Two new forms are now supported:
+
+  - `{ add?: string[]; remove?: string[] }` — start from the default allowlist,
+    add `add`, then subtract `remove` (`remove` wins on conflicts). For example
+    `inheritEnv: { remove: ['SSH_AUTH_SOCK', 'SSH_AGENT_PID'] }`.
+  - `(name: string) => boolean` — a predicate that decides each variable
+    individually, bypassing the default allowlist entirely.
+
+  `DEFAULT_ENV_ALLOWLIST` documentation now also calls out that the SSH agent vars
+  (`SSH_AUTH_SOCK` / `SSH_AGENT_PID`) are included by default (and how to drop
+  them), while the most credential-prone helpers (`GIT_ASKPASS` / `SSH_ASKPASS` /
+  `GIT_PROXY_COMMAND`) are intentionally excluded.
+
+- [#119](https://github.com/ash-r1/type-git/pull/119) [`3fcf335`](https://github.com/ash-r1/type-git/commit/3fcf335ddbf9726ca6bbee5adddd40e435ac9e0e) Thanks [@ash-r1](https://github.com/ash-r1)! - Forward `onLfsProgress` through `pull` and the LFS transfer operations
+
+  `onLfsProgress` was accepted on these methods' option types (via `ExecOpts`)
+  but was never wired to the runner, so the callback silently never fired.
+  LFS transfer progress is now reported during `repo.pull()`, `repo.lfs.pull()`,
+  `repo.lfs.push()`, `repo.lfs.fetch()`, `repo.lfsExtra.preUpload()` and
+  `repo.lfsExtra.preDownload()`, matching the existing `clone` / `push` behavior.
+
+  The `--progress` enablement gate was also broadened from `onProgress` to
+  `onProgress || onLfsProgress` (in `clone`, `push`, `pull` and `lfs.fetch`) so
+  that passing only `onLfsProgress` still requests progress output.
+
+- [#120](https://github.com/ash-r1/type-git/pull/120) [`e9a7f67`](https://github.com/ash-r1/type-git/commit/e9a7f6702529b589b422fa7366769c93b6c5c8b9) Thanks [@ash-r1](https://github.com/ash-r1)! - Honor the object-form LFS mode (`open({ lfs: { skipSmudge } })`)
+
+  Previously the object form of `LfsMode` (`{ skipSmudge?, skipDownload? }`) was
+  stored but never consulted — only the string `'disabled'` had any effect, so
+  `open({ lfs: { skipSmudge: true } })` was a silent no-op and checkout/pull still
+  smudged LFS files.
+
+  Now, when a repository is opened (or reconfigured via `setLfsMode`) with an
+  object-form mode requesting `skipSmudge` and/or `skipDownload`, the
+  working-tree-populating operations — `checkout`, `switch`, `reset`, `merge`,
+  `pull`, `rebase` and `restore` — run with `GIT_LFS_SKIP_SMUDGE=1`. Git leaves
+  LFS pointer files in place instead of downloading their contents. The objects
+  can be materialized later via the explicit `repo.lfs.pull()` /
+  `repo.lfs.checkout()` helpers, which use dedicated git-lfs commands and are not
+  affected by the variable.
+
+### Patch Changes
+
+- [#117](https://github.com/ash-r1/type-git/pull/117) [`780c445`](https://github.com/ash-r1/type-git/commit/780c445363f0a9290b4e9578968613b651775b23) Thanks [@ash-r1](https://github.com/ash-r1)! - Add common Git transport configuration variables to the default environment allowlist
+
+  Following the environment variable traversal prevention change, Git's own SSH transport and TLS configuration variables were no longer inherited by default, which could break workflows relying on them (e.g. a custom SSH command).
+
+  The default allowlist now also inherits these Git configuration variables, which are commonly needed for transport configuration: `GIT_SSH`, `GIT_SSH_COMMAND`, `GIT_SSH_VARIANT`, `GIT_SSL_CAINFO`, `GIT_SSL_CAPATH`, `GIT_TERMINAL_PROMPT`, and `GIT_CONFIG_NOSYSTEM`. These are configuration rather than application secrets (though, depending on local setup, values such as `GIT_SSH_COMMAND` may name a command Git executes).
+
+  Credential-carrying / askpass variables — `GIT_ASKPASS`, `SSH_ASKPASS`, and `GIT_PROXY_COMMAND` — are intentionally **not** inherited by default, since they can carry inline credentials or invoke a helper that reads secrets from the environment. Opt into those (and any other variables) explicitly via `inheritEnv` when needed.
+
 ## 0.3.0-alpha.1
 
 ### Minor Changes
