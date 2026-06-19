@@ -64,16 +64,19 @@ export const DEFAULT_ENV_ALLOWLIST: readonly string[] = [
   // SSH agent (required for Git-over-SSH authentication)
   'SSH_AUTH_SOCK',
   'SSH_AGENT_PID',
-  // Git transport / TLS / askpass configuration (non-secret; commonly required for
-  // network operations such as fetch/push to keep working under the default allowlist)
+  // Git SSH transport and TLS configuration. These are commonly required for
+  // fetch/push to keep working under the default allowlist. They are configuration
+  // (not application secrets), though GIT_SSH_COMMAND can name a command Git executes.
+  // Credential-carrying / askpass variables (GIT_ASKPASS, SSH_ASKPASS,
+  // GIT_PROXY_COMMAND) are intentionally NOT inherited by default — they can carry
+  // inline credentials or run a helper that reads secrets from the environment, which
+  // would weaken the traversal-prevention model. Opt into those explicitly via
+  // `inheritEnv` when needed.
   'GIT_SSH',
   'GIT_SSH_COMMAND',
   'GIT_SSH_VARIANT',
   'GIT_SSL_CAINFO',
   'GIT_SSL_CAPATH',
-  'GIT_PROXY_COMMAND',
-  'GIT_ASKPASS',
-  'SSH_ASKPASS',
   'GIT_TERMINAL_PROMPT',
   'GIT_CONFIG_NOSYSTEM',
   // HTTP(S) proxy configuration (required for Git network operations behind a proxy)
