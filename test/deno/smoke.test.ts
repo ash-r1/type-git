@@ -82,6 +82,40 @@ describe('DenoExecAdapter', () => {
       assertEquals(result.stdout.trim(), 'test_value');
     });
 
+    it('does not leak the parent environment when inheritEnv is false', async () => {
+      // Use a test-specific var name to avoid races with concurrently running tests.
+      Deno.env.set('TYPE_GIT_SMOKE_NOLEAK', 'leaked');
+      try {
+        const result = await adapter.spawn({
+          // Provide PATH so `sh` can still be located, but nothing else.
+          // Deno only clears the parent environment when clearEnv is set, which the
+          // adapter does for inheritEnv: false.
+          argv: ['sh', '-c', 'echo "${TYPE_GIT_SMOKE_NOLEAK:-undefined}"'],
+          env: { PATH: Deno.env.get('PATH') ?? '' },
+          inheritEnv: false,
+        });
+
+        assertEquals(result.stdout.trim(), 'undefined');
+      } finally {
+        Deno.env.delete('TYPE_GIT_SMOKE_NOLEAK');
+      }
+    });
+
+    it('inherits the parent environment by default', async () => {
+      // Use a test-specific var name to avoid races with concurrently running tests.
+      Deno.env.set('TYPE_GIT_SMOKE_INHERIT', 'inherited');
+      try {
+        const result = await adapter.spawn({
+          argv: ['sh', '-c', 'echo "${TYPE_GIT_SMOKE_INHERIT:-undefined}"'],
+          env: { OTHER: 'x' },
+        });
+
+        assertEquals(result.stdout.trim(), 'inherited');
+      } finally {
+        Deno.env.delete('TYPE_GIT_SMOKE_INHERIT');
+      }
+    });
+
     it('handles abort signal', async () => {
       const controller = new AbortController();
 
