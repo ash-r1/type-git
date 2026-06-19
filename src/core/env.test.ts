@@ -105,5 +105,43 @@ describe('resolveInheritedEnv', () => {
       expect(DEFAULT_ENV_ALLOWLIST).toContain('PATH');
       expect(DEFAULT_ENV_ALLOWLIST).toContain('HOME');
     });
+
+    it('includes the SSH transport and TLS configuration variables', () => {
+      // Git config commonly needed for fetch/push to keep working by default
+      const gitTransportVars = [
+        'GIT_SSH',
+        'GIT_SSH_COMMAND',
+        'GIT_SSH_VARIANT',
+        'GIT_SSL_CAINFO',
+        'GIT_SSL_CAPATH',
+        'GIT_TERMINAL_PROMPT',
+        'GIT_CONFIG_NOSYSTEM',
+      ];
+      for (const name of gitTransportVars) {
+        expect(DEFAULT_ENV_ALLOWLIST).toContain(name);
+      }
+    });
+
+    it('excludes credential-carrying / askpass variables (opt-in only)', () => {
+      // These can carry inline credentials or run a helper that reads secrets from the
+      // environment, so they are not inherited by default to preserve the
+      // traversal-prevention model.
+      for (const name of ['GIT_ASKPASS', 'SSH_ASKPASS', 'GIT_PROXY_COMMAND']) {
+        expect(DEFAULT_ENV_ALLOWLIST).not.toContain(name);
+      }
+    });
+  });
+
+  it('inherits a custom GIT_SSH_COMMAND by default', () => {
+    const result = resolveInheritedEnv({ GIT_SSH_COMMAND: 'ssh -i /path/to/key' });
+
+    expect(result.GIT_SSH_COMMAND).toBe('ssh -i /path/to/key');
+  });
+
+  it('does not inherit GIT_ASKPASS by default but can opt in', () => {
+    expect(resolveInheritedEnv({ GIT_ASKPASS: '/usr/bin/my-askpass' }).GIT_ASKPASS).toBeUndefined();
+
+    const optedIn = resolveInheritedEnv({ GIT_ASKPASS: '/usr/bin/my-askpass' }, ['GIT_ASKPASS']);
+    expect(optedIn.GIT_ASKPASS).toBe('/usr/bin/my-askpass');
   });
 });
