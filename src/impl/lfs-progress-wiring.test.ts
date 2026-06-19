@@ -1,5 +1,7 @@
 /**
- * Tests that `onLfsProgress` is forwarded from clone / push down to the runner.
+ * Tests that `onLfsProgress` is forwarded from clone / push / pull and the LFS
+ * transfer operations (lfs.pull, lfs.push, lfs.fetch, lfsExtra.preUpload,
+ * lfsExtra.preDownload) down to the runner.
  *
  * These use mock adapters (rather than a real git binary) so that LFS transfer
  * progress lines can be simulated deterministically on stderr.
@@ -89,6 +91,110 @@ describe('onLfsProgress wiring', () => {
     const events: LfsProgress[] = [];
 
     await repo.push({ onLfsProgress: (p) => events.push(p) });
+
+    expect(events.length).toBeGreaterThan(0);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
+      }),
+      expect.objectContaining({ onStderr: expect.any(Function) }),
+    );
+  });
+
+  it('pull forwards onLfsProgress to the runner', async () => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    const events: LfsProgress[] = [];
+
+    await repo.pull({ onLfsProgress: (p) => events.push(p) });
+
+    expect(events.length).toBeGreaterThan(0);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
+      }),
+      expect.objectContaining({ onStderr: expect.any(Function) }),
+    );
+  });
+
+  it('lfs.pull forwards onLfsProgress to the runner', async () => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    const events: LfsProgress[] = [];
+
+    await repo.lfs.pull({ onLfsProgress: (p) => events.push(p) });
+
+    expect(events.length).toBeGreaterThan(0);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
+      }),
+      expect.objectContaining({ onStderr: expect.any(Function) }),
+    );
+  });
+
+  it('lfs.push forwards onLfsProgress to the runner', async () => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    const events: LfsProgress[] = [];
+
+    await repo.lfs.push({ onLfsProgress: (p) => events.push(p) });
+
+    expect(events.length).toBeGreaterThan(0);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
+      }),
+      expect.objectContaining({ onStderr: expect.any(Function) }),
+    );
+  });
+
+  it('lfs.fetch forwards onLfsProgress to the runner', async () => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    const events: LfsProgress[] = [];
+
+    await repo.lfs.fetch({ onLfsProgress: (p) => events.push(p) });
+
+    expect(events.length).toBeGreaterThan(0);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
+      }),
+      expect.objectContaining({ onStderr: expect.any(Function) }),
+    );
+  });
+
+  it('lfsExtra.preUpload forwards onLfsProgress to the runner', async () => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    const events: LfsProgress[] = [];
+
+    // Provide explicit OIDs so the batched `git lfs push` runs (skips ls-files).
+    await repo.lfsExtra.preUpload({
+      oids: ['a'.repeat(64)],
+      onLfsProgress: (p) => events.push(p),
+    });
+
+    expect(events.length).toBeGreaterThan(0);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
+      }),
+      expect.objectContaining({ onStderr: expect.any(Function) }),
+    );
+  });
+
+  it('lfsExtra.preDownload forwards onLfsProgress to the runner', async () => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    const events: LfsProgress[] = [];
+
+    // Provide explicit OIDs so the batched `git lfs fetch` runs (skips ls-files).
+    await repo.lfsExtra.preDownload({
+      oids: ['a'.repeat(64)],
+      onLfsProgress: (p) => events.push(p),
+    });
 
     expect(events.length).toBeGreaterThan(0);
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
