@@ -396,9 +396,12 @@ export type GitOpenOptions = {
    * Controls how the parent process environment is inherited by spawned Git commands.
    *
    * By default, only a curated allowlist of variables that Git needs to operate is
-   * inherited (environment variable traversal prevention). Set to `true` to inherit the
-   * full parent environment, or provide an array of variable names to opt additional
-   * variables back in.
+   * inherited (environment variable traversal prevention). See {@link EnvInheritance} for
+   * all supported forms:
+   * - `true` — inherit the full parent environment.
+   * - `string[]` — inherit the default allowlist plus the named variables.
+   * - `{ add?, remove? }` — adjust the default allowlist (e.g. drop `SSH_AUTH_SOCK`).
+   * - `(name) => boolean` — decide each variable individually.
    */
   inheritEnv?: EnvInheritance;
   /** Directories to prepend to PATH */

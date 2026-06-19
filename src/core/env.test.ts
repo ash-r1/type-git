@@ -75,6 +75,83 @@ describe('resolveInheritedEnv', () => {
     });
   });
 
+  describe('inheritEnv: { add, remove }', () => {
+    it('adds named variables on top of the default allowlist', () => {
+      const result = resolveInheritedEnv(parentEnv, { add: ['MY_API_TOKEN'] });
+
+      expect(result.PATH).toBe('/usr/bin:/bin');
+      expect(result.MY_API_TOKEN).toBe('token-value');
+      expect(result.AWS_SECRET_ACCESS_KEY).toBeUndefined();
+    });
+
+    it('removes a single default entry while keeping the rest', () => {
+      const result = resolveInheritedEnv(parentEnv, { remove: ['SSH_AUTH_SOCK'] });
+
+      // The targeted default is dropped...
+      expect(result.SSH_AUTH_SOCK).toBeUndefined();
+      // ...but other defaults remain.
+      expect(result.PATH).toBe('/usr/bin:/bin');
+      expect(result.HOME).toBe('/home/user');
+    });
+
+    it('lets remove take precedence over add', () => {
+      const result = resolveInheritedEnv(parentEnv, {
+        add: ['MY_API_TOKEN'],
+        remove: ['MY_API_TOKEN'],
+      });
+
+      expect(result.MY_API_TOKEN).toBeUndefined();
+    });
+
+    it('treats an empty adjustment like the default allowlist', () => {
+      const result = resolveInheritedEnv(parentEnv, {});
+
+      expect(result.PATH).toBe('/usr/bin:/bin');
+      expect(result.SSH_AUTH_SOCK).toBe('/tmp/ssh-agent.sock');
+      expect(result.MY_API_TOKEN).toBeUndefined();
+    });
+
+    it('removes default entries case-insensitively on win32', () => {
+      const winEnv = {
+        Path: 'C:\\Windows',
+        SSH_AUTH_SOCK: '/tmp/agent.sock',
+      };
+
+      const result = resolveInheritedEnv(winEnv, { remove: ['ssh_auth_sock'] }, 'win32');
+
+      expect(result.Path).toBe('C:\\Windows');
+      expect(result.SSH_AUTH_SOCK).toBeUndefined();
+    });
+  });
+
+  describe('inheritEnv: predicate', () => {
+    it('inherits only variables for which the predicate returns true', () => {
+      const result = resolveInheritedEnv(parentEnv, (name) => name === 'MY_API_TOKEN');
+
+      // Bypasses the default allowlist entirely.
+      expect(result.MY_API_TOKEN).toBe('token-value');
+      expect(result.PATH).toBeUndefined();
+      expect(result.AWS_SECRET_ACCESS_KEY).toBeUndefined();
+    });
+
+    it('can build on top of the default allowlist', () => {
+      const allow = new Set(DEFAULT_ENV_ALLOWLIST);
+      const result = resolveInheritedEnv(
+        parentEnv,
+        (name) => allow.has(name) && name !== 'SSH_AUTH_SOCK',
+      );
+
+      expect(result.PATH).toBe('/usr/bin:/bin');
+      expect(result.SSH_AUTH_SOCK).toBeUndefined();
+    });
+
+    it('still drops undefined values', () => {
+      const result = resolveInheritedEnv(parentEnv, () => true);
+
+      expect('UNDEFINED_VAR' in result).toBe(false);
+    });
+  });
+
   describe('Windows case-insensitive matching', () => {
     it('matches allowlist entries regardless of case on win32', () => {
       const winEnv = {

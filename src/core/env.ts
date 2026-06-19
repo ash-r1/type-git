@@ -13,6 +13,33 @@
  */
 
 /**
+ * Fine-grained adjustment of the default allowlist.
+ *
+ * Starts from {@link DEFAULT_ENV_ALLOWLIST}, adds the names in `add`, then removes the
+ * names in `remove`. `remove` takes precedence, so `{ add: ['X'], remove: ['X'] }`
+ * excludes `X`. This is the way to drop a single default entry (for example
+ * `{ remove: ['SSH_AUTH_SOCK', 'SSH_AGENT_PID'] }` for an HTTPS-only application) while
+ * keeping the rest of the curated defaults.
+ */
+export type EnvAllowlistAdjustment = {
+  /** Variable names to add to the default allowlist. */
+  add?: string[];
+  /** Variable names to remove from the (default + add) allowlist. */
+  remove?: string[];
+};
+
+/**
+ * Predicate deciding, per variable, whether it is inherited from the parent environment.
+ * Receives each parent environment variable name and returns `true` to inherit it. This
+ * gives full control and bypasses the default allowlist entirely — reference
+ * {@link DEFAULT_ENV_ALLOWLIST} explicitly if you want to build on top of it.
+ *
+ * Note: on Windows the name is passed through as-is, so handle case-insensitivity yourself
+ * (e.g. compare against `name.toUpperCase()`).
+ */
+export type EnvInheritancePredicate = (name: string) => boolean;
+
+/**
  * Controls how the parent process environment is inherited by spawned Git commands.
  *
  * - `undefined` (default): inherit only {@link DEFAULT_ENV_ALLOWLIST} — the variables
@@ -23,8 +50,12 @@
  *   break Git if `PATH` is not otherwise supplied.
  * - `string[]`: inherit {@link DEFAULT_ENV_ALLOWLIST} plus the named variables. Use this
  *   to explicitly opt specific variables (e.g. an SSH command or a token) back in.
+ * - `{ add?, remove? }`: inherit {@link DEFAULT_ENV_ALLOWLIST}, plus `add`, minus `remove`.
+ *   Use this to drop a single default entry without rebuilding the whole allowlist.
+ * - `(name) => boolean`: a predicate that decides each variable individually, bypassing the
+ *   default allowlist entirely.
  */
-export type EnvInheritance = boolean | string[];
+export type EnvInheritance = boolean | string[] | EnvAllowlistAdjustment | EnvInheritancePredicate;
 
 /**
  * Curated allowlist of environment variables inherited by default.
@@ -32,6 +63,16 @@ export type EnvInheritance = boolean | string[];
  * These are variables Git (and the tools it shells out to, such as ssh and credential
  * helpers) commonly needs to operate. The list intentionally excludes arbitrary
  * application secrets so they are not silently forwarded to Git subprocesses.
+ *
+ * Security notes:
+ * - The SSH agent vars (`SSH_AUTH_SOCK`, `SSH_AGENT_PID`) and SSH/TLS transport config
+ *   (`GIT_SSH_COMMAND`, `GIT_SSL_CAINFO`, …) are inherited by default so Git-over-SSH and
+ *   fetch/push keep working out of the box. For an HTTPS-only application that does not
+ *   want to expose the SSH agent, drop it with
+ *   `inheritEnv: { remove: ['SSH_AUTH_SOCK', 'SSH_AGENT_PID'] }`.
+ * - The most credential-prone helpers (`GIT_ASKPASS`, `SSH_ASKPASS`, `GIT_PROXY_COMMAND`)
+ *   are intentionally NOT in the default allowlist; opt them back in explicitly
+ *   (`inheritEnv: ['GIT_ASKPASS']`) only when you trust the value.
  *
  * Variable names are matched case-insensitively on Windows.
  */
@@ -111,6 +152,55 @@ export const DEFAULT_ENV_ALLOWLIST: readonly string[] = [
   'PROCESSOR_ARCHITECTURE',
 ];
 
+/** Copy parent variables into a fresh record, dropping `undefined` values. */
+function pickEnv(
+  parentEnv: Record<string, string | undefined>,
+  predicate: (name: string) => boolean,
+): Record<string, string> {
+  const result: Record<string, string> = {};
+  for (const [key, value] of Object.entries(parentEnv)) {
+    if (value !== undefined && predicate(key)) {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
+/**
+ * Build the allow/remove name sets for the allowlist-based inheritance forms
+ * (`false`, `string[]`, and `{ add?, remove? }`).
+ */
+function buildAllowlist(inheritEnv: false | string[] | EnvAllowlistAdjustment): {
+  allow: Set<string>;
+  remove: Set<string> | undefined;
+} {
+  const allow = new Set<string>(inheritEnv === false ? [] : DEFAULT_ENV_ALLOWLIST);
+  if (Array.isArray(inheritEnv)) {
+    for (const name of inheritEnv) {
+      allow.add(name);
+    }
+    return { allow, remove: undefined };
+  }
+  if (inheritEnv === false) {
+    return { allow, remove: undefined };
+  }
+  for (const name of inheritEnv.add ?? []) {
+    allow.add(name);
+  }
+  const hasRemove = inheritEnv.remove !== undefined && inheritEnv.remove.length > 0;
+  const remove = hasRemove ? new Set(inheritEnv.remove) : undefined;
+  return { allow, remove };
+}
+
+/** Build a membership test over a set of names, case-insensitive on Windows. */
+function makeNameMatcher(names: Set<string>, isWindows: boolean): (name: string) => boolean {
+  if (!isWindows) {
+    return (name: string): boolean => names.has(name);
+  }
+  const lower = new Set([...names].map((name) => name.toLowerCase()));
+  return (name: string): boolean => lower.has(name.toLowerCase());
+}
+
 /**
  * Resolve the set of environment variables to inherit from the parent process.
  *
@@ -127,36 +217,20 @@ export function resolveInheritedEnv(
 ): Record<string, string> {
   // Legacy behavior: inherit the entire parent environment.
   if (inheritEnv === true) {
-    const all: Record<string, string> = {};
-    for (const [key, value] of Object.entries(parentEnv)) {
-      if (value !== undefined) {
-        all[key] = value;
-      }
-    }
-    return all;
+    return pickEnv(parentEnv, () => true);
   }
 
-  // Build the allowlist. `false` means inherit nothing; an array extends the defaults.
-  const allow = new Set<string>(inheritEnv === false ? [] : DEFAULT_ENV_ALLOWLIST);
-  if (Array.isArray(inheritEnv)) {
-    for (const name of inheritEnv) {
-      allow.add(name);
-    }
+  // Predicate form: the caller decides each variable individually.
+  if (typeof inheritEnv === 'function') {
+    return pickEnv(parentEnv, inheritEnv);
   }
 
-  // Windows environment variable names are case-insensitive.
+  // Allowlist forms (`false`, `string[]`, `{ add?, remove? }`).
+  const { allow, remove } = buildAllowlist(inheritEnv ?? []);
   const isWindows = platform === 'win32';
-  const allowLower = isWindows ? new Set([...allow].map((name) => name.toLowerCase())) : null;
+  const isAllowed = makeNameMatcher(allow, isWindows);
+  const isRemoved = remove ? makeNameMatcher(remove, isWindows) : (): boolean => false;
 
-  const result: Record<string, string> = {};
-  for (const [key, value] of Object.entries(parentEnv)) {
-    if (value === undefined) {
-      continue;
-    }
-    const allowed = allowLower ? allowLower.has(key.toLowerCase()) : allow.has(key);
-    if (allowed) {
-      result[key] = value;
-    }
-  }
-  return result;
+  // `remove` takes precedence over the allowlist (including added names).
+  return pickEnv(parentEnv, (name: string): boolean => isAllowed(name) && !isRemoved(name));
 }
