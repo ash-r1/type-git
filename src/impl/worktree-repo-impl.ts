@@ -1064,6 +1064,30 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     this._lfsMode = mode;
   }
 
+  /**
+   * Per-command environment overrides derived from the configured LFS mode.
+   *
+   * When the repository was opened (or reconfigured) with an object-form LFS
+   * mode requesting `skipSmudge` and/or `skipDownload`, working-tree-populating
+   * operations (checkout, switch, reset, merge, pull, restore) run with
+   * `GIT_LFS_SKIP_SMUDGE=1`. Git then leaves LFS pointer files in place instead
+   * of downloading their contents during the implicit checkout.
+   *
+   * The objects can be materialized later via the explicit `repo.lfs.pull()` /
+   * `repo.lfs.checkout()` helpers, which use dedicated git-lfs commands and are
+   * not affected by `GIT_LFS_SKIP_SMUDGE`.
+   *
+   * Returns `undefined` for the `'enabled'` / `'disabled'` string modes so the
+   * runner environment is left untouched.
+   */
+  private lfsModeEnv(): Record<string, string> | undefined {
+    const mode = this._lfsMode;
+    if (typeof mode === 'object' && (mode.skipSmudge === true || mode.skipDownload === true)) {
+      return { GIT_LFS_SKIP_SMUDGE: '1' };
+    }
+    return undefined;
+  }
+
   // ==========================================================================
   // LFS Operations
   // ==========================================================================
@@ -2506,6 +2530,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
+      env: this.lfsModeEnv(),
     });
   }
 
@@ -2974,6 +2999,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     const result = await this.runner.run(this.context, args, {
       signal: opts?.signal,
+      env: this.lfsModeEnv(),
     });
 
     if (result.exitCode !== 0) {
@@ -3213,6 +3239,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
+      env: this.lfsModeEnv(),
     });
   }
 
@@ -3255,6 +3282,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
+      env: this.lfsModeEnv(),
     });
   }
 
@@ -3518,6 +3546,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
+      env: this.lfsModeEnv(),
     });
   }
 
@@ -4083,6 +4112,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
+      env: this.lfsModeEnv(),
     });
   }
 
@@ -4159,6 +4189,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
+      env: this.lfsModeEnv(),
     });
   }
 
