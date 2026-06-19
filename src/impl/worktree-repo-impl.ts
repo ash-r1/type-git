@@ -3239,6 +3239,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
+      onLfsProgress: opts?.onLfsProgress,
       env: this.lfsModeEnv(),
     });
   }
