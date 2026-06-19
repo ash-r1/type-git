@@ -17,7 +17,7 @@ Two new forms are now supported:
 - `(name: string) => boolean` — a predicate that decides each variable
   individually, bypassing the default allowlist entirely.
 
-`DEFAULT_ENV_ALLOWLIST` documentation now also calls out that `SSH_AUTH_SOCK` /
-`SSH_AGENT_PID` are included by default (and how to drop them), while the more
-dangerous `GIT_SSH_COMMAND` / `SSH_ASKPASS` / `GIT_ASKPASS` are intentionally
-excluded.
+`DEFAULT_ENV_ALLOWLIST` documentation now also calls out that the SSH agent vars
+(`SSH_AUTH_SOCK` / `SSH_AGENT_PID`) are included by default (and how to drop
+them), while the most credential-prone helpers (`GIT_ASKPASS` / `SSH_ASKPASS` /
+`GIT_PROXY_COMMAND`) are intentionally excluded.

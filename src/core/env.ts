@@ -65,12 +65,14 @@ export type EnvInheritance = boolean | string[] | EnvAllowlistAdjustment | EnvIn
  * application secrets so they are not silently forwarded to Git subprocesses.
  *
  * Security notes:
- * - `SSH_AUTH_SOCK` and `SSH_AGENT_PID` are included so Git-over-SSH authentication works
- *   out of the box. For an HTTPS-only application that does not want to expose the SSH
- *   agent, drop them with `inheritEnv: { remove: ['SSH_AUTH_SOCK', 'SSH_AGENT_PID'] }`.
- * - The more powerful command-injection vectors `GIT_SSH_COMMAND`, `SSH_ASKPASS` and
- *   `GIT_ASKPASS` are intentionally NOT in the default allowlist; opt them back in
- *   explicitly (`inheritEnv: ['GIT_SSH_COMMAND']`) only when you trust the value.
+ * - The SSH agent vars (`SSH_AUTH_SOCK`, `SSH_AGENT_PID`) and SSH/TLS transport config
+ *   (`GIT_SSH_COMMAND`, `GIT_SSL_CAINFO`, …) are inherited by default so Git-over-SSH and
+ *   fetch/push keep working out of the box. For an HTTPS-only application that does not
+ *   want to expose the SSH agent, drop it with
+ *   `inheritEnv: { remove: ['SSH_AUTH_SOCK', 'SSH_AGENT_PID'] }`.
+ * - The most credential-prone helpers (`GIT_ASKPASS`, `SSH_ASKPASS`, `GIT_PROXY_COMMAND`)
+ *   are intentionally NOT in the default allowlist; opt them back in explicitly
+ *   (`inheritEnv: ['GIT_ASKPASS']`) only when you trust the value.
  *
  * Variable names are matched case-insensitively on Windows.
  */
