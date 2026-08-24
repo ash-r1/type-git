@@ -2103,7 +2103,11 @@ export type LfsPreUploadResult = {
   uploadedCount: number;
   /** Total bytes uploaded */
   uploadedBytes: number;
-  /** Number of objects skipped (already on remote) */
+  /**
+   * Number of objects not uploaded: the objects of the batch that failed or
+   * was aborted, plus those of the batches never started after that failure.
+   * `uploadedCount + skippedCount` always equals the number of objects.
+   */
   skippedCount: number;
 };
 

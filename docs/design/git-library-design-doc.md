@@ -517,7 +517,7 @@ interface LfsPreUploadResult {
   uploadedCount: number
   /** アップロードしたバイト数 */
   uploadedBytes: number
-  /** スキップしたオブジェクト数（既にリモートに存在） */
+  /** アップロードしなかったオブジェクト数（失敗・中断したバッチと、その後開始しなかったバッチの分） */
   skippedCount: number
 }
 
