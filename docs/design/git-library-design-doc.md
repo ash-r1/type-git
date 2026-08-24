@@ -548,7 +548,7 @@ interface LfsPreDownloadResult {
 const repo = await git.open(repoPath, options)
 
 // Phase 1: LFS オブジェクトを先行アップロード
-const preUploadResult = await repo.lfs.preUpload({
+const preUploadResult = await repo.lfsExtra.preUpload({
   onProgress: (p) => reportProgress(0.1 + p.progress * 0.6),
 })
 

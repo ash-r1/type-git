@@ -229,6 +229,17 @@ describe('WorktreeRepoImpl LFS Extra Operations', () => {
       expect(result.skippedCount).toBe(20);
     });
 
+    it('should reject a non-positive batchSize before running anything', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const oids = ['abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd'];
+      await expect(repo.lfsExtra.preUpload({ oids, batchSize: 0 })).rejects.toThrow(RangeError);
+      await expect(repo.lfsExtra.preUpload({ oids, batchSize: 1.5 })).rejects.toThrow(RangeError);
+      expect(adapters.exec.spawn).not.toHaveBeenCalled();
+    });
+
     it('should run batches serially when concurrency is 1', async () => {
       const oids = Array.from({ length: 4 }, (_, i) => `${i}`.padStart(64, '0'));
 
@@ -343,6 +354,16 @@ describe('WorktreeRepoImpl LFS Extra Operations', () => {
         undefined,
       );
       expect(result.downloadedCount).toBe(1);
+    });
+
+    it('should reject a non-positive batchSize before running anything', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const oids = ['abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd'];
+      await expect(repo.lfsExtra.preDownload({ oids, batchSize: 0 })).rejects.toThrow(RangeError);
+      expect(adapters.exec.spawn).not.toHaveBeenCalled();
     });
 
     it('should auto-detect OIDs from ref when provided', async () => {

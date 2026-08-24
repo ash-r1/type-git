@@ -1247,7 +1247,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
    *
    * Usage pattern:
    * 1. Stage changes: git add
-   * 2. Pre-upload LFS: await repo.lfs.preUpload()
+   * 2. Pre-upload LFS: await repo.lfsExtra.preUpload()
    * 3. Commit: git commit
    * 4. Push refs: git push (only refs, objects already uploaded)
    */
@@ -1259,6 +1259,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     const remote = opts?.remote ?? 'origin';
     const batchSize = opts?.batchSize ?? PRE_UPLOAD_DEFAULT_BATCH_SIZE;
     const concurrency = opts?.concurrency ?? PRE_UPLOAD_DEFAULT_CONCURRENCY;
+    if (!Number.isInteger(batchSize) || batchSize < 1) {
+      throw new RangeError(`batchSize must be a positive integer, got: ${batchSize}`);
+    }
 
     // Get OIDs to upload
     let oids: string[];
@@ -1369,7 +1372,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
    *
    * Usage pattern:
    * 1. Fetch refs: git fetch
-   * 2. Pre-download LFS: await repo.lfs.preDownload({ ref: 'origin/feature' })
+   * 2. Pre-download LFS: await repo.lfsExtra.preDownload({ ref: 'origin/feature' })
    * 3. Checkout: git checkout feature
    */
   private async lfsPreDownload(
@@ -1381,6 +1384,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     const remote = opts?.remote ?? 'origin';
     const batchSize = opts?.batchSize ?? 50;
+    if (!Number.isInteger(batchSize) || batchSize < 1) {
+      throw new RangeError(`batchSize must be a positive integer, got: ${batchSize}`);
+    }
 
     // Get OIDs to download
     let oids: string[];
