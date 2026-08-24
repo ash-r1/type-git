@@ -30,10 +30,17 @@ async function settle(): Promise<void> {
   }
 }
 
+interface Harness {
+  deferreds: Deferred[];
+  started: number[];
+  run: (item: number, index: number) => Promise<string>;
+  items: number[];
+}
+
 /**
  * Test harness: each item gets a deferred; `started` records launch order.
  */
-function createHarness(count: number) {
+function createHarness(count: number): Harness {
   const deferreds = Array.from({ length: count }, () => createDeferred());
   const started: number[] = [];
   const run = (_item: number, index: number): Promise<string> => {
@@ -108,7 +115,7 @@ describe('runWithConcurrency', () => {
 
     // Item 1 is still in flight; the call must not settle yet.
     let settled = false;
-    void resultPromise.catch(() => {
+    const observed = resultPromise.catch(() => {
       settled = true;
     });
     await settle();
@@ -116,6 +123,7 @@ describe('runWithConcurrency', () => {
 
     deferreds[1]?.resolve('b');
     await expect(resultPromise).rejects.toThrow('boom');
+    await observed;
     expect(settled).toBe(true);
   });
 

@@ -184,12 +184,12 @@ describe('WorktreeRepoImpl LFS Extra Operations', () => {
 
     it('should run the first batch alone before widening to the concurrency limit', async () => {
       const oids = Array.from({ length: 60 }, (_, i) => `${i}`.padStart(64, '0'));
-      const gates: Array<(result: Partial<SpawnResult>) => void> = [];
+      const gates: Array<(override: Partial<SpawnResult>) => void> = [];
       const spawn = vi.fn().mockImplementation(
         () =>
           new Promise<SpawnResult>((resolve) => {
-            gates.push((result) =>
-              resolve({ stdout: '', stderr: '', exitCode: 0, aborted: false, ...result }),
+            gates.push((override) =>
+              resolve({ stdout: '', stderr: '', exitCode: 0, aborted: false, ...override }),
             );
           }),
       );
@@ -198,7 +198,7 @@ describe('WorktreeRepoImpl LFS Extra Operations', () => {
       const runner = new CliRunner(adapters);
       const repo = new WorktreeRepoImpl(runner, '/repo');
 
-      const settle = async () => {
+      const settle = async (): Promise<void> => {
         for (let i = 0; i < 10; i++) {
           await Promise.resolve();
         }
