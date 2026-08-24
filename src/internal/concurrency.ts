@@ -53,7 +53,7 @@ export async function runWithConcurrency<T, R>(
     throw new RangeError(`warmupCount must be a non-negative integer, got: ${warmupCount}`);
   }
 
-  const results: R[] = new Array(items.length);
+  const results: R[] = new Array<R>(items.length);
   let nextIndex = 0;
   let failed = false;
   let firstError: unknown;
