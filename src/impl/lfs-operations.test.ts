@@ -240,6 +240,17 @@ describe('WorktreeRepoImpl LFS Extra Operations', () => {
       expect(adapters.exec.spawn).not.toHaveBeenCalled();
     });
 
+    it('should reject a non-positive concurrency before running anything', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      // No explicit oids: an invalid concurrency must fail before OID auto-detection
+      await expect(repo.lfsExtra.preUpload({ concurrency: 0 })).rejects.toThrow(RangeError);
+      await expect(repo.lfsExtra.preUpload({ concurrency: 1.5 })).rejects.toThrow(RangeError);
+      expect(adapters.exec.spawn).not.toHaveBeenCalled();
+    });
+
     it('should run batches serially when concurrency is 1', async () => {
       const oids = Array.from({ length: 4 }, (_, i) => `${i}`.padStart(64, '0'));
 

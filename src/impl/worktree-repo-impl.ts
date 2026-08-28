@@ -1262,6 +1262,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     if (!Number.isInteger(batchSize) || batchSize < 1) {
       throw new RangeError(`batchSize must be a positive integer, got: ${batchSize}`);
     }
+    if (!Number.isInteger(concurrency) || concurrency < 1) {
+      throw new RangeError(`concurrency must be a positive integer, got: ${concurrency}`);
+    }
 
     // Get OIDs to upload
     let oids: string[];

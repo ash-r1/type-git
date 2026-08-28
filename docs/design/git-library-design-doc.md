@@ -585,7 +585,7 @@ async preUpload(opts?: LfsPreUploadOpts): Promise<LfsPreUploadResult> {
   //      （全バッチが同じ理由で失敗する場面の往復を 1 回に抑える）
   //    - 最初の失敗以降は新しいバッチを開始せず、進行中の完了を待つ。
   //      失敗・未着手のオブジェクトは skippedCount に計上する
-  const result = await runWithConcurrency(batches, pushBatch, {
+  await runWithConcurrency(batches, pushBatch, {
     concurrency: opts?.concurrency ?? 4,
     warmupCount: 1,
   })
