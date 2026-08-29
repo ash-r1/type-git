@@ -502,8 +502,10 @@ interface LfsOperations {
 interface LfsPreUploadOpts {
   /** アップロード対象の OID 一覧（省略時は自動検出） */
   oids?: string[]
-  /** バッチサイズ（デフォルト: 50、Windows 制限考慮） */
+  /** バッチサイズ（デフォルト: 200、コマンドライン長制限考慮） */
   batchSize?: number
+  /** バッチの同時実行数（デフォルト: 4。1 で直列） */
+  concurrency?: number
   /** 進捗コールバック */
   onProgress?: (progress: LfsProgress) => void
   /** 中断シグナル */
@@ -515,7 +517,7 @@ interface LfsPreUploadResult {
   uploadedCount: number
   /** アップロードしたバイト数 */
   uploadedBytes: number
-  /** スキップしたオブジェクト数（既にリモートに存在） */
+  /** アップロードしなかったオブジェクト数（失敗・中断したバッチと、その後開始しなかったバッチの分） */
   skippedCount: number
 }
 
@@ -546,7 +548,7 @@ interface LfsPreDownloadResult {
 const repo = await git.open(repoPath, options)
 
 // Phase 1: LFS オブジェクトを先行アップロード
-const preUploadResult = await repo.lfs.preUpload({
+const preUploadResult = await repo.lfsExtra.preUpload({
   onProgress: (p) => reportProgress(0.1 + p.progress * 0.6),
 })
 
@@ -570,29 +572,30 @@ async preUpload(opts?: LfsPreUploadOpts): Promise<LfsPreUploadResult> {
   // 1. アップロード対象の OID を取得
   const oids = opts?.oids ?? await this.detectPendingLfsObjects()
 
-  // 2. バッチ分割（Windows 8KB 制限対応）
-  // Windows CreateProcess API: コマンドライン長 8191 文字制限
-  // 50 OID × 65 文字 ≈ 3.3KB（安全マージン確保）
-  const batchSize = opts?.batchSize ?? 50
+  // 2. バッチ分割（コマンドライン長制限対応）
+  // git は shell を介さず直接 spawn するため、律速は Windows CreateProcess の
+  // 32,767 文字。200 OID × 65 文字 + プレフィックス ≈ 13KB（上限の約 40%）
+  const batchSize = opts?.batchSize ?? 200
   const batches = this.batchOids(oids, batchSize)
 
-  let uploadedCount = 0
-  let uploadedBytes = 0
+  // 3. バッチを同時実行数の上限つきで並列にアップロード
+  //    - バッチ 1 回ごとの固定費（プロセス起動・認証・LFS batch API の往復）を
+  //      他バッチの転送と重ねる
+  //    - 先頭バッチは単独で走らせ、成功してから残りを広げる
+  //      （全バッチが同じ理由で失敗する場面の往復を 1 回に抑える）
+  //    - 最初の失敗以降は新しいバッチを開始せず、進行中の完了を待つ。
+  //      失敗・未着手のオブジェクトは skippedCount に計上する
+  await runWithConcurrency(batches, pushBatch, {
+    concurrency: opts?.concurrency ?? 4,
+    warmupCount: 1,
+  })
 
-  // 3. バッチごとにアップロード
-  for (const batch of batches) {
-    const result = await this.runner.run([
-      'lfs', 'push', 'origin', '--object-id', ...batch
-    ], {
-      onProgress: opts?.onProgress,
-      signal: opts?.signal,
-    })
-    uploadedCount += batch.length
-  }
-
-  return { uploadedCount, uploadedBytes, skippedCount: 0 }
+  return { uploadedCount, uploadedBytes, skippedCount }
 }
 ```
+
+失敗時に throw せず件数で返す規約は従来のまま。事前アップロードは最適化の段であり、
+失敗しても後続の通常 push が実体を運ぶため、途中で打ち切っても正しさは保たれる。
 
 #### 10.3.5 メリット
 

@@ -137,6 +137,133 @@ describe('WorktreeRepoImpl LFS Extra Operations', () => {
       expect(result.uploadedCount).toBe(5);
     });
 
+    it('should split into batches of 200 OIDs by default', async () => {
+      const oids = Array.from({ length: 250 }, (_, i) => `${i}`.padStart(64, '0'));
+
+      const adapters = createMockAdapters([{ exitCode: 0 }, { exitCode: 0 }]);
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const result = await repo.lfsExtra.preUpload({ oids });
+
+      // 250 OIDs with the default batch size of 200 -> 2 invocations
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+      expect(result.uploadedCount).toBe(250);
+    });
+
+    it('should stop after the first failed batch and count the rest as skipped', async () => {
+      const oids = Array.from({ length: 5 }, (_, i) => `${i}`.padStart(64, '0'));
+
+      const adapters = createMockAdapters([
+        { exitCode: 1, stderr: 'push failed' }, // First batch fails
+      ]);
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const result = await repo.lfsExtra.preUpload({ oids, batchSize: 2 });
+
+      // The first batch runs alone; its failure prevents any further batch.
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+      expect(result.uploadedCount).toBe(0);
+      expect(result.skippedCount).toBe(5);
+    });
+
+    it('should stop scheduling when a batch is aborted', async () => {
+      const oids = Array.from({ length: 4 }, (_, i) => `${i}`.padStart(64, '0'));
+
+      const adapters = createMockAdapters([{ exitCode: 0, aborted: true }]);
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const result = await repo.lfsExtra.preUpload({ oids, batchSize: 2 });
+
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+      expect(result.uploadedCount).toBe(0);
+      expect(result.skippedCount).toBe(4);
+    });
+
+    it('should run the first batch alone before widening to the concurrency limit', async () => {
+      const oids = Array.from({ length: 60 }, (_, i) => `${i}`.padStart(64, '0'));
+      const gates: Array<(override: Partial<SpawnResult>) => void> = [];
+      const spawn = vi.fn().mockImplementation(
+        () =>
+          new Promise<SpawnResult>((resolve) => {
+            gates.push((override) =>
+              resolve({ stdout: '', stderr: '', exitCode: 0, aborted: false, ...override }),
+            );
+          }),
+      );
+      const adapters = createMockAdapters();
+      adapters.exec.spawn = spawn;
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const settle = async (): Promise<void> => {
+        for (let i = 0; i < 10; i++) {
+          await Promise.resolve();
+        }
+      };
+
+      // batchSize 10 -> 6 batches, default concurrency 4
+      const resultPromise = repo.lfsExtra.preUpload({ oids, batchSize: 10 });
+      await settle();
+      // Warmup: only the first batch is in flight
+      expect(spawn).toHaveBeenCalledTimes(1);
+
+      gates[0]?.({});
+      await settle();
+      // After the warmup batch succeeds, up to `concurrency` batches run
+      expect(spawn).toHaveBeenCalledTimes(5);
+
+      // Batch 1 fails: no new batch starts, in-flight batches complete
+      gates[1]?.({ exitCode: 1, stderr: 'push failed' });
+      await settle();
+      expect(spawn).toHaveBeenCalledTimes(5);
+
+      for (const gate of gates.slice(2)) {
+        gate({});
+      }
+      const result = await resultPromise;
+      // Batches 0, 2, 3, 4 uploaded; batch 1 failed and batch 5 never started
+      expect(result.uploadedCount).toBe(40);
+      expect(result.skippedCount).toBe(20);
+    });
+
+    it('should reject a non-positive batchSize before running anything', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const oids = ['abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd'];
+      await expect(repo.lfsExtra.preUpload({ oids, batchSize: 0 })).rejects.toThrow(RangeError);
+      await expect(repo.lfsExtra.preUpload({ oids, batchSize: 1.5 })).rejects.toThrow(RangeError);
+      expect(adapters.exec.spawn).not.toHaveBeenCalled();
+    });
+
+    it('should reject a non-positive concurrency before running anything', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      // No explicit oids: an invalid concurrency must fail before OID auto-detection
+      await expect(repo.lfsExtra.preUpload({ concurrency: 0 })).rejects.toThrow(RangeError);
+      await expect(repo.lfsExtra.preUpload({ concurrency: 1.5 })).rejects.toThrow(RangeError);
+      expect(adapters.exec.spawn).not.toHaveBeenCalled();
+    });
+
+    it('should run batches serially when concurrency is 1', async () => {
+      const oids = Array.from({ length: 4 }, (_, i) => `${i}`.padStart(64, '0'));
+
+      const adapters = createMockAdapters([{ exitCode: 0 }, { exitCode: 0 }]);
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const result = await repo.lfsExtra.preUpload({ oids, batchSize: 2, concurrency: 1 });
+
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+      expect(result.uploadedCount).toBe(4);
+    });
+
     it('should use custom remote when specified', async () => {
       const adapters = createMockAdapters([{ exitCode: 0 }]);
       const runner = new CliRunner(adapters);
@@ -238,6 +365,16 @@ describe('WorktreeRepoImpl LFS Extra Operations', () => {
         undefined,
       );
       expect(result.downloadedCount).toBe(1);
+    });
+
+    it('should reject a non-positive batchSize before running anything', async () => {
+      const adapters = createMockAdapters();
+      const runner = new CliRunner(adapters);
+      const repo = new WorktreeRepoImpl(runner, '/repo');
+
+      const oids = ['abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd'];
+      await expect(repo.lfsExtra.preDownload({ oids, batchSize: 0 })).rejects.toThrow(RangeError);
+      expect(adapters.exec.spawn).not.toHaveBeenCalled();
     });
 
     it('should auto-detect OIDs from ref when provided', async () => {

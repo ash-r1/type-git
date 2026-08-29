@@ -2063,8 +2063,34 @@ export type LfsEnvInfo = {
 export type LfsPreUploadOpts = {
   /** Object IDs to upload (if omitted, auto-detect pending objects) */
   oids?: string[];
-  /** Batch size for upload (default: 50, considers Windows 8KB limit) */
+  /**
+   * Number of OIDs per `git lfs push --object-id` invocation (default: 200).
+   *
+   * Each batch is one spawned process, so the batch size is bounded by the
+   * OS command-line length limit. Git is spawned without a shell, so the
+   * binding limit is the Windows CreateProcess limit (32,767 characters);
+   * the default stays around 40% of it.
+   */
   batchSize?: number;
+  /**
+   * Maximum number of batches uploaded concurrently (default: 4).
+   *
+   * Each `git lfs push` invocation pays a fixed cost (process spawn,
+   * credential lookup, LFS batch API round-trip) before any bytes are
+   * transferred; concurrent batches overlap that cost with other batches'
+   * transfers. The first batch always runs alone and the remaining batches
+   * start only after it succeeds, so a failure common to all batches (e.g.
+   * an unreachable remote) costs a single round-trip. Once a batch fails, no
+   * new batch is started; in-flight batches are awaited and the remaining
+   * objects are reported in `skippedCount`. Set to 1 for strictly serial
+   * uploads.
+   *
+   * Note: each `git lfs push` process transfers multiple objects in parallel
+   * on its own (`lfs.concurrenttransfers`, default 8), so the peak transfer
+   * parallelism is `concurrency` times that value. With `concurrency` > 1,
+   * progress callbacks from different batches may interleave.
+   */
+  concurrency?: number;
   /** Remote name (default: 'origin') */
   remote?: string;
 };
@@ -2077,7 +2103,11 @@ export type LfsPreUploadResult = {
   uploadedCount: number;
   /** Total bytes uploaded */
   uploadedBytes: number;
-  /** Number of objects skipped (already on remote) */
+  /**
+   * Number of objects not uploaded: the objects of the batch that failed or
+   * was aborted, plus those of the batches never started after that failure.
+   * `uploadedCount + skippedCount` always equals the number of objects.
+   */
   skippedCount: number;
 };
 

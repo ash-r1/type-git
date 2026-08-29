@@ -124,6 +124,7 @@ import type {
   LfsMode,
   RawResult,
 } from '../core/types.js';
+import { runWithConcurrency } from '../internal/concurrency.js';
 import {
   GIT_LOG_FORMAT,
   parseGitLog,
@@ -134,6 +135,36 @@ import {
   parseWorktreeList,
 } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
+
+/**
+ * Default number of OIDs per `git lfs push --object-id` invocation.
+ *
+ * Each batch becomes a single spawned process, so the batch size is bounded
+ * by the OS command-line length limit. Git is spawned directly without a
+ * shell, so the binding limit is the Windows CreateProcess limit of 32,767
+ * characters; 200 OIDs at 65 characters each plus the command prefix use
+ * roughly 40% of it. Larger batches directly reduce the number of times the
+ * per-invocation fixed cost (process spawn, credential lookup, LFS batch API
+ * round-trip) is paid.
+ */
+const PRE_UPLOAD_DEFAULT_BATCH_SIZE = 200;
+
+/**
+ * Default number of `git lfs push` batches run concurrently.
+ *
+ * Each batch pays its fixed cost before any bytes are transferred; running
+ * batches concurrently overlaps that cost with other batches' transfers.
+ */
+const PRE_UPLOAD_DEFAULT_CONCURRENCY = 4;
+
+/**
+ * Number of leading batches run alone before widening to full concurrency.
+ *
+ * When every batch would fail for the same reason (unreachable remote,
+ * missing local objects), the failure is discovered with a single round-trip
+ * instead of `concurrency` parallel ones.
+ */
+const PRE_UPLOAD_WARMUP_BATCH_COUNT = 1;
 
 /**
  * WorktreeRepo implementation
@@ -1204,12 +1235,19 @@ export class WorktreeRepoImpl implements WorktreeRepo {
    * Pre-upload LFS objects before commit/push (2-phase commit pattern)
    *
    * This allows uploading LFS objects to the remote before creating a commit,
-   * ensuring reliable large file handling. Objects are batched to handle
-   * Windows command line length limits (8KB).
+   * ensuring reliable large file handling. Objects are batched to stay within
+   * command-line length limits, and batches run with bounded concurrency to
+   * overlap per-invocation fixed costs with other batches' transfers.
+   *
+   * Failure handling: once a batch fails, no new batch is started (in-flight
+   * batches are awaited), and the objects of failed and unstarted batches are
+   * reported in `skippedCount`. The first batch always runs alone before the
+   * remaining batches widen to the concurrency limit, so a failure common to
+   * all batches costs a single round-trip.
    *
    * Usage pattern:
    * 1. Stage changes: git add
-   * 2. Pre-upload LFS: await repo.lfs.preUpload()
+   * 2. Pre-upload LFS: await repo.lfsExtra.preUpload()
    * 3. Commit: git commit
    * 4. Push refs: git push (only refs, objects already uploaded)
    */
@@ -1219,7 +1257,14 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     const remote = opts?.remote ?? 'origin';
-    const batchSize = opts?.batchSize ?? 50; // Default 50 OIDs per batch (Windows 8KB limit)
+    const batchSize = opts?.batchSize ?? PRE_UPLOAD_DEFAULT_BATCH_SIZE;
+    const concurrency = opts?.concurrency ?? PRE_UPLOAD_DEFAULT_CONCURRENCY;
+    if (!Number.isInteger(batchSize) || batchSize < 1) {
+      throw new RangeError(`batchSize must be a positive integer, got: ${batchSize}`);
+    }
+    if (!Number.isInteger(concurrency) || concurrency < 1) {
+      throw new RangeError(`concurrency must be a positive integer, got: ${concurrency}`);
+    }
 
     // Get OIDs to upload
     let oids: string[];
@@ -1252,13 +1297,22 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return { uploadedCount: 0, uploadedBytes: 0, skippedCount: 0 };
     }
 
-    // Process in batches
+    // Split into batches; each batch is one `git lfs push` invocation
+    const batches: string[][] = [];
+    for (let i = 0; i < oids.length; i += batchSize) {
+      batches.push(oids.slice(i, i + batchSize));
+    }
+
     let uploadedCount = 0;
     let uploadedBytes = 0;
     let skippedCount = 0;
+    let attemptedCount = 0;
 
-    for (let i = 0; i < oids.length; i += batchSize) {
-      const batch = oids.slice(i, i + batchSize);
+    // Identity sentinel: thrown by a failed batch so the scheduler stops
+    // starting new batches; converted back to counts below, never surfaced.
+    const batchFailedStop = new Error('lfs pre-upload batch failed');
+
+    const pushBatch = async (batch: string[]): Promise<void> => {
       const args = ['lfs', 'push', remote, '--object-id', ...batch];
 
       const result = await this.runner.run(this.context, args, {
@@ -1267,7 +1321,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
         onLfsProgress: opts?.onLfsProgress,
       });
 
-      if (result.exitCode === 0) {
+      attemptedCount += batch.length;
+
+      if (result.exitCode === 0 && !result.aborted) {
         // Parse upload stats from output if available
         uploadedCount += batch.length;
 
@@ -1289,9 +1345,23 @@ export class WorktreeRepoImpl implements WorktreeRepo {
           uploadedBytes += bytes;
         }
       } else {
-        // Some objects may have been skipped (already on remote)
         skippedCount += batch.length;
+        throw batchFailedStop;
       }
+    };
+
+    try {
+      await runWithConcurrency(batches, pushBatch, {
+        concurrency,
+        warmupCount: PRE_UPLOAD_WARMUP_BATCH_COUNT,
+      });
+    } catch (error) {
+      if (error !== batchFailedStop) {
+        throw error;
+      }
+      // Batches that were never started count as skipped, keeping
+      // uploadedCount + skippedCount equal to the number of OIDs.
+      skippedCount += oids.length - attemptedCount;
     }
 
     return { uploadedCount, uploadedBytes, skippedCount };
@@ -1305,7 +1375,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
    *
    * Usage pattern:
    * 1. Fetch refs: git fetch
-   * 2. Pre-download LFS: await repo.lfs.preDownload({ ref: 'origin/feature' })
+   * 2. Pre-download LFS: await repo.lfsExtra.preDownload({ ref: 'origin/feature' })
    * 3. Checkout: git checkout feature
    */
   private async lfsPreDownload(
@@ -1317,6 +1387,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     const remote = opts?.remote ?? 'origin';
     const batchSize = opts?.batchSize ?? 50;
+    if (!Number.isInteger(batchSize) || batchSize < 1) {
+      throw new RangeError(`batchSize must be a positive integer, got: ${batchSize}`);
+    }
 
     // Get OIDs to download
     let oids: string[];
