@@ -1174,6 +1174,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
           ? opts.objectId
           : [opts.objectId]
         : undefined;
+    if (oids?.length === 0 && !opts?.stdin) {
+      throw new TypeError(
+        'lfs.push with objectId requires at least one OID unless stdin is enabled',
+      );
+    }
     args.push(oids ? '--object-id' : '--all');
     args.push(opts?.remote ?? 'origin');
 

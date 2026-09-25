@@ -99,6 +99,15 @@ describe('lfs.push', () => {
     );
   });
 
+  it.each([undefined, false])('rejects an empty OID list with stdin=%s', async (stdin) => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    await expect(repo.lfs.push({ objectId: [], stdin })).rejects.toThrow(
+      new TypeError('lfs.push with objectId requires at least one OID unless stdin is enabled'),
+    );
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
+
   it('sends EOF for an empty OID list without falling back to --all', async () => {
     const adapters = createMockAdapters();
     const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
