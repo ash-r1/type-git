@@ -1,6 +1,6 @@
 {
   "name": "type-git",
-  "version": "0.3.0-alpha.2",
+  "version": "0.3.0-alpha.3",
   "description": "Type-safe Git wrapper library with LFS support, progress tracking, and abort control for Node.js/Deno/Bun",
   "type": "module",
   "main": "./dist/index.cjs",

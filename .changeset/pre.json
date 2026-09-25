@@ -12,6 +12,8 @@
     "git-transport-env-allowlist",
     "inherit-env-remove-predicate",
     "lfs-progress-pull-fetch-preupload",
-    "lfs-skip-smudge-mode"
+    "lfs-skip-smudge-mode",
+    "preupload-concurrent-batches",
+    "tidy-lfs-stdin"
   ]
 }
