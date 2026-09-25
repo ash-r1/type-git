@@ -169,6 +169,20 @@ await repo.status();
 - `AuditEventEnd`: Emitted after completion with `stdout`, `stderr`, `exitCode`, `duration`, `aborted`
 - `TraceEvent`: GIT_TRACE output lines with `timestamp` and `line`
 
+### Push LFS objects through standard input
+
+```typescript
+await repo.lfs.push({
+  remote: 'origin',
+  objectId: oids, // string or string[] of LFS object IDs
+  stdin: true,
+});
+```
+
+Runs `git lfs push --object-id origin --stdin`, sending one OID per line and
+closing standard input. This avoids command-line length limits for large OID lists.
+Omit `stdin` to pass object IDs as command-line arguments.
+
 ## Architecture
 
 ```

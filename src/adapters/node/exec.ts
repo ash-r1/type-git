@@ -78,7 +78,7 @@ export class NodeExecAdapter implements ExecAdapter {
       const child = spawn(command, args, {
         cwd,
         env: resolveChildEnv(env, inheritEnv),
-        stdio: ['ignore', 'pipe', 'pipe'],
+        stdio: [options.stdin === undefined ? 'ignore' : 'pipe', 'pipe', 'pipe'],
       });
 
       let stdout = '';
@@ -112,6 +112,15 @@ export class NodeExecAdapter implements ExecAdapter {
         handlers?.onStderr?.(text);
       });
 
+      child.stdin?.on('error', (error: NodeJS.ErrnoException) => {
+        // Early stdin closure reports EPIPE on Unix or EOF on Windows.
+        // Preserve the child process exit result in either case.
+        if (error.code !== 'EPIPE' && error.code !== 'EOF') {
+          reject(error);
+        }
+      });
+      child.stdin?.end(options.stdin);
+
       child.on('error', (error: Error) => {
         signal?.removeEventListener('abort', abortHandler);
         reject(error);
@@ -144,7 +153,7 @@ export class NodeExecAdapter implements ExecAdapter {
     const child = spawn(command, args, {
       cwd,
       env: resolveChildEnv(env, inheritEnv),
-      stdio: ['ignore', 'pipe', 'pipe'],
+      stdio: [options.stdin === undefined ? 'ignore' : 'pipe', 'pipe', 'pipe'],
     });
 
     let aborted = false;
@@ -175,6 +184,15 @@ export class NodeExecAdapter implements ExecAdapter {
       child.stderr?.on('data', (chunk: Buffer) => {
         stderr += chunk.toString('utf8');
       });
+
+      child.stdin?.on('error', (error: NodeJS.ErrnoException) => {
+        // Early stdin closure reports EPIPE on Unix or EOF on Windows.
+        // Preserve the child process exit result in either case.
+        if (error.code !== 'EPIPE' && error.code !== 'EOF') {
+          reject(error);
+        }
+      });
+      child.stdin?.end(options.stdin);
 
       child.on('error', (error: Error) => {
         signal?.removeEventListener('abort', abortHandler);

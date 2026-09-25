@@ -156,6 +156,8 @@ export type CliRunnerOptions = {
  * runner's own `run` / `runOrThrow` entry points.
  */
 export type RunOptions = ExecOpts & {
+  /** UTF-8 text to write to standard input, then close it. */
+  stdin?: string;
   /**
    * Extra environment variables merged on top of the resolved environment for
    * this single command. Values here take precedence over the configured
@@ -381,6 +383,7 @@ export class CliRunner {
       result = await this.exec.spawn(
         {
           argv,
+          stdin: opts?.stdin,
           env,
           // The env above is already fully resolved (including any inherited variables),
           // so the adapter must not merge the parent environment on top of it.

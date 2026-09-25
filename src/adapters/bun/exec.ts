@@ -127,7 +127,7 @@ export class BunExecAdapter implements ExecAdapter {
       env: resolveChildEnv(env, inheritEnv),
       stdout: 'pipe',
       stderr: 'pipe',
-      stdin: 'ignore',
+      stdin: options.stdin === undefined ? 'ignore' : new Blob([options.stdin]),
     });
 
     // Handle abort signal
@@ -233,7 +233,7 @@ export class BunExecAdapter implements ExecAdapter {
       env: resolveChildEnv(env, inheritEnv),
       stdout: 'pipe',
       stderr: 'pipe',
-      stdin: 'ignore',
+      stdin: options.stdin === undefined ? 'ignore' : new Blob([options.stdin]),
     });
 
     const abortHandler = (): void => {

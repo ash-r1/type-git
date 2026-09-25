@@ -1676,8 +1676,10 @@ export type LfsPushOpts = {
   // New options
   /** Dry run - show what would be pushed without actually pushing */
   dryRun?: boolean;
-  /** Push specified object IDs (OID hashes) instead of all objects */
+  /** Push specified object IDs (OID hashes) instead of all objects. Empty arrays require stdin: true. */
   objectId?: string | string[];
+  /** Send objectId values (or ref) as newline-delimited standard input. Requires objectId or ref. */
+  stdin?: boolean;
 };
 
 /**
