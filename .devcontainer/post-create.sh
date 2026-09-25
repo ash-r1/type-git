@@ -84,6 +84,16 @@ else
     echo "❌ Claude Code installation failed"
 fi
 
+# Install Codex CLI
+echo "📦 Installing Codex CLI..."
+npm install -g @openai/codex
+if command -v codex &> /dev/null; then
+    echo "✅ Codex CLI is installed"
+    codex --version
+else
+    echo "❌ Codex CLI installation failed"
+fi
+
 echo ""
 echo "📋 Available test commands:"
 echo "   pnpm test        - Run Node.js tests (vitest)"
