@@ -1,5 +1,38 @@
 # type-git
 
+## 0.3.0-alpha.3
+
+### Minor Changes
+
+- [#123](https://github.com/ash-r1/type-git/pull/123) [`98ef83e`](https://github.com/ash-r1/type-git/commit/98ef83e0ddbf84d4ee322993add2e058ca7aa7f0) Thanks [@ash-r1](https://github.com/ash-r1)! - Run `lfsExtra.preUpload()` batches concurrently and raise the default batch size
+
+  Each `git lfs push --object-id` invocation pays a fixed cost (process spawn,
+  credential lookup, LFS batch API round-trip) before any bytes are transferred.
+  Previously the batches ran strictly one after another, so with many objects
+  this fixed cost accumulated as pure waiting time. Batches now run with a
+  bounded concurrency (new `concurrency` option, default 4; set 1 for the
+  previous serial behavior), overlapping the fixed cost with other batches'
+  transfers.
+
+  Two related behaviors are defined precisely:
+
+  - The first batch always runs alone; the remaining batches start only after
+    it succeeds. A failure that affects every batch the same way (unreachable
+    remote, missing local objects) is discovered with a single round-trip.
+  - Once a batch fails or is aborted, no new batch is started; in-flight
+    batches are awaited before returning. The objects of failed and unstarted
+    batches are reported in `skippedCount`, so `uploadedCount + skippedCount`
+    still equals the number of objects. Previously, every remaining batch was
+    still attempted after a failure.
+
+  The default `batchSize` is raised from 50 to 200. Git is spawned directly
+  without a shell, so the binding command-line limit is the Windows
+  CreateProcess limit of 32,767 characters rather than the 8KB shell limit the
+  old default assumed; 200 OIDs stay around 40% of the real limit while paying
+  the per-invocation fixed cost a quarter as often.
+
+- [#126](https://github.com/ash-r1/type-git/pull/126) [`f20036e`](https://github.com/ash-r1/type-git/commit/f20036e0c1b12f185e1b9eb359f090699efdfef0) Thanks [@ash-r1](https://github.com/ash-r1)! - Support `repo.lfs.push({ objectId: oids, stdin: true })` with newline-delimited input across Node.js, Bun, and Deno. Fix object-ID argument ordering for LFS pushes.
+
 ## 0.3.0-alpha.2
 
 ### Minor Changes
