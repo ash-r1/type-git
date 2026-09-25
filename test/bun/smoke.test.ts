@@ -23,6 +23,29 @@ const USE_LEGACY_VERSION = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 describe('BunExecAdapter', () => {
   const adapter = new BunExecAdapter();
 
+  test('writes stdin and closes it in both execution modes', async () => {
+    for (const stdin of ['', '日本語\n'.repeat(100000)]) {
+      for (const streaming of [false, true]) {
+        const options = { argv: ['cat'], stdin };
+        const result = streaming
+          ? await adapter.spawnStreaming(options).wait()
+          : await adapter.spawn(options);
+        expect(result.exitCode).toBe(0);
+        expect(result.stdout).toBe(stdin);
+      }
+    }
+  });
+
+  test('handles early stdin closure in both execution modes', async () => {
+    for (const streaming of [false, true]) {
+      const options = { argv: ['sh', '-c', 'exit 1'], stdin: 'x'.repeat(1024 * 1024) };
+      const result = streaming
+        ? await adapter.spawnStreaming(options).wait()
+        : await adapter.spawn(options);
+      expect(result.exitCode).toBe(1);
+    }
+  });
+
   describe('getCapabilities', () => {
     test('returns correct capabilities', () => {
       const caps = adapter.getCapabilities();

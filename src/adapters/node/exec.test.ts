@@ -16,6 +16,40 @@ function normalizePath(p: string): string {
 describe('NodeExecAdapter', () => {
   const adapter = new NodeExecAdapter();
 
+  it.each(['spawn', 'spawnStreaming'] as const)('%s writes stdin and closes it', async (method) => {
+    for (const stdin of ['', '日本語\n'.repeat(100000)]) {
+      const options = {
+        argv: [
+          process.execPath,
+          '-e',
+          "const chunks = []; process.stdin.on('data', c => chunks.push(c)); process.stdin.on('end', () => process.stdout.write(Buffer.concat(chunks).toString('base64')));",
+        ],
+        stdin,
+      };
+      const result =
+        method === 'spawn'
+          ? await adapter.spawn(options)
+          : await adapter.spawnStreaming(options).wait();
+      expect(result.exitCode).toBe(0);
+      expect(result.stdout).toBe(Buffer.from(stdin).toString('base64'));
+    }
+  });
+
+  it.each([
+    'spawn',
+    'spawnStreaming',
+  ] as const)('%s handles early stdin closure', async (method) => {
+    const options = {
+      argv: [process.execPath, '-e', 'process.exit(1)'],
+      stdin: 'x'.repeat(1024 * 1024),
+    };
+    const result =
+      method === 'spawn'
+        ? await adapter.spawn(options)
+        : await adapter.spawnStreaming(options).wait();
+    expect(result.exitCode).toBe(1);
+  });
+
   describe('getCapabilities', () => {
     it('should return node runtime capabilities', () => {
       const caps = adapter.getCapabilities();

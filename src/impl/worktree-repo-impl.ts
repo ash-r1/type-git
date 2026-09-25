@@ -1164,27 +1164,24 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--dry-run');
     }
 
-    if (opts?.objectId) {
-      const oids = Array.isArray(opts.objectId) ? opts.objectId : [opts.objectId];
-      for (const oid of oids) {
-        args.push('--object-id', oid);
-      }
-    } else {
-      // Default to --all if not pushing specific objects
-      args.push('--all');
-    }
+    const oids =
+      opts?.objectId !== undefined
+        ? Array.isArray(opts.objectId)
+          ? opts.objectId
+          : [opts.objectId]
+        : undefined;
+    args.push(oids ? '--object-id' : '--all');
+    args.push(opts?.remote ?? 'origin');
 
-    if (opts?.remote) {
-      args.push(opts.remote);
+    const values = oids ?? (opts?.ref ? [opts.ref] : []);
+    if (opts?.stdin) {
+      args.push('--stdin');
     } else {
-      args.push('origin');
-    }
-
-    if (opts?.ref) {
-      args.push(opts.ref);
+      args.push(...values);
     }
 
     await this.runner.runOrThrow(this.context, args, {
+      stdin: opts?.stdin ? (values.length > 0 ? `${values.join('\n')}\n` : '') : undefined,
       signal: opts?.signal,
       onProgress: opts?.onProgress,
       onLfsProgress: opts?.onLfsProgress,

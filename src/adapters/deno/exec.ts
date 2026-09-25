@@ -129,6 +129,28 @@ async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
   return result;
 }
 
+async function writeStdin(
+  stream: WritableStream<Uint8Array> | null,
+  input: string | undefined,
+): Promise<unknown> {
+  if (!stream || input === undefined) {
+    return;
+  }
+  const writer = stream.getWriter();
+  try {
+    await writer.write(new TextEncoder().encode(input));
+    await writer.close();
+  } catch (error) {
+    // Preserve the exit result when the child closes its input early.
+    if (!(error instanceof Error && error.name === 'BrokenPipe')) {
+      return error;
+    }
+  } finally {
+    writer.releaseLock();
+  }
+  return undefined;
+}
+
 export class DenoExecAdapter implements ExecAdapter {
   public getCapabilities(): Capabilities {
     return {
@@ -166,12 +188,16 @@ export class DenoExecAdapter implements ExecAdapter {
       args,
       cwd,
       ...resolveChildEnvOptions(env, inheritEnv),
-      stdin: 'null',
+      stdin: options.stdin === undefined ? 'null' : 'piped',
       stdout: 'piped',
       stderr: 'piped',
     });
 
     const child = cmd.spawn();
+    const stdinPromise = writeStdin(
+      options.stdin === undefined ? null : child.stdin,
+      options.stdin,
+    );
 
     // Handle abort signal
     const abortHandler = (): void => {
@@ -251,6 +277,10 @@ export class DenoExecAdapter implements ExecAdapter {
       }
 
       const status = await child.status;
+      const stdinError = await stdinPromise;
+      if (stdinError) {
+        throw stdinError;
+      }
 
       return {
         stdout,
@@ -278,12 +308,16 @@ export class DenoExecAdapter implements ExecAdapter {
       args,
       cwd,
       ...resolveChildEnvOptions(env, inheritEnv),
-      stdin: 'null',
+      stdin: options.stdin === undefined ? 'null' : 'piped',
       stdout: 'piped',
       stderr: 'piped',
     });
 
     const child = cmd.spawn();
+    const stdinPromise = writeStdin(
+      options.stdin === undefined ? null : child.stdin,
+      options.stdin,
+    );
 
     const abortHandler = (): void => {
       aborted = true;
@@ -329,6 +363,10 @@ export class DenoExecAdapter implements ExecAdapter {
           child.status,
         ]);
 
+        const stdinError = await stdinPromise;
+        if (stdinError) {
+          throw stdinError;
+        }
         exited = true;
         return {
           stdout,

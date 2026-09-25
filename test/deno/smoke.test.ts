@@ -32,6 +32,29 @@ const USE_LEGACY_VERSION = Deno.env.get('TYPE_GIT_USE_LEGACY_VERSION') === 'true
 describe('DenoExecAdapter', () => {
   const adapter = new DenoExecAdapter();
 
+  it('writes stdin and closes it in both execution modes', async () => {
+    for (const stdin of ['', '日本語\n'.repeat(100000)]) {
+      for (const streaming of [false, true]) {
+        const options = { argv: ['cat'], stdin };
+        const result = streaming
+          ? await adapter.spawnStreaming(options).wait()
+          : await adapter.spawn(options);
+        assertEquals(result.exitCode, 0);
+        assertEquals(result.stdout, stdin);
+      }
+    }
+  });
+
+  it('handles early stdin closure in both execution modes', async () => {
+    for (const streaming of [false, true]) {
+      const options = { argv: ['sh', '-c', 'exit 1'], stdin: 'x'.repeat(1024 * 1024) };
+      const result = streaming
+        ? await adapter.spawnStreaming(options).wait()
+        : await adapter.spawn(options);
+      assertEquals(result.exitCode, 1);
+    }
+  });
+
   describe('getCapabilities', () => {
     it('returns correct capabilities', () => {
       const caps = adapter.getCapabilities();

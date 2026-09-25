@@ -19,6 +19,8 @@ import type { Capabilities } from './types.js';
 export type SpawnOptions = {
   /** Command and arguments (first element is the command) */
   argv: string[];
+  /** UTF-8 text to write to standard input, then close it. */
+  stdin?: string;
   /** Additional environment variables */
   env?: Record<string, string>;
   /**
