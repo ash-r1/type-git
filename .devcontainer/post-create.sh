@@ -7,6 +7,10 @@ echo "🚀 Running post-create setup..."
 echo "🔧 Fixing /home/node/.local permissions..."
 sudo chown -R node:node /home/node/.local 2>/dev/null || true
 
+# Fix ownership of /home/node/.codex (volumes may be owned by root)
+echo "🔧 Fixing /home/node/.codex permissions..."
+sudo chown -R node:node /home/node/.codex 2>/dev/null || true
+
 # Ensure node_modules directory exists with correct permissions
 if [ ! -d "node_modules" ]; then
     echo "📁 Creating node_modules directory..."
@@ -82,6 +86,16 @@ if command -v claude &> /dev/null; then
     claude --version
 else
     echo "❌ Claude Code installation failed"
+fi
+
+# Install Codex CLI
+echo "📦 Installing Codex CLI..."
+export PATH="${NPM_CONFIG_PREFIX}/bin:${PATH}"
+if npm install -g @openai/codex && command -v codex &> /dev/null; then
+    echo "✅ Codex CLI is installed"
+    codex --version
+else
+    echo "❌ Codex CLI installation failed"
 fi
 
 echo ""

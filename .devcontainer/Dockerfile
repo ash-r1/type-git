@@ -16,6 +16,7 @@ RUN mkdir -p \
     /home/node/.local/share/pnpm/store \
     /home/node/.config/claude \
     /home/node/.local/share/claude \
+    /home/node/.codex \
     /home/node/.npm-global \
     /home/node/.deno
 
