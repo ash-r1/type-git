@@ -112,6 +112,50 @@ describe('lfs.push', () => {
     );
   });
 
+  it.each([false, true])('preserves ref selection with stdin=%s', async (stdin) => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    await repo.lfs.push({ ref: 'feature', stdin });
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        argv: [
+          'git',
+          '-C',
+          '/repo',
+          'lfs',
+          'push',
+          '--all',
+          'origin',
+          stdin ? '--stdin' : 'feature',
+        ],
+        stdin: stdin ? 'feature\n' : undefined,
+      }),
+      undefined,
+    );
+  });
+
+  it('rejects stdin without object IDs or a ref before spawning', async () => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    await expect(repo.lfs.push({ stdin: true })).rejects.toThrow(
+      'lfs.push with stdin requires objectId or ref',
+    );
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
+
+  it('preserves the default all-refs push', async () => {
+    const adapters = createMockAdapters();
+    const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo');
+    await repo.lfs.push();
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        argv: ['git', '-C', '/repo', 'lfs', 'push', '--all', 'origin'],
+        stdin: undefined,
+      }),
+      undefined,
+    );
+  });
+
   it('does not spawn when LFS is disabled', async () => {
     const adapters = createMockAdapters();
     const repo = new WorktreeRepoImpl(new CliRunner(adapters), '/repo', { lfs: 'disabled' });

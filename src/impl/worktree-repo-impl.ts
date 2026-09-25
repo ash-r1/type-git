@@ -1158,6 +1158,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return;
     }
 
+    if (opts?.stdin && opts.objectId === undefined && !opts.ref) {
+      throw new TypeError('lfs.push with stdin requires objectId or ref');
+    }
+
     const args = ['lfs', 'push'];
 
     if (opts?.dryRun) {

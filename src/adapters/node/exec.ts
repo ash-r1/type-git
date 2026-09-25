@@ -113,8 +113,9 @@ export class NodeExecAdapter implements ExecAdapter {
       });
 
       child.stdin?.on('error', (error: NodeJS.ErrnoException) => {
-        // A child may exit before consuming all input; preserve its exit result.
-        if (error.code !== 'EPIPE') {
+        // Early stdin closure reports EPIPE on Unix or EOF on Windows.
+        // Preserve the child process exit result in either case.
+        if (error.code !== 'EPIPE' && error.code !== 'EOF') {
           reject(error);
         }
       });
@@ -185,8 +186,9 @@ export class NodeExecAdapter implements ExecAdapter {
       });
 
       child.stdin?.on('error', (error: NodeJS.ErrnoException) => {
-        // A child may exit before consuming all input; preserve its exit result.
-        if (error.code !== 'EPIPE') {
+        // Early stdin closure reports EPIPE on Unix or EOF on Windows.
+        // Preserve the child process exit result in either case.
+        if (error.code !== 'EPIPE' && error.code !== 'EOF') {
           reject(error);
         }
       });
