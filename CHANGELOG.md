@@ -1,5 +1,11 @@
 # type-git
 
+## 0.3.0-beta.0
+
+### Patch Changes
+
+- Promote the 0.3.0 prerelease to beta. Document the validation scope and compatibility policy, and run repository API type assertions in CI.
+
 ## 0.3.0-alpha.3
 
 ### Minor Changes

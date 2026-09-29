@@ -45,7 +45,7 @@ This library wraps Git CLI (and optionally libgit2) with a focus on:
 ## Installation
 
 ```bash
-npm install type-git
+npm install type-git@beta
 ```
 
 ## Usage
@@ -200,7 +200,37 @@ src/
 
 ## Development Status
 
-This library is currently in early development (v0.0.1). It's not tested well. Especially, on Bun/Deno.
+type-git 0.3.0 is in **beta** and ready for evaluation in real applications. The
+public API is taking shape, but compatibility is not yet guaranteed. Breaking
+changes during beta will be documented in the changelog; pin an exact version if
+your application needs controlled upgrades. Install with `npm install type-git@beta`.
+
+### Validation scope
+
+- **Node.js**: Unit and real-Git integration tests run in CI on Linux and Windows
+  with Node.js 20, 22, and 24. A separate job checks legacy Git 2.25 compatibility.
+- **Bun and Deno**: Adapter and basic repository-operation smoke tests run on Linux.
+  Their test coverage is narrower than Node.js; cross-runtime behavior still needs
+  more real-application feedback.
+- **Package distribution**: CI installs the npm tarball and checks ESM, CommonJS,
+  and TypeScript consumers. Repository API type assertions are also compiled in CI.
+- **LFS**: Automated tests cover command construction, progress callback wiring,
+  and smudge-mode handling, primarily with mocked adapters. Remote-service
+  authentication, interrupted transfers, and large transfers need further validation.
+- **macOS**: Not currently included in the CI matrix.
+
+### Toward 1.0
+
+The 1.0 release will establish a public API maintained with semantic versioning.
+Before then, the priorities are sustained use in real applications, broader Git/LFS
+transfer and failure-path validation, and settling the contracts for errors,
+cancellation, progress callbacks, and environment inheritance. Full coverage of
+every Git command-line option is not a release requirement; `raw()` remains the
+escape hatch.
+
+Please report issues with your type-git, runtime, Git, and Git LFS versions,
+operating system, and a minimal reproduction. Remove credentials from logs before
+sharing them.
 
 ## License
 
