@@ -1,6 +1,6 @@
 {
   "mode": "pre",
-  "tag": "alpha",
+  "tag": "beta",
   "initialVersions": {
     "type-git": "0.2.0",
     "type-git-docs": "0.0.1"
@@ -14,6 +14,7 @@
     "lfs-progress-pull-fetch-preupload",
     "lfs-skip-smudge-mode",
     "preupload-concurrent-batches",
-    "tidy-lfs-stdin"
+    "tidy-lfs-stdin",
+    "beta-release"
   ]
 }

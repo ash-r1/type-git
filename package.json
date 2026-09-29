@@ -1,6 +1,6 @@
 {
   "name": "type-git",
-  "version": "0.3.0-alpha.3",
+  "version": "0.3.0-beta.0",
   "description": "Type-safe Git wrapper library with LFS support, progress tracking, and abort control for Node.js/Deno/Bun",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -45,7 +45,7 @@
     "format:check": "biome format src",
     "check": "biome check src",
     "check:fix": "biome check --write src",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && pnpm test:types",
     "docs:dev": "pnpm --filter type-git-docs dev",
     "docs:build": "pnpm --filter type-git-docs build",
     "docs:preview": "pnpm --filter type-git-docs preview",
@@ -53,7 +53,8 @@
     "prepublishOnly": "pnpm test:ci && pnpm build",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "test:types": "tsc --project test/types/tsconfig.json"
   },
   "keywords": [
     "git",
