@@ -799,7 +799,6 @@ describe('CliRunner', () => {
 
     it('should derive aborted flag from signal when spawn throws', async () => {
       const adapters = createMockAdapters();
-      (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('Aborted'));
 
       const auditEvents: AuditEvent[] = [];
       const runner = new CliRunner(adapters, {
@@ -809,7 +808,10 @@ describe('CliRunner', () => {
       });
 
       const controller = new AbortController();
-      controller.abort();
+      (adapters.exec.spawn as ReturnType<typeof vi.fn>).mockImplementation(() => {
+        controller.abort();
+        throw new Error('Aborted');
+      });
 
       await expect(
         runner.run({ type: 'global' }, ['clone', 'url'], { signal: controller.signal }),

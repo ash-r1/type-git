@@ -62,7 +62,7 @@ log_success "Package built"
 
 # Step 2: Create tarball
 log_info "Creating npm tarball..."
-TARBALL=$(npm pack --pack-destination "$ROOT_DIR" 2>/dev/null | tail -n1)
+TARBALL=$(npm pack --ignore-scripts --pack-destination "$ROOT_DIR" 2>/dev/null | tail -n1)
 TARBALL_PATH="$ROOT_DIR/$TARBALL"
 log_success "Created $TARBALL"
 
@@ -70,7 +70,7 @@ log_success "Created $TARBALL"
 echo ""
 log_info "Running ESM integration tests..."
 cd "$SCRIPT_DIR/esm"
-npm install "$TARBALL_PATH" --silent
+npm install "$TARBALL_PATH" --silent --no-save --include=dev
 node test.mjs
 log_success "ESM tests passed"
 
@@ -78,7 +78,7 @@ log_success "ESM tests passed"
 echo ""
 log_info "Running CJS integration tests..."
 cd "$SCRIPT_DIR/cjs"
-npm install "$TARBALL_PATH" --silent
+npm install "$TARBALL_PATH" --silent --no-save --include=dev
 node test.cjs
 log_success "CJS tests passed"
 
@@ -86,8 +86,7 @@ log_success "CJS tests passed"
 echo ""
 log_info "Running TypeScript type definition tests..."
 cd "$SCRIPT_DIR/typescript"
-npm install "$TARBALL_PATH" --silent
-npm install --silent
+npm install "$TARBALL_PATH" --silent --no-save --include=dev
 npx tsc --noEmit
 log_success "TypeScript type definitions are valid"
 

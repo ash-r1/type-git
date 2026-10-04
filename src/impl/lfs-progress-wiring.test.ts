@@ -167,11 +167,11 @@ describe('onLfsProgress wiring', () => {
     await repo.lfs.fetch({ onLfsProgress: (p) => events.push(p) });
 
     expect(events.length).toBeGreaterThan(0);
-    // `git lfs fetch` does take `--progress`; the broadened gate must add it
+    // LFS fetch uses the progress environment variable, not --progress.
     // when only onLfsProgress is provided.
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
       expect.objectContaining({
-        argv: expect.arrayContaining(['--progress']),
+        argv: expect.not.arrayContaining(['--progress']),
         env: expect.objectContaining({ GIT_LFS_FORCE_PROGRESS: '1' }),
       }),
       expect.objectContaining({ onStderr: expect.any(Function) }),

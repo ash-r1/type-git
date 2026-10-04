@@ -346,6 +346,10 @@ export class CliRunner {
     const argv = this.buildArgv(context, args);
     const { signal, onProgress, onLfsProgress, env: envOverride } = opts ?? {};
 
+    if (signal?.aborted) {
+      return { stdout: '', stderr: '', exitCode: -1, aborted: true };
+    }
+
     const env = this.buildEnv();
 
     // Apply per-call environment overrides (e.g. GIT_LFS_SKIP_SMUDGE) on top of
@@ -430,7 +434,21 @@ export class CliRunner {
           duration: endTimestamp - startTimestamp,
         });
       }
-      throw error;
+      if (error instanceof GitError) {
+        throw error;
+      }
+      throw new GitError(
+        signal?.aborted ? 'Aborted' : 'SpawnFailed',
+        error instanceof Error ? error.message : String(error),
+        {
+          argv,
+          ...(context.type === 'worktree'
+            ? { workdir: context.workdir }
+            : context.type === 'bare'
+              ? { gitDir: context.gitDir }
+              : {}),
+        },
+      );
     }
 
     // Emit audit end event
@@ -563,6 +581,13 @@ export class CliRunner {
   /**
    * Run a command and throw on error
    */
+  public checkResult(context: ExecutionContext, args: string[], result: RawResult): void {
+    const error = this.mapError(result, context, this.buildArgv(context, args));
+    if (error) {
+      throw error;
+    }
+  }
+
   public async runOrThrow(
     context: ExecutionContext,
     args: string[],

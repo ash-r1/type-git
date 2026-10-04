@@ -1,3 +1,5 @@
+import { validateOptions } from '../core/option-rules.js';
+import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 /**
  * Git implementation - repository-agnostic operations
  */
@@ -26,7 +28,7 @@ import type {
 } from '../core/repo.js';
 import type { ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
 import { GitError } from '../core/types.js';
-import { parseLines, parseLsRemote } from '../parsers/index.js';
+import { parseLsRemote } from '../parsers/index.js';
 import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
 import { BareRepoImpl } from './bare-repo-impl.js';
 import { WorktreeRepoImpl } from './worktree-repo-impl.js';
@@ -366,12 +368,22 @@ export class GitImpl implements Git {
     path: string,
     opts: CloneOpts & { mirror: true } & ExecOpts,
   ): Promise<BareRepo>;
-  public clone(url: string, path: string, opts?: CloneOpts & ExecOpts): Promise<WorktreeRepo>;
+  public clone(
+    url: string,
+    path: string,
+    opts?: CloneOpts & { bare?: false; mirror?: false } & ExecOpts,
+  ): Promise<WorktreeRepo>;
+  public clone(
+    url: string,
+    path: string,
+    opts?: CloneOpts & ExecOpts,
+  ): Promise<WorktreeRepo | BareRepo>;
   public async clone(
     url: string,
     path: string,
     opts?: CloneOpts & ExecOpts,
   ): Promise<WorktreeRepo | BareRepo> {
+    validateOptions('clone', opts);
     const args = buildCloneArgs(opts);
 
     // Add progress flag for progress tracking (from ExecOpts).
@@ -382,6 +394,8 @@ export class GitImpl implements Git {
 
     args.push(url, path);
 
+    const destinationExisted = await this.adapters.fs.exists(path);
+    const alreadyAborted = opts?.signal?.aborted;
     try {
       await this.runner.runOrThrow({ type: 'global' }, args, {
         signal: opts?.signal,
@@ -390,7 +404,13 @@ export class GitImpl implements Git {
       });
     } catch (error) {
       // Clean up on abort if cleanupOnAbort is true (default)
-      if (error instanceof GitError && error.kind === 'Aborted' && opts?.cleanupOnAbort !== false) {
+      if (
+        error instanceof GitError &&
+        error.kind === 'Aborted' &&
+        opts?.cleanupOnAbort !== false &&
+        !destinationExisted &&
+        !alreadyAborted
+      ) {
         await this.adapters.fs.deleteDirectory(path);
       }
       throw error;
@@ -408,8 +428,10 @@ export class GitImpl implements Git {
    * Initialize a new repository
    */
   public init(path: string, opts: InitOpts & { bare: true } & ExecOpts): Promise<BareRepo>;
-  public init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo>;
+  public init(path: string, opts?: InitOpts & { bare?: false } & ExecOpts): Promise<WorktreeRepo>;
+  public init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo | BareRepo>;
   public async init(path: string, opts?: InitOpts & ExecOpts): Promise<WorktreeRepo | BareRepo> {
+    validateOptions('init', opts);
     const args = ['init'];
 
     // Quiet mode
@@ -457,6 +479,8 @@ export class GitImpl implements Git {
 
     args.push(path);
 
+    const destinationExisted = await this.adapters.fs.exists(path);
+    const alreadyAborted = opts?.signal?.aborted;
     try {
       await this.runner.runOrThrow({ type: 'global' }, args, {
         signal: opts?.signal,
@@ -478,7 +502,13 @@ export class GitImpl implements Git {
       }
     } catch (error) {
       // Clean up on abort if cleanupOnAbort is true (default)
-      if (error instanceof GitError && error.kind === 'Aborted' && opts?.cleanupOnAbort !== false) {
+      if (
+        error instanceof GitError &&
+        error.kind === 'Aborted' &&
+        opts?.cleanupOnAbort !== false &&
+        !destinationExisted &&
+        !alreadyAborted
+      ) {
         await this.adapters.fs.deleteDirectory(path);
       }
       throw error;
@@ -495,6 +525,7 @@ export class GitImpl implements Git {
    * List references in a remote repository
    */
   public async lsRemote(url: string, opts?: LsRemoteOpts & ExecOpts): Promise<LsRemoteResult> {
+    validateOptions('lsRemote', opts);
     const args = ['ls-remote'];
 
     // Ref type filters
@@ -511,16 +542,9 @@ export class GitImpl implements Git {
     }
 
     // New options
-    if (opts?.getUrl) {
-      args.push('--get-url');
-    }
 
     if (opts?.sort) {
       args.push('--sort', opts.sort);
-    }
-
-    if (opts?.symref) {
-      args.push('--symref');
     }
 
     args.push(url);
@@ -581,15 +605,8 @@ export class GitImpl implements Git {
     key: K,
     opts?: ExecOpts,
   ): Promise<ConfigSchema[K] | undefined> {
-    const result = await this.runner.run({ type: 'global' }, ['config', '--global', '--get', key], {
-      signal: opts?.signal,
-    });
-
-    if (result.exitCode !== 0) {
-      return undefined;
-    }
-
-    return result.stdout.trim() as ConfigSchema[K];
+    const values = await readTypedConfig(this.runner, { type: 'global' }, key, opts);
+    return values.at(-1);
   }
 
   /**
@@ -599,17 +616,7 @@ export class GitImpl implements Git {
     key: K,
     opts?: ExecOpts,
   ): Promise<ConfigSchema[K][]> {
-    const result = await this.runner.run(
-      { type: 'global' },
-      ['config', '--global', '--get-all', key],
-      { signal: opts?.signal },
-    );
-
-    if (result.exitCode !== 0) {
-      return [];
-    }
-
-    return parseLines(result.stdout) as ConfigSchema[K][];
+    return readTypedConfig(this.runner, { type: 'global' }, key, opts, true);
   }
 
   /**
@@ -652,33 +659,23 @@ export class GitImpl implements Git {
   /**
    * Get a raw global config value (for arbitrary keys)
    */
+  private configGetRaw(
+    key: string,
+    opts: ConfigGetOpts & { all: true } & ExecOpts,
+  ): Promise<string[]>;
+  private configGetRaw(
+    key: string,
+    opts?: ConfigGetOpts & { all?: false } & ExecOpts,
+  ): Promise<string | undefined>;
+  private configGetRaw(
+    key: string,
+    opts?: ConfigGetOpts & ExecOpts,
+  ): Promise<string | string[] | undefined>;
   private async configGetRaw(
     key: string,
     opts?: ConfigGetOpts & ExecOpts,
   ): Promise<string | string[] | undefined> {
-    const args = ['config', '--global'];
-
-    if (opts?.all) {
-      args.push('--get-all');
-    } else {
-      args.push('--get');
-    }
-
-    args.push(key);
-
-    const result = await this.runner.run({ type: 'global' }, args, {
-      signal: opts?.signal,
-    });
-
-    if (result.exitCode !== 0) {
-      return undefined;
-    }
-
-    if (opts?.all) {
-      return parseLines(result.stdout);
-    }
-
-    return result.stdout.trim();
+    return readConfig(this.runner, { type: 'global' }, key, opts);
   }
 
   /**
@@ -715,40 +712,7 @@ export class GitImpl implements Git {
    * List all global config values
    */
   private async configList(opts?: GlobalConfigListOpts & ExecOpts): Promise<ConfigEntry[]> {
-    const args = ['config', '--global', '--list'];
-
-    if (opts?.showOrigin) {
-      args.push('--show-origin');
-    }
-
-    if (opts?.showScope) {
-      args.push('--show-scope');
-    }
-
-    const result = await this.runner.runOrThrow({ type: 'global' }, args, {
-      signal: opts?.signal,
-    });
-
-    const entries: ConfigEntry[] = [];
-    for (const line of parseLines(result.stdout)) {
-      let keyValue = line;
-      if (opts?.showOrigin || opts?.showScope) {
-        const tabIndex = line.lastIndexOf('\t');
-        if (tabIndex !== -1) {
-          keyValue = line.slice(tabIndex + 1);
-        }
-      }
-
-      const eqIndex = keyValue.indexOf('=');
-      if (eqIndex !== -1) {
-        entries.push({
-          key: keyValue.slice(0, eqIndex),
-          value: keyValue.slice(eqIndex + 1),
-        });
-      }
-    }
-
-    return entries;
+    return listConfig(this.runner, { type: 'global' }, opts);
   }
 
   // ==========================================================================

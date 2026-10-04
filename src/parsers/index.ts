@@ -1,3 +1,5 @@
+import { GitError } from '../core/types.js';
+
 /**
  * stdout parsing utilities for Git output
  *
@@ -20,18 +22,6 @@ const LFS_UPLOAD_REGEX = /uploading/i;
 const LFS_CHECKOUT_REGEX = /checking out/i;
 const LFS_PROGRESS_REGEX =
   /(\d+)%\s*\((\d+)\/(\d+)\)(?:,\s*([\d.]+\s*(?:B|KB|MB|GB|TB)?)\s*(?:\|\s*([\d.]+\s*(?:B|KB|MB|GB)\/s))?)?/i;
-
-/**
- * Safely get an element from an array, throwing if undefined
- * @internal
- */
-function at<T>(arr: T[], index: number, context: string): T {
-  const value = arr[index];
-  if (value === undefined) {
-    throw new Error(`Parse error: expected element at index ${index} in ${context}`);
-  }
-  return value;
-}
 
 /**
  * Parse newline-separated output into lines
@@ -72,10 +62,6 @@ export function parseRecords(stdout: string, delimiter: string = '\0'): string[]
 
   // Remove trailing delimiter if present
   const normalized = stdout.endsWith(delimiter) ? stdout.slice(0, -delimiter.length) : stdout;
-
-  if (!normalized) {
-    return [];
-  }
 
   return normalized.split(delimiter);
 }
@@ -188,76 +174,130 @@ export type PorcelainV2Entry =
       path: string;
     };
 
+/** Decode Git's C-quoted paths for callers parsing non-NUL output. */
+function decodePath(path: string): string {
+  if (!path.startsWith('"')) {
+    return path;
+  }
+  if (!path.endsWith('"')) {
+    throw new GitError('ParseError', 'Unterminated quoted path');
+  }
+  const bytes: number[] = [];
+  const encoder = new TextEncoder();
+  const escapes: Record<string, string> = {
+    a: '\x07',
+    b: '\b',
+    f: '\f',
+    n: '\n',
+    r: '\r',
+    t: '\t',
+    v: '\v',
+    '"': '"',
+    '\\': '\\',
+  };
+  const value = path.slice(1, -1);
+  for (let i = 0; i < value.length; ) {
+    if (value[i] === '\\') {
+      const octal = value.slice(i + 1).match(/^[0-7]{1,3}/)?.[0];
+      if (octal) {
+        bytes.push(Number.parseInt(octal, 8));
+        i += octal.length + 1;
+        continue;
+      }
+      const escaped = escapes[value[i + 1] ?? ''];
+      if (escaped === undefined) {
+        throw new GitError('ParseError', 'Invalid quoted path escape');
+      }
+      bytes.push(...encoder.encode(escaped));
+      i += 2;
+    } else {
+      const char = String.fromCodePoint(value.codePointAt(i)!);
+      bytes.push(...encoder.encode(char));
+      i += char.length;
+    }
+  }
+  return new TextDecoder().decode(new Uint8Array(bytes));
+}
+
 export function parsePorcelainV2(stdout: string): PorcelainV2Entry[] {
   const entries: PorcelainV2Entry[] = [];
-  const lines = parseLines(stdout);
-
-  for (const line of lines) {
-    if (line.startsWith('1 ')) {
-      // Ordinary changed entry
-      const parts = line.split(' ');
-      const pathPart = parts.slice(8).join(' ');
+  const nul = stdout.includes('\0');
+  const records = nul ? parseRecords(stdout) : parseLines(stdout, { trim: false });
+  // A rename consumes the following record as its source path.
+  // biome-ignore lint/style/useForOf: the cursor also advances over rename source records
+  for (let i = 0; i < records.length; i++) {
+    const line = records[i]!;
+    if (line.startsWith('# ')) {
+      continue;
+    }
+    const kind = line[0];
+    if (kind === '?' || kind === '!') {
+      if (line[1] !== ' ' || line.length < 3) {
+        throw new GitError('ParseError', 'Invalid status path');
+      }
       entries.push({
-        type: 'changed',
-        xy: at(parts, 1, 'porcelain-v2 ordinary'),
-        sub: at(parts, 2, 'porcelain-v2 ordinary'),
-        mH: at(parts, 3, 'porcelain-v2 ordinary'),
-        mI: at(parts, 4, 'porcelain-v2 ordinary'),
-        mW: at(parts, 5, 'porcelain-v2 ordinary'),
-        hH: at(parts, 6, 'porcelain-v2 ordinary'),
-        hI: at(parts, 7, 'porcelain-v2 ordinary'),
-        path: pathPart,
+        type: kind === '?' ? 'untracked' : 'ignored',
+        path: nul ? line.slice(2) : decodePath(line.slice(2)),
       });
-    } else if (line.startsWith('2 ')) {
-      // Renamed/copied entry
-      const parts = line.split(' ');
-      const pathPart = parts.slice(9).join(' ');
-      const pathParts = pathPart.split('\t');
-      entries.push({
-        type: 'changed',
-        xy: at(parts, 1, 'porcelain-v2 renamed'),
-        sub: at(parts, 2, 'porcelain-v2 renamed'),
-        mH: at(parts, 3, 'porcelain-v2 renamed'),
-        mI: at(parts, 4, 'porcelain-v2 renamed'),
-        mW: at(parts, 5, 'porcelain-v2 renamed'),
-        hH: at(parts, 6, 'porcelain-v2 renamed'),
-        hI: at(parts, 7, 'porcelain-v2 renamed'),
-        path: at(pathParts, 0, 'porcelain-v2 renamed path'),
-        origPath: pathParts[1],
-      });
-    } else if (line.startsWith('u ')) {
-      // Unmerged entry
-      const parts = line.split(' ');
-      const pathPart = parts.slice(10).join(' ');
+      continue;
+    }
+    if (kind !== '1' && kind !== '2' && kind !== 'u') {
+      throw new GitError('ParseError', 'Unknown status record');
+    }
+    const count = kind === 'u' ? 10 : kind === '2' ? 9 : 8;
+    const parts = line.split(' ');
+    if (parts.length <= count || parts[1]?.length !== 2) {
+      throw new GitError('ParseError', 'Invalid status record');
+    }
+    let path = parts.slice(count).join(' ');
+    let origPath: string | undefined;
+    if (kind === '2') {
+      if (nul) {
+        origPath = records[++i];
+      } else {
+        const tab = path.indexOf('\t');
+        if (tab < 0) {
+          throw new GitError('ParseError', 'Missing rename source');
+        }
+        origPath = decodePath(path.slice(tab + 1));
+        path = path.slice(0, tab);
+      }
+      if (origPath === undefined) {
+        throw new GitError('ParseError', 'Missing rename source');
+      }
+    }
+    if (!nul) {
+      path = decodePath(path);
+    }
+    if (kind === 'u') {
       entries.push({
         type: 'unmerged',
-        xy: at(parts, 1, 'porcelain-v2 unmerged'),
-        sub: at(parts, 2, 'porcelain-v2 unmerged'),
-        m1: at(parts, 3, 'porcelain-v2 unmerged'),
-        m2: at(parts, 4, 'porcelain-v2 unmerged'),
-        m3: at(parts, 5, 'porcelain-v2 unmerged'),
-        mW: at(parts, 6, 'porcelain-v2 unmerged'),
-        h1: at(parts, 7, 'porcelain-v2 unmerged'),
-        h2: at(parts, 8, 'porcelain-v2 unmerged'),
-        h3: at(parts, 9, 'porcelain-v2 unmerged'),
-        path: pathPart,
+        xy: parts[1]!,
+        sub: parts[2]!,
+        m1: parts[3]!,
+        m2: parts[4]!,
+        m3: parts[5]!,
+        mW: parts[6]!,
+        h1: parts[7]!,
+        h2: parts[8]!,
+        h3: parts[9]!,
+        path,
       });
-    } else if (line.startsWith('? ')) {
-      // Untracked
+    } else {
       entries.push({
-        type: 'untracked',
-        path: line.slice(2),
-      });
-    } else if (line.startsWith('! ')) {
-      // Ignored
-      entries.push({
-        type: 'ignored',
-        path: line.slice(2),
+        type: 'changed',
+        xy: parts[1]!,
+        sub: parts[2]!,
+        mH: parts[3]!,
+        mI: parts[4]!,
+        mW: parts[5]!,
+        hH: parts[6]!,
+        hI: parts[7]!,
+        path,
+        ...(origPath !== undefined ? { origPath } : {}),
       });
     }
-    // Skip header lines (# branch.*)
   }
-
   return entries;
 }
 
@@ -563,10 +603,10 @@ export type ParsedLsTreeEntry = {
 };
 
 // Regex for standard ls-tree output: <mode> <type> <hash>\t<path>
-const LS_TREE_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\t(.+)$/;
+const LS_TREE_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\t([\s\S]+)$/;
 
 // Regex for ls-tree --long output: <mode> <type> <hash> <size>\t<path>
-const LS_TREE_LONG_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\s+(-|\d+)\t(.+)$/;
+const LS_TREE_LONG_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\s+(-|\d+)\t([\s\S]+)$/;
 
 /**
  * Parse git ls-tree output
@@ -583,75 +623,48 @@ const LS_TREE_LONG_REGEX = /^(\d+)\s+(blob|tree|commit)\s+([a-f0-9]+)\s+(-|\d+)\
  */
 export function parseLsTree(
   stdout: string,
+  opts:
+    | { nameOnly: true; objectOnly?: false; long?: false }
+    | { objectOnly: true; nameOnly?: false; long?: false },
+): string[];
+export function parseLsTree(
+  stdout: string,
+  opts?: { nameOnly?: false; objectOnly?: false; long?: boolean },
+): ParsedLsTreeEntry[];
+export function parseLsTree(
+  stdout: string,
   opts?: { nameOnly?: boolean; objectOnly?: boolean; long?: boolean },
-): ParsedLsTreeEntry[] {
-  const entries: ParsedLsTreeEntry[] = [];
-  const lines = parseLines(stdout);
-
-  for (const line of lines) {
-    // Handle --name-only output (just paths)
-    if (opts?.nameOnly) {
-      entries.push({
-        mode: '',
-        type: 'blob',
-        hash: '',
-        path: line,
-      });
-      continue;
-    }
-
-    // Handle --object-only output (just hashes)
-    if (opts?.objectOnly) {
-      entries.push({
-        mode: '',
-        type: 'blob',
-        hash: line,
-        path: '',
-      });
-      continue;
-    }
-
-    // Try parsing --long format first
-    if (opts?.long) {
-      const longMatch = line.match(LS_TREE_LONG_REGEX);
-      if (longMatch) {
-        const mode = longMatch[1];
-        const type = longMatch[2];
-        const hash = longMatch[3];
-        const sizeStr = longMatch[4];
-        const path = longMatch[5];
-        if (mode && type && hash && path) {
-          entries.push({
-            mode,
-            type: type as LsTreeObjectType,
-            hash,
-            path,
-            size: sizeStr === '-' || !sizeStr ? undefined : Number.parseInt(sizeStr, 10),
-          });
-        }
-        continue;
-      }
-    }
-
-    // Parse standard format
-    const match = line.match(LS_TREE_REGEX);
-    if (match) {
-      const mode = match[1];
-      const type = match[2];
-      const hash = match[3];
-      const path = match[4];
-      if (mode && type && hash && path) {
-        entries.push({
-          mode,
-          type: type as LsTreeObjectType,
-          hash,
-          path,
-        });
-      }
-    }
+): ParsedLsTreeEntry[] | string[];
+export function parseLsTree(
+  stdout: string,
+  opts?: { nameOnly?: boolean; objectOnly?: boolean; long?: boolean },
+): ParsedLsTreeEntry[] | string[] {
+  const nul = stdout.includes('\0');
+  const records = nul ? parseRecords(stdout) : parseLines(stdout, { trim: false });
+  if (opts?.nameOnly) {
+    return records.map((path) => (nul ? path : decodePath(path)));
   }
-
-  return entries;
+  if (opts?.objectOnly) {
+    return records;
+  }
+  return records.map((line) => {
+    const match = line.match(opts?.long ? LS_TREE_LONG_REGEX : LS_TREE_REGEX);
+    if (!match) {
+      throw new GitError('ParseError', 'Invalid ls-tree record', { stdout: line });
+    }
+    const path = match[opts?.long ? 5 : 4]!;
+    const size = opts?.long && match[4] !== '-' ? Number(match[4]) : undefined;
+    if (size !== undefined && !Number.isSafeInteger(size)) {
+      throw new GitError('ParseError', 'Invalid tree object size');
+    }
+    return {
+      mode: match[1]!,
+      type: match[2] as LsTreeObjectType,
+      hash: match[3]!,
+      path: nul ? path : decodePath(path),
+      ...(size !== undefined ? { size } : {}),
+    };
+  });
 }
 
 // =============================================================================
@@ -678,71 +691,47 @@ export type ParsedCommit = {
 /**
  * The format string used for git log parsing
  *
- * Uses %x00 (NUL) as field separator and %x01 as record separator
+ * Uses %x00 (NUL) as field separator; pass -z to terminate each record with NUL
  */
 export const GIT_LOG_FORMAT =
-  '%H%x00%h%x00%P%x00%an%x00%ae%x00%at%x00%cn%x00%ce%x00%ct%x00%s%x00%b%x01';
+  '%H%x00%h%x00%P%x00%an%x00%ae%x00%at%x00%cn%x00%ce%x00%ct%x00%s%x00%b';
 
-/**
- * Parse git log output with our custom format
- *
- * @param stdout - Raw stdout from `git log --format=<GIT_LOG_FORMAT>`
- * @returns Parsed commits
- */
+/** Parse the fixed eleven NUL-delimited fields emitted by `git log -z`. */
 export function parseGitLog(stdout: string): ParsedCommit[] {
+  if (!stdout) {
+    return [];
+  }
+  const fields = parseRecords(stdout);
+  if (fields.length % 11 !== 0) {
+    throw new GitError('ParseError', 'Invalid git log field count');
+  }
   const commits: ParsedCommit[] = [];
-
-  // Split by record separator (0x01)
-  const records = stdout.split('\x01').filter((r) => r.trim());
-
-  for (const record of records) {
-    const fields = record.split('\x00');
-
-    if (fields.length < 11) {
-      continue;
-    }
-
-    const hash = fields[0]?.trim();
-    const abbrevHash = fields[1];
-    const parentsStr = fields[2];
-    const authorName = fields[3];
-    const authorEmail = fields[4];
-    const authorTimestampStr = fields[5];
-    const committerName = fields[6];
-    const committerEmail = fields[7];
-    const committerTimestampStr = fields[8];
-    const subject = fields[9];
-
-    // Skip if required fields are missing
+  for (let i = 0; i < fields.length; i += 11) {
+    const authorTimestamp = Number(fields[i + 5]);
+    const committerTimestamp = Number(fields[i + 8]);
     if (
-      hash === undefined ||
-      abbrevHash === undefined ||
-      authorName === undefined ||
-      authorEmail === undefined ||
-      authorTimestampStr === undefined ||
-      committerName === undefined ||
-      committerEmail === undefined ||
-      committerTimestampStr === undefined ||
-      subject === undefined
+      !(
+        fields[i] &&
+        Number.isSafeInteger(authorTimestamp) &&
+        Number.isSafeInteger(committerTimestamp)
+      )
     ) {
-      continue;
+      throw new GitError('ParseError', 'Invalid git log metadata');
     }
-
     commits.push({
-      hash,
-      abbrevHash,
-      parents: parentsStr ? parentsStr.split(' ').filter(Boolean) : [],
-      authorName,
-      authorEmail,
-      authorTimestamp: Number.parseInt(authorTimestampStr, 10),
-      committerName,
-      committerEmail,
-      committerTimestamp: Number.parseInt(committerTimestampStr, 10),
-      subject,
-      body: fields[10]?.trim() ?? '',
+      hash: fields[i]!,
+      abbrevHash: fields[i + 1]!,
+      parents: fields[i + 2]?.split(' ').filter(Boolean) ?? [],
+      authorName: fields[i + 3]!,
+      authorEmail: fields[i + 4]!,
+      authorTimestamp,
+      committerName: fields[i + 6]!,
+      committerEmail: fields[i + 7]!,
+      committerTimestamp,
+      subject: fields[i + 9]!,
+      body: fields[i + 10]!,
     });
   }
-
   return commits;
 }
 
@@ -776,7 +765,7 @@ export type ParsedWorktree = {
  */
 export function parseWorktreeList(stdout: string): ParsedWorktree[] {
   const worktrees: ParsedWorktree[] = [];
-  const lines = parseLines(stdout, { keepEmpty: true });
+  const lines = parseLines(stdout, { keepEmpty: true, trim: false });
 
   let current: Partial<ParsedWorktree> | null = null;
 
@@ -794,7 +783,7 @@ export function parseWorktreeList(stdout: string): ParsedWorktree[] {
       }
       // Start new worktree
       current = {
-        path: line.slice('worktree '.length),
+        path: decodePath(line.slice('worktree '.length)),
         locked: false,
         prunable: false,
       };

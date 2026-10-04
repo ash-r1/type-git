@@ -1,0 +1,58 @@
+---
+title: 0.4.0への移行
+description: 型・出力形式・エラー処理の変更と移行方法
+---
+
+0.4.0では、引数の組み合わせと実際の戻り値を一致させるため、一部のAPIに破壊的変更があります。任意のGitオプションを使う場合は`raw()`を利用できます。
+
+## 戻り値の変更
+
+| 呼び出し | 戻り値 |
+| --- | --- |
+| `lsTree('HEAD')` | 実際の属性を持つ`LsTreeEntry[]` |
+| `lsTree('HEAD', { nameOnly: true })` | ファイル名の`string[]` |
+| `lsTree('HEAD', { objectOnly: true })` | オブジェクトIDの`string[]` |
+| `diff(undefined, { nameOnly: true })` | ファイル名の`string[]` |
+| `config.getRaw(key, { all: true })` | `string[]`。キーがない場合は空配列 |
+
+`bare`や`mirror`に実行時のbooleanを渡すと、`WorktreeRepo | BareRepo`を返します。`kind`で型を絞り込めます。
+
+```ts
+const repo = await git.clone(url, destination, { bare: configuredBare });
+if (repo.kind === 'worktree') {
+  await repo.status();
+}
+```
+
+Bun/Denoでも`type-git/bun`、`type-git/deno`から`TypeGit`を利用でき、Nodeと同じ型の保証を受けられます。
+
+## 引数の制約
+
+IPv4とIPv6、forceとforce-with-lease、ブランチ作成とdetach、abortと通常操作のオプションなど、矛盾する指定を型で拒否します。JavaScriptから呼び出した場合も、実行前に`GitArgumentError`を返します。rev-parseの問い合わせは一度に一種類です。
+
+`log`のstatやnameStatus、`commit`のdryRun、`lsRemote`のgetUrlやsymrefなど、戻り値の契約を変える指定は`raw()`に移してください。`status`はporcelain v2とNUL区切りに固定されます。`diff`の`mergeBase`はbooleanになりました。
+
+パスをファイルから読み込む場合は、コマンドラインのパスと混在させず空配列を渡します。
+
+```ts
+await repo.add([], { pathspecFromFile: 'paths.txt' });
+```
+
+## 値とエラーの扱い
+
+- status、tree、構造化diffで、空白・改行・タブ・日本語を含むパスを保持します。
+- コミット本文と設定値を勝手にtrimしません。従来の挙動が必要な場合は呼び出し側で`.trim()`してください。
+- 不正な設定ファイルやキャンセルを「値がない」として扱わず、エラーを返します。
+- mergeは実際に競合した場合に`success: false`を返し、その他の失敗は`GitError`を投げます。
+- quietモードのcommitでも実際の変更統計を返します。
+- clone/initのキャンセルで、実行前から存在するディレクトリを削除しません。
+
+## LFSと検証
+
+`lfs.status()`と`lfs.lsFiles()`はJSONを使用します。statusの各ファイルは実際の状態コードを持ち、取得できないサイズは未指定になります。JSON対応のGit LFSが必要です。
+
+`lfs.fetch()`はdryRunなどの指定を反映し、進捗通知に未対応のCLIフラグを渡さなくなりました。GitとLFSの進捗は、それぞれ`onProgress`と`onLfsProgress`で受け取ります。
+
+型の検証は`pnpm typecheck`に含まれます。共通のリポジトリ契約テストをNode/Bun/Denoで実行し、実Gitで特殊なパス・改名・設定値・異常系を検証します。Gitのバージョンやリポジトリの状態に依存する失敗は、引き続き実行時のエラーです。
+
+削除対象の全オプションと高度なパーサAPIの変更は[英語版の移行ガイド](/type-git/guides/07-migrating-0-4/)に記載しています。

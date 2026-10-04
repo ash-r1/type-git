@@ -76,7 +76,7 @@ def456\trefs/heads/feature
 describe('parseGitLog', () => {
   it('should parse git log output with custom format', () => {
     const stdout =
-      'abc123\x00abc1\x00parent1 parent2\x00Author Name\x00author@example.com\x001234567890\x00Committer Name\x00committer@example.com\x001234567899\x00Commit subject\x00Commit body\x01';
+      'abc123\x00abc1\x00parent1 parent2\x00Author Name\x00author@example.com\x001234567890\x00Committer Name\x00committer@example.com\x001234567899\x00Commit subject\x00Commit body\x00';
 
     const commits = parseGitLog(stdout);
     expect(commits).toHaveLength(1);
@@ -97,8 +97,8 @@ describe('parseGitLog', () => {
 
   it('should handle multiple commits', () => {
     const stdout =
-      'hash1\x00h1\x00\x00Author\x00a@e.com\x001000\x00Committer\x00c@e.com\x001001\x00Subject1\x00\x01' +
-      'hash2\x00h2\x00hash1\x00Author\x00a@e.com\x001002\x00Committer\x00c@e.com\x001003\x00Subject2\x00Body2\x01';
+      'hash1\x00h1\x00\x00Author\x00a@e.com\x001000\x00Committer\x00c@e.com\x001001\x00Subject1\x00\x00' +
+      'hash2\x00h2\x00hash1\x00Author\x00a@e.com\x001002\x00Committer\x00c@e.com\x001003\x00Subject2\x00Body2\x00';
 
     const commits = parseGitLog(stdout);
     expect(commits).toHaveLength(2);
@@ -111,13 +111,13 @@ describe('parseGitLog', () => {
     // When body ends with newline, the next record starts with that newline
     // which would pollute the hash field if not trimmed
     const stdout =
-      'hash1\x00h1\x00\x00Author\x00a@e.com\x001000\x00Committer\x00c@e.com\x001001\x00Subject1\x00Body with trailing newline\n\x01' +
-      '\nhash2\x00h2\x00hash1\x00Author\x00a@e.com\x001002\x00Committer\x00c@e.com\x001003\x00Subject2\x00\x01';
+      'hash1\x00h1\x00\x00Author\x00a@e.com\x001000\x00Committer\x00c@e.com\x001001\x00Subject1\x00Body with trailing newline\n\x00' +
+      'hash2\x00h2\x00hash1\x00Author\x00a@e.com\x001002\x00Committer\x00c@e.com\x001003\x00Subject2\x00\x00';
 
     const commits = parseGitLog(stdout);
     expect(commits).toHaveLength(2);
     expect(commits[0]?.hash).toBe('hash1');
-    expect(commits[0]?.body).toBe('Body with trailing newline');
+    expect(commits[0]?.body).toBe('Body with trailing newline\n');
     expect(commits[1]?.hash).toBe('hash2');
   });
 });

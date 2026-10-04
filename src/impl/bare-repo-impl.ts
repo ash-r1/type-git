@@ -1,3 +1,10 @@
+import {
+  type ExclusiveQuery,
+  validateOptions,
+  validateRevParseQuery,
+} from '../core/option-rules.js';
+import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
+import { fetch as fetchRepository, push as pushRepository } from '../internal/transport.js';
 /**
  * BareRepo implementation - repository without working directory
  */
@@ -328,6 +335,7 @@ function isListQuery(opts: Record<string, unknown>): boolean {
  * BareRepo implementation
  */
 export class BareRepoImpl implements BareRepo {
+  public readonly kind = 'bare' as const;
   public readonly gitDir: string;
   private readonly runner: CliRunner;
   public readonly remote: RemoteOperations;
@@ -406,6 +414,7 @@ export class BareRepoImpl implements BareRepo {
     remote: string,
     opts?: RepoLsRemoteOpts & ExecOpts,
   ): Promise<RepoLsRemoteResult> {
+    validateOptions('lsRemote', opts);
     const args: string[] = ['ls-remote'];
 
     // Ref type filters
@@ -422,16 +431,9 @@ export class BareRepoImpl implements BareRepo {
     }
 
     // Output options
-    if (opts?.getUrl) {
-      args.push('--get-url');
-    }
 
     if (opts?.sort) {
       args.push('--sort', opts.sort);
-    }
-
-    if (opts?.symref) {
-      args.push('--symref');
     }
 
     // Add remote name
@@ -455,8 +457,21 @@ export class BareRepoImpl implements BareRepo {
   /**
    * List contents of a tree object
    */
-  public async lsTree(treeish: string, opts?: LsTreeOpts & ExecOpts): Promise<LsTreeEntry[]> {
-    const args: string[] = ['ls-tree'];
+  public lsTree(
+    treeish: string,
+    opts: LsTreeOpts & ({ nameOnly: true } | { objectOnly: true }) & ExecOpts,
+  ): Promise<string[]>;
+  public lsTree(
+    treeish: string,
+    opts?: LsTreeOpts & { nameOnly?: false; objectOnly?: false } & ExecOpts,
+  ): Promise<LsTreeEntry[]>;
+  public lsTree(treeish: string, opts?: LsTreeOpts & ExecOpts): Promise<LsTreeEntry[] | string[]>;
+  public async lsTree(
+    treeish: string,
+    opts?: LsTreeOpts & ExecOpts,
+  ): Promise<LsTreeEntry[] | string[]> {
+    validateOptions('lsTree', opts);
+    const args: string[] = ['ls-tree', '-z'];
 
     // Display options
     if (opts?.recursive) {
@@ -473,14 +488,6 @@ export class BareRepoImpl implements BareRepo {
 
     if (opts?.long) {
       args.push('--long');
-    }
-
-    if (opts?.nameOnly) {
-      args.push('--name-only');
-    }
-
-    if (opts?.objectOnly) {
-      args.push('--object-only');
     }
 
     if (opts?.fullName) {
@@ -511,11 +518,14 @@ export class BareRepoImpl implements BareRepo {
       signal: opts?.signal,
     });
 
-    return parseLsTree(result.stdout, {
-      nameOnly: opts?.nameOnly,
-      objectOnly: opts?.objectOnly,
-      long: opts?.long,
-    });
+    const entries = parseLsTree(result.stdout, { long: opts?.long });
+    if (opts?.nameOnly) {
+      return entries.map((entry) => entry.path);
+    }
+    if (opts?.objectOnly) {
+      return entries.map((entry) => entry.hash);
+    }
+    return entries;
   }
 
   /**
@@ -526,19 +536,19 @@ export class BareRepoImpl implements BareRepo {
   public revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
   public revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
   public revParse(
-    opts: { showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts,
+    opts: ExclusiveQuery<{ showObjectFormat: true | 'storage' | 'input' | 'output' }> & ExecOpts,
   ): Promise<string>;
-  public revParse(opts: { showRefFormat: true } & ExecOpts): Promise<string>;
-  public revParse(opts: { localEnvVars: true } & ExecOpts): Promise<string[]>;
+  public revParse(opts: ExclusiveQuery<{ showRefFormat: true }> & ExecOpts): Promise<string>;
+  public revParse(opts: ExclusiveQuery<{ localEnvVars: true }> & ExecOpts): Promise<string[]>;
   public async revParse(
     refOrOpts:
       | string
       | (RevParsePathQuery & RevParsePathOpts & ExecOpts)
       | (RevParseBooleanQuery & ExecOpts)
       | (RevParseListQuery & ExecOpts)
-      | ({ showObjectFormat: true | 'storage' | 'input' | 'output' } & ExecOpts)
-      | ({ showRefFormat: true } & ExecOpts)
-      | ({ localEnvVars: true } & ExecOpts),
+      | (ExclusiveQuery<{ showObjectFormat: true | 'storage' | 'input' | 'output' }> & ExecOpts)
+      | (ExclusiveQuery<{ showRefFormat: true }> & ExecOpts)
+      | (ExclusiveQuery<{ localEnvVars: true }> & ExecOpts),
     opts?: RevParseRefOpts & ExecOpts,
   ): Promise<string | boolean | string[]> {
     const args: string[] = ['rev-parse'];
@@ -554,6 +564,11 @@ export class BareRepoImpl implements BareRepo {
       return result.stdout.trim();
     }
 
+    validateRevParseQuery(refOrOpts);
+    if ('pathFormat' in refOrOpts && refOrOpts.pathFormat) {
+      args.push(`--path-format=${refOrOpts.pathFormat}`);
+    }
+
     // Handle options object cases
     const queryOpts = refOrOpts as Record<string, unknown>;
 
@@ -562,11 +577,6 @@ export class BareRepoImpl implements BareRepo {
       tryAddBooleanQuery(args, queryOpts) ||
       tryAddListQuery(args, queryOpts) ||
       tryAddOtherQuery(args, queryOpts);
-
-    // Add path format option if present (applies to path queries)
-    if ('pathFormat' in queryOpts && queryOpts.pathFormat) {
-      args.push(`--path-format=${queryOpts.pathFormat}`);
-    }
 
     const result = await this.runner.runOrThrow(this.context, args, {
       signal: refOrOpts.signal,
@@ -591,75 +601,14 @@ export class BareRepoImpl implements BareRepo {
    * Fetch from remote
    */
   public async fetch(opts?: FetchOpts & ExecOpts): Promise<void> {
-    const args = ['fetch'];
-
-    if (opts?.onProgress) {
-      args.push('--progress');
-    }
-
-    if (opts?.prune) {
-      args.push('--prune');
-    }
-
-    if (opts?.tags) {
-      args.push('--tags');
-    }
-
-    if (opts?.depth !== undefined) {
-      args.push(`--depth=${opts.depth}`);
-    }
-
-    if (opts?.remote) {
-      args.push(opts.remote);
-    }
-
-    if (opts?.refspec) {
-      const refspecs = Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec];
-      args.push(...refspecs);
-    }
-
-    await this.runner.runOrThrow(this.context, args, {
-      signal: opts?.signal,
-      onProgress: opts?.onProgress,
-    });
+    return fetchRepository(this.runner, this.context, opts);
   }
 
   /**
    * Push to remote
    */
   public async push(opts?: PushOpts & ExecOpts): Promise<void> {
-    const args = ['push'];
-
-    if (opts?.onProgress || opts?.onLfsProgress) {
-      args.push('--progress');
-    }
-
-    if (opts?.force) {
-      args.push('--force');
-    }
-
-    if (opts?.tags) {
-      args.push('--tags');
-    }
-
-    if (opts?.setUpstream) {
-      args.push('--set-upstream');
-    }
-
-    if (opts?.remote) {
-      args.push(opts.remote);
-    }
-
-    if (opts?.refspec) {
-      const refspecs = Array.isArray(opts.refspec) ? opts.refspec : [opts.refspec];
-      args.push(...refspecs);
-    }
-
-    await this.runner.runOrThrow(this.context, args, {
-      signal: opts?.signal,
-      onProgress: opts?.onProgress,
-      onLfsProgress: opts?.onLfsProgress,
-    });
+    return pushRepository(this.runner, this.context, opts);
   }
 
   // ==========================================================================
@@ -761,6 +710,7 @@ export class BareRepoImpl implements BareRepo {
     branch?: string,
     opts?: RemoteSetHeadOpts & ExecOpts,
   ): Promise<void> {
+    validateOptions('remoteSetHead', opts);
     const args = ['remote', 'set-head'];
 
     if (opts?.auto) {
@@ -870,15 +820,8 @@ export class BareRepoImpl implements BareRepo {
     key: K,
     opts?: ExecOpts,
   ): Promise<ConfigSchema[K] | undefined> {
-    const result = await this.runner.run(this.context, ['config', '--get', key], {
-      signal: opts?.signal,
-    });
-
-    if (result.exitCode !== 0) {
-      return undefined;
-    }
-
-    return result.stdout.trim() as ConfigSchema[K];
+    const values = await readTypedConfig(this.runner, this.context, key, opts);
+    return values.at(-1);
   }
 
   /**
@@ -888,15 +831,7 @@ export class BareRepoImpl implements BareRepo {
     key: K,
     opts?: ExecOpts,
   ): Promise<ConfigSchema[K][]> {
-    const result = await this.runner.run(this.context, ['config', '--get-all', key], {
-      signal: opts?.signal,
-    });
-
-    if (result.exitCode !== 0) {
-      return [];
-    }
-
-    return parseLines(result.stdout) as ConfigSchema[K][];
+    return readTypedConfig(this.runner, this.context, key, opts, true);
   }
 
   /**
@@ -937,33 +872,23 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Get a raw config value (for arbitrary keys)
    */
+  private configGetRaw(
+    key: string,
+    opts: ConfigGetOpts & { all: true } & ExecOpts,
+  ): Promise<string[]>;
+  private configGetRaw(
+    key: string,
+    opts?: ConfigGetOpts & { all?: false } & ExecOpts,
+  ): Promise<string | undefined>;
+  private configGetRaw(
+    key: string,
+    opts?: ConfigGetOpts & ExecOpts,
+  ): Promise<string | string[] | undefined>;
   private async configGetRaw(
     key: string,
     opts?: ConfigGetOpts & ExecOpts,
   ): Promise<string | string[] | undefined> {
-    const args = ['config'];
-
-    if (opts?.all) {
-      args.push('--get-all');
-    } else {
-      args.push('--get');
-    }
-
-    args.push(key);
-
-    const result = await this.runner.run(this.context, args, {
-      signal: opts?.signal,
-    });
-
-    if (result.exitCode !== 0) {
-      return undefined;
-    }
-
-    if (opts?.all) {
-      return parseLines(result.stdout);
-    }
-
-    return result.stdout.trim();
+    return readConfig(this.runner, this.context, key, opts);
   }
 
   /**
@@ -1000,55 +925,7 @@ export class BareRepoImpl implements BareRepo {
    * List all config values
    */
   private async configList(opts?: ConfigListOpts & ExecOpts): Promise<ConfigEntry[]> {
-    const args = ['config', '--list'];
-
-    if (opts?.showOrigin) {
-      args.push('--show-origin');
-    }
-
-    if (opts?.showScope) {
-      args.push('--show-scope');
-    }
-
-    if (opts?.includes) {
-      args.push('--includes');
-    }
-
-    if (opts?.nameOnly) {
-      args.push('--name-only');
-    }
-
-    const result = await this.runner.runOrThrow(this.context, args, {
-      signal: opts?.signal,
-    });
-
-    const entries: ConfigEntry[] = [];
-    for (const line of parseLines(result.stdout)) {
-      let keyValue = line;
-      if (opts?.showOrigin || opts?.showScope) {
-        const tabIndex = line.lastIndexOf('\t');
-        if (tabIndex !== -1) {
-          keyValue = line.slice(tabIndex + 1);
-        }
-      }
-
-      if (opts?.nameOnly) {
-        entries.push({
-          key: keyValue,
-          value: '',
-        });
-      } else {
-        const eqIndex = keyValue.indexOf('=');
-        if (eqIndex !== -1) {
-          entries.push({
-            key: keyValue.slice(0, eqIndex),
-            value: keyValue.slice(eqIndex + 1),
-          });
-        }
-      }
-    }
-
-    return entries;
+    return listConfig(this.runner, this.context, opts);
   }
 
   private async configRenameSection(
