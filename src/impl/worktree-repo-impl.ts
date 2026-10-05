@@ -531,7 +531,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     // Rename detection
     if (opts?.noRenames) {
       args.push('--no-renames');
-    } else if (opts?.findRenames !== undefined) {
+    }
+    if (opts?.findRenames !== undefined) {
       if (opts.findRenames === true) {
         args.push('--find-renames');
       } else if (typeof opts.findRenames === 'number') {
@@ -624,7 +625,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     if (opts?.since) {
       const since = opts.since instanceof Date ? opts.since.toISOString() : opts.since;
       args.push(`--since=${since}`);
-    } else if (opts?.after) {
+    }
+    if (opts?.after) {
       const after = opts.after instanceof Date ? opts.after.toISOString() : opts.after;
       args.push(`--after=${after}`);
     }
@@ -632,7 +634,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     if (opts?.until) {
       const until = opts.until instanceof Date ? opts.until.toISOString() : opts.until;
       args.push(`--until=${until}`);
-    } else if (opts?.before) {
+    }
+    if (opts?.before) {
       const before = opts.before instanceof Date ? opts.before.toISOString() : opts.before;
       args.push(`--before=${before}`);
     }
@@ -2248,7 +2251,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.gpgSign) {
       args.push('-S');
-    } else if (opts?.noGpgSign) {
+    }
+    if (opts?.noGpgSign) {
       args.push('--no-gpg-sign');
     }
 
@@ -2408,9 +2412,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.nameOnly) {
       args.push('--name-only');
-    } else if (opts?.nameStatus) {
+    }
+    if (opts?.nameStatus) {
       args.push('--name-status');
-    } else if (opts?.stat) {
+    }
+    if (opts?.stat) {
       args.push('--stat');
     }
 
@@ -3430,28 +3436,17 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     opts?: CherryPickOpts & ExecOpts,
   ): Promise<void> {
     validateOptions('cherryPick', opts);
-    if (opts?.abort) {
-      await this.runner.runOrThrow(this.context, ['cherry-pick', '--abort'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.continue) {
-      await this.runner.runOrThrow(this.context, ['cherry-pick', '--continue'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.skip) {
-      await this.runner.runOrThrow(this.context, ['cherry-pick', '--skip'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
     const args = ['cherry-pick'];
+    const control = opts?.abort || opts?.continue || opts?.skip;
+    if (opts?.abort) {
+      args.push('--abort');
+    }
+    if (opts?.continue) {
+      args.push('--continue');
+    }
+    if (opts?.skip) {
+      args.push('--skip');
+    }
 
     if (opts?.edit) {
       args.push('-e');
@@ -3470,7 +3465,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.strategy) {
-      args.push('-s', opts.strategy);
+      args.push('--strategy', opts.strategy);
     }
 
     // New options
@@ -3519,8 +3514,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--empty', opts.empty);
     }
 
-    const commitList = Array.isArray(commits) ? commits : [commits];
-    args.push(...commitList);
+    if (!control) {
+      const commitList = Array.isArray(commits) ? commits : [commits];
+      args.push(...commitList);
+    }
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -3628,28 +3625,16 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   public async rebase(opts?: RebaseOpts & ExecOpts): Promise<void> {
     validateOptions('rebase', opts);
-    if (opts?.abort) {
-      await this.runner.runOrThrow(this.context, ['rebase', '--abort'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.continue) {
-      await this.runner.runOrThrow(this.context, ['rebase', '--continue'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.skip) {
-      await this.runner.runOrThrow(this.context, ['rebase', '--skip'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
     const args = ['rebase'];
+    if (opts?.abort) {
+      args.push('--abort');
+    }
+    if (opts?.continue) {
+      args.push('--continue');
+    }
+    if (opts?.skip) {
+      args.push('--skip');
+    }
 
     if (opts?.onto) {
       args.push('--onto', opts.onto);
@@ -3825,7 +3810,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.ours) {
       args.push('--ours');
-    } else if (opts?.theirs) {
+    }
+    if (opts?.theirs) {
       args.push('--theirs');
     }
 
@@ -3887,28 +3873,17 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   public async revert(commits: string | string[], opts?: RevertOpts & ExecOpts): Promise<void> {
     validateOptions('revert', opts);
-    if (opts?.abort) {
-      await this.runner.runOrThrow(this.context, ['revert', '--abort'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.continue) {
-      await this.runner.runOrThrow(this.context, ['revert', '--continue'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.skip) {
-      await this.runner.runOrThrow(this.context, ['revert', '--skip'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
     const args = ['revert'];
+    const control = opts?.abort || opts?.continue || opts?.skip;
+    if (opts?.abort) {
+      args.push('--abort');
+    }
+    if (opts?.continue) {
+      args.push('--continue');
+    }
+    if (opts?.skip) {
+      args.push('--skip');
+    }
 
     if (opts?.edit) {
       args.push('-e');
@@ -3960,8 +3935,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--reference');
     }
 
-    const commitList = Array.isArray(commits) ? commits : [commits];
-    args.push(...commitList);
+    if (!control) {
+      const commitList = Array.isArray(commits) ? commits : [commits];
+      args.push(...commitList);
+    }
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,

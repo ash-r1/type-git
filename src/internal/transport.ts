@@ -63,7 +63,8 @@ export async function fetch(
   // Tag handling
   if (opts?.tags) {
     args.push('--tags');
-  } else if (opts?.noTags) {
+  }
+  if (opts?.noTags) {
     args.push('--no-tags');
   }
 
@@ -238,7 +239,8 @@ export async function push(
   // Force options
   if (opts?.force) {
     args.push('--force');
-  } else if (opts?.forceWithLease !== undefined && opts.forceWithLease !== false) {
+  }
+  if (opts?.forceWithLease !== undefined && opts.forceWithLease !== false) {
     if (opts.forceWithLease === true) {
       args.push('--force-with-lease');
     } else {

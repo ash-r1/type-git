@@ -135,11 +135,11 @@ export type LsRemoteOpts = CheckedOptions<
 
     // New options
     /** @deprecated Use raw() for this operation or output format. */
-    getUrl?: never;
+    getUrl?: boolean;
     /** Sort refs by the given key (e.g., 'version:refname') */
     sort?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    symref?: never;
+    symref?: boolean;
   },
   'lsRemote'
 >;

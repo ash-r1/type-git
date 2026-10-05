@@ -193,6 +193,7 @@ src/
 │   ├── node/       # Node.js adapter
 │   ├── bun/        # Bun adapter
 │   └── deno/       # Deno adapter
+├── constraints/    # Declarative Git rules, type projection, and finite-domain exploration
 ├── impl/           # Git and repository operations
 ├── runner/         # Command execution, progress, and errors
 ├── parsers/        # Machine-output parsers
@@ -205,6 +206,10 @@ src/
 See the [migration guide](docs/migrations/0.4.0.md) for breaking changes and API boundaries.
 The public API is still evolving; pin an exact version for controlled upgrades.
 Some flags require newer Git versions; LFS JSON queries require a compatible Git LFS installation.
+
+Option restrictions are maintained in an [evidence-backed constraint model](docs/design/option-constraints.md).
+Git restrictions and typed API exceptions are listed separately. Clone has generated finite-domain
+compiler tests and independent Git conformance tests; this does not claim exhaustive Git coverage.
 
 ### Validation scope
 

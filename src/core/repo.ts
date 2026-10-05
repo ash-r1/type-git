@@ -125,11 +125,11 @@ export type RepoLsRemoteOpts = CheckedOptions<
     /** Show only actual refs (not peeled tags) */
     refsOnly?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    getUrl?: never;
+    getUrl?: boolean;
     /** Sort refs by the given key (e.g., 'version:refname') */
     sort?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    symref?: never;
+    symref?: boolean;
     /** Specific refs to query (branch names, tag names, or full ref paths) */
     refs?: string[];
   },
@@ -223,19 +223,19 @@ export type StatusOpts = CheckedOptions<
   {
     // Existing options
     /** Porcelain output format version (1 or 2) */
-    porcelain?: 2;
+    porcelain?: 1 | 2;
     /** How to show untracked files */
     untracked?: 'no' | 'normal' | 'all';
 
     // New options
     /** @deprecated Use raw() for this operation or output format. */
-    verbose?: never;
+    verbose?: boolean;
     /** Show stash information */
     showStash?: boolean;
     /** Compute ahead/behind counts for the branch */
     aheadBehind?: boolean;
     /** Use NUL as line terminator */
-    nullTerminated?: true;
+    nullTerminated?: boolean;
     /** How to show ignored files */
     ignored?: 'traditional' | 'no' | 'matching';
     /** How to handle submodules */
@@ -294,23 +294,23 @@ export type LogOpts = CheckedOptions<
 
     // New options
     /** @deprecated Use raw() for this operation or output format. */
-    source?: never;
+    source?: boolean;
     /** Use mailmap file to map author names */
     useMailmap?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    decorateRefs?: never;
+    decorateRefs?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    decorateRefsExclude?: never;
+    decorateRefsExclude?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    decorate?: never;
+    decorate?: 'short' | 'full' | 'auto' | 'no';
     /** @deprecated Use raw() for this operation or output format. */
-    stat?: never;
+    stat?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    shortstat?: never;
+    shortstat?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    nameOnly?: never;
+    nameOnly?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    nameStatus?: never;
+    nameStatus?: boolean;
     /** Show only merge commits */
     merges?: boolean;
     /** Do not show merge commits */
@@ -362,7 +362,7 @@ export type FetchOpts = CheckedOptions<
     /** Force update of local branches */
     force?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    multiple?: never;
+    multiple?: boolean;
     /** Do not fetch any tags */
     noTags?: boolean;
     /** Number of parallel children for fetching submodules */
@@ -508,9 +508,9 @@ export type AddOpts = CheckedOptions<
     /** Force add of ignored files */
     force?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    interactive?: never;
+    interactive?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    patch?: never;
+    patch?: boolean;
 
     // New options
     /** Be verbose */
@@ -703,7 +703,7 @@ export type CommitOpts = CheckedOptions<
     /** Override commit date */
     date?: string | Date;
     /** @deprecated Use raw() for this operation or output format. */
-    dryRun?: never;
+    dryRun?: boolean;
     /** Bypass pre-commit and commit-msg hooks */
     noVerify?: boolean;
     /** GPG-sign the commit with the default key */
@@ -719,7 +719,7 @@ export type CommitOpts = CheckedOptions<
     /** Read commit message from file */
     file?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    reeditMessage?: never;
+    reeditMessage?: string;
     /** Take existing commit message and reuse it */
     reuseMessage?: string;
     /** Create a fixup commit for the specified commit */
@@ -791,7 +791,7 @@ export type DiffOpts = CheckedOptions<
 
     // New options
     /** Use NUL as line terminator */
-    nullTerminated?: true;
+    nullTerminated?: boolean;
     /** Generate patch output */
     patch?: boolean;
     /** Generate patch and raw format together */
@@ -825,7 +825,7 @@ export type DiffOpts = CheckedOptions<
     /** Show changes relative to a merge base */
     mergeBase?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    noIndex?: never;
+    noIndex?: boolean;
     /** Show word diff */
     wordDiff?: 'color' | 'plain' | 'porcelain' | 'none';
   },
@@ -1246,7 +1246,7 @@ export type CherryPickOpts = CheckedOptions<
     /** Skip current commit */
     skip?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    noVerify?: never;
+    noVerify?: boolean;
 
     // New options
     /** How to clean up the commit message */
@@ -1329,7 +1329,7 @@ export type RebaseOpts = CheckedOptions<
     /** Onto target */
     onto?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    interactive?: never;
+    interactive?: boolean;
     /** Preserve merges */
     rebaseMerges?: boolean;
     /** Abort rebase */
@@ -1452,7 +1452,7 @@ export type RevertOpts = CheckedOptions<
     /** Skip current commit */
     skip?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    noVerify?: never;
+    noVerify?: boolean;
 
     // New options
     /** How to clean up the commit message */
@@ -1739,7 +1739,7 @@ export type LfsStatus = {
 export type LfsPullOpts = CheckedOptions<
   {
     remote?: string;
-    ref?: never;
+    ref?: string;
     include?: string[];
     exclude?: string[];
   },
@@ -1770,11 +1770,11 @@ export type LfsPushOpts = CheckedOptions<
  */
 export type LfsStatusOpts = CheckedOptions<
   {
-    json?: true;
+    json?: boolean;
 
     // New options
     /** @deprecated Use raw() for this operation or output format. */
-    porcelain?: never;
+    porcelain?: boolean;
   },
   'lfsStatus'
 >;
@@ -1903,7 +1903,7 @@ export type LfsLsFilesOpts = CheckedOptions<
     /** Show file sizes */
     size?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    debug?: never;
+    debug?: boolean;
     /** Show all LFS files (not just current ref) */
     all?: boolean;
     /** Show deleted files */
@@ -1913,9 +1913,9 @@ export type LfsLsFilesOpts = CheckedOptions<
     /** Exclude patterns */
     exclude?: string | string[];
     /** @deprecated Use raw() for this operation or output format. */
-    nameOnly?: never;
+    nameOnly?: boolean;
     /** Output in JSON format */
-    json?: true;
+    json?: boolean;
     /** Ref to list files for */
     ref?: string;
   },
@@ -2974,7 +2974,7 @@ export type ConfigListOpts = CheckedOptions<
     /** Respect include directives */
     includes?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    nameOnly?: never;
+    nameOnly?: boolean;
   },
   'configList'
 >;

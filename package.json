@@ -45,7 +45,7 @@
     "format:check": "biome format src",
     "check": "biome check src",
     "check:fix": "biome check --write src",
-    "typecheck": "tsc --noEmit && pnpm test:types",
+    "typecheck": "pnpm constraints:check && tsc --noEmit && pnpm test:types",
     "docs:dev": "pnpm --filter type-git-docs dev",
     "docs:build": "pnpm --filter type-git-docs build",
     "docs:preview": "pnpm --filter type-git-docs preview",
@@ -54,7 +54,9 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish",
-    "test:types": "tsc --project tsconfig.contracts.json"
+    "test:types": "tsc --project tsconfig.contracts.json",
+    "constraints:generate": "node scripts/constraints.mjs",
+    "constraints:check": "node scripts/constraints.mjs --check"
   },
   "keywords": [
     "git",
