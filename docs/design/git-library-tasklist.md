@@ -1,5 +1,7 @@
 # プロジェクトタスクリスト（Node / Deno / Bun 対応を最初から見据えた版）
 
+> Historical implementation plan. The checkboxes below describe the original planning snapshot, not the current implementation. For the 0.4.0 contract audit and changes, see [the migration guide](../migrations/0.4.0.md).
+
 本タスクリストは、Git CLI ラップ主体（設計方針 A）で、LFS 進捗・AbortSignal・stdout 契約の型安全を同時に満たすための実装順序を定義する。最初から Node / Deno / Bun の差分を吸収できる境界（Adapter）を固定し、後からの境界切り替えを不要にする。
 
 ## 進捗サマリー

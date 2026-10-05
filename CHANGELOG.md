@@ -1,5 +1,168 @@
 # type-git
 
+## 0.4.0
+
+This release tightens public input/output contracts and includes breaking type changes.
+See the [0.4.0 migration guide](docs/migrations/0.4.0.md) before upgrading.
+
+### Minor Changes
+
+- [`ba48835`](https://github.com/ash-r1/type-git/commit/ba488351c32bf67b52a7079527520815b25d9035) Add audit mode for command lifecycle tracking
+
+  New `audit` configuration option in `createGit()` provides hooks for observing Git command execution:
+
+  - `onAudit(event)`: Receives start/end events for every Git command
+  - `onTrace(trace)`: Receives GIT_TRACE output lines when enabled
+
+  Example usage:
+
+  ```typescript
+  const git = await createGit({
+    adapters: createNodeAdapters(),
+    audit: {
+      onAudit: (event) => {
+        if (event.type === 'start') {
+          console.log(`Starting: ${event.argv.join(' ')}`);
+        } else {
+          console.log(`Completed in ${event.duration}ms (exit ${event.exitCode})`);
+        }
+      },
+      onTrace: (trace) => {
+        console.log(`[GIT_TRACE] ${trace.line}`);
+      },
+    },
+  });
+  ```
+
+  Types exported: `AuditEvent`, `AuditEventStart`, `AuditEventEnd`, `TraceEvent`, `AuditConfig`
+
+- [`44f4e09`](https://github.com/ash-r1/type-git/commit/44f4e099f2196e53601d1ae1bd1fc11e3a5a0ad2) Forward `onLfsProgress` callback through `clone` and `push`
+
+  `onLfsProgress` was already accepted on these methods' option types but was
+  not wired to the runner. LFS transfer progress is now reported during
+  `git.clone()` (downloads) and `repo.push()` (uploads), matching existing
+  `onProgress` behavior.
+
+- [`057469d`](https://github.com/ash-r1/type-git/commit/057469d625dc71f963fe5f4b6c4e600a57089033) Stop implicitly inheriting the full parent process environment (environment variable traversal prevention)
+
+  Previously, every spawned Git command inherited the entire parent process environment. This leaked secrets that happen to live in the parent process (cloud credentials, API tokens, etc.) into Git and any tools it shells out to — credential helpers, hooks, and LFS transfer agents — which is an environment variable traversal risk.
+
+  Now, only a curated allowlist of variables that Git genuinely needs to operate (e.g. `PATH`, `HOME`, locale, `SSH_AUTH_SOCK`, proxy settings, and Windows essentials) is inherited by default. Sensitive variables are no longer forwarded.
+
+  A new `inheritEnv` option controls this behavior on `createGit()`, `git.open()`/`openBare()`/`openRaw()`, and `CliRunner`:
+
+  - `undefined` (default): inherit only the built-in safe allowlist (`DEFAULT_ENV_ALLOWLIST`).
+  - `true`: inherit the entire parent environment (previous behavior, opt-in).
+  - `false`: inherit nothing beyond explicitly provided `env`.
+  - `string[]`: inherit the default allowlist plus the named variables.
+
+  ```typescript
+  // Opt a specific variable back in
+  const git = await createGit({
+    adapters: createNodeAdapters(),
+    inheritEnv: ['MY_CUSTOM_VAR'],
+  });
+
+  // Restore the previous "inherit everything" behavior
+  const repo = await git.open('/path/to/repo', { inheritEnv: true });
+  ```
+
+  **Breaking:** Workflows that relied on arbitrary parent environment variables reaching Git (for example a commit-signing or credential helper that reads a token from the environment) must now opt those variables back in via `inheritEnv`.
+
+  New exports: `EnvInheritance`, `DEFAULT_ENV_ALLOWLIST`, `resolveInheritedEnv`.
+
+- [`49edd4e`](https://github.com/ash-r1/type-git/commit/49edd4ec68fd01adbb1e2999b24d415b85c29ad6) Add deny-list and predicate forms to `inheritEnv`
+
+  `inheritEnv` previously only accepted `true` / `false` / `string[]`, so the
+  default allowlist could be extended but never trimmed — dropping a single
+  default entry (e.g. `SSH_AUTH_SOCK` for an HTTPS-only app) meant rebuilding the
+  whole list by hand.
+
+  Two new forms are now supported:
+
+  - `{ add?: string[]; remove?: string[] }` — start from the default allowlist,
+    add `add`, then subtract `remove` (`remove` wins on conflicts). For example
+    `inheritEnv: { remove: ['SSH_AUTH_SOCK', 'SSH_AGENT_PID'] }`.
+  - `(name: string) => boolean` — a predicate that decides each variable
+    individually, bypassing the default allowlist entirely.
+
+  `DEFAULT_ENV_ALLOWLIST` documentation now also calls out that the SSH agent vars
+  (`SSH_AUTH_SOCK` / `SSH_AGENT_PID`) are included by default (and how to drop
+  them), while the most credential-prone helpers (`GIT_ASKPASS` / `SSH_ASKPASS` /
+  `GIT_PROXY_COMMAND`) are intentionally excluded.
+
+- [`3fcf335`](https://github.com/ash-r1/type-git/commit/3fcf335ddbf9726ca6bbee5adddd40e435ac9e0e) Forward `onLfsProgress` through `pull` and the LFS transfer operations
+
+  `onLfsProgress` was accepted on these methods' option types (via `ExecOpts`)
+  but was never wired to the runner, so the callback silently never fired.
+  LFS transfer progress is now reported during `repo.pull()`, `repo.lfs.pull()`,
+  `repo.lfs.push()`, `repo.lfs.fetch()`, `repo.lfsExtra.preUpload()` and
+  `repo.lfsExtra.preDownload()`, matching the existing `clone` / `push` behavior.
+
+  The `--progress` enablement gate was also broadened from `onProgress` to
+  `onProgress || onLfsProgress` (in `clone`, `push`, `pull` and `lfs.fetch`) so
+  that passing only `onLfsProgress` still requests progress output.
+
+- [`e9a7f67`](https://github.com/ash-r1/type-git/commit/e9a7f6702529b589b422fa7366769c93b6c5c8b9) Honor the object-form LFS mode (`open({ lfs: { skipSmudge } })`)
+
+  Previously the object form of `LfsMode` (`{ skipSmudge?, skipDownload? }`) was
+  stored but never consulted — only the string `'disabled'` had any effect, so
+  `open({ lfs: { skipSmudge: true } })` was a silent no-op and checkout/pull still
+  smudged LFS files.
+
+  Now, when a repository is opened (or reconfigured via `setLfsMode`) with an
+  object-form mode requesting `skipSmudge` and/or `skipDownload`, the
+  working-tree-populating operations — `checkout`, `switch`, `reset`, `merge`,
+  `pull`, `rebase` and `restore` — run with `GIT_LFS_SKIP_SMUDGE=1`. Git leaves
+  LFS pointer files in place instead of downloading their contents. The objects
+  can be materialized later via the explicit `repo.lfs.pull()` /
+  `repo.lfs.checkout()` helpers, which use dedicated git-lfs commands and are not
+  affected by the variable.
+
+- [`98ef83e`](https://github.com/ash-r1/type-git/commit/98ef83e0ddbf84d4ee322993add2e058ca7aa7f0) Run `lfsExtra.preUpload()` batches concurrently and raise the default batch size
+
+  Each `git lfs push --object-id` invocation pays a fixed cost (process spawn,
+  credential lookup, LFS batch API round-trip) before any bytes are transferred.
+  Previously the batches ran strictly one after another, so with many objects
+  this fixed cost accumulated as pure waiting time. Batches now run with a
+  bounded concurrency (new `concurrency` option, default 4; set 1 for the
+  previous serial behavior), overlapping the fixed cost with other batches'
+  transfers.
+
+  Two related behaviors are defined precisely:
+
+  - The first batch always runs alone; the remaining batches start only after
+    it succeeds. A failure that affects every batch the same way (unreachable
+    remote, missing local objects) is discovered with a single round-trip.
+  - Once a batch fails or is aborted, no new batch is started; in-flight
+    batches are awaited before returning. The objects of failed and unstarted
+    batches are reported in `skippedCount`, so `uploadedCount + skippedCount`
+    still equals the number of objects. Previously, every remaining batch was
+    still attempted after a failure.
+
+  The default `batchSize` is raised from 50 to 200. Git is spawned directly
+  without a shell, so the binding command-line limit is the Windows
+  CreateProcess limit of 32,767 characters rather than the 8KB shell limit the
+  old default assumed; 200 OIDs stay around 40% of the real limit while paying
+  the per-invocation fixed cost a quarter as often.
+
+- [`f20036e`](https://github.com/ash-r1/type-git/commit/f20036e0c1b12f185e1b9eb359f090699efdfef0) Support `repo.lfs.push({ objectId: oids, stdin: true })` with newline-delimited input across Node.js, Bun, and Deno. Fix object-ID argument ordering for LFS pushes.
+- Strengthen typed Git contracts for 0.4.0. Reject conflicting options at compile time and before execution, narrow output-mode and dynamic repository return types, preserve NUL-delimited paths and commit fields, and share the complete fetch/push and config implementations across repository contexts.
+
+  Breaking changes: filename/object-only tree queries and filename-only diffs return string arrays; dynamic bare/mirror options return a discriminated repository union; unsupported typed output formats and conflicting options require migration; log bodies retain whitespace; LFS status uses actual status codes and optional sizes. See the 0.4 migration guide.
+
+  Fix config error propagation and multiline values, LFS JSON contracts and fetch flags, commit statistics in quiet mode, stash metadata, UTF-8 chunk decoding, and cancellation cleanup. Add Bun/Deno TypeGit entrypoints and compile-time plus cross-runtime contract tests.
+
+### Patch Changes
+
+- [`780c445`](https://github.com/ash-r1/type-git/commit/780c445363f0a9290b4e9578968613b651775b23) Add common Git transport configuration variables to the default environment allowlist
+
+  Following the environment variable traversal prevention change, Git's own SSH transport and TLS configuration variables were no longer inherited by default, which could break workflows relying on them (e.g. a custom SSH command).
+
+  The default allowlist now also inherits these Git configuration variables, which are commonly needed for transport configuration: `GIT_SSH`, `GIT_SSH_COMMAND`, `GIT_SSH_VARIANT`, `GIT_SSL_CAINFO`, `GIT_SSL_CAPATH`, `GIT_TERMINAL_PROMPT`, and `GIT_CONFIG_NOSYSTEM`. These are configuration rather than application secrets (though, depending on local setup, values such as `GIT_SSH_COMMAND` may name a command Git executes).
+
+  Credential-carrying / askpass variables — `GIT_ASKPASS`, `SSH_ASKPASS`, and `GIT_PROXY_COMMAND` — are intentionally **not** inherited by default, since they can carry inline credentials or invoke a helper that reads secrets from the environment. Opt into those (and any other variables) explicitly via `inheritEnv` when needed.
+
 ## 0.3.0-beta.0
 
 ### Patch Changes

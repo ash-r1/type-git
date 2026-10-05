@@ -38,7 +38,7 @@ async function* streamToAsyncIterable(
   let buffer = '';
 
   for await (const chunk of stream) {
-    buffer += chunk.toString('utf8');
+    buffer += chunk;
     const lines = buffer.split('\n');
     buffer = lines.pop() ?? '';
 
@@ -73,6 +73,9 @@ export class NodeExecAdapter implements ExecAdapter {
       throw new Error('argv must not be empty');
     }
     const args = argv.slice(1);
+    if (signal?.aborted) {
+      return Promise.resolve({ stdout: '', stderr: '', exitCode: -1, aborted: true });
+    }
 
     return new Promise((resolve, reject) => {
       const child = spawn(command, args, {
@@ -81,6 +84,8 @@ export class NodeExecAdapter implements ExecAdapter {
         stdio: [options.stdin === undefined ? 'ignore' : 'pipe', 'pipe', 'pipe'],
       });
 
+      child.stdout?.setEncoding('utf8');
+      child.stderr?.setEncoding('utf8');
       let stdout = '';
       let stderr = '';
       let aborted = false;
@@ -100,14 +105,14 @@ export class NodeExecAdapter implements ExecAdapter {
         }
       }
 
-      child.stdout?.on('data', (chunk: Buffer) => {
-        const text = chunk.toString('utf8');
+      child.stdout?.on('data', (chunk: string) => {
+        const text = chunk;
         stdout += text;
         handlers?.onStdout?.(text);
       });
 
-      child.stderr?.on('data', (chunk: Buffer) => {
-        const text = chunk.toString('utf8');
+      child.stderr?.on('data', (chunk: string) => {
+        const text = chunk;
         stderr += text;
         handlers?.onStderr?.(text);
       });
@@ -127,6 +132,7 @@ export class NodeExecAdapter implements ExecAdapter {
       });
 
       child.on('close', (code, sig) => {
+        signal?.removeEventListener('abort', abortHandler);
         if (sig) {
           exitSignal = sig;
         }
@@ -174,15 +180,17 @@ export class NodeExecAdapter implements ExecAdapter {
     }
 
     const waitPromise = new Promise<SpawnResult>((resolve, reject) => {
+      child.stdout?.setEncoding('utf8');
+      child.stderr?.setEncoding('utf8');
       let stdout = '';
       let stderr = '';
 
-      child.stdout?.on('data', (chunk: Buffer) => {
-        stdout += chunk.toString('utf8');
+      child.stdout?.on('data', (chunk: string) => {
+        stdout += chunk;
       });
 
-      child.stderr?.on('data', (chunk: Buffer) => {
-        stderr += chunk.toString('utf8');
+      child.stderr?.on('data', (chunk: string) => {
+        stderr += chunk;
       });
 
       child.stdin?.on('error', (error: NodeJS.ErrnoException) => {
