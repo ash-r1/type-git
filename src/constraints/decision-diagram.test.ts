@@ -56,6 +56,18 @@ describe('reduced ordered decision diagrams', () => {
     }
   });
 
+  it('evaluates guarded constraints without changing inactive modes', () => {
+    const guarded = mixedRules.map(
+      (rule) => ({ ...rule, guard: [{ key: 'mode', test: 'notEquals', value: 'skip' }] }) as const,
+    );
+    const domain = { ...domains, mode: [undefined, 'run', 'skip'] };
+    const expected = [...assignments(domain)].filter(
+      (input) => violations(guarded, input).length === 0,
+    );
+    expect(solve(guarded, domain).accepted).toBe(BigInt(expected.length));
+    expect(solve(guarded, { ...domains, mode: ['skip'] }).accepted).toBe(45n);
+  });
+
   it('counts 80 interacting boolean variables exactly without enumerating 2^80 assignments', () => {
     const keys = Array.from({ length: 80 }, (_, i) => `flag${i.toString().padStart(2, '0')}`);
     const result = solve(

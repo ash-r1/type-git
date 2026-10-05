@@ -1,5 +1,12 @@
 import type { Assignment, Domains } from './explore.js';
-import { type Constraint, matches, type Predicate, referencedKeys, violations } from './model.js';
+import {
+  type Constraint,
+  conditions,
+  matches,
+  type Predicate,
+  referencedKeys,
+  violations,
+} from './model.js';
 
 /** A reduced ordered multi-valued decision diagram over explicitly bounded domains. */
 export type DecisionNode = { key: string; edges: readonly number[] };
@@ -112,6 +119,9 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
       domains[p.key]!.map((v) => Number(matches(p, { [p.key]: v }))),
     );
   function compile(rule: Constraint): number {
+    if (rule.guard) {
+      return or(not(all(rule.guard.map(atom))), compile({ ...rule, guard: undefined }));
+    }
     switch (rule.kind) {
       case 'range':
       case 'arity': {
@@ -122,7 +132,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
             Number(violations([unconditional], { [rule.key]: value }).length === 0),
           ),
         );
-        return rule.when ? or(not(atom(rule.when)), cardinality) : cardinality;
+        return rule.when ? or(not(all(conditions(rule.when).map(atom))), cardinality) : cardinality;
       }
       case 'required':
         return all(rule.required.map(atom));

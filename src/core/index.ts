@@ -2,6 +2,12 @@
  * Core module exports
  */
 
+export type {
+  GitCommandArgument,
+  GitCommandClient,
+  GitCommandExecOpts,
+  GitCommandName,
+} from '../commands/types.js';
 export * from './adapters.js';
 export * from './env.js';
 export * from './git.js';

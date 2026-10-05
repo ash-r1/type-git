@@ -20,9 +20,15 @@ export type Predicate =
         | 'positive'
         | 'bytesPositive';
     }
-  | { key: string; test: 'equals'; value: string | number | boolean };
-export type Constraint = Evidence & { id: string } & (
-    | { kind: 'arity'; key: string; min: number; max?: number; when?: Predicate }
+  | { key: string; test: 'equals' | 'notEquals'; value: string | number | boolean };
+export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] } & (
+    | {
+        kind: 'arity';
+        key: string;
+        min: number;
+        max?: number;
+        when?: Predicate | readonly Predicate[];
+      }
     | { kind: 'required'; required: readonly Predicate[] }
     | { kind: 'exclusive'; keys: readonly string[] }
     | { kind: 'requiresAny'; when: Predicate; choices: readonly Predicate[] }
@@ -59,6 +65,8 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
       return value !== undefined;
     case 'equals':
       return value === predicate.value;
+    case 'notEquals':
+      return value !== predicate.value;
   }
 }
 
@@ -71,9 +79,12 @@ export function violations(
 }
 
 function violates(rule: Constraint, options: Readonly<Record<string, unknown>>): boolean {
+  if (rule.guard && !rule.guard.every((p) => matches(p, options))) {
+    return false;
+  }
   switch (rule.kind) {
     case 'arity': {
-      if (rule.when && !matches(rule.when, options)) {
+      if (rule.when && !conditions(rule.when).every((p) => matches(p, options))) {
         return false;
       }
       const value = options[rule.key];
@@ -114,9 +125,13 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
 }
 
 export function referencedKeys(rule: Constraint): string[] {
+  return [...(rule.guard ?? []).map((p) => p.key), ...bodyKeys(rule)];
+}
+
+function bodyKeys(rule: Constraint): string[] {
   switch (rule.kind) {
     case 'arity':
-      return rule.when ? [rule.key, rule.when.key] : [rule.key];
+      return [rule.key, ...conditions(rule.when).map((p) => p.key)];
     case 'required':
       return rule.required.map((p) => p.key);
     case 'exclusive':
@@ -136,4 +151,10 @@ export function referencedKeys(rule: Constraint): string[] {
     case 'integer':
       return [rule.key];
   }
+}
+
+export function conditions(
+  when: Predicate | readonly Predicate[] | undefined,
+): readonly Predicate[] {
+  return when === undefined ? [] : Array.isArray(when) ? when : [when as Predicate];
 }

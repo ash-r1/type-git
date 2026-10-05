@@ -1,3 +1,4 @@
+import type { GitCommandClient } from '../commands/types.js';
 import type { CheckedOptions } from './option-rules.js';
 /**
  * Core Git interface - repository-agnostic operations
@@ -371,7 +372,7 @@ export interface GlobalConfigOperations {
  * Provides type-safe wrappers for Git commands that don't require a repository context.
  * Each method corresponds to a specific Git CLI command.
  */
-export interface Git {
+export interface Git extends GitCommandClient {
   /**
    * Open an existing worktree repository
    *
