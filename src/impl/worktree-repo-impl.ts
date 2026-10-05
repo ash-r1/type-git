@@ -508,11 +508,6 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--no-ahead-behind');
     }
 
-    // NUL terminator
-    if (opts?.nullTerminated) {
-      args.push('-z');
-    }
-
     // Ignored files handling
     if (opts?.ignored) {
       switch (opts.ignored) {
