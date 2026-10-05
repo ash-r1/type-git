@@ -55,8 +55,8 @@
     "version-packages": "changeset version",
     "release": "changeset publish",
     "test:types": "tsc --project tsconfig.contracts.json",
-    "constraints:generate": "node scripts/constraints.mjs",
-    "constraints:check": "node scripts/constraints.mjs --check"
+    "constraints:generate": "node scripts/constraints.mjs && node scripts/command-coverage.mjs",
+    "constraints:check": "node scripts/constraints.mjs --check && node scripts/command-coverage.mjs --check"
   },
   "keywords": [
     "git",

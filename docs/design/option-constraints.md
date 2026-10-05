@@ -9,7 +9,7 @@ in a particular repository.
 
 ## Source of truth
 
-`src/constraints/commands.ts` contains the constraints for the 30 existing
+`src/constraints/commands.ts` contains the constraints for the 40 currently modelled
 `CheckedOptions` command families. Each rule carries a stable ID, its origin
 (`git` or `type-git`), a reason, and a version-pinned upstream source or this
 wrapper-contract document. The generated [inventory](option-constraint-inventory.md)
@@ -18,7 +18,10 @@ lists the actual predicates and evidence, including every wrapper exception.
 `src/constraints/model.ts` defines a runtime-independent language:
 
 - `exclusive`: at most one active option in a group.
+- `required`: all listed predicates must hold.
 - `requires`: a predicate implies all prerequisite predicates.
+- `requiresAny`: a predicate implies at least one listed prerequisite.
+- `arity`: an operand count must be within its bounds, optionally under a condition.
 - `conflicts`: a predicate forbids any of the listed predicates.
 - `forbid`: a particular conjunction cannot hold.
 - `unsupported`: these fields cannot be supplied through this typed API.
@@ -26,7 +29,7 @@ lists the actual predicates and evidence, including every wrapper exception.
 - `integer`: runtime validation of safe integer representation.
 - `range`: a Git-enforced lower bound, checked at runtime.
 
-Predicates distinguish an active value (neither omitted nor `false`), a present
+Predicates distinguish empty/nonempty operands, blank/nonblank filters, positive numeric or parsed Git LFS byte quantities, an inactive value, an active value (neither omitted nor `false`), a present
 value (including `false`), an exact value, and a nonzero value. This matters, for
 example, for `merge({ squash: true, ff: false })`, negative forms such as
 `rerereAutoupdate: false`, and the no-op `fetch({ deepen: 0 })`.
@@ -62,13 +65,28 @@ interactions represented by the model. Worst-case complexity is still exponentia
 in the largest component; no pairwise-coverage or polynomial-time guarantee is
 claimed. Do not use the explorer on unbounded or enormous domains in production.
 
-The initial complete finite-domain specification is for `clone`:
-`src/constraints/clone-domains.ts` covers every public clone option key. Adding a
-public key makes the coverage declaration fail to compile until its domain is
-classified. There are currently 28 components and 113 representative assignments.
-These are not all possible Git invocations: arbitrary paths, refs, configuration,
-repository states, transports, and values outside the chosen domains are not
-exhaustively explored.
+`src/constraints/decision-diagram.ts` also compiles each rule into a reduced
+ordered multi-valued decision diagram. It combines boolean functions with memoized
+AND/NOT operations, merges identical residual functions, counts skipped variables
+exactly with `bigint`, and finds an accepted assignment and an isolated
+counterexample for each non-redundant rule. Variable order is lexicographic and
+branch order is the declared domain order. A missing isolated witness means the
+rule is masked/redundant within these domains, not that the rule is wrong.
+
+Every modelled public option type now gets a structural finite domain from its
+unconstrained declaration. The generator fails on unknown type shapes. Strings,
+arrays, objects, dates, functions, literal alternatives, boolean states and selected
+numeric boundaries are explicit representatives. `clone` additionally retains its
+hand-written 28-component / 113-case exhaustive suite. The generated
+[exploration report](constraint-exploration.json) records domains and exact counts;
+it does not enumerate arbitrary paths, refs, repository states or all Git versions.
+The decision-diagram tests compare every one of 1,024 mixed-rule subsets against
+full enumeration, plus a constraint over 80 mutually interacting booleans.
+
+`src/constraints/inputs.ts` separately describes normalized operand constraints.
+Pathspec-file versus positional-input validation and LFS conflict-checkout
+cardinality use this same interpreter. Public overloads also restrict the latter
+to one path; arbitrary array lengths still need runtime checks.
 
 Run:
 
@@ -80,7 +98,8 @@ pnpm test:ci
 ```
 
 The generator produces compiler assertions for both accepted and rejected clone
-assignments, and the complete rule inventory. Numeric cases are deliberately
+assignments, accepted and isolated rejected witnesses for every other modelled
+public option type, and the complete rule inventory. Numeric cases are deliberately
 checked according to TypeScript's representational limits. CI's `typecheck`
 checks generated-file freshness, that every constraint refers to an existing
 public option, and that each modeled command has a public type. Generated files
@@ -102,7 +121,8 @@ The unit suite compares component decomposition against monolithic exhaustive
 enumeration on a small model, checks unsatisfiable domains, distinguishes false
 from absence, and requires a witness violating each clone rule independently.
 
-The source baseline is Git v2.48.0 / Git LFS v3.6.1. It is evidence, not a runtime
+The initial rules cite Git v2.48.0 / Git LFS v3.6.1. The expanded audit and command
+inventory use Git v2.55.0 / Git LFS v3.8.0; each rule retains its own evidence version. It is evidence, not a runtime
 version gate or proof for all releases. Real-Git tests run the installed version;
 feature-specific tests skip only when the option is absent. New Git behavior must
 be reviewed and modeled explicitly. Source inspection and documentation review
@@ -113,10 +133,11 @@ Repository-state, configuration, and transport-dependent restrictions remain wit
 Git unless their preconditions are modeled. For example, local clone ignores
 shallow options that a network transport may reject together. Such combinations
 must not be banned unconditionally. The same applies to sequencer state and
-remote authentication. Specialized `revParse` query selection and positional
-pathspec validation remain separate helpers; they are outside this first
-finite-domain exploration. Other command families share the declarative evaluator
-but do not yet have complete finite domains or exhaustive CLI conformance tests.
+remote authentication. Specialized `revParse` query selection remains outside the model. The
+[command coverage ledger](command-coverage.md) distinguishes inventory, partial
+audit and completion. Commands without a convenience API are in scope. Shared
+dispatch-table names are candidates until their operation scopes are reviewed.
+This is not a claim of whole-Git or whole-library completeness.
 
 ## Wrapper exceptions
 
@@ -161,3 +182,31 @@ fixtures, extend finite domains when relevant, regenerate artifacts, and run the
 compiler and runtime checks. Review rule deletions and newly accepted cases as
 carefully as new rejections. Do not convert warnings or ignored options into hard
 errors without a separate, justified wrapper exception.
+
+## Inventory reproduction and audit completion
+
+Download the version-pinned upstream source trees, then run:
+
+```sh
+node scripts/import-command-inventory.mjs /path/to/git-2.55.0 /path/to/git-lfs-3.8.0
+pnpm constraints:generate
+```
+
+The importer reads source text; it never runs the discovered commands. It records
+SHA-256 hashes for consumed source files. Cobra shell completion targets are
+operands, not extra subcommands. Arbitrary locally installed `git-*` executables
+are outside a fixed upstream inventory; callers can continue to use `raw()`.
+An audit can be marked complete only with evidence for option grammar, operand
+grammar, combination rules, serialization, independent Git tests and compiler tests.
+Generating or passing tests derived from a model cannot promote source-audit coverage.
+
+## Additional convenience API contracts
+
+LFS migration separates positional `refs` from `files` used by `--no-rewrite`.
+Requiring `files` to select no-rewrite mode, and rejecting `refs` in that mode,
+are wrapper distinctions so the caller cannot accidentally reinterpret a ref as a
+filename. Git itself uses one positional argument list. The nonexistent `object`
+option is rejected. Import/export no longer inherit info-only flags. Include and
+exclude arrays serialize as one comma-separated filter, because repeated Cobra
+string options replace previous values. LFS lock verification retains ownership
+in the optional `ours` field instead of silently omitting `--verify`.

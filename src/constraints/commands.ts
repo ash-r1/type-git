@@ -11,6 +11,536 @@ const equal = <const K extends string, const V extends string | boolean>(key: K,
 
 /** Version-pinned evidence records a reviewed baseline, not a claim about every Git version. */
 export const COMMAND_CONSTRAINTS = {
+  lfsMigrateInfo: [
+    {
+      id: 'lfsMigrateInfo.everything-includeRef',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'includeRef',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateInfo.everything-excludeRef',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'excludeRef',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateInfo.everything-refs',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'refs',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateInfo.fixup-patterns',
+      kind: 'conflicts',
+      when: {
+        key: 'fixup',
+        test: 'active',
+      },
+      others: [
+        {
+          key: 'include',
+          test: 'present',
+        },
+        {
+          key: 'exclude',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Fixup infers patterns from attributes and rejects explicit include/exclude.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_info.go',
+    },
+    {
+      id: 'lfsMigrateInfo.fixup-pointers',
+      kind: 'conflicts',
+      when: {
+        key: 'fixup',
+        test: 'active',
+      },
+      others: [
+        {
+          key: 'pointers',
+          test: 'equals',
+          value: 'follow',
+        },
+        {
+          key: 'pointers',
+          test: 'equals',
+          value: 'no-follow',
+        },
+      ],
+      origin: 'git',
+      reason: 'Fixup accepts only the ignore pointer mode.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_info.go',
+    },
+  ],
+  lfsMigrateImport: [
+    {
+      id: 'lfsMigrateImport.above-include',
+      kind: 'forbid',
+      when: [
+        { key: 'noRewrite', test: 'inactive' },
+        { key: 'above', test: 'bytesPositive' },
+        { key: 'include', test: 'present' },
+      ],
+      origin: 'git',
+      reason:
+        'Positive size thresholds cannot be combined with explicit filters or fixup when rewriting history.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
+    },
+    {
+      id: 'lfsMigrateImport.above-exclude',
+      kind: 'forbid',
+      when: [
+        { key: 'noRewrite', test: 'inactive' },
+        { key: 'above', test: 'bytesPositive' },
+        { key: 'exclude', test: 'present' },
+      ],
+      origin: 'git',
+      reason:
+        'Positive size thresholds cannot be combined with explicit filters or fixup when rewriting history.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
+    },
+    {
+      id: 'lfsMigrateImport.above-fixup',
+      kind: 'forbid',
+      when: [
+        { key: 'noRewrite', test: 'inactive' },
+        { key: 'above', test: 'bytesPositive' },
+        { key: 'fixup', test: 'active' },
+      ],
+      origin: 'git',
+      reason:
+        'Positive size thresholds cannot be combined with explicit filters or fixup when rewriting history.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
+    },
+    {
+      id: 'lfsMigrateImport.everything-includeRef',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'noRewrite',
+          test: 'inactive',
+        },
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'includeRef',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateImport.everything-excludeRef',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'noRewrite',
+          test: 'inactive',
+        },
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'excludeRef',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateImport.everything-refs',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'noRewrite',
+          test: 'inactive',
+        },
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'refs',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateImport.unknown-options',
+      kind: 'unsupported',
+      keys: ['object', 'top', 'unit', 'pointers'],
+      origin: 'git',
+      reason: 'These options do not exist for migrate import.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateImport.no-rewrite-fixup',
+      kind: 'exclusive',
+      keys: ['noRewrite', 'fixup'],
+      origin: 'git',
+      reason: 'No-rewrite and fixup cannot be combined.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
+    },
+    {
+      id: 'lfsMigrateImport.files',
+      kind: 'requires',
+      when: {
+        key: 'noRewrite',
+        test: 'active',
+      },
+      required: [
+        {
+          key: 'files',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'No-rewrite requires one or more positional files.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
+    },
+    {
+      id: 'lfsMigrateImport.file-mode',
+      kind: 'requires',
+      when: {
+        key: 'files',
+        test: 'nonempty',
+      },
+      required: [
+        {
+          key: 'noRewrite',
+          test: 'active',
+        },
+      ],
+      origin: 'type-git',
+      reason: 'The files property denotes no-rewrite paths; use refs to select history.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
+    },
+    {
+      id: 'lfsMigrateImport.refs-mode',
+      kind: 'conflicts',
+      when: {
+        key: 'noRewrite',
+        test: 'active',
+      },
+      others: [
+        {
+          key: 'refs',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'type-git',
+      reason: 'No-rewrite operands are files; use the files property in this mode.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
+    },
+    {
+      id: 'lfsMigrateImport.fixup-patterns',
+      kind: 'conflicts',
+      when: {
+        key: 'fixup',
+        test: 'active',
+      },
+      others: [
+        {
+          key: 'include',
+          test: 'present',
+        },
+        {
+          key: 'exclude',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Fixup infers patterns from attributes and rejects explicit include/exclude.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_import.go',
+    },
+  ],
+  lfsMigrateExport: [
+    {
+      id: 'lfsMigrateExport.everything-includeRef',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'includeRef',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateExport.everything-excludeRef',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'excludeRef',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateExport.everything-refs',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'everything',
+          test: 'active',
+        },
+        {
+          key: 'refs',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Everything cannot be combined with explicit reference selection.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+    {
+      id: 'lfsMigrateExport.include',
+      kind: 'required',
+      required: [
+        {
+          key: 'include',
+          test: 'nonblank',
+        },
+      ],
+      origin: 'git',
+      reason: 'Export requires at least one inclusion pattern.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_export.go',
+    },
+    {
+      id: 'lfsMigrateExport.unknown-options',
+      kind: 'unsupported',
+      keys: ['above', 'top', 'unit', 'pointers', 'fixup'],
+      origin: 'git',
+      reason: 'These options do not exist for migrate export.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go',
+    },
+  ],
+  reset: [
+    {
+      id: 'reset.intent-to-add-mode',
+      kind: 'conflicts',
+      when: active('intentToAdd'),
+      others: [
+        equal('mode', 'soft'),
+        equal('mode', 'hard'),
+        equal('mode', 'merge'),
+        equal('mode', 'keep'),
+      ],
+      origin: 'git',
+      reason: 'Intent-to-add requires mixed reset (the default mode).',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+    },
+  ],
+  stashPush: [
+    {
+      id: 'stashPush.staged',
+      kind: 'conflicts',
+      when: active('staged'),
+      others: [active('includeUntracked'), active('all'), present('pathspecFromFile')],
+      origin: 'git',
+      reason: 'Staged-only stash rejects untracked files, all files, and pathspec files.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+    },
+    {
+      id: 'stashPush.pathspec',
+      kind: 'conflicts',
+      when: present('pathspecFromFile'),
+      others: [{ key: 'paths', test: 'nonempty' }],
+      origin: 'git',
+      reason: 'Pathspec files cannot be combined with command-line pathspecs.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+    },
+  ],
+  tagCreate: [
+    {
+      id: 'tagCreate.message-file',
+      kind: 'exclusive',
+      keys: ['message', 'file'],
+      origin: 'git',
+      reason: 'Tag messages cannot come from both -m and -F.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+    },
+  ],
+  submoduleUpdate: [
+    {
+      id: 'submoduleUpdate.filter-init',
+      kind: 'requires',
+      when: present('filter'),
+      required: [active('init')],
+      origin: 'git',
+      reason: 'Submodule update filtering requires initialization.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  remoteAdd: [
+    {
+      id: 'remoteAdd.push-mirror-track',
+      kind: 'conflicts',
+      when: equal('mirror', 'push'),
+      others: [present('track')],
+      origin: 'git',
+      reason: 'Tracking branches is only supported for fetch mirrors.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/remote.c',
+    },
+  ],
+  lfsCheckout: [
+    {
+      id: 'lfsCheckout.stage',
+      kind: 'exclusive',
+      keys: ['base', 'ours', 'theirs'],
+      origin: 'git',
+      reason: 'Select at most one conflict stage.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
+    },
+    {
+      id: 'lfsCheckout.destination-stage',
+      kind: 'requiresAny',
+      when: { key: 'to', test: 'nonempty' },
+      choices: [active('base'), active('ours'), active('theirs')],
+      origin: 'git',
+      reason: 'A conflict destination requires a conflict stage.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
+    },
+    {
+      id: 'lfsCheckout.base-destination',
+      kind: 'requires',
+      when: active('base'),
+      required: [{ key: 'to', test: 'nonempty' }],
+      origin: 'git',
+      reason: 'A conflict stage requires a nonempty destination.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
+    },
+    {
+      id: 'lfsCheckout.ours-destination',
+      kind: 'requires',
+      when: active('ours'),
+      required: [{ key: 'to', test: 'nonempty' }],
+      origin: 'git',
+      reason: 'A conflict stage requires a nonempty destination.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
+    },
+    {
+      id: 'lfsCheckout.theirs-destination',
+      kind: 'requires',
+      when: active('theirs'),
+      required: [{ key: 'to', test: 'nonempty' }],
+      origin: 'git',
+      reason: 'A conflict stage requires a nonempty destination.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
+    },
+    {
+      id: 'lfsCheckout.unknown-options',
+      kind: 'unsupported',
+      keys: ['include', 'exclude'],
+      origin: 'git',
+      reason: 'LFS checkout has no include/exclude options; use positional patterns.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go',
+    },
+  ],
+  lfsLocks: [
+    {
+      id: 'lfsLocks.verify-limit',
+      kind: 'range',
+      key: 'limit',
+      min: 0,
+      when: active('verify'),
+      origin: 'git',
+      reason:
+        'Lock verification allocates a result slice with this capacity and fails for negative limits.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/locking/locks.go',
+    },
+    {
+      id: 'lfsLocks.limit-integer',
+      kind: 'integer',
+      key: 'limit',
+      min: Number.MIN_SAFE_INTEGER,
+      origin: 'type-git',
+      reason: 'Numeric CLI options use safe integers to prevent truncation and precision loss.',
+      source: contract,
+    },
+    {
+      id: 'lfsLocks.cached',
+      kind: 'conflicts',
+      when: active('cached'),
+      others: [
+        active('local'),
+        { key: 'limit', test: 'positive' },
+        { key: 'id', test: 'nonempty' },
+        { key: 'path', test: 'nonempty' },
+      ],
+      origin: 'git',
+      reason: 'Cached locks reject positive limits, filters, and local mode.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_locks.go',
+    },
+    {
+      id: 'lfsLocks.verify',
+      kind: 'conflicts',
+      when: active('verify'),
+      others: [active('local'), { key: 'id', test: 'nonempty' }, { key: 'path', test: 'nonempty' }],
+      origin: 'git',
+      reason: 'Lock verification rejects filters and local mode.',
+      source: 'https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_locks.go',
+    },
+  ],
   clone: [
     {
       id: 'clone.bare-separateGitDir',

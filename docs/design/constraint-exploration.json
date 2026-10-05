@@ -1,0 +1,3758 @@
+[
+  {
+    "command": "lfsCheckout",
+    "scope": "operands",
+    "total": "18",
+    "accepted": "15",
+    "nodes": 6
+  },
+  {
+    "command": "pathspec",
+    "scope": "operands",
+    "total": "18",
+    "accepted": "10",
+    "nodes": 6
+  },
+  {
+    "command": "clone",
+    "type": "CloneOpts",
+    "domains": {
+      "bare": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "depth": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "branch": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "singleBranch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "mirror": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noCheckout": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recurseSubmodules": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "separateGitDir": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "cleanupOnAbort": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "rejectShallow": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "local": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noHardlinks": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "shared": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "jobs": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "template": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "reference": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "referenceIfAble": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "dissociate": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "origin": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "shallowSince": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "new Date(\"2000-01-01T00:00:00.000Z\")"
+      ],
+      "shallowExclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "noTags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "shallowSubmodules": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "config": [
+        "undefined",
+        "{\"key\":\"\"}"
+      ],
+      "ipv4": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ipv6": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "filter": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "alsoFilterSubmodules": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "remoteSubmodules": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "sparse": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "17935405284689424",
+    "accepted": "2560694464094400",
+    "nodes": 142,
+    "isolatedRuleWitnesses": {
+      "clone.bare-separateGitDir": "{\"bare\":true,\"separateGitDir\":\"\"}",
+      "clone.mirror-separateGitDir": "{\"mirror\":true,\"separateGitDir\":\"\"}",
+      "clone.submodule-filter": "{\"alsoFilterSubmodules\":true}",
+      "clone.depth": "{\"depth\":1.5}",
+      "clone.depth-range": "{\"depth\":-1}",
+      "clone.jobs": "{\"jobs\":1.5}"
+    }
+  },
+  {
+    "command": "init",
+    "type": "InitOpts",
+    "domains": {
+      "bare": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "initialBranch": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "separateGitDir": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "cleanupOnAbort": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "template": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "shared": [
+        "undefined",
+        "false",
+        "true",
+        "\"group\"",
+        "\"all\"",
+        "\"world\"",
+        "\"everybody\"",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "objectFormat": [
+        "undefined",
+        "\"sha1\"",
+        "\"sha256\""
+      ]
+    },
+    "total": "28431",
+    "accepted": "22113",
+    "nodes": 7,
+    "isolatedRuleWitnesses": {
+      "init.bare-separateGitDir": "{\"bare\":true,\"separateGitDir\":\"\"}"
+    }
+  },
+  {
+    "command": "lsRemote",
+    "type": "LsRemoteOpts",
+    "domains": {
+      "heads": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "tags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refs": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "getUrl": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "sort": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "symref": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "729",
+    "accepted": "81",
+    "nodes": 6,
+    "isolatedRuleWitnesses": {
+      "lsRemote.unsupported": "{\"symref\":false}"
+    }
+  },
+  {
+    "command": "lsRemote",
+    "type": "RepoLsRemoteOpts",
+    "domains": {
+      "heads": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "tags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refsOnly": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "getUrl": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "sort": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "symref": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refs": [
+        "undefined",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ]
+    },
+    "total": "2916",
+    "accepted": "324",
+    "nodes": 6,
+    "isolatedRuleWitnesses": {
+      "lsRemote.unsupported": "{\"symref\":false}"
+    }
+  },
+  {
+    "command": "lsTree",
+    "type": "LsTreeOpts",
+    "domains": {
+      "recursive": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "treeOnly": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "showTrees": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "long": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nameOnly": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "objectOnly": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "fullName": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "fullTree": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "abbrev": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992",
+        "false",
+        "true"
+      ],
+      "paths": [
+        "undefined",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ]
+    },
+    "total": "236196",
+    "accepted": "97200",
+    "nodes": 24,
+    "isolatedRuleWitnesses": {
+      "lsTree.nameOnly-objectOnly-long": "{\"nameOnly\":true,\"objectOnly\":true}",
+      "lsTree.abbrev": "{\"abbrev\":1.5}"
+    }
+  },
+  {
+    "command": "status",
+    "type": "StatusOpts",
+    "domains": {
+      "porcelain": [
+        "undefined",
+        "1",
+        "2"
+      ],
+      "untracked": [
+        "undefined",
+        "\"no\"",
+        "\"normal\"",
+        "\"all\""
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "showStash": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "aheadBehind": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nullTerminated": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignored": [
+        "undefined",
+        "\"traditional\"",
+        "\"no\"",
+        "\"matching\""
+      ],
+      "ignoreSubmodules": [
+        "undefined",
+        "\"none\"",
+        "\"untracked\"",
+        "\"dirty\"",
+        "\"all\""
+      ],
+      "noRenames": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "findRenames": [
+        "undefined",
+        "false",
+        "true",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ]
+    },
+    "total": "524880",
+    "accepted": "77760",
+    "nodes": 15,
+    "isolatedRuleWitnesses": {
+      "status.unsupported": "{\"verbose\":false}",
+      "status.porcelain": "{\"porcelain\":1}",
+      "status.nul": "{\"nullTerminated\":false}"
+    }
+  },
+  {
+    "command": "log",
+    "type": "LogOpts",
+    "domains": {
+      "maxCount": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "skip": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "since": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "new Date(\"2000-01-01T00:00:00.000Z\")"
+      ],
+      "until": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "new Date(\"2000-01-01T00:00:00.000Z\")"
+      ],
+      "author": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "grep": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "firstParent": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "source": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "useMailmap": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "decorateRefs": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "decorateRefsExclude": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "decorate": [
+        "undefined",
+        "\"short\"",
+        "\"full\"",
+        "\"auto\"",
+        "\"no\""
+      ],
+      "stat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "shortstat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nameOnly": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nameStatus": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "merges": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noMerges": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ancestryPath": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "reverse": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "after": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "new Date(\"2000-01-01T00:00:00.000Z\")"
+      ],
+      "before": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "new Date(\"2000-01-01T00:00:00.000Z\")"
+      ],
+      "ref": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "8099671023360",
+    "accepted": "377913600",
+    "nodes": 102,
+    "isolatedRuleWitnesses": {
+      "log.unsupported": "{\"stat\":false}",
+      "log.maxCount": "{\"maxCount\":1.5}",
+      "log.skip": "{\"skip\":1.5}"
+    }
+  },
+  {
+    "command": "fetch",
+    "type": "FetchOpts",
+    "domains": {
+      "remote": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "refspec": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "prune": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "tags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "depth": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "setUpstream": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "append": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "atomic": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "multiple": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noTags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "jobs": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "prefetch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "pruneTags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recurseSubmodules": [
+        "undefined",
+        "false",
+        "true",
+        "\"yes\"",
+        "\"on-demand\"",
+        "\"no\""
+      ],
+      "dryRun": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "writeFetchHead": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "keep": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "updateHeadOk": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "shallowSince": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "new Date(\"2000-01-01T00:00:00.000Z\")"
+      ],
+      "shallowExclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "deepen": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "unshallow": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refetch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "updateShallow": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refmap": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "ipv4": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ipv6": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "filter": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "showForcedUpdates": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "writeCommitGraph": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "2259861065870867424",
+    "accepted": "45143537111123040",
+    "nodes": 242,
+    "isolatedRuleWitnesses": {
+      "fetch.depth-unshallow": "{\"depth\":1,\"unshallow\":true}",
+      "fetch.deepen-depth": "{\"deepen\":1,\"depth\":1}",
+      "fetch.deepen-unshallow": "{\"deepen\":1,\"unshallow\":true}",
+      "fetch.all-remote": "{\"all\":true,\"remote\":\"\"}",
+      "fetch.all-refspec": "{\"all\":true,\"refspec\":\"\"}",
+      "fetch.unsupported": "{\"multiple\":false}",
+      "fetch.depth": "{\"depth\":1.5}",
+      "fetch.depth-range": "{\"depth\":-1}",
+      "fetch.jobs": "{\"jobs\":1.5}",
+      "fetch.deepen": "{\"deepen\":1.5}",
+      "fetch.deepen-range": "{\"deepen\":-1}"
+    }
+  },
+  {
+    "command": "push",
+    "type": "PushOpts",
+    "domains": {
+      "remote": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "refspec": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "forceWithLease": [
+        "undefined",
+        "false",
+        "true",
+        "{\"refname\":\"\"}"
+      ],
+      "tags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "setUpstream": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noVerify": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "signed": [
+        "undefined",
+        "false",
+        "true",
+        "\"if-asked\""
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "repo": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "branches": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "mirror": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "deleteRefs": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "dryRun": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "forceIfIncludes": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recurseSubmodules": [
+        "undefined",
+        "\"check\"",
+        "\"on-demand\"",
+        "\"only\"",
+        "\"no\""
+      ],
+      "thin": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "prune": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "followTags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "atomic": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "pushOption": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "ipv4": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ipv6": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "10041939074880",
+    "accepted": "2920289552640",
+    "nodes": 138,
+    "isolatedRuleWitnesses": {
+      "push.all-mirror-refspec": "{\"all\":true,\"refspec\":\"\"}",
+      "push.all-tags": "{\"all\":true,\"tags\":true}",
+      "push.branches-mirror-refspec": "{\"branches\":true,\"refspec\":\"\"}",
+      "push.branches-tags": "{\"branches\":true,\"tags\":true}",
+      "push.mirror-tags": "{\"mirror\":true,\"tags\":true}",
+      "push.delete-all": null,
+      "push.delete-branches": null,
+      "push.delete-mirror": null,
+      "push.delete-tags": "{\"deleteRefs\":true,\"refspec\":\"\",\"tags\":true}",
+      "push.delete-refs": "{\"deleteRefs\":true}"
+    }
+  },
+  {
+    "command": "add",
+    "type": "AddOpts",
+    "domains": {
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "dryRun": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "update": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "interactive": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "patch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "intentToAdd": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "renormalize": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignoreRemoval": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refresh": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignoreErrors": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignoreMissing": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "sparse": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "chmod": [
+        "undefined",
+        "\"+x\"",
+        "\"-x\""
+      ],
+      "pathspecFromFile": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "43046721",
+    "accepted": "4251528",
+    "nodes": 22,
+    "isolatedRuleWitnesses": {
+      "add.all-update": "{\"all\":true,\"update\":true}",
+      "add.unsupported": "{\"patch\":false}"
+    }
+  },
+  {
+    "command": "checkoutBranch",
+    "type": "CheckoutBranchOpts",
+    "domains": {
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "createBranch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "startPoint": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "track": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "forceCreateBranch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "createReflog": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "guess": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recurseSubmodules": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "merge": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "conflict": [
+        "undefined",
+        "\"merge\"",
+        "\"diff3\"",
+        "\"zdiff3\""
+      ],
+      "detach": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "orphan": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "overwriteIgnore": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignoreOtherWorktrees": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "19131876",
+    "accepted": "11337408",
+    "nodes": 36,
+    "isolatedRuleWitnesses": {
+      "checkoutBranch.createBranch-forceCreateBranch-detach-orphan": "{\"forceCreateBranch\":true,\"orphan\":true}"
+    }
+  },
+  {
+    "command": "checkoutPath",
+    "type": "CheckoutPathOpts",
+    "domains": {
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "source": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "overlay": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ours": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "theirs": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "pathspecFromFile": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "2187",
+    "accepted": "1377",
+    "nodes": 16,
+    "isolatedRuleWitnesses": {
+      "checkoutPath.source-ours": "{\"ours\":true,\"source\":\"\"}",
+      "checkoutPath.source-theirs": "{\"source\":\"\",\"theirs\":true}"
+    }
+  },
+  {
+    "command": "commit",
+    "type": "CommitOpts",
+    "domains": {
+      "message": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "allowEmpty": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "amend": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "author": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "date": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "new Date(\"2000-01-01T00:00:00.000Z\")"
+      ],
+      "dryRun": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noVerify": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "gpgSign": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noGpgSign": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "file": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "reeditMessage": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "reuseMessage": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "fixup": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "squash": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "resetAuthor": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "trailer": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "signoff": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "cleanup": [
+        "undefined",
+        "\"strip\"",
+        "\"whitespace\"",
+        "\"verbatim\"",
+        "\"scissors\"",
+        "\"default\""
+      ],
+      "include": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "only": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noPostRewrite": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "untrackedFiles": [
+        "undefined",
+        "\"no\"",
+        "\"normal\"",
+        "\"all\""
+      ],
+      "pathspecFromFile": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "allowEmptyMessage": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "54226471004352",
+    "accepted": "334272137472",
+    "nodes": 707,
+    "isolatedRuleWitnesses": {
+      "commit.message-file-reuseMessage": "{\"message\":\"\",\"reuseMessage\":\"\"}",
+      "commit.fixup-squash": "{\"fixup\":\"\",\"squash\":\"\"}",
+      "commit.include-only-all": "{\"include\":true,\"only\":true}",
+      "commit.unsupported": "{\"reeditMessage\":\"\"}",
+      "commit.fixup-message-source": "{\"fixup\":\"\",\"reuseMessage\":\"\"}",
+      "commit.author-reset": "{\"author\":\"\",\"resetAuthor\":true}",
+      "commit.all-pathspec-file": "{\"all\":true,\"pathspecFromFile\":\"\"}"
+    }
+  },
+  {
+    "command": "diff",
+    "type": "DiffOpts",
+    "domains": {
+      "staged": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "stat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nameOnly": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nameStatus": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "context": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "ignoreWhitespace": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "paths": [
+        "undefined",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "nullTerminated": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "patch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "patchWithRaw": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "numstat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "patchWithStat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "fullIndex": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "abbrev": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "reverse": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "detectRewrites": [
+        "undefined",
+        "false",
+        "true",
+        "\"\"",
+        "\"value\""
+      ],
+      "detectRenames": [
+        "undefined",
+        "false",
+        "true",
+        "\"\"",
+        "\"value\""
+      ],
+      "detectCopies": [
+        "undefined",
+        "false",
+        "true",
+        "\"\"",
+        "\"value\""
+      ],
+      "findCopiesHarder": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "renameLimit": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "pickaxe": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "pickaxeAll": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "text": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "mergeBase": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noIndex": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "wordDiff": [
+        "undefined",
+        "\"color\"",
+        "\"plain\"",
+        "\"porcelain\"",
+        "\"none\""
+      ]
+    },
+    "total": "332213069317500",
+    "accepted": "19131876000000",
+    "nodes": 81,
+    "isolatedRuleWitnesses": {
+      "diff.nameOnly-nameStatus": "{\"nameOnly\":true,\"nameStatus\":true}",
+      "diff.unsupported": "{\"noIndex\":false}",
+      "diff.nul": "{\"nullTerminated\":false}",
+      "diff.context": "{\"context\":1.5}",
+      "diff.context-range": "{\"context\":-1}",
+      "diff.renameLimit": "{\"renameLimit\":1.5}",
+      "diff.abbrev": "{\"abbrev\":1.5}"
+    }
+  },
+  {
+    "command": "merge",
+    "type": "MergeOpts",
+    "domains": {
+      "message": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "ff": [
+        "undefined",
+        "\"only\"",
+        "\"no\"",
+        "false",
+        "true"
+      ],
+      "squash": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noCommit": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "strategy": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "strategyOption": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "abort": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "continue": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noVerify": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noDiffstat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "stat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "compactSummary": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "log": [
+        "undefined",
+        "false",
+        "true",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "cleanup": [
+        "undefined",
+        "\"strip\"",
+        "\"whitespace\"",
+        "\"verbatim\"",
+        "\"scissors\"",
+        "\"default\""
+      ],
+      "rerereAutoupdate": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verifySignatures": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quit": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "allowUnrelatedHistories": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "gpgSign": [
+        "undefined",
+        "false",
+        "true",
+        "\"\"",
+        "\"value\""
+      ],
+      "autostash": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "overwriteIgnore": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "signoff": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "intoName": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "28242953648100",
+    "accepted": "7252511652384",
+    "nodes": 500,
+    "isolatedRuleWitnesses": {
+      "merge.abort-continue-quit": "{\"continue\":true,\"quit\":true}",
+      "merge.abort-options": "{\"abort\":true,\"verifySignatures\":true}",
+      "merge.continue-options": "{\"continue\":true,\"verifySignatures\":true}",
+      "merge.quit-options": "{\"quit\":true,\"verifySignatures\":true}",
+      "merge.squash-no-ff-no": "{\"ff\":\"no\",\"squash\":true}",
+      "merge.squash-no-ff-false": "{\"ff\":false,\"squash\":true}"
+    }
+  },
+  {
+    "command": "pull",
+    "type": "PullOpts",
+    "domains": {
+      "remote": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "branch": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "rebase": [
+        "undefined",
+        "false",
+        "true",
+        "\"merges\"",
+        "\"interactive\""
+      ],
+      "ff": [
+        "undefined",
+        "\"only\"",
+        "\"no\"",
+        "false",
+        "true"
+      ],
+      "tags": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "prune": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "onProgress": [
+        "undefined",
+        "() => undefined"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recurseSubmodules": [
+        "undefined",
+        "false",
+        "true",
+        "\"yes\"",
+        "\"on-demand\"",
+        "\"no\""
+      ],
+      "noStat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "stat": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "compactSummary": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "log": [
+        "undefined",
+        "false",
+        "true",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "signoff": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "squash": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "commit": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "cleanup": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "verify": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verifySignatures": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "autostash": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "strategy": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "strategyOption": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "gpgSign": [
+        "undefined",
+        "false",
+        "true",
+        "\"\"",
+        "\"value\""
+      ],
+      "allowUnrelatedHistories": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "append": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "jobs": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "dryRun": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "keep": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "depth": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "shallowSince": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "new Date(\"2000-01-01T00:00:00.000Z\")"
+      ],
+      "shallowExclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "deepen": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "unshallow": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "updateShallow": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ipv4": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ipv6": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "setUpstream": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "15254062194628355112000",
+    "accepted": "1334174535973325520000",
+    "nodes": 69,
+    "isolatedRuleWitnesses": {
+      "pull.depth-unshallow": "{\"depth\":1,\"unshallow\":true}",
+      "pull.deepen-depth": "{\"deepen\":1,\"depth\":1}",
+      "pull.deepen-unshallow": "{\"deepen\":1,\"unshallow\":true}",
+      "pull.depth": "{\"depth\":1.5}",
+      "pull.depth-range": "{\"depth\":-1}",
+      "pull.jobs": "{\"jobs\":1.5}",
+      "pull.deepen": "{\"deepen\":1.5}",
+      "pull.deepen-range": "{\"deepen\":-1}"
+    }
+  },
+  {
+    "command": "reset",
+    "type": "ResetOpts",
+    "domains": {
+      "mode": [
+        "undefined",
+        "\"soft\"",
+        "\"mixed\"",
+        "\"hard\"",
+        "\"merge\"",
+        "\"keep\""
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noRefresh": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recurseSubmodules": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "intentToAdd": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "pathspecFromFile": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "1458",
+    "accepted": "1134",
+    "nodes": 17,
+    "isolatedRuleWitnesses": {
+      "reset.intent-to-add-mode": "{\"intentToAdd\":true,\"mode\":\"soft\"}"
+    }
+  },
+  {
+    "command": "stashPush",
+    "type": "StashPushOpts",
+    "domains": {
+      "message": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "includeUntracked": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "keepIndex": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "paths": [
+        "undefined",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "staged": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "pathspecFromFile": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "8748",
+    "accepted": "4320",
+    "nodes": 36,
+    "isolatedRuleWitnesses": {
+      "stashPush.staged": "{\"pathspecFromFile\":\"\",\"staged\":true}",
+      "stashPush.pathspec": "{\"paths\":[\"\"],\"pathspecFromFile\":\"\"}"
+    }
+  },
+  {
+    "command": "switch",
+    "type": "SwitchOpts",
+    "domains": {
+      "create": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "forceCreate": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "discard": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "startPoint": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "track": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "detach": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "guess": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recurseSubmodules": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "merge": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "conflict": [
+        "undefined",
+        "\"merge\"",
+        "\"diff3\"",
+        "\"zdiff3\""
+      ],
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "orphan": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "overwriteIgnore": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignoreOtherWorktrees": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "19131876",
+    "accepted": "9237888",
+    "nodes": 94,
+    "isolatedRuleWitnesses": {
+      "switch.create-forceCreate-detach-orphan": "{\"forceCreate\":true,\"orphan\":true}",
+      "switch.discard-merge": "{\"discard\":true,\"merge\":true}",
+      "switch.force-merge": "{\"force\":true,\"merge\":true}"
+    }
+  },
+  {
+    "command": "tagCreate",
+    "type": "TagCreateOpts",
+    "domains": {
+      "message": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "commit": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "sign": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "file": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "trailer": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "cleanup": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "localUser": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "createReflog": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "39366",
+    "accepted": "21870",
+    "nodes": 7,
+    "isolatedRuleWitnesses": {
+      "tagCreate.message-file": "{\"file\":\"\",\"message\":\"\"}"
+    }
+  },
+  {
+    "command": "cherryPick",
+    "type": "CherryPickOpts",
+    "domains": {
+      "edit": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noCommit": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "signoff": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "mainline": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "strategy": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "abort": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "continue": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "skip": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noVerify": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "cleanup": [
+        "undefined",
+        "\"strip\"",
+        "\"whitespace\"",
+        "\"verbatim\"",
+        "\"scissors\"",
+        "\"default\""
+      ],
+      "rerereAutoupdate": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "strategyOption": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "gpgSign": [
+        "undefined",
+        "false",
+        "true",
+        "\"\"",
+        "\"value\""
+      ],
+      "appendCommitName": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ff": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "allowEmpty": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "allowEmptyMessage": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "empty": [
+        "undefined",
+        "\"drop\"",
+        "\"keep\"",
+        "\"stop\""
+      ]
+    },
+    "total": "8035387920",
+    "accepted": "249298560",
+    "nodes": 429,
+    "isolatedRuleWitnesses": {
+      "cherryPick.abort-continue-skip": "{\"continue\":true,\"skip\":true}",
+      "cherryPick.unsupported": "{\"noVerify\":false}",
+      "cherryPick.mainline": "{\"mainline\":1.5}",
+      "cherryPick.mainline-range": "{\"mainline\":-1}",
+      "cherryPick.abort-options": "{\"abort\":true,\"strategyOption\":\"\"}",
+      "cherryPick.continue-options": "{\"continue\":true,\"strategyOption\":\"\"}",
+      "cherryPick.skip-options": "{\"skip\":true,\"strategyOption\":\"\"}",
+      "cherryPick.ff-signoff": "{\"ff\":true,\"signoff\":true}",
+      "cherryPick.ff-noCommit": "{\"ff\":true,\"noCommit\":true}",
+      "cherryPick.ff-appendCommitName": "{\"appendCommitName\":true,\"ff\":true}",
+      "cherryPick.ff-edit": "{\"edit\":true,\"ff\":true}"
+    }
+  },
+  {
+    "command": "clean",
+    "type": "CleanOpts",
+    "domains": {
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "directories": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignored": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "onlyIgnored": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "dryRun": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "paths": [
+        "undefined",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "exclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ]
+    },
+    "total": "17496",
+    "accepted": "15552",
+    "nodes": 7,
+    "isolatedRuleWitnesses": {
+      "clean.ignored-onlyIgnored": "{\"ignored\":true,\"onlyIgnored\":true}"
+    }
+  },
+  {
+    "command": "rebase",
+    "type": "RebaseOpts",
+    "domains": {
+      "upstream": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "onto": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "interactive": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "rebaseMerges": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "abort": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "continue": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "skip": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noVerify": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "keepBase": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "signoff": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "committerDateIsAuthorDate": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "resetAuthorDate": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignoreWhitespace": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "whitespace": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "forceRebase": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noFf": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "apply": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "rerereAutoupdate": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "empty": [
+        "undefined",
+        "\"drop\"",
+        "\"keep\"",
+        "\"ask\""
+      ],
+      "autosquash": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "updateRefs": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "gpgSign": [
+        "undefined",
+        "false",
+        "true",
+        "\"\"",
+        "\"value\""
+      ],
+      "autostash": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "exec": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "forkPoint": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "strategy": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "strategyOption": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "root": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "rescheduleFailedExec": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "reapplyCherryPicks": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "8235645283785960",
+    "accepted": "937247646988800",
+    "nodes": 422,
+    "isolatedRuleWitnesses": {
+      "rebase.abort-continue-skip": "{\"continue\":true,\"skip\":true}",
+      "rebase.keepBase-onto": "{\"keepBase\":true,\"onto\":\"\"}",
+      "rebase.keepBase-root": "{\"keepBase\":true,\"root\":true}",
+      "rebase.apply-rebaseMerges": "{\"apply\":true,\"rebaseMerges\":true}",
+      "rebase.apply-strategy": "{\"apply\":true,\"strategy\":\"\"}",
+      "rebase.apply-exec": "{\"apply\":true,\"exec\":\"\"}",
+      "rebase.unsupported": "{\"interactive\":false}",
+      "rebase.root-forkPoint": "{\"forkPoint\":true,\"root\":true}"
+    }
+  },
+  {
+    "command": "restore",
+    "type": "RestoreOpts",
+    "domains": {
+      "staged": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "worktree": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "source": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "ours": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "theirs": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ignoreUnmerged": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "overlay": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "quiet": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recurseSubmodules": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "progress": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "merge": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "conflict": [
+        "undefined",
+        "\"merge\"",
+        "\"diff3\"",
+        "\"zdiff3\""
+      ],
+      "ignoreSkipWorktreeBits": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "pathspecFromFile": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "6377292",
+    "accepted": "1784592",
+    "nodes": 85,
+    "isolatedRuleWitnesses": {
+      "restore.staged-conflict": "{\"staged\":true,\"theirs\":true}",
+      "restore.source-ours": "{\"ours\":true,\"source\":\"\"}",
+      "restore.source-theirs": "{\"source\":\"\",\"theirs\":true}",
+      "restore.source-merge": "{\"merge\":true,\"source\":\"\"}",
+      "restore.source-conflict": "{\"conflict\":\"merge\",\"source\":\"\"}"
+    }
+  },
+  {
+    "command": "revert",
+    "type": "RevertOpts",
+    "domains": {
+      "edit": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noCommit": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "mainline": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "abort": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "continue": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "skip": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noVerify": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "cleanup": [
+        "undefined",
+        "\"strip\"",
+        "\"whitespace\"",
+        "\"verbatim\"",
+        "\"scissors\"",
+        "\"default\""
+      ],
+      "signoff": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "rerereAutoupdate": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "strategy": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "strategyOption": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "gpgSign": [
+        "undefined",
+        "false",
+        "true",
+        "\"\"",
+        "\"value\""
+      ],
+      "reference": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "74401740",
+    "accepted": "3162240",
+    "nodes": 172,
+    "isolatedRuleWitnesses": {
+      "revert.abort-continue-skip": "{\"continue\":true,\"skip\":true}",
+      "revert.unsupported": "{\"noVerify\":false}",
+      "revert.mainline": "{\"mainline\":1.5}",
+      "revert.mainline-range": "{\"mainline\":-1}",
+      "revert.abort-options": "{\"abort\":true,\"strategyOption\":\"\"}",
+      "revert.continue-options": "{\"continue\":true,\"strategyOption\":\"\"}",
+      "revert.skip-options": "{\"skip\":true,\"strategyOption\":\"\"}"
+    }
+  },
+  {
+    "command": "submoduleUpdate",
+    "type": "SubmoduleOpts",
+    "domains": {
+      "recursive": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "init": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "remote": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "noFetch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "checkout": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "merge": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "rebase": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "recommendShallow": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "reference": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "singleBranch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "filter": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "531441",
+    "accepted": "295245",
+    "nodes": 6,
+    "isolatedRuleWitnesses": {
+      "submoduleUpdate.filter-init": "{\"filter\":\"\"}"
+    }
+  },
+  {
+    "command": "lfsPull",
+    "type": "LfsPullOpts",
+    "domains": {
+      "remote": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "ref": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "include": [
+        "undefined",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "exclude": [
+        "undefined",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ]
+    },
+    "total": "144",
+    "accepted": "48",
+    "nodes": 2,
+    "isolatedRuleWitnesses": {
+      "lfsPull.unsupported": "{\"ref\":\"\"}"
+    }
+  },
+  {
+    "command": "lfsPush",
+    "type": "LfsPushOpts",
+    "domains": {
+      "remote": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "ref": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "dryRun": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "objectId": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "stdin": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "486",
+    "accepted": "216",
+    "nodes": 7,
+    "isolatedRuleWitnesses": {
+      "lfsPush.ref-objectId": "{\"objectId\":\"\",\"ref\":\"\"}"
+    }
+  },
+  {
+    "command": "lfsStatus",
+    "type": "LfsStatusOpts",
+    "domains": {
+      "json": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "porcelain": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "9",
+    "accepted": "2",
+    "nodes": 7,
+    "isolatedRuleWitnesses": {
+      "lfsStatus.unsupported": "{\"porcelain\":false}",
+      "lfsStatus.json": "{\"json\":false}"
+    }
+  },
+  {
+    "command": "lfsFetch",
+    "type": "LfsFetchOpts",
+    "domains": {
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "include": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "exclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "recent": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "prune": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refetch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "dryRun": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "json": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "remote": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "refs": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ]
+    },
+    "total": "472392",
+    "accepted": "317844",
+    "nodes": 33,
+    "isolatedRuleWitnesses": {
+      "lfsFetch.all-include": "{\"all\":true,\"include\":\"\"}",
+      "lfsFetch.all-exclude": "{\"all\":true,\"exclude\":\"\"}",
+      "lfsFetch.all-recent": "{\"all\":true,\"recent\":true}"
+    }
+  },
+  {
+    "command": "lfsLsFiles",
+    "type": "LfsLsFilesOpts",
+    "domains": {
+      "long": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "size": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "debug": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "deleted": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "include": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "exclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "nameOnly": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "json": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ref": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "236196",
+    "accepted": "17496",
+    "nodes": 14,
+    "isolatedRuleWitnesses": {
+      "lfsLsFiles.unsupported": "{\"nameOnly\":false}",
+      "lfsLsFiles.json": "{\"json\":false}"
+    }
+  },
+  {
+    "command": "lfsLocks",
+    "type": "LfsLocksOpts",
+    "domains": {
+      "remote": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "id": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "path": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "local": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "cached": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verify": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "limit": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "json": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "15309",
+    "accepted": "6012",
+    "nodes": 73,
+    "isolatedRuleWitnesses": {
+      "lfsLocks.verify-limit": "{\"limit\":-1,\"verify\":true}",
+      "lfsLocks.limit-integer": "{\"limit\":1.5}",
+      "lfsLocks.cached": "{\"cached\":true,\"path\":\"value\"}",
+      "lfsLocks.verify": "{\"path\":\"value\",\"verify\":true}"
+    }
+  },
+  {
+    "command": "lfsCheckout",
+    "type": "LfsCheckoutOpts",
+    "domains": {
+      "base": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "ours": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "theirs": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "to": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "include": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "exclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ]
+    },
+    "total": "2916",
+    "accepted": "28",
+    "nodes": 106,
+    "isolatedRuleWitnesses": {
+      "lfsCheckout.stage": "{\"ours\":true,\"theirs\":true,\"to\":\"value\"}",
+      "lfsCheckout.destination-stage": "{\"to\":\"value\"}",
+      "lfsCheckout.base-destination": "{\"base\":true}",
+      "lfsCheckout.ours-destination": "{\"ours\":true}",
+      "lfsCheckout.theirs-destination": "{\"theirs\":true}",
+      "lfsCheckout.unknown-options": "{\"include\":\"\"}"
+    }
+  },
+  {
+    "command": "lfsMigrateInfo",
+    "type": "LfsMigrateInfoOpts",
+    "domains": {
+      "include": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "exclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "includeRef": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "excludeRef": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "skipFetch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "everything": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "yesReally": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refs": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "above": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "top": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "unit": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "pointers": [
+        "undefined",
+        "\"follow\"",
+        "\"no-follow\"",
+        "\"ignore\""
+      ],
+      "fixup": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "476171136",
+    "accepted": "226420110",
+    "nodes": 121,
+    "isolatedRuleWitnesses": {
+      "lfsMigrateInfo.everything-includeRef": "{\"everything\":true,\"includeRef\":\"value\"}",
+      "lfsMigrateInfo.everything-excludeRef": "{\"everything\":true,\"excludeRef\":\"value\"}",
+      "lfsMigrateInfo.everything-refs": "{\"everything\":true,\"refs\":\"value\"}",
+      "lfsMigrateInfo.fixup-patterns": "{\"fixup\":true,\"include\":\"\"}",
+      "lfsMigrateInfo.fixup-pointers": "{\"fixup\":true,\"pointers\":\"follow\"}"
+    }
+  },
+  {
+    "command": "lfsMigrateImport",
+    "type": "LfsMigrateImportOpts",
+    "domains": {
+      "include": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "exclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "includeRef": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "excludeRef": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "skipFetch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "everything": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "yesReally": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refs": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "above": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "fixup": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "objectMap": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "noRewrite": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "message": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "files": [
+        "undefined",
+        "[\"\"]"
+      ],
+      "object": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "top": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "unit": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "pointers": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "347128758144",
+    "accepted": "134224938",
+    "nodes": 490,
+    "isolatedRuleWitnesses": {
+      "lfsMigrateImport.above-include": "{\"above\":1,\"include\":\"\"}",
+      "lfsMigrateImport.above-exclude": "{\"above\":1,\"exclude\":\"\"}",
+      "lfsMigrateImport.above-fixup": "{\"above\":1,\"fixup\":true}",
+      "lfsMigrateImport.everything-includeRef": "{\"everything\":true,\"includeRef\":\"value\"}",
+      "lfsMigrateImport.everything-excludeRef": "{\"everything\":true,\"excludeRef\":\"value\"}",
+      "lfsMigrateImport.everything-refs": "{\"everything\":true,\"refs\":\"value\"}",
+      "lfsMigrateImport.unknown-options": "{\"unit\":\"\"}",
+      "lfsMigrateImport.no-rewrite-fixup": "{\"files\":[\"\"],\"fixup\":true,\"noRewrite\":true}",
+      "lfsMigrateImport.files": "{\"noRewrite\":true}",
+      "lfsMigrateImport.file-mode": "{\"files\":[\"\"]}",
+      "lfsMigrateImport.refs-mode": "{\"files\":[\"\"],\"noRewrite\":true,\"refs\":\"value\"}",
+      "lfsMigrateImport.fixup-patterns": "{\"fixup\":true,\"include\":\"\"}"
+    }
+  },
+  {
+    "command": "lfsMigrateExport",
+    "type": "LfsMigrateExportOpts",
+    "domains": {
+      "include": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "exclude": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "includeRef": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "excludeRef": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "skipFetch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "everything": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "yesReally": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "refs": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "[]",
+        "[\"\"]",
+        "[\"value\"]"
+      ],
+      "verbose": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "objectMap": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "remote": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "above": [
+        "undefined",
+        "\"\"",
+        "\"value\"",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "top": [
+        "undefined",
+        "-1",
+        "0",
+        "1",
+        "2",
+        "1.5",
+        "9007199254740992"
+      ],
+      "unit": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "pointers": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "fixup": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "9642465504",
+    "accepted": "1338444",
+    "nodes": 111,
+    "isolatedRuleWitnesses": {
+      "lfsMigrateExport.everything-includeRef": "{\"everything\":true,\"include\":\"value\",\"includeRef\":\"value\"}",
+      "lfsMigrateExport.everything-excludeRef": "{\"everything\":true,\"excludeRef\":\"value\",\"include\":\"value\"}",
+      "lfsMigrateExport.everything-refs": "{\"everything\":true,\"include\":\"value\",\"refs\":\"value\"}",
+      "lfsMigrateExport.include": "{}",
+      "lfsMigrateExport.unknown-options": "{\"include\":\"value\",\"unit\":\"\"}"
+    }
+  },
+  {
+    "command": "worktreeAdd",
+    "type": "WorktreeAddOpts",
+    "domains": {
+      "commitish": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "branch": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "detach": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "track": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "force": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "checkout": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "lock": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "orphan": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "6561",
+    "accepted": "3618",
+    "nodes": 62,
+    "isolatedRuleWitnesses": {
+      "worktreeAdd.branch-detach": "{\"branch\":\"\",\"detach\":true}",
+      "worktreeAdd.orphan-detach": "{\"detach\":true,\"orphan\":true}",
+      "worktreeAdd.orphan-track": "{\"orphan\":true,\"track\":true}",
+      "worktreeAdd.orphan-commitish": "{\"commitish\":\"\",\"orphan\":true}",
+      "worktreeAdd.orphan-no-checkout": "{\"checkout\":false,\"orphan\":true}"
+    }
+  },
+  {
+    "command": "remoteAdd",
+    "type": "RemoteAddOpts",
+    "domains": {
+      "track": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ],
+      "fetch": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "mirror": [
+        "undefined",
+        "\"fetch\"",
+        "\"push\""
+      ],
+      "tags": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "81",
+    "accepted": "63",
+    "nodes": 5,
+    "isolatedRuleWitnesses": {
+      "remoteAdd.push-mirror-track": "{\"mirror\":\"push\",\"track\":\"\"}"
+    }
+  },
+  {
+    "command": "remoteSetHead",
+    "type": "RemoteSetHeadOpts",
+    "domains": {
+      "auto": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "delete": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "9",
+    "accepted": "8",
+    "nodes": 7,
+    "isolatedRuleWitnesses": {
+      "remoteSetHead.auto-delete": "{\"auto\":true,\"delete\":true}"
+    }
+  },
+  {
+    "command": "configGet",
+    "type": "ConfigGetOpts",
+    "domains": {
+      "all": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "type": [
+        "undefined",
+        "\"bool\"",
+        "\"int\"",
+        "\"bool-or-int\"",
+        "\"path\"",
+        "\"expiry-date\"",
+        "\"color\""
+      ],
+      "default": [
+        "undefined",
+        "\"\"",
+        "\"value\""
+      ]
+    },
+    "total": "63",
+    "accepted": "49",
+    "nodes": 7,
+    "isolatedRuleWitnesses": {
+      "configGet.all-default": "{\"all\":true,\"default\":\"\"}"
+    }
+  },
+  {
+    "command": "configList",
+    "type": "ConfigListOpts",
+    "domains": {
+      "showOrigin": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "showScope": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "includes": [
+        "undefined",
+        "false",
+        "true"
+      ],
+      "nameOnly": [
+        "undefined",
+        "false",
+        "true"
+      ]
+    },
+    "total": "81",
+    "accepted": "27",
+    "nodes": 2,
+    "isolatedRuleWitnesses": {
+      "configList.unsupported": "{\"nameOnly\":false}"
+    }
+  }
+]

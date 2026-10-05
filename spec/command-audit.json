@@ -1,0 +1,354 @@
+{
+  "format": 1,
+  "scope": "All pinned upstream Git and Git LFS commands, including commands without a convenience API. An entry is complete only when every applicable facet has evidence.",
+  "facets": [
+    "option-grammar",
+    "operand-grammar",
+    "combination-rules",
+    "serialization",
+    "independent-git-tests",
+    "compiler-tests"
+  ],
+  "commands": {
+    "clone": {
+      "state": "partial",
+      "models": [
+        "clone"
+      ],
+      "tests": [
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Transport/configuration conditions; options not exposed by CloneOpts."
+    },
+    "reset": {
+      "state": "partial",
+      "models": [
+        "reset"
+      ],
+      "tests": [
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Patch input, positional paths, file content dependent pathspec checks, complete CLI surface."
+    },
+    "stash push": {
+      "state": "partial",
+      "models": [
+        "stashPush"
+      ],
+      "tests": [
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Patch mode and complete CLI surface."
+    },
+    "tag": {
+      "state": "partial",
+      "models": [
+        "tagCreate"
+      ],
+      "tests": [
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "List/verify/delete modes and complete CLI surface."
+    },
+    "remote add": {
+      "state": "partial",
+      "models": [
+        "remoteAdd"
+      ],
+      "tests": [
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Master branch selection and complete CLI surface."
+    },
+    "submodule update": {
+      "state": "partial",
+      "models": [
+        "submoduleUpdate"
+      ],
+      "tests": [
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "require-init, numeric options and complete CLI surface."
+    },
+    "lfs checkout": {
+      "state": "partial",
+      "models": [
+        "lfsCheckout"
+      ],
+      "tests": [
+        "src/impl/lfs-option-serialization.test.ts",
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Common command API including help and explicit false flag spelling."
+    },
+    "lfs locks": {
+      "state": "partial",
+      "models": [
+        "lfsLocks"
+      ],
+      "tests": [
+        "src/impl/lfs-option-serialization.test.ts",
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Non-cached server interactions and full scalar grammar."
+    },
+    "lfs migrate info": {
+      "state": "partial",
+      "models": [
+        "lfsMigrateInfo"
+      ],
+      "tests": [
+        "src/impl/lfs-option-serialization.test.ts",
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Scalar value grammar and independent LFS fixtures."
+    },
+    "lfs migrate import": {
+      "state": "partial",
+      "models": [
+        "lfsMigrateImport"
+      ],
+      "tests": [
+        "src/impl/lfs-option-serialization.test.ts",
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Scalar value grammar and independent LFS fixtures."
+    },
+    "lfs migrate export": {
+      "state": "partial",
+      "models": [
+        "lfsMigrateExport"
+      ],
+      "tests": [
+        "src/impl/lfs-option-serialization.test.ts",
+        "src/impl/option-constraints.test.ts"
+      ],
+      "remaining": "Full scalar value grammar and positional ref selection audit."
+    },
+    "init": {
+      "state": "partial",
+      "models": [
+        "init"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "ls-remote": {
+      "state": "partial",
+      "models": [
+        "lsRemote"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "ls-tree": {
+      "state": "partial",
+      "models": [
+        "lsTree"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "status": {
+      "state": "partial",
+      "models": [
+        "status"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "log": {
+      "state": "partial",
+      "models": [
+        "log"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "fetch": {
+      "state": "partial",
+      "models": [
+        "fetch"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "push": {
+      "state": "partial",
+      "models": [
+        "push"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "add": {
+      "state": "partial",
+      "models": [
+        "add"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "checkout": {
+      "state": "partial",
+      "models": [
+        "checkoutBranch",
+        "checkoutPath"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "commit": {
+      "state": "partial",
+      "models": [
+        "commit"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "diff": {
+      "state": "partial",
+      "models": [
+        "diff"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "merge": {
+      "state": "partial",
+      "models": [
+        "merge"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "pull": {
+      "state": "partial",
+      "models": [
+        "pull"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "switch": {
+      "state": "partial",
+      "models": [
+        "switch"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "cherry-pick": {
+      "state": "partial",
+      "models": [
+        "cherryPick"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "clean": {
+      "state": "partial",
+      "models": [
+        "clean"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "rebase": {
+      "state": "partial",
+      "models": [
+        "rebase"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "restore": {
+      "state": "partial",
+      "models": [
+        "restore"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "revert": {
+      "state": "partial",
+      "models": [
+        "revert"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "lfs pull": {
+      "state": "partial",
+      "models": [
+        "lfsPull"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "lfs push": {
+      "state": "partial",
+      "models": [
+        "lfsPush"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "lfs status": {
+      "state": "partial",
+      "models": [
+        "lfsStatus"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "lfs fetch": {
+      "state": "partial",
+      "models": [
+        "lfsFetch"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "lfs ls-files": {
+      "state": "partial",
+      "models": [
+        "lfsLsFiles"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "worktree add": {
+      "state": "partial",
+      "models": [
+        "worktreeAdd"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "remote set-head": {
+      "state": "partial",
+      "models": [
+        "remoteSetHead"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "config get": {
+      "state": "partial",
+      "models": [
+        "configGet"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "config list": {
+      "state": "partial",
+      "models": [
+        "configList"
+      ],
+      "tests": [],
+      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    }
+  }
+}

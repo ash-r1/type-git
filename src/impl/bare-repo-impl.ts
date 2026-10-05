@@ -636,6 +636,7 @@ export class BareRepoImpl implements BareRepo {
     url: string,
     opts?: RemoteAddOpts & ExecOpts,
   ): Promise<void> {
+    validateOptions('remoteAdd', opts);
     const args = ['remote', 'add'];
 
     if (opts?.track) {
@@ -652,6 +653,9 @@ export class BareRepoImpl implements BareRepo {
       args.push('--mirror=push');
     }
 
+    if (opts?.tags !== undefined) {
+      args.push(opts.tags ? '--tags' : '--no-tags');
+    }
     args.push(name, url);
 
     await this.runner.runOrThrow(this.context, args, {

@@ -1,0 +1,2184 @@
+{
+  "format": 1,
+  "baselines": {
+    "git": "2.55.0",
+    "lfs": "3.8.0"
+  },
+  "scope": "Version-pinned upstream commands, registered aliases/helpers, and companion programs. Site-installed git-* extensions cannot be enumerated globally.",
+  "extraction": "Static registry extraction. Subcommand candidates are not evidence of audited scopes or constraints.",
+  "commands": [
+    {
+      "command": "add",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/add.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "am",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/am.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "annotate",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/annotate.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "apply",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/apply.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "archimport",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "archive",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/archive.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "backfill",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/backfill.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "bisect",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/bisect.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "log",
+        "next",
+        "replay",
+        "reset",
+        "run",
+        "skip",
+        "start",
+        "terms",
+        "view",
+        "visualize"
+      ]
+    },
+    {
+      "command": "blame",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/blame.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "branch",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/branch.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "bugreport",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/bugreport.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "bundle",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/bundle.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "create",
+        "list-heads",
+        "unbundle",
+        "verify"
+      ]
+    },
+    {
+      "command": "cat-file",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/cat-file.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "check-attr",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/check-attr.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "check-ignore",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/check-ignore.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "check-mailmap",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/check-mailmap.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "check-ref-format",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/check-ref-format.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "checkout",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/checkout.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "checkout--worker",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/checkout--worker.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "checkout-index",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/checkout-index.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "cherry",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/log.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "cherry-pick",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/revert.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "citool",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "clean",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/clean.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "clone",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/clone.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "column",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/column.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "commit",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/commit.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "commit-graph",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/commit-graph.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "verify",
+        "write"
+      ]
+    },
+    {
+      "command": "commit-tree",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/commit-tree.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "config",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/config.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "edit",
+        "get",
+        "list",
+        "remove-section",
+        "rename-section",
+        "set",
+        "unset"
+      ]
+    },
+    {
+      "command": "count-objects",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/count-objects.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "credential",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/credential.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "credential-cache",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/credential-cache.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "credential-cache--daemon",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/credential-cache--daemon.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "credential-store",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/credential-store.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "cvsexportcommit",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "cvsimport",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "cvsserver",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "daemon",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "describe",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/describe.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "diagnose",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/diagnose.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "diff",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/diff.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "diff-files",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/diff-files.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "diff-index",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/diff-index.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "diff-pairs",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/diff-pairs.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "diff-tree",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/diff-tree.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "difftool",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/difftool.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "fast-export",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/fast-export.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "fast-import",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/fast-import.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "fetch",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/fetch.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "fetch-pack",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/fetch-pack.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "filter-branch",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "fmt-merge-msg",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/fmt-merge-msg.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "for-each-ref",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/for-each-ref.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "for-each-repo",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/for-each-repo.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "format-patch",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/log.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "format-rev",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/name-rev.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "fsck",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/fsck.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "fsck-objects",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/fsck.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "fsmonitor--daemon",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/fsmonitor--daemon.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "gc",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/gc.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "is-needed",
+        "register",
+        "run",
+        "start",
+        "stop",
+        "unregister"
+      ]
+    },
+    {
+      "command": "get-tar-commit-id",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/get-tar-commit-id.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "gitk",
+      "classification": "companion",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "gitweb",
+      "classification": "companion",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "grep",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/grep.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "gui",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "hash-object",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/hash-object.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "help",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/help.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "history",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/history.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "fixup",
+        "reword",
+        "split"
+      ]
+    },
+    {
+      "command": "hook",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/hook.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "list",
+        "run"
+      ]
+    },
+    {
+      "command": "http-backend",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "http-fetch",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "http-push",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "imap-send",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "index-pack",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/index-pack.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "init",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/init-db.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "init-db",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/init-db.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "instaweb",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "interpret-trailers",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/interpret-trailers.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "last-modified",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/last-modified.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "lfs checkout",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_checkout.go"
+      ]
+    },
+    {
+      "command": "lfs clean",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_clean.go"
+      ]
+    },
+    {
+      "command": "lfs clone",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_clone.go"
+      ]
+    },
+    {
+      "command": "lfs completion",
+      "classification": "lfs-dispatcher",
+      "sources": [
+        "lfs/commands/run.go"
+      ]
+    },
+    {
+      "command": "lfs dedup",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_dedup.go"
+      ]
+    },
+    {
+      "command": "lfs env",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_env.go"
+      ]
+    },
+    {
+      "command": "lfs ext",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_ext.go"
+      ]
+    },
+    {
+      "command": "lfs ext list",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_ext.go"
+      ]
+    },
+    {
+      "command": "lfs fetch",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_fetch.go"
+      ]
+    },
+    {
+      "command": "lfs filter-process",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_filter_process.go"
+      ]
+    },
+    {
+      "command": "lfs fsck",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_fsck.go"
+      ]
+    },
+    {
+      "command": "lfs help",
+      "classification": "lfs-dispatcher",
+      "sources": [
+        "lfs/commands/run.go"
+      ]
+    },
+    {
+      "command": "lfs install",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_install.go"
+      ]
+    },
+    {
+      "command": "lfs install hooks",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_install.go"
+      ]
+    },
+    {
+      "command": "lfs lock",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_lock.go"
+      ]
+    },
+    {
+      "command": "lfs locks",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_locks.go"
+      ]
+    },
+    {
+      "command": "lfs logs",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_logs.go"
+      ]
+    },
+    {
+      "command": "lfs logs boomtown",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_logs.go"
+      ]
+    },
+    {
+      "command": "lfs logs clear",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_logs.go"
+      ]
+    },
+    {
+      "command": "lfs logs last",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_logs.go"
+      ]
+    },
+    {
+      "command": "lfs logs show",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_logs.go"
+      ]
+    },
+    {
+      "command": "lfs ls-files",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_ls_files.go"
+      ]
+    },
+    {
+      "command": "lfs merge-driver",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_merge_driver.go"
+      ]
+    },
+    {
+      "command": "lfs migrate",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_migrate.go"
+      ]
+    },
+    {
+      "command": "lfs migrate export",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_migrate.go"
+      ]
+    },
+    {
+      "command": "lfs migrate import",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_migrate.go"
+      ]
+    },
+    {
+      "command": "lfs migrate info",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_migrate.go"
+      ]
+    },
+    {
+      "command": "lfs pointer",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_pointer.go"
+      ]
+    },
+    {
+      "command": "lfs post-checkout",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_post_checkout.go"
+      ]
+    },
+    {
+      "command": "lfs post-commit",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_post_commit.go"
+      ]
+    },
+    {
+      "command": "lfs post-merge",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_post_merge.go"
+      ]
+    },
+    {
+      "command": "lfs pre-push",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_pre_push.go"
+      ]
+    },
+    {
+      "command": "lfs prune",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_prune.go"
+      ]
+    },
+    {
+      "command": "lfs pull",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_pull.go"
+      ]
+    },
+    {
+      "command": "lfs push",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_push.go"
+      ]
+    },
+    {
+      "command": "lfs smudge",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_smudge.go"
+      ]
+    },
+    {
+      "command": "lfs standalone-file",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_standalone_file.go"
+      ]
+    },
+    {
+      "command": "lfs status",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_status.go"
+      ]
+    },
+    {
+      "command": "lfs track",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_track.go"
+      ]
+    },
+    {
+      "command": "lfs uninstall",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_uninstall.go"
+      ]
+    },
+    {
+      "command": "lfs uninstall hooks",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_uninstall.go"
+      ]
+    },
+    {
+      "command": "lfs unlock",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_unlock.go"
+      ]
+    },
+    {
+      "command": "lfs untrack",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_untrack.go"
+      ]
+    },
+    {
+      "command": "lfs update",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_update.go"
+      ]
+    },
+    {
+      "command": "lfs version",
+      "classification": "lfs-registered",
+      "sources": [
+        "lfs/commands/command_version.go"
+      ]
+    },
+    {
+      "command": "log",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/log.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "ls-files",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/ls-files.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "ls-remote",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/ls-remote.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "ls-tree",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/ls-tree.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "mailinfo",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/mailinfo.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "mailsplit",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/mailsplit.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "maintenance",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/gc.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "is-needed",
+        "register",
+        "run",
+        "start",
+        "stop",
+        "unregister"
+      ]
+    },
+    {
+      "command": "merge",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/merge.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-base",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/merge-base.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-file",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/merge-file.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-index",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/merge-index.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-one-file",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "merge-ours",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/merge-ours.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-recursive",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/merge-recursive.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-recursive-ours",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/merge-recursive.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-recursive-theirs",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/merge-recursive.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-subtree",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/merge-recursive.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "merge-tree",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/merge-tree.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "mergetool",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "mktag",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/mktag.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "mktree",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/mktree.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "multi-pack-index",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/multi-pack-index.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "compact",
+        "expire",
+        "repack",
+        "verify",
+        "write"
+      ]
+    },
+    {
+      "command": "mv",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/mv.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "name-rev",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/name-rev.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "notes",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/notes.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "add",
+        "append",
+        "copy",
+        "edit",
+        "get-ref",
+        "list",
+        "merge",
+        "prune",
+        "remove",
+        "show"
+      ]
+    },
+    {
+      "command": "p4",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "pack-objects",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/pack-objects.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "pack-redundant",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/pack-redundant.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "pack-refs",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/pack-refs.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "patch-id",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/patch-id.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "pickaxe",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/blame.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "prune",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/prune.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "prune-packed",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/prune-packed.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "pull",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/pull.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "push",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/push.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "quiltimport",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "range-diff",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/range-diff.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "read-tree",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/read-tree.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "rebase",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/rebase.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "receive-pack",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/receive-pack.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "reflog",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/reflog.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "delete",
+        "drop",
+        "exists",
+        "expire",
+        "list",
+        "show",
+        "write"
+      ]
+    },
+    {
+      "command": "refs",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/refs.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "exists",
+        "list",
+        "migrate",
+        "optimize",
+        "verify"
+      ]
+    },
+    {
+      "command": "remote",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/remote.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "add",
+        "get-url",
+        "prune",
+        "remove",
+        "rename",
+        "rm",
+        "set-branches",
+        "set-head",
+        "set-url",
+        "show",
+        "update"
+      ]
+    },
+    {
+      "command": "remote-ext",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/remote-ext.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "remote-fd",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/remote-fd.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "repack",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/repack.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "replace",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/replace.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "replay",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/replay.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "repo",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/repo.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "info",
+        "structure"
+      ]
+    },
+    {
+      "command": "request-pull",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "rerere",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/rerere.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "reset",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/reset.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "restore",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/checkout.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "rev-list",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/rev-list.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "rev-parse",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/rev-parse.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "revert",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/revert.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "rm",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/rm.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "scalar",
+      "classification": "companion",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "send-email",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "send-pack",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/send-pack.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "sh-i18n",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "sh-setup",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "shell",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "shortlog",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/shortlog.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "show",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/log.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "show-branch",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/show-branch.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "show-index",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/show-index.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "show-ref",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/show-ref.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "sparse-checkout",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/sparse-checkout.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "add",
+        "check-rules",
+        "clean",
+        "disable",
+        "init",
+        "list",
+        "reapply",
+        "set"
+      ]
+    },
+    {
+      "command": "stage",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/add.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "stash",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/stash.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "apply",
+        "branch",
+        "clear",
+        "create",
+        "drop",
+        "export",
+        "import",
+        "list",
+        "pop",
+        "push",
+        "save",
+        "show",
+        "store"
+      ]
+    },
+    {
+      "command": "status",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/commit.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "stripspace",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/stripspace.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "submodule",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "submodule--helper",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/submodule--helper.c",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "absorbgitdirs",
+        "add",
+        "clone",
+        "create-branch",
+        "deinit",
+        "foreach",
+        "get-default-remote",
+        "gitdir",
+        "init",
+        "migrate-gitdir-configs",
+        "push-check",
+        "set-branch",
+        "set-url",
+        "status",
+        "summary",
+        "sync",
+        "update"
+      ]
+    },
+    {
+      "command": "svn",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt"
+      ]
+    },
+    {
+      "command": "switch",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/checkout.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "symbolic-ref",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/symbolic-ref.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "tag",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/tag.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "unpack-file",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/unpack-file.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "unpack-objects",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/unpack-objects.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "update-index",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/update-index.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "update-ref",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/update-ref.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "update-server-info",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/update-server-info.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "upload-archive",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/upload-archive.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "upload-archive--writer",
+      "classification": "builtin-undocumented",
+      "sources": [
+        "git/builtin/upload-archive.c",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "upload-pack",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/upload-pack.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "url-parse",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/url-parse.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "var",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/var.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "verify-commit",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/verify-commit.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "verify-pack",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/verify-pack.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "verify-tag",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/verify-tag.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "version",
+      "classification": "documented",
+      "sources": [
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "whatchanged",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/log.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    },
+    {
+      "command": "worktree",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/worktree.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ],
+      "subcommandCandidates": [
+        "add",
+        "list",
+        "lock",
+        "move",
+        "prune",
+        "remove",
+        "repair",
+        "unlock"
+      ]
+    },
+    {
+      "command": "write-tree",
+      "classification": "documented",
+      "sources": [
+        "git/builtin/write-tree.c",
+        "git/command-list.txt",
+        "git/git.c"
+      ]
+    }
+  ],
+  "sources": {
+    "git/GIT-VERSION-GEN": "e70abeea0c62ddba59e62366f423b2f60e6af295c2413c6bb682a399944882c1",
+    "git/builtin/add.c": "0295cb9ba55e9e66b4d25e7b6a3c14d655a0b0c3ef4e0540783ee2ecff995b4e",
+    "git/builtin/am.c": "aa5ac1ce0266784cc16ac91d9e967f2953ed85aef175f135c7c40c2a8bd4b6e9",
+    "git/builtin/annotate.c": "486521b6719b8f58dd7e5733a1302997d676c531cede709b41778d70aebd640d",
+    "git/builtin/apply.c": "c5dbe361bf84c0b9d60a0d640cadc01f0cc2fd1af435ad98b556e183fc910728",
+    "git/builtin/archive.c": "c4cd925bc8894015c73db6ae141e203d1f916611b37cabe6d9907083cfe3f59a",
+    "git/builtin/backfill.c": "723caa685e3e149b00b0d35ab0e42a256540aa62299e6145336a23778228897e",
+    "git/builtin/bisect.c": "7077d6fa7a49e6f1fdc62cc26ad779855c504912fc692506194a310854aca55d",
+    "git/builtin/blame.c": "f87adb4faa1a30d961ebd5535d2aced6af51b6b43068490bb50c5cedadc0bb8c",
+    "git/builtin/branch.c": "37492ef65cfcba63871fa95c027def56ec5b9b2438b6d912a5277493441617bf",
+    "git/builtin/bugreport.c": "61b300b47c0590e45ba10328f26b62e889e59b5ad26df961fc10c7ad543f36e8",
+    "git/builtin/bundle.c": "3ff2b050c47d82df6f602aa463b09a9c7d40ac91334bd1f351003401c90d3012",
+    "git/builtin/cat-file.c": "98c79a4148031cc5c05da77f2d66ae912278b54da6e42699c1f8f40a968e12f4",
+    "git/builtin/check-attr.c": "20ca6e41b59e2b482882d9d725a6381732afc13494bd5b5e1657dd67ca8c328b",
+    "git/builtin/check-ignore.c": "baa8f5981c70f23bb1dc32ff1099cacff7b2f1d0dacd3b5a0973e429a5600d13",
+    "git/builtin/check-mailmap.c": "cb926335db2285c644e024fbae7f498054f0bb34b70a53d4061e71a858d9cc81",
+    "git/builtin/check-ref-format.c": "8ea2de391c62e2ebeb8505b877cf38da556dae0ce07d108bb06355c949f0de27",
+    "git/builtin/checkout--worker.c": "749f4432afee43997230a33d21e1a161f20076a087094075105d66d084fe7a23",
+    "git/builtin/checkout-index.c": "f5736da9b88647134e8ecde1b20469ac581a95a6b6f5d437e05c7bf1f8197f38",
+    "git/builtin/checkout.c": "d61e44ee7c4047af7a36f3c7e7a749550fdbd0583953fe6c2c12c1aef0bfcd0c",
+    "git/builtin/clean.c": "2ca8082ccda0f2b2854beb1cae48d1e2bb3b2367d79a103b24aaea6e14f5acc6",
+    "git/builtin/clone.c": "0e19294f7772a71541883d6f66f0ed40e467af81a9571c15713561c36bd3e916",
+    "git/builtin/column.c": "c2400cf524d71d4c1db798e9284e7dddb68d47e9294e7cae3ecd994c0b686dd8",
+    "git/builtin/commit-graph.c": "cd206410b2bc2a8f3ab482f6f6d05c78b457368ae88d89485ef906d6a7cdff3b",
+    "git/builtin/commit-tree.c": "6ba4689d99c2075aaac7a55bf322a8bc8c786b5eb43b8e4024dc4f397dbd3644",
+    "git/builtin/commit.c": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121",
+    "git/builtin/config.c": "3dc9a875452229dcc9b3d7830a8583575aab57d9b7091d1d9ce7821cdcf09db9",
+    "git/builtin/count-objects.c": "ec13ae40d08741d095fd61faca7ee0d86f0e315d3609f6465224b796d464e03e",
+    "git/builtin/credential-cache--daemon.c": "9240a52e543a2943c02276d11d9658143ba1a2a79d1549fb0d09d5d8aa785f19",
+    "git/builtin/credential-cache.c": "8d889406315500c7e40414d04796d07aaec5b13bc80b0aa799ef09613c734017",
+    "git/builtin/credential-store.c": "c461d9c3df965ac199b238a9a579f50bd0ce62dc00f5b195a6eaaf59c16dedeb",
+    "git/builtin/credential.c": "a459e1f8a421649b60473c28ec1655e7f83bc193f6e1af0e5d696bdefdea600a",
+    "git/builtin/describe.c": "d320ccaad9579ae459dc4de0d4637c40e93a7d6dbd641db0f9ef8b39323f63b6",
+    "git/builtin/diagnose.c": "802329bd4df791d40810d70d0128185556814cd3317bd747de835042a7bc4f53",
+    "git/builtin/diff-files.c": "f8a33a003c0c2f62bbfbaa014408d85e0a29b014ba19c3b57317a19d96b43d0b",
+    "git/builtin/diff-index.c": "574a81dd9ed11c855e28671b1ec997be3d2b21edef8f93039e94d8d8d5d69812",
+    "git/builtin/diff-pairs.c": "9e04d5120d22d40200deb03213331ab2e3c45fe9d0d1c39a356d9438626562da",
+    "git/builtin/diff-tree.c": "40e81037614a6c9ce85a284ee1ddc452cb2fdb28071d11077920019d6cde75b2",
+    "git/builtin/diff.c": "4cba61165eb1a49f6945962380d26663d511ca03554eeb9a7b1da929683f690c",
+    "git/builtin/difftool.c": "2323dd2d56b464c591f71e57c38f36617ccfdb4449f7b75faaf90d3311fcddee",
+    "git/builtin/fast-export.c": "538ecd9d6f583081dad7954b2441015cbd0e9e1cec344ff0dc104387929974cf",
+    "git/builtin/fast-import.c": "638077395df97ab9ba1cc6e7cd61f715ebb2a2760a1081ce5e6e52402b6c14fe",
+    "git/builtin/fetch-pack.c": "951d869030e34b48b1d9a2c159b5188bc472879bcfcf4306dfb485503ef8f97c",
+    "git/builtin/fetch.c": "233392c86a91623695ed8d79cde6ffdf58ecb0618fbec54e852c64403afaa96c",
+    "git/builtin/fmt-merge-msg.c": "55e017deaa491a7bd54576482da08bb8884c76dc382f6d6ef067b43e25a60fe2",
+    "git/builtin/for-each-ref.c": "abbb5a54098f115a48311e84305b7ff5ae9e572bcaec2463204b65ab6a335cfa",
+    "git/builtin/for-each-repo.c": "4dc0419f664ce56490f631197ccb6dcfe21ccc069d937a2f9a41f850b7c74802",
+    "git/builtin/fsck.c": "20829504fdeecf3372c23adc3104dee23b11918d461cc84a96ac8ea01ae7cb26",
+    "git/builtin/fsmonitor--daemon.c": "23e37e82260c5b49511a344756565aa7fa273a080b67bf122aeb22bd7f7599fb",
+    "git/builtin/gc.c": "6640547903186a7e597b2826cd7b64a36c01033c49bee845c0d032dab19d3581",
+    "git/builtin/get-tar-commit-id.c": "8f3c483ba218fcff18deccc5671d425731249e9fdcceb0dd5d4cd3e2dbb56286",
+    "git/builtin/grep.c": "17125baa29b36f38cda19395a753f0527778bcaad0a20be6cdac3c8c63f34a89",
+    "git/builtin/hash-object.c": "d5b371cce3ad59dc2aedda43f462ada6a0a9a50153f18b08711e58edd341bcf6",
+    "git/builtin/help.c": "8eb0ef101125861c9e59c986782cf55a09c3a9bc2c9e2db400e6843f2d4a5aa1",
+    "git/builtin/history.c": "e0245f6c02ddbd0cb9914183e9cda71b5f8b7aec0afb0b42374383b666824186",
+    "git/builtin/hook.c": "76cd0ce1b5f50d20b3c965f131a18bc1721ca173a36f36f0700b46327516b318",
+    "git/builtin/index-pack.c": "fada7323f7051c4d9b60eb4ed540d80e01150093b8dc3de00fe79313144e4b6f",
+    "git/builtin/init-db.c": "1f1c59c4868056ce415760f525e651ccaf352fe71967fa814ccbe5b6e654a868",
+    "git/builtin/interpret-trailers.c": "2e5eed7e834e456c9ade2d61c69c9be1709fce4a0a4bae913cc6f8ab41e3ca8c",
+    "git/builtin/last-modified.c": "5eb6a08c04ef3d3a63c652ab23aae67267c482ed19b433599c0b542bd7e6f40b",
+    "git/builtin/log.c": "fcd109d84314e40de11a186ebae6d58c5955e26bcc61425433bd4c45be35df80",
+    "git/builtin/ls-files.c": "c52ba55b1ea1427e3591caf18a17e802162b1ed2f92ca8d4efa4cd95e30f84f6",
+    "git/builtin/ls-remote.c": "e64f589a94787667912cc3de6f7daf03404bb70f86b44f4860592eacdc406f85",
+    "git/builtin/ls-tree.c": "f243d0860492392641e6ddd72a82fd9ba6df76936247246617ff1dafcc79ba8d",
+    "git/builtin/mailinfo.c": "bcdb89bd5a6fffc812ed0d810e9c8826bc89d49f0e81b3d9585b88da0e5756d1",
+    "git/builtin/mailsplit.c": "57697c6453d97a9aefb5170ee39f26cfa8c83636720f36f93b5369fcfdd50a22",
+    "git/builtin/merge-base.c": "efb664b7329f418bd0d50c0d09e41d36d01d5e1f7a574ce1b19fbb2668128957",
+    "git/builtin/merge-file.c": "30faf2bd75c3ec93a1402da603948092a7c85bb8e729927ea5dd244631cf00a0",
+    "git/builtin/merge-index.c": "d6a4a2b2ee409baa69bde7625f42b9472ae03eba7040ca3cddbab12f8c352f2e",
+    "git/builtin/merge-ours.c": "1c7a04ba9664e923b7c2e8b3acc1a3ff5118157d4e2e0ef3832b6422b1c8e9de",
+    "git/builtin/merge-recursive.c": "16b7c8766d3a29c3dfbe1a94ac943ba6ac9ed83fd69bce0f7db501d47ff1fdaf",
+    "git/builtin/merge-tree.c": "a40cb7378ea38071847e073cc677af195f519842f8f4c77ca4bfe86d0bcde116",
+    "git/builtin/merge.c": "3ab6a184e4ff7fd28bfcceb28df63f08460fc92d2598686fcc56e86290ba870d",
+    "git/builtin/mktag.c": "820b4771633a2aa3bb3c1b9fe07ee496cc4c4076d5f2fb5638c63a7f008e42d9",
+    "git/builtin/mktree.c": "52bda76b2dfce1e556fef4604cb5030800244973589f95da2caa97257cbc19f9",
+    "git/builtin/multi-pack-index.c": "ab3939f06d2d52d0c219ca31b395709de9576e33307d711d91aec9c6090ea49b",
+    "git/builtin/mv.c": "acf2e680a35c0890804bfb58b9c29122de39b82d8660959dcd9e54401bb7e890",
+    "git/builtin/name-rev.c": "82bbeafd8436191b4f9438a970e24f1346910c9a10a93f4f1b39ce93fc0cd654",
+    "git/builtin/notes.c": "7065dddca2150b5343a6c1c9aff5d4b2013b54a963504fe1c88a751b3cd41851",
+    "git/builtin/pack-objects.c": "a7332e1220db7595f9e6aa9ecad5adf7761e5e75069e03c09db51d8d914684c1",
+    "git/builtin/pack-redundant.c": "af1c50f6bdc68bf83cb1ac3d5c423de243418047e66f74ad079450b6b2f1256e",
+    "git/builtin/pack-refs.c": "f229b0dd285c5708078fc7cdb34b28f1e070ce40a69c4dc4e5e60e3adc09a19a",
+    "git/builtin/patch-id.c": "c6f7b3ae3a60f08ddc6888da9ad6ac032e49f13115c740fb4b6052ed7c620ccc",
+    "git/builtin/prune-packed.c": "85a9be0a6e0a2377f131285c8374a6e4a216e6c399506f3a07ff1daf25def0f0",
+    "git/builtin/prune.c": "e7904a5edc3ea6d0e54376df8d3451a0a9fd1cfde75d9d95cd26d29f35bbc863",
+    "git/builtin/pull.c": "92fa45da7b63e7e91dea45829d4772c26970458cee8fe8622ba65b1f491b3cc3",
+    "git/builtin/push.c": "80b564b62e0eed0657973c1325e5f7dc7da73480aa3640398e0ba603525eb3f7",
+    "git/builtin/range-diff.c": "4e39b7cccc166298f057e63933bfaa06959bbca81e45c61c26ed688adc6d80c9",
+    "git/builtin/read-tree.c": "7059e10d73c15a7de0bb75534d6a14af047a772d9c6e6302369fdbf094b97578",
+    "git/builtin/rebase.c": "cdf7863a13d8acc59ee3d51b599e16650e28453a73dd41a818b0a48bc392ff45",
+    "git/builtin/receive-pack.c": "5fbed44881a4ef77834e3d0f4cbbeae0c161793a571997e86f3f38c9e694b834",
+    "git/builtin/reflog.c": "92b6988f0244074feda63526d133316752a9ed9c08da5ae3ba40884c3e67f8e5",
+    "git/builtin/refs.c": "d3ae79bea37b3ef9a72737d5a9845de22476fe463612276af1f0489bf64b9c24",
+    "git/builtin/remote-ext.c": "4b6c03be4315f68425ce1982c02dcc82967dad555a93879ac914d3c8eebd7878",
+    "git/builtin/remote-fd.c": "8a1e6e04097890e62289f220bbe392907af01b90daf19f12f3094919547bccb7",
+    "git/builtin/remote.c": "bf527ad6707af45a4a1192f12c36a60cb8b17a069e67667cb00a688a4f04b2f9",
+    "git/builtin/repack.c": "41315ae82066055a0663bdbe636ccaeee2508b230aefa5d7617fc589bfdd67ac",
+    "git/builtin/replace.c": "bb22b798edccfb73e8226a53cfb69f8461ed1d5cb9846076b4796b547948ecd6",
+    "git/builtin/replay.c": "8c2585e2b8c3030acb40fcaea6c91687a2363a41b27c3225efc5cf5dd8775c67",
+    "git/builtin/repo.c": "706e4ebbc03c4b1701c1375c8108f033acaf6d448f6571bf0c5ea04615b86d02",
+    "git/builtin/rerere.c": "5feef96ceb56428fdeb884fd8619a96920516a33ef20d7dfd437e91ba7511b55",
+    "git/builtin/reset.c": "5074de60017cb736fda6aa96a2544f0d21234441ea029e1ba9f255fe029ece51",
+    "git/builtin/rev-list.c": "c56a783e7d8298efbcd91847ad78146864f2a337750703a1d71c8139692c30a4",
+    "git/builtin/rev-parse.c": "1e77dfa6479d38301ac791288be9b81ff86ea5b4d88232f4af4c3c1fab0e88e5",
+    "git/builtin/revert.c": "85cb66e32c147b0f3526dbf0350484058f91688c765461c9b1eb5c78e47dfde9",
+    "git/builtin/rm.c": "2edb7ec26b054f7a43e1ec4231f1f581d26435541c0676b229a18c30cbc88c9a",
+    "git/builtin/send-pack.c": "47226b7449f55003c0e2027ac8567897d4c0d3929c321dfc09a711953967db1a",
+    "git/builtin/shortlog.c": "ff2972d3b5f9fcc9a9c583eab7e60126a27630b1d494d2dd5b01c44ecd351375",
+    "git/builtin/show-branch.c": "efb56979219739c571df41d98e07d88ee90f3b9e3c704d03a8cc5bed4cddf187",
+    "git/builtin/show-index.c": "3a20e6021fd2524406c758412b570797d56d5963fbb68ffe3c499edc3c2194c2",
+    "git/builtin/show-ref.c": "a972a01a04d6b3b25cf50b3f99e42d9e8ee5dc166c946f11aff1dce0a8eac702",
+    "git/builtin/sparse-checkout.c": "9730c419faf06b949e9fafdb4f120a89a441abc0ae466171ff51654c5b31338e",
+    "git/builtin/stash.c": "456652e87f456ed85ea86a84d756d6b27c58d15f32916aca45d398e2f0123f84",
+    "git/builtin/stripspace.c": "64b6417e20c6d2dacfbc5a96adc8bc1b319d02f012bfd8f88ee14da5f350136b",
+    "git/builtin/submodule--helper.c": "9100468addf53dfc4d0a721ed6be38dac5dd839e617b0676e5abc2911a2be89d",
+    "git/builtin/symbolic-ref.c": "08665787fb87abea5c7980e2a33edd0e6d19b95ff849cc768d9d03ef88a22410",
+    "git/builtin/tag.c": "283ce82675f6564ffac1806f629bf79ace10d2c78bd895536a7fde6174b1d1fa",
+    "git/builtin/unpack-file.c": "744d1f92db812d662cb999f925938e2d1d097fe64a52c246b07c78f404297f15",
+    "git/builtin/unpack-objects.c": "25f4dedeb9433672e69c5c4cccf531831320a205ff504f5492ad7249e0d7193b",
+    "git/builtin/update-index.c": "921bab34bb94116b4845294e6b58472e743499b190080d9748a9656da3a947b1",
+    "git/builtin/update-ref.c": "c1f6ab8b75fe3a072e3138e67d8b1285d285b001a40316a32ffe1c1875374a91",
+    "git/builtin/update-server-info.c": "23c406da6dbffbc0ab133768ca7ff1bdd5161edf7995079a828479d76b41a569",
+    "git/builtin/upload-archive.c": "455f2e269c94e7c7694ad707d0226f33198f68d12faea8b0ee51c714d86ff09c",
+    "git/builtin/upload-pack.c": "e33cce909dedc917b6227d7f411c98c11b43c3bf2afae2f241a2b5a3a0cd7576",
+    "git/builtin/url-parse.c": "829c955e5627951d1c1946a8c2107caa636f310d112675103f57ce52a8268c49",
+    "git/builtin/var.c": "aaddba5622271f1d79df4712d0645df34f483cef88d93d2b70b445e460afd68f",
+    "git/builtin/verify-commit.c": "7b211030586ea6bc702ebfd01d6df3215ceb1169d22134051ba7bdbaae6aad9a",
+    "git/builtin/verify-pack.c": "bbae52701f5350b4e7a563518ec8968e6c2fda07276ab9dcdd117c14ee066c9b",
+    "git/builtin/verify-tag.c": "d0ae04ec85f46a199b3407fc91df188576fa073df1516707a180c99884c04d16",
+    "git/builtin/worktree.c": "2c8e8a8ee6a6ee346e226116fb5cc08cb76785dcb1ced76a824ba2a1d46ce884",
+    "git/builtin/write-tree.c": "76e66ec33a5e2c4c89a765a651be5d533ba7f56865c3042ed4eb7390b69c5d14",
+    "git/command-list.txt": "74f660860cfc4b6e4939f8fd64749dd495a43bf0a8be464298a896111313ad66",
+    "git/git.c": "a68ca263efac91c8e1bc22b268cee7277d38f1a8027dbe5e18e8109be4d6fd34",
+    "lfs/commands/command_checkout.go": "ff9db8611e349d00eac2e7257e1a7610db26b6eb4d952e5388f80d697977bd14",
+    "lfs/commands/command_clean.go": "40cd5fcab44284af10cfe6375751b7fd1352804185e83d82455582862526a173",
+    "lfs/commands/command_clone.go": "88fd63fa9d56bcff4771c3a951f3ef7985b73ee8a25e5a29a0d4fb47e7b6274f",
+    "lfs/commands/command_dedup.go": "391cebae11c2b61d5e3c924e1360ac055dbaa7c2d941ec90258982542905aa86",
+    "lfs/commands/command_env.go": "1b863a6e803712563f0054189eb47adbb63b9a63c5721296e9c2808c384c7aa6",
+    "lfs/commands/command_ext.go": "490527d0b4bceb50915e349fe24ca1ef67f9d529b1d65f8adb0fa8c2b19f7fe7",
+    "lfs/commands/command_fetch.go": "838733e37911422fbc7062516cfaabf108a2b46c2485af2dfed0038b26e154a2",
+    "lfs/commands/command_filter_process.go": "d51aab59e9eab64deb2761e7e57cbf757ddb2ec18a770b9e52ccddc30c6da955",
+    "lfs/commands/command_fsck.go": "fad79d4ef3ff1a42e543954cf1ffa0b42405fc219da194d8eab4af265d0a1597",
+    "lfs/commands/command_install.go": "08ab356e3761ad488deefe37da086a4bb80a78800df29e78fe0ab05903401ee2",
+    "lfs/commands/command_lock.go": "f933bcfd60baf1e5c6e40d65133fa279eb1b031778b03de913fa51507cd7bef5",
+    "lfs/commands/command_locks.go": "823be474c5f207d84494fc99de125f71a8803653dab08e747fa6c91cd5bdb76d",
+    "lfs/commands/command_logs.go": "acb7c07836bba6684dacf310825001be522a65449b6e1842e0319e5505070ede",
+    "lfs/commands/command_ls_files.go": "669ea90f6feaa471e75a120902cb97cf941f0237efde87162e8a308164a4faeb",
+    "lfs/commands/command_merge_driver.go": "7e4c2d10108c51ea932d3560cd3a7bad73efed19a82632fd4a2424859d4f7172",
+    "lfs/commands/command_migrate.go": "64f29006352d8c0447ba42424900b7ea2ebb203b7e0f1d9ca05e242265a0529c",
+    "lfs/commands/command_migrate_export.go": "b65dd5a287fdf6ddd8d844aed7b9e49eada6944cb781c53cbf19468818bb018e",
+    "lfs/commands/command_migrate_import.go": "e4e46646d0ed7cba61070610fa7b10dbbe58d6b2f3abead2c394044fb404f07f",
+    "lfs/commands/command_migrate_info.go": "818b80cfb1755860d89473aff1665bc77dcc7067bebab299584513eb6a8d990d",
+    "lfs/commands/command_pointer.go": "1e1142b86fba369dcafcd103633f60455189719ad8b6350827e4b0822a78640e",
+    "lfs/commands/command_post_checkout.go": "43ef3698315bfe4943749344eea933b4727f86a57b09cf66b05f8c8f6e1e43d3",
+    "lfs/commands/command_post_commit.go": "4362584e1dc622003cd6b67c34e33fb85ef5cb4beca8691510b1ced604e40f47",
+    "lfs/commands/command_post_merge.go": "cbcfd734c20121d9e09659dac61c48130ba258fff76847269d8c2f740308d3ed",
+    "lfs/commands/command_pre_push.go": "41feabceaa169b0b361920a6553a139bd067563ff69c5a7de2af1f4984c08b18",
+    "lfs/commands/command_prune.go": "edc9632c74fbac6d1089f1a5d58cfe43818a9b938eb34b6519ff0644544b4f16",
+    "lfs/commands/command_pull.go": "7489d0865ecb29babc1699ed7147ee05c6ed09713d11ab5d8fcfb89ca071088a",
+    "lfs/commands/command_push.go": "cd0617246babc309fba8997517676d3168ef96f0528bbdad068bd6bb83a84c71",
+    "lfs/commands/command_smudge.go": "d5479e325464410f0981c701db9dabd24f8002434f3b4fe86ed08af994e5fe1b",
+    "lfs/commands/command_standalone_file.go": "513e9ef9f7b75da73496ee1b0a9dd6646ab32fcd92bb2c0a9c7e3879d3d8efa6",
+    "lfs/commands/command_status.go": "76ff7c765cd2120d706b6e703bbedd310cbb6f066b2fbe7b5b59d142c5e9b95e",
+    "lfs/commands/command_track.go": "0599563aa6de442309286def727e7a87744e6080f45db5dc9040ccac04c3e71e",
+    "lfs/commands/command_uninstall.go": "44d7f7d06ddad518488d84beba17723e20d5c5fb67470d8618ec70009caa527a",
+    "lfs/commands/command_unlock.go": "307a6c8a66c48a8e74d0e214414aff1e42758a7d08d5300736c239a4dc31682d",
+    "lfs/commands/command_untrack.go": "f48d4c4f39757fcf620db5bd61477e25adccb3e6deb6bc21273c551ebcff9242",
+    "lfs/commands/command_update.go": "d70eabeadc0f503f393dd5079a3195203b1529ee1d06370dc59adefa644630c4",
+    "lfs/commands/command_version.go": "921557e63fbd824fe766b42ead8a820bc87839dad3daab4abda8f83bcab1d5ec",
+    "lfs/commands/commands.go": "ad060f7aa94a05b2f3bccf491d407713ea7642a57af198b979050f54b73f289c",
+    "lfs/commands/lockverifier.go": "2b01822600f61f155bef5d954bdb82e918f95837ddfbe6f7c23e1dead7796ba9",
+    "lfs/commands/multiwriter.go": "14f29c42028e968cccf7bac758685276c73ab3e9c40869d5bcc309168e7dc9f5",
+    "lfs/commands/path.go": "bb6cb7e165c9fba61292e3eeffdfe998b1c50df2220ea48a53ea6ff0b5dbadcf",
+    "lfs/commands/path_nix.go": "ff66fcd120fd28888e7f549238755510a850f9b02f4a665a7d43abb93230ef3c",
+    "lfs/commands/path_windows.go": "dd0c4fec976cbe655f39795b15f5e456ce98c73769af0f52b2c91322eff31403",
+    "lfs/commands/pointers.go": "833ba63a4a365fc2ed564bb4b1a24b5b6867f25f35d1e075e71d601dd3b2eef6",
+    "lfs/commands/pull.go": "a50c3e7dcb5cb1c83d1cb803c2cbca59d462b8cda95e1e4bc97eba8074d88df4",
+    "lfs/commands/run.go": "26594e5e9742e84bf11aef379e8efc7e96f989bf38ddb0b40089ba8df75df3ef",
+    "lfs/commands/uploader.go": "5acddd142a8f4bdaa3fe9f4ca49281dee03c9c2532de77ef866c7b264ebf59ab",
+    "lfs/config/version.go": "f50de8ffa6f395c56ec2a8eaa94269a03514be04165d1894b14fd333cd1130b0"
+  }
+}
