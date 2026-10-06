@@ -224,6 +224,41 @@ describe('reduced ordered decision diagrams', () => {
     expect(violations(rules, { n: 2, enabled: true })).toHaveLength(0);
   });
 
+  it('checks every array element and agrees with exhaustive guarded enumeration', () => {
+    const rules: Constraint[] = [
+      {
+        ...evidence,
+        id: 'members',
+        kind: 'elements',
+        key: 'words',
+        allowed: ['start', 'stop'],
+        guard: [{ key: 'enabled', test: 'active' }],
+      },
+    ];
+    const domain = {
+      words: [
+        undefined,
+        [],
+        ['start'],
+        ['stop', 'start'],
+        ['start', 'bad'],
+        ['bad', 'stop'],
+        'start',
+      ],
+      enabled: [false, true],
+    };
+    const result = solve(rules, domain);
+    expect(result.total).toBe(14n);
+    expect(result.accepted).toBe(11n);
+    expect(result.accepted).toBe(
+      BigInt(
+        [...assignments(domain)].filter((state) => violations(rules, state).length === 0).length,
+      ),
+    );
+    expect(result.counterexamples.members).toBeDefined();
+    expect(solve(rules, { enabled: domain.enabled, words: domain.words })).toEqual(result);
+  });
+
   it('is deterministic and handles unconstrained, empty, and contradictory spaces', () => {
     const result = solve(mixedRules, domains);
     expect(solve(mixedRules, { c: domains.c, b: domains.b, a: domains.a })).toEqual(result);

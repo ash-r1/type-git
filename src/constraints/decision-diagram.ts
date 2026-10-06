@@ -170,6 +170,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
       case 'unsupported':
         return not(any(rule.keys.map((key) => atom({ key, test: 'present' }))));
       case 'value':
+      case 'elements':
       case 'integer':
         return node(
           rule.key,

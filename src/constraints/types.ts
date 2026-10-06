@@ -220,15 +220,21 @@ type ApplyBody<T, R extends Constraint> = R extends {
               ? Reject<T, P> | None<T, Q>
               : R extends { kind: 'forbid'; when: infer P extends readonly Predicate[] }
                 ? NotEvery<T, P>
-                : R extends { kind: 'unsupported'; keys: infer K extends readonly string[] }
-                  ? { [P in K[number]]?: never }
-                  : R extends {
-                        kind: 'value';
-                        key: infer K extends keyof T;
-                        allowed: infer V extends readonly unknown[];
-                      }
-                    ? { [P in K]?: Extract<V[number], T[P]> }
-                    : unknown; // Numeric ranges require runtime validation; TypeScript's number is not an integer type.
+                : R extends {
+                      kind: 'elements';
+                      key: infer K extends keyof T;
+                      allowed: infer V extends readonly unknown[];
+                    }
+                  ? { [P in K]?: readonly V[number][] }
+                  : R extends { kind: 'unsupported'; keys: infer K extends readonly string[] }
+                    ? { [P in K[number]]?: never }
+                    : R extends {
+                          kind: 'value';
+                          key: infer K extends keyof T;
+                          allowed: infer V extends readonly unknown[];
+                        }
+                      ? { [P in K]?: Extract<V[number], T[P]> }
+                      : unknown; // Numeric ranges require runtime validation; TypeScript's number is not an integer type.
 
 type Rules<T, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
