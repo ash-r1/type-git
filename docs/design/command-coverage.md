@@ -121,7 +121,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `http-fetch` | documented | pending | pending |  | Audit every applicable facet. |
 | `http-push` | documented | pending | pending |  | Audit every applicable facet. |
 | `imap-send` | documented | pending | pending |  | Audit every applicable facet. |
-| `index-pack` | documented | pending | pending |  | Audit every applicable facet. |
+| `index-pack` | documented | partial | yes |  | Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files. |
 | `init` | documented | partial | yes | init | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `init-db` | builtin-undocumented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `instaweb` | documented | pending | pending |  | Audit every applicable facet. |
@@ -220,8 +220,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `notes remove` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
 | `notes show` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
 | `p4` | documented | pending | pending |  | Audit every applicable facet. |
-| `pack-objects` | documented | pending | pending |  | Audit every applicable facet. |
-| `pack-redundant` | documented | pending | pending |  | Audit every applicable facet. |
+| `pack-objects` | documented | partial | yes |  | Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files. |
+| `pack-redundant` | documented | partial | yes |  | Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files. |
 | `pack-refs` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `patch-id` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `pickaxe` | builtin-undocumented | partial | yes |  | Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. |
@@ -355,7 +355,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `symbolic-ref` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `tag` | documented | partial | yes | tagCreate | Column and formatting callback grammars, implicit listing with -n=-1, signing configuration, object names and abbreviations. |
 | `unpack-file` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
-| `unpack-objects` | documented | pending | pending |  | Audit every applicable facet. |
+| `unpack-objects` | documented | partial | yes |  | Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files. |
 | `update-index` | documented | partial | yes |  | Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly. |
 | `update-ref` | documented | partial | yes |  | Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. |
 | `update-server-info` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |

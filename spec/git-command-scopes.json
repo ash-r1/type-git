@@ -5735,5 +5735,260 @@
         "parser": "anonymize-map"
       }
     }
+  },
+  "pack-objects": {
+    "tables": [
+      "builtin/pack-objects.c:cmd_pack_objects:pack_objects_options"
+    ],
+    "source": "builtin/pack-objects.c",
+    "options": {
+      "--missing": {
+        "key": "missing",
+        "value": "string",
+        "allowed": [
+          "error",
+          "allow-any",
+          "allow-promisor"
+        ]
+      },
+      "--stdin-packs": {
+        "key": "stdin-packs",
+        "value": "optional-string",
+        "allowed": [
+          "",
+          "follow"
+        ]
+      },
+      "--no-stdin-packs": {
+        "key": "stdin-packs",
+        "value": "flag",
+        "set": false
+      },
+      "--unpack-unreachable": {
+        "key": "unpack-unreachable",
+        "value": "optional-string"
+      },
+      "--no-unpack-unreachable": {
+        "key": "unpack-unreachable",
+        "value": "flag",
+        "set": false
+      },
+      "--cruft-expiration": {
+        "key": "cruft-expiration",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "cruft",
+            "set": true
+          }
+        ]
+      },
+      "--no-cruft-expiration": {
+        "key": "cruft",
+        "value": "flag",
+        "set": false
+      },
+      "--no-compression": {
+        "key": "compression",
+        "value": "flag",
+        "set": 0
+      },
+      "--no-name-hash-version": {
+        "key": "name-hash-version",
+        "value": "flag",
+        "set": 0
+      },
+      "--no-max-pack-size": {
+        "key": "max-pack-size",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "index-pack": {
+    "tables": [],
+    "source": "builtin/index-pack.c",
+    "separator": false,
+    "options": {
+      "--stdin": {
+        "key": "stdin",
+        "value": "flag"
+      },
+      "--fix-thin": {
+        "key": "fix-thin",
+        "value": "flag"
+      },
+      "--check-self-contained-and-connected": {
+        "key": "check-self-contained-and-connected",
+        "value": "flag"
+      },
+      "--verify": {
+        "key": "verify",
+        "value": "flag"
+      },
+      "--show-resolving-progress": {
+        "key": "show-resolving-progress",
+        "value": "flag"
+      },
+      "--report-end-of-input": {
+        "key": "report-end-of-input",
+        "value": "flag"
+      },
+      "--rev-index": {
+        "key": "rev-index",
+        "value": "flag"
+      },
+      "--no-rev-index": {
+        "key": "rev-index",
+        "value": "flag",
+        "set": false
+      },
+      "-v": {
+        "key": "verbose",
+        "value": "flag"
+      },
+      "--strict": {
+        "key": "strict",
+        "value": "optional-string"
+      },
+      "--fsck-objects": {
+        "key": "fsck-objects",
+        "value": "optional-string"
+      },
+      "--keep": {
+        "key": "keep",
+        "value": "optional-string"
+      },
+      "--promisor": {
+        "key": "promisor",
+        "value": "optional-string"
+      },
+      "--threads": {
+        "key": "threads",
+        "value": "string"
+      },
+      "--pack_header": {
+        "key": "pack_header",
+        "value": "string"
+      },
+      "--index-version": {
+        "key": "index-version",
+        "value": "string"
+      },
+      "--max-input-size": {
+        "key": "max-input-size",
+        "value": "string"
+      },
+      "--object-format": {
+        "key": "object-format",
+        "value": "string",
+        "allowed": [
+          "sha1",
+          "sha256"
+        ]
+      },
+      "--verify-stat": {
+        "key": "verify",
+        "value": "flag"
+      },
+      "--verify-stat-only": {
+        "key": "verify",
+        "value": "flag"
+      },
+      "--progress-title": {
+        "key": "progress-title",
+        "value": "string",
+        "separateValue": true,
+        "checks": [
+          {
+            "id": "cli.index-pack.progress-title-once",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "progress-title",
+                "test": "present"
+              }
+            ],
+            "origin": "git",
+            "reason": "This manual parser rejects a second occurrence even when the value is unchanged.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+          }
+        ]
+      },
+      "-o": {
+        "key": "output",
+        "value": "string",
+        "separateValue": true,
+        "checks": [
+          {
+            "id": "cli.index-pack.output-once",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "output",
+                "test": "present"
+              }
+            ],
+            "origin": "git",
+            "reason": "This manual parser rejects a second occurrence even when the value is unchanged.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+          }
+        ]
+      }
+    }
+  },
+  "unpack-objects": {
+    "tables": [],
+    "source": "builtin/unpack-objects.c",
+    "separator": false,
+    "options": {
+      "-n": {
+        "key": "dry-run",
+        "value": "flag"
+      },
+      "-q": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "-r": {
+        "key": "recover",
+        "value": "flag"
+      },
+      "--strict": {
+        "key": "strict",
+        "value": "optional-string"
+      },
+      "--pack_header": {
+        "key": "pack_header",
+        "value": "string"
+      },
+      "--max-input-size": {
+        "key": "max-input-size",
+        "value": "string"
+      }
+    }
+  },
+  "pack-redundant": {
+    "tables": [],
+    "source": "builtin/pack-redundant.c",
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--all": {
+        "key": "all",
+        "value": "flag"
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag"
+      },
+      "--alt-odb": {
+        "key": "alt-odb",
+        "value": "flag"
+      },
+      "--i-still-use-this": {
+        "key": "i-still-use-this",
+        "value": "flag"
+      }
+    }
   }
 }

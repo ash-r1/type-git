@@ -86,7 +86,6 @@ describe('protocol and text utility grammars', () => {
         ],
         ['--quoted-cr=STRIP', '--quoted-cr=strip', message, patch],
         false,
-        mail,
       );
     }
     compare(
