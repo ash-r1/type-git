@@ -30,8 +30,10 @@ export function commandDomains(spec, referencedKeys) {
   domains.operands = [[], ['value'], ['value', 'value'], ['value', 'value', 'value'], ['value', 'value', 'value', 'value']];
   domains.operand0 = [undefined, 'value'];
   domains.inRepository = [undefined, false, true];
+  const equalKeys = [];
   function visit(value) {
     if (!value || typeof value !== 'object') return;
+    if (value.test === 'equalsKey') equalKeys.push([value.key, value.valueKey]);
     if (value.key && ['equals', 'notEquals'].includes(value.test)) add(value.key, value.value);
     if (value.key && value.test === 'startsWith') { add(value.key, value.value); add(value.key, value.value + 'value'); }
     if (value.key && value.test === 'lengthEquals') for (const size of [Math.max(0, value.value - 1), value.value, value.value + 1]) add(value.key, Array(size).fill('value'));
@@ -41,6 +43,20 @@ export function commandDomains(spec, referencedKeys) {
     for (const child of Object.values(value)) visit(child);
   }
   spec.rules.forEach(visit);
+  // Equality needs a shared vocabulary, including defaults and rule literals.
+  // Iterate to a fixed point so transitive relations do not depend on declaration order.
+  let changed;
+  do {
+    changed = false;
+    for (const [left, right] of equalKeys) {
+      const size = (domains[left]?.length ?? 0) + (domains[right]?.length ?? 0);
+      for (const value of [...(domains[left] ?? [undefined]), ...(domains[right] ?? [undefined])]) {
+        add(left, value);
+        add(right, value);
+      }
+      changed ||= domains[left].length + domains[right].length !== size;
+    }
+  } while (changed);
   // Counts intentionally range over normalized states, not option-token permutations.
   // operand0 and operands are correlated in actual argv; avoid reporting a false
   // reachability proof for this over-approximation.

@@ -102,8 +102,21 @@ describe('reduced ordered decision diagrams', () => {
   });
 
   it('uses operand cardinality as a mode predicate', () => {
-    const rules: Constraint[] = [{ ...evidence, id: 'trivial', kind: 'arity', key: 'tokens', min: 3, max: 3, when: { key: 'operands', test: 'lengthEquals', value: 3 } }];
-    const domain = { operands: [undefined, [], ['a'], ['a', 'b'], ['a', 'b', 'c']], tokens: [[], ['a', 'b', 'c'], ['a', 'b', 'c', 'd']] };
+    const rules: Constraint[] = [
+      {
+        ...evidence,
+        id: 'trivial',
+        kind: 'arity',
+        key: 'tokens',
+        min: 3,
+        max: 3,
+        when: { key: 'operands', test: 'lengthEquals', value: 3 },
+      },
+    ];
+    const domain = {
+      operands: [undefined, [], ['a'], ['a', 'b'], ['a', 'b', 'c']],
+      tokens: [[], ['a', 'b', 'c'], ['a', 'b', 'c', 'd']],
+    };
     expect(solve(rules, domain).accepted).toBe(13n);
     const witness = solve(rules, domain).counterexamples.trivial!;
     expect(witness.operands).toHaveLength(3);
@@ -160,6 +173,34 @@ describe('reduced ordered decision diagrams', () => {
           [...assignments(domain)].filter((input) => violations(rules, input).length === 0).length,
         ),
       );
+    }
+  });
+
+  it('counts relational equality exactly in either variable order', () => {
+    for (const [key, valueKey] of [
+      ['good', 'bad'],
+      ['bad', 'good'],
+    ]) {
+      const rules: Constraint[] = [
+        {
+          ...evidence,
+          id: 'different',
+          kind: 'forbid',
+          when: [{ key: key!, test: 'equalsKey', valueKey: valueKey! }],
+        },
+      ];
+      const termDomains = { good: ['a', 'b', 'c'], bad: ['a', 'b', 'c'] };
+      const result = solve(rules, termDomains);
+      expect(result.total).toBe(9n);
+      expect(result.accepted).toBe(6n);
+      expect(result.accepted).toBe(
+        BigInt(
+          [...assignments(termDomains)].filter((input) => violations(rules, input).length === 0)
+            .length,
+        ),
+      );
+      expect(result.counterexamples.different!.good).toBe(result.counterexamples.different!.bad);
+      expect(solve(rules, { bad: termDomains.bad, good: termDomains.good })).toEqual(result);
     }
   });
 
