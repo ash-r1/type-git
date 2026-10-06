@@ -1928,6 +1928,56 @@
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
       "typedCommandAPI": true
+    },
+    "update-ref": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/index-merge.test.ts",
+        "test/types/index-merge-command-api.ts"
+      ],
+      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "checkout-index": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/index-merge.test.ts",
+        "test/types/index-merge-command-api.ts"
+      ],
+      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "read-tree": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/index-merge.test.ts",
+        "test/types/index-merge-command-api.ts"
+      ],
+      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "merge-file": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/index-merge.test.ts",
+        "test/types/index-merge-command-api.ts"
+      ],
+      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "merge-tree": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/index-merge.test.ts",
+        "test/types/index-merge-command-api.ts"
+      ],
+      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
+      "typedCommandAPI": true
     }
   }
 }

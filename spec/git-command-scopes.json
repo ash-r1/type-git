@@ -2906,5 +2906,132 @@
         "set": true
       }
     }
+  },
+  "update-ref": {
+    "tables": [
+      "builtin/update-ref.c:cmd_update_ref:options"
+    ],
+    "source": "builtin/update-ref.c"
+  },
+  "checkout-index": {
+    "tables": [
+      "builtin/checkout-index.c:cmd_checkout_index:builtin_checkout_index_options"
+    ],
+    "source": "builtin/checkout-index.c",
+    "options": {
+      "--stage": {
+        "key": "stage",
+        "value": "string",
+        "checks": [
+          {
+            "id": "cli.checkout-index.stage",
+            "kind": "requiresAny",
+            "when": {
+              "key": "$value",
+              "test": "present"
+            },
+            "choices": [
+              {
+                "key": "$value",
+                "test": "equals",
+                "value": "all"
+              },
+              {
+                "key": "$value",
+                "test": "startsWith",
+                "value": "1"
+              },
+              {
+                "key": "$value",
+                "test": "startsWith",
+                "value": "2"
+              },
+              {
+                "key": "$value",
+                "test": "startsWith",
+                "value": "3"
+              }
+            ],
+            "origin": "git",
+            "reason": "Git accepts all, or a string whose first character is 1, 2 or 3.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout-index.c"
+          }
+        ]
+      }
+    }
+  },
+  "read-tree": {
+    "tables": [
+      "builtin/read-tree.c:cmd_read_tree:read_tree_options"
+    ],
+    "source": "builtin/read-tree.c",
+    "options": {
+      "--exclude-per-directory": {
+        "key": "exclude-per-directory",
+        "value": "string",
+        "allowed": [
+          ".gitignore"
+        ],
+        "checks": [
+          {
+            "id": "cli.read-tree.exclude-order",
+            "kind": "required",
+            "required": [
+              {
+                "key": "u",
+                "test": "active"
+              }
+            ],
+            "origin": "git",
+            "reason": "The exclude callback requires -u to have already been parsed.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c"
+          }
+        ]
+      }
+    }
+  },
+  "merge-file": {
+    "tables": [
+      "builtin/merge-file.c:cmd_merge_file:options"
+    ],
+    "source": "builtin/merge-file.c",
+    "options": {
+      "-L": {
+        "key": "L",
+        "value": "string",
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.merge-file.labels",
+            "kind": "arity",
+            "key": "L",
+            "min": 0,
+            "max": 2,
+            "origin": "git",
+            "reason": "A fourth label is rejected immediately, before help or later operands.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-file.c"
+          }
+        ]
+      },
+      "--diff-algorithm": {
+        "key": "diff-algorithm",
+        "value": "string",
+        "caseInsensitive": true,
+        "allowed": [
+          "myers",
+          "default",
+          "minimal",
+          "patience",
+          "histogram"
+        ]
+      }
+    }
+  },
+  "merge-tree": {
+    "tables": [
+      "builtin/merge-tree.c:cmd_merge_tree:mt_options"
+    ],
+    "source": "builtin/merge-tree.c",
+    "optionParsing": "stop-at-operand"
   }
 }

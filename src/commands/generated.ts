@@ -45208,6 +45208,1159 @@ export const COMMAND_SPECS = {
     source: 'builtin/add.c',
     separator: true,
   },
+  'update-ref': {
+    argv: ['update-ref'],
+    options: {
+      '-m': {
+        key: 'm',
+        value: 'string',
+      },
+      '-d': {
+        key: 'd',
+        value: 'flag',
+      },
+      '--no-deref': {
+        key: 'no-deref',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--create-reflog': {
+        key: 'create-reflog',
+        value: 'flag',
+      },
+      '--batch-updates': {
+        key: 'batch-updates',
+        value: 'flag',
+      },
+      '-0': {
+        key: 'batch-updates',
+        value: 'flag',
+      },
+      '--deref': {
+        key: 'no-deref',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-deref': {
+        key: 'no-deref',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-create-reflog': {
+        key: 'create-reflog',
+        value: 'flag',
+        set: false,
+      },
+      '--no-batch-updates': {
+        key: 'batch-updates',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.update-ref.message',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'm',
+            test: 'equals',
+            value: '',
+          },
+        ],
+        origin: 'git',
+        reason: 'The final reflog message cannot be empty.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-ref.c',
+      },
+      {
+        id: 'cli.update-ref.stdin-delete',
+        kind: 'conflicts',
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'd',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Stdin transactions cannot use delete mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-ref.c',
+      },
+      {
+        id: 'cli.update-ref.stdin-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-ref.c',
+      },
+      {
+        id: 'cli.update-ref.batch-updates-stdin',
+        kind: 'requires',
+        when: {
+          key: 'batch-updates',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'stdin',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'This option requires stdin transactions.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-ref.c',
+      },
+      {
+        id: 'cli.update-ref.z-stdin',
+        kind: 'requires',
+        when: {
+          key: 'z',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'stdin',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'This option requires stdin transactions.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-ref.c',
+      },
+      {
+        id: 'cli.update-ref.delete-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: [
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+          {
+            key: 'd',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-ref.c',
+      },
+      {
+        id: 'cli.update-ref.update-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        max: 3,
+        when: [
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+          {
+            key: 'd',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-ref.c',
+      },
+    ],
+    source: 'builtin/update-ref.c',
+    separator: true,
+  },
+  'checkout-index': {
+    argv: ['checkout-index'],
+    options: {
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '-a': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--ignore-skip-worktree-bits': {
+        key: 'ignore-skip-worktree-bits',
+        value: 'flag',
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-create': {
+        key: 'no-create',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'no-create',
+        value: 'flag',
+      },
+      '--index': {
+        key: 'index',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'index',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--temp': {
+        key: 'temp',
+        value: 'flag',
+      },
+      '--prefix': {
+        key: 'prefix',
+        value: 'string',
+      },
+      '--stage': {
+        key: 'stage',
+        value: 'string',
+        checks: [
+          {
+            id: 'cli.checkout-index.stage',
+            kind: 'requiresAny',
+            when: {
+              key: '$value',
+              test: 'present',
+            },
+            choices: [
+              {
+                key: '$value',
+                test: 'equals',
+                value: 'all',
+              },
+              {
+                key: '$value',
+                test: 'startsWith',
+                value: '1',
+              },
+              {
+                key: '$value',
+                test: 'startsWith',
+                value: '2',
+              },
+              {
+                key: '$value',
+                test: 'startsWith',
+                value: '3',
+              },
+            ],
+            origin: 'git',
+            reason: 'Git accepts all, or a string whose first character is 1, 2 or 3.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout-index.c',
+          },
+        ],
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-skip-worktree-bits': {
+        key: 'ignore-skip-worktree-bits',
+        value: 'flag',
+        set: false,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--create': {
+        key: 'no-create',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-create': {
+        key: 'no-create',
+        value: 'flag',
+        set: false,
+      },
+      '--no-index': {
+        key: 'index',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-temp': {
+        key: 'temp',
+        value: 'flag',
+        set: false,
+      },
+      '--no-prefix': {
+        key: 'prefix',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.checkout-index.stage-temp',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'stage',
+            test: 'equals',
+            value: 'all',
+          },
+          {
+            key: 'temp',
+            test: 'equals',
+            value: false,
+          },
+        ],
+        origin: 'git',
+        reason:
+          'Checking out all stages requires temporary files; explicitly disabling temp is rejected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout-index.c',
+      },
+      {
+        id: 'cli.checkout-index.sources',
+        kind: 'exclusive',
+        keys: ['all', 'stdin'],
+        origin: 'git',
+        reason: 'All and stdin cannot be selected together.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout-index.c',
+      },
+      {
+        id: 'cli.checkout-index.all-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'all',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout-index.c',
+      },
+      {
+        id: 'cli.checkout-index.stdin-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout-index.c',
+      },
+    ],
+    source: 'builtin/checkout-index.c',
+    separator: true,
+  },
+  'read-tree': {
+    argv: ['read-tree'],
+    options: {
+      '--super-prefix': {
+        key: 'super-prefix',
+        value: 'string',
+      },
+      '--index-output': {
+        key: 'index-output',
+        value: 'string',
+      },
+      '--empty': {
+        key: 'empty',
+        value: 'flag',
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-m': {
+        key: 'm',
+        value: 'flag',
+      },
+      '--trivial': {
+        key: 'trivial',
+        value: 'flag',
+      },
+      '--aggressive': {
+        key: 'aggressive',
+        value: 'flag',
+      },
+      '--reset': {
+        key: 'reset',
+        value: 'flag',
+      },
+      '--prefix': {
+        key: 'prefix',
+        value: 'string',
+      },
+      '-u': {
+        key: 'u',
+        value: 'flag',
+      },
+      '--exclude-per-directory': {
+        key: 'exclude-per-directory',
+        value: 'string',
+        allowed: ['.gitignore'],
+        checks: [
+          {
+            id: 'cli.read-tree.exclude-order',
+            kind: 'required',
+            required: [
+              {
+                key: 'u',
+                test: 'active',
+              },
+            ],
+            origin: 'git',
+            reason: 'The exclude callback requires -u to have already been parsed.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+          },
+        ],
+      },
+      '-i': {
+        key: 'i',
+        value: 'flag',
+      },
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--no-sparse-checkout': {
+        key: 'no-sparse-checkout',
+        value: 'flag',
+      },
+      '--debug-unpack': {
+        key: 'debug-unpack',
+        value: 'flag',
+      },
+      '--recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'optional-string',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-super-prefix': {
+        key: 'super-prefix',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-empty': {
+        key: 'empty',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-trivial': {
+        key: 'trivial',
+        value: 'flag',
+        set: false,
+      },
+      '--no-aggressive': {
+        key: 'aggressive',
+        value: 'flag',
+        set: false,
+      },
+      '--no-reset': {
+        key: 'reset',
+        value: 'flag',
+        set: false,
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--sparse-checkout': {
+        key: 'no-sparse-checkout',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-sparse-checkout': {
+        key: 'no-sparse-checkout',
+        value: 'flag',
+        set: false,
+      },
+      '--no-debug-unpack': {
+        key: 'debug-unpack',
+        value: 'flag',
+        set: false,
+      },
+      '--no-recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.read-tree.mode',
+        kind: 'exclusiveGroups',
+        groups: [
+          [
+            {
+              key: 'm',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'reset',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'prefix',
+              test: 'present',
+            },
+          ],
+        ],
+        origin: 'git',
+        reason: 'Merge, reset and an explicitly supplied prefix are exclusive.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.prefix',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'prefix',
+            test: 'startsWith',
+            value: '/',
+          },
+        ],
+        origin: 'git',
+        reason: 'A prefix cannot start with a directory separator.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.empty-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'empty',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.tree-limit',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 8,
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.index-worktree',
+        kind: 'exclusive',
+        keys: ['u', 'i'],
+        origin: 'git',
+        reason: 'Index-only and worktree updating are exclusive.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.u-merge',
+        kind: 'requiresAny',
+        when: {
+          key: 'u',
+          test: 'active',
+        },
+        choices: [
+          {
+            key: 'm',
+            test: 'active',
+          },
+          {
+            key: 'reset',
+            test: 'active',
+          },
+          {
+            key: 'prefix',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Updating worktree or index-only requires a merge, reset or prefix.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.i-merge',
+        kind: 'requiresAny',
+        when: {
+          key: 'i',
+          test: 'active',
+        },
+        choices: [
+          {
+            key: 'm',
+            test: 'active',
+          },
+          {
+            key: 'reset',
+            test: 'active',
+          },
+          {
+            key: 'prefix',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Updating worktree or index-only requires a merge, reset or prefix.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.m-trees',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'm',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.reset-trees',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'reset',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+      {
+        id: 'cli.read-tree.prefix-trees',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'prefix',
+          test: 'present',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/read-tree.c',
+      },
+    ],
+    source: 'builtin/read-tree.c',
+    separator: true,
+  },
+  'merge-file': {
+    argv: ['merge-file'],
+    options: {
+      '--stdout': {
+        key: 'stdout',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'stdout',
+        value: 'flag',
+      },
+      '--object-id': {
+        key: 'object-id',
+        value: 'flag',
+      },
+      '--diff3': {
+        key: 'diff3',
+        value: 'flag',
+      },
+      '--zdiff3': {
+        key: 'zdiff3',
+        value: 'flag',
+      },
+      '--ours': {
+        key: 'ours',
+        value: 'flag',
+      },
+      '--theirs': {
+        key: 'theirs',
+        value: 'flag',
+      },
+      '--union': {
+        key: 'union',
+        value: 'flag',
+      },
+      '--diff-algorithm': {
+        key: 'diff-algorithm',
+        value: 'string',
+        caseInsensitive: true,
+        allowed: ['myers', 'default', 'minimal', 'patience', 'histogram'],
+      },
+      '--marker-size': {
+        key: 'marker-size',
+        value: 'integer',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-L': {
+        key: 'L',
+        value: 'string',
+        repeat: true,
+        checks: [
+          {
+            id: 'cli.merge-file.labels',
+            kind: 'arity',
+            key: 'L',
+            min: 0,
+            max: 2,
+            origin: 'git',
+            reason: 'A fourth label is rejected immediately, before help or later operands.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-file.c',
+          },
+        ],
+      },
+      '--no-stdout': {
+        key: 'stdout',
+        value: 'flag',
+        set: false,
+      },
+      '--no-object-id': {
+        key: 'object-id',
+        value: 'flag',
+        set: false,
+      },
+      '--no-diff3': {
+        key: 'diff3',
+        value: 'flag',
+        set: false,
+      },
+      '--no-zdiff3': {
+        key: 'zdiff3',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ours': {
+        key: 'ours',
+        value: 'flag',
+        set: false,
+      },
+      '--no-theirs': {
+        key: 'theirs',
+        value: 'flag',
+        set: false,
+      },
+      '--no-union': {
+        key: 'union',
+        value: 'flag',
+        set: false,
+      },
+      '--no-marker-size': {
+        key: 'marker-size',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.merge-file.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 3,
+        max: 3,
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-file.c',
+      },
+    ],
+    source: 'builtin/merge-file.c',
+    separator: true,
+  },
+  'merge-tree': {
+    argv: ['merge-tree'],
+    options: {
+      '--write-tree': {
+        key: 'write-tree',
+        value: 'flag',
+        modeGroup: '&o.mode',
+        modeValue: 'MODE_REAL',
+      },
+      '--trivial-merge': {
+        key: 'trivial-merge',
+        value: 'flag',
+        modeGroup: '&o.mode',
+        modeValue: 'MODE_TRIVIAL',
+      },
+      '--messages': {
+        key: 'messages',
+        value: 'flag',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--name-only': {
+        key: 'name-only',
+        value: 'flag',
+      },
+      '--allow-unrelated-histories': {
+        key: 'allow-unrelated-histories',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--merge-base': {
+        key: 'merge-base',
+        value: 'string',
+      },
+      '--strategy-option': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '-X': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-messages': {
+        key: 'messages',
+        value: 'flag',
+        set: false,
+      },
+      '--no-merge-base': {
+        key: 'merge-base',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-strategy-option': {
+        key: 'strategy-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.merge-tree.quiet',
+        kind: 'conflicts',
+        when: {
+          key: 'quiet',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'messages',
+            test: 'active',
+          },
+          {
+            key: 'name-only',
+            test: 'active',
+          },
+          {
+            key: 'stdin',
+            test: 'active',
+          },
+          {
+            key: 'z',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Quiet output excludes explicit messages, names, stdin and NUL output.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c',
+      },
+      {
+        id: 'cli.merge-tree.stdin',
+        kind: 'conflicts',
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'trivial-merge',
+            test: 'active',
+          },
+          {
+            key: 'merge-base',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Stdin merging excludes trivial mode and a global merge base.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c',
+      },
+      {
+        id: 'cli.merge-tree.default-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        max: 3,
+        when: [
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+          {
+            key: 'write-tree',
+            test: 'inactive',
+          },
+          {
+            key: 'trivial-merge',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c',
+      },
+      {
+        id: 'cli.merge-tree.write-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        max: 2,
+        when: [
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+          {
+            key: 'write-tree',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c',
+      },
+      {
+        id: 'cli.merge-tree.trivial-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 3,
+        max: 3,
+        when: [
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+          {
+            key: 'trivial-merge',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c',
+      },
+      {
+        id: 'cli.merge-tree.trivial-tokens',
+        kind: 'arity',
+        key: 'argumentTokens',
+        min: 4,
+        max: 4,
+        when: [
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+          {
+            key: 'trivial-merge',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason:
+          'Explicit trivial mode allows only one mode flag and three operands, including no canceled options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c',
+      },
+      {
+        id: 'cli.merge-tree.implicit-trivial-tokens',
+        kind: 'arity',
+        key: 'argumentTokens',
+        min: 3,
+        max: 3,
+        when: [
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+          {
+            key: 'write-tree',
+            test: 'inactive',
+          },
+          {
+            key: 'trivial-merge',
+            test: 'inactive',
+          },
+          {
+            key: 'operands',
+            test: 'lengthEquals',
+            value: 3,
+          },
+        ],
+        origin: 'git',
+        reason:
+          'An implicit three-tree merge cannot have any options, even canceled ones or a separator.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c',
+      },
+    ],
+    source: 'builtin/merge-tree.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
   lfs: {
     argv: ['lfs'],
     options: {
