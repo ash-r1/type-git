@@ -14037,5 +14037,321 @@
       "reason": "The remote archive parser rejects extra files after callback list clearing.",
       "source": "https://github.com/git/git/blob/v2.55.0/archive.c"
     }
-  ]
+  ],
+  "pickaxe": [
+    {
+      "id": "cli.pickaxe.progress",
+      "kind": "conflicts",
+      "when": {
+        "key": "progress",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "incremental",
+          "test": "active"
+        },
+        {
+          "key": "porcelain",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit progress excludes incremental and porcelain output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.pickaxe.reverse-contents",
+      "kind": "conflicts",
+      "when": {
+        "key": "blame-reverse",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "contents",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Reverse blaming cannot use replacement contents.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.pickaxe.stdin",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Blame disables revision input from stdin.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.pickaxe.path",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.pickaxe.separator-path",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 2,
+      "when": {
+        "key": "hasSeparator",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.pickaxe.old-path-rev",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "pathsAfterSeparator",
+        "test": "lengthEquals",
+        "value": 2
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    }
+  ],
+  "whatchanged": [
+    {
+      "id": "revision.line-pathspec",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history cannot be combined with pathspecs.",
+      "key": "pathsAfterSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "L",
+        "test": "present"
+      }
+    },
+    {
+      "id": "revision.line-full-diff",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history does not support full-diff.",
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "cli.whatchanged.deprecated-opt-in",
+      "kind": "required",
+      "required": [
+        {
+          "key": "i-still-use-this",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Git 2.55 requires its explicit opt-in to run this deprecated command.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    }
+  ],
+  "shortlog": [
+    {
+      "id": "cli.shortlog.outside-repository",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "inRepository",
+        "test": "equals",
+        "value": false
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/shortlog.c"
+    }
+  ],
+  "show-branch": [
+    {
+      "id": "cli.show-branch.listing-more",
+      "kind": "conflicts",
+      "when": {
+        "key": "more",
+        "test": "nonzero"
+      },
+      "others": [
+        {
+          "key": "merge-base",
+          "test": "active"
+        },
+        {
+          "key": "independent",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes exclude merge-base and independent queries.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/show-branch.c"
+    },
+    {
+      "id": "cli.show-branch.listing-reflog",
+      "kind": "conflicts",
+      "when": {
+        "key": "reflog",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "merge-base",
+          "test": "active"
+        },
+        {
+          "key": "independent",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes exclude merge-base and independent queries.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/show-branch.c"
+    },
+    {
+      "id": "cli.show-branch.reflog",
+      "kind": "conflicts",
+      "when": {
+        "key": "reflog",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "more",
+          "test": "positive"
+        },
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "remotes",
+          "test": "active"
+        },
+        {
+          "key": "current",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Reflog output excludes positive extra depth, all/remotes and current-branch selection.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/show-branch.c"
+    },
+    {
+      "id": "cli.show-branch.reflog-branch",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "when": {
+        "key": "reflog",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/show-branch.c"
+    }
+  ],
+  "pull": [
+    {
+      "id": "cli.pull.cleanup",
+      "kind": "value",
+      "key": "cleanup",
+      "allowed": [
+        "default",
+        "verbatim",
+        "whitespace",
+        "strip",
+        "scissors"
+      ],
+      "origin": "git",
+      "reason": "Pull validates the final cleanup value before fetching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pull.c"
+    },
+    {
+      "id": "cli.pull.all-repositories",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pull.c"
+    },
+    {
+      "id": "cli.pull.depth-unshallow",
+      "kind": "conflicts",
+      "when": {
+        "key": "depth",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "unshallow",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Fetch rejects a depth together with unshallow.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pull.c"
+    }
+  ],
+  "rev-parse": [],
+  "rev-parse --parseopt": [
+    {
+      "id": "cli.rev-parse---parseopt.separator",
+      "kind": "required",
+      "required": [
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Parseopt requires an explicit separator before its input argument list.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-parse.c"
+    },
+    {
+      "id": "cli.rev-parse---parseopt.before-separator",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-parse.c"
+    }
+  ],
+  "rev-parse --sq-quote": []
 }
