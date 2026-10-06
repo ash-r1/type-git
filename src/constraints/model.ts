@@ -23,7 +23,8 @@ export type Predicate =
         | 'bytesPositive';
     }
   | { key: string; test: 'equals' | 'notEquals'; value: string | number | boolean }
-  | { key: string; test: 'startsWith'; value: string };
+  | { key: string; test: 'startsWith'; value: string }
+  | { key: string; test: 'includes'; valueKey: string };
 export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] } & (
     | {
         kind: 'arity';
@@ -48,6 +49,8 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
 export function matches(predicate: Predicate, options: Readonly<Record<string, unknown>>): boolean {
   const value = options[predicate.key];
   switch (predicate.test) {
+    case 'includes':
+      return Array.isArray(value) && value.includes(options[predicate.valueKey]);
     case 'gitEnabled':
       return gitBoolean(value) === true || value === 'on-demand';
     case 'inactive':
@@ -134,31 +137,36 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
   }
 }
 
+/** State fields read by one predicate, including relational operands. */
+export function predicateKeys(predicate: Predicate): string[] {
+  return predicate.test === 'includes' ? [predicate.key, predicate.valueKey] : [predicate.key];
+}
+
 export function referencedKeys(rule: Constraint): string[] {
-  return [...(rule.guard ?? []).map((p) => p.key), ...bodyKeys(rule)];
+  return [...(rule.guard ?? []).flatMap(predicateKeys), ...bodyKeys(rule)];
 }
 
 function bodyKeys(rule: Constraint): string[] {
   switch (rule.kind) {
     case 'arity':
-      return [rule.key, ...conditions(rule.when).map((p) => p.key)];
+      return [rule.key, ...conditions(rule.when).flatMap(predicateKeys)];
     case 'required':
-      return rule.required.map((p) => p.key);
+      return rule.required.flatMap(predicateKeys);
     case 'exclusiveGroups':
-      return rule.groups.flatMap((group) => group.map((p) => p.key));
+      return rule.groups.flatMap((group) => group.flatMap(predicateKeys));
     case 'exclusive':
     case 'unsupported':
       return [...rule.keys];
     case 'requiresAny':
-      return [rule.when.key, ...rule.choices.map((p) => p.key)];
+      return [...predicateKeys(rule.when), ...rule.choices.flatMap(predicateKeys)];
     case 'requires':
-      return [rule.when.key, ...rule.required.map((p) => p.key)];
+      return [...predicateKeys(rule.when), ...rule.required.flatMap(predicateKeys)];
     case 'conflicts':
-      return [rule.when.key, ...rule.others.map((p) => p.key)];
+      return [...predicateKeys(rule.when), ...rule.others.flatMap(predicateKeys)];
     case 'forbid':
-      return rule.when.map((p) => p.key);
+      return rule.when.flatMap(predicateKeys);
     case 'range':
-      return rule.when ? [rule.key, rule.when.key] : [rule.key];
+      return rule.when ? [rule.key, ...predicateKeys(rule.when)] : [rule.key];
     case 'value':
     case 'integer':
       return [rule.key];

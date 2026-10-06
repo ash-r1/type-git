@@ -15,6 +15,7 @@ export function commandDomains(spec, referencedKeys) {
       : option.value === 'boolean' ? [false, true]
       : option.value.endsWith('integer') ? [-2, -1, 0, 1, 2]
       : ['', 'value', '0b', '1kb'];
+    if (option.caseInsensitive && option.preserveCase) values.push(...values.filter(value => typeof value === 'string').map(value => value.toUpperCase()));
     if (option.value.startsWith('optional-')) values.push(option.set ?? true);
     for (const value of values) {
       if (option.repeat) {

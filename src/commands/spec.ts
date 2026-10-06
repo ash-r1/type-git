@@ -36,6 +36,8 @@ export type OptionSpec = {
   allowed?: readonly (string | number | boolean)[];
   /** Git callbacks using ASCII case-insensitive enum matching. */
   caseInsensitive?: boolean;
+  /** Match enum names without changing the spelling stored by the callback. */
+  preserveCase?: boolean;
   /** Constraints evaluated before this token changes parser state; $value is the incoming value. */
   checks?: readonly Constraint[];
   /** Ordered callback side effects on other parser variables. */

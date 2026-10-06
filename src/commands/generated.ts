@@ -42562,6 +42562,2652 @@ export const COMMAND_SPECS = {
     separator: false,
     optionParsing: 'none',
   },
+  gc: {
+    argv: ['gc'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--prune': {
+        key: 'prune',
+        value: 'optional-string',
+      },
+      '--cruft': {
+        key: 'cruft',
+        value: 'flag',
+      },
+      '--max-cruft-size': {
+        key: 'max-cruft-size',
+        value: 'integer',
+      },
+      '--aggressive': {
+        key: 'aggressive',
+        value: 'flag',
+      },
+      '--auto': {
+        key: 'auto',
+        value: 'flag',
+      },
+      '--detach': {
+        key: 'detach',
+        value: 'flag',
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+      },
+      '--keep-largest-pack': {
+        key: 'keep-largest-pack',
+        value: 'flag',
+      },
+      '--expire-to': {
+        key: 'expire-to',
+        value: 'string',
+      },
+      '--skip-foreground-tasks': {
+        key: 'skip-foreground-tasks',
+        value: 'flag',
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-prune': {
+        key: 'prune',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-cruft': {
+        key: 'cruft',
+        value: 'flag',
+        set: false,
+      },
+      '--no-aggressive': {
+        key: 'aggressive',
+        value: 'flag',
+        set: false,
+      },
+      '--no-auto': {
+        key: 'auto',
+        value: 'flag',
+        set: false,
+      },
+      '--no-detach': {
+        key: 'detach',
+        value: 'flag',
+        set: false,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        set: false,
+      },
+      '--no-keep-largest-pack': {
+        key: 'keep-largest-pack',
+        value: 'flag',
+        set: false,
+      },
+      '--no-expire-to': {
+        key: 'expire-to',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-skip-foreground-tasks': {
+        key: 'skip-foreground-tasks',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.gc.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+      },
+    ],
+    source: 'builtin/gc.c',
+    separator: true,
+  },
+  'maintenance run': {
+    argv: ['maintenance', 'run'],
+    options: {
+      '--auto': {
+        key: 'auto',
+        value: 'flag',
+      },
+      '--detach': {
+        key: 'detach',
+        value: 'flag',
+      },
+      '--schedule': {
+        key: 'schedule',
+        value: 'string',
+        allowed: ['hourly', 'daily', 'weekly'],
+        caseInsensitive: true,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--task': {
+        key: 'task',
+        value: 'string',
+        allowed: [
+          'prefetch',
+          'loose-objects',
+          'incremental-repack',
+          'geometric-repack',
+          'gc',
+          'commit-graph',
+          'pack-refs',
+          'reflog-expire',
+          'worktree-prune',
+          'rerere-gc',
+        ],
+        caseInsensitive: true,
+        preserveCase: true,
+        repeat: true,
+        checks: [
+          {
+            id: 'cli.maintenance-run.task-duplicate',
+            kind: 'forbid',
+            when: [
+              {
+                key: 'task',
+                test: 'includes',
+                valueKey: '$value',
+              },
+            ],
+            origin: 'git',
+            reason:
+              'Task names are matched case-insensitively, but repeated spellings are rejected case-sensitively before appending.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+          },
+        ],
+      },
+      '--no-auto': {
+        key: 'auto',
+        value: 'flag',
+        set: false,
+      },
+      '--no-detach': {
+        key: 'detach',
+        value: 'flag',
+        set: false,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.maintenance-run.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+      },
+      {
+        id: 'cli.maintenance-run.schedule',
+        kind: 'conflicts',
+        when: {
+          key: 'schedule',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'auto',
+            test: 'active',
+          },
+          {
+            key: 'task',
+            test: 'nonempty',
+          },
+        ],
+        origin: 'git',
+        reason: 'A schedule cannot be combined with auto mode or explicitly selected tasks.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+      },
+    ],
+    source: 'builtin/gc.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'maintenance register': {
+    argv: ['maintenance', 'register'],
+    options: {
+      '--config-file': {
+        key: 'config-file',
+        value: 'string',
+      },
+      '--no-config-file': {
+        key: 'config-file',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.maintenance-register.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+      },
+    ],
+    source: 'builtin/gc.c',
+    separator: true,
+  },
+  'maintenance unregister': {
+    argv: ['maintenance', 'unregister'],
+    options: {
+      '--config-file': {
+        key: 'config-file',
+        value: 'string',
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-config-file': {
+        key: 'config-file',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.maintenance-unregister.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+      },
+    ],
+    source: 'builtin/gc.c',
+    separator: true,
+  },
+  'maintenance start': {
+    argv: ['maintenance', 'start'],
+    options: {
+      '--scheduler': {
+        key: 'scheduler',
+        value: 'string',
+        allowed: ['auto', 'cron', 'crontab', 'systemd', 'systemd-timer', 'launchctl', 'schtasks'],
+        caseInsensitive: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.maintenance-start.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+      },
+    ],
+    source: 'builtin/gc.c',
+    separator: true,
+  },
+  'maintenance stop': {
+    argv: ['maintenance', 'stop'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.maintenance-stop.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+      },
+    ],
+    source: 'builtin/gc.c',
+    separator: true,
+  },
+  'maintenance is-needed': {
+    argv: ['maintenance', 'is-needed'],
+    options: {
+      '--auto': {
+        key: 'auto',
+        value: 'flag',
+      },
+      '--task': {
+        key: 'task',
+        value: 'string',
+        allowed: [
+          'prefetch',
+          'loose-objects',
+          'incremental-repack',
+          'geometric-repack',
+          'gc',
+          'commit-graph',
+          'pack-refs',
+          'reflog-expire',
+          'worktree-prune',
+          'rerere-gc',
+        ],
+        caseInsensitive: true,
+        preserveCase: true,
+        repeat: true,
+        checks: [
+          {
+            id: 'cli.maintenance-is-needed.task-duplicate',
+            kind: 'forbid',
+            when: [
+              {
+                key: 'task',
+                test: 'includes',
+                valueKey: '$value',
+              },
+            ],
+            origin: 'git',
+            reason:
+              'Task names are matched case-insensitively, but repeated spellings are rejected case-sensitively before appending.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+          },
+        ],
+      },
+      '--no-auto': {
+        key: 'auto',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.maintenance-is-needed.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/gc.c',
+      },
+    ],
+    source: 'builtin/gc.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'commit-graph verify': {
+    argv: ['commit-graph', 'verify'],
+    options: {
+      '--object-dir': {
+        key: 'object-dir',
+        value: 'string',
+      },
+      '--shallow': {
+        key: 'shallow',
+        value: 'flag',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-object-dir': {
+        key: 'object-dir',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-shallow': {
+        key: 'shallow',
+        value: 'flag',
+        set: false,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.commit-graph-verify.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit-graph.c',
+      },
+    ],
+    source: 'builtin/commit-graph.c',
+    separator: true,
+  },
+  'commit-graph write': {
+    argv: ['commit-graph', 'write'],
+    options: {
+      '--object-dir': {
+        key: 'object-dir',
+        value: 'string',
+      },
+      '--reachable': {
+        key: 'reachable',
+        value: 'flag',
+      },
+      '--stdin-packs': {
+        key: 'stdin-packs',
+        value: 'flag',
+      },
+      '--stdin-commits': {
+        key: 'stdin-commits',
+        value: 'flag',
+      },
+      '--append': {
+        key: 'append',
+        value: 'flag',
+      },
+      '--changed-paths': {
+        key: 'changed-paths',
+        value: 'flag',
+      },
+      '--split': {
+        key: 'split',
+        value: 'optional-string',
+        allowed: ['no-merge', 'replace'],
+      },
+      '--max-commits': {
+        key: 'max-commits',
+        value: 'integer',
+      },
+      '--size-multiple': {
+        key: 'size-multiple',
+        value: 'integer',
+      },
+      '--expire-time': {
+        key: 'expire-time',
+        value: 'string',
+      },
+      '--max-new-filters': {
+        key: 'max-new-filters',
+        value: 'string',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-object-dir': {
+        key: 'object-dir',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-reachable': {
+        key: 'reachable',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin-packs': {
+        key: 'stdin-packs',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin-commits': {
+        key: 'stdin-commits',
+        value: 'flag',
+        set: false,
+      },
+      '--no-append': {
+        key: 'append',
+        value: 'flag',
+        set: false,
+      },
+      '--no-changed-paths': {
+        key: 'changed-paths',
+        value: 'flag',
+        set: false,
+      },
+      '--no-max-commits': {
+        key: 'max-commits',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-size-multiple': {
+        key: 'size-multiple',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-expire-time': {
+        key: 'expire-time',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-max-new-filters': {
+        key: 'max-new-filters',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.commit-graph-write.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit-graph.c',
+      },
+      {
+        id: 'cli.commit-graph-write.input',
+        kind: 'exclusive',
+        keys: ['reachable', 'stdin-packs', 'stdin-commits'],
+        origin: 'git',
+        reason: 'At most one commit-graph input source can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit-graph.c',
+      },
+    ],
+    source: 'builtin/commit-graph.c',
+    separator: true,
+  },
+  'multi-pack-index write': {
+    argv: ['multi-pack-index', 'write'],
+    options: {
+      '--object-dir': {
+        key: 'object-dir',
+        value: 'string',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--preferred-pack': {
+        key: 'preferred-pack',
+        value: 'string',
+      },
+      '--bitmap': {
+        key: 'bitmap',
+        value: 'flag',
+      },
+      '--base': {
+        key: 'base',
+        value: 'string',
+      },
+      '--incremental': {
+        key: 'incremental',
+        value: 'flag',
+      },
+      '--write-chain-file': {
+        key: 'write-chain-file',
+        value: 'flag',
+      },
+      '--stdin-packs': {
+        key: 'stdin-packs',
+        value: 'flag',
+      },
+      '--refs-snapshot': {
+        key: 'refs-snapshot',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-object-dir': {
+        key: 'object-dir',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--no-preferred-pack': {
+        key: 'preferred-pack',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-bitmap': {
+        key: 'bitmap',
+        value: 'flag',
+        set: false,
+      },
+      '--no-base': {
+        key: 'base',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-incremental': {
+        key: 'incremental',
+        value: 'flag',
+        set: false,
+      },
+      '--no-write-chain-file': {
+        key: 'write-chain-file',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin-packs': {
+        key: 'stdin-packs',
+        value: 'flag',
+        set: false,
+      },
+      '--no-refs-snapshot': {
+        key: 'refs-snapshot',
+        value: 'flag',
+        emptyIsUnset: true,
+        ignore: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.multi-pack-index-write.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
+      },
+      {
+        id: 'cli.multi-pack-index-write.chain',
+        kind: 'requires',
+        when: {
+          key: 'write-chain-file',
+          test: 'equals',
+          value: false,
+        },
+        required: [
+          {
+            key: 'incremental',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Disabling the chain file requires an incremental MIDX.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
+      },
+      {
+        id: 'cli.multi-pack-index-write.base',
+        kind: 'requires',
+        when: {
+          key: 'base',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'write-chain-file',
+            test: 'equals',
+            value: false,
+          },
+        ],
+        origin: 'git',
+        reason: 'An explicit base requires disabling the chain file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
+      },
+    ],
+    source: 'builtin/multi-pack-index.c',
+    separator: true,
+  },
+  'multi-pack-index compact': {
+    argv: ['multi-pack-index', 'compact'],
+    options: {
+      '--object-dir': {
+        key: 'object-dir',
+        value: 'string',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--base': {
+        key: 'base',
+        value: 'string',
+      },
+      '--bitmap': {
+        key: 'bitmap',
+        value: 'flag',
+      },
+      '--incremental': {
+        key: 'incremental',
+        value: 'flag',
+      },
+      '--write-chain-file': {
+        key: 'write-chain-file',
+        value: 'flag',
+      },
+      '--no-object-dir': {
+        key: 'object-dir',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--no-base': {
+        key: 'base',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-bitmap': {
+        key: 'bitmap',
+        value: 'flag',
+        set: false,
+      },
+      '--no-incremental': {
+        key: 'incremental',
+        value: 'flag',
+        set: false,
+      },
+      '--no-write-chain-file': {
+        key: 'write-chain-file',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.multi-pack-index-compact.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        max: 2,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
+      },
+      {
+        id: 'cli.multi-pack-index-compact.chain',
+        kind: 'requires',
+        when: {
+          key: 'write-chain-file',
+          test: 'equals',
+          value: false,
+        },
+        required: [
+          {
+            key: 'incremental',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Disabling the chain file requires an incremental MIDX.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
+      },
+    ],
+    source: 'builtin/multi-pack-index.c',
+    separator: true,
+  },
+  'multi-pack-index verify': {
+    argv: ['multi-pack-index', 'verify'],
+    options: {
+      '--object-dir': {
+        key: 'object-dir',
+        value: 'string',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-object-dir': {
+        key: 'object-dir',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.multi-pack-index-verify.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
+      },
+    ],
+    source: 'builtin/multi-pack-index.c',
+    separator: true,
+  },
+  'multi-pack-index expire': {
+    argv: ['multi-pack-index', 'expire'],
+    options: {
+      '--object-dir': {
+        key: 'object-dir',
+        value: 'string',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-object-dir': {
+        key: 'object-dir',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.multi-pack-index-expire.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
+      },
+    ],
+    source: 'builtin/multi-pack-index.c',
+    separator: true,
+  },
+  'multi-pack-index repack': {
+    argv: ['multi-pack-index', 'repack'],
+    options: {
+      '--object-dir': {
+        key: 'object-dir',
+        value: 'string',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--batch-size': {
+        key: 'batch-size',
+        value: 'integer',
+      },
+      '--no-object-dir': {
+        key: 'object-dir',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.multi-pack-index-repack.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c',
+      },
+    ],
+    source: 'builtin/multi-pack-index.c',
+    separator: true,
+  },
+  'refs migrate': {
+    argv: ['refs', 'migrate'],
+    options: {
+      '--ref-format': {
+        key: 'ref-format',
+        value: 'string',
+      },
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--no-reflog': {
+        key: 'no-reflog',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--reflog': {
+        key: 'no-reflog',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-reflog': {
+        key: 'no-reflog',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.refs-migrate.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/refs.c',
+      },
+      {
+        id: 'cli.refs-migrate.format-required',
+        kind: 'required',
+        required: [
+          {
+            key: 'ref-format',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Migration requires an explicit reference storage format.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/refs.c',
+      },
+      {
+        id: 'cli.refs-migrate.format',
+        kind: 'value',
+        key: 'ref-format',
+        allowed: ['files', 'reftable'],
+        origin: 'git',
+        reason: 'Only registered reference storage backends can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/refs.c',
+      },
+    ],
+    source: 'builtin/refs.c',
+    separator: true,
+  },
+  'refs verify': {
+    argv: ['refs', 'verify'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--strict': {
+        key: 'strict',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--no-strict': {
+        key: 'strict',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.refs-verify.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/refs.c',
+      },
+    ],
+    source: 'builtin/refs.c',
+    separator: true,
+  },
+  'refs exists': {
+    argv: ['refs', 'exists'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.refs-exists.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/refs.c',
+      },
+    ],
+    source: 'builtin/refs.c',
+    separator: true,
+  },
+  'refs list': {
+    argv: ['refs', 'list'],
+    initial: {
+      'sort-base': true,
+    },
+    options: {
+      '--shell': {
+        key: 'shell',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'shell',
+        value: 'flag',
+      },
+      '--perl': {
+        key: 'perl',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'perl',
+        value: 'flag',
+      },
+      '--python': {
+        key: 'python',
+        value: 'flag',
+      },
+      '--tcl': {
+        key: 'tcl',
+        value: 'flag',
+      },
+      '--omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+      },
+      '--count': {
+        key: 'count',
+        value: 'integer',
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--start-after': {
+        key: 'start-after',
+        value: 'string',
+      },
+      '--color': {
+        key: 'color',
+        value: 'optional-string',
+        set: 'always',
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--sort': {
+        key: 'sort',
+        value: 'string',
+        repeat: true,
+      },
+      '--points-at': {
+        key: 'points-at',
+        value: 'string',
+      },
+      '--merged': {
+        key: 'merged',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-merged': {
+        key: 'no-merged',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--contains': {
+        key: 'contains',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-contains': {
+        key: 'no-contains',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--include-root-refs': {
+        key: 'include-root-refs',
+        value: 'flag',
+      },
+      '--no-shell': {
+        key: 'shell',
+        value: 'flag',
+        set: false,
+      },
+      '--no-perl': {
+        key: 'perl',
+        value: 'flag',
+        set: false,
+      },
+      '--no-python': {
+        key: 'python',
+        value: 'flag',
+        set: false,
+      },
+      '--no-tcl': {
+        key: 'tcl',
+        value: 'flag',
+        set: false,
+      },
+      '--no-omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--no-count': {
+        key: 'count',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-format': {
+        key: 'format',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-start-after': {
+        key: 'start-after',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-color': {
+        key: 'color',
+        value: 'flag',
+        set: 'always',
+        clear: true,
+      },
+      '--no-exclude': {
+        key: 'exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-sort': {
+        key: 'sort',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+        effects: [
+          {
+            key: 'sort-base',
+            set: false,
+          },
+        ],
+      },
+      '--no-points-at': {
+        key: 'points-at',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-include-root-refs': {
+        key: 'include-root-refs',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.refs-list.quote-style',
+        kind: 'exclusive',
+        keys: ['shell', 'perl', 'python', 'tcl'],
+        origin: 'git',
+        reason: 'Only one quoting style may be active.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.refs-list.count',
+        kind: 'range',
+        key: 'count',
+        min: 0,
+        origin: 'git',
+        reason: 'Final count must not be negative.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.refs-list.stdin-patterns',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.refs-list.start-patterns',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'start-after',
+          test: 'present',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.refs-list.default-sort',
+        kind: 'arity',
+        key: 'sort',
+        min: 0,
+        max: 0,
+        when: [
+          {
+            key: 'start-after',
+            test: 'present',
+          },
+          {
+            key: 'sort-base',
+            test: 'equals',
+            value: true,
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.refs-list.reset-sort',
+        kind: 'arity',
+        key: 'sort',
+        min: 0,
+        max: 1,
+        when: [
+          {
+            key: 'start-after',
+            test: 'present',
+          },
+          {
+            key: 'sort-base',
+            test: 'equals',
+            value: false,
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+    ],
+    source: 'builtin/for-each-ref.c:for_each_ref_core',
+    separator: true,
+  },
+  'pack-refs': {
+    argv: ['pack-refs'],
+    options: {
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--prune': {
+        key: 'prune',
+        value: 'flag',
+      },
+      '--auto': {
+        key: 'auto',
+        value: 'flag',
+      },
+      '--include': {
+        key: 'include',
+        value: 'string',
+        repeat: true,
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--no-prune': {
+        key: 'prune',
+        value: 'flag',
+        set: false,
+      },
+      '--no-auto': {
+        key: 'auto',
+        value: 'flag',
+        set: false,
+      },
+      '--no-include': {
+        key: 'include',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-exclude': {
+        key: 'exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.pack-refs.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/pack-refs.c',
+      },
+    ],
+    source: 'pack-refs.c',
+    separator: true,
+  },
+  'refs optimize': {
+    argv: ['refs', 'optimize'],
+    options: {
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--prune': {
+        key: 'prune',
+        value: 'flag',
+      },
+      '--auto': {
+        key: 'auto',
+        value: 'flag',
+      },
+      '--include': {
+        key: 'include',
+        value: 'string',
+        repeat: true,
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--no-prune': {
+        key: 'prune',
+        value: 'flag',
+        set: false,
+      },
+      '--no-auto': {
+        key: 'auto',
+        value: 'flag',
+        set: false,
+      },
+      '--no-include': {
+        key: 'include',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-exclude': {
+        key: 'exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.refs-optimize.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/pack-refs.c',
+      },
+    ],
+    source: 'pack-refs.c',
+    separator: true,
+  },
+  fsck: {
+    argv: ['fsck'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--unreachable': {
+        key: 'unreachable',
+        value: 'flag',
+      },
+      '--dangling': {
+        key: 'dangling',
+        value: 'flag',
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--root': {
+        key: 'root',
+        value: 'flag',
+      },
+      '--cache': {
+        key: 'cache',
+        value: 'flag',
+      },
+      '--reflogs': {
+        key: 'reflogs',
+        value: 'flag',
+      },
+      '--full': {
+        key: 'full',
+        value: 'flag',
+      },
+      '--connectivity-only': {
+        key: 'connectivity-only',
+        value: 'flag',
+      },
+      '--strict': {
+        key: 'strict',
+        value: 'flag',
+      },
+      '--lost-found': {
+        key: 'lost-found',
+        value: 'flag',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--name-objects': {
+        key: 'name-objects',
+        value: 'flag',
+      },
+      '--references': {
+        key: 'references',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-unreachable': {
+        key: 'unreachable',
+        value: 'flag',
+        set: false,
+      },
+      '--no-dangling': {
+        key: 'dangling',
+        value: 'flag',
+        set: false,
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--no-root': {
+        key: 'root',
+        value: 'flag',
+        set: false,
+      },
+      '--no-cache': {
+        key: 'cache',
+        value: 'flag',
+        set: false,
+      },
+      '--no-reflogs': {
+        key: 'reflogs',
+        value: 'flag',
+        set: false,
+      },
+      '--no-full': {
+        key: 'full',
+        value: 'flag',
+        set: false,
+      },
+      '--no-connectivity-only': {
+        key: 'connectivity-only',
+        value: 'flag',
+        set: false,
+      },
+      '--no-strict': {
+        key: 'strict',
+        value: 'flag',
+        set: false,
+      },
+      '--no-lost-found': {
+        key: 'lost-found',
+        value: 'flag',
+        set: false,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--no-name-objects': {
+        key: 'name-objects',
+        value: 'flag',
+        set: false,
+      },
+      '--no-references': {
+        key: 'references',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/fsck.c',
+    separator: true,
+  },
+  'fsck-objects': {
+    argv: ['fsck-objects'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--unreachable': {
+        key: 'unreachable',
+        value: 'flag',
+      },
+      '--dangling': {
+        key: 'dangling',
+        value: 'flag',
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--root': {
+        key: 'root',
+        value: 'flag',
+      },
+      '--cache': {
+        key: 'cache',
+        value: 'flag',
+      },
+      '--reflogs': {
+        key: 'reflogs',
+        value: 'flag',
+      },
+      '--full': {
+        key: 'full',
+        value: 'flag',
+      },
+      '--connectivity-only': {
+        key: 'connectivity-only',
+        value: 'flag',
+      },
+      '--strict': {
+        key: 'strict',
+        value: 'flag',
+      },
+      '--lost-found': {
+        key: 'lost-found',
+        value: 'flag',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--name-objects': {
+        key: 'name-objects',
+        value: 'flag',
+      },
+      '--references': {
+        key: 'references',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-unreachable': {
+        key: 'unreachable',
+        value: 'flag',
+        set: false,
+      },
+      '--no-dangling': {
+        key: 'dangling',
+        value: 'flag',
+        set: false,
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--no-root': {
+        key: 'root',
+        value: 'flag',
+        set: false,
+      },
+      '--no-cache': {
+        key: 'cache',
+        value: 'flag',
+        set: false,
+      },
+      '--no-reflogs': {
+        key: 'reflogs',
+        value: 'flag',
+        set: false,
+      },
+      '--no-full': {
+        key: 'full',
+        value: 'flag',
+        set: false,
+      },
+      '--no-connectivity-only': {
+        key: 'connectivity-only',
+        value: 'flag',
+        set: false,
+      },
+      '--no-strict': {
+        key: 'strict',
+        value: 'flag',
+        set: false,
+      },
+      '--no-lost-found': {
+        key: 'lost-found',
+        value: 'flag',
+        set: false,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--no-name-objects': {
+        key: 'name-objects',
+        value: 'flag',
+        set: false,
+      },
+      '--no-references': {
+        key: 'references',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/fsck.c',
+    separator: true,
+  },
+  prune: {
+    argv: ['prune'],
+    options: {
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--expire': {
+        key: 'expire',
+        value: 'string',
+      },
+      '--exclude-promisor-objects': {
+        key: 'exclude-promisor-objects',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--no-expire': {
+        key: 'expire',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-exclude-promisor-objects': {
+        key: 'exclude-promisor-objects',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/prune.c',
+    separator: true,
+  },
+  'prune-packed': {
+    argv: ['prune-packed'],
+    options: {
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.prune-packed.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/prune-packed.c',
+      },
+    ],
+    source: 'builtin/prune-packed.c',
+    separator: true,
+  },
+  'update-server-info': {
+    argv: ['update-server-info'],
+    options: {
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.update-server-info.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native parser requires this number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/update-server-info.c',
+      },
+    ],
+    source: 'builtin/update-server-info.c',
+    separator: true,
+  },
+  stage: {
+    argv: ['stage'],
+    options: {
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--interactive': {
+        key: 'interactive',
+        value: 'flag',
+      },
+      '-i': {
+        key: 'interactive',
+        value: 'flag',
+      },
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '--auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '-U': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--update': {
+        key: 'update',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'update',
+        value: 'flag',
+      },
+      '--renormalize': {
+        key: 'renormalize',
+        value: 'flag',
+      },
+      '--intent-to-add': {
+        key: 'intent-to-add',
+        value: 'flag',
+      },
+      '-N': {
+        key: 'intent-to-add',
+        value: 'flag',
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '-A': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--ignore-removal': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--refresh': {
+        key: 'refresh',
+        value: 'flag',
+      },
+      '--ignore-errors': {
+        key: 'ignore-errors',
+        value: 'flag',
+      },
+      '--ignore-missing': {
+        key: 'ignore-missing',
+        value: 'flag',
+      },
+      '--sparse': {
+        key: 'sparse',
+        value: 'flag',
+      },
+      '--chmod': {
+        key: 'chmod',
+        value: 'string',
+      },
+      '--warn-embedded-repo': {
+        key: 'warn-embedded-repo',
+        value: 'flag',
+      },
+      '--pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-interactive': {
+        key: 'interactive',
+        value: 'flag',
+        set: false,
+      },
+      '--no-patch': {
+        key: 'patch',
+        value: 'flag',
+        set: false,
+      },
+      '--no-auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+        set: false,
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-update': {
+        key: 'update',
+        value: 'flag',
+        set: false,
+      },
+      '--no-renormalize': {
+        key: 'renormalize',
+        value: 'flag',
+        set: false,
+      },
+      '--no-intent-to-add': {
+        key: 'intent-to-add',
+        value: 'flag',
+        set: false,
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-removal': {
+        key: 'all',
+        value: 'flag',
+        set: true,
+      },
+      '--no-refresh': {
+        key: 'refresh',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-errors': {
+        key: 'ignore-errors',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-missing': {
+        key: 'ignore-missing',
+        value: 'flag',
+        set: false,
+      },
+      '--no-sparse': {
+        key: 'sparse',
+        value: 'flag',
+        set: false,
+      },
+      '--no-chmod': {
+        key: 'chmod',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-warn-embedded-repo': {
+        key: 'warn-embedded-repo',
+        value: 'flag',
+        set: false,
+      },
+      '--no-pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'flag',
+        emptyIsUnset: true,
+        ignore: true,
+      },
+      '--no-pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.stage.pathspec-file-nul',
+        kind: 'requires',
+        when: {
+          key: 'pathspec-file-nul',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'NUL pathspec input requires a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+        guard: [
+          {
+            key: 'interactive',
+            test: 'inactive',
+          },
+          {
+            key: 'patch',
+            test: 'inactive',
+          },
+          {
+            key: 'edit',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'cli.stage.pathspec-file-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+        origin: 'git',
+        reason: 'Pathspec files cannot be combined with explicit paths.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+        guard: [
+          {
+            key: 'interactive',
+            test: 'inactive',
+          },
+          {
+            key: 'patch',
+            test: 'inactive',
+          },
+          {
+            key: 'edit',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'cli.stage.all-update',
+        kind: 'exclusive',
+        keys: ['all', 'update'],
+        guard: [
+          {
+            key: 'interactive',
+            test: 'inactive',
+          },
+          {
+            key: 'patch',
+            test: 'inactive',
+          },
+          {
+            key: 'edit',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Explicit all and update modes cannot be combined.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.ignore-missing',
+        kind: 'requires',
+        when: {
+          key: 'ignore-missing',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'dry-run',
+            test: 'active',
+          },
+        ],
+        guard: [
+          {
+            key: 'interactive',
+            test: 'inactive',
+          },
+          {
+            key: 'patch',
+            test: 'inactive',
+          },
+          {
+            key: 'edit',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Ignoring missing paths requires dry-run.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.chmod',
+        kind: 'value',
+        key: 'chmod',
+        allowed: ['+x', '-x'],
+        guard: [
+          {
+            key: 'interactive',
+            test: 'inactive',
+          },
+          {
+            key: 'patch',
+            test: 'inactive',
+          },
+          {
+            key: 'edit',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'The executable bit must be +x or -x.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.interactive',
+        kind: 'conflicts',
+        when: {
+          key: 'interactive',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'dry-run',
+            test: 'active',
+          },
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Interactive add cannot use dry-run or a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.patch',
+        kind: 'conflicts',
+        when: {
+          key: 'patch',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'dry-run',
+            test: 'active',
+          },
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Interactive add cannot use dry-run or a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.edit-pathspec-file',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'interactive',
+            test: 'inactive',
+          },
+          {
+            key: 'patch',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Edit mode cannot read a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.auto-advance',
+        kind: 'requiresAny',
+        when: {
+          key: 'auto-advance',
+          test: 'equals',
+          value: false,
+        },
+        choices: [
+          {
+            key: 'interactive',
+            test: 'active',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Disabling automatic advancement requires interactive mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.unified-minimum',
+        kind: 'range',
+        key: 'unified',
+        min: -1,
+        origin: 'git',
+        reason: 'Context must not be less than the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.unified-interactive',
+        kind: 'requiresAny',
+        when: {
+          key: 'unified',
+          test: 'present',
+        },
+        guard: [
+          {
+            key: 'unified',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        choices: [
+          {
+            key: 'interactive',
+            test: 'active',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'An explicit context other than -1 requires interactive mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.inter-hunk-context-minimum',
+        kind: 'range',
+        key: 'inter-hunk-context',
+        min: -1,
+        origin: 'git',
+        reason: 'Context must not be less than the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+      {
+        id: 'cli.stage.inter-hunk-context-interactive',
+        kind: 'requiresAny',
+        when: {
+          key: 'inter-hunk-context',
+          test: 'present',
+        },
+        guard: [
+          {
+            key: 'inter-hunk-context',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        choices: [
+          {
+            key: 'interactive',
+            test: 'active',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'An explicit context other than -1 requires interactive mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/add.c',
+      },
+    ],
+    source: 'builtin/add.c',
+    separator: true,
+  },
   lfs: {
     argv: ['lfs'],
     options: {
