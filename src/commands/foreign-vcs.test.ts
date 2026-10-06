@@ -79,6 +79,17 @@ describe('foreign VCS frontend parsing', () => {
       expect(argv).toEqual(['cvsexportcommit', '-w', root, ...words]);
     }
   });
+  it('serializes CVS server options before the method under require_order', () => {
+    for (const command of ['cvsserver server', 'cvsserver pserver'] as const) {
+      expect(
+        commandArguments(
+          command,
+          [['--export-all'], ['--base-path', root], { operand: root }],
+          true,
+        ),
+      ).toEqual(['cvsserver', '--export-all', `--base-path=${root}`, command.split(' ')[1], root]);
+    }
+  });
   it.skipIf(!cvsServerAvailable)(
     'requires explicit export roots and honors version before root checks',
     () => {
