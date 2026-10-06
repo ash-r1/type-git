@@ -8187,5 +8187,513 @@
     "optionAllowlist": [
       "-c"
     ]
+  },
+  "archimport": {
+    "source": "git-archimport.perl",
+    "tables": [],
+    "options": {
+      "-f": {
+        "key": "f",
+        "value": "flag"
+      },
+      "-T": {
+        "key": "T",
+        "value": "flag"
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "-v": {
+        "key": "v",
+        "value": "flag"
+      },
+      "-a": {
+        "key": "a",
+        "value": "flag"
+      },
+      "-t": {
+        "key": "t",
+        "value": "string"
+      },
+      "-D": {
+        "key": "D",
+        "value": "string"
+      }
+    },
+    "optionAllowlist": [
+      "-f",
+      "-T",
+      "-h",
+      "-v",
+      "-a",
+      "-t",
+      "-D",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "cvsexportcommit": {
+    "source": "git-cvsexportcommit.perl",
+    "tables": [],
+    "options": {
+      "-u": {
+        "key": "u",
+        "value": "flag"
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "-P": {
+        "key": "P",
+        "value": "flag"
+      },
+      "-p": {
+        "key": "p",
+        "value": "flag"
+      },
+      "-v": {
+        "key": "v",
+        "value": "flag"
+      },
+      "-c": {
+        "key": "c",
+        "value": "flag"
+      },
+      "-f": {
+        "key": "f",
+        "value": "flag"
+      },
+      "-k": {
+        "key": "k",
+        "value": "flag"
+      },
+      "-a": {
+        "key": "a",
+        "value": "flag"
+      },
+      "-W": {
+        "key": "W",
+        "value": "flag"
+      },
+      "-m": {
+        "key": "m",
+        "value": "string"
+      },
+      "-d": {
+        "key": "d",
+        "value": "string"
+      },
+      "-w": {
+        "key": "w",
+        "value": "string"
+      }
+    },
+    "optionAllowlist": [
+      "-u",
+      "-h",
+      "-P",
+      "-p",
+      "-v",
+      "-c",
+      "-f",
+      "-k",
+      "-a",
+      "-W",
+      "-m",
+      "-d",
+      "-w",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "cvsimport": {
+    "source": "git-cvsimport.perl",
+    "tables": [],
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "-a": {
+        "key": "a",
+        "value": "flag"
+      },
+      "-i": {
+        "key": "i",
+        "value": "flag"
+      },
+      "-v": {
+        "key": "v",
+        "value": "flag"
+      },
+      "-m": {
+        "key": "m",
+        "value": "flag"
+      },
+      "-k": {
+        "key": "k",
+        "value": "flag"
+      },
+      "-u": {
+        "key": "u",
+        "value": "flag"
+      },
+      "-R": {
+        "key": "R",
+        "value": "flag"
+      },
+      "-o": {
+        "key": "o",
+        "value": "string"
+      },
+      "-d": {
+        "key": "d",
+        "value": "string"
+      },
+      "-p": {
+        "key": "p",
+        "value": "string"
+      },
+      "-r": {
+        "key": "r",
+        "value": "string"
+      },
+      "-C": {
+        "key": "C",
+        "value": "string"
+      },
+      "-z": {
+        "key": "z",
+        "value": "string"
+      },
+      "-s": {
+        "key": "s",
+        "value": "string"
+      },
+      "-M": {
+        "key": "M",
+        "value": "string",
+        "repeat": true
+      },
+      "-P": {
+        "key": "P",
+        "value": "string"
+      },
+      "-A": {
+        "key": "A",
+        "value": "string"
+      },
+      "-S": {
+        "key": "S",
+        "value": "string"
+      },
+      "-L": {
+        "key": "L",
+        "value": "string"
+      },
+      "--h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--a": {
+        "key": "a",
+        "value": "flag"
+      },
+      "--i": {
+        "key": "i",
+        "value": "flag"
+      },
+      "--v": {
+        "key": "v",
+        "value": "flag"
+      },
+      "--m": {
+        "key": "m",
+        "value": "flag"
+      },
+      "--k": {
+        "key": "k",
+        "value": "flag"
+      },
+      "--u": {
+        "key": "u",
+        "value": "flag"
+      },
+      "--R": {
+        "key": "R",
+        "value": "flag"
+      },
+      "--o": {
+        "key": "o",
+        "value": "string"
+      },
+      "--d": {
+        "key": "d",
+        "value": "string"
+      },
+      "--p": {
+        "key": "p",
+        "value": "string"
+      },
+      "--r": {
+        "key": "r",
+        "value": "string"
+      },
+      "--C": {
+        "key": "C",
+        "value": "string"
+      },
+      "--z": {
+        "key": "z",
+        "value": "string"
+      },
+      "--s": {
+        "key": "s",
+        "value": "string"
+      },
+      "--M": {
+        "key": "M",
+        "value": "string",
+        "repeat": true
+      },
+      "--P": {
+        "key": "P",
+        "value": "string"
+      },
+      "--A": {
+        "key": "A",
+        "value": "string"
+      },
+      "--S": {
+        "key": "S",
+        "value": "string"
+      },
+      "--L": {
+        "key": "L",
+        "value": "string"
+      }
+    },
+    "optionAllowlist": [
+      "-h",
+      "-a",
+      "-i",
+      "-v",
+      "-m",
+      "-k",
+      "-u",
+      "-R",
+      "-o",
+      "-d",
+      "-p",
+      "-r",
+      "-C",
+      "-z",
+      "-s",
+      "-M",
+      "-P",
+      "-A",
+      "-S",
+      "-L",
+      "--h",
+      "--a",
+      "--i",
+      "--v",
+      "--m",
+      "--k",
+      "--u",
+      "--R",
+      "--o",
+      "--d",
+      "--p",
+      "--r",
+      "--C",
+      "--z",
+      "--s",
+      "--M",
+      "--P",
+      "--A",
+      "--S",
+      "--L",
+      "--help"
+    ]
+  },
+  "cvsserver": {
+    "source": "git-cvsserver.perl",
+    "tables": [],
+    "options": {
+      "-h": {
+        "key": "h",
+        "value": "flag"
+      },
+      "-H": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--h": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--H": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--version": {
+        "key": "version",
+        "value": "flag"
+      },
+      "-V": {
+        "key": "version",
+        "value": "flag"
+      },
+      "--V": {
+        "key": "version",
+        "value": "flag"
+      },
+      "--base-path": {
+        "key": "base-path",
+        "value": "string"
+      },
+      "--strict-paths": {
+        "key": "strict-paths",
+        "value": "flag"
+      },
+      "--export-all": {
+        "key": "export-all",
+        "value": "flag"
+      }
+    },
+    "optionAllowlist": [
+      "-h",
+      "-H",
+      "--h",
+      "--H",
+      "--version",
+      "-V",
+      "--V",
+      "--base-path",
+      "--strict-paths",
+      "--export-all"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "cvsserver server": {
+    "source": "git-cvsserver.perl",
+    "tables": [],
+    "options": {
+      "-h": {
+        "key": "h",
+        "value": "flag"
+      },
+      "-H": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--h": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--H": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--version": {
+        "key": "version",
+        "value": "flag"
+      },
+      "-V": {
+        "key": "version",
+        "value": "flag"
+      },
+      "--V": {
+        "key": "version",
+        "value": "flag"
+      },
+      "--base-path": {
+        "key": "base-path",
+        "value": "string"
+      },
+      "--strict-paths": {
+        "key": "strict-paths",
+        "value": "flag"
+      },
+      "--export-all": {
+        "key": "export-all",
+        "value": "flag"
+      }
+    },
+    "optionAllowlist": [
+      "-h",
+      "-H",
+      "--h",
+      "--H",
+      "--version",
+      "-V",
+      "--V",
+      "--base-path",
+      "--strict-paths",
+      "--export-all"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "cvsserver pserver": {
+    "source": "git-cvsserver.perl",
+    "tables": [],
+    "options": {
+      "-h": {
+        "key": "h",
+        "value": "flag"
+      },
+      "-H": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--h": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--H": {
+        "key": "h",
+        "value": "flag"
+      },
+      "--version": {
+        "key": "version",
+        "value": "flag"
+      },
+      "-V": {
+        "key": "version",
+        "value": "flag"
+      },
+      "--V": {
+        "key": "version",
+        "value": "flag"
+      },
+      "--base-path": {
+        "key": "base-path",
+        "value": "string"
+      },
+      "--strict-paths": {
+        "key": "strict-paths",
+        "value": "flag"
+      },
+      "--export-all": {
+        "key": "export-all",
+        "value": "flag"
+      }
+    },
+    "optionAllowlist": [
+      "-h",
+      "-H",
+      "--h",
+      "--H",
+      "--version",
+      "-V",
+      "--V",
+      "--base-path",
+      "--strict-paths",
+      "--export-all"
+    ],
+    "optionParsing": "stop-at-operand"
   }
 }

@@ -445,3 +445,9 @@ Git-shell supports interactive mode, one `-c` command string, or its single `cvs
 Git installs `git-sh-i18n` and `git-sh-setup` without executable permissions for sourcing by other shell scripts. Their standalone typed command API is marked inapplicable rather than generating invalid `git sh-i18n`/`git sh-setup` invocations. Their setup and function semantics remain subject to audit through callers; native tests source the installed libraries in isolated child shells.
 
 Implementation classes reference `GitCommandClient['command']` directly in their declarations. This avoids expanding the complete command union independently in each class during declaration serialization. Dispatch type checks expand child option languages only for dispatching command names.
+
+### Arch and CVS frontends
+
+Archimport's implemented Getopt string omits `-o` despite its usage text advertising it. CVS import takes at most one module and accumulates `-M` values; its numeric-looking values remain strings. CVS export consumes the final two operands without rejecting earlier words. CVS server requires explicit export roots before environment fallback, while version exits before that check. These rules follow the source parser, not a reconstruction from usage text.
+
+Native tests stop at parser or local checkout validation boundaries without contacting Arch/CVS services. CVS server is explicitly skipped when its DBI dependency is unavailable. Service protocols, configuration-derived requirements and remaining parser languages are still pending.
