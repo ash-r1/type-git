@@ -14353,5 +14353,573 @@
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-parse.c"
     }
   ],
-  "rev-parse --sq-quote": []
+  "rev-parse --sq-quote": [],
+  "submodule--helper get-default-remote": [
+    {
+      "id": "cli.submodule--helper-get-default-remote.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper foreach": [],
+  "submodule--helper init": [],
+  "submodule--helper status": [],
+  "submodule--helper summary": [
+    {
+      "id": "cli.submodule--helper-summary.sources",
+      "kind": "exclusive",
+      "guard": [
+        {
+          "key": "summary-limit",
+          "test": "notEquals",
+          "value": 0
+        }
+      ],
+      "keys": [
+        "cached",
+        "files"
+      ],
+      "origin": "git",
+      "reason": "Cached and files conflict unless a zero summary limit returns early.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper sync": [],
+  "submodule--helper deinit": [
+    {
+      "id": "cli.submodule--helper-deinit.all-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule--helper-deinit.explicit-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "all",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper clone": [
+    {
+      "id": "cli.submodule--helper-clone.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule--helper-clone.source",
+      "kind": "required",
+      "required": [
+        {
+          "key": "url",
+          "test": "present"
+        },
+        {
+          "key": "path",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Clone requires a URL pointer and nonempty destination path.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule--helper-clone.ref-format",
+      "kind": "value",
+      "key": "ref-format",
+      "allowed": [
+        "files",
+        "reftable"
+      ],
+      "origin": "git",
+      "reason": "Explicit ref formats must name a supported backend.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper update": [
+    {
+      "id": "cli.submodule--helper-update.filter-init",
+      "kind": "requiresAny",
+      "when": {
+        "key": "filter",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "init",
+          "test": "active"
+        },
+        {
+          "key": "require-init",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Filtering requires initialization; require-init implies init after all options are parsed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule--helper-update.ref-format",
+      "kind": "value",
+      "key": "ref-format",
+      "allowed": [
+        "files",
+        "reftable"
+      ],
+      "origin": "git",
+      "reason": "Explicit ref formats must name a supported backend.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper absorbgitdirs": [],
+  "submodule--helper set-url": [
+    {
+      "id": "cli.submodule--helper-set-url.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper set-branch": [
+    {
+      "id": "cli.submodule--helper-set-branch.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule--helper-set-branch.selection",
+      "kind": "requiresAny",
+      "when": {
+        "key": "argumentTokens",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "branch",
+          "test": "present"
+        },
+        {
+          "key": "default",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "One tracking selection is required.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule--helper-set-branch.exclusive",
+      "kind": "conflicts",
+      "when": {
+        "key": "branch",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "default",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicit branch and default selection conflict.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper create-branch": [
+    {
+      "id": "cli.submodule--helper-create-branch.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 3,
+      "max": 3,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper add": [
+    {
+      "id": "cli.submodule--helper-add.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule--helper-add.ref-format",
+      "kind": "value",
+      "key": "ref-format",
+      "allowed": [
+        "files",
+        "reftable"
+      ],
+      "origin": "git",
+      "reason": "Explicit ref formats must name a supported backend.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper gitdir": [
+    {
+      "id": "cli.submodule--helper-gitdir.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper push-check": [
+    {
+      "id": "cli.submodule--helper-push-check.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule--helper migrate-gitdir-configs": [],
+  "submodule add": [
+    {
+      "id": "cli.submodule-add.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule-add.ref-format",
+      "kind": "value",
+      "key": "ref-format",
+      "allowed": [
+        "files",
+        "reftable"
+      ],
+      "origin": "git",
+      "reason": "Explicit ref formats must name a supported backend.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule foreach": [],
+  "submodule init": [],
+  "submodule deinit": [
+    {
+      "id": "cli.submodule-deinit.all-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule-deinit.explicit-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "all",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule update": [
+    {
+      "id": "cli.submodule-update.filter-init",
+      "kind": "requiresAny",
+      "when": {
+        "key": "filter",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "init",
+          "test": "active"
+        },
+        {
+          "key": "require-init",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Filtering requires initialization; require-init implies init after all options are parsed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule-update.ref-format",
+      "kind": "value",
+      "key": "ref-format",
+      "allowed": [
+        "files",
+        "reftable"
+      ],
+      "origin": "git",
+      "reason": "Explicit ref formats must name a supported backend.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule-update.short-init-forwarding",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "short-init",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-submodule.sh",
+      "reason": "The shell forwards its last init spelling unchanged; the helper rejects -i. A later --init replaces it."
+    }
+  ],
+  "submodule set-branch": [
+    {
+      "id": "cli.submodule-set-branch.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule-set-branch.selection",
+      "kind": "requiresAny",
+      "when": {
+        "key": "argumentTokens",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "branch",
+          "test": "present"
+        },
+        {
+          "key": "default",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "One tracking selection is required.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule-set-branch.exclusive",
+      "kind": "conflicts",
+      "when": {
+        "key": "branch",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "default",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicit branch and default selection conflict.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule set-url": [
+    {
+      "id": "cli.submodule-set-url.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule summary": [
+    {
+      "id": "cli.submodule-summary.sources",
+      "kind": "exclusive",
+      "guard": [
+        {
+          "key": "summary-limit",
+          "test": "notEquals",
+          "value": 0
+        }
+      ],
+      "keys": [
+        "cached",
+        "files"
+      ],
+      "origin": "git",
+      "reason": "Cached and files conflict unless a zero summary limit returns early.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "submodule status": [],
+  "submodule sync": [],
+  "submodule absorbgitdirs": [],
+  "submodule--helper": [
+    {
+      "id": "cli.submodule--helper.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    },
+    {
+      "id": "cli.submodule--helper.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "get-default-remote",
+        "foreach",
+        "init",
+        "status",
+        "summary",
+        "sync",
+        "deinit",
+        "clone",
+        "update",
+        "absorbgitdirs",
+        "set-url",
+        "set-branch",
+        "create-branch",
+        "add",
+        "gitdir",
+        "push-check",
+        "migrate-gitdir-configs"
+      ],
+      "origin": "git",
+      "reason": "The native dispatcher accepts only registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c"
+    }
+  ],
+  "sparse-checkout": [
+    {
+      "id": "cli.sparse-checkout.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/sparse-checkout.c"
+    },
+    {
+      "id": "cli.sparse-checkout.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "list",
+        "init",
+        "set",
+        "add",
+        "reapply",
+        "clean",
+        "disable",
+        "check-rules"
+      ],
+      "origin": "git",
+      "reason": "The native dispatcher accepts only registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/sparse-checkout.c"
+    }
+  ],
+  "sparse-checkout list": [],
+  "sparse-checkout init": [],
+  "sparse-checkout set": [],
+  "sparse-checkout add": [],
+  "sparse-checkout reapply": [],
+  "sparse-checkout clean": [],
+  "sparse-checkout disable": [],
+  "sparse-checkout check-rules": [],
+  "submodule": [
+    {
+      "id": "cli.submodule.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "add",
+        "foreach",
+        "init",
+        "deinit",
+        "update",
+        "set-branch",
+        "set-url",
+        "summary",
+        "status",
+        "sync",
+        "absorbgitdirs"
+      ],
+      "origin": "git",
+      "reason": "No operation defaults to status; explicit dispatch must name an existing operation.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-submodule.sh"
+    },
+    {
+      "id": "cli.submodule.cached-operation",
+      "kind": "value",
+      "guard": [
+        {
+          "key": "cached",
+          "test": "active"
+        }
+      ],
+      "key": "operand0",
+      "allowed": [
+        "status",
+        "summary"
+      ],
+      "origin": "git",
+      "reason": "The shell accepts a leading cached flag only for status or summary.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-submodule.sh"
+    }
+  ]
 }
