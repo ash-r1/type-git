@@ -2,7 +2,7 @@ import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
-import type { CommandSpec } from './spec.js';
+import type { CommandSpec, OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
 /** Build argv without a shell, preserving repeated options and interleaved operands. */
@@ -79,7 +79,12 @@ export function commandArguments(
     if (typeof flag !== 'string') {
       throw new GitArgumentError(`${command}: option names must be strings`);
     }
-    const option = Object.hasOwn(spec.options, flag) ? spec.options[flag] : undefined;
+    const numeric = !Object.hasOwn(spec.options, flag) && spec.numericOption && /^-\d+$/.test(flag);
+    const option: OptionSpec | undefined = Object.hasOwn(spec.options, flag)
+      ? spec.options[flag]
+      : numeric
+        ? { ...spec.numericOption!, value: 'flag', set: Number(flag.slice(1)) }
+        : undefined;
     if (!option || arg.length > 2) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
     }
@@ -110,7 +115,7 @@ export function commandArguments(
       }
     }
     if (
-      supplied &&
+      (supplied || numeric) &&
       option.allowed &&
       !option.allowed.includes(
         (option.caseInsensitive && typeof value === 'string' ? asciiLower(value) : value) as

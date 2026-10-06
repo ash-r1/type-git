@@ -52,6 +52,8 @@ export type CommandSpec = {
   /** Parser defaults supplied by the command before consuming user options. */
   initial?: Readonly<Record<string, string | number | boolean>>;
   options: Readonly<Record<string, OptionSpec>>;
+  /** Native OPTION_NUMBER callback for a token such as -12. */
+  numericOption?: OptionSpec;
   rules: readonly Constraint[];
   source: string;
   /** Whether `--` is recognized as an end-of-options marker. */

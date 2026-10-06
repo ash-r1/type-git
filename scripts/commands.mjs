@@ -42,15 +42,15 @@ try {
     const inherited = mappings[name] ? COMMAND_CONSTRAINTS[mappings[name]].filter((r) => r.origin === 'git' && r.kind !== 'unsupported').map(rename) : [];
     if (name === 'lfs checkout') inherited.push(...INPUT_CONSTRAINTS.lfsCheckout.map(rename));
     const rules = [...inherited, ...(additional[name] ?? [])];
-    const keys = new Set(['argumentTokens', 'operands', 'operand0', 'inRepository', 'hasSeparator', 'operandsBeforeSeparator', 'pathsAfterSeparator', ...Object.keys(entry.initial ?? {}), ...Object.values(entry.options).flatMap((opt) => [opt.key, ...(opt.effects ?? []).map(effect => effect.key)])]);
+    const keys = new Set(['argumentTokens', 'operands', 'operand0', 'inRepository', 'hasSeparator', 'operandsBeforeSeparator', 'pathsAfterSeparator', ...Object.keys(entry.initial ?? {}), ...[...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])].flatMap((opt) => [opt.key, ...(opt.effects ?? []).map(effect => effect.key)])]);
     for (const rule of rules) for (const key of referencedKeys(rule)) if (!keys.has(key)) throw new Error(`${name}: rule ${rule.id} refers to unknown input ${key}`);
     catalog[name] = { ...entry, options: Object.fromEntries(Object.entries(entry.options).map(([flag, opt]) => [flag, opt.repeat ? { ...opt, skipEmpty: true } : opt])), rules };
   }
   for (const name of Object.keys(additional)) if (!catalog[name]) throw new Error(`Rules for unknown command ${name}`);
   for (const [name, entry] of Object.entries(catalog)) {
-    const keys = new Set(['argumentTokens', 'operands', 'operand0', 'inRepository', 'hasSeparator', 'operandsBeforeSeparator', 'pathsAfterSeparator', ...Object.keys(entry.initial ?? {}), ...Object.values(entry.options).flatMap((opt) => [opt.key, ...(opt.effects ?? []).map(effect => effect.key)])]);
+    const keys = new Set(['argumentTokens', 'operands', 'operand0', 'inRepository', 'hasSeparator', 'operandsBeforeSeparator', 'pathsAfterSeparator', ...Object.keys(entry.initial ?? {}), ...[...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])].flatMap((opt) => [opt.key, ...(opt.effects ?? []).map(effect => effect.key)])]);
     for (const rule of entry.rules) for (const key of referencedKeys(rule)) if (!keys.has(key)) throw new Error(`${name}: rule ${rule.id} refers to unknown input ${key}`);
-    for (const option of Object.values(entry.options)) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
+    for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
   }
   // Keep each inferred literal type below TypeScript's declaration serialization
   // limit. The registry references these types instead of expanding every schema.
@@ -71,7 +71,7 @@ try {
   const exploration = Object.entries(catalog).map(([command, spec]) => {
     const domains = commandDomains(spec, referencedKeys);
     const result = solve(spec.rules, domains);
-    const transitions = Object.entries(spec.options).filter(([, option]) => option.checks?.length).map(([flag, option]) => {
+    const transitions = [...Object.entries(spec.options), ...(spec.numericOption ? [['-<digits>', spec.numericOption]] : [])].filter(([, option]) => option.checks?.length).map(([flag, option]) => {
       const transition = { ...spec, options: { ...spec.options, $incoming: { ...option, key: '$value', repeat: false, effects: [] } }, rules: option.checks };
       const referenced = new Set(option.checks.flatMap(referencedKeys));
       const domains = Object.fromEntries(Object.entries(commandDomains(transition, referencedKeys)).filter(([key]) => referenced.has(key)));
