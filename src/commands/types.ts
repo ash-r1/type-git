@@ -7,11 +7,13 @@ import type { OptionSpec } from './spec.js';
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
-type Value<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean'
-  ? boolean
-  : S['value'] extends 'integer' | 'optional-integer'
-    ? number
-    : string;
+type Value<S extends OptionSpec> = S extends { allowed: infer A extends readonly unknown[] }
+  ? A[number]
+  : S['value'] extends 'flag' | 'boolean'
+    ? boolean
+    : S['value'] extends 'integer' | 'optional-integer'
+      ? number
+      : string;
 type Token<K, S extends OptionSpec> = S['value'] extends 'flag'
   ? readonly [flag: K]
   : S['value'] extends 'boolean' | 'optional-string' | 'optional-integer'
@@ -34,12 +36,27 @@ type AllOptions<C extends GitCommandName> = Options<C>[keyof Options<C>] & Optio
 type Base<C extends GitCommandName> = {
   [S in AllOptions<C> as S['key']]?:
     | Value<S>
+    | DefaultValue<S>
     | (S['value'] extends 'optional-string' | 'optional-integer' ? true : never)
-    | (S extends { repeat: true } ? readonly Value<S>[] : never);
-} & { operands: readonly string[]; operand0?: string; inRepository?: boolean };
+    | (S extends { repeat: true } ? readonly (Value<S> | DefaultValue<S>)[] : never);
+} & {
+  operands: readonly string[];
+  operandsBeforeSeparator: readonly string[];
+  pathsAfterSeparator: readonly string[];
+  hasSeparator?: boolean;
+  operand0?: string;
+  inRepository?: boolean;
+};
 type Initial<C extends GitCommandName> = {
-  [K in Exclude<keyof Base<C>, 'operands'>]?: undefined;
-} & { operands: readonly [] };
+  [K in Exclude<
+    keyof Base<C>,
+    'operands' | 'operandsBeforeSeparator' | 'pathsAfterSeparator'
+  >]?: undefined;
+} & {
+  operands: readonly [];
+  operandsBeforeSeparator: readonly [];
+  pathsAfterSeparator: readonly [];
+};
 type Put<S, K extends PropertyKey, V> = Omit<S, K> & { [P in K]: V };
 type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   ? undefined
@@ -52,7 +69,11 @@ type TokenValue<T extends readonly unknown[], D extends OptionSpec> = T extends 
 ]
   ? V extends undefined
     ? DefaultValue<D>
-    : V
+    : D extends { emptyIsUnset: true }
+      ? V extends ''
+        ? undefined
+        : V
+      : V
   : DefaultValue<D>;
 type Append<S, D extends OptionSpec, V> = D extends { clear: true }
   ? readonly []
@@ -73,25 +94,79 @@ type Accumulate<S, D extends OptionSpec, V> = readonly [
     : readonly []),
   V,
 ];
+type Effects<S, E extends NonNullable<OptionSpec['effects']>> = E extends readonly [
+  infer H extends NonNullable<OptionSpec['effects']>[number],
+  ...infer R extends NonNullable<OptionSpec['effects']>,
+]
+  ? Effects<
+      H extends { when: { equals: infer V } }
+        ? H['key'] extends keyof S
+          ? S[H['key']] extends V
+            ? Put<S, H['key'], H['set']>
+            : S
+          : S
+        : H extends { when: { notEquals: infer V } }
+          ? H['key'] extends keyof S
+            ? S[H['key']] extends V
+              ? S
+              : Put<S, H['key'], H['set']>
+            : Put<S, H['key'], H['set']>
+          : Put<S, H['key'], H['set']>,
+      R
+    >
+  : S;
+type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends { repeat: true }
+  ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
+  : Put<S, D['key'], TokenValue<T, D>>;
+type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  modeGroup: infer G extends string;
+}
+  ? `mode:${G}` extends keyof S
+    ? TokenValue<T, D> extends false | undefined
+      ? never
+      : S[`mode:${G}`] extends D['key']
+        ? OptionState<S, D, T>
+        : never
+    : TokenValue<T, D> extends false | undefined
+      ? OptionState<S, D, T>
+      : Put<OptionState<S, D, T>, `mode:${G}`, D['key']>
+  : OptionState<S, D, T>;
+type AddOperand<
+  S,
+  V,
+  K extends PropertyKey = S extends { ended: true }
+    ? 'pathsAfterSeparator'
+    : 'operandsBeforeSeparator',
+> = Put<
+  S,
+  K,
+  readonly [
+    ...(K extends keyof S ? (S[K] extends readonly unknown[] ? S[K] : readonly []) : readonly []),
+    V,
+  ]
+>;
 type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
   ? S extends { ended: true }
     ? never
-    : Put<S, 'ended', true>
+    : Put<Put<S, 'ended', true>, 'hasSeparator', true>
   : T extends { operand: infer V extends string }
     ? S extends { operands: infer P extends readonly string[] }
-      ? Put<
-          Put<S, 'operands', readonly [...P, V]>,
-          'operand0',
-          P extends readonly [] ? V : S extends { operand0: infer F } ? F : string
+      ? AddOperand<
+          Put<
+            Put<S, 'operands', readonly [...P, V]>,
+            'operand0',
+            P extends readonly [] ? V : S extends { operand0: infer F } ? F : string
+          >,
+          V
         >
       : never
     : S extends { ended: true }
       ? never
       : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
         ? Options<C>[K] extends infer D extends OptionSpec
-          ? D extends { repeat: true }
-            ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
-            : Put<S, D['key'], TokenValue<T, D>>
+          ? D extends { effects: infer E extends NonNullable<OptionSpec['effects']> }
+            ? Effects<ModeState<S, D, T>, E>
+            : ModeState<S, D, T>
           : never
         : S;
 type State<

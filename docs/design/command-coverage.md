@@ -19,7 +19,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `backfill` | documented | pending | pending |  | Audit every applicable facet. |
 | `bisect` | documented | pending | pending |  | Audit every applicable facet. |
 | `blame` | documented | pending | pending |  | Audit every applicable facet. |
-| `branch` | documented | pending | pending |  | Audit every applicable facet. |
+| `branch` | documented | partial | yes |  | Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering. |
 | `bugreport` | documented | pending | pending |  | Audit every applicable facet. |
 | `bundle` | documented | pending | pending |  | Audit every applicable facet. |
 | `cat-file` | documented | pending | pending |  | Audit every applicable facet. |
@@ -27,16 +27,16 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `check-ignore` | documented | pending | pending |  | Audit every applicable facet. |
 | `check-mailmap` | documented | pending | pending |  | Audit every applicable facet. |
 | `check-ref-format` | documented | pending | pending |  | Audit every applicable facet. |
-| `checkout` | documented | partial | pending | checkoutBranch, checkoutPath | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `checkout` | documented | partial | yes | checkoutBranch, checkoutPath | Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. |
 | `checkout--worker` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `checkout-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `cherry` | documented | pending | pending |  | Audit every applicable facet. |
 | `cherry-pick` | documented | partial | pending | cherryPick | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
 | `citool` | documented | pending | pending |  | Audit every applicable facet. |
 | `clean` | documented | partial | yes | clean | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
-| `clone` | documented | partial | pending | clone | Transport/configuration conditions; options not exposed by CloneOpts. |
+| `clone` | documented | partial | yes | clone | Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. |
 | `column` | documented | pending | pending |  | Audit every applicable facet. |
-| `commit` | documented | partial | pending | commit | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `commit` | documented | partial | yes | commit | Cleanup/fixup value grammars, repository-dependent author/content modes, callbacks and abbreviations. |
 | `commit-graph` | documented | pending | pending |  | Audit every applicable facet. |
 | `commit-tree` | documented | pending | pending |  | Audit every applicable facet. |
 | `config` | documented | pending | pending |  | Audit every applicable facet. |
@@ -61,7 +61,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `difftool` | documented | pending | pending |  | Audit every applicable facet. |
 | `fast-export` | documented | pending | pending |  | Audit every applicable facet. |
 | `fast-import` | documented | pending | pending |  | Audit every applicable facet. |
-| `fetch` | documented | partial | pending | fetch | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `fetch` | documented | partial | yes | fetch | Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. |
 | `fetch-pack` | documented | pending | pending |  | Audit every applicable facet. |
 | `filter-branch` | documented | pending | pending |  | Audit every applicable facet. |
 | `fmt-merge-msg` | documented | pending | pending |  | Audit every applicable facet. |
@@ -172,7 +172,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `prune` | documented | pending | pending |  | Audit every applicable facet. |
 | `prune-packed` | documented | pending | pending |  | Audit every applicable facet. |
 | `pull` | documented | partial | pending | pull | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
-| `push` | documented | partial | pending | push | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `push` | documented | partial | yes | push | Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations. |
 | `quiltimport` | documented | pending | pending |  | Audit every applicable facet. |
 | `range-diff` | documented | pending | pending |  | Audit every applicable facet. |
 | `read-tree` | documented | pending | pending |  | Audit every applicable facet. |
@@ -200,8 +200,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `repo` | documented | pending | pending |  | Audit every applicable facet. |
 | `request-pull` | documented | pending | pending |  | Audit every applicable facet. |
 | `rerere` | documented | pending | pending |  | Audit every applicable facet. |
-| `reset` | documented | partial | pending | reset | Patch input, positional paths, file content dependent pathspec checks, complete CLI surface. |
-| `restore` | documented | partial | pending | restore | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `reset` | documented | partial | yes | reset | Revision/path disambiguation before --, pathspec file contents, repository state, numeric lexical forms and abbreviations. |
+| `restore` | documented | partial | yes | restore | Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. |
 | `rev-list` | documented | pending | pending |  | Audit every applicable facet. |
 | `rev-parse` | documented | pending | pending |  | Audit every applicable facet. |
 | `revert` | documented | partial | pending | revert | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
@@ -220,16 +220,25 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `sparse-checkout` | documented | pending | pending |  | Audit every applicable facet. |
 | `stage` | documented | pending | pending |  | Audit every applicable facet. |
 | `stash` | documented | pending | pending |  | Audit every applicable facet. |
-| `stash push` | reviewed-scope | partial | pending | stashPush | Patch mode and complete CLI surface. |
-| `status` | documented | partial | pending | status | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `stash apply` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash branch` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash clear` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash drop` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash export` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash import` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash pop` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash push` | reviewed-scope | partial | yes | stashPush | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash save` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash store` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `status` | documented | partial | yes | status | Callback grammars, configuration-dependent defaults, abbreviations and independent coverage of all output values. |
 | `stripspace` | documented | pending | pending |  | Audit every applicable facet. |
 | `submodule` | documented | pending | pending |  | Audit every applicable facet. |
 | `submodule update` | reviewed-scope | partial | pending | submoduleUpdate | require-init, numeric options and complete CLI surface. |
 | `submodule--helper` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `svn` | documented | pending | pending |  | Audit every applicable facet. |
-| `switch` | documented | partial | pending | switch | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `switch` | documented | partial | yes | switch | Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars. |
 | `symbolic-ref` | documented | pending | pending |  | Audit every applicable facet. |
-| `tag` | documented | partial | pending | tagCreate | List/verify/delete modes and complete CLI surface. |
+| `tag` | documented | partial | yes | tagCreate | Column and formatting callback grammars, implicit listing with -n=-1, signing configuration, object names and abbreviations. |
 | `unpack-file` | documented | pending | pending |  | Audit every applicable facet. |
 | `unpack-objects` | documented | pending | pending |  | Audit every applicable facet. |
 | `update-index` | documented | pending | pending |  | Audit every applicable facet. |
@@ -245,6 +254,13 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `verify-tag` | documented | pending | pending |  | Audit every applicable facet. |
 | `version` | documented | pending | pending |  | Audit every applicable facet. |
 | `whatchanged` | documented | pending | pending |  | Audit every applicable facet. |
-| `worktree` | documented | pending | pending |  | Audit every applicable facet. |
-| `worktree add` | reviewed-scope | partial | pending | worktreeAdd | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `worktree` | documented | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `worktree add` | reviewed-scope | partial | yes | worktreeAdd | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `worktree list` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `worktree lock` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `worktree move` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `worktree prune` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `worktree remove` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `worktree repair` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `worktree unlock` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `write-tree` | documented | pending | pending |  | Audit every applicable facet. |

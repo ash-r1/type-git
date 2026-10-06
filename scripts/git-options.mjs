@@ -21,11 +21,15 @@ export function gitOptions(upstream, scopes, rules) {
       const optional = flags.includes('PARSE_OPT_OPTARG') || flags.includes('PARSE_OPT_LASTARG_DEFAULT');
       const numeric = ['OPTION_INTEGER', 'OPTION_UNSIGNED'].includes(kind);
       const value = noarg ? 'flag' : `${optional ? 'optional-' : ''}${numeric ? 'integer' : 'string'}`;
-      const base = { key, value, ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') ? { repeat: true } : {}) };
+      const defaultString = optional && fields.defval?.match(/"(?:\\.|[^"\\])*"/);
+      const callback = (fields.callback ?? '').replace(/[&()]/g, '');
+      const parser = { option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
+      const base = { ...(parser ? { parser } : {}), key, value, ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || callback === 'recurse_submodules_cb' ? { repeat: true } : {}) };
+      if (flags.includes('PARSE_OPT_CMDMODE')) base.modeGroup = fields.value;
       if (long) options[`--${long}`] = base;
       if (short) options[`${flags.includes('PARSE_OPT_NODASH') ? '' : '-'}${short}`] = base;
       if (long && !flags.includes('PARSE_OPT_NONEG')) {
-        const negated = { ...base, value: 'flag', ...(noarg ? { set: false } : { clear: true }) };
+        const negated = { ...base, value: 'flag', ...(noarg || parser ? { set: false } : { clear: true }) };
         options[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] = negated;
         if (long.startsWith('no-')) options[`--no-${long}`] = negated;
       }

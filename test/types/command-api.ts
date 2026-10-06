@@ -96,3 +96,121 @@ git.command('rm', [['--pathspec-from-file', '-'], { operand: 'file' }]);
 git.command('mv', [{ operand: 'old' }]);
 // @ts-expect-error Ignored-only and all-untracked modes conflict.
 git.command('clean', [['-x'], ['-X']]);
+
+git.command('status', [['--long'], ['--short'], ['-z']]);
+git.command('status', [['--porcelain', 'v2'], ['-u']]);
+git.command('commit', [['--file', ''], ['-m', 'message'], ['--allow-empty']]);
+git.command('commit', [['--fixup', 'HEAD'], ['-m', 'extra']]);
+git.command('clone', [['--filter', 'blob:none'], ['--recurse-submodules'], ['--also-filter-submodules'], { operand: '.' }]);
+git.command('clone', [['--mirror'], ['--no-mirror'], ['--separate-git-dir', 'gitdir'], { operand: '.' }]);
+git.command('worktree list', [['--porcelain'], ['-z']]);
+git.command('worktree list', [['--verbose'], ['--no-verbose'], ['--porcelain']]);
+git.command('worktree add', [['--orphan'], ['-b', 'empty'], { operand: 'dir' }]);
+// @ts-expect-error Last output mode is long, incompatible with NUL.
+git.command('status', [['--short'], ['--long'], ['-z']]);
+// @ts-expect-error Porcelain callback rejects bad values immediately, even when overwritten.
+git.command('status', [['--porcelain', 'invalid'], ['--porcelain', '2']]);
+// @ts-expect-error Matching ignored files needs untracked output.
+git.command('status', [['--ignored', 'matching'], ['--untracked-files', 'no']]);
+// @ts-expect-error Empty -m still counts as a literal message.
+git.command('commit', [['--fixup', 'amend:HEAD'], ['-m', '']]);
+// @ts-expect-error Reword fixup forbids content selection.
+git.command('commit', [['--fixup', 'reword:HEAD'], ['--only']]);
+// @ts-expect-error Explicit revision cannot be combined with a selected branch.
+git.command('clone', [['--revision', 'HEAD'], ['--branch', 'main'], { operand: '.' }]);
+// @ts-expect-error Bundle URI and shallow history options conflict.
+git.command('clone', [['--bundle-uri', 'file'], ['--depth', '1'], { operand: '.' }]);
+// @ts-expect-error Orphan worktree also rejects explicitly disabled tracking.
+git.command('worktree add', [['--orphan'], ['--no-track'], { operand: 'dir' }]);
+// @ts-expect-error Verbose porcelain is rejected by Git.
+git.command('worktree list', [['--porcelain'], ['--verbose']]);
+
+git.command('fetch', [['--porcelain'], ['--recurse-submodules', 'no']]);
+git.command('fetch', [['--negotiate-only'], ['--recurse-submodules', 'OFF']]);
+git.command('fetch', [['--multiple'], { operand: 'origin' }, { operand: 'backup' }]);
+git.command('push', [['--branches'], ['--no-all'], ['--tags']]);
+git.command('clone', [['--filter', 'blob:none'], ['--recursive', ''], ['--also-filter-submodules'], { operand: '.' }]);
+// @ts-expect-error Explicit recursive fetch is incompatible with porcelain.
+git.command('fetch', [['--porcelain'], ['--recurse-submodules']]);
+// @ts-expect-error Negotiate only cannot recurse on demand.
+git.command('fetch', [['--negotiate-only'], ['--recurse-submodules', 'on-demand']]);
+// @ts-expect-error All repositories mode cannot include a positional remote.
+git.command('fetch', [['--all'], { operand: 'origin' }]);
+// @ts-expect-error Delete requires both positional remote and refs, even with --repo.
+git.command('push', [['--delete'], ['--repo', 'origin'], { operand: 'branch' }]);
+// @ts-expect-error Branches is an alias for all and conflicts with tags.
+git.command('push', [['--branches'], ['--tags']]);
+// @ts-expect-error Negating recursion clears all previously accumulated pathspecs.
+git.command('clone', [['--recursive'], ['--no-recursive'], ['--filter', 'blob:none'], ['--also-filter-submodules'], { operand: '.' }]);
+
+// Branch bit flags accumulate inside each action group; the groups are exclusive.
+git.command('branch', [['-d'], ['-D'], { operand: 'old' }]);
+git.command('branch', [['-d'], ['--no-delete'], ['--list']]);
+git.command('branch', [['--show-current'], { operand: 'ignored' }, { operand: 'also-ignored' }]);
+git.command('branch', [['-a'], ['-r'], ['-D'], { operand: 'origin/old' }]);
+// @ts-expect-error -D retains its own bit even after --no-delete.
+git.command('branch', [['-D'], ['--no-delete'], ['--list']]);
+// @ts-expect-error Filters implicitly select list mode.
+git.command('branch', [['--contains', 'HEAD'], ['--no-list'], ['-D'], { operand: 'old' }]);
+// @ts-expect-error Copy and rename are separate actions.
+git.command('branch', [['-M'], ['-C'], { operand: 'new' }]);
+// @ts-expect-error Combined scope cannot delete branches.
+git.command('branch', [['-r'], ['-a'], ['-D'], { operand: 'old' }]);
+// @ts-expect-error Tracking callback rejects invalid values even if overwritten.
+git.command('branch', [['--track', 'bad'], ['--track', 'direct'], { operand: 'new' }]);
+git.command('switch', [['--create', 'new']]);
+git.command('switch', [['--detach']]);
+git.command('switch', [['--conflict', 'diff3'], ['--no-conflict'], ['--force'], { operand: 'main' }]);
+// @ts-expect-error Conflict enables merge, which conflicts with discard-changes.
+git.command('switch', [['--discard-changes'], ['--conflict', 'diff3'], { operand: 'main' }]);
+// @ts-expect-error --no-conflict does not cancel explicitly requested --merge.
+git.command('switch', [['--merge'], ['--conflict', 'diff3'], ['--no-conflict'], ['--force'], { operand: 'main' }]);
+// @ts-expect-error Orphan switch rejects a start point.
+git.command('switch', [['--orphan', 'empty'], { operand: 'HEAD' }]);
+// @ts-expect-error Orphan also rejects --no-track.
+git.command('switch', [['--orphan', 'empty'], ['--no-track']]);
+git.command('restore', [['--ours'], ['--theirs'], { operand: 'file' }]);
+git.command('restore', [['--staged'], ['--worktree'], { operand: 'file' }]);
+git.command('restore', [['--no-staged'], ['--worktree'], { operand: 'file' }]);
+// @ts-expect-error Explicit no-staged suppresses the implicit worktree destination.
+git.command('restore', [['--no-staged'], { operand: 'file' }]);
+// @ts-expect-error Stage selection cannot restore from a tree.
+git.command('restore', [['--source', 'HEAD'], ['--ours'], { operand: 'file' }]);
+// @ts-expect-error Conflict callback reenables a previously disabled merge.
+git.command('restore', [['--no-merge'], ['--conflict', 'diff3'], ['--staged'], { operand: 'file' }]);
+// @ts-expect-error Explicit overlay is incompatible with patch mode.
+git.command('checkout', [['--patch'], ['--overlay'], { operand: 'file' }]);
+git.command('checkout', [['--patch'], ['--no-overlay'], { operand: 'file' }]);
+
+git.command('reset', [['--hard'], ['--mixed'], ['--intent-to-add'], ['--'], { operand: 'file' }]);
+// @ts-expect-error Last reset mode is hard and cannot update explicit paths.
+git.command('reset', [['--mixed'], ['--hard'], ['--'], { operand: 'file' }]);
+// @ts-expect-error Even mixed is an explicit mode, forbidden with patch.
+git.command('reset', [['--mixed'], ['--patch']]);
+// @ts-expect-error Only one revision precedes --.
+git.command('reset', [{ operand: 'HEAD' }, { operand: 'HEAD~1' }, ['--'], { operand: 'file' }]);
+// @ts-expect-error Explicit path mode cannot create a branch.
+git.command('checkout', [['-b', 'new'], ['--'], { operand: 'file' }]);
+git.command('tag', [['--list'], ['--list']]);
+git.command('tag', [['--delete'], { operand: 'old' }]);
+git.command('tag', [['--list'], ['-n', 2]]);
+git.command('tag', [['--file', ''], ['--message', 'message'], { operand: 'tag' }]);
+// @ts-expect-error Git CMDMODE rejects a change immediately, even if the first mode is repeated later.
+git.command('tag', [['--list'], ['--delete'], ['--list']]);
+// @ts-expect-error CMDMODE options do not support negation.
+git.command('tag', [['--list'], ['--no-list']]);
+// @ts-expect-error Creation options cannot accompany implicit listing.
+git.command('tag', [['--contains', 'HEAD'], ['--annotate'], { operand: 'pattern' }]);
+git.command('stash push', [['--all'], ['--no-include-untracked'], ['--staged']]);
+git.command('stash save', [{ operand: 'multiple' }, { operand: 'message' }, { operand: 'words' }]);
+git.command('stash export', [['--print']]);
+// @ts-expect-error Export requires exactly one output mode.
+git.command('stash export', []);
+// @ts-expect-error Export output modes conflict.
+git.command('stash export', [['--print'], ['--to-ref', 'refs/stashes/export']]);
+// @ts-expect-error Last untracked mode is enabled and conflicts with staged.
+git.command('stash push', [['--no-include-untracked'], ['--all'], ['--staged']]);
+// @ts-expect-error Store requires one commit.
+git.command('stash store', []);
+// @ts-expect-error Import requires exactly one commit.
+git.command('stash import', [{ operand: 'a' }, { operand: 'b' }]);
