@@ -20300,5 +20300,149 @@
       "reason": "Export-all requires explicit root directories before environment fallback; version exits before this check.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-cvsserver.perl"
     }
+  ],
+  "send-email": [
+    {
+      "id": "cli.send-email.alias-modes",
+      "kind": "exclusive",
+      "keys": [
+        "dump-aliases",
+        "translate-aliases"
+      ],
+      "origin": "git",
+      "reason": "Dump and translate alias modes conflict before the main option pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
+    },
+    {
+      "id": "cli.send-email.dump-aliases-options",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "dump-aliases",
+          "test": "active"
+        },
+        {
+          "key": "ordinary-options",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Alias mode permits identity and help selectors but no ordinary options.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
+    },
+    {
+      "id": "cli.send-email.dump-aliases-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "dump-aliases",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Alias mode permits no remaining argument words.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
+    },
+    {
+      "id": "cli.send-email.translate-aliases-options",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "translate-aliases",
+          "test": "active"
+        },
+        {
+          "key": "ordinary-options",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Alias mode permits identity and help selectors but no ordinary options.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
+    },
+    {
+      "id": "cli.send-email.translate-aliases-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "translate-aliases",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Alias mode permits no remaining argument words.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
+    },
+    {
+      "id": "cli.send-email.suppress-fields",
+      "kind": "elements",
+      "key": "suppress-cc",
+      "allowed": [
+        "all",
+        "cccmd",
+        "cc",
+        "author",
+        "self",
+        "sob",
+        "body",
+        "bodycc",
+        "misc-by"
+      ],
+      "guard": [
+        {
+          "key": "git-completion-helper",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Every suppression field is checked after the final option pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
+    },
+    {
+      "id": "cli.send-email.confirm-prefix",
+      "kind": "requiresAny",
+      "when": {
+        "key": "confirm",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "confirm",
+          "test": "startsWith",
+          "value": "auto"
+        },
+        {
+          "key": "confirm",
+          "test": "startsWith",
+          "value": "cc"
+        },
+        {
+          "key": "confirm",
+          "test": "startsWith",
+          "value": "compose"
+        },
+        {
+          "key": "confirm",
+          "test": "startsWith",
+          "value": "always"
+        },
+        {
+          "key": "confirm",
+          "test": "startsWith",
+          "value": "never"
+        }
+      ],
+      "guard": [
+        {
+          "key": "git-completion-helper",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "The native confirmation regexp accepts these prefixes, including trailing characters.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
+    }
   ]
 }
