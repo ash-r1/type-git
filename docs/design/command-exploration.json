@@ -59049,6 +59049,463 @@
       }
     },
     {
+      "command": "archimport",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "f": [
+          "undefined",
+          "true"
+        ],
+        "T": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "true"
+        ],
+        "a": [
+          "undefined",
+          "true"
+        ],
+        "t": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "D": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "24000",
+      "accepted": "19200",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.archimport.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "cvsexportcommit",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "u": [
+          "undefined",
+          "true"
+        ],
+        "P": [
+          "undefined",
+          "true"
+        ],
+        "p": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "true"
+        ],
+        "c": [
+          "undefined",
+          "true"
+        ],
+        "f": [
+          "undefined",
+          "true"
+        ],
+        "k": [
+          "undefined",
+          "true"
+        ],
+        "a": [
+          "undefined",
+          "true"
+        ],
+        "W": [
+          "undefined",
+          "true"
+        ],
+        "m": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "d": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "w": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3840000",
+      "accepted": "3072000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.cvsexportcommit.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "cvsimport",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "a": [
+          "undefined",
+          "true"
+        ],
+        "i": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "true"
+        ],
+        "m": [
+          "undefined",
+          "true"
+        ],
+        "k": [
+          "undefined",
+          "true"
+        ],
+        "u": [
+          "undefined",
+          "true"
+        ],
+        "R": [
+          "undefined",
+          "true"
+        ],
+        "o": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "d": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "p": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "r": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "C": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "z": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "s": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "M": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "P": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "A": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "S": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "L": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3750000000000",
+      "accepted": "1500000000000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.cvsimport.operands": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "cvsserver",
+      "rules": 3,
+      "domains": {
+        "h": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "base-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "strict-paths": [
+          "undefined",
+          "true"
+        ],
+        "export-all": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"server\"",
+          "\"pserver\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "4800",
+      "accepted": "4440",
+      "nodes": 47,
+      "isolatedRuleWitnesses": {
+        "cli.cvsserver.export-roots": "{\"export-all\":true,\"operands\":[]}",
+        "cli.cvsserver.export-server": "{\"export-all\":true,\"operand0\":\"server\",\"operands\":[\"value\"]}",
+        "cli.cvsserver.export-pserver": "{\"export-all\":true,\"operand0\":\"pserver\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "cvsserver server",
+      "rules": 1,
+      "domains": {
+        "h": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "base-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "strict-paths": [
+          "undefined",
+          "true"
+        ],
+        "export-all": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2400",
+      "accepted": "2280",
+      "nodes": 12,
+      "isolatedRuleWitnesses": {
+        "cli.cvsserver.server.export-roots": "{\"export-all\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "cvsserver pserver",
+      "rules": 1,
+      "domains": {
+        "h": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "base-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "strict-paths": [
+          "undefined",
+          "true"
+        ],
+        "export-all": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2400",
+      "accepted": "2280",
+      "nodes": 12,
+      "isolatedRuleWitnesses": {
+        "cli.cvsserver.pserver.export-roots": "{\"export-all\":true,\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

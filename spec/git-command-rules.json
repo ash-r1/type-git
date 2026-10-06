@@ -20155,5 +20155,150 @@
       "reason": "Only the special CVS server argument is recognized outside command mode.",
       "source": "https://github.com/git/git/blob/v2.55.0/shell.c"
     }
+  ],
+  "archimport": [
+    {
+      "id": "cli.archimport.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native frontend requires at least one target; extra export words before the last two are ignored.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-archimport.perl"
+    }
+  ],
+  "cvsexportcommit": [
+    {
+      "id": "cli.cvsexportcommit.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native frontend requires at least one target; extra export words before the last two are ignored.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-cvsexportcommit.perl"
+    }
+  ],
+  "cvsimport": [
+    {
+      "id": "cli.cvsimport.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "The native frontend checks this operand count before invoking its foreign VCS tools; cvsexportcommit ignores operands before the last two.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-cvsimport.perl"
+    }
+  ],
+  "cvsserver": [
+    {
+      "id": "cli.cvsserver.export-roots",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "guard": [
+        {
+          "key": "version",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "export-all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Export-all requires explicit root directories before environment fallback; version exits before this check.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-cvsserver.perl"
+    },
+    {
+      "id": "cli.cvsserver.export-server",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "guard": [
+        {
+          "key": "version",
+          "test": "inactive"
+        },
+        {
+          "key": "operand0",
+          "test": "equals",
+          "value": "server"
+        }
+      ],
+      "when": {
+        "key": "export-all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "A method selector does not count as an export root.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-cvsserver.perl"
+    },
+    {
+      "id": "cli.cvsserver.export-pserver",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "guard": [
+        {
+          "key": "version",
+          "test": "inactive"
+        },
+        {
+          "key": "operand0",
+          "test": "equals",
+          "value": "pserver"
+        }
+      ],
+      "when": {
+        "key": "export-all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "A method selector does not count as an export root.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-cvsserver.perl"
+    }
+  ],
+  "cvsserver server": [
+    {
+      "id": "cli.cvsserver.server.export-roots",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "guard": [
+        {
+          "key": "version",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "export-all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Export-all requires explicit root directories before environment fallback; version exits before this check.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-cvsserver.perl"
+    }
+  ],
+  "cvsserver pserver": [
+    {
+      "id": "cli.cvsserver.pserver.export-roots",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "guard": [
+        {
+          "key": "version",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "export-all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Export-all requires explicit root directories before environment fallback; version exits before this check.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-cvsserver.perl"
+    }
   ]
 }
