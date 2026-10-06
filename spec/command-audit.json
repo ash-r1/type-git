@@ -277,8 +277,12 @@
       "models": [
         "merge"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/sequencer.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations.",
+      "typedCommandAPI": true
     },
     "pull": {
       "state": "partial",
@@ -305,8 +309,12 @@
       "models": [
         "cherryPick"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/sequencer.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand.",
+      "typedCommandAPI": true
     },
     "clean": {
       "state": "partial",
@@ -324,8 +332,12 @@
       "models": [
         "rebase"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/sequencer.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions.",
+      "typedCommandAPI": true
     },
     "restore": {
       "state": "partial",
@@ -344,8 +356,12 @@
       "models": [
         "revert"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/sequencer.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand.",
+      "typedCommandAPI": true
     },
     "lfs pull": {
       "state": "partial",
@@ -1378,6 +1394,26 @@
         "test/types/command-api.ts"
       ],
       "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate."
+    },
+    "merge-base": {
+      "models": [],
+      "tests": [
+        "src/commands/sequencer.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "state": "partial",
+      "typedCommandAPI": true,
+      "remaining": "Object and ref resolution, fork-point reflog state and abbreviated option spellings."
+    },
+    "commit-tree": {
+      "models": [],
+      "tests": [
+        "src/commands/sequencer.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "state": "partial",
+      "typedCommandAPI": true,
+      "remaining": "Tree and parent object validity, signing/configuration, message-file and binary stdin protocols, abbreviations."
     }
   }
 }

@@ -30,6 +30,8 @@ export type OptionSpec = {
   /** Values rejected immediately by the upstream option parser, even if later overwritten. */
   parser?: GitScalarParser;
   allowed?: readonly (string | number | boolean)[];
+  /** Git callbacks using ASCII case-insensitive enum matching. */
+  caseInsensitive?: boolean;
   /** Constraints evaluated before this token changes parser state; $value is the incoming value. */
   checks?: readonly Constraint[];
   /** Ordered callback side effects on other parser variables. */

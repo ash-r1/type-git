@@ -319,3 +319,65 @@ git.command('log', [['--filter', 'blob:none'], ['--no-filter']]);
 // @ts-expect-error Active object filters require object enumeration.
 git.command('log', [['--filter', 'blob:none']]);
 git.command('diff', [['-s'], ['--name-only'], ['--dirstat']]);
+
+git.command('merge', [['--quit']]);
+git.command('merge', [['--no-ff'], ['--ff-only'], ['--squash'], { operand: 'HEAD' }]);
+git.command('merge', [['--squash'], ['--commit'], ['--no-commit'], { operand: 'HEAD' }]);
+git.command('merge', [['--cleanup', 'bad'], ['--cleanup', 'strip'], { operand: 'HEAD' }]);
+// @ts-expect-error A merge continuation must be the only argument, even when repeated.
+git.command('merge', [['--quit'], ['--quit']]);
+// @ts-expect-error A separator also counts as an extra argument.
+git.command('merge', [['--quit'], ['--']]);
+// @ts-expect-error Squash cannot use a final no-ff request.
+git.command('merge', [['--squash'], ['--no-ff'], { operand: 'HEAD' }]);
+// @ts-expect-error Cleanup validates its final value.
+git.command('merge', [['--cleanup', 'bad'], { operand: 'HEAD' }]);
+git.command('rebase', [['--empty', 'AsK'], { operand: 'HEAD' }]);
+git.command('rebase', [['--empty', 'KEEP'], { operand: 'HEAD' }]);
+git.command('rebase', [['--interactive'], ['--merge'], { operand: 'HEAD' }]);
+git.command('rebase', [['--apply'], ['--keep-base'], ['--no-reapply-cherry-picks'], { operand: 'HEAD' }]);
+git.command('rebase', [['--reschedule-failed-exec'], { operand: 'HEAD' }]);
+git.command('rebase', [['-C', '2'], ['--ignore-whitespace'], ['--apply'], { operand: 'HEAD' }]);
+// @ts-expect-error Backend conflicts fail immediately, before a later flag can restore the first backend.
+git.command('rebase', [['--apply'], ['--merge'], ['--apply'], { operand: 'HEAD' }]);
+// @ts-expect-error Both forms of keep-empty imply merge immediately.
+git.command('rebase', [['--no-keep-empty'], ['--apply'], { operand: 'HEAD' }]);
+// @ts-expect-error Reapply-cherry-picks negation still implies merge without keep-base.
+git.command('rebase', [['--apply'], ['--no-reapply-cherry-picks'], { operand: 'HEAD' }]);
+// @ts-expect-error Root has no separate upstream operand.
+git.command('rebase', [['--root'], { operand: 'one' }, { operand: 'two' }]);
+// @ts-expect-error Implicit whitespace strategy is selected before queued apply arguments.
+git.command('rebase', [['-C', '2'], ['--ignore-whitespace'], { operand: 'HEAD' }]);
+// @ts-expect-error ASCII case folding does not accept arbitrary enum words.
+git.command('rebase', [['--empty', 'invalid'], { operand: 'HEAD' }]);
+// @ts-expect-error Unicode lookalikes are not ASCII enum variants.
+git.command('rebase', [['--empty', 'ASK'], { operand: 'HEAD' }]);
+git.command('cherry-pick', [['--quit'], ['--quit'], ['--edit']]);
+git.command('cherry-pick', [['--quit'], ['--strategy', 'unused']]);
+git.command('cherry-pick', [['--quit'], ['-S']]);
+git.command('cherry-pick', [['--mainline', 4294967297], ['--no-mainline'], ['--quit']]);
+git.command('revert', [['--quit'], ['--strategy-option', ''], ['--no-strategy-option']]);
+git.command('revert', [['--reference'], { operand: 'HEAD' }]);
+// @ts-expect-error The same C identifier denotes different extra-option tables; reference is revert-only.
+git.command('cherry-pick', [['--reference'], { operand: 'HEAD' }]);
+// @ts-expect-error Fast-forward replay is cherry-pick-only.
+git.command('revert', [['--ff'], { operand: 'HEAD' }]);
+// @ts-expect-error Cherry-pick empty enum is case-sensitive, unlike rebase.
+git.command('cherry-pick', [['--empty', 'KEEP'], { operand: 'HEAD' }]);
+// @ts-expect-error Empty string-list entries still activate strategy options.
+git.command('cherry-pick', [['--quit'], ['--strategy-option', '']]);
+// @ts-expect-error Continuation rejects leftover revision options.
+git.command('cherry-pick', [['--quit'], ['--max-count', 1]]);
+// @ts-expect-error A revision argument or revision parser option is required.
+git.command('cherry-pick', []);
+// @ts-expect-error Fast-forward replay cannot request editing.
+git.command('cherry-pick', [['--ff'], ['--edit'], { operand: 'HEAD' }]);
+git.command('merge-base', [['--independent']]);
+git.command('merge-base', [['--all'], ['--fork-point'], { operand: 'HEAD' }]);
+// @ts-expect-error Ancestor testing needs exactly two commits.
+git.command('merge-base', [['--is-ancestor'], { operand: 'a' }, { operand: 'b' }, { operand: 'c' }]);
+// @ts-expect-error All and independent modes conflict.
+git.command('merge-base', [['--all'], ['--independent'], { operand: 'HEAD' }]);
+git.command('commit-tree', [['-m', 'first'], ['-F', 'file'], { operand: 'HEAD^{tree}' }]);
+// @ts-expect-error Commit-tree requires one tree.
+git.command('commit-tree', []);

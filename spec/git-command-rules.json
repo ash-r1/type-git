@@ -7414,5 +7414,1152 @@
       "min": 0,
       "max": 1
     }
+  ],
+  "merge": [
+    {
+      "id": "merge.squash",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge.c:cmd_merge",
+      "reason": "Squash rejects explicitly requested commits and no-fast-forward mode.",
+      "when": {
+        "key": "squash",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "commit",
+          "test": "active"
+        },
+        {
+          "key": "ff-mode",
+          "test": "equals",
+          "value": "no"
+        }
+      ]
+    },
+    {
+      "id": "merge.cleanup",
+      "kind": "value",
+      "origin": "git",
+      "source": "Git 2.55.0 sequencer.c:get_cleanup_mode",
+      "reason": "Commit cleanup uses the shared cleanup enum.",
+      "key": "cleanup",
+      "allowed": [
+        "default",
+        "verbatim",
+        "whitespace",
+        "strip",
+        "scissors"
+      ]
+    },
+    {
+      "id": "merge.abort-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge.c:cmd_merge",
+      "reason": "A continuation operation must be the only argument, including repetitions or a separator.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "abort",
+        "test": "active"
+      }
+    },
+    {
+      "id": "merge.quit-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge.c:cmd_merge",
+      "reason": "A continuation operation must be the only argument, including repetitions or a separator.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "quit",
+        "test": "active"
+      }
+    },
+    {
+      "id": "merge.continue-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge.c:cmd_merge",
+      "reason": "A continuation operation must be the only argument, including repetitions or a separator.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "continue",
+        "test": "active"
+      }
+    }
+  ],
+  "rebase": [
+    {
+      "id": "rebase.arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "At most an upstream and a branch may be supplied.",
+      "key": "operands",
+      "min": 0,
+      "max": 2
+    },
+    {
+      "id": "rebase.removed-preserve",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "The preserve-merges backend was removed.",
+      "when": [
+        {
+          "key": "preserve-merges",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "rebase.keep-base",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Keep-base conflicts with an explicit onto and with root.",
+      "when": {
+        "key": "keep-base",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "onto",
+          "test": "present"
+        },
+        {
+          "key": "root",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "rebase.root-fork",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Root cannot use a positive fork-point selection.",
+      "when": {
+        "key": "root",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "fork-point",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "rebase.backends",
+      "kind": "exclusiveGroups",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase/imply_merge",
+      "reason": "Apply-specific arguments conflict with explicit or implied merge backend requests.",
+      "groups": [
+        [
+          {
+            "key": "backend",
+            "test": "equals",
+            "value": "apply"
+          },
+          {
+            "key": "am-options",
+            "test": "nonempty"
+          }
+        ],
+        [
+          {
+            "key": "backend",
+            "test": "equals",
+            "value": "merge"
+          },
+          {
+            "key": "empty",
+            "test": "present"
+          },
+          {
+            "key": "exec",
+            "test": "nonempty"
+          },
+          {
+            "key": "strategy",
+            "test": "present"
+          },
+          {
+            "key": "strategy-option",
+            "test": "nonempty"
+          },
+          {
+            "key": "trailer",
+            "test": "nonempty"
+          },
+          {
+            "key": "rebase-merges",
+            "test": "active"
+          },
+          {
+            "key": "update-refs",
+            "test": "active"
+          },
+          {
+            "key": "autosquash",
+            "test": "active"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "rebase.continue-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "An action must be the only argument.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "continue",
+        "test": "active"
+      }
+    },
+    {
+      "id": "rebase.skip-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "An action must be the only argument.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "skip",
+        "test": "active"
+      }
+    },
+    {
+      "id": "rebase.abort-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "An action must be the only argument.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "abort",
+        "test": "active"
+      }
+    },
+    {
+      "id": "rebase.quit-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "An action must be the only argument.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "quit",
+        "test": "active"
+      }
+    },
+    {
+      "id": "rebase.edit-todo-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "An action must be the only argument.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "edit-todo",
+        "test": "active"
+      }
+    },
+    {
+      "id": "rebase.show-current-patch-only",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "An action must be the only argument.",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "show-current-patch",
+        "test": "active"
+      }
+    },
+    {
+      "id": "rebase.apply-0-root",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Root without onto implies the merge backend.",
+      "when": [
+        {
+          "key": "backend",
+          "test": "equals",
+          "value": "apply"
+        },
+        {
+          "key": "root",
+          "test": "active"
+        },
+        {
+          "key": "onto",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "rebase.apply-0-reapply",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Explicit reapply-cherry-picks, including its negation, implies merge unless keep-base is active.",
+      "when": [
+        {
+          "key": "backend",
+          "test": "equals",
+          "value": "apply"
+        },
+        {
+          "key": "reapply-cherry-picks",
+          "test": "present"
+        },
+        {
+          "key": "keep-base",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "rebase.apply-0-reschedule",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Rescheduling exec requires the merge backend, including when it is selected by default.",
+      "when": [
+        {
+          "key": "backend",
+          "test": "equals",
+          "value": "apply"
+        },
+        {
+          "key": "reschedule-failed-exec",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "rebase.apply-1-root",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Root without onto implies the merge backend.",
+      "when": [
+        {
+          "key": "am-options",
+          "test": "nonempty"
+        },
+        {
+          "key": "root",
+          "test": "active"
+        },
+        {
+          "key": "onto",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "rebase.apply-1-reapply",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Explicit reapply-cherry-picks, including its negation, implies merge unless keep-base is active.",
+      "when": [
+        {
+          "key": "am-options",
+          "test": "nonempty"
+        },
+        {
+          "key": "reapply-cherry-picks",
+          "test": "present"
+        },
+        {
+          "key": "keep-base",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "rebase.apply-1-reschedule",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Rescheduling exec requires the merge backend, including when it is selected by default.",
+      "when": [
+        {
+          "key": "am-options",
+          "test": "nonempty"
+        },
+        {
+          "key": "reschedule-failed-exec",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "rebase.implicit-whitespace-backend",
+      "kind": "forbid",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Without an explicitly selected apply backend, ignore-whitespace adds a merge strategy option before apply arguments select their backend.",
+      "when": [
+        {
+          "key": "am-options",
+          "test": "nonempty"
+        },
+        {
+          "key": "backend",
+          "test": "notEquals",
+          "value": "apply"
+        },
+        {
+          "key": "ignore-whitespace",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "rebase.root-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "when": {
+        "key": "root",
+        "test": "active"
+      },
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase",
+      "reason": "Root mode accepts an optional branch but no upstream operand."
+    }
+  ],
+  "cherry-pick": [
+    {
+      "id": "cherry-pick.cleanup",
+      "kind": "value",
+      "origin": "git",
+      "source": "Git 2.55.0 sequencer.c:get_cleanup_mode",
+      "reason": "Cleanup is checked after option parsing.",
+      "key": "cleanup",
+      "allowed": [
+        "default",
+        "verbatim",
+        "whitespace",
+        "strip",
+        "scissors"
+      ]
+    },
+    {
+      "id": "cherry-pick.revision-input",
+      "kind": "requiresAny",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Normal replay requires a remaining revision argument or revision parser option.",
+      "guard": [
+        {
+          "key": "quit",
+          "test": "inactive"
+        },
+        {
+          "key": "continue",
+          "test": "inactive"
+        },
+        {
+          "key": "abort",
+          "test": "inactive"
+        },
+        {
+          "key": "skip",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "argumentTokens",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "operands",
+          "test": "nonempty"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "cherry-pick.quit-options",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.",
+      "when": {
+        "key": "quit",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "mainline",
+          "test": "nonzero"
+        },
+        {
+          "key": "strategy-option",
+          "test": "nonempty"
+        },
+        {
+          "key": "rerere-autoupdate",
+          "test": "present"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        },
+        {
+          "key": "x",
+          "test": "active"
+        },
+        {
+          "key": "ff",
+          "test": "active"
+        },
+        {
+          "key": "keep-redundant-commits",
+          "test": "active"
+        },
+        {
+          "key": "empty",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "cherry-pick.quit-operands",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation does not accept revisions.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "quit",
+        "test": "active"
+      }
+    },
+    {
+      "id": "cherry-pick.continue-options",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.",
+      "when": {
+        "key": "continue",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "mainline",
+          "test": "nonzero"
+        },
+        {
+          "key": "strategy-option",
+          "test": "nonempty"
+        },
+        {
+          "key": "rerere-autoupdate",
+          "test": "present"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        },
+        {
+          "key": "x",
+          "test": "active"
+        },
+        {
+          "key": "ff",
+          "test": "active"
+        },
+        {
+          "key": "keep-redundant-commits",
+          "test": "active"
+        },
+        {
+          "key": "empty",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "cherry-pick.continue-operands",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation does not accept revisions.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "continue",
+        "test": "active"
+      }
+    },
+    {
+      "id": "cherry-pick.abort-options",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.",
+      "when": {
+        "key": "abort",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "mainline",
+          "test": "nonzero"
+        },
+        {
+          "key": "strategy-option",
+          "test": "nonempty"
+        },
+        {
+          "key": "rerere-autoupdate",
+          "test": "present"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        },
+        {
+          "key": "x",
+          "test": "active"
+        },
+        {
+          "key": "ff",
+          "test": "active"
+        },
+        {
+          "key": "keep-redundant-commits",
+          "test": "active"
+        },
+        {
+          "key": "empty",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "cherry-pick.abort-operands",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation does not accept revisions.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "abort",
+        "test": "active"
+      }
+    },
+    {
+      "id": "cherry-pick.skip-options",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.",
+      "when": {
+        "key": "skip",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "mainline",
+          "test": "nonzero"
+        },
+        {
+          "key": "strategy-option",
+          "test": "nonempty"
+        },
+        {
+          "key": "rerere-autoupdate",
+          "test": "present"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        },
+        {
+          "key": "x",
+          "test": "active"
+        },
+        {
+          "key": "ff",
+          "test": "active"
+        },
+        {
+          "key": "keep-redundant-commits",
+          "test": "active"
+        },
+        {
+          "key": "empty",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "cherry-pick.skip-operands",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation does not accept revisions.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "skip",
+        "test": "active"
+      }
+    },
+    {
+      "id": "cherry-pick.ff",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Fast-forward replay conflicts with signoff, no-commit, origin recording and explicit edit.",
+      "when": {
+        "key": "ff",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "x",
+          "test": "active"
+        },
+        {
+          "key": "edit",
+          "test": "active"
+        }
+      ]
+    }
+  ],
+  "revert": [
+    {
+      "id": "revert.cleanup",
+      "kind": "value",
+      "origin": "git",
+      "source": "Git 2.55.0 sequencer.c:get_cleanup_mode",
+      "reason": "Cleanup is checked after option parsing.",
+      "key": "cleanup",
+      "allowed": [
+        "default",
+        "verbatim",
+        "whitespace",
+        "strip",
+        "scissors"
+      ]
+    },
+    {
+      "id": "revert.revision-input",
+      "kind": "requiresAny",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Normal replay requires a remaining revision argument or revision parser option.",
+      "guard": [
+        {
+          "key": "quit",
+          "test": "inactive"
+        },
+        {
+          "key": "continue",
+          "test": "inactive"
+        },
+        {
+          "key": "abort",
+          "test": "inactive"
+        },
+        {
+          "key": "skip",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "argumentTokens",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "operands",
+          "test": "nonempty"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "revert.quit-options",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.",
+      "when": {
+        "key": "quit",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "mainline",
+          "test": "nonzero"
+        },
+        {
+          "key": "strategy-option",
+          "test": "nonempty"
+        },
+        {
+          "key": "rerere-autoupdate",
+          "test": "present"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "revert.quit-operands",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation does not accept revisions.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "quit",
+        "test": "active"
+      }
+    },
+    {
+      "id": "revert.continue-options",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.",
+      "when": {
+        "key": "continue",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "mainline",
+          "test": "nonzero"
+        },
+        {
+          "key": "strategy-option",
+          "test": "nonempty"
+        },
+        {
+          "key": "rerere-autoupdate",
+          "test": "present"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "revert.continue-operands",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation does not accept revisions.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "continue",
+        "test": "active"
+      }
+    },
+    {
+      "id": "revert.abort-options",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.",
+      "when": {
+        "key": "abort",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "mainline",
+          "test": "nonzero"
+        },
+        {
+          "key": "strategy-option",
+          "test": "nonempty"
+        },
+        {
+          "key": "rerere-autoupdate",
+          "test": "present"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "revert.abort-operands",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation does not accept revisions.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "abort",
+        "test": "active"
+      }
+    },
+    {
+      "id": "revert.skip-options",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.",
+      "when": {
+        "key": "skip",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "no-commit",
+          "test": "active"
+        },
+        {
+          "key": "signoff",
+          "test": "active"
+        },
+        {
+          "key": "mainline",
+          "test": "nonzero"
+        },
+        {
+          "key": "strategy-option",
+          "test": "nonempty"
+        },
+        {
+          "key": "rerere-autoupdate",
+          "test": "present"
+        },
+        {
+          "key": "revision-argument",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "revert.skip-operands",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/revert.c:run_sequencer",
+      "reason": "Continuation does not accept revisions.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "skip",
+        "test": "active"
+      }
+    }
+  ],
+  "commit-tree": [
+    {
+      "id": "commit-tree.tree",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/commit-tree.c:cmd_commit_tree",
+      "reason": "Exactly one tree object is required.",
+      "key": "operands",
+      "min": 1,
+      "max": 1
+    }
+  ],
+  "merge-base": [
+    {
+      "id": "merge-base.all",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge-base.c:cmd_merge_base",
+      "reason": "All bases cannot be requested in independent or ancestor-test modes.",
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "independent",
+          "test": "active"
+        },
+        {
+          "key": "is-ancestor",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "merge-base.default-arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge-base.c:cmd_merge_base",
+      "reason": "The default mode requires at least two revisions.",
+      "key": "operands",
+      "min": 2,
+      "guard": [
+        {
+          "key": "octopus",
+          "test": "inactive"
+        },
+        {
+          "key": "independent",
+          "test": "inactive"
+        },
+        {
+          "key": "is-ancestor",
+          "test": "inactive"
+        },
+        {
+          "key": "fork-point",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "merge-base.ancestor-arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge-base.c:handle_is_ancestor",
+      "reason": "Ancestor testing requires exactly two commits.",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": {
+        "key": "is-ancestor",
+        "test": "active"
+      }
+    },
+    {
+      "id": "merge-base.fork-arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/merge-base.c:cmd_merge_base",
+      "reason": "Fork-point takes a ref and optional commit.",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "when": {
+        "key": "fork-point",
+        "test": "active"
+      }
+    }
   ]
 }
