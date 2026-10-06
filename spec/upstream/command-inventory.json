@@ -2,7 +2,8 @@
   "format": 1,
   "baselines": {
     "git": "2.55.0",
-    "lfs": "3.8.0"
+    "lfs": "3.8.0",
+    "cobra": "1.10.2"
   },
   "scope": "Version-pinned upstream commands, registered aliases/helpers, and companion programs. Site-installed git-* extensions cannot be enumerated globally.",
   "extraction": "Static registry extraction. Subcommand candidates are not evidence of audited scopes or constraints.",
@@ -738,6 +739,20 @@
         "git/builtin/last-modified.c",
         "git/command-list.txt",
         "git/git.c"
+      ]
+    },
+    {
+      "command": "lfs __complete",
+      "classification": "lfs-framework-helper",
+      "sources": [
+        "cobra/completions.go"
+      ]
+    },
+    {
+      "command": "lfs __completeNoDesc",
+      "classification": "lfs-framework-helper",
+      "sources": [
+        "cobra/completions.go"
       ]
     },
     {
@@ -2000,6 +2015,7 @@
     }
   ],
   "sources": {
+    "cobra/completions.go": "7d94de34c9ebf37da817a1dec576e672c41c4bf7d1e42140f39e7ad36bee9eee",
     "git/GIT-VERSION-GEN": "e70abeea0c62ddba59e62366f423b2f60e6af295c2413c6bb682a399944882c1",
     "git/builtin/add.c": "0295cb9ba55e9e66b4d25e7b6a3c14d655a0b0c3ef4e0540783ee2ecff995b4e",
     "git/builtin/am.c": "aa5ac1ce0266784cc16ac91d9e967f2953ed85aef175f135c7c40c2a8bd4b6e9",
@@ -2179,6 +2195,7 @@
     "lfs/commands/pull.go": "a50c3e7dcb5cb1c83d1cb803c2cbca59d462b8cda95e1e4bc97eba8074d88df4",
     "lfs/commands/run.go": "26594e5e9742e84bf11aef379e8efc7e96f989bf38ddb0b40089ba8df75df3ef",
     "lfs/commands/uploader.go": "5acddd142a8f4bdaa3fe9f4ca49281dee03c9c2532de77ef866c7b264ebf59ab",
-    "lfs/config/version.go": "f50de8ffa6f395c56ec2a8eaa94269a03514be04165d1894b14fd333cd1130b0"
+    "lfs/config/version.go": "f50de8ffa6f395c56ec2a8eaa94269a03514be04165d1894b14fd333cd1130b0",
+    "lfs/go.mod": "bc153e03fb894d14ece3a3eed5a34c49419c03461f2ad5c9cc11bd5df73d2077"
   }
 }
