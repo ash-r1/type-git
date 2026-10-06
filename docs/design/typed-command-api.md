@@ -370,3 +370,18 @@ Remote-ext and remote-fd each accept two literal arguments. Their protocol,
 URL/expansion grammars, stdin records and repository/server-dependent behavior
 remain pending. Tests advertise local repositories, dry-run sends to isolated
 bare fixtures, and request helper capabilities without connecting.
+
+### Merge strategies and tool frontends
+
+Recursive merge aliases require exactly two heads after `--`; excess bases are
+accepted with Git's warning rather than capped by the schema. Strategy flags
+retain last-selection behavior. Merge-index preserves its native argument-word
+minimum, including a no-work `-o <program>` invocation; its positional prefix
+interpretation and index-dependent program calls remain pending.
+
+Difftool's explicit GUI/tool/extcmd choices conflict, but mergetool has no such
+blanket restriction. Difftool tool-help returns before deferred diff parsing and
+final tool selection checks, so inherited immediate diff callback restrictions
+are not imposed on that path. Complete delegated diff phase validation remains
+pending. Request-pull accepts interleaved patch selection and ignores words after
+the optional end ref; tests resolve only local fixture refs.

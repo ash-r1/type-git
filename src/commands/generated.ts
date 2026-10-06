@@ -81928,6 +81928,1309 @@ const commandSpec285 = {
   optionParsing: 'none',
 } as const satisfies CommandSpec;
 const commandSpec286 = {
+  argv: ['merge-recursive'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--ours': {
+      key: 'ours',
+      value: 'flag',
+    },
+    '--theirs': {
+      key: 'theirs',
+      value: 'flag',
+    },
+    '--patience': {
+      key: 'patience',
+      value: 'flag',
+    },
+    '--histogram': {
+      key: 'histogram',
+      value: 'flag',
+    },
+    '--ignore-space-change': {
+      key: 'ignore-space-change',
+      value: 'flag',
+    },
+    '--ignore-all-space': {
+      key: 'ignore-all-space',
+      value: 'flag',
+    },
+    '--ignore-space-at-eol': {
+      key: 'ignore-space-at-eol',
+      value: 'flag',
+    },
+    '--ignore-cr-at-eol': {
+      key: 'ignore-cr-at-eol',
+      value: 'flag',
+    },
+    '--renormalize': {
+      key: 'renormalize',
+      value: 'flag',
+    },
+    '--no-renormalize': {
+      key: 'no-renormalize',
+      value: 'flag',
+    },
+    '--no-renames': {
+      key: 'no-renames',
+      value: 'flag',
+    },
+    '--subtree': {
+      key: 'subtree',
+      value: 'optional-string',
+    },
+    '--find-renames': {
+      key: 'find-renames',
+      value: 'optional-string',
+    },
+    '--rename-threshold': {
+      key: 'rename-threshold',
+      value: 'string',
+    },
+    '--diff-algorithm': {
+      key: 'diff-algorithm',
+      value: 'string',
+      allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
+      caseInsensitive: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.merge-recursive.separator',
+      kind: 'required',
+      required: [
+        {
+          key: 'hasSeparator',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'The two heads follow a required separator.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+    },
+    {
+      id: 'cli.merge-recursive.heads',
+      kind: 'arity',
+      key: 'pathsAfterSeparator',
+      min: 2,
+      max: 2,
+      origin: 'git',
+      reason:
+        'Only two heads after the separator are supported; excess bases are warned about and ignored.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+    },
+  ],
+  source: 'builtin/merge-recursive.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec287 = {
+  argv: ['merge-recursive-ours'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--ours': {
+      key: 'ours',
+      value: 'flag',
+    },
+    '--theirs': {
+      key: 'theirs',
+      value: 'flag',
+    },
+    '--patience': {
+      key: 'patience',
+      value: 'flag',
+    },
+    '--histogram': {
+      key: 'histogram',
+      value: 'flag',
+    },
+    '--ignore-space-change': {
+      key: 'ignore-space-change',
+      value: 'flag',
+    },
+    '--ignore-all-space': {
+      key: 'ignore-all-space',
+      value: 'flag',
+    },
+    '--ignore-space-at-eol': {
+      key: 'ignore-space-at-eol',
+      value: 'flag',
+    },
+    '--ignore-cr-at-eol': {
+      key: 'ignore-cr-at-eol',
+      value: 'flag',
+    },
+    '--renormalize': {
+      key: 'renormalize',
+      value: 'flag',
+    },
+    '--no-renormalize': {
+      key: 'no-renormalize',
+      value: 'flag',
+    },
+    '--no-renames': {
+      key: 'no-renames',
+      value: 'flag',
+    },
+    '--subtree': {
+      key: 'subtree',
+      value: 'optional-string',
+    },
+    '--find-renames': {
+      key: 'find-renames',
+      value: 'optional-string',
+    },
+    '--rename-threshold': {
+      key: 'rename-threshold',
+      value: 'string',
+    },
+    '--diff-algorithm': {
+      key: 'diff-algorithm',
+      value: 'string',
+      allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
+      caseInsensitive: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.merge-recursive-ours.separator',
+      kind: 'required',
+      required: [
+        {
+          key: 'hasSeparator',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'The two heads follow a required separator.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+    },
+    {
+      id: 'cli.merge-recursive-ours.heads',
+      kind: 'arity',
+      key: 'pathsAfterSeparator',
+      min: 2,
+      max: 2,
+      origin: 'git',
+      reason:
+        'Only two heads after the separator are supported; excess bases are warned about and ignored.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+    },
+  ],
+  source: 'builtin/merge-recursive.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec288 = {
+  argv: ['merge-recursive-theirs'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--ours': {
+      key: 'ours',
+      value: 'flag',
+    },
+    '--theirs': {
+      key: 'theirs',
+      value: 'flag',
+    },
+    '--patience': {
+      key: 'patience',
+      value: 'flag',
+    },
+    '--histogram': {
+      key: 'histogram',
+      value: 'flag',
+    },
+    '--ignore-space-change': {
+      key: 'ignore-space-change',
+      value: 'flag',
+    },
+    '--ignore-all-space': {
+      key: 'ignore-all-space',
+      value: 'flag',
+    },
+    '--ignore-space-at-eol': {
+      key: 'ignore-space-at-eol',
+      value: 'flag',
+    },
+    '--ignore-cr-at-eol': {
+      key: 'ignore-cr-at-eol',
+      value: 'flag',
+    },
+    '--renormalize': {
+      key: 'renormalize',
+      value: 'flag',
+    },
+    '--no-renormalize': {
+      key: 'no-renormalize',
+      value: 'flag',
+    },
+    '--no-renames': {
+      key: 'no-renames',
+      value: 'flag',
+    },
+    '--subtree': {
+      key: 'subtree',
+      value: 'optional-string',
+    },
+    '--find-renames': {
+      key: 'find-renames',
+      value: 'optional-string',
+    },
+    '--rename-threshold': {
+      key: 'rename-threshold',
+      value: 'string',
+    },
+    '--diff-algorithm': {
+      key: 'diff-algorithm',
+      value: 'string',
+      allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
+      caseInsensitive: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.merge-recursive-theirs.separator',
+      kind: 'required',
+      required: [
+        {
+          key: 'hasSeparator',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'The two heads follow a required separator.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+    },
+    {
+      id: 'cli.merge-recursive-theirs.heads',
+      kind: 'arity',
+      key: 'pathsAfterSeparator',
+      min: 2,
+      max: 2,
+      origin: 'git',
+      reason:
+        'Only two heads after the separator are supported; excess bases are warned about and ignored.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+    },
+  ],
+  source: 'builtin/merge-recursive.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec289 = {
+  argv: ['merge-subtree'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--ours': {
+      key: 'ours',
+      value: 'flag',
+    },
+    '--theirs': {
+      key: 'theirs',
+      value: 'flag',
+    },
+    '--patience': {
+      key: 'patience',
+      value: 'flag',
+    },
+    '--histogram': {
+      key: 'histogram',
+      value: 'flag',
+    },
+    '--ignore-space-change': {
+      key: 'ignore-space-change',
+      value: 'flag',
+    },
+    '--ignore-all-space': {
+      key: 'ignore-all-space',
+      value: 'flag',
+    },
+    '--ignore-space-at-eol': {
+      key: 'ignore-space-at-eol',
+      value: 'flag',
+    },
+    '--ignore-cr-at-eol': {
+      key: 'ignore-cr-at-eol',
+      value: 'flag',
+    },
+    '--renormalize': {
+      key: 'renormalize',
+      value: 'flag',
+    },
+    '--no-renormalize': {
+      key: 'no-renormalize',
+      value: 'flag',
+    },
+    '--no-renames': {
+      key: 'no-renames',
+      value: 'flag',
+    },
+    '--subtree': {
+      key: 'subtree',
+      value: 'optional-string',
+    },
+    '--find-renames': {
+      key: 'find-renames',
+      value: 'optional-string',
+    },
+    '--rename-threshold': {
+      key: 'rename-threshold',
+      value: 'string',
+    },
+    '--diff-algorithm': {
+      key: 'diff-algorithm',
+      value: 'string',
+      allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
+      caseInsensitive: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.merge-subtree.separator',
+      kind: 'required',
+      required: [
+        {
+          key: 'hasSeparator',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'The two heads follow a required separator.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+    },
+    {
+      id: 'cli.merge-subtree.heads',
+      kind: 'arity',
+      key: 'pathsAfterSeparator',
+      min: 2,
+      max: 2,
+      origin: 'git',
+      reason:
+        'Only two heads after the separator are supported; excess bases are warned about and ignored.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+    },
+  ],
+  source: 'builtin/merge-recursive.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec290 = {
+  argv: ['merge-index'],
+  options: {
+    '-o': {
+      key: 'one-shot',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-a': {
+      key: 'all',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.merge-index.arguments',
+      kind: 'arity',
+      key: 'argumentTokens',
+      min: 2,
+      origin: 'git',
+      reason:
+        'The native entrypoint requires at least two argument words before interpreting the optional ordered flags.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-index.c',
+    },
+  ],
+  source: 'builtin/merge-index.c',
+  separator: true,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec291 = {
+  argv: ['difftool'],
+  options: {
+    '--patch': {
+      key: 'patch',
+      value: 'flag',
+    },
+    '-p': {
+      key: 'patch',
+      value: 'flag',
+    },
+    '--no-patch': {
+      key: 'no-patch',
+      value: 'flag',
+    },
+    '-s': {
+      key: 'no-patch',
+      value: 'flag',
+    },
+    '-u': {
+      key: 'u',
+      value: 'flag',
+    },
+    '--unified': {
+      key: 'unified',
+      value: 'optional-string',
+    },
+    '-U': {
+      key: 'unified',
+      value: 'optional-string',
+    },
+    '--function-context': {
+      key: 'function-context',
+      value: 'flag',
+    },
+    '-W': {
+      key: 'function-context',
+      value: 'flag',
+    },
+    '--raw': {
+      key: 'raw',
+      value: 'flag',
+    },
+    '--patch-with-raw': {
+      key: 'patch-with-raw',
+      value: 'flag',
+    },
+    '--patch-with-stat': {
+      key: 'patch-with-stat',
+      value: 'flag',
+    },
+    '--numstat': {
+      key: 'numstat',
+      value: 'flag',
+    },
+    '--shortstat': {
+      key: 'shortstat',
+      value: 'flag',
+    },
+    '--dirstat': {
+      key: 'dirstat',
+      value: 'optional-string',
+    },
+    '-X': {
+      key: 'dirstat',
+      value: 'optional-string',
+    },
+    '--cumulative': {
+      key: 'cumulative',
+      value: 'flag',
+    },
+    '--dirstat-by-file': {
+      key: 'dirstat-by-file',
+      value: 'optional-string',
+    },
+    '--check': {
+      key: 'check',
+      value: 'flag',
+    },
+    '--summary': {
+      key: 'summary',
+      value: 'flag',
+    },
+    '--name-only': {
+      key: 'name-only',
+      value: 'flag',
+    },
+    '--name-status': {
+      key: 'name-status',
+      value: 'flag',
+    },
+    '--stat': {
+      key: 'stat',
+      value: 'optional-string',
+    },
+    '--stat-width': {
+      key: 'stat-width',
+      value: 'string',
+    },
+    '--stat-name-width': {
+      key: 'stat-name-width',
+      value: 'string',
+    },
+    '--stat-graph-width': {
+      key: 'stat-graph-width',
+      value: 'string',
+    },
+    '--stat-count': {
+      key: 'stat-count',
+      value: 'string',
+    },
+    '--compact-summary': {
+      key: 'compact-summary',
+      value: 'flag',
+    },
+    '--binary': {
+      key: 'binary',
+      value: 'flag',
+    },
+    '--full-index': {
+      key: 'full-index',
+      value: 'flag',
+    },
+    '--color': {
+      key: 'color',
+      value: 'optional-string',
+      set: 'always',
+    },
+    '--ws-error-highlight': {
+      key: 'ws-error-highlight',
+      value: 'string',
+    },
+    '-z': {
+      key: 'z',
+      value: 'flag',
+    },
+    '--abbrev': {
+      key: 'abbrev',
+      value: 'optional-string',
+    },
+    '--src-prefix': {
+      key: 'src-prefix',
+      value: 'string',
+    },
+    '--dst-prefix': {
+      key: 'dst-prefix',
+      value: 'string',
+    },
+    '--line-prefix': {
+      key: 'line-prefix',
+      value: 'string',
+    },
+    '--no-prefix': {
+      key: 'no-prefix',
+      value: 'flag',
+    },
+    '--default-prefix': {
+      key: 'default-prefix',
+      value: 'flag',
+    },
+    '--inter-hunk-context': {
+      key: 'inter-hunk-context',
+      value: 'integer',
+    },
+    '--output-indicator-new': {
+      key: 'output-indicator-new',
+      value: 'string',
+    },
+    '--output-indicator-old': {
+      key: 'output-indicator-old',
+      value: 'string',
+    },
+    '--output-indicator-context': {
+      key: 'output-indicator-context',
+      value: 'string',
+    },
+    '--break-rewrites': {
+      key: 'break-rewrites',
+      value: 'optional-string',
+    },
+    '-B': {
+      key: 'break-rewrites',
+      value: 'optional-string',
+    },
+    '--find-renames': {
+      key: 'find-renames',
+      value: 'optional-string',
+    },
+    '-M': {
+      key: 'find-renames',
+      value: 'optional-string',
+    },
+    '--irreversible-delete': {
+      key: 'irreversible-delete',
+      value: 'flag',
+    },
+    '-D': {
+      key: 'irreversible-delete',
+      value: 'flag',
+    },
+    '--find-copies': {
+      key: 'find-copies',
+      value: 'optional-string',
+    },
+    '-C': {
+      key: 'find-copies',
+      value: 'optional-string',
+    },
+    '--find-copies-harder': {
+      key: 'find-copies-harder',
+      value: 'flag',
+    },
+    '--no-renames': {
+      key: 'no-renames',
+      value: 'flag',
+    },
+    '--rename-empty': {
+      key: 'rename-empty',
+      value: 'flag',
+    },
+    '--follow': {
+      key: 'follow',
+      value: 'flag',
+    },
+    '-l': {
+      key: 'l',
+      value: 'integer',
+    },
+    '--minimal': {
+      key: 'minimal',
+      value: 'flag',
+    },
+    '--ignore-all-space': {
+      key: 'ignore-all-space',
+      value: 'flag',
+    },
+    '-w': {
+      key: 'ignore-all-space',
+      value: 'flag',
+    },
+    '--ignore-space-change': {
+      key: 'ignore-space-change',
+      value: 'flag',
+    },
+    '-b': {
+      key: 'ignore-space-change',
+      value: 'flag',
+    },
+    '--ignore-space-at-eol': {
+      key: 'ignore-space-at-eol',
+      value: 'flag',
+    },
+    '--ignore-cr-at-eol': {
+      key: 'ignore-cr-at-eol',
+      value: 'flag',
+    },
+    '--ignore-blank-lines': {
+      key: 'ignore-blank-lines',
+      value: 'flag',
+    },
+    '--ignore-matching-lines': {
+      key: 'ignore-matching-lines',
+      value: 'string',
+    },
+    '-I': {
+      key: 'ignore-matching-lines',
+      value: 'string',
+    },
+    '--indent-heuristic': {
+      key: 'indent-heuristic',
+      value: 'flag',
+    },
+    '--patience': {
+      key: 'patience',
+      value: 'flag',
+    },
+    '--histogram': {
+      key: 'histogram',
+      value: 'flag',
+    },
+    '--diff-algorithm': {
+      key: 'diff-algorithm',
+      value: 'string',
+    },
+    '--anchored': {
+      key: 'anchored',
+      value: 'string',
+    },
+    '--word-diff': {
+      key: 'word-diff',
+      value: 'optional-string',
+    },
+    '--word-diff-regex': {
+      key: 'word-diff-regex',
+      value: 'string',
+    },
+    '--color-words': {
+      key: 'color-words',
+      value: 'optional-string',
+    },
+    '--color-moved': {
+      key: 'color-moved',
+      value: 'optional-string',
+    },
+    '--color-moved-ws': {
+      key: 'color-moved-ws',
+      value: 'string',
+    },
+    '--relative': {
+      key: 'relative',
+      value: 'optional-string',
+    },
+    '--text': {
+      key: 'text',
+      value: 'flag',
+    },
+    '-a': {
+      key: 'text',
+      value: 'flag',
+    },
+    '-R': {
+      key: 'R',
+      value: 'flag',
+    },
+    '--exit-code': {
+      key: 'exit-code',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--ext-diff': {
+      key: 'ext-diff',
+      value: 'flag',
+    },
+    '--textconv': {
+      key: 'textconv',
+      value: 'flag',
+    },
+    '--ignore-submodules': {
+      key: 'ignore-submodules',
+      value: 'optional-string',
+    },
+    '--submodule': {
+      key: 'submodule',
+      value: 'optional-string',
+    },
+    '--ita-invisible-in-index': {
+      key: 'ita-invisible-in-index',
+      value: 'flag',
+    },
+    '--ita-visible-in-index': {
+      key: 'ita-visible-in-index',
+      value: 'flag',
+    },
+    '-S': {
+      key: 'S',
+      value: 'string',
+    },
+    '-G': {
+      key: 'G',
+      value: 'string',
+    },
+    '--pickaxe-all': {
+      key: 'pickaxe-all',
+      value: 'flag',
+    },
+    '--pickaxe-regex': {
+      key: 'pickaxe-regex',
+      value: 'flag',
+    },
+    '-O': {
+      key: 'O',
+      value: 'string',
+      emptyIsUnset: true,
+    },
+    '--rotate-to': {
+      key: 'rotate-to',
+      value: 'string',
+    },
+    '--skip-to': {
+      key: 'skip-to',
+      value: 'string',
+    },
+    '--find-object': {
+      key: 'find-object',
+      value: 'string',
+    },
+    '--diff-filter': {
+      key: 'diff-filter',
+      value: 'string',
+    },
+    '--max-depth': {
+      key: 'max-depth',
+      value: 'string',
+    },
+    '--output': {
+      key: 'output',
+      value: 'string',
+    },
+    '--no-no-patch': {
+      key: 'no-patch',
+      value: 'flag',
+      set: false,
+    },
+    '--no-function-context': {
+      key: 'function-context',
+      value: 'flag',
+      set: false,
+    },
+    '--no-compact-summary': {
+      key: 'compact-summary',
+      value: 'flag',
+      set: false,
+    },
+    '--no-full-index': {
+      key: 'full-index',
+      value: 'flag',
+      set: false,
+    },
+    '--no-color': {
+      key: 'color',
+      value: 'flag',
+      set: 'always',
+      clear: true,
+    },
+    '--no-abbrev': {
+      key: 'abbrev',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-find-copies-harder': {
+      key: 'find-copies-harder',
+      value: 'flag',
+      set: false,
+    },
+    '--no-rename-empty': {
+      key: 'rename-empty',
+      value: 'flag',
+      set: false,
+    },
+    '--no-follow': {
+      key: 'follow',
+      value: 'flag',
+      set: false,
+    },
+    '--no-ignore-matching-lines': {
+      key: 'ignore-matching-lines',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-indent-heuristic': {
+      key: 'indent-heuristic',
+      value: 'flag',
+      set: false,
+    },
+    '--no-color-moved': {
+      key: 'color-moved',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-color-moved-ws': {
+      key: 'color-moved-ws',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-relative': {
+      key: 'relative',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-text': {
+      key: 'text',
+      value: 'flag',
+      set: false,
+    },
+    '--no-exit-code': {
+      key: 'exit-code',
+      value: 'flag',
+      set: false,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      set: false,
+    },
+    '--no-ext-diff': {
+      key: 'ext-diff',
+      value: 'flag',
+      set: false,
+    },
+    '--no-textconv': {
+      key: 'textconv',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--gui': {
+      key: 'gui',
+      value: 'flag',
+    },
+    '-g': {
+      key: 'gui',
+      value: 'flag',
+    },
+    '--dir-diff': {
+      key: 'dir-diff',
+      value: 'flag',
+    },
+    '-d': {
+      key: 'dir-diff',
+      value: 'flag',
+    },
+    '--no-prompt': {
+      key: 'no-prompt',
+      value: 'flag',
+    },
+    '-y': {
+      key: 'no-prompt',
+      value: 'flag',
+    },
+    '--prompt': {
+      key: 'prompt',
+      value: 'flag',
+    },
+    '--symlinks': {
+      key: 'symlinks',
+      value: 'flag',
+    },
+    '--tool': {
+      key: 'tool',
+      value: 'string',
+    },
+    '-t': {
+      key: 'tool',
+      value: 'string',
+    },
+    '--tool-help': {
+      key: 'tool-help',
+      value: 'flag',
+    },
+    '--trust-exit-code': {
+      key: 'trust-exit-code',
+      value: 'flag',
+    },
+    '--extcmd': {
+      key: 'extcmd',
+      value: 'string',
+    },
+    '-x': {
+      key: 'extcmd',
+      value: 'string',
+    },
+    '--no-index': {
+      key: 'no-index',
+      value: 'flag',
+    },
+    '--no-gui': {
+      key: 'gui',
+      value: 'flag',
+      set: false,
+    },
+    '--no-dir-diff': {
+      key: 'dir-diff',
+      value: 'flag',
+      set: false,
+    },
+    '--no-symlinks': {
+      key: 'symlinks',
+      value: 'flag',
+      set: false,
+    },
+    '--no-tool': {
+      key: 'tool',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-tool-help': {
+      key: 'tool-help',
+      value: 'flag',
+      set: false,
+    },
+    '--no-trust-exit-code': {
+      key: 'trust-exit-code',
+      value: 'flag',
+      set: false,
+    },
+    '--no-extcmd': {
+      key: 'extcmd',
+      value: 'flag',
+      clear: true,
+    },
+    '--index': {
+      key: 'no-index',
+      value: 'flag',
+      set: false,
+    },
+    '--no-no-index': {
+      key: 'no-index',
+      value: 'flag',
+      set: false,
+    },
+    '--cached': {
+      key: 'cached',
+      value: 'flag',
+    },
+    '--staged': {
+      key: 'cached',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.difftool.gui-tool-extcmd',
+      kind: 'exclusiveGroups',
+      groups: [
+        [
+          {
+            key: 'gui',
+            test: 'active',
+          },
+        ],
+        [
+          {
+            key: 'tool',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'extcmd',
+            test: 'present',
+          },
+        ],
+      ],
+      guard: [
+        {
+          key: 'tool-help',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'Explicit GUI, tool and external command selections conflict.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
+    },
+    {
+      id: 'cli.difftool.dir-no-index',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'dir-diff',
+          test: 'active',
+        },
+        {
+          key: 'no-index',
+          test: 'active',
+        },
+      ],
+      guard: [
+        {
+          key: 'tool-help',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'Directory comparison cannot be combined with no-index.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
+    },
+    {
+      id: 'cli.difftool.repository',
+      kind: 'requires',
+      when: {
+        key: 'inRepository',
+        test: 'equals',
+        value: false,
+      },
+      required: [
+        {
+          key: 'no-index',
+          test: 'active',
+        },
+      ],
+      guard: [
+        {
+          key: 'tool-help',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'Outside a repository difftool requires no-index.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
+    },
+    {
+      id: 'cli.difftool.no-index-paths',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 2,
+      when: {
+        key: 'no-index',
+        test: 'active',
+      },
+      guard: [
+        {
+          key: 'tool-help',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'No-index comparison requires two paths.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
+    },
+    {
+      id: 'cli.difftool.nonempty-tool',
+      kind: 'requires',
+      when: {
+        key: 'tool',
+        test: 'present',
+      },
+      required: [
+        {
+          key: 'tool',
+          test: 'nonempty',
+        },
+      ],
+      guard: [
+        {
+          key: 'tool-help',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'A final explicit tool/command string must be nonempty.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
+    },
+    {
+      id: 'cli.difftool.nonempty-extcmd',
+      kind: 'requires',
+      when: {
+        key: 'extcmd',
+        test: 'present',
+      },
+      required: [
+        {
+          key: 'extcmd',
+          test: 'nonempty',
+        },
+      ],
+      guard: [
+        {
+          key: 'tool-help',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'A final explicit tool/command string must be nonempty.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
+    },
+  ],
+  source: 'builtin/difftool.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec292 = {
+  argv: ['mergetool'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-g': {
+      key: 'gui',
+      value: 'flag',
+    },
+    '--gui': {
+      key: 'gui',
+      value: 'flag',
+    },
+    '--prompt': {
+      key: 'prompt',
+      value: 'flag',
+    },
+    '--no-gui': {
+      key: 'gui',
+      value: 'flag',
+      set: false,
+    },
+    '-y': {
+      key: 'prompt',
+      value: 'flag',
+      set: false,
+    },
+    '--no-prompt': {
+      key: 'prompt',
+      value: 'flag',
+      set: false,
+    },
+    '-t': {
+      key: 'tool',
+      value: 'string',
+    },
+    '--tool': {
+      key: 'tool',
+      value: 'string',
+    },
+    '--tool-help': {
+      key: 'tool-help',
+      value: 'optional-string',
+    },
+    '-O': {
+      key: 'orderfile',
+      value: 'optional-string',
+      attachedValue: true,
+    },
+  },
+  rules: [],
+  source: 'git-mergetool.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec293 = {
+  argv: ['request-pull'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-p': {
+      key: 'patch',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.request-pull.arguments',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      reason:
+        'The script requires start and URL; additional words after the optional end are ignored.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-request-pull.sh',
+    },
+    {
+      id: 'cli.request-pull.start',
+      kind: 'required',
+      required: [
+        {
+          key: 'operand0',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'The starting revision string must not be empty.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-request-pull.sh',
+    },
+  ],
+  source: 'git-request-pull.sh',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec294 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -81951,7 +83254,7 @@ const commandSpec286 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec287 = {
+const commandSpec295 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -82082,7 +83385,7 @@ const commandSpec287 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec288 = {
+const commandSpec296 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -82098,7 +83401,7 @@ const commandSpec288 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec289 = {
+const commandSpec297 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -82305,7 +83608,7 @@ const commandSpec289 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec290 = {
+const commandSpec298 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -82341,7 +83644,7 @@ const commandSpec290 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec291 = {
+const commandSpec299 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -82365,7 +83668,7 @@ const commandSpec291 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec292 = {
+const commandSpec300 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -82381,7 +83684,7 @@ const commandSpec292 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec293 = {
+const commandSpec301 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -82397,7 +83700,7 @@ const commandSpec293 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec294 = {
+const commandSpec302 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -82413,7 +83716,7 @@ const commandSpec294 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec295 = {
+const commandSpec303 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -82541,7 +83844,7 @@ const commandSpec295 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec296 = {
+const commandSpec304 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -82565,7 +83868,7 @@ const commandSpec296 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec297 = {
+const commandSpec305 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -82597,7 +83900,7 @@ const commandSpec297 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec298 = {
+const commandSpec306 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -82613,7 +83916,7 @@ const commandSpec298 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec299 = {
+const commandSpec307 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -82819,7 +84122,7 @@ const commandSpec299 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec300 = {
+const commandSpec308 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -82835,7 +84138,7 @@ const commandSpec300 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec301 = {
+const commandSpec309 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -82867,7 +84170,7 @@ const commandSpec301 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec302 = {
+const commandSpec310 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -83004,7 +84307,7 @@ const commandSpec302 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec303 = {
+const commandSpec311 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -83020,7 +84323,7 @@ const commandSpec303 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec304 = {
+const commandSpec312 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -83036,7 +84339,7 @@ const commandSpec304 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec305 = {
+const commandSpec313 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -83052,7 +84355,7 @@ const commandSpec305 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec306 = {
+const commandSpec314 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -83068,7 +84371,7 @@ const commandSpec306 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec307 = {
+const commandSpec315 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -83084,7 +84387,7 @@ const commandSpec307 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec308 = {
+const commandSpec316 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -83197,7 +84500,7 @@ const commandSpec308 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec309 = {
+const commandSpec317 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -83263,7 +84566,7 @@ const commandSpec309 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec310 = {
+const commandSpec318 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -83323,7 +84626,7 @@ const commandSpec310 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec311 = {
+const commandSpec319 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -83460,7 +84763,7 @@ const commandSpec311 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec312 = {
+const commandSpec320 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -83724,7 +85027,7 @@ const commandSpec312 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec313 = {
+const commandSpec321 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -83909,7 +85212,7 @@ const commandSpec313 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec314 = {
+const commandSpec322 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -84063,7 +85366,7 @@ const commandSpec314 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec315 = {
+const commandSpec323 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -84090,7 +85393,7 @@ const commandSpec315 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec316 = {
+const commandSpec324 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -84106,7 +85409,7 @@ const commandSpec316 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec317 = {
+const commandSpec325 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -84133,7 +85436,7 @@ const commandSpec317 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec318 = {
+const commandSpec326 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -84167,7 +85470,7 @@ const commandSpec318 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec319 = {
+const commandSpec327 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -84253,7 +85556,7 @@ const commandSpec319 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec320 = {
+const commandSpec328 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -84285,7 +85588,7 @@ const commandSpec320 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec321 = {
+const commandSpec329 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -84391,7 +85694,7 @@ const commandSpec321 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec322 = {
+const commandSpec330 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -84415,7 +85718,7 @@ const commandSpec322 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec323 = {
+const commandSpec331 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -84431,7 +85734,7 @@ const commandSpec323 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec324 = {
+const commandSpec332 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -84463,7 +85766,7 @@ const commandSpec324 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec325 = {
+const commandSpec333 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -84542,7 +85845,7 @@ const commandSpec325 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec326 = {
+const commandSpec334 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -84646,7 +85949,7 @@ const commandSpec326 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec327 = {
+const commandSpec335 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -84662,7 +85965,7 @@ const commandSpec327 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec328 = {
+const commandSpec336 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -84749,7 +86052,7 @@ const commandSpec328 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec329 = {
+const commandSpec337 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -84765,7 +86068,7 @@ const commandSpec329 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec330 = {
+const commandSpec338 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -84806,7 +86109,7 @@ const commandSpec330 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec331 = {
+const commandSpec339 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -85117,52 +86420,60 @@ export const COMMAND_SPECS: {
   readonly 'fetch-pack': typeof commandSpec283;
   readonly 'remote-ext': typeof commandSpec284;
   readonly 'remote-fd': typeof commandSpec285;
-  readonly lfs: typeof commandSpec286;
-  readonly 'lfs checkout': typeof commandSpec287;
-  readonly 'lfs clean': typeof commandSpec288;
-  readonly 'lfs clone': typeof commandSpec289;
-  readonly 'lfs completion': typeof commandSpec290;
-  readonly 'lfs dedup': typeof commandSpec291;
-  readonly 'lfs env': typeof commandSpec292;
-  readonly 'lfs ext': typeof commandSpec293;
-  readonly 'lfs ext list': typeof commandSpec294;
-  readonly 'lfs fetch': typeof commandSpec295;
-  readonly 'lfs filter-process': typeof commandSpec296;
-  readonly 'lfs fsck': typeof commandSpec297;
-  readonly 'lfs help': typeof commandSpec298;
-  readonly 'lfs install': typeof commandSpec299;
-  readonly 'lfs install hooks': typeof commandSpec300;
-  readonly 'lfs lock': typeof commandSpec301;
-  readonly 'lfs locks': typeof commandSpec302;
-  readonly 'lfs logs': typeof commandSpec303;
-  readonly 'lfs logs boomtown': typeof commandSpec304;
-  readonly 'lfs logs clear': typeof commandSpec305;
-  readonly 'lfs logs last': typeof commandSpec306;
-  readonly 'lfs logs show': typeof commandSpec307;
-  readonly 'lfs ls-files': typeof commandSpec308;
-  readonly 'lfs merge-driver': typeof commandSpec309;
-  readonly 'lfs migrate': typeof commandSpec310;
-  readonly 'lfs migrate export': typeof commandSpec311;
-  readonly 'lfs migrate import': typeof commandSpec312;
-  readonly 'lfs migrate info': typeof commandSpec313;
-  readonly 'lfs pointer': typeof commandSpec314;
-  readonly 'lfs post-checkout': typeof commandSpec315;
-  readonly 'lfs post-commit': typeof commandSpec316;
-  readonly 'lfs post-merge': typeof commandSpec317;
-  readonly 'lfs pre-push': typeof commandSpec318;
-  readonly 'lfs prune': typeof commandSpec319;
-  readonly 'lfs pull': typeof commandSpec320;
-  readonly 'lfs push': typeof commandSpec321;
-  readonly 'lfs smudge': typeof commandSpec322;
-  readonly 'lfs standalone-file': typeof commandSpec323;
-  readonly 'lfs status': typeof commandSpec324;
-  readonly 'lfs track': typeof commandSpec325;
-  readonly 'lfs uninstall': typeof commandSpec326;
-  readonly 'lfs uninstall hooks': typeof commandSpec327;
-  readonly 'lfs unlock': typeof commandSpec328;
-  readonly 'lfs untrack': typeof commandSpec329;
-  readonly 'lfs update': typeof commandSpec330;
-  readonly 'lfs version': typeof commandSpec331;
+  readonly 'merge-recursive': typeof commandSpec286;
+  readonly 'merge-recursive-ours': typeof commandSpec287;
+  readonly 'merge-recursive-theirs': typeof commandSpec288;
+  readonly 'merge-subtree': typeof commandSpec289;
+  readonly 'merge-index': typeof commandSpec290;
+  readonly difftool: typeof commandSpec291;
+  readonly mergetool: typeof commandSpec292;
+  readonly 'request-pull': typeof commandSpec293;
+  readonly lfs: typeof commandSpec294;
+  readonly 'lfs checkout': typeof commandSpec295;
+  readonly 'lfs clean': typeof commandSpec296;
+  readonly 'lfs clone': typeof commandSpec297;
+  readonly 'lfs completion': typeof commandSpec298;
+  readonly 'lfs dedup': typeof commandSpec299;
+  readonly 'lfs env': typeof commandSpec300;
+  readonly 'lfs ext': typeof commandSpec301;
+  readonly 'lfs ext list': typeof commandSpec302;
+  readonly 'lfs fetch': typeof commandSpec303;
+  readonly 'lfs filter-process': typeof commandSpec304;
+  readonly 'lfs fsck': typeof commandSpec305;
+  readonly 'lfs help': typeof commandSpec306;
+  readonly 'lfs install': typeof commandSpec307;
+  readonly 'lfs install hooks': typeof commandSpec308;
+  readonly 'lfs lock': typeof commandSpec309;
+  readonly 'lfs locks': typeof commandSpec310;
+  readonly 'lfs logs': typeof commandSpec311;
+  readonly 'lfs logs boomtown': typeof commandSpec312;
+  readonly 'lfs logs clear': typeof commandSpec313;
+  readonly 'lfs logs last': typeof commandSpec314;
+  readonly 'lfs logs show': typeof commandSpec315;
+  readonly 'lfs ls-files': typeof commandSpec316;
+  readonly 'lfs merge-driver': typeof commandSpec317;
+  readonly 'lfs migrate': typeof commandSpec318;
+  readonly 'lfs migrate export': typeof commandSpec319;
+  readonly 'lfs migrate import': typeof commandSpec320;
+  readonly 'lfs migrate info': typeof commandSpec321;
+  readonly 'lfs pointer': typeof commandSpec322;
+  readonly 'lfs post-checkout': typeof commandSpec323;
+  readonly 'lfs post-commit': typeof commandSpec324;
+  readonly 'lfs post-merge': typeof commandSpec325;
+  readonly 'lfs pre-push': typeof commandSpec326;
+  readonly 'lfs prune': typeof commandSpec327;
+  readonly 'lfs pull': typeof commandSpec328;
+  readonly 'lfs push': typeof commandSpec329;
+  readonly 'lfs smudge': typeof commandSpec330;
+  readonly 'lfs standalone-file': typeof commandSpec331;
+  readonly 'lfs status': typeof commandSpec332;
+  readonly 'lfs track': typeof commandSpec333;
+  readonly 'lfs uninstall': typeof commandSpec334;
+  readonly 'lfs uninstall hooks': typeof commandSpec335;
+  readonly 'lfs unlock': typeof commandSpec336;
+  readonly 'lfs untrack': typeof commandSpec337;
+  readonly 'lfs update': typeof commandSpec338;
+  readonly 'lfs version': typeof commandSpec339;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -85450,50 +86761,58 @@ export const COMMAND_SPECS: {
   'fetch-pack': commandSpec283,
   'remote-ext': commandSpec284,
   'remote-fd': commandSpec285,
-  lfs: commandSpec286,
-  'lfs checkout': commandSpec287,
-  'lfs clean': commandSpec288,
-  'lfs clone': commandSpec289,
-  'lfs completion': commandSpec290,
-  'lfs dedup': commandSpec291,
-  'lfs env': commandSpec292,
-  'lfs ext': commandSpec293,
-  'lfs ext list': commandSpec294,
-  'lfs fetch': commandSpec295,
-  'lfs filter-process': commandSpec296,
-  'lfs fsck': commandSpec297,
-  'lfs help': commandSpec298,
-  'lfs install': commandSpec299,
-  'lfs install hooks': commandSpec300,
-  'lfs lock': commandSpec301,
-  'lfs locks': commandSpec302,
-  'lfs logs': commandSpec303,
-  'lfs logs boomtown': commandSpec304,
-  'lfs logs clear': commandSpec305,
-  'lfs logs last': commandSpec306,
-  'lfs logs show': commandSpec307,
-  'lfs ls-files': commandSpec308,
-  'lfs merge-driver': commandSpec309,
-  'lfs migrate': commandSpec310,
-  'lfs migrate export': commandSpec311,
-  'lfs migrate import': commandSpec312,
-  'lfs migrate info': commandSpec313,
-  'lfs pointer': commandSpec314,
-  'lfs post-checkout': commandSpec315,
-  'lfs post-commit': commandSpec316,
-  'lfs post-merge': commandSpec317,
-  'lfs pre-push': commandSpec318,
-  'lfs prune': commandSpec319,
-  'lfs pull': commandSpec320,
-  'lfs push': commandSpec321,
-  'lfs smudge': commandSpec322,
-  'lfs standalone-file': commandSpec323,
-  'lfs status': commandSpec324,
-  'lfs track': commandSpec325,
-  'lfs uninstall': commandSpec326,
-  'lfs uninstall hooks': commandSpec327,
-  'lfs unlock': commandSpec328,
-  'lfs untrack': commandSpec329,
-  'lfs update': commandSpec330,
-  'lfs version': commandSpec331,
+  'merge-recursive': commandSpec286,
+  'merge-recursive-ours': commandSpec287,
+  'merge-recursive-theirs': commandSpec288,
+  'merge-subtree': commandSpec289,
+  'merge-index': commandSpec290,
+  difftool: commandSpec291,
+  mergetool: commandSpec292,
+  'request-pull': commandSpec293,
+  lfs: commandSpec294,
+  'lfs checkout': commandSpec295,
+  'lfs clean': commandSpec296,
+  'lfs clone': commandSpec297,
+  'lfs completion': commandSpec298,
+  'lfs dedup': commandSpec299,
+  'lfs env': commandSpec300,
+  'lfs ext': commandSpec301,
+  'lfs ext list': commandSpec302,
+  'lfs fetch': commandSpec303,
+  'lfs filter-process': commandSpec304,
+  'lfs fsck': commandSpec305,
+  'lfs help': commandSpec306,
+  'lfs install': commandSpec307,
+  'lfs install hooks': commandSpec308,
+  'lfs lock': commandSpec309,
+  'lfs locks': commandSpec310,
+  'lfs logs': commandSpec311,
+  'lfs logs boomtown': commandSpec312,
+  'lfs logs clear': commandSpec313,
+  'lfs logs last': commandSpec314,
+  'lfs logs show': commandSpec315,
+  'lfs ls-files': commandSpec316,
+  'lfs merge-driver': commandSpec317,
+  'lfs migrate': commandSpec318,
+  'lfs migrate export': commandSpec319,
+  'lfs migrate import': commandSpec320,
+  'lfs migrate info': commandSpec321,
+  'lfs pointer': commandSpec322,
+  'lfs post-checkout': commandSpec323,
+  'lfs post-commit': commandSpec324,
+  'lfs post-merge': commandSpec325,
+  'lfs pre-push': commandSpec326,
+  'lfs prune': commandSpec327,
+  'lfs pull': commandSpec328,
+  'lfs push': commandSpec329,
+  'lfs smudge': commandSpec330,
+  'lfs standalone-file': commandSpec331,
+  'lfs status': commandSpec332,
+  'lfs track': commandSpec333,
+  'lfs uninstall': commandSpec334,
+  'lfs uninstall hooks': commandSpec335,
+  'lfs unlock': commandSpec336,
+  'lfs untrack': commandSpec337,
+  'lfs update': commandSpec338,
+  'lfs version': commandSpec339,
 };
