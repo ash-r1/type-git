@@ -60,7 +60,10 @@ function tableOptions(definitions, command) {
       const callback = (fields.callback ?? '').replace(/[&()]/g, '');
       const parser = { option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
       const base = { ...(parser ? { parser } : {}), key, value, ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
-      if (flags.includes('PARSE_OPT_CMDMODE')) base.modeGroup = fields.value;
+      if (flags.includes('PARSE_OPT_CMDMODE')) {
+        base.modeGroup = fields.value.replace(/[()\s]/g, '');
+        if (kind === 'OPTION_SET_INT' && fields.defval) base.modeValue = fields.defval.replace(/[()\s]/g, '');
+      }
       if (long) options[`--${long}`] ??= base;
       if (short) options[`${flags.includes('PARSE_OPT_NODASH') ? '' : '-'}${short}`] ??= base;
       if (long && !flags.includes('PARSE_OPT_NONEG')) {

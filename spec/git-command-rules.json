@@ -8561,5 +8561,90 @@
         "test": "active"
       }
     }
-  ]
+  ],
+  "apply": [
+    {
+      "id": "cli.apply.reject-threeway",
+      "kind": "exclusive",
+      "keys": [
+        "reject",
+        "3way"
+      ],
+      "origin": "git",
+      "reason": "Reject output cannot be combined with three-way application.",
+      "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
+    },
+    {
+      "id": "cli.apply.merge-variant",
+      "kind": "requires",
+      "when": {
+        "key": "merge-variant",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "3way",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A merge resolution variant requires three-way application.",
+      "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
+    },
+    {
+      "id": "cli.apply.repository-3way",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "3way",
+          "test": "active"
+        },
+        {
+          "key": "inRepository",
+          "test": "equals",
+          "value": false
+        }
+      ],
+      "origin": "git",
+      "reason": "This index operation requires a repository.",
+      "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
+    },
+    {
+      "id": "cli.apply.repository-index",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "index",
+          "test": "active"
+        },
+        {
+          "key": "inRepository",
+          "test": "equals",
+          "value": false
+        }
+      ],
+      "origin": "git",
+      "reason": "This index operation requires a repository.",
+      "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
+    },
+    {
+      "id": "cli.apply.repository-cached",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "inRepository",
+          "test": "equals",
+          "value": false
+        }
+      ],
+      "origin": "git",
+      "reason": "This index operation requires a repository.",
+      "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
+    }
+  ],
+  "am": []
 }
