@@ -5513,5 +5513,63 @@
     "source": "builtin/bisect.c",
     "optionParsing": "none",
     "separator": false
+  },
+  "bundle": {
+    "tables": [
+      "builtin/bundle.c:cmd_bundle:options"
+    ],
+    "source": "builtin/bundle.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "commit-graph": {
+    "tables": [
+      "builtin/commit-graph.c:cmd_commit_graph:builtin_commit_graph_options",
+      "builtin/commit-graph.c:global:common_opts"
+    ],
+    "source": "builtin/commit-graph.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "history": {
+    "tables": [
+      "builtin/history.c:cmd_history:options"
+    ],
+    "source": "builtin/history.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "hook": {
+    "tables": [
+      "builtin/hook.c:cmd_hook:builtin_hook_options"
+    ],
+    "source": "builtin/hook.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "maintenance": {
+    "tables": [
+      "builtin/gc.c:cmd_maintenance:builtin_maintenance_options"
+    ],
+    "source": "builtin/gc.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "multi-pack-index": {
+    "tables": [
+      "builtin/multi-pack-index.c:cmd_multi_pack_index:builtin_multi_pack_index_options",
+      "builtin/multi-pack-index.c:global:common_opts"
+    ],
+    "source": "builtin/multi-pack-index.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "refs": {
+    "tables": [
+      "builtin/refs.c:cmd_refs:opts"
+    ],
+    "source": "builtin/refs.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "repo": {
+    "tables": [
+      "builtin/repo.c:cmd_repo:options"
+    ],
+    "source": "builtin/repo.c",
+    "optionParsing": "stop-at-operand"
   }
 }
