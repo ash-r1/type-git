@@ -217,3 +217,19 @@ inspection preserves immediate format validation and final info/structure format
 restrictions. The ledger remains partial: two-phase revision parsing, ref and
 object resolution, interactive history rewriting and nested bundle revision
 syntax require further work.
+
+### Commands delegating revision and diff parsing
+
+Backfill rejects explicit merge-diff selections, including `--no-diff-merges`,
+and preserves accumulating diff filters even when followed by an empty filter.
+Last-modified starts with boundary and combined-diff settings and consumes its
+own `-r`, `-t` and `-z` before revision parsing. Its single-positive-commit limit
+requires object resolution; it is not approximated by a raw operand count.
+Diff-pairs requires NUL input and excludes path/revision operands.
+
+Range-diff resolves one symmetric range, two ranges or three commits before
+optional paths. Paths may follow without a separator, so a general three-operand
+limit would reject valid Git commands. Replay requires exactly one target mode,
+preserves final ref-action selection, and accepts options which Git subsequently
+overrides with a warning. Phase-specific defaults and delegated value languages
+remain recorded as pending in the ledger.

@@ -2448,6 +2448,56 @@
       ],
       "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
       "typedCommandAPI": true
+    },
+    "backfill": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/delegated-walk.test.ts",
+        "test/types/delegated-walk-command-api.ts"
+      ],
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "last-modified": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/delegated-walk.test.ts",
+        "test/types/delegated-walk-command-api.ts"
+      ],
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Its single positive commit requirement depends on revision resolution, not raw operand count.",
+      "typedCommandAPI": true
+    },
+    "diff-pairs": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/delegated-walk.test.ts",
+        "test/types/delegated-walk-command-api.ts"
+      ],
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "range-diff": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/delegated-walk.test.ts",
+        "test/types/delegated-walk-command-api.ts"
+      ],
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. One symmetric range, two ranges or three commits are resolved before optional paths; no raw maximum operand count is imposed without a separator.",
+      "typedCommandAPI": true
+    },
+    "replay": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/delegated-walk.test.ts",
+        "test/types/delegated-walk-command-api.ts"
+      ],
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Initial reverse traversal depends on mode before revision parsing; subsequent native warning overrides need phase-aware modeling.",
+      "typedCommandAPI": true
     }
   }
 }

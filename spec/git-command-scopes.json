@@ -3921,5 +3921,233 @@
         "set": "nul"
       }
     }
+  },
+  "backfill": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "finalTables": [
+      "builtin/backfill.c:cmd_backfill:options"
+    ],
+    "source": "builtin/backfill.c",
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "options": {
+      "--cc": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "dense-combined",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--combined-all-paths": {
+        "key": "combined-all-paths",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--dd": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "first-parent",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--diff-merges": {
+        "key": "diff-merges",
+        "value": "string",
+        "allowed": [
+          "off",
+          "none",
+          "1",
+          "first-parent",
+          "separate",
+          "c",
+          "combined",
+          "cc",
+          "dense-combined",
+          "r",
+          "remerge",
+          "m",
+          "on"
+        ],
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--no-diff-merges": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "none",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--remerge-diff": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "remerge",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "-c": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "combined",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "-m": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "on",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--diff-filter": {
+        "key": "diff-filter",
+        "value": "string",
+        "repeat": true,
+        "skipEmpty": true
+      }
+    }
+  },
+  "last-modified": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "finalTables": [
+      "builtin/last-modified.c:cmd_last_modified:last_modified_options"
+    ],
+    "source": "builtin/last-modified.c",
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "initial": {
+      "boundary": true,
+      "diff-merges": "combined"
+    },
+    "options": {
+      "-r": {
+        "key": "max-depth",
+        "value": "flag",
+        "set": -1
+      },
+      "--recursive": {
+        "key": "max-depth",
+        "value": "flag",
+        "set": -1
+      },
+      "--no-recursive": {
+        "key": "max-depth",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "diff-pairs": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "finalTables": [
+      "builtin/diff-pairs.c:cmd_diff_pairs:builtin_diff_pairs_options"
+    ],
+    "source": "builtin/diff-pairs.c",
+    "optionGroups": [
+      "diff"
+    ]
+  },
+  "range-diff": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "finalTables": [
+      "builtin/range-diff.c:cmd_range_diff:range_diff_options"
+    ],
+    "source": "builtin/range-diff.c",
+    "optionGroups": [
+      "diff"
+    ],
+    "options": {
+      "--no-max-memory": {
+        "key": "max-memory",
+        "value": "flag",
+        "ignore": true
+      }
+    }
+  },
+  "replay": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "finalTables": [
+      "builtin/replay.c:cmd_replay:replay_options"
+    ],
+    "source": "builtin/replay.c",
+    "optionGroups": [
+      "diff",
+      "revision"
+    ]
   }
 }

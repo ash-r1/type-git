@@ -13226,5 +13226,293 @@
       "reason": "Native mode requires this number of arguments.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
     }
+  ],
+  "backfill": [
+    {
+      "id": "cli.backfill.unsupported-S",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "S",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Backfill rejects diff-dependent revision walking.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c"
+    },
+    {
+      "id": "cli.backfill.unsupported-G",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "G",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Backfill rejects diff-dependent revision walking.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c"
+    },
+    {
+      "id": "cli.backfill.unsupported-follow",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "follow",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Backfill rejects diff-dependent revision walking.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c"
+    },
+    {
+      "id": "cli.backfill.explicit-merge-diff",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "explicit-diff-merges",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Even explicit disabling of merge diffs is unsupported.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c"
+    },
+    {
+      "id": "cli.backfill.diff-filter",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "diff-filter",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Nonempty diff filters accumulate; a later empty filter does not clear them.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c"
+    }
+  ],
+  "last-modified": [],
+  "diff-pairs": [
+    {
+      "id": "cli.diff-pairs.nul",
+      "kind": "required",
+      "required": [
+        {
+          "key": "z",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "The input protocol currently requires NUL termination.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/diff-pairs.c"
+    },
+    {
+      "id": "cli.diff-pairs.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/diff-pairs.c"
+    }
+  ],
+  "range-diff": [
+    {
+      "id": "cli.range-diff.revision-input",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/range-diff.c"
+    },
+    {
+      "id": "cli.range-diff.explicit-ranges",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 1,
+      "max": 3,
+      "when": {
+        "key": "hasSeparator",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/range-diff.c"
+    },
+    {
+      "id": "cli.range-diff.sides",
+      "kind": "exclusive",
+      "keys": [
+        "left-only",
+        "right-only"
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/range-diff.c",
+      "reason": "show_range_diff rejects simultaneous left-only and right-only output."
+    }
+  ],
+  "replay": [
+    {
+      "id": "cli.replay.mode-required",
+      "kind": "requiresAny",
+      "when": {
+        "key": "argumentTokens",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "onto",
+          "test": "present"
+        },
+        {
+          "key": "advance",
+          "test": "present"
+        },
+        {
+          "key": "revert",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Exactly one replay target mode is required.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c"
+    },
+    {
+      "id": "cli.replay.exclusive-onto",
+      "kind": "conflicts",
+      "when": {
+        "key": "onto",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "advance",
+          "test": "present"
+        },
+        {
+          "key": "revert",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Replay target modes are exclusive, including empty strings.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c"
+    },
+    {
+      "id": "cli.replay.exclusive-advance",
+      "kind": "conflicts",
+      "when": {
+        "key": "advance",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "revert",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Replay target modes are exclusive, including empty strings.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c"
+    },
+    {
+      "id": "cli.replay.contained",
+      "kind": "conflicts",
+      "when": {
+        "key": "contained",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "advance",
+          "test": "present"
+        },
+        {
+          "key": "revert",
+          "test": "present"
+        },
+        {
+          "key": "ref",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Contained replay excludes advance, revert and an explicit output ref.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c"
+    },
+    {
+      "id": "cli.replay.ref-action",
+      "kind": "value",
+      "key": "ref-action",
+      "allowed": [
+        "update",
+        "print"
+      ],
+      "origin": "git",
+      "reason": "The final CLI ref action overrides configuration and accepts update or print.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c"
+    },
+    {
+      "id": "cli.replay.input",
+      "kind": "requiresAny",
+      "when": {
+        "key": "argumentTokens",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "nonempty"
+        },
+        {
+          "key": "stdin",
+          "test": "active"
+        },
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "branches",
+          "test": "active"
+        },
+        {
+          "key": "tags",
+          "test": "active"
+        },
+        {
+          "key": "remotes",
+          "test": "active"
+        },
+        {
+          "key": "glob",
+          "test": "active"
+        },
+        {
+          "key": "reflog",
+          "test": "active"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "active"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "active"
+        },
+        {
+          "key": "bisect",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Replay requires an explicit revision source.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c"
+    }
   ]
 }
