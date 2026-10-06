@@ -151,3 +151,20 @@ enumerate every mixed-case string or prove completeness of upstream discovery.
 Case-insensitive literal arguments are checked by folding the supplied string,
 rather than constructing an exponential union of every possible enum spelling.
 Dynamic strings and argument arrays remain subject to runtime validation.
+
+### Index and low-level merge scopes
+
+`update-ref`, `checkout-index`, `read-tree`, `merge-file` and `merge-tree` model
+native transaction modes, input selection, callback ordering and operand limits.
+Notable Git 2.55 behaviors include checkout stage strings beginning with `1`, `2`
+or `3` (not just those single digits), up to eight read-tree inputs, and an
+exclude-per-directory callback that requires an earlier `-u` token. Merge-file
+accepts successive ours/theirs/union selections and case-insensitive algorithm
+names, including `default`; its fourth label is rejected immediately.
+
+The array `lengthEquals` predicate expresses merge-tree's implicit mode: three
+operands select a trivial merge that forbids every additional original token.
+Negated options and even the `--` separator still count. Explicit trivial mode
+allows exactly one mode flag and three operands. Stdin merging ignores leftover
+operands but excludes a global merge base. These are argument constraints;
+conflicts, tree validity and the stdin protocol remain Git's responsibility.

@@ -101,6 +101,15 @@ describe('reduced ordered decision diagrams', () => {
     }
   });
 
+  it('uses operand cardinality as a mode predicate', () => {
+    const rules: Constraint[] = [{ ...evidence, id: 'trivial', kind: 'arity', key: 'tokens', min: 3, max: 3, when: { key: 'operands', test: 'lengthEquals', value: 3 } }];
+    const domain = { operands: [undefined, [], ['a'], ['a', 'b'], ['a', 'b', 'c']], tokens: [[], ['a', 'b', 'c'], ['a', 'b', 'c', 'd']] };
+    expect(solve(rules, domain).accepted).toBe(13n);
+    const witness = solve(rules, domain).counterexamples.trivial!;
+    expect(witness.operands).toHaveLength(3);
+    expect(witness.tokens).not.toHaveLength(3);
+  });
+
   it('counts 80 interacting boolean variables exactly without enumerating 2^80 assignments', () => {
     const keys = Array.from({ length: 80 }, (_, i) => `flag${i.toString().padStart(2, '0')}`);
     const result = solve(
