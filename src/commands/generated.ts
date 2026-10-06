@@ -91369,6 +91369,1120 @@ const commandSpec335 = {
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec336 = {
+  argv: ['send-email'],
+  options: {
+    '--identity': {
+      key: 'identity',
+      value: 'string',
+    },
+    '--no-identity': {
+      key: 'no-identity',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--dump-aliases': {
+      key: 'dump-aliases',
+      value: 'flag',
+    },
+    '--translate-aliases': {
+      key: 'translate-aliases',
+      value: 'flag',
+    },
+    '--sender': {
+      key: 'sender',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--from': {
+      key: 'sender',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--in-reply-to': {
+      key: 'in-reply-to',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--reply-to': {
+      key: 'reply-to',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--subject': {
+      key: 'subject',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--to': {
+      key: 'to',
+      value: 'string',
+      repeat: true,
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--to-cmd': {
+      key: 'to-cmd',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-to': {
+      key: 'no-to',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--cc': {
+      key: 'cc',
+      value: 'string',
+      repeat: true,
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-cc': {
+      key: 'no-cc',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--bcc': {
+      key: 'bcc',
+      value: 'string',
+      repeat: true,
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-bcc': {
+      key: 'no-bcc',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--chain-reply-to': {
+      key: 'chain-reply-to',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-chain-reply-to': {
+      key: 'chain-reply-to',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nochain-reply-to': {
+      key: 'chain-reply-to',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--sendmail-cmd': {
+      key: 'sendmail-cmd',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-server': {
+      key: 'smtp-server',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-server-option': {
+      key: 'smtp-server-option',
+      value: 'string',
+      repeat: true,
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-server-port': {
+      key: 'smtp-server-port',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-user': {
+      key: 'smtp-user',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-pass': {
+      key: 'smtp-pass',
+      value: 'optional-string',
+      set: '',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-ssl': {
+      key: 'smtp-encryption',
+      value: 'flag',
+      set: 'ssl',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-encryption': {
+      key: 'smtp-encryption',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-ssl-cert-path': {
+      key: 'smtp-ssl-cert-path',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-ssl-client-cert': {
+      key: 'smtp-ssl-client-cert',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-ssl-client-key': {
+      key: 'smtp-ssl-client-key',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-debug': {
+      key: 'smtp-debug',
+      value: 'optional-integer',
+      set: 0,
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-domain': {
+      key: 'smtp-domain',
+      value: 'optional-string',
+      set: '',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--smtp-auth': {
+      key: 'smtp-auth',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-smtp-auth': {
+      key: 'smtp-auth',
+      value: 'flag',
+      set: 'none',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--imap-sent-folder': {
+      key: 'imap-sent-folder',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--use-imap-only': {
+      key: 'use-imap-only',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-use-imap-only': {
+      key: 'use-imap-only',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nouse-imap-only': {
+      key: 'use-imap-only',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--annotate': {
+      key: 'annotate',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-annotate': {
+      key: 'annotate',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--noannotate': {
+      key: 'annotate',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--compose': {
+      key: 'compose',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--cc-cmd': {
+      key: 'cc-cmd',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--header-cmd': {
+      key: 'header-cmd',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-header-cmd': {
+      key: 'no-header-cmd',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--suppress-from': {
+      key: 'suppress-from',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-suppress-from': {
+      key: 'suppress-from',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nosuppress-from': {
+      key: 'suppress-from',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--suppress-cc': {
+      key: 'suppress-cc',
+      value: 'string',
+      repeat: true,
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--signed-off-cc': {
+      key: 'signed-off-cc',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-signed-off-cc': {
+      key: 'signed-off-cc',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nosigned-off-cc': {
+      key: 'signed-off-cc',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--signed-off-by-cc': {
+      key: 'signed-off-cc',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-signed-off-by-cc': {
+      key: 'signed-off-cc',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nosigned-off-by-cc': {
+      key: 'signed-off-cc',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--cc-cover': {
+      key: 'cc-cover',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-cc-cover': {
+      key: 'cc-cover',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nocc-cover': {
+      key: 'cc-cover',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--to-cover': {
+      key: 'to-cover',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-to-cover': {
+      key: 'to-cover',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--noto-cover': {
+      key: 'to-cover',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--confirm': {
+      key: 'confirm',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--envelope-sender': {
+      key: 'envelope-sender',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--thread': {
+      key: 'thread',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-thread': {
+      key: 'thread',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nothread': {
+      key: 'thread',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--validate': {
+      key: 'validate',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-validate': {
+      key: 'validate',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--novalidate': {
+      key: 'validate',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--transfer-encoding': {
+      key: 'transfer-encoding',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--mailmap': {
+      key: 'mailmap',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-mailmap': {
+      key: 'mailmap',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nomailmap': {
+      key: 'mailmap',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--use-mailmap': {
+      key: 'mailmap',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-use-mailmap': {
+      key: 'mailmap',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nouse-mailmap': {
+      key: 'mailmap',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--format-patch': {
+      key: 'format-patch',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-format-patch': {
+      key: 'format-patch',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--noformat-patch': {
+      key: 'format-patch',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--8bit-encoding': {
+      key: '8bit-encoding',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--compose-encoding': {
+      key: 'compose-encoding',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--xmailer': {
+      key: 'xmailer',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-xmailer': {
+      key: 'xmailer',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--noxmailer': {
+      key: 'xmailer',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--batch-size': {
+      key: 'batch-size',
+      value: 'integer',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--relogin-delay': {
+      key: 'relogin-delay',
+      value: 'integer',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--git-completion-helper': {
+      key: 'git-completion-helper',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '-v': {
+      key: 'v',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--v': {
+      key: 'v',
+      value: 'string',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--outlook-id-fix': {
+      key: 'outlook-id-fix',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+    },
+    '--no-outlook-id-fix': {
+      key: 'outlook-id-fix',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+    '--nooutlook-id-fix': {
+      key: 'outlook-id-fix',
+      value: 'flag',
+      effects: [
+        {
+          key: 'ordinary-options',
+          set: true,
+        },
+      ],
+      set: false,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.send-email.alias-modes',
+      kind: 'exclusive',
+      keys: ['dump-aliases', 'translate-aliases'],
+      origin: 'git',
+      reason: 'Dump and translate alias modes conflict before the main option pass.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
+    },
+    {
+      id: 'cli.send-email.dump-aliases-options',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'dump-aliases',
+          test: 'active',
+        },
+        {
+          key: 'ordinary-options',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Alias mode permits identity and help selectors but no ordinary options.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
+    },
+    {
+      id: 'cli.send-email.dump-aliases-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'dump-aliases',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Alias mode permits no remaining argument words.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
+    },
+    {
+      id: 'cli.send-email.translate-aliases-options',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'translate-aliases',
+          test: 'active',
+        },
+        {
+          key: 'ordinary-options',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Alias mode permits identity and help selectors but no ordinary options.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
+    },
+    {
+      id: 'cli.send-email.translate-aliases-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'translate-aliases',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Alias mode permits no remaining argument words.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
+    },
+    {
+      id: 'cli.send-email.suppress-fields',
+      kind: 'elements',
+      key: 'suppress-cc',
+      allowed: ['all', 'cccmd', 'cc', 'author', 'self', 'sob', 'body', 'bodycc', 'misc-by'],
+      guard: [
+        {
+          key: 'git-completion-helper',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'Every suppression field is checked after the final option pass.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
+    },
+    {
+      id: 'cli.send-email.confirm-prefix',
+      kind: 'requiresAny',
+      when: {
+        key: 'confirm',
+        test: 'present',
+      },
+      choices: [
+        {
+          key: 'confirm',
+          test: 'startsWith',
+          value: 'auto',
+        },
+        {
+          key: 'confirm',
+          test: 'startsWith',
+          value: 'cc',
+        },
+        {
+          key: 'confirm',
+          test: 'startsWith',
+          value: 'compose',
+        },
+        {
+          key: 'confirm',
+          test: 'startsWith',
+          value: 'always',
+        },
+        {
+          key: 'confirm',
+          test: 'startsWith',
+          value: 'never',
+        },
+      ],
+      guard: [
+        {
+          key: 'git-completion-helper',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'The native confirmation regexp accepts these prefixes, including trailing characters.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
+    },
+  ],
+  source: 'git-send-email.perl',
+  separator: true,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec337 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -91392,7 +92506,7 @@ const commandSpec336 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec337 = {
+const commandSpec338 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -91523,7 +92637,7 @@ const commandSpec337 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec338 = {
+const commandSpec339 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -91539,7 +92653,7 @@ const commandSpec338 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec339 = {
+const commandSpec340 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -91746,7 +92860,7 @@ const commandSpec339 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec340 = {
+const commandSpec341 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -91782,7 +92896,7 @@ const commandSpec340 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec341 = {
+const commandSpec342 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -91806,7 +92920,7 @@ const commandSpec341 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec342 = {
+const commandSpec343 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -91822,7 +92936,7 @@ const commandSpec342 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec343 = {
+const commandSpec344 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -91838,7 +92952,7 @@ const commandSpec343 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec344 = {
+const commandSpec345 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -91854,7 +92968,7 @@ const commandSpec344 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec345 = {
+const commandSpec346 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -91982,7 +93096,7 @@ const commandSpec345 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec346 = {
+const commandSpec347 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -92006,7 +93120,7 @@ const commandSpec346 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec347 = {
+const commandSpec348 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -92038,7 +93152,7 @@ const commandSpec347 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec348 = {
+const commandSpec349 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -92054,7 +93168,7 @@ const commandSpec348 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec349 = {
+const commandSpec350 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -92260,7 +93374,7 @@ const commandSpec349 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec350 = {
+const commandSpec351 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -92276,7 +93390,7 @@ const commandSpec350 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec351 = {
+const commandSpec352 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -92308,7 +93422,7 @@ const commandSpec351 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec352 = {
+const commandSpec353 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -92445,7 +93559,7 @@ const commandSpec352 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec353 = {
+const commandSpec354 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -92461,7 +93575,7 @@ const commandSpec353 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec354 = {
+const commandSpec355 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -92477,7 +93591,7 @@ const commandSpec354 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec355 = {
+const commandSpec356 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -92493,7 +93607,7 @@ const commandSpec355 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec356 = {
+const commandSpec357 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -92509,7 +93623,7 @@ const commandSpec356 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec357 = {
+const commandSpec358 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -92525,7 +93639,7 @@ const commandSpec357 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec358 = {
+const commandSpec359 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -92638,7 +93752,7 @@ const commandSpec358 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec359 = {
+const commandSpec360 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -92704,7 +93818,7 @@ const commandSpec359 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec360 = {
+const commandSpec361 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -92764,7 +93878,7 @@ const commandSpec360 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec361 = {
+const commandSpec362 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -92901,7 +94015,7 @@ const commandSpec361 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec362 = {
+const commandSpec363 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -93165,7 +94279,7 @@ const commandSpec362 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec363 = {
+const commandSpec364 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -93350,7 +94464,7 @@ const commandSpec363 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec364 = {
+const commandSpec365 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -93504,7 +94618,7 @@ const commandSpec364 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec365 = {
+const commandSpec366 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -93531,7 +94645,7 @@ const commandSpec365 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec366 = {
+const commandSpec367 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -93547,7 +94661,7 @@ const commandSpec366 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec367 = {
+const commandSpec368 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -93574,7 +94688,7 @@ const commandSpec367 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec368 = {
+const commandSpec369 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -93608,7 +94722,7 @@ const commandSpec368 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec369 = {
+const commandSpec370 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -93694,7 +94808,7 @@ const commandSpec369 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec370 = {
+const commandSpec371 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -93726,7 +94840,7 @@ const commandSpec370 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec371 = {
+const commandSpec372 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -93832,7 +94946,7 @@ const commandSpec371 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec372 = {
+const commandSpec373 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -93856,7 +94970,7 @@ const commandSpec372 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec373 = {
+const commandSpec374 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -93872,7 +94986,7 @@ const commandSpec373 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec374 = {
+const commandSpec375 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -93904,7 +95018,7 @@ const commandSpec374 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec375 = {
+const commandSpec376 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -93983,7 +95097,7 @@ const commandSpec375 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec376 = {
+const commandSpec377 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -94087,7 +95201,7 @@ const commandSpec376 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec377 = {
+const commandSpec378 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -94103,7 +95217,7 @@ const commandSpec377 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec378 = {
+const commandSpec379 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -94190,7 +95304,7 @@ const commandSpec378 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec379 = {
+const commandSpec380 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -94206,7 +95320,7 @@ const commandSpec379 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec380 = {
+const commandSpec381 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -94247,7 +95361,7 @@ const commandSpec380 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec381 = {
+const commandSpec382 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -94608,52 +95722,53 @@ export const COMMAND_SPECS: {
   readonly cvsserver: typeof commandSpec333;
   readonly 'cvsserver server': typeof commandSpec334;
   readonly 'cvsserver pserver': typeof commandSpec335;
-  readonly lfs: typeof commandSpec336;
-  readonly 'lfs checkout': typeof commandSpec337;
-  readonly 'lfs clean': typeof commandSpec338;
-  readonly 'lfs clone': typeof commandSpec339;
-  readonly 'lfs completion': typeof commandSpec340;
-  readonly 'lfs dedup': typeof commandSpec341;
-  readonly 'lfs env': typeof commandSpec342;
-  readonly 'lfs ext': typeof commandSpec343;
-  readonly 'lfs ext list': typeof commandSpec344;
-  readonly 'lfs fetch': typeof commandSpec345;
-  readonly 'lfs filter-process': typeof commandSpec346;
-  readonly 'lfs fsck': typeof commandSpec347;
-  readonly 'lfs help': typeof commandSpec348;
-  readonly 'lfs install': typeof commandSpec349;
-  readonly 'lfs install hooks': typeof commandSpec350;
-  readonly 'lfs lock': typeof commandSpec351;
-  readonly 'lfs locks': typeof commandSpec352;
-  readonly 'lfs logs': typeof commandSpec353;
-  readonly 'lfs logs boomtown': typeof commandSpec354;
-  readonly 'lfs logs clear': typeof commandSpec355;
-  readonly 'lfs logs last': typeof commandSpec356;
-  readonly 'lfs logs show': typeof commandSpec357;
-  readonly 'lfs ls-files': typeof commandSpec358;
-  readonly 'lfs merge-driver': typeof commandSpec359;
-  readonly 'lfs migrate': typeof commandSpec360;
-  readonly 'lfs migrate export': typeof commandSpec361;
-  readonly 'lfs migrate import': typeof commandSpec362;
-  readonly 'lfs migrate info': typeof commandSpec363;
-  readonly 'lfs pointer': typeof commandSpec364;
-  readonly 'lfs post-checkout': typeof commandSpec365;
-  readonly 'lfs post-commit': typeof commandSpec366;
-  readonly 'lfs post-merge': typeof commandSpec367;
-  readonly 'lfs pre-push': typeof commandSpec368;
-  readonly 'lfs prune': typeof commandSpec369;
-  readonly 'lfs pull': typeof commandSpec370;
-  readonly 'lfs push': typeof commandSpec371;
-  readonly 'lfs smudge': typeof commandSpec372;
-  readonly 'lfs standalone-file': typeof commandSpec373;
-  readonly 'lfs status': typeof commandSpec374;
-  readonly 'lfs track': typeof commandSpec375;
-  readonly 'lfs uninstall': typeof commandSpec376;
-  readonly 'lfs uninstall hooks': typeof commandSpec377;
-  readonly 'lfs unlock': typeof commandSpec378;
-  readonly 'lfs untrack': typeof commandSpec379;
-  readonly 'lfs update': typeof commandSpec380;
-  readonly 'lfs version': typeof commandSpec381;
+  readonly 'send-email': typeof commandSpec336;
+  readonly lfs: typeof commandSpec337;
+  readonly 'lfs checkout': typeof commandSpec338;
+  readonly 'lfs clean': typeof commandSpec339;
+  readonly 'lfs clone': typeof commandSpec340;
+  readonly 'lfs completion': typeof commandSpec341;
+  readonly 'lfs dedup': typeof commandSpec342;
+  readonly 'lfs env': typeof commandSpec343;
+  readonly 'lfs ext': typeof commandSpec344;
+  readonly 'lfs ext list': typeof commandSpec345;
+  readonly 'lfs fetch': typeof commandSpec346;
+  readonly 'lfs filter-process': typeof commandSpec347;
+  readonly 'lfs fsck': typeof commandSpec348;
+  readonly 'lfs help': typeof commandSpec349;
+  readonly 'lfs install': typeof commandSpec350;
+  readonly 'lfs install hooks': typeof commandSpec351;
+  readonly 'lfs lock': typeof commandSpec352;
+  readonly 'lfs locks': typeof commandSpec353;
+  readonly 'lfs logs': typeof commandSpec354;
+  readonly 'lfs logs boomtown': typeof commandSpec355;
+  readonly 'lfs logs clear': typeof commandSpec356;
+  readonly 'lfs logs last': typeof commandSpec357;
+  readonly 'lfs logs show': typeof commandSpec358;
+  readonly 'lfs ls-files': typeof commandSpec359;
+  readonly 'lfs merge-driver': typeof commandSpec360;
+  readonly 'lfs migrate': typeof commandSpec361;
+  readonly 'lfs migrate export': typeof commandSpec362;
+  readonly 'lfs migrate import': typeof commandSpec363;
+  readonly 'lfs migrate info': typeof commandSpec364;
+  readonly 'lfs pointer': typeof commandSpec365;
+  readonly 'lfs post-checkout': typeof commandSpec366;
+  readonly 'lfs post-commit': typeof commandSpec367;
+  readonly 'lfs post-merge': typeof commandSpec368;
+  readonly 'lfs pre-push': typeof commandSpec369;
+  readonly 'lfs prune': typeof commandSpec370;
+  readonly 'lfs pull': typeof commandSpec371;
+  readonly 'lfs push': typeof commandSpec372;
+  readonly 'lfs smudge': typeof commandSpec373;
+  readonly 'lfs standalone-file': typeof commandSpec374;
+  readonly 'lfs status': typeof commandSpec375;
+  readonly 'lfs track': typeof commandSpec376;
+  readonly 'lfs uninstall': typeof commandSpec377;
+  readonly 'lfs uninstall hooks': typeof commandSpec378;
+  readonly 'lfs unlock': typeof commandSpec379;
+  readonly 'lfs untrack': typeof commandSpec380;
+  readonly 'lfs update': typeof commandSpec381;
+  readonly 'lfs version': typeof commandSpec382;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -94991,50 +96106,51 @@ export const COMMAND_SPECS: {
   cvsserver: commandSpec333,
   'cvsserver server': commandSpec334,
   'cvsserver pserver': commandSpec335,
-  lfs: commandSpec336,
-  'lfs checkout': commandSpec337,
-  'lfs clean': commandSpec338,
-  'lfs clone': commandSpec339,
-  'lfs completion': commandSpec340,
-  'lfs dedup': commandSpec341,
-  'lfs env': commandSpec342,
-  'lfs ext': commandSpec343,
-  'lfs ext list': commandSpec344,
-  'lfs fetch': commandSpec345,
-  'lfs filter-process': commandSpec346,
-  'lfs fsck': commandSpec347,
-  'lfs help': commandSpec348,
-  'lfs install': commandSpec349,
-  'lfs install hooks': commandSpec350,
-  'lfs lock': commandSpec351,
-  'lfs locks': commandSpec352,
-  'lfs logs': commandSpec353,
-  'lfs logs boomtown': commandSpec354,
-  'lfs logs clear': commandSpec355,
-  'lfs logs last': commandSpec356,
-  'lfs logs show': commandSpec357,
-  'lfs ls-files': commandSpec358,
-  'lfs merge-driver': commandSpec359,
-  'lfs migrate': commandSpec360,
-  'lfs migrate export': commandSpec361,
-  'lfs migrate import': commandSpec362,
-  'lfs migrate info': commandSpec363,
-  'lfs pointer': commandSpec364,
-  'lfs post-checkout': commandSpec365,
-  'lfs post-commit': commandSpec366,
-  'lfs post-merge': commandSpec367,
-  'lfs pre-push': commandSpec368,
-  'lfs prune': commandSpec369,
-  'lfs pull': commandSpec370,
-  'lfs push': commandSpec371,
-  'lfs smudge': commandSpec372,
-  'lfs standalone-file': commandSpec373,
-  'lfs status': commandSpec374,
-  'lfs track': commandSpec375,
-  'lfs uninstall': commandSpec376,
-  'lfs uninstall hooks': commandSpec377,
-  'lfs unlock': commandSpec378,
-  'lfs untrack': commandSpec379,
-  'lfs update': commandSpec380,
-  'lfs version': commandSpec381,
+  'send-email': commandSpec336,
+  lfs: commandSpec337,
+  'lfs checkout': commandSpec338,
+  'lfs clean': commandSpec339,
+  'lfs clone': commandSpec340,
+  'lfs completion': commandSpec341,
+  'lfs dedup': commandSpec342,
+  'lfs env': commandSpec343,
+  'lfs ext': commandSpec344,
+  'lfs ext list': commandSpec345,
+  'lfs fetch': commandSpec346,
+  'lfs filter-process': commandSpec347,
+  'lfs fsck': commandSpec348,
+  'lfs help': commandSpec349,
+  'lfs install': commandSpec350,
+  'lfs install hooks': commandSpec351,
+  'lfs lock': commandSpec352,
+  'lfs locks': commandSpec353,
+  'lfs logs': commandSpec354,
+  'lfs logs boomtown': commandSpec355,
+  'lfs logs clear': commandSpec356,
+  'lfs logs last': commandSpec357,
+  'lfs logs show': commandSpec358,
+  'lfs ls-files': commandSpec359,
+  'lfs merge-driver': commandSpec360,
+  'lfs migrate': commandSpec361,
+  'lfs migrate export': commandSpec362,
+  'lfs migrate import': commandSpec363,
+  'lfs migrate info': commandSpec364,
+  'lfs pointer': commandSpec365,
+  'lfs post-checkout': commandSpec366,
+  'lfs post-commit': commandSpec367,
+  'lfs post-merge': commandSpec368,
+  'lfs pre-push': commandSpec369,
+  'lfs prune': commandSpec370,
+  'lfs pull': commandSpec371,
+  'lfs push': commandSpec372,
+  'lfs smudge': commandSpec373,
+  'lfs standalone-file': commandSpec374,
+  'lfs status': commandSpec375,
+  'lfs track': commandSpec376,
+  'lfs uninstall': commandSpec377,
+  'lfs uninstall hooks': commandSpec378,
+  'lfs unlock': commandSpec379,
+  'lfs untrack': commandSpec380,
+  'lfs update': commandSpec381,
+  'lfs version': commandSpec382,
 };
