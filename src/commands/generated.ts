@@ -92828,6 +92828,558 @@ const commandSpec343 = {
   optionParsing: 'none',
 } as const satisfies CommandSpec;
 const commandSpec344 = {
+  argv: ['p4', 'submit'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--origin': {
+      key: 'origin',
+      value: 'string',
+    },
+    '-M': {
+      key: 'detectRenames',
+      value: 'flag',
+    },
+    '--preserve-user': {
+      key: 'preserveUser',
+      value: 'flag',
+    },
+    '--export-labels': {
+      key: 'exportLabels',
+      value: 'flag',
+    },
+    '--dry-run': {
+      key: 'dry_run',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry_run',
+      value: 'flag',
+    },
+    '--prepare-p4-only': {
+      key: 'prepare_p4_only',
+      value: 'flag',
+    },
+    '--conflict': {
+      key: 'conflict_behavior',
+      value: 'string',
+      allowed: ['ask', 'skip', 'quit'],
+    },
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '--shelve': {
+      key: 'shelve',
+      value: 'flag',
+    },
+    '--update-shelve': {
+      key: 'update_shelve',
+      value: 'integer',
+      repeat: true,
+    },
+    '--commit': {
+      key: 'commit',
+      value: 'string',
+    },
+    '--disable-rebase': {
+      key: 'disable_rebase',
+      value: 'flag',
+    },
+    '--disable-p4sync': {
+      key: 'disable_p4sync',
+      value: 'flag',
+    },
+    '--no-verify': {
+      key: 'no_verify',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--git-dir': {
+      key: 'gitdir',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.p4.submit.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'Submit and its commit alias accept at most one local branch.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+    {
+      id: 'cli.p4.submit.changelists',
+      kind: 'eachInteger',
+      key: 'update_shelve',
+      min: 1,
+      origin: 'git',
+      reason: 'Every update-shelve changelist must be positive after parsing completes.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+  ],
+  source: 'git-p4.py:P4Submit',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec345 = {
+  argv: ['p4', 'commit'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--origin': {
+      key: 'origin',
+      value: 'string',
+    },
+    '-M': {
+      key: 'detectRenames',
+      value: 'flag',
+    },
+    '--preserve-user': {
+      key: 'preserveUser',
+      value: 'flag',
+    },
+    '--export-labels': {
+      key: 'exportLabels',
+      value: 'flag',
+    },
+    '--dry-run': {
+      key: 'dry_run',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry_run',
+      value: 'flag',
+    },
+    '--prepare-p4-only': {
+      key: 'prepare_p4_only',
+      value: 'flag',
+    },
+    '--conflict': {
+      key: 'conflict_behavior',
+      value: 'string',
+      allowed: ['ask', 'skip', 'quit'],
+    },
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '--shelve': {
+      key: 'shelve',
+      value: 'flag',
+    },
+    '--update-shelve': {
+      key: 'update_shelve',
+      value: 'integer',
+      repeat: true,
+    },
+    '--commit': {
+      key: 'commit',
+      value: 'string',
+    },
+    '--disable-rebase': {
+      key: 'disable_rebase',
+      value: 'flag',
+    },
+    '--disable-p4sync': {
+      key: 'disable_p4sync',
+      value: 'flag',
+    },
+    '--no-verify': {
+      key: 'no_verify',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--git-dir': {
+      key: 'gitdir',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.p4.commit.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'Submit and its commit alias accept at most one local branch.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+    {
+      id: 'cli.p4.commit.changelists',
+      kind: 'eachInteger',
+      key: 'update_shelve',
+      min: 1,
+      origin: 'git',
+      reason: 'Every update-shelve changelist must be positive after parsing completes.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+  ],
+  source: 'git-p4.py:P4Submit',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec346 = {
+  argv: ['p4', 'sync'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '--detect-branches': {
+      key: 'detectBranches',
+      value: 'flag',
+    },
+    '--changesfile': {
+      key: 'changesFile',
+      value: 'string',
+    },
+    '--silent': {
+      key: 'silent',
+      value: 'flag',
+    },
+    '--detect-labels': {
+      key: 'detectLabels',
+      value: 'flag',
+    },
+    '--import-labels': {
+      key: 'importLabels',
+      value: 'flag',
+    },
+    '--import-local': {
+      key: 'importIntoRemotes',
+      value: 'flag',
+      set: false,
+    },
+    '--max-changes': {
+      key: 'maxChanges',
+      value: 'string',
+    },
+    '--changes-block-size': {
+      key: 'changes_block_size',
+      value: 'integer',
+    },
+    '--keep-path': {
+      key: 'keepRepoPath',
+      value: 'flag',
+    },
+    '--use-client-spec': {
+      key: 'useClientSpec',
+      value: 'flag',
+    },
+    '-/': {
+      key: 'cloneExclude',
+      value: 'string',
+      repeat: true,
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--git-dir': {
+      key: 'gitdir',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-p4.py:P4Sync',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec347 = {
+  argv: ['p4', 'rebase'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--import-labels': {
+      key: 'importLabels',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--git-dir': {
+      key: 'gitdir',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-p4.py:P4Rebase',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec348 = {
+  argv: ['p4', 'clone'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '--detect-branches': {
+      key: 'detectBranches',
+      value: 'flag',
+    },
+    '--changesfile': {
+      key: 'changesFile',
+      value: 'string',
+    },
+    '--silent': {
+      key: 'silent',
+      value: 'flag',
+    },
+    '--detect-labels': {
+      key: 'detectLabels',
+      value: 'flag',
+    },
+    '--import-labels': {
+      key: 'importLabels',
+      value: 'flag',
+    },
+    '--import-local': {
+      key: 'importIntoRemotes',
+      value: 'flag',
+      set: false,
+    },
+    '--max-changes': {
+      key: 'maxChanges',
+      value: 'string',
+    },
+    '--changes-block-size': {
+      key: 'changes_block_size',
+      value: 'integer',
+    },
+    '--keep-path': {
+      key: 'keepRepoPath',
+      value: 'flag',
+    },
+    '--use-client-spec': {
+      key: 'useClientSpec',
+      value: 'flag',
+    },
+    '-/': {
+      key: 'cloneExclude',
+      value: 'string',
+      repeat: true,
+    },
+    '--destination': {
+      key: 'cloneDestination',
+      value: 'string',
+    },
+    '--bare': {
+      key: 'cloneBare',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.p4.clone.depot',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      reason: 'Clone requires at least one depot path.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+    {
+      id: 'cli.p4.clone.keep-destination',
+      kind: 'requires',
+      when: {
+        key: 'keepRepoPath',
+        test: 'active',
+      },
+      required: [
+        {
+          key: 'cloneDestination',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Keep-path requires a nonempty explicit destination before any positional destination is inferred.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+  ],
+  source: 'git-p4.py:P4Clone',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec349 = {
+  argv: ['p4', 'branches'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--git-dir': {
+      key: 'gitdir',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-p4.py:P4Branches',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec350 = {
+  argv: ['p4', 'unshelve'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--origin': {
+      key: 'origin',
+      value: 'string',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--git-dir': {
+      key: 'gitdir',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.p4.unshelve.change',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'Unshelve requires exactly one changelist operand.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+  ],
+  source: 'git-p4.py:P4Unshelve',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec351 = {
+  argv: ['p4'],
+  dispatch: {
+    submit: 'p4 submit',
+    commit: 'p4 commit',
+    sync: 'p4 sync',
+    rebase: 'p4 rebase',
+    clone: 'p4 clone',
+    branches: 'p4 branches',
+    unshelve: 'p4 unshelve',
+  },
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.p4.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      reason: 'The frontend requires a registered operation as the first word.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+    {
+      id: 'cli.p4.known-operation',
+      kind: 'value',
+      key: 'operand0',
+      allowed: ['submit', 'commit', 'sync', 'rebase', 'clone', 'branches', 'unshelve'],
+      origin: 'git',
+      reason: 'Only the registered Python command classes are dispatched.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-p4.py',
+    },
+  ],
+  source: 'git-p4.py:main',
+  separator: false,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec352 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -92851,7 +93403,7 @@ const commandSpec344 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec345 = {
+const commandSpec353 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -92982,7 +93534,7 @@ const commandSpec345 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec346 = {
+const commandSpec354 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -92998,7 +93550,7 @@ const commandSpec346 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec347 = {
+const commandSpec355 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -93205,7 +93757,7 @@ const commandSpec347 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec348 = {
+const commandSpec356 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -93241,7 +93793,7 @@ const commandSpec348 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec349 = {
+const commandSpec357 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -93265,7 +93817,7 @@ const commandSpec349 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec350 = {
+const commandSpec358 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -93281,7 +93833,7 @@ const commandSpec350 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec351 = {
+const commandSpec359 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -93297,7 +93849,7 @@ const commandSpec351 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec352 = {
+const commandSpec360 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -93313,7 +93865,7 @@ const commandSpec352 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec353 = {
+const commandSpec361 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -93441,7 +93993,7 @@ const commandSpec353 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec354 = {
+const commandSpec362 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -93465,7 +94017,7 @@ const commandSpec354 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec355 = {
+const commandSpec363 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -93497,7 +94049,7 @@ const commandSpec355 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec356 = {
+const commandSpec364 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -93513,7 +94065,7 @@ const commandSpec356 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec357 = {
+const commandSpec365 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -93719,7 +94271,7 @@ const commandSpec357 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec358 = {
+const commandSpec366 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -93735,7 +94287,7 @@ const commandSpec358 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec359 = {
+const commandSpec367 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -93767,7 +94319,7 @@ const commandSpec359 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec360 = {
+const commandSpec368 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -93904,7 +94456,7 @@ const commandSpec360 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec361 = {
+const commandSpec369 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -93920,7 +94472,7 @@ const commandSpec361 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec362 = {
+const commandSpec370 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -93936,7 +94488,7 @@ const commandSpec362 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec363 = {
+const commandSpec371 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -93952,7 +94504,7 @@ const commandSpec363 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec364 = {
+const commandSpec372 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -93968,7 +94520,7 @@ const commandSpec364 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec365 = {
+const commandSpec373 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -93984,7 +94536,7 @@ const commandSpec365 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec366 = {
+const commandSpec374 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -94097,7 +94649,7 @@ const commandSpec366 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec367 = {
+const commandSpec375 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -94163,7 +94715,7 @@ const commandSpec367 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec368 = {
+const commandSpec376 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -94223,7 +94775,7 @@ const commandSpec368 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec369 = {
+const commandSpec377 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -94360,7 +94912,7 @@ const commandSpec369 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec370 = {
+const commandSpec378 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -94624,7 +95176,7 @@ const commandSpec370 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec371 = {
+const commandSpec379 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -94809,7 +95361,7 @@ const commandSpec371 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec372 = {
+const commandSpec380 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -94963,7 +95515,7 @@ const commandSpec372 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec373 = {
+const commandSpec381 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -94990,7 +95542,7 @@ const commandSpec373 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec374 = {
+const commandSpec382 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -95006,7 +95558,7 @@ const commandSpec374 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec375 = {
+const commandSpec383 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -95033,7 +95585,7 @@ const commandSpec375 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec376 = {
+const commandSpec384 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -95067,7 +95619,7 @@ const commandSpec376 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec377 = {
+const commandSpec385 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -95153,7 +95705,7 @@ const commandSpec377 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec378 = {
+const commandSpec386 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -95185,7 +95737,7 @@ const commandSpec378 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec379 = {
+const commandSpec387 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -95291,7 +95843,7 @@ const commandSpec379 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec380 = {
+const commandSpec388 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -95315,7 +95867,7 @@ const commandSpec380 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec381 = {
+const commandSpec389 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -95331,7 +95883,7 @@ const commandSpec381 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec382 = {
+const commandSpec390 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -95363,7 +95915,7 @@ const commandSpec382 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec383 = {
+const commandSpec391 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -95442,7 +95994,7 @@ const commandSpec383 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec384 = {
+const commandSpec392 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -95546,7 +96098,7 @@ const commandSpec384 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec385 = {
+const commandSpec393 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -95562,7 +96114,7 @@ const commandSpec385 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec386 = {
+const commandSpec394 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -95649,7 +96201,7 @@ const commandSpec386 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec387 = {
+const commandSpec395 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -95665,7 +96217,7 @@ const commandSpec387 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec388 = {
+const commandSpec396 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -95706,7 +96258,7 @@ const commandSpec388 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec389 = {
+const commandSpec397 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -96075,52 +96627,60 @@ export const COMMAND_SPECS: {
   readonly 'gui browser': typeof commandSpec341;
   readonly 'gui blame': typeof commandSpec342;
   readonly gui: typeof commandSpec343;
-  readonly lfs: typeof commandSpec344;
-  readonly 'lfs checkout': typeof commandSpec345;
-  readonly 'lfs clean': typeof commandSpec346;
-  readonly 'lfs clone': typeof commandSpec347;
-  readonly 'lfs completion': typeof commandSpec348;
-  readonly 'lfs dedup': typeof commandSpec349;
-  readonly 'lfs env': typeof commandSpec350;
-  readonly 'lfs ext': typeof commandSpec351;
-  readonly 'lfs ext list': typeof commandSpec352;
-  readonly 'lfs fetch': typeof commandSpec353;
-  readonly 'lfs filter-process': typeof commandSpec354;
-  readonly 'lfs fsck': typeof commandSpec355;
-  readonly 'lfs help': typeof commandSpec356;
-  readonly 'lfs install': typeof commandSpec357;
-  readonly 'lfs install hooks': typeof commandSpec358;
-  readonly 'lfs lock': typeof commandSpec359;
-  readonly 'lfs locks': typeof commandSpec360;
-  readonly 'lfs logs': typeof commandSpec361;
-  readonly 'lfs logs boomtown': typeof commandSpec362;
-  readonly 'lfs logs clear': typeof commandSpec363;
-  readonly 'lfs logs last': typeof commandSpec364;
-  readonly 'lfs logs show': typeof commandSpec365;
-  readonly 'lfs ls-files': typeof commandSpec366;
-  readonly 'lfs merge-driver': typeof commandSpec367;
-  readonly 'lfs migrate': typeof commandSpec368;
-  readonly 'lfs migrate export': typeof commandSpec369;
-  readonly 'lfs migrate import': typeof commandSpec370;
-  readonly 'lfs migrate info': typeof commandSpec371;
-  readonly 'lfs pointer': typeof commandSpec372;
-  readonly 'lfs post-checkout': typeof commandSpec373;
-  readonly 'lfs post-commit': typeof commandSpec374;
-  readonly 'lfs post-merge': typeof commandSpec375;
-  readonly 'lfs pre-push': typeof commandSpec376;
-  readonly 'lfs prune': typeof commandSpec377;
-  readonly 'lfs pull': typeof commandSpec378;
-  readonly 'lfs push': typeof commandSpec379;
-  readonly 'lfs smudge': typeof commandSpec380;
-  readonly 'lfs standalone-file': typeof commandSpec381;
-  readonly 'lfs status': typeof commandSpec382;
-  readonly 'lfs track': typeof commandSpec383;
-  readonly 'lfs uninstall': typeof commandSpec384;
-  readonly 'lfs uninstall hooks': typeof commandSpec385;
-  readonly 'lfs unlock': typeof commandSpec386;
-  readonly 'lfs untrack': typeof commandSpec387;
-  readonly 'lfs update': typeof commandSpec388;
-  readonly 'lfs version': typeof commandSpec389;
+  readonly 'p4 submit': typeof commandSpec344;
+  readonly 'p4 commit': typeof commandSpec345;
+  readonly 'p4 sync': typeof commandSpec346;
+  readonly 'p4 rebase': typeof commandSpec347;
+  readonly 'p4 clone': typeof commandSpec348;
+  readonly 'p4 branches': typeof commandSpec349;
+  readonly 'p4 unshelve': typeof commandSpec350;
+  readonly p4: typeof commandSpec351;
+  readonly lfs: typeof commandSpec352;
+  readonly 'lfs checkout': typeof commandSpec353;
+  readonly 'lfs clean': typeof commandSpec354;
+  readonly 'lfs clone': typeof commandSpec355;
+  readonly 'lfs completion': typeof commandSpec356;
+  readonly 'lfs dedup': typeof commandSpec357;
+  readonly 'lfs env': typeof commandSpec358;
+  readonly 'lfs ext': typeof commandSpec359;
+  readonly 'lfs ext list': typeof commandSpec360;
+  readonly 'lfs fetch': typeof commandSpec361;
+  readonly 'lfs filter-process': typeof commandSpec362;
+  readonly 'lfs fsck': typeof commandSpec363;
+  readonly 'lfs help': typeof commandSpec364;
+  readonly 'lfs install': typeof commandSpec365;
+  readonly 'lfs install hooks': typeof commandSpec366;
+  readonly 'lfs lock': typeof commandSpec367;
+  readonly 'lfs locks': typeof commandSpec368;
+  readonly 'lfs logs': typeof commandSpec369;
+  readonly 'lfs logs boomtown': typeof commandSpec370;
+  readonly 'lfs logs clear': typeof commandSpec371;
+  readonly 'lfs logs last': typeof commandSpec372;
+  readonly 'lfs logs show': typeof commandSpec373;
+  readonly 'lfs ls-files': typeof commandSpec374;
+  readonly 'lfs merge-driver': typeof commandSpec375;
+  readonly 'lfs migrate': typeof commandSpec376;
+  readonly 'lfs migrate export': typeof commandSpec377;
+  readonly 'lfs migrate import': typeof commandSpec378;
+  readonly 'lfs migrate info': typeof commandSpec379;
+  readonly 'lfs pointer': typeof commandSpec380;
+  readonly 'lfs post-checkout': typeof commandSpec381;
+  readonly 'lfs post-commit': typeof commandSpec382;
+  readonly 'lfs post-merge': typeof commandSpec383;
+  readonly 'lfs pre-push': typeof commandSpec384;
+  readonly 'lfs prune': typeof commandSpec385;
+  readonly 'lfs pull': typeof commandSpec386;
+  readonly 'lfs push': typeof commandSpec387;
+  readonly 'lfs smudge': typeof commandSpec388;
+  readonly 'lfs standalone-file': typeof commandSpec389;
+  readonly 'lfs status': typeof commandSpec390;
+  readonly 'lfs track': typeof commandSpec391;
+  readonly 'lfs uninstall': typeof commandSpec392;
+  readonly 'lfs uninstall hooks': typeof commandSpec393;
+  readonly 'lfs unlock': typeof commandSpec394;
+  readonly 'lfs untrack': typeof commandSpec395;
+  readonly 'lfs update': typeof commandSpec396;
+  readonly 'lfs version': typeof commandSpec397;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -96466,50 +97026,58 @@ export const COMMAND_SPECS: {
   'gui browser': commandSpec341,
   'gui blame': commandSpec342,
   gui: commandSpec343,
-  lfs: commandSpec344,
-  'lfs checkout': commandSpec345,
-  'lfs clean': commandSpec346,
-  'lfs clone': commandSpec347,
-  'lfs completion': commandSpec348,
-  'lfs dedup': commandSpec349,
-  'lfs env': commandSpec350,
-  'lfs ext': commandSpec351,
-  'lfs ext list': commandSpec352,
-  'lfs fetch': commandSpec353,
-  'lfs filter-process': commandSpec354,
-  'lfs fsck': commandSpec355,
-  'lfs help': commandSpec356,
-  'lfs install': commandSpec357,
-  'lfs install hooks': commandSpec358,
-  'lfs lock': commandSpec359,
-  'lfs locks': commandSpec360,
-  'lfs logs': commandSpec361,
-  'lfs logs boomtown': commandSpec362,
-  'lfs logs clear': commandSpec363,
-  'lfs logs last': commandSpec364,
-  'lfs logs show': commandSpec365,
-  'lfs ls-files': commandSpec366,
-  'lfs merge-driver': commandSpec367,
-  'lfs migrate': commandSpec368,
-  'lfs migrate export': commandSpec369,
-  'lfs migrate import': commandSpec370,
-  'lfs migrate info': commandSpec371,
-  'lfs pointer': commandSpec372,
-  'lfs post-checkout': commandSpec373,
-  'lfs post-commit': commandSpec374,
-  'lfs post-merge': commandSpec375,
-  'lfs pre-push': commandSpec376,
-  'lfs prune': commandSpec377,
-  'lfs pull': commandSpec378,
-  'lfs push': commandSpec379,
-  'lfs smudge': commandSpec380,
-  'lfs standalone-file': commandSpec381,
-  'lfs status': commandSpec382,
-  'lfs track': commandSpec383,
-  'lfs uninstall': commandSpec384,
-  'lfs uninstall hooks': commandSpec385,
-  'lfs unlock': commandSpec386,
-  'lfs untrack': commandSpec387,
-  'lfs update': commandSpec388,
-  'lfs version': commandSpec389,
+  'p4 submit': commandSpec344,
+  'p4 commit': commandSpec345,
+  'p4 sync': commandSpec346,
+  'p4 rebase': commandSpec347,
+  'p4 clone': commandSpec348,
+  'p4 branches': commandSpec349,
+  'p4 unshelve': commandSpec350,
+  p4: commandSpec351,
+  lfs: commandSpec352,
+  'lfs checkout': commandSpec353,
+  'lfs clean': commandSpec354,
+  'lfs clone': commandSpec355,
+  'lfs completion': commandSpec356,
+  'lfs dedup': commandSpec357,
+  'lfs env': commandSpec358,
+  'lfs ext': commandSpec359,
+  'lfs ext list': commandSpec360,
+  'lfs fetch': commandSpec361,
+  'lfs filter-process': commandSpec362,
+  'lfs fsck': commandSpec363,
+  'lfs help': commandSpec364,
+  'lfs install': commandSpec365,
+  'lfs install hooks': commandSpec366,
+  'lfs lock': commandSpec367,
+  'lfs locks': commandSpec368,
+  'lfs logs': commandSpec369,
+  'lfs logs boomtown': commandSpec370,
+  'lfs logs clear': commandSpec371,
+  'lfs logs last': commandSpec372,
+  'lfs logs show': commandSpec373,
+  'lfs ls-files': commandSpec374,
+  'lfs merge-driver': commandSpec375,
+  'lfs migrate': commandSpec376,
+  'lfs migrate export': commandSpec377,
+  'lfs migrate import': commandSpec378,
+  'lfs migrate info': commandSpec379,
+  'lfs pointer': commandSpec380,
+  'lfs post-checkout': commandSpec381,
+  'lfs post-commit': commandSpec382,
+  'lfs post-merge': commandSpec383,
+  'lfs pre-push': commandSpec384,
+  'lfs prune': commandSpec385,
+  'lfs pull': commandSpec386,
+  'lfs push': commandSpec387,
+  'lfs smudge': commandSpec388,
+  'lfs standalone-file': commandSpec389,
+  'lfs status': commandSpec390,
+  'lfs track': commandSpec391,
+  'lfs uninstall': commandSpec392,
+  'lfs uninstall hooks': commandSpec393,
+  'lfs unlock': commandSpec394,
+  'lfs untrack': commandSpec395,
+  'lfs update': commandSpec396,
+  'lfs version': commandSpec397,
 };

@@ -259,6 +259,21 @@ describe('reduced ordered decision diagrams', () => {
     expect(solve(rules, { enabled: domain.enabled, words: domain.words })).toEqual(result);
   });
 
+  it('checks all integer entries and agrees with enumeration', () => {
+    const rules: Constraint[] = [
+      { ...evidence, id: 'positive-items', kind: 'eachInteger', key: 'items', min: 1 },
+    ];
+    const domain = { items: [undefined, [], [1], [1, 2], [1, 0], [-1, 2], [1.5], ['1'], 1] };
+    const result = solve(rules, domain);
+    expect(result.accepted).toBe(4n);
+    expect(result.accepted).toBe(
+      BigInt(
+        [...assignments(domain)].filter((state) => violations(rules, state).length === 0).length,
+      ),
+    );
+    expect(solve(rules, domain)).toEqual(result);
+  });
+
   it('is deterministic and handles unconstrained, empty, and contradictory spaces', () => {
     const result = solve(mixedRules, domains);
     expect(solve(mixedRules, { c: domains.c, b: domains.b, a: domains.a })).toEqual(result);

@@ -1,0 +1,426 @@
+{
+  "version": "2.55.0",
+  "source": "git-p4.py",
+  "sha256": "21625e51714cc4333b4b706209f5e10a5d64b04e8960725c7b12aec3cf7a28b2",
+  "commands": {
+    "p4 submit": {
+      "class": "P4Submit",
+      "options": {
+        "--origin": {
+          "key": "origin",
+          "value": "string"
+        },
+        "-M": {
+          "key": "detectRenames",
+          "value": "flag"
+        },
+        "--preserve-user": {
+          "key": "preserveUser",
+          "value": "flag"
+        },
+        "--export-labels": {
+          "key": "exportLabels",
+          "value": "flag"
+        },
+        "--dry-run": {
+          "key": "dry_run",
+          "value": "flag"
+        },
+        "-n": {
+          "key": "dry_run",
+          "value": "flag"
+        },
+        "--prepare-p4-only": {
+          "key": "prepare_p4_only",
+          "value": "flag"
+        },
+        "--conflict": {
+          "key": "conflict_behavior",
+          "value": "string",
+          "allowed": [
+            "ask",
+            "skip",
+            "quit"
+          ]
+        },
+        "--branch": {
+          "key": "branch",
+          "value": "string"
+        },
+        "--shelve": {
+          "key": "shelve",
+          "value": "flag"
+        },
+        "--update-shelve": {
+          "key": "update_shelve",
+          "value": "integer",
+          "repeat": true
+        },
+        "--commit": {
+          "key": "commit",
+          "value": "string"
+        },
+        "--disable-rebase": {
+          "key": "disable_rebase",
+          "value": "flag"
+        },
+        "--disable-p4sync": {
+          "key": "disable_p4sync",
+          "value": "flag"
+        },
+        "--no-verify": {
+          "key": "no_verify",
+          "value": "flag"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--git-dir": {
+          "key": "gitdir",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        }
+      }
+    },
+    "p4 commit": {
+      "class": "P4Submit",
+      "options": {
+        "--origin": {
+          "key": "origin",
+          "value": "string"
+        },
+        "-M": {
+          "key": "detectRenames",
+          "value": "flag"
+        },
+        "--preserve-user": {
+          "key": "preserveUser",
+          "value": "flag"
+        },
+        "--export-labels": {
+          "key": "exportLabels",
+          "value": "flag"
+        },
+        "--dry-run": {
+          "key": "dry_run",
+          "value": "flag"
+        },
+        "-n": {
+          "key": "dry_run",
+          "value": "flag"
+        },
+        "--prepare-p4-only": {
+          "key": "prepare_p4_only",
+          "value": "flag"
+        },
+        "--conflict": {
+          "key": "conflict_behavior",
+          "value": "string",
+          "allowed": [
+            "ask",
+            "skip",
+            "quit"
+          ]
+        },
+        "--branch": {
+          "key": "branch",
+          "value": "string"
+        },
+        "--shelve": {
+          "key": "shelve",
+          "value": "flag"
+        },
+        "--update-shelve": {
+          "key": "update_shelve",
+          "value": "integer",
+          "repeat": true
+        },
+        "--commit": {
+          "key": "commit",
+          "value": "string"
+        },
+        "--disable-rebase": {
+          "key": "disable_rebase",
+          "value": "flag"
+        },
+        "--disable-p4sync": {
+          "key": "disable_p4sync",
+          "value": "flag"
+        },
+        "--no-verify": {
+          "key": "no_verify",
+          "value": "flag"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--git-dir": {
+          "key": "gitdir",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        }
+      }
+    },
+    "p4 sync": {
+      "class": "P4Sync",
+      "options": {
+        "--branch": {
+          "key": "branch",
+          "value": "string"
+        },
+        "--detect-branches": {
+          "key": "detectBranches",
+          "value": "flag"
+        },
+        "--changesfile": {
+          "key": "changesFile",
+          "value": "string"
+        },
+        "--silent": {
+          "key": "silent",
+          "value": "flag"
+        },
+        "--detect-labels": {
+          "key": "detectLabels",
+          "value": "flag"
+        },
+        "--import-labels": {
+          "key": "importLabels",
+          "value": "flag"
+        },
+        "--import-local": {
+          "key": "importIntoRemotes",
+          "value": "flag",
+          "set": false
+        },
+        "--max-changes": {
+          "key": "maxChanges",
+          "value": "string"
+        },
+        "--changes-block-size": {
+          "key": "changes_block_size",
+          "value": "integer"
+        },
+        "--keep-path": {
+          "key": "keepRepoPath",
+          "value": "flag"
+        },
+        "--use-client-spec": {
+          "key": "useClientSpec",
+          "value": "flag"
+        },
+        "-/": {
+          "key": "cloneExclude",
+          "value": "string",
+          "repeat": true
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--git-dir": {
+          "key": "gitdir",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        }
+      }
+    },
+    "p4 rebase": {
+      "class": "P4Rebase",
+      "options": {
+        "--import-labels": {
+          "key": "importLabels",
+          "value": "flag"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--git-dir": {
+          "key": "gitdir",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        }
+      }
+    },
+    "p4 clone": {
+      "class": "P4Clone",
+      "options": {
+        "--branch": {
+          "key": "branch",
+          "value": "string"
+        },
+        "--detect-branches": {
+          "key": "detectBranches",
+          "value": "flag"
+        },
+        "--changesfile": {
+          "key": "changesFile",
+          "value": "string"
+        },
+        "--silent": {
+          "key": "silent",
+          "value": "flag"
+        },
+        "--detect-labels": {
+          "key": "detectLabels",
+          "value": "flag"
+        },
+        "--import-labels": {
+          "key": "importLabels",
+          "value": "flag"
+        },
+        "--import-local": {
+          "key": "importIntoRemotes",
+          "value": "flag",
+          "set": false
+        },
+        "--max-changes": {
+          "key": "maxChanges",
+          "value": "string"
+        },
+        "--changes-block-size": {
+          "key": "changes_block_size",
+          "value": "integer"
+        },
+        "--keep-path": {
+          "key": "keepRepoPath",
+          "value": "flag"
+        },
+        "--use-client-spec": {
+          "key": "useClientSpec",
+          "value": "flag"
+        },
+        "-/": {
+          "key": "cloneExclude",
+          "value": "string",
+          "repeat": true
+        },
+        "--destination": {
+          "key": "cloneDestination",
+          "value": "string"
+        },
+        "--bare": {
+          "key": "cloneBare",
+          "value": "flag"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--help": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        }
+      }
+    },
+    "p4 branches": {
+      "class": "P4Branches",
+      "options": {
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--git-dir": {
+          "key": "gitdir",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        }
+      }
+    },
+    "p4 unshelve": {
+      "class": "P4Unshelve",
+      "options": {
+        "--origin": {
+          "key": "origin",
+          "value": "string"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--git-dir": {
+          "key": "gitdir",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        }
+      }
+    }
+  }
+}

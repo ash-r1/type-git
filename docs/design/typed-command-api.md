@@ -463,3 +463,11 @@ Tests inspect aliases or use `--dry-run` on locally generated patches. They do n
 The catalogue includes `gui`, `citool`, and GUI's five explicit dispatch targets: gui, pick, citool, browser and blame. UI commands consume no remaining operands. Browser and blame accept a required path and an optional revision; an explicit separator immediately precedes the path. Blame's numeric line selector precedes both. A filename such as `--line=2` remains expressible as a literal operand.
 
 These constraints come from the pinned Tcl source. Tests exercise the schema and compiler, not a running GUI: Tcl/Tk and a display are absent in this environment. Global trace-removal edge cases, discovery, path/object checks and UI state remain audit gaps; the ledger does not label these scopes complete or native-verified.
+
+### Perforce operation extraction
+
+`scripts/extract-p4-options.py` reads the pinned upstream Python AST without executing git-p4, including its command registry, class inheritance and optparse declarations. The checked-in snapshot contains the source hash. Run it with the upstream source directory and `--check` to reproduce the extraction. Runtime and TypeScript schemas are generated from that snapshot plus reviewed operation rules.
+
+Submit and commit accept at most one branch, unshelve requires one changelist, and clone requires depot input. Keep-path needs a nonempty explicit destination before positional destination inference. Choices fail during parsing; every accumulated update-shelve number must be positive after parsing. The shared `eachInteger` constraint checks these arrays at runtime and in deterministic decision diagrams; arbitrary numeric range proofs remain outside TypeScript's literal checks.
+
+Native tests use help, empty local branch listings and parser/local failures with constructor-only Perforce capability probes served by a local fail-closed stub. Perforce/configuration-dependent synchronization and submission, depot languages, exclusion normalization, and option abbreviation remain audit gaps.

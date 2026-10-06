@@ -3965,6 +3965,86 @@
         "test/types/gui-command-api.ts"
       ],
       "remaining": "Models all explicit Tcl dispatch targets, UI operand counts and common blame/browser ordering. Native GUI execution is unverified: this environment has no Tcl/Tk display runtime. Global trace removal/repetition, line-like words used as literal paths, leading trace dispatch, repository discovery and UI state need further audit."
+    },
+    "p4": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/p4.test.ts",
+        "test/types/p4-command-api.ts"
+      ],
+      "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
+    },
+    "p4 submit": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/p4.test.ts",
+        "test/types/p4-command-api.ts"
+      ],
+      "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
+    },
+    "p4 commit": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/p4.test.ts",
+        "test/types/p4-command-api.ts"
+      ],
+      "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
+    },
+    "p4 sync": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/p4.test.ts",
+        "test/types/p4-command-api.ts"
+      ],
+      "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
+    },
+    "p4 rebase": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/p4.test.ts",
+        "test/types/p4-command-api.ts"
+      ],
+      "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
+    },
+    "p4 clone": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/p4.test.ts",
+        "test/types/p4-command-api.ts"
+      ],
+      "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
+    },
+    "p4 branches": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/p4.test.ts",
+        "test/types/p4-command-api.ts"
+      ],
+      "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
+    },
+    "p4 unshelve": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/p4.test.ts",
+        "test/types/p4-command-api.ts"
+      ],
+      "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
     }
   }
 }

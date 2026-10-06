@@ -60352,6 +60352,664 @@
       }
     },
     {
+      "command": "p4 submit",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "origin": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "detectRenames": [
+          "undefined",
+          "true"
+        ],
+        "preserveUser": [
+          "undefined",
+          "true"
+        ],
+        "exportLabels": [
+          "undefined",
+          "true"
+        ],
+        "dry_run": [
+          "undefined",
+          "true"
+        ],
+        "prepare_p4_only": [
+          "undefined",
+          "true"
+        ],
+        "conflict_behavior": [
+          "undefined",
+          "\"ask\"",
+          "\"skip\"",
+          "\"quit\""
+        ],
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shelve": [
+          "undefined",
+          "true"
+        ],
+        "update_shelve": [
+          "undefined",
+          "[]",
+          "[-2]",
+          "[-2,-2]",
+          "[-1]",
+          "[-1,-1]",
+          "[0]",
+          "[0,0]",
+          "[1]",
+          "[1,1]",
+          "[2]",
+          "[2,2]",
+          "[1,0]",
+          "[1,2]"
+        ],
+        "commit": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "disable_rebase": [
+          "undefined",
+          "true"
+        ],
+        "disable_p4sync": [
+          "undefined",
+          "true"
+        ],
+        "no_verify": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "gitdir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2150400000",
+      "accepted": "430080000",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.p4.submit.operands": "{\"operands\":[\"value\",\"value\"]}",
+        "cli.p4.submit.changelists": "{\"operands\":[],\"update_shelve\":[-2]}"
+      }
+    },
+    {
+      "command": "p4 commit",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "origin": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "detectRenames": [
+          "undefined",
+          "true"
+        ],
+        "preserveUser": [
+          "undefined",
+          "true"
+        ],
+        "exportLabels": [
+          "undefined",
+          "true"
+        ],
+        "dry_run": [
+          "undefined",
+          "true"
+        ],
+        "prepare_p4_only": [
+          "undefined",
+          "true"
+        ],
+        "conflict_behavior": [
+          "undefined",
+          "\"ask\"",
+          "\"skip\"",
+          "\"quit\""
+        ],
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shelve": [
+          "undefined",
+          "true"
+        ],
+        "update_shelve": [
+          "undefined",
+          "[]",
+          "[-2]",
+          "[-2,-2]",
+          "[-1]",
+          "[-1,-1]",
+          "[0]",
+          "[0,0]",
+          "[1]",
+          "[1,1]",
+          "[2]",
+          "[2,2]",
+          "[1,0]",
+          "[1,2]"
+        ],
+        "commit": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "disable_rebase": [
+          "undefined",
+          "true"
+        ],
+        "disable_p4sync": [
+          "undefined",
+          "true"
+        ],
+        "no_verify": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "gitdir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2150400000",
+      "accepted": "430080000",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.p4.commit.operands": "{\"operands\":[\"value\",\"value\"]}",
+        "cli.p4.commit.changelists": "{\"operands\":[],\"update_shelve\":[-2]}"
+      }
+    },
+    {
+      "command": "p4 sync",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "detectBranches": [
+          "undefined",
+          "true"
+        ],
+        "changesFile": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "silent": [
+          "undefined",
+          "true"
+        ],
+        "detectLabels": [
+          "undefined",
+          "true"
+        ],
+        "importLabels": [
+          "undefined",
+          "true"
+        ],
+        "importIntoRemotes": [
+          "undefined",
+          "false"
+        ],
+        "maxChanges": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "changes_block_size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "keepRepoPath": [
+          "undefined",
+          "true"
+        ],
+        "useClientSpec": [
+          "undefined",
+          "true"
+        ],
+        "cloneExclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "gitdir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "576000000",
+      "accepted": "576000000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "p4 rebase",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "importLabels": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "gitdir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1200",
+      "accepted": "1200",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "p4 clone",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "detectBranches": [
+          "undefined",
+          "true"
+        ],
+        "changesFile": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "silent": [
+          "undefined",
+          "true"
+        ],
+        "detectLabels": [
+          "undefined",
+          "true"
+        ],
+        "importLabels": [
+          "undefined",
+          "true"
+        ],
+        "importIntoRemotes": [
+          "undefined",
+          "false"
+        ],
+        "maxChanges": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "changes_block_size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "keepRepoPath": [
+          "undefined",
+          "true"
+        ],
+        "useClientSpec": [
+          "undefined",
+          "true"
+        ],
+        "cloneExclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "cloneDestination": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "cloneBare": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1152000000",
+      "accepted": "737280000",
+      "nodes": 14,
+      "isolatedRuleWitnesses": {
+        "cli.p4.clone.depot": "{\"operands\":[]}",
+        "cli.p4.clone.keep-destination": "{\"keepRepoPath\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "p4 branches",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "gitdir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "600",
+      "accepted": "600",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "p4 unshelve",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "origin": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "gitdir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3000",
+      "accepted": "600",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.p4.unshelve.change": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "p4",
+      "dispatch": {
+        "submit": "p4 submit",
+        "commit": "p4 commit",
+        "sync": "p4 sync",
+        "rebase": "p4 rebase",
+        "clone": "p4 clone",
+        "branches": "p4 branches",
+        "unshelve": "p4 unshelve"
+      },
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"submit\"",
+          "\"commit\"",
+          "\"sync\"",
+          "\"rebase\"",
+          "\"clone\"",
+          "\"branches\"",
+          "\"unshelve\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "270",
+      "accepted": "192",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.p4.operation": "{\"operands\":[]}",
+        "cli.p4.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

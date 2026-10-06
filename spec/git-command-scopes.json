@@ -9866,5 +9866,51 @@
       "browser": "gui browser",
       "blame": "gui blame"
     }
+  },
+  "p4 submit": {
+    "source": "git-p4.py:P4Submit",
+    "tables": []
+  },
+  "p4 commit": {
+    "source": "git-p4.py:P4Submit",
+    "tables": []
+  },
+  "p4 sync": {
+    "source": "git-p4.py:P4Sync",
+    "tables": []
+  },
+  "p4 rebase": {
+    "source": "git-p4.py:P4Rebase",
+    "tables": []
+  },
+  "p4 clone": {
+    "source": "git-p4.py:P4Clone",
+    "tables": []
+  },
+  "p4 branches": {
+    "source": "git-p4.py:P4Branches",
+    "tables": []
+  },
+  "p4 unshelve": {
+    "source": "git-p4.py:P4Unshelve",
+    "tables": []
+  },
+  "p4": {
+    "source": "git-p4.py:main",
+    "tables": [],
+    "optionParsing": "stop-at-operand",
+    "separator": false,
+    "optionAllowlist": [
+      "--help"
+    ],
+    "dispatch": {
+      "submit": "p4 submit",
+      "commit": "p4 commit",
+      "sync": "p4 sync",
+      "rebase": "p4 rebase",
+      "clone": "p4 clone",
+      "branches": "p4 branches",
+      "unshelve": "p4 unshelve"
+    }
   }
 }
