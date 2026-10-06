@@ -27307,6 +27307,1347 @@
       }
     },
     {
+      "command": "cat-file",
+      "modes": [
+        {
+          "group": "&opt",
+          "tokens": [
+            {
+              "flag": "-e",
+              "mode": "'e'"
+            },
+            {
+              "flag": "-p",
+              "mode": "'p'"
+            },
+            {
+              "flag": "-t",
+              "mode": "'t'"
+            },
+            {
+              "flag": "-s",
+              "mode": "'s'"
+            },
+            {
+              "flag": "--batch-all-objects",
+              "mode": "'b'"
+            },
+            {
+              "flag": "--textconv",
+              "mode": "'c'"
+            },
+            {
+              "flag": "--filters",
+              "mode": "'w'"
+            }
+          ],
+          "total": 56,
+          "accepted": 14,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            },
+            {
+              "from": "'e'",
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "'p'",
+              "acceptedTokens": [
+                1
+              ]
+            },
+            {
+              "from": "'t'",
+              "acceptedTokens": [
+                2
+              ]
+            },
+            {
+              "from": "'s'",
+              "acceptedTokens": [
+                3
+              ]
+            },
+            {
+              "from": "'b'",
+              "acceptedTokens": [
+                4
+              ]
+            },
+            {
+              "from": "'c'",
+              "acceptedTokens": [
+                5
+              ]
+            },
+            {
+              "from": "'w'",
+              "acceptedTokens": [
+                6
+              ]
+            }
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "flag": "--batch",
+          "rules": [
+            "cli.cat-file.batch-once"
+          ],
+          "domains": {
+            "batch-enabled": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.cat-file.batch-once": "{\"batch-enabled\":true}"
+          }
+        },
+        {
+          "flag": "--batch-check",
+          "rules": [
+            "cli.cat-file.batch-check-once"
+          ],
+          "domains": {
+            "batch-enabled": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.cat-file.batch-check-once": "{\"batch-enabled\":true}"
+          }
+        },
+        {
+          "flag": "--batch-command",
+          "rules": [
+            "cli.cat-file.batch-command-once"
+          ],
+          "domains": {
+            "batch-enabled": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.cat-file.batch-command-once": "{\"batch-enabled\":true}"
+          }
+        }
+      ],
+      "rules": 16,
+      "domains": {
+        "e": [
+          "undefined",
+          "true"
+        ],
+        "p": [
+          "undefined",
+          "true"
+        ],
+        "t": [
+          "undefined",
+          "true"
+        ],
+        "s": [
+          "undefined",
+          "true"
+        ],
+        "allow-unknown-type": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "use-mailmap": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "batch-enabled": [
+          "undefined",
+          "true"
+        ],
+        "batch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "batch-check": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "Z": [
+          "undefined",
+          "true"
+        ],
+        "batch-command": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "batch-all-objects": [
+          "undefined",
+          "true"
+        ],
+        "buffer": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "follow-symlinks": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unordered": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "textconv": [
+          "undefined",
+          "true"
+        ],
+        "filters": [
+          "undefined",
+          "true"
+        ],
+        "path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "80621568000",
+      "accepted": "1950594048",
+      "nodes": 635,
+      "isolatedRuleWitnesses": {
+        "cli.cat-file.buffer-batch": "{\"buffer\":true,\"operands\":[\"value\"],\"textconv\":true}",
+        "cli.cat-file.follow-symlinks-batch": "{\"follow-symlinks\":true,\"operands\":[\"value\"],\"textconv\":true}",
+        "cli.cat-file.batch-all-objects-batch": "{\"batch-all-objects\":true,\"operands\":[]}",
+        "cli.cat-file.z-batch": "{\"operands\":[\"value\"],\"textconv\":true,\"z\":true}",
+        "cli.cat-file.Z-batch": "{\"Z\":true,\"operands\":[\"value\"],\"textconv\":true}",
+        "cli.cat-file.filter-batch": "{\"filter\":\"\",\"operands\":[\"value\"],\"textconv\":true}",
+        "cli.cat-file.batch-query": "{\"batch-enabled\":true,\"operands\":[],\"t\":true}",
+        "cli.cat-file.path": "{\"operands\":[\"value\"],\"path\":\"\",\"t\":true}",
+        "cli.cat-file.batch-operands": "{\"batch-enabled\":true,\"operands\":[\"value\"]}",
+        "cli.cat-file.e-operand": "{\"e\":true,\"operands\":[]}",
+        "cli.cat-file.p-operand": "{\"operands\":[],\"p\":true}",
+        "cli.cat-file.t-operand": "{\"operands\":[],\"t\":true}",
+        "cli.cat-file.s-operand": "{\"operands\":[],\"s\":true}",
+        "cli.cat-file.filters-operand": "{\"filters\":true,\"operands\":[]}",
+        "cli.cat-file.textconv-operand": "{\"operands\":[],\"textconv\":true}",
+        "cli.cat-file.type-object": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "repack",
+      "rules": 4,
+      "domains": {
+        "a": [
+          "undefined",
+          "true"
+        ],
+        "A": [
+          "undefined",
+          "true"
+        ],
+        "cruft": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cruft-expiration": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "combine-cruft-below-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "max-cruft-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "d": [
+          "undefined",
+          "true"
+        ],
+        "f": [
+          "undefined",
+          "true"
+        ],
+        "F": [
+          "undefined",
+          "true"
+        ],
+        "name-hash-version": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "path-walk": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "n": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "write-bitmap-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "delta-islands": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unpack-unreachable": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "keep-unreachable": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "window": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "window-memory": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "threads": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-pack-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pack-kept-objects": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keep-pack": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "geometric": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "write-midx": [
+          "undefined",
+          "\"\"",
+          "\"incremental\"",
+          "true",
+          "false"
+        ],
+        "expire-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "filter-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "25509168000000000000",
+      "accepted": "4888690329600000000",
+      "nodes": 172,
+      "isolatedRuleWitnesses": {
+        "cli.repack.unreachable": "{\"keep-unreachable\":true,\"operands\":[],\"unpack-unreachable\":\"\"}",
+        "cli.repack.geometric": "{\"cruft\":true,\"geometric\":-2,\"operands\":[]}",
+        "cli.repack.bitmap": "{\"operands\":[],\"write-bitmap-index\":true}",
+        "cli.repack.filter-output": "{\"filter-to\":\"\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "replace",
+      "modes": [
+        {
+          "group": "&cmdmode",
+          "tokens": [
+            {
+              "flag": "--list",
+              "mode": "MODE_LIST"
+            },
+            {
+              "flag": "-l",
+              "mode": "MODE_LIST"
+            },
+            {
+              "flag": "--delete",
+              "mode": "MODE_DELETE"
+            },
+            {
+              "flag": "-d",
+              "mode": "MODE_DELETE"
+            },
+            {
+              "flag": "--edit",
+              "mode": "MODE_EDIT"
+            },
+            {
+              "flag": "-e",
+              "mode": "MODE_EDIT"
+            },
+            {
+              "flag": "--graft",
+              "mode": "MODE_GRAFT"
+            },
+            {
+              "flag": "-g",
+              "mode": "MODE_GRAFT"
+            },
+            {
+              "flag": "--convert-graft-file",
+              "mode": "MODE_CONVERT_GRAFT_FILE"
+            }
+          ],
+          "total": 54,
+          "accepted": 18,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            },
+            {
+              "from": "MODE_LIST",
+              "acceptedTokens": [
+                0,
+                1
+              ]
+            },
+            {
+              "from": "MODE_DELETE",
+              "acceptedTokens": [
+                2,
+                3
+              ]
+            },
+            {
+              "from": "MODE_EDIT",
+              "acceptedTokens": [
+                4,
+                5
+              ]
+            },
+            {
+              "from": "MODE_GRAFT",
+              "acceptedTokens": [
+                6,
+                7
+              ]
+            },
+            {
+              "from": "MODE_CONVERT_GRAFT_FILE",
+              "acceptedTokens": [
+                8
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": 15,
+      "domains": {
+        "list": [
+          "undefined",
+          "true"
+        ],
+        "delete": [
+          "undefined",
+          "true"
+        ],
+        "edit": [
+          "undefined",
+          "true"
+        ],
+        "graft": [
+          "undefined",
+          "true"
+        ],
+        "convert-graft-file": [
+          "undefined",
+          "true"
+        ],
+        "force": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "raw": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"short\"",
+          "\"medium\"",
+          "\"long\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "138240",
+      "accepted": "2376",
+      "nodes": 546,
+      "isolatedRuleWitnesses": {
+        "cli.replace.list-operands": "{\"list\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.replace.delete-operands": "{\"delete\":true,\"operands\":[]}",
+        "cli.replace.edit-operands": "{\"edit\":true,\"operands\":[]}",
+        "cli.replace.graft-operands": "{\"graft\":true,\"operands\":[]}",
+        "cli.replace.convert-graft-file-operands": "{\"convert-graft-file\":true,\"operands\":[\"value\"]}",
+        "cli.replace.implicit-replace": "{\"operands\":[\"value\"]}",
+        "cli.replace.format-mode": "{\"format\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.replace.format-delete": "{\"delete\":true,\"format\":\"\",\"list\":true,\"operands\":[\"value\"]}",
+        "cli.replace.format-edit": "{\"edit\":true,\"format\":\"\",\"list\":true,\"operands\":[\"value\"]}",
+        "cli.replace.format-graft": "{\"format\":\"\",\"graft\":true,\"list\":true,\"operands\":[\"value\"]}",
+        "cli.replace.format-convert-graft-file": "{\"convert-graft-file\":true,\"format\":\"\",\"operands\":[]}",
+        "cli.replace.format": "{\"format\":\"value\",\"operands\":[]}",
+        "cli.replace.force-list": "{\"force\":true,\"list\":true,\"operands\":[]}",
+        "cli.replace.implicit-force-list": "{\"force\":true,\"operands\":[]}",
+        "cli.replace.raw": "{\"operands\":[],\"raw\":true}"
+      }
+    },
+    {
+      "command": "rerere",
+      "rules": 1,
+      "domains": {
+        "rerere-autoupdate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"clear\"",
+          "\"forget\"",
+          "\"diff\"",
+          "\"status\"",
+          "\"remaining\"",
+          "\"gc\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "630",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.rerere.operation": "{\"operand0\":\"value\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "rerere clear",
+      "rules": 0,
+      "domains": {
+        "rerere-autoupdate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "rerere forget",
+      "rules": 0,
+      "domains": {
+        "rerere-autoupdate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "rerere diff",
+      "rules": 0,
+      "domains": {
+        "rerere-autoupdate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "rerere status",
+      "rules": 0,
+      "domains": {
+        "rerere-autoupdate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "rerere remaining",
+      "rules": 0,
+      "domains": {
+        "rerere-autoupdate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "rerere gc",
+      "rules": 0,
+      "domains": {
+        "rerere-autoupdate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "for-each-repo",
+      "rules": 1,
+      "domains": {
+        "config": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "keep-going": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "900",
+      "accepted": "720",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.for-each-repo.config": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "column",
+      "rules": 2,
+      "domains": {
+        "command": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "mode": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "raw-mode": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "width": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "indent": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "nl": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "padding": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "9720000",
+      "accepted": "1296000",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.column.operands": "{\"operands\":[\"value\"]}",
+        "cli.column.padding": "{\"operands\":[],\"padding\":-2}"
+      }
+    },
+    {
+      "command": "fmt-merge-msg",
+      "rules": 1,
+      "domains": {
+        "log": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "summary": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "into-name": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "367500",
+      "accepted": "73500",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.fmt-merge-msg.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "bugreport",
+      "rules": 1,
+      "domains": {
+        "diagnose": [
+          "undefined",
+          "\"stats\"",
+          "\"all\"",
+          "true"
+        ],
+        "output-directory": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "suffix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6000",
+      "accepted": "1200",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bugreport.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "diagnose",
+      "rules": 0,
+      "domains": {
+        "output-directory": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "suffix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "mode": [
+          "undefined",
+          "\"stats\"",
+          "\"all\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "4500",
+      "accepted": "4500",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "version",
+      "rules": 0,
+      "domains": {
+        "build-options": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "var",
+      "rules": 4,
+      "domains": {
+        "list": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"GIT_COMMITTER_IDENT\"",
+          "\"GIT_AUTHOR_IDENT\"",
+          "\"GIT_EDITOR\"",
+          "\"GIT_SEQUENCE_EDITOR\"",
+          "\"GIT_PAGER\"",
+          "\"GIT_DEFAULT_BRANCH\"",
+          "\"GIT_SHELL_PATH\"",
+          "\"GIT_ATTR_SYSTEM\"",
+          "\"GIT_ATTR_GLOBAL\"",
+          "\"GIT_CONFIG_SYSTEM\"",
+          "\"GIT_CONFIG_GLOBAL\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ]
+      },
+      "total": "1560",
+      "accepted": "72",
+      "nodes": 36,
+      "isolatedRuleWitnesses": {
+        "cli.var.tokens": "{\"operands\":[\"value\"]}",
+        "cli.var.listing": "{\"argumentTokens\":[\"value\"],\"list\":true,\"operands\":[\"value\"]}",
+        "cli.var.query": "{\"argumentTokens\":[\"value\"],\"operands\":[]}",
+        "cli.var.variable": "{\"argumentTokens\":[\"value\"],\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {
