@@ -17,6 +17,12 @@ const domains = {
 };
 const mixedRules: Constraint[] = [
   { ...evidence, id: 'exclusive', kind: 'exclusive', keys: ['a', 'b'] },
+  {
+    ...evidence,
+    id: 'groups',
+    kind: 'exclusiveGroups',
+    groups: [[p('a'), p('b')], [{ key: 'c', test: 'positive' }]],
+  },
   { ...evidence, id: 'requires', kind: 'requires', when: p('a'), required: [p('b')] },
   { ...evidence, id: 'any', kind: 'requiresAny', when: p('a'), choices: [p('b'), p('c')] },
   { ...evidence, id: 'required', kind: 'required', required: [p('b')] },

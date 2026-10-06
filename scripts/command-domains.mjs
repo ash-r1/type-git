@@ -6,8 +6,9 @@ export function commandDomains(spec, referencedKeys) {
     if (!domains[key].some((old) => JSON.stringify(old) === JSON.stringify(value))) domains[key].push(value);
   };
   for (const option of Object.values(spec.options)) {
+    for (const effect of option.effects ?? []) add(effect.key, effect.set);
     if (option.clear) { add(option.key, option.repeat ? [] : undefined); continue; }
-    const values = option.value === 'flag' ? [option.set ?? true]
+    const values = option.allowed ? [...option.allowed] : option.value === 'flag' ? [option.set ?? true]
       : option.value === 'boolean' ? [false, true]
       : option.value.endsWith('integer') ? [-2, -1, 0, 1, 2]
       : ['', 'value', '0b', '1kb'];
@@ -28,6 +29,7 @@ export function commandDomains(spec, referencedKeys) {
   function visit(value) {
     if (!value || typeof value !== 'object') return;
     if (value.key && ['equals', 'notEquals'].includes(value.test)) add(value.key, value.value);
+    if (value.key && value.test === 'startsWith') { add(value.key, value.value); add(value.key, value.value + 'value'); }
     if (value.kind === 'value') for (const allowed of value.allowed) add(value.key, allowed);
     if (value.kind === 'range' || value.kind === 'integer') for (const number of [value.min - 1, value.min, value.min + 1]) add(value.key, number);
     if (value.kind === 'arity') for (const size of [0, value.min, Math.max(0, value.min - 1), (value.max ?? value.min) + 1]) add(value.key, Array(size).fill('value'));
@@ -37,6 +39,6 @@ export function commandDomains(spec, referencedKeys) {
   // Counts intentionally range over normalized states, not option-token permutations.
   // operand0 and operands are correlated in actual argv; avoid reporting a false
   // reachability proof for this over-approximation.
-  for (const rule of spec.rules) for (const key of referencedKeys(rule)) domains[key] ??= [undefined];
+  for (const rule of spec.rules) for (const key of referencedKeys(rule)) domains[key] ??= key === 'hasSeparator' ? [undefined, true] : key === 'pathsAfterSeparator' || key === 'operandsBeforeSeparator' ? domains.operands : [undefined];
   return domains;
 }
