@@ -52676,6 +52676,465 @@
       }
     },
     {
+      "command": "upload-pack",
+      "rules": 1,
+      "domains": {
+        "stateless-rpc": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "http-backend-info-refs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "strict": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "9720",
+      "accepted": "1944",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.upload-pack.operands-1-1": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "receive-pack",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "skip-connectivity-check": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stateless-rpc": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "http-backend-info-refs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reject-thin-pack-for-testing": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "19440",
+      "accepted": "3888",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.receive-pack.operands-1-1": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "send-pack",
+      "rules": 4,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "receive-pack": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exec": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "mirror": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "signed": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "false"
+        ],
+        "push-option": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "thin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "atomic": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stateless-rpc": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "helper-status": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force-with-lease": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "force-if-includes": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "5022117450000",
+      "accepted": "2232052200000",
+      "nodes": 34,
+      "isolatedRuleWitnesses": {
+        "cli.send-pack.operands-1-None": "{\"operands\":[]}",
+        "cli.send-pack.all-mirror": "{\"all\":true,\"mirror\":true,\"operands\":[\"value\"]}",
+        "cli.send-pack.operands-1-1": "{\"all\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.send-pack.mirror-operands": "{\"mirror\":true,\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "fetch-pack",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "keep": [
+          "undefined",
+          "true"
+        ],
+        "thin": [
+          "undefined",
+          "true"
+        ],
+        "include-tag": [
+          "undefined",
+          "true"
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "diag-url": [
+          "undefined",
+          "true"
+        ],
+        "deepen-relative": [
+          "undefined",
+          "true"
+        ],
+        "no-progress": [
+          "undefined",
+          "true"
+        ],
+        "stateless-rpc": [
+          "undefined",
+          "true"
+        ],
+        "lock-pack": [
+          "undefined",
+          "true"
+        ],
+        "check-self-contained-and-connected": [
+          "undefined",
+          "true"
+        ],
+        "cloning": [
+          "undefined",
+          "true"
+        ],
+        "update-shallow": [
+          "undefined",
+          "true"
+        ],
+        "from-promisor": [
+          "undefined",
+          "true"
+        ],
+        "refetch": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "upload-pack": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-since": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "49152000000",
+      "accepted": "39321600000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.fetch-pack.operands-1-None": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote-ext",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "6",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.remote-ext.operands-2-2": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote-fd",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "6",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.remote-fd.operands-2-2": "{\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

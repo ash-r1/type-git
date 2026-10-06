@@ -5990,5 +5990,149 @@
         "value": "flag"
       }
     }
+  },
+  "upload-pack": {
+    "tables": [
+      "builtin/upload-pack.c:cmd_upload_pack:options"
+    ],
+    "source": "builtin/upload-pack.c"
+  },
+  "receive-pack": {
+    "tables": [
+      "builtin/receive-pack.c:cmd_receive_pack:options"
+    ],
+    "source": "builtin/receive-pack.c"
+  },
+  "send-pack": {
+    "tables": [
+      "builtin/send-pack.c:cmd_send_pack:options"
+    ],
+    "source": "builtin/send-pack.c"
+  },
+  "fetch-pack": {
+    "tables": [],
+    "source": "builtin/fetch-pack.c",
+    "optionParsing": "stop-at-operand",
+    "separator": false,
+    "options": {
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "--keep": {
+        "key": "keep",
+        "value": "flag"
+      },
+      "--thin": {
+        "key": "thin",
+        "value": "flag"
+      },
+      "--include-tag": {
+        "key": "include-tag",
+        "value": "flag"
+      },
+      "--all": {
+        "key": "all",
+        "value": "flag"
+      },
+      "--stdin": {
+        "key": "stdin",
+        "value": "flag"
+      },
+      "--diag-url": {
+        "key": "diag-url",
+        "value": "flag"
+      },
+      "--deepen-relative": {
+        "key": "deepen-relative",
+        "value": "flag"
+      },
+      "--no-progress": {
+        "key": "no-progress",
+        "value": "flag"
+      },
+      "--stateless-rpc": {
+        "key": "stateless-rpc",
+        "value": "flag"
+      },
+      "--lock-pack": {
+        "key": "lock-pack",
+        "value": "flag"
+      },
+      "--check-self-contained-and-connected": {
+        "key": "check-self-contained-and-connected",
+        "value": "flag"
+      },
+      "--cloning": {
+        "key": "cloning",
+        "value": "flag"
+      },
+      "--update-shallow": {
+        "key": "update-shallow",
+        "value": "flag"
+      },
+      "--from-promisor": {
+        "key": "from-promisor",
+        "value": "flag"
+      },
+      "--refetch": {
+        "key": "refetch",
+        "value": "flag"
+      },
+      "-q": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "-k": {
+        "key": "keep",
+        "value": "flag"
+      },
+      "-v": {
+        "key": "verbose",
+        "value": "flag"
+      },
+      "--upload-pack": {
+        "key": "upload-pack",
+        "value": "string"
+      },
+      "--exec": {
+        "key": "upload-pack",
+        "value": "string"
+      },
+      "--depth": {
+        "key": "depth",
+        "value": "string"
+      },
+      "--shallow-since": {
+        "key": "shallow-since",
+        "value": "string"
+      },
+      "--shallow-exclude": {
+        "key": "shallow-exclude",
+        "value": "string",
+        "repeat": true
+      },
+      "--filter": {
+        "key": "filter",
+        "value": "string"
+      },
+      "--no-filter": {
+        "key": "filter",
+        "value": "flag",
+        "clear": true
+      }
+    }
+  },
+  "remote-ext": {
+    "tables": [],
+    "source": "builtin/remote-ext.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "remote-fd": {
+    "tables": [],
+    "source": "builtin/remote-fd.c",
+    "optionParsing": "none",
+    "separator": false
   }
 }

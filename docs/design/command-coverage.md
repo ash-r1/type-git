@@ -92,7 +92,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `fast-export` | documented | partial | yes |  | Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly. |
 | `fast-import` | documented | pending | pending |  | Audit every applicable facet. |
 | `fetch` | documented | partial | yes | fetch | Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. |
-| `fetch-pack` | documented | pending | pending |  | Audit every applicable facet. |
+| `fetch-pack` | documented | partial | yes |  | Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input. |
 | `filter-branch` | documented | pending | pending |  | Audit every applicable facet. |
 | `fmt-merge-msg` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `for-each-ref` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
@@ -233,7 +233,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `range-diff` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. One symmetric range, two ranges or three commits are resolved before optional paths; no raw maximum operand count is imposed without a separator. |
 | `read-tree` | documented | partial | yes |  | Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. |
 | `rebase` | documented | partial | yes | rebase | Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions. |
-| `receive-pack` | documented | pending | pending |  | Audit every applicable facet. |
+| `receive-pack` | documented | partial | yes |  | Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input. |
 | `reflog` | documented | pending | pending |  | Audit every applicable facet. |
 | `reflog delete` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
 | `reflog drop` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
@@ -260,8 +260,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `remote set-url` | reviewed-scope | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `remote show` | reviewed-scope | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `remote update` | reviewed-scope | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
-| `remote-ext` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
-| `remote-fd` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
+| `remote-ext` | builtin-undocumented | partial | yes |  | Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input. |
+| `remote-fd` | builtin-undocumented | partial | yes |  | Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input. |
 | `repack` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `replace` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `replay` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Initial reverse traversal depends on mode before revision parsing; subsequent native warning overrides need phase-aware modeling. |
@@ -286,7 +286,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `rm` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `scalar` | companion | pending | pending |  | Audit every applicable facet. |
 | `send-email` | documented | pending | pending |  | Audit every applicable facet. |
-| `send-pack` | documented | pending | pending |  | Audit every applicable facet. |
+| `send-pack` | documented | partial | yes |  | Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input. |
 | `sh-i18n` | documented | pending | pending |  | Audit every applicable facet. |
 | `sh-setup` | documented | pending | pending |  | Audit every applicable facet. |
 | `shell` | documented | pending | pending |  | Audit every applicable facet. |
@@ -361,7 +361,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `update-server-info` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `upload-archive` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `upload-archive--writer` | builtin-undocumented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
-| `upload-pack` | documented | pending | pending |  | Audit every applicable facet. |
+| `upload-pack` | documented | partial | yes |  | Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input. |
 | `url-parse` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `var` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `verify-commit` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
