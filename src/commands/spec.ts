@@ -36,4 +36,6 @@ export type CommandSpec = {
   source: string;
   /** Whether `--` is recognized as an end-of-options marker. */
   separator: boolean;
+  /** Native parser dispatch can stop at the first operand or treat all words as operands. */
+  optionParsing?: 'stop-at-operand' | 'none';
 };
