@@ -1,5 +1,5 @@
 import { executeCommand } from '../commands/execute.js';
-import type { GitCommandClient } from '../commands/types.js';
+import type { GitCommandClient, GitCommandExecOpts, GitCommandName } from '../commands/types.js';
 import { validateOptions } from '../core/option-rules.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 /**
@@ -592,7 +592,11 @@ export class GitImpl implements Git {
   /**
    * Execute a raw git command (repository-agnostic)
    */
-  public command: GitCommandClient['command'] = async (command, args, opts) => {
+  public command: GitCommandClient['command'] = async (
+    command: GitCommandName,
+    args: readonly unknown[],
+    opts?: GitCommandExecOpts,
+  ) => {
     return executeCommand(this.runner, { type: 'global' }, command, args, opts);
   };
 

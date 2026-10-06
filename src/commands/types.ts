@@ -68,17 +68,14 @@ type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
       | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}`])
   : never;
-type DispatchCommands = {
-  [C in GitCommandName]: 'dispatch' extends keyof Spec<C> ? C : never;
-}[GitCommandName];
-type Dispatch<C extends DispatchCommands> = Spec<C>['dispatch'];
-type DispatchTarget<C extends DispatchCommands> = Extract<
+type Dispatch<C extends GitCommandName> = Spec<C> extends { dispatch: infer D } ? D : never;
+type DispatchTarget<C extends GitCommandName> = Extract<
   Dispatch<C>[keyof Dispatch<C>],
   GitCommandName
 >;
-export type GitCommandArgument<C extends GitCommandName> = C extends DispatchCommands
-  ? LocalCommandArgument<C | DispatchTarget<C>>
-  : LocalCommandArgument<C>;
+export type GitCommandArgument<C extends GitCommandName> =
+  | LocalCommandArgument<C>
+  | LocalCommandArgument<DispatchTarget<C>>;
 export type GitCommandExecOpts = ExecOpts & { stdin?: string };
 
 type OptionKeys<D> = D extends { key: infer K extends string } ? K : never;
@@ -376,38 +373,36 @@ type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
 type CheckedLocalArguments<
   C extends GitCommandName,
   A extends readonly unknown[],
-> = number extends A['length']
-  ? A
-  : [State<C, A>] extends [never]
-    ? never
-    : State<C, A> extends { help: true }
-      ? A
-      : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+> = A extends readonly LocalCommandArgument<C>[]
+  ? number extends A['length']
+    ? A
+    : [State<C, A>] extends [never]
+      ? never
+      : State<C, A> extends { help: true }
         ? A
-        : never;
+        : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+          ? A
+          : never
+  : never;
 
-type CheckedBranch<
-  C extends GitCommandName,
-  A extends readonly unknown[],
-> = A extends readonly LocalCommandArgument<C>[] ? CheckedLocalArguments<C, A> : never;
 /** Dispatch precedes option callbacks, so fallback rules cannot reject a child command. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
 > = number extends A['length']
   ? A
-  : C extends DispatchCommands
-    ? A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
-      ? string extends W
+  : A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
+    ? [Dispatch<C>] extends [never]
+      ? CheckedLocalArguments<C, A>
+      : string extends W
         ? A
         : W extends keyof Dispatch<C>
           ? Dispatch<C>[W] extends infer Target extends GitCommandName
-            ? [CheckedBranch<Target, Rest>] extends [never]
+            ? [CheckedLocalArguments<Target, Rest>] extends [never]
               ? never
               : A
             : never
-          : CheckedBranch<C, A>
-      : CheckedBranch<C, A>
+          : CheckedLocalArguments<C, A>
     : CheckedLocalArguments<C, A>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
