@@ -9,6 +9,7 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
+const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 describe('local transport command grammars', () => {
   let root: string;
   let repo: WorktreeRepo;
@@ -92,12 +93,15 @@ describe('local transport command grammars', () => {
         ['--stateless-rpc', '--advertise-refs', repo.workdir],
         true,
       );
-      compare(
-        command,
-        [['--http-backend-info-refs'], { operand: repo.workdir }],
-        ['--http-backend-info-refs', repo.workdir],
-        true,
-      );
+      // The upload-pack alias was added after Git 2.25.
+      if (!legacy) {
+        compare(
+          command,
+          [['--http-backend-info-refs'], { operand: repo.workdir }],
+          ['--http-backend-info-refs', repo.workdir],
+          true,
+        );
+      }
     }
   });
   it('preserves fetch-pack manual option placement and permissive numeric conversion', () => {
