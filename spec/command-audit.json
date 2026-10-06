@@ -4054,7 +4054,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn clone": {
       "state": "partial",
@@ -4064,7 +4064,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn init": {
       "state": "partial",
@@ -4074,7 +4074,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn multi-init": {
       "state": "partial",
@@ -4084,7 +4084,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn dcommit": {
       "state": "partial",
@@ -4094,7 +4094,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn branch": {
       "state": "partial",
@@ -4104,7 +4104,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn tag": {
       "state": "partial",
@@ -4114,7 +4114,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn set-tree": {
       "state": "partial",
@@ -4124,7 +4124,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn create-ignore": {
       "state": "partial",
@@ -4134,7 +4134,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn mkdirs": {
       "state": "partial",
@@ -4144,7 +4144,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn propget": {
       "state": "partial",
@@ -4154,7 +4154,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn propset": {
       "state": "partial",
@@ -4164,7 +4164,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn proplist": {
       "state": "partial",
@@ -4174,7 +4174,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn show-ignore": {
       "state": "partial",
@@ -4184,7 +4184,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn show-externals": {
       "state": "partial",
@@ -4194,7 +4194,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn multi-fetch": {
       "state": "partial",
@@ -4204,7 +4204,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn migrate": {
       "state": "partial",
@@ -4214,7 +4214,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn log": {
       "state": "partial",
@@ -4224,7 +4224,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn find-rev": {
       "state": "partial",
@@ -4234,7 +4234,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn rebase": {
       "state": "partial",
@@ -4244,7 +4244,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn commit-diff": {
       "state": "partial",
@@ -4254,7 +4254,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn info": {
       "state": "partial",
@@ -4264,7 +4264,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn blame": {
       "state": "partial",
@@ -4274,7 +4274,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn reset": {
       "state": "partial",
@@ -4284,7 +4284,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn gc": {
       "state": "partial",
@@ -4294,7 +4294,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },
     "svn": {
       "state": "partial",
@@ -4304,7 +4304,7 @@
         "src/commands/svn.test.ts",
         "test/types/svn-command-api.ts"
       ],
-      "remaining": "All 25 operation tables and global options are extracted without running Perl. SVN Perl bindings are unavailable locally: native comparisons are explicitly skipped. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+      "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     }
   }
 }

@@ -2,7 +2,9 @@ import { spawnSync } from 'node:child_process';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
@@ -145,5 +147,90 @@ describe('Subversion operation tables', () => {
         await rm(root, { recursive: true, force: true });
       }
     },
+    30000,
+  );
+  it.skipIf(!available)(
+    'executes local SVN operations and accepts configuration-supplied revision',
+    async () => {
+      const root = await mkdtemp(join(tmpdir(), 'type-git-svn-local-'));
+      const env = {
+        ...process.env,
+        HOME: root,
+        XDG_CONFIG_HOME: root,
+        GIT_CONFIG_GLOBAL: join(root, 'global'),
+        GIT_CONFIG_NOSYSTEM: '1',
+        GIT_AUTHOR_NAME: 'Fixture',
+        GIT_AUTHOR_EMAIL: 'fixture@example.invalid',
+        GIT_COMMITTER_NAME: 'Fixture',
+        GIT_COMMITTER_EMAIL: 'fixture@example.invalid',
+        GIT_PAGER: 'cat',
+      };
+      const source = join(root, 'svn');
+      const url = pathToFileURL(source).href;
+      try {
+        expect(spawnSync('svnadmin', ['create', source], { env }).status).toBe(0);
+        expect(
+          spawnSync(
+            'svn',
+            ['mkdir', `${url}/trunk`, `${url}/branches`, `${url}/tags`, '-m', 'fixture'],
+            { env },
+          ).status,
+        ).toBe(0);
+        const git = new TypeGit({ inheritEnv: false, env });
+        await git.command('svn clone', [
+          ['--stdlayout'],
+          { operand: url },
+          { operand: join(root, 'repo') },
+        ]);
+        const repo = await git.open(join(root, 'repo'));
+        expect((await repo.command('svn info', [])).stdout).toContain(`${url}/trunk`);
+        expect((await repo.command('svn find-rev', [{ operand: 'r1' }])).stdout.trim()).toMatch(
+          /^[0-9a-f]{40}$/,
+        );
+        expect((await repo.command('svn log', [['--limit', 1]])).stdout).toContain('fixture');
+        expect((await repo.command('svn proplist', [])).stdout).toContain('Properties on');
+        for (const command of [
+          'svn fetch',
+          'svn show-ignore',
+          'svn show-externals',
+          'svn mkdirs',
+          'svn create-ignore',
+          'svn multi-fetch',
+          'svn migrate',
+          'svn gc',
+        ] as const) {
+          expect((await repo.command(command, [])).exitCode).toBe(0);
+        }
+        await repo.command('svn rebase', [['--local']]);
+        await repo.command('svn dcommit', [['--dry-run']]);
+        await repo.command('svn branch', [['--dry-run'], { operand: 'fixture-branch' }]);
+        await repo.command('svn tag', [['--dry-run'], { operand: 'fixture-tag' }]);
+        await repo.raw(['config', 'svn.revision', 'HEAD']);
+        expect(
+          (
+            await repo.command('svn commit-diff', [
+              { operand: 'HEAD' },
+              { operand: 'HEAD' },
+              { operand: `${url}/trunk` },
+            ])
+          ).stdout,
+        ).toContain('No changes');
+        await repo.raw(['config', 'svn.revision', '1']);
+        await repo.command('svn reset', []);
+        await git.command('svn init', [
+          ['--stdlayout'],
+          { operand: url },
+          { operand: join(root, 'initialized') },
+        ]);
+        await git.command('svn multi-init', [
+          ['--trunk', 'trunk'],
+          { operand: url },
+          { operand: join(root, 'multi') },
+        ]);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    },
+    60000,
   );
 });
