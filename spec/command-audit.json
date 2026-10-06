@@ -3895,6 +3895,96 @@
         "test/types/send-email-command-api.ts"
       ],
       "remaining": "Models the three option passes, alias-mode restrictions, final suppression lists and native confirmation prefix grammar. Configuration-derived batch/relogin dependencies, transfer encoding, format-patch delegation, address/message languages and transport/authentication state remain pending. Tests perform dry-runs and alias inspection only, without delivering mail."
+    },
+    "gui": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "citool": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "gui citool": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "gui gui": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "gui pick": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "gui browser": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "gui blame": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "gui version": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "citool version": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     }
   }
 }

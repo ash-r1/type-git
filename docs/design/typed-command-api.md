@@ -457,4 +457,12 @@ Native tests stop at parser or local checkout validation boundaries without cont
 The identity pass precedes alias inspection, which rejects ordinary send options and remaining words. Main options are then parsed before final suppression and confirmation checks. Confirmation accepts native prefixes such as `never-trailing`; an earlier invalid value can be replaced before that check. Completion output returns before final suppression validation. The schemas preserve those phases and keep configuration-supplied dependencies open: a CLI relogin delay can obtain its batch size from config.
 
 Tests inspect aliases or use `--dry-run` on locally generated patches. They do not deliver messages. Address/message validation, encoding, transport state and format-patch delegation remain pending.
+
+### GUI operation schemas
+
+The catalogue includes `gui`, `citool`, and GUI's five explicit dispatch targets: gui, pick, citool, browser and blame. UI commands consume no remaining operands. Browser and blame accept a required path and an optional revision; an explicit separator immediately precedes the path. Blame's numeric line selector precedes both. A filename such as `--line=2` remains expressible as a literal operand.
+
+These constraints come from the pinned Tcl source. Schema/compiler tests are complemented by version execution and native X11 argument failures under Xvfb. Global trace-removal edge cases, discovery, path/object checks and UI state remain audit gaps; these scopes are not complete.
 The build emits declarations once with TypeScript and then bundles the emitted files, keeping source checking and declaration bundling in separate phases. Declaration emission uses `--noCheck`; `pnpm typecheck` still performs full source and contract checking, and `prepublishOnly` runs it before publication. Packed ESM/CJS and TypeScript consumer tests cover the final artifacts. Root dispatch type checks retain direct schema lookup to avoid distributive expansion across every command during inference.
+
+GUI version calls run through the shell prelude without Tcl/Tk. Native X11 tests under Xvfb cover argument errors; child operations do not inherit an unsupported `--help` shortcut. Browser/blame can have empty revision words, so positional maxima are not inferred from the synopsis alone; overall argv bounds remain modeled.
