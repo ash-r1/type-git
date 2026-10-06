@@ -12,13 +12,13 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | --- | --- | --- | --- | --- | --- |
 | `add` | documented | partial | yes | add | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `am` | documented | partial | yes |  | Session/configuration-dependent operands and defaults, delegated apply parser (only reached for actual patch application), mail/patch formats, binary I/O and abbreviations. Interactive operand requirements depend on session state; no unconditional rule is imposed. |
-| `annotate` | documented | pending | pending |  | Audit every applicable facet. |
+| `annotate` | documented | partial | yes |  | Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. |
 | `apply` | documented | partial | yes |  | Patch content/index/repository conditions, path normalization, numeric lexical spellings, abbreviations and binary I/O. Git 2.55 negated whitespace/directory callbacks abort the process; these two spellings are deliberately omitted (documented wrapper exception). |
 | `archimport` | documented | pending | pending |  | Audit every applicable facet. |
-| `archive` | documented | pending | pending |  | Audit every applicable facet. |
+| `archive` | documented | partial | yes |  | Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Compression support depends on the configured format and output filename; remote server version and binary transport remain pending. |
 | `backfill` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. |
 | `bisect` | documented | pending | pending |  | Audit every applicable facet. |
-| `blame` | documented | pending | pending |  | Audit every applicable facet. |
+| `blame` | documented | partial | yes |  | Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. |
 | `branch` | documented | partial | yes |  | Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering. |
 | `bugreport` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Upstream diagnose with --no-suffix requires separate audit; no extra wrapper prohibition is invented. |
 | `bundle` | documented | pending | pending |  | Audit every applicable facet. |
@@ -83,7 +83,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `fmt-merge-msg` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `for-each-ref` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `for-each-repo` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
-| `format-patch` | documented | pending | pending |  | Audit every applicable facet. |
+| `format-patch` | documented | partial | yes |  | Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Creation-factor/range-diff checks depend on the resolved nonempty series; config defaults and output files are not inferred from argument count. |
 | `format-rev` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `fsck` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `fsck-objects` | builtin-undocumented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
@@ -92,7 +92,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `get-tar-commit-id` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `gitk` | companion | pending | pending |  | Audit every applicable facet. |
 | `gitweb` | companion | pending | pending |  | Audit every applicable facet. |
-| `grep` | documented | pending | pending |  | Audit every applicable facet. |
+| `grep` | documented | partial | yes |  | Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Pattern expression trees, file-supplied patterns, ref/path partitioning, configured no-index fallback and early return on max-count zero remain state-dependent. |
 | `gui` | documented | pending | pending |  | Audit every applicable facet. |
 | `hash-object` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `help` | documented | pending | pending |  | Audit every applicable facet. |
