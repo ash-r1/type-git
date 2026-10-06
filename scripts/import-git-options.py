@@ -101,7 +101,7 @@ files = sorted(Path('builtin')/p.name for p in (root/'builtin').glob('*.c'))
 files += sorted(Path(p.name) for p in root.glob('*.c') if 'struct option' in p.read_text())
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
     results = list(executor.map(extract, files))
-report = dict(baseline='2.55.0', profile=dict(compiler=compiler, target=subprocess.check_output([compiler, '-dumpmachine'], text=True).strip(), flags=['-E','-P','-I.']), extraction='Expanded option table candidates. Not a command scope map or completeness claim.', headers={'parse-options.h':hashlib.sha256((root/'parse-options.h').read_bytes()).hexdigest()}, files=results)
+report = dict(baseline='2.55.0', profile=dict(compiler=compiler, compilerVersion=subprocess.check_output([compiler, '--version'], text=True).splitlines()[0], target=subprocess.check_output([compiler, '-dumpmachine'], text=True).strip(), flags=['-E','-P','-I.']), extraction='Expanded option table candidates. Not a command scope map or completeness claim.', headers={'parse-options.h':hashlib.sha256((root/'parse-options.h').read_bytes()).hexdigest()}, files=results)
 output = Path(__file__).resolve().parent.parent/'spec/upstream/git-option-tables.json'
 output.write_text(json.dumps(report, indent=2)+'\n')
 errors = [r for r in results if 'error' in r]

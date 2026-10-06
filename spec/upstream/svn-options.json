@@ -113,7 +113,8 @@
         },
         "--repack": {
           "key": "repack",
-          "value": "optional-integer"
+          "value": "optional-integer",
+          "set": 0
         },
         "--log-window-size": {
           "key": "log-window-size",
@@ -380,7 +381,8 @@
         },
         "--repack": {
           "key": "repack",
-          "value": "optional-integer"
+          "value": "optional-integer",
+          "set": 0
         },
         "--log-window-size": {
           "key": "log-window-size",
@@ -456,7 +458,8 @@
         },
         "--shared": {
           "key": "shared",
-          "value": "optional-string"
+          "value": "optional-string",
+          "set": ""
         },
         "--trunk": {
           "key": "trunk",
@@ -682,7 +685,8 @@
         },
         "--shared": {
           "key": "shared",
-          "value": "optional-string"
+          "value": "optional-string",
+          "set": ""
         },
         "--trunk": {
           "key": "trunk",
@@ -932,7 +936,8 @@
         },
         "--shared": {
           "key": "shared",
-          "value": "optional-string"
+          "value": "optional-string",
+          "set": ""
         },
         "--trunk": {
           "key": "trunk",
@@ -1383,7 +1388,8 @@
         },
         "--repack": {
           "key": "repack",
-          "value": "optional-integer"
+          "value": "optional-integer",
+          "set": 0
         },
         "--log-window-size": {
           "key": "log-window-size",
@@ -1949,7 +1955,8 @@
         },
         "--repack": {
           "key": "repack",
-          "value": "optional-integer"
+          "value": "optional-integer",
+          "set": 0
         },
         "--log-window-size": {
           "key": "log-window-size",
@@ -2888,7 +2895,8 @@
         },
         "--repack": {
           "key": "repack",
-          "value": "optional-integer"
+          "value": "optional-integer",
+          "set": 0
         },
         "--log-window-size": {
           "key": "log-window-size",
@@ -3610,7 +3618,8 @@
         },
         "--repack": {
           "key": "repack",
-          "value": "optional-integer"
+          "value": "optional-integer",
+          "set": 0
         },
         "--log-window-size": {
           "key": "log-window-size",

@@ -61083,8 +61083,7 @@
           "-1",
           "0",
           "1",
-          "2",
-          "true"
+          "2"
         ],
         "log-window-size": [
           "undefined",
@@ -61199,8 +61198,8 @@
           "true"
         ]
       },
-      "total": "378000000000000",
-      "accepted": "151200000000000",
+      "total": "324000000000000",
+      "accepted": "129600000000000",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.svn.fetch.remote": "{\"operands\":[\"value\",\"value\"]}"
@@ -61257,8 +61256,7 @@
           "-1",
           "0",
           "1",
-          "2",
-          "true"
+          "2"
         ],
         "log-window-size": [
           "undefined",
@@ -61346,8 +61344,7 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "\"1kb\""
         ],
         "trunk": [
           "undefined",
@@ -61462,8 +61459,8 @@
           "true"
         ]
       },
-      "total": "127575000000000000000000",
-      "accepted": "2551500000000000000000",
+      "total": "91125000000000000000000",
+      "accepted": "1822500000000000000000",
       "nodes": 73,
       "isolatedRuleWitnesses": {
         "cli.svn.clone.required-name": "{\"operands\":[]}",
@@ -61491,8 +61488,7 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "\"1kb\""
         ],
         "trunk": [
           "undefined",
@@ -61645,8 +61641,8 @@
           "true"
         ]
       },
-      "total": "3375000000000000",
-      "accepted": "202500000000000",
+      "total": "2812500000000000",
+      "accepted": "168750000000000",
       "nodes": 50,
       "isolatedRuleWitnesses": {
         "cli.svn.init.metadata-options": "{\"operands\":[],\"use-svm-props\":true,\"use-svnsync-props\":true}"
@@ -61672,8 +61668,7 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "\"1kb\""
         ],
         "trunk": [
           "undefined",
@@ -61826,8 +61821,8 @@
           "true"
         ]
       },
-      "total": "3375000000000000",
-      "accepted": "202500000000000",
+      "total": "2812500000000000",
+      "accepted": "168750000000000",
       "nodes": 50,
       "isolatedRuleWitnesses": {
         "cli.svn.multi-init.metadata-options": "{\"operands\":[],\"use-svm-props\":true,\"use-svnsync-props\":true}"
@@ -61961,8 +61956,7 @@
           "-1",
           "0",
           "1",
-          "2",
-          "true"
+          "2"
         ],
         "log-window-size": [
           "undefined",
@@ -62070,8 +62064,8 @@
           "true"
         ]
       },
-      "total": "1306368000000000000000",
-      "accepted": "1306368000000000000000",
+      "total": "1119744000000000000000",
+      "accepted": "1119744000000000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
@@ -62324,8 +62318,7 @@
           "-1",
           "0",
           "1",
-          "2",
-          "true"
+          "2"
         ],
         "log-window-size": [
           "undefined",
@@ -62440,8 +62433,8 @@
           "true"
         ]
       },
-      "total": "10886400000000000",
-      "accepted": "10886400000000000",
+      "total": "9331200000000000",
+      "accepted": "9331200000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
@@ -62901,8 +62894,7 @@
           "-1",
           "0",
           "1",
-          "2",
-          "true"
+          "2"
         ],
         "log-window-size": [
           "undefined",
@@ -63017,8 +63009,8 @@
           "true"
         ]
       },
-      "total": "94500000000000",
-      "accepted": "94500000000000",
+      "total": "81000000000000",
+      "accepted": "81000000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
@@ -63350,8 +63342,7 @@
           "-1",
           "0",
           "1",
-          "2",
-          "true"
+          "2"
         ],
         "log-window-size": [
           "undefined",
@@ -63466,8 +63457,8 @@
           "true"
         ]
       },
-      "total": "6048000000000000",
-      "accepted": "6048000000000000",
+      "total": "5184000000000000",
+      "accepted": "5184000000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },

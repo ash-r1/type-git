@@ -45,6 +45,8 @@ def options(decls):
         kind = 'integer' if 'i' in suffix else 'string' if 's' in suffix else 'flag'
         if suffix.startswith(':'): kind = 'optional-' + kind
         opt = {'key': key, 'value': kind}
+        if suffix == ':s': opt['set'] = ''
+        if suffix == ':i': opt['set'] = 0
         if '@' in suffix: opt['repeat'] = True
         if key == 'version': opt['effects'] = [{'key': 'help', 'set': True}]
         for name in names:
