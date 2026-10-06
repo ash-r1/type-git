@@ -8646,5 +8646,909 @@
       "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
     }
   ],
-  "am": []
+  "am": [],
+  "ls-files": [
+    {
+      "id": "cli.ls-files.format",
+      "kind": "conflicts",
+      "when": {
+        "key": "format",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "stage",
+          "test": "active"
+        },
+        {
+          "key": "others",
+          "test": "active"
+        },
+        {
+          "key": "killed",
+          "test": "active"
+        },
+        {
+          "key": "resolve-undo",
+          "test": "active"
+        },
+        {
+          "key": "deduplicate",
+          "test": "active"
+        },
+        {
+          "key": "eol",
+          "test": "active"
+        },
+        {
+          "key": "t",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "These parser states cannot be combined.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c"
+    },
+    {
+      "id": "cli.ls-files.recursive-mode",
+      "kind": "conflicts",
+      "when": {
+        "key": "recurse-submodules",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "deleted",
+          "test": "active"
+        },
+        {
+          "key": "others",
+          "test": "active"
+        },
+        {
+          "key": "unmerged",
+          "test": "active"
+        },
+        {
+          "key": "killed",
+          "test": "active"
+        },
+        {
+          "key": "modified",
+          "test": "active"
+        },
+        {
+          "key": "resolve-undo",
+          "test": "active"
+        },
+        {
+          "key": "error-unmatch",
+          "test": "active"
+        },
+        {
+          "key": "with-tree",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "These parser states cannot be combined.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c"
+    },
+    {
+      "id": "cli.ls-files.tree-stage",
+      "kind": "conflicts",
+      "when": {
+        "key": "with-tree",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "stage",
+          "test": "active"
+        },
+        {
+          "key": "unmerged",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "These parser states cannot be combined.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c"
+    },
+    {
+      "id": "cli.ls-files.ignored-mode",
+      "kind": "requiresAny",
+      "when": {
+        "key": "ignored",
+        "test": "active"
+      },
+      "choices": [
+        {
+          "key": "cached",
+          "test": "active"
+        },
+        {
+          "key": "others",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Ignored output requires an explicit cached or others mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c"
+    },
+    {
+      "id": "cli.ls-files.ignored-patterns",
+      "kind": "requiresAny",
+      "when": {
+        "key": "ignored",
+        "test": "active"
+      },
+      "choices": [
+        {
+          "key": "exclude",
+          "test": "present"
+        },
+        {
+          "key": "exclude-from",
+          "test": "present"
+        },
+        {
+          "key": "exclude-per-directory",
+          "test": "present"
+        },
+        {
+          "key": "exclude-standard",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Ignored output requires an explicit exclude source.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c"
+    }
+  ],
+  "ls-remote": [],
+  "ls-tree": [
+    {
+      "id": "cli.ls-tree.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/ls-tree.c"
+    },
+    {
+      "id": "cli.ls-tree.format",
+      "kind": "conflicts",
+      "when": {
+        "key": "format",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "long",
+          "test": "active"
+        },
+        {
+          "key": "name-only",
+          "test": "active"
+        },
+        {
+          "key": "name-status",
+          "test": "active"
+        },
+        {
+          "key": "object-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "These parser states cannot be combined.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/ls-tree.c"
+    }
+  ],
+  "for-each-ref": [
+    {
+      "id": "cli.for-each-ref.quote-style",
+      "kind": "exclusive",
+      "keys": [
+        "shell",
+        "perl",
+        "python",
+        "tcl"
+      ],
+      "origin": "git",
+      "reason": "Only one quoting style may be active.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c"
+    },
+    {
+      "id": "cli.for-each-ref.count",
+      "kind": "range",
+      "key": "count",
+      "min": 0,
+      "origin": "git",
+      "reason": "Final count must not be negative.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c"
+    },
+    {
+      "id": "cli.for-each-ref.stdin-patterns",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "stdin",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c"
+    },
+    {
+      "id": "cli.for-each-ref.start-patterns",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "start-after",
+        "test": "present"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c"
+    },
+    {
+      "id": "cli.for-each-ref.default-sort",
+      "kind": "arity",
+      "key": "sort",
+      "min": 0,
+      "max": 0,
+      "when": [
+        {
+          "key": "start-after",
+          "test": "present"
+        },
+        {
+          "key": "sort-base",
+          "test": "equals",
+          "value": true
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c"
+    },
+    {
+      "id": "cli.for-each-ref.reset-sort",
+      "kind": "arity",
+      "key": "sort",
+      "min": 0,
+      "max": 1,
+      "when": [
+        {
+          "key": "start-after",
+          "test": "present"
+        },
+        {
+          "key": "sort-base",
+          "test": "equals",
+          "value": false
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c"
+    }
+  ],
+  "show-ref": [
+    {
+      "id": "cli.show-ref.modes",
+      "kind": "exclusive",
+      "keys": [
+        "verify",
+        "exists",
+        "exclude-existing"
+      ],
+      "origin": "git",
+      "reason": "The three explicit show-ref operations are mutually exclusive.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/show-ref.c"
+    },
+    {
+      "id": "cli.show-ref.verify",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "verify",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/show-ref.c"
+    },
+    {
+      "id": "cli.show-ref.exists",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "exists",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/show-ref.c"
+    }
+  ],
+  "symbolic-ref": [
+    {
+      "id": "cli.symbolic-ref.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c"
+    },
+    {
+      "id": "cli.symbolic-ref.delete",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "delete",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c"
+    },
+    {
+      "id": "cli.symbolic-ref.message",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "m",
+          "test": "equals",
+          "value": ""
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicitly empty reflog message is rejected even for queries.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c"
+    },
+    {
+      "id": "cli.symbolic-ref.delete-head",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "delete",
+          "test": "active"
+        },
+        {
+          "key": "operand0",
+          "test": "equals",
+          "value": "HEAD"
+        }
+      ],
+      "origin": "git",
+      "reason": "HEAD cannot be deleted as a symbolic reference.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c"
+    }
+  ],
+  "verify-tag": [
+    {
+      "id": "cli.verify-tag.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/verify-tag.c"
+    }
+  ],
+  "verify-commit": [
+    {
+      "id": "cli.verify-commit.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/verify-commit.c"
+    }
+  ],
+  "count-objects": [
+    {
+      "id": "cli.count-objects.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/count-objects.c"
+    }
+  ],
+  "check-ignore": [
+    {
+      "id": "cli.check-ignore.stdin-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "stdin",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c"
+    },
+    {
+      "id": "cli.check-ignore.paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "stdin",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c"
+    },
+    {
+      "id": "cli.check-ignore.quiet-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "when": {
+        "key": "quiet",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c"
+    },
+    {
+      "id": "cli.check-ignore.nul-input",
+      "kind": "requires",
+      "when": {
+        "key": "z",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "NUL input requires stdin mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c"
+    },
+    {
+      "id": "cli.check-ignore.verbose-nonmatches",
+      "kind": "requires",
+      "when": {
+        "key": "non-matching",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "verbose",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Nonmatching output requires verbose mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c"
+    },
+    {
+      "id": "cli.check-ignore.quiet-verbose",
+      "kind": "exclusive",
+      "keys": [
+        "quiet",
+        "verbose"
+      ],
+      "origin": "git",
+      "reason": "Quiet and verbose modes conflict.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c"
+    }
+  ],
+  "check-attr": [
+    {
+      "id": "cli.check-attr.all-attributes",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 0,
+      "max": 0,
+      "when": [
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c"
+    },
+    {
+      "id": "cli.check-attr.all-stdin",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": [
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c"
+    },
+    {
+      "id": "cli.check-attr.all-files",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": [
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c"
+    },
+    {
+      "id": "cli.check-attr.separated-attributes",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 1,
+      "when": [
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c"
+    },
+    {
+      "id": "cli.check-attr.stdin-no-files",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "stdin",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c"
+    },
+    {
+      "id": "cli.check-attr.separated-files",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "when": [
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c"
+    },
+    {
+      "id": "cli.check-attr.unseparated-attributes",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": [
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c"
+    },
+    {
+      "id": "cli.check-attr.unseparated-files",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "when": [
+        {
+          "key": "all",
+          "test": "inactive"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "inactive"
+        },
+        {
+          "key": "stdin",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c"
+    }
+  ],
+  "check-mailmap": [
+    {
+      "id": "cli.check-mailmap.contacts",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "stdin",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-mailmap.c"
+    }
+  ],
+  "write-tree": [],
+  "mktree": [],
+  "mktag": [],
+  "show-index": [
+    {
+      "id": "cli.show-index.object-format",
+      "kind": "value",
+      "key": "object-format",
+      "allowed": [
+        "sha1",
+        "sha256"
+      ],
+      "origin": "git",
+      "reason": "Only compiled-in object hash names are accepted.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/show-index.c"
+    }
+  ],
+  "verify-pack": [
+    {
+      "id": "cli.verify-pack.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/verify-pack.c"
+    }
+  ],
+  "stripspace": [
+    {
+      "id": "cli.stripspace.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stripspace.c"
+    }
+  ],
+  "patch-id": [],
+  "describe": [
+    {
+      "id": "cli.describe.dirty",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": [
+        {
+          "key": "dirty",
+          "test": "present"
+        },
+        {
+          "key": "contains",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/describe.c"
+    },
+    {
+      "id": "cli.describe.broken",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": [
+        {
+          "key": "broken",
+          "test": "present"
+        },
+        {
+          "key": "contains",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/describe.c"
+    },
+    {
+      "id": "cli.describe.long-abbrev",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "long",
+          "test": "active"
+        },
+        {
+          "key": "abbrev",
+          "test": "equals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "reason": "Long output requires a nonzero abbreviation length.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/describe.c"
+    }
+  ],
+  "name-rev": [
+    {
+      "id": "cli.name-rev.input-sources",
+      "kind": "exclusiveGroups",
+      "groups": [
+        [
+          {
+            "key": "all",
+            "test": "active"
+          }
+        ],
+        [
+          {
+            "key": "stdin",
+            "test": "active"
+          },
+          {
+            "key": "annotate-stdin",
+            "test": "active"
+          }
+        ],
+        [
+          {
+            "key": "operands",
+            "test": "nonempty"
+          }
+        ]
+      ],
+      "origin": "git",
+      "reason": "All refs, stdin annotation, and explicit revisions are alternative inputs.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/name-rev.c"
+    }
+  ],
+  "cherry": [],
+  "format-rev": [
+    {
+      "id": "cli.format-rev.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/name-rev.c"
+    },
+    {
+      "id": "cli.format-rev.required",
+      "kind": "required",
+      "required": [
+        {
+          "key": "format",
+          "test": "present"
+        },
+        {
+          "key": "stdin-mode",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Pretty format and stdin mode must both be supplied.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/name-rev.c"
+    },
+    {
+      "id": "cli.format-rev.stdin-mode",
+      "kind": "value",
+      "key": "stdin-mode",
+      "allowed": [
+        "text",
+        "revs",
+        "rev"
+      ],
+      "origin": "git",
+      "reason": "Stdin mode accepts text, revs, or rev after all options are parsed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/name-rev.c"
+    }
+  ],
+  "check-ref-format": [
+    {
+      "id": "cli.check-ref-format.ref",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-ref-format.c"
+    },
+    {
+      "id": "cli.check-ref-format.branch-only",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 2,
+      "max": 2,
+      "when": {
+        "key": "branch",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/check-ref-format.c"
+    }
+  ],
+  "unpack-file": [
+    {
+      "id": "cli.unpack-file.blob",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Operand count follows the native command parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/unpack-file.c"
+    }
+  ]
 }

@@ -22737,6 +22737,1965 @@
       "isolatedRuleWitnesses": {}
     },
     {
+      "command": "ls-files",
+      "rules": 5,
+      "domains": {
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "t": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "true"
+        ],
+        "f": [
+          "undefined",
+          "true"
+        ],
+        "cached": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "deleted": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "modified": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "others": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignored": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stage": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "killed": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "directory": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "eol": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "empty-directory": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unmerged": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "resolve-undo": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-from": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-per-directory": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-standard": [
+          "undefined",
+          "true"
+        ],
+        "full-name": [
+          "undefined",
+          "true"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "error-unmatch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "with-tree": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "debug": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "deduplicate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sparse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "9298091736000000",
+      "accepted": "719269624327680",
+      "nodes": 680,
+      "isolatedRuleWitnesses": {
+        "cli.ls-files.format": "{\"format\":\"\",\"operands\":[],\"t\":true}",
+        "cli.ls-files.recursive-mode": "{\"operands\":[],\"recurse-submodules\":true,\"with-tree\":\"\"}",
+        "cli.ls-files.tree-stage": "{\"operands\":[],\"unmerged\":true,\"with-tree\":\"\"}",
+        "cli.ls-files.ignored-mode": "{\"exclude-standard\":true,\"ignored\":true,\"operands\":[]}",
+        "cli.ls-files.ignored-patterns": "{\"ignored\":true,\"operands\":[],\"others\":true}"
+      }
+    },
+    {
+      "command": "ls-remote",
+      "rules": 0,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "upload-pack": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exec": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "branches": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "heads": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "refs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "get-url": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sort": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "exit-code": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "symref": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "server-option": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1312200000",
+      "accepted": "1312200000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "ls-tree",
+      "modes": [
+        {
+          "group": "&cmdmode",
+          "tokens": [
+            {
+              "flag": "--long",
+              "mode": "MODE_LONG"
+            },
+            {
+              "flag": "-l",
+              "mode": "MODE_LONG"
+            },
+            {
+              "flag": "--name-only",
+              "mode": "MODE_NAME_ONLY"
+            },
+            {
+              "flag": "--name-status",
+              "mode": "MODE_NAME_STATUS"
+            },
+            {
+              "flag": "--object-only",
+              "mode": "MODE_OBJECT_ONLY"
+            }
+          ],
+          "total": 25,
+          "accepted": 10,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            {
+              "from": "MODE_LONG",
+              "acceptedTokens": [
+                0,
+                1
+              ]
+            },
+            {
+              "from": "MODE_NAME_ONLY",
+              "acceptedTokens": [
+                2
+              ]
+            },
+            {
+              "from": "MODE_NAME_STATUS",
+              "acceptedTokens": [
+                3
+              ]
+            },
+            {
+              "from": "MODE_OBJECT_ONLY",
+              "acceptedTokens": [
+                4
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": 2,
+      "domains": {
+        "d": [
+          "undefined",
+          "true"
+        ],
+        "r": [
+          "undefined",
+          "true"
+        ],
+        "t": [
+          "undefined",
+          "true"
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "long": [
+          "undefined",
+          "true"
+        ],
+        "name-only": [
+          "undefined",
+          "true"
+        ],
+        "name-status": [
+          "undefined",
+          "true"
+        ],
+        "object-only": [
+          "undefined",
+          "true"
+        ],
+        "full-name": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "full-tree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "4147200",
+      "accepted": "829440",
+      "nodes": 40,
+      "isolatedRuleWitnesses": {
+        "cli.ls-tree.operands": "{\"operands\":[]}",
+        "cli.ls-tree.format": "{\"format\":\"\",\"object-only\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "for-each-ref",
+      "rules": 6,
+      "domains": {
+        "sort-base": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "shell": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "perl": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "python": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tcl": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "omit-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "count": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "start-after": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "sort": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "points-at": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "merged": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "no-merged": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "contains": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "no-contains": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "ignore-case": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "include-root-refs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "688747536000000",
+      "accepted": "66029064192000",
+      "nodes": 196,
+      "isolatedRuleWitnesses": {
+        "cli.for-each-ref.quote-style": "{\"operands\":[],\"shell\":true,\"tcl\":true}",
+        "cli.for-each-ref.count": "{\"count\":-2,\"operands\":[]}",
+        "cli.for-each-ref.stdin-patterns": "{\"operands\":[\"value\"],\"stdin\":true}",
+        "cli.for-each-ref.start-patterns": "{\"operands\":[\"value\"],\"start-after\":\"\"}",
+        "cli.for-each-ref.default-sort": "{\"operands\":[],\"sort\":[\"\"],\"sort-base\":true,\"start-after\":\"\"}",
+        "cli.for-each-ref.reset-sort": "{\"operands\":[],\"sort\":[\"\",\"\"],\"sort-base\":false,\"start-after\":\"\"}"
+      }
+    },
+    {
+      "command": "show-ref",
+      "rules": 3,
+      "domains": {
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "branches": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "heads": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "exists": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verify": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "h": [
+          "undefined",
+          "true"
+        ],
+        "head": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "dereference": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "hash": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "exclude-existing": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "226748160",
+      "accepted": "109175040",
+      "nodes": 45,
+      "isolatedRuleWitnesses": {
+        "cli.show-ref.modes": "{\"exists\":true,\"operands\":[\"value\"],\"verify\":true}",
+        "cli.show-ref.verify": "{\"operands\":[],\"verify\":true}",
+        "cli.show-ref.exists": "{\"exists\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "symbolic-ref",
+      "rules": 4,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "delete": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "short": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recurse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "m": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"HEAD\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "48600",
+      "accepted": "12096",
+      "nodes": 40,
+      "isolatedRuleWitnesses": {
+        "cli.symbolic-ref.operands": "{\"operands\":[]}",
+        "cli.symbolic-ref.delete": "{\"delete\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.symbolic-ref.message": "{\"m\":\"\",\"operands\":[\"value\"]}",
+        "cli.symbolic-ref.delete-head": "{\"delete\":true,\"operand0\":\"HEAD\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "verify-tag",
+      "rules": 1,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "raw": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3600",
+      "accepted": "2880",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.verify-tag.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "verify-commit",
+      "rules": 1,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "raw": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "576",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.verify-commit.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "count-objects",
+      "rules": 1,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "human-readable": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "144",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.count-objects.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "check-ignore",
+      "rules": 6,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "non-matching": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "29160",
+      "accepted": "5616",
+      "nodes": 99,
+      "isolatedRuleWitnesses": {
+        "cli.check-ignore.stdin-paths": "{\"operands\":[\"value\"],\"stdin\":true}",
+        "cli.check-ignore.paths": "{\"operands\":[]}",
+        "cli.check-ignore.quiet-paths": "{\"operands\":[\"value\",\"value\"],\"quiet\":true}",
+        "cli.check-ignore.nul-input": "{\"operands\":[\"value\"],\"z\":true}",
+        "cli.check-ignore.verbose-nonmatches": "{\"non-matching\":true,\"operands\":[],\"stdin\":true}",
+        "cli.check-ignore.quiet-verbose": "{\"operands\":[],\"quiet\":true,\"stdin\":true,\"verbose\":true}"
+      }
+    },
+    {
+      "command": "check-attr",
+      "rules": 8,
+      "domains": {
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cached": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "source": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "518400",
+      "accepted": "197280",
+      "nodes": 165,
+      "isolatedRuleWitnesses": {
+        "cli.check-attr.all-attributes": "{\"all\":true,\"hasSeparator\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\"],\"stdin\":true}",
+        "cli.check-attr.all-stdin": "{\"all\":true,\"operands\":[\"value\"],\"stdin\":true}",
+        "cli.check-attr.all-files": "{\"all\":true,\"operands\":[]}",
+        "cli.check-attr.separated-attributes": "{\"hasSeparator\":true,\"operands\":[],\"stdin\":true}",
+        "cli.check-attr.stdin-no-files": "{\"operands\":[\"value\"],\"pathsAfterSeparator\":[\"value\"],\"stdin\":true}",
+        "cli.check-attr.separated-files": "{\"hasSeparator\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\"]}",
+        "cli.check-attr.unseparated-attributes": "{\"operands\":[],\"stdin\":true}",
+        "cli.check-attr.unseparated-files": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "check-mailmap",
+      "rules": 1,
+      "domains": {
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "mailmap-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "mailmap-blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "4500",
+      "accepted": "3900",
+      "nodes": 6,
+      "isolatedRuleWitnesses": {
+        "cli.check-mailmap.contacts": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "write-tree",
+      "rules": 0,
+      "domains": {
+        "missing-ok": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-cache-tree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2700",
+      "accepted": "2700",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "mktree",
+      "rules": 0,
+      "domains": {
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "missing": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "batch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1080",
+      "accepted": "1080",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "mktag",
+      "rules": 0,
+      "domains": {
+        "strict": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "show-index",
+      "rules": 1,
+      "domains": {
+        "object-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"sha1\"",
+          "\"sha256\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "420",
+      "accepted": "180",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.show-index.object-format": "{\"object-format\":\"\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "verify-pack",
+      "rules": 1,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stat-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "object-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2700",
+      "accepted": "2160",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.verify-pack.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "stripspace",
+      "modes": [
+        {
+          "group": "&mode",
+          "tokens": [
+            {
+              "flag": "--strip-comments",
+              "mode": "STRIP_COMMENTS"
+            },
+            {
+              "flag": "-s",
+              "mode": "STRIP_COMMENTS"
+            },
+            {
+              "flag": "--comment-lines",
+              "mode": "COMMENT_LINES"
+            },
+            {
+              "flag": "-c",
+              "mode": "COMMENT_LINES"
+            }
+          ],
+          "total": 12,
+          "accepted": 8,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "from": "STRIP_COMMENTS",
+              "acceptedTokens": [
+                0,
+                1
+              ]
+            },
+            {
+              "from": "COMMENT_LINES",
+              "acceptedTokens": [
+                2,
+                3
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": 1,
+      "domains": {
+        "strip-comments": [
+          "undefined",
+          "true"
+        ],
+        "comment-lines": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.stripspace.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "patch-id",
+      "modes": [
+        {
+          "group": "&opts",
+          "tokens": [
+            {
+              "flag": "--unstable",
+              "mode": "1"
+            },
+            {
+              "flag": "--stable",
+              "mode": "2"
+            },
+            {
+              "flag": "--verbatim",
+              "mode": "3"
+            }
+          ],
+          "total": 12,
+          "accepted": 6,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "from": "1",
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "2",
+              "acceptedTokens": [
+                1
+              ]
+            },
+            {
+              "from": "3",
+              "acceptedTokens": [
+                2
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": 0,
+      "domains": {
+        "unstable": [
+          "undefined",
+          "true"
+        ],
+        "stable": [
+          "undefined",
+          "true"
+        ],
+        "verbatim": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "480",
+      "accepted": "480",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "describe",
+      "rules": 3,
+      "domains": {
+        "contains": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "debug": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "long": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "first-parent": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "abbrev": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "exact-match": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "candidates": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "match": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "always": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "dirty": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"-dirty\""
+        ],
+        "broken": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"-broken\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "59521392000",
+      "accepted": "27293760000",
+      "nodes": 53,
+      "isolatedRuleWitnesses": {
+        "cli.describe.dirty": "{\"dirty\":\"\",\"operands\":[\"value\"]}",
+        "cli.describe.broken": "{\"broken\":\"\",\"operands\":[\"value\"]}",
+        "cli.describe.long-abbrev": "{\"abbrev\":0,\"long\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "name-rev",
+      "rules": 1,
+      "domains": {
+        "name-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "refs": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "annotate-stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "undefined": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "always": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "peel-tag": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "39366000",
+      "accepted": "15746400",
+      "nodes": 27,
+      "isolatedRuleWitnesses": {
+        "cli.name-rev.input-sources": "{\"operands\":[\"value\"],\"stdin\":true}"
+      }
+    },
+    {
+      "command": "cherry",
+      "rules": 0,
+      "domains": {
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1440",
+      "accepted": "1440",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "format-rev",
+      "rules": 3,
+      "domains": {
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stdin-mode": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"text\"",
+          "\"revs\"",
+          "\"rev\""
+        ],
+        "notes": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "null": [
+          "undefined",
+          "true"
+        ],
+        "null-input": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "null-output": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "432000",
+      "accepted": "25920",
+      "nodes": 22,
+      "isolatedRuleWitnesses": {
+        "cli.format-rev.operands": "{\"format\":\"\",\"operands\":[\"value\"],\"stdin-mode\":\"text\"}",
+        "cli.format-rev.required": "{\"operands\":[]}",
+        "cli.format-rev.stdin-mode": "{\"format\":\"\",\"operands\":[],\"stdin-mode\":\"\"}"
+      }
+    },
+    {
+      "command": "check-ref-format",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "branch": [
+          "undefined",
+          "true"
+        ],
+        "normalize": [
+          "undefined",
+          "true"
+        ],
+        "allow-onelevel": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "refspec-pattern": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\"]"
+        ]
+      },
+      "total": "7200",
+      "accepted": "864",
+      "nodes": 14,
+      "isolatedRuleWitnesses": {
+        "cli.check-ref-format.ref": "{\"operands\":[]}",
+        "cli.check-ref-format.branch-only": "{\"branch\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "unpack-file",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "6",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.unpack-file.blob": "{\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {
