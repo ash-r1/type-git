@@ -103,6 +103,10 @@ export class GitClient implements Git {
   /**
    * Execute a raw git command (repository-agnostic)
    */
+  public get command(): Git['command'] {
+    return this.git.command.bind(this.git);
+  }
+
   public get raw(): (argv: string[], opts?: ExecOpts) => Promise<RawResult> {
     return this.git.raw.bind(this.git);
   }

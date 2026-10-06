@@ -1,0 +1,663 @@
+{
+  "lfs install": [
+    {
+      "id": "cli.lfs.install.scope",
+      "kind": "exclusive",
+      "keys": [
+        "local",
+        "worktree",
+        "system"
+      ],
+      "origin": "git",
+      "reason": "Only one configuration destination can be selected.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go"
+    },
+    {
+      "id": "cli.lfs.install.file-local",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "file",
+          "test": "nonempty"
+        },
+        {
+          "key": "local",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Only one configuration destination can be selected.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go"
+    },
+    {
+      "id": "cli.lfs.install.file-worktree",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "file",
+          "test": "nonempty"
+        },
+        {
+          "key": "worktree",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Only one configuration destination can be selected.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go"
+    },
+    {
+      "id": "cli.lfs.install.file-system",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "file",
+          "test": "nonempty"
+        },
+        {
+          "key": "system",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Only one configuration destination can be selected.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go"
+    },
+    {
+      "id": "cli.lfs.install.hook-options-local",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "local",
+          "test": "active"
+        },
+        {
+          "key": "skip-repo",
+          "test": "inactive"
+        },
+        {
+          "key": "force",
+          "test": "active"
+        },
+        {
+          "key": "manual",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Hook installation rejects force together with manual mode unless repository setup is skipped.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go"
+    },
+    {
+      "id": "cli.lfs.install.hook-options-worktree",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "worktree",
+          "test": "active"
+        },
+        {
+          "key": "skip-repo",
+          "test": "inactive"
+        },
+        {
+          "key": "force",
+          "test": "active"
+        },
+        {
+          "key": "manual",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Hook installation rejects force together with manual mode unless repository setup is skipped.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go"
+    },
+    {
+      "id": "cli.lfs.install.hook-options-inRepository",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "inRepository",
+          "test": "active"
+        },
+        {
+          "key": "skip-repo",
+          "test": "inactive"
+        },
+        {
+          "key": "force",
+          "test": "active"
+        },
+        {
+          "key": "manual",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Hook installation rejects force together with manual mode unless repository setup is skipped.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go"
+    }
+  ],
+  "lfs uninstall": [
+    {
+      "id": "cli.lfs.uninstall.scope",
+      "kind": "exclusive",
+      "keys": [
+        "local",
+        "worktree",
+        "system"
+      ],
+      "origin": "git",
+      "reason": "Only one configuration destination can be selected.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go"
+    },
+    {
+      "id": "cli.lfs.uninstall.file-local",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "file",
+          "test": "nonempty"
+        },
+        {
+          "key": "local",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Only one configuration destination can be selected.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go"
+    },
+    {
+      "id": "cli.lfs.uninstall.file-worktree",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "file",
+          "test": "nonempty"
+        },
+        {
+          "key": "worktree",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Only one configuration destination can be selected.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go"
+    },
+    {
+      "id": "cli.lfs.uninstall.file-system",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "file",
+          "test": "nonempty"
+        },
+        {
+          "key": "system",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Only one configuration destination can be selected.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go"
+    }
+  ],
+  "lfs update": [
+    {
+      "id": "cli.lfs.update.force-manual",
+      "kind": "exclusive",
+      "keys": [
+        "force",
+        "manual"
+      ],
+      "origin": "git",
+      "reason": "Hook installation rejects force together with manual mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_update.go"
+    }
+  ],
+  "lfs fetch": [
+    {
+      "id": "cli.lfs.fetch.all-filters",
+      "kind": "conflicts",
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "include",
+          "test": "present"
+        },
+        {
+          "key": "exclude",
+          "test": "present"
+        },
+        {
+          "key": "recent",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Fetching all rejects explicit filters and recent mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_fetch.go"
+    },
+    {
+      "id": "cli.lfs.fetch.json-prune",
+      "kind": "exclusive",
+      "keys": [
+        "json",
+        "prune"
+      ],
+      "origin": "git",
+      "reason": "The prune output cannot be represented by fetch JSON.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_fetch.go"
+    },
+    {
+      "id": "cli.lfs.fetch.operands-2",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "when": {
+        "key": "stdin",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_fetch.go"
+    }
+  ],
+  "lfs push": [
+    {
+      "id": "cli.lfs.push.operands-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_push.go"
+    },
+    {
+      "id": "cli.lfs.push.operands-1",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "stdin",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_push.go"
+    },
+    {
+      "id": "cli.lfs.push.operands-2",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "all",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_push.go"
+    },
+    {
+      "id": "cli.lfs.push.operands-3",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "object-id",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_push.go"
+    }
+  ],
+  "lfs pre-push": [
+    {
+      "id": "cli.lfs.pre-push.operands-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pre_push.go"
+    }
+  ],
+  "lfs post-checkout": [
+    {
+      "id": "cli.lfs.post-checkout.operands-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 3,
+      "max": 3,
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_post_checkout.go"
+    }
+  ],
+  "lfs post-merge": [
+    {
+      "id": "cli.lfs.post-merge.operands-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_post_merge.go"
+    }
+  ],
+  "lfs completion": [
+    {
+      "id": "cli.lfs.completion.operands-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go"
+    },
+    {
+      "id": "cli.lfs.completion.shell",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "bash",
+        "fish",
+        "zsh"
+      ],
+      "origin": "git",
+      "reason": "The completion dispatcher supports these three shells.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go"
+    }
+  ],
+  "lfs prune": [
+    {
+      "id": "cli.lfs.prune.verification",
+      "kind": "exclusive",
+      "keys": [
+        "verify-remote",
+        "no-verify-remote"
+      ],
+      "origin": "git",
+      "reason": "Verification and no-verification flags cannot both be enabled.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_prune.go"
+    },
+    {
+      "id": "cli.lfs.prune.unverified",
+      "kind": "value",
+      "key": "when-unverified",
+      "allowed": [
+        "halt",
+        "continue"
+      ],
+      "origin": "git",
+      "reason": "Unverified objects require either halt or continue behavior.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_prune.go"
+    }
+  ],
+  "lfs track": [
+    {
+      "id": "cli.lfs.track.operands-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "json",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_track.go"
+    }
+  ],
+  "lfs ls-files": [
+    {
+      "id": "cli.lfs.ls-files.operands-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_ls_files.go"
+    },
+    {
+      "id": "cli.lfs.ls-files.operands-1",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "when": {
+        "key": "deleted",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_ls_files.go"
+    }
+  ],
+  "lfs unlock": [
+    {
+      "id": "cli.lfs.unlock.one-input",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "id",
+          "test": "nonempty"
+        },
+        {
+          "key": "operands",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Specify either an ID or paths, not both.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_unlock.go"
+    },
+    {
+      "id": "cli.lfs.unlock.input",
+      "kind": "requiresAny",
+      "when": {
+        "key": "help",
+        "test": "inactive"
+      },
+      "choices": [
+        {
+          "key": "id",
+          "test": "nonempty"
+        },
+        {
+          "key": "operands",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Unlock requires either an ID or a path.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_unlock.go"
+    }
+  ],
+  "lfs pointer": [
+    {
+      "id": "cli.lfs.pointer.input",
+      "kind": "requiresAny",
+      "when": {
+        "key": "help",
+        "test": "inactive"
+      },
+      "choices": [
+        {
+          "key": "file",
+          "test": "nonempty"
+        },
+        {
+          "key": "pointer",
+          "test": "nonempty"
+        },
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Pointer operations require a file, a pointer file, or standard input.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pointer.go"
+    },
+    {
+      "id": "cli.lfs.pointer.pointer-stdin",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "pointer",
+          "test": "nonempty"
+        },
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Pointer files and standard input cannot both supply the comparison pointer.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pointer.go"
+    },
+    {
+      "id": "cli.lfs.pointer.check-pointer",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "check",
+          "test": "active"
+        },
+        {
+          "key": "pointer",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Pointer checking does not accept a comparison pointer file.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pointer.go"
+    },
+    {
+      "id": "cli.lfs.pointer.check-file-stdin",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "check",
+          "test": "active"
+        },
+        {
+          "key": "file",
+          "test": "nonempty"
+        },
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Checking takes either a file or standard input, not both.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pointer.go"
+    },
+    {
+      "id": "cli.lfs.pointer.check-strict",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "check",
+          "test": "active"
+        },
+        {
+          "key": "strict",
+          "test": "active"
+        },
+        {
+          "key": "no-strict",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Strict and no-strict conflict in checking mode; they are ignored outside it.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pointer.go"
+    }
+  ],
+  "lfs merge-driver": [
+    {
+      "id": "cli.lfs.merge-driver.files",
+      "kind": "required",
+      "required": [
+        {
+          "key": "ancestor",
+          "test": "nonempty"
+        },
+        {
+          "key": "current",
+          "test": "nonempty"
+        },
+        {
+          "key": "other",
+          "test": "nonempty"
+        },
+        {
+          "key": "output",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "The ancestor, current, other and output file options are mandatory.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_merge_driver.go"
+    }
+  ],
+  "lfs clone": [
+    {
+      "id": "cli.lfs.clone.operands-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "origin": "git",
+      "reason": "Git LFS requires this operand count in the selected mode.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_clone.go"
+    }
+  ],
+  "lfs migrate info": [
+    {
+      "id": "cli.lfs.migrate.info.pointers",
+      "kind": "value",
+      "key": "pointers",
+      "allowed": [
+        "follow",
+        "no-follow",
+        "ignore"
+      ],
+      "origin": "git",
+      "reason": "Pointer reporting accepts follow, no-follow, or ignore.",
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate_info.go"
+    }
+  ]
+}

@@ -61,6 +61,261 @@ describe('option constraints against independent Git executions', () => {
     return result;
   }
 
+  it('compares every LFS checkout stage/destination combination with the LFS parser', async () => {
+    for (const options of assignments({
+      base: [false, true],
+      ours: [false, true],
+      theirs: [false, true],
+      to: [undefined, '', 'output'],
+    })) {
+      const args = ['-C', repo.workdir, 'lfs', 'checkout'];
+      if (options.base) {
+        args.push('--base');
+      }
+      if (options.ours) {
+        args.push('--ours');
+      }
+      if (options.theirs) {
+        args.push('--theirs');
+      }
+      if (options.to !== undefined) {
+        args.push(`--to=${options.to}`);
+      }
+      args.push('file');
+      const result = raw(args);
+      const optionError = /at most one of|must be used together/.test(
+        result.stderr + result.stdout,
+      );
+      expect(optionError, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
+        violations(COMMAND_CONSTRAINTS.lfsCheckout, options).length > 0,
+      );
+      // A valid conflict invocation can still fail: this fixture has no unmerged index.
+      if (!(options.base || options.ours || options.theirs || options.to)) {
+        expect(result.status).toBe(0);
+      }
+    }
+    await expect(repo.lfs.checkout('file', { ours: true } as never)).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
+    await repo.lfs.checkout('file', { onProgress: () => undefined });
+    const result = raw(['-C', repo.workdir, 'lfs', 'checkout', '--include=*.bin']);
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain('unknown flag');
+  });
+
+  it('checks cached LFS lock constraints without contacting a server', async () => {
+    for (const options of assignments({
+      cached: [true],
+      local: [false, true],
+      verify: [false, true],
+      limit: [undefined, -1, 0, 1],
+      id: [undefined, '', '1'],
+    })) {
+      const args = ['-C', repo.workdir, 'lfs', 'locks', '--json', '--cached'];
+      if (options.local) {
+        args.push('--local');
+      }
+      if (options.verify) {
+        args.push('--verify');
+      }
+      if (options.limit !== undefined) {
+        args.push(`--limit=${options.limit}`);
+      }
+      if (options.id !== undefined) {
+        args.push(`--id=${options.id}`);
+      }
+      const result = raw(args);
+      expect(result.status === 0, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
+        violations(COMMAND_CONSTRAINTS.lfsLocks, options).length === 0,
+      );
+    }
+    expect(await repo.lfs.locks({ cached: true })).toEqual([]);
+    expect(await repo.lfs.locks({ cached: true, verify: true })).toEqual([]);
+  }, 30000);
+
+  it('compares LFS migrate info fixup combinations, including empty filters and default pointers', async () => {
+    for (const options of assignments({
+      fixup: [false, true],
+      include: [undefined, '', '*.bin'],
+      pointers: [undefined, 'follow', 'no-follow', 'ignore'],
+    })) {
+      const args = ['-C', repo.workdir, 'lfs', 'migrate', 'info', '--skip-fetch'];
+      if (options.fixup) {
+        args.push('--fixup');
+      }
+      if (options.include !== undefined) {
+        args.push(`--include=${options.include}`);
+      }
+      if (options.pointers !== undefined) {
+        args.push(`--pointers=${options.pointers}`);
+      }
+      const result = raw(args);
+      expect(result.status === 0, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
+        violations(COMMAND_CONSTRAINTS.lfsMigrateInfo, options).length === 0,
+      );
+    }
+    await expect(
+      repo.lfs.migrateInfo({ fixup: true, pointers: 'follow' } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    await repo.lfs.migrateInfo({ fixup: true, pointers: 'ignore', skipFetch: true });
+  }, 30000);
+
+  it('checks LFS migrate import size thresholds and no-rewrite prerequisites', async () => {
+    for (const above of ['0', '0.5b', '1b', '0.001kb']) {
+      const options = { above, include: '*.bin' };
+      const result = raw([
+        '-C',
+        repo.workdir,
+        'lfs',
+        'migrate',
+        'import',
+        '--skip-fetch',
+        `--above=${above}`,
+        '--include=*.bin',
+      ]);
+      expect(/Cannot use --above/.test(result.stderr), result.stderr).toBe(
+        violations(COMMAND_CONSTRAINTS.lfsMigrateImport, options).length > 0,
+      );
+      if (above === '0' || above === '0.5b') {
+        expect(result.status, result.stderr).toBe(0);
+      }
+    }
+    const result = raw(['-C', repo.workdir, 'lfs', 'migrate', 'import', '--no-rewrite']);
+    expect(result.stderr).toContain('Expected one or more files');
+    await expect(repo.lfs.migrateImport({ noRewrite: true } as never)).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
+    await expect(repo.lfs.migrateImport({ above: '1kb', include: '*.bin' })).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
+    await expect(repo.lfs.migrateExport({} as never)).rejects.toBeInstanceOf(GitArgumentError);
+    const missing = raw(['-C', repo.workdir, 'lfs', 'migrate', 'export', '--skip-fetch']);
+    expect(missing.stderr).toContain('must be specified with --include');
+  });
+
+  it('checks all reset modes and intent-to-add states against Git', async () => {
+    for (const options of assignments({
+      mode: [undefined, 'soft', 'mixed', 'hard', 'merge', 'keep'],
+      intentToAdd: [undefined, false, true],
+    })) {
+      const args = ['-C', repo.workdir, 'reset'];
+      if (options.mode) {
+        args.push(`--${options.mode}`);
+      }
+      if (options.intentToAdd) {
+        args.push('-N');
+      }
+      args.push('HEAD');
+      const result = raw(args);
+      expect(result.status === 0, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
+        violations(COMMAND_CONSTRAINTS.reset, options).length === 0,
+      );
+    }
+    await expect(
+      repo.reset('HEAD', { mode: 'hard', intentToAdd: true } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+  });
+
+  it('checks stash staged, untracked, all, file and explicit path combinations against Git', async () => {
+    const file = join(root, 'paths');
+    await writeFile(file, 'file\n');
+    const help = raw(['-C', repo.workdir, 'stash', 'push', '-h']);
+    const supportsStaged = (help.stdout + help.stderr).includes('--staged');
+    for (const options of assignments({
+      staged: supportsStaged ? [undefined, false, true] : [undefined, false],
+      includeUntracked: [undefined, false, true],
+      all: [undefined, false, true],
+      pathspecFromFile: (help.stdout + help.stderr).includes('--pathspec-from-file')
+        ? [undefined, file]
+        : [undefined],
+      paths: [undefined, [], ['file']],
+    })) {
+      const args = ['-C', repo.workdir, 'stash', 'push'];
+      if (options.staged) {
+        args.push('--staged');
+      }
+      if (options.includeUntracked) {
+        args.push('--include-untracked');
+      }
+      if (options.all) {
+        args.push('--all');
+      }
+      if (options.pathspecFromFile) {
+        args.push(`--pathspec-from-file=${file}`);
+      }
+      if (Array.isArray(options.paths) && options.paths.length > 0) {
+        args.push('--', ...options.paths);
+      }
+      const result = raw(args);
+      expect(result.status === 0, `${JSON.stringify(options)}: ${result.stderr}`).toBe(
+        violations(COMMAND_CONSTRAINTS.stashPush, options).length === 0,
+      );
+    }
+    await expect(repo.stash.push({ staged: true, all: true } as never)).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
+  }, 30000);
+
+  it('checks remote mirror modes and branch tracking against Git', async () => {
+    let index = 0;
+    for (const options of assignments({
+      mirror: [undefined, 'fetch', 'push'],
+      track: [undefined, 'main'],
+    })) {
+      const args = ['-C', repo.workdir, 'remote', 'add'];
+      if (options.mirror) {
+        args.push(`--mirror=${options.mirror}`);
+      }
+      if (options.track) {
+        args.push('-t', String(options.track));
+      }
+      args.push(`remote-${index++}`, repo.workdir);
+      const result = raw(args);
+      expect(result.status === 0, result.stderr).toBe(
+        violations(COMMAND_CONSTRAINTS.remoteAdd, options).length === 0,
+      );
+    }
+    await expect(
+      repo.remote.add('invalid', repo.workdir, { mirror: 'push', track: 'main' } as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+  });
+
+  it.runIf(supportsSubmoduleFilter)(
+    'accepts successive submodule strategies and requires init for filtering',
+    async () => {
+      const result = raw([
+        '-C',
+        repo.workdir,
+        'submodule',
+        'update',
+        '--checkout',
+        '--merge',
+        '--rebase',
+      ]);
+      expect(result.status, result.stderr).toBe(0);
+      await repo.submodule.update({ checkout: true, merge: true, rebase: true });
+      const bad = raw(['-C', repo.workdir, 'submodule', 'update', '--filter=blob:none']);
+      expect(bad.status).not.toBe(0);
+      await expect(repo.submodule.update({ filter: 'blob:none' } as never)).rejects.toBeInstanceOf(
+        GitArgumentError,
+      );
+      await repo.submodule.update({ init: true, filter: 'blob:none' });
+    },
+  );
+
+  it('checks tag message sources and forwards empty messages', async () => {
+    const file = join(root, 'message');
+    await writeFile(file, 'annotation');
+    const bad = raw(['-C', repo.workdir, 'tag', '-m', '', '-F', file, 'invalid']);
+    expect(bad.status).not.toBe(0);
+    expect(bad.stderr).toMatch(/cannot be used together|only one -F or -m option/);
+    await expect(repo.tag.create('invalid', { message: '', file } as never)).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
+    await repo.tag.create('empty-message', { message: '' });
+    expect((await repo.raw(['cat-file', '-t', 'empty-message'])).stdout.trim()).toBe('tag');
+  });
+
   it('exhaustively checks clone layout combinations against Git, including successful cases', async () => {
     let index = 0;
     for (const o of assignments({

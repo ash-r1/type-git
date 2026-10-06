@@ -1,0 +1,1915 @@
+{
+  "baseline": "3.8.0",
+  "extraction": "Cobra/pflag registrations, including short aliases and inherited persistent flags. This inventory does not infer semantic constraints.",
+  "sources": {
+    "commands/command_checkout.go": "ff9db8611e349d00eac2e7257e1a7610db26b6eb4d952e5388f80d697977bd14",
+    "commands/command_clean.go": "40cd5fcab44284af10cfe6375751b7fd1352804185e83d82455582862526a173",
+    "commands/command_clone.go": "88fd63fa9d56bcff4771c3a951f3ef7985b73ee8a25e5a29a0d4fb47e7b6274f",
+    "commands/command_dedup.go": "391cebae11c2b61d5e3c924e1360ac055dbaa7c2d941ec90258982542905aa86",
+    "commands/command_env.go": "1b863a6e803712563f0054189eb47adbb63b9a63c5721296e9c2808c384c7aa6",
+    "commands/command_ext.go": "490527d0b4bceb50915e349fe24ca1ef67f9d529b1d65f8adb0fa8c2b19f7fe7",
+    "commands/command_fetch.go": "838733e37911422fbc7062516cfaabf108a2b46c2485af2dfed0038b26e154a2",
+    "commands/command_filter_process.go": "d51aab59e9eab64deb2761e7e57cbf757ddb2ec18a770b9e52ccddc30c6da955",
+    "commands/command_fsck.go": "fad79d4ef3ff1a42e543954cf1ffa0b42405fc219da194d8eab4af265d0a1597",
+    "commands/command_install.go": "08ab356e3761ad488deefe37da086a4bb80a78800df29e78fe0ab05903401ee2",
+    "commands/command_lock.go": "f933bcfd60baf1e5c6e40d65133fa279eb1b031778b03de913fa51507cd7bef5",
+    "commands/command_locks.go": "823be474c5f207d84494fc99de125f71a8803653dab08e747fa6c91cd5bdb76d",
+    "commands/command_logs.go": "acb7c07836bba6684dacf310825001be522a65449b6e1842e0319e5505070ede",
+    "commands/command_ls_files.go": "669ea90f6feaa471e75a120902cb97cf941f0237efde87162e8a308164a4faeb",
+    "commands/command_merge_driver.go": "7e4c2d10108c51ea932d3560cd3a7bad73efed19a82632fd4a2424859d4f7172",
+    "commands/command_migrate.go": "64f29006352d8c0447ba42424900b7ea2ebb203b7e0f1d9ca05e242265a0529c",
+    "commands/command_pointer.go": "1e1142b86fba369dcafcd103633f60455189719ad8b6350827e4b0822a78640e",
+    "commands/command_post_checkout.go": "43ef3698315bfe4943749344eea933b4727f86a57b09cf66b05f8c8f6e1e43d3",
+    "commands/command_post_commit.go": "4362584e1dc622003cd6b67c34e33fb85ef5cb4beca8691510b1ced604e40f47",
+    "commands/command_post_merge.go": "cbcfd734c20121d9e09659dac61c48130ba258fff76847269d8c2f740308d3ed",
+    "commands/command_pre_push.go": "41feabceaa169b0b361920a6553a139bd067563ff69c5a7de2af1f4984c08b18",
+    "commands/command_prune.go": "edc9632c74fbac6d1089f1a5d58cfe43818a9b938eb34b6519ff0644544b4f16",
+    "commands/command_pull.go": "7489d0865ecb29babc1699ed7147ee05c6ed09713d11ab5d8fcfb89ca071088a",
+    "commands/command_push.go": "cd0617246babc309fba8997517676d3168ef96f0528bbdad068bd6bb83a84c71",
+    "commands/command_smudge.go": "d5479e325464410f0981c701db9dabd24f8002434f3b4fe86ed08af994e5fe1b",
+    "commands/command_standalone_file.go": "513e9ef9f7b75da73496ee1b0a9dd6646ab32fcd92bb2c0a9c7e3879d3d8efa6",
+    "commands/command_status.go": "76ff7c765cd2120d706b6e703bbedd310cbb6f066b2fbe7b5b59d142c5e9b95e",
+    "commands/command_track.go": "0599563aa6de442309286def727e7a87744e6080f45db5dc9040ccac04c3e71e",
+    "commands/command_uninstall.go": "44d7f7d06ddad518488d84beba17723e20d5c5fb67470d8618ec70009caa527a",
+    "commands/command_unlock.go": "307a6c8a66c48a8e74d0e214414aff1e42758a7d08d5300736c239a4dc31682d",
+    "commands/command_untrack.go": "f48d4c4f39757fcf620db5bd61477e25adccb3e6deb6bc21273c551ebcff9242",
+    "commands/command_update.go": "d70eabeadc0f503f393dd5079a3195203b1529ee1d06370dc59adefa644630c4",
+    "commands/command_version.go": "921557e63fbd824fe766b42ead8a820bc87839dad3daab4abda8f83bcab1d5ec",
+    "commands/run.go": "26594e5e9742e84bf11aef379e8efc7e96f989bf38ddb0b40089ba8df75df3ef"
+  },
+  "commands": {
+    "lfs": {
+      "argv": [
+        "lfs"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--version": {
+          "key": "version",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-v": {
+          "key": "version",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go",
+      "separator": true
+    },
+    "lfs checkout": {
+      "argv": [
+        "lfs",
+        "checkout"
+      ],
+      "options": {
+        "--base": {
+          "key": "base",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--ours": {
+          "key": "ours",
+          "value": "boolean"
+        },
+        "--theirs": {
+          "key": "theirs",
+          "value": "boolean"
+        },
+        "--to": {
+          "key": "to",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_checkout.go",
+      "separator": true
+    },
+    "lfs clean": {
+      "argv": [
+        "lfs",
+        "clean"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_clean.go",
+      "separator": true
+    },
+    "lfs clone": {
+      "argv": [
+        "lfs",
+        "clone"
+      ],
+      "options": {
+        "--bare": {
+          "key": "bare",
+          "value": "boolean"
+        },
+        "--branch": {
+          "key": "branch",
+          "value": "string"
+        },
+        "--config": {
+          "key": "config",
+          "value": "string"
+        },
+        "--depth": {
+          "key": "depth",
+          "value": "string"
+        },
+        "--dissociate": {
+          "key": "dissociate",
+          "value": "boolean"
+        },
+        "--exclude": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--include": {
+          "key": "include",
+          "value": "string"
+        },
+        "--ipv4": {
+          "key": "ipv4",
+          "value": "boolean"
+        },
+        "--ipv6": {
+          "key": "ipv6",
+          "value": "boolean"
+        },
+        "--jobs": {
+          "key": "jobs",
+          "value": "integer"
+        },
+        "--local": {
+          "key": "local",
+          "value": "boolean"
+        },
+        "--mirror": {
+          "key": "mirror",
+          "value": "boolean"
+        },
+        "--no-checkout": {
+          "key": "no-checkout",
+          "value": "boolean"
+        },
+        "--no-hardlinks": {
+          "key": "no-hardlinks",
+          "value": "boolean"
+        },
+        "--no-shallow-submodules": {
+          "key": "no-shallow-submodules",
+          "value": "boolean"
+        },
+        "--no-single-branch": {
+          "key": "no-single-branch",
+          "value": "boolean"
+        },
+        "--origin": {
+          "key": "origin",
+          "value": "string"
+        },
+        "--progress": {
+          "key": "progress",
+          "value": "boolean"
+        },
+        "--quiet": {
+          "key": "quiet",
+          "value": "boolean"
+        },
+        "--recurse-submodules": {
+          "key": "recurse-submodules",
+          "value": "boolean"
+        },
+        "--recursive": {
+          "key": "recursive",
+          "value": "boolean"
+        },
+        "--reference": {
+          "key": "reference",
+          "value": "string"
+        },
+        "--reference-if-able": {
+          "key": "reference-if-able",
+          "value": "string"
+        },
+        "--separate-git-dir": {
+          "key": "separate-git-dir",
+          "value": "string"
+        },
+        "--shallow-exclude": {
+          "key": "shallow-exclude",
+          "value": "string"
+        },
+        "--shallow-since": {
+          "key": "shallow-since",
+          "value": "string"
+        },
+        "--shallow-submodules": {
+          "key": "shallow-submodules",
+          "value": "boolean"
+        },
+        "--shared": {
+          "key": "shared",
+          "value": "boolean"
+        },
+        "--single-branch": {
+          "key": "single-branch",
+          "value": "boolean"
+        },
+        "--skip-repo": {
+          "key": "skip-repo",
+          "value": "boolean"
+        },
+        "--template": {
+          "key": "template",
+          "value": "string"
+        },
+        "--upload-pack": {
+          "key": "upload-pack",
+          "value": "string"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "boolean"
+        },
+        "-I": {
+          "key": "include",
+          "value": "string"
+        },
+        "-X": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "-b": {
+          "key": "branch",
+          "value": "string"
+        },
+        "-c": {
+          "key": "config",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-j": {
+          "key": "jobs",
+          "value": "integer"
+        },
+        "-l": {
+          "key": "local",
+          "value": "boolean"
+        },
+        "-n": {
+          "key": "no-checkout",
+          "value": "boolean"
+        },
+        "-o": {
+          "key": "origin",
+          "value": "string"
+        },
+        "-q": {
+          "key": "quiet",
+          "value": "boolean"
+        },
+        "-s": {
+          "key": "shared",
+          "value": "boolean"
+        },
+        "-u": {
+          "key": "upload-pack",
+          "value": "string"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_clone.go",
+      "separator": true
+    },
+    "lfs completion": {
+      "argv": [
+        "lfs",
+        "completion"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go",
+      "separator": true
+    },
+    "lfs dedup": {
+      "argv": [
+        "lfs",
+        "dedup"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--test": {
+          "key": "test",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-t": {
+          "key": "test",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_dedup.go",
+      "separator": true
+    },
+    "lfs env": {
+      "argv": [
+        "lfs",
+        "env"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_env.go",
+      "separator": true
+    },
+    "lfs ext": {
+      "argv": [
+        "lfs",
+        "ext"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_ext.go",
+      "separator": true
+    },
+    "lfs ext list": {
+      "argv": [
+        "lfs",
+        "ext",
+        "list"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_ext.go",
+      "separator": true
+    },
+    "lfs fetch": {
+      "argv": [
+        "lfs",
+        "fetch"
+      ],
+      "options": {
+        "--all": {
+          "key": "all",
+          "value": "boolean"
+        },
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "--exclude": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--include": {
+          "key": "include",
+          "value": "string"
+        },
+        "--json": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "--prune": {
+          "key": "prune",
+          "value": "boolean"
+        },
+        "--recent": {
+          "key": "recent",
+          "value": "boolean"
+        },
+        "--refetch": {
+          "key": "refetch",
+          "value": "boolean"
+        },
+        "--stdin": {
+          "key": "stdin",
+          "value": "boolean"
+        },
+        "-I": {
+          "key": "include",
+          "value": "string"
+        },
+        "-X": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "-a": {
+          "key": "all",
+          "value": "boolean"
+        },
+        "-d": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-j": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "-p": {
+          "key": "prune",
+          "value": "boolean"
+        },
+        "-r": {
+          "key": "recent",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_fetch.go",
+      "separator": true
+    },
+    "lfs filter-process": {
+      "argv": [
+        "lfs",
+        "filter-process"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--skip": {
+          "key": "skip",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-s": {
+          "key": "skip",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_filter_process.go",
+      "separator": true
+    },
+    "lfs fsck": {
+      "argv": [
+        "lfs",
+        "fsck"
+      ],
+      "options": {
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--objects": {
+          "key": "objects",
+          "value": "boolean"
+        },
+        "--pointers": {
+          "key": "pointers",
+          "value": "boolean"
+        },
+        "-d": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_fsck.go",
+      "separator": true
+    },
+    "lfs help": {
+      "argv": [
+        "lfs",
+        "help"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go",
+      "separator": true
+    },
+    "lfs install": {
+      "argv": [
+        "lfs",
+        "install"
+      ],
+      "options": {
+        "--file": {
+          "key": "file",
+          "value": "string"
+        },
+        "--force": {
+          "key": "force",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--local": {
+          "key": "local",
+          "value": "boolean"
+        },
+        "--manual": {
+          "key": "manual",
+          "value": "boolean"
+        },
+        "--skip-repo": {
+          "key": "skip-repo",
+          "value": "boolean"
+        },
+        "--skip-smudge": {
+          "key": "skip-smudge",
+          "value": "boolean"
+        },
+        "--system": {
+          "key": "system",
+          "value": "boolean"
+        },
+        "--worktree": {
+          "key": "worktree",
+          "value": "boolean"
+        },
+        "-f": {
+          "key": "force",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-l": {
+          "key": "local",
+          "value": "boolean"
+        },
+        "-m": {
+          "key": "manual",
+          "value": "boolean"
+        },
+        "-s": {
+          "key": "skip-smudge",
+          "value": "boolean"
+        },
+        "-w": {
+          "key": "worktree",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go",
+      "separator": true
+    },
+    "lfs install hooks": {
+      "argv": [
+        "lfs",
+        "install",
+        "hooks"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_install.go",
+      "separator": true
+    },
+    "lfs lock": {
+      "argv": [
+        "lfs",
+        "lock"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--json": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "--remote": {
+          "key": "remote",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-j": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "-r": {
+          "key": "remote",
+          "value": "string"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_lock.go",
+      "separator": true
+    },
+    "lfs locks": {
+      "argv": [
+        "lfs",
+        "locks"
+      ],
+      "options": {
+        "--cached": {
+          "key": "cached",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--json": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "--limit": {
+          "key": "limit",
+          "value": "integer"
+        },
+        "--local": {
+          "key": "local",
+          "value": "boolean"
+        },
+        "--path": {
+          "key": "path",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "remote",
+          "value": "string"
+        },
+        "--verify": {
+          "key": "verify",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-j": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "-l": {
+          "key": "limit",
+          "value": "integer"
+        },
+        "-p": {
+          "key": "path",
+          "value": "string"
+        },
+        "-r": {
+          "key": "remote",
+          "value": "string"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_locks.go",
+      "separator": true
+    },
+    "lfs logs": {
+      "argv": [
+        "lfs",
+        "logs"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go",
+      "separator": true
+    },
+    "lfs logs boomtown": {
+      "argv": [
+        "lfs",
+        "logs",
+        "boomtown"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go",
+      "separator": true
+    },
+    "lfs logs clear": {
+      "argv": [
+        "lfs",
+        "logs",
+        "clear"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go",
+      "separator": true
+    },
+    "lfs logs last": {
+      "argv": [
+        "lfs",
+        "logs",
+        "last"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go",
+      "separator": true
+    },
+    "lfs logs show": {
+      "argv": [
+        "lfs",
+        "logs",
+        "show"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_logs.go",
+      "separator": true
+    },
+    "lfs ls-files": {
+      "argv": [
+        "lfs",
+        "ls-files"
+      ],
+      "options": {
+        "--all": {
+          "key": "all",
+          "value": "boolean"
+        },
+        "--debug": {
+          "key": "debug",
+          "value": "boolean"
+        },
+        "--deleted": {
+          "key": "deleted",
+          "value": "boolean"
+        },
+        "--exclude": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--include": {
+          "key": "include",
+          "value": "string"
+        },
+        "--json": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "--long": {
+          "key": "long",
+          "value": "boolean"
+        },
+        "--name-only": {
+          "key": "name-only",
+          "value": "boolean"
+        },
+        "--size": {
+          "key": "size",
+          "value": "boolean"
+        },
+        "-I": {
+          "key": "include",
+          "value": "string"
+        },
+        "-X": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "-a": {
+          "key": "all",
+          "value": "boolean"
+        },
+        "-d": {
+          "key": "debug",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-j": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "-l": {
+          "key": "long",
+          "value": "boolean"
+        },
+        "-n": {
+          "key": "name-only",
+          "value": "boolean"
+        },
+        "-s": {
+          "key": "size",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_ls_files.go",
+      "separator": true
+    },
+    "lfs merge-driver": {
+      "argv": [
+        "lfs",
+        "merge-driver"
+      ],
+      "options": {
+        "--ancestor": {
+          "key": "ancestor",
+          "value": "string"
+        },
+        "--current": {
+          "key": "current",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--marker-size": {
+          "key": "marker-size",
+          "value": "integer"
+        },
+        "--other": {
+          "key": "other",
+          "value": "string"
+        },
+        "--output": {
+          "key": "output",
+          "value": "string"
+        },
+        "--program": {
+          "key": "program",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_merge_driver.go",
+      "separator": true
+    },
+    "lfs migrate": {
+      "argv": [
+        "lfs",
+        "migrate"
+      ],
+      "options": {
+        "--everything": {
+          "key": "everything",
+          "value": "boolean"
+        },
+        "--exclude": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "--exclude-ref": {
+          "key": "exclude-ref",
+          "value": "string",
+          "repeat": true
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--include": {
+          "key": "include",
+          "value": "string"
+        },
+        "--include-ref": {
+          "key": "include-ref",
+          "value": "string",
+          "repeat": true
+        },
+        "--skip-fetch": {
+          "key": "skip-fetch",
+          "value": "boolean"
+        },
+        "--yes": {
+          "key": "yes",
+          "value": "boolean"
+        },
+        "-I": {
+          "key": "include",
+          "value": "string"
+        },
+        "-X": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-y": {
+          "key": "yes",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go",
+      "separator": true
+    },
+    "lfs migrate export": {
+      "argv": [
+        "lfs",
+        "migrate",
+        "export"
+      ],
+      "options": {
+        "--everything": {
+          "key": "everything",
+          "value": "boolean"
+        },
+        "--exclude": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "--exclude-ref": {
+          "key": "exclude-ref",
+          "value": "string",
+          "repeat": true
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--include": {
+          "key": "include",
+          "value": "string"
+        },
+        "--include-ref": {
+          "key": "include-ref",
+          "value": "string",
+          "repeat": true
+        },
+        "--object-map": {
+          "key": "object-map",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "remote",
+          "value": "string"
+        },
+        "--skip-fetch": {
+          "key": "skip-fetch",
+          "value": "boolean"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "boolean"
+        },
+        "--yes": {
+          "key": "yes",
+          "value": "boolean"
+        },
+        "-I": {
+          "key": "include",
+          "value": "string"
+        },
+        "-X": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-y": {
+          "key": "yes",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go",
+      "separator": true
+    },
+    "lfs migrate import": {
+      "argv": [
+        "lfs",
+        "migrate",
+        "import"
+      ],
+      "options": {
+        "--above": {
+          "key": "above",
+          "value": "string"
+        },
+        "--everything": {
+          "key": "everything",
+          "value": "boolean"
+        },
+        "--exclude": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "--exclude-ref": {
+          "key": "exclude-ref",
+          "value": "string",
+          "repeat": true
+        },
+        "--fixup": {
+          "key": "fixup",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--include": {
+          "key": "include",
+          "value": "string"
+        },
+        "--include-ref": {
+          "key": "include-ref",
+          "value": "string",
+          "repeat": true
+        },
+        "--message": {
+          "key": "message",
+          "value": "string"
+        },
+        "--no-rewrite": {
+          "key": "no-rewrite",
+          "value": "boolean"
+        },
+        "--object-map": {
+          "key": "object-map",
+          "value": "string"
+        },
+        "--skip-fetch": {
+          "key": "skip-fetch",
+          "value": "boolean"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "boolean"
+        },
+        "--yes": {
+          "key": "yes",
+          "value": "boolean"
+        },
+        "-I": {
+          "key": "include",
+          "value": "string"
+        },
+        "-X": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-m": {
+          "key": "message",
+          "value": "string"
+        },
+        "-y": {
+          "key": "yes",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go",
+      "separator": true
+    },
+    "lfs migrate info": {
+      "argv": [
+        "lfs",
+        "migrate",
+        "info"
+      ],
+      "options": {
+        "--above": {
+          "key": "above",
+          "value": "string"
+        },
+        "--everything": {
+          "key": "everything",
+          "value": "boolean"
+        },
+        "--exclude": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "--exclude-ref": {
+          "key": "exclude-ref",
+          "value": "string",
+          "repeat": true
+        },
+        "--fixup": {
+          "key": "fixup",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--include": {
+          "key": "include",
+          "value": "string"
+        },
+        "--include-ref": {
+          "key": "include-ref",
+          "value": "string",
+          "repeat": true
+        },
+        "--pointers": {
+          "key": "pointers",
+          "value": "string"
+        },
+        "--skip-fetch": {
+          "key": "skip-fetch",
+          "value": "boolean"
+        },
+        "--top": {
+          "key": "top",
+          "value": "integer"
+        },
+        "--unit": {
+          "key": "unit",
+          "value": "string"
+        },
+        "--yes": {
+          "key": "yes",
+          "value": "boolean"
+        },
+        "-I": {
+          "key": "include",
+          "value": "string"
+        },
+        "-X": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-y": {
+          "key": "yes",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_migrate.go",
+      "separator": true
+    },
+    "lfs pointer": {
+      "argv": [
+        "lfs",
+        "pointer"
+      ],
+      "options": {
+        "--check": {
+          "key": "check",
+          "value": "boolean"
+        },
+        "--file": {
+          "key": "file",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--no-extensions": {
+          "key": "no-extensions",
+          "value": "boolean"
+        },
+        "--no-strict": {
+          "key": "no-strict",
+          "value": "boolean"
+        },
+        "--pointer": {
+          "key": "pointer",
+          "value": "string"
+        },
+        "--stdin": {
+          "key": "stdin",
+          "value": "boolean"
+        },
+        "--strict": {
+          "key": "strict",
+          "value": "boolean"
+        },
+        "-f": {
+          "key": "file",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-p": {
+          "key": "pointer",
+          "value": "string"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pointer.go",
+      "separator": true
+    },
+    "lfs post-checkout": {
+      "argv": [
+        "lfs",
+        "post-checkout"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_post_checkout.go",
+      "separator": true
+    },
+    "lfs post-commit": {
+      "argv": [
+        "lfs",
+        "post-commit"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_post_commit.go",
+      "separator": true
+    },
+    "lfs post-merge": {
+      "argv": [
+        "lfs",
+        "post-merge"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_post_merge.go",
+      "separator": true
+    },
+    "lfs pre-push": {
+      "argv": [
+        "lfs",
+        "pre-push"
+      ],
+      "options": {
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-d": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pre_push.go",
+      "separator": true
+    },
+    "lfs prune": {
+      "argv": [
+        "lfs",
+        "prune"
+      ],
+      "options": {
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "--force": {
+          "key": "force",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--no-verify-remote": {
+          "key": "no-verify-remote",
+          "value": "boolean"
+        },
+        "--no-verify-unreachable": {
+          "key": "no-verify-unreachable",
+          "value": "boolean"
+        },
+        "--recent": {
+          "key": "recent",
+          "value": "boolean"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "boolean"
+        },
+        "--verify-remote": {
+          "key": "verify-remote",
+          "value": "boolean"
+        },
+        "--verify-unreachable": {
+          "key": "verify-unreachable",
+          "value": "boolean"
+        },
+        "--when-unverified": {
+          "key": "when-unverified",
+          "value": "string"
+        },
+        "-c": {
+          "key": "verify-remote",
+          "value": "boolean"
+        },
+        "-d": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "-f": {
+          "key": "force",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_prune.go",
+      "separator": true
+    },
+    "lfs pull": {
+      "argv": [
+        "lfs",
+        "pull"
+      ],
+      "options": {
+        "--exclude": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--include": {
+          "key": "include",
+          "value": "string"
+        },
+        "-I": {
+          "key": "include",
+          "value": "string"
+        },
+        "-X": {
+          "key": "exclude",
+          "value": "string"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_pull.go",
+      "separator": true
+    },
+    "lfs push": {
+      "argv": [
+        "lfs",
+        "push"
+      ],
+      "options": {
+        "--all": {
+          "key": "all",
+          "value": "boolean"
+        },
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--object-id": {
+          "key": "object-id",
+          "value": "boolean"
+        },
+        "--stdin": {
+          "key": "stdin",
+          "value": "boolean"
+        },
+        "-a": {
+          "key": "all",
+          "value": "boolean"
+        },
+        "-d": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-o": {
+          "key": "object-id",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_push.go",
+      "separator": true
+    },
+    "lfs smudge": {
+      "argv": [
+        "lfs",
+        "smudge"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--skip": {
+          "key": "skip",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-s": {
+          "key": "skip",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_smudge.go",
+      "separator": true
+    },
+    "lfs standalone-file": {
+      "argv": [
+        "lfs",
+        "standalone-file"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_standalone_file.go",
+      "separator": true
+    },
+    "lfs status": {
+      "argv": [
+        "lfs",
+        "status"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--json": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "--porcelain": {
+          "key": "porcelain",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-j": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "-p": {
+          "key": "porcelain",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_status.go",
+      "separator": true
+    },
+    "lfs track": {
+      "argv": [
+        "lfs",
+        "track"
+      ],
+      "options": {
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "--filename": {
+          "key": "filename",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--json": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "--lockable": {
+          "key": "lockable",
+          "value": "boolean"
+        },
+        "--no-excluded": {
+          "key": "no-excluded",
+          "value": "boolean"
+        },
+        "--no-modify-attrs": {
+          "key": "no-modify-attrs",
+          "value": "boolean"
+        },
+        "--not-lockable": {
+          "key": "not-lockable",
+          "value": "boolean"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "boolean"
+        },
+        "-d": {
+          "key": "dry-run",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-j": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "-l": {
+          "key": "lockable",
+          "value": "boolean"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_track.go",
+      "separator": true
+    },
+    "lfs uninstall": {
+      "argv": [
+        "lfs",
+        "uninstall"
+      ],
+      "options": {
+        "--file": {
+          "key": "file",
+          "value": "string"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--local": {
+          "key": "local",
+          "value": "boolean"
+        },
+        "--skip-repo": {
+          "key": "skip-repo",
+          "value": "boolean"
+        },
+        "--system": {
+          "key": "system",
+          "value": "boolean"
+        },
+        "--worktree": {
+          "key": "worktree",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-l": {
+          "key": "local",
+          "value": "boolean"
+        },
+        "-w": {
+          "key": "worktree",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go",
+      "separator": true
+    },
+    "lfs uninstall hooks": {
+      "argv": [
+        "lfs",
+        "uninstall",
+        "hooks"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_uninstall.go",
+      "separator": true
+    },
+    "lfs unlock": {
+      "argv": [
+        "lfs",
+        "unlock"
+      ],
+      "options": {
+        "--force": {
+          "key": "force",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--json": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "--remote": {
+          "key": "remote",
+          "value": "string"
+        },
+        "-f": {
+          "key": "force",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-j": {
+          "key": "json",
+          "value": "boolean"
+        },
+        "-r": {
+          "key": "remote",
+          "value": "string"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_unlock.go",
+      "separator": true
+    },
+    "lfs untrack": {
+      "argv": [
+        "lfs",
+        "untrack"
+      ],
+      "options": {
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_untrack.go",
+      "separator": true
+    },
+    "lfs update": {
+      "argv": [
+        "lfs",
+        "update"
+      ],
+      "options": {
+        "--force": {
+          "key": "force",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "--manual": {
+          "key": "manual",
+          "value": "boolean"
+        },
+        "-f": {
+          "key": "force",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-m": {
+          "key": "manual",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_update.go",
+      "separator": true
+    },
+    "lfs version": {
+      "argv": [
+        "lfs",
+        "version"
+      ],
+      "options": {
+        "--comics": {
+          "key": "comics",
+          "value": "boolean"
+        },
+        "--help": {
+          "key": "help",
+          "value": "boolean"
+        },
+        "-c": {
+          "key": "comics",
+          "value": "boolean"
+        },
+        "-h": {
+          "key": "help",
+          "value": "boolean"
+        }
+      },
+      "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/command_version.go",
+      "separator": true
+    }
+  }
+}

@@ -1,5 +1,6 @@
 /** Public option types and runtime validation are derived from the constraint model. */
 import { COMMAND_CONSTRAINTS, type CommandName } from '../constraints/commands.js';
+import { INPUT_CONSTRAINTS } from '../constraints/inputs.js';
 import { violations } from '../constraints/model.js';
 import type { Constrained } from '../constraints/types.js';
 import { GitArgumentError } from './types.js';
@@ -10,10 +11,7 @@ export type CheckedOptions<T, N extends CommandName> = Constrained<
 >;
 
 export function validateOptions(name: CommandName, options: object | undefined): void {
-  if (!options) {
-    return;
-  }
-  const errors = violations(COMMAND_CONSTRAINTS[name], options as Record<string, unknown>);
+  const errors = violations(COMMAND_CONSTRAINTS[name], (options ?? {}) as Record<string, unknown>);
   if (errors.length > 0) {
     throw new GitArgumentError(`${name}: ${errors.map((r) => `[${r.id}] ${r.reason}`).join('; ')}`);
   }
@@ -63,7 +61,18 @@ export function validatePathInput(
   paths: string | string[],
   opts?: { pathspecFromFile?: string },
 ): void {
-  if (opts?.pathspecFromFile !== undefined && (typeof paths === 'string' || paths.length > 0)) {
-    throw new GitArgumentError(`${name}: pass an empty path list when using pathspecFromFile`);
+  validateInput('pathspec', { paths, ...opts }, name);
+}
+
+export function validateInput(
+  name: keyof typeof INPUT_CONSTRAINTS,
+  input: Record<string, unknown>,
+  command: string = name,
+): void {
+  const errors = violations(INPUT_CONSTRAINTS[name], input);
+  if (errors.length > 0) {
+    throw new GitArgumentError(
+      `${command}: ${errors.map((r) => `[${r.id}] ${r.reason}`).join('; ')}`,
+    );
   }
 }
