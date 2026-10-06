@@ -41,6 +41,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'fast-import-sign'
   | 'fast-export-reencode'
   | 'anonymize-map'
   | 'pull-rebase'
@@ -61,6 +62,25 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'fast-import-sign') {
+    const text = String(value);
+    return {
+      valid:
+        [
+          'abort',
+          'verbatim',
+          'ignore',
+          'warn-verbatim',
+          'warn',
+          'warn-strip',
+          'strip',
+          'abort-if-invalid',
+          'strip-if-invalid',
+          'sign-if-invalid',
+        ].includes(text) || text.startsWith('sign-if-invalid='),
+      value,
+    };
+  }
   if (parser === 'anonymize-map') {
     const text = String(value);
     const colon = text.indexOf(':');

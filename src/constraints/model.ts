@@ -43,7 +43,7 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
     | { kind: 'forbid'; when: readonly Predicate[] }
     | { kind: 'unsupported'; keys: readonly string[] }
     | { kind: 'value'; key: string; allowed: readonly (string | number | boolean)[] }
-    | { kind: 'range'; key: string; min: number; when?: Predicate }
+    | { kind: 'range'; key: string; min: number; max?: number; when?: Predicate }
     | { kind: 'integer'; key: string; min: number; allowBoolean?: boolean }
   );
 
@@ -129,7 +129,8 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
       return (
         (!rule.when || matches(rule.when, options)) &&
         typeof options[rule.key] === 'number' &&
-        (options[rule.key] as number) < rule.min
+        ((options[rule.key] as number) < rule.min ||
+          (rule.max !== undefined && (options[rule.key] as number) > rule.max))
       );
     case 'integer': {
       const value = options[rule.key];

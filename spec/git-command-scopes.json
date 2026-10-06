@@ -6931,5 +6931,279 @@
         "set": 0
       }
     }
+  },
+  "fast-import": {
+    "tables": [],
+    "source": "builtin/fast-import.c",
+    "separator": false,
+    "options": {
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "--stats": {
+        "key": "stats",
+        "value": "flag"
+      },
+      "--allow-unsafe-features": {
+        "key": "allow-unsafe-features",
+        "value": "flag"
+      },
+      "--alias": {
+        "key": "alias",
+        "value": "flag"
+      },
+      "--get-mark": {
+        "key": "get-mark",
+        "value": "flag"
+      },
+      "--cat-blob": {
+        "key": "cat-blob",
+        "value": "flag"
+      },
+      "--relative-marks": {
+        "key": "relative-marks",
+        "value": "flag"
+      },
+      "--done": {
+        "key": "done",
+        "value": "flag"
+      },
+      "--force": {
+        "key": "force",
+        "value": "flag"
+      },
+      "--notes": {
+        "key": "notes",
+        "value": "flag"
+      },
+      "--ls": {
+        "key": "ls",
+        "value": "flag"
+      },
+      "--no-relative-marks": {
+        "key": "relative-marks",
+        "value": "flag",
+        "set": false
+      },
+      "--max-pack-size": {
+        "key": "max-pack-size",
+        "value": "string",
+        "repeat": true
+      },
+      "--big-file-threshold": {
+        "key": "big-file-threshold",
+        "value": "string",
+        "repeat": true
+      },
+      "--export-pack-edges": {
+        "key": "export-pack-edges",
+        "value": "string",
+        "repeat": true
+      },
+      "--import-marks": {
+        "key": "import-marks",
+        "value": "string",
+        "repeat": true
+      },
+      "--import-marks-if-exists": {
+        "key": "import-marks-if-exists",
+        "value": "string",
+        "repeat": true
+      },
+      "--export-marks": {
+        "key": "export-marks",
+        "value": "string",
+        "repeat": true
+      },
+      "--rewrite-submodules-to": {
+        "key": "rewrite-submodules-to",
+        "value": "string",
+        "repeat": true
+      },
+      "--rewrite-submodules-from": {
+        "key": "rewrite-submodules-from",
+        "value": "string",
+        "repeat": true
+      },
+      "--date-format": {
+        "key": "date-format",
+        "value": "string",
+        "allowed": [
+          "raw",
+          "raw-permissive",
+          "rfc2822",
+          "now"
+        ]
+      },
+      "--signed-tags": {
+        "key": "signed-tags",
+        "value": "string",
+        "parser": "fast-import-sign"
+      },
+      "--signed-commits": {
+        "key": "signed-commits",
+        "value": "string",
+        "parser": "fast-import-sign"
+      },
+      "--depth": {
+        "key": "depth",
+        "value": "integer",
+        "checks": [
+          {
+            "id": "cli.fast-import.depth-integer",
+            "kind": "integer",
+            "key": "$value",
+            "min": 0,
+            "origin": "git",
+            "reason": "This option callback requires a nonnegative integer.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c"
+          },
+          {
+            "id": "cli.fast-import.depth-bound",
+            "kind": "range",
+            "key": "$value",
+            "min": 0,
+            "max": 8191,
+            "origin": "git",
+            "reason": "The native callback enforces this upper bound immediately.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c"
+          }
+        ]
+      },
+      "--active-branches": {
+        "key": "active-branches",
+        "value": "integer",
+        "checks": [
+          {
+            "id": "cli.fast-import.active-branches-integer",
+            "kind": "integer",
+            "key": "$value",
+            "min": 0,
+            "origin": "git",
+            "reason": "This option callback requires a nonnegative integer.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c"
+          }
+        ]
+      },
+      "--cat-blob-fd": {
+        "key": "cat-blob-fd",
+        "value": "integer",
+        "checks": [
+          {
+            "id": "cli.fast-import.cat-blob-fd-integer",
+            "kind": "integer",
+            "key": "$value",
+            "min": 0,
+            "origin": "git",
+            "reason": "This option callback requires a nonnegative integer.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c"
+          },
+          {
+            "id": "cli.fast-import.cat-blob-fd-bound",
+            "kind": "range",
+            "key": "$value",
+            "min": 0,
+            "max": 2147483647,
+            "origin": "git",
+            "reason": "The native callback enforces this upper bound immediately.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c"
+          }
+        ]
+      }
+    }
+  },
+  "http-fetch": {
+    "tables": [],
+    "source": "http-fetch.c",
+    "optionParsing": "stop-at-operand",
+    "separator": false,
+    "options": {
+      "-t": {
+        "key": "t",
+        "value": "flag"
+      },
+      "-c": {
+        "key": "c",
+        "value": "flag"
+      },
+      "-a": {
+        "key": "a",
+        "value": "flag"
+      },
+      "-v": {
+        "key": "v",
+        "value": "flag"
+      },
+      "--recover": {
+        "key": "recover",
+        "value": "flag"
+      },
+      "--stdin": {
+        "key": "stdin",
+        "value": "flag"
+      },
+      "-w": {
+        "key": "write-ref",
+        "value": "string",
+        "separateValue": true
+      },
+      "--packfile": {
+        "key": "packfile",
+        "value": "string"
+      },
+      "--index-pack-arg": {
+        "key": "index-pack-arg",
+        "value": "string",
+        "repeat": true
+      }
+    }
+  },
+  "http-push": {
+    "tables": [],
+    "source": "http-push.c",
+    "separator": false,
+    "options": {
+      "--all": {
+        "key": "all",
+        "value": "flag"
+      },
+      "--force": {
+        "key": "force",
+        "value": "flag"
+      },
+      "--dry-run": {
+        "key": "dry-run",
+        "value": "flag"
+      },
+      "--helper-status": {
+        "key": "helper-status",
+        "value": "flag"
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag"
+      },
+      "-d": {
+        "key": "delete",
+        "value": "flag"
+      },
+      "-D": {
+        "key": "delete",
+        "value": "flag"
+      }
+    }
+  },
+  "http-backend": {
+    "tables": [],
+    "source": "http-backend.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "imap-send": {
+    "tables": [
+      "imap-send.c:global:imap_send_options"
+    ],
+    "source": "imap-send.c"
   }
 }

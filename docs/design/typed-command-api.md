@@ -401,3 +401,20 @@ Fsmonitor--daemon start/run/stop/status have schemas from the supported-platform
 source branch. The Linux fixture binary does not implement the daemon; these
 scopes have model/compiler checks and an explicitly skipped native-platform
 comparison, rather than a claim of successful native lifecycle validation.
+
+### Import, HTTP and IMAP entrypoints
+
+Fast-import validates callback ranges immediately, including depth <= 8191 and
+cat-blob-fd <= INT_MAX. Declarative numeric ranges now support upper bounds, and
+exploration includes representatives around both ends. Arbitrary numeric range
+checks remain runtime checks. CLI import-marks options can repeat; the stream's
+single-import restriction is not incorrectly applied to the command line.
+Import signature modes include the conditional signing modes absent from export.
+
+HTTP fetch distinguishes object/URL input from stdin or pack URL input and
+requires index-pack arguments for pack fetches. HTTP push deletion takes one
+branch. HTTP backend ignores argv and reads CGI environment. IMAP list and folder
+can coexist. Tests use empty/local data and an isolated CGI HEAD request; IMAP
+validation stops with missing server configuration, without sending messages.
+Full stream protocols, numeric/URL/object-ID grammars, manual option prefixes and
+server/configuration-dependent semantics remain pending.
