@@ -466,3 +466,11 @@ These constraints come from the pinned Tcl source. Schema/compiler tests are com
 The build emits declarations once with TypeScript and then bundles the emitted files, keeping source checking and declaration bundling in separate phases. Declaration emission uses `--noCheck`; `pnpm typecheck` still performs full source and contract checking, and `prepublishOnly` runs it before publication. Packed ESM/CJS and TypeScript consumer tests cover the final artifacts. Root dispatch type checks retain direct schema lookup to avoid distributive expansion across every command during inference.
 
 GUI version calls run through the shell prelude without Tcl/Tk. Native X11 tests under Xvfb cover argument errors; child operations do not inherit an unsupported `--help` shortcut. Browser/blame can have empty revision words, so positional maxima are not inferred from the synopsis alone; overall argv bounds remain modeled.
+
+### Perforce operation extraction
+
+`scripts/extract-p4-options.py` reads the pinned upstream Python AST without executing git-p4, including its command registry, class inheritance and optparse declarations. The checked-in snapshot contains the source hash. Run it with the upstream source directory and `--check` to reproduce the extraction. Runtime and TypeScript schemas are generated from that snapshot plus reviewed operation rules.
+
+Submit and commit accept at most one branch, unshelve requires one changelist, and clone requires depot input. Keep-path needs a nonempty explicit destination before positional destination inference. Choices fail during parsing; every accumulated update-shelve number must be positive after parsing. The shared `eachInteger` constraint checks these arrays at runtime and in deterministic decision diagrams; arbitrary numeric range proofs remain outside TypeScript's literal checks.
+
+Native tests use help, empty local branch listings and parser/local failures with constructor-only Perforce capability probes served by a local fail-closed stub. Perforce/configuration-dependent synchronization and submission, depot languages, exclusion normalization, and option abbreviation remain audit gaps.
