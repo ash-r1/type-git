@@ -46361,6 +46361,1947 @@ export const COMMAND_SPECS = {
     separator: true,
     optionParsing: 'stop-at-operand',
   },
+  'cat-file': {
+    argv: ['cat-file'],
+    options: {
+      '-e': {
+        key: 'e',
+        value: 'flag',
+        modeGroup: '&opt',
+        modeValue: "'e'",
+      },
+      '-p': {
+        key: 'p',
+        value: 'flag',
+        modeGroup: '&opt',
+        modeValue: "'p'",
+      },
+      '-t': {
+        key: 't',
+        value: 'flag',
+        modeGroup: '&opt',
+        modeValue: "'t'",
+      },
+      '-s': {
+        key: 's',
+        value: 'flag',
+        modeGroup: '&opt',
+        modeValue: "'s'",
+      },
+      '--allow-unknown-type': {
+        key: 'allow-unknown-type',
+        value: 'flag',
+      },
+      '--use-mailmap': {
+        key: 'use-mailmap',
+        value: 'flag',
+      },
+      '--batch': {
+        key: 'batch',
+        value: 'optional-string',
+        checks: [
+          {
+            id: 'cli.cat-file.batch-once',
+            kind: 'forbid',
+            when: [
+              {
+                key: 'batch-enabled',
+                test: 'active',
+              },
+            ],
+            origin: 'git',
+            reason:
+              'Only one batch option may be specified, including repetitions of the same option.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+          },
+        ],
+        effects: [
+          {
+            key: 'batch-enabled',
+            set: true,
+          },
+        ],
+      },
+      '--batch-check': {
+        key: 'batch-check',
+        value: 'optional-string',
+        checks: [
+          {
+            id: 'cli.cat-file.batch-check-once',
+            kind: 'forbid',
+            when: [
+              {
+                key: 'batch-enabled',
+                test: 'active',
+              },
+            ],
+            origin: 'git',
+            reason:
+              'Only one batch option may be specified, including repetitions of the same option.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+          },
+        ],
+        effects: [
+          {
+            key: 'batch-enabled',
+            set: true,
+          },
+        ],
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '-Z': {
+        key: 'Z',
+        value: 'flag',
+      },
+      '--batch-command': {
+        key: 'batch-command',
+        value: 'optional-string',
+        checks: [
+          {
+            id: 'cli.cat-file.batch-command-once',
+            kind: 'forbid',
+            when: [
+              {
+                key: 'batch-enabled',
+                test: 'active',
+              },
+            ],
+            origin: 'git',
+            reason:
+              'Only one batch option may be specified, including repetitions of the same option.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+          },
+        ],
+        effects: [
+          {
+            key: 'batch-enabled',
+            set: true,
+          },
+        ],
+      },
+      '--batch-all-objects': {
+        key: 'batch-all-objects',
+        value: 'flag',
+        modeGroup: '&opt',
+        modeValue: "'b'",
+      },
+      '--buffer': {
+        key: 'buffer',
+        value: 'flag',
+      },
+      '--follow-symlinks': {
+        key: 'follow-symlinks',
+        value: 'flag',
+      },
+      '--unordered': {
+        key: 'unordered',
+        value: 'flag',
+      },
+      '--textconv': {
+        key: 'textconv',
+        value: 'flag',
+        modeGroup: '&opt',
+        modeValue: "'c'",
+      },
+      '--filters': {
+        key: 'filters',
+        value: 'flag',
+        modeGroup: '&opt',
+        modeValue: "'w'",
+      },
+      '--path': {
+        key: 'path',
+        value: 'string',
+      },
+      '--filter': {
+        key: 'filter',
+        value: 'string',
+      },
+      '--no-allow-unknown-type': {
+        key: 'allow-unknown-type',
+        value: 'flag',
+        set: false,
+      },
+      '--no-use-mailmap': {
+        key: 'use-mailmap',
+        value: 'flag',
+        set: false,
+      },
+      '--no-buffer': {
+        key: 'buffer',
+        value: 'flag',
+        set: false,
+      },
+      '--no-follow-symlinks': {
+        key: 'follow-symlinks',
+        value: 'flag',
+        set: false,
+      },
+      '--no-unordered': {
+        key: 'unordered',
+        value: 'flag',
+        set: false,
+      },
+      '--no-path': {
+        key: 'path',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-filter': {
+        key: 'filter',
+        value: 'flag',
+        clear: true,
+      },
+      '--mailmap': {
+        key: 'use-mailmap',
+        value: 'flag',
+      },
+      '--no-mailmap': {
+        key: 'use-mailmap',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.cat-file.buffer-batch',
+        kind: 'requires',
+        when: {
+          key: 'buffer',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'batch-enabled',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'This setting requires an explicit batch option.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.follow-symlinks-batch',
+        kind: 'requires',
+        when: {
+          key: 'follow-symlinks',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'batch-enabled',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'This setting requires an explicit batch option.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.batch-all-objects-batch',
+        kind: 'requires',
+        when: {
+          key: 'batch-all-objects',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'batch-enabled',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'This setting requires an explicit batch option.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.z-batch',
+        kind: 'requires',
+        when: {
+          key: 'z',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'batch-enabled',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'This setting requires an explicit batch option.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.Z-batch',
+        kind: 'requires',
+        when: {
+          key: 'Z',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'batch-enabled',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'This setting requires an explicit batch option.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.filter-batch',
+        kind: 'requires',
+        when: {
+          key: 'filter',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'batch-enabled',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'This setting requires an explicit batch option.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.batch-query',
+        kind: 'conflicts',
+        when: {
+          key: 'batch-enabled',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'e',
+            test: 'active',
+          },
+          {
+            key: 'p',
+            test: 'active',
+          },
+          {
+            key: 't',
+            test: 'active',
+          },
+          {
+            key: 's',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Single-object query modes cannot be combined with batch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.path',
+        kind: 'requiresAny',
+        when: {
+          key: 'path',
+          test: 'present',
+        },
+        choices: [
+          {
+            key: 'filters',
+            test: 'active',
+          },
+          {
+            key: 'textconv',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'An explicit path requires filters or textconv; batch conversion still accepts it.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.batch-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: [
+          {
+            key: 'batch-enabled',
+            test: 'active',
+          },
+          {
+            key: 'filters',
+            test: 'inactive',
+          },
+          {
+            key: 'textconv',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.e-operand',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: [
+          {
+            key: 'batch-enabled',
+            test: 'inactive',
+          },
+          {
+            key: 'e',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.p-operand',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: [
+          {
+            key: 'batch-enabled',
+            test: 'inactive',
+          },
+          {
+            key: 'p',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.t-operand',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: [
+          {
+            key: 'batch-enabled',
+            test: 'inactive',
+          },
+          {
+            key: 't',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.s-operand',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: [
+          {
+            key: 'batch-enabled',
+            test: 'inactive',
+          },
+          {
+            key: 's',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.filters-operand',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: [
+          {
+            key: 'batch-enabled',
+            test: 'inactive',
+          },
+          {
+            key: 'filters',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.textconv-operand',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: [
+          {
+            key: 'batch-enabled',
+            test: 'inactive',
+          },
+          {
+            key: 'textconv',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+      {
+        id: 'cli.cat-file.type-object',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        max: 2,
+        when: [
+          {
+            key: 'batch-enabled',
+            test: 'inactive',
+          },
+          {
+            key: 'e',
+            test: 'inactive',
+          },
+          {
+            key: 'p',
+            test: 'inactive',
+          },
+          {
+            key: 't',
+            test: 'inactive',
+          },
+          {
+            key: 's',
+            test: 'inactive',
+          },
+          {
+            key: 'filters',
+            test: 'inactive',
+          },
+          {
+            key: 'textconv',
+            test: 'inactive',
+          },
+          {
+            key: 'batch-all-objects',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c',
+      },
+    ],
+    source: 'builtin/cat-file.c',
+    separator: true,
+  },
+  repack: {
+    argv: ['repack'],
+    options: {
+      '-a': {
+        key: 'a',
+        value: 'flag',
+      },
+      '-A': {
+        key: 'A',
+        value: 'flag',
+      },
+      '--cruft': {
+        key: 'cruft',
+        value: 'flag',
+      },
+      '--cruft-expiration': {
+        key: 'cruft-expiration',
+        value: 'string',
+      },
+      '--combine-cruft-below-size': {
+        key: 'combine-cruft-below-size',
+        value: 'integer',
+      },
+      '--max-cruft-size': {
+        key: 'max-cruft-size',
+        value: 'integer',
+      },
+      '-d': {
+        key: 'd',
+        value: 'flag',
+      },
+      '-f': {
+        key: 'f',
+        value: 'flag',
+      },
+      '-F': {
+        key: 'F',
+        value: 'flag',
+      },
+      '--name-hash-version': {
+        key: 'name-hash-version',
+        value: 'integer',
+      },
+      '--path-walk': {
+        key: 'path-walk',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'n',
+        value: 'flag',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '-l': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--write-bitmap-index': {
+        key: 'write-bitmap-index',
+        value: 'flag',
+      },
+      '-b': {
+        key: 'write-bitmap-index',
+        value: 'flag',
+      },
+      '--delta-islands': {
+        key: 'delta-islands',
+        value: 'flag',
+      },
+      '-i': {
+        key: 'delta-islands',
+        value: 'flag',
+      },
+      '--unpack-unreachable': {
+        key: 'unpack-unreachable',
+        value: 'string',
+      },
+      '--keep-unreachable': {
+        key: 'keep-unreachable',
+        value: 'flag',
+      },
+      '-k': {
+        key: 'keep-unreachable',
+        value: 'flag',
+      },
+      '--window': {
+        key: 'window',
+        value: 'string',
+      },
+      '--window-memory': {
+        key: 'window-memory',
+        value: 'string',
+      },
+      '--depth': {
+        key: 'depth',
+        value: 'string',
+      },
+      '--threads': {
+        key: 'threads',
+        value: 'string',
+      },
+      '--max-pack-size': {
+        key: 'max-pack-size',
+        value: 'integer',
+      },
+      '--filter': {
+        key: 'filter',
+        value: 'string',
+      },
+      '--pack-kept-objects': {
+        key: 'pack-kept-objects',
+        value: 'flag',
+      },
+      '--keep-pack': {
+        key: 'keep-pack',
+        value: 'string',
+        repeat: true,
+      },
+      '--geometric': {
+        key: 'geometric',
+        value: 'integer',
+      },
+      '-g': {
+        key: 'geometric',
+        value: 'integer',
+      },
+      '--write-midx': {
+        key: 'write-midx',
+        value: 'optional-string',
+        allowed: ['', 'incremental'],
+      },
+      '-m': {
+        key: 'write-midx',
+        value: 'flag',
+      },
+      '--expire-to': {
+        key: 'expire-to',
+        value: 'string',
+      },
+      '--filter-to': {
+        key: 'filter-to',
+        value: 'string',
+      },
+      '--no-cruft': {
+        key: 'cruft',
+        value: 'flag',
+        set: false,
+      },
+      '--no-cruft-expiration': {
+        key: 'cruft-expiration',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-name-hash-version': {
+        key: 'name-hash-version',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-path-walk': {
+        key: 'path-walk',
+        value: 'flag',
+        set: false,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--no-write-bitmap-index': {
+        key: 'write-bitmap-index',
+        value: 'flag',
+        set: false,
+      },
+      '--no-delta-islands': {
+        key: 'delta-islands',
+        value: 'flag',
+        set: false,
+      },
+      '--no-unpack-unreachable': {
+        key: 'unpack-unreachable',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-keep-unreachable': {
+        key: 'keep-unreachable',
+        value: 'flag',
+        set: false,
+      },
+      '--no-window': {
+        key: 'window',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-window-memory': {
+        key: 'window-memory',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-depth': {
+        key: 'depth',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-threads': {
+        key: 'threads',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-filter': {
+        key: 'filter',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-pack-kept-objects': {
+        key: 'pack-kept-objects',
+        value: 'flag',
+        set: false,
+      },
+      '--no-keep-pack': {
+        key: 'keep-pack',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-geometric': {
+        key: 'geometric',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-write-midx': {
+        key: 'write-midx',
+        value: 'flag',
+        set: false,
+      },
+      '--no-expire-to': {
+        key: 'expire-to',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-filter-to': {
+        key: 'filter-to',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.repack.unreachable',
+        kind: 'exclusiveGroups',
+        groups: [
+          [
+            {
+              key: 'A',
+              test: 'active',
+            },
+            {
+              key: 'unpack-unreachable',
+              test: 'present',
+            },
+          ],
+          [
+            {
+              key: 'keep-unreachable',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'cruft',
+              test: 'active',
+            },
+          ],
+        ],
+        origin: 'git',
+        reason: 'Loosening unreachable objects, keeping them and cruft packing are exclusive.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/repack.c',
+      },
+      {
+        id: 'cli.repack.geometric',
+        kind: 'conflicts',
+        when: {
+          key: 'geometric',
+          test: 'nonzero',
+        },
+        others: [
+          {
+            key: 'a',
+            test: 'active',
+          },
+          {
+            key: 'A',
+            test: 'active',
+          },
+          {
+            key: 'cruft',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'A nonzero geometric factor cannot be combined with packing everything.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/repack.c',
+      },
+      {
+        id: 'cli.repack.bitmap',
+        kind: 'requiresAny',
+        guard: [
+          {
+            key: 'write-midx',
+            test: 'inactive',
+          },
+        ],
+        when: {
+          key: 'write-bitmap-index',
+          test: 'active',
+        },
+        choices: [
+          {
+            key: 'a',
+            test: 'active',
+          },
+          {
+            key: 'A',
+            test: 'active',
+          },
+          {
+            key: 'cruft',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Explicit bitmap writing without a MIDX writer requires packing everything.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/repack.c',
+      },
+      {
+        id: 'cli.repack.filter-output',
+        kind: 'requires',
+        when: {
+          key: 'filter-to',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'filter',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'A filter output destination requires an object filter.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/repack.c',
+      },
+    ],
+    source: 'builtin/repack.c',
+    separator: true,
+  },
+  replace: {
+    argv: ['replace'],
+    options: {
+      '--list': {
+        key: 'list',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_LIST',
+      },
+      '-l': {
+        key: 'list',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_LIST',
+      },
+      '--delete': {
+        key: 'delete',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_DELETE',
+      },
+      '-d': {
+        key: 'delete',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_DELETE',
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_EDIT',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_EDIT',
+      },
+      '--graft': {
+        key: 'graft',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_GRAFT',
+      },
+      '-g': {
+        key: 'graft',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_GRAFT',
+      },
+      '--convert-graft-file': {
+        key: 'convert-graft-file',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_CONVERT_GRAFT_FILE',
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+      },
+      '--raw': {
+        key: 'raw',
+        value: 'flag',
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        set: false,
+      },
+      '--no-raw': {
+        key: 'raw',
+        value: 'flag',
+        set: false,
+      },
+      '--no-format': {
+        key: 'format',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.replace.list-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'list',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.delete-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'delete',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.edit-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'edit',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.graft-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'graft',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.convert-graft-file-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'convert-graft-file',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.implicit-replace',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        max: 2,
+        when: [
+          {
+            key: 'list',
+            test: 'inactive',
+          },
+          {
+            key: 'delete',
+            test: 'inactive',
+          },
+          {
+            key: 'edit',
+            test: 'inactive',
+          },
+          {
+            key: 'graft',
+            test: 'inactive',
+          },
+          {
+            key: 'convert-graft-file',
+            test: 'inactive',
+          },
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+        ],
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.format-mode',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'format',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'list',
+            test: 'inactive',
+          },
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+        ],
+        origin: 'git',
+        reason: 'Explicit object operations cannot use a listing format.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.format-delete',
+        kind: 'conflicts',
+        when: {
+          key: 'delete',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'format',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'A listing format cannot be used in a non-listing mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.format-edit',
+        kind: 'conflicts',
+        when: {
+          key: 'edit',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'format',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'A listing format cannot be used in a non-listing mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.format-graft',
+        kind: 'conflicts',
+        when: {
+          key: 'graft',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'format',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'A listing format cannot be used in a non-listing mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.format-convert-graft-file',
+        kind: 'conflicts',
+        when: {
+          key: 'convert-graft-file',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'format',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'A listing format cannot be used in a non-listing mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.format',
+        kind: 'value',
+        key: 'format',
+        allowed: ['', 'short', 'medium', 'long'],
+        origin: 'git',
+        reason: 'The final listing format must be a recognized name (empty means short).',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.force-list',
+        kind: 'conflicts',
+        when: {
+          key: 'force',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'delete',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Force is only meaningful when writing a replacement.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.implicit-force-list',
+        kind: 'forbid',
+        guard: [
+          {
+            key: 'list',
+            test: 'inactive',
+          },
+          {
+            key: 'delete',
+            test: 'inactive',
+          },
+          {
+            key: 'edit',
+            test: 'inactive',
+          },
+          {
+            key: 'graft',
+            test: 'inactive',
+          },
+          {
+            key: 'convert-graft-file',
+            test: 'inactive',
+          },
+        ],
+        when: [
+          {
+            key: 'force',
+            test: 'active',
+          },
+          {
+            key: 'operands',
+            test: 'lengthEquals',
+            value: 0,
+          },
+        ],
+        origin: 'git',
+        reason: 'Implicit listing cannot force a replacement.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+      {
+        id: 'cli.replace.raw',
+        kind: 'requires',
+        when: {
+          key: 'raw',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Raw object editing requires edit mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/replace.c',
+      },
+    ],
+    source: 'builtin/replace.c',
+    separator: true,
+  },
+  rerere: {
+    argv: ['rerere'],
+    options: {
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.rerere.operation',
+        kind: 'value',
+        key: 'operand0',
+        allowed: ['clear', 'forget', 'diff', 'status', 'remaining', 'gc'],
+        origin: 'git',
+        reason: 'The optional first operand must name a recognized rerere operation.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/rerere.c',
+      },
+    ],
+    source: 'builtin/rerere.c',
+    separator: true,
+  },
+  'rerere clear': {
+    argv: ['rerere', 'clear'],
+    options: {
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/rerere.c',
+    separator: true,
+  },
+  'rerere forget': {
+    argv: ['rerere', 'forget'],
+    options: {
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/rerere.c',
+    separator: true,
+  },
+  'rerere diff': {
+    argv: ['rerere', 'diff'],
+    options: {
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/rerere.c',
+    separator: true,
+  },
+  'rerere status': {
+    argv: ['rerere', 'status'],
+    options: {
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/rerere.c',
+    separator: true,
+  },
+  'rerere remaining': {
+    argv: ['rerere', 'remaining'],
+    options: {
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/rerere.c',
+    separator: true,
+  },
+  'rerere gc': {
+    argv: ['rerere', 'gc'],
+    options: {
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/rerere.c',
+    separator: true,
+  },
+  'for-each-repo': {
+    argv: ['for-each-repo'],
+    options: {
+      '--config': {
+        key: 'config',
+        value: 'string',
+      },
+      '--keep-going': {
+        key: 'keep-going',
+        value: 'flag',
+      },
+      '--no-config': {
+        key: 'config',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-keep-going': {
+        key: 'keep-going',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.for-each-repo.config',
+        kind: 'required',
+        required: [
+          {
+            key: 'config',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason:
+          'A repository-list configuration key is required; an absent key can return before any command is needed.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-repo.c',
+      },
+    ],
+    source: 'builtin/for-each-repo.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  column: {
+    argv: ['column'],
+    options: {
+      '--command': {
+        key: 'command',
+        value: 'string',
+      },
+      '--mode': {
+        key: 'mode',
+        value: 'optional-string',
+      },
+      '--raw-mode': {
+        key: 'raw-mode',
+        value: 'integer',
+      },
+      '--width': {
+        key: 'width',
+        value: 'integer',
+      },
+      '--indent': {
+        key: 'indent',
+        value: 'string',
+      },
+      '--nl': {
+        key: 'nl',
+        value: 'string',
+      },
+      '--padding': {
+        key: 'padding',
+        value: 'integer',
+      },
+      '--no-command': {
+        key: 'command',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-mode': {
+        key: 'mode',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-width': {
+        key: 'width',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-indent': {
+        key: 'indent',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-nl': {
+        key: 'nl',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-padding': {
+        key: 'padding',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.column.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/column.c',
+      },
+      {
+        id: 'cli.column.padding',
+        kind: 'range',
+        key: 'padding',
+        min: 0,
+        origin: 'git',
+        reason: 'Column padding must be nonnegative.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/column.c',
+      },
+    ],
+    source: 'builtin/column.c',
+    separator: true,
+  },
+  'fmt-merge-msg': {
+    argv: ['fmt-merge-msg'],
+    options: {
+      '--log': {
+        key: 'log',
+        value: 'optional-integer',
+      },
+      '--summary': {
+        key: 'summary',
+        value: 'optional-integer',
+      },
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--into-name': {
+        key: 'into-name',
+        value: 'string',
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '-F': {
+        key: 'file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-log': {
+        key: 'log',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-summary': {
+        key: 'summary',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-message': {
+        key: 'message',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-into-name': {
+        key: 'into-name',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        emptyIsUnset: true,
+        ignore: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.fmt-merge-msg.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fmt-merge-msg.c',
+      },
+    ],
+    source: 'builtin/fmt-merge-msg.c',
+    separator: true,
+  },
+  bugreport: {
+    argv: ['bugreport'],
+    options: {
+      '--diagnose': {
+        key: 'diagnose',
+        value: 'optional-string',
+        allowed: ['stats', 'all'],
+      },
+      '--output-directory': {
+        key: 'output-directory',
+        value: 'string',
+      },
+      '-o': {
+        key: 'output-directory',
+        value: 'string',
+      },
+      '--suffix': {
+        key: 'suffix',
+        value: 'string',
+      },
+      '-s': {
+        key: 'suffix',
+        value: 'string',
+      },
+      '--no-diagnose': {
+        key: 'diagnose',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-output-directory': {
+        key: 'output-directory',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-suffix': {
+        key: 'suffix',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.bugreport.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/bugreport.c',
+      },
+    ],
+    source: 'builtin/bugreport.c',
+    separator: true,
+  },
+  diagnose: {
+    argv: ['diagnose'],
+    options: {
+      '--output-directory': {
+        key: 'output-directory',
+        value: 'string',
+      },
+      '-o': {
+        key: 'output-directory',
+        value: 'string',
+      },
+      '--suffix': {
+        key: 'suffix',
+        value: 'string',
+      },
+      '-s': {
+        key: 'suffix',
+        value: 'string',
+      },
+      '--mode': {
+        key: 'mode',
+        value: 'string',
+        allowed: ['stats', 'all'],
+      },
+      '--no-output-directory': {
+        key: 'output-directory',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-suffix': {
+        key: 'suffix',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/diagnose.c',
+    separator: true,
+  },
+  version: {
+    argv: ['version'],
+    options: {
+      '--build-options': {
+        key: 'build-options',
+        value: 'flag',
+      },
+      '--no-build-options': {
+        key: 'build-options',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'help.c',
+    separator: true,
+  },
+  var: {
+    argv: ['var'],
+    options: {
+      '-l': {
+        key: 'list',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.var.tokens',
+        kind: 'arity',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/var.c',
+      },
+      {
+        id: 'cli.var.listing',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'list',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/var.c',
+      },
+      {
+        id: 'cli.var.query',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'list',
+          test: 'inactive',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/var.c',
+      },
+      {
+        id: 'cli.var.variable',
+        kind: 'value',
+        key: 'operand0',
+        allowed: [
+          'GIT_COMMITTER_IDENT',
+          'GIT_AUTHOR_IDENT',
+          'GIT_EDITOR',
+          'GIT_SEQUENCE_EDITOR',
+          'GIT_PAGER',
+          'GIT_DEFAULT_BRANCH',
+          'GIT_SHELL_PATH',
+          'GIT_ATTR_SYSTEM',
+          'GIT_ATTR_GLOBAL',
+          'GIT_CONFIG_SYSTEM',
+          'GIT_CONFIG_GLOBAL',
+        ],
+        origin: 'git',
+        reason: 'Queries must name a native Git variable.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/var.c',
+      },
+    ],
+    source: 'builtin/var.c',
+    separator: false,
+    optionParsing: 'none',
+  },
   lfs: {
     argv: ['lfs'],
     options: {
