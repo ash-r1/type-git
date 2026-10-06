@@ -9676,5 +9676,195 @@
         "set": false
       }
     }
+  },
+  "citool": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--amend": {
+        "key": "amend",
+        "value": "flag"
+      },
+      "--nocommit": {
+        "key": "nocommit",
+        "value": "flag"
+      },
+      "--commitmsg": {
+        "key": "commitmsg",
+        "value": "flag"
+      }
+    }
+  },
+  "gui citool": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--amend": {
+        "key": "amend",
+        "value": "flag"
+      },
+      "--nocommit": {
+        "key": "nocommit",
+        "value": "flag"
+      },
+      "--commitmsg": {
+        "key": "commitmsg",
+        "value": "flag"
+      }
+    }
+  },
+  "gui gui": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "gui pick": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "gui browser": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": true,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "gui blame": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": true,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--line": {
+        "key": "line",
+        "value": "integer",
+        "checks": [
+          {
+            "id": "cli.gui.blame.line-first",
+            "kind": "arity",
+            "key": "operands",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The line selector must precede revisions and paths.",
+            "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+          },
+          {
+            "id": "cli.gui.blame.line-once",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "line",
+                "test": "present"
+              }
+            ],
+            "origin": "git",
+            "reason": "The line selector may only occupy the first argument position.",
+            "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+          },
+          {
+            "id": "cli.gui.blame.line-digits",
+            "kind": "integer",
+            "key": "$value",
+            "min": 0,
+            "origin": "git",
+            "reason": "A line selector uses decimal nonnegative digits.",
+            "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+          },
+          {
+            "id": "cli.gui.blame.line-path",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 1,
+            "origin": "git",
+            "reason": "A line selector must be followed by the required path.",
+            "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+          }
+        ]
+      }
+    }
+  },
+  "gui": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    },
+    "dispatch": {
+      "citool": "gui citool",
+      "gui": "gui gui",
+      "pick": "gui pick",
+      "browser": "gui browser",
+      "blame": "gui blame"
+    }
   }
 }
