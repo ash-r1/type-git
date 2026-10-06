@@ -84269,6 +84269,501 @@ const commandSpec300 = {
   separator: true,
 } as const satisfies CommandSpec;
 const commandSpec301 = {
+  argv: ['fast-import'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--stats': {
+      key: 'stats',
+      value: 'flag',
+    },
+    '--allow-unsafe-features': {
+      key: 'allow-unsafe-features',
+      value: 'flag',
+    },
+    '--alias': {
+      key: 'alias',
+      value: 'flag',
+    },
+    '--get-mark': {
+      key: 'get-mark',
+      value: 'flag',
+    },
+    '--cat-blob': {
+      key: 'cat-blob',
+      value: 'flag',
+    },
+    '--relative-marks': {
+      key: 'relative-marks',
+      value: 'flag',
+    },
+    '--done': {
+      key: 'done',
+      value: 'flag',
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+    },
+    '--notes': {
+      key: 'notes',
+      value: 'flag',
+    },
+    '--ls': {
+      key: 'ls',
+      value: 'flag',
+    },
+    '--no-relative-marks': {
+      key: 'relative-marks',
+      value: 'flag',
+      set: false,
+    },
+    '--max-pack-size': {
+      key: 'max-pack-size',
+      value: 'string',
+      repeat: true,
+    },
+    '--big-file-threshold': {
+      key: 'big-file-threshold',
+      value: 'string',
+      repeat: true,
+    },
+    '--export-pack-edges': {
+      key: 'export-pack-edges',
+      value: 'string',
+      repeat: true,
+    },
+    '--import-marks': {
+      key: 'import-marks',
+      value: 'string',
+      repeat: true,
+    },
+    '--import-marks-if-exists': {
+      key: 'import-marks-if-exists',
+      value: 'string',
+      repeat: true,
+    },
+    '--export-marks': {
+      key: 'export-marks',
+      value: 'string',
+      repeat: true,
+    },
+    '--rewrite-submodules-to': {
+      key: 'rewrite-submodules-to',
+      value: 'string',
+      repeat: true,
+    },
+    '--rewrite-submodules-from': {
+      key: 'rewrite-submodules-from',
+      value: 'string',
+      repeat: true,
+    },
+    '--date-format': {
+      key: 'date-format',
+      value: 'string',
+      allowed: ['raw', 'raw-permissive', 'rfc2822', 'now'],
+    },
+    '--signed-tags': {
+      key: 'signed-tags',
+      value: 'string',
+      parser: 'fast-import-sign',
+    },
+    '--signed-commits': {
+      key: 'signed-commits',
+      value: 'string',
+      parser: 'fast-import-sign',
+    },
+    '--depth': {
+      key: 'depth',
+      value: 'integer',
+      checks: [
+        {
+          id: 'cli.fast-import.depth-integer',
+          kind: 'integer',
+          key: '$value',
+          min: 0,
+          origin: 'git',
+          reason: 'This option callback requires a nonnegative integer.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c',
+        },
+        {
+          id: 'cli.fast-import.depth-bound',
+          kind: 'range',
+          key: '$value',
+          min: 0,
+          max: 8191,
+          origin: 'git',
+          reason: 'The native callback enforces this upper bound immediately.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c',
+        },
+      ],
+    },
+    '--active-branches': {
+      key: 'active-branches',
+      value: 'integer',
+      checks: [
+        {
+          id: 'cli.fast-import.active-branches-integer',
+          kind: 'integer',
+          key: '$value',
+          min: 0,
+          origin: 'git',
+          reason: 'This option callback requires a nonnegative integer.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c',
+        },
+      ],
+    },
+    '--cat-blob-fd': {
+      key: 'cat-blob-fd',
+      value: 'integer',
+      checks: [
+        {
+          id: 'cli.fast-import.cat-blob-fd-integer',
+          kind: 'integer',
+          key: '$value',
+          min: 0,
+          origin: 'git',
+          reason: 'This option callback requires a nonnegative integer.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c',
+        },
+        {
+          id: 'cli.fast-import.cat-blob-fd-bound',
+          kind: 'range',
+          key: '$value',
+          min: 0,
+          max: 2147483647,
+          origin: 'git',
+          reason: 'The native callback enforces this upper bound immediately.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c',
+        },
+      ],
+    },
+  },
+  rules: [
+    {
+      id: 'cli.fast-import.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'Fast-import accepts options only and consumes its data stream on stdin.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c',
+    },
+  ],
+  source: 'builtin/fast-import.c',
+  separator: false,
+} as const satisfies CommandSpec;
+const commandSpec302 = {
+  argv: ['http-fetch'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-t': {
+      key: 't',
+      value: 'flag',
+    },
+    '-c': {
+      key: 'c',
+      value: 'flag',
+    },
+    '-a': {
+      key: 'a',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'v',
+      value: 'flag',
+    },
+    '--recover': {
+      key: 'recover',
+      value: 'flag',
+    },
+    '--stdin': {
+      key: 'stdin',
+      value: 'flag',
+    },
+    '-w': {
+      key: 'write-ref',
+      value: 'string',
+      separateValue: true,
+    },
+    '--packfile': {
+      key: 'packfile',
+      value: 'string',
+    },
+    '--index-pack-arg': {
+      key: 'index-pack-arg',
+      value: 'string',
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.http-fetch.plain-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 2,
+      when: [
+        {
+          key: 'stdin',
+          test: 'inactive',
+        },
+        {
+          key: 'packfile',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'Ordinary fetch requires an object ID and URL.',
+      source: 'https://github.com/git/git/blob/v2.55.0/http-fetch.c',
+    },
+    {
+      id: 'cli.http-fetch.stdin-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      when: {
+        key: 'stdin',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Stdin target input requires only the URL.',
+      source: 'https://github.com/git/git/blob/v2.55.0/http-fetch.c',
+    },
+    {
+      id: 'cli.http-fetch.pack-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      when: {
+        key: 'packfile',
+        test: 'present',
+      },
+      origin: 'git',
+      reason: 'Pack input requires only the URL.',
+      source: 'https://github.com/git/git/blob/v2.55.0/http-fetch.c',
+    },
+    {
+      id: 'cli.http-fetch.pack-args',
+      kind: 'requires',
+      when: {
+        key: 'packfile',
+        test: 'present',
+      },
+      required: [
+        {
+          key: 'index-pack-arg',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Pack input requires an index-pack argument, including an empty one.',
+      source: 'https://github.com/git/git/blob/v2.55.0/http-fetch.c',
+    },
+    {
+      id: 'cli.http-fetch.args-pack',
+      kind: 'requires',
+      when: {
+        key: 'index-pack-arg',
+        test: 'nonempty',
+      },
+      required: [
+        {
+          key: 'packfile',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Index-pack arguments require pack input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/http-fetch.c',
+    },
+  ],
+  source: 'http-fetch.c',
+  separator: false,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec303 = {
+  argv: ['http-push'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--all': {
+      key: 'all',
+      value: 'flag',
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+    },
+    '--dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--helper-status': {
+      key: 'helper-status',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-d': {
+      key: 'delete',
+      value: 'flag',
+    },
+    '-D': {
+      key: 'delete',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.http-push.destination',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      reason: 'HTTP push needs a destination URL.',
+      source: 'https://github.com/git/git/blob/v2.55.0/http-push.c',
+    },
+    {
+      id: 'cli.http-push.delete-ref',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 2,
+      when: {
+        key: 'delete',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Delete mode requires one branch after the destination.',
+      source: 'https://github.com/git/git/blob/v2.55.0/http-push.c',
+    },
+  ],
+  source: 'http-push.c',
+  separator: false,
+} as const satisfies CommandSpec;
+const commandSpec304 = {
+  argv: ['http-backend'],
+  options: {},
+  rules: [],
+  source: 'http-backend.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec305 = {
+  argv: ['imap-send'],
+  options: {
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--curl': {
+      key: 'curl',
+      value: 'flag',
+    },
+    '--folder': {
+      key: 'folder',
+      value: 'string',
+    },
+    '-f': {
+      key: 'folder',
+      value: 'string',
+    },
+    '--list': {
+      key: 'list',
+      value: 'flag',
+    },
+    '--no-verbose': {
+      key: 'verbose',
+      value: 'flag',
+      set: false,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      set: false,
+    },
+    '--no-curl': {
+      key: 'curl',
+      value: 'flag',
+      set: false,
+    },
+    '--no-folder': {
+      key: 'folder',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-list': {
+      key: 'list',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.imap-send.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason:
+        'IMAP send reads messages from stdin and accepts no positional arguments. List and folder may coexist.',
+      source: 'https://github.com/git/git/blob/v2.55.0/imap-send.c',
+    },
+  ],
+  source: 'imap-send.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec306 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -84292,7 +84787,7 @@ const commandSpec301 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec302 = {
+const commandSpec307 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -84423,7 +84918,7 @@ const commandSpec302 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec303 = {
+const commandSpec308 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -84439,7 +84934,7 @@ const commandSpec303 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec304 = {
+const commandSpec309 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -84646,7 +85141,7 @@ const commandSpec304 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec305 = {
+const commandSpec310 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -84682,7 +85177,7 @@ const commandSpec305 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec306 = {
+const commandSpec311 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -84706,7 +85201,7 @@ const commandSpec306 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec307 = {
+const commandSpec312 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -84722,7 +85217,7 @@ const commandSpec307 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec308 = {
+const commandSpec313 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -84738,7 +85233,7 @@ const commandSpec308 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec309 = {
+const commandSpec314 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -84754,7 +85249,7 @@ const commandSpec309 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec310 = {
+const commandSpec315 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -84882,7 +85377,7 @@ const commandSpec310 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec311 = {
+const commandSpec316 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -84906,7 +85401,7 @@ const commandSpec311 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec312 = {
+const commandSpec317 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -84938,7 +85433,7 @@ const commandSpec312 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec313 = {
+const commandSpec318 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -84954,7 +85449,7 @@ const commandSpec313 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec314 = {
+const commandSpec319 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -85160,7 +85655,7 @@ const commandSpec314 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec315 = {
+const commandSpec320 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -85176,7 +85671,7 @@ const commandSpec315 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec316 = {
+const commandSpec321 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -85208,7 +85703,7 @@ const commandSpec316 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec317 = {
+const commandSpec322 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -85345,7 +85840,7 @@ const commandSpec317 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec318 = {
+const commandSpec323 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -85361,7 +85856,7 @@ const commandSpec318 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec319 = {
+const commandSpec324 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -85377,7 +85872,7 @@ const commandSpec319 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec320 = {
+const commandSpec325 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -85393,7 +85888,7 @@ const commandSpec320 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec321 = {
+const commandSpec326 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -85409,7 +85904,7 @@ const commandSpec321 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec322 = {
+const commandSpec327 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -85425,7 +85920,7 @@ const commandSpec322 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec323 = {
+const commandSpec328 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -85538,7 +86033,7 @@ const commandSpec323 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec324 = {
+const commandSpec329 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -85604,7 +86099,7 @@ const commandSpec324 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec325 = {
+const commandSpec330 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -85664,7 +86159,7 @@ const commandSpec325 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec326 = {
+const commandSpec331 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -85801,7 +86296,7 @@ const commandSpec326 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec327 = {
+const commandSpec332 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -86065,7 +86560,7 @@ const commandSpec327 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec328 = {
+const commandSpec333 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -86250,7 +86745,7 @@ const commandSpec328 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec329 = {
+const commandSpec334 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -86404,7 +86899,7 @@ const commandSpec329 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec330 = {
+const commandSpec335 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -86431,7 +86926,7 @@ const commandSpec330 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec331 = {
+const commandSpec336 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -86447,7 +86942,7 @@ const commandSpec331 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec332 = {
+const commandSpec337 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -86474,7 +86969,7 @@ const commandSpec332 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec333 = {
+const commandSpec338 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -86508,7 +87003,7 @@ const commandSpec333 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec334 = {
+const commandSpec339 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -86594,7 +87089,7 @@ const commandSpec334 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec335 = {
+const commandSpec340 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -86626,7 +87121,7 @@ const commandSpec335 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec336 = {
+const commandSpec341 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -86732,7 +87227,7 @@ const commandSpec336 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec337 = {
+const commandSpec342 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -86756,7 +87251,7 @@ const commandSpec337 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec338 = {
+const commandSpec343 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -86772,7 +87267,7 @@ const commandSpec338 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec339 = {
+const commandSpec344 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -86804,7 +87299,7 @@ const commandSpec339 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec340 = {
+const commandSpec345 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -86883,7 +87378,7 @@ const commandSpec340 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec341 = {
+const commandSpec346 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -86987,7 +87482,7 @@ const commandSpec341 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec342 = {
+const commandSpec347 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -87003,7 +87498,7 @@ const commandSpec342 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec343 = {
+const commandSpec348 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -87090,7 +87585,7 @@ const commandSpec343 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec344 = {
+const commandSpec349 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -87106,7 +87601,7 @@ const commandSpec344 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec345 = {
+const commandSpec350 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -87147,7 +87642,7 @@ const commandSpec345 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec346 = {
+const commandSpec351 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -87473,52 +87968,57 @@ export const COMMAND_SPECS: {
   readonly 'fsmonitor--daemon run': typeof commandSpec298;
   readonly 'fsmonitor--daemon stop': typeof commandSpec299;
   readonly 'fsmonitor--daemon status': typeof commandSpec300;
-  readonly lfs: typeof commandSpec301;
-  readonly 'lfs checkout': typeof commandSpec302;
-  readonly 'lfs clean': typeof commandSpec303;
-  readonly 'lfs clone': typeof commandSpec304;
-  readonly 'lfs completion': typeof commandSpec305;
-  readonly 'lfs dedup': typeof commandSpec306;
-  readonly 'lfs env': typeof commandSpec307;
-  readonly 'lfs ext': typeof commandSpec308;
-  readonly 'lfs ext list': typeof commandSpec309;
-  readonly 'lfs fetch': typeof commandSpec310;
-  readonly 'lfs filter-process': typeof commandSpec311;
-  readonly 'lfs fsck': typeof commandSpec312;
-  readonly 'lfs help': typeof commandSpec313;
-  readonly 'lfs install': typeof commandSpec314;
-  readonly 'lfs install hooks': typeof commandSpec315;
-  readonly 'lfs lock': typeof commandSpec316;
-  readonly 'lfs locks': typeof commandSpec317;
-  readonly 'lfs logs': typeof commandSpec318;
-  readonly 'lfs logs boomtown': typeof commandSpec319;
-  readonly 'lfs logs clear': typeof commandSpec320;
-  readonly 'lfs logs last': typeof commandSpec321;
-  readonly 'lfs logs show': typeof commandSpec322;
-  readonly 'lfs ls-files': typeof commandSpec323;
-  readonly 'lfs merge-driver': typeof commandSpec324;
-  readonly 'lfs migrate': typeof commandSpec325;
-  readonly 'lfs migrate export': typeof commandSpec326;
-  readonly 'lfs migrate import': typeof commandSpec327;
-  readonly 'lfs migrate info': typeof commandSpec328;
-  readonly 'lfs pointer': typeof commandSpec329;
-  readonly 'lfs post-checkout': typeof commandSpec330;
-  readonly 'lfs post-commit': typeof commandSpec331;
-  readonly 'lfs post-merge': typeof commandSpec332;
-  readonly 'lfs pre-push': typeof commandSpec333;
-  readonly 'lfs prune': typeof commandSpec334;
-  readonly 'lfs pull': typeof commandSpec335;
-  readonly 'lfs push': typeof commandSpec336;
-  readonly 'lfs smudge': typeof commandSpec337;
-  readonly 'lfs standalone-file': typeof commandSpec338;
-  readonly 'lfs status': typeof commandSpec339;
-  readonly 'lfs track': typeof commandSpec340;
-  readonly 'lfs uninstall': typeof commandSpec341;
-  readonly 'lfs uninstall hooks': typeof commandSpec342;
-  readonly 'lfs unlock': typeof commandSpec343;
-  readonly 'lfs untrack': typeof commandSpec344;
-  readonly 'lfs update': typeof commandSpec345;
-  readonly 'lfs version': typeof commandSpec346;
+  readonly 'fast-import': typeof commandSpec301;
+  readonly 'http-fetch': typeof commandSpec302;
+  readonly 'http-push': typeof commandSpec303;
+  readonly 'http-backend': typeof commandSpec304;
+  readonly 'imap-send': typeof commandSpec305;
+  readonly lfs: typeof commandSpec306;
+  readonly 'lfs checkout': typeof commandSpec307;
+  readonly 'lfs clean': typeof commandSpec308;
+  readonly 'lfs clone': typeof commandSpec309;
+  readonly 'lfs completion': typeof commandSpec310;
+  readonly 'lfs dedup': typeof commandSpec311;
+  readonly 'lfs env': typeof commandSpec312;
+  readonly 'lfs ext': typeof commandSpec313;
+  readonly 'lfs ext list': typeof commandSpec314;
+  readonly 'lfs fetch': typeof commandSpec315;
+  readonly 'lfs filter-process': typeof commandSpec316;
+  readonly 'lfs fsck': typeof commandSpec317;
+  readonly 'lfs help': typeof commandSpec318;
+  readonly 'lfs install': typeof commandSpec319;
+  readonly 'lfs install hooks': typeof commandSpec320;
+  readonly 'lfs lock': typeof commandSpec321;
+  readonly 'lfs locks': typeof commandSpec322;
+  readonly 'lfs logs': typeof commandSpec323;
+  readonly 'lfs logs boomtown': typeof commandSpec324;
+  readonly 'lfs logs clear': typeof commandSpec325;
+  readonly 'lfs logs last': typeof commandSpec326;
+  readonly 'lfs logs show': typeof commandSpec327;
+  readonly 'lfs ls-files': typeof commandSpec328;
+  readonly 'lfs merge-driver': typeof commandSpec329;
+  readonly 'lfs migrate': typeof commandSpec330;
+  readonly 'lfs migrate export': typeof commandSpec331;
+  readonly 'lfs migrate import': typeof commandSpec332;
+  readonly 'lfs migrate info': typeof commandSpec333;
+  readonly 'lfs pointer': typeof commandSpec334;
+  readonly 'lfs post-checkout': typeof commandSpec335;
+  readonly 'lfs post-commit': typeof commandSpec336;
+  readonly 'lfs post-merge': typeof commandSpec337;
+  readonly 'lfs pre-push': typeof commandSpec338;
+  readonly 'lfs prune': typeof commandSpec339;
+  readonly 'lfs pull': typeof commandSpec340;
+  readonly 'lfs push': typeof commandSpec341;
+  readonly 'lfs smudge': typeof commandSpec342;
+  readonly 'lfs standalone-file': typeof commandSpec343;
+  readonly 'lfs status': typeof commandSpec344;
+  readonly 'lfs track': typeof commandSpec345;
+  readonly 'lfs uninstall': typeof commandSpec346;
+  readonly 'lfs uninstall hooks': typeof commandSpec347;
+  readonly 'lfs unlock': typeof commandSpec348;
+  readonly 'lfs untrack': typeof commandSpec349;
+  readonly 'lfs update': typeof commandSpec350;
+  readonly 'lfs version': typeof commandSpec351;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -87821,50 +88321,55 @@ export const COMMAND_SPECS: {
   'fsmonitor--daemon run': commandSpec298,
   'fsmonitor--daemon stop': commandSpec299,
   'fsmonitor--daemon status': commandSpec300,
-  lfs: commandSpec301,
-  'lfs checkout': commandSpec302,
-  'lfs clean': commandSpec303,
-  'lfs clone': commandSpec304,
-  'lfs completion': commandSpec305,
-  'lfs dedup': commandSpec306,
-  'lfs env': commandSpec307,
-  'lfs ext': commandSpec308,
-  'lfs ext list': commandSpec309,
-  'lfs fetch': commandSpec310,
-  'lfs filter-process': commandSpec311,
-  'lfs fsck': commandSpec312,
-  'lfs help': commandSpec313,
-  'lfs install': commandSpec314,
-  'lfs install hooks': commandSpec315,
-  'lfs lock': commandSpec316,
-  'lfs locks': commandSpec317,
-  'lfs logs': commandSpec318,
-  'lfs logs boomtown': commandSpec319,
-  'lfs logs clear': commandSpec320,
-  'lfs logs last': commandSpec321,
-  'lfs logs show': commandSpec322,
-  'lfs ls-files': commandSpec323,
-  'lfs merge-driver': commandSpec324,
-  'lfs migrate': commandSpec325,
-  'lfs migrate export': commandSpec326,
-  'lfs migrate import': commandSpec327,
-  'lfs migrate info': commandSpec328,
-  'lfs pointer': commandSpec329,
-  'lfs post-checkout': commandSpec330,
-  'lfs post-commit': commandSpec331,
-  'lfs post-merge': commandSpec332,
-  'lfs pre-push': commandSpec333,
-  'lfs prune': commandSpec334,
-  'lfs pull': commandSpec335,
-  'lfs push': commandSpec336,
-  'lfs smudge': commandSpec337,
-  'lfs standalone-file': commandSpec338,
-  'lfs status': commandSpec339,
-  'lfs track': commandSpec340,
-  'lfs uninstall': commandSpec341,
-  'lfs uninstall hooks': commandSpec342,
-  'lfs unlock': commandSpec343,
-  'lfs untrack': commandSpec344,
-  'lfs update': commandSpec345,
-  'lfs version': commandSpec346,
+  'fast-import': commandSpec301,
+  'http-fetch': commandSpec302,
+  'http-push': commandSpec303,
+  'http-backend': commandSpec304,
+  'imap-send': commandSpec305,
+  lfs: commandSpec306,
+  'lfs checkout': commandSpec307,
+  'lfs clean': commandSpec308,
+  'lfs clone': commandSpec309,
+  'lfs completion': commandSpec310,
+  'lfs dedup': commandSpec311,
+  'lfs env': commandSpec312,
+  'lfs ext': commandSpec313,
+  'lfs ext list': commandSpec314,
+  'lfs fetch': commandSpec315,
+  'lfs filter-process': commandSpec316,
+  'lfs fsck': commandSpec317,
+  'lfs help': commandSpec318,
+  'lfs install': commandSpec319,
+  'lfs install hooks': commandSpec320,
+  'lfs lock': commandSpec321,
+  'lfs locks': commandSpec322,
+  'lfs logs': commandSpec323,
+  'lfs logs boomtown': commandSpec324,
+  'lfs logs clear': commandSpec325,
+  'lfs logs last': commandSpec326,
+  'lfs logs show': commandSpec327,
+  'lfs ls-files': commandSpec328,
+  'lfs merge-driver': commandSpec329,
+  'lfs migrate': commandSpec330,
+  'lfs migrate export': commandSpec331,
+  'lfs migrate import': commandSpec332,
+  'lfs migrate info': commandSpec333,
+  'lfs pointer': commandSpec334,
+  'lfs post-checkout': commandSpec335,
+  'lfs post-commit': commandSpec336,
+  'lfs post-merge': commandSpec337,
+  'lfs pre-push': commandSpec338,
+  'lfs prune': commandSpec339,
+  'lfs pull': commandSpec340,
+  'lfs push': commandSpec341,
+  'lfs smudge': commandSpec342,
+  'lfs standalone-file': commandSpec343,
+  'lfs status': commandSpec344,
+  'lfs track': commandSpec345,
+  'lfs uninstall': commandSpec346,
+  'lfs uninstall hooks': commandSpec347,
+  'lfs unlock': commandSpec348,
+  'lfs untrack': commandSpec349,
+  'lfs update': commandSpec350,
+  'lfs version': commandSpec351,
 };

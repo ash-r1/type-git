@@ -17272,5 +17272,139 @@
       "reason": "At least one IPC worker thread is required after option parsing.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
     }
+  ],
+  "fast-import": [
+    {
+      "id": "cli.fast-import.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Fast-import accepts options only and consumes its data stream on stdin.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-import.c"
+    }
+  ],
+  "http-fetch": [
+    {
+      "id": "cli.http-fetch.plain-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "packfile",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Ordinary fetch requires an object ID and URL.",
+      "source": "https://github.com/git/git/blob/v2.55.0/http-fetch.c"
+    },
+    {
+      "id": "cli.http-fetch.stdin-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "stdin",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Stdin target input requires only the URL.",
+      "source": "https://github.com/git/git/blob/v2.55.0/http-fetch.c"
+    },
+    {
+      "id": "cli.http-fetch.pack-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "packfile",
+        "test": "present"
+      },
+      "origin": "git",
+      "reason": "Pack input requires only the URL.",
+      "source": "https://github.com/git/git/blob/v2.55.0/http-fetch.c"
+    },
+    {
+      "id": "cli.http-fetch.pack-args",
+      "kind": "requires",
+      "when": {
+        "key": "packfile",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "index-pack-arg",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Pack input requires an index-pack argument, including an empty one.",
+      "source": "https://github.com/git/git/blob/v2.55.0/http-fetch.c"
+    },
+    {
+      "id": "cli.http-fetch.args-pack",
+      "kind": "requires",
+      "when": {
+        "key": "index-pack-arg",
+        "test": "nonempty"
+      },
+      "required": [
+        {
+          "key": "packfile",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Index-pack arguments require pack input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/http-fetch.c"
+    }
+  ],
+  "http-push": [
+    {
+      "id": "cli.http-push.destination",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "HTTP push needs a destination URL.",
+      "source": "https://github.com/git/git/blob/v2.55.0/http-push.c"
+    },
+    {
+      "id": "cli.http-push.delete-ref",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": {
+        "key": "delete",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Delete mode requires one branch after the destination.",
+      "source": "https://github.com/git/git/blob/v2.55.0/http-push.c"
+    }
+  ],
+  "http-backend": [],
+  "imap-send": [
+    {
+      "id": "cli.imap-send.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "IMAP send reads messages from stdin and accepts no positional arguments. List and folder may coexist.",
+      "source": "https://github.com/git/git/blob/v2.55.0/imap-send.c"
+    }
   ]
 }
