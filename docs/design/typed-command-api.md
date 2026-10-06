@@ -316,3 +316,11 @@ ignored arguments, while view/visualize and run retain delegated literal words.
 Repository state, revision/path disambiguation and the complete refname language
 remain explicit gaps. Deterministic counts describe bounded normalized states,
 not all argv sequences or complete upstream discovery.
+
+### Required root dispatch
+
+Bundle, commit-graph, history, hook, maintenance, multi-pack-index, refs and repo
+require an operation from their native dispatch tables. Common parent options
+such as object-dir can precede it. Subsequent words are delegated literally;
+select an operation-specific schema to validate that operation's arguments.
+Unlike bisect's custom terms, these dispatchers have a closed operation set.
