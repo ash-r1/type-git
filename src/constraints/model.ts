@@ -24,7 +24,7 @@ export type Predicate =
     }
   | { key: string; test: 'equals' | 'notEquals'; value: string | number | boolean }
   | { key: string; test: 'startsWith'; value: string }
-  | { key: string; test: 'includes'; valueKey: string }
+  | { key: string; test: 'includes' | 'equalsKey'; valueKey: string }
   | { key: string; test: 'lengthEquals'; value: number };
 export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] } & (
     | {
@@ -52,6 +52,8 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
   switch (predicate.test) {
     case 'lengthEquals':
       return Array.isArray(value) && value.length === predicate.value;
+    case 'equalsKey':
+      return value === options[predicate.valueKey];
     case 'includes':
       return Array.isArray(value) && value.includes(options[predicate.valueKey]);
     case 'gitEnabled':
@@ -142,7 +144,9 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
 
 /** State fields read by one predicate, including relational operands. */
 export function predicateKeys(predicate: Predicate): string[] {
-  return predicate.test === 'includes' ? [predicate.key, predicate.valueKey] : [predicate.key];
+  return predicate.test === 'includes' || predicate.test === 'equalsKey'
+    ? [predicate.key, predicate.valueKey]
+    : [predicate.key];
 }
 
 export function referencedKeys(rule: Constraint): string[] {

@@ -76692,6 +76692,697 @@ const commandSpec250 = {
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec251 = {
+  argv: ['bisect'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.bisect.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec252 = {
+  argv: ['bisect', 'start'],
+  initial: {
+    'term-good': 'good',
+    'term-bad': 'bad',
+  },
+  options: {
+    '--no-checkout': {
+      key: 'no-checkout',
+      value: 'flag',
+    },
+    '--first-parent': {
+      key: 'first-parent',
+      value: 'flag',
+    },
+    '--term-good': {
+      key: 'term-good',
+      value: 'string',
+    },
+    '--term-old': {
+      key: 'term-good',
+      value: 'string',
+    },
+    '--term-bad': {
+      key: 'term-bad',
+      value: 'string',
+    },
+    '--term-new': {
+      key: 'term-bad',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.bisect-start.distinct-terms',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equalsKey',
+          valueKey: 'term-bad',
+        },
+      ],
+      origin: 'git',
+      reason: 'write_terms requires distinct final good and bad term names.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.nonempty-terms',
+      kind: 'required',
+      required: [
+        {
+          key: 'term-good',
+          test: 'nonempty',
+        },
+        {
+          key: 'term-bad',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Term names must be nonempty refname components.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-help',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'help',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-start',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'start',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-skip',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'skip',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-next',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'next',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-reset',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'reset',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-visualize',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'visualize',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-view',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'view',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-replay',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'replay',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-log',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'log',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-run',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'run',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-terms',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'terms',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-bad',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'bad',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-good-new',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-good',
+          test: 'equals',
+          value: 'new',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-help',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'help',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-start',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'start',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-skip',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'skip',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-next',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'next',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-reset',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'reset',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-visualize',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'visualize',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-view',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'view',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-replay',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'replay',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-log',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'log',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-run',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'run',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-terms',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'terms',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-good',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'good',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-start.term-bad-old',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'term-bad',
+          test: 'equals',
+          value: 'old',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'check_term_format forbids builtin command names and reversing the meaning of standard terms.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec253 = {
+  argv: ['bisect', 'reset'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.bisect-reset.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec254 = {
+  argv: ['bisect', 'terms'],
+  options: {
+    '--term-good': {
+      key: 'term-good',
+      value: 'flag',
+    },
+    '--term-old': {
+      key: 'term-old',
+      value: 'flag',
+    },
+    '--term-bad': {
+      key: 'term-bad',
+      value: 'flag',
+    },
+    '--term-new': {
+      key: 'term-new',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.bisect-terms.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+    {
+      id: 'cli.bisect-terms.argumentTokens',
+      kind: 'arity',
+      key: 'argumentTokens',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: false,
+} as const satisfies CommandSpec;
+const commandSpec255 = {
+  argv: ['bisect', 'next'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.bisect-next.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec256 = {
+  argv: ['bisect', 'log'],
+  options: {},
+  rules: [],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec257 = {
+  argv: ['bisect', 'replay'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.bisect-replay.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec258 = {
+  argv: ['bisect', 'skip'],
+  options: {},
+  rules: [],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec259 = {
+  argv: ['bisect', 'visualize'],
+  options: {},
+  rules: [],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec260 = {
+  argv: ['bisect', 'view'],
+  options: {},
+  rules: [],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec261 = {
+  argv: ['bisect', 'run'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.bisect-run.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec262 = {
+  argv: ['bisect', 'good'],
+  options: {},
+  rules: [],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec263 = {
+  argv: ['bisect', 'bad'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.bisect-bad.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec264 = {
+  argv: ['bisect', 'old'],
+  options: {},
+  rules: [],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec265 = {
+  argv: ['bisect', 'new'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.bisect-new.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'The native operation enforces this argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/bisect.c',
+    },
+  ],
+  source: 'builtin/bisect.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec266 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -76715,7 +77406,7 @@ const commandSpec251 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec252 = {
+const commandSpec267 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -76846,7 +77537,7 @@ const commandSpec252 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec253 = {
+const commandSpec268 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -76862,7 +77553,7 @@ const commandSpec253 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec254 = {
+const commandSpec269 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -77069,7 +77760,7 @@ const commandSpec254 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec255 = {
+const commandSpec270 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -77105,7 +77796,7 @@ const commandSpec255 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec256 = {
+const commandSpec271 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -77129,7 +77820,7 @@ const commandSpec256 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec257 = {
+const commandSpec272 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -77145,7 +77836,7 @@ const commandSpec257 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec258 = {
+const commandSpec273 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -77161,7 +77852,7 @@ const commandSpec258 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec259 = {
+const commandSpec274 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -77177,7 +77868,7 @@ const commandSpec259 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec260 = {
+const commandSpec275 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -77305,7 +77996,7 @@ const commandSpec260 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec261 = {
+const commandSpec276 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -77329,7 +78020,7 @@ const commandSpec261 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec262 = {
+const commandSpec277 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -77361,7 +78052,7 @@ const commandSpec262 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec263 = {
+const commandSpec278 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -77377,7 +78068,7 @@ const commandSpec263 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec264 = {
+const commandSpec279 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -77583,7 +78274,7 @@ const commandSpec264 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec265 = {
+const commandSpec280 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -77599,7 +78290,7 @@ const commandSpec265 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec266 = {
+const commandSpec281 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -77631,7 +78322,7 @@ const commandSpec266 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec267 = {
+const commandSpec282 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -77768,7 +78459,7 @@ const commandSpec267 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec268 = {
+const commandSpec283 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -77784,7 +78475,7 @@ const commandSpec268 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec269 = {
+const commandSpec284 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -77800,7 +78491,7 @@ const commandSpec269 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec270 = {
+const commandSpec285 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -77816,7 +78507,7 @@ const commandSpec270 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec271 = {
+const commandSpec286 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -77832,7 +78523,7 @@ const commandSpec271 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec272 = {
+const commandSpec287 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -77848,7 +78539,7 @@ const commandSpec272 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec273 = {
+const commandSpec288 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -77961,7 +78652,7 @@ const commandSpec273 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec274 = {
+const commandSpec289 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -78027,7 +78718,7 @@ const commandSpec274 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec275 = {
+const commandSpec290 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -78087,7 +78778,7 @@ const commandSpec275 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec276 = {
+const commandSpec291 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -78224,7 +78915,7 @@ const commandSpec276 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec277 = {
+const commandSpec292 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -78488,7 +79179,7 @@ const commandSpec277 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec278 = {
+const commandSpec293 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -78673,7 +79364,7 @@ const commandSpec278 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec279 = {
+const commandSpec294 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -78827,7 +79518,7 @@ const commandSpec279 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec280 = {
+const commandSpec295 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -78854,7 +79545,7 @@ const commandSpec280 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec281 = {
+const commandSpec296 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -78870,7 +79561,7 @@ const commandSpec281 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec282 = {
+const commandSpec297 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -78897,7 +79588,7 @@ const commandSpec282 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec283 = {
+const commandSpec298 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -78931,7 +79622,7 @@ const commandSpec283 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec284 = {
+const commandSpec299 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -79017,7 +79708,7 @@ const commandSpec284 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec285 = {
+const commandSpec300 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -79049,7 +79740,7 @@ const commandSpec285 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec286 = {
+const commandSpec301 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -79155,7 +79846,7 @@ const commandSpec286 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec287 = {
+const commandSpec302 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -79179,7 +79870,7 @@ const commandSpec287 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec288 = {
+const commandSpec303 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -79195,7 +79886,7 @@ const commandSpec288 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec289 = {
+const commandSpec304 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -79227,7 +79918,7 @@ const commandSpec289 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec290 = {
+const commandSpec305 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -79306,7 +79997,7 @@ const commandSpec290 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec291 = {
+const commandSpec306 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -79410,7 +80101,7 @@ const commandSpec291 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec292 = {
+const commandSpec307 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -79426,7 +80117,7 @@ const commandSpec292 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec293 = {
+const commandSpec308 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -79513,7 +80204,7 @@ const commandSpec293 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec294 = {
+const commandSpec309 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -79529,7 +80220,7 @@ const commandSpec294 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec295 = {
+const commandSpec310 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -79570,7 +80261,7 @@ const commandSpec295 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec296 = {
+const commandSpec311 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -79846,52 +80537,67 @@ export const COMMAND_SPECS: {
   readonly 'sparse-checkout disable': typeof commandSpec248;
   readonly 'sparse-checkout check-rules': typeof commandSpec249;
   readonly submodule: typeof commandSpec250;
-  readonly lfs: typeof commandSpec251;
-  readonly 'lfs checkout': typeof commandSpec252;
-  readonly 'lfs clean': typeof commandSpec253;
-  readonly 'lfs clone': typeof commandSpec254;
-  readonly 'lfs completion': typeof commandSpec255;
-  readonly 'lfs dedup': typeof commandSpec256;
-  readonly 'lfs env': typeof commandSpec257;
-  readonly 'lfs ext': typeof commandSpec258;
-  readonly 'lfs ext list': typeof commandSpec259;
-  readonly 'lfs fetch': typeof commandSpec260;
-  readonly 'lfs filter-process': typeof commandSpec261;
-  readonly 'lfs fsck': typeof commandSpec262;
-  readonly 'lfs help': typeof commandSpec263;
-  readonly 'lfs install': typeof commandSpec264;
-  readonly 'lfs install hooks': typeof commandSpec265;
-  readonly 'lfs lock': typeof commandSpec266;
-  readonly 'lfs locks': typeof commandSpec267;
-  readonly 'lfs logs': typeof commandSpec268;
-  readonly 'lfs logs boomtown': typeof commandSpec269;
-  readonly 'lfs logs clear': typeof commandSpec270;
-  readonly 'lfs logs last': typeof commandSpec271;
-  readonly 'lfs logs show': typeof commandSpec272;
-  readonly 'lfs ls-files': typeof commandSpec273;
-  readonly 'lfs merge-driver': typeof commandSpec274;
-  readonly 'lfs migrate': typeof commandSpec275;
-  readonly 'lfs migrate export': typeof commandSpec276;
-  readonly 'lfs migrate import': typeof commandSpec277;
-  readonly 'lfs migrate info': typeof commandSpec278;
-  readonly 'lfs pointer': typeof commandSpec279;
-  readonly 'lfs post-checkout': typeof commandSpec280;
-  readonly 'lfs post-commit': typeof commandSpec281;
-  readonly 'lfs post-merge': typeof commandSpec282;
-  readonly 'lfs pre-push': typeof commandSpec283;
-  readonly 'lfs prune': typeof commandSpec284;
-  readonly 'lfs pull': typeof commandSpec285;
-  readonly 'lfs push': typeof commandSpec286;
-  readonly 'lfs smudge': typeof commandSpec287;
-  readonly 'lfs standalone-file': typeof commandSpec288;
-  readonly 'lfs status': typeof commandSpec289;
-  readonly 'lfs track': typeof commandSpec290;
-  readonly 'lfs uninstall': typeof commandSpec291;
-  readonly 'lfs uninstall hooks': typeof commandSpec292;
-  readonly 'lfs unlock': typeof commandSpec293;
-  readonly 'lfs untrack': typeof commandSpec294;
-  readonly 'lfs update': typeof commandSpec295;
-  readonly 'lfs version': typeof commandSpec296;
+  readonly bisect: typeof commandSpec251;
+  readonly 'bisect start': typeof commandSpec252;
+  readonly 'bisect reset': typeof commandSpec253;
+  readonly 'bisect terms': typeof commandSpec254;
+  readonly 'bisect next': typeof commandSpec255;
+  readonly 'bisect log': typeof commandSpec256;
+  readonly 'bisect replay': typeof commandSpec257;
+  readonly 'bisect skip': typeof commandSpec258;
+  readonly 'bisect visualize': typeof commandSpec259;
+  readonly 'bisect view': typeof commandSpec260;
+  readonly 'bisect run': typeof commandSpec261;
+  readonly 'bisect good': typeof commandSpec262;
+  readonly 'bisect bad': typeof commandSpec263;
+  readonly 'bisect old': typeof commandSpec264;
+  readonly 'bisect new': typeof commandSpec265;
+  readonly lfs: typeof commandSpec266;
+  readonly 'lfs checkout': typeof commandSpec267;
+  readonly 'lfs clean': typeof commandSpec268;
+  readonly 'lfs clone': typeof commandSpec269;
+  readonly 'lfs completion': typeof commandSpec270;
+  readonly 'lfs dedup': typeof commandSpec271;
+  readonly 'lfs env': typeof commandSpec272;
+  readonly 'lfs ext': typeof commandSpec273;
+  readonly 'lfs ext list': typeof commandSpec274;
+  readonly 'lfs fetch': typeof commandSpec275;
+  readonly 'lfs filter-process': typeof commandSpec276;
+  readonly 'lfs fsck': typeof commandSpec277;
+  readonly 'lfs help': typeof commandSpec278;
+  readonly 'lfs install': typeof commandSpec279;
+  readonly 'lfs install hooks': typeof commandSpec280;
+  readonly 'lfs lock': typeof commandSpec281;
+  readonly 'lfs locks': typeof commandSpec282;
+  readonly 'lfs logs': typeof commandSpec283;
+  readonly 'lfs logs boomtown': typeof commandSpec284;
+  readonly 'lfs logs clear': typeof commandSpec285;
+  readonly 'lfs logs last': typeof commandSpec286;
+  readonly 'lfs logs show': typeof commandSpec287;
+  readonly 'lfs ls-files': typeof commandSpec288;
+  readonly 'lfs merge-driver': typeof commandSpec289;
+  readonly 'lfs migrate': typeof commandSpec290;
+  readonly 'lfs migrate export': typeof commandSpec291;
+  readonly 'lfs migrate import': typeof commandSpec292;
+  readonly 'lfs migrate info': typeof commandSpec293;
+  readonly 'lfs pointer': typeof commandSpec294;
+  readonly 'lfs post-checkout': typeof commandSpec295;
+  readonly 'lfs post-commit': typeof commandSpec296;
+  readonly 'lfs post-merge': typeof commandSpec297;
+  readonly 'lfs pre-push': typeof commandSpec298;
+  readonly 'lfs prune': typeof commandSpec299;
+  readonly 'lfs pull': typeof commandSpec300;
+  readonly 'lfs push': typeof commandSpec301;
+  readonly 'lfs smudge': typeof commandSpec302;
+  readonly 'lfs standalone-file': typeof commandSpec303;
+  readonly 'lfs status': typeof commandSpec304;
+  readonly 'lfs track': typeof commandSpec305;
+  readonly 'lfs uninstall': typeof commandSpec306;
+  readonly 'lfs uninstall hooks': typeof commandSpec307;
+  readonly 'lfs unlock': typeof commandSpec308;
+  readonly 'lfs untrack': typeof commandSpec309;
+  readonly 'lfs update': typeof commandSpec310;
+  readonly 'lfs version': typeof commandSpec311;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -80144,50 +80850,65 @@ export const COMMAND_SPECS: {
   'sparse-checkout disable': commandSpec248,
   'sparse-checkout check-rules': commandSpec249,
   submodule: commandSpec250,
-  lfs: commandSpec251,
-  'lfs checkout': commandSpec252,
-  'lfs clean': commandSpec253,
-  'lfs clone': commandSpec254,
-  'lfs completion': commandSpec255,
-  'lfs dedup': commandSpec256,
-  'lfs env': commandSpec257,
-  'lfs ext': commandSpec258,
-  'lfs ext list': commandSpec259,
-  'lfs fetch': commandSpec260,
-  'lfs filter-process': commandSpec261,
-  'lfs fsck': commandSpec262,
-  'lfs help': commandSpec263,
-  'lfs install': commandSpec264,
-  'lfs install hooks': commandSpec265,
-  'lfs lock': commandSpec266,
-  'lfs locks': commandSpec267,
-  'lfs logs': commandSpec268,
-  'lfs logs boomtown': commandSpec269,
-  'lfs logs clear': commandSpec270,
-  'lfs logs last': commandSpec271,
-  'lfs logs show': commandSpec272,
-  'lfs ls-files': commandSpec273,
-  'lfs merge-driver': commandSpec274,
-  'lfs migrate': commandSpec275,
-  'lfs migrate export': commandSpec276,
-  'lfs migrate import': commandSpec277,
-  'lfs migrate info': commandSpec278,
-  'lfs pointer': commandSpec279,
-  'lfs post-checkout': commandSpec280,
-  'lfs post-commit': commandSpec281,
-  'lfs post-merge': commandSpec282,
-  'lfs pre-push': commandSpec283,
-  'lfs prune': commandSpec284,
-  'lfs pull': commandSpec285,
-  'lfs push': commandSpec286,
-  'lfs smudge': commandSpec287,
-  'lfs standalone-file': commandSpec288,
-  'lfs status': commandSpec289,
-  'lfs track': commandSpec290,
-  'lfs uninstall': commandSpec291,
-  'lfs uninstall hooks': commandSpec292,
-  'lfs unlock': commandSpec293,
-  'lfs untrack': commandSpec294,
-  'lfs update': commandSpec295,
-  'lfs version': commandSpec296,
+  bisect: commandSpec251,
+  'bisect start': commandSpec252,
+  'bisect reset': commandSpec253,
+  'bisect terms': commandSpec254,
+  'bisect next': commandSpec255,
+  'bisect log': commandSpec256,
+  'bisect replay': commandSpec257,
+  'bisect skip': commandSpec258,
+  'bisect visualize': commandSpec259,
+  'bisect view': commandSpec260,
+  'bisect run': commandSpec261,
+  'bisect good': commandSpec262,
+  'bisect bad': commandSpec263,
+  'bisect old': commandSpec264,
+  'bisect new': commandSpec265,
+  lfs: commandSpec266,
+  'lfs checkout': commandSpec267,
+  'lfs clean': commandSpec268,
+  'lfs clone': commandSpec269,
+  'lfs completion': commandSpec270,
+  'lfs dedup': commandSpec271,
+  'lfs env': commandSpec272,
+  'lfs ext': commandSpec273,
+  'lfs ext list': commandSpec274,
+  'lfs fetch': commandSpec275,
+  'lfs filter-process': commandSpec276,
+  'lfs fsck': commandSpec277,
+  'lfs help': commandSpec278,
+  'lfs install': commandSpec279,
+  'lfs install hooks': commandSpec280,
+  'lfs lock': commandSpec281,
+  'lfs locks': commandSpec282,
+  'lfs logs': commandSpec283,
+  'lfs logs boomtown': commandSpec284,
+  'lfs logs clear': commandSpec285,
+  'lfs logs last': commandSpec286,
+  'lfs logs show': commandSpec287,
+  'lfs ls-files': commandSpec288,
+  'lfs merge-driver': commandSpec289,
+  'lfs migrate': commandSpec290,
+  'lfs migrate export': commandSpec291,
+  'lfs migrate import': commandSpec292,
+  'lfs migrate info': commandSpec293,
+  'lfs pointer': commandSpec294,
+  'lfs post-checkout': commandSpec295,
+  'lfs post-commit': commandSpec296,
+  'lfs post-merge': commandSpec297,
+  'lfs pre-push': commandSpec298,
+  'lfs prune': commandSpec299,
+  'lfs pull': commandSpec300,
+  'lfs push': commandSpec301,
+  'lfs smudge': commandSpec302,
+  'lfs standalone-file': commandSpec303,
+  'lfs status': commandSpec304,
+  'lfs track': commandSpec305,
+  'lfs uninstall': commandSpec306,
+  'lfs uninstall hooks': commandSpec307,
+  'lfs unlock': commandSpec308,
+  'lfs untrack': commandSpec309,
+  'lfs update': commandSpec310,
+  'lfs version': commandSpec311,
 };
