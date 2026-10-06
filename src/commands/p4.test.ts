@@ -43,7 +43,7 @@ args = sys.argv[1:]
 if args[:2] == ['-r', '3']: args = args[2:]
 with open(os.environ['TYPE_GIT_P4_PROBES'], 'a') as log: log.write(json.dumps(args) + '\\n')
 if args == ['-G', 'login', '-s']:
-    marshal.dump({b'code': b'stat'}, sys.stdout.buffer)
+    marshal.dump({'code': 'stat'} if os.environ['TYPE_GIT_P4_TEXT_KEYS'] == '1' else {b'code': b'stat'}, sys.stdout.buffer)
     sys.exit(0)
 if args == ['help', 'move']: sys.exit(1)
 sys.exit('Unexpected P4 command: ' + repr(args))
@@ -52,6 +52,9 @@ sys.exit('Unexpected P4 command: ' + repr(args))
       await chmod(shim, 0o755);
       env.PATH = `${bin}:${process.env.PATH}`;
       env.TYPE_GIT_P4_PROBES = join(root, 'p4-probes');
+      env.TYPE_GIT_P4_TEXT_KEYS = (await readFile(p4Script, 'utf8')).includes('key = key.decode()')
+        ? '0'
+        : '1';
       repo = await new TypeGit({ inheritEnv: false, env }).init(join(root, 'repo'));
       const result = spawnSync(
         'git',
