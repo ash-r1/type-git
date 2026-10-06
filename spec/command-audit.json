@@ -56,9 +56,11 @@
         "remoteAdd"
       ],
       "tests": [
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/build.test.ts"
       ],
-      "remaining": "Master branch selection and complete CLI surface."
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "submodule update": {
       "state": "partial",
@@ -77,9 +79,11 @@
       ],
       "tests": [
         "src/impl/lfs-option-serialization.test.ts",
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/build.test.ts"
       ],
-      "remaining": "Common command API including help and explicit false flag spelling."
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "lfs locks": {
       "state": "partial",
@@ -88,9 +92,11 @@
       ],
       "tests": [
         "src/impl/lfs-option-serialization.test.ts",
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/build.test.ts"
       ],
-      "remaining": "Non-cached server interactions and full scalar grammar."
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "lfs migrate info": {
       "state": "partial",
@@ -99,9 +105,11 @@
       ],
       "tests": [
         "src/impl/lfs-option-serialization.test.ts",
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/build.test.ts"
       ],
-      "remaining": "Scalar value grammar and independent LFS fixtures."
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "lfs migrate import": {
       "state": "partial",
@@ -110,9 +118,11 @@
       ],
       "tests": [
         "src/impl/lfs-option-serialization.test.ts",
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/build.test.ts"
       ],
-      "remaining": "Scalar value grammar and independent LFS fixtures."
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "lfs migrate export": {
       "state": "partial",
@@ -121,17 +131,22 @@
       ],
       "tests": [
         "src/impl/lfs-option-serialization.test.ts",
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/build.test.ts"
       ],
-      "remaining": "Full scalar value grammar and positional ref selection audit."
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "init": {
       "state": "partial",
       "models": [
         "init"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "ls-remote": {
       "state": "partial",
@@ -186,8 +201,11 @@
       "models": [
         "add"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "checkout": {
       "state": "partial",
@@ -251,8 +269,11 @@
       "models": [
         "clean"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "rebase": {
       "state": "partial",
@@ -283,40 +304,55 @@
       "models": [
         "lfsPull"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "lfs push": {
       "state": "partial",
       "models": [
         "lfsPush"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "lfs status": {
       "state": "partial",
       "models": [
         "lfsStatus"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "lfs fetch": {
       "state": "partial",
       "models": [
         "lfsFetch"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "lfs ls-files": {
       "state": "partial",
       "models": [
         "lfsLsFiles"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "worktree add": {
       "state": "partial",
@@ -331,8 +367,11 @@
       "models": [
         "remoteSetHead"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "typedCommandAPI": true
     },
     "config get": {
       "state": "partial",
@@ -349,6 +388,456 @@
       ],
       "tests": [],
       "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+    },
+    "hash-object": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "rm": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "mv": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote rename": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote rm": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote remove": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote set-branches": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote get-url": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote set-url": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote show": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote prune": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "remote update": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "init-db": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs clean": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs clone": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs completion": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs dedup": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs env": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs ext": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs ext list": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs filter-process": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs fsck": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs help": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs install": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs install hooks": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs lock": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs logs": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs logs boomtown": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs logs clear": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs logs last": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs logs show": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs merge-driver": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs migrate": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs pointer": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs post-checkout": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs post-commit": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs post-merge": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs pre-push": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs prune": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs smudge": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs standalone-file": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs track": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs uninstall": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs uninstall hooks": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs unlock": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs untrack": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs update": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "lfs version": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/build.test.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
     }
   }
 }
