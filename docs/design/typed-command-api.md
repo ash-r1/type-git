@@ -482,3 +482,20 @@ Native tests use help, empty local branch listings and parser/local failures wit
 Rules preserve required names/property values, fetch/info operand limits, ignored surplus words, and explicit message/file and initialization-metadata conflicts. Find-rev accepts before and after together (before wins). `svn.*` configuration can supply operation inputs, including revision and layout: the CLI schema deliberately does not require those options to appear in argv.
 
 Native SVN tests cover every operation help grammar and isolated file:// repository workflows, including configuration-supplied revision. Tests explicitly skip when SVN Perl bindings are unavailable; schema/compiler checks remain separate evidence. Exact first-operand dispatch is covered. Git-svn's whole-argv command scan (including option-value words), delegated log/blame grammars, config/remote state and value languages remain incomplete.
+
+### Inventory coverage and reproducibility gates
+
+The pinned inventory now has a typed CLI scope for every executable entry. `sh-i18n` and `sh-setup` are explicitly excluded as sourced shell libraries. The coverage check fails for missing inventory/audit/schema records and rejects other sourced-library exclusions. `command-coverage.json` separates inventory/API counts from completed constraint audits: zero scopes currently claim full constraint completeness.
+
+To verify the upstream evidence without modifying tracked snapshots:
+
+```sh
+pnpm commands:upstream-check /path/to/git-2.55.0 /path/to/git-lfs-3.8.0
+# Also reproduce expanded C tables on their recorded compiler/target profile:
+pnpm commands:upstream-check /path/to/git-2.55.0 /path/to/git-lfs-3.8.0 --c-tables
+pnpm typecheck
+```
+
+The verifier checks all recorded source fingerprints and reruns extractors in an isolated temporary directory, comparing artifacts byte for byte. C preprocessing is conditional on its recorded compiler version, flags and target; identical Git versions alone do not promise identical platform-specific option tables. Source extraction discovers declarations/candidates, reviewed schemas express semantic rules, and the solver exhaustively traverses their finite normalized domains. None of those counts proves coverage of every argument sequence or repository/configuration state.
+
+For the optional native frontends on Debian, install `python3 subversion libsvn-perl libdbi-perl libcgi-pm-perl tcl tk xvfb xauth`; run `xvfb-run -a pnpm test:ci` to include X11 parser checks. Tests use disposable local repositories and skip unavailable native capabilities explicitly.
