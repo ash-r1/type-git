@@ -28,7 +28,7 @@ export type GitCommandArgument<C extends GitCommandName> = C extends GitCommandN
             : never;
         }[keyof Options<C>]
       | { readonly operand: string }
-      | readonly ['--']
+      | (Spec<C>['separator'] extends false ? never : readonly ['--'])
   : never;
 export type GitCommandExecOpts = ExecOpts & { stdin?: string };
 
@@ -131,6 +131,26 @@ type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extend
       ? OptionState<S, D, T>
       : Put<OptionState<S, D, T>, `mode:${G}`, D['key']>
   : OptionState<S, D, T>;
+type ParsedState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  parser: 'config-type';
+}
+  ? TokenValue<T, D> extends undefined
+    ? ModeState<S, D, T>
+    : D['key'] extends keyof S
+      ? Exclude<S[D['key']], undefined> extends never
+        ? ModeState<S, D, T>
+        : Extract<TokenValue<T, D>, S[D['key']]> extends never
+          ? never
+          : ModeState<S, D, T>
+      : ModeState<S, D, T>
+  : ModeState<S, D, T>;
+type ParsingEnded<C extends GitCommandName, S> = S extends { ended: true }
+  ? true
+  : Spec<C> extends { optionParsing: 'stop-at-operand' }
+    ? S extends { operands: readonly [] }
+      ? false
+      : true
+    : false;
 type AddOperand<
   S,
   V,
@@ -146,7 +166,7 @@ type AddOperand<
   ]
 >;
 type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
-  ? S extends { ended: true }
+  ? ParsingEnded<C, S> extends true
     ? never
     : Put<Put<S, 'ended', true>, 'hasSeparator', true>
   : T extends { operand: infer V extends string }
@@ -160,13 +180,13 @@ type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
           V
         >
       : never
-    : S extends { ended: true }
+    : ParsingEnded<C, S> extends true
       ? never
       : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
         ? Options<C>[K] extends infer D extends OptionSpec
           ? D extends { effects: infer E extends NonNullable<OptionSpec['effects']> }
-            ? Effects<ModeState<S, D, T>, E>
-            : ModeState<S, D, T>
+            ? Effects<ParsedState<S, D, T>, E>
+            : ParsedState<S, D, T>
           : never
         : S;
 type State<

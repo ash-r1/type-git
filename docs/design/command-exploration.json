@@ -4570,6 +4570,1355 @@
       }
     },
     {
+      "command": "config list",
+      "rules": 2,
+      "domains": {
+        "global": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "system": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "null": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "name-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-origin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-scope": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-names": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "type": [
+          "undefined",
+          "\"bool\"",
+          "\"int\"",
+          "\"bool-or-int\"",
+          "\"bool-or-str\"",
+          "\"path\"",
+          "\"expiry-date\"",
+          "\"color\""
+        ],
+        "includes": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "708588000",
+      "accepted": "12317184",
+      "nodes": 114,
+      "isolatedRuleWitnesses": {
+        "config-list-arity0": "{\"operands\":[\"value\"]}",
+        "config-list-location": "{\"operands\":[],\"system\":true,\"worktree\":true}"
+      }
+    },
+    {
+      "command": "config get",
+      "rules": 5,
+      "domains": {
+        "global": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "system": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "regexp": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "value": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "fixed-value": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "url": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "null": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "name-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-origin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-scope": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-names": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "type": [
+          "undefined",
+          "\"bool\"",
+          "\"int\"",
+          "\"bool-or-int\"",
+          "\"bool-or-str\"",
+          "\"path\"",
+          "\"expiry-date\"",
+          "\"color\""
+        ],
+        "includes": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "default": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2391484500000",
+      "accepted": "6084688896",
+      "nodes": 430,
+      "isolatedRuleWitnesses": {
+        "config-get-arity0": "{\"operands\":[]}",
+        "config-get-location": "{\"operands\":[\"value\"],\"system\":true,\"worktree\":true}",
+        "config-get-fixed-value": "{\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "config-get-default": "{\"default\":\"\",\"operands\":[\"value\"],\"url\":\"\"}",
+        "config-get-url": "{\"operands\":[\"value\"],\"url\":\"\",\"value\":\"\"}"
+      }
+    },
+    {
+      "command": "config set",
+      "rules": 6,
+      "domains": {
+        "global": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "system": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"-\""
+        ],
+        "blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "type": [
+          "undefined",
+          "\"bool\"",
+          "\"int\"",
+          "\"bool-or-int\"",
+          "\"bool-or-str\"",
+          "\"path\"",
+          "\"expiry-date\"",
+          "\"color\""
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "value": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "fixed-value": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "comment": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "append": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "787320000",
+      "accepted": "4838400",
+      "nodes": 263,
+      "isolatedRuleWitnesses": {
+        "config-set-arity0": "{\"operands\":[]}",
+        "config-set-location": "{\"operands\":[\"value\",\"value\"],\"system\":true,\"worktree\":true}",
+        "config-set-fixed-value": "{\"fixed-value\":true,\"operands\":[\"value\",\"value\"]}",
+        "config-set-append-value": "{\"append\":true,\"operands\":[\"value\",\"value\"],\"value\":\"\"}",
+        "config-set-write-blob": "{\"blob\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "config-set-write-stdin": "{\"file\":\"-\",\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "config unset",
+      "rules": 5,
+      "domains": {
+        "global": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "system": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"-\""
+        ],
+        "blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "value": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "fixed-value": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6561000",
+      "accepted": "56448",
+      "nodes": 190,
+      "isolatedRuleWitnesses": {
+        "config-unset-arity0": "{\"operands\":[]}",
+        "config-unset-location": "{\"operands\":[\"value\"],\"system\":true,\"worktree\":true}",
+        "config-unset-fixed-value": "{\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "config-unset-write-blob": "{\"blob\":\"\",\"operands\":[\"value\"]}",
+        "config-unset-write-stdin": "{\"file\":\"-\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "config rename-section",
+      "rules": 4,
+      "domains": {
+        "global": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "system": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"-\""
+        ],
+        "blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "145800",
+      "accepted": "1344",
+      "nodes": 126,
+      "isolatedRuleWitnesses": {
+        "config-rename-section-arity0": "{\"operands\":[]}",
+        "config-rename-section-location": "{\"operands\":[\"value\",\"value\"],\"system\":true,\"worktree\":true}",
+        "config-rename-section-write-blob": "{\"blob\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "config-rename-section-write-stdin": "{\"file\":\"-\",\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "config remove-section",
+      "rules": 4,
+      "domains": {
+        "global": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "system": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"-\""
+        ],
+        "blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "145800",
+      "accepted": "1344",
+      "nodes": 126,
+      "isolatedRuleWitnesses": {
+        "config-remove-section-arity0": "{\"operands\":[]}",
+        "config-remove-section-location": "{\"operands\":[\"value\"],\"system\":true,\"worktree\":true}",
+        "config-remove-section-write-blob": "{\"blob\":\"\",\"operands\":[\"value\"]}",
+        "config-remove-section-write-stdin": "{\"file\":\"-\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "config edit",
+      "rules": 4,
+      "domains": {
+        "global": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "system": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"-\""
+        ],
+        "blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "145800",
+      "accepted": "1344",
+      "nodes": 126,
+      "isolatedRuleWitnesses": {
+        "config-edit-arity0": "{\"operands\":[\"value\"]}",
+        "config-edit-location": "{\"operands\":[],\"system\":true,\"worktree\":true}",
+        "config-edit-write-blob": "{\"blob\":\"\",\"operands\":[]}",
+        "config-edit-write-stdin": "{\"file\":\"-\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "notes",
+      "rules": 1,
+      "domains": {
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "60",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "notes-arity0": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "notes list",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "120",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "notes-list-arity0": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "notes add",
+      "rules": 1,
+      "domains": {
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reedit-message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "edit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reuse-message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "allow-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "separator": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "stripspace": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "121500000",
+      "accepted": "48600000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "notes-add-arity0": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "notes append",
+      "rules": 1,
+      "domains": {
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reedit-message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reuse-message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "edit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "allow-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "separator": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "stripspace": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30375000",
+      "accepted": "12150000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "notes-append-arity0": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "notes edit",
+      "rules": 1,
+      "domains": {
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reedit-message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reuse-message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "edit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "allow-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "separator": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "stripspace": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30375000",
+      "accepted": "12150000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "notes-edit-arity0": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "notes show",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "120",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "notes-show-arity0": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "notes copy",
+      "rules": 3,
+      "domains": {
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "for-rewrite": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "18000",
+      "accepted": "4080",
+      "nodes": 26,
+      "isolatedRuleWitnesses": {
+        "notes-copy-arity0": "{\"operands\":[]}",
+        "notes-copy-arity1": "{\"operands\":[\"value\"],\"stdin\":true}",
+        "notes-copy-arity2": "{\"for-rewrite\":\"\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "notes merge",
+      "rules": 5,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "strategy": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"manual\"",
+          "\"ours\"",
+          "\"theirs\"",
+          "\"union\"",
+          "\"cat_sort_uniq\""
+        ],
+        "commit": [
+          "undefined",
+          "true"
+        ],
+        "abort": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "108000",
+      "accepted": "4320",
+      "nodes": 70,
+      "isolatedRuleWitnesses": {
+        "notes-merge-mode": "{\"commit\":true,\"operands\":[],\"strategy\":\"manual\"}",
+        "notes-merge-arity1": "{\"operands\":[]}",
+        "notes-merge-arity2": "{\"commit\":true,\"operands\":[\"value\"]}",
+        "notes-merge-arity3": "{\"abort\":true,\"operands\":[\"value\"]}",
+        "notes-merge-strategy": "{\"operands\":[\"value\"],\"strategy\":\"\"}"
+      }
+    },
+    {
+      "command": "notes remove",
+      "rules": 0,
+      "domains": {
+        "ignore-missing": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2700",
+      "accepted": "2700",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "notes prune",
+      "rules": 1,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3600",
+      "accepted": "720",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "notes-prune-arity0": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "notes get-ref",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "60",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "notes-get-ref-arity0": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "stash create",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

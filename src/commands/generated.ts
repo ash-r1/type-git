@@ -12074,6 +12074,2181 @@ export const COMMAND_SPECS = {
     source: 'builtin/stash.c',
     separator: true,
   },
+  'config list': {
+    argv: ['config', 'list'],
+    options: {
+      '--global': {
+        key: 'global',
+        value: 'flag',
+      },
+      '--no-global': {
+        key: 'global',
+        value: 'flag',
+        set: false,
+      },
+      '--system': {
+        key: 'system',
+        value: 'flag',
+      },
+      '--no-system': {
+        key: 'system',
+        value: 'flag',
+        set: false,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--worktree': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '--no-worktree': {
+        key: 'worktree',
+        value: 'flag',
+        set: false,
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-f': {
+        key: 'file',
+        value: 'string',
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        clear: true,
+      },
+      '--blob': {
+        key: 'blob',
+        value: 'string',
+      },
+      '--no-blob': {
+        key: 'blob',
+        value: 'flag',
+        clear: true,
+      },
+      '--null': {
+        key: 'null',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'null',
+        value: 'flag',
+      },
+      '--no-null': {
+        key: 'null',
+        value: 'flag',
+        set: false,
+      },
+      '--name-only': {
+        key: 'name-only',
+        value: 'flag',
+      },
+      '--no-name-only': {
+        key: 'name-only',
+        value: 'flag',
+        set: false,
+      },
+      '--show-origin': {
+        key: 'show-origin',
+        value: 'flag',
+      },
+      '--no-show-origin': {
+        key: 'show-origin',
+        value: 'flag',
+        set: false,
+      },
+      '--show-scope': {
+        key: 'show-scope',
+        value: 'flag',
+      },
+      '--no-show-scope': {
+        key: 'show-scope',
+        value: 'flag',
+        set: false,
+      },
+      '--show-names': {
+        key: 'show-names',
+        value: 'flag',
+      },
+      '--no-show-names': {
+        key: 'show-names',
+        value: 'flag',
+        set: false,
+      },
+      '--type': {
+        key: 'type',
+        value: 'string',
+        parser: 'config-type',
+        allowed: ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'],
+      },
+      '-t': {
+        key: 'type',
+        value: 'string',
+        parser: 'config-type',
+        allowed: ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'],
+      },
+      '--no-type': {
+        key: 'type',
+        value: 'flag',
+        clear: true,
+        parser: 'config-type',
+      },
+      '--bool': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool',
+        parser: 'config-type',
+      },
+      '--int': {
+        key: 'type',
+        value: 'flag',
+        set: 'int',
+        parser: 'config-type',
+      },
+      '--bool-or-int': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool-or-int',
+        parser: 'config-type',
+      },
+      '--bool-or-str': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool-or-str',
+        parser: 'config-type',
+      },
+      '--path': {
+        key: 'type',
+        value: 'flag',
+        set: 'path',
+        parser: 'config-type',
+      },
+      '--expiry-date': {
+        key: 'type',
+        value: 'flag',
+        set: 'expiry-date',
+        parser: 'config-type',
+      },
+      '--includes': {
+        key: 'includes',
+        value: 'flag',
+      },
+      '--no-includes': {
+        key: 'includes',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'config-list-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+      },
+      {
+        id: 'config-list-location',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one config source can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        keys: ['global', 'system', 'local', 'worktree', 'file', 'blob'],
+      },
+    ],
+    source: 'builtin/config.c',
+    separator: true,
+  },
+  'config get': {
+    argv: ['config', 'get'],
+    options: {
+      '--global': {
+        key: 'global',
+        value: 'flag',
+      },
+      '--no-global': {
+        key: 'global',
+        value: 'flag',
+        set: false,
+      },
+      '--system': {
+        key: 'system',
+        value: 'flag',
+      },
+      '--no-system': {
+        key: 'system',
+        value: 'flag',
+        set: false,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--worktree': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '--no-worktree': {
+        key: 'worktree',
+        value: 'flag',
+        set: false,
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-f': {
+        key: 'file',
+        value: 'string',
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        clear: true,
+      },
+      '--blob': {
+        key: 'blob',
+        value: 'string',
+      },
+      '--no-blob': {
+        key: 'blob',
+        value: 'flag',
+        clear: true,
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--regexp': {
+        key: 'regexp',
+        value: 'flag',
+      },
+      '--no-regexp': {
+        key: 'regexp',
+        value: 'flag',
+        set: false,
+      },
+      '--value': {
+        key: 'value',
+        value: 'string',
+      },
+      '--no-value': {
+        key: 'value',
+        value: 'flag',
+        clear: true,
+      },
+      '--fixed-value': {
+        key: 'fixed-value',
+        value: 'flag',
+      },
+      '--no-fixed-value': {
+        key: 'fixed-value',
+        value: 'flag',
+        set: false,
+      },
+      '--url': {
+        key: 'url',
+        value: 'string',
+      },
+      '--no-url': {
+        key: 'url',
+        value: 'flag',
+        clear: true,
+      },
+      '--null': {
+        key: 'null',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'null',
+        value: 'flag',
+      },
+      '--no-null': {
+        key: 'null',
+        value: 'flag',
+        set: false,
+      },
+      '--name-only': {
+        key: 'name-only',
+        value: 'flag',
+      },
+      '--no-name-only': {
+        key: 'name-only',
+        value: 'flag',
+        set: false,
+      },
+      '--show-origin': {
+        key: 'show-origin',
+        value: 'flag',
+      },
+      '--no-show-origin': {
+        key: 'show-origin',
+        value: 'flag',
+        set: false,
+      },
+      '--show-scope': {
+        key: 'show-scope',
+        value: 'flag',
+      },
+      '--no-show-scope': {
+        key: 'show-scope',
+        value: 'flag',
+        set: false,
+      },
+      '--show-names': {
+        key: 'show-names',
+        value: 'flag',
+      },
+      '--no-show-names': {
+        key: 'show-names',
+        value: 'flag',
+        set: false,
+      },
+      '--type': {
+        key: 'type',
+        value: 'string',
+        parser: 'config-type',
+        allowed: ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'],
+      },
+      '-t': {
+        key: 'type',
+        value: 'string',
+        parser: 'config-type',
+        allowed: ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'],
+      },
+      '--no-type': {
+        key: 'type',
+        value: 'flag',
+        clear: true,
+        parser: 'config-type',
+      },
+      '--bool': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool',
+        parser: 'config-type',
+      },
+      '--int': {
+        key: 'type',
+        value: 'flag',
+        set: 'int',
+        parser: 'config-type',
+      },
+      '--bool-or-int': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool-or-int',
+        parser: 'config-type',
+      },
+      '--bool-or-str': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool-or-str',
+        parser: 'config-type',
+      },
+      '--path': {
+        key: 'type',
+        value: 'flag',
+        set: 'path',
+        parser: 'config-type',
+      },
+      '--expiry-date': {
+        key: 'type',
+        value: 'flag',
+        set: 'expiry-date',
+        parser: 'config-type',
+      },
+      '--includes': {
+        key: 'includes',
+        value: 'flag',
+      },
+      '--no-includes': {
+        key: 'includes',
+        value: 'flag',
+        set: false,
+      },
+      '--default': {
+        key: 'default',
+        value: 'string',
+      },
+      '--no-default': {
+        key: 'default',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'config-get-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        key: 'operands',
+        min: 1,
+        max: 1,
+      },
+      {
+        id: 'config-get-location',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one config source can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        keys: ['global', 'system', 'local', 'worktree', 'file', 'blob'],
+      },
+      {
+        id: 'config-get-fixed-value',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Fixed-value matching needs an explicit pattern, including an empty pattern.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: {
+          key: 'fixed-value',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'value',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-get-default',
+        kind: 'conflicts',
+        origin: 'git',
+        reason: 'A default cannot accompany multi-value or URL matching.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: {
+          key: 'default',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'all',
+            test: 'active',
+          },
+          {
+            key: 'url',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-get-url',
+        kind: 'conflicts',
+        origin: 'git',
+        reason: 'URL matching excludes all, regexp and value filters.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: {
+          key: 'url',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'all',
+            test: 'active',
+          },
+          {
+            key: 'regexp',
+            test: 'active',
+          },
+          {
+            key: 'value',
+            test: 'present',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/config.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'config set': {
+    argv: ['config', 'set'],
+    options: {
+      '--global': {
+        key: 'global',
+        value: 'flag',
+      },
+      '--no-global': {
+        key: 'global',
+        value: 'flag',
+        set: false,
+      },
+      '--system': {
+        key: 'system',
+        value: 'flag',
+      },
+      '--no-system': {
+        key: 'system',
+        value: 'flag',
+        set: false,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--worktree': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '--no-worktree': {
+        key: 'worktree',
+        value: 'flag',
+        set: false,
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-f': {
+        key: 'file',
+        value: 'string',
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        clear: true,
+      },
+      '--blob': {
+        key: 'blob',
+        value: 'string',
+      },
+      '--no-blob': {
+        key: 'blob',
+        value: 'flag',
+        clear: true,
+      },
+      '--type': {
+        key: 'type',
+        value: 'string',
+        parser: 'config-type',
+        allowed: ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'],
+      },
+      '-t': {
+        key: 'type',
+        value: 'string',
+        parser: 'config-type',
+        allowed: ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'],
+      },
+      '--no-type': {
+        key: 'type',
+        value: 'flag',
+        clear: true,
+        parser: 'config-type',
+      },
+      '--bool': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool',
+        parser: 'config-type',
+      },
+      '--int': {
+        key: 'type',
+        value: 'flag',
+        set: 'int',
+        parser: 'config-type',
+      },
+      '--bool-or-int': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool-or-int',
+        parser: 'config-type',
+      },
+      '--bool-or-str': {
+        key: 'type',
+        value: 'flag',
+        set: 'bool-or-str',
+        parser: 'config-type',
+      },
+      '--path': {
+        key: 'type',
+        value: 'flag',
+        set: 'path',
+        parser: 'config-type',
+      },
+      '--expiry-date': {
+        key: 'type',
+        value: 'flag',
+        set: 'expiry-date',
+        parser: 'config-type',
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--value': {
+        key: 'value',
+        value: 'string',
+      },
+      '--no-value': {
+        key: 'value',
+        value: 'flag',
+        clear: true,
+      },
+      '--fixed-value': {
+        key: 'fixed-value',
+        value: 'flag',
+      },
+      '--no-fixed-value': {
+        key: 'fixed-value',
+        value: 'flag',
+        set: false,
+      },
+      '--comment': {
+        key: 'comment',
+        value: 'string',
+      },
+      '--no-comment': {
+        key: 'comment',
+        value: 'flag',
+        clear: true,
+      },
+      '--append': {
+        key: 'append',
+        value: 'flag',
+      },
+      '--no-append': {
+        key: 'append',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'config-set-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        key: 'operands',
+        min: 2,
+        max: 2,
+      },
+      {
+        id: 'config-set-location',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one config source can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        keys: ['global', 'system', 'local', 'worktree', 'file', 'blob'],
+      },
+      {
+        id: 'config-set-fixed-value',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Fixed-value matching needs an explicit pattern, including an empty pattern.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: {
+          key: 'fixed-value',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'value',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-set-append-value',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Appending cannot filter existing values.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'append',
+            test: 'active',
+          },
+          {
+            key: 'value',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-set-write-blob',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Config blobs cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'blob',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-set-write-stdin',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Standard input cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'file',
+            test: 'equals',
+            value: '-',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/config.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'config unset': {
+    argv: ['config', 'unset'],
+    options: {
+      '--global': {
+        key: 'global',
+        value: 'flag',
+      },
+      '--no-global': {
+        key: 'global',
+        value: 'flag',
+        set: false,
+      },
+      '--system': {
+        key: 'system',
+        value: 'flag',
+      },
+      '--no-system': {
+        key: 'system',
+        value: 'flag',
+        set: false,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--worktree': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '--no-worktree': {
+        key: 'worktree',
+        value: 'flag',
+        set: false,
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-f': {
+        key: 'file',
+        value: 'string',
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        clear: true,
+      },
+      '--blob': {
+        key: 'blob',
+        value: 'string',
+      },
+      '--no-blob': {
+        key: 'blob',
+        value: 'flag',
+        clear: true,
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--value': {
+        key: 'value',
+        value: 'string',
+      },
+      '--no-value': {
+        key: 'value',
+        value: 'flag',
+        clear: true,
+      },
+      '--fixed-value': {
+        key: 'fixed-value',
+        value: 'flag',
+      },
+      '--no-fixed-value': {
+        key: 'fixed-value',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'config-unset-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        key: 'operands',
+        min: 1,
+        max: 1,
+      },
+      {
+        id: 'config-unset-location',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one config source can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        keys: ['global', 'system', 'local', 'worktree', 'file', 'blob'],
+      },
+      {
+        id: 'config-unset-fixed-value',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Fixed-value matching needs an explicit pattern, including an empty pattern.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: {
+          key: 'fixed-value',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'value',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-unset-write-blob',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Config blobs cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'blob',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-unset-write-stdin',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Standard input cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'file',
+            test: 'equals',
+            value: '-',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/config.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'config rename-section': {
+    argv: ['config', 'rename-section'],
+    options: {
+      '--global': {
+        key: 'global',
+        value: 'flag',
+      },
+      '--no-global': {
+        key: 'global',
+        value: 'flag',
+        set: false,
+      },
+      '--system': {
+        key: 'system',
+        value: 'flag',
+      },
+      '--no-system': {
+        key: 'system',
+        value: 'flag',
+        set: false,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--worktree': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '--no-worktree': {
+        key: 'worktree',
+        value: 'flag',
+        set: false,
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-f': {
+        key: 'file',
+        value: 'string',
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        clear: true,
+      },
+      '--blob': {
+        key: 'blob',
+        value: 'string',
+      },
+      '--no-blob': {
+        key: 'blob',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'config-rename-section-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        key: 'operands',
+        min: 2,
+        max: 2,
+      },
+      {
+        id: 'config-rename-section-location',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one config source can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        keys: ['global', 'system', 'local', 'worktree', 'file', 'blob'],
+      },
+      {
+        id: 'config-rename-section-write-blob',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Config blobs cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'blob',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-rename-section-write-stdin',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Standard input cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'file',
+            test: 'equals',
+            value: '-',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/config.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'config remove-section': {
+    argv: ['config', 'remove-section'],
+    options: {
+      '--global': {
+        key: 'global',
+        value: 'flag',
+      },
+      '--no-global': {
+        key: 'global',
+        value: 'flag',
+        set: false,
+      },
+      '--system': {
+        key: 'system',
+        value: 'flag',
+      },
+      '--no-system': {
+        key: 'system',
+        value: 'flag',
+        set: false,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--worktree': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '--no-worktree': {
+        key: 'worktree',
+        value: 'flag',
+        set: false,
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-f': {
+        key: 'file',
+        value: 'string',
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        clear: true,
+      },
+      '--blob': {
+        key: 'blob',
+        value: 'string',
+      },
+      '--no-blob': {
+        key: 'blob',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'config-remove-section-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        key: 'operands',
+        min: 1,
+        max: 1,
+      },
+      {
+        id: 'config-remove-section-location',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one config source can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        keys: ['global', 'system', 'local', 'worktree', 'file', 'blob'],
+      },
+      {
+        id: 'config-remove-section-write-blob',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Config blobs cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'blob',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-remove-section-write-stdin',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Standard input cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'file',
+            test: 'equals',
+            value: '-',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/config.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'config edit': {
+    argv: ['config', 'edit'],
+    options: {
+      '--global': {
+        key: 'global',
+        value: 'flag',
+      },
+      '--no-global': {
+        key: 'global',
+        value: 'flag',
+        set: false,
+      },
+      '--system': {
+        key: 'system',
+        value: 'flag',
+      },
+      '--no-system': {
+        key: 'system',
+        value: 'flag',
+        set: false,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--worktree': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '--no-worktree': {
+        key: 'worktree',
+        value: 'flag',
+        set: false,
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-f': {
+        key: 'file',
+        value: 'string',
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        clear: true,
+      },
+      '--blob': {
+        key: 'blob',
+        value: 'string',
+      },
+      '--no-blob': {
+        key: 'blob',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'config-edit-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+      },
+      {
+        id: 'config-edit-location',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one config source can be selected.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        keys: ['global', 'system', 'local', 'worktree', 'file', 'blob'],
+      },
+      {
+        id: 'config-edit-write-blob',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Config blobs cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'blob',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'config-edit-write-stdin',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Standard input cannot be written or edited.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+        when: [
+          {
+            key: 'file',
+            test: 'equals',
+            value: '-',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/config.c',
+    separator: true,
+  },
+  notes: {
+    argv: ['notes'],
+    options: {
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'notes-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes list': {
+    argv: ['notes', 'list'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-list-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes add': {
+    argv: ['notes', 'add'],
+    options: {
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-F': {
+        key: 'file',
+        value: 'string',
+      },
+      '--reedit-message': {
+        key: 'reedit-message',
+        value: 'string',
+      },
+      '-c': {
+        key: 'reedit-message',
+        value: 'string',
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--reuse-message': {
+        key: 'reuse-message',
+        value: 'string',
+      },
+      '-C': {
+        key: 'reuse-message',
+        value: 'string',
+      },
+      '--allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+      },
+      '--no-allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--separator': {
+        key: 'separator',
+        value: 'optional-string',
+      },
+      '--no-separator': {
+        key: 'separator',
+        value: 'flag',
+        clear: true,
+      },
+      '--stripspace': {
+        key: 'stripspace',
+        value: 'flag',
+      },
+      '--no-stripspace': {
+        key: 'stripspace',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-add-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes append': {
+    argv: ['notes', 'append'],
+    options: {
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-F': {
+        key: 'file',
+        value: 'string',
+      },
+      '--reedit-message': {
+        key: 'reedit-message',
+        value: 'string',
+      },
+      '-c': {
+        key: 'reedit-message',
+        value: 'string',
+      },
+      '--reuse-message': {
+        key: 'reuse-message',
+        value: 'string',
+      },
+      '-C': {
+        key: 'reuse-message',
+        value: 'string',
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+      },
+      '--no-allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--separator': {
+        key: 'separator',
+        value: 'optional-string',
+      },
+      '--no-separator': {
+        key: 'separator',
+        value: 'flag',
+        clear: true,
+      },
+      '--stripspace': {
+        key: 'stripspace',
+        value: 'flag',
+      },
+      '--no-stripspace': {
+        key: 'stripspace',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-append-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes edit': {
+    argv: ['notes', 'edit'],
+    options: {
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-F': {
+        key: 'file',
+        value: 'string',
+      },
+      '--reedit-message': {
+        key: 'reedit-message',
+        value: 'string',
+      },
+      '-c': {
+        key: 'reedit-message',
+        value: 'string',
+      },
+      '--reuse-message': {
+        key: 'reuse-message',
+        value: 'string',
+      },
+      '-C': {
+        key: 'reuse-message',
+        value: 'string',
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+      },
+      '--no-allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--separator': {
+        key: 'separator',
+        value: 'optional-string',
+      },
+      '--no-separator': {
+        key: 'separator',
+        value: 'flag',
+        clear: true,
+      },
+      '--stripspace': {
+        key: 'stripspace',
+        value: 'flag',
+      },
+      '--no-stripspace': {
+        key: 'stripspace',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-edit-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes show': {
+    argv: ['notes', 'show'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-show-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes copy': {
+    argv: ['notes', 'copy'],
+    options: {
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--for-rewrite': {
+        key: 'for-rewrite',
+        value: 'string',
+      },
+      '--no-for-rewrite': {
+        key: 'for-rewrite',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-copy-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        guard: [
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+          {
+            key: 'for-rewrite',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'notes-copy-arity1',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+      },
+      {
+        id: 'notes-copy-arity2',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'for-rewrite',
+          test: 'present',
+        },
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes merge': {
+    argv: ['notes', 'merge'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--strategy': {
+        key: 'strategy',
+        value: 'string',
+      },
+      '-s': {
+        key: 'strategy',
+        value: 'string',
+      },
+      '--no-strategy': {
+        key: 'strategy',
+        value: 'flag',
+        clear: true,
+      },
+      '--commit': {
+        key: 'commit',
+        value: 'flag',
+      },
+      '--abort': {
+        key: 'abort',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-merge-mode',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Notes merge cannot combine commit, abort or an explicit strategy.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        keys: ['commit', 'abort', 'strategy'],
+      },
+      {
+        id: 'notes-merge-arity1',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        guard: [
+          {
+            key: 'commit',
+            test: 'inactive',
+          },
+          {
+            key: 'abort',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'notes-merge-arity2',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'commit',
+          test: 'active',
+        },
+      },
+      {
+        id: 'notes-merge-arity3',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'abort',
+          test: 'active',
+        },
+      },
+      {
+        id: 'notes-merge-strategy',
+        kind: 'value',
+        origin: 'git',
+        reason: 'Notes merge supports five built-in strategies.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'strategy',
+        allowed: ['manual', 'ours', 'theirs', 'union', 'cat_sort_uniq'],
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes remove': {
+    argv: ['notes', 'remove'],
+    options: {
+      '--ignore-missing': {
+        key: 'ignore-missing',
+        value: 'flag',
+      },
+      '--no-ignore-missing': {
+        key: 'ignore-missing',
+        value: 'flag',
+        set: false,
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes prune': {
+    argv: ['notes', 'prune'],
+    options: {
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-prune-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'notes get-ref': {
+    argv: ['notes', 'get-ref'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref': {
+        key: 'ref',
+        value: 'string',
+        before: 1,
+      },
+      '--no-ref': {
+        key: 'ref',
+        value: 'flag',
+        clear: true,
+        before: 1,
+      },
+    },
+    rules: [
+      {
+        id: 'notes-get-ref-arity0',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/notes.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+      },
+    ],
+    source: 'builtin/notes.c',
+    separator: true,
+  },
+  'stash create': {
+    argv: ['stash', 'create'],
+    options: {},
+    rules: [],
+    source: 'builtin/stash.c',
+    separator: false,
+    optionParsing: 'none',
+  },
   lfs: {
     argv: ['lfs'],
     options: {

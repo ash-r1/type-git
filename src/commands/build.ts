@@ -40,7 +40,13 @@ export function commandArguments(
       if (typeof operand !== 'string' || operand.includes('\0')) {
         throw new GitArgumentError('Expected a string operand without NUL');
       }
-      if (!ended && operand.startsWith('-') && operand !== '-') {
+      if (
+        !ended &&
+        spec.optionParsing !== 'none' &&
+        !(spec.optionParsing === 'stop-at-operand' && operands.length > 0) &&
+        operand.startsWith('-') &&
+        operand !== '-'
+      ) {
         throw new GitArgumentError(
           'Use an explicit ["--"] separator before an operand starting with a dash',
         );
@@ -49,6 +55,11 @@ export function commandArguments(
       operands.push(operand);
       (ended ? pathsAfterSeparator : operandsBeforeSeparator).push(operand);
       continue;
+    }
+    if (spec.optionParsing === 'stop-at-operand' && operands.length > 0) {
+      throw new GitArgumentError(
+        `${command}: options must precede the first operand; use an operand object for literal words`,
+      );
     }
     if (arg[0] === '--' && arg.length === 1) {
       if (!spec.separator || ended) {

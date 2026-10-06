@@ -35,12 +35,30 @@ export function gitBoolean(value: unknown): boolean | undefined {
   return integer === undefined ? undefined : integer !== 0n;
 }
 
-export type GitScalarParser = 'git-bool' | 'fetch-recurse' | 'push-recurse' | 'push-signed';
+export type GitScalarParser =
+  | 'git-bool'
+  | 'fetch-recurse'
+  | 'push-recurse'
+  | 'push-signed'
+  | 'config-type';
 export function parseGitScalar(
   parser: GitScalarParser,
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'config-type') {
+    if (value === undefined) {
+      return { valid: true, value };
+    }
+    return {
+      valid:
+        ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'].includes(
+          String(value),
+        ) &&
+        (previous === undefined || previous === value),
+      value,
+    };
+  }
   if (parser === 'push-recurse' && value === 'only-is-on-demand') {
     return { valid: true, value: previous === 'only' ? 'on-demand' : previous };
   }
