@@ -290,11 +290,13 @@
     },
     "pull": {
       "state": "partial",
-      "models": [
-        "pull"
+      "models": [],
+      "tests": [
+        "src/commands/revision-query.test.ts",
+        "test/types/revision-query-command-api.ts"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Fetch-to-merge/rebase delegation, repeated passthrough argv, shallow transport rules and fetched revision state need phase-aware modeling.",
+      "typedCommandAPI": true
     },
     "switch": {
       "state": "partial",
@@ -2547,6 +2549,76 @@
         "test/types/search-patch-command-api.ts"
       ],
       "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Compression support depends on the configured format and output filename; remote server version and binary transport remain pending.",
+      "typedCommandAPI": true
+    },
+    "pickaxe": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/revision-query.test.ts",
+        "test/types/revision-query-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "whatchanged": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/revision-query.test.ts",
+        "test/types/revision-query-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "shortlog": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/revision-query.test.ts",
+        "test/types/revision-query-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Group accumulation/clearing and stdin-vs-revision behavior depend on resolved input and terminal state.",
+      "typedCommandAPI": true
+    },
+    "show-branch": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/revision-query.test.ts",
+        "test/types/revision-query-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Reflog count conversion/MAX_REVS and resolved branch expansion limits remain pending.",
+      "typedCommandAPI": true
+    },
+    "rev-parse": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/revision-query.test.ts",
+        "test/types/revision-query-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Unknown flag passthrough, --end-of-options, deferred hidden-ref state and revision counting depend on argument position and object resolution.",
+      "typedCommandAPI": true
+    },
+    "rev-parse --parseopt": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/revision-query.test.ts",
+        "test/types/revision-query-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "rev-parse --sq-quote": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/revision-query.test.ts",
+        "test/types/revision-query-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule.",
       "typedCommandAPI": true
     }
   }
