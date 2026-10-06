@@ -193,8 +193,12 @@
       "models": [
         "log"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/revision-diff.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection.",
+      "typedCommandAPI": true
     },
     "fetch": {
       "state": "partial",
@@ -261,8 +265,12 @@
       "models": [
         "diff"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/revision-diff.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection.",
+      "typedCommandAPI": true
     },
     "merge": {
       "state": "partial",
@@ -1240,6 +1248,56 @@
       ],
       "typedCommandAPI": true,
       "remaining": "Stash topology and working/index state; message behavior with non-ASCII and arbitrary control characters; independent cross-platform witnesses."
+    },
+    "show": {
+      "state": "partial",
+      "typedCommandAPI": true,
+      "models": [],
+      "tests": [
+        "src/commands/revision-diff.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
+    },
+    "diff-files": {
+      "state": "partial",
+      "typedCommandAPI": true,
+      "models": [],
+      "tests": [
+        "src/commands/revision-diff.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
+    },
+    "diff-index": {
+      "state": "partial",
+      "typedCommandAPI": true,
+      "models": [],
+      "tests": [
+        "src/commands/revision-diff.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
+    },
+    "diff-tree": {
+      "state": "partial",
+      "typedCommandAPI": true,
+      "models": [],
+      "tests": [
+        "src/commands/revision-diff.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
+    },
+    "diff --no-index": {
+      "state": "partial",
+      "typedCommandAPI": true,
+      "models": [],
+      "tests": [
+        "src/commands/revision-diff.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Filesystem-dependent file/directory operand rules, pathspec grammar, callback argument languages and binary output."
     }
   }
 }
