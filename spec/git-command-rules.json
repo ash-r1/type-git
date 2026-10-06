@@ -20737,6 +20737,304 @@
       "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
     }
   ],
+  "svn fetch": [
+    {
+      "id": "cli.svn.fetch.remote",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "Fetch accepts at most one remote name."
+    }
+  ],
+  "svn clone": [
+    {
+      "id": "cli.svn.clone.required-name",
+      "kind": "required",
+      "required": [
+        {
+          "key": "operand0",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The operation requires a nonempty first operand."
+    },
+    {
+      "id": "cli.svn.clone.perl-zero",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "operand0",
+          "test": "equals",
+          "value": "0"
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The first operand uses Perl truthiness and therefore cannot be the string zero."
+    },
+    {
+      "id": "cli.svn.clone.metadata-options",
+      "kind": "exclusiveGroups",
+      "groups": [
+        [
+          {
+            "key": "no-metadata",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "use-svm-props",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "use-svnsync-props",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "rewrite-root",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "rewrite-uuid",
+            "test": "present"
+          }
+        ]
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "do_git_init_db permits only one entry in its metadata initialization map, including rewrite fields."
+    }
+  ],
+  "svn init": [
+    {
+      "id": "cli.svn.init.metadata-options",
+      "kind": "exclusiveGroups",
+      "groups": [
+        [
+          {
+            "key": "no-metadata",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "use-svm-props",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "use-svnsync-props",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "rewrite-root",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "rewrite-uuid",
+            "test": "present"
+          }
+        ]
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "do_git_init_db permits only one entry in its metadata initialization map, including rewrite fields."
+    }
+  ],
+  "svn multi-init": [
+    {
+      "id": "cli.svn.multi-init.metadata-options",
+      "kind": "exclusiveGroups",
+      "groups": [
+        [
+          {
+            "key": "no-metadata",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "use-svm-props",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "use-svnsync-props",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "rewrite-root",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "rewrite-uuid",
+            "test": "present"
+          }
+        ]
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "do_git_init_db permits only one entry in its metadata initialization map, including rewrite fields."
+    }
+  ],
+  "svn dcommit": [],
+  "svn branch": [
+    {
+      "id": "cli.svn.branch.required-name",
+      "kind": "required",
+      "required": [
+        {
+          "key": "operand0",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The operation requires a nonempty first operand."
+    }
+  ],
+  "svn tag": [
+    {
+      "id": "cli.svn.tag.required-name",
+      "kind": "required",
+      "required": [
+        {
+          "key": "operand0",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The operation requires a nonempty first operand."
+    }
+  ],
+  "svn set-tree": [],
+  "svn create-ignore": [],
+  "svn mkdirs": [],
+  "svn propget": [
+    {
+      "id": "cli.svn.propget.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The operation requires its initial operands but ignores surplus words."
+    }
+  ],
+  "svn propset": [
+    {
+      "id": "cli.svn.propset.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The operation requires its initial operands but ignores surplus words."
+    }
+  ],
+  "svn proplist": [],
+  "svn show-ignore": [],
+  "svn show-externals": [],
+  "svn multi-fetch": [],
+  "svn migrate": [],
+  "svn log": [],
+  "svn find-rev": [
+    {
+      "id": "cli.svn.find-rev.required-name",
+      "kind": "required",
+      "required": [
+        {
+          "key": "operand0",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The operation requires a nonempty first operand."
+    },
+    {
+      "id": "cli.svn.find-rev.perl-zero",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "operand0",
+          "test": "equals",
+          "value": "0"
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The first operand uses Perl truthiness and therefore cannot be the string zero."
+    }
+  ],
+  "svn rebase": [],
+  "svn commit-diff": [
+    {
+      "id": "cli.svn.commit-diff.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "The operation requires its initial operands but ignores surplus words."
+    },
+    {
+      "id": "cli.svn.commit-diff.message-file",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "message",
+          "test": "present"
+        },
+        {
+          "key": "file",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "Explicit message and file options cannot both be defined, even when empty."
+    }
+  ],
+  "svn info": [
+    {
+      "id": "cli.svn.info.path",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-svn.perl",
+      "reason": "Info accepts at most one path."
+    }
+  ],
+  "svn blame": [],
+  "svn reset": [],
+  "svn gc": [],
+  "svn": [],
   "gui version": [
     {
       "id": "cli.gui.version.no-operands",

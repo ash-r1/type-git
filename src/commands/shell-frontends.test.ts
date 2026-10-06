@@ -134,10 +134,10 @@ describe('native shell frontends', () => {
     for (const name of ['sh-i18n', 'sh-setup']) {
       const result = spawnSync(
         'sh',
-        ['-c', '. "$1"; printf library-loaded', '_', join(execPath, 'git-' + name)],
+        ['-c', '. "$1"; printf library-loaded', '_', join(execPath, `git-${name}`)],
         {
           cwd: repo.workdir,
-          env: { ...env, PATH: execPath + ':' + env.PATH },
+          env: { ...env, PATH: `${execPath}:${env.PATH}` },
           encoding: 'utf8',
           timeout: 10000,
         },

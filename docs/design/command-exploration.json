@@ -61036,6 +61036,2854 @@
       }
     },
     {
+      "command": "svn fetch",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "fetch-all": [
+          "undefined",
+          "true"
+        ],
+        "parent": [
+          "undefined",
+          "true"
+        ],
+        "follow-parent": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "authors-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "authors-prog": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "repack": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "log-window-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-checkout": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "repack-flags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "use-log-author": [
+          "undefined",
+          "true"
+        ],
+        "add-author-from": [
+          "undefined",
+          "true"
+        ],
+        "localtime": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "378000000000000",
+      "accepted": "151200000000000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.svn.fetch.remote": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "svn clone",
+      "rules": 3,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "preserve-empty-dirs": [
+          "undefined",
+          "true"
+        ],
+        "placeholder-filename": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "follow-parent": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "authors-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "authors-prog": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "repack": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "log-window-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-checkout": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "repack-flags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "use-log-author": [
+          "undefined",
+          "true"
+        ],
+        "add-author-from": [
+          "undefined",
+          "true"
+        ],
+        "localtime": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "template": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shared": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "trunk": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "tags": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "branches": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stdlayout": [
+          "undefined",
+          "true"
+        ],
+        "minimize-url": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-metadata": [
+          "undefined",
+          "true"
+        ],
+        "use-svm-props": [
+          "undefined",
+          "true"
+        ],
+        "use-svnsync-props": [
+          "undefined",
+          "true"
+        ],
+        "rewrite-root": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rewrite-uuid": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"0\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "127575000000000000000000",
+      "accepted": "2551500000000000000000",
+      "nodes": 73,
+      "isolatedRuleWitnesses": {
+        "cli.svn.clone.required-name": "{\"operands\":[]}",
+        "cli.svn.clone.perl-zero": "{\"operand0\":\"0\",\"operands\":[]}",
+        "cli.svn.clone.metadata-options": "{\"operand0\":\"value\",\"operands\":[],\"use-svm-props\":true,\"use-svnsync-props\":true}"
+      }
+    },
+    {
+      "command": "svn init",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "template": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shared": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "trunk": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "tags": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "branches": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stdlayout": [
+          "undefined",
+          "true"
+        ],
+        "minimize-url": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-metadata": [
+          "undefined",
+          "true"
+        ],
+        "use-svm-props": [
+          "undefined",
+          "true"
+        ],
+        "use-svnsync-props": [
+          "undefined",
+          "true"
+        ],
+        "rewrite-root": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rewrite-uuid": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3375000000000000",
+      "accepted": "202500000000000",
+      "nodes": 50,
+      "isolatedRuleWitnesses": {
+        "cli.svn.init.metadata-options": "{\"operands\":[],\"use-svm-props\":true,\"use-svnsync-props\":true}"
+      }
+    },
+    {
+      "command": "svn multi-init",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "template": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shared": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "trunk": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "tags": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "branches": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stdlayout": [
+          "undefined",
+          "true"
+        ],
+        "minimize-url": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-metadata": [
+          "undefined",
+          "true"
+        ],
+        "use-svm-props": [
+          "undefined",
+          "true"
+        ],
+        "use-svnsync-props": [
+          "undefined",
+          "true"
+        ],
+        "rewrite-root": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rewrite-uuid": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3375000000000000",
+      "accepted": "202500000000000",
+      "nodes": 50,
+      "isolatedRuleWitnesses": {
+        "cli.svn.multi-init.metadata-options": "{\"operands\":[],\"use-svm-props\":true,\"use-svnsync-props\":true}"
+      }
+    },
+    {
+      "command": "svn dcommit",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "merge": [
+          "undefined",
+          "true"
+        ],
+        "strategy": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "true"
+        ],
+        "fetch-all": [
+          "undefined",
+          "true"
+        ],
+        "commit-url": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "set-svn-props": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "revision": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-rebase": [
+          "undefined",
+          "true"
+        ],
+        "mergeinfo": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "interactive": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "edit": [
+          "undefined",
+          "true"
+        ],
+        "rmdir": [
+          "undefined",
+          "true"
+        ],
+        "find-copies-harder": [
+          "undefined",
+          "true"
+        ],
+        "l": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "copy-similarity": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "follow-parent": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "authors-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "authors-prog": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "repack": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "log-window-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-checkout": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "repack-flags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "use-log-author": [
+          "undefined",
+          "true"
+        ],
+        "add-author-from": [
+          "undefined",
+          "true"
+        ],
+        "localtime": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1306368000000000000000",
+      "accepted": "1306368000000000000000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn branch",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "destination": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dry-run": [
+          "undefined",
+          "true"
+        ],
+        "parents": [
+          "undefined",
+          "true"
+        ],
+        "tag": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "commit-url": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30000000",
+      "accepted": "15000000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.svn.branch.required-name": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "svn tag",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "destination": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dry-run": [
+          "undefined",
+          "true"
+        ],
+        "parents": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "commit-url": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "15000000",
+      "accepted": "7500000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.svn.tag.required-name": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "svn set-tree",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "edit": [
+          "undefined",
+          "true"
+        ],
+        "rmdir": [
+          "undefined",
+          "true"
+        ],
+        "find-copies-harder": [
+          "undefined",
+          "true"
+        ],
+        "l": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "copy-similarity": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "follow-parent": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "authors-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "authors-prog": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "repack": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "log-window-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-checkout": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "repack-flags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "use-log-author": [
+          "undefined",
+          "true"
+        ],
+        "add-author-from": [
+          "undefined",
+          "true"
+        ],
+        "localtime": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "10886400000000000",
+      "accepted": "10886400000000000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn create-ignore",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "36000",
+      "accepted": "36000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn mkdirs",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "36000",
+      "accepted": "36000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn propget",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "36000",
+      "accepted": "28800",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.svn.propget.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "svn propset",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6000",
+      "accepted": "3600",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.svn.propset.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "svn proplist",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "36000",
+      "accepted": "36000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn show-ignore",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "36000",
+      "accepted": "36000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn show-externals",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "36000",
+      "accepted": "36000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn multi-fetch",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "follow-parent": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "authors-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "authors-prog": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "repack": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "log-window-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-checkout": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "repack-flags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "use-log-author": [
+          "undefined",
+          "true"
+        ],
+        "add-author-from": [
+          "undefined",
+          "true"
+        ],
+        "localtime": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "94500000000000",
+      "accepted": "94500000000000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn migrate",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "minimize": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "75000000",
+      "accepted": "75000000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn log",
+      "rules": 0,
+      "domains": {
+        "limit": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "revision": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "incremental": [
+          "undefined",
+          "true"
+        ],
+        "oneline": [
+          "undefined",
+          "true"
+        ],
+        "show-commit": [
+          "undefined",
+          "true"
+        ],
+        "non-recursive": [
+          "undefined",
+          "true"
+        ],
+        "authors-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color": [
+          "undefined",
+          "true"
+        ],
+        "pager": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "288000000",
+      "accepted": "288000000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn find-rev",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "B": [
+          "undefined",
+          "true"
+        ],
+        "A": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"0\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "36000",
+      "accepted": "12000",
+      "nodes": 5,
+      "isolatedRuleWitnesses": {
+        "cli.svn.find-rev.required-name": "{\"operands\":[]}",
+        "cli.svn.find-rev.perl-zero": "{\"operand0\":\"0\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "svn rebase",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "merge": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "strategy": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "local": [
+          "undefined",
+          "true"
+        ],
+        "fetch-all": [
+          "undefined",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "true"
+        ],
+        "rebase-merges": [
+          "undefined",
+          "true"
+        ],
+        "follow-parent": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "authors-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "authors-prog": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "repack": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "log-window-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-checkout": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "repack-flags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "use-log-author": [
+          "undefined",
+          "true"
+        ],
+        "add-author-from": [
+          "undefined",
+          "true"
+        ],
+        "localtime": [
+          "undefined",
+          "true"
+        ],
+        "username": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-auth-cache": [
+          "undefined",
+          "true"
+        ],
+        "ignore-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-paths": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-refs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6048000000000000",
+      "accepted": "6048000000000000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn commit-diff",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "revision": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "edit": [
+          "undefined",
+          "true"
+        ],
+        "rmdir": [
+          "undefined",
+          "true"
+        ],
+        "find-copies-harder": [
+          "undefined",
+          "true"
+        ],
+        "l": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "copy-similarity": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "216000000",
+      "accepted": "46656000",
+      "nodes": 13,
+      "isolatedRuleWitnesses": {
+        "cli.svn.commit-diff.operands": "{\"operands\":[]}",
+        "cli.svn.commit-diff.message-file": "{\"file\":\"\",\"message\":\"\",\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "svn info",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "url": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "12000",
+      "accepted": "4800",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.svn.info.path": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "svn blame",
+      "rules": 0,
+      "domains": {
+        "git-format": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "12000",
+      "accepted": "12000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn reset",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "revision": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "parent": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60000",
+      "accepted": "60000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn gc",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6000",
+      "accepted": "6000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "svn",
+      "dispatch": {
+        "fetch": "svn fetch",
+        "clone": "svn clone",
+        "init": "svn init",
+        "multi-init": "svn multi-init",
+        "dcommit": "svn dcommit",
+        "branch": "svn branch",
+        "tag": "svn tag",
+        "set-tree": "svn set-tree",
+        "create-ignore": "svn create-ignore",
+        "mkdirs": "svn mkdirs",
+        "propget": "svn propget",
+        "propset": "svn propset",
+        "proplist": "svn proplist",
+        "show-ignore": "svn show-ignore",
+        "show-externals": "svn show-externals",
+        "multi-fetch": "svn multi-fetch",
+        "migrate": "svn migrate",
+        "log": "svn log",
+        "find-rev": "svn find-rev",
+        "rebase": "svn rebase",
+        "commit-diff": "svn commit-diff",
+        "info": "svn info",
+        "blame": "svn blame",
+        "reset": "svn reset",
+        "gc": "svn gc"
+      },
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "true"
+        ],
+        "minimize-connections": [
+          "undefined",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "svn-remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6000",
+      "accepted": "6000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
       "command": "gui version",
       "rules": 1,
       "domains": {
