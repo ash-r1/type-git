@@ -15625,5 +15625,71 @@
       "reason": "This root dispatcher accepts only its registered operations.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
     }
+  ],
+  "update-index": [
+    {
+      "id": "cli.update-index.index-version",
+      "kind": "value",
+      "key": "index-version",
+      "allowed": [
+        2,
+        3,
+        4
+      ],
+      "guard": [
+        {
+          "key": "index-version",
+          "test": "positive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Positive index versions are limited to supported formats; zero leaves it unchanged and negative values print the current version.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/update-index.c"
+    }
+  ],
+  "fast-export": [
+    {
+      "id": "cli.fast-export.arguments",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "origin": "git",
+      "reason": "The entrypoint requires at least one command argument, which need not be a revision.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c"
+    },
+    {
+      "id": "cli.fast-export.anonymize-map",
+      "kind": "requires",
+      "when": {
+        "key": "anonymize-map",
+        "test": "nonempty"
+      },
+      "required": [
+        {
+          "key": "anonymize",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A supplied anonymization map requires anonymization to remain enabled.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c"
+    },
+    {
+      "id": "cli.fast-export.import-marks",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "import-marks",
+          "test": "present"
+        },
+        {
+          "key": "import-marks-if-exists",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "The two import filename pointers are mutually exclusive, including empty strings.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c"
+    }
   ]
 }

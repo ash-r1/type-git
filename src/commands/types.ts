@@ -268,7 +268,9 @@ type CheckedTokenState<S, D extends OptionSpec, T extends readonly unknown[]> = 
 > extends true
   ? CheckedCallbackState<S, D, T>
   : never;
-type ParsingEnded<C extends GitCommandName, S> = S extends { ended: true }
+type ParsingEnded<C extends GitCommandName, S> = S extends
+  | { ended: true }
+  | { literalOperands: true }
   ? true
   : Spec<C> extends { optionParsing: 'stop-at-operand' }
     ? S extends { operands: readonly [] }
@@ -294,11 +296,18 @@ type Digits<S extends string> = S extends ''
   : S extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'}${infer R}`
     ? Digits<R>
     : false;
-type ApplyOption<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+type AppliedOption<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   effects: infer E extends NonNullable<OptionSpec['effects']>;
 }
   ? Effects<CheckedTokenState<S, D, T>, E>
   : CheckedTokenState<S, D, T>;
+type ApplyOption<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  consumesRest: true;
+}
+  ? [AppliedOption<S, D, T>] extends [never]
+    ? never
+    : Put<AppliedOption<S, D, T>, 'literalOperands', true>
+  : AppliedOption<S, D, T>;
 type ApplyNumeric<C extends GitCommandName, S, T> = T extends readonly [
   `-${infer N extends number}`,
 ]
@@ -341,7 +350,7 @@ type State<
 > = [S] extends [never]
   ? never
   : A extends readonly [infer H, ...infer Rest]
-    ? State<C, Rest, ApplyToken<C, S, H>>
+    ? State<C, Rest, ApplyToken<C, Put<S, '$remaining', Rest>, H>>
     : S;
 // Evaluate one rule at a time: constructing their Cartesian union can exceed TypeScript's union limit.
 type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [

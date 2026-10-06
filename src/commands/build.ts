@@ -33,9 +33,10 @@ export function commandArguments(
     pathsAfterSeparator,
   };
   let ended = false;
+  let literalOperands = false;
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
-  for (const arg of args) {
+  for (const [index, arg] of args.entries()) {
     if (!Array.isArray(arg)) {
       const operand =
         arg !== null && typeof arg === 'object' && 'operand' in arg ? arg.operand : undefined;
@@ -43,7 +44,7 @@ export function commandArguments(
         throw new GitArgumentError('Expected a string operand without NUL');
       }
       if (
-        !ended &&
+        !(ended || literalOperands) &&
         spec.optionParsing !== 'none' &&
         !(spec.optionParsing === 'stop-at-operand' && operands.length > 0) &&
         operand.startsWith('-') &&
@@ -58,7 +59,7 @@ export function commandArguments(
       (ended ? pathsAfterSeparator : operandsBeforeSeparator).push(operand);
       continue;
     }
-    if (spec.optionParsing === 'stop-at-operand' && operands.length > 0) {
+    if (literalOperands || (spec.optionParsing === 'stop-at-operand' && operands.length > 0)) {
       throw new GitArgumentError(
         `${command}: options must precede the first operand; use an operand object for literal words`,
       );
@@ -93,6 +94,7 @@ export function commandArguments(
     if (option.checks) {
       const inputState = { ...state };
       inputState.$value = value;
+      inputState.$remaining = args.slice(index + 1);
       const errors = violations(option.checks, inputState);
       if (errors.length > 0) {
         throw new GitArgumentError(
@@ -177,6 +179,9 @@ export function commandArguments(
       : { valid: true, value };
     if (!parsed.valid) {
       throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
+    }
+    if (option.consumesRest) {
+      literalOperands = true;
     }
     if (option.ignore) {
       continue;
