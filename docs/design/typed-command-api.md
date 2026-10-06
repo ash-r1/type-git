@@ -233,3 +233,7 @@ limit would reject valid Git commands. Replay requires exactly one target mode,
 preserves final ref-action selection, and accepts options which Git subsequently
 overrides with a warning. Phase-specific defaults and delegated value languages
 remain recorded as pending in the ledger.
+The generated catalogue declares each command's literal schema separately and
+uses explicit type references in the registry. This preserves per-command
+inference without exceeding TypeScript's declaration serialization limit as the
+catalogue grows.
