@@ -22,6 +22,10 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `branch` | documented | partial | yes |  | Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering. |
 | `bugreport` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Upstream diagnose with --no-suffix requires separate audit; no extra wrapper prohibition is invented. |
 | `bundle` | documented | pending | pending |  | Audit every applicable facet. |
+| `bundle create` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Revision options after the output path are currently literal operands; typed nested revision tokens remain pending. |
+| `bundle list-heads` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
+| `bundle unbundle` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
+| `bundle verify` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
 | `cat-file` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `check-attr` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `check-ignore` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
@@ -93,6 +97,9 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `hash-object` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `help` | documented | pending | pending |  | Audit every applicable facet. |
 | `history` | documented | pending | pending |  | Audit every applicable facet. |
+| `history fixup` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
+| `history reword` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
+| `history split` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
 | `hook` | documented | pending | pending |  | Audit every applicable facet. |
 | `hook list` | reviewed-scope | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `hook run` | reviewed-scope | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. The alternative --end-of-options marker and unusual literal marker positions need separate grammar work. |
@@ -245,6 +252,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `replace` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `replay` | documented | pending | pending |  | Audit every applicable facet. |
 | `repo` | documented | pending | pending |  | Audit every applicable facet. |
+| `repo info` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
+| `repo structure` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
 | `request-pull` | documented | pending | pending |  | Audit every applicable facet. |
 | `rerere` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `rerere clear` | reviewed-scope | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
@@ -255,7 +264,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `rerere status` | reviewed-scope | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `reset` | documented | partial | yes | reset | Revision/path disambiguation before --, pathspec file contents, repository state, numeric lexical forms and abbreviations. |
 | `restore` | documented | partial | yes | restore | Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. |
-| `rev-list` | documented | pending | pending |  | Audit every applicable facet. |
+| `rev-list` | documented | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Raw pre-scan of option-looking operands and bitmap early-return parsing need phase-aware modeling; finite state counts do not prove argv reachability. |
 | `rev-parse` | documented | pending | pending |  | Audit every applicable facet. |
 | `revert` | documented | partial | yes | revert | Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. |
 | `rm` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |

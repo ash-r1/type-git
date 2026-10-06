@@ -201,3 +201,19 @@ This adds argument schemas, not typed wire protocols. Tests use synthetic
 credentials, isolated files, harmless fixture hooks, and local protocol input.
 They never start a credential cache daemon. Binary I/O, platform conditions and
 the full delegated protocol grammars remain separate work in the coverage ledger.
+
+### History walking and bundles
+
+Rev-list models its revision sources, notes state, unsupported diff output,
+marked object counts and NUL-output conflicts. Its missing-object prescan ignores
+unrecognized action strings while retaining the previous recognized action; the
+runtime and literal type fold preserve this transition. Shared diff algorithm
+callbacks accept ASCII case-insensitive names and the native `default` alias.
+
+Bundle operations parse their own options before the file operand; create's
+subsequent revision words are currently represented as operands. History fixup,
+reword and split preserve their callback enums and operand counts. Repository
+inspection preserves immediate format validation and final info/structure format
+restrictions. The ledger remains partial: two-phase revision parsing, ref and
+object resolution, interactive history rewriting and nested bundle revision
+syntax require further work.

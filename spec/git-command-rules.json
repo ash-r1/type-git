@@ -12151,5 +12151,1080 @@
       "reason": "Native mode requires this number of arguments.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c"
     }
+  ],
+  "rev-list": [
+    {
+      "id": "cli.rev-list.missing-promisor",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "exclude-promisor-objects",
+          "test": "active"
+        },
+        {
+          "key": "missing",
+          "test": "notEquals",
+          "value": "error"
+        }
+      ],
+      "origin": "git",
+      "reason": "The prescan rejects promisor exclusion with a non-error missing action; unknown missing values leave the previous action unchanged.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.nul-output",
+      "kind": "conflicts",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "rev-list-nul",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "graph",
+          "test": "active"
+        },
+        {
+          "key": "verbose-header",
+          "test": "active"
+        },
+        {
+          "key": "header",
+          "test": "active"
+        },
+        {
+          "key": "disk-usage",
+          "test": "active"
+        },
+        {
+          "key": "timestamp",
+          "test": "active"
+        },
+        {
+          "key": "bisect",
+          "test": "active"
+        },
+        {
+          "key": "bisect-all",
+          "test": "active"
+        },
+        {
+          "key": "bisect-vars",
+          "test": "active"
+        },
+        {
+          "key": "use-bitmap-index",
+          "test": "active"
+        },
+        {
+          "key": "objects-edge",
+          "test": "active"
+        },
+        {
+          "key": "objects-edge-aggressive",
+          "test": "active"
+        },
+        {
+          "key": "left-right",
+          "test": "active"
+        },
+        {
+          "key": "cherry-mark",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "NUL output cannot use graph/header/marked/bitmap/bisect or edge output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.notes",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "notes-enabled",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "rev-list does not display notes.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.default-notes",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-notes-by-default",
+          "test": "active"
+        },
+        {
+          "key": "notes-given",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Default note display is enabled only when no explicit notes selection was parsed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.marked-count-objects",
+      "kind": "conflicts",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "count",
+          "test": "active"
+        }
+      ],
+      "when": {
+        "key": "objects",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Marked object counting is unsupported.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c",
+      "others": [
+        {
+          "key": "left-right",
+          "test": "active"
+        },
+        {
+          "key": "cherry-mark",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "cli.rev-list.marked-count-objects-edge",
+      "kind": "conflicts",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "count",
+          "test": "active"
+        }
+      ],
+      "when": {
+        "key": "objects-edge",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Marked object counting is unsupported.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c",
+      "others": [
+        {
+          "key": "left-right",
+          "test": "active"
+        },
+        {
+          "key": "cherry-mark",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "cli.rev-list.marked-count-objects-edge-aggressive",
+      "kind": "conflicts",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "count",
+          "test": "active"
+        }
+      ],
+      "when": {
+        "key": "objects-edge-aggressive",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Marked object counting is unsupported.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c",
+      "others": [
+        {
+          "key": "left-right",
+          "test": "active"
+        },
+        {
+          "key": "cherry-mark",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "cli.rev-list.marked-count-verify-objects",
+      "kind": "conflicts",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "count",
+          "test": "active"
+        }
+      ],
+      "when": {
+        "key": "verify-objects",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Marked object counting is unsupported.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c",
+      "others": [
+        {
+          "key": "left-right",
+          "test": "active"
+        },
+        {
+          "key": "cherry-mark",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "cli.rev-list.input",
+      "kind": "requiresAny",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "argumentTokens",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "operandsBeforeSeparator",
+          "test": "nonempty"
+        },
+        {
+          "key": "objects",
+          "test": "active"
+        },
+        {
+          "key": "objects-edge",
+          "test": "active"
+        },
+        {
+          "key": "objects-edge-aggressive",
+          "test": "active"
+        },
+        {
+          "key": "verify-objects",
+          "test": "active"
+        },
+        {
+          "key": "stdin",
+          "test": "active"
+        },
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "branches",
+          "test": "active"
+        },
+        {
+          "key": "tags",
+          "test": "active"
+        },
+        {
+          "key": "remotes",
+          "test": "active"
+        },
+        {
+          "key": "glob",
+          "test": "active"
+        },
+        {
+          "key": "reflog",
+          "test": "active"
+        },
+        {
+          "key": "alternate-refs",
+          "test": "active"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "active"
+        },
+        {
+          "key": "bisect",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A revision, object mode, ref source or stdin input is required.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.revision-diff",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "revision-diff",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Revision tree-diff traversal is unsupported by rev-list.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-patch",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "patch",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-u",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "u",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-unified",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "unified",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-raw",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "raw",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-patch-with-raw",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "patch-with-raw",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-patch-with-stat",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "patch-with-stat",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-numstat",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "numstat",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-shortstat",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "shortstat",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-summary",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "summary",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-stat",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "stat",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-stat-width",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "stat-width",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-stat-name-width",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "stat-name-width",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-stat-graph-width",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "stat-graph-width",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-stat-count",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "stat-count",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-compact-summary",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "compact-summary",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-binary",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "binary",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-dirstat",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "dirstat",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-cumulative",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "cumulative",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-dirstat-by-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "dirstat-by-file",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-name-status",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-status",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.diff-check",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        },
+        {
+          "key": "no-output",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "check",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A requested diff output format makes rev-list invalid unless output was suppressed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.search-S",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "S",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Diff-dependent searching is unsupported by rev-list.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.search-G",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "G",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Diff-dependent searching is unsupported by rev-list.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    },
+    {
+      "id": "cli.rev-list.search-follow",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "test-bitmap",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "follow",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Diff-dependent searching is unsupported by rev-list.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
+    }
+  ],
+  "bundle create": [
+    {
+      "id": "cli.bundle-create.file",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bundle.c"
+    },
+    {
+      "id": "cli.bundle-create.version",
+      "kind": "value",
+      "key": "version",
+      "allowed": [
+        -1,
+        2,
+        3
+      ],
+      "origin": "git",
+      "reason": "Bundle format accepts auto-selection (-1), version 2 or version 3.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bundle.c"
+    }
+  ],
+  "bundle verify": [
+    {
+      "id": "cli.bundle-verify.file",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bundle.c"
+    }
+  ],
+  "bundle list-heads": [
+    {
+      "id": "cli.bundle-list-heads.file",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bundle.c"
+    }
+  ],
+  "bundle unbundle": [
+    {
+      "id": "cli.bundle-unbundle.file",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bundle.c"
+    }
+  ],
+  "history fixup": [
+    {
+      "id": "cli.history-fixup.revision",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/history.c"
+    }
+  ],
+  "history reword": [
+    {
+      "id": "cli.history-reword.revision",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/history.c"
+    }
+  ],
+  "history split": [
+    {
+      "id": "cli.history-split.revision",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/history.c"
+    }
+  ],
+  "repo info": [
+    {
+      "id": "cli.repo-info.keys-all",
+      "kind": "exclusive",
+      "keys": [
+        "keys",
+        "all"
+      ],
+      "origin": "git",
+      "reason": "Key listing and all-value output are exclusive.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
+    },
+    {
+      "id": "cli.repo-info.keys-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "keys",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
+    },
+    {
+      "id": "cli.repo-info.all-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
+    },
+    {
+      "id": "cli.repo-info.format",
+      "kind": "value",
+      "key": "format",
+      "allowed": [
+        "lines",
+        "nul"
+      ],
+      "origin": "git",
+      "reason": "Repository info accepts only lines or nul after parsing.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
+    }
+  ],
+  "repo structure": [
+    {
+      "id": "cli.repo-structure.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
+    }
   ]
 }

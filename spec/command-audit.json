@@ -2348,6 +2348,106 @@
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
+    },
+    "rev-list": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Raw pre-scan of option-looking operands and bitmap early-return parsing need phase-aware modeling; finite state counts do not prove argv reachability.",
+      "typedCommandAPI": true
+    },
+    "bundle create": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Revision options after the output path are currently literal operands; typed nested revision tokens remain pending.",
+      "typedCommandAPI": true
+    },
+    "bundle verify": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "bundle list-heads": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "bundle unbundle": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "history fixup": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "history reword": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "history split": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "repo info": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "repo structure": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/history-walk.test.ts",
+        "test/types/history-walk-command-api.ts"
+      ],
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
     }
   }
 }

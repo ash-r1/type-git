@@ -153,13 +153,24 @@ type Effects<S, E extends NonNullable<OptionSpec['effects']>> = [S] extends [nev
         R
       >
     : S;
-type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends { ignore: true }
+type UnparsedOptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  ignore: true;
+}
   ? S
   : D extends { toggle: true }
     ? Put<S, D['key'], D['key'] extends keyof S ? (S[D['key']] extends true ? false : true) : true>
     : D extends { repeat: true }
       ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
       : Put<S, D['key'], TokenValue<T, D>>;
+type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  parser: 'rev-list-missing';
+}
+  ? TokenValue<T, D> extends 'error' | 'allow-any' | 'print' | 'print-info' | 'allow-promisor'
+    ? UnparsedOptionState<S, D, T>
+    : string extends TokenValue<T, D>
+      ? UnparsedOptionState<S, D, T>
+      : S
+  : UnparsedOptionState<S, D, T>;
 type ModeValue<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeFromValue: true;
 }
