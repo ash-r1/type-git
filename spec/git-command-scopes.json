@@ -3258,5 +3258,352 @@
         "value": "flag"
       }
     }
+  },
+  "mailinfo": {
+    "tables": [
+      "builtin/mailinfo.c:cmd_mailinfo:options"
+    ],
+    "source": "builtin/mailinfo.c",
+    "options": {
+      "--quoted-cr": {
+        "key": "quoted-cr",
+        "value": "string",
+        "allowed": [
+          "nowarn",
+          "warn",
+          "strip"
+        ]
+      }
+    }
+  },
+  "mailsplit": {
+    "tables": [],
+    "source": "builtin/mailsplit.c",
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "-d": {
+        "key": "digits",
+        "value": "integer",
+        "attachedValue": true,
+        "allowed": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "-f": {
+        "key": "start",
+        "value": "optional-integer",
+        "attachedValue": true
+      },
+      "-o": {
+        "key": "output",
+        "value": "string",
+        "attachedValue": true,
+        "checks": [
+          {
+            "id": "cli.mailsplit.empty-output",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "$value",
+                "test": "equals",
+                "value": ""
+              }
+            ],
+            "origin": "git",
+            "reason": "The attached output directory cannot be empty.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/mailsplit.c"
+          }
+        ]
+      },
+      "-b": {
+        "key": "bare",
+        "value": "flag"
+      },
+      "--keep-cr": {
+        "key": "keep-cr",
+        "value": "flag"
+      },
+      "--mboxrd": {
+        "key": "mboxrd",
+        "value": "flag"
+      }
+    }
+  },
+  "interpret-trailers": {
+    "tables": [
+      "builtin/interpret-trailers.c:cmd_interpret_trailers:options"
+    ],
+    "source": "builtin/interpret-trailers.c",
+    "options": {
+      "--where": {
+        "key": "where",
+        "value": "string",
+        "allowed": [
+          "after",
+          "before",
+          "end",
+          "start"
+        ],
+        "caseInsensitive": true
+      },
+      "--if-exists": {
+        "key": "if-exists",
+        "value": "string",
+        "allowed": [
+          "addifdifferent",
+          "addifdifferentneighbor",
+          "add",
+          "replace",
+          "donothing"
+        ],
+        "caseInsensitive": true
+      },
+      "--if-missing": {
+        "key": "if-missing",
+        "value": "string",
+        "allowed": [
+          "donothing",
+          "add"
+        ],
+        "caseInsensitive": true
+      },
+      "--trailer": {
+        "key": "trailer",
+        "value": "string",
+        "repeat": true
+      },
+      "--no-trailer": {
+        "key": "trailer",
+        "value": "flag",
+        "repeat": true,
+        "clear": true
+      },
+      "--parse": {
+        "key": "parse",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "only-trailers",
+            "set": true
+          },
+          {
+            "key": "only-input",
+            "set": true
+          },
+          {
+            "key": "unfold",
+            "set": true
+          }
+        ]
+      }
+    }
+  },
+  "url-parse": {
+    "tables": [
+      "builtin/url-parse.c:global:builtin_url_parse_options"
+    ],
+    "source": "builtin/url-parse.c"
+  },
+  "hook run": {
+    "tables": [
+      "builtin/hook.c:run:run_options"
+    ],
+    "source": "builtin/hook.c"
+  },
+  "hook list": {
+    "tables": [
+      "builtin/hook.c:list:list_options"
+    ],
+    "source": "builtin/hook.c"
+  },
+  "credential": {
+    "tables": [],
+    "source": "builtin/credential.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "credential fill": {
+    "tables": [],
+    "source": "builtin/credential.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "credential approve": {
+    "tables": [],
+    "source": "builtin/credential.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "credential reject": {
+    "tables": [],
+    "source": "builtin/credential.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "credential capability": {
+    "tables": [],
+    "source": "builtin/credential.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "credential-store": {
+    "tables": [
+      "builtin/credential-store.c:cmd_credential_store:options"
+    ],
+    "source": "builtin/credential-store.c"
+  },
+  "credential-cache": {
+    "tables": [
+      "builtin/credential-cache.c:cmd_credential_cache:options#1"
+    ],
+    "source": "builtin/credential-cache.c"
+  },
+  "credential-cache--daemon": {
+    "tables": [
+      "builtin/credential-cache--daemon.c:cmd_credential_cache_daemon:options#1"
+    ],
+    "source": "builtin/credential-cache--daemon.c"
+  },
+  "checkout--worker": {
+    "tables": [
+      "builtin/checkout--worker.c:cmd_checkout__worker:checkout_worker_options"
+    ],
+    "source": "builtin/checkout--worker.c"
+  },
+  "merge-ours": {
+    "tables": [],
+    "source": "builtin/merge-ours.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "merge-one-file": {
+    "tables": [],
+    "source": "git-merge-one-file.sh",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "get-tar-commit-id": {
+    "tables": [],
+    "source": "builtin/get-tar-commit-id.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "upload-archive": {
+    "tables": [],
+    "source": "builtin/upload-archive.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
+  },
+  "upload-archive--writer": {
+    "tables": [],
+    "source": "builtin/upload-archive.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
   }
 }
