@@ -3904,7 +3904,7 @@
         "src/commands/gui.test.ts",
         "test/types/gui-command-api.ts"
       ],
-      "remaining": "Models all explicit Tcl dispatch targets, UI operand counts and common blame/browser ordering. Native GUI execution is unverified: this environment has no Tcl/Tk display runtime. Global trace removal/repetition, line-like words used as literal paths, leading trace dispatch, repository discovery and UI state need further audit."
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     },
     "citool": {
       "state": "partial",
@@ -3914,7 +3914,7 @@
         "src/commands/gui.test.ts",
         "test/types/gui-command-api.ts"
       ],
-      "remaining": "Models all explicit Tcl dispatch targets, UI operand counts and common blame/browser ordering. Native GUI execution is unverified: this environment has no Tcl/Tk display runtime. Global trace removal/repetition, line-like words used as literal paths, leading trace dispatch, repository discovery and UI state need further audit."
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     },
     "gui citool": {
       "state": "partial",
@@ -3924,7 +3924,7 @@
         "src/commands/gui.test.ts",
         "test/types/gui-command-api.ts"
       ],
-      "remaining": "Models all explicit Tcl dispatch targets, UI operand counts and common blame/browser ordering. Native GUI execution is unverified: this environment has no Tcl/Tk display runtime. Global trace removal/repetition, line-like words used as literal paths, leading trace dispatch, repository discovery and UI state need further audit."
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     },
     "gui gui": {
       "state": "partial",
@@ -3934,7 +3934,7 @@
         "src/commands/gui.test.ts",
         "test/types/gui-command-api.ts"
       ],
-      "remaining": "Models all explicit Tcl dispatch targets, UI operand counts and common blame/browser ordering. Native GUI execution is unverified: this environment has no Tcl/Tk display runtime. Global trace removal/repetition, line-like words used as literal paths, leading trace dispatch, repository discovery and UI state need further audit."
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     },
     "gui pick": {
       "state": "partial",
@@ -3944,7 +3944,7 @@
         "src/commands/gui.test.ts",
         "test/types/gui-command-api.ts"
       ],
-      "remaining": "Models all explicit Tcl dispatch targets, UI operand counts and common blame/browser ordering. Native GUI execution is unverified: this environment has no Tcl/Tk display runtime. Global trace removal/repetition, line-like words used as literal paths, leading trace dispatch, repository discovery and UI state need further audit."
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     },
     "gui browser": {
       "state": "partial",
@@ -3954,7 +3954,7 @@
         "src/commands/gui.test.ts",
         "test/types/gui-command-api.ts"
       ],
-      "remaining": "Models all explicit Tcl dispatch targets, UI operand counts and common blame/browser ordering. Native GUI execution is unverified: this environment has no Tcl/Tk display runtime. Global trace removal/repetition, line-like words used as literal paths, leading trace dispatch, repository discovery and UI state need further audit."
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     },
     "gui blame": {
       "state": "partial",
@@ -3964,7 +3964,27 @@
         "src/commands/gui.test.ts",
         "test/types/gui-command-api.ts"
       ],
-      "remaining": "Models all explicit Tcl dispatch targets, UI operand counts and common blame/browser ordering. Native GUI execution is unverified: this environment has no Tcl/Tk display runtime. Global trace removal/repetition, line-like words used as literal paths, leading trace dispatch, repository discovery and UI state need further audit."
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "gui version": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "citool version": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     }
   }
 }

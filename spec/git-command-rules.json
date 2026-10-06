@@ -20499,7 +20499,6 @@
       "kind": "arity",
       "key": "operands",
       "min": 1,
-      "max": 2,
       "origin": "git",
       "reason": "Browser/blame accepts a required path and at most one revision.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
@@ -20557,7 +20556,6 @@
       "kind": "arity",
       "key": "operands",
       "min": 1,
-      "max": 2,
       "origin": "git",
       "reason": "Browser/blame accepts a required path and at most one revision.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
@@ -20623,6 +20621,30 @@
       ],
       "origin": "git",
       "reason": "An explicit first word must name a GUI operation; no words opens the default UI.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "gui version": [
+    {
+      "id": "cli.gui.version.no-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "The version shell prelude takes no additional words.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "citool version": [
+    {
+      "id": "cli.citool.version.no-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "The version shell prelude takes no additional words.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
     }
   ]
