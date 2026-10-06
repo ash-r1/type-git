@@ -14,3 +14,9 @@ git.command('gui blame', [{ operand: 'HEAD' }, ['--line', 2], { operand: 'file' 
 // @ts-expect-error A line selector still needs a path.
 git.command('gui blame', [['--line', 2]]);
 git.command('gui blame', [{ operand: '--line=2' }]);
+git.command('gui', [['--version']]);
+git.command('citool', [{ operand: 'version' }]);
+// @ts-expect-error The shell version shortcut must occupy the entire argument string.
+git.command('gui', [['--trace'], ['--version']]);
+// @ts-expect-error Child GUI grammars do not implement --help.
+git.command('gui browser', [['--help']]);
