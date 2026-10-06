@@ -91214,42 +91214,52 @@ const commandSpec334 = {
     '-h': {
       key: 'h',
       value: 'flag',
+      before: 1,
     },
     '-H': {
       key: 'h',
       value: 'flag',
+      before: 1,
     },
     '--h': {
       key: 'h',
       value: 'flag',
+      before: 1,
     },
     '--H': {
       key: 'h',
       value: 'flag',
+      before: 1,
     },
     '--version': {
       key: 'version',
       value: 'flag',
+      before: 1,
     },
     '-V': {
       key: 'version',
       value: 'flag',
+      before: 1,
     },
     '--V': {
       key: 'version',
       value: 'flag',
+      before: 1,
     },
     '--base-path': {
       key: 'base-path',
       value: 'string',
+      before: 1,
     },
     '--strict-paths': {
       key: 'strict-paths',
       value: 'flag',
+      before: 1,
     },
     '--export-all': {
       key: 'export-all',
       value: 'flag',
+      before: 1,
     },
   },
   rules: [
@@ -91284,42 +91294,52 @@ const commandSpec335 = {
     '-h': {
       key: 'h',
       value: 'flag',
+      before: 1,
     },
     '-H': {
       key: 'h',
       value: 'flag',
+      before: 1,
     },
     '--h': {
       key: 'h',
       value: 'flag',
+      before: 1,
     },
     '--H': {
       key: 'h',
       value: 'flag',
+      before: 1,
     },
     '--version': {
       key: 'version',
       value: 'flag',
+      before: 1,
     },
     '-V': {
       key: 'version',
       value: 'flag',
+      before: 1,
     },
     '--V': {
       key: 'version',
       value: 'flag',
+      before: 1,
     },
     '--base-path': {
       key: 'base-path',
       value: 'string',
+      before: 1,
     },
     '--strict-paths': {
       key: 'strict-paths',
       value: 'flag',
+      before: 1,
     },
     '--export-all': {
       key: 'export-all',
       value: 'flag',
+      before: 1,
     },
   },
   rules: [
