@@ -33,7 +33,7 @@
   },
   "packageManager": "pnpm@10.26.2",
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "build": "tsup",
     "test": "vitest",
     "test:ci": "vitest run",
     "test:bun": "bun test test/bun/",

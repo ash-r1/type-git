@@ -1,10 +1,5 @@
 import { commandArguments } from '../commands/build.js';
-import type {
-  CheckedCommandArguments,
-  GitCommandArgument,
-  GitCommandExecOpts,
-  GitCommandName,
-} from '../commands/types.js';
+import type { GitCommandClient } from '../commands/types.js';
 import {
   type ExclusiveQuery,
   validateOptions,
@@ -390,16 +385,9 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  public async command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & CheckedCommandArguments<C, A>,
-    opts?: GitCommandExecOpts,
-  ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, true), opts);
-  }
+  public command: GitCommandClient['command'] = async (command, args, opts) => {
+    return this.raw(commandArguments(command, args, true), opts);
+  };
 
   public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);

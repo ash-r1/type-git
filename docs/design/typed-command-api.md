@@ -427,4 +427,4 @@ Legacy config modes derive implicit get/set/set-all from operand count, preserve
 
 `stash list` returns before delegated log parsing when no stash ref exists. Its current schema therefore accepts literal argument words rather than claiming unconditional log-option validation. Repository-state-dependent delegation and the inherited revision callback phases remain audit gaps. Root scopes and their children are partial, not complete.
 
-The expanded catalogue can exceed Node 20's default 2 GiB heap while emitting bundled declarations. `pnpm build` uses a cross-platform Node launcher with a 4 GiB default for that build process, preserving an explicit `NODE_OPTIONS` heap setting. Runtime consumers do not inherit this build setting. Dispatch type checks expand child option languages only for dispatching command names.
+Implementation classes reference `GitCommandClient['command']` directly in their declarations. This avoids expanding the complete command union independently in each class during declaration serialization. Dispatch type checks expand child option languages only for dispatching command names.

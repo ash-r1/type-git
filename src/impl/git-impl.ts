@@ -1,10 +1,5 @@
 import { commandArguments } from '../commands/build.js';
-import type {
-  CheckedCommandArguments,
-  GitCommandArgument,
-  GitCommandExecOpts,
-  GitCommandName,
-} from '../commands/types.js';
+import type { GitCommandClient } from '../commands/types.js';
 import { validateOptions } from '../core/option-rules.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 /**
@@ -597,16 +592,9 @@ export class GitImpl implements Git {
   /**
    * Execute a raw git command (repository-agnostic)
    */
-  public async command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & CheckedCommandArguments<C, A>,
-    opts?: GitCommandExecOpts,
-  ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, undefined), opts);
-  }
+  public command: GitCommandClient['command'] = async (command, args, opts) => {
+    return this.raw(commandArguments(command, args, undefined), opts);
+  };
 
   public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run({ type: 'global' }, argv, opts);
