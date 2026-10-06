@@ -52,6 +52,9 @@ try {
     for (const rule of entry.rules) for (const key of referencedKeys(rule)) if (!keys.has(key)) throw new Error(`${name}: rule ${rule.id} refers to unknown input ${key}`);
     for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && key !== '$remaining' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
   }
+  for (const [name, spec] of Object.entries(catalog)) for (const [word, target] of Object.entries(spec.dispatch ?? {})) {
+    if (!catalog[target] || target !== `${name} ${word}`) throw new Error(`${name}: invalid dispatch target ${word}: ${target}`);
+  }
   // Keep each inferred literal type below TypeScript's declaration serialization
   // limit. The registry references these types instead of expanding every schema.
   const entries = Object.entries(catalog).map(([name, spec], index) => ({ name, spec, identifier: `commandSpec${index}` }));
@@ -79,7 +82,7 @@ try {
       return { flag, rules: option.checks.map(rule => rule.id), domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
     });
     const modes = commandModes(spec);
-    return { command, ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
+    return { command, ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
   });
   const report = JSON.stringify({ scope: 'Exact finite normalized-state counts. Domains over-approximate argv-reachable states; counts do not prove upstream completeness or reachability. No random sampling.', commands: exploration }, null, 2) + '\n';
   const reportPath = new URL('docs/design/command-exploration.json', root);
