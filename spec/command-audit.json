@@ -3350,6 +3350,86 @@
         "test/types/transport-command-api.ts"
       ],
       "remaining": "Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input."
+    },
+    "merge-recursive": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
+    },
+    "merge-recursive-ours": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
+    },
+    "merge-recursive-theirs": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
+    },
+    "merge-subtree": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
+    },
+    "merge-index": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
+    },
+    "difftool": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
+    },
+    "mergetool": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
+    },
+    "request-pull": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
     }
   }
 }
