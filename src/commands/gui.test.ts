@@ -1,8 +1,12 @@
+import { spawnSync } from 'node:child_process';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 
-describe('GUI source grammar (native Tcl/Tk execution remains unaudited)', () => {
+describe('GUI operation grammar', () => {
   it('selects each GUI entrypoint and preserves citool prefix options', () => {
     expect(commandArguments('gui', [], true)).toEqual(['gui']);
     for (const command of ['gui gui', 'gui pick', 'gui citool', 'citool'] as const) {
@@ -56,4 +60,71 @@ describe('GUI source grammar (native Tcl/Tk execution remains unaudited)', () =>
       expect(() => commandArguments('gui blame', args, true)).toThrow(GitArgumentError);
     }
   });
+  it('matches the standalone version shell prelude without a display', () => {
+    for (const command of ['gui', 'citool'] as const) {
+      for (const args of [[['--version']], [{ operand: 'version' }]]) {
+        const argv = commandArguments(command, args, true);
+        const result = spawnSync('git', argv, { encoding: 'utf8', timeout: 10000 });
+        expect(result.status, result.stderr).toBe(0);
+        expect(result.stdout).toContain('git-gui version');
+      }
+      expect(() => commandArguments(command, [['--trace'], ['--version']], true)).toThrow(
+        GitArgumentError,
+      );
+    }
+  });
+  it.skipIf(!process.env.DISPLAY)(
+    'matches native X11 argument failures in a disposable repository',
+    async () => {
+      const root = await mkdtemp(join(tmpdir(), 'type-git-gui-'));
+      const env = {
+        ...process.env,
+        HOME: root,
+        XDG_CONFIG_HOME: root,
+        GIT_CONFIG_GLOBAL: join(root, 'global'),
+        GIT_CONFIG_NOSYSTEM: '1',
+      };
+      try {
+        expect(spawnSync('git', ['init', root], { env }).status).toBe(0);
+        expect(
+          spawnSync(
+            'git',
+            [
+              '-C',
+              root,
+              '-c',
+              'user.name=Fixture',
+              '-c',
+              'user.email=fixture@example.invalid',
+              'commit',
+              '--allow-empty',
+              '-m',
+              'fixture',
+            ],
+            { env },
+          ).status,
+        ).toBe(0);
+        for (const words of [
+          ['gui', 'browser'],
+          ['gui', 'blame'],
+          ['gui', 'gui', 'extra'],
+          ['citool', 'extra'],
+          ['gui', 'browser', '--', 'HEAD', 'path'],
+          ['gui', 'blame', 'HEAD', '--line=2', 'file'],
+        ]) {
+          const result = spawnSync('git', ['-C', root, ...words], {
+            env,
+            encoding: 'utf8',
+            timeout: 10000,
+          });
+          expect(result.error).toBeUndefined();
+          expect(result.status, result.stderr).toBe(1);
+          expect(result.stderr).toContain('usage:');
+        }
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    },
+    30000,
+  );
 });

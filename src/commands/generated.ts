@@ -92484,6 +92484,9 @@ const commandSpec336 = {
 } as const satisfies CommandSpec;
 const commandSpec337 = {
   argv: ['citool'],
+  dispatch: {
+    version: 'citool version',
+  },
   options: {
     '--trace': {
       key: 'trace',
@@ -92504,6 +92507,23 @@ const commandSpec337 = {
     '--commitmsg': {
       key: 'commitmsg',
       value: 'flag',
+    },
+    '--version': {
+      key: 'help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.citool.version-alone',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The shell prelude recognizes version only when it is the entire argument string.',
+          source: 'https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh',
+        },
+      ],
     },
   },
   rules: [
@@ -92527,10 +92547,6 @@ const commandSpec338 = {
   options: {
     '--trace': {
       key: 'trace',
-      value: 'flag',
-    },
-    '--help': {
-      key: 'help',
       value: 'flag',
     },
     '--amend': {
@@ -92569,10 +92585,6 @@ const commandSpec339 = {
       key: 'trace',
       value: 'flag',
     },
-    '--help': {
-      key: 'help',
-      value: 'flag',
-    },
   },
   rules: [
     {
@@ -92595,10 +92607,6 @@ const commandSpec340 = {
   options: {
     '--trace': {
       key: 'trace',
-      value: 'flag',
-    },
-    '--help': {
-      key: 'help',
       value: 'flag',
     },
   },
@@ -92625,10 +92633,6 @@ const commandSpec341 = {
       key: 'trace',
       value: 'flag',
     },
-    '--help': {
-      key: 'help',
-      value: 'flag',
-    },
   },
   rules: [
     {
@@ -92636,7 +92640,6 @@ const commandSpec341 = {
       kind: 'arity',
       key: 'operands',
       min: 1,
-      max: 2,
       origin: 'git',
       reason: 'Browser/blame accepts a required path and at most one revision.',
       source: 'https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh',
@@ -92699,10 +92702,6 @@ const commandSpec342 = {
       key: 'trace',
       value: 'flag',
     },
-    '--help': {
-      key: 'help',
-      value: 'flag',
-    },
     '--line': {
       key: 'line',
       value: 'integer',
@@ -92757,7 +92756,6 @@ const commandSpec342 = {
       kind: 'arity',
       key: 'operands',
       min: 1,
-      max: 2,
       origin: 'git',
       reason: 'Browser/blame accepts a required path and at most one revision.',
       source: 'https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh',
@@ -92821,6 +92819,7 @@ const commandSpec343 = {
     pick: 'gui pick',
     browser: 'gui browser',
     blame: 'gui blame',
+    version: 'gui version',
   },
   options: {
     '--trace': {
@@ -92830,6 +92829,23 @@ const commandSpec343 = {
     '--help': {
       key: 'help',
       value: 'flag',
+    },
+    '--version': {
+      key: 'help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.gui.version-alone',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The shell prelude recognizes version only when it is the entire argument string.',
+          source: 'https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh',
+        },
+      ],
     },
   },
   rules: [
@@ -93400,6 +93416,44 @@ const commandSpec351 = {
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec352 = {
+  argv: ['gui', 'version'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.gui.version.no-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'The version shell prelude takes no additional words.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh',
+    },
+  ],
+  source: 'git-gui/git-gui.sh:shell-prelude',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec353 = {
+  argv: ['citool', 'version'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.citool.version.no-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'The version shell prelude takes no additional words.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh',
+    },
+  ],
+  source: 'git-gui/git-gui.sh:shell-prelude',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec354 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -93423,7 +93477,7 @@ const commandSpec352 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec353 = {
+const commandSpec355 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -93554,7 +93608,7 @@ const commandSpec353 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec354 = {
+const commandSpec356 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -93570,7 +93624,7 @@ const commandSpec354 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec355 = {
+const commandSpec357 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -93777,7 +93831,7 @@ const commandSpec355 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec356 = {
+const commandSpec358 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -93813,7 +93867,7 @@ const commandSpec356 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec357 = {
+const commandSpec359 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -93837,7 +93891,7 @@ const commandSpec357 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec358 = {
+const commandSpec360 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -93853,7 +93907,7 @@ const commandSpec358 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec359 = {
+const commandSpec361 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -93869,7 +93923,7 @@ const commandSpec359 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec360 = {
+const commandSpec362 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -93885,7 +93939,7 @@ const commandSpec360 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec361 = {
+const commandSpec363 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -94013,7 +94067,7 @@ const commandSpec361 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec362 = {
+const commandSpec364 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -94037,7 +94091,7 @@ const commandSpec362 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec363 = {
+const commandSpec365 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -94069,7 +94123,7 @@ const commandSpec363 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec364 = {
+const commandSpec366 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -94085,7 +94139,7 @@ const commandSpec364 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec365 = {
+const commandSpec367 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -94291,7 +94345,7 @@ const commandSpec365 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec366 = {
+const commandSpec368 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -94307,7 +94361,7 @@ const commandSpec366 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec367 = {
+const commandSpec369 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -94339,7 +94393,7 @@ const commandSpec367 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec368 = {
+const commandSpec370 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -94476,7 +94530,7 @@ const commandSpec368 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec369 = {
+const commandSpec371 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -94492,7 +94546,7 @@ const commandSpec369 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec370 = {
+const commandSpec372 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -94508,7 +94562,7 @@ const commandSpec370 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec371 = {
+const commandSpec373 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -94524,7 +94578,7 @@ const commandSpec371 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec372 = {
+const commandSpec374 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -94540,7 +94594,7 @@ const commandSpec372 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec373 = {
+const commandSpec375 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -94556,7 +94610,7 @@ const commandSpec373 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec374 = {
+const commandSpec376 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -94669,7 +94723,7 @@ const commandSpec374 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec375 = {
+const commandSpec377 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -94735,7 +94789,7 @@ const commandSpec375 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec376 = {
+const commandSpec378 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -94795,7 +94849,7 @@ const commandSpec376 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec377 = {
+const commandSpec379 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -94932,7 +94986,7 @@ const commandSpec377 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec378 = {
+const commandSpec380 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -95196,7 +95250,7 @@ const commandSpec378 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec379 = {
+const commandSpec381 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -95381,7 +95435,7 @@ const commandSpec379 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec380 = {
+const commandSpec382 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -95535,7 +95589,7 @@ const commandSpec380 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec381 = {
+const commandSpec383 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -95562,7 +95616,7 @@ const commandSpec381 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec382 = {
+const commandSpec384 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -95578,7 +95632,7 @@ const commandSpec382 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec383 = {
+const commandSpec385 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -95605,7 +95659,7 @@ const commandSpec383 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec384 = {
+const commandSpec386 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -95639,7 +95693,7 @@ const commandSpec384 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec385 = {
+const commandSpec387 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -95725,7 +95779,7 @@ const commandSpec385 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec386 = {
+const commandSpec388 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -95757,7 +95811,7 @@ const commandSpec386 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec387 = {
+const commandSpec389 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -95863,7 +95917,7 @@ const commandSpec387 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec388 = {
+const commandSpec390 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -95887,7 +95941,7 @@ const commandSpec388 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec389 = {
+const commandSpec391 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -95903,7 +95957,7 @@ const commandSpec389 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec390 = {
+const commandSpec392 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -95935,7 +95989,7 @@ const commandSpec390 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec391 = {
+const commandSpec393 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -96014,7 +96068,7 @@ const commandSpec391 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec392 = {
+const commandSpec394 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -96118,7 +96172,7 @@ const commandSpec392 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec393 = {
+const commandSpec395 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -96134,7 +96188,7 @@ const commandSpec393 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec394 = {
+const commandSpec396 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -96221,7 +96275,7 @@ const commandSpec394 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec395 = {
+const commandSpec397 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -96237,7 +96291,7 @@ const commandSpec395 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec396 = {
+const commandSpec398 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -96278,7 +96332,7 @@ const commandSpec396 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec397 = {
+const commandSpec399 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -96655,52 +96709,54 @@ export const COMMAND_SPECS: {
   readonly 'p4 branches': typeof commandSpec349;
   readonly 'p4 unshelve': typeof commandSpec350;
   readonly p4: typeof commandSpec351;
-  readonly lfs: typeof commandSpec352;
-  readonly 'lfs checkout': typeof commandSpec353;
-  readonly 'lfs clean': typeof commandSpec354;
-  readonly 'lfs clone': typeof commandSpec355;
-  readonly 'lfs completion': typeof commandSpec356;
-  readonly 'lfs dedup': typeof commandSpec357;
-  readonly 'lfs env': typeof commandSpec358;
-  readonly 'lfs ext': typeof commandSpec359;
-  readonly 'lfs ext list': typeof commandSpec360;
-  readonly 'lfs fetch': typeof commandSpec361;
-  readonly 'lfs filter-process': typeof commandSpec362;
-  readonly 'lfs fsck': typeof commandSpec363;
-  readonly 'lfs help': typeof commandSpec364;
-  readonly 'lfs install': typeof commandSpec365;
-  readonly 'lfs install hooks': typeof commandSpec366;
-  readonly 'lfs lock': typeof commandSpec367;
-  readonly 'lfs locks': typeof commandSpec368;
-  readonly 'lfs logs': typeof commandSpec369;
-  readonly 'lfs logs boomtown': typeof commandSpec370;
-  readonly 'lfs logs clear': typeof commandSpec371;
-  readonly 'lfs logs last': typeof commandSpec372;
-  readonly 'lfs logs show': typeof commandSpec373;
-  readonly 'lfs ls-files': typeof commandSpec374;
-  readonly 'lfs merge-driver': typeof commandSpec375;
-  readonly 'lfs migrate': typeof commandSpec376;
-  readonly 'lfs migrate export': typeof commandSpec377;
-  readonly 'lfs migrate import': typeof commandSpec378;
-  readonly 'lfs migrate info': typeof commandSpec379;
-  readonly 'lfs pointer': typeof commandSpec380;
-  readonly 'lfs post-checkout': typeof commandSpec381;
-  readonly 'lfs post-commit': typeof commandSpec382;
-  readonly 'lfs post-merge': typeof commandSpec383;
-  readonly 'lfs pre-push': typeof commandSpec384;
-  readonly 'lfs prune': typeof commandSpec385;
-  readonly 'lfs pull': typeof commandSpec386;
-  readonly 'lfs push': typeof commandSpec387;
-  readonly 'lfs smudge': typeof commandSpec388;
-  readonly 'lfs standalone-file': typeof commandSpec389;
-  readonly 'lfs status': typeof commandSpec390;
-  readonly 'lfs track': typeof commandSpec391;
-  readonly 'lfs uninstall': typeof commandSpec392;
-  readonly 'lfs uninstall hooks': typeof commandSpec393;
-  readonly 'lfs unlock': typeof commandSpec394;
-  readonly 'lfs untrack': typeof commandSpec395;
-  readonly 'lfs update': typeof commandSpec396;
-  readonly 'lfs version': typeof commandSpec397;
+  readonly 'gui version': typeof commandSpec352;
+  readonly 'citool version': typeof commandSpec353;
+  readonly lfs: typeof commandSpec354;
+  readonly 'lfs checkout': typeof commandSpec355;
+  readonly 'lfs clean': typeof commandSpec356;
+  readonly 'lfs clone': typeof commandSpec357;
+  readonly 'lfs completion': typeof commandSpec358;
+  readonly 'lfs dedup': typeof commandSpec359;
+  readonly 'lfs env': typeof commandSpec360;
+  readonly 'lfs ext': typeof commandSpec361;
+  readonly 'lfs ext list': typeof commandSpec362;
+  readonly 'lfs fetch': typeof commandSpec363;
+  readonly 'lfs filter-process': typeof commandSpec364;
+  readonly 'lfs fsck': typeof commandSpec365;
+  readonly 'lfs help': typeof commandSpec366;
+  readonly 'lfs install': typeof commandSpec367;
+  readonly 'lfs install hooks': typeof commandSpec368;
+  readonly 'lfs lock': typeof commandSpec369;
+  readonly 'lfs locks': typeof commandSpec370;
+  readonly 'lfs logs': typeof commandSpec371;
+  readonly 'lfs logs boomtown': typeof commandSpec372;
+  readonly 'lfs logs clear': typeof commandSpec373;
+  readonly 'lfs logs last': typeof commandSpec374;
+  readonly 'lfs logs show': typeof commandSpec375;
+  readonly 'lfs ls-files': typeof commandSpec376;
+  readonly 'lfs merge-driver': typeof commandSpec377;
+  readonly 'lfs migrate': typeof commandSpec378;
+  readonly 'lfs migrate export': typeof commandSpec379;
+  readonly 'lfs migrate import': typeof commandSpec380;
+  readonly 'lfs migrate info': typeof commandSpec381;
+  readonly 'lfs pointer': typeof commandSpec382;
+  readonly 'lfs post-checkout': typeof commandSpec383;
+  readonly 'lfs post-commit': typeof commandSpec384;
+  readonly 'lfs post-merge': typeof commandSpec385;
+  readonly 'lfs pre-push': typeof commandSpec386;
+  readonly 'lfs prune': typeof commandSpec387;
+  readonly 'lfs pull': typeof commandSpec388;
+  readonly 'lfs push': typeof commandSpec389;
+  readonly 'lfs smudge': typeof commandSpec390;
+  readonly 'lfs standalone-file': typeof commandSpec391;
+  readonly 'lfs status': typeof commandSpec392;
+  readonly 'lfs track': typeof commandSpec393;
+  readonly 'lfs uninstall': typeof commandSpec394;
+  readonly 'lfs uninstall hooks': typeof commandSpec395;
+  readonly 'lfs unlock': typeof commandSpec396;
+  readonly 'lfs untrack': typeof commandSpec397;
+  readonly 'lfs update': typeof commandSpec398;
+  readonly 'lfs version': typeof commandSpec399;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -97054,50 +97110,52 @@ export const COMMAND_SPECS: {
   'p4 branches': commandSpec349,
   'p4 unshelve': commandSpec350,
   p4: commandSpec351,
-  lfs: commandSpec352,
-  'lfs checkout': commandSpec353,
-  'lfs clean': commandSpec354,
-  'lfs clone': commandSpec355,
-  'lfs completion': commandSpec356,
-  'lfs dedup': commandSpec357,
-  'lfs env': commandSpec358,
-  'lfs ext': commandSpec359,
-  'lfs ext list': commandSpec360,
-  'lfs fetch': commandSpec361,
-  'lfs filter-process': commandSpec362,
-  'lfs fsck': commandSpec363,
-  'lfs help': commandSpec364,
-  'lfs install': commandSpec365,
-  'lfs install hooks': commandSpec366,
-  'lfs lock': commandSpec367,
-  'lfs locks': commandSpec368,
-  'lfs logs': commandSpec369,
-  'lfs logs boomtown': commandSpec370,
-  'lfs logs clear': commandSpec371,
-  'lfs logs last': commandSpec372,
-  'lfs logs show': commandSpec373,
-  'lfs ls-files': commandSpec374,
-  'lfs merge-driver': commandSpec375,
-  'lfs migrate': commandSpec376,
-  'lfs migrate export': commandSpec377,
-  'lfs migrate import': commandSpec378,
-  'lfs migrate info': commandSpec379,
-  'lfs pointer': commandSpec380,
-  'lfs post-checkout': commandSpec381,
-  'lfs post-commit': commandSpec382,
-  'lfs post-merge': commandSpec383,
-  'lfs pre-push': commandSpec384,
-  'lfs prune': commandSpec385,
-  'lfs pull': commandSpec386,
-  'lfs push': commandSpec387,
-  'lfs smudge': commandSpec388,
-  'lfs standalone-file': commandSpec389,
-  'lfs status': commandSpec390,
-  'lfs track': commandSpec391,
-  'lfs uninstall': commandSpec392,
-  'lfs uninstall hooks': commandSpec393,
-  'lfs unlock': commandSpec394,
-  'lfs untrack': commandSpec395,
-  'lfs update': commandSpec396,
-  'lfs version': commandSpec397,
+  'gui version': commandSpec352,
+  'citool version': commandSpec353,
+  lfs: commandSpec354,
+  'lfs checkout': commandSpec355,
+  'lfs clean': commandSpec356,
+  'lfs clone': commandSpec357,
+  'lfs completion': commandSpec358,
+  'lfs dedup': commandSpec359,
+  'lfs env': commandSpec360,
+  'lfs ext': commandSpec361,
+  'lfs ext list': commandSpec362,
+  'lfs fetch': commandSpec363,
+  'lfs filter-process': commandSpec364,
+  'lfs fsck': commandSpec365,
+  'lfs help': commandSpec366,
+  'lfs install': commandSpec367,
+  'lfs install hooks': commandSpec368,
+  'lfs lock': commandSpec369,
+  'lfs locks': commandSpec370,
+  'lfs logs': commandSpec371,
+  'lfs logs boomtown': commandSpec372,
+  'lfs logs clear': commandSpec373,
+  'lfs logs last': commandSpec374,
+  'lfs logs show': commandSpec375,
+  'lfs ls-files': commandSpec376,
+  'lfs merge-driver': commandSpec377,
+  'lfs migrate': commandSpec378,
+  'lfs migrate export': commandSpec379,
+  'lfs migrate import': commandSpec380,
+  'lfs migrate info': commandSpec381,
+  'lfs pointer': commandSpec382,
+  'lfs post-checkout': commandSpec383,
+  'lfs post-commit': commandSpec384,
+  'lfs post-merge': commandSpec385,
+  'lfs pre-push': commandSpec386,
+  'lfs prune': commandSpec387,
+  'lfs pull': commandSpec388,
+  'lfs push': commandSpec389,
+  'lfs smudge': commandSpec390,
+  'lfs standalone-file': commandSpec391,
+  'lfs status': commandSpec392,
+  'lfs track': commandSpec393,
+  'lfs uninstall': commandSpec394,
+  'lfs uninstall hooks': commandSpec395,
+  'lfs unlock': commandSpec396,
+  'lfs untrack': commandSpec397,
+  'lfs update': commandSpec398,
+  'lfs version': commandSpec399,
 };
