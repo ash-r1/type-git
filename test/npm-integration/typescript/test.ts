@@ -27,6 +27,15 @@ async function testTypes(): Promise<void> {
   const version: string = await git.version();
   console.log(version);
 
+  await git.command('update-index', [['-z'], ['--stdin']]);
+  await git.command('update-index', [['--again'], { operand: '--refresh' }]);
+  // @ts-expect-error Stdin callbacks require the last argument even after declaration bundling.
+  await git.command('update-index', [['--stdin'], ['-z']]);
+  // @ts-expect-error Again consumes subsequent words literally.
+  await git.command('update-index', [['--again'], ['--refresh']]);
+  // @ts-expect-error Relational equality remains available through packaged declarations.
+  await git.command('bisect start', [['--term-good', 'same'], ['--term-bad', 'same']]);
+
   // Public declarations retain ordered command validation after bundling.
   await git.command('log', [['--default', 'HEAD'], ['--format', '%s']]);
   await git.command('log', [['--max-count', -1], ['--max-count-oldest', 2]]);

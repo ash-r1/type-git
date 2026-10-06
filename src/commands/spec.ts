@@ -38,7 +38,9 @@ export type OptionSpec = {
   caseInsensitive?: boolean;
   /** Match enum names without changing the spelling stored by the callback. */
   preserveCase?: boolean;
-  /** Constraints evaluated before this token changes parser state; $value is the incoming value. */
+  /** The native callback consumes all remaining words as literal operands. */
+  consumesRest?: boolean;
+  /** Before-token constraints: $value is incoming; $remaining contains subsequent API tokens. */
   checks?: readonly Constraint[];
   /** Ordered callback side effects on other parser variables. */
   effects?: readonly {

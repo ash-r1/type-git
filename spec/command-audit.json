@@ -3230,6 +3230,26 @@
         "test/types/root-dispatch-command-api.ts"
       ],
       "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+    },
+    "update-index": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/index-export.test.ts",
+        "test/types/index-export-command-api.ts"
+      ],
+      "remaining": "Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly."
+    },
+    "fast-export": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/index-export.test.ts",
+        "test/types/index-export-command-api.ts"
+      ],
+      "remaining": "Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly."
     }
   }
 }
