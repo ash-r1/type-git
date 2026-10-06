@@ -83,6 +83,16 @@ export function commandArguments(
     }
     const supplied = arg.length === 2 && arg[1] !== undefined;
     const value = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);
+    if (option.checks) {
+      const inputState = { ...state };
+      inputState.$value = value;
+      const errors = violations(option.checks, inputState);
+      if (errors.length > 0) {
+        throw new GitArgumentError(
+          `${flag}: ${errors.map((rule) => `[${rule.id}] ${rule.reason}`).join('; ')}`,
+        );
+      }
+    }
     if (option.modeGroup) {
       const mode = value === false || value === undefined ? false : option.key;
       if (modes.has(option.modeGroup) && modes.get(option.modeGroup) !== mode) {
@@ -126,7 +136,9 @@ export function commandArguments(
           throw new GitArgumentError(`${flag}: NUL is not a valid CLI argument`);
         }
         // Long equals forms preserve empty values; short values are separate tokens.
-        if (flag.startsWith('--')) {
+        if (option.separateValue) {
+          argv.push(flag, String(value));
+        } else if (flag.startsWith('--')) {
           argv.push(`${flag}=${value}`);
         } else if (optional) {
           argv.push(`${flag}${value}`);
@@ -149,7 +161,12 @@ export function commandArguments(
     if (!parsed.valid) {
       throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
     }
-    if (option.repeat) {
+    if (option.ignore) {
+      continue;
+    }
+    if (option.toggle) {
+      state[option.key] = state[option.key] !== true;
+    } else if (option.repeat) {
       const previous = state[option.key];
       state[option.key] =
         value === false || option.clear

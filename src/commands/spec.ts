@@ -11,6 +11,12 @@ export type OptionSpec = {
   repeat?: boolean;
   /** Negation clears a string option instead of assigning a boolean. */
   clear?: boolean;
+  /** Some negated callbacks/filename options leave their previous value untouched. */
+  ignore?: boolean;
+  /** XOR-style flags such as revision --reverse. */
+  toggle?: boolean;
+  /** Manual parsers such as revision --default require a detached value. */
+  separateValue?: boolean;
   /** Git PARSE_OPT_CMDMODE rejects a change to an already selected mode immediately. */
   modeGroup?: string;
   /** Cobra StringSlice treats an empty value as no entries. */
@@ -22,6 +28,8 @@ export type OptionSpec = {
   /** Values rejected immediately by the upstream option parser, even if later overwritten. */
   parser?: GitScalarParser;
   allowed?: readonly (string | number | boolean)[];
+  /** Constraints evaluated before this token changes parser state; $value is the incoming value. */
+  checks?: readonly Constraint[];
   /** Ordered callback side effects on other parser variables. */
   effects?: readonly {
     key: string;

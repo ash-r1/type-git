@@ -1,0 +1,1083 @@
+{
+  "baseline": "2.55.0",
+  "scope": "Literal option-test candidates; not proof of complete argument or callback semantics. Numeric shorthand -<n> and attached -n<n> require separate handling.",
+  "files": [
+    {
+      "file": "revision.c",
+      "sha256": "55cc4e71cbcda1806c3e2ccfe2da2d4e1b391abca486511d666a111af6e1ab76",
+      "functions": [
+        "handle_revision_opt",
+        "handle_revision_pseudo_opt",
+        "setup_revisions"
+      ]
+    },
+    {
+      "file": "diff-merges.c",
+      "sha256": "4ea0840ef747c10cfb7255936c4679be34bbef5cf8285cb6932b36453e3ec712",
+      "functions": [
+        "diff_merges_parse_opts"
+      ]
+    }
+  ],
+  "options": {
+    "--abbrev": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--abbrev-commit": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--after": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--all": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--all-match": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--alternate-refs": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--always": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--ancestry-path": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--author": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--author-date-order": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--basic-regexp": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--before": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--bisect": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--boundary": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--branches": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--cc": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "diff-merges.c:diff_merges_parse_opts"
+      ]
+    },
+    "--cherry": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--cherry-mark": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--cherry-pick": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--children": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--combined-all-paths": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "diff-merges.c:diff_merges_parse_opts"
+      ]
+    },
+    "--committer": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--count": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--date": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--date-order": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--dd": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "diff-merges.c:diff_merges_parse_opts"
+      ]
+    },
+    "--default": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--dense": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--diff-merges": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "diff-merges.c:diff_merges_parse_opts"
+      ]
+    },
+    "--do-walk": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--encode-email-headers": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--encoding": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--end-of-options": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:setup_revisions"
+      ]
+    },
+    "--exclude": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--exclude-first-parent-only": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--exclude-hidden": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--exclude-promisor-objects": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--expand-tabs": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--extended-regexp": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--first-parent": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--fixed-strings": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--format": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--full-diff": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--full-history": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--glob": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--graph": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--graph-lane-limit": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--grep": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--grep-reflog": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--ignore-missing": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--in-commit-order": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--indexed-objects": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--invert-grep": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--left-only": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--left-right": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--log-size": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--max-age": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--max-count": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--max-count-oldest": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--max-parents": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--maximal-only": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--merge": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--merges": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--min-age": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--min-parents": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-abbrev": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-abbrev-commit": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-commit-id": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-diff-merges": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "diff-merges.c:diff_merges_parse_opts"
+      ]
+    },
+    "--no-encode-email-headers": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-expand-tabs": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-graph": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-kept-objects": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-max-parents": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-merges": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-min-parents": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-notes": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-show-signature": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-standard-notes": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-walk": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--not": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--notes": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--objects": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--objects-edge": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--objects-edge-aggressive": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--oneline": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--parents": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--perl-regexp": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--pretty": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--reflog": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--regexp-ignore-case": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--relative-date": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--remerge-diff": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "diff-merges.c:diff_merges_parse_opts"
+      ]
+    },
+    "--remotes": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--remove-empty": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--reverse": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--right-only": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--root": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--show-linear-break": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--show-notes": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--show-notes-by-default": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--show-pulls": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--show-signature": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--simplify-by-decoration": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--simplify-merges": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--since": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--since-as-filter": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--single-worktree": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--skip": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--sparse": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--standard-notes": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--stdin": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:setup_revisions"
+      ]
+    },
+    "--tags": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt",
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
+    "--topo-order": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--unpacked": {
+      "forms": [
+        "flag",
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--until": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--verify-objects": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "--walk-reflogs": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-E": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-F": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-P": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-c": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "diff-merges.c:diff_merges_parse_opts"
+      ]
+    },
+    "-g": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-i": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-m": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "diff-merges.c:diff_merges_parse_opts"
+      ]
+    },
+    "-n": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-r": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-t": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    },
+    "-v": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_opt"
+      ]
+    }
+  }
+}
