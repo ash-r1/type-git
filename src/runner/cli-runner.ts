@@ -8,6 +8,7 @@
  */
 
 import process from 'node:process';
+import type { CompanionExecutable } from '../commands/spec.js';
 import type { ExecAdapter, RuntimeAdapters } from '../core/adapters.js';
 import { type EnvInheritance, resolveInheritedEnv } from '../core/env.js';
 import type {
@@ -122,6 +123,8 @@ export type CredentialHelperConfig = {
  * Options for CliRunner
  */
 export type CliRunnerOptions = {
+  /** Paths for upstream standalone programs; gitweb defaults to gitweb.cgi on PATH. */
+  companionBinaries?: Partial<Record<CompanionExecutable, string>>;
   /** Git binary path (default: 'git') */
   gitBinary?: string;
   /** Additional environment variables */
@@ -178,6 +181,7 @@ export type RunOptions = ExecOpts & {
 export class CliRunner {
   private readonly exec: ExecAdapter;
   private readonly gitBinary: string;
+  private readonly companionBinaries: Record<CompanionExecutable, string>;
   private readonly baseEnv: Record<string, string>;
   private readonly inheritEnv: EnvInheritance | undefined;
   private readonly pathPrefix: string[];
@@ -188,6 +192,12 @@ export class CliRunner {
   public constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
     this.exec = adapters.exec;
     this.gitBinary = options?.gitBinary ?? 'git';
+    this.companionBinaries = {
+      scalar: 'scalar',
+      gitk: 'gitk',
+      gitweb: 'gitweb.cgi',
+      ...options?.companionBinaries,
+    };
     this.baseEnv = options?.env ?? {};
     this.inheritEnv = options?.inheritEnv;
     this.pathPrefix = options?.pathPrefix ?? [];
@@ -222,6 +232,7 @@ export class CliRunner {
       },
       {
         gitBinary: options.gitBinary ?? this.gitBinary,
+        companionBinaries: { ...this.companionBinaries, ...options.companionBinaries },
         env: mergedEnv,
         inheritEnv,
         pathPrefix: mergedPathPrefix,
@@ -343,7 +354,28 @@ export class CliRunner {
     args: string[],
     opts?: RunOptions,
   ): Promise<RawResult> {
-    const argv = this.buildArgv(context, args);
+    return this.execute(context, args, opts);
+  }
+
+  /** Run a standalone upstream program while preserving environment, audit and cancellation. */
+  public async runCompanion(
+    context: ExecutionContext,
+    executable: CompanionExecutable,
+    args: string[],
+    opts?: RunOptions,
+  ): Promise<RawResult> {
+    return this.execute(context, args, opts, executable);
+  }
+
+  private async execute(
+    context: ExecutionContext,
+    args: string[],
+    opts?: RunOptions,
+    executable?: CompanionExecutable,
+  ): Promise<RawResult> {
+    const argv = executable
+      ? [this.companionBinaries[executable], ...args]
+      : this.buildArgv(context, args);
     const { signal, onProgress, onLfsProgress, env: envOverride } = opts ?? {};
 
     if (signal?.aborted) {
@@ -356,6 +388,16 @@ export class CliRunner {
     // the resolved environment.
     if (envOverride) {
       Object.assign(env, envOverride);
+    }
+
+    if (executable && this.credential?.helper) {
+      // Companion programs spawn Git themselves; pass the same config override through its environment protocol.
+      const count = Number(env.GIT_CONFIG_COUNT ?? '0');
+      if (Number.isSafeInteger(count) && count >= 0) {
+        env[`GIT_CONFIG_KEY_${count}`] = 'credential.helper';
+        env[`GIT_CONFIG_VALUE_${count}`] = this.credential.helper;
+        env.GIT_CONFIG_COUNT = String(count + 1);
+      }
     }
 
     // Enable LFS progress output to stderr when LFS progress callback is provided
@@ -392,7 +434,12 @@ export class CliRunner {
           // The env above is already fully resolved (including any inherited variables),
           // so the adapter must not merge the parent environment on top of it.
           inheritEnv: false,
-          cwd: context.type === 'worktree' ? context.workdir : undefined,
+          cwd:
+            context.type === 'worktree'
+              ? context.workdir
+              : executable && context.type === 'bare'
+                ? context.gitDir
+                : undefined,
           signal,
         },
         needsStderrStreaming

@@ -49,7 +49,10 @@ export type OptionSpec = {
     set: string | number | boolean;
   }[];
 };
+export type CompanionExecutable = 'scalar' | 'gitk' | 'gitweb';
 export type CommandSpec = {
+  /** Standalone upstream program instead of a git subcommand. */
+  executable?: CompanionExecutable;
   argv: readonly string[];
   /** Dispatch only an exact first operand; otherwise use this scope's fallback grammar. */
   dispatch?: Readonly<Record<string, string>>;

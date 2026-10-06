@@ -3590,6 +3590,149 @@
         "test/types/fallback-dispatch-command-api.ts"
       ],
       "remaining": "List returns before delegated log parsing when refs/stash is absent. Arguments currently use literal operand objects; typed log options and their constraints require a conditional repository-state phase rather than unconditional callback validation."
+    },
+    "scalar": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar clone": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar list": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar register": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar unregister": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar run": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar reconfigure": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar delete": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar help": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar version": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "scalar diagnose": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "gitk": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "gitweb": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/companions.test.ts",
+        "src/runner/companion-runner.test.ts",
+        "test/types/companion-command-api.ts"
+      ],
+      "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
     }
   }
 }

@@ -1,4 +1,4 @@
-import { commandArguments } from '../commands/build.js';
+import { executeCommand } from '../commands/execute.js';
 import type {
   CheckedCommandArguments,
   GitCommandArgument,
@@ -398,7 +398,7 @@ export class BareRepoImpl implements BareRepo {
     args: A & CheckedCommandArguments<C, A>,
     opts?: GitCommandExecOpts,
   ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, true), opts);
+    return await executeCommand(this.runner, this.context, command, args, opts);
   }
 
   public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {

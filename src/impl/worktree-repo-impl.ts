@@ -1,4 +1,4 @@
-import { commandArguments } from '../commands/build.js';
+import { executeCommand } from '../commands/execute.js';
 import type {
   CheckedCommandArguments,
   GitCommandArgument,
@@ -342,7 +342,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     args: A & CheckedCommandArguments<C, A>,
     opts?: GitCommandExecOpts,
   ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, true), opts);
+    return await executeCommand(this.runner, this.context, command, args, opts);
   }
 
   public async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {

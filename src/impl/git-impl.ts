@@ -1,4 +1,4 @@
-import { commandArguments } from '../commands/build.js';
+import { executeCommand } from '../commands/execute.js';
 import type {
   CheckedCommandArguments,
   GitCommandArgument,
@@ -605,7 +605,7 @@ export class GitImpl implements Git {
     args: A & CheckedCommandArguments<C, A>,
     opts?: GitCommandExecOpts,
   ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, undefined), opts);
+    return await executeCommand(this.runner, { type: 'global' }, command, args, opts);
   }
 
   public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
