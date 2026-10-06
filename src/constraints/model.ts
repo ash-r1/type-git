@@ -1,3 +1,4 @@
+import { gitBoolean } from './git-scalars.js';
 import { lfsBytes } from './scalars.js';
 /** Declarative constraints: no Git processes, TypeScript compiler, or repository state. */
 export type Evidence = {
@@ -11,6 +12,7 @@ export type Predicate =
   | {
       key: string;
       test:
+        | 'gitEnabled'
         | 'active'
         | 'inactive'
         | 'present'
@@ -20,7 +22,8 @@ export type Predicate =
         | 'positive'
         | 'bytesPositive';
     }
-  | { key: string; test: 'equals' | 'notEquals'; value: string | number | boolean };
+  | { key: string; test: 'equals' | 'notEquals'; value: string | number | boolean }
+  | { key: string; test: 'startsWith'; value: string };
 export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] } & (
     | {
         kind: 'arity';
@@ -31,6 +34,7 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
       }
     | { kind: 'required'; required: readonly Predicate[] }
     | { kind: 'exclusive'; keys: readonly string[] }
+    | { kind: 'exclusiveGroups'; groups: readonly (readonly Predicate[])[] }
     | { kind: 'requiresAny'; when: Predicate; choices: readonly Predicate[] }
     | { kind: 'requires'; when: Predicate; required: readonly Predicate[] }
     | { kind: 'conflicts'; when: Predicate; others: readonly Predicate[] }
@@ -44,6 +48,8 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
 export function matches(predicate: Predicate, options: Readonly<Record<string, unknown>>): boolean {
   const value = options[predicate.key];
   switch (predicate.test) {
+    case 'gitEnabled':
+      return gitBoolean(value) === true || value === 'on-demand';
     case 'inactive':
       return value === undefined || value === false;
     case 'active':
@@ -67,6 +73,8 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
       return value === predicate.value;
     case 'notEquals':
       return value !== predicate.value;
+    case 'startsWith':
+      return typeof value === 'string' && value.startsWith(predicate.value);
   }
 }
 
@@ -95,6 +103,8 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
       return !rule.required.every((p) => matches(p, options));
     case 'exclusive':
       return rule.keys.filter((key) => matches({ key, test: 'active' }, options)).length > 1;
+    case 'exclusiveGroups':
+      return rule.groups.filter((group) => group.some((p) => matches(p, options))).length > 1;
     case 'requiresAny':
       return matches(rule.when, options) && !rule.choices.some((p) => matches(p, options));
     case 'requires':
@@ -134,6 +144,8 @@ function bodyKeys(rule: Constraint): string[] {
       return [rule.key, ...conditions(rule.when).map((p) => p.key)];
     case 'required':
       return rule.required.map((p) => p.key);
+    case 'exclusiveGroups':
+      return rule.groups.flatMap((group) => group.map((p) => p.key));
     case 'exclusive':
     case 'unsupported':
       return [...rule.keys];

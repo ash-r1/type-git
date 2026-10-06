@@ -1,3 +1,4 @@
+import { parseGitScalar } from '../constraints/git-scalars.js';
 import { violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
@@ -21,9 +22,17 @@ export function commandArguments(
   }
   const argv = [...spec.argv];
   const operands: string[] = [];
-  const state: Record<string, unknown> = { operands, inRepository };
+  const operandsBeforeSeparator: string[] = [];
+  const pathsAfterSeparator: string[] = [];
+  const state: Record<string, unknown> = {
+    operands,
+    inRepository,
+    operandsBeforeSeparator,
+    pathsAfterSeparator,
+  };
   let ended = false;
   const prefixCounts = new Map<number, number>();
+  const modes = new Map<string, unknown>();
   for (const arg of args) {
     if (!Array.isArray(arg)) {
       const operand =
@@ -38,6 +47,7 @@ export function commandArguments(
       }
       argv.push(operand);
       operands.push(operand);
+      (ended ? pathsAfterSeparator : operandsBeforeSeparator).push(operand);
       continue;
     }
     if (arg[0] === '--' && arg.length === 1) {
@@ -45,6 +55,7 @@ export function commandArguments(
         throw new GitArgumentError(`${command}: unexpected end-of-options marker`);
       }
       ended = true;
+      state.hasSeparator = true;
       argv.push('--');
       continue;
     }
@@ -64,6 +75,22 @@ export function commandArguments(
     }
     const supplied = arg.length === 2 && arg[1] !== undefined;
     const value = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);
+    if (option.modeGroup) {
+      const mode = value === false || value === undefined ? false : option.key;
+      if (modes.has(option.modeGroup) && modes.get(option.modeGroup) !== mode) {
+        throw new GitArgumentError(`${flag}: incompatible command mode`);
+      }
+      if (mode !== false) {
+        modes.set(option.modeGroup, mode);
+      }
+    }
+    if (
+      supplied &&
+      option.allowed &&
+      !option.allowed.includes(value as string | number | boolean)
+    ) {
+      throw new GitArgumentError(`${flag}: unsupported option value ${String(value)}`);
+    }
     const start = argv.length;
     if (option.value === 'flag') {
       if (supplied) {
@@ -108,6 +135,12 @@ export function commandArguments(
       argv.splice(position, 0, ...emitted);
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
+    const parsed = option.parser
+      ? parseGitScalar(option.parser, value, state[option.key])
+      : { valid: true, value };
+    if (!parsed.valid) {
+      throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
+    }
     if (option.repeat) {
       const previous = state[option.key];
       state[option.key] =
@@ -118,7 +151,18 @@ export function commandArguments(
               ...(option.skipEmpty && value === '' ? [] : [value]),
             ];
     } else {
-      state[option.key] = value;
+      state[option.key] = option.emptyIsUnset && value === '' ? undefined : parsed.value;
+    }
+    for (const effect of option.effects ?? []) {
+      const previous = state[effect.key];
+      if (
+        !effect.when ||
+        ('equals' in effect.when
+          ? previous === effect.when.equals
+          : previous !== effect.when.notEquals)
+      ) {
+        state[effect.key] = effect.set;
+      }
     }
   }
   state.operand0 = operands[0];

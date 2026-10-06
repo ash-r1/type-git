@@ -1,0 +1,61 @@
+/** Git 2.55 parse.c: signed 32-bit configuration integers with base-0 (including C23 binary literals) and k/m/g units. */
+export function gitInteger(value: string): bigint | undefined {
+  const match =
+    /^[ \t\r\n\v\f]*([+-]?)(0[xX][\da-fA-F]+|0[bB][01]+|0[0-7]*|[1-9]\d*)([kKmMgG]?)$/.exec(value);
+  if (!match) {
+    return undefined;
+  }
+  const digits = match[2]!;
+  const magnitude = /^0[xXbB]/.test(digits)
+    ? BigInt(digits)
+    : digits.startsWith('0')
+      ? BigInt(`0o${digits}`)
+      : BigInt(digits);
+  const power = { '': 0n, k: 10n, m: 20n, g: 30n }[match[3]!.toLowerCase()]!;
+  const number = (match[1] === '-' ? -magnitude : magnitude) * (1n << power);
+  return number >= -2147483648n && number <= 2147483647n ? number : undefined;
+}
+
+/** Undefined means an invalid spelling, not false. An absent option value is handled by its schema. */
+export function gitBoolean(value: unknown): boolean | undefined {
+  if (typeof value === 'boolean') {
+    return value;
+  }
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+  const text = value.toLowerCase();
+  if (['true', 'yes', 'on'].includes(text)) {
+    return true;
+  }
+  if (['', 'false', 'no', 'off'].includes(text)) {
+    return false;
+  }
+  const integer = gitInteger(value);
+  return integer === undefined ? undefined : integer !== 0n;
+}
+
+export type GitScalarParser = 'git-bool' | 'fetch-recurse' | 'push-recurse' | 'push-signed';
+export function parseGitScalar(
+  parser: GitScalarParser,
+  value: unknown,
+  previous?: unknown,
+): { valid: boolean; value?: unknown } {
+  if (parser === 'push-recurse' && value === 'only-is-on-demand') {
+    return { valid: true, value: previous === 'only' ? 'on-demand' : previous };
+  }
+  const boolean = gitBoolean(value);
+  if (boolean !== undefined) {
+    return { valid: parser !== 'push-recurse' || !boolean, value: boolean };
+  }
+  if (parser === 'fetch-recurse' && value === 'on-demand') {
+    return { valid: true, value };
+  }
+  if (parser === 'push-recurse' && ['on-demand', 'check', 'only'].includes(String(value))) {
+    return { valid: true, value };
+  }
+  if (parser === 'push-signed' && typeof value === 'string' && value.toLowerCase() === 'if-asked') {
+    return { valid: true, value: 'if-asked' };
+  }
+  return { valid: false };
+}
