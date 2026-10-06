@@ -72,7 +72,7 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
   it('accepts empty-submodule operations and native root dispatch', () => {
     compare('submodule', [], [], true);
     compare('submodule', [['--cached']], ['--cached'], true);
-    for (const root of legacy ? ['submodule'] : ['submodule', 'submodule--helper']) {
+    for (const commandRoot of legacy ? ['submodule'] : ['submodule', 'submodule--helper']) {
       for (const op of [
         'init',
         'status',
@@ -82,7 +82,7 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
         'absorbgitdirs',
         'update',
       ]) {
-        compare(`${root} ${op}` as GitCommandName, [], [], true);
+        compare(`${commandRoot} ${op}` as GitCommandName, [], [], true);
       }
     }
     compare('submodule', [['--cached'], { operand: 'update' }], ['--cached', 'update'], false);
@@ -92,20 +92,30 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
     compare('sparse-checkout', [], [], false);
   });
   it('matches arities and tracking/deinit choices before repository effects', () => {
-    for (const root of legacy ? ['submodule'] : ['submodule', 'submodule--helper']) {
-      compare(`${root} deinit` as GitCommandName, [], [], false);
-      compare(`${root} deinit` as GitCommandName, [['--all']], ['--all'], true);
+    for (const commandRoot of legacy ? ['submodule'] : ['submodule', 'submodule--helper']) {
+      compare(`${commandRoot} deinit` as GitCommandName, [], [], false);
+      compare(`${commandRoot} deinit` as GitCommandName, [['--all']], ['--all'], true);
       compare(
-        `${root} deinit` as GitCommandName,
+        `${commandRoot} deinit` as GitCommandName,
         [['--all'], { operand: 'missing' }],
         ['--all', 'missing'],
         false,
       );
-      compare(`${root} add` as GitCommandName, [], [], false);
-      compare(`${root} set-url` as GitCommandName, [{ operand: 'missing' }], ['missing'], false);
-      compare(`${root} set-branch` as GitCommandName, [{ operand: 'missing' }], ['missing'], false);
+      compare(`${commandRoot} add` as GitCommandName, [], [], false);
       compare(
-        `${root} set-branch` as GitCommandName,
+        `${commandRoot} set-url` as GitCommandName,
+        [{ operand: 'missing' }],
+        ['missing'],
+        false,
+      );
+      compare(
+        `${commandRoot} set-branch` as GitCommandName,
+        [{ operand: 'missing' }],
+        ['missing'],
+        false,
+      );
+      compare(
+        `${commandRoot} set-branch` as GitCommandName,
         [['--branch', ''], ['--default'], { operand: 'missing' }],
         ['--branch=', '--default', 'missing'],
         false,
@@ -131,39 +141,39 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
   it.skipIf(legacy)(
     'matches filter prerequisites, frontend spellings and fixed strategy forwarding',
     () => {
-      for (const root of legacy ? ['submodule'] : ['submodule', 'submodule--helper']) {
+      for (const commandRoot of legacy ? ['submodule'] : ['submodule', 'submodule--helper']) {
         compare(
-          `${root} update` as GitCommandName,
+          `${commandRoot} update` as GitCommandName,
           [['--filter', 'blob:none']],
           ['--filter=blob:none'],
           false,
         );
         compare(
-          `${root} update` as GitCommandName,
+          `${commandRoot} update` as GitCommandName,
           [['--filter', 'blob:none'], ['--init']],
           ['--filter=blob:none', '--init'],
           true,
         );
         compare(
-          `${root} update` as GitCommandName,
+          `${commandRoot} update` as GitCommandName,
           [['--filter', 'blob:none'], ['--require-init']],
           ['--filter=blob:none', '--require-init'],
           true,
         );
         compare(
-          `${root} update` as GitCommandName,
+          `${commandRoot} update` as GitCommandName,
           [['--checkout'], ['--merge'], ['--rebase']],
           ['--checkout', '--merge', '--rebase'],
           true,
         );
         compare(
-          `${root} update` as GitCommandName,
+          `${commandRoot} update` as GitCommandName,
           [['--ref-format', 'unknown']],
           ['--ref-format=unknown'],
           false,
         );
         compare(
-          `${root} update` as GitCommandName,
+          `${commandRoot} update` as GitCommandName,
           [
             ['--ref-format', 'unknown'],
             ['--ref-format', 'files'],
@@ -193,15 +203,15 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
     },
   );
   it('preserves summary early return and parent-level quiet options', () => {
-    for (const root of legacy ? ['submodule'] : ['submodule', 'submodule--helper']) {
+    for (const commandRoot of legacy ? ['submodule'] : ['submodule', 'submodule--helper']) {
       compare(
-        `${root} summary` as GitCommandName,
+        `${commandRoot} summary` as GitCommandName,
         [['--cached'], ['--files']],
         ['--cached', '--files'],
         false,
       );
       compare(
-        `${root} summary` as GitCommandName,
+        `${commandRoot} summary` as GitCommandName,
         [['--cached'], ['--files'], ['--summary-limit', 0]],
         ['--cached', '--files', '--summary-limit=0'],
         true,

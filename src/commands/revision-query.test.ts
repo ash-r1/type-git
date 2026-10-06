@@ -133,7 +133,12 @@ describe('revision queries and pull grammars', () => {
     compare('show-branch', [['--reflog', 'bad']], ['--reflog=bad'], false);
     if (!legacy) {
       // Git 2.25 crashes on this combination; Git 2.55 rejects it normally.
-      compare('show-branch', [['--reflog', '1'], ['--current']], ['--reflog=1', '--current'], false);
+      compare(
+        'show-branch',
+        [['--reflog', '1'], ['--current']],
+        ['--reflog=1', '--current'],
+        false,
+      );
     }
     compare(
       'show-branch',
