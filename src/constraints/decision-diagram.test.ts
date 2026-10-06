@@ -74,6 +74,33 @@ describe('reduced ordered decision diagrams', () => {
     expect(solve(guarded, { ...domains, mode: ['skip'] }).accepted).toBe(45n);
   });
 
+  it('solves cross-field membership exactly in either variable order', () => {
+    for (const [key, valueKey] of [
+      ['a', 'z'],
+      ['z', 'a'],
+    ]) {
+      const rule: Constraint = {
+        ...evidence,
+        id: 'duplicate',
+        kind: 'forbid',
+        when: [{ key: key!, test: 'includes', valueKey: valueKey! }],
+      };
+      const domain = {
+        [key!]: [undefined, [], ['gc'], ['GC'], ['gc', 'GC']],
+        [valueKey!]: [undefined, 'gc', 'GC', 'other'],
+      };
+      const result = solve([rule], domain);
+      expect(result.total).toBe(20n);
+      expect(result.accepted).toBe(16n);
+      const witness = result.counterexamples.duplicate!;
+      expect((witness[key!] as unknown[]).includes(witness[valueKey!])).toBe(true);
+      expect(() => solve([rule], { [key!]: [[]] })).toThrow(`Missing domain: ${valueKey}`);
+      const guarded = { ...rule, guard: [p('enabled')] };
+      expect(solve([guarded], { ...domain, enabled: [false, true] }).accepted).toBe(36n);
+      expect(solve([rule], Object.fromEntries(Object.entries(domain).reverse()))).toEqual(result);
+    }
+  });
+
   it('counts 80 interacting boolean variables exactly without enumerating 2^80 assignments', () => {
     const keys = Array.from({ length: 80 }, (_, i) => `flag${i.toString().padStart(2, '0')}`);
     const result = solve(

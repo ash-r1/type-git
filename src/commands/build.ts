@@ -191,7 +191,7 @@ export function commandArguments(
       state[option.key] =
         option.emptyIsUnset && value === ''
           ? undefined
-          : option.caseInsensitive && typeof parsed.value === 'string'
+          : option.caseInsensitive && !option.preserveCase && typeof parsed.value === 'string'
             ? asciiLower(parsed.value)
             : parsed.value;
     }

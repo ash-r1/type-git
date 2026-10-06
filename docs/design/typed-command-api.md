@@ -127,3 +127,27 @@ The catalogue includes `ls-files`, `ls-remote`, `ls-tree`, `for-each-ref`, `show
 - `check-ref-format` stops at its first operand and has no `--` separator. Its special branch form accepts exactly the flag and branch operand. Reference syntax and repository expansion remain delegated to Git.
 
 The scopes are partial: signatures and object identities, path/ref/format languages, stream contents, binary transport, configuration, abbreviations and historical-version differences still need evidence. In particular, exposing `show-index` does not make the current string-based stdin API a general binary protocol API.
+
+### Maintenance and storage scopes
+
+The catalogue also includes `gc`, all six maintenance operations, commit-graph
+write/verify, five multi-pack-index operations, five refs operations, pack-refs,
+fsck/fsck-objects, prune/prune-packed, update-server-info and the stage alias.
+Each operation is still marked partial in the coverage ledger: delegated numeric
+and date grammars, repository state, abbreviations and stdin protocols require
+separate audits. Integer tokens currently use safe JavaScript numbers; Git's
+additional numeric spellings, such as MIDX batch-size units, remain pending.
+
+The `includes` predicate reads two state fields: an accumulated array and the
+incoming `$value`. Maintenance task callbacks use it before appending the task.
+Git 2.55 matches a task name without ASCII case sensitivity, then rejects an
+exact repeated spelling. Thus `gc,gc` fails while `gc,GC` succeeds. The callback
+stores original spellings (`preserveCase`) and serializes them unchanged.
+
+The solver compiles relational predicates over both variables in sorted order.
+Counts and witnesses remain exact over the declared finite domains. Maintenance
+transition domains include lowercase and uppercase representatives; they do not
+enumerate every mixed-case string or prove completeness of upstream discovery.
+Case-insensitive literal arguments are checked by folding the supplied string,
+rather than constructing an exponential union of every possible enum spelling.
+Dynamic strings and argument arrays remain subject to runtime validation.
