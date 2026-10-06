@@ -21,6 +21,10 @@ export type OptionSpec = {
   attachedValue?: boolean;
   /** Git PARSE_OPT_CMDMODE rejects a change to an already selected mode immediately. */
   modeGroup?: string;
+  /** Native mode identity; aliases can select the same enum value. */
+  modeValue?: string;
+  /** A callback can select distinct modes through its argument. */
+  modeFromValue?: boolean;
   /** Cobra StringSlice treats an empty value as no entries. */
   skipEmpty?: boolean;
   /** Git's filename parser maps an empty filename to an unset pointer. */

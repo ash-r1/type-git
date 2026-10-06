@@ -381,3 +381,27 @@ git.command('merge-base', [['--all'], ['--independent'], { operand: 'HEAD' }]);
 git.command('commit-tree', [['-m', 'first'], ['-F', 'file'], { operand: 'HEAD^{tree}' }]);
 // @ts-expect-error Commit-tree requires one tree.
 git.command('commit-tree', []);
+
+repo.command('apply', [['--3way'], ['--ours'], ['--theirs']]);
+repo.command('apply', [['--reject'], ['--3way'], ['--no-reject']]);
+repo.command('apply', [['--cached'], ['--intent-to-add']]);
+// @ts-expect-error Three-way application cannot produce rejects.
+repo.command('apply', [['--reject'], ['--3way']]);
+// @ts-expect-error A resolution variant requires three-way application.
+repo.command('apply', [['--ours']]);
+// @ts-expect-error Callback rejects invalid values even if later overwritten.
+repo.command('apply', [['--whitespace', 'BAD'], ['--whitespace', 'warn']]);
+// @ts-expect-error Negated native callback aborts Git 2.55 and is omitted.
+repo.command('apply', [['--no-directory']]);
+repo.command('am', [['--continue'], ['--resolved'], ['-r']]);
+repo.command('am', [['--show-current-patch'], ['--show-current-patch', 'raw']]);
+repo.command('am', [['--show-current-patch', 'diff'], ['--show-current-patch', 'diff']]);
+repo.command('am', [['--quit'], ['--whitespace', 'invalid'], { operand: 'ignored-in-stray-state' }]);
+// @ts-expect-error Changing the native callback's enum value changes the mode.
+repo.command('am', [['--show-current-patch', 'raw'], ['--show-current-patch', 'diff']]);
+// @ts-expect-error Native mode conflict survives later repetition.
+repo.command('am', [['--continue'], ['--skip'], ['--continue']]);
+// @ts-expect-error Callback and fixed modes share the same native variable.
+repo.command('am', [['--continue'], ['--show-current-patch']]);
+// @ts-expect-error Case-sensitive enum callback.
+repo.command('am', [['--empty', 'KEEP']]);

@@ -96,7 +96,12 @@ export function commandArguments(
       }
     }
     if (option.modeGroup) {
-      const mode = value === false || value === undefined ? false : option.key;
+      const mode =
+        value === false || value === undefined
+          ? false
+          : option.modeFromValue
+            ? value
+            : (option.modeValue ?? option.key);
       if (modes.has(option.modeGroup) && modes.get(option.modeGroup) !== mode) {
         throw new GitArgumentError(`${flag}: incompatible command mode`);
       }
