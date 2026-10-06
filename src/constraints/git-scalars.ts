@@ -41,6 +41,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'abbrev'
   | 'mainline'
   | 'revision-count'
   | 'git-bool'
@@ -53,6 +54,16 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'abbrev') {
+    if (value === true) {
+      return { valid: true, value };
+    }
+    if (typeof value !== 'number' || !Number.isSafeInteger(value)) {
+      return { valid: false };
+    }
+    const converted = value | 0;
+    return { valid: true, value: converted !== 0 && converted < 4 ? 4 : converted };
+  }
   if (parser === 'mainline') {
     const mainline = typeof value === 'number' && Number.isSafeInteger(value) ? value | 0 : 0;
     return { valid: mainline > 0, value: mainline };

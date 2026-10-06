@@ -162,19 +162,23 @@
     },
     "ls-remote": {
       "state": "partial",
-      "models": [
-        "lsRemote"
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
     "ls-tree": {
       "state": "partial",
-      "models": [
-        "lsTree"
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
     "status": {
       "state": "partial",
@@ -1434,6 +1438,236 @@
         "test/types/command-api.ts"
       ],
       "remaining": "Session/configuration-dependent operands and defaults, delegated apply parser (only reached for actual patch application), mail/patch formats, binary I/O and abbreviations. Interactive operand requirements depend on session state; no unconditional rule is imposed."
+    },
+    "ls-files": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "for-each-ref": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "show-ref": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "symbolic-ref": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "verify-tag": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "verify-commit": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "count-objects": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "check-ignore": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "check-attr": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "check-mailmap": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "write-tree": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "mktree": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "mktag": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "show-index": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "verify-pack": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "stripspace": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "patch-id": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "describe": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "name-rev": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "cherry": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "format-rev": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "check-ref-format": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "unpack-file": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/inspection.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     }
   }
 }

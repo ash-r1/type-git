@@ -156,6 +156,7 @@
     }
   },
   "files": {
+    "maxSize": 16777216,
     "includes": [
       "src/**/*.ts"
     ]

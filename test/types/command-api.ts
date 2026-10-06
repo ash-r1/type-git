@@ -382,26 +382,88 @@ git.command('commit-tree', [['-m', 'first'], ['-F', 'file'], { operand: 'HEAD^{t
 // @ts-expect-error Commit-tree requires one tree.
 git.command('commit-tree', []);
 
-repo.command('apply', [['--3way'], ['--ours'], ['--theirs']]);
-repo.command('apply', [['--reject'], ['--3way'], ['--no-reject']]);
-repo.command('apply', [['--cached'], ['--intent-to-add']]);
+git.command('apply', [['--3way'], ['--ours'], ['--theirs']]);
+git.command('apply', [['--reject'], ['--3way'], ['--no-reject']]);
+git.command('apply', [['--cached'], ['--intent-to-add']]);
 // @ts-expect-error Three-way application cannot produce rejects.
-repo.command('apply', [['--reject'], ['--3way']]);
+git.command('apply', [['--reject'], ['--3way']]);
 // @ts-expect-error A resolution variant requires three-way application.
-repo.command('apply', [['--ours']]);
+git.command('apply', [['--ours']]);
 // @ts-expect-error Callback rejects invalid values even if later overwritten.
-repo.command('apply', [['--whitespace', 'BAD'], ['--whitespace', 'warn']]);
+git.command('apply', [['--whitespace', 'BAD'], ['--whitespace', 'warn']]);
 // @ts-expect-error Negated native callback aborts Git 2.55 and is omitted.
-repo.command('apply', [['--no-directory']]);
-repo.command('am', [['--continue'], ['--resolved'], ['-r']]);
-repo.command('am', [['--show-current-patch'], ['--show-current-patch', 'raw']]);
-repo.command('am', [['--show-current-patch', 'diff'], ['--show-current-patch', 'diff']]);
-repo.command('am', [['--quit'], ['--whitespace', 'invalid'], { operand: 'ignored-in-stray-state' }]);
+git.command('apply', [['--no-directory']]);
+git.command('am', [['--continue'], ['--resolved'], ['-r']]);
+git.command('am', [['--show-current-patch'], ['--show-current-patch', 'raw']]);
+git.command('am', [['--show-current-patch', 'diff'], ['--show-current-patch', 'diff']]);
+git.command('am', [['--quit'], ['--whitespace', 'invalid'], { operand: 'ignored-in-stray-state' }]);
 // @ts-expect-error Changing the native callback's enum value changes the mode.
-repo.command('am', [['--show-current-patch', 'raw'], ['--show-current-patch', 'diff']]);
+git.command('am', [['--show-current-patch', 'raw'], ['--show-current-patch', 'diff']]);
 // @ts-expect-error Native mode conflict survives later repetition.
-repo.command('am', [['--continue'], ['--skip'], ['--continue']]);
+git.command('am', [['--continue'], ['--skip'], ['--continue']]);
 // @ts-expect-error Callback and fixed modes share the same native variable.
-repo.command('am', [['--continue'], ['--show-current-patch']]);
+git.command('am', [['--continue'], ['--show-current-patch']]);
 // @ts-expect-error Case-sensitive enum callback.
-repo.command('am', [['--empty', 'KEEP']]);
+git.command('am', [['--empty', 'KEEP']]);
+
+git.command('ls-files', [['--format', '%(path)'], ['--unmerged']]);
+git.command('ls-files', [['--ignored'], ['--cached'], ['--exclude', '']]);
+// @ts-expect-error Explicit stage output conflicts with a custom format.
+git.command('ls-files', [['--format', '%(path)'], ['--stage']]);
+// @ts-expect-error Ignored output requires an explicit exclude source.
+git.command('ls-files', [['--ignored'], ['--cached']]);
+git.command('ls-tree', [['--name-only'], ['--name-only'], { operand: 'HEAD' }]);
+// @ts-expect-error Different native modes remain exclusive despite equivalent output.
+git.command('ls-tree', [['--name-only'], ['--name-status'], { operand: 'HEAD' }]);
+git.command('for-each-ref', [['--start-after', 'refs/heads/a'], ['--no-sort'], ['--sort', 'refname']]);
+// @ts-expect-error The default sort entry plus an explicit sort conflicts with start-after.
+git.command('for-each-ref', [['--start-after', 'refs/heads/a'], ['--sort', 'refname']]);
+// @ts-expect-error Only one quoting style can remain active.
+git.command('for-each-ref', [['--shell'], ['--python']]);
+git.command('check-attr', [['--stdin'], { operand: 'text' }, { operand: 'diff' }]);
+git.command('check-attr', [['-z'], { operand: 'text' }, ['--'], { operand: 'tracked' }]);
+// @ts-expect-error Without --all, attributes must precede the separator.
+git.command('check-attr', [['--'], { operand: 'tracked' }]);
+// @ts-expect-error Stdin path mode excludes explicit paths after the separator.
+git.command('check-attr', [['--stdin'], { operand: 'text' }, ['--'], { operand: 'tracked' }]);
+git.command('check-ignore', [['--stdin'], ['--quiet']]);
+// @ts-expect-error NUL input requires stdin for check-ignore (unlike check-attr).
+git.command('check-ignore', [['-z'], { operand: 'tracked' }]);
+git.command('check-mailmap', [['--stdin'], { operand: 'Test <test@example.com>' }]);
+git.command('show-ref', [['--exclude-existing'], { operand: 'ignored' }]);
+// @ts-expect-error Exists takes exactly one ref.
+git.command('show-ref', [['--exists'], { operand: 'HEAD' }, { operand: 'other' }]);
+git.command('symbolic-ref', [{ operand: 'HEAD' }]);
+// @ts-expect-error HEAD cannot be deleted.
+git.command('symbolic-ref', [['--delete'], { operand: 'HEAD' }]);
+git.command('describe', [['--contains'], ['--dirty'], { operand: 'HEAD' }]);
+// @ts-expect-error Dirty restricts operands when contains delegation is inactive.
+git.command('describe', [['--dirty'], { operand: 'HEAD' }]);
+// @ts-expect-error Long describe output requires nonzero abbreviation.
+git.command('describe', [['--long'], ['--abbrev', 0]]);
+git.command('name-rev', [['--stdin'], ['--no-stdin'], ['--all']]);
+// @ts-expect-error Deprecated stdin remains active despite negating annotate-stdin.
+git.command('name-rev', [['--stdin'], ['--no-annotate-stdin'], ['--all']]);
+git.command('cherry', [{ operand: 'a' }, { operand: 'b' }, { operand: 'c' }, { operand: 'd' }]);
+git.command('format-rev', [['--format', '%H'], ['--stdin-mode', 'bad'], ['--stdin-mode', 'revs']]);
+// @ts-expect-error Required stdin mode is missing.
+git.command('format-rev', [['--format', '%H']]);
+git.command('check-ref-format', [['--branch'], { operand: 'topic' }]);
+// @ts-expect-error Branch shorthand cannot be combined with another flag.
+git.command('check-ref-format', [['--branch'], ['--normalize'], { operand: 'topic' }]);
+// @ts-expect-error This manual parser does not recognize --.
+git.command('check-ref-format', [['--'], { operand: 'refs/heads/topic' }]);
+git.command('write-tree', [{ operand: 'ignored' }]);
+git.command('mktree', [{ operand: 'ignored' }]);
+git.command('mktag', [{ operand: 'ignored' }]);
+git.command('show-index', [{ operand: 'ignored' }]);
+git.command('patch-id', [['--stable'], { operand: 'ignored' }]);
+git.command('unpack-file', [{ operand: 'HEAD:tracked' }]);
+git.command('verify-commit', [{ operand: 'HEAD' }]);
+git.command('verify-tag', [{ operand: 'v1' }]);
+git.command('verify-pack', [{ operand: 'pack.idx' }]);
+git.command('count-objects', [['--verbose']]);
+git.command('stripspace', [['--comment-lines']]);
+git.command('ls-remote', [['--refs'], { operand: '.' }, { operand: '--literal-pattern' }]);
+// @ts-expect-error Options must precede the remote operand.
+git.command('ls-remote', [{ operand: '.' }, ['--refs']]);
