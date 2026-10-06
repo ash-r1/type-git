@@ -341,3 +341,20 @@ occurrence immediately. Fast-export validates its signature, reencoding and
 anonymization callbacks, preserves native negations and checks final import
 filename/anonymization relationships. Streaming inputs, ref/object/index state,
 legacy cacheinfo parsing and further revision processing remain pending.
+
+### Pack creation and inspection
+
+Pack-objects distinguishes a single output prefix from stdout transfer, requires
+stdout for thin packs, and rejects nonzero transfer size limits. Stdin-pack and
+cruft modes exclude the internal revision walker; flags such as all, reflog and
+indexed-objects imply that walker. Unpacked and strict promisor exclusion retain
+their special stdin-pack behavior. Cruft expiration enables cruft until a later
+option clears it. Negative depth/window values are accepted and clamped by Git.
+
+Index-pack has its own manual argument grammar, singleton output/title options,
+stdin requirements and verification filename derivation. Unpack-objects consumes
+binary stdin without positional filenames. Pack-redundant preserves all-mode's
+ignored operands and Git 2.55's explicit obsolete-command acknowledgement.
+Tests create local pack fixtures and compare their native parsers. Full streaming
+and numeric callback grammars, configuration/path-walk overrides and binary
+output API contracts remain pending; these scopes are not marked complete.

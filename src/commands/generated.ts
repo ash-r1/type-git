@@ -80032,6 +80032,1318 @@ const commandSpec275 = {
   separator: true,
 } as const satisfies CommandSpec;
 const commandSpec276 = {
+  argv: ['pack-objects'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--progress': {
+      key: 'progress',
+      value: 'flag',
+    },
+    '--all-progress': {
+      key: 'all-progress',
+      value: 'flag',
+    },
+    '--all-progress-implied': {
+      key: 'all-progress-implied',
+      value: 'flag',
+    },
+    '--index-version': {
+      key: 'index-version',
+      value: 'string',
+    },
+    '--max-pack-size': {
+      key: 'max-pack-size',
+      value: 'integer',
+    },
+    '--local': {
+      key: 'local',
+      value: 'flag',
+    },
+    '--incremental': {
+      key: 'incremental',
+      value: 'flag',
+    },
+    '--window': {
+      key: 'window',
+      value: 'integer',
+    },
+    '--window-memory': {
+      key: 'window-memory',
+      value: 'integer',
+    },
+    '--depth': {
+      key: 'depth',
+      value: 'integer',
+    },
+    '--reuse-delta': {
+      key: 'reuse-delta',
+      value: 'flag',
+    },
+    '--reuse-object': {
+      key: 'reuse-object',
+      value: 'flag',
+    },
+    '--delta-base-offset': {
+      key: 'delta-base-offset',
+      value: 'flag',
+    },
+    '--threads': {
+      key: 'threads',
+      value: 'integer',
+    },
+    '--non-empty': {
+      key: 'non-empty',
+      value: 'flag',
+    },
+    '--revs': {
+      key: 'revs',
+      value: 'flag',
+    },
+    '--unpacked': {
+      key: 'unpacked',
+      value: 'flag',
+    },
+    '--all': {
+      key: 'all',
+      value: 'flag',
+    },
+    '--reflog': {
+      key: 'reflog',
+      value: 'flag',
+    },
+    '--indexed-objects': {
+      key: 'indexed-objects',
+      value: 'flag',
+    },
+    '--stdin-packs': {
+      key: 'stdin-packs',
+      value: 'optional-string',
+      allowed: ['', 'follow'],
+    },
+    '--stdout': {
+      key: 'stdout',
+      value: 'flag',
+    },
+    '--include-tag': {
+      key: 'include-tag',
+      value: 'flag',
+    },
+    '--keep-unreachable': {
+      key: 'keep-unreachable',
+      value: 'flag',
+    },
+    '--pack-loose-unreachable': {
+      key: 'pack-loose-unreachable',
+      value: 'flag',
+    },
+    '--unpack-unreachable': {
+      key: 'unpack-unreachable',
+      value: 'optional-string',
+    },
+    '--cruft': {
+      key: 'cruft',
+      value: 'flag',
+    },
+    '--cruft-expiration': {
+      key: 'cruft-expiration',
+      value: 'optional-string',
+      effects: [
+        {
+          key: 'cruft',
+          set: true,
+        },
+      ],
+    },
+    '--sparse': {
+      key: 'sparse',
+      value: 'flag',
+    },
+    '--thin': {
+      key: 'thin',
+      value: 'flag',
+    },
+    '--path-walk': {
+      key: 'path-walk',
+      value: 'flag',
+    },
+    '--shallow': {
+      key: 'shallow',
+      value: 'flag',
+    },
+    '--honor-pack-keep': {
+      key: 'honor-pack-keep',
+      value: 'flag',
+    },
+    '--keep-pack': {
+      key: 'keep-pack',
+      value: 'string',
+      repeat: true,
+    },
+    '--compression': {
+      key: 'compression',
+      value: 'integer',
+    },
+    '--keep-true-parents': {
+      key: 'keep-true-parents',
+      value: 'flag',
+    },
+    '--use-bitmap-index': {
+      key: 'use-bitmap-index',
+      value: 'flag',
+    },
+    '--write-bitmap-index': {
+      key: 'write-bitmap-index',
+      value: 'flag',
+    },
+    '--write-bitmap-index-quiet': {
+      key: 'write-bitmap-index-quiet',
+      value: 'flag',
+    },
+    '--filter': {
+      key: 'filter',
+      value: 'string',
+    },
+    '--missing': {
+      key: 'missing',
+      value: 'string',
+      allowed: ['error', 'allow-any', 'allow-promisor'],
+    },
+    '--exclude-promisor-objects': {
+      key: 'exclude-promisor-objects',
+      value: 'flag',
+    },
+    '--exclude-promisor-objects-best-effort': {
+      key: 'exclude-promisor-objects-best-effort',
+      value: 'flag',
+    },
+    '--delta-islands': {
+      key: 'delta-islands',
+      value: 'flag',
+    },
+    '--uri-protocol': {
+      key: 'uri-protocol',
+      value: 'string',
+      repeat: true,
+    },
+    '--name-hash-version': {
+      key: 'name-hash-version',
+      value: 'integer',
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      set: false,
+    },
+    '--no-progress': {
+      key: 'progress',
+      value: 'flag',
+      set: false,
+    },
+    '--no-all-progress': {
+      key: 'all-progress',
+      value: 'flag',
+      set: false,
+    },
+    '--no-all-progress-implied': {
+      key: 'all-progress-implied',
+      value: 'flag',
+      set: false,
+    },
+    '--no-local': {
+      key: 'local',
+      value: 'flag',
+      set: false,
+    },
+    '--no-incremental': {
+      key: 'incremental',
+      value: 'flag',
+      set: false,
+    },
+    '--no-window': {
+      key: 'window',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-depth': {
+      key: 'depth',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-reuse-delta': {
+      key: 'reuse-delta',
+      value: 'flag',
+      set: false,
+    },
+    '--no-reuse-object': {
+      key: 'reuse-object',
+      value: 'flag',
+      set: false,
+    },
+    '--no-delta-base-offset': {
+      key: 'delta-base-offset',
+      value: 'flag',
+      set: false,
+    },
+    '--no-threads': {
+      key: 'threads',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-non-empty': {
+      key: 'non-empty',
+      value: 'flag',
+      set: false,
+    },
+    '--no-revs': {
+      key: 'revs',
+      value: 'flag',
+      set: false,
+    },
+    '--no-stdin-packs': {
+      key: 'stdin-packs',
+      value: 'flag',
+      set: false,
+    },
+    '--no-stdout': {
+      key: 'stdout',
+      value: 'flag',
+      set: false,
+    },
+    '--no-include-tag': {
+      key: 'include-tag',
+      value: 'flag',
+      set: false,
+    },
+    '--no-keep-unreachable': {
+      key: 'keep-unreachable',
+      value: 'flag',
+      set: false,
+    },
+    '--no-pack-loose-unreachable': {
+      key: 'pack-loose-unreachable',
+      value: 'flag',
+      set: false,
+    },
+    '--no-unpack-unreachable': {
+      key: 'unpack-unreachable',
+      value: 'flag',
+      set: false,
+    },
+    '--no-cruft': {
+      key: 'cruft',
+      value: 'flag',
+      set: false,
+    },
+    '--no-cruft-expiration': {
+      key: 'cruft',
+      value: 'flag',
+      set: false,
+    },
+    '--no-sparse': {
+      key: 'sparse',
+      value: 'flag',
+      set: false,
+    },
+    '--no-thin': {
+      key: 'thin',
+      value: 'flag',
+      set: false,
+    },
+    '--no-path-walk': {
+      key: 'path-walk',
+      value: 'flag',
+      set: false,
+    },
+    '--no-shallow': {
+      key: 'shallow',
+      value: 'flag',
+      set: false,
+    },
+    '--no-honor-pack-keep': {
+      key: 'honor-pack-keep',
+      value: 'flag',
+      set: false,
+    },
+    '--no-keep-pack': {
+      key: 'keep-pack',
+      value: 'flag',
+      repeat: true,
+      clear: true,
+    },
+    '--no-compression': {
+      key: 'compression',
+      value: 'flag',
+      set: 0,
+    },
+    '--no-keep-true-parents': {
+      key: 'keep-true-parents',
+      value: 'flag',
+      set: false,
+    },
+    '--no-use-bitmap-index': {
+      key: 'use-bitmap-index',
+      value: 'flag',
+      set: false,
+    },
+    '--no-write-bitmap-index': {
+      key: 'write-bitmap-index',
+      value: 'flag',
+      set: false,
+    },
+    '--no-write-bitmap-index-quiet': {
+      key: 'write-bitmap-index-quiet',
+      value: 'flag',
+      set: false,
+    },
+    '--no-filter': {
+      key: 'filter',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-exclude-promisor-objects': {
+      key: 'exclude-promisor-objects',
+      value: 'flag',
+      set: false,
+    },
+    '--no-exclude-promisor-objects-best-effort': {
+      key: 'exclude-promisor-objects-best-effort',
+      value: 'flag',
+      set: false,
+    },
+    '--no-delta-islands': {
+      key: 'delta-islands',
+      value: 'flag',
+      set: false,
+    },
+    '--no-uri-protocol': {
+      key: 'uri-protocol',
+      value: 'flag',
+      repeat: true,
+      clear: true,
+    },
+    '--no-name-hash-version': {
+      key: 'name-hash-version',
+      value: 'flag',
+      set: 0,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--no-max-pack-size': {
+      key: 'max-pack-size',
+      value: 'flag',
+      set: 0,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.pack-objects.arity-0-0',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'stdout',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'The native parser requires this count of pack filename arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.arity-1-1',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      when: {
+        key: 'stdout',
+        test: 'inactive',
+      },
+      origin: 'git',
+      reason: 'The native parser requires this count of pack filename arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.compression',
+      kind: 'value',
+      key: 'compression',
+      allowed: [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      origin: 'git',
+      reason: 'The final compression level is -1 or 0 through 9.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.name-hash',
+      kind: 'value',
+      key: 'name-hash-version',
+      allowed: [1, 2],
+      guard: [
+        {
+          key: 'name-hash-version',
+          test: 'positive',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Nonnegative name hash versions must be 1 or 2; negatives select configured defaults.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.zero-name-hash',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'name-hash-version',
+          test: 'equals',
+          value: 0,
+        },
+      ],
+      origin: 'git',
+      reason: 'Zero is not a name hash version.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.transfer-size',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdout',
+          test: 'active',
+        },
+        {
+          key: 'max-pack-size',
+          test: 'nonzero',
+        },
+      ],
+      origin: 'git',
+      reason: 'A nonzero pack size limit is incompatible with stdout.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.thin-output',
+      kind: 'requires',
+      when: {
+        key: 'thin',
+        test: 'active',
+      },
+      required: [
+        {
+          key: 'stdout',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Thin packs require stdout.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.unreachable',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'keep-unreachable',
+          test: 'active',
+        },
+        {
+          key: 'unpack-unreachable',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Keeping and unpacking unreachable objects conflict.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.promisor',
+      kind: 'exclusive',
+      keys: ['exclude-promisor-objects', 'exclude-promisor-objects-best-effort'],
+      origin: 'git',
+      reason: 'Strict and best-effort promisor exclusions conflict.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-filter',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'filter',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Stdin pack input cannot be filtered.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-cruft',
+      kind: 'exclusive',
+      keys: ['stdin-packs', 'cruft'],
+      origin: 'git',
+      reason: 'Stdin pack and cruft input conflict.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-revs',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'revs',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-all',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'all',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-reflog',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'reflog',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-indexed-objects',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'indexed-objects',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-keep-unreachable',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'keep-unreachable',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-unpack-unreachable',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'unpack-unreachable',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-pack-loose-unreachable',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'pack-loose-unreachable',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-exclude-promisor-objects-best-effort',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'exclude-promisor-objects-best-effort',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.stdin-packs-thin',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin-packs',
+          test: 'active',
+        },
+        {
+          key: 'thin',
+          test: 'active',
+        },
+        {
+          key: 'path-walk',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'Thin mode enables revision walking when path-walk is disabled.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-revs',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'revs',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-all',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'all',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-reflog',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'reflog',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-indexed-objects',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'indexed-objects',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-keep-unreachable',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'keep-unreachable',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-unpack-unreachable',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'unpack-unreachable',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-pack-loose-unreachable',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'pack-loose-unreachable',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-exclude-promisor-objects-best-effort',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'exclude-promisor-objects-best-effort',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'This option enables the internal revision walk, which conflicts with this input mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-thin',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'thin',
+          test: 'active',
+        },
+        {
+          key: 'path-walk',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason: 'Thin mode enables revision walking when path-walk is disabled.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-unpacked',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'unpacked',
+          test: 'active',
+        },
+        {
+          key: 'stdin-packs',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Without stdin-packs this option enables revision walking, incompatible with cruft input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+    {
+      id: 'cli.pack-objects.cruft-exclude-promisor-objects',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'cruft',
+          test: 'active',
+        },
+        {
+          key: 'exclude-promisor-objects',
+          test: 'active',
+        },
+        {
+          key: 'stdin-packs',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Without stdin-packs this option enables revision walking, incompatible with cruft input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c',
+    },
+  ],
+  source: 'builtin/pack-objects.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec277 = {
+  argv: ['index-pack'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--stdin': {
+      key: 'stdin',
+      value: 'flag',
+    },
+    '--fix-thin': {
+      key: 'fix-thin',
+      value: 'flag',
+    },
+    '--check-self-contained-and-connected': {
+      key: 'check-self-contained-and-connected',
+      value: 'flag',
+    },
+    '--verify': {
+      key: 'verify',
+      value: 'flag',
+    },
+    '--show-resolving-progress': {
+      key: 'show-resolving-progress',
+      value: 'flag',
+    },
+    '--report-end-of-input': {
+      key: 'report-end-of-input',
+      value: 'flag',
+    },
+    '--rev-index': {
+      key: 'rev-index',
+      value: 'flag',
+    },
+    '--no-rev-index': {
+      key: 'rev-index',
+      value: 'flag',
+      set: false,
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--strict': {
+      key: 'strict',
+      value: 'optional-string',
+    },
+    '--fsck-objects': {
+      key: 'fsck-objects',
+      value: 'optional-string',
+    },
+    '--keep': {
+      key: 'keep',
+      value: 'optional-string',
+    },
+    '--promisor': {
+      key: 'promisor',
+      value: 'optional-string',
+    },
+    '--threads': {
+      key: 'threads',
+      value: 'string',
+    },
+    '--pack_header': {
+      key: 'pack_header',
+      value: 'string',
+    },
+    '--index-version': {
+      key: 'index-version',
+      value: 'string',
+    },
+    '--max-input-size': {
+      key: 'max-input-size',
+      value: 'string',
+    },
+    '--object-format': {
+      key: 'object-format',
+      value: 'string',
+      allowed: ['sha1', 'sha256'],
+    },
+    '--verify-stat': {
+      key: 'verify',
+      value: 'flag',
+    },
+    '--verify-stat-only': {
+      key: 'verify',
+      value: 'flag',
+    },
+    '--progress-title': {
+      key: 'progress-title',
+      value: 'string',
+      separateValue: true,
+      checks: [
+        {
+          id: 'cli.index-pack.progress-title-once',
+          kind: 'forbid',
+          when: [
+            {
+              key: 'progress-title',
+              test: 'present',
+            },
+          ],
+          origin: 'git',
+          reason:
+            'This manual parser rejects a second occurrence even when the value is unchanged.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+        },
+      ],
+    },
+    '-o': {
+      key: 'output',
+      value: 'string',
+      separateValue: true,
+      checks: [
+        {
+          id: 'cli.index-pack.output-once',
+          kind: 'forbid',
+          when: [
+            {
+              key: 'output',
+              test: 'present',
+            },
+          ],
+          origin: 'git',
+          reason:
+            'This manual parser rejects a second occurrence even when the value is unchanged.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+        },
+      ],
+    },
+  },
+  rules: [
+    {
+      id: 'cli.index-pack.arity-0-1',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'The native parser requires this count of pack filename arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+    },
+    {
+      id: 'cli.index-pack.arity-1-1',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      when: {
+        key: 'stdin',
+        test: 'inactive',
+      },
+      origin: 'git',
+      reason: 'The native parser requires this count of pack filename arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+    },
+    {
+      id: 'cli.index-pack.thin-stdin',
+      kind: 'requires',
+      when: {
+        key: 'fix-thin',
+        test: 'active',
+      },
+      required: [
+        {
+          key: 'stdin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Fixing thin packs requires stdin.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+    },
+    {
+      id: 'cli.index-pack.promisor-name',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'promisor',
+          test: 'present',
+        },
+        {
+          key: 'operands',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Promisor input cannot have an explicit pack name.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+    },
+    {
+      id: 'cli.index-pack.stdin-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin',
+          test: 'active',
+        },
+        {
+          key: 'object-format',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Explicit object format conflicts with stdin.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+    },
+    {
+      id: 'cli.index-pack.stdin-repository',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'stdin',
+          test: 'active',
+        },
+        {
+          key: 'inRepository',
+          test: 'equals',
+          value: false,
+        },
+      ],
+      origin: 'git',
+      reason: 'Stdin requires repository context.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+    },
+    {
+      id: 'cli.index-pack.verify-index',
+      kind: 'requiresAny',
+      when: {
+        key: 'verify',
+        test: 'active',
+      },
+      choices: [
+        {
+          key: 'output',
+          test: 'present',
+        },
+        {
+          key: 'operands',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Verification requires an index filename or a pack filename from which to derive it.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c',
+    },
+  ],
+  source: 'builtin/index-pack.c',
+  separator: false,
+} as const satisfies CommandSpec;
+const commandSpec278 = {
+  argv: ['unpack-objects'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-r': {
+      key: 'recover',
+      value: 'flag',
+    },
+    '--strict': {
+      key: 'strict',
+      value: 'optional-string',
+    },
+    '--pack_header': {
+      key: 'pack_header',
+      value: 'string',
+    },
+    '--max-input-size': {
+      key: 'max-input-size',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.unpack-objects.arity-0-0',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'The native parser requires this count of pack filename arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/unpack-objects.c',
+    },
+  ],
+  source: 'builtin/unpack-objects.c',
+  separator: false,
+} as const satisfies CommandSpec;
+const commandSpec279 = {
+  argv: ['pack-redundant'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--all': {
+      key: 'all',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--alt-odb': {
+      key: 'alt-odb',
+      value: 'flag',
+    },
+    '--i-still-use-this': {
+      key: 'i-still-use-this',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.pack-redundant.acknowledgement',
+      kind: 'required',
+      required: [
+        {
+          key: 'i-still-use-this',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Git 2.55 requires explicit acknowledgement for this obsolete command.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-redundant.c',
+    },
+    {
+      id: 'cli.pack-redundant.arity-1-None',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      when: {
+        key: 'all',
+        test: 'inactive',
+      },
+      origin: 'git',
+      reason: 'The native parser requires this count of pack filename arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-redundant.c',
+    },
+  ],
+  source: 'builtin/pack-redundant.c',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec280 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -80055,7 +81367,7 @@ const commandSpec276 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec277 = {
+const commandSpec281 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -80186,7 +81498,7 @@ const commandSpec277 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec278 = {
+const commandSpec282 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -80202,7 +81514,7 @@ const commandSpec278 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec279 = {
+const commandSpec283 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -80409,7 +81721,7 @@ const commandSpec279 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec280 = {
+const commandSpec284 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -80445,7 +81757,7 @@ const commandSpec280 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec281 = {
+const commandSpec285 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -80469,7 +81781,7 @@ const commandSpec281 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec282 = {
+const commandSpec286 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -80485,7 +81797,7 @@ const commandSpec282 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec283 = {
+const commandSpec287 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -80501,7 +81813,7 @@ const commandSpec283 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec284 = {
+const commandSpec288 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -80517,7 +81829,7 @@ const commandSpec284 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec285 = {
+const commandSpec289 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -80645,7 +81957,7 @@ const commandSpec285 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec286 = {
+const commandSpec290 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -80669,7 +81981,7 @@ const commandSpec286 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec287 = {
+const commandSpec291 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -80701,7 +82013,7 @@ const commandSpec287 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec288 = {
+const commandSpec292 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -80717,7 +82029,7 @@ const commandSpec288 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec289 = {
+const commandSpec293 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -80923,7 +82235,7 @@ const commandSpec289 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec290 = {
+const commandSpec294 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -80939,7 +82251,7 @@ const commandSpec290 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec291 = {
+const commandSpec295 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -80971,7 +82283,7 @@ const commandSpec291 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec292 = {
+const commandSpec296 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -81108,7 +82420,7 @@ const commandSpec292 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec293 = {
+const commandSpec297 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -81124,7 +82436,7 @@ const commandSpec293 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec294 = {
+const commandSpec298 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -81140,7 +82452,7 @@ const commandSpec294 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec295 = {
+const commandSpec299 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -81156,7 +82468,7 @@ const commandSpec295 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec296 = {
+const commandSpec300 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -81172,7 +82484,7 @@ const commandSpec296 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec297 = {
+const commandSpec301 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -81188,7 +82500,7 @@ const commandSpec297 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec298 = {
+const commandSpec302 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -81301,7 +82613,7 @@ const commandSpec298 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec299 = {
+const commandSpec303 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -81367,7 +82679,7 @@ const commandSpec299 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec300 = {
+const commandSpec304 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -81427,7 +82739,7 @@ const commandSpec300 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec301 = {
+const commandSpec305 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -81564,7 +82876,7 @@ const commandSpec301 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec302 = {
+const commandSpec306 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -81828,7 +83140,7 @@ const commandSpec302 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec303 = {
+const commandSpec307 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -82013,7 +83325,7 @@ const commandSpec303 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec304 = {
+const commandSpec308 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -82167,7 +83479,7 @@ const commandSpec304 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec305 = {
+const commandSpec309 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -82194,7 +83506,7 @@ const commandSpec305 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec306 = {
+const commandSpec310 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -82210,7 +83522,7 @@ const commandSpec306 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec307 = {
+const commandSpec311 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -82237,7 +83549,7 @@ const commandSpec307 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec308 = {
+const commandSpec312 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -82271,7 +83583,7 @@ const commandSpec308 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec309 = {
+const commandSpec313 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -82357,7 +83669,7 @@ const commandSpec309 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec310 = {
+const commandSpec314 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -82389,7 +83701,7 @@ const commandSpec310 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec311 = {
+const commandSpec315 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -82495,7 +83807,7 @@ const commandSpec311 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec312 = {
+const commandSpec316 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -82519,7 +83831,7 @@ const commandSpec312 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec313 = {
+const commandSpec317 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -82535,7 +83847,7 @@ const commandSpec313 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec314 = {
+const commandSpec318 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -82567,7 +83879,7 @@ const commandSpec314 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec315 = {
+const commandSpec319 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -82646,7 +83958,7 @@ const commandSpec315 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec316 = {
+const commandSpec320 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -82750,7 +84062,7 @@ const commandSpec316 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec317 = {
+const commandSpec321 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -82766,7 +84078,7 @@ const commandSpec317 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec318 = {
+const commandSpec322 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -82853,7 +84165,7 @@ const commandSpec318 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec319 = {
+const commandSpec323 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -82869,7 +84181,7 @@ const commandSpec319 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec320 = {
+const commandSpec324 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -82910,7 +84222,7 @@ const commandSpec320 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec321 = {
+const commandSpec325 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -83211,52 +84523,56 @@ export const COMMAND_SPECS: {
   readonly repo: typeof commandSpec273;
   readonly 'update-index': typeof commandSpec274;
   readonly 'fast-export': typeof commandSpec275;
-  readonly lfs: typeof commandSpec276;
-  readonly 'lfs checkout': typeof commandSpec277;
-  readonly 'lfs clean': typeof commandSpec278;
-  readonly 'lfs clone': typeof commandSpec279;
-  readonly 'lfs completion': typeof commandSpec280;
-  readonly 'lfs dedup': typeof commandSpec281;
-  readonly 'lfs env': typeof commandSpec282;
-  readonly 'lfs ext': typeof commandSpec283;
-  readonly 'lfs ext list': typeof commandSpec284;
-  readonly 'lfs fetch': typeof commandSpec285;
-  readonly 'lfs filter-process': typeof commandSpec286;
-  readonly 'lfs fsck': typeof commandSpec287;
-  readonly 'lfs help': typeof commandSpec288;
-  readonly 'lfs install': typeof commandSpec289;
-  readonly 'lfs install hooks': typeof commandSpec290;
-  readonly 'lfs lock': typeof commandSpec291;
-  readonly 'lfs locks': typeof commandSpec292;
-  readonly 'lfs logs': typeof commandSpec293;
-  readonly 'lfs logs boomtown': typeof commandSpec294;
-  readonly 'lfs logs clear': typeof commandSpec295;
-  readonly 'lfs logs last': typeof commandSpec296;
-  readonly 'lfs logs show': typeof commandSpec297;
-  readonly 'lfs ls-files': typeof commandSpec298;
-  readonly 'lfs merge-driver': typeof commandSpec299;
-  readonly 'lfs migrate': typeof commandSpec300;
-  readonly 'lfs migrate export': typeof commandSpec301;
-  readonly 'lfs migrate import': typeof commandSpec302;
-  readonly 'lfs migrate info': typeof commandSpec303;
-  readonly 'lfs pointer': typeof commandSpec304;
-  readonly 'lfs post-checkout': typeof commandSpec305;
-  readonly 'lfs post-commit': typeof commandSpec306;
-  readonly 'lfs post-merge': typeof commandSpec307;
-  readonly 'lfs pre-push': typeof commandSpec308;
-  readonly 'lfs prune': typeof commandSpec309;
-  readonly 'lfs pull': typeof commandSpec310;
-  readonly 'lfs push': typeof commandSpec311;
-  readonly 'lfs smudge': typeof commandSpec312;
-  readonly 'lfs standalone-file': typeof commandSpec313;
-  readonly 'lfs status': typeof commandSpec314;
-  readonly 'lfs track': typeof commandSpec315;
-  readonly 'lfs uninstall': typeof commandSpec316;
-  readonly 'lfs uninstall hooks': typeof commandSpec317;
-  readonly 'lfs unlock': typeof commandSpec318;
-  readonly 'lfs untrack': typeof commandSpec319;
-  readonly 'lfs update': typeof commandSpec320;
-  readonly 'lfs version': typeof commandSpec321;
+  readonly 'pack-objects': typeof commandSpec276;
+  readonly 'index-pack': typeof commandSpec277;
+  readonly 'unpack-objects': typeof commandSpec278;
+  readonly 'pack-redundant': typeof commandSpec279;
+  readonly lfs: typeof commandSpec280;
+  readonly 'lfs checkout': typeof commandSpec281;
+  readonly 'lfs clean': typeof commandSpec282;
+  readonly 'lfs clone': typeof commandSpec283;
+  readonly 'lfs completion': typeof commandSpec284;
+  readonly 'lfs dedup': typeof commandSpec285;
+  readonly 'lfs env': typeof commandSpec286;
+  readonly 'lfs ext': typeof commandSpec287;
+  readonly 'lfs ext list': typeof commandSpec288;
+  readonly 'lfs fetch': typeof commandSpec289;
+  readonly 'lfs filter-process': typeof commandSpec290;
+  readonly 'lfs fsck': typeof commandSpec291;
+  readonly 'lfs help': typeof commandSpec292;
+  readonly 'lfs install': typeof commandSpec293;
+  readonly 'lfs install hooks': typeof commandSpec294;
+  readonly 'lfs lock': typeof commandSpec295;
+  readonly 'lfs locks': typeof commandSpec296;
+  readonly 'lfs logs': typeof commandSpec297;
+  readonly 'lfs logs boomtown': typeof commandSpec298;
+  readonly 'lfs logs clear': typeof commandSpec299;
+  readonly 'lfs logs last': typeof commandSpec300;
+  readonly 'lfs logs show': typeof commandSpec301;
+  readonly 'lfs ls-files': typeof commandSpec302;
+  readonly 'lfs merge-driver': typeof commandSpec303;
+  readonly 'lfs migrate': typeof commandSpec304;
+  readonly 'lfs migrate export': typeof commandSpec305;
+  readonly 'lfs migrate import': typeof commandSpec306;
+  readonly 'lfs migrate info': typeof commandSpec307;
+  readonly 'lfs pointer': typeof commandSpec308;
+  readonly 'lfs post-checkout': typeof commandSpec309;
+  readonly 'lfs post-commit': typeof commandSpec310;
+  readonly 'lfs post-merge': typeof commandSpec311;
+  readonly 'lfs pre-push': typeof commandSpec312;
+  readonly 'lfs prune': typeof commandSpec313;
+  readonly 'lfs pull': typeof commandSpec314;
+  readonly 'lfs push': typeof commandSpec315;
+  readonly 'lfs smudge': typeof commandSpec316;
+  readonly 'lfs standalone-file': typeof commandSpec317;
+  readonly 'lfs status': typeof commandSpec318;
+  readonly 'lfs track': typeof commandSpec319;
+  readonly 'lfs uninstall': typeof commandSpec320;
+  readonly 'lfs uninstall hooks': typeof commandSpec321;
+  readonly 'lfs unlock': typeof commandSpec322;
+  readonly 'lfs untrack': typeof commandSpec323;
+  readonly 'lfs update': typeof commandSpec324;
+  readonly 'lfs version': typeof commandSpec325;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -83534,50 +84850,54 @@ export const COMMAND_SPECS: {
   repo: commandSpec273,
   'update-index': commandSpec274,
   'fast-export': commandSpec275,
-  lfs: commandSpec276,
-  'lfs checkout': commandSpec277,
-  'lfs clean': commandSpec278,
-  'lfs clone': commandSpec279,
-  'lfs completion': commandSpec280,
-  'lfs dedup': commandSpec281,
-  'lfs env': commandSpec282,
-  'lfs ext': commandSpec283,
-  'lfs ext list': commandSpec284,
-  'lfs fetch': commandSpec285,
-  'lfs filter-process': commandSpec286,
-  'lfs fsck': commandSpec287,
-  'lfs help': commandSpec288,
-  'lfs install': commandSpec289,
-  'lfs install hooks': commandSpec290,
-  'lfs lock': commandSpec291,
-  'lfs locks': commandSpec292,
-  'lfs logs': commandSpec293,
-  'lfs logs boomtown': commandSpec294,
-  'lfs logs clear': commandSpec295,
-  'lfs logs last': commandSpec296,
-  'lfs logs show': commandSpec297,
-  'lfs ls-files': commandSpec298,
-  'lfs merge-driver': commandSpec299,
-  'lfs migrate': commandSpec300,
-  'lfs migrate export': commandSpec301,
-  'lfs migrate import': commandSpec302,
-  'lfs migrate info': commandSpec303,
-  'lfs pointer': commandSpec304,
-  'lfs post-checkout': commandSpec305,
-  'lfs post-commit': commandSpec306,
-  'lfs post-merge': commandSpec307,
-  'lfs pre-push': commandSpec308,
-  'lfs prune': commandSpec309,
-  'lfs pull': commandSpec310,
-  'lfs push': commandSpec311,
-  'lfs smudge': commandSpec312,
-  'lfs standalone-file': commandSpec313,
-  'lfs status': commandSpec314,
-  'lfs track': commandSpec315,
-  'lfs uninstall': commandSpec316,
-  'lfs uninstall hooks': commandSpec317,
-  'lfs unlock': commandSpec318,
-  'lfs untrack': commandSpec319,
-  'lfs update': commandSpec320,
-  'lfs version': commandSpec321,
+  'pack-objects': commandSpec276,
+  'index-pack': commandSpec277,
+  'unpack-objects': commandSpec278,
+  'pack-redundant': commandSpec279,
+  lfs: commandSpec280,
+  'lfs checkout': commandSpec281,
+  'lfs clean': commandSpec282,
+  'lfs clone': commandSpec283,
+  'lfs completion': commandSpec284,
+  'lfs dedup': commandSpec285,
+  'lfs env': commandSpec286,
+  'lfs ext': commandSpec287,
+  'lfs ext list': commandSpec288,
+  'lfs fetch': commandSpec289,
+  'lfs filter-process': commandSpec290,
+  'lfs fsck': commandSpec291,
+  'lfs help': commandSpec292,
+  'lfs install': commandSpec293,
+  'lfs install hooks': commandSpec294,
+  'lfs lock': commandSpec295,
+  'lfs locks': commandSpec296,
+  'lfs logs': commandSpec297,
+  'lfs logs boomtown': commandSpec298,
+  'lfs logs clear': commandSpec299,
+  'lfs logs last': commandSpec300,
+  'lfs logs show': commandSpec301,
+  'lfs ls-files': commandSpec302,
+  'lfs merge-driver': commandSpec303,
+  'lfs migrate': commandSpec304,
+  'lfs migrate export': commandSpec305,
+  'lfs migrate import': commandSpec306,
+  'lfs migrate info': commandSpec307,
+  'lfs pointer': commandSpec308,
+  'lfs post-checkout': commandSpec309,
+  'lfs post-commit': commandSpec310,
+  'lfs post-merge': commandSpec311,
+  'lfs pre-push': commandSpec312,
+  'lfs prune': commandSpec313,
+  'lfs pull': commandSpec314,
+  'lfs push': commandSpec315,
+  'lfs smudge': commandSpec316,
+  'lfs standalone-file': commandSpec317,
+  'lfs status': commandSpec318,
+  'lfs track': commandSpec319,
+  'lfs uninstall': commandSpec320,
+  'lfs uninstall hooks': commandSpec321,
+  'lfs unlock': commandSpec322,
+  'lfs untrack': commandSpec323,
+  'lfs update': commandSpec324,
+  'lfs version': commandSpec325,
 };
