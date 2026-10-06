@@ -83231,6 +83231,1044 @@ const commandSpec293 = {
   separator: true,
 } as const satisfies CommandSpec;
 const commandSpec294 = {
+  argv: ['help'],
+  options: {
+    '--all': {
+      key: 'all',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_ALL',
+    },
+    '-a': {
+      key: 'all',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_ALL',
+    },
+    '--external-commands': {
+      key: 'external-commands',
+      value: 'flag',
+    },
+    '--aliases': {
+      key: 'aliases',
+      value: 'flag',
+    },
+    '--exclude-guides': {
+      key: 'exclude-guides',
+      value: 'flag',
+    },
+    '--man': {
+      key: 'format',
+      value: 'flag',
+      set: 'man',
+    },
+    '-m': {
+      key: 'format',
+      value: 'flag',
+      set: 'man',
+    },
+    '--web': {
+      key: 'format',
+      value: 'flag',
+      set: 'web',
+    },
+    '-w': {
+      key: 'format',
+      value: 'flag',
+      set: 'web',
+    },
+    '--info': {
+      key: 'format',
+      value: 'flag',
+      set: 'info',
+    },
+    '-i': {
+      key: 'format',
+      value: 'flag',
+      set: 'info',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+    },
+    '--guides': {
+      key: 'guides',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_GUIDES',
+    },
+    '-g': {
+      key: 'guides',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_GUIDES',
+    },
+    '--user-interfaces': {
+      key: 'user-interfaces',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_USER_INTERFACES',
+    },
+    '--developer-interfaces': {
+      key: 'developer-interfaces',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_DEVELOPER_INTERFACES',
+    },
+    '--config': {
+      key: 'config',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_CONFIG',
+    },
+    '-c': {
+      key: 'config',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_CONFIG',
+    },
+    '--config-for-completion': {
+      key: 'config-for-completion',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_CONFIG_FOR_COMPLETION',
+    },
+    '--config-sections-for-completion': {
+      key: 'config-sections-for-completion',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_CONFIG_SECTIONS_FOR_COMPLETION',
+    },
+    '--aliases-for-completion': {
+      key: 'aliases-for-completion',
+      value: 'flag',
+      modeGroup: '&cmd_mode',
+      modeValue: 'HELP_ACTION_ALIASES_FOR_COMPLETION',
+    },
+    '--no-external-commands': {
+      key: 'external-commands',
+      value: 'flag',
+      set: false,
+    },
+    '--no-aliases': {
+      key: 'aliases',
+      value: 'flag',
+      set: false,
+    },
+    '--no-exclude-guides': {
+      key: 'exclude-guides',
+      value: 'flag',
+      set: false,
+    },
+    '--no-man': {
+      key: 'format',
+      value: 'flag',
+      set: false,
+    },
+    '--no-web': {
+      key: 'format',
+      value: 'flag',
+      set: false,
+    },
+    '--no-info': {
+      key: 'format',
+      value: 'flag',
+      set: false,
+    },
+    '--no-verbose': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.help.external-commands',
+      kind: 'requires',
+      when: {
+        key: 'external-commands',
+        test: 'present',
+      },
+      required: [
+        {
+          key: 'all',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Explicit enable or disable of this selector requires all mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.aliases',
+      kind: 'requires',
+      when: {
+        key: 'aliases',
+        test: 'present',
+      },
+      required: [
+        {
+          key: 'all',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Explicit enable or disable of this selector requires all mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.all-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'all',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Listing modes accept no document operands.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.all-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'all',
+          test: 'active',
+        },
+        {
+          key: 'format',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Listing modes cannot select a manual viewer format.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.guides-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'guides',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Listing modes accept no document operands.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.guides-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'guides',
+          test: 'active',
+        },
+        {
+          key: 'format',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Listing modes cannot select a manual viewer format.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.user-interfaces-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'user-interfaces',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Listing modes accept no document operands.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.user-interfaces-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'user-interfaces',
+          test: 'active',
+        },
+        {
+          key: 'format',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Listing modes cannot select a manual viewer format.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.developer-interfaces-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'developer-interfaces',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Listing modes accept no document operands.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.developer-interfaces-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'developer-interfaces',
+          test: 'active',
+        },
+        {
+          key: 'format',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Listing modes cannot select a manual viewer format.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.config-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'config',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Listing modes accept no document operands.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.config-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'config',
+          test: 'active',
+        },
+        {
+          key: 'format',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Listing modes cannot select a manual viewer format.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.config-for-completion-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'config-for-completion',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Listing modes accept no document operands.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.config-for-completion-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'config-for-completion',
+          test: 'active',
+        },
+        {
+          key: 'format',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Listing modes cannot select a manual viewer format.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.config-sections-for-completion-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'config-sections-for-completion',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Listing modes accept no document operands.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.config-sections-for-completion-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'config-sections-for-completion',
+          test: 'active',
+        },
+        {
+          key: 'format',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Listing modes cannot select a manual viewer format.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.aliases-for-completion-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'aliases-for-completion',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Listing modes accept no document operands.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+    {
+      id: 'cli.help.aliases-for-completion-format',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'aliases-for-completion',
+          test: 'active',
+        },
+        {
+          key: 'format',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Listing modes cannot select a manual viewer format.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/help.c',
+    },
+  ],
+  source: 'builtin/help.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec295 = {
+  argv: ['daemon'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--serve': {
+      key: 'serve',
+      value: 'flag',
+    },
+    '--inetd': {
+      key: 'inetd',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--syslog': {
+      key: 'syslog',
+      value: 'flag',
+    },
+    '--export-all': {
+      key: 'export-all',
+      value: 'flag',
+    },
+    '--strict-paths': {
+      key: 'strict-paths',
+      value: 'flag',
+    },
+    '--base-path-relaxed': {
+      key: 'base-path-relaxed',
+      value: 'flag',
+    },
+    '--reuseaddr': {
+      key: 'reuseaddr',
+      value: 'flag',
+    },
+    '--detach': {
+      key: 'detach',
+      value: 'flag',
+    },
+    '--informative-errors': {
+      key: 'informative-errors',
+      value: 'flag',
+    },
+    '--no-informative-errors': {
+      key: 'informative-errors',
+      value: 'flag',
+      set: false,
+    },
+    '--listen': {
+      key: 'listen',
+      value: 'string',
+      repeat: true,
+    },
+    '--port': {
+      key: 'port',
+      value: 'string',
+    },
+    '--access-hook': {
+      key: 'access-hook',
+      value: 'string',
+    },
+    '--base-path': {
+      key: 'base-path',
+      value: 'string',
+    },
+    '--interpolated-path': {
+      key: 'interpolated-path',
+      value: 'string',
+    },
+    '--pid-file': {
+      key: 'pid-file',
+      value: 'string',
+    },
+    '--user': {
+      key: 'user',
+      value: 'string',
+    },
+    '--group': {
+      key: 'group',
+      value: 'string',
+    },
+    '--user-path': {
+      key: 'user-path',
+      value: 'optional-string',
+    },
+    '--log-destination': {
+      key: 'log-destination',
+      value: 'string',
+      allowed: ['syslog', 'stderr', 'none'],
+    },
+    '--enable': {
+      key: 'enable',
+      value: 'string',
+      allowed: ['upload-pack', 'upload-archive', 'receive-pack'],
+      repeat: true,
+    },
+    '--disable': {
+      key: 'disable',
+      value: 'string',
+      allowed: ['upload-pack', 'upload-archive', 'receive-pack'],
+      repeat: true,
+    },
+    '--allow-override': {
+      key: 'allow-override',
+      value: 'string',
+      allowed: ['upload-pack', 'upload-archive', 'receive-pack'],
+      repeat: true,
+    },
+    '--forbid-override': {
+      key: 'forbid-override',
+      value: 'string',
+      allowed: ['upload-pack', 'upload-archive', 'receive-pack'],
+      repeat: true,
+    },
+    '--timeout': {
+      key: 'timeout',
+      value: 'integer',
+      checks: [
+        {
+          id: 'cli.daemon.timeout-nonnegative',
+          kind: 'integer',
+          key: '$value',
+          min: 0,
+          origin: 'git',
+          reason: 'Timeout callbacks require nonnegative unsigned integer values.',
+          source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
+        },
+      ],
+    },
+    '--init-timeout': {
+      key: 'init-timeout',
+      value: 'integer',
+      checks: [
+        {
+          id: 'cli.daemon.init-timeout-nonnegative',
+          kind: 'integer',
+          key: '$value',
+          min: 0,
+          origin: 'git',
+          reason: 'Timeout callbacks require nonnegative unsigned integer values.',
+          source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
+        },
+      ],
+    },
+    '--max-connections': {
+      key: 'max-connections',
+      value: 'integer',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.daemon.inetd-detach',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'inetd',
+          test: 'active',
+        },
+        {
+          key: 'detach',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'Inetd mode cannot detach.',
+      source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
+    },
+    {
+      id: 'cli.daemon.group-user',
+      kind: 'requires',
+      when: {
+        key: 'group',
+        test: 'present',
+      },
+      required: [
+        {
+          key: 'user',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'An explicit group requires a user, including empty values.',
+      source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
+    },
+    {
+      id: 'cli.daemon.strict-paths',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      when: {
+        key: 'strict-paths',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Strict paths requires at least one allowed directory argument.',
+      source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
+    },
+    {
+      id: 'cli.daemon.inetd-user',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'inetd',
+          test: 'active',
+        },
+        {
+          key: 'user',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Inetd mode excludes explicit credentials and listen addresses.',
+      source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
+    },
+    {
+      id: 'cli.daemon.inetd-group',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'inetd',
+          test: 'active',
+        },
+        {
+          key: 'group',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Inetd mode excludes explicit credentials and listen addresses.',
+      source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
+    },
+    {
+      id: 'cli.daemon.inetd-listen',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'inetd',
+          test: 'active',
+        },
+        {
+          key: 'listen',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Inetd mode excludes explicit credentials and listen addresses.',
+      source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
+    },
+  ],
+  source: 'daemon.c',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec296 = {
+  argv: ['fsmonitor--daemon'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--detach': {
+      key: 'detach',
+      value: 'flag',
+    },
+    '--no-detach': {
+      key: 'detach',
+      value: 'flag',
+      set: false,
+    },
+    '--ipc-threads': {
+      key: 'ipc-threads',
+      value: 'integer',
+    },
+    '--no-ipc-threads': {
+      key: 'ipc-threads',
+      value: 'flag',
+      set: 0,
+    },
+    '--start-timeout': {
+      key: 'start-timeout',
+      value: 'integer',
+    },
+    '--no-start-timeout': {
+      key: 'start-timeout',
+      value: 'flag',
+      set: 0,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.fsmonitor--daemon.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'Exactly one operation is required by the root parser.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+    {
+      id: 'cli.fsmonitor--daemon.threads',
+      kind: 'range',
+      key: 'ipc-threads',
+      min: 1,
+      origin: 'git',
+      reason: 'At least one IPC worker thread is required after option parsing.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+    {
+      id: 'cli.fsmonitor--daemon.known-operation',
+      kind: 'value',
+      key: 'operand0',
+      allowed: ['start', 'run', 'stop', 'status'],
+      origin: 'git',
+      reason: 'Only the four registered daemon operations are accepted.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+  ],
+  source: 'builtin/fsmonitor--daemon.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec297 = {
+  argv: ['fsmonitor--daemon', 'start'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--detach': {
+      key: 'detach',
+      value: 'flag',
+    },
+    '--no-detach': {
+      key: 'detach',
+      value: 'flag',
+      set: false,
+    },
+    '--ipc-threads': {
+      key: 'ipc-threads',
+      value: 'integer',
+    },
+    '--no-ipc-threads': {
+      key: 'ipc-threads',
+      value: 'flag',
+      set: 0,
+    },
+    '--start-timeout': {
+      key: 'start-timeout',
+      value: 'integer',
+    },
+    '--no-start-timeout': {
+      key: 'start-timeout',
+      value: 'flag',
+      set: 0,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.fsmonitor--daemon-start.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'Exactly one operation is required by the root parser.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+    {
+      id: 'cli.fsmonitor--daemon-start.threads',
+      kind: 'range',
+      key: 'ipc-threads',
+      min: 1,
+      origin: 'git',
+      reason: 'At least one IPC worker thread is required after option parsing.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+  ],
+  source: 'builtin/fsmonitor--daemon.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec298 = {
+  argv: ['fsmonitor--daemon', 'run'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--detach': {
+      key: 'detach',
+      value: 'flag',
+    },
+    '--no-detach': {
+      key: 'detach',
+      value: 'flag',
+      set: false,
+    },
+    '--ipc-threads': {
+      key: 'ipc-threads',
+      value: 'integer',
+    },
+    '--no-ipc-threads': {
+      key: 'ipc-threads',
+      value: 'flag',
+      set: 0,
+    },
+    '--start-timeout': {
+      key: 'start-timeout',
+      value: 'integer',
+    },
+    '--no-start-timeout': {
+      key: 'start-timeout',
+      value: 'flag',
+      set: 0,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.fsmonitor--daemon-run.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'Exactly one operation is required by the root parser.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+    {
+      id: 'cli.fsmonitor--daemon-run.threads',
+      kind: 'range',
+      key: 'ipc-threads',
+      min: 1,
+      origin: 'git',
+      reason: 'At least one IPC worker thread is required after option parsing.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+  ],
+  source: 'builtin/fsmonitor--daemon.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec299 = {
+  argv: ['fsmonitor--daemon', 'stop'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--detach': {
+      key: 'detach',
+      value: 'flag',
+    },
+    '--no-detach': {
+      key: 'detach',
+      value: 'flag',
+      set: false,
+    },
+    '--ipc-threads': {
+      key: 'ipc-threads',
+      value: 'integer',
+    },
+    '--no-ipc-threads': {
+      key: 'ipc-threads',
+      value: 'flag',
+      set: 0,
+    },
+    '--start-timeout': {
+      key: 'start-timeout',
+      value: 'integer',
+    },
+    '--no-start-timeout': {
+      key: 'start-timeout',
+      value: 'flag',
+      set: 0,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.fsmonitor--daemon-stop.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'Exactly one operation is required by the root parser.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+    {
+      id: 'cli.fsmonitor--daemon-stop.threads',
+      kind: 'range',
+      key: 'ipc-threads',
+      min: 1,
+      origin: 'git',
+      reason: 'At least one IPC worker thread is required after option parsing.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+  ],
+  source: 'builtin/fsmonitor--daemon.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec300 = {
+  argv: ['fsmonitor--daemon', 'status'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--detach': {
+      key: 'detach',
+      value: 'flag',
+    },
+    '--no-detach': {
+      key: 'detach',
+      value: 'flag',
+      set: false,
+    },
+    '--ipc-threads': {
+      key: 'ipc-threads',
+      value: 'integer',
+    },
+    '--no-ipc-threads': {
+      key: 'ipc-threads',
+      value: 'flag',
+      set: 0,
+    },
+    '--start-timeout': {
+      key: 'start-timeout',
+      value: 'integer',
+    },
+    '--no-start-timeout': {
+      key: 'start-timeout',
+      value: 'flag',
+      set: 0,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.fsmonitor--daemon-status.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'Exactly one operation is required by the root parser.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+    {
+      id: 'cli.fsmonitor--daemon-status.threads',
+      kind: 'range',
+      key: 'ipc-threads',
+      min: 1,
+      origin: 'git',
+      reason: 'At least one IPC worker thread is required after option parsing.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
+    },
+  ],
+  source: 'builtin/fsmonitor--daemon.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec301 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -83254,7 +84292,7 @@ const commandSpec294 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec295 = {
+const commandSpec302 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -83385,7 +84423,7 @@ const commandSpec295 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec296 = {
+const commandSpec303 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -83401,7 +84439,7 @@ const commandSpec296 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec297 = {
+const commandSpec304 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -83608,7 +84646,7 @@ const commandSpec297 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec298 = {
+const commandSpec305 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -83644,7 +84682,7 @@ const commandSpec298 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec299 = {
+const commandSpec306 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -83668,7 +84706,7 @@ const commandSpec299 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec300 = {
+const commandSpec307 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -83684,7 +84722,7 @@ const commandSpec300 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec301 = {
+const commandSpec308 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -83700,7 +84738,7 @@ const commandSpec301 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec302 = {
+const commandSpec309 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -83716,7 +84754,7 @@ const commandSpec302 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec303 = {
+const commandSpec310 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -83844,7 +84882,7 @@ const commandSpec303 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec304 = {
+const commandSpec311 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -83868,7 +84906,7 @@ const commandSpec304 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec305 = {
+const commandSpec312 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -83900,7 +84938,7 @@ const commandSpec305 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec306 = {
+const commandSpec313 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -83916,7 +84954,7 @@ const commandSpec306 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec307 = {
+const commandSpec314 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -84122,7 +85160,7 @@ const commandSpec307 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec308 = {
+const commandSpec315 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -84138,7 +85176,7 @@ const commandSpec308 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec309 = {
+const commandSpec316 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -84170,7 +85208,7 @@ const commandSpec309 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec310 = {
+const commandSpec317 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -84307,7 +85345,7 @@ const commandSpec310 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec311 = {
+const commandSpec318 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -84323,7 +85361,7 @@ const commandSpec311 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec312 = {
+const commandSpec319 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -84339,7 +85377,7 @@ const commandSpec312 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec313 = {
+const commandSpec320 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -84355,7 +85393,7 @@ const commandSpec313 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec314 = {
+const commandSpec321 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -84371,7 +85409,7 @@ const commandSpec314 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec315 = {
+const commandSpec322 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -84387,7 +85425,7 @@ const commandSpec315 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec316 = {
+const commandSpec323 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -84500,7 +85538,7 @@ const commandSpec316 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec317 = {
+const commandSpec324 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -84566,7 +85604,7 @@ const commandSpec317 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec318 = {
+const commandSpec325 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -84626,7 +85664,7 @@ const commandSpec318 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec319 = {
+const commandSpec326 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -84763,7 +85801,7 @@ const commandSpec319 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec320 = {
+const commandSpec327 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -85027,7 +86065,7 @@ const commandSpec320 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec321 = {
+const commandSpec328 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -85212,7 +86250,7 @@ const commandSpec321 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec322 = {
+const commandSpec329 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -85366,7 +86404,7 @@ const commandSpec322 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec323 = {
+const commandSpec330 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -85393,7 +86431,7 @@ const commandSpec323 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec324 = {
+const commandSpec331 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -85409,7 +86447,7 @@ const commandSpec324 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec325 = {
+const commandSpec332 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -85436,7 +86474,7 @@ const commandSpec325 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec326 = {
+const commandSpec333 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -85470,7 +86508,7 @@ const commandSpec326 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec327 = {
+const commandSpec334 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -85556,7 +86594,7 @@ const commandSpec327 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec328 = {
+const commandSpec335 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -85588,7 +86626,7 @@ const commandSpec328 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec329 = {
+const commandSpec336 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -85694,7 +86732,7 @@ const commandSpec329 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec330 = {
+const commandSpec337 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -85718,7 +86756,7 @@ const commandSpec330 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec331 = {
+const commandSpec338 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -85734,7 +86772,7 @@ const commandSpec331 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec332 = {
+const commandSpec339 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -85766,7 +86804,7 @@ const commandSpec332 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec333 = {
+const commandSpec340 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -85845,7 +86883,7 @@ const commandSpec333 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec334 = {
+const commandSpec341 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -85949,7 +86987,7 @@ const commandSpec334 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec335 = {
+const commandSpec342 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -85965,7 +87003,7 @@ const commandSpec335 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec336 = {
+const commandSpec343 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -86052,7 +87090,7 @@ const commandSpec336 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec337 = {
+const commandSpec344 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -86068,7 +87106,7 @@ const commandSpec337 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec338 = {
+const commandSpec345 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -86109,7 +87147,7 @@ const commandSpec338 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec339 = {
+const commandSpec346 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -86428,52 +87466,59 @@ export const COMMAND_SPECS: {
   readonly difftool: typeof commandSpec291;
   readonly mergetool: typeof commandSpec292;
   readonly 'request-pull': typeof commandSpec293;
-  readonly lfs: typeof commandSpec294;
-  readonly 'lfs checkout': typeof commandSpec295;
-  readonly 'lfs clean': typeof commandSpec296;
-  readonly 'lfs clone': typeof commandSpec297;
-  readonly 'lfs completion': typeof commandSpec298;
-  readonly 'lfs dedup': typeof commandSpec299;
-  readonly 'lfs env': typeof commandSpec300;
-  readonly 'lfs ext': typeof commandSpec301;
-  readonly 'lfs ext list': typeof commandSpec302;
-  readonly 'lfs fetch': typeof commandSpec303;
-  readonly 'lfs filter-process': typeof commandSpec304;
-  readonly 'lfs fsck': typeof commandSpec305;
-  readonly 'lfs help': typeof commandSpec306;
-  readonly 'lfs install': typeof commandSpec307;
-  readonly 'lfs install hooks': typeof commandSpec308;
-  readonly 'lfs lock': typeof commandSpec309;
-  readonly 'lfs locks': typeof commandSpec310;
-  readonly 'lfs logs': typeof commandSpec311;
-  readonly 'lfs logs boomtown': typeof commandSpec312;
-  readonly 'lfs logs clear': typeof commandSpec313;
-  readonly 'lfs logs last': typeof commandSpec314;
-  readonly 'lfs logs show': typeof commandSpec315;
-  readonly 'lfs ls-files': typeof commandSpec316;
-  readonly 'lfs merge-driver': typeof commandSpec317;
-  readonly 'lfs migrate': typeof commandSpec318;
-  readonly 'lfs migrate export': typeof commandSpec319;
-  readonly 'lfs migrate import': typeof commandSpec320;
-  readonly 'lfs migrate info': typeof commandSpec321;
-  readonly 'lfs pointer': typeof commandSpec322;
-  readonly 'lfs post-checkout': typeof commandSpec323;
-  readonly 'lfs post-commit': typeof commandSpec324;
-  readonly 'lfs post-merge': typeof commandSpec325;
-  readonly 'lfs pre-push': typeof commandSpec326;
-  readonly 'lfs prune': typeof commandSpec327;
-  readonly 'lfs pull': typeof commandSpec328;
-  readonly 'lfs push': typeof commandSpec329;
-  readonly 'lfs smudge': typeof commandSpec330;
-  readonly 'lfs standalone-file': typeof commandSpec331;
-  readonly 'lfs status': typeof commandSpec332;
-  readonly 'lfs track': typeof commandSpec333;
-  readonly 'lfs uninstall': typeof commandSpec334;
-  readonly 'lfs uninstall hooks': typeof commandSpec335;
-  readonly 'lfs unlock': typeof commandSpec336;
-  readonly 'lfs untrack': typeof commandSpec337;
-  readonly 'lfs update': typeof commandSpec338;
-  readonly 'lfs version': typeof commandSpec339;
+  readonly help: typeof commandSpec294;
+  readonly daemon: typeof commandSpec295;
+  readonly 'fsmonitor--daemon': typeof commandSpec296;
+  readonly 'fsmonitor--daemon start': typeof commandSpec297;
+  readonly 'fsmonitor--daemon run': typeof commandSpec298;
+  readonly 'fsmonitor--daemon stop': typeof commandSpec299;
+  readonly 'fsmonitor--daemon status': typeof commandSpec300;
+  readonly lfs: typeof commandSpec301;
+  readonly 'lfs checkout': typeof commandSpec302;
+  readonly 'lfs clean': typeof commandSpec303;
+  readonly 'lfs clone': typeof commandSpec304;
+  readonly 'lfs completion': typeof commandSpec305;
+  readonly 'lfs dedup': typeof commandSpec306;
+  readonly 'lfs env': typeof commandSpec307;
+  readonly 'lfs ext': typeof commandSpec308;
+  readonly 'lfs ext list': typeof commandSpec309;
+  readonly 'lfs fetch': typeof commandSpec310;
+  readonly 'lfs filter-process': typeof commandSpec311;
+  readonly 'lfs fsck': typeof commandSpec312;
+  readonly 'lfs help': typeof commandSpec313;
+  readonly 'lfs install': typeof commandSpec314;
+  readonly 'lfs install hooks': typeof commandSpec315;
+  readonly 'lfs lock': typeof commandSpec316;
+  readonly 'lfs locks': typeof commandSpec317;
+  readonly 'lfs logs': typeof commandSpec318;
+  readonly 'lfs logs boomtown': typeof commandSpec319;
+  readonly 'lfs logs clear': typeof commandSpec320;
+  readonly 'lfs logs last': typeof commandSpec321;
+  readonly 'lfs logs show': typeof commandSpec322;
+  readonly 'lfs ls-files': typeof commandSpec323;
+  readonly 'lfs merge-driver': typeof commandSpec324;
+  readonly 'lfs migrate': typeof commandSpec325;
+  readonly 'lfs migrate export': typeof commandSpec326;
+  readonly 'lfs migrate import': typeof commandSpec327;
+  readonly 'lfs migrate info': typeof commandSpec328;
+  readonly 'lfs pointer': typeof commandSpec329;
+  readonly 'lfs post-checkout': typeof commandSpec330;
+  readonly 'lfs post-commit': typeof commandSpec331;
+  readonly 'lfs post-merge': typeof commandSpec332;
+  readonly 'lfs pre-push': typeof commandSpec333;
+  readonly 'lfs prune': typeof commandSpec334;
+  readonly 'lfs pull': typeof commandSpec335;
+  readonly 'lfs push': typeof commandSpec336;
+  readonly 'lfs smudge': typeof commandSpec337;
+  readonly 'lfs standalone-file': typeof commandSpec338;
+  readonly 'lfs status': typeof commandSpec339;
+  readonly 'lfs track': typeof commandSpec340;
+  readonly 'lfs uninstall': typeof commandSpec341;
+  readonly 'lfs uninstall hooks': typeof commandSpec342;
+  readonly 'lfs unlock': typeof commandSpec343;
+  readonly 'lfs untrack': typeof commandSpec344;
+  readonly 'lfs update': typeof commandSpec345;
+  readonly 'lfs version': typeof commandSpec346;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -86769,50 +87814,57 @@ export const COMMAND_SPECS: {
   difftool: commandSpec291,
   mergetool: commandSpec292,
   'request-pull': commandSpec293,
-  lfs: commandSpec294,
-  'lfs checkout': commandSpec295,
-  'lfs clean': commandSpec296,
-  'lfs clone': commandSpec297,
-  'lfs completion': commandSpec298,
-  'lfs dedup': commandSpec299,
-  'lfs env': commandSpec300,
-  'lfs ext': commandSpec301,
-  'lfs ext list': commandSpec302,
-  'lfs fetch': commandSpec303,
-  'lfs filter-process': commandSpec304,
-  'lfs fsck': commandSpec305,
-  'lfs help': commandSpec306,
-  'lfs install': commandSpec307,
-  'lfs install hooks': commandSpec308,
-  'lfs lock': commandSpec309,
-  'lfs locks': commandSpec310,
-  'lfs logs': commandSpec311,
-  'lfs logs boomtown': commandSpec312,
-  'lfs logs clear': commandSpec313,
-  'lfs logs last': commandSpec314,
-  'lfs logs show': commandSpec315,
-  'lfs ls-files': commandSpec316,
-  'lfs merge-driver': commandSpec317,
-  'lfs migrate': commandSpec318,
-  'lfs migrate export': commandSpec319,
-  'lfs migrate import': commandSpec320,
-  'lfs migrate info': commandSpec321,
-  'lfs pointer': commandSpec322,
-  'lfs post-checkout': commandSpec323,
-  'lfs post-commit': commandSpec324,
-  'lfs post-merge': commandSpec325,
-  'lfs pre-push': commandSpec326,
-  'lfs prune': commandSpec327,
-  'lfs pull': commandSpec328,
-  'lfs push': commandSpec329,
-  'lfs smudge': commandSpec330,
-  'lfs standalone-file': commandSpec331,
-  'lfs status': commandSpec332,
-  'lfs track': commandSpec333,
-  'lfs uninstall': commandSpec334,
-  'lfs uninstall hooks': commandSpec335,
-  'lfs unlock': commandSpec336,
-  'lfs untrack': commandSpec337,
-  'lfs update': commandSpec338,
-  'lfs version': commandSpec339,
+  help: commandSpec294,
+  daemon: commandSpec295,
+  'fsmonitor--daemon': commandSpec296,
+  'fsmonitor--daemon start': commandSpec297,
+  'fsmonitor--daemon run': commandSpec298,
+  'fsmonitor--daemon stop': commandSpec299,
+  'fsmonitor--daemon status': commandSpec300,
+  lfs: commandSpec301,
+  'lfs checkout': commandSpec302,
+  'lfs clean': commandSpec303,
+  'lfs clone': commandSpec304,
+  'lfs completion': commandSpec305,
+  'lfs dedup': commandSpec306,
+  'lfs env': commandSpec307,
+  'lfs ext': commandSpec308,
+  'lfs ext list': commandSpec309,
+  'lfs fetch': commandSpec310,
+  'lfs filter-process': commandSpec311,
+  'lfs fsck': commandSpec312,
+  'lfs help': commandSpec313,
+  'lfs install': commandSpec314,
+  'lfs install hooks': commandSpec315,
+  'lfs lock': commandSpec316,
+  'lfs locks': commandSpec317,
+  'lfs logs': commandSpec318,
+  'lfs logs boomtown': commandSpec319,
+  'lfs logs clear': commandSpec320,
+  'lfs logs last': commandSpec321,
+  'lfs logs show': commandSpec322,
+  'lfs ls-files': commandSpec323,
+  'lfs merge-driver': commandSpec324,
+  'lfs migrate': commandSpec325,
+  'lfs migrate export': commandSpec326,
+  'lfs migrate import': commandSpec327,
+  'lfs migrate info': commandSpec328,
+  'lfs pointer': commandSpec329,
+  'lfs post-checkout': commandSpec330,
+  'lfs post-commit': commandSpec331,
+  'lfs post-merge': commandSpec332,
+  'lfs pre-push': commandSpec333,
+  'lfs prune': commandSpec334,
+  'lfs pull': commandSpec335,
+  'lfs push': commandSpec336,
+  'lfs smudge': commandSpec337,
+  'lfs standalone-file': commandSpec338,
+  'lfs status': commandSpec339,
+  'lfs track': commandSpec340,
+  'lfs uninstall': commandSpec341,
+  'lfs uninstall hooks': commandSpec342,
+  'lfs unlock': commandSpec343,
+  'lfs untrack': commandSpec344,
+  'lfs update': commandSpec345,
+  'lfs version': commandSpec346,
 };

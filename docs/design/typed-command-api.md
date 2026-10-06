@@ -385,3 +385,19 @@ final tool selection checks, so inherited immediate diff callback restrictions
 are not imposed on that path. Complete delegated diff phase validation remains
 pending. Request-pull accepts interleaved patch selection and ignores words after
 the optional end ref; tests resolve only local fixture refs.
+
+### Help and service entrypoints
+
+Help listing modes exclude document operands and manual viewer formats. Explicit
+negative aliases/external-commands selectors still require all mode. Viewer
+format flags share one final selection, so a negation can clear a prior format.
+Daemon distinguishes inetd credentials/listening from service input, requires
+paths for strict-paths, and preserves negative max-connections as unlimited.
+Its port conversion, full callback values and environment-dependent services
+remain pending. Tests use single local upload requests over stdin and open no
+listening socket.
+
+Fsmonitor--daemon start/run/stop/status have schemas from the supported-platform
+source branch. The Linux fixture binary does not implement the daemon; these
+scopes have model/compiler checks and an explicitly skipped native-platform
+comparison, rather than a claim of successful native lifecycle validation.

@@ -6541,5 +6541,395 @@
         "value": "flag"
       }
     }
+  },
+  "help": {
+    "tables": [
+      "builtin/help.c:global:builtin_help_options"
+    ],
+    "source": "builtin/help.c",
+    "options": {
+      "-m": {
+        "key": "format",
+        "value": "flag",
+        "set": "man"
+      },
+      "--man": {
+        "key": "format",
+        "value": "flag",
+        "set": "man"
+      },
+      "-w": {
+        "key": "format",
+        "value": "flag",
+        "set": "web"
+      },
+      "--web": {
+        "key": "format",
+        "value": "flag",
+        "set": "web"
+      },
+      "-i": {
+        "key": "format",
+        "value": "flag",
+        "set": "info"
+      },
+      "--info": {
+        "key": "format",
+        "value": "flag",
+        "set": "info"
+      },
+      "--no-man": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      },
+      "--no-web": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      },
+      "--no-info": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "daemon": {
+    "tables": [],
+    "source": "daemon.c",
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--serve": {
+        "key": "serve",
+        "value": "flag"
+      },
+      "--inetd": {
+        "key": "inetd",
+        "value": "flag"
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag"
+      },
+      "--syslog": {
+        "key": "syslog",
+        "value": "flag"
+      },
+      "--export-all": {
+        "key": "export-all",
+        "value": "flag"
+      },
+      "--strict-paths": {
+        "key": "strict-paths",
+        "value": "flag"
+      },
+      "--base-path-relaxed": {
+        "key": "base-path-relaxed",
+        "value": "flag"
+      },
+      "--reuseaddr": {
+        "key": "reuseaddr",
+        "value": "flag"
+      },
+      "--detach": {
+        "key": "detach",
+        "value": "flag"
+      },
+      "--informative-errors": {
+        "key": "informative-errors",
+        "value": "flag"
+      },
+      "--no-informative-errors": {
+        "key": "informative-errors",
+        "value": "flag",
+        "set": false
+      },
+      "--listen": {
+        "key": "listen",
+        "value": "string",
+        "repeat": true
+      },
+      "--port": {
+        "key": "port",
+        "value": "string"
+      },
+      "--access-hook": {
+        "key": "access-hook",
+        "value": "string"
+      },
+      "--base-path": {
+        "key": "base-path",
+        "value": "string"
+      },
+      "--interpolated-path": {
+        "key": "interpolated-path",
+        "value": "string"
+      },
+      "--pid-file": {
+        "key": "pid-file",
+        "value": "string"
+      },
+      "--user": {
+        "key": "user",
+        "value": "string"
+      },
+      "--group": {
+        "key": "group",
+        "value": "string"
+      },
+      "--user-path": {
+        "key": "user-path",
+        "value": "optional-string"
+      },
+      "--log-destination": {
+        "key": "log-destination",
+        "value": "string",
+        "allowed": [
+          "syslog",
+          "stderr",
+          "none"
+        ]
+      },
+      "--enable": {
+        "key": "enable",
+        "value": "string",
+        "allowed": [
+          "upload-pack",
+          "upload-archive",
+          "receive-pack"
+        ],
+        "repeat": true
+      },
+      "--disable": {
+        "key": "disable",
+        "value": "string",
+        "allowed": [
+          "upload-pack",
+          "upload-archive",
+          "receive-pack"
+        ],
+        "repeat": true
+      },
+      "--allow-override": {
+        "key": "allow-override",
+        "value": "string",
+        "allowed": [
+          "upload-pack",
+          "upload-archive",
+          "receive-pack"
+        ],
+        "repeat": true
+      },
+      "--forbid-override": {
+        "key": "forbid-override",
+        "value": "string",
+        "allowed": [
+          "upload-pack",
+          "upload-archive",
+          "receive-pack"
+        ],
+        "repeat": true
+      },
+      "--timeout": {
+        "key": "timeout",
+        "value": "integer",
+        "checks": [
+          {
+            "id": "cli.daemon.timeout-nonnegative",
+            "kind": "integer",
+            "key": "$value",
+            "min": 0,
+            "origin": "git",
+            "reason": "Timeout callbacks require nonnegative unsigned integer values.",
+            "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
+          }
+        ]
+      },
+      "--init-timeout": {
+        "key": "init-timeout",
+        "value": "integer",
+        "checks": [
+          {
+            "id": "cli.daemon.init-timeout-nonnegative",
+            "kind": "integer",
+            "key": "$value",
+            "min": 0,
+            "origin": "git",
+            "reason": "Timeout callbacks require nonnegative unsigned integer values.",
+            "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
+          }
+        ]
+      },
+      "--max-connections": {
+        "key": "max-connections",
+        "value": "integer"
+      }
+    }
+  },
+  "fsmonitor--daemon": {
+    "tables": [],
+    "source": "builtin/fsmonitor--daemon.c",
+    "options": {
+      "--detach": {
+        "key": "detach",
+        "value": "flag"
+      },
+      "--no-detach": {
+        "key": "detach",
+        "value": "flag",
+        "set": false
+      },
+      "--ipc-threads": {
+        "key": "ipc-threads",
+        "value": "integer"
+      },
+      "--no-ipc-threads": {
+        "key": "ipc-threads",
+        "value": "flag",
+        "set": 0
+      },
+      "--start-timeout": {
+        "key": "start-timeout",
+        "value": "integer"
+      },
+      "--no-start-timeout": {
+        "key": "start-timeout",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "fsmonitor--daemon start": {
+    "tables": [],
+    "source": "builtin/fsmonitor--daemon.c",
+    "options": {
+      "--detach": {
+        "key": "detach",
+        "value": "flag"
+      },
+      "--no-detach": {
+        "key": "detach",
+        "value": "flag",
+        "set": false
+      },
+      "--ipc-threads": {
+        "key": "ipc-threads",
+        "value": "integer"
+      },
+      "--no-ipc-threads": {
+        "key": "ipc-threads",
+        "value": "flag",
+        "set": 0
+      },
+      "--start-timeout": {
+        "key": "start-timeout",
+        "value": "integer"
+      },
+      "--no-start-timeout": {
+        "key": "start-timeout",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "fsmonitor--daemon run": {
+    "tables": [],
+    "source": "builtin/fsmonitor--daemon.c",
+    "options": {
+      "--detach": {
+        "key": "detach",
+        "value": "flag"
+      },
+      "--no-detach": {
+        "key": "detach",
+        "value": "flag",
+        "set": false
+      },
+      "--ipc-threads": {
+        "key": "ipc-threads",
+        "value": "integer"
+      },
+      "--no-ipc-threads": {
+        "key": "ipc-threads",
+        "value": "flag",
+        "set": 0
+      },
+      "--start-timeout": {
+        "key": "start-timeout",
+        "value": "integer"
+      },
+      "--no-start-timeout": {
+        "key": "start-timeout",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "fsmonitor--daemon stop": {
+    "tables": [],
+    "source": "builtin/fsmonitor--daemon.c",
+    "options": {
+      "--detach": {
+        "key": "detach",
+        "value": "flag"
+      },
+      "--no-detach": {
+        "key": "detach",
+        "value": "flag",
+        "set": false
+      },
+      "--ipc-threads": {
+        "key": "ipc-threads",
+        "value": "integer"
+      },
+      "--no-ipc-threads": {
+        "key": "ipc-threads",
+        "value": "flag",
+        "set": 0
+      },
+      "--start-timeout": {
+        "key": "start-timeout",
+        "value": "integer"
+      },
+      "--no-start-timeout": {
+        "key": "start-timeout",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "fsmonitor--daemon status": {
+    "tables": [],
+    "source": "builtin/fsmonitor--daemon.c",
+    "options": {
+      "--detach": {
+        "key": "detach",
+        "value": "flag"
+      },
+      "--no-detach": {
+        "key": "detach",
+        "value": "flag",
+        "set": false
+      },
+      "--ipc-threads": {
+        "key": "ipc-threads",
+        "value": "integer"
+      },
+      "--no-ipc-threads": {
+        "key": "ipc-threads",
+        "value": "flag",
+        "set": 0
+      },
+      "--start-timeout": {
+        "key": "start-timeout",
+        "value": "integer"
+      },
+      "--no-start-timeout": {
+        "key": "start-timeout",
+        "value": "flag",
+        "set": 0
+      }
+    }
   }
 }

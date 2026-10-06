@@ -54351,6 +54351,773 @@
       }
     },
     {
+      "command": "help",
+      "modes": [
+        {
+          "group": "&cmd_mode",
+          "tokens": [
+            {
+              "flag": "--all",
+              "mode": "HELP_ACTION_ALL"
+            },
+            {
+              "flag": "-a",
+              "mode": "HELP_ACTION_ALL"
+            },
+            {
+              "flag": "--guides",
+              "mode": "HELP_ACTION_GUIDES"
+            },
+            {
+              "flag": "-g",
+              "mode": "HELP_ACTION_GUIDES"
+            },
+            {
+              "flag": "--user-interfaces",
+              "mode": "HELP_ACTION_USER_INTERFACES"
+            },
+            {
+              "flag": "--developer-interfaces",
+              "mode": "HELP_ACTION_DEVELOPER_INTERFACES"
+            },
+            {
+              "flag": "--config",
+              "mode": "HELP_ACTION_CONFIG"
+            },
+            {
+              "flag": "-c",
+              "mode": "HELP_ACTION_CONFIG"
+            },
+            {
+              "flag": "--config-for-completion",
+              "mode": "HELP_ACTION_CONFIG_FOR_COMPLETION"
+            },
+            {
+              "flag": "--config-sections-for-completion",
+              "mode": "HELP_ACTION_CONFIG_SECTIONS_FOR_COMPLETION"
+            },
+            {
+              "flag": "--aliases-for-completion",
+              "mode": "HELP_ACTION_ALIASES_FOR_COMPLETION"
+            }
+          ],
+          "total": 99,
+          "accepted": 22,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ]
+            },
+            {
+              "from": "HELP_ACTION_ALL",
+              "acceptedTokens": [
+                0,
+                1
+              ]
+            },
+            {
+              "from": "HELP_ACTION_GUIDES",
+              "acceptedTokens": [
+                2,
+                3
+              ]
+            },
+            {
+              "from": "HELP_ACTION_USER_INTERFACES",
+              "acceptedTokens": [
+                4
+              ]
+            },
+            {
+              "from": "HELP_ACTION_DEVELOPER_INTERFACES",
+              "acceptedTokens": [
+                5
+              ]
+            },
+            {
+              "from": "HELP_ACTION_CONFIG",
+              "acceptedTokens": [
+                6,
+                7
+              ]
+            },
+            {
+              "from": "HELP_ACTION_CONFIG_FOR_COMPLETION",
+              "acceptedTokens": [
+                8
+              ]
+            },
+            {
+              "from": "HELP_ACTION_CONFIG_SECTIONS_FOR_COMPLETION",
+              "acceptedTokens": [
+                9
+              ]
+            },
+            {
+              "from": "HELP_ACTION_ALIASES_FOR_COMPLETION",
+              "acceptedTokens": [
+                10
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": 18,
+      "domains": {
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "external-commands": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "aliases": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "exclude-guides": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "format": [
+          "undefined",
+          "\"man\"",
+          "\"web\"",
+          "\"info\"",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "guides": [
+          "undefined",
+          "true"
+        ],
+        "user-interfaces": [
+          "undefined",
+          "true"
+        ],
+        "developer-interfaces": [
+          "undefined",
+          "true"
+        ],
+        "config": [
+          "undefined",
+          "true"
+        ],
+        "config-for-completion": [
+          "undefined",
+          "true"
+        ],
+        "config-sections-for-completion": [
+          "undefined",
+          "true"
+        ],
+        "aliases-for-completion": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "8294400",
+      "accepted": "371952",
+      "nodes": 412,
+      "isolatedRuleWitnesses": {
+        "cli.help.external-commands": "{\"external-commands\":true,\"operands\":[]}",
+        "cli.help.aliases": "{\"aliases\":true,\"operands\":[]}",
+        "cli.help.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.help.all-format": "{\"all\":true,\"format\":\"man\",\"operands\":[]}",
+        "cli.help.guides-operands": "{\"guides\":true,\"operands\":[\"value\"]}",
+        "cli.help.guides-format": "{\"format\":\"man\",\"guides\":true,\"operands\":[]}",
+        "cli.help.user-interfaces-operands": "{\"operands\":[\"value\"],\"user-interfaces\":true}",
+        "cli.help.user-interfaces-format": "{\"format\":\"man\",\"operands\":[],\"user-interfaces\":true}",
+        "cli.help.developer-interfaces-operands": "{\"developer-interfaces\":true,\"operands\":[\"value\"]}",
+        "cli.help.developer-interfaces-format": "{\"developer-interfaces\":true,\"format\":\"man\",\"operands\":[]}",
+        "cli.help.config-operands": "{\"config\":true,\"operands\":[\"value\"]}",
+        "cli.help.config-format": "{\"config\":true,\"format\":\"man\",\"operands\":[]}",
+        "cli.help.config-for-completion-operands": "{\"config-for-completion\":true,\"operands\":[\"value\"]}",
+        "cli.help.config-for-completion-format": "{\"config-for-completion\":true,\"format\":\"man\",\"operands\":[]}",
+        "cli.help.config-sections-for-completion-operands": "{\"config-sections-for-completion\":true,\"operands\":[\"value\"]}",
+        "cli.help.config-sections-for-completion-format": "{\"config-sections-for-completion\":true,\"format\":\"man\",\"operands\":[]}",
+        "cli.help.aliases-for-completion-operands": "{\"aliases-for-completion\":true,\"operands\":[\"value\"]}",
+        "cli.help.aliases-for-completion-format": "{\"aliases-for-completion\":true,\"format\":\"man\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "daemon",
+      "transitions": [
+        {
+          "flag": "--timeout",
+          "rules": [
+            "cli.daemon.timeout-nonnegative"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "total": "6",
+          "accepted": "4",
+          "isolatedRuleWitnesses": {
+            "cli.daemon.timeout-nonnegative": "{\"$value\":-2}"
+          }
+        },
+        {
+          "flag": "--init-timeout",
+          "rules": [
+            "cli.daemon.init-timeout-nonnegative"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "total": "6",
+          "accepted": "4",
+          "isolatedRuleWitnesses": {
+            "cli.daemon.init-timeout-nonnegative": "{\"$value\":-2}"
+          }
+        }
+      ],
+      "rules": 6,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "serve": [
+          "undefined",
+          "true"
+        ],
+        "inetd": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "syslog": [
+          "undefined",
+          "true"
+        ],
+        "export-all": [
+          "undefined",
+          "true"
+        ],
+        "strict-paths": [
+          "undefined",
+          "true"
+        ],
+        "base-path-relaxed": [
+          "undefined",
+          "true"
+        ],
+        "reuseaddr": [
+          "undefined",
+          "true"
+        ],
+        "detach": [
+          "undefined",
+          "true"
+        ],
+        "informative-errors": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "listen": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "port": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "access-hook": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "base-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "interpolated-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pid-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "user": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "group": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "user-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "log-destination": [
+          "undefined",
+          "\"syslog\"",
+          "\"stderr\"",
+          "\"none\""
+        ],
+        "enable": [
+          "undefined",
+          "[]",
+          "[\"upload-pack\"]",
+          "[\"upload-pack\",\"upload-pack\"]",
+          "[\"upload-archive\"]",
+          "[\"upload-archive\",\"upload-archive\"]",
+          "[\"receive-pack\"]",
+          "[\"receive-pack\",\"receive-pack\"]"
+        ],
+        "disable": [
+          "undefined",
+          "[]",
+          "[\"upload-pack\"]",
+          "[\"upload-pack\",\"upload-pack\"]",
+          "[\"upload-archive\"]",
+          "[\"upload-archive\",\"upload-archive\"]",
+          "[\"receive-pack\"]",
+          "[\"receive-pack\",\"receive-pack\"]"
+        ],
+        "allow-override": [
+          "undefined",
+          "[]",
+          "[\"upload-pack\"]",
+          "[\"upload-pack\",\"upload-pack\"]",
+          "[\"upload-archive\"]",
+          "[\"upload-archive\",\"upload-archive\"]",
+          "[\"receive-pack\"]",
+          "[\"receive-pack\",\"receive-pack\"]"
+        ],
+        "forbid-override": [
+          "undefined",
+          "[]",
+          "[\"upload-pack\"]",
+          "[\"upload-pack\",\"upload-pack\"]",
+          "[\"upload-archive\"]",
+          "[\"upload-archive\",\"upload-archive\"]",
+          "[\"receive-pack\"]",
+          "[\"receive-pack\",\"receive-pack\"]"
+        ],
+        "timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "init-timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "max-connections": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1528823808000000000",
+      "accepted": "579271340851200000",
+      "nodes": 80,
+      "isolatedRuleWitnesses": {
+        "cli.daemon.inetd-detach": "{\"detach\":true,\"inetd\":true,\"operands\":[]}",
+        "cli.daemon.group-user": "{\"group\":\"\",\"operands\":[]}",
+        "cli.daemon.strict-paths": "{\"operands\":[],\"strict-paths\":true}",
+        "cli.daemon.inetd-user": "{\"inetd\":true,\"operands\":[],\"user\":\"\"}",
+        "cli.daemon.inetd-group": null,
+        "cli.daemon.inetd-listen": "{\"inetd\":true,\"listen\":[],\"operands\":[]}"
+      }
+    },
+    {
+      "command": "fsmonitor--daemon",
+      "rules": 3,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ipc-threads": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "start-timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"start\"",
+          "\"run\"",
+          "\"stop\"",
+          "\"status\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "19440",
+      "accepted": "1620",
+      "nodes": 15,
+      "isolatedRuleWitnesses": {
+        "cli.fsmonitor--daemon.operation": "{\"operands\":[]}",
+        "cli.fsmonitor--daemon.threads": "{\"ipc-threads\":-2,\"operands\":[\"value\"]}",
+        "cli.fsmonitor--daemon.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "fsmonitor--daemon start",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ipc-threads": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "start-timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6480",
+      "accepted": "648",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.fsmonitor--daemon-start.operation": "{\"operands\":[\"value\"]}",
+        "cli.fsmonitor--daemon-start.threads": "{\"ipc-threads\":-2,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "fsmonitor--daemon run",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ipc-threads": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "start-timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6480",
+      "accepted": "648",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.fsmonitor--daemon-run.operation": "{\"operands\":[\"value\"]}",
+        "cli.fsmonitor--daemon-run.threads": "{\"ipc-threads\":-2,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "fsmonitor--daemon stop",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ipc-threads": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "start-timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6480",
+      "accepted": "648",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.fsmonitor--daemon-stop.operation": "{\"operands\":[\"value\"]}",
+        "cli.fsmonitor--daemon-stop.threads": "{\"ipc-threads\":-2,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "fsmonitor--daemon status",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ipc-threads": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "start-timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6480",
+      "accepted": "648",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.fsmonitor--daemon-status.operation": "{\"operands\":[\"value\"]}",
+        "cli.fsmonitor--daemon-status.threads": "{\"ipc-threads\":-2,\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {
