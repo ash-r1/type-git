@@ -11728,5 +11728,428 @@
       "reason": "Queries must name a native Git variable.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/var.c"
     }
+  ],
+  "mailinfo": [
+    {
+      "id": "cli.mailinfo.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/mailinfo.c"
+    }
+  ],
+  "mailsplit": [
+    {
+      "id": "cli.mailsplit.implicit-output",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "when": {
+        "key": "output",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/mailsplit.c"
+    },
+    {
+      "id": "cli.mailsplit.stdin-marker",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "operand0",
+          "test": "equals",
+          "value": "-"
+        },
+        {
+          "key": "hasSeparator",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "A lone dash is parsed as an unknown option unless parsing has ended.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/mailsplit.c"
+    }
+  ],
+  "interpret-trailers": [
+    {
+      "id": "cli.interpret-trailers.input-only",
+      "kind": "conflicts",
+      "when": {
+        "key": "only-input",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "trailer",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Input-only parsing cannot add trailers unless the trailer list was cleared.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/interpret-trailers.c"
+    },
+    {
+      "id": "cli.interpret-trailers.in-place",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "in-place",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/interpret-trailers.c"
+    }
+  ],
+  "url-parse": [
+    {
+      "id": "cli.url-parse.urls",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/url-parse.c"
+    },
+    {
+      "id": "cli.url-parse.component",
+      "kind": "value",
+      "key": "component",
+      "allowed": [
+        "path",
+        "host",
+        "scheme",
+        "user",
+        "password",
+        "port"
+      ],
+      "origin": "git",
+      "reason": "The final component name must be supported.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/url-parse.c"
+    }
+  ],
+  "hook run": [
+    {
+      "id": "cli.hook-run.hook-name",
+      "kind": "value",
+      "guard": [
+        {
+          "key": "allow-unknown-hook-name",
+          "test": "inactive"
+        }
+      ],
+      "key": "operand0",
+      "allowed": [
+        "applypatch-msg",
+        "commit-msg",
+        "fsmonitor-watchman",
+        "p4-changelist",
+        "p4-post-changelist",
+        "p4-pre-submit",
+        "p4-prepare-changelist",
+        "post-applypatch",
+        "post-checkout",
+        "post-commit",
+        "post-index-change",
+        "post-merge",
+        "post-receive",
+        "post-rewrite",
+        "post-update",
+        "pre-applypatch",
+        "pre-auto-gc",
+        "pre-commit",
+        "pre-merge-commit",
+        "pre-push",
+        "pre-rebase",
+        "pre-receive",
+        "prepare-commit-msg",
+        "proc-receive",
+        "push-to-checkout",
+        "reference-transaction",
+        "sendemail-validate",
+        "update"
+      ],
+      "origin": "git",
+      "reason": "Unknown hook names require an explicit opt-in.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hook.c"
+    },
+    {
+      "id": "cli.hook-run.hook-only",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "hasSeparator",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hook.c"
+    },
+    {
+      "id": "cli.hook-run.hook-before-args",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "hasSeparator",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hook.c"
+    },
+    {
+      "id": "cli.hook-run.jobs",
+      "kind": "range",
+      "key": "jobs",
+      "min": -1,
+      "origin": "git",
+      "reason": "Jobs accepts -1 for CPU count or nonnegative values.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hook.c"
+    }
+  ],
+  "hook list": [
+    {
+      "id": "cli.hook-list.hook-name",
+      "kind": "value",
+      "guard": [
+        {
+          "key": "allow-unknown-hook-name",
+          "test": "inactive"
+        }
+      ],
+      "key": "operand0",
+      "allowed": [
+        "applypatch-msg",
+        "commit-msg",
+        "fsmonitor-watchman",
+        "p4-changelist",
+        "p4-post-changelist",
+        "p4-pre-submit",
+        "p4-prepare-changelist",
+        "post-applypatch",
+        "post-checkout",
+        "post-commit",
+        "post-index-change",
+        "post-merge",
+        "post-receive",
+        "post-rewrite",
+        "post-update",
+        "pre-applypatch",
+        "pre-auto-gc",
+        "pre-commit",
+        "pre-merge-commit",
+        "pre-push",
+        "pre-rebase",
+        "pre-receive",
+        "prepare-commit-msg",
+        "proc-receive",
+        "push-to-checkout",
+        "reference-transaction",
+        "sendemail-validate",
+        "update"
+      ],
+      "origin": "git",
+      "reason": "Unknown hook names require an explicit opt-in.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hook.c"
+    },
+    {
+      "id": "cli.hook-list.hook",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hook.c"
+    }
+  ],
+  "credential": [
+    {
+      "id": "cli.credential.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c"
+    },
+    {
+      "id": "cli.credential.operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "fill",
+        "approve",
+        "reject",
+        "capability"
+      ],
+      "origin": "git",
+      "reason": "Only the native credential operations are recognized.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c"
+    }
+  ],
+  "credential fill": [
+    {
+      "id": "cli.credential-fill.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c"
+    }
+  ],
+  "credential approve": [
+    {
+      "id": "cli.credential-approve.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c"
+    }
+  ],
+  "credential reject": [
+    {
+      "id": "cli.credential-reject.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c"
+    }
+  ],
+  "credential capability": [
+    {
+      "id": "cli.credential-capability.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c"
+    }
+  ],
+  "credential-store": [
+    {
+      "id": "cli.credential-store.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential-store.c"
+    }
+  ],
+  "credential-cache": [
+    {
+      "id": "cli.credential-cache.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential-cache.c"
+    }
+  ],
+  "credential-cache--daemon": [
+    {
+      "id": "cli.credential-cache--daemon.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential-cache--daemon.c"
+    }
+  ],
+  "checkout--worker": [
+    {
+      "id": "cli.checkout--worker.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/checkout--worker.c"
+    }
+  ],
+  "merge-ours": [
+    {
+      "id": "cli.merge-ours.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-ours.c"
+    }
+  ],
+  "merge-one-file": [
+    {
+      "id": "cli.merge-one-file.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 7,
+      "max": 7,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-merge-one-file.sh"
+    }
+  ],
+  "get-tar-commit-id": [
+    {
+      "id": "cli.get-tar-commit-id.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/get-tar-commit-id.c"
+    }
+  ],
+  "upload-archive": [
+    {
+      "id": "cli.upload-archive.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c"
+    }
+  ],
+  "upload-archive--writer": [
+    {
+      "id": "cli.upload-archive--writer.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c"
+    }
   ]
 }
