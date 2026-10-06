@@ -23,7 +23,7 @@ Literal tuples are folded in order into normalized state. TypeScript tests each 
 The pinned baselines are Git 2.55.0 and Git LFS 3.8.0. Sources and hashes are recorded in `spec/upstream/`. No command is executed during extraction.
 
 ```sh
-node scripts/import-lfs-options.mjs /path/to/git-lfs-3.8.0
+node scripts/import-lfs-options.mjs /path/to/git-lfs-3.8.0 /path/to/cobra-1.10.2
 # In the Git source tree, generate its required headers first:
 make hook-list.h config-list.h command-list.h
 # Back in Type-Git:
@@ -490,12 +490,19 @@ The pinned inventory now has a typed CLI scope for every executable entry. `sh-i
 To verify the upstream evidence without modifying tracked snapshots:
 
 ```sh
-pnpm commands:upstream-check /path/to/git-2.55.0 /path/to/git-lfs-3.8.0
+pnpm commands:upstream-check /path/to/git-2.55.0 /path/to/git-lfs-3.8.0 /path/to/cobra-1.10.2
 # Also reproduce expanded C tables on their recorded compiler/target profile:
-pnpm commands:upstream-check /path/to/git-2.55.0 /path/to/git-lfs-3.8.0 --c-tables
+pnpm commands:upstream-check /path/to/git-2.55.0 /path/to/git-lfs-3.8.0 /path/to/cobra-1.10.2 --c-tables
 pnpm typecheck
 ```
 
 The verifier checks all recorded source fingerprints and reruns extractors in an isolated temporary directory, comparing artifacts byte for byte. C preprocessing is conditional on its recorded compiler version, flags and target; identical Git versions alone do not promise identical platform-specific option tables. Source extraction discovers declarations/candidates, reviewed schemas express semantic rules, and the solver exhaustively traverses their finite normalized domains. None of those counts proves coverage of every argument sequence or repository/configuration state.
 
 For the optional native frontends on Debian, install `python3 subversion libsvn-perl libdbi-perl libcgi-pm-perl tcl tk xvfb xauth`; run `xvfb-run -a pnpm test:ci` to include X11 parser checks. Tests use disposable local repositories and skip unavailable native capabilities explicitly.
+
+
+### Synthesized LFS completion helpers
+
+Git LFS's pinned Cobra 1.10.2 dependency installs `__complete` and its `__completeNoDesc` alias dynamically. These do not appear in the LFS command registration loop. Inventory and option extraction now read the dependency's actual registration and record both its source fingerprint and LFS's go.mod dependency pin. Upstream reproduction therefore also takes the Cobra source directory.
+
+The helpers require at least one literal argument, including an empty completion fragment. They disable flag parsing: `--help` and `--` are completion inputs, not helper options. Completion diagnostics use the protocol's returned directive and need not produce a nonzero process status. Schema rules do not confuse incomplete/unknown words with invalid helper invocation.

@@ -63967,6 +63967,62 @@
       "isolatedRuleWitnesses": {}
     },
     {
+      "command": "lfs __complete",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "24",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.__complete.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs __completeNoDesc",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "24",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.__completeNoDesc.operands": "{\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs checkout",
       "rules": 6,
       "domains": {

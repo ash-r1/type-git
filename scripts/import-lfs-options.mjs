@@ -1,8 +1,9 @@
+import { cobraCompletion } from './cobra-completion.mjs';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
-const [sourceRoot] = process.argv.slice(2);
-if (!sourceRoot) throw new Error('Usage: node scripts/import-lfs-options.mjs <git-lfs-3.8.0>');
+const [sourceRoot, cobraRoot] = process.argv.slice(2);
+if (!sourceRoot || !cobraRoot) throw new Error('Usage: node scripts/import-lfs-options.mjs <git-lfs-3.8.0> <cobra-1.10.2>');
 if (!(await readFile(join(sourceRoot, 'config/version.go'), 'utf8')).includes('Version = "3.8.0"')) throw new Error('Expected Git LFS 3.8.0 sources');
 const commands = {};
 const hashes = {};
@@ -50,6 +51,8 @@ for (const entry of Object.values(commands)) {
   entry.options['-h'] = { key: 'help', value: 'boolean' };
   entry.options = Object.fromEntries(Object.entries(entry.options).sort(([a], [b]) => sort(a, b)));
 }
-const result = { baseline: '3.8.0', extraction: 'Cobra/pflag registrations, including short aliases and inherited persistent flags. This inventory does not infer semantic constraints.', sources: hashes, commands: Object.fromEntries(Object.entries(commands).sort(([a], [b]) => sort(a, b))) };
+const completion = await cobraCompletion(sourceRoot, cobraRoot);
+for (const name of completion.names) commands[`lfs ${name}`] = { argv: ['lfs', name], options: {}, source: completion.source, separator: false, optionParsing: 'none', minimumOperands: completion.minimum };
+const result = { baseline: '3.8.0', dependencies: { cobra: { version: completion.version, sources: completion.sources } }, extraction: 'Cobra/pflag registrations, including short aliases and inherited persistent flags. This inventory does not infer semantic constraints.', sources: hashes, commands: Object.fromEntries(Object.entries(commands).sort(([a], [b]) => sort(a, b))) };
 await writeFile(new URL('../spec/upstream/lfs-options.json', import.meta.url), JSON.stringify(result, null, 2) + '\n');
 console.log(`Imported ${Object.keys(commands).length} LFS command scopes.`);

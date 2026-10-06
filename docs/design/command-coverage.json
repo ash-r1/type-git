@@ -1,18 +1,19 @@
 {
   "baselines": {
     "git": "2.55.0",
-    "lfs": "3.8.0"
+    "lfs": "3.8.0",
+    "cobra": "1.10.2"
   },
-  "inventoryEntries": 221,
-  "inventoryTypedCLI": 219,
+  "inventoryEntries": 223,
+  "inventoryTypedCLI": 221,
   "sourcedLibraries": [
     "sh-i18n",
     "sh-setup"
   ],
-  "typedScopes": 426,
-  "auditedScopes": 428,
+  "typedScopes": 428,
+  "auditedScopes": 430,
   "completeConstraintAudits": 0,
-  "finalRules": 1555,
+  "finalRules": 1557,
   "callbackTransitions": 297,
   "interpretation": "Typed API coverage is separate from upstream constraint completeness. Exploration is exact only over the declared finite normalized-state domains, not over all argv or repository states."
 }

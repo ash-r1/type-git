@@ -4,12 +4,13 @@ import { copyFile, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
-const [gitInput, lfsInput, ...flags] = process.argv.slice(2);
-if (!gitInput || !lfsInput || flags.some(flag => flag !== '--c-tables')) {
-  throw new Error('Usage: node scripts/verify-upstream.mjs <git-2.55.0> <git-lfs-3.8.0> [--c-tables]');
+const [gitInput, lfsInput, cobraInput, ...flags] = process.argv.slice(2);
+if (!gitInput || !lfsInput || !cobraInput || flags.some(flag => flag !== '--c-tables')) {
+  throw new Error('Usage: node scripts/verify-upstream.mjs <git-2.55.0> <git-lfs-3.8.0> <cobra-1.10.2> [--c-tables]');
 }
 const git = resolve(gitInput);
 const lfs = resolve(lfsInput);
+const cobra = resolve(cobraInput);
 const root = new URL('../', import.meta.url);
 const load = async name => JSON.parse(await readFile(new URL(`spec/upstream/${name}.json`, root), 'utf8'));
 const expected = new Map();
@@ -21,7 +22,9 @@ function add(base, file, digest) {
 const inventory = await load('command-inventory');
 for (const [path, digest] of Object.entries(inventory.sources)) {
   const [project, ...rest] = path.split('/');
-  add(project === 'git' ? git : lfs, rest.join('/'), digest);
+  const base = { git, lfs, cobra }[project];
+  if (!base) throw new Error(`Unknown upstream project ${project}`);
+  add(base, rest.join('/'), digest);
 }
 for (const [path, digest] of Object.entries((await load('lfs-options')).sources)) add(lfs, path, digest);
 const tables = await load('git-option-tables');
@@ -42,10 +45,11 @@ console.log(`Verified ${expected.size} upstream source fingerprints.`);
 const temp = await mkdtemp(join(tmpdir(), 'type-git-upstream-check-'));
 try {
   await mkdir(join(temp, 'scripts'));
+  await copyFile(new URL('scripts/cobra-completion.mjs', root), join(temp, 'scripts/cobra-completion.mjs'));
   await mkdir(join(temp, 'spec/upstream'), { recursive: true });
   const jobs = [
-    [process.execPath, 'import-command-inventory.mjs', [git, lfs], 'command-inventory'],
-    [process.execPath, 'import-lfs-options.mjs', [lfs], 'lfs-options'],
+    [process.execPath, 'import-command-inventory.mjs', [git, lfs, cobra], 'command-inventory'],
+    [process.execPath, 'import-lfs-options.mjs', [lfs, cobra], 'lfs-options'],
     ['python3', 'import-revision-options.py', [git], 'git-revision-options'],
     ['python3', 'extract-p4-options.py', [git], 'p4-options'],
     ['python3', 'extract-svn-options.py', [git], 'svn-options'],

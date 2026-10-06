@@ -114,9 +114,9 @@ describe('typed commands against Git LFS', () => {
     await rm(root, { recursive: true, force: true });
   });
 
-  it('executes help safely for every registered scope and matches independent CLI output', async () => {
+  it('matches independent help output for every LFS scope that parses help', async () => {
     for (const name of Object.keys(COMMAND_SPECS) as GitCommandName[]) {
-      if (!name.startsWith('lfs')) {
+      if (!(name.startsWith('lfs') && Object.hasOwn(COMMAND_SPECS[name].options, '--help'))) {
         continue;
       }
       const direct = spawnSync('git', ['-C', repo.workdir, ...name.split(' '), '--help'], {
