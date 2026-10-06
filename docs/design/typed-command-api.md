@@ -427,6 +427,15 @@ Legacy config modes derive implicit get/set/set-all from operand count, preserve
 
 `stash list` returns before delegated log parsing when no stash ref exists. Its current schema therefore accepts literal argument words rather than claiming unconditional log-option validation. Repository-state-dependent delegation and the inherited revision callback phases remain audit gaps. Root scopes and their children are partial, not complete.
 
+### Standalone upstream programs
+
+`scalar`, its ten operations, `gitk` and `gitweb` use explicit executable metadata. They run their own programs rather than inserting the name after `git`. Configure their locations with `companionBinaries: { scalar, gitk, gitweb }` in the Git constructor; defaults are `scalar`, `gitk` and `gitweb.cgi` on PATH. A custom `gitBinary` still selects Git itself; companions select their child Git processes according to their own native behavior.
+
+The shared runner preserves environment inheritance, HOME, PATH prefixes, credential overrides, standard input, abort signals and audit events. Worktree and bare repository handles supply the child working directory without changing the parent process directory. Raw Git execution retains its existing behavior.
+
+Scalar schemas preserve operation arities, its fixed run-task vocabulary, and the fact that reconfigure's maintenance mode is validated only in the `--all` branch, after option replacement. Parent `-C` and `-c` tuples on an operation scope are serialized before its command word. Gitk's own select/argument-command options are typed; delegated revision words remain literal operands. Gitweb's FastCGI selectors and process count are typed without inventing range restrictions. GUI execution, missing CGI/FCGI dependencies, configuration-dependent behavior and remaining delegated grammars are explicit audit gaps.
+
+
 Implementation classes reference `GitCommandClient['command']` directly in their declarations. This avoids expanding the complete command union independently in each class during declaration serialization. Dispatch type checks expand child option languages only for dispatching command names.
 
 The build emits declarations once with TypeScript and then bundles the emitted files, keeping source checking and declaration bundling in separate phases. Declaration emission uses `--noCheck`; `pnpm typecheck` still performs full source and contract checking, and `prepublishOnly` runs it before publication. Packed ESM/CJS and TypeScript consumer tests cover the final artifacts. Root dispatch type checks retain direct schema lookup to avoid distributive expansion across every command during inference.

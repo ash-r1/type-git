@@ -1,4 +1,4 @@
-import { commandArguments } from '../commands/build.js';
+import { executeCommand } from '../commands/execute.js';
 import type { GitCommandClient, GitCommandExecOpts, GitCommandName } from '../commands/types.js';
 import { validateOptions } from '../core/option-rules.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
@@ -597,7 +597,7 @@ export class GitImpl implements Git {
     args: readonly unknown[],
     opts?: GitCommandExecOpts,
   ) => {
-    return this.raw(commandArguments(command, args, undefined), opts);
+    return executeCommand(this.runner, { type: 'global' }, command, args, opts);
   };
 
   public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {

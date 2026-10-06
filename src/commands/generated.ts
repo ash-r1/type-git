@@ -89583,6 +89583,648 @@ const commandSpec309 = {
   optionParsing: 'none',
 } as const satisfies CommandSpec;
 const commandSpec310 = {
+  argv: ['scalar', 'clone'],
+  executable: 'scalar',
+  options: {
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '-b': {
+      key: 'branch',
+      value: 'string',
+    },
+    '--full-clone': {
+      key: 'full-clone',
+      value: 'flag',
+    },
+    '--single-branch': {
+      key: 'single-branch',
+      value: 'flag',
+    },
+    '--src': {
+      key: 'src',
+      value: 'flag',
+    },
+    '--tags': {
+      key: 'tags',
+      value: 'flag',
+    },
+    '--maintenance': {
+      key: 'maintenance',
+      value: 'flag',
+    },
+    '--no-branch': {
+      key: 'branch',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-full-clone': {
+      key: 'full-clone',
+      value: 'flag',
+      set: false,
+    },
+    '--no-single-branch': {
+      key: 'single-branch',
+      value: 'flag',
+      set: false,
+    },
+    '--no-src': {
+      key: 'src',
+      value: 'flag',
+      set: false,
+    },
+    '--no-tags': {
+      key: 'tags',
+      value: 'flag',
+      set: false,
+    },
+    '--no-maintenance': {
+      key: 'maintenance',
+      value: 'flag',
+      set: false,
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.clone.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_clone',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec311 = {
+  argv: ['scalar', 'list'],
+  executable: 'scalar',
+  options: {
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.list.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_list',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec312 = {
+  argv: ['scalar', 'register'],
+  executable: 'scalar',
+  options: {
+    '--maintenance': {
+      key: 'maintenance',
+      value: 'flag',
+    },
+    '--no-maintenance': {
+      key: 'maintenance',
+      value: 'flag',
+      set: false,
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.register.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_register',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec313 = {
+  argv: ['scalar', 'unregister'],
+  executable: 'scalar',
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.unregister.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_unregister',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec314 = {
+  argv: ['scalar', 'run'],
+  executable: 'scalar',
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.run.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+    {
+      id: 'cli.scalar.run.task',
+      kind: 'value',
+      key: 'operand0',
+      allowed: ['all', 'config', 'commit-graph', 'fetch', 'loose-objects', 'pack-files'],
+      origin: 'git',
+      reason: 'Scalar accepts only its registered maintenance task names.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_run',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec315 = {
+  argv: ['scalar', 'reconfigure'],
+  executable: 'scalar',
+  options: {
+    '--all': {
+      key: 'all',
+      value: 'flag',
+    },
+    '-a': {
+      key: 'all',
+      value: 'flag',
+    },
+    '--maintenance': {
+      key: 'maintenance',
+      value: 'string',
+    },
+    '--no-all': {
+      key: 'all',
+      value: 'flag',
+      set: false,
+    },
+    '--no-maintenance': {
+      key: 'maintenance',
+      value: 'flag',
+      clear: true,
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.reconfigure.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+    {
+      id: 'cli.scalar.reconfigure.all-operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'all',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Reconfigure all cannot also select an enlistment.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+    {
+      id: 'cli.scalar.reconfigure.maintenance',
+      kind: 'value',
+      key: 'maintenance',
+      allowed: ['enable', 'disable', 'keep'],
+      guard: [
+        {
+          key: 'all',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Maintenance mode is checked only in the all-enlistments branch, after final option replacement.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_reconfigure',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec316 = {
+  argv: ['scalar', 'delete'],
+  executable: 'scalar',
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.delete.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_delete',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec317 = {
+  argv: ['scalar', 'help'],
+  executable: 'scalar',
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.help.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_help',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec318 = {
+  argv: ['scalar', 'version'],
+  executable: 'scalar',
+  options: {
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+    },
+    '--build-options': {
+      key: 'build-options',
+      value: 'flag',
+    },
+    '--no-verbose': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-build-options': {
+      key: 'build-options',
+      value: 'flag',
+      set: false,
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.version.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_version',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec319 = {
+  argv: ['scalar', 'diagnose'],
+  executable: 'scalar',
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      before: 1,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.diagnose.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      reason: 'This scalar operation restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_diagnose',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec320 = {
+  argv: ['scalar'],
+  executable: 'scalar',
+  dispatch: {
+    clone: 'scalar clone',
+    list: 'scalar list',
+    register: 'scalar register',
+    unregister: 'scalar unregister',
+    run: 'scalar run',
+    reconfigure: 'scalar reconfigure',
+    delete: 'scalar delete',
+    help: 'scalar help',
+    version: 'scalar version',
+    diagnose: 'scalar diagnose',
+  },
+  options: {
+    '-C': {
+      key: 'C',
+      value: 'string',
+      separateValue: true,
+      repeat: true,
+    },
+    '-c': {
+      key: 'c',
+      value: 'string',
+      separateValue: true,
+      repeat: true,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.scalar.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      reason: 'Scalar requires a registered operation.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+    {
+      id: 'cli.scalar.known-operation',
+      kind: 'value',
+      key: 'operand0',
+      allowed: [
+        'clone',
+        'list',
+        'register',
+        'unregister',
+        'run',
+        'reconfigure',
+        'delete',
+        'help',
+        'version',
+        'diagnose',
+      ],
+      origin: 'git',
+      reason: 'Scalar only dispatches registered operation names.',
+      source: 'https://github.com/git/git/blob/v2.55.0/scalar.c',
+    },
+  ],
+  source: 'scalar.c:cmd_main',
+  separator: false,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec321 = {
+  argv: ['gitk'],
+  executable: 'gitk',
+  options: {
+    '--select-commit': {
+      key: 'select-commit',
+      value: 'string',
+    },
+    '--argscmd': {
+      key: 'argscmd',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'gitk-git/gitk:argv loop',
+  separator: true,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec322 = {
+  argv: ['gitweb'],
+  executable: 'gitweb',
+  options: {
+    '--fastcgi': {
+      key: 'fastcgi',
+      value: 'flag',
+    },
+    '--fcgi': {
+      key: 'fastcgi',
+      value: 'flag',
+    },
+    '-f': {
+      key: 'fastcgi',
+      value: 'flag',
+    },
+    '--nproc': {
+      key: 'nproc',
+      value: 'integer',
+    },
+    '-n': {
+      key: 'nproc',
+      value: 'integer',
+    },
+  },
+  rules: [],
+  source: 'gitweb/gitweb.perl:evaluate_argv',
+  separator: true,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec323 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -89606,7 +90248,7 @@ const commandSpec310 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec311 = {
+const commandSpec324 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -89737,7 +90379,7 @@ const commandSpec311 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec312 = {
+const commandSpec325 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -89753,7 +90395,7 @@ const commandSpec312 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec313 = {
+const commandSpec326 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -89960,7 +90602,7 @@ const commandSpec313 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec314 = {
+const commandSpec327 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -89996,7 +90638,7 @@ const commandSpec314 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec315 = {
+const commandSpec328 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -90020,7 +90662,7 @@ const commandSpec315 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec316 = {
+const commandSpec329 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -90036,7 +90678,7 @@ const commandSpec316 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec317 = {
+const commandSpec330 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -90052,7 +90694,7 @@ const commandSpec317 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec318 = {
+const commandSpec331 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -90068,7 +90710,7 @@ const commandSpec318 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec319 = {
+const commandSpec332 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -90196,7 +90838,7 @@ const commandSpec319 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec320 = {
+const commandSpec333 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -90220,7 +90862,7 @@ const commandSpec320 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec321 = {
+const commandSpec334 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -90252,7 +90894,7 @@ const commandSpec321 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec322 = {
+const commandSpec335 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -90268,7 +90910,7 @@ const commandSpec322 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec323 = {
+const commandSpec336 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -90474,7 +91116,7 @@ const commandSpec323 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec324 = {
+const commandSpec337 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -90490,7 +91132,7 @@ const commandSpec324 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec325 = {
+const commandSpec338 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -90522,7 +91164,7 @@ const commandSpec325 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec326 = {
+const commandSpec339 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -90659,7 +91301,7 @@ const commandSpec326 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec327 = {
+const commandSpec340 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -90675,7 +91317,7 @@ const commandSpec327 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec328 = {
+const commandSpec341 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -90691,7 +91333,7 @@ const commandSpec328 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec329 = {
+const commandSpec342 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -90707,7 +91349,7 @@ const commandSpec329 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec330 = {
+const commandSpec343 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -90723,7 +91365,7 @@ const commandSpec330 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec331 = {
+const commandSpec344 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -90739,7 +91381,7 @@ const commandSpec331 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec332 = {
+const commandSpec345 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -90852,7 +91494,7 @@ const commandSpec332 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec333 = {
+const commandSpec346 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -90918,7 +91560,7 @@ const commandSpec333 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec334 = {
+const commandSpec347 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -90978,7 +91620,7 @@ const commandSpec334 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec335 = {
+const commandSpec348 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -91115,7 +91757,7 @@ const commandSpec335 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec336 = {
+const commandSpec349 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -91379,7 +92021,7 @@ const commandSpec336 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec337 = {
+const commandSpec350 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -91564,7 +92206,7 @@ const commandSpec337 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec338 = {
+const commandSpec351 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -91718,7 +92360,7 @@ const commandSpec338 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec339 = {
+const commandSpec352 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -91745,7 +92387,7 @@ const commandSpec339 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec340 = {
+const commandSpec353 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -91761,7 +92403,7 @@ const commandSpec340 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec341 = {
+const commandSpec354 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -91788,7 +92430,7 @@ const commandSpec341 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec342 = {
+const commandSpec355 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -91822,7 +92464,7 @@ const commandSpec342 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec343 = {
+const commandSpec356 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -91908,7 +92550,7 @@ const commandSpec343 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec344 = {
+const commandSpec357 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -91940,7 +92582,7 @@ const commandSpec344 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec345 = {
+const commandSpec358 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -92046,7 +92688,7 @@ const commandSpec345 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec346 = {
+const commandSpec359 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -92070,7 +92712,7 @@ const commandSpec346 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec347 = {
+const commandSpec360 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -92086,7 +92728,7 @@ const commandSpec347 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec348 = {
+const commandSpec361 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -92118,7 +92760,7 @@ const commandSpec348 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec349 = {
+const commandSpec362 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -92197,7 +92839,7 @@ const commandSpec349 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec350 = {
+const commandSpec363 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -92301,7 +92943,7 @@ const commandSpec350 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec351 = {
+const commandSpec364 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -92317,7 +92959,7 @@ const commandSpec351 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec352 = {
+const commandSpec365 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -92404,7 +93046,7 @@ const commandSpec352 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec353 = {
+const commandSpec366 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -92420,7 +93062,7 @@ const commandSpec353 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec354 = {
+const commandSpec367 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -92461,7 +93103,7 @@ const commandSpec354 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec355 = {
+const commandSpec368 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -92796,52 +93438,65 @@ export const COMMAND_SPECS: {
   readonly stash: typeof commandSpec307;
   readonly config: typeof commandSpec308;
   readonly 'stash list': typeof commandSpec309;
-  readonly lfs: typeof commandSpec310;
-  readonly 'lfs checkout': typeof commandSpec311;
-  readonly 'lfs clean': typeof commandSpec312;
-  readonly 'lfs clone': typeof commandSpec313;
-  readonly 'lfs completion': typeof commandSpec314;
-  readonly 'lfs dedup': typeof commandSpec315;
-  readonly 'lfs env': typeof commandSpec316;
-  readonly 'lfs ext': typeof commandSpec317;
-  readonly 'lfs ext list': typeof commandSpec318;
-  readonly 'lfs fetch': typeof commandSpec319;
-  readonly 'lfs filter-process': typeof commandSpec320;
-  readonly 'lfs fsck': typeof commandSpec321;
-  readonly 'lfs help': typeof commandSpec322;
-  readonly 'lfs install': typeof commandSpec323;
-  readonly 'lfs install hooks': typeof commandSpec324;
-  readonly 'lfs lock': typeof commandSpec325;
-  readonly 'lfs locks': typeof commandSpec326;
-  readonly 'lfs logs': typeof commandSpec327;
-  readonly 'lfs logs boomtown': typeof commandSpec328;
-  readonly 'lfs logs clear': typeof commandSpec329;
-  readonly 'lfs logs last': typeof commandSpec330;
-  readonly 'lfs logs show': typeof commandSpec331;
-  readonly 'lfs ls-files': typeof commandSpec332;
-  readonly 'lfs merge-driver': typeof commandSpec333;
-  readonly 'lfs migrate': typeof commandSpec334;
-  readonly 'lfs migrate export': typeof commandSpec335;
-  readonly 'lfs migrate import': typeof commandSpec336;
-  readonly 'lfs migrate info': typeof commandSpec337;
-  readonly 'lfs pointer': typeof commandSpec338;
-  readonly 'lfs post-checkout': typeof commandSpec339;
-  readonly 'lfs post-commit': typeof commandSpec340;
-  readonly 'lfs post-merge': typeof commandSpec341;
-  readonly 'lfs pre-push': typeof commandSpec342;
-  readonly 'lfs prune': typeof commandSpec343;
-  readonly 'lfs pull': typeof commandSpec344;
-  readonly 'lfs push': typeof commandSpec345;
-  readonly 'lfs smudge': typeof commandSpec346;
-  readonly 'lfs standalone-file': typeof commandSpec347;
-  readonly 'lfs status': typeof commandSpec348;
-  readonly 'lfs track': typeof commandSpec349;
-  readonly 'lfs uninstall': typeof commandSpec350;
-  readonly 'lfs uninstall hooks': typeof commandSpec351;
-  readonly 'lfs unlock': typeof commandSpec352;
-  readonly 'lfs untrack': typeof commandSpec353;
-  readonly 'lfs update': typeof commandSpec354;
-  readonly 'lfs version': typeof commandSpec355;
+  readonly 'scalar clone': typeof commandSpec310;
+  readonly 'scalar list': typeof commandSpec311;
+  readonly 'scalar register': typeof commandSpec312;
+  readonly 'scalar unregister': typeof commandSpec313;
+  readonly 'scalar run': typeof commandSpec314;
+  readonly 'scalar reconfigure': typeof commandSpec315;
+  readonly 'scalar delete': typeof commandSpec316;
+  readonly 'scalar help': typeof commandSpec317;
+  readonly 'scalar version': typeof commandSpec318;
+  readonly 'scalar diagnose': typeof commandSpec319;
+  readonly scalar: typeof commandSpec320;
+  readonly gitk: typeof commandSpec321;
+  readonly gitweb: typeof commandSpec322;
+  readonly lfs: typeof commandSpec323;
+  readonly 'lfs checkout': typeof commandSpec324;
+  readonly 'lfs clean': typeof commandSpec325;
+  readonly 'lfs clone': typeof commandSpec326;
+  readonly 'lfs completion': typeof commandSpec327;
+  readonly 'lfs dedup': typeof commandSpec328;
+  readonly 'lfs env': typeof commandSpec329;
+  readonly 'lfs ext': typeof commandSpec330;
+  readonly 'lfs ext list': typeof commandSpec331;
+  readonly 'lfs fetch': typeof commandSpec332;
+  readonly 'lfs filter-process': typeof commandSpec333;
+  readonly 'lfs fsck': typeof commandSpec334;
+  readonly 'lfs help': typeof commandSpec335;
+  readonly 'lfs install': typeof commandSpec336;
+  readonly 'lfs install hooks': typeof commandSpec337;
+  readonly 'lfs lock': typeof commandSpec338;
+  readonly 'lfs locks': typeof commandSpec339;
+  readonly 'lfs logs': typeof commandSpec340;
+  readonly 'lfs logs boomtown': typeof commandSpec341;
+  readonly 'lfs logs clear': typeof commandSpec342;
+  readonly 'lfs logs last': typeof commandSpec343;
+  readonly 'lfs logs show': typeof commandSpec344;
+  readonly 'lfs ls-files': typeof commandSpec345;
+  readonly 'lfs merge-driver': typeof commandSpec346;
+  readonly 'lfs migrate': typeof commandSpec347;
+  readonly 'lfs migrate export': typeof commandSpec348;
+  readonly 'lfs migrate import': typeof commandSpec349;
+  readonly 'lfs migrate info': typeof commandSpec350;
+  readonly 'lfs pointer': typeof commandSpec351;
+  readonly 'lfs post-checkout': typeof commandSpec352;
+  readonly 'lfs post-commit': typeof commandSpec353;
+  readonly 'lfs post-merge': typeof commandSpec354;
+  readonly 'lfs pre-push': typeof commandSpec355;
+  readonly 'lfs prune': typeof commandSpec356;
+  readonly 'lfs pull': typeof commandSpec357;
+  readonly 'lfs push': typeof commandSpec358;
+  readonly 'lfs smudge': typeof commandSpec359;
+  readonly 'lfs standalone-file': typeof commandSpec360;
+  readonly 'lfs status': typeof commandSpec361;
+  readonly 'lfs track': typeof commandSpec362;
+  readonly 'lfs uninstall': typeof commandSpec363;
+  readonly 'lfs uninstall hooks': typeof commandSpec364;
+  readonly 'lfs unlock': typeof commandSpec365;
+  readonly 'lfs untrack': typeof commandSpec366;
+  readonly 'lfs update': typeof commandSpec367;
+  readonly 'lfs version': typeof commandSpec368;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -93153,50 +93808,63 @@ export const COMMAND_SPECS: {
   stash: commandSpec307,
   config: commandSpec308,
   'stash list': commandSpec309,
-  lfs: commandSpec310,
-  'lfs checkout': commandSpec311,
-  'lfs clean': commandSpec312,
-  'lfs clone': commandSpec313,
-  'lfs completion': commandSpec314,
-  'lfs dedup': commandSpec315,
-  'lfs env': commandSpec316,
-  'lfs ext': commandSpec317,
-  'lfs ext list': commandSpec318,
-  'lfs fetch': commandSpec319,
-  'lfs filter-process': commandSpec320,
-  'lfs fsck': commandSpec321,
-  'lfs help': commandSpec322,
-  'lfs install': commandSpec323,
-  'lfs install hooks': commandSpec324,
-  'lfs lock': commandSpec325,
-  'lfs locks': commandSpec326,
-  'lfs logs': commandSpec327,
-  'lfs logs boomtown': commandSpec328,
-  'lfs logs clear': commandSpec329,
-  'lfs logs last': commandSpec330,
-  'lfs logs show': commandSpec331,
-  'lfs ls-files': commandSpec332,
-  'lfs merge-driver': commandSpec333,
-  'lfs migrate': commandSpec334,
-  'lfs migrate export': commandSpec335,
-  'lfs migrate import': commandSpec336,
-  'lfs migrate info': commandSpec337,
-  'lfs pointer': commandSpec338,
-  'lfs post-checkout': commandSpec339,
-  'lfs post-commit': commandSpec340,
-  'lfs post-merge': commandSpec341,
-  'lfs pre-push': commandSpec342,
-  'lfs prune': commandSpec343,
-  'lfs pull': commandSpec344,
-  'lfs push': commandSpec345,
-  'lfs smudge': commandSpec346,
-  'lfs standalone-file': commandSpec347,
-  'lfs status': commandSpec348,
-  'lfs track': commandSpec349,
-  'lfs uninstall': commandSpec350,
-  'lfs uninstall hooks': commandSpec351,
-  'lfs unlock': commandSpec352,
-  'lfs untrack': commandSpec353,
-  'lfs update': commandSpec354,
-  'lfs version': commandSpec355,
+  'scalar clone': commandSpec310,
+  'scalar list': commandSpec311,
+  'scalar register': commandSpec312,
+  'scalar unregister': commandSpec313,
+  'scalar run': commandSpec314,
+  'scalar reconfigure': commandSpec315,
+  'scalar delete': commandSpec316,
+  'scalar help': commandSpec317,
+  'scalar version': commandSpec318,
+  'scalar diagnose': commandSpec319,
+  scalar: commandSpec320,
+  gitk: commandSpec321,
+  gitweb: commandSpec322,
+  lfs: commandSpec323,
+  'lfs checkout': commandSpec324,
+  'lfs clean': commandSpec325,
+  'lfs clone': commandSpec326,
+  'lfs completion': commandSpec327,
+  'lfs dedup': commandSpec328,
+  'lfs env': commandSpec329,
+  'lfs ext': commandSpec330,
+  'lfs ext list': commandSpec331,
+  'lfs fetch': commandSpec332,
+  'lfs filter-process': commandSpec333,
+  'lfs fsck': commandSpec334,
+  'lfs help': commandSpec335,
+  'lfs install': commandSpec336,
+  'lfs install hooks': commandSpec337,
+  'lfs lock': commandSpec338,
+  'lfs locks': commandSpec339,
+  'lfs logs': commandSpec340,
+  'lfs logs boomtown': commandSpec341,
+  'lfs logs clear': commandSpec342,
+  'lfs logs last': commandSpec343,
+  'lfs logs show': commandSpec344,
+  'lfs ls-files': commandSpec345,
+  'lfs merge-driver': commandSpec346,
+  'lfs migrate': commandSpec347,
+  'lfs migrate export': commandSpec348,
+  'lfs migrate import': commandSpec349,
+  'lfs migrate info': commandSpec350,
+  'lfs pointer': commandSpec351,
+  'lfs post-checkout': commandSpec352,
+  'lfs post-commit': commandSpec353,
+  'lfs post-merge': commandSpec354,
+  'lfs pre-push': commandSpec355,
+  'lfs prune': commandSpec356,
+  'lfs pull': commandSpec357,
+  'lfs push': commandSpec358,
+  'lfs smudge': commandSpec359,
+  'lfs standalone-file': commandSpec360,
+  'lfs status': commandSpec361,
+  'lfs track': commandSpec362,
+  'lfs uninstall': commandSpec363,
+  'lfs uninstall hooks': commandSpec364,
+  'lfs unlock': commandSpec365,
+  'lfs untrack': commandSpec366,
+  'lfs update': commandSpec367,
+  'lfs version': commandSpec368,
 };

@@ -1,4 +1,4 @@
-import { commandArguments } from '../commands/build.js';
+import { executeCommand } from '../commands/execute.js';
 import type { GitCommandClient, GitCommandExecOpts, GitCommandName } from '../commands/types.js';
 import {
   type ExclusiveQuery,
@@ -334,7 +334,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     args: readonly unknown[],
     opts?: GitCommandExecOpts,
   ) => {
-    return this.raw(commandArguments(command, args, true), opts);
+    return executeCommand(this.runner, this.context, command, args, opts);
   };
 
   public async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
