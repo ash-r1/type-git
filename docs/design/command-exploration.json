@@ -58489,6 +58489,566 @@
       "isolatedRuleWitnesses": {}
     },
     {
+      "command": "filter-branch",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "force": [
+          "undefined",
+          "true"
+        ],
+        "remap-to-ancestor": [
+          "undefined",
+          "true"
+        ],
+        "prune-empty": [
+          "undefined",
+          "true"
+        ],
+        "d": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "setup": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "subdirectory-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "env-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "tree-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "index-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "parent-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "msg-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "commit-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "tag-name-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "original": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "state-branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "117187500000",
+      "accepted": "70312500000",
+      "nodes": 5,
+      "isolatedRuleWitnesses": {
+        "cli.filter-branch.prune-commit": "{\"commit-filter\":\"\",\"operands\":[],\"prune-empty\":true}"
+      }
+    },
+    {
+      "command": "quiltimport",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "true"
+        ],
+        "keep-non-patch": [
+          "undefined",
+          "true"
+        ],
+        "author": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "patches": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "series": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30000",
+      "accepted": "30000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "instaweb",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "action": [
+          "undefined",
+          "\"start\"",
+          "\"stop\"",
+          "\"restart\""
+        ],
+        "local": [
+          "undefined",
+          "true"
+        ],
+        "port": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "httpd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "browser": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "module-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"start\"]",
+          "[\"start\",\"start\"]",
+          "[\"start\",\"invalid\"]",
+          "[\"stop\"]",
+          "[\"stop\",\"stop\"]",
+          "[\"stop\",\"invalid\"]",
+          "[\"restart\"]",
+          "[\"restart\",\"restart\"]",
+          "[\"restart\",\"invalid\"]",
+          "[\"--\"]",
+          "[\"--\",\"--\"]",
+          "[\"--\",\"invalid\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1020000",
+      "accepted": "540000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.instaweb.actions": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "instaweb start",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "action": [
+          "undefined",
+          "\"start\"",
+          "\"stop\"",
+          "\"restart\""
+        ],
+        "local": [
+          "undefined",
+          "true"
+        ],
+        "port": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "httpd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "browser": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "module-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"start\"]",
+          "[\"start\",\"start\"]",
+          "[\"start\",\"invalid\"]",
+          "[\"stop\"]",
+          "[\"stop\",\"stop\"]",
+          "[\"stop\",\"invalid\"]",
+          "[\"restart\"]",
+          "[\"restart\",\"restart\"]",
+          "[\"restart\",\"invalid\"]",
+          "[\"--\"]",
+          "[\"--\",\"--\"]",
+          "[\"--\",\"invalid\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1020000",
+      "accepted": "540000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.instaweb.actions": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "instaweb stop",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "action": [
+          "undefined",
+          "\"start\"",
+          "\"stop\"",
+          "\"restart\""
+        ],
+        "local": [
+          "undefined",
+          "true"
+        ],
+        "port": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "httpd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "browser": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "module-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"start\"]",
+          "[\"start\",\"start\"]",
+          "[\"start\",\"invalid\"]",
+          "[\"stop\"]",
+          "[\"stop\",\"stop\"]",
+          "[\"stop\",\"invalid\"]",
+          "[\"restart\"]",
+          "[\"restart\",\"restart\"]",
+          "[\"restart\",\"invalid\"]",
+          "[\"--\"]",
+          "[\"--\",\"--\"]",
+          "[\"--\",\"invalid\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1020000",
+      "accepted": "540000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.instaweb.actions": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "instaweb restart",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "action": [
+          "undefined",
+          "\"start\"",
+          "\"stop\"",
+          "\"restart\""
+        ],
+        "local": [
+          "undefined",
+          "true"
+        ],
+        "port": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "httpd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "browser": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "module-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"start\"]",
+          "[\"start\",\"start\"]",
+          "[\"start\",\"invalid\"]",
+          "[\"stop\"]",
+          "[\"stop\",\"stop\"]",
+          "[\"stop\",\"invalid\"]",
+          "[\"restart\"]",
+          "[\"restart\",\"restart\"]",
+          "[\"restart\",\"invalid\"]",
+          "[\"--\"]",
+          "[\"--\",\"--\"]",
+          "[\"--\",\"invalid\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1020000",
+      "accepted": "540000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.instaweb.actions": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "shell",
+      "rules": 4,
+      "domains": {
+        "command": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"cvs server\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ]
+      },
+      "total": "900",
+      "accepted": "84",
+      "nodes": 38,
+      "isolatedRuleWitnesses": {
+        "cli.shell.command-words": "{\"command\":\"\",\"operands\":[]}",
+        "cli.shell.command-operands": "{\"argumentTokens\":[\"value\"],\"command\":\"\",\"operands\":[\"value\"]}",
+        "cli.shell.interactive-or-cvs": "{\"operands\":[\"value\",\"value\"]}",
+        "cli.shell.cvs-word": "{\"operand0\":\"value\",\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

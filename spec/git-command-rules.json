@@ -20010,5 +20010,150 @@
     }
   ],
   "gitk": [],
-  "gitweb": []
+  "gitweb": [],
+  "filter-branch": [
+    {
+      "id": "cli.filter-branch.prune-commit",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "prune-empty",
+          "test": "active"
+        },
+        {
+          "key": "commit-filter",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Prune-empty cannot coexist with an explicit commit filter, including an empty filter.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-filter-branch.sh"
+    }
+  ],
+  "quiltimport": [],
+  "instaweb": [
+    {
+      "id": "cli.instaweb.actions",
+      "kind": "elements",
+      "key": "operands",
+      "allowed": [
+        "start",
+        "stop",
+        "restart",
+        "--"
+      ],
+      "origin": "git",
+      "reason": "Every positional action word must match a shell case; action choices replace one another.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-instaweb.sh"
+    }
+  ],
+  "instaweb start": [
+    {
+      "id": "cli.instaweb.actions",
+      "kind": "elements",
+      "key": "operands",
+      "allowed": [
+        "start",
+        "stop",
+        "restart",
+        "--"
+      ],
+      "origin": "git",
+      "reason": "Every positional action word must match a shell case; action choices replace one another.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-instaweb.sh"
+    }
+  ],
+  "instaweb stop": [
+    {
+      "id": "cli.instaweb.actions",
+      "kind": "elements",
+      "key": "operands",
+      "allowed": [
+        "start",
+        "stop",
+        "restart",
+        "--"
+      ],
+      "origin": "git",
+      "reason": "Every positional action word must match a shell case; action choices replace one another.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-instaweb.sh"
+    }
+  ],
+  "instaweb restart": [
+    {
+      "id": "cli.instaweb.actions",
+      "kind": "elements",
+      "key": "operands",
+      "allowed": [
+        "start",
+        "stop",
+        "restart",
+        "--"
+      ],
+      "origin": "git",
+      "reason": "Every positional action word must match a shell case; action choices replace one another.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-instaweb.sh"
+    }
+  ],
+  "shell": [
+    {
+      "id": "cli.shell.command-words",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "command",
+        "test": "present"
+      },
+      "origin": "git",
+      "reason": "Command mode takes exactly one -c option and no additional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/shell.c"
+    },
+    {
+      "id": "cli.shell.command-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "command",
+        "test": "present"
+      },
+      "origin": "git",
+      "reason": "Command mode takes no extra positional words.",
+      "source": "https://github.com/git/git/blob/v2.55.0/shell.c"
+    },
+    {
+      "id": "cli.shell.interactive-or-cvs",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "when": {
+        "key": "command",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Without -c, only the literal CVS server compatibility word or interactive mode is accepted.",
+      "source": "https://github.com/git/git/blob/v2.55.0/shell.c"
+    },
+    {
+      "id": "cli.shell.cvs-word",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "cvs server"
+      ],
+      "guard": [
+        {
+          "key": "command",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Only the special CVS server argument is recognized outside command mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/shell.c"
+    }
+  ]
 }
