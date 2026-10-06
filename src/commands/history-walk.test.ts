@@ -98,12 +98,15 @@ describe('history walking, bundles and repository inspection grammars', () => {
         true,
       );
     }
-    compare(
-      'rev-list',
-      [['--objects'], ['--count'], ['--cherry-mark'], { operand: 'HEAD' }],
-      ['--objects', '--count', '--cherry-mark', 'HEAD'],
-      false,
-    );
+    if (!legacy) {
+      // The marked-object count restriction was added after Git 2.25.
+      compare(
+        'rev-list',
+        [['--objects'], ['--count'], ['--cherry-mark'], { operand: 'HEAD' }],
+        ['--objects', '--count', '--cherry-mark', 'HEAD'],
+        false,
+      );
+    }
   });
 
   it.skipIf(legacy)('matches the missing-action prescan and NUL-output conflicts', () => {

@@ -217,3 +217,8 @@ inspection preserves immediate format validation and final info/structure format
 restrictions. The ledger remains partial: two-phase revision parsing, ref and
 object resolution, interactive history rewriting and nested bundle revision
 syntax require further work.
+
+The generated catalogue declares each command's literal schema separately and
+uses explicit type references in the registry. This preserves per-command
+inference without exceeding TypeScript's declaration serialization limit as the
+catalogue grows.
