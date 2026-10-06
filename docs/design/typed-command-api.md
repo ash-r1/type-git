@@ -471,3 +471,11 @@ These constraints come from the pinned Tcl source. Tests exercise the schema and
 Submit and commit accept at most one branch, unshelve requires one changelist, and clone requires depot input. Keep-path needs a nonempty explicit destination before positional destination inference. Choices fail during parsing; every accumulated update-shelve number must be positive after parsing. The shared `eachInteger` constraint checks these arrays at runtime and in deterministic decision diagrams; arbitrary numeric range proofs remain outside TypeScript's literal checks.
 
 Native tests use help, empty local branch listings and parser/local failures with constructor-only Perforce capability probes served by a local fail-closed stub. Perforce/configuration-dependent synchronization and submission, depot languages, exclusion normalization, and option abbreviation remain audit gaps.
+
+### Subversion operation extraction
+
+`scripts/extract-svn-options.py` extracts the pinned git-svn registry, shared option hashes and final global declarations without loading upstream Perl code. The snapshot records source version/hash and declarations. There are 25 registered operations plus the root scope. Global `id|i=s` overrides dcommit's short interactive alias; mixedCase configuration-only fields are removed before CLI parsing. Log and blame allow delegated words as literal operands.
+
+Rules preserve required names/property values, fetch/info operand limits, ignored surplus words, and explicit message/file and initialization-metadata conflicts. Find-rev accepts before and after together (before wins). `svn.*` configuration can supply operation inputs, including revision and layout: the CLI schema deliberately does not require those options to appear in argv.
+
+Native SVN tests are explicitly skipped when SVN Perl bindings are unavailable; schema/compiler checks are separate evidence. Exact first-operand dispatch is covered. Git-svn's whole-argv command scan (including option-value words), delegated log/blame grammars, config/remote state and value languages remain incomplete.
