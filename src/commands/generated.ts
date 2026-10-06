@@ -2213,6 +2213,7 @@ export const COMMAND_SPECS = {
       '--trailer': {
         key: 'trailer',
         value: 'string',
+        repeat: true,
       },
       '--signoff': {
         key: 'signoff',
@@ -2445,6 +2446,7 @@ export const COMMAND_SPECS = {
       '--no-trailer': {
         key: 'trailer',
         value: 'flag',
+        repeat: true,
         clear: true,
       },
       '--no-signoff': {
@@ -8809,6 +8811,7 @@ export const COMMAND_SPECS = {
       '--trailer': {
         key: 'trailer',
         value: 'string',
+        repeat: true,
       },
       '--edit': {
         key: 'edit',
@@ -8931,6 +8934,7 @@ export const COMMAND_SPECS = {
       '--no-trailer': {
         key: 'trailer',
         value: 'flag',
+        repeat: true,
         clear: true,
       },
       '--no-edit': {
@@ -30333,6 +30337,8658 @@ export const COMMAND_SPECS = {
       },
     ],
     source: 'Git 2.55.0 builtin/stash.c:show_stash/get_stash_info',
+    separator: true,
+  },
+  merge: {
+    argv: ['merge'],
+    options: {
+      '-n': {
+        key: 'n',
+        value: 'flag',
+      },
+      '--stat': {
+        key: 'stat',
+        value: 'flag',
+      },
+      '--summary': {
+        key: 'summary',
+        value: 'flag',
+      },
+      '--compact-summary': {
+        key: 'compact-summary',
+        value: 'flag',
+      },
+      '--log': {
+        key: 'log',
+        value: 'optional-integer',
+      },
+      '--squash': {
+        key: 'squash',
+        value: 'flag',
+      },
+      '--commit': {
+        key: 'commit',
+        value: 'flag',
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--cleanup': {
+        key: 'cleanup',
+        value: 'string',
+      },
+      '--ff': {
+        key: 'ff-mode',
+        value: 'flag',
+        set: 'allow',
+      },
+      '--ff-only': {
+        key: 'ff-mode',
+        value: 'flag',
+        set: 'only',
+      },
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--verify-signatures': {
+        key: 'verify-signatures',
+        value: 'flag',
+      },
+      '--strategy': {
+        key: 'strategy',
+        value: 'string',
+        repeat: true,
+      },
+      '-s': {
+        key: 'strategy',
+        value: 'string',
+        repeat: true,
+      },
+      '--strategy-option': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '-X': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '-F': {
+        key: 'file',
+        value: 'string',
+      },
+      '--into-name': {
+        key: 'into-name',
+        value: 'string',
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--abort': {
+        key: 'abort',
+        value: 'flag',
+      },
+      '--quit': {
+        key: 'quit',
+        value: 'flag',
+      },
+      '--continue': {
+        key: 'continue',
+        value: 'flag',
+      },
+      '--allow-unrelated-histories': {
+        key: 'allow-unrelated-histories',
+        value: 'flag',
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--gpg-sign': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '-S': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '--autostash': {
+        key: 'autostash',
+        value: 'flag',
+      },
+      '--overwrite-ignore': {
+        key: 'overwrite-ignore',
+        value: 'flag',
+      },
+      '--signoff': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '--no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+      },
+      '--no-stat': {
+        key: 'stat',
+        value: 'flag',
+        set: false,
+      },
+      '--no-summary': {
+        key: 'summary',
+        value: 'flag',
+        set: false,
+      },
+      '--no-compact-summary': {
+        key: 'compact-summary',
+        value: 'flag',
+        set: false,
+      },
+      '--no-log': {
+        key: 'log',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-squash': {
+        key: 'squash',
+        value: 'flag',
+        set: false,
+      },
+      '--no-commit': {
+        key: 'commit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-cleanup': {
+        key: 'cleanup',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-ff': {
+        key: 'ff-mode',
+        value: 'flag',
+        set: 'no',
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verify-signatures': {
+        key: 'verify-signatures',
+        value: 'flag',
+        set: false,
+      },
+      '--no-strategy': {
+        key: 'strategy',
+        value: 'flag',
+        ignore: true,
+      },
+      '--no-strategy-option': {
+        key: 'strategy-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-message': {
+        key: 'message',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-into-name': {
+        key: 'into-name',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--no-abort': {
+        key: 'abort',
+        value: 'flag',
+        set: false,
+      },
+      '--no-quit': {
+        key: 'quit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-continue': {
+        key: 'continue',
+        value: 'flag',
+        set: false,
+      },
+      '--no-allow-unrelated-histories': {
+        key: 'allow-unrelated-histories',
+        value: 'flag',
+        set: false,
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--no-gpg-sign': {
+        key: 'gpg-sign',
+        value: 'flag',
+        set: '',
+        clear: true,
+      },
+      '--no-autostash': {
+        key: 'autostash',
+        value: 'flag',
+        set: false,
+      },
+      '--no-overwrite-ignore': {
+        key: 'overwrite-ignore',
+        value: 'flag',
+        set: false,
+      },
+      '--no-signoff': {
+        key: 'signoff',
+        value: 'flag',
+        set: false,
+      },
+      '--verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'merge.squash',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/merge.c:cmd_merge',
+        reason: 'Squash rejects explicitly requested commits and no-fast-forward mode.',
+        when: {
+          key: 'squash',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'commit',
+            test: 'active',
+          },
+          {
+            key: 'ff-mode',
+            test: 'equals',
+            value: 'no',
+          },
+        ],
+      },
+      {
+        id: 'merge.cleanup',
+        kind: 'value',
+        origin: 'git',
+        source: 'Git 2.55.0 sequencer.c:get_cleanup_mode',
+        reason: 'Commit cleanup uses the shared cleanup enum.',
+        key: 'cleanup',
+        allowed: ['default', 'verbatim', 'whitespace', 'strip', 'scissors'],
+      },
+      {
+        id: 'merge.abort-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/merge.c:cmd_merge',
+        reason:
+          'A continuation operation must be the only argument, including repetitions or a separator.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'abort',
+          test: 'active',
+        },
+      },
+      {
+        id: 'merge.quit-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/merge.c:cmd_merge',
+        reason:
+          'A continuation operation must be the only argument, including repetitions or a separator.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'quit',
+          test: 'active',
+        },
+      },
+      {
+        id: 'merge.continue-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/merge.c:cmd_merge',
+        reason:
+          'A continuation operation must be the only argument, including repetitions or a separator.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'continue',
+          test: 'active',
+        },
+      },
+    ],
+    source: 'builtin/merge.c',
+    separator: true,
+  },
+  rebase: {
+    argv: ['rebase'],
+    options: {
+      '--onto': {
+        key: 'onto',
+        value: 'string',
+      },
+      '--keep-base': {
+        key: 'keep-base',
+        value: 'flag',
+      },
+      '--no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--no-stat': {
+        key: 'no-stat',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'no-stat',
+        value: 'flag',
+      },
+      '--trailer': {
+        key: 'trailer',
+        value: 'string',
+        repeat: true,
+      },
+      '--signoff': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '--committer-date-is-author-date': {
+        key: 'committer-date-is-author-date',
+        value: 'flag',
+      },
+      '--reset-author-date': {
+        key: 'reset-author-date',
+        value: 'flag',
+      },
+      '--ignore-date': {
+        key: 'ignore-date',
+        value: 'flag',
+      },
+      '-C': {
+        key: 'am-options',
+        value: 'string',
+        repeat: true,
+      },
+      '--ignore-whitespace': {
+        key: 'ignore-whitespace',
+        value: 'flag',
+      },
+      '--whitespace': {
+        key: 'am-options',
+        value: 'string',
+        repeat: true,
+      },
+      '--force-rebase': {
+        key: 'force-rebase',
+        value: 'flag',
+      },
+      '-f': {
+        key: 'force-rebase',
+        value: 'flag',
+      },
+      '--no-ff': {
+        key: 'no-ff',
+        value: 'flag',
+      },
+      '--continue': {
+        key: 'continue',
+        value: 'flag',
+        modeGroup: '(&options.action)',
+      },
+      '--skip': {
+        key: 'skip',
+        value: 'flag',
+        modeGroup: '(&options.action)',
+      },
+      '--abort': {
+        key: 'abort',
+        value: 'flag',
+        modeGroup: '(&options.action)',
+      },
+      '--quit': {
+        key: 'quit',
+        value: 'flag',
+        modeGroup: '(&options.action)',
+      },
+      '--edit-todo': {
+        key: 'edit-todo',
+        value: 'flag',
+        modeGroup: '(&options.action)',
+      },
+      '--show-current-patch': {
+        key: 'show-current-patch',
+        value: 'flag',
+        modeGroup: '(&options.action)',
+      },
+      '--apply': {
+        key: 'backend',
+        value: 'flag',
+        set: 'apply',
+        checks: [
+          {
+            id: 'rebase.backend-apply',
+            kind: 'forbid',
+            origin: 'git',
+            source:
+              'Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive',
+            reason: 'Explicit backend callbacks cannot change an already selected backend.',
+            when: [
+              {
+                key: 'backend',
+                test: 'equals',
+                value: 'merge',
+              },
+            ],
+          },
+        ],
+      },
+      '--merge': {
+        key: 'backend',
+        value: 'flag',
+        set: 'merge',
+        checks: [
+          {
+            id: 'rebase.backend-merge',
+            kind: 'forbid',
+            origin: 'git',
+            source:
+              'Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive',
+            reason: 'Explicit backend callbacks cannot change an already selected backend.',
+            when: [
+              {
+                key: 'backend',
+                test: 'equals',
+                value: 'apply',
+              },
+            ],
+          },
+        ],
+      },
+      '-m': {
+        key: 'backend',
+        value: 'flag',
+        set: 'merge',
+        checks: [
+          {
+            id: 'rebase.backend-merge',
+            kind: 'forbid',
+            origin: 'git',
+            source:
+              'Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive',
+            reason: 'Explicit backend callbacks cannot change an already selected backend.',
+            when: [
+              {
+                key: 'backend',
+                test: 'equals',
+                value: 'apply',
+              },
+            ],
+          },
+        ],
+      },
+      '--interactive': {
+        key: 'backend',
+        value: 'flag',
+        set: 'merge',
+        checks: [
+          {
+            id: 'rebase.backend-merge',
+            kind: 'forbid',
+            origin: 'git',
+            source:
+              'Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive',
+            reason: 'Explicit backend callbacks cannot change an already selected backend.',
+            when: [
+              {
+                key: 'backend',
+                test: 'equals',
+                value: 'apply',
+              },
+            ],
+          },
+        ],
+      },
+      '-i': {
+        key: 'backend',
+        value: 'flag',
+        set: 'merge',
+        checks: [
+          {
+            id: 'rebase.backend-merge',
+            kind: 'forbid',
+            origin: 'git',
+            source:
+              'Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive',
+            reason: 'Explicit backend callbacks cannot change an already selected backend.',
+            when: [
+              {
+                key: 'backend',
+                test: 'equals',
+                value: 'apply',
+              },
+            ],
+          },
+        ],
+      },
+      '--preserve-merges': {
+        key: 'preserve-merges',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'preserve-merges',
+        value: 'flag',
+      },
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--empty': {
+        key: 'empty',
+        value: 'string',
+        allowed: ['drop', 'keep', 'stop', 'ask'],
+        caseInsensitive: true,
+      },
+      '--keep-empty': {
+        key: 'keep-empty',
+        value: 'flag',
+        set: true,
+        checks: [
+          {
+            id: 'rebase.keep-empty-backend',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 builtin/rebase.c:parse_opt_keep_empty',
+            reason: 'Both keep-empty and its negation immediately imply the merge backend.',
+            when: [
+              {
+                key: 'backend',
+                test: 'equals',
+                value: 'apply',
+              },
+            ],
+          },
+        ],
+        effects: [
+          {
+            key: 'backend',
+            set: 'merge',
+          },
+        ],
+      },
+      '-k': {
+        key: 'keep-empty',
+        value: 'flag',
+        set: true,
+        checks: [
+          {
+            id: 'rebase.keep-empty-backend',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 builtin/rebase.c:parse_opt_keep_empty',
+            reason: 'Both keep-empty and its negation immediately imply the merge backend.',
+            when: [
+              {
+                key: 'backend',
+                test: 'equals',
+                value: 'apply',
+              },
+            ],
+          },
+        ],
+        effects: [
+          {
+            key: 'backend',
+            set: 'merge',
+          },
+        ],
+      },
+      '--autosquash': {
+        key: 'autosquash',
+        value: 'flag',
+      },
+      '--update-refs': {
+        key: 'update-refs',
+        value: 'flag',
+      },
+      '--gpg-sign': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '-S': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '--autostash': {
+        key: 'autostash',
+        value: 'flag',
+      },
+      '--exec': {
+        key: 'exec',
+        value: 'string',
+        repeat: true,
+      },
+      '-x': {
+        key: 'exec',
+        value: 'string',
+        repeat: true,
+      },
+      '--allow-empty-message': {
+        key: 'allow-empty-message',
+        value: 'flag',
+      },
+      '--rebase-merges': {
+        key: 'rebase-merges',
+        value: 'optional-string',
+        allowed: ['', 'rebase-cousins', 'no-rebase-cousins'],
+      },
+      '-r': {
+        key: 'rebase-merges',
+        value: 'optional-string',
+        allowed: ['', 'rebase-cousins', 'no-rebase-cousins'],
+      },
+      '--fork-point': {
+        key: 'fork-point',
+        value: 'flag',
+      },
+      '--strategy': {
+        key: 'strategy',
+        value: 'string',
+      },
+      '-s': {
+        key: 'strategy',
+        value: 'string',
+      },
+      '--strategy-option': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '-X': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--root': {
+        key: 'root',
+        value: 'flag',
+      },
+      '--reschedule-failed-exec': {
+        key: 'reschedule-failed-exec',
+        value: 'flag',
+      },
+      '--reapply-cherry-picks': {
+        key: 'reapply-cherry-picks',
+        value: 'flag',
+      },
+      '--no-onto': {
+        key: 'onto',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-keep-base': {
+        key: 'keep-base',
+        value: 'flag',
+        set: false,
+      },
+      '--verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--stat': {
+        key: 'no-stat',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-stat': {
+        key: 'no-stat',
+        value: 'flag',
+        set: false,
+      },
+      '--no-trailer': {
+        key: 'trailer',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-signoff': {
+        key: 'signoff',
+        value: 'flag',
+        set: false,
+      },
+      '--no-committer-date-is-author-date': {
+        key: 'committer-date-is-author-date',
+        value: 'flag',
+        set: false,
+      },
+      '--no-reset-author-date': {
+        key: 'reset-author-date',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-date': {
+        key: 'ignore-date',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-whitespace': {
+        key: 'ignore-whitespace',
+        value: 'flag',
+        set: false,
+      },
+      '--no-whitespace': {
+        key: 'am-options',
+        value: 'flag',
+        set: '--no-whitespace',
+        repeat: true,
+      },
+      '--no-force-rebase': {
+        key: 'force-rebase',
+        value: 'flag',
+        set: false,
+      },
+      '--ff': {
+        key: 'no-ff',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-ff': {
+        key: 'no-ff',
+        value: 'flag',
+        set: false,
+      },
+      '--no-preserve-merges': {
+        key: 'preserve-merges',
+        value: 'flag',
+        set: false,
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--no-keep-empty': {
+        key: 'keep-empty',
+        value: 'flag',
+        set: false,
+        checks: [
+          {
+            id: 'rebase.keep-empty-backend',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 builtin/rebase.c:parse_opt_keep_empty',
+            reason: 'Both keep-empty and its negation immediately imply the merge backend.',
+            when: [
+              {
+                key: 'backend',
+                test: 'equals',
+                value: 'apply',
+              },
+            ],
+          },
+        ],
+        effects: [
+          {
+            key: 'backend',
+            set: 'merge',
+          },
+        ],
+      },
+      '--no-autosquash': {
+        key: 'autosquash',
+        value: 'flag',
+        set: false,
+      },
+      '--no-update-refs': {
+        key: 'update-refs',
+        value: 'flag',
+        set: false,
+      },
+      '--no-gpg-sign': {
+        key: 'gpg-sign',
+        value: 'flag',
+        set: '',
+        clear: true,
+      },
+      '--no-autostash': {
+        key: 'autostash',
+        value: 'flag',
+        set: false,
+      },
+      '--no-exec': {
+        key: 'exec',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-allow-empty-message': {
+        key: 'allow-empty-message',
+        value: 'flag',
+        set: false,
+      },
+      '--no-rebase-merges': {
+        key: 'rebase-merges',
+        value: 'flag',
+        set: false,
+      },
+      '--no-fork-point': {
+        key: 'fork-point',
+        value: 'flag',
+        set: false,
+      },
+      '--no-strategy': {
+        key: 'strategy',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-strategy-option': {
+        key: 'strategy-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-root': {
+        key: 'root',
+        value: 'flag',
+        set: false,
+      },
+      '--no-reschedule-failed-exec': {
+        key: 'reschedule-failed-exec',
+        value: 'flag',
+        set: false,
+      },
+      '--no-reapply-cherry-picks': {
+        key: 'reapply-cherry-picks',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'rebase.arity',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'At most an upstream and a branch may be supplied.',
+        key: 'operands',
+        min: 0,
+        max: 2,
+      },
+      {
+        id: 'rebase.removed-preserve',
+        kind: 'forbid',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'The preserve-merges backend was removed.',
+        when: [
+          {
+            key: 'preserve-merges',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'rebase.keep-base',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'Keep-base conflicts with an explicit onto and with root.',
+        when: {
+          key: 'keep-base',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'onto',
+            test: 'present',
+          },
+          {
+            key: 'root',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'rebase.root-fork',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'Root cannot use a positive fork-point selection.',
+        when: {
+          key: 'root',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'fork-point',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'rebase.backends',
+        kind: 'exclusiveGroups',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase/imply_merge',
+        reason:
+          'Apply-specific arguments conflict with explicit or implied merge backend requests.',
+        groups: [
+          [
+            {
+              key: 'backend',
+              test: 'equals',
+              value: 'apply',
+            },
+            {
+              key: 'am-options',
+              test: 'nonempty',
+            },
+          ],
+          [
+            {
+              key: 'backend',
+              test: 'equals',
+              value: 'merge',
+            },
+            {
+              key: 'empty',
+              test: 'present',
+            },
+            {
+              key: 'exec',
+              test: 'nonempty',
+            },
+            {
+              key: 'strategy',
+              test: 'present',
+            },
+            {
+              key: 'strategy-option',
+              test: 'nonempty',
+            },
+            {
+              key: 'trailer',
+              test: 'nonempty',
+            },
+            {
+              key: 'rebase-merges',
+              test: 'active',
+            },
+            {
+              key: 'update-refs',
+              test: 'active',
+            },
+            {
+              key: 'autosquash',
+              test: 'active',
+            },
+          ],
+        ],
+      },
+      {
+        id: 'rebase.continue-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'An action must be the only argument.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'continue',
+          test: 'active',
+        },
+      },
+      {
+        id: 'rebase.skip-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'An action must be the only argument.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'skip',
+          test: 'active',
+        },
+      },
+      {
+        id: 'rebase.abort-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'An action must be the only argument.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'abort',
+          test: 'active',
+        },
+      },
+      {
+        id: 'rebase.quit-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'An action must be the only argument.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'quit',
+          test: 'active',
+        },
+      },
+      {
+        id: 'rebase.edit-todo-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'An action must be the only argument.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'edit-todo',
+          test: 'active',
+        },
+      },
+      {
+        id: 'rebase.show-current-patch-only',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'An action must be the only argument.',
+        key: 'argumentTokens',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'show-current-patch',
+          test: 'active',
+        },
+      },
+      {
+        id: 'rebase.apply-0-root',
+        kind: 'forbid',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'Root without onto implies the merge backend.',
+        when: [
+          {
+            key: 'backend',
+            test: 'equals',
+            value: 'apply',
+          },
+          {
+            key: 'root',
+            test: 'active',
+          },
+          {
+            key: 'onto',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'rebase.apply-0-reapply',
+        kind: 'forbid',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason:
+          'Explicit reapply-cherry-picks, including its negation, implies merge unless keep-base is active.',
+        when: [
+          {
+            key: 'backend',
+            test: 'equals',
+            value: 'apply',
+          },
+          {
+            key: 'reapply-cherry-picks',
+            test: 'present',
+          },
+          {
+            key: 'keep-base',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'rebase.apply-0-reschedule',
+        kind: 'forbid',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason:
+          'Rescheduling exec requires the merge backend, including when it is selected by default.',
+        when: [
+          {
+            key: 'backend',
+            test: 'equals',
+            value: 'apply',
+          },
+          {
+            key: 'reschedule-failed-exec',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'rebase.apply-1-root',
+        kind: 'forbid',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'Root without onto implies the merge backend.',
+        when: [
+          {
+            key: 'am-options',
+            test: 'nonempty',
+          },
+          {
+            key: 'root',
+            test: 'active',
+          },
+          {
+            key: 'onto',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'rebase.apply-1-reapply',
+        kind: 'forbid',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason:
+          'Explicit reapply-cherry-picks, including its negation, implies merge unless keep-base is active.',
+        when: [
+          {
+            key: 'am-options',
+            test: 'nonempty',
+          },
+          {
+            key: 'reapply-cherry-picks',
+            test: 'present',
+          },
+          {
+            key: 'keep-base',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'rebase.apply-1-reschedule',
+        kind: 'forbid',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason:
+          'Rescheduling exec requires the merge backend, including when it is selected by default.',
+        when: [
+          {
+            key: 'am-options',
+            test: 'nonempty',
+          },
+          {
+            key: 'reschedule-failed-exec',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'rebase.implicit-whitespace-backend',
+        kind: 'forbid',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason:
+          'Without an explicitly selected apply backend, ignore-whitespace adds a merge strategy option before apply arguments select their backend.',
+        when: [
+          {
+            key: 'am-options',
+            test: 'nonempty',
+          },
+          {
+            key: 'backend',
+            test: 'notEquals',
+            value: 'apply',
+          },
+          {
+            key: 'ignore-whitespace',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'rebase.root-arity',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'root',
+          test: 'active',
+        },
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/rebase.c:cmd_rebase',
+        reason: 'Root mode accepts an optional branch but no upstream operand.',
+      },
+    ],
+    source: 'builtin/rebase.c:cmd_rebase',
+    separator: true,
+  },
+  'cherry-pick': {
+    argv: ['cherry-pick'],
+    initial: {
+      S: false,
+    },
+    options: {
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-patch': {
+        key: 'no-output',
+        value: 'flag',
+        set: true,
+        effects: [
+          {
+            key: 'name-only',
+            set: false,
+          },
+          {
+            key: 'name-status',
+            set: false,
+          },
+          {
+            key: 'check',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-s': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'u',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-U': {
+        key: 'unified',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--function-context': {
+        key: 'function-context',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-W': {
+        key: 'function-context',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--raw': {
+        key: 'raw',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--patch-with-raw': {
+        key: 'patch-with-raw',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--patch-with-stat': {
+        key: 'patch-with-stat',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--numstat': {
+        key: 'numstat',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--shortstat': {
+        key: 'shortstat',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dirstat': {
+        key: 'dirstat',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-X': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--cumulative': {
+        key: 'cumulative',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dirstat-by-file': {
+        key: 'dirstat-by-file',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--check': {
+        key: 'check',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--summary': {
+        key: 'summary',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--name-only': {
+        key: 'name-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--name-status': {
+        key: 'name-status',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat': {
+        key: 'stat',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat-width': {
+        key: 'stat-width',
+        value: 'string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat-name-width': {
+        key: 'stat-name-width',
+        value: 'string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat-graph-width': {
+        key: 'stat-graph-width',
+        value: 'string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat-count': {
+        key: 'stat-count',
+        value: 'string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--compact-summary': {
+        key: 'compact-summary',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--binary': {
+        key: 'binary',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--full-index': {
+        key: 'full-index',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--color': {
+        key: 'color',
+        value: 'optional-string',
+        set: 'always',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ws-error-highlight': {
+        key: 'ws-error-highlight',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--abbrev': {
+        key: 'abbrev',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--src-prefix': {
+        key: 'src-prefix',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dst-prefix': {
+        key: 'dst-prefix',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--line-prefix': {
+        key: 'line-prefix',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-prefix': {
+        key: 'no-prefix',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--default-prefix': {
+        key: 'default-prefix',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--output-indicator-new': {
+        key: 'output-indicator-new',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--output-indicator-old': {
+        key: 'output-indicator-old',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--output-indicator-context': {
+        key: 'output-indicator-context',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--break-rewrites': {
+        key: 'break-rewrites',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-B': {
+        key: 'break-rewrites',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--find-renames': {
+        key: 'find-renames',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-M': {
+        key: 'find-renames',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--irreversible-delete': {
+        key: 'irreversible-delete',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-D': {
+        key: 'irreversible-delete',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--find-copies': {
+        key: 'find-copies',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-C': {
+        key: 'find-copies',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--find-copies-harder': {
+        key: 'find-copies-harder',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-renames': {
+        key: 'no-renames',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--rename-empty': {
+        key: 'rename-empty',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--follow': {
+        key: 'follow',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-l': {
+        key: 'l',
+        value: 'integer',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--minimal': {
+        key: 'minimal',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-all-space': {
+        key: 'ignore-all-space',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-w': {
+        key: 'ignore-all-space',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-space-change': {
+        key: 'ignore-space-change',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-b': {
+        key: 'ignore-space-change',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-space-at-eol': {
+        key: 'ignore-space-at-eol',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-cr-at-eol': {
+        key: 'ignore-cr-at-eol',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-blank-lines': {
+        key: 'ignore-blank-lines',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-matching-lines': {
+        key: 'ignore-matching-lines',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-I': {
+        key: 'ignore-matching-lines',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--indent-heuristic': {
+        key: 'indent-heuristic',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--patience': {
+        key: 'patience',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--histogram': {
+        key: 'histogram',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--diff-algorithm': {
+        key: 'diff-algorithm',
+        value: 'string',
+        allowed: ['myers', 'minimal', 'patience', 'histogram'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--anchored': {
+        key: 'anchored',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--word-diff': {
+        key: 'word-diff',
+        value: 'optional-string',
+        allowed: ['plain', 'color', 'porcelain', 'none'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--word-diff-regex': {
+        key: 'word-diff-regex',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--color-words': {
+        key: 'color-words',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--color-moved': {
+        key: 'color-moved',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--color-moved-ws': {
+        key: 'color-moved-ws',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--relative': {
+        key: 'relative',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--text': {
+        key: 'text',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-a': {
+        key: 'text',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-R': {
+        key: 'R',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--exit-code': {
+        key: 'exit-code',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ext-diff': {
+        key: 'ext-diff',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--textconv': {
+        key: 'textconv',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-submodules': {
+        key: 'ignore-submodules',
+        value: 'optional-string',
+        allowed: ['all', 'dirty', 'untracked', 'none'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--submodule': {
+        key: 'submodule',
+        value: 'optional-string',
+        allowed: ['short', 'log', 'diff'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ita-invisible-in-index': {
+        key: 'ita-invisible-in-index',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ita-visible-in-index': {
+        key: 'ita-visible-in-index',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-S': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '-G': {
+        key: 'G',
+        value: 'string',
+        checks: [
+          {
+            id: 'revision.pickaxe-nonempty-G',
+            kind: 'required',
+            origin: 'git',
+            source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
+            reason: 'Pickaxe patterns cannot be empty.',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+          },
+        ],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--pickaxe-all': {
+        key: 'pickaxe-all',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--pickaxe-regex': {
+        key: 'pickaxe-regex',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-O': {
+        key: 'O',
+        value: 'string',
+        emptyIsUnset: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--rotate-to': {
+        key: 'rotate-to',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--skip-to': {
+        key: 'skip-to',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--find-object': {
+        key: 'find-object',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--diff-filter': {
+        key: 'diff-filter',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--max-depth': {
+        key: 'max-depth',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--output': {
+        key: 'output',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-no-patch': {
+        key: 'no-output',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'name-only',
+            set: false,
+          },
+          {
+            key: 'name-status',
+            set: false,
+          },
+          {
+            key: 'check',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-function-context': {
+        key: 'function-context',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-compact-summary': {
+        key: 'compact-summary',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-full-index': {
+        key: 'full-index',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-color': {
+        key: 'color',
+        value: 'flag',
+        set: 'always',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-abbrev': {
+        key: 'no-abbrev',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-find-copies-harder': {
+        key: 'find-copies-harder',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-rename-empty': {
+        key: 'rename-empty',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-follow': {
+        key: 'follow',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-ignore-matching-lines': {
+        key: 'ignore-matching-lines',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-indent-heuristic': {
+        key: 'indent-heuristic',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-color-moved': {
+        key: 'color-moved',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-color-moved-ws': {
+        key: 'color-moved-ws',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-relative': {
+        key: 'relative',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-text': {
+        key: 'text',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-exit-code': {
+        key: 'exit-code',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-ext-diff': {
+        key: 'ext-diff',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-textconv': {
+        key: 'textconv',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--abbrev-commit': {
+        key: 'abbrev-commit',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--after': {
+        key: 'after',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--all-match': {
+        key: 'all-match',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--alternate-refs': {
+        key: 'alternate-refs',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--always': {
+        key: 'always',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ancestry-path': {
+        key: 'ancestry-path',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--author': {
+        key: 'author',
+        value: 'string',
+        repeat: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--author-date-order': {
+        key: 'author-date-order',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--basic-regexp': {
+        key: 'basic-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--before': {
+        key: 'before',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--bisect': {
+        key: 'bisect',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--boundary': {
+        key: 'boundary',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--branches': {
+        key: 'branches',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--cc': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'dense-combined',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--cherry': {
+        key: 'cherry',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'cherry-mark',
+            set: true,
+          },
+          {
+            key: 'right-only',
+            set: true,
+          },
+          {
+            key: 'max-parents',
+            set: 1,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.cherry-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--cherry rejects a previously selected left-only mode.',
+            when: [
+              {
+                key: 'left-only',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--cherry-mark': {
+        key: 'cherry-mark',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.cherry-mark-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--cherry-mark rejects a previously selected cherry-pick mode.',
+            when: [
+              {
+                key: 'cherry-pick',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--cherry-pick': {
+        key: 'cherry-pick',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.cherry-pick-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--cherry-pick rejects a previously selected cherry-mark mode.',
+            when: [
+              {
+                key: 'cherry-mark',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--children': {
+        key: 'children',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--combined-all-paths': {
+        key: 'combined-all-paths',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--committer': {
+        key: 'committer',
+        value: 'string',
+        repeat: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--count': {
+        key: 'count',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--date': {
+        key: 'date',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--date-order': {
+        key: 'date-order',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dd': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'first-parent',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--default': {
+        key: 'default',
+        value: 'string',
+        separateValue: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dense': {
+        key: 'dense',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--diff-merges': {
+        key: 'diff-merges',
+        value: 'string',
+        allowed: [
+          'off',
+          'none',
+          '1',
+          'first-parent',
+          'separate',
+          'c',
+          'combined',
+          'cc',
+          'dense-combined',
+          'r',
+          'remerge',
+          'm',
+          'on',
+        ],
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--do-walk': {
+        key: 'no-walk',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--encode-email-headers': {
+        key: 'encode-email-headers',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--encoding': {
+        key: 'encoding',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--exclude-first-parent-only': {
+        key: 'exclude-first-parent-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--exclude-hidden': {
+        key: 'exclude-hidden',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--expand-tabs': {
+        key: 'expand-tabs',
+        value: 'optional-integer',
+        set: 8,
+        parser: 'revision-count',
+        checks: [
+          {
+            id: 'revision.tabs-nonnegative',
+            kind: 'range',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: 'Tab width cannot be negative.',
+            key: '$value',
+            min: 0,
+          },
+        ],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--extended-regexp': {
+        key: 'extended-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--first-parent': {
+        key: 'first-parent',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--fixed-strings': {
+        key: 'fixed-strings',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--full-diff': {
+        key: 'full-diff',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--full-history': {
+        key: 'full-history',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--glob': {
+        key: 'glob',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--graph': {
+        key: 'graph',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--graph-lane-limit': {
+        key: 'graph-lane-limit',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--grep': {
+        key: 'grep',
+        value: 'string',
+        repeat: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--grep-reflog': {
+        key: 'grep-reflog',
+        value: 'string',
+        repeat: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-missing': {
+        key: 'ignore-missing',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--in-commit-order': {
+        key: 'in-commit-order',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--indexed-objects': {
+        key: 'indexed-objects',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--invert-grep': {
+        key: 'invert-grep',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--left-only': {
+        key: 'left-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.left-only-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--left-only rejects a previously selected right-only mode.',
+            when: [
+              {
+                key: 'right-only',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--left-right': {
+        key: 'left-right',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--log-size': {
+        key: 'log-size',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--max-age': {
+        key: 'max-age',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--max-count': {
+        key: 'max-count',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'max-count-mode',
+            set: 'newest',
+          },
+          {
+            key: 'no-walk',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.count-after-oldest',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--max-count cannot follow --max-count-oldest.',
+            when: [
+              {
+                key: 'max-count-mode',
+                test: 'equals',
+                value: 'oldest',
+              },
+            ],
+          },
+        ],
+      },
+      '--max-count-oldest': {
+        key: 'max-count',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'max-count-mode',
+            set: 'oldest',
+          },
+          {
+            key: 'no-walk',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.oldest-after-count',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason:
+              '--max-count-oldest rejects a preceding count other than -1 unless oldest mode is already selected.',
+            when: [
+              {
+                key: 'max-count-mode',
+                test: 'notEquals',
+                value: 'oldest',
+              },
+              {
+                key: 'max-count',
+                test: 'present',
+              },
+              {
+                key: 'max-count',
+                test: 'notEquals',
+                value: -1,
+              },
+            ],
+          },
+          {
+            id: 'revision.oldest-after-skip',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--max-count-oldest rejects a preceding positive skip count.',
+            when: [
+              {
+                key: 'skip',
+                test: 'positive',
+              },
+            ],
+          },
+        ],
+      },
+      '--max-parents': {
+        key: 'max-parents',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--maximal-only': {
+        key: 'maximal-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--merge': {
+        key: 'merge',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--merges': {
+        key: 'merges',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--min-age': {
+        key: 'min-age',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--min-parents': {
+        key: 'min-parents',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-abbrev-commit': {
+        key: 'abbrev-commit',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-commit-id': {
+        key: 'no-commit-id',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-diff-merges': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'none',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-encode-email-headers': {
+        key: 'encode-email-headers',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-expand-tabs': {
+        key: 'expand-tabs',
+        value: 'flag',
+        set: 0,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-graph': {
+        key: 'graph',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-kept-objects': {
+        key: 'no-kept-objects',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-max-parents': {
+        key: 'no-max-parents',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-merges': {
+        key: 'no-merges',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-min-parents': {
+        key: 'no-min-parents',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-notes': {
+        key: 'no-notes',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-show-signature': {
+        key: 'show-signature',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-standard-notes': {
+        key: 'standard-notes',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-walk': {
+        key: 'no-walk',
+        value: 'optional-string',
+        allowed: ['sorted', 'unsorted'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--not': {
+        key: 'not',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--notes': {
+        key: 'notes',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--objects': {
+        key: 'objects',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--objects-edge': {
+        key: 'objects-edge',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--objects-edge-aggressive': {
+        key: 'objects-edge-aggressive',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--oneline': {
+        key: 'oneline',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--parents': {
+        key: 'parents',
+        value: 'flag',
+        effects: [
+          {
+            key: 'rewrite-parents',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--perl-regexp': {
+        key: 'perl-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--pretty': {
+        key: 'pretty',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--reflog': {
+        key: 'reflog',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--regexp-ignore-case': {
+        key: 'regexp-ignore-case',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--relative-date': {
+        key: 'relative-date',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--remerge-diff': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'remerge',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--remotes': {
+        key: 'remotes',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--remove-empty': {
+        key: 'remove-empty',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--reverse': {
+        key: 'reverse',
+        value: 'flag',
+        toggle: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--right-only': {
+        key: 'right-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.right-only-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--right-only rejects a previously selected left-only mode.',
+            when: [
+              {
+                key: 'left-only',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--root': {
+        key: 'root',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-linear-break': {
+        key: 'show-linear-break',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-notes': {
+        key: 'show-notes',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-notes-by-default': {
+        key: 'show-notes-by-default',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-pulls': {
+        key: 'show-pulls',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-signature': {
+        key: 'show-signature',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--simplify-by-decoration': {
+        key: 'simplify-by-decoration',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'rewrite-parents',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--simplify-merges': {
+        key: 'simplify-merges',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'rewrite-parents',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--since': {
+        key: 'since',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--since-as-filter': {
+        key: 'since-as-filter',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--single-worktree': {
+        key: 'single-worktree',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--skip': {
+        key: 'skip',
+        value: 'flag',
+        modeGroup: '(&cmd)',
+      },
+      '--sparse': {
+        key: 'sparse',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--standard-notes': {
+        key: 'standard-notes',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+        checks: [
+          {
+            id: 'revision.stdin-repeated',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: 'Revision input from stdin may only be requested once.',
+            when: [
+              {
+                key: 'stdin',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--topo-order': {
+        key: 'topo-order',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--unpacked': {
+        key: 'unpacked',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--until': {
+        key: 'until',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--verify-objects': {
+        key: 'verify-objects',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--walk-reflogs': {
+        key: 'walk-reflogs',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-E': {
+        key: 'extended-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-F': {
+        key: 'fixed-strings',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-P': {
+        key: 'perl-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-c': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'combined',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-g': {
+        key: 'walk-reflogs',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-i': {
+        key: 'regexp-ignore-case',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-m': {
+        key: 'mainline',
+        value: 'integer',
+        parser: 'mainline',
+      },
+      '-n': {
+        key: 'no-commit',
+        value: 'flag',
+      },
+      '-r': {
+        key: 'r',
+        value: 'flag',
+      },
+      '-t': {
+        key: 't',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-v': {
+        key: 'v',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--filter': {
+        key: 'filter',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-filter': {
+        key: 'filter',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--quit': {
+        key: 'quit',
+        value: 'flag',
+        modeGroup: '(&cmd)',
+      },
+      '--continue': {
+        key: 'continue',
+        value: 'flag',
+        modeGroup: '(&cmd)',
+      },
+      '--abort': {
+        key: 'abort',
+        value: 'flag',
+        modeGroup: '(&cmd)',
+      },
+      '--cleanup': {
+        key: 'cleanup',
+        value: 'string',
+      },
+      '--no-commit': {
+        key: 'no-commit',
+        value: 'flag',
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--signoff': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '--mainline': {
+        key: 'mainline',
+        value: 'integer',
+        parser: 'mainline',
+      },
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--strategy': {
+        key: 'strategy',
+        value: 'string',
+      },
+      '--strategy-option': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--gpg-sign': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '-x': {
+        key: 'x',
+        value: 'flag',
+      },
+      '--ff': {
+        key: 'ff',
+        value: 'flag',
+      },
+      '--allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+      },
+      '--allow-empty-message': {
+        key: 'allow-empty-message',
+        value: 'flag',
+      },
+      '--keep-redundant-commits': {
+        key: 'keep-redundant-commits',
+        value: 'flag',
+      },
+      '--empty': {
+        key: 'empty',
+        value: 'string',
+        allowed: ['stop', 'drop', 'keep'],
+      },
+      '--no-cleanup': {
+        key: 'cleanup',
+        value: 'flag',
+        clear: true,
+      },
+      '--commit': {
+        key: 'no-commit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-commit': {
+        key: 'no-commit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-signoff': {
+        key: 'signoff',
+        value: 'flag',
+        set: false,
+      },
+      '--no-mainline': {
+        key: 'mainline',
+        value: 'flag',
+        set: 0,
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--no-strategy': {
+        key: 'strategy',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-strategy-option': {
+        key: 'strategy-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-gpg-sign': {
+        key: 'gpg-sign',
+        value: 'flag',
+        set: '',
+        clear: true,
+      },
+      '--no-ff': {
+        key: 'ff',
+        value: 'flag',
+        set: false,
+      },
+      '--no-allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--no-allow-empty-message': {
+        key: 'allow-empty-message',
+        value: 'flag',
+        set: false,
+      },
+      '--no-keep-redundant-commits': {
+        key: 'keep-redundant-commits',
+        value: 'flag',
+        set: false,
+      },
+    },
+    rules: [
+      {
+        id: 'diff.output-formats',
+        kind: 'exclusive',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_setup_done',
+        reason:
+          'Name-only, name-status, whitespace checks and suppressed output occupy incompatible bits.',
+        keys: ['name-only', 'name-status', 'check', 'no-output'],
+      },
+      {
+        id: 'diff.pickaxe-kinds',
+        kind: 'exclusive',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_setup_done',
+        reason: 'Pickaxe string, regex and object searches are incompatible.',
+        keys: ['S', 'G', 'find-object'],
+      },
+      {
+        id: 'diff.pickaxe-regex',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_setup_done',
+        reason: 'Regex pickaxe (-G) cannot use --pickaxe-regex.',
+        when: {
+          key: 'G',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'pickaxe-regex',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'diff.object-pickaxe-all',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_setup_done',
+        reason: 'Object pickaxe cannot use --pickaxe-all.',
+        when: {
+          key: 'find-object',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'pickaxe-all',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.graph-walk-order',
+        kind: 'exclusive',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Graph, reverse traversal and reflog traversal are pairwise incompatible.',
+        keys: ['graph', 'reverse', 'walk-reflogs'],
+      },
+      {
+        id: 'revision.boundary-maximal',
+        kind: 'exclusive',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Boundary and maximal-only output are incompatible.',
+        keys: ['boundary', 'maximal-only'],
+      },
+      {
+        id: 'revision.graph-lanes',
+        kind: 'requires',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'A positive lane limit requires graph output.',
+        when: {
+          key: 'graph-lane-limit',
+          test: 'positive',
+        },
+        required: [
+          {
+            key: 'graph',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.grep-reflog',
+        kind: 'requires',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Reflog message filtering requires reflog traversal.',
+        when: {
+          key: 'grep-reflog',
+          test: 'nonempty',
+        },
+        required: [
+          {
+            key: 'walk-reflogs',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.linear-graph',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Linear breaks cannot be combined with graph output.',
+        when: {
+          key: 'graph',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'show-linear-break',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.children-parents',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Children output conflicts with explicit or implicit parent rewriting.',
+        when: {
+          key: 'children',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'rewrite-parents',
+            test: 'active',
+          },
+          {
+            key: 'graph',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.limited-reflog',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'History-limiting traversal cannot be combined with reflog traversal.',
+        when: {
+          key: 'walk-reflogs',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'limited',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.combined-paths',
+        kind: 'requiresAny',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason:
+          'Combined paths require a combined merge diff. The on/m default is resolved from configuration by Git.',
+        when: {
+          key: 'combined-all-paths',
+          test: 'active',
+        },
+        choices: [
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'c',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'combined',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'cc',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'dense-combined',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'on',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'm',
+          },
+        ],
+      },
+      {
+        id: 'revision.object-filter',
+        kind: 'requiresAny',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_pseudo_opt/setup_revisions',
+        reason: 'Object filtering requires object enumeration.',
+        when: {
+          key: 'filter',
+          test: 'present',
+        },
+        choices: [
+          {
+            key: 'objects',
+            test: 'active',
+          },
+          {
+            key: 'objects-edge',
+            test: 'active',
+          },
+          {
+            key: 'objects-edge-aggressive',
+            test: 'active',
+          },
+          {
+            key: 'verify-objects',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'cherry-pick.cleanup',
+        kind: 'value',
+        origin: 'git',
+        source: 'Git 2.55.0 sequencer.c:get_cleanup_mode',
+        reason: 'Cleanup is checked after option parsing.',
+        key: 'cleanup',
+        allowed: ['default', 'verbatim', 'whitespace', 'strip', 'scissors'],
+      },
+      {
+        id: 'cherry-pick.revision-input',
+        kind: 'requiresAny',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Normal replay requires a remaining revision argument or revision parser option.',
+        guard: [
+          {
+            key: 'quit',
+            test: 'inactive',
+          },
+          {
+            key: 'continue',
+            test: 'inactive',
+          },
+          {
+            key: 'abort',
+            test: 'inactive',
+          },
+          {
+            key: 'skip',
+            test: 'inactive',
+          },
+        ],
+        when: {
+          key: 'argumentTokens',
+          test: 'present',
+        },
+        choices: [
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'cherry-pick.quit-options',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.',
+        when: {
+          key: 'quit',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'mainline',
+            test: 'nonzero',
+          },
+          {
+            key: 'strategy-option',
+            test: 'nonempty',
+          },
+          {
+            key: 'rerere-autoupdate',
+            test: 'present',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+          {
+            key: 'x',
+            test: 'active',
+          },
+          {
+            key: 'ff',
+            test: 'active',
+          },
+          {
+            key: 'keep-redundant-commits',
+            test: 'active',
+          },
+          {
+            key: 'empty',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'cherry-pick.quit-operands',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Continuation does not accept revisions.',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'quit',
+          test: 'active',
+        },
+      },
+      {
+        id: 'cherry-pick.continue-options',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.',
+        when: {
+          key: 'continue',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'mainline',
+            test: 'nonzero',
+          },
+          {
+            key: 'strategy-option',
+            test: 'nonempty',
+          },
+          {
+            key: 'rerere-autoupdate',
+            test: 'present',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+          {
+            key: 'x',
+            test: 'active',
+          },
+          {
+            key: 'ff',
+            test: 'active',
+          },
+          {
+            key: 'keep-redundant-commits',
+            test: 'active',
+          },
+          {
+            key: 'empty',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'cherry-pick.continue-operands',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Continuation does not accept revisions.',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'continue',
+          test: 'active',
+        },
+      },
+      {
+        id: 'cherry-pick.abort-options',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.',
+        when: {
+          key: 'abort',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'mainline',
+            test: 'nonzero',
+          },
+          {
+            key: 'strategy-option',
+            test: 'nonempty',
+          },
+          {
+            key: 'rerere-autoupdate',
+            test: 'present',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+          {
+            key: 'x',
+            test: 'active',
+          },
+          {
+            key: 'ff',
+            test: 'active',
+          },
+          {
+            key: 'keep-redundant-commits',
+            test: 'active',
+          },
+          {
+            key: 'empty',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'cherry-pick.abort-operands',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Continuation does not accept revisions.',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'abort',
+          test: 'active',
+        },
+      },
+      {
+        id: 'cherry-pick.skip-options',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.',
+        when: {
+          key: 'skip',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'mainline',
+            test: 'nonzero',
+          },
+          {
+            key: 'strategy-option',
+            test: 'nonempty',
+          },
+          {
+            key: 'rerere-autoupdate',
+            test: 'present',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+          {
+            key: 'x',
+            test: 'active',
+          },
+          {
+            key: 'ff',
+            test: 'active',
+          },
+          {
+            key: 'keep-redundant-commits',
+            test: 'active',
+          },
+          {
+            key: 'empty',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'cherry-pick.skip-operands',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Continuation does not accept revisions.',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'skip',
+          test: 'active',
+        },
+      },
+      {
+        id: 'cherry-pick.ff',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Fast-forward replay conflicts with signoff, no-commit, origin recording and explicit edit.',
+        when: {
+          key: 'ff',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'x',
+            test: 'active',
+          },
+          {
+            key: 'edit',
+            test: 'active',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/revert.c:run_sequencer',
+    separator: true,
+  },
+  revert: {
+    argv: ['revert'],
+    initial: {
+      S: false,
+    },
+    options: {
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-patch': {
+        key: 'no-output',
+        value: 'flag',
+        set: true,
+        effects: [
+          {
+            key: 'name-only',
+            set: false,
+          },
+          {
+            key: 'name-status',
+            set: false,
+          },
+          {
+            key: 'check',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-s': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'u',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-U': {
+        key: 'unified',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--function-context': {
+        key: 'function-context',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-W': {
+        key: 'function-context',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--raw': {
+        key: 'raw',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--patch-with-raw': {
+        key: 'patch-with-raw',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--patch-with-stat': {
+        key: 'patch-with-stat',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--numstat': {
+        key: 'numstat',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--shortstat': {
+        key: 'shortstat',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dirstat': {
+        key: 'dirstat',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-X': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--cumulative': {
+        key: 'cumulative',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dirstat-by-file': {
+        key: 'dirstat-by-file',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--check': {
+        key: 'check',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--summary': {
+        key: 'summary',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--name-only': {
+        key: 'name-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--name-status': {
+        key: 'name-status',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat': {
+        key: 'stat',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat-width': {
+        key: 'stat-width',
+        value: 'string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat-name-width': {
+        key: 'stat-name-width',
+        value: 'string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat-graph-width': {
+        key: 'stat-graph-width',
+        value: 'string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stat-count': {
+        key: 'stat-count',
+        value: 'string',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--compact-summary': {
+        key: 'compact-summary',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--binary': {
+        key: 'binary',
+        value: 'flag',
+        effects: [
+          {
+            key: 'no-output',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--full-index': {
+        key: 'full-index',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--color': {
+        key: 'color',
+        value: 'optional-string',
+        set: 'always',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ws-error-highlight': {
+        key: 'ws-error-highlight',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--abbrev': {
+        key: 'abbrev',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--src-prefix': {
+        key: 'src-prefix',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dst-prefix': {
+        key: 'dst-prefix',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--line-prefix': {
+        key: 'line-prefix',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-prefix': {
+        key: 'no-prefix',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--default-prefix': {
+        key: 'default-prefix',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--output-indicator-new': {
+        key: 'output-indicator-new',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--output-indicator-old': {
+        key: 'output-indicator-old',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--output-indicator-context': {
+        key: 'output-indicator-context',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--break-rewrites': {
+        key: 'break-rewrites',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-B': {
+        key: 'break-rewrites',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--find-renames': {
+        key: 'find-renames',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-M': {
+        key: 'find-renames',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--irreversible-delete': {
+        key: 'irreversible-delete',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-D': {
+        key: 'irreversible-delete',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--find-copies': {
+        key: 'find-copies',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-C': {
+        key: 'find-copies',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--find-copies-harder': {
+        key: 'find-copies-harder',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-renames': {
+        key: 'no-renames',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--rename-empty': {
+        key: 'rename-empty',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--follow': {
+        key: 'follow',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-l': {
+        key: 'l',
+        value: 'integer',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--minimal': {
+        key: 'minimal',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-all-space': {
+        key: 'ignore-all-space',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-w': {
+        key: 'ignore-all-space',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-space-change': {
+        key: 'ignore-space-change',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-b': {
+        key: 'ignore-space-change',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-space-at-eol': {
+        key: 'ignore-space-at-eol',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-cr-at-eol': {
+        key: 'ignore-cr-at-eol',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-blank-lines': {
+        key: 'ignore-blank-lines',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-matching-lines': {
+        key: 'ignore-matching-lines',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-I': {
+        key: 'ignore-matching-lines',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--indent-heuristic': {
+        key: 'indent-heuristic',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--patience': {
+        key: 'patience',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--histogram': {
+        key: 'histogram',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--diff-algorithm': {
+        key: 'diff-algorithm',
+        value: 'string',
+        allowed: ['myers', 'minimal', 'patience', 'histogram'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--anchored': {
+        key: 'anchored',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--word-diff': {
+        key: 'word-diff',
+        value: 'optional-string',
+        allowed: ['plain', 'color', 'porcelain', 'none'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--word-diff-regex': {
+        key: 'word-diff-regex',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--color-words': {
+        key: 'color-words',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--color-moved': {
+        key: 'color-moved',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--color-moved-ws': {
+        key: 'color-moved-ws',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--relative': {
+        key: 'relative',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--text': {
+        key: 'text',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-a': {
+        key: 'text',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-R': {
+        key: 'R',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--exit-code': {
+        key: 'exit-code',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ext-diff': {
+        key: 'ext-diff',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--textconv': {
+        key: 'textconv',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-submodules': {
+        key: 'ignore-submodules',
+        value: 'optional-string',
+        allowed: ['all', 'dirty', 'untracked', 'none'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--submodule': {
+        key: 'submodule',
+        value: 'optional-string',
+        allowed: ['short', 'log', 'diff'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ita-invisible-in-index': {
+        key: 'ita-invisible-in-index',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ita-visible-in-index': {
+        key: 'ita-visible-in-index',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-S': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '-G': {
+        key: 'G',
+        value: 'string',
+        checks: [
+          {
+            id: 'revision.pickaxe-nonempty-G',
+            kind: 'required',
+            origin: 'git',
+            source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
+            reason: 'Pickaxe patterns cannot be empty.',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+          },
+        ],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--pickaxe-all': {
+        key: 'pickaxe-all',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--pickaxe-regex': {
+        key: 'pickaxe-regex',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-O': {
+        key: 'O',
+        value: 'string',
+        emptyIsUnset: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--rotate-to': {
+        key: 'rotate-to',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--skip-to': {
+        key: 'skip-to',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--find-object': {
+        key: 'find-object',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--diff-filter': {
+        key: 'diff-filter',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--max-depth': {
+        key: 'max-depth',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--output': {
+        key: 'output',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-no-patch': {
+        key: 'no-output',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'name-only',
+            set: false,
+          },
+          {
+            key: 'name-status',
+            set: false,
+          },
+          {
+            key: 'check',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-function-context': {
+        key: 'function-context',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-compact-summary': {
+        key: 'compact-summary',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-full-index': {
+        key: 'full-index',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-color': {
+        key: 'color',
+        value: 'flag',
+        set: 'always',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-abbrev': {
+        key: 'no-abbrev',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-find-copies-harder': {
+        key: 'find-copies-harder',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-rename-empty': {
+        key: 'rename-empty',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-follow': {
+        key: 'follow',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-ignore-matching-lines': {
+        key: 'ignore-matching-lines',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-indent-heuristic': {
+        key: 'indent-heuristic',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-color-moved': {
+        key: 'color-moved',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-color-moved-ws': {
+        key: 'color-moved-ws',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-relative': {
+        key: 'relative',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-text': {
+        key: 'text',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-exit-code': {
+        key: 'exit-code',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-ext-diff': {
+        key: 'ext-diff',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-textconv': {
+        key: 'textconv',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--abbrev-commit': {
+        key: 'abbrev-commit',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--after': {
+        key: 'after',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--all-match': {
+        key: 'all-match',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--alternate-refs': {
+        key: 'alternate-refs',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--always': {
+        key: 'always',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ancestry-path': {
+        key: 'ancestry-path',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--author': {
+        key: 'author',
+        value: 'string',
+        repeat: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--author-date-order': {
+        key: 'author-date-order',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--basic-regexp': {
+        key: 'basic-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--before': {
+        key: 'before',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--bisect': {
+        key: 'bisect',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--boundary': {
+        key: 'boundary',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--branches': {
+        key: 'branches',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--cc': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'dense-combined',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--cherry': {
+        key: 'cherry',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'cherry-mark',
+            set: true,
+          },
+          {
+            key: 'right-only',
+            set: true,
+          },
+          {
+            key: 'max-parents',
+            set: 1,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.cherry-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--cherry rejects a previously selected left-only mode.',
+            when: [
+              {
+                key: 'left-only',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--cherry-mark': {
+        key: 'cherry-mark',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.cherry-mark-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--cherry-mark rejects a previously selected cherry-pick mode.',
+            when: [
+              {
+                key: 'cherry-pick',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--cherry-pick': {
+        key: 'cherry-pick',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.cherry-pick-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--cherry-pick rejects a previously selected cherry-mark mode.',
+            when: [
+              {
+                key: 'cherry-mark',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--children': {
+        key: 'children',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--combined-all-paths': {
+        key: 'combined-all-paths',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--committer': {
+        key: 'committer',
+        value: 'string',
+        repeat: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--count': {
+        key: 'count',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--date': {
+        key: 'date',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--date-order': {
+        key: 'date-order',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dd': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'first-parent',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--default': {
+        key: 'default',
+        value: 'string',
+        separateValue: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--dense': {
+        key: 'dense',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--diff-merges': {
+        key: 'diff-merges',
+        value: 'string',
+        allowed: [
+          'off',
+          'none',
+          '1',
+          'first-parent',
+          'separate',
+          'c',
+          'combined',
+          'cc',
+          'dense-combined',
+          'r',
+          'remerge',
+          'm',
+          'on',
+        ],
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--do-walk': {
+        key: 'no-walk',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--encode-email-headers': {
+        key: 'encode-email-headers',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--encoding': {
+        key: 'encoding',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--exclude-first-parent-only': {
+        key: 'exclude-first-parent-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--exclude-hidden': {
+        key: 'exclude-hidden',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--expand-tabs': {
+        key: 'expand-tabs',
+        value: 'optional-integer',
+        set: 8,
+        parser: 'revision-count',
+        checks: [
+          {
+            id: 'revision.tabs-nonnegative',
+            kind: 'range',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: 'Tab width cannot be negative.',
+            key: '$value',
+            min: 0,
+          },
+        ],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--extended-regexp': {
+        key: 'extended-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--first-parent': {
+        key: 'first-parent',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--fixed-strings': {
+        key: 'fixed-strings',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--full-diff': {
+        key: 'full-diff',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--full-history': {
+        key: 'full-history',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--glob': {
+        key: 'glob',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--graph': {
+        key: 'graph',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--graph-lane-limit': {
+        key: 'graph-lane-limit',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--grep': {
+        key: 'grep',
+        value: 'string',
+        repeat: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--grep-reflog': {
+        key: 'grep-reflog',
+        value: 'string',
+        repeat: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--ignore-missing': {
+        key: 'ignore-missing',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--in-commit-order': {
+        key: 'in-commit-order',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--indexed-objects': {
+        key: 'indexed-objects',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--invert-grep': {
+        key: 'invert-grep',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--left-only': {
+        key: 'left-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.left-only-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--left-only rejects a previously selected right-only mode.',
+            when: [
+              {
+                key: 'right-only',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--left-right': {
+        key: 'left-right',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--log-size': {
+        key: 'log-size',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--max-age': {
+        key: 'max-age',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--max-count': {
+        key: 'max-count',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'max-count-mode',
+            set: 'newest',
+          },
+          {
+            key: 'no-walk',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.count-after-oldest',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--max-count cannot follow --max-count-oldest.',
+            when: [
+              {
+                key: 'max-count-mode',
+                test: 'equals',
+                value: 'oldest',
+              },
+            ],
+          },
+        ],
+      },
+      '--max-count-oldest': {
+        key: 'max-count',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'max-count-mode',
+            set: 'oldest',
+          },
+          {
+            key: 'no-walk',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.oldest-after-count',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason:
+              '--max-count-oldest rejects a preceding count other than -1 unless oldest mode is already selected.',
+            when: [
+              {
+                key: 'max-count-mode',
+                test: 'notEquals',
+                value: 'oldest',
+              },
+              {
+                key: 'max-count',
+                test: 'present',
+              },
+              {
+                key: 'max-count',
+                test: 'notEquals',
+                value: -1,
+              },
+            ],
+          },
+          {
+            id: 'revision.oldest-after-skip',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--max-count-oldest rejects a preceding positive skip count.',
+            when: [
+              {
+                key: 'skip',
+                test: 'positive',
+              },
+            ],
+          },
+        ],
+      },
+      '--max-parents': {
+        key: 'max-parents',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--maximal-only': {
+        key: 'maximal-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--merge': {
+        key: 'merge',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--merges': {
+        key: 'merges',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--min-age': {
+        key: 'min-age',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--min-parents': {
+        key: 'min-parents',
+        value: 'integer',
+        parser: 'revision-count',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-abbrev-commit': {
+        key: 'abbrev-commit',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-commit-id': {
+        key: 'no-commit-id',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-diff-merges': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'none',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-encode-email-headers': {
+        key: 'encode-email-headers',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-expand-tabs': {
+        key: 'expand-tabs',
+        value: 'flag',
+        set: 0,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-graph': {
+        key: 'graph',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-kept-objects': {
+        key: 'no-kept-objects',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-max-parents': {
+        key: 'no-max-parents',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-merges': {
+        key: 'no-merges',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-min-parents': {
+        key: 'no-min-parents',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-notes': {
+        key: 'no-notes',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-show-signature': {
+        key: 'show-signature',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-standard-notes': {
+        key: 'standard-notes',
+        value: 'flag',
+        set: false,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-walk': {
+        key: 'no-walk',
+        value: 'optional-string',
+        allowed: ['sorted', 'unsorted'],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--not': {
+        key: 'not',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--notes': {
+        key: 'notes',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--objects': {
+        key: 'objects',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--objects-edge': {
+        key: 'objects-edge',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--objects-edge-aggressive': {
+        key: 'objects-edge-aggressive',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--oneline': {
+        key: 'oneline',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--parents': {
+        key: 'parents',
+        value: 'flag',
+        effects: [
+          {
+            key: 'rewrite-parents',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--perl-regexp': {
+        key: 'perl-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--pretty': {
+        key: 'pretty',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--reflog': {
+        key: 'reflog',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--regexp-ignore-case': {
+        key: 'regexp-ignore-case',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--relative-date': {
+        key: 'relative-date',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--remerge-diff': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'remerge',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--remotes': {
+        key: 'remotes',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--remove-empty': {
+        key: 'remove-empty',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--reverse': {
+        key: 'reverse',
+        value: 'flag',
+        toggle: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--right-only': {
+        key: 'right-only',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+        checks: [
+          {
+            id: 'revision.right-only-prior-conflict',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: '--right-only rejects a previously selected left-only mode.',
+            when: [
+              {
+                key: 'left-only',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+      },
+      '--root': {
+        key: 'root',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-linear-break': {
+        key: 'show-linear-break',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-notes': {
+        key: 'show-notes',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-notes-by-default': {
+        key: 'show-notes-by-default',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-pulls': {
+        key: 'show-pulls',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--show-signature': {
+        key: 'show-signature',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--simplify-by-decoration': {
+        key: 'simplify-by-decoration',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'rewrite-parents',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--simplify-merges': {
+        key: 'simplify-merges',
+        value: 'flag',
+        effects: [
+          {
+            key: 'limited',
+            set: true,
+          },
+          {
+            key: 'rewrite-parents',
+            set: true,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--since': {
+        key: 'since',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--since-as-filter': {
+        key: 'since-as-filter',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--single-worktree': {
+        key: 'single-worktree',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--skip': {
+        key: 'skip',
+        value: 'flag',
+        modeGroup: '(&cmd)',
+      },
+      '--sparse': {
+        key: 'sparse',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--standard-notes': {
+        key: 'standard-notes',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+        checks: [
+          {
+            id: 'revision.stdin-repeated',
+            kind: 'forbid',
+            origin: 'git',
+            source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+            reason: 'Revision input from stdin may only be requested once.',
+            when: [
+              {
+                key: 'stdin',
+                test: 'active',
+              },
+            ],
+          },
+        ],
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'optional-string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--topo-order': {
+        key: 'topo-order',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--unpacked': {
+        key: 'unpacked',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--until': {
+        key: 'until',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--verify-objects': {
+        key: 'verify-objects',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--walk-reflogs': {
+        key: 'walk-reflogs',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-E': {
+        key: 'extended-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-F': {
+        key: 'fixed-strings',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-P': {
+        key: 'perl-regexp',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-c': {
+        key: 'diff-merges',
+        value: 'flag',
+        set: 'combined',
+        effects: [
+          {
+            key: 'combined-all-paths',
+            set: false,
+          },
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-g': {
+        key: 'walk-reflogs',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-i': {
+        key: 'regexp-ignore-case',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-m': {
+        key: 'mainline',
+        value: 'integer',
+        parser: 'mainline',
+      },
+      '-n': {
+        key: 'no-commit',
+        value: 'flag',
+      },
+      '-r': {
+        key: 'r',
+        value: 'flag',
+      },
+      '-t': {
+        key: 't',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '-v': {
+        key: 'v',
+        value: 'flag',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--filter': {
+        key: 'filter',
+        value: 'string',
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--no-filter': {
+        key: 'filter',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'revision-argument',
+            set: true,
+          },
+        ],
+      },
+      '--quit': {
+        key: 'quit',
+        value: 'flag',
+        modeGroup: '(&cmd)',
+      },
+      '--continue': {
+        key: 'continue',
+        value: 'flag',
+        modeGroup: '(&cmd)',
+      },
+      '--abort': {
+        key: 'abort',
+        value: 'flag',
+        modeGroup: '(&cmd)',
+      },
+      '--cleanup': {
+        key: 'cleanup',
+        value: 'string',
+      },
+      '--no-commit': {
+        key: 'no-commit',
+        value: 'flag',
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--signoff': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '--mainline': {
+        key: 'mainline',
+        value: 'integer',
+        parser: 'mainline',
+      },
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--strategy': {
+        key: 'strategy',
+        value: 'string',
+      },
+      '--strategy-option': {
+        key: 'strategy-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--gpg-sign': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '--reference': {
+        key: 'reference',
+        value: 'flag',
+      },
+      '--no-cleanup': {
+        key: 'cleanup',
+        value: 'flag',
+        clear: true,
+      },
+      '--commit': {
+        key: 'no-commit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-commit': {
+        key: 'no-commit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--no-signoff': {
+        key: 'signoff',
+        value: 'flag',
+        set: false,
+      },
+      '--no-mainline': {
+        key: 'mainline',
+        value: 'flag',
+        set: 0,
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--no-strategy': {
+        key: 'strategy',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-strategy-option': {
+        key: 'strategy-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-gpg-sign': {
+        key: 'gpg-sign',
+        value: 'flag',
+        set: '',
+        clear: true,
+      },
+      '--no-reference': {
+        key: 'reference',
+        value: 'flag',
+        set: false,
+      },
+    },
+    rules: [
+      {
+        id: 'diff.output-formats',
+        kind: 'exclusive',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_setup_done',
+        reason:
+          'Name-only, name-status, whitespace checks and suppressed output occupy incompatible bits.',
+        keys: ['name-only', 'name-status', 'check', 'no-output'],
+      },
+      {
+        id: 'diff.pickaxe-kinds',
+        kind: 'exclusive',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_setup_done',
+        reason: 'Pickaxe string, regex and object searches are incompatible.',
+        keys: ['S', 'G', 'find-object'],
+      },
+      {
+        id: 'diff.pickaxe-regex',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_setup_done',
+        reason: 'Regex pickaxe (-G) cannot use --pickaxe-regex.',
+        when: {
+          key: 'G',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'pickaxe-regex',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'diff.object-pickaxe-all',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 diff.c:diff_setup_done',
+        reason: 'Object pickaxe cannot use --pickaxe-all.',
+        when: {
+          key: 'find-object',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'pickaxe-all',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.graph-walk-order',
+        kind: 'exclusive',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Graph, reverse traversal and reflog traversal are pairwise incompatible.',
+        keys: ['graph', 'reverse', 'walk-reflogs'],
+      },
+      {
+        id: 'revision.boundary-maximal',
+        kind: 'exclusive',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Boundary and maximal-only output are incompatible.',
+        keys: ['boundary', 'maximal-only'],
+      },
+      {
+        id: 'revision.graph-lanes',
+        kind: 'requires',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'A positive lane limit requires graph output.',
+        when: {
+          key: 'graph-lane-limit',
+          test: 'positive',
+        },
+        required: [
+          {
+            key: 'graph',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.grep-reflog',
+        kind: 'requires',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Reflog message filtering requires reflog traversal.',
+        when: {
+          key: 'grep-reflog',
+          test: 'nonempty',
+        },
+        required: [
+          {
+            key: 'walk-reflogs',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.linear-graph',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Linear breaks cannot be combined with graph output.',
+        when: {
+          key: 'graph',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'show-linear-break',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.children-parents',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'Children output conflicts with explicit or implicit parent rewriting.',
+        when: {
+          key: 'children',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'rewrite-parents',
+            test: 'active',
+          },
+          {
+            key: 'graph',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.limited-reflog',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason: 'History-limiting traversal cannot be combined with reflog traversal.',
+        when: {
+          key: 'walk-reflogs',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'limited',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revision.combined-paths',
+        kind: 'requiresAny',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+        reason:
+          'Combined paths require a combined merge diff. The on/m default is resolved from configuration by Git.',
+        when: {
+          key: 'combined-all-paths',
+          test: 'active',
+        },
+        choices: [
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'c',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'combined',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'cc',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'dense-combined',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'on',
+          },
+          {
+            key: 'diff-merges',
+            test: 'equals',
+            value: 'm',
+          },
+        ],
+      },
+      {
+        id: 'revision.object-filter',
+        kind: 'requiresAny',
+        origin: 'git',
+        source: 'Git 2.55.0 revision.c:handle_revision_pseudo_opt/setup_revisions',
+        reason: 'Object filtering requires object enumeration.',
+        when: {
+          key: 'filter',
+          test: 'present',
+        },
+        choices: [
+          {
+            key: 'objects',
+            test: 'active',
+          },
+          {
+            key: 'objects-edge',
+            test: 'active',
+          },
+          {
+            key: 'objects-edge-aggressive',
+            test: 'active',
+          },
+          {
+            key: 'verify-objects',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revert.cleanup',
+        kind: 'value',
+        origin: 'git',
+        source: 'Git 2.55.0 sequencer.c:get_cleanup_mode',
+        reason: 'Cleanup is checked after option parsing.',
+        key: 'cleanup',
+        allowed: ['default', 'verbatim', 'whitespace', 'strip', 'scissors'],
+      },
+      {
+        id: 'revert.revision-input',
+        kind: 'requiresAny',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Normal replay requires a remaining revision argument or revision parser option.',
+        guard: [
+          {
+            key: 'quit',
+            test: 'inactive',
+          },
+          {
+            key: 'continue',
+            test: 'inactive',
+          },
+          {
+            key: 'abort',
+            test: 'inactive',
+          },
+          {
+            key: 'skip',
+            test: 'inactive',
+          },
+        ],
+        when: {
+          key: 'argumentTokens',
+          test: 'present',
+        },
+        choices: [
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revert.quit-options',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.',
+        when: {
+          key: 'quit',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'mainline',
+            test: 'nonzero',
+          },
+          {
+            key: 'strategy-option',
+            test: 'nonempty',
+          },
+          {
+            key: 'rerere-autoupdate',
+            test: 'present',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revert.quit-operands',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Continuation does not accept revisions.',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'quit',
+          test: 'active',
+        },
+      },
+      {
+        id: 'revert.continue-options',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.',
+        when: {
+          key: 'continue',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'mainline',
+            test: 'nonzero',
+          },
+          {
+            key: 'strategy-option',
+            test: 'nonempty',
+          },
+          {
+            key: 'rerere-autoupdate',
+            test: 'present',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revert.continue-operands',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Continuation does not accept revisions.',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'continue',
+          test: 'active',
+        },
+      },
+      {
+        id: 'revert.abort-options',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.',
+        when: {
+          key: 'abort',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'mainline',
+            test: 'nonzero',
+          },
+          {
+            key: 'strategy-option',
+            test: 'nonempty',
+          },
+          {
+            key: 'rerere-autoupdate',
+            test: 'present',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revert.abort-operands',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Continuation does not accept revisions.',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'abort',
+          test: 'active',
+        },
+      },
+      {
+        id: 'revert.skip-options',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason:
+          'Continuation rejects replay settings and unconsumed revision options; CLI strategy is assigned after this check.',
+        when: {
+          key: 'skip',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'no-commit',
+            test: 'active',
+          },
+          {
+            key: 'signoff',
+            test: 'active',
+          },
+          {
+            key: 'mainline',
+            test: 'nonzero',
+          },
+          {
+            key: 'strategy-option',
+            test: 'nonempty',
+          },
+          {
+            key: 'rerere-autoupdate',
+            test: 'present',
+          },
+          {
+            key: 'revision-argument',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'revert.skip-operands',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/revert.c:run_sequencer',
+        reason: 'Continuation does not accept revisions.',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'skip',
+          test: 'active',
+        },
+      },
+    ],
+    source: 'builtin/revert.c:run_sequencer',
+    separator: true,
+  },
+  'commit-tree': {
+    argv: ['commit-tree'],
+    options: {
+      '-p': {
+        key: 'p',
+        value: 'string',
+      },
+      '-m': {
+        key: 'm',
+        value: 'string',
+      },
+      '-F': {
+        key: 'F',
+        value: 'string',
+      },
+      '--gpg-sign': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '-S': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '--no-gpg-sign': {
+        key: 'gpg-sign',
+        value: 'flag',
+        set: '',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'commit-tree.tree',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/commit-tree.c:cmd_commit_tree',
+        reason: 'Exactly one tree object is required.',
+        key: 'operands',
+        min: 1,
+        max: 1,
+      },
+    ],
+    source: 'builtin/commit-tree.c:cmd_commit_tree',
+    separator: true,
+  },
+  'merge-base': {
+    argv: ['merge-base'],
+    options: {
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '-a': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--octopus': {
+        key: 'octopus',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '--independent': {
+        key: 'independent',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '--is-ancestor': {
+        key: 'is-ancestor',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '--fork-point': {
+        key: 'fork-point',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'merge-base.all',
+        kind: 'conflicts',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/merge-base.c:cmd_merge_base',
+        reason: 'All bases cannot be requested in independent or ancestor-test modes.',
+        when: {
+          key: 'all',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'independent',
+            test: 'active',
+          },
+          {
+            key: 'is-ancestor',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'merge-base.default-arity',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/merge-base.c:cmd_merge_base',
+        reason: 'The default mode requires at least two revisions.',
+        key: 'operands',
+        min: 2,
+        guard: [
+          {
+            key: 'octopus',
+            test: 'inactive',
+          },
+          {
+            key: 'independent',
+            test: 'inactive',
+          },
+          {
+            key: 'is-ancestor',
+            test: 'inactive',
+          },
+          {
+            key: 'fork-point',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'merge-base.ancestor-arity',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/merge-base.c:handle_is_ancestor',
+        reason: 'Ancestor testing requires exactly two commits.',
+        key: 'operands',
+        min: 2,
+        max: 2,
+        when: {
+          key: 'is-ancestor',
+          test: 'active',
+        },
+      },
+      {
+        id: 'merge-base.fork-arity',
+        kind: 'arity',
+        origin: 'git',
+        source: 'Git 2.55.0 builtin/merge-base.c:cmd_merge_base',
+        reason: 'Fork-point takes a ref and optional commit.',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'fork-point',
+          test: 'active',
+        },
+      },
+    ],
+    source: 'builtin/merge-base.c:cmd_merge_base',
     separator: true,
   },
   lfs: {

@@ -31,14 +31,14 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `checkout--worker` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `checkout-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `cherry` | documented | pending | pending |  | Audit every applicable facet. |
-| `cherry-pick` | documented | partial | pending | cherryPick | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `cherry-pick` | documented | partial | yes | cherryPick | Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. |
 | `citool` | documented | pending | pending |  | Audit every applicable facet. |
 | `clean` | documented | partial | yes | clean | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `clone` | documented | partial | yes | clone | Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. |
 | `column` | documented | pending | pending |  | Audit every applicable facet. |
 | `commit` | documented | partial | yes | commit | Cleanup/fixup value grammars, repository-dependent author/content modes, callbacks and abbreviations. |
 | `commit-graph` | documented | pending | pending |  | Audit every applicable facet. |
-| `commit-tree` | documented | pending | pending |  | Audit every applicable facet. |
+| `commit-tree` | documented | partial | yes |  | Tree and parent object validity, signing/configuration, message-file and binary stdin protocols, abbreviations. |
 | `config` | documented | pending | pending |  | Audit every applicable facet. |
 | `config edit` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
 | `config get` | reviewed-scope | partial | yes | configGet | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
@@ -151,8 +151,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `mailinfo` | documented | pending | pending |  | Audit every applicable facet. |
 | `mailsplit` | documented | pending | pending |  | Audit every applicable facet. |
 | `maintenance` | documented | pending | pending |  | Audit every applicable facet. |
-| `merge` | documented | partial | pending | merge | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
-| `merge-base` | documented | pending | pending |  | Audit every applicable facet. |
+| `merge` | documented | partial | yes | merge | Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations. |
+| `merge-base` | documented | partial | yes |  | Object and ref resolution, fork-point reflog state and abbreviated option spellings. |
 | `merge-file` | documented | pending | pending |  | Audit every applicable facet. |
 | `merge-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `merge-one-file` | documented | pending | pending |  | Audit every applicable facet. |
@@ -192,7 +192,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `quiltimport` | documented | pending | pending |  | Audit every applicable facet. |
 | `range-diff` | documented | pending | pending |  | Audit every applicable facet. |
 | `read-tree` | documented | pending | pending |  | Audit every applicable facet. |
-| `rebase` | documented | partial | pending | rebase | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `rebase` | documented | partial | yes | rebase | Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions. |
 | `receive-pack` | documented | pending | pending |  | Audit every applicable facet. |
 | `reflog` | documented | pending | pending |  | Audit every applicable facet. |
 | `reflog delete` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
@@ -227,7 +227,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `restore` | documented | partial | yes | restore | Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. |
 | `rev-list` | documented | pending | pending |  | Audit every applicable facet. |
 | `rev-parse` | documented | pending | pending |  | Audit every applicable facet. |
-| `revert` | documented | partial | pending | revert | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `revert` | documented | partial | yes | revert | Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. |
 | `rm` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `scalar` | companion | pending | pending |  | Audit every applicable facet. |
 | `send-email` | documented | pending | pending |  | Audit every applicable facet. |

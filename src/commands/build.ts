@@ -1,4 +1,4 @@
-import { parseGitScalar } from '../constraints/git-scalars.js';
+import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
@@ -26,6 +26,7 @@ export function commandArguments(
   const pathsAfterSeparator: string[] = [];
   const state: Record<string, unknown> = {
     ...spec.initial,
+    argumentTokens: args,
     operands,
     inRepository,
     operandsBeforeSeparator,
@@ -106,7 +107,12 @@ export function commandArguments(
     if (
       supplied &&
       option.allowed &&
-      !option.allowed.includes(value as string | number | boolean)
+      !option.allowed.includes(
+        (option.caseInsensitive && typeof value === 'string' ? asciiLower(value) : value) as
+          | string
+          | number
+          | boolean,
+      )
     ) {
       throw new GitArgumentError(`${flag}: unsupported option value ${String(value)}`);
     }
@@ -177,7 +183,12 @@ export function commandArguments(
               ...(option.skipEmpty && value === '' ? [] : [value]),
             ];
     } else {
-      state[option.key] = option.emptyIsUnset && value === '' ? undefined : parsed.value;
+      state[option.key] =
+        option.emptyIsUnset && value === ''
+          ? undefined
+          : option.caseInsensitive && typeof parsed.value === 'string'
+            ? asciiLower(parsed.value)
+            : parsed.value;
     }
     for (const effect of option.effects ?? []) {
       const previous = state[effect.key];

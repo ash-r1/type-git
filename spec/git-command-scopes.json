@@ -1888,5 +1888,378 @@
         ]
       }
     }
+  },
+  "merge": {
+    "source": "builtin/merge.c",
+    "tables": [
+      "builtin/merge.c:global:builtin_merge_options"
+    ],
+    "options": {
+      "--ff": {
+        "key": "ff-mode",
+        "value": "flag",
+        "set": "allow"
+      },
+      "--no-ff": {
+        "key": "ff-mode",
+        "value": "flag",
+        "set": "no"
+      },
+      "--ff-only": {
+        "key": "ff-mode",
+        "value": "flag",
+        "set": "only"
+      },
+      "--no-strategy": {
+        "key": "strategy",
+        "value": "flag",
+        "ignore": true
+      },
+      "--strategy": {
+        "key": "strategy",
+        "value": "string",
+        "repeat": true
+      },
+      "-s": {
+        "key": "strategy",
+        "value": "string",
+        "repeat": true
+      }
+    }
+  },
+  "rebase": {
+    "source": "builtin/rebase.c:cmd_rebase",
+    "tables": [
+      "builtin/rebase.c:cmd_rebase:builtin_rebase_options"
+    ],
+    "options": {
+      "--apply": {
+        "key": "backend",
+        "value": "flag",
+        "set": "apply",
+        "checks": [
+          {
+            "id": "rebase.backend-apply",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive",
+            "reason": "Explicit backend callbacks cannot change an already selected backend.",
+            "when": [
+              {
+                "key": "backend",
+                "test": "equals",
+                "value": "merge"
+              }
+            ]
+          }
+        ]
+      },
+      "--merge": {
+        "key": "backend",
+        "value": "flag",
+        "set": "merge",
+        "checks": [
+          {
+            "id": "rebase.backend-merge",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive",
+            "reason": "Explicit backend callbacks cannot change an already selected backend.",
+            "when": [
+              {
+                "key": "backend",
+                "test": "equals",
+                "value": "apply"
+              }
+            ]
+          }
+        ]
+      },
+      "-m": {
+        "key": "backend",
+        "value": "flag",
+        "set": "merge",
+        "checks": [
+          {
+            "id": "rebase.backend-merge",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive",
+            "reason": "Explicit backend callbacks cannot change an already selected backend.",
+            "when": [
+              {
+                "key": "backend",
+                "test": "equals",
+                "value": "apply"
+              }
+            ]
+          }
+        ]
+      },
+      "--interactive": {
+        "key": "backend",
+        "value": "flag",
+        "set": "merge",
+        "checks": [
+          {
+            "id": "rebase.backend-merge",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive",
+            "reason": "Explicit backend callbacks cannot change an already selected backend.",
+            "when": [
+              {
+                "key": "backend",
+                "test": "equals",
+                "value": "apply"
+              }
+            ]
+          }
+        ]
+      },
+      "-i": {
+        "key": "backend",
+        "value": "flag",
+        "set": "merge",
+        "checks": [
+          {
+            "id": "rebase.backend-merge",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/rebase.c:parse_opt_am/parse_opt_merge/parse_opt_interactive",
+            "reason": "Explicit backend callbacks cannot change an already selected backend.",
+            "when": [
+              {
+                "key": "backend",
+                "test": "equals",
+                "value": "apply"
+              }
+            ]
+          }
+        ]
+      },
+      "--keep-empty": {
+        "key": "keep-empty",
+        "value": "flag",
+        "set": true,
+        "checks": [
+          {
+            "id": "rebase.keep-empty-backend",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/rebase.c:parse_opt_keep_empty",
+            "reason": "Both keep-empty and its negation immediately imply the merge backend.",
+            "when": [
+              {
+                "key": "backend",
+                "test": "equals",
+                "value": "apply"
+              }
+            ]
+          }
+        ],
+        "effects": [
+          {
+            "key": "backend",
+            "set": "merge"
+          }
+        ]
+      },
+      "-k": {
+        "key": "keep-empty",
+        "value": "flag",
+        "set": true,
+        "checks": [
+          {
+            "id": "rebase.keep-empty-backend",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/rebase.c:parse_opt_keep_empty",
+            "reason": "Both keep-empty and its negation immediately imply the merge backend.",
+            "when": [
+              {
+                "key": "backend",
+                "test": "equals",
+                "value": "apply"
+              }
+            ]
+          }
+        ],
+        "effects": [
+          {
+            "key": "backend",
+            "set": "merge"
+          }
+        ]
+      },
+      "--no-keep-empty": {
+        "key": "keep-empty",
+        "value": "flag",
+        "set": false,
+        "checks": [
+          {
+            "id": "rebase.keep-empty-backend",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/rebase.c:parse_opt_keep_empty",
+            "reason": "Both keep-empty and its negation immediately imply the merge backend.",
+            "when": [
+              {
+                "key": "backend",
+                "test": "equals",
+                "value": "apply"
+              }
+            ]
+          }
+        ],
+        "effects": [
+          {
+            "key": "backend",
+            "set": "merge"
+          }
+        ]
+      },
+      "--empty": {
+        "key": "empty",
+        "value": "string",
+        "allowed": [
+          "drop",
+          "keep",
+          "stop",
+          "ask"
+        ],
+        "caseInsensitive": true
+      },
+      "--rebase-merges": {
+        "key": "rebase-merges",
+        "value": "optional-string",
+        "allowed": [
+          "",
+          "rebase-cousins",
+          "no-rebase-cousins"
+        ]
+      },
+      "-r": {
+        "key": "rebase-merges",
+        "value": "optional-string",
+        "allowed": [
+          "",
+          "rebase-cousins",
+          "no-rebase-cousins"
+        ]
+      },
+      "--no-rebase-merges": {
+        "key": "rebase-merges",
+        "value": "flag",
+        "set": false
+      },
+      "-C": {
+        "key": "am-options",
+        "value": "string",
+        "repeat": true
+      },
+      "--whitespace": {
+        "key": "am-options",
+        "value": "string",
+        "repeat": true
+      },
+      "--no-whitespace": {
+        "key": "am-options",
+        "value": "flag",
+        "set": "--no-whitespace",
+        "repeat": true
+      }
+    }
+  },
+  "cherry-pick": {
+    "source": "builtin/revert.c:run_sequencer",
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "finalTables": [
+      "builtin/revert.c:run_sequencer:base_options",
+      "builtin/revert.c:run_sequencer:cp_extra#1"
+    ],
+    "options": {
+      "--mainline": {
+        "key": "mainline",
+        "value": "integer",
+        "parser": "mainline"
+      },
+      "-m": {
+        "key": "mainline",
+        "value": "integer",
+        "parser": "mainline"
+      },
+      "--no-mainline": {
+        "key": "mainline",
+        "value": "flag",
+        "set": 0
+      },
+      "--empty": {
+        "key": "empty",
+        "value": "string",
+        "allowed": [
+          "stop",
+          "drop",
+          "keep"
+        ]
+      }
+    },
+    "initial": {
+      "S": false
+    },
+    "inheritedOptionMarker": "revision-argument"
+  },
+  "revert": {
+    "source": "builtin/revert.c:run_sequencer",
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "finalTables": [
+      "builtin/revert.c:run_sequencer:base_options",
+      "builtin/revert.c:run_sequencer:cp_extra#2"
+    ],
+    "options": {
+      "--mainline": {
+        "key": "mainline",
+        "value": "integer",
+        "parser": "mainline"
+      },
+      "-m": {
+        "key": "mainline",
+        "value": "integer",
+        "parser": "mainline"
+      },
+      "--no-mainline": {
+        "key": "mainline",
+        "value": "flag",
+        "set": 0
+      }
+    },
+    "initial": {
+      "S": false
+    },
+    "inheritedOptionMarker": "revision-argument"
+  },
+  "commit-tree": {
+    "source": "builtin/commit-tree.c:cmd_commit_tree",
+    "tables": [
+      "builtin/commit-tree.c:cmd_commit_tree:options"
+    ]
+  },
+  "merge-base": {
+    "source": "builtin/merge-base.c:cmd_merge_base",
+    "tables": [
+      "builtin/merge-base.c:cmd_merge_base:options"
+    ]
   }
 }
