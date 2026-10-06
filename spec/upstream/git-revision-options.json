@@ -343,6 +343,14 @@
         "revision.c:handle_revision_opt"
       ]
     },
+    "--filter": {
+      "forms": [
+        "value"
+      ],
+      "sources": [
+        "revision.c:handle_revision_pseudo_opt"
+      ]
+    },
     "--first-parent": {
       "forms": [
         "flag"
@@ -599,6 +607,14 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
+      ]
+    },
+    "--no-filter": {
+      "forms": [
+        "flag"
+      ],
+      "sources": [
+        "revision.c:handle_revision_pseudo_opt"
       ]
     },
     "--no-graph": {

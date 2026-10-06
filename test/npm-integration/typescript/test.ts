@@ -37,6 +37,11 @@ async function testTypes(): Promise<void> {
   // @ts-expect-error A later token cannot recover from an immediate parser rejection.
   await git.command('log', [['--max-count-oldest', 2], ['--skip', 0], ['--max-count', 1]]);
 
+  await git.command('reflog show', [['--grep-reflog', 'pattern']]);
+  await git.command('stash show', [['-S', 'needle'], ['-p']]);
+  // @ts-expect-error Reflog mode is initialized before folding user options.
+  await git.command('reflog show', [['--graph']]);
+
   // Test raw method return type
   const rawResult: RawResult = await git.raw(['--version']);
   const _stdout: string = rawResult.stdout;
