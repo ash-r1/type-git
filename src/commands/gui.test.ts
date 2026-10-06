@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 
+const guiAvailable = spawnSync('git', ['gui', '--version'], { encoding: 'utf8' }).status === 0;
 describe('GUI operation grammar', () => {
   it('selects each GUI entrypoint and preserves citool prefix options', () => {
     expect(commandArguments('gui', [], true)).toEqual(['gui']);
@@ -60,7 +61,7 @@ describe('GUI operation grammar', () => {
       expect(() => commandArguments('gui blame', args, true)).toThrow(GitArgumentError);
     }
   });
-  it('matches the standalone version shell prelude without a display', () => {
+  it.skipIf(!guiAvailable)('matches the standalone version shell prelude without a display', () => {
     for (const command of ['gui', 'citool'] as const) {
       for (const args of [[['--version']], [{ operand: 'version' }]]) {
         const argv = commandArguments(command, args, true);
@@ -73,7 +74,7 @@ describe('GUI operation grammar', () => {
       );
     }
   });
-  it.skipIf(!process.env.DISPLAY)(
+  it.skipIf(!(guiAvailable && process.env.DISPLAY))(
     'matches native X11 argument failures in a disposable repository',
     async () => {
       const root = await mkdtemp(join(tmpdir(), 'type-git-gui-'));
