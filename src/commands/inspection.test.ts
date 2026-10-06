@@ -277,14 +277,20 @@ describe('file, ref and object inspection grammars', () => {
       ['show-index', '\0'.repeat(1024)],
       ['patch-id', ''],
     ] as const) {
-      if (legacy && command === 'mktag') {
-        continue; // Old mktag rejects positional args before parse-options existed.
-      }
-      const expected = direct([command, 'ignored'], input);
+      // Older manual parsers rejected operands that 2.55 now ignores.
+      const operands =
+        legacy && (command === 'mktag' || command === 'show-index' || command === 'patch-id')
+          ? []
+          : ['ignored'];
+      const expected = direct([command, ...operands], input);
       expect(expected.status, expected.stderr).toBe(0);
-      const result = await repo.command(command, [{ operand: 'ignored' }] as never, {
-        stdin: input,
-      });
+      const result = await repo.command(
+        command,
+        operands.map((operand) => ({ operand })) as never,
+        {
+          stdin: input,
+        },
+      );
       expect(result.exitCode, result.stderr).toBe(0);
       expect(result.stdout).toBe(expected.stdout);
     }
