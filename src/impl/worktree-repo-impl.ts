@@ -1,10 +1,5 @@
 import { commandArguments } from '../commands/build.js';
-import type {
-  CheckedCommandArguments,
-  GitCommandArgument,
-  GitCommandExecOpts,
-  GitCommandName,
-} from '../commands/types.js';
+import type { GitCommandClient, GitCommandExecOpts, GitCommandName } from '../commands/types.js';
 import {
   type ExclusiveQuery,
   validateInput,
@@ -334,16 +329,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  public async command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & CheckedCommandArguments<C, A>,
+  public command: GitCommandClient['command'] = async (
+    command: GitCommandName,
+    args: readonly unknown[],
     opts?: GitCommandExecOpts,
-  ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, true), opts);
-  }
+  ) => {
+    return this.raw(commandArguments(command, args, true), opts);
+  };
 
   public async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);

@@ -55639,6 +55639,2062 @@
       }
     },
     {
+      "command": "reflog",
+      "dispatch": {
+        "list": "reflog list",
+        "exists": "reflog exists",
+        "write": "reflog write",
+        "delete": "reflog delete",
+        "drop": "reflog drop",
+        "expire": "reflog expire",
+        "show": "reflog show"
+      },
+      "transitions": [
+        {
+          "flag": "-S",
+          "rules": [
+            "revision.pickaxe-nonempty-S"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-S": "{}"
+          }
+        },
+        {
+          "flag": "-G",
+          "rules": [
+            "revision.pickaxe-nonempty-G"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-G": "{}"
+          }
+        },
+        {
+          "flag": "--cherry",
+          "rules": [
+            "revision.cherry-prior-conflict"
+          ],
+          "domains": {
+            "left-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-prior-conflict": "{\"left-only\":true}"
+          }
+        },
+        {
+          "flag": "--cherry-mark",
+          "rules": [
+            "revision.cherry-mark-prior-conflict"
+          ],
+          "domains": {
+            "cherry-pick": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-mark-prior-conflict": "{\"cherry-pick\":true}"
+          }
+        },
+        {
+          "flag": "--cherry-pick",
+          "rules": [
+            "revision.cherry-pick-prior-conflict"
+          ],
+          "domains": {
+            "cherry-mark": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-pick-prior-conflict": "{\"cherry-mark\":true}"
+          }
+        },
+        {
+          "flag": "--expand-tabs",
+          "rules": [
+            "revision.tabs-nonnegative"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2",
+              "8"
+            ]
+          },
+          "total": "7",
+          "accepted": "5",
+          "isolatedRuleWitnesses": {
+            "revision.tabs-nonnegative": "{\"$value\":-2}"
+          }
+        },
+        {
+          "flag": "--left-only",
+          "rules": [
+            "revision.left-only-prior-conflict"
+          ],
+          "domains": {
+            "right-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.left-only-prior-conflict": "{\"right-only\":true}"
+          }
+        },
+        {
+          "flag": "--max-count",
+          "rules": [
+            "revision.count-after-oldest"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "revision.count-after-oldest": "{\"max-count-mode\":\"oldest\"}"
+          }
+        },
+        {
+          "flag": "--max-count-oldest",
+          "rules": [
+            "revision.oldest-after-count",
+            "revision.oldest-after-skip"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ],
+            "max-count": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ],
+            "skip": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "total": "108",
+          "accepted": "40",
+          "isolatedRuleWitnesses": {
+            "revision.oldest-after-count": "{\"max-count\":-2}",
+            "revision.oldest-after-skip": "{\"skip\":1}"
+          }
+        },
+        {
+          "flag": "--right-only",
+          "rules": [
+            "revision.right-only-prior-conflict"
+          ],
+          "domains": {
+            "left-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.right-only-prior-conflict": "{\"left-only\":true}"
+          }
+        },
+        {
+          "flag": "--skip",
+          "rules": [
+            "revision.skip-after-oldest"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "revision.skip-after-oldest": "{\"max-count-mode\":\"oldest\"}"
+          }
+        },
+        {
+          "flag": "--stdin",
+          "rules": [
+            "revision.stdin-repeated"
+          ],
+          "domains": {
+            "stdin": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.stdin-repeated": "{\"stdin\":true}"
+          }
+        }
+      ],
+      "rules": 15,
+      "domains": {
+        "walk-reflogs": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "source": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "use-mailmap": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "i-still-use-this": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "clear-decorations": [
+          "undefined",
+          "true"
+        ],
+        "decorate-refs": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "decorate-refs-exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "decorate": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "L": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-output": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "patch": [
+          "undefined",
+          "true"
+        ],
+        "name-only": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "name-status": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "check": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "u": [
+          "undefined",
+          "true"
+        ],
+        "unified": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "function-context": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-stat": [
+          "undefined",
+          "true"
+        ],
+        "numstat": [
+          "undefined",
+          "true"
+        ],
+        "shortstat": [
+          "undefined",
+          "true"
+        ],
+        "dirstat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cumulative": [
+          "undefined",
+          "true"
+        ],
+        "dirstat-by-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "summary": [
+          "undefined",
+          "true"
+        ],
+        "stat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "stat-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-name-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-graph-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-count": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "compact-summary": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "binary": [
+          "undefined",
+          "true"
+        ],
+        "full-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "ws-error-highlight": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "src-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dst-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "line-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-prefix": [
+          "undefined",
+          "true"
+        ],
+        "default-prefix": [
+          "undefined",
+          "true"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "output-indicator-new": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-old": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-context": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "break-rewrites": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "irreversible-delete": [
+          "undefined",
+          "true"
+        ],
+        "find-copies": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-copies-harder": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "rename-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "follow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "l": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "minimal": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-blank-lines": [
+          "undefined",
+          "true"
+        ],
+        "ignore-matching-lines": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "indent-heuristic": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"default\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\""
+        ],
+        "anchored": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "word-diff": [
+          "undefined",
+          "\"plain\"",
+          "\"color\"",
+          "\"porcelain\"",
+          "\"none\"",
+          "true"
+        ],
+        "word-diff-regex": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color-words": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved-ws": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "relative": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "text": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "R": [
+          "undefined",
+          "true"
+        ],
+        "exit-code": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ext-diff": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "textconv": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-submodules": [
+          "undefined",
+          "\"all\"",
+          "\"dirty\"",
+          "\"untracked\"",
+          "\"none\"",
+          "true"
+        ],
+        "submodule": [
+          "undefined",
+          "\"short\"",
+          "\"log\"",
+          "\"diff\"",
+          "true"
+        ],
+        "ita-invisible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "ita-visible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "S": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "G": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pickaxe-all": [
+          "undefined",
+          "true"
+        ],
+        "pickaxe-regex": [
+          "undefined",
+          "true"
+        ],
+        "O": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rotate-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "skip-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "find-object": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-abbrev": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "abbrev-commit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "after": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "all-match": [
+          "undefined",
+          "true"
+        ],
+        "alternate-refs": [
+          "undefined",
+          "true"
+        ],
+        "always": [
+          "undefined",
+          "true"
+        ],
+        "limited": [
+          "undefined",
+          "true"
+        ],
+        "ancestry-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "author": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "author-date-order": [
+          "undefined",
+          "true"
+        ],
+        "basic-regexp": [
+          "undefined",
+          "true"
+        ],
+        "before": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bisect": [
+          "undefined",
+          "true"
+        ],
+        "boundary": [
+          "undefined",
+          "true"
+        ],
+        "branches": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "combined-all-paths": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "diff-merges": [
+          "undefined",
+          "\"dense-combined\"",
+          "\"first-parent\"",
+          "\"off\"",
+          "\"none\"",
+          "\"1\"",
+          "\"separate\"",
+          "\"c\"",
+          "\"combined\"",
+          "\"cc\"",
+          "\"r\"",
+          "\"remerge\"",
+          "\"m\"",
+          "\"on\""
+        ],
+        "cherry-mark": [
+          "undefined",
+          "true"
+        ],
+        "right-only": [
+          "undefined",
+          "true"
+        ],
+        "max-parents": [
+          "undefined",
+          "1",
+          "-2",
+          "-1",
+          "0",
+          "2"
+        ],
+        "cherry": [
+          "undefined",
+          "true"
+        ],
+        "cherry-pick": [
+          "undefined",
+          "true"
+        ],
+        "children": [
+          "undefined",
+          "true"
+        ],
+        "committer": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "count": [
+          "undefined",
+          "true"
+        ],
+        "date": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "date-order": [
+          "undefined",
+          "true"
+        ],
+        "default": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dense": [
+          "undefined",
+          "true"
+        ],
+        "no-walk": [
+          "undefined",
+          "false",
+          "\"sorted\"",
+          "\"unsorted\"",
+          "true"
+        ],
+        "encode-email-headers": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "encoding": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-first-parent-only": [
+          "undefined",
+          "true"
+        ],
+        "exclude-hidden": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "expand-tabs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "8"
+        ],
+        "extended-regexp": [
+          "undefined",
+          "true"
+        ],
+        "first-parent": [
+          "undefined",
+          "true"
+        ],
+        "fixed-strings": [
+          "undefined",
+          "true"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "full-diff": [
+          "undefined",
+          "true"
+        ],
+        "full-history": [
+          "undefined",
+          "true"
+        ],
+        "glob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "graph": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "graph-lane-limit": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "grep": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "grep-reflog": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ignore-missing": [
+          "undefined",
+          "true"
+        ],
+        "in-commit-order": [
+          "undefined",
+          "true"
+        ],
+        "indexed-objects": [
+          "undefined",
+          "true"
+        ],
+        "invert-grep": [
+          "undefined",
+          "true"
+        ],
+        "left-only": [
+          "undefined",
+          "true"
+        ],
+        "left-right": [
+          "undefined",
+          "true"
+        ],
+        "log-size": [
+          "undefined",
+          "true"
+        ],
+        "max-age": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-count-mode": [
+          "undefined",
+          "\"newest\"",
+          "\"oldest\""
+        ],
+        "max-count": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "maximal-only": [
+          "undefined",
+          "true"
+        ],
+        "merge": [
+          "undefined",
+          "true"
+        ],
+        "merges": [
+          "undefined",
+          "true"
+        ],
+        "min-age": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "min-parents": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-commit-id": [
+          "undefined",
+          "true"
+        ],
+        "no-kept-objects": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "no-max-parents": [
+          "undefined",
+          "true"
+        ],
+        "no-merges": [
+          "undefined",
+          "true"
+        ],
+        "no-min-parents": [
+          "undefined",
+          "true"
+        ],
+        "no-notes": [
+          "undefined",
+          "true"
+        ],
+        "show-signature": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "standard-notes": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "not": [
+          "undefined",
+          "true"
+        ],
+        "notes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "objects": [
+          "undefined",
+          "true"
+        ],
+        "objects-edge": [
+          "undefined",
+          "true"
+        ],
+        "objects-edge-aggressive": [
+          "undefined",
+          "true"
+        ],
+        "oneline": [
+          "undefined",
+          "true"
+        ],
+        "rewrite-parents": [
+          "undefined",
+          "true"
+        ],
+        "parents": [
+          "undefined",
+          "true"
+        ],
+        "perl-regexp": [
+          "undefined",
+          "true"
+        ],
+        "pretty": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "reflog": [
+          "undefined",
+          "true"
+        ],
+        "regexp-ignore-case": [
+          "undefined",
+          "true"
+        ],
+        "relative-date": [
+          "undefined",
+          "true"
+        ],
+        "remotes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "remove-empty": [
+          "undefined",
+          "true"
+        ],
+        "reverse": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "root": [
+          "undefined",
+          "true"
+        ],
+        "show-linear-break": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "show-notes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "show-notes-by-default": [
+          "undefined",
+          "true"
+        ],
+        "show-pulls": [
+          "undefined",
+          "true"
+        ],
+        "simplify-by-decoration": [
+          "undefined",
+          "true"
+        ],
+        "simplify-merges": [
+          "undefined",
+          "true"
+        ],
+        "since": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "since-as-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "single-worktree": [
+          "undefined",
+          "true"
+        ],
+        "skip": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "sparse": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "tags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "topo-order": [
+          "undefined",
+          "true"
+        ],
+        "unpacked": [
+          "undefined",
+          "true"
+        ],
+        "until": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verify-objects": [
+          "undefined",
+          "true"
+        ],
+        "r": [
+          "undefined",
+          "true"
+        ],
+        "t": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "true"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ]
+      },
+      "total": "12857039474440610427878812775030008177300072397175395450880000000000000000000000000000000000000000000000000",
+      "accepted": "13398410782681253744331718175499584488699802194574155312005120000000000000000000000000000000000000000000",
+      "nodes": 17668,
+      "isolatedRuleWitnesses": {
+        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
+        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
+        "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
+        "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
+        "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
+        "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
+        "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
+        "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
+        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
+        "revision.line-pathspec": "{\"L\":\"\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "revision.line-full-diff": "{\"L\":\"\",\"full-diff\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "stash",
+      "dispatch": {
+        "clear": "stash clear",
+        "apply": "stash apply",
+        "drop": "stash drop",
+        "pop": "stash pop",
+        "branch": "stash branch",
+        "store": "stash store",
+        "push": "stash push",
+        "save": "stash save",
+        "import": "stash import",
+        "export": "stash export",
+        "create": "stash create",
+        "show": "stash show",
+        "list": "stash list"
+      },
+      "rules": 12,
+      "domains": {
+        "keep-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "staged": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto-advance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "include-untracked": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ]
+      },
+      "total": "472392000",
+      "accepted": "13222080",
+      "nodes": 335,
+      "isolatedRuleWitnesses": {
+        "stash-push-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "stash-push-unified-patch": "{\"operands\":[],\"unified\":0}",
+        "stash-push-inter-hunk-context-range": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "stash-push-inter-hunk-context-patch": "{\"inter-hunk-context\":0,\"operands\":[]}",
+        "stash-push-auto-advance": "{\"auto-advance\":false,\"operands\":[]}",
+        "stash-push-patch-untracked": "{\"include-untracked\":true,\"operands\":[],\"patch\":true}",
+        "stash-push-staged-untracked": "{\"include-untracked\":true,\"operands\":[],\"staged\":true}",
+        "stash-push-file-patch": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
+        "stash-push-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
+        "stash-push-file-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":true}",
+        "stash-push-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
+        "cli.stash.assumed-push-paths": "{\"operands\":[],\"operandsBeforeSeparator\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "config",
+      "dispatch": {
+        "list": "config list",
+        "get": "config get",
+        "set": "config set",
+        "unset": "config unset",
+        "rename-section": "config rename-section",
+        "remove-section": "config remove-section",
+        "edit": "config edit"
+      },
+      "modes": [
+        {
+          "group": "actions",
+          "tokens": [
+            {
+              "flag": "--get",
+              "mode": "get"
+            },
+            {
+              "flag": "--get-all",
+              "mode": "get-all"
+            },
+            {
+              "flag": "--get-regexp",
+              "mode": "get-regexp"
+            },
+            {
+              "flag": "--get-urlmatch",
+              "mode": "get-urlmatch"
+            },
+            {
+              "flag": "--replace-all",
+              "mode": "replace-all"
+            },
+            {
+              "flag": "--add",
+              "mode": "add"
+            },
+            {
+              "flag": "--unset",
+              "mode": "unset"
+            },
+            {
+              "flag": "--unset-all",
+              "mode": "unset-all"
+            },
+            {
+              "flag": "--rename-section",
+              "mode": "rename-section"
+            },
+            {
+              "flag": "--remove-section",
+              "mode": "remove-section"
+            },
+            {
+              "flag": "--list",
+              "mode": "list"
+            },
+            {
+              "flag": "-l",
+              "mode": "list"
+            },
+            {
+              "flag": "--edit",
+              "mode": "edit"
+            },
+            {
+              "flag": "-e",
+              "mode": "edit"
+            },
+            {
+              "flag": "--get-color",
+              "mode": "get-color"
+            },
+            {
+              "flag": "--get-colorbool",
+              "mode": "get-colorbool"
+            }
+          ],
+          "total": 240,
+          "accepted": 32,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ]
+            },
+            {
+              "from": "get",
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "get-all",
+              "acceptedTokens": [
+                1
+              ]
+            },
+            {
+              "from": "get-regexp",
+              "acceptedTokens": [
+                2
+              ]
+            },
+            {
+              "from": "get-urlmatch",
+              "acceptedTokens": [
+                3
+              ]
+            },
+            {
+              "from": "replace-all",
+              "acceptedTokens": [
+                4
+              ]
+            },
+            {
+              "from": "add",
+              "acceptedTokens": [
+                5
+              ]
+            },
+            {
+              "from": "unset",
+              "acceptedTokens": [
+                6
+              ]
+            },
+            {
+              "from": "unset-all",
+              "acceptedTokens": [
+                7
+              ]
+            },
+            {
+              "from": "rename-section",
+              "acceptedTokens": [
+                8
+              ]
+            },
+            {
+              "from": "remove-section",
+              "acceptedTokens": [
+                9
+              ]
+            },
+            {
+              "from": "list",
+              "acceptedTokens": [
+                10,
+                11
+              ]
+            },
+            {
+              "from": "edit",
+              "acceptedTokens": [
+                12,
+                13
+              ]
+            },
+            {
+              "from": "get-color",
+              "acceptedTokens": [
+                14
+              ]
+            },
+            {
+              "from": "get-colorbool",
+              "acceptedTokens": [
+                15
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": 107,
+      "domains": {
+        "global": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "system": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"-\""
+        ],
+        "blob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "action": [
+          "undefined",
+          "\"get\"",
+          "\"get-all\"",
+          "\"get-regexp\"",
+          "\"get-urlmatch\"",
+          "\"replace-all\"",
+          "\"add\"",
+          "\"unset\"",
+          "\"unset-all\"",
+          "\"rename-section\"",
+          "\"remove-section\"",
+          "\"list\"",
+          "\"edit\"",
+          "\"get-color\"",
+          "\"get-colorbool\""
+        ],
+        "null": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "name-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-origin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-scope": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-names": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "type": [
+          "undefined",
+          "\"bool\"",
+          "\"int\"",
+          "\"bool-or-int\"",
+          "\"bool-or-str\"",
+          "\"path\"",
+          "\"expiry-date\"",
+          "\"color\""
+        ],
+        "default": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "comment": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "fixed-value": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "includes": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "956593800000",
+      "accepted": "762918912",
+      "nodes": 2788,
+      "isolatedRuleWitnesses": {
+        "cli.config.implicit-arity": "{\"operands\":[]}",
+        "cli.config.location": "{\"operands\":[\"value\"],\"system\":true,\"worktree\":true}",
+        "cli.config.get-arity": "{\"action\":\"get\",\"operands\":[]}",
+        "cli.config.get-name-only": "{\"action\":\"get\",\"name-only\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-comment": "{\"action\":\"get\",\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-fixed": "{\"action\":\"get\",\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-all-arity": "{\"action\":\"get-all\",\"operands\":[]}",
+        "cli.config.get-all-name-only": "{\"action\":\"get-all\",\"name-only\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-all-default": "{\"action\":\"get-all\",\"default\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-all-comment": "{\"action\":\"get-all\",\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-all-fixed": "{\"action\":\"get-all\",\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-regexp-arity": "{\"action\":\"get-regexp\",\"operands\":[]}",
+        "cli.config.get-regexp-default": "{\"action\":\"get-regexp\",\"default\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-regexp-comment": "{\"action\":\"get-regexp\",\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-regexp-fixed": "{\"action\":\"get-regexp\",\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-urlmatch-arity": "{\"action\":\"get-urlmatch\",\"operands\":[]}",
+        "cli.config.get-urlmatch-name-only": "{\"action\":\"get-urlmatch\",\"name-only\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.get-urlmatch-show-origin": "{\"action\":\"get-urlmatch\",\"operands\":[\"value\",\"value\"],\"show-origin\":true}",
+        "cli.config.get-urlmatch-default": "{\"action\":\"get-urlmatch\",\"default\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.get-urlmatch-comment": "{\"action\":\"get-urlmatch\",\"comment\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.get-urlmatch-fixed": "{\"action\":\"get-urlmatch\",\"fixed-value\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.replace-all-arity": "{\"action\":\"replace-all\",\"operands\":[]}",
+        "cli.config.replace-all-name-only": "{\"action\":\"replace-all\",\"name-only\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.replace-all-show-origin": "{\"action\":\"replace-all\",\"operands\":[\"value\",\"value\"],\"show-origin\":true}",
+        "cli.config.replace-all-default": "{\"action\":\"replace-all\",\"default\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.replace-all-write-blob": "{\"action\":\"replace-all\",\"blob\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.replace-all-write-file": "{\"action\":\"replace-all\",\"file\":\"-\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.replace-all-fixed": "{\"action\":\"replace-all\",\"fixed-value\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.add-arity": "{\"action\":\"add\",\"operands\":[]}",
+        "cli.config.add-name-only": "{\"action\":\"add\",\"name-only\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.add-show-origin": "{\"action\":\"add\",\"operands\":[\"value\",\"value\"],\"show-origin\":true}",
+        "cli.config.add-default": "{\"action\":\"add\",\"default\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.add-write-blob": "{\"action\":\"add\",\"blob\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.add-write-file": "{\"action\":\"add\",\"file\":\"-\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.add-fixed": "{\"action\":\"add\",\"fixed-value\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.unset-arity": "{\"action\":\"unset\",\"operands\":[]}",
+        "cli.config.unset-name-only": "{\"action\":\"unset\",\"name-only\":true,\"operands\":[\"value\"]}",
+        "cli.config.unset-show-origin": "{\"action\":\"unset\",\"operands\":[\"value\"],\"show-origin\":true}",
+        "cli.config.unset-default": "{\"action\":\"unset\",\"default\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.unset-comment": "{\"action\":\"unset\",\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.unset-write-blob": "{\"action\":\"unset\",\"blob\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.unset-write-file": "{\"action\":\"unset\",\"file\":\"-\",\"operands\":[\"value\"]}",
+        "cli.config.unset-fixed": "{\"action\":\"unset\",\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.unset-all-arity": "{\"action\":\"unset-all\",\"operands\":[]}",
+        "cli.config.unset-all-name-only": "{\"action\":\"unset-all\",\"name-only\":true,\"operands\":[\"value\"]}",
+        "cli.config.unset-all-show-origin": "{\"action\":\"unset-all\",\"operands\":[\"value\"],\"show-origin\":true}",
+        "cli.config.unset-all-default": "{\"action\":\"unset-all\",\"default\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.unset-all-comment": "{\"action\":\"unset-all\",\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.unset-all-write-blob": "{\"action\":\"unset-all\",\"blob\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.unset-all-write-file": "{\"action\":\"unset-all\",\"file\":\"-\",\"operands\":[\"value\"]}",
+        "cli.config.unset-all-fixed": "{\"action\":\"unset-all\",\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.rename-section-arity": "{\"action\":\"rename-section\",\"operands\":[]}",
+        "cli.config.rename-section-name-only": "{\"action\":\"rename-section\",\"name-only\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.rename-section-show-origin": "{\"action\":\"rename-section\",\"operands\":[\"value\",\"value\"],\"show-origin\":true}",
+        "cli.config.rename-section-default": "{\"action\":\"rename-section\",\"default\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.rename-section-comment": "{\"action\":\"rename-section\",\"comment\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.rename-section-write-blob": "{\"action\":\"rename-section\",\"blob\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.rename-section-write-file": "{\"action\":\"rename-section\",\"file\":\"-\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.rename-section-fixed": "{\"action\":\"rename-section\",\"fixed-value\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.remove-section-arity": "{\"action\":\"remove-section\",\"operands\":[]}",
+        "cli.config.remove-section-name-only": "{\"action\":\"remove-section\",\"name-only\":true,\"operands\":[\"value\"]}",
+        "cli.config.remove-section-show-origin": "{\"action\":\"remove-section\",\"operands\":[\"value\"],\"show-origin\":true}",
+        "cli.config.remove-section-default": "{\"action\":\"remove-section\",\"default\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.remove-section-comment": "{\"action\":\"remove-section\",\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.remove-section-write-blob": "{\"action\":\"remove-section\",\"blob\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.remove-section-write-file": "{\"action\":\"remove-section\",\"file\":\"-\",\"operands\":[\"value\"]}",
+        "cli.config.remove-section-fixed": "{\"action\":\"remove-section\",\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.list-arity": "{\"action\":\"list\",\"operands\":[\"value\"]}",
+        "cli.config.list-default": "{\"action\":\"list\",\"default\":\"\",\"operands\":[]}",
+        "cli.config.list-comment": "{\"action\":\"list\",\"comment\":\"\",\"operands\":[]}",
+        "cli.config.list-fixed": "{\"action\":\"list\",\"fixed-value\":true,\"operands\":[]}",
+        "cli.config.edit-name-only": "{\"action\":\"edit\",\"name-only\":true,\"operands\":[]}",
+        "cli.config.edit-show-origin": "{\"action\":\"edit\",\"operands\":[],\"show-origin\":true}",
+        "cli.config.edit-default": "{\"action\":\"edit\",\"default\":\"\",\"operands\":[]}",
+        "cli.config.edit-comment": "{\"action\":\"edit\",\"comment\":\"\",\"operands\":[]}",
+        "cli.config.edit-write-blob": "{\"action\":\"edit\",\"blob\":\"\",\"operands\":[]}",
+        "cli.config.edit-write-file": "{\"action\":\"edit\",\"file\":\"-\",\"operands\":[]}",
+        "cli.config.edit-fixed": "{\"action\":\"edit\",\"fixed-value\":true,\"operands\":[]}",
+        "cli.config.get-color-arity": "{\"action\":\"get-color\",\"operands\":[]}",
+        "cli.config.get-color-name-only": "{\"action\":\"get-color\",\"name-only\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-color-show-origin": "{\"action\":\"get-color\",\"operands\":[\"value\"],\"show-origin\":true}",
+        "cli.config.get-color-default": "{\"action\":\"get-color\",\"default\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-color-comment": "{\"action\":\"get-color\",\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-color-fixed": "{\"action\":\"get-color\",\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-color-type": "{\"action\":\"get-color\",\"operands\":[\"value\"],\"type\":\"bool\"}",
+        "cli.config.get-colorbool-arity": "{\"action\":\"get-colorbool\",\"operands\":[]}",
+        "cli.config.get-colorbool-name-only": "{\"action\":\"get-colorbool\",\"name-only\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-colorbool-show-origin": "{\"action\":\"get-colorbool\",\"operands\":[\"value\"],\"show-origin\":true}",
+        "cli.config.get-colorbool-default": "{\"action\":\"get-colorbool\",\"default\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-colorbool-comment": "{\"action\":\"get-colorbool\",\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.get-colorbool-fixed": "{\"action\":\"get-colorbool\",\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.get-colorbool-type": "{\"action\":\"get-colorbool\",\"operands\":[\"value\"],\"type\":\"bool\"}",
+        "cli.config.implicit-get-name-only": "{\"name-only\":true,\"operands\":[\"value\"]}",
+        "cli.config.implicit-get-comment": "{\"comment\":\"\",\"operands\":[\"value\"]}",
+        "cli.config.implicit-get-fixed": "{\"fixed-value\":true,\"operands\":[\"value\"]}",
+        "cli.config.set-name-only": "{\"name-only\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.set-show-origin": "{\"operands\":[\"value\",\"value\"],\"show-origin\":true}",
+        "cli.config.set-default": "{\"default\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.set-write-blob": "{\"blob\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.set-write-file": "{\"file\":\"-\",\"operands\":[\"value\",\"value\"]}",
+        "cli.config.set-fixed": "{\"fixed-value\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.config.set-all-name-only": "{\"name-only\":true,\"operands\":[\"value\",\"value\",\"value\"]}",
+        "cli.config.set-all-show-origin": "{\"operands\":[\"value\",\"value\",\"value\"],\"show-origin\":true}",
+        "cli.config.set-all-default": "{\"default\":\"\",\"operands\":[\"value\",\"value\",\"value\"]}",
+        "cli.config.set-all-write-blob": "{\"blob\":\"\",\"operands\":[\"value\",\"value\",\"value\"]}",
+        "cli.config.set-all-write-file": "{\"file\":\"-\",\"operands\":[\"value\",\"value\",\"value\"]}",
+        "cli.config.set-all-fixed": null
+      }
+    },
+    {
+      "command": "stash list",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

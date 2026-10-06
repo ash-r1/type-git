@@ -84764,6 +84764,4825 @@ const commandSpec305 = {
   separator: true,
 } as const satisfies CommandSpec;
 const commandSpec306 = {
+  argv: ['reflog'],
+  dispatch: {
+    list: 'reflog list',
+    exists: 'reflog exists',
+    write: 'reflog write',
+    delete: 'reflog delete',
+    drop: 'reflog drop',
+    expire: 'reflog expire',
+    show: 'reflog show',
+  },
+  initial: {
+    'walk-reflogs': true,
+  },
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--source': {
+      key: 'source',
+      value: 'flag',
+    },
+    '--use-mailmap': {
+      key: 'use-mailmap',
+      value: 'flag',
+    },
+    '--i-still-use-this': {
+      key: 'i-still-use-this',
+      value: 'flag',
+    },
+    '--clear-decorations': {
+      key: 'clear-decorations',
+      value: 'flag',
+    },
+    '--decorate-refs': {
+      key: 'decorate-refs',
+      value: 'string',
+      repeat: true,
+    },
+    '--decorate-refs-exclude': {
+      key: 'decorate-refs-exclude',
+      value: 'string',
+      repeat: true,
+    },
+    '--decorate': {
+      key: 'decorate',
+      value: 'optional-string',
+    },
+    '-L': {
+      key: 'L',
+      value: 'string',
+    },
+    '--patch': {
+      key: 'patch',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '-p': {
+      key: 'patch',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--no-patch': {
+      key: 'no-output',
+      value: 'flag',
+      set: true,
+      effects: [
+        {
+          key: 'name-only',
+          set: false,
+        },
+        {
+          key: 'name-status',
+          set: false,
+        },
+        {
+          key: 'check',
+          set: false,
+        },
+      ],
+    },
+    '-s': {
+      key: 'no-output',
+      value: 'flag',
+      set: true,
+      effects: [
+        {
+          key: 'name-only',
+          set: false,
+        },
+        {
+          key: 'name-status',
+          set: false,
+        },
+        {
+          key: 'check',
+          set: false,
+        },
+      ],
+    },
+    '-u': {
+      key: 'u',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--unified': {
+      key: 'unified',
+      value: 'optional-string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '-U': {
+      key: 'unified',
+      value: 'optional-string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--function-context': {
+      key: 'function-context',
+      value: 'flag',
+    },
+    '-W': {
+      key: 'function-context',
+      value: 'flag',
+    },
+    '--raw': {
+      key: 'raw',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--patch-with-raw': {
+      key: 'patch-with-raw',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--patch-with-stat': {
+      key: 'patch-with-stat',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--numstat': {
+      key: 'numstat',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--shortstat': {
+      key: 'shortstat',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--dirstat': {
+      key: 'dirstat',
+      value: 'optional-string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '-X': {
+      key: 'dirstat',
+      value: 'optional-string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--cumulative': {
+      key: 'cumulative',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--dirstat-by-file': {
+      key: 'dirstat-by-file',
+      value: 'optional-string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--check': {
+      key: 'check',
+      value: 'flag',
+    },
+    '--summary': {
+      key: 'summary',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--name-only': {
+      key: 'name-only',
+      value: 'flag',
+    },
+    '--name-status': {
+      key: 'name-status',
+      value: 'flag',
+    },
+    '--stat': {
+      key: 'stat',
+      value: 'optional-string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--stat-width': {
+      key: 'stat-width',
+      value: 'string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--stat-name-width': {
+      key: 'stat-name-width',
+      value: 'string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--stat-graph-width': {
+      key: 'stat-graph-width',
+      value: 'string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--stat-count': {
+      key: 'stat-count',
+      value: 'string',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--compact-summary': {
+      key: 'compact-summary',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--binary': {
+      key: 'binary',
+      value: 'flag',
+      effects: [
+        {
+          key: 'no-output',
+          set: false,
+        },
+      ],
+    },
+    '--full-index': {
+      key: 'full-index',
+      value: 'flag',
+    },
+    '--color': {
+      key: 'color',
+      value: 'optional-string',
+      set: 'always',
+    },
+    '--ws-error-highlight': {
+      key: 'ws-error-highlight',
+      value: 'string',
+    },
+    '-z': {
+      key: 'z',
+      value: 'flag',
+    },
+    '--abbrev': {
+      key: 'abbrev',
+      value: 'optional-string',
+    },
+    '--src-prefix': {
+      key: 'src-prefix',
+      value: 'string',
+    },
+    '--dst-prefix': {
+      key: 'dst-prefix',
+      value: 'string',
+    },
+    '--line-prefix': {
+      key: 'line-prefix',
+      value: 'string',
+    },
+    '--no-prefix': {
+      key: 'no-prefix',
+      value: 'flag',
+    },
+    '--default-prefix': {
+      key: 'default-prefix',
+      value: 'flag',
+    },
+    '--inter-hunk-context': {
+      key: 'inter-hunk-context',
+      value: 'integer',
+    },
+    '--output-indicator-new': {
+      key: 'output-indicator-new',
+      value: 'string',
+    },
+    '--output-indicator-old': {
+      key: 'output-indicator-old',
+      value: 'string',
+    },
+    '--output-indicator-context': {
+      key: 'output-indicator-context',
+      value: 'string',
+    },
+    '--break-rewrites': {
+      key: 'break-rewrites',
+      value: 'optional-string',
+    },
+    '-B': {
+      key: 'break-rewrites',
+      value: 'optional-string',
+    },
+    '--find-renames': {
+      key: 'find-renames',
+      value: 'optional-string',
+    },
+    '-M': {
+      key: 'find-renames',
+      value: 'optional-string',
+    },
+    '--irreversible-delete': {
+      key: 'irreversible-delete',
+      value: 'flag',
+    },
+    '-D': {
+      key: 'irreversible-delete',
+      value: 'flag',
+    },
+    '--find-copies': {
+      key: 'find-copies',
+      value: 'optional-string',
+    },
+    '-C': {
+      key: 'find-copies',
+      value: 'optional-string',
+    },
+    '--find-copies-harder': {
+      key: 'find-copies-harder',
+      value: 'flag',
+    },
+    '--no-renames': {
+      key: 'no-renames',
+      value: 'flag',
+    },
+    '--rename-empty': {
+      key: 'rename-empty',
+      value: 'flag',
+    },
+    '--follow': {
+      key: 'follow',
+      value: 'flag',
+    },
+    '-l': {
+      key: 'l',
+      value: 'integer',
+    },
+    '--minimal': {
+      key: 'minimal',
+      value: 'flag',
+    },
+    '--ignore-all-space': {
+      key: 'ignore-all-space',
+      value: 'flag',
+    },
+    '-w': {
+      key: 'ignore-all-space',
+      value: 'flag',
+    },
+    '--ignore-space-change': {
+      key: 'ignore-space-change',
+      value: 'flag',
+    },
+    '-b': {
+      key: 'ignore-space-change',
+      value: 'flag',
+    },
+    '--ignore-space-at-eol': {
+      key: 'ignore-space-at-eol',
+      value: 'flag',
+    },
+    '--ignore-cr-at-eol': {
+      key: 'ignore-cr-at-eol',
+      value: 'flag',
+    },
+    '--ignore-blank-lines': {
+      key: 'ignore-blank-lines',
+      value: 'flag',
+    },
+    '--ignore-matching-lines': {
+      key: 'ignore-matching-lines',
+      value: 'string',
+    },
+    '-I': {
+      key: 'ignore-matching-lines',
+      value: 'string',
+    },
+    '--indent-heuristic': {
+      key: 'indent-heuristic',
+      value: 'flag',
+    },
+    '--patience': {
+      key: 'patience',
+      value: 'flag',
+    },
+    '--histogram': {
+      key: 'histogram',
+      value: 'flag',
+    },
+    '--diff-algorithm': {
+      key: 'diff-algorithm',
+      value: 'string',
+      allowed: ['myers', 'default', 'minimal', 'patience', 'histogram'],
+      caseInsensitive: true,
+    },
+    '--anchored': {
+      key: 'anchored',
+      value: 'string',
+    },
+    '--word-diff': {
+      key: 'word-diff',
+      value: 'optional-string',
+      allowed: ['plain', 'color', 'porcelain', 'none'],
+    },
+    '--word-diff-regex': {
+      key: 'word-diff-regex',
+      value: 'string',
+    },
+    '--color-words': {
+      key: 'color-words',
+      value: 'optional-string',
+    },
+    '--color-moved': {
+      key: 'color-moved',
+      value: 'optional-string',
+    },
+    '--color-moved-ws': {
+      key: 'color-moved-ws',
+      value: 'string',
+    },
+    '--relative': {
+      key: 'relative',
+      value: 'optional-string',
+    },
+    '--text': {
+      key: 'text',
+      value: 'flag',
+    },
+    '-a': {
+      key: 'text',
+      value: 'flag',
+    },
+    '-R': {
+      key: 'R',
+      value: 'flag',
+    },
+    '--exit-code': {
+      key: 'exit-code',
+      value: 'flag',
+    },
+    '--ext-diff': {
+      key: 'ext-diff',
+      value: 'flag',
+    },
+    '--textconv': {
+      key: 'textconv',
+      value: 'flag',
+    },
+    '--ignore-submodules': {
+      key: 'ignore-submodules',
+      value: 'optional-string',
+      allowed: ['all', 'dirty', 'untracked', 'none'],
+    },
+    '--submodule': {
+      key: 'submodule',
+      value: 'optional-string',
+      allowed: ['short', 'log', 'diff'],
+    },
+    '--ita-invisible-in-index': {
+      key: 'ita-invisible-in-index',
+      value: 'flag',
+    },
+    '--ita-visible-in-index': {
+      key: 'ita-visible-in-index',
+      value: 'flag',
+    },
+    '-S': {
+      key: 'S',
+      value: 'string',
+      checks: [
+        {
+          id: 'revision.pickaxe-nonempty-S',
+          kind: 'required',
+          origin: 'git',
+          source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
+          reason: 'Pickaxe patterns cannot be empty.',
+          required: [
+            {
+              key: '$value',
+              test: 'nonempty',
+            },
+          ],
+        },
+      ],
+    },
+    '-G': {
+      key: 'G',
+      value: 'string',
+      checks: [
+        {
+          id: 'revision.pickaxe-nonempty-G',
+          kind: 'required',
+          origin: 'git',
+          source: 'Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex',
+          reason: 'Pickaxe patterns cannot be empty.',
+          required: [
+            {
+              key: '$value',
+              test: 'nonempty',
+            },
+          ],
+        },
+      ],
+    },
+    '--pickaxe-all': {
+      key: 'pickaxe-all',
+      value: 'flag',
+    },
+    '--pickaxe-regex': {
+      key: 'pickaxe-regex',
+      value: 'flag',
+    },
+    '-O': {
+      key: 'O',
+      value: 'string',
+      emptyIsUnset: true,
+    },
+    '--rotate-to': {
+      key: 'rotate-to',
+      value: 'string',
+    },
+    '--skip-to': {
+      key: 'skip-to',
+      value: 'string',
+    },
+    '--find-object': {
+      key: 'find-object',
+      value: 'string',
+    },
+    '--diff-filter': {
+      key: 'diff-filter',
+      value: 'string',
+    },
+    '--max-depth': {
+      key: 'max-depth',
+      value: 'string',
+    },
+    '--output': {
+      key: 'output',
+      value: 'string',
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-source': {
+      key: 'source',
+      value: 'flag',
+      set: false,
+    },
+    '--no-use-mailmap': {
+      key: 'use-mailmap',
+      value: 'flag',
+      set: false,
+    },
+    '--no-i-still-use-this': {
+      key: 'i-still-use-this',
+      value: 'flag',
+      set: false,
+    },
+    '--no-decorate-refs': {
+      key: 'decorate-refs',
+      value: 'flag',
+      repeat: true,
+      clear: true,
+    },
+    '--no-decorate-refs-exclude': {
+      key: 'decorate-refs-exclude',
+      value: 'flag',
+      repeat: true,
+      clear: true,
+    },
+    '--no-decorate': {
+      key: 'decorate',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-no-patch': {
+      key: 'no-output',
+      value: 'flag',
+      set: false,
+      effects: [
+        {
+          key: 'name-only',
+          set: false,
+        },
+        {
+          key: 'name-status',
+          set: false,
+        },
+        {
+          key: 'check',
+          set: false,
+        },
+      ],
+    },
+    '--no-function-context': {
+      key: 'function-context',
+      value: 'flag',
+      set: false,
+    },
+    '--no-compact-summary': {
+      key: 'compact-summary',
+      value: 'flag',
+      set: false,
+    },
+    '--no-full-index': {
+      key: 'full-index',
+      value: 'flag',
+      set: false,
+    },
+    '--no-color': {
+      key: 'color',
+      value: 'flag',
+      set: 'always',
+      clear: true,
+    },
+    '--no-abbrev': {
+      key: 'no-abbrev',
+      value: 'flag',
+    },
+    '--no-find-copies-harder': {
+      key: 'find-copies-harder',
+      value: 'flag',
+      set: false,
+    },
+    '--no-rename-empty': {
+      key: 'rename-empty',
+      value: 'flag',
+      set: false,
+    },
+    '--no-follow': {
+      key: 'follow',
+      value: 'flag',
+      set: false,
+    },
+    '--no-ignore-matching-lines': {
+      key: 'ignore-matching-lines',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-indent-heuristic': {
+      key: 'indent-heuristic',
+      value: 'flag',
+      set: false,
+    },
+    '--no-color-moved': {
+      key: 'color-moved',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-color-moved-ws': {
+      key: 'color-moved-ws',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-relative': {
+      key: 'relative',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-text': {
+      key: 'text',
+      value: 'flag',
+      set: false,
+    },
+    '--no-exit-code': {
+      key: 'exit-code',
+      value: 'flag',
+      set: false,
+    },
+    '--no-ext-diff': {
+      key: 'ext-diff',
+      value: 'flag',
+      set: false,
+    },
+    '--no-textconv': {
+      key: 'textconv',
+      value: 'flag',
+      set: false,
+    },
+    '--mailmap': {
+      key: 'use-mailmap',
+      value: 'flag',
+    },
+    '--no-mailmap': {
+      key: 'use-mailmap',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--abbrev-commit': {
+      key: 'abbrev-commit',
+      value: 'flag',
+    },
+    '--after': {
+      key: 'after',
+      value: 'string',
+    },
+    '--all': {
+      key: 'all',
+      value: 'flag',
+    },
+    '--all-match': {
+      key: 'all-match',
+      value: 'flag',
+    },
+    '--alternate-refs': {
+      key: 'alternate-refs',
+      value: 'flag',
+    },
+    '--always': {
+      key: 'always',
+      value: 'flag',
+    },
+    '--ancestry-path': {
+      key: 'ancestry-path',
+      value: 'optional-string',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+      ],
+    },
+    '--author': {
+      key: 'author',
+      value: 'string',
+      repeat: true,
+    },
+    '--author-date-order': {
+      key: 'author-date-order',
+      value: 'flag',
+    },
+    '--basic-regexp': {
+      key: 'basic-regexp',
+      value: 'flag',
+    },
+    '--before': {
+      key: 'before',
+      value: 'string',
+    },
+    '--bisect': {
+      key: 'bisect',
+      value: 'flag',
+    },
+    '--boundary': {
+      key: 'boundary',
+      value: 'flag',
+    },
+    '--branches': {
+      key: 'branches',
+      value: 'optional-string',
+    },
+    '--cc': {
+      key: 'diff-merges',
+      value: 'flag',
+      set: 'dense-combined',
+      effects: [
+        {
+          key: 'combined-all-paths',
+          set: false,
+        },
+      ],
+    },
+    '--cherry': {
+      key: 'cherry',
+      value: 'flag',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+        {
+          key: 'cherry-mark',
+          set: true,
+        },
+        {
+          key: 'right-only',
+          set: true,
+        },
+        {
+          key: 'max-parents',
+          set: 1,
+        },
+      ],
+      checks: [
+        {
+          id: 'revision.cherry-prior-conflict',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: '--cherry rejects a previously selected left-only mode.',
+          when: [
+            {
+              key: 'left-only',
+              test: 'active',
+            },
+          ],
+        },
+      ],
+    },
+    '--cherry-mark': {
+      key: 'cherry-mark',
+      value: 'flag',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+      ],
+      checks: [
+        {
+          id: 'revision.cherry-mark-prior-conflict',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: '--cherry-mark rejects a previously selected cherry-pick mode.',
+          when: [
+            {
+              key: 'cherry-pick',
+              test: 'active',
+            },
+          ],
+        },
+      ],
+    },
+    '--cherry-pick': {
+      key: 'cherry-pick',
+      value: 'flag',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+      ],
+      checks: [
+        {
+          id: 'revision.cherry-pick-prior-conflict',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: '--cherry-pick rejects a previously selected cherry-mark mode.',
+          when: [
+            {
+              key: 'cherry-mark',
+              test: 'active',
+            },
+          ],
+        },
+      ],
+    },
+    '--children': {
+      key: 'children',
+      value: 'flag',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+      ],
+    },
+    '--combined-all-paths': {
+      key: 'combined-all-paths',
+      value: 'flag',
+    },
+    '--committer': {
+      key: 'committer',
+      value: 'string',
+      repeat: true,
+    },
+    '--count': {
+      key: 'count',
+      value: 'flag',
+    },
+    '--date': {
+      key: 'date',
+      value: 'string',
+    },
+    '--date-order': {
+      key: 'date-order',
+      value: 'flag',
+    },
+    '--dd': {
+      key: 'diff-merges',
+      value: 'flag',
+      set: 'first-parent',
+      effects: [
+        {
+          key: 'combined-all-paths',
+          set: false,
+        },
+      ],
+    },
+    '--default': {
+      key: 'default',
+      value: 'string',
+      separateValue: true,
+    },
+    '--dense': {
+      key: 'dense',
+      value: 'flag',
+    },
+    '--diff-merges': {
+      key: 'diff-merges',
+      value: 'string',
+      allowed: [
+        'off',
+        'none',
+        '1',
+        'first-parent',
+        'separate',
+        'c',
+        'combined',
+        'cc',
+        'dense-combined',
+        'r',
+        'remerge',
+        'm',
+        'on',
+      ],
+      effects: [
+        {
+          key: 'combined-all-paths',
+          set: false,
+        },
+      ],
+    },
+    '--do-walk': {
+      key: 'no-walk',
+      value: 'flag',
+      set: false,
+    },
+    '--encode-email-headers': {
+      key: 'encode-email-headers',
+      value: 'flag',
+    },
+    '--encoding': {
+      key: 'encoding',
+      value: 'string',
+    },
+    '--exclude': {
+      key: 'exclude',
+      value: 'string',
+    },
+    '--exclude-first-parent-only': {
+      key: 'exclude-first-parent-only',
+      value: 'flag',
+    },
+    '--exclude-hidden': {
+      key: 'exclude-hidden',
+      value: 'string',
+    },
+    '--expand-tabs': {
+      key: 'expand-tabs',
+      value: 'optional-integer',
+      set: 8,
+      parser: 'revision-count',
+      checks: [
+        {
+          id: 'revision.tabs-nonnegative',
+          kind: 'range',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: 'Tab width cannot be negative.',
+          key: '$value',
+          min: 0,
+        },
+      ],
+    },
+    '--extended-regexp': {
+      key: 'extended-regexp',
+      value: 'flag',
+    },
+    '--first-parent': {
+      key: 'first-parent',
+      value: 'flag',
+    },
+    '--fixed-strings': {
+      key: 'fixed-strings',
+      value: 'flag',
+    },
+    '--format': {
+      key: 'format',
+      value: 'string',
+    },
+    '--full-diff': {
+      key: 'full-diff',
+      value: 'flag',
+    },
+    '--full-history': {
+      key: 'full-history',
+      value: 'flag',
+    },
+    '--glob': {
+      key: 'glob',
+      value: 'string',
+    },
+    '--graph': {
+      key: 'graph',
+      value: 'flag',
+    },
+    '--graph-lane-limit': {
+      key: 'graph-lane-limit',
+      value: 'integer',
+      parser: 'revision-count',
+    },
+    '--grep': {
+      key: 'grep',
+      value: 'string',
+      repeat: true,
+    },
+    '--grep-reflog': {
+      key: 'grep-reflog',
+      value: 'string',
+      repeat: true,
+    },
+    '--ignore-missing': {
+      key: 'ignore-missing',
+      value: 'flag',
+    },
+    '--in-commit-order': {
+      key: 'in-commit-order',
+      value: 'flag',
+    },
+    '--indexed-objects': {
+      key: 'indexed-objects',
+      value: 'flag',
+    },
+    '--invert-grep': {
+      key: 'invert-grep',
+      value: 'flag',
+    },
+    '--left-only': {
+      key: 'left-only',
+      value: 'flag',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+      ],
+      checks: [
+        {
+          id: 'revision.left-only-prior-conflict',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: '--left-only rejects a previously selected right-only mode.',
+          when: [
+            {
+              key: 'right-only',
+              test: 'active',
+            },
+          ],
+        },
+      ],
+    },
+    '--left-right': {
+      key: 'left-right',
+      value: 'flag',
+    },
+    '--log-size': {
+      key: 'log-size',
+      value: 'flag',
+    },
+    '--max-age': {
+      key: 'max-age',
+      value: 'string',
+    },
+    '--max-count': {
+      key: 'max-count',
+      value: 'integer',
+      parser: 'revision-count',
+      effects: [
+        {
+          key: 'max-count-mode',
+          set: 'newest',
+        },
+        {
+          key: 'no-walk',
+          set: false,
+        },
+      ],
+      checks: [
+        {
+          id: 'revision.count-after-oldest',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: '--max-count cannot follow --max-count-oldest.',
+          when: [
+            {
+              key: 'max-count-mode',
+              test: 'equals',
+              value: 'oldest',
+            },
+          ],
+        },
+      ],
+    },
+    '--max-count-oldest': {
+      key: 'max-count',
+      value: 'integer',
+      parser: 'revision-count',
+      effects: [
+        {
+          key: 'max-count-mode',
+          set: 'oldest',
+        },
+        {
+          key: 'no-walk',
+          set: false,
+        },
+      ],
+      checks: [
+        {
+          id: 'revision.oldest-after-count',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason:
+            '--max-count-oldest rejects a preceding count other than -1 unless oldest mode is already selected.',
+          when: [
+            {
+              key: 'max-count-mode',
+              test: 'notEquals',
+              value: 'oldest',
+            },
+            {
+              key: 'max-count',
+              test: 'present',
+            },
+            {
+              key: 'max-count',
+              test: 'notEquals',
+              value: -1,
+            },
+          ],
+        },
+        {
+          id: 'revision.oldest-after-skip',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: '--max-count-oldest rejects a preceding positive skip count.',
+          when: [
+            {
+              key: 'skip',
+              test: 'positive',
+            },
+          ],
+        },
+      ],
+    },
+    '--max-parents': {
+      key: 'max-parents',
+      value: 'integer',
+      parser: 'revision-count',
+    },
+    '--maximal-only': {
+      key: 'maximal-only',
+      value: 'flag',
+    },
+    '--merge': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--merges': {
+      key: 'merges',
+      value: 'flag',
+    },
+    '--min-age': {
+      key: 'min-age',
+      value: 'string',
+    },
+    '--min-parents': {
+      key: 'min-parents',
+      value: 'integer',
+      parser: 'revision-count',
+    },
+    '--no-abbrev-commit': {
+      key: 'abbrev-commit',
+      value: 'flag',
+      set: false,
+    },
+    '--no-commit-id': {
+      key: 'no-commit-id',
+      value: 'flag',
+    },
+    '--no-diff-merges': {
+      key: 'diff-merges',
+      value: 'flag',
+      set: 'none',
+      effects: [
+        {
+          key: 'combined-all-paths',
+          set: false,
+        },
+      ],
+    },
+    '--no-encode-email-headers': {
+      key: 'encode-email-headers',
+      value: 'flag',
+      set: false,
+    },
+    '--no-expand-tabs': {
+      key: 'expand-tabs',
+      value: 'flag',
+      set: 0,
+    },
+    '--no-graph': {
+      key: 'graph',
+      value: 'flag',
+      set: false,
+    },
+    '--no-kept-objects': {
+      key: 'no-kept-objects',
+      value: 'optional-string',
+    },
+    '--no-max-parents': {
+      key: 'no-max-parents',
+      value: 'flag',
+    },
+    '--no-merges': {
+      key: 'no-merges',
+      value: 'flag',
+    },
+    '--no-min-parents': {
+      key: 'no-min-parents',
+      value: 'flag',
+    },
+    '--no-notes': {
+      key: 'no-notes',
+      value: 'flag',
+    },
+    '--no-show-signature': {
+      key: 'show-signature',
+      value: 'flag',
+      set: false,
+    },
+    '--no-standard-notes': {
+      key: 'standard-notes',
+      value: 'flag',
+      set: false,
+    },
+    '--no-walk': {
+      key: 'no-walk',
+      value: 'optional-string',
+      allowed: ['sorted', 'unsorted'],
+    },
+    '--not': {
+      key: 'not',
+      value: 'flag',
+    },
+    '--notes': {
+      key: 'notes',
+      value: 'optional-string',
+    },
+    '--objects': {
+      key: 'objects',
+      value: 'flag',
+    },
+    '--objects-edge': {
+      key: 'objects-edge',
+      value: 'flag',
+    },
+    '--objects-edge-aggressive': {
+      key: 'objects-edge-aggressive',
+      value: 'flag',
+    },
+    '--oneline': {
+      key: 'oneline',
+      value: 'flag',
+    },
+    '--parents': {
+      key: 'parents',
+      value: 'flag',
+      effects: [
+        {
+          key: 'rewrite-parents',
+          set: true,
+        },
+      ],
+    },
+    '--perl-regexp': {
+      key: 'perl-regexp',
+      value: 'flag',
+    },
+    '--pretty': {
+      key: 'pretty',
+      value: 'optional-string',
+    },
+    '--reflog': {
+      key: 'reflog',
+      value: 'flag',
+    },
+    '--regexp-ignore-case': {
+      key: 'regexp-ignore-case',
+      value: 'flag',
+    },
+    '--relative-date': {
+      key: 'relative-date',
+      value: 'flag',
+    },
+    '--remerge-diff': {
+      key: 'diff-merges',
+      value: 'flag',
+      set: 'remerge',
+      effects: [
+        {
+          key: 'combined-all-paths',
+          set: false,
+        },
+      ],
+    },
+    '--remotes': {
+      key: 'remotes',
+      value: 'optional-string',
+    },
+    '--remove-empty': {
+      key: 'remove-empty',
+      value: 'flag',
+    },
+    '--reverse': {
+      key: 'reverse',
+      value: 'flag',
+      toggle: true,
+    },
+    '--right-only': {
+      key: 'right-only',
+      value: 'flag',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+      ],
+      checks: [
+        {
+          id: 'revision.right-only-prior-conflict',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: '--right-only rejects a previously selected left-only mode.',
+          when: [
+            {
+              key: 'left-only',
+              test: 'active',
+            },
+          ],
+        },
+      ],
+    },
+    '--root': {
+      key: 'root',
+      value: 'flag',
+    },
+    '--show-linear-break': {
+      key: 'show-linear-break',
+      value: 'optional-string',
+    },
+    '--show-notes': {
+      key: 'show-notes',
+      value: 'optional-string',
+    },
+    '--show-notes-by-default': {
+      key: 'show-notes-by-default',
+      value: 'flag',
+    },
+    '--show-pulls': {
+      key: 'show-pulls',
+      value: 'flag',
+    },
+    '--show-signature': {
+      key: 'show-signature',
+      value: 'flag',
+    },
+    '--simplify-by-decoration': {
+      key: 'simplify-by-decoration',
+      value: 'flag',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+        {
+          key: 'rewrite-parents',
+          set: true,
+        },
+      ],
+    },
+    '--simplify-merges': {
+      key: 'simplify-merges',
+      value: 'flag',
+      effects: [
+        {
+          key: 'limited',
+          set: true,
+        },
+        {
+          key: 'rewrite-parents',
+          set: true,
+        },
+      ],
+    },
+    '--since': {
+      key: 'since',
+      value: 'string',
+    },
+    '--since-as-filter': {
+      key: 'since-as-filter',
+      value: 'string',
+    },
+    '--single-worktree': {
+      key: 'single-worktree',
+      value: 'flag',
+    },
+    '--skip': {
+      key: 'skip',
+      value: 'integer',
+      parser: 'revision-count',
+      checks: [
+        {
+          id: 'revision.skip-after-oldest',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: '--skip cannot follow --max-count-oldest, including a zero skip.',
+          when: [
+            {
+              key: 'max-count-mode',
+              test: 'equals',
+              value: 'oldest',
+            },
+          ],
+        },
+      ],
+    },
+    '--sparse': {
+      key: 'sparse',
+      value: 'flag',
+    },
+    '--standard-notes': {
+      key: 'standard-notes',
+      value: 'flag',
+    },
+    '--stdin': {
+      key: 'stdin',
+      value: 'flag',
+      checks: [
+        {
+          id: 'revision.stdin-repeated',
+          kind: 'forbid',
+          origin: 'git',
+          source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+          reason: 'Revision input from stdin may only be requested once.',
+          when: [
+            {
+              key: 'stdin',
+              test: 'active',
+            },
+          ],
+        },
+      ],
+    },
+    '--tags': {
+      key: 'tags',
+      value: 'optional-string',
+    },
+    '--topo-order': {
+      key: 'topo-order',
+      value: 'flag',
+    },
+    '--unpacked': {
+      key: 'unpacked',
+      value: 'flag',
+    },
+    '--until': {
+      key: 'until',
+      value: 'string',
+    },
+    '--verify-objects': {
+      key: 'verify-objects',
+      value: 'flag',
+    },
+    '--walk-reflogs': {
+      key: 'walk-reflogs',
+      value: 'flag',
+    },
+    '-E': {
+      key: 'extended-regexp',
+      value: 'flag',
+    },
+    '-F': {
+      key: 'fixed-strings',
+      value: 'flag',
+    },
+    '-P': {
+      key: 'perl-regexp',
+      value: 'flag',
+    },
+    '-c': {
+      key: 'diff-merges',
+      value: 'flag',
+      set: 'combined',
+      effects: [
+        {
+          key: 'combined-all-paths',
+          set: false,
+        },
+      ],
+    },
+    '-g': {
+      key: 'walk-reflogs',
+      value: 'flag',
+    },
+    '-i': {
+      key: 'regexp-ignore-case',
+      value: 'flag',
+    },
+    '-m': {
+      key: 'diff-merges',
+      value: 'flag',
+      set: 'on',
+      effects: [
+        {
+          key: 'combined-all-paths',
+          set: false,
+        },
+      ],
+    },
+    '-n': {
+      key: 'max-count',
+      value: 'integer',
+      parser: 'revision-count',
+      effects: [
+        {
+          key: 'no-walk',
+          set: false,
+        },
+      ],
+    },
+    '-r': {
+      key: 'r',
+      value: 'flag',
+    },
+    '-t': {
+      key: 't',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'v',
+      value: 'flag',
+    },
+    '--filter': {
+      key: 'filter',
+      value: 'string',
+    },
+    '--no-filter': {
+      key: 'filter',
+      value: 'flag',
+      clear: true,
+    },
+  },
+  rules: [
+    {
+      id: 'diff.output-formats',
+      kind: 'exclusive',
+      origin: 'git',
+      source: 'Git 2.55.0 diff.c:diff_setup_done',
+      reason:
+        'Name-only, name-status, whitespace checks and suppressed output occupy incompatible bits.',
+      keys: ['name-only', 'name-status', 'check', 'no-output'],
+    },
+    {
+      id: 'diff.pickaxe-kinds',
+      kind: 'exclusive',
+      origin: 'git',
+      source: 'Git 2.55.0 diff.c:diff_setup_done',
+      reason: 'Pickaxe string, regex and object searches are incompatible.',
+      keys: ['S', 'G', 'find-object'],
+    },
+    {
+      id: 'diff.pickaxe-regex',
+      kind: 'conflicts',
+      origin: 'git',
+      source: 'Git 2.55.0 diff.c:diff_setup_done',
+      reason: 'Regex pickaxe (-G) cannot use --pickaxe-regex.',
+      when: {
+        key: 'G',
+        test: 'present',
+      },
+      others: [
+        {
+          key: 'pickaxe-regex',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'diff.object-pickaxe-all',
+      kind: 'conflicts',
+      origin: 'git',
+      source: 'Git 2.55.0 diff.c:diff_setup_done',
+      reason: 'Object pickaxe cannot use --pickaxe-all.',
+      when: {
+        key: 'find-object',
+        test: 'present',
+      },
+      others: [
+        {
+          key: 'pickaxe-all',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'revision.graph-walk-order',
+      kind: 'exclusive',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'Graph, reverse traversal and reflog traversal are pairwise incompatible.',
+      keys: ['graph', 'reverse', 'walk-reflogs'],
+    },
+    {
+      id: 'revision.boundary-maximal',
+      kind: 'exclusive',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'Boundary and maximal-only output are incompatible.',
+      keys: ['boundary', 'maximal-only'],
+    },
+    {
+      id: 'revision.graph-lanes',
+      kind: 'requires',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'A positive lane limit requires graph output.',
+      when: {
+        key: 'graph-lane-limit',
+        test: 'positive',
+      },
+      required: [
+        {
+          key: 'graph',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'revision.grep-reflog',
+      kind: 'requires',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'Reflog message filtering requires reflog traversal.',
+      when: {
+        key: 'grep-reflog',
+        test: 'nonempty',
+      },
+      required: [
+        {
+          key: 'walk-reflogs',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'revision.linear-graph',
+      kind: 'conflicts',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'Linear breaks cannot be combined with graph output.',
+      when: {
+        key: 'graph',
+        test: 'active',
+      },
+      others: [
+        {
+          key: 'show-linear-break',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'revision.children-parents',
+      kind: 'conflicts',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'Children output conflicts with explicit or implicit parent rewriting.',
+      when: {
+        key: 'children',
+        test: 'active',
+      },
+      others: [
+        {
+          key: 'rewrite-parents',
+          test: 'active',
+        },
+        {
+          key: 'graph',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'revision.limited-reflog',
+      kind: 'conflicts',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'History-limiting traversal cannot be combined with reflog traversal.',
+      when: {
+        key: 'walk-reflogs',
+        test: 'active',
+      },
+      others: [
+        {
+          key: 'limited',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'revision.combined-paths',
+      kind: 'requiresAny',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason:
+        'Combined paths require a combined merge diff. The on/m default is resolved from configuration by Git.',
+      when: {
+        key: 'combined-all-paths',
+        test: 'active',
+      },
+      choices: [
+        {
+          key: 'diff-merges',
+          test: 'equals',
+          value: 'c',
+        },
+        {
+          key: 'diff-merges',
+          test: 'equals',
+          value: 'combined',
+        },
+        {
+          key: 'diff-merges',
+          test: 'equals',
+          value: 'cc',
+        },
+        {
+          key: 'diff-merges',
+          test: 'equals',
+          value: 'dense-combined',
+        },
+        {
+          key: 'diff-merges',
+          test: 'equals',
+          value: 'on',
+        },
+        {
+          key: 'diff-merges',
+          test: 'equals',
+          value: 'm',
+        },
+      ],
+    },
+    {
+      id: 'revision.object-filter',
+      kind: 'requiresAny',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_pseudo_opt/setup_revisions',
+      reason: 'Object filtering requires object enumeration.',
+      when: {
+        key: 'filter',
+        test: 'present',
+      },
+      choices: [
+        {
+          key: 'objects',
+          test: 'active',
+        },
+        {
+          key: 'objects-edge',
+          test: 'active',
+        },
+        {
+          key: 'objects-edge-aggressive',
+          test: 'active',
+        },
+        {
+          key: 'verify-objects',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'revision.line-pathspec',
+      kind: 'arity',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'Line-range history cannot be combined with pathspecs.',
+      key: 'pathsAfterSeparator',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'L',
+        test: 'present',
+      },
+    },
+    {
+      id: 'revision.line-full-diff',
+      kind: 'conflicts',
+      origin: 'git',
+      source: 'Git 2.55.0 revision.c:handle_revision_opt/setup_revisions',
+      reason: 'Line-range history does not support full-diff.',
+      when: {
+        key: 'L',
+        test: 'present',
+      },
+      others: [
+        {
+          key: 'full-diff',
+          test: 'active',
+        },
+      ],
+    },
+  ],
+  source: 'builtin/reflog.c:cmd_reflog_show; builtin/log.c:cmd_log_reflog',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec307 = {
+  argv: ['stash'],
+  dispatch: {
+    clear: 'stash clear',
+    apply: 'stash apply',
+    drop: 'stash drop',
+    pop: 'stash pop',
+    branch: 'stash branch',
+    store: 'stash store',
+    push: 'stash push',
+    save: 'stash save',
+    import: 'stash import',
+    export: 'stash export',
+    create: 'stash create',
+    show: 'stash show',
+    list: 'stash list',
+  },
+  options: {
+    '--keep-index': {
+      key: 'keep-index',
+      value: 'flag',
+    },
+    '-k': {
+      key: 'keep-index',
+      value: 'flag',
+    },
+    '--staged': {
+      key: 'staged',
+      value: 'flag',
+    },
+    '-S': {
+      key: 'staged',
+      value: 'flag',
+    },
+    '--patch': {
+      key: 'patch',
+      value: 'flag',
+    },
+    '-p': {
+      key: 'patch',
+      value: 'flag',
+    },
+    '--auto-advance': {
+      key: 'auto-advance',
+      value: 'flag',
+    },
+    '--unified': {
+      key: 'unified',
+      value: 'integer',
+    },
+    '-U': {
+      key: 'unified',
+      value: 'integer',
+    },
+    '--inter-hunk-context': {
+      key: 'inter-hunk-context',
+      value: 'integer',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--include-untracked': {
+      key: 'include-untracked',
+      value: 'flag',
+    },
+    '-u': {
+      key: 'include-untracked',
+      value: 'flag',
+    },
+    '--all': {
+      key: 'include-untracked',
+      value: 'flag',
+      set: true,
+    },
+    '-a': {
+      key: 'include-untracked',
+      value: 'flag',
+      set: true,
+    },
+    '--message': {
+      key: 'message',
+      value: 'string',
+    },
+    '-m': {
+      key: 'message',
+      value: 'string',
+    },
+    '--pathspec-from-file': {
+      key: 'pathspec-from-file',
+      value: 'string',
+      emptyIsUnset: true,
+    },
+    '--pathspec-file-nul': {
+      key: 'pathspec-file-nul',
+      value: 'flag',
+    },
+    '--no-keep-index': {
+      key: 'keep-index',
+      value: 'flag',
+      set: false,
+    },
+    '--no-staged': {
+      key: 'staged',
+      value: 'flag',
+      set: false,
+    },
+    '--no-patch': {
+      key: 'patch',
+      value: 'flag',
+      set: false,
+    },
+    '--no-auto-advance': {
+      key: 'auto-advance',
+      value: 'flag',
+      set: false,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-include-untracked': {
+      key: 'include-untracked',
+      value: 'flag',
+      set: false,
+    },
+    '--no-all': {
+      key: 'include-untracked',
+      value: 'flag',
+      set: false,
+    },
+    '--no-message': {
+      key: 'message',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-pathspec-from-file': {
+      key: 'pathspec-from-file',
+      value: 'flag',
+      emptyIsUnset: true,
+      ignore: true,
+    },
+    '--no-pathspec-file-nul': {
+      key: 'pathspec-file-nul',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'stash-push-unified-range',
+      kind: 'range',
+      origin: 'git',
+      reason: 'Context must be nonnegative or the unset sentinel -1.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      key: 'unified',
+      min: -1,
+    },
+    {
+      id: 'stash-push-unified-patch',
+      kind: 'requires',
+      origin: 'git',
+      reason: 'Explicit context requires patch mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      guard: [
+        {
+          key: 'unified',
+          test: 'present',
+        },
+        {
+          key: 'unified',
+          test: 'notEquals',
+          value: -1,
+        },
+      ],
+      when: {
+        key: 'unified',
+        test: 'present',
+      },
+      required: [
+        {
+          key: 'patch',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'stash-push-inter-hunk-context-range',
+      kind: 'range',
+      origin: 'git',
+      reason: 'Context must be nonnegative or the unset sentinel -1.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      key: 'inter-hunk-context',
+      min: -1,
+    },
+    {
+      id: 'stash-push-inter-hunk-context-patch',
+      kind: 'requires',
+      origin: 'git',
+      reason: 'Explicit context requires patch mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      guard: [
+        {
+          key: 'inter-hunk-context',
+          test: 'present',
+        },
+        {
+          key: 'inter-hunk-context',
+          test: 'notEquals',
+          value: -1,
+        },
+      ],
+      when: {
+        key: 'inter-hunk-context',
+        test: 'present',
+      },
+      required: [
+        {
+          key: 'patch',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'stash-push-auto-advance',
+      kind: 'requires',
+      origin: 'git',
+      reason: 'Disabling automatic advance requires patch mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      when: {
+        key: 'auto-advance',
+        test: 'equals',
+        value: false,
+      },
+      required: [
+        {
+          key: 'patch',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'stash-push-patch-untracked',
+      kind: 'forbid',
+      origin: 'git',
+      reason: 'Patch and staged-only stashing cannot include untracked files.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      when: [
+        {
+          key: 'patch',
+          test: 'active',
+        },
+        {
+          key: 'include-untracked',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'stash-push-staged-untracked',
+      kind: 'forbid',
+      origin: 'git',
+      reason: 'Patch and staged-only stashing cannot include untracked files.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      when: [
+        {
+          key: 'staged',
+          test: 'active',
+        },
+        {
+          key: 'include-untracked',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'stash-push-file-patch',
+      kind: 'forbid',
+      origin: 'git',
+      reason: 'Pathspec files cannot be used in patch mode.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      when: [
+        {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+        {
+          key: 'patch',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'stash-push-file-nul',
+      kind: 'requires',
+      origin: 'git',
+      reason: 'NUL pathspec mode requires a pathspec file.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      when: {
+        key: 'pathspec-file-nul',
+        test: 'active',
+      },
+      required: [
+        {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+      ],
+    },
+    {
+      id: 'stash-push-file-staged',
+      kind: 'forbid',
+      origin: 'git',
+      reason: 'Staged-only stashing cannot use a pathspec file.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      when: [
+        {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+        {
+          key: 'staged',
+          test: 'active',
+        },
+      ],
+    },
+    {
+      id: 'stash-push-file-operands',
+      kind: 'arity',
+      origin: 'git',
+      reason: 'Pathspec files replace positional paths.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'pathspec-from-file',
+        test: 'present',
+      },
+    },
+    {
+      id: 'cli.stash.assumed-push-paths',
+      kind: 'arity',
+      key: 'operandsBeforeSeparator',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'patch',
+        test: 'inactive',
+      },
+      origin: 'git',
+      reason: 'Implicit push requires a separator before paths unless patch mode is active.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+    },
+  ],
+  source: 'builtin/stash.c',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec308 = {
+  argv: ['config'],
+  dispatch: {
+    list: 'config list',
+    get: 'config get',
+    set: 'config set',
+    unset: 'config unset',
+    'rename-section': 'config rename-section',
+    'remove-section': 'config remove-section',
+    edit: 'config edit',
+  },
+  options: {
+    '--global': {
+      key: 'global',
+      value: 'flag',
+    },
+    '--system': {
+      key: 'system',
+      value: 'flag',
+    },
+    '--local': {
+      key: 'local',
+      value: 'flag',
+    },
+    '--worktree': {
+      key: 'worktree',
+      value: 'flag',
+    },
+    '--file': {
+      key: 'file',
+      value: 'string',
+    },
+    '-f': {
+      key: 'file',
+      value: 'string',
+    },
+    '--blob': {
+      key: 'blob',
+      value: 'string',
+    },
+    '--get': {
+      key: 'action',
+      value: 'flag',
+      set: 'get',
+      modeGroup: 'actions',
+      modeValue: 'get',
+    },
+    '--get-all': {
+      key: 'action',
+      value: 'flag',
+      set: 'get-all',
+      modeGroup: 'actions',
+      modeValue: 'get-all',
+    },
+    '--get-regexp': {
+      key: 'action',
+      value: 'flag',
+      set: 'get-regexp',
+      modeGroup: 'actions',
+      modeValue: 'get-regexp',
+    },
+    '--get-urlmatch': {
+      key: 'action',
+      value: 'flag',
+      set: 'get-urlmatch',
+      modeGroup: 'actions',
+      modeValue: 'get-urlmatch',
+    },
+    '--replace-all': {
+      key: 'action',
+      value: 'flag',
+      set: 'replace-all',
+      modeGroup: 'actions',
+      modeValue: 'replace-all',
+    },
+    '--add': {
+      key: 'action',
+      value: 'flag',
+      set: 'add',
+      modeGroup: 'actions',
+      modeValue: 'add',
+    },
+    '--unset': {
+      key: 'action',
+      value: 'flag',
+      set: 'unset',
+      modeGroup: 'actions',
+      modeValue: 'unset',
+    },
+    '--unset-all': {
+      key: 'action',
+      value: 'flag',
+      set: 'unset-all',
+      modeGroup: 'actions',
+      modeValue: 'unset-all',
+    },
+    '--rename-section': {
+      key: 'action',
+      value: 'flag',
+      set: 'rename-section',
+      modeGroup: 'actions',
+      modeValue: 'rename-section',
+    },
+    '--remove-section': {
+      key: 'action',
+      value: 'flag',
+      set: 'remove-section',
+      modeGroup: 'actions',
+      modeValue: 'remove-section',
+    },
+    '--list': {
+      key: 'action',
+      value: 'flag',
+      set: 'list',
+      modeGroup: 'actions',
+      modeValue: 'list',
+    },
+    '-l': {
+      key: 'action',
+      value: 'flag',
+      set: 'list',
+      modeGroup: 'actions',
+      modeValue: 'list',
+    },
+    '--edit': {
+      key: 'action',
+      value: 'flag',
+      set: 'edit',
+      modeGroup: 'actions',
+      modeValue: 'edit',
+    },
+    '-e': {
+      key: 'action',
+      value: 'flag',
+      set: 'edit',
+      modeGroup: 'actions',
+      modeValue: 'edit',
+    },
+    '--get-color': {
+      key: 'action',
+      value: 'flag',
+      set: 'get-color',
+      modeGroup: 'actions',
+      modeValue: 'get-color',
+    },
+    '--get-colorbool': {
+      key: 'action',
+      value: 'flag',
+      set: 'get-colorbool',
+      modeGroup: 'actions',
+      modeValue: 'get-colorbool',
+    },
+    '--null': {
+      key: 'null',
+      value: 'flag',
+    },
+    '-z': {
+      key: 'null',
+      value: 'flag',
+    },
+    '--name-only': {
+      key: 'name-only',
+      value: 'flag',
+    },
+    '--show-origin': {
+      key: 'show-origin',
+      value: 'flag',
+    },
+    '--show-scope': {
+      key: 'show-scope',
+      value: 'flag',
+    },
+    '--show-names': {
+      key: 'show-names',
+      value: 'flag',
+    },
+    '--type': {
+      key: 'type',
+      value: 'string',
+      parser: 'config-type',
+      allowed: ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'],
+    },
+    '-t': {
+      key: 'type',
+      value: 'string',
+      parser: 'config-type',
+      allowed: ['bool', 'int', 'bool-or-int', 'bool-or-str', 'path', 'expiry-date', 'color'],
+    },
+    '--bool': {
+      key: 'type',
+      value: 'flag',
+      set: 'bool',
+      parser: 'config-type',
+    },
+    '--int': {
+      key: 'type',
+      value: 'flag',
+      set: 'int',
+      parser: 'config-type',
+    },
+    '--bool-or-int': {
+      key: 'type',
+      value: 'flag',
+      set: 'bool-or-int',
+      parser: 'config-type',
+    },
+    '--bool-or-str': {
+      key: 'type',
+      value: 'flag',
+      set: 'bool-or-str',
+      parser: 'config-type',
+    },
+    '--path': {
+      key: 'type',
+      value: 'flag',
+      set: 'path',
+      parser: 'config-type',
+    },
+    '--expiry-date': {
+      key: 'type',
+      value: 'flag',
+      set: 'expiry-date',
+      parser: 'config-type',
+    },
+    '--default': {
+      key: 'default',
+      value: 'string',
+    },
+    '--comment': {
+      key: 'comment',
+      value: 'string',
+    },
+    '--fixed-value': {
+      key: 'fixed-value',
+      value: 'flag',
+    },
+    '--includes': {
+      key: 'includes',
+      value: 'flag',
+    },
+    '--no-global': {
+      key: 'global',
+      value: 'flag',
+      set: false,
+    },
+    '--no-system': {
+      key: 'system',
+      value: 'flag',
+      set: false,
+    },
+    '--no-local': {
+      key: 'local',
+      value: 'flag',
+      set: false,
+    },
+    '--no-worktree': {
+      key: 'worktree',
+      value: 'flag',
+      set: false,
+    },
+    '--no-file': {
+      key: 'file',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-blob': {
+      key: 'blob',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-null': {
+      key: 'null',
+      value: 'flag',
+      set: false,
+    },
+    '--no-name-only': {
+      key: 'name-only',
+      value: 'flag',
+      set: false,
+    },
+    '--no-show-origin': {
+      key: 'show-origin',
+      value: 'flag',
+      set: false,
+    },
+    '--no-show-scope': {
+      key: 'show-scope',
+      value: 'flag',
+      set: false,
+    },
+    '--no-show-names': {
+      key: 'show-names',
+      value: 'flag',
+      set: false,
+    },
+    '--no-type': {
+      key: 'type',
+      value: 'flag',
+      clear: true,
+      parser: 'config-type',
+    },
+    '--no-default': {
+      key: 'default',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-comment': {
+      key: 'comment',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-fixed-value': {
+      key: 'fixed-value',
+      value: 'flag',
+      set: false,
+    },
+    '--no-includes': {
+      key: 'includes',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.config.implicit-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 3,
+      when: {
+        key: 'action',
+        test: 'inactive',
+      },
+      origin: 'git',
+      reason: 'Without an action selector, one to three operands select get, set or set-all.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.location',
+      kind: 'exclusive',
+      keys: ['global', 'system', 'local', 'worktree', 'file', 'blob'],
+      origin: 'git',
+      reason: 'Only one config source can be selected.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-fixed',
+      kind: 'arity',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get',
+        },
+      ],
+      when: {
+        key: 'fixed-value',
+        test: 'active',
+      },
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      reason: 'Fixed matching requires a value-pattern operand, including an empty string.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-all-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-all',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-all-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-all',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-all-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-all',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-all-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-all',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-all-fixed',
+      kind: 'arity',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-all',
+        },
+      ],
+      when: {
+        key: 'fixed-value',
+        test: 'active',
+      },
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      reason: 'Fixed matching requires a value-pattern operand, including an empty string.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-regexp-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-regexp',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-regexp-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-regexp',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-regexp-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-regexp',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-regexp-fixed',
+      kind: 'arity',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-regexp',
+        },
+      ],
+      when: {
+        key: 'fixed-value',
+        test: 'active',
+      },
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      reason: 'Fixed matching requires a value-pattern operand, including an empty string.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-urlmatch-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-urlmatch',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-urlmatch-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-urlmatch',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-urlmatch-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-urlmatch',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-urlmatch-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-urlmatch',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-urlmatch-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-urlmatch',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-urlmatch-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-urlmatch',
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.replace-all-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 3,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'replace-all',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.replace-all-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'replace-all',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.replace-all-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'replace-all',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.replace-all-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'replace-all',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.replace-all-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'replace-all',
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.replace-all-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'replace-all',
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.replace-all-fixed',
+      kind: 'arity',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'replace-all',
+        },
+      ],
+      when: {
+        key: 'fixed-value',
+        test: 'active',
+      },
+      key: 'operands',
+      min: 3,
+      origin: 'git',
+      reason: 'Fixed matching requires a value-pattern operand, including an empty string.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.add-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'add',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.add-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'add',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.add-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'add',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.add-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'add',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.add-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'add',
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.add-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'add',
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.add-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'add',
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset',
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset',
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-fixed',
+      kind: 'arity',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset',
+        },
+      ],
+      when: {
+        key: 'fixed-value',
+        test: 'active',
+      },
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      reason: 'Fixed matching requires a value-pattern operand, including an empty string.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-all-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset-all',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-all-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset-all',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-all-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset-all',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-all-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset-all',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-all-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset-all',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-all-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset-all',
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-all-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset-all',
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.unset-all-fixed',
+      kind: 'arity',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'unset-all',
+        },
+      ],
+      when: {
+        key: 'fixed-value',
+        test: 'active',
+      },
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      reason: 'Fixed matching requires a value-pattern operand, including an empty string.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.rename-section-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'rename-section',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.rename-section-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'rename-section',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.rename-section-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'rename-section',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.rename-section-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'rename-section',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.rename-section-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'rename-section',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.rename-section-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'rename-section',
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.rename-section-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'rename-section',
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.rename-section-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'rename-section',
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.remove-section-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'remove-section',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.remove-section-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'remove-section',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.remove-section-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'remove-section',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.remove-section-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'remove-section',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.remove-section-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'remove-section',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.remove-section-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'remove-section',
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.remove-section-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'remove-section',
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.remove-section-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'remove-section',
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.list-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'list',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.list-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'list',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.list-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'list',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.list-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'list',
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.edit-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'edit',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.edit-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'edit',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.edit-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'edit',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.edit-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'edit',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.edit-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'edit',
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.edit-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'edit',
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.edit-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'edit',
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-color-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-color',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-color-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-color',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-color-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-color',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-color-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-color',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-color-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-color',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-color-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-color',
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-color-type',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-color',
+        },
+      ],
+      when: [
+        {
+          key: 'type',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Legacy color actions cannot select a variable type.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-colorbool-arity',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-colorbool',
+        },
+      ],
+      origin: 'git',
+      reason: 'The selected legacy action restricts positional argument count.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-colorbool-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-colorbool',
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-colorbool-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-colorbool',
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-colorbool-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-colorbool',
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-colorbool-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-colorbool',
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-colorbool-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-colorbool',
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.get-colorbool-type',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'equals',
+          value: 'get-colorbool',
+        },
+      ],
+      when: [
+        {
+          key: 'type',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Legacy color actions cannot select a variable type.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.implicit-get-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.implicit-get-comment',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      when: [
+        {
+          key: 'comment',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.implicit-get-fixed',
+      kind: 'arity',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      when: {
+        key: 'fixed-value',
+        test: 'active',
+      },
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      reason: 'Fixed matching requires a value-pattern operand, including an empty string.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 2,
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 2,
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 2,
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 2,
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 2,
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-fixed',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 2,
+        },
+      ],
+      when: [
+        {
+          key: 'fixed-value',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This action does not accept fixed-value matching.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-all-name-only',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 3,
+        },
+      ],
+      when: [
+        {
+          key: 'name-only',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-all-show-origin',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 3,
+        },
+      ],
+      when: [
+        {
+          key: 'show-origin',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-all-default',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 3,
+        },
+      ],
+      when: [
+        {
+          key: 'default',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'This display or write modifier is unavailable for the selected legacy action.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-all-write-blob',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 3,
+        },
+      ],
+      when: [
+        {
+          key: 'blob',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-all-write-file',
+      kind: 'forbid',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 3,
+        },
+      ],
+      when: [
+        {
+          key: 'file',
+          test: 'equals',
+          value: '-',
+        },
+      ],
+      origin: 'git',
+      reason: 'Config writes and editing cannot target a blob or standard input.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+    {
+      id: 'cli.config.set-all-fixed',
+      kind: 'arity',
+      guard: [
+        {
+          key: 'action',
+          test: 'inactive',
+        },
+        {
+          key: 'operands',
+          test: 'lengthEquals',
+          value: 3,
+        },
+      ],
+      when: {
+        key: 'fixed-value',
+        test: 'active',
+      },
+      key: 'operands',
+      min: 3,
+      origin: 'git',
+      reason: 'Fixed matching requires a value-pattern operand, including an empty string.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/config.c',
+    },
+  ],
+  source: 'builtin/config.c',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec309 = {
+  argv: ['stash', 'list'],
+  options: {},
+  rules: [],
+  source: 'builtin/stash.c:list_stash',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec310 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -84787,7 +89606,7 @@ const commandSpec306 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec307 = {
+const commandSpec311 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -84918,7 +89737,7 @@ const commandSpec307 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec308 = {
+const commandSpec312 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -84934,7 +89753,7 @@ const commandSpec308 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec309 = {
+const commandSpec313 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -85141,7 +89960,7 @@ const commandSpec309 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec310 = {
+const commandSpec314 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -85177,7 +89996,7 @@ const commandSpec310 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec311 = {
+const commandSpec315 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -85201,7 +90020,7 @@ const commandSpec311 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec312 = {
+const commandSpec316 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -85217,7 +90036,7 @@ const commandSpec312 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec313 = {
+const commandSpec317 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -85233,7 +90052,7 @@ const commandSpec313 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec314 = {
+const commandSpec318 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -85249,7 +90068,7 @@ const commandSpec314 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec315 = {
+const commandSpec319 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -85377,7 +90196,7 @@ const commandSpec315 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec316 = {
+const commandSpec320 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -85401,7 +90220,7 @@ const commandSpec316 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec317 = {
+const commandSpec321 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -85433,7 +90252,7 @@ const commandSpec317 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec318 = {
+const commandSpec322 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -85449,7 +90268,7 @@ const commandSpec318 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec319 = {
+const commandSpec323 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -85655,7 +90474,7 @@ const commandSpec319 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec320 = {
+const commandSpec324 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -85671,7 +90490,7 @@ const commandSpec320 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec321 = {
+const commandSpec325 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -85703,7 +90522,7 @@ const commandSpec321 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec322 = {
+const commandSpec326 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -85840,7 +90659,7 @@ const commandSpec322 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec323 = {
+const commandSpec327 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -85856,7 +90675,7 @@ const commandSpec323 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec324 = {
+const commandSpec328 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -85872,7 +90691,7 @@ const commandSpec324 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec325 = {
+const commandSpec329 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -85888,7 +90707,7 @@ const commandSpec325 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec326 = {
+const commandSpec330 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -85904,7 +90723,7 @@ const commandSpec326 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec327 = {
+const commandSpec331 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -85920,7 +90739,7 @@ const commandSpec327 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec328 = {
+const commandSpec332 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -86033,7 +90852,7 @@ const commandSpec328 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec329 = {
+const commandSpec333 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -86099,7 +90918,7 @@ const commandSpec329 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec330 = {
+const commandSpec334 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -86159,7 +90978,7 @@ const commandSpec330 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec331 = {
+const commandSpec335 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -86296,7 +91115,7 @@ const commandSpec331 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec332 = {
+const commandSpec336 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -86560,7 +91379,7 @@ const commandSpec332 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec333 = {
+const commandSpec337 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -86745,7 +91564,7 @@ const commandSpec333 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec334 = {
+const commandSpec338 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -86899,7 +91718,7 @@ const commandSpec334 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec335 = {
+const commandSpec339 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -86926,7 +91745,7 @@ const commandSpec335 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec336 = {
+const commandSpec340 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -86942,7 +91761,7 @@ const commandSpec336 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec337 = {
+const commandSpec341 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -86969,7 +91788,7 @@ const commandSpec337 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec338 = {
+const commandSpec342 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -87003,7 +91822,7 @@ const commandSpec338 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec339 = {
+const commandSpec343 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -87089,7 +91908,7 @@ const commandSpec339 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec340 = {
+const commandSpec344 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -87121,7 +91940,7 @@ const commandSpec340 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec341 = {
+const commandSpec345 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -87227,7 +92046,7 @@ const commandSpec341 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec342 = {
+const commandSpec346 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -87251,7 +92070,7 @@ const commandSpec342 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec343 = {
+const commandSpec347 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -87267,7 +92086,7 @@ const commandSpec343 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec344 = {
+const commandSpec348 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -87299,7 +92118,7 @@ const commandSpec344 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec345 = {
+const commandSpec349 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -87378,7 +92197,7 @@ const commandSpec345 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec346 = {
+const commandSpec350 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -87482,7 +92301,7 @@ const commandSpec346 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec347 = {
+const commandSpec351 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -87498,7 +92317,7 @@ const commandSpec347 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec348 = {
+const commandSpec352 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -87585,7 +92404,7 @@ const commandSpec348 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec349 = {
+const commandSpec353 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -87601,7 +92420,7 @@ const commandSpec349 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec350 = {
+const commandSpec354 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -87642,7 +92461,7 @@ const commandSpec350 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec351 = {
+const commandSpec355 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -87973,52 +92792,56 @@ export const COMMAND_SPECS: {
   readonly 'http-push': typeof commandSpec303;
   readonly 'http-backend': typeof commandSpec304;
   readonly 'imap-send': typeof commandSpec305;
-  readonly lfs: typeof commandSpec306;
-  readonly 'lfs checkout': typeof commandSpec307;
-  readonly 'lfs clean': typeof commandSpec308;
-  readonly 'lfs clone': typeof commandSpec309;
-  readonly 'lfs completion': typeof commandSpec310;
-  readonly 'lfs dedup': typeof commandSpec311;
-  readonly 'lfs env': typeof commandSpec312;
-  readonly 'lfs ext': typeof commandSpec313;
-  readonly 'lfs ext list': typeof commandSpec314;
-  readonly 'lfs fetch': typeof commandSpec315;
-  readonly 'lfs filter-process': typeof commandSpec316;
-  readonly 'lfs fsck': typeof commandSpec317;
-  readonly 'lfs help': typeof commandSpec318;
-  readonly 'lfs install': typeof commandSpec319;
-  readonly 'lfs install hooks': typeof commandSpec320;
-  readonly 'lfs lock': typeof commandSpec321;
-  readonly 'lfs locks': typeof commandSpec322;
-  readonly 'lfs logs': typeof commandSpec323;
-  readonly 'lfs logs boomtown': typeof commandSpec324;
-  readonly 'lfs logs clear': typeof commandSpec325;
-  readonly 'lfs logs last': typeof commandSpec326;
-  readonly 'lfs logs show': typeof commandSpec327;
-  readonly 'lfs ls-files': typeof commandSpec328;
-  readonly 'lfs merge-driver': typeof commandSpec329;
-  readonly 'lfs migrate': typeof commandSpec330;
-  readonly 'lfs migrate export': typeof commandSpec331;
-  readonly 'lfs migrate import': typeof commandSpec332;
-  readonly 'lfs migrate info': typeof commandSpec333;
-  readonly 'lfs pointer': typeof commandSpec334;
-  readonly 'lfs post-checkout': typeof commandSpec335;
-  readonly 'lfs post-commit': typeof commandSpec336;
-  readonly 'lfs post-merge': typeof commandSpec337;
-  readonly 'lfs pre-push': typeof commandSpec338;
-  readonly 'lfs prune': typeof commandSpec339;
-  readonly 'lfs pull': typeof commandSpec340;
-  readonly 'lfs push': typeof commandSpec341;
-  readonly 'lfs smudge': typeof commandSpec342;
-  readonly 'lfs standalone-file': typeof commandSpec343;
-  readonly 'lfs status': typeof commandSpec344;
-  readonly 'lfs track': typeof commandSpec345;
-  readonly 'lfs uninstall': typeof commandSpec346;
-  readonly 'lfs uninstall hooks': typeof commandSpec347;
-  readonly 'lfs unlock': typeof commandSpec348;
-  readonly 'lfs untrack': typeof commandSpec349;
-  readonly 'lfs update': typeof commandSpec350;
-  readonly 'lfs version': typeof commandSpec351;
+  readonly reflog: typeof commandSpec306;
+  readonly stash: typeof commandSpec307;
+  readonly config: typeof commandSpec308;
+  readonly 'stash list': typeof commandSpec309;
+  readonly lfs: typeof commandSpec310;
+  readonly 'lfs checkout': typeof commandSpec311;
+  readonly 'lfs clean': typeof commandSpec312;
+  readonly 'lfs clone': typeof commandSpec313;
+  readonly 'lfs completion': typeof commandSpec314;
+  readonly 'lfs dedup': typeof commandSpec315;
+  readonly 'lfs env': typeof commandSpec316;
+  readonly 'lfs ext': typeof commandSpec317;
+  readonly 'lfs ext list': typeof commandSpec318;
+  readonly 'lfs fetch': typeof commandSpec319;
+  readonly 'lfs filter-process': typeof commandSpec320;
+  readonly 'lfs fsck': typeof commandSpec321;
+  readonly 'lfs help': typeof commandSpec322;
+  readonly 'lfs install': typeof commandSpec323;
+  readonly 'lfs install hooks': typeof commandSpec324;
+  readonly 'lfs lock': typeof commandSpec325;
+  readonly 'lfs locks': typeof commandSpec326;
+  readonly 'lfs logs': typeof commandSpec327;
+  readonly 'lfs logs boomtown': typeof commandSpec328;
+  readonly 'lfs logs clear': typeof commandSpec329;
+  readonly 'lfs logs last': typeof commandSpec330;
+  readonly 'lfs logs show': typeof commandSpec331;
+  readonly 'lfs ls-files': typeof commandSpec332;
+  readonly 'lfs merge-driver': typeof commandSpec333;
+  readonly 'lfs migrate': typeof commandSpec334;
+  readonly 'lfs migrate export': typeof commandSpec335;
+  readonly 'lfs migrate import': typeof commandSpec336;
+  readonly 'lfs migrate info': typeof commandSpec337;
+  readonly 'lfs pointer': typeof commandSpec338;
+  readonly 'lfs post-checkout': typeof commandSpec339;
+  readonly 'lfs post-commit': typeof commandSpec340;
+  readonly 'lfs post-merge': typeof commandSpec341;
+  readonly 'lfs pre-push': typeof commandSpec342;
+  readonly 'lfs prune': typeof commandSpec343;
+  readonly 'lfs pull': typeof commandSpec344;
+  readonly 'lfs push': typeof commandSpec345;
+  readonly 'lfs smudge': typeof commandSpec346;
+  readonly 'lfs standalone-file': typeof commandSpec347;
+  readonly 'lfs status': typeof commandSpec348;
+  readonly 'lfs track': typeof commandSpec349;
+  readonly 'lfs uninstall': typeof commandSpec350;
+  readonly 'lfs uninstall hooks': typeof commandSpec351;
+  readonly 'lfs unlock': typeof commandSpec352;
+  readonly 'lfs untrack': typeof commandSpec353;
+  readonly 'lfs update': typeof commandSpec354;
+  readonly 'lfs version': typeof commandSpec355;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -88326,50 +93149,54 @@ export const COMMAND_SPECS: {
   'http-push': commandSpec303,
   'http-backend': commandSpec304,
   'imap-send': commandSpec305,
-  lfs: commandSpec306,
-  'lfs checkout': commandSpec307,
-  'lfs clean': commandSpec308,
-  'lfs clone': commandSpec309,
-  'lfs completion': commandSpec310,
-  'lfs dedup': commandSpec311,
-  'lfs env': commandSpec312,
-  'lfs ext': commandSpec313,
-  'lfs ext list': commandSpec314,
-  'lfs fetch': commandSpec315,
-  'lfs filter-process': commandSpec316,
-  'lfs fsck': commandSpec317,
-  'lfs help': commandSpec318,
-  'lfs install': commandSpec319,
-  'lfs install hooks': commandSpec320,
-  'lfs lock': commandSpec321,
-  'lfs locks': commandSpec322,
-  'lfs logs': commandSpec323,
-  'lfs logs boomtown': commandSpec324,
-  'lfs logs clear': commandSpec325,
-  'lfs logs last': commandSpec326,
-  'lfs logs show': commandSpec327,
-  'lfs ls-files': commandSpec328,
-  'lfs merge-driver': commandSpec329,
-  'lfs migrate': commandSpec330,
-  'lfs migrate export': commandSpec331,
-  'lfs migrate import': commandSpec332,
-  'lfs migrate info': commandSpec333,
-  'lfs pointer': commandSpec334,
-  'lfs post-checkout': commandSpec335,
-  'lfs post-commit': commandSpec336,
-  'lfs post-merge': commandSpec337,
-  'lfs pre-push': commandSpec338,
-  'lfs prune': commandSpec339,
-  'lfs pull': commandSpec340,
-  'lfs push': commandSpec341,
-  'lfs smudge': commandSpec342,
-  'lfs standalone-file': commandSpec343,
-  'lfs status': commandSpec344,
-  'lfs track': commandSpec345,
-  'lfs uninstall': commandSpec346,
-  'lfs uninstall hooks': commandSpec347,
-  'lfs unlock': commandSpec348,
-  'lfs untrack': commandSpec349,
-  'lfs update': commandSpec350,
-  'lfs version': commandSpec351,
+  reflog: commandSpec306,
+  stash: commandSpec307,
+  config: commandSpec308,
+  'stash list': commandSpec309,
+  lfs: commandSpec310,
+  'lfs checkout': commandSpec311,
+  'lfs clean': commandSpec312,
+  'lfs clone': commandSpec313,
+  'lfs completion': commandSpec314,
+  'lfs dedup': commandSpec315,
+  'lfs env': commandSpec316,
+  'lfs ext': commandSpec317,
+  'lfs ext list': commandSpec318,
+  'lfs fetch': commandSpec319,
+  'lfs filter-process': commandSpec320,
+  'lfs fsck': commandSpec321,
+  'lfs help': commandSpec322,
+  'lfs install': commandSpec323,
+  'lfs install hooks': commandSpec324,
+  'lfs lock': commandSpec325,
+  'lfs locks': commandSpec326,
+  'lfs logs': commandSpec327,
+  'lfs logs boomtown': commandSpec328,
+  'lfs logs clear': commandSpec329,
+  'lfs logs last': commandSpec330,
+  'lfs logs show': commandSpec331,
+  'lfs ls-files': commandSpec332,
+  'lfs merge-driver': commandSpec333,
+  'lfs migrate': commandSpec334,
+  'lfs migrate export': commandSpec335,
+  'lfs migrate import': commandSpec336,
+  'lfs migrate info': commandSpec337,
+  'lfs pointer': commandSpec338,
+  'lfs post-checkout': commandSpec339,
+  'lfs post-commit': commandSpec340,
+  'lfs post-merge': commandSpec341,
+  'lfs pre-push': commandSpec342,
+  'lfs prune': commandSpec343,
+  'lfs pull': commandSpec344,
+  'lfs push': commandSpec345,
+  'lfs smudge': commandSpec346,
+  'lfs standalone-file': commandSpec347,
+  'lfs status': commandSpec348,
+  'lfs track': commandSpec349,
+  'lfs uninstall': commandSpec350,
+  'lfs uninstall hooks': commandSpec351,
+  'lfs unlock': commandSpec352,
+  'lfs untrack': commandSpec353,
+  'lfs update': commandSpec354,
+  'lfs version': commandSpec355,
 };

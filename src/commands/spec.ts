@@ -51,6 +51,8 @@ export type OptionSpec = {
 };
 export type CommandSpec = {
   argv: readonly string[];
+  /** Dispatch only an exact first operand; otherwise use this scope's fallback grammar. */
+  dispatch?: Readonly<Record<string, string>>;
   /** Parser defaults supplied by the command before consuming user options. */
   initial?: Readonly<Record<string, string | number | boolean>>;
   options: Readonly<Record<string, OptionSpec>>;

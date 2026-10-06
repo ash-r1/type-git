@@ -3550,6 +3550,46 @@
         "test/types/import-http-command-api.ts"
       ],
       "remaining": "Stream/configuration/server state, full unsigned scalar and object-ID languages, HTTP manual-parser ignored/prefix options and positional phases, marks-file/path processing and submodule maps remain pending. Tests use empty/local input, CGI fixtures and parser errors without sending mail or contacting remote services."
+    },
+    "config": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/fallback-dispatch.test.ts",
+        "test/types/fallback-dispatch-command-api.ts"
+      ],
+      "remaining": "Exact first-word dispatch and fallback grammar are modeled. Remaining inherited callback phases, repository/configuration conditions, config key/value languages, abbreviated and special help dispatch, and delegated revision semantics require further audit. Finite normalized-state counts are branch-specific, not a claim of full argv reachability."
+    },
+    "stash": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/fallback-dispatch.test.ts",
+        "test/types/fallback-dispatch-command-api.ts"
+      ],
+      "remaining": "Exact first-word dispatch and fallback grammar are modeled. Remaining inherited callback phases, repository/configuration conditions, config key/value languages, abbreviated and special help dispatch, and delegated revision semantics require further audit. Finite normalized-state counts are branch-specific, not a claim of full argv reachability."
+    },
+    "reflog": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/fallback-dispatch.test.ts",
+        "test/types/fallback-dispatch-command-api.ts"
+      ],
+      "remaining": "Exact first-word dispatch and fallback grammar are modeled. Remaining inherited callback phases, repository/configuration conditions, config key/value languages, abbreviated and special help dispatch, and delegated revision semantics require further audit. Finite normalized-state counts are branch-specific, not a claim of full argv reachability."
+    },
+    "stash list": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/fallback-dispatch.test.ts",
+        "test/types/fallback-dispatch-command-api.ts"
+      ],
+      "remaining": "List returns before delegated log parsing when refs/stash is absent. Arguments currently use literal operand objects; typed log options and their constraints require a conditional repository-state phase rather than unconditional callback validation."
     }
   }
 }
