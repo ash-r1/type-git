@@ -74256,6 +74256,2442 @@ const commandSpec211 = {
   optionParsing: 'none',
 } as const satisfies CommandSpec;
 const commandSpec212 = {
+  argv: ['submodule--helper', 'get-default-remote'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-get-default-remote.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec213 = {
+  argv: ['submodule--helper', 'foreach'],
+  options: {
+    '--super-prefix': {
+      key: 'super-prefix',
+      value: 'string',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--recursive': {
+      key: 'recursive',
+      value: 'flag',
+    },
+    '--no-super-prefix': {
+      key: 'super-prefix',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-recursive': {
+      key: 'recursive',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec214 = {
+  argv: ['submodule--helper', 'init'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec215 = {
+  argv: ['submodule--helper', 'status'],
+  options: {
+    '--super-prefix': {
+      key: 'super-prefix',
+      value: 'string',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--cached': {
+      key: 'cached',
+      value: 'flag',
+    },
+    '--recursive': {
+      key: 'recursive',
+      value: 'flag',
+    },
+    '--no-super-prefix': {
+      key: 'super-prefix',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-cached': {
+      key: 'cached',
+      value: 'flag',
+      set: false,
+    },
+    '--no-recursive': {
+      key: 'recursive',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec216 = {
+  argv: ['submodule--helper', 'summary'],
+  options: {
+    '--cached': {
+      key: 'cached',
+      value: 'flag',
+    },
+    '--files': {
+      key: 'files',
+      value: 'flag',
+    },
+    '--for-status': {
+      key: 'for-status',
+      value: 'flag',
+    },
+    '--summary-limit': {
+      key: 'summary-limit',
+      value: 'integer',
+    },
+    '-n': {
+      key: 'summary-limit',
+      value: 'integer',
+    },
+    '--no-cached': {
+      key: 'cached',
+      value: 'flag',
+      set: false,
+    },
+    '--no-files': {
+      key: 'files',
+      value: 'flag',
+      set: false,
+    },
+    '--no-for-status': {
+      key: 'for-status',
+      value: 'flag',
+      set: false,
+    },
+    '--no-summary-limit': {
+      key: 'summary-limit',
+      value: 'flag',
+      set: 0,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-summary.sources',
+      kind: 'exclusive',
+      guard: [
+        {
+          key: 'summary-limit',
+          test: 'notEquals',
+          value: 0,
+        },
+      ],
+      keys: ['cached', 'files'],
+      origin: 'git',
+      reason: 'Cached and files conflict unless a zero summary limit returns early.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec217 = {
+  argv: ['submodule--helper', 'sync'],
+  options: {
+    '--super-prefix': {
+      key: 'super-prefix',
+      value: 'string',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--recursive': {
+      key: 'recursive',
+      value: 'flag',
+    },
+    '--no-super-prefix': {
+      key: 'super-prefix',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-recursive': {
+      key: 'recursive',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec218 = {
+  argv: ['submodule--helper', 'deinit'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '-f': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '--all': {
+      key: 'all',
+      value: 'flag',
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-all': {
+      key: 'all',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-deinit.all-paths',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'all',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule--helper-deinit.explicit-paths',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      when: {
+        key: 'all',
+        test: 'inactive',
+      },
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec219 = {
+  argv: ['submodule--helper', 'clone'],
+  options: {
+    '--prefix': {
+      key: 'prefix',
+      value: 'string',
+    },
+    '--path': {
+      key: 'path',
+      value: 'string',
+    },
+    '--name': {
+      key: 'name',
+      value: 'string',
+    },
+    '--url': {
+      key: 'url',
+      value: 'string',
+    },
+    '--reference': {
+      key: 'reference',
+      value: 'string',
+      repeat: true,
+    },
+    '--ref-format': {
+      key: 'ref-format',
+      value: 'string',
+    },
+    '--dissociate': {
+      key: 'dissociate',
+      value: 'flag',
+    },
+    '--depth': {
+      key: 'depth',
+      value: 'integer',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--progress': {
+      key: 'progress',
+      value: 'flag',
+    },
+    '--require-init': {
+      key: 'require-init',
+      value: 'flag',
+    },
+    '--single-branch': {
+      key: 'single-branch',
+      value: 'flag',
+    },
+    '--filter': {
+      key: 'filter',
+      value: 'string',
+    },
+    '--no-prefix': {
+      key: 'prefix',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-path': {
+      key: 'path',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-name': {
+      key: 'name',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-url': {
+      key: 'url',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-reference': {
+      key: 'reference',
+      value: 'flag',
+      repeat: true,
+      clear: true,
+    },
+    '--no-ref-format': {
+      key: 'ref-format',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-dissociate': {
+      key: 'dissociate',
+      value: 'flag',
+      set: false,
+    },
+    '--no-depth': {
+      key: 'depth',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-progress': {
+      key: 'progress',
+      value: 'flag',
+      set: false,
+    },
+    '--no-require-init': {
+      key: 'require-init',
+      value: 'flag',
+      set: false,
+    },
+    '--no-single-branch': {
+      key: 'single-branch',
+      value: 'flag',
+      set: false,
+    },
+    '--no-filter': {
+      key: 'filter',
+      value: 'flag',
+      clear: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-clone.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule--helper-clone.source',
+      kind: 'required',
+      required: [
+        {
+          key: 'url',
+          test: 'present',
+        },
+        {
+          key: 'path',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'Clone requires a URL pointer and nonempty destination path.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule--helper-clone.ref-format',
+      kind: 'value',
+      key: 'ref-format',
+      allowed: ['files', 'reftable'],
+      origin: 'git',
+      reason: 'Explicit ref formats must name a supported backend.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec220 = {
+  argv: ['submodule--helper', 'update'],
+  options: {
+    '--super-prefix': {
+      key: 'super-prefix',
+      value: 'string',
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '-f': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '--init': {
+      key: 'init',
+      value: 'flag',
+    },
+    '--remote': {
+      key: 'remote',
+      value: 'flag',
+    },
+    '--recursive': {
+      key: 'recursive',
+      value: 'flag',
+    },
+    '--no-fetch': {
+      key: 'no-fetch',
+      value: 'flag',
+    },
+    '-N': {
+      key: 'no-fetch',
+      value: 'flag',
+    },
+    '--checkout': {
+      key: 'checkout',
+      value: 'flag',
+    },
+    '--merge': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '-m': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--rebase': {
+      key: 'rebase',
+      value: 'flag',
+    },
+    '-r': {
+      key: 'rebase',
+      value: 'flag',
+    },
+    '--reference': {
+      key: 'reference',
+      value: 'string',
+      repeat: true,
+    },
+    '--ref-format': {
+      key: 'ref-format',
+      value: 'string',
+    },
+    '--dissociate': {
+      key: 'dissociate',
+      value: 'flag',
+    },
+    '--depth': {
+      key: 'depth',
+      value: 'integer',
+    },
+    '--jobs': {
+      key: 'jobs',
+      value: 'integer',
+    },
+    '-j': {
+      key: 'jobs',
+      value: 'integer',
+    },
+    '--recommend-shallow': {
+      key: 'recommend-shallow',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--progress': {
+      key: 'progress',
+      value: 'flag',
+    },
+    '--require-init': {
+      key: 'require-init',
+      value: 'flag',
+    },
+    '--single-branch': {
+      key: 'single-branch',
+      value: 'flag',
+    },
+    '--filter': {
+      key: 'filter',
+      value: 'string',
+    },
+    '--no-super-prefix': {
+      key: 'super-prefix',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-init': {
+      key: 'init',
+      value: 'flag',
+      set: false,
+    },
+    '--no-remote': {
+      key: 'remote',
+      value: 'flag',
+      set: false,
+    },
+    '--no-recursive': {
+      key: 'recursive',
+      value: 'flag',
+      set: false,
+    },
+    '--fetch': {
+      key: 'no-fetch',
+      value: 'flag',
+      set: false,
+    },
+    '--no-no-fetch': {
+      key: 'no-fetch',
+      value: 'flag',
+      set: false,
+    },
+    '--no-checkout': {
+      key: 'checkout',
+      value: 'flag',
+      set: false,
+    },
+    '--no-merge': {
+      key: 'merge',
+      value: 'flag',
+      set: false,
+    },
+    '--no-rebase': {
+      key: 'rebase',
+      value: 'flag',
+      set: false,
+    },
+    '--no-reference': {
+      key: 'reference',
+      value: 'flag',
+      repeat: true,
+      clear: true,
+    },
+    '--no-ref-format': {
+      key: 'ref-format',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-dissociate': {
+      key: 'dissociate',
+      value: 'flag',
+      set: false,
+    },
+    '--no-depth': {
+      key: 'depth',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-jobs': {
+      key: 'jobs',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-recommend-shallow': {
+      key: 'recommend-shallow',
+      value: 'flag',
+      set: false,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-progress': {
+      key: 'progress',
+      value: 'flag',
+      set: false,
+    },
+    '--no-require-init': {
+      key: 'require-init',
+      value: 'flag',
+      set: false,
+    },
+    '--no-single-branch': {
+      key: 'single-branch',
+      value: 'flag',
+      set: false,
+    },
+    '--no-filter': {
+      key: 'filter',
+      value: 'flag',
+      clear: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-update.filter-init',
+      kind: 'requiresAny',
+      when: {
+        key: 'filter',
+        test: 'present',
+      },
+      choices: [
+        {
+          key: 'init',
+          test: 'active',
+        },
+        {
+          key: 'require-init',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Filtering requires initialization; require-init implies init after all options are parsed.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule--helper-update.ref-format',
+      kind: 'value',
+      key: 'ref-format',
+      allowed: ['files', 'reftable'],
+      origin: 'git',
+      reason: 'Explicit ref formats must name a supported backend.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec221 = {
+  argv: ['submodule--helper', 'absorbgitdirs'],
+  options: {
+    '--super-prefix': {
+      key: 'super-prefix',
+      value: 'string',
+    },
+    '--no-super-prefix': {
+      key: 'super-prefix',
+      value: 'flag',
+      clear: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec222 = {
+  argv: ['submodule--helper', 'set-url'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-set-url.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 2,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec223 = {
+  argv: ['submodule--helper', 'set-branch'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--default': {
+      key: 'default',
+      value: 'flag',
+    },
+    '-d': {
+      key: 'default',
+      value: 'flag',
+    },
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '-b': {
+      key: 'branch',
+      value: 'string',
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      set: false,
+    },
+    '--no-default': {
+      key: 'default',
+      value: 'flag',
+      set: false,
+    },
+    '--no-branch': {
+      key: 'branch',
+      value: 'flag',
+      clear: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-set-branch.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule--helper-set-branch.selection',
+      kind: 'requiresAny',
+      when: {
+        key: 'argumentTokens',
+        test: 'present',
+      },
+      choices: [
+        {
+          key: 'branch',
+          test: 'present',
+        },
+        {
+          key: 'default',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'One tracking selection is required.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule--helper-set-branch.exclusive',
+      kind: 'conflicts',
+      when: {
+        key: 'branch',
+        test: 'present',
+      },
+      others: [
+        {
+          key: 'default',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'An explicit branch and default selection conflict.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec224 = {
+  argv: ['submodule--helper', 'create-branch'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '-f': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '--create-reflog': {
+      key: 'create-reflog',
+      value: 'flag',
+    },
+    '--track': {
+      key: 'track',
+      value: 'optional-string',
+      allowed: ['direct', 'inherit'],
+    },
+    '-t': {
+      key: 'track',
+      value: 'optional-string',
+      allowed: ['direct', 'inherit'],
+    },
+    '--dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-create-reflog': {
+      key: 'create-reflog',
+      value: 'flag',
+      set: false,
+    },
+    '--no-track': {
+      key: 'track',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-create-branch.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 3,
+      max: 3,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec225 = {
+  argv: ['submodule--helper', 'add'],
+  options: {
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '-b': {
+      key: 'branch',
+      value: 'string',
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '-f': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--progress': {
+      key: 'progress',
+      value: 'flag',
+    },
+    '--reference': {
+      key: 'reference',
+      value: 'string',
+    },
+    '--ref-format': {
+      key: 'ref-format',
+      value: 'string',
+    },
+    '--dissociate': {
+      key: 'dissociate',
+      value: 'flag',
+    },
+    '--name': {
+      key: 'name',
+      value: 'string',
+    },
+    '--depth': {
+      key: 'depth',
+      value: 'integer',
+    },
+    '--no-branch': {
+      key: 'branch',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-progress': {
+      key: 'progress',
+      value: 'flag',
+      set: false,
+    },
+    '--no-reference': {
+      key: 'reference',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-ref-format': {
+      key: 'ref-format',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-dissociate': {
+      key: 'dissociate',
+      value: 'flag',
+      set: false,
+    },
+    '--no-name': {
+      key: 'name',
+      value: 'flag',
+      clear: true,
+    },
+    '--no-depth': {
+      key: 'depth',
+      value: 'flag',
+      clear: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper-add.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule--helper-add.ref-format',
+      kind: 'value',
+      key: 'ref-format',
+      allowed: ['files', 'reftable'],
+      origin: 'git',
+      reason: 'Explicit ref formats must name a supported backend.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec226 = {
+  argv: ['submodule--helper', 'gitdir'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.submodule--helper-gitdir.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec227 = {
+  argv: ['submodule--helper', 'push-check'],
+  options: {},
+  rules: [
+    {
+      id: 'cli.submodule--helper-push-check.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec228 = {
+  argv: ['submodule--helper', 'migrate-gitdir-configs'],
+  options: {},
+  rules: [],
+  source: 'builtin/submodule--helper.c',
+  separator: false,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec229 = {
+  argv: ['submodule', 'add'],
+  options: {
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '-b': {
+      key: 'branch',
+      value: 'string',
+      checks: [
+        {
+          id: 'cli.submodule-add.short-branch',
+          kind: 'required',
+          required: [
+            {
+              key: '$value',
+              test: 'nonempty',
+            },
+          ],
+          origin: 'git',
+          source: 'Git 2.55.0 git-submodule.sh',
+          reason: 'The shell frontend rejects an empty separate short branch value.',
+        },
+      ],
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '-f': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--progress': {
+      key: 'progress',
+      value: 'flag',
+    },
+    '--reference': {
+      key: 'reference',
+      value: 'string',
+    },
+    '--ref-format': {
+      key: 'ref-format',
+      value: 'string',
+    },
+    '--dissociate': {
+      key: 'dissociate',
+      value: 'flag',
+    },
+    '--name': {
+      key: 'name',
+      value: 'string',
+    },
+    '--depth': {
+      key: 'depth',
+      value: 'integer',
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule-add.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 2,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule-add.ref-format',
+      kind: 'value',
+      key: 'ref-format',
+      allowed: ['files', 'reftable'],
+      origin: 'git',
+      reason: 'Explicit ref formats must name a supported backend.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec230 = {
+  argv: ['submodule', 'foreach'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--recursive': {
+      key: 'recursive',
+      value: 'flag',
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'git-submodule.sh',
+  separator: false,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec231 = {
+  argv: ['submodule', 'init'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec232 = {
+  argv: ['submodule', 'deinit'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '-f': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '--all': {
+      key: 'all',
+      value: 'flag',
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule-deinit.all-paths',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 0,
+      when: {
+        key: 'all',
+        test: 'active',
+      },
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule-deinit.explicit-paths',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      when: {
+        key: 'all',
+        test: 'inactive',
+      },
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec233 = {
+  argv: ['submodule', 'update'],
+  options: {
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '-f': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '--init': {
+      key: 'init',
+      value: 'flag',
+      effects: [
+        {
+          key: 'short-init',
+          set: false,
+        },
+      ],
+    },
+    '--remote': {
+      key: 'remote',
+      value: 'flag',
+    },
+    '--recursive': {
+      key: 'recursive',
+      value: 'flag',
+    },
+    '--no-fetch': {
+      key: 'no-fetch',
+      value: 'flag',
+    },
+    '-N': {
+      key: 'no-fetch',
+      value: 'flag',
+    },
+    '--checkout': {
+      key: 'checkout',
+      value: 'flag',
+    },
+    '--merge': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '-m': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--rebase': {
+      key: 'rebase',
+      value: 'flag',
+    },
+    '-r': {
+      key: 'rebase',
+      value: 'flag',
+    },
+    '--reference': {
+      key: 'reference',
+      value: 'string',
+    },
+    '--ref-format': {
+      key: 'ref-format',
+      value: 'string',
+    },
+    '--dissociate': {
+      key: 'dissociate',
+      value: 'flag',
+    },
+    '--depth': {
+      key: 'depth',
+      value: 'integer',
+    },
+    '--jobs': {
+      key: 'jobs',
+      value: 'integer',
+    },
+    '-j': {
+      key: 'jobs',
+      value: 'integer',
+    },
+    '--recommend-shallow': {
+      key: 'recommend-shallow',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--progress': {
+      key: 'progress',
+      value: 'flag',
+    },
+    '--require-init': {
+      key: 'require-init',
+      value: 'flag',
+    },
+    '--single-branch': {
+      key: 'single-branch',
+      value: 'flag',
+    },
+    '--filter': {
+      key: 'filter',
+      value: 'string',
+    },
+    '--no-recommend-shallow': {
+      key: 'recommend-shallow',
+      value: 'flag',
+      set: false,
+    },
+    '--no-single-branch': {
+      key: 'single-branch',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-i': {
+      key: 'init',
+      value: 'flag',
+      effects: [
+        {
+          key: 'short-init',
+          set: true,
+        },
+      ],
+    },
+    '-v': {
+      key: 'quiet',
+      value: 'flag',
+      set: false,
+    },
+    '--verbose': {
+      key: 'quiet',
+      value: 'flag',
+      set: false,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule-update.filter-init',
+      kind: 'requiresAny',
+      when: {
+        key: 'filter',
+        test: 'present',
+      },
+      choices: [
+        {
+          key: 'init',
+          test: 'active',
+        },
+        {
+          key: 'require-init',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Filtering requires initialization; require-init implies init after all options are parsed.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule-update.ref-format',
+      kind: 'value',
+      key: 'ref-format',
+      allowed: ['files', 'reftable'],
+      origin: 'git',
+      reason: 'Explicit ref formats must name a supported backend.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule-update.short-init-forwarding',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'short-init',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-submodule.sh',
+      reason:
+        'The shell forwards its last init spelling unchanged; the helper rejects -i. A later --init replaces it.',
+    },
+  ],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec234 = {
+  argv: ['submodule', 'set-branch'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--default': {
+      key: 'default',
+      value: 'flag',
+    },
+    '-d': {
+      key: 'default',
+      value: 'flag',
+    },
+    '--branch': {
+      key: 'branch',
+      value: 'string',
+    },
+    '-b': {
+      key: 'branch',
+      value: 'string',
+      checks: [
+        {
+          id: 'cli.submodule-set-branch.short-branch',
+          kind: 'required',
+          required: [
+            {
+              key: '$value',
+              test: 'nonempty',
+            },
+          ],
+          origin: 'git',
+          source: 'Git 2.55.0 git-submodule.sh',
+          reason: 'The shell frontend rejects an empty separate short branch value.',
+        },
+      ],
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule-set-branch.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule-set-branch.selection',
+      kind: 'requiresAny',
+      when: {
+        key: 'argumentTokens',
+        test: 'present',
+      },
+      choices: [
+        {
+          key: 'branch',
+          test: 'present',
+        },
+        {
+          key: 'default',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'One tracking selection is required.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule-set-branch.exclusive',
+      kind: 'conflicts',
+      when: {
+        key: 'branch',
+        test: 'present',
+      },
+      others: [
+        {
+          key: 'default',
+          test: 'active',
+        },
+      ],
+      origin: 'git',
+      reason: 'An explicit branch and default selection conflict.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec235 = {
+  argv: ['submodule', 'set-url'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule-set-url.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      max: 2,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec236 = {
+  argv: ['submodule', 'summary'],
+  options: {
+    '--cached': {
+      key: 'cached',
+      value: 'flag',
+    },
+    '--files': {
+      key: 'files',
+      value: 'flag',
+    },
+    '--for-status': {
+      key: 'for-status',
+      value: 'flag',
+    },
+    '--summary-limit': {
+      key: 'summary-limit',
+      value: 'integer',
+    },
+    '-n': {
+      key: 'summary-limit',
+      value: 'integer',
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      before: 1,
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      before: 1,
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule-summary.sources',
+      kind: 'exclusive',
+      guard: [
+        {
+          key: 'summary-limit',
+          test: 'notEquals',
+          value: 0,
+        },
+      ],
+      keys: ['cached', 'files'],
+      origin: 'git',
+      reason: 'Cached and files conflict unless a zero summary limit returns early.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec237 = {
+  argv: ['submodule', 'status'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--cached': {
+      key: 'cached',
+      value: 'flag',
+    },
+    '--recursive': {
+      key: 'recursive',
+      value: 'flag',
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec238 = {
+  argv: ['submodule', 'sync'],
+  options: {
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      repeat: true,
+    },
+    '--recursive': {
+      key: 'recursive',
+      value: 'flag',
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'git-submodule.sh',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec239 = {
+  argv: ['submodule', 'absorbgitdirs'],
+  options: {
+    '--super-prefix': {
+      key: 'super-prefix',
+      value: 'string',
+    },
+    '--no-super-prefix': {
+      key: 'super-prefix',
+      value: 'flag',
+      clear: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+      before: 1,
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+      before: 1,
+    },
+  },
+  rules: [],
+  source: 'git-submodule.sh',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec240 = {
+  argv: ['submodule--helper'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule--helper.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+    {
+      id: 'cli.submodule--helper.known-operation',
+      kind: 'value',
+      key: 'operand0',
+      allowed: [
+        'get-default-remote',
+        'foreach',
+        'init',
+        'status',
+        'summary',
+        'sync',
+        'deinit',
+        'clone',
+        'update',
+        'absorbgitdirs',
+        'set-url',
+        'set-branch',
+        'create-branch',
+        'add',
+        'gitdir',
+        'push-check',
+        'migrate-gitdir-configs',
+      ],
+      origin: 'git',
+      reason: 'The native dispatcher accepts only registered operations.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/submodule--helper.c',
+    },
+  ],
+  source: 'builtin/submodule--helper.c',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec241 = {
+  argv: ['sparse-checkout'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.sparse-checkout.operation',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      reason: 'Native parser requires this number of arguments.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/sparse-checkout.c',
+    },
+    {
+      id: 'cli.sparse-checkout.known-operation',
+      kind: 'value',
+      key: 'operand0',
+      allowed: ['list', 'init', 'set', 'add', 'reapply', 'clean', 'disable', 'check-rules'],
+      origin: 'git',
+      reason: 'The native dispatcher accepts only registered operations.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/sparse-checkout.c',
+    },
+  ],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec242 = {
+  argv: ['sparse-checkout', 'list'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec243 = {
+  argv: ['sparse-checkout', 'init'],
+  options: {
+    '--cone': {
+      key: 'cone',
+      value: 'flag',
+    },
+    '--sparse-index': {
+      key: 'sparse-index',
+      value: 'flag',
+    },
+    '--no-cone': {
+      key: 'cone',
+      value: 'flag',
+      set: false,
+    },
+    '--no-sparse-index': {
+      key: 'sparse-index',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec244 = {
+  argv: ['sparse-checkout', 'set'],
+  options: {
+    '--cone': {
+      key: 'cone',
+      value: 'flag',
+    },
+    '--sparse-index': {
+      key: 'sparse-index',
+      value: 'flag',
+    },
+    '--skip-checks': {
+      key: 'skip-checks',
+      value: 'flag',
+    },
+    '--stdin': {
+      key: 'stdin',
+      value: 'flag',
+    },
+    '--no-cone': {
+      key: 'cone',
+      value: 'flag',
+      set: false,
+    },
+    '--no-sparse-index': {
+      key: 'sparse-index',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec245 = {
+  argv: ['sparse-checkout', 'add'],
+  options: {
+    '--skip-checks': {
+      key: 'skip-checks',
+      value: 'flag',
+    },
+    '--stdin': {
+      key: 'stdin',
+      value: 'flag',
+    },
+    '--no-stdin': {
+      key: 'stdin',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec246 = {
+  argv: ['sparse-checkout', 'reapply'],
+  options: {
+    '--cone': {
+      key: 'cone',
+      value: 'flag',
+    },
+    '--sparse-index': {
+      key: 'sparse-index',
+      value: 'flag',
+    },
+    '--no-cone': {
+      key: 'cone',
+      value: 'flag',
+      set: false,
+    },
+    '--no-sparse-index': {
+      key: 'sparse-index',
+      value: 'flag',
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec247 = {
+  argv: ['sparse-checkout', 'clean'],
+  options: {
+    '--dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '-f': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+    },
+    '--no-dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+      set: false,
+    },
+    '--no-force': {
+      key: 'force',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--no-verbose': {
+      key: 'verbose',
+      value: 'flag',
+      repeat: true,
+      set: false,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec248 = {
+  argv: ['sparse-checkout', 'disable'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec249 = {
+  argv: ['sparse-checkout', 'check-rules'],
+  options: {
+    '-z': {
+      key: 'z',
+      value: 'flag',
+    },
+    '--cone': {
+      key: 'cone',
+      value: 'flag',
+    },
+    '--rules-file': {
+      key: 'rules-file',
+      value: 'string',
+      emptyIsUnset: true,
+    },
+    '--no-cone': {
+      key: 'cone',
+      value: 'flag',
+      set: false,
+    },
+    '--no-rules-file': {
+      key: 'rules-file',
+      value: 'flag',
+      emptyIsUnset: true,
+      ignore: true,
+    },
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+  },
+  rules: [],
+  source: 'builtin/sparse-checkout.c',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec250 = {
+  argv: ['submodule'],
+  options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--cached': {
+      key: 'cached',
+      value: 'flag',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.submodule.known-operation',
+      kind: 'value',
+      key: 'operand0',
+      allowed: [
+        'add',
+        'foreach',
+        'init',
+        'deinit',
+        'update',
+        'set-branch',
+        'set-url',
+        'summary',
+        'status',
+        'sync',
+        'absorbgitdirs',
+      ],
+      origin: 'git',
+      reason: 'No operation defaults to status; explicit dispatch must name an existing operation.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-submodule.sh',
+    },
+    {
+      id: 'cli.submodule.cached-operation',
+      kind: 'value',
+      guard: [
+        {
+          key: 'cached',
+          test: 'active',
+        },
+      ],
+      key: 'operand0',
+      allowed: ['status', 'summary'],
+      origin: 'git',
+      reason: 'The shell accepts a leading cached flag only for status or summary.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-submodule.sh',
+    },
+  ],
+  source: 'git-submodule.sh',
+  separator: false,
+  optionParsing: 'stop-at-operand',
+} as const satisfies CommandSpec;
+const commandSpec251 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -74279,7 +76715,7 @@ const commandSpec212 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec213 = {
+const commandSpec252 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -74410,7 +76846,7 @@ const commandSpec213 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec214 = {
+const commandSpec253 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -74426,7 +76862,7 @@ const commandSpec214 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec215 = {
+const commandSpec254 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -74633,7 +77069,7 @@ const commandSpec215 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec216 = {
+const commandSpec255 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -74669,7 +77105,7 @@ const commandSpec216 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec217 = {
+const commandSpec256 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -74693,7 +77129,7 @@ const commandSpec217 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec218 = {
+const commandSpec257 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -74709,7 +77145,7 @@ const commandSpec218 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec219 = {
+const commandSpec258 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -74725,7 +77161,7 @@ const commandSpec219 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec220 = {
+const commandSpec259 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -74741,7 +77177,7 @@ const commandSpec220 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec221 = {
+const commandSpec260 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -74869,7 +77305,7 @@ const commandSpec221 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec222 = {
+const commandSpec261 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -74893,7 +77329,7 @@ const commandSpec222 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec223 = {
+const commandSpec262 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -74925,7 +77361,7 @@ const commandSpec223 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec224 = {
+const commandSpec263 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -74941,7 +77377,7 @@ const commandSpec224 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec225 = {
+const commandSpec264 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -75147,7 +77583,7 @@ const commandSpec225 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec226 = {
+const commandSpec265 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -75163,7 +77599,7 @@ const commandSpec226 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec227 = {
+const commandSpec266 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -75195,7 +77631,7 @@ const commandSpec227 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec228 = {
+const commandSpec267 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -75332,7 +77768,7 @@ const commandSpec228 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec229 = {
+const commandSpec268 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -75348,7 +77784,7 @@ const commandSpec229 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec230 = {
+const commandSpec269 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -75364,7 +77800,7 @@ const commandSpec230 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec231 = {
+const commandSpec270 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -75380,7 +77816,7 @@ const commandSpec231 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec232 = {
+const commandSpec271 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -75396,7 +77832,7 @@ const commandSpec232 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec233 = {
+const commandSpec272 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -75412,7 +77848,7 @@ const commandSpec233 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec234 = {
+const commandSpec273 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -75525,7 +77961,7 @@ const commandSpec234 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec235 = {
+const commandSpec274 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -75591,7 +78027,7 @@ const commandSpec235 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec236 = {
+const commandSpec275 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -75651,7 +78087,7 @@ const commandSpec236 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec237 = {
+const commandSpec276 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -75788,7 +78224,7 @@ const commandSpec237 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec238 = {
+const commandSpec277 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -76052,7 +78488,7 @@ const commandSpec238 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec239 = {
+const commandSpec278 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -76237,7 +78673,7 @@ const commandSpec239 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec240 = {
+const commandSpec279 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -76391,7 +78827,7 @@ const commandSpec240 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec241 = {
+const commandSpec280 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -76418,7 +78854,7 @@ const commandSpec241 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec242 = {
+const commandSpec281 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -76434,7 +78870,7 @@ const commandSpec242 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec243 = {
+const commandSpec282 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -76461,7 +78897,7 @@ const commandSpec243 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec244 = {
+const commandSpec283 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -76495,7 +78931,7 @@ const commandSpec244 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec245 = {
+const commandSpec284 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -76581,7 +79017,7 @@ const commandSpec245 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec246 = {
+const commandSpec285 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -76613,7 +79049,7 @@ const commandSpec246 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec247 = {
+const commandSpec286 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -76719,7 +79155,7 @@ const commandSpec247 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec248 = {
+const commandSpec287 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -76743,7 +79179,7 @@ const commandSpec248 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec249 = {
+const commandSpec288 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -76759,7 +79195,7 @@ const commandSpec249 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec250 = {
+const commandSpec289 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -76791,7 +79227,7 @@ const commandSpec250 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec251 = {
+const commandSpec290 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -76870,7 +79306,7 @@ const commandSpec251 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec252 = {
+const commandSpec291 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -76974,7 +79410,7 @@ const commandSpec252 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec253 = {
+const commandSpec292 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -76990,7 +79426,7 @@ const commandSpec253 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec254 = {
+const commandSpec293 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -77077,7 +79513,7 @@ const commandSpec254 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec255 = {
+const commandSpec294 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -77093,7 +79529,7 @@ const commandSpec255 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec256 = {
+const commandSpec295 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -77134,7 +79570,7 @@ const commandSpec256 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec257 = {
+const commandSpec296 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -77371,52 +79807,91 @@ export const COMMAND_SPECS: {
   readonly 'rev-parse': typeof commandSpec209;
   readonly 'rev-parse --parseopt': typeof commandSpec210;
   readonly 'rev-parse --sq-quote': typeof commandSpec211;
-  readonly lfs: typeof commandSpec212;
-  readonly 'lfs checkout': typeof commandSpec213;
-  readonly 'lfs clean': typeof commandSpec214;
-  readonly 'lfs clone': typeof commandSpec215;
-  readonly 'lfs completion': typeof commandSpec216;
-  readonly 'lfs dedup': typeof commandSpec217;
-  readonly 'lfs env': typeof commandSpec218;
-  readonly 'lfs ext': typeof commandSpec219;
-  readonly 'lfs ext list': typeof commandSpec220;
-  readonly 'lfs fetch': typeof commandSpec221;
-  readonly 'lfs filter-process': typeof commandSpec222;
-  readonly 'lfs fsck': typeof commandSpec223;
-  readonly 'lfs help': typeof commandSpec224;
-  readonly 'lfs install': typeof commandSpec225;
-  readonly 'lfs install hooks': typeof commandSpec226;
-  readonly 'lfs lock': typeof commandSpec227;
-  readonly 'lfs locks': typeof commandSpec228;
-  readonly 'lfs logs': typeof commandSpec229;
-  readonly 'lfs logs boomtown': typeof commandSpec230;
-  readonly 'lfs logs clear': typeof commandSpec231;
-  readonly 'lfs logs last': typeof commandSpec232;
-  readonly 'lfs logs show': typeof commandSpec233;
-  readonly 'lfs ls-files': typeof commandSpec234;
-  readonly 'lfs merge-driver': typeof commandSpec235;
-  readonly 'lfs migrate': typeof commandSpec236;
-  readonly 'lfs migrate export': typeof commandSpec237;
-  readonly 'lfs migrate import': typeof commandSpec238;
-  readonly 'lfs migrate info': typeof commandSpec239;
-  readonly 'lfs pointer': typeof commandSpec240;
-  readonly 'lfs post-checkout': typeof commandSpec241;
-  readonly 'lfs post-commit': typeof commandSpec242;
-  readonly 'lfs post-merge': typeof commandSpec243;
-  readonly 'lfs pre-push': typeof commandSpec244;
-  readonly 'lfs prune': typeof commandSpec245;
-  readonly 'lfs pull': typeof commandSpec246;
-  readonly 'lfs push': typeof commandSpec247;
-  readonly 'lfs smudge': typeof commandSpec248;
-  readonly 'lfs standalone-file': typeof commandSpec249;
-  readonly 'lfs status': typeof commandSpec250;
-  readonly 'lfs track': typeof commandSpec251;
-  readonly 'lfs uninstall': typeof commandSpec252;
-  readonly 'lfs uninstall hooks': typeof commandSpec253;
-  readonly 'lfs unlock': typeof commandSpec254;
-  readonly 'lfs untrack': typeof commandSpec255;
-  readonly 'lfs update': typeof commandSpec256;
-  readonly 'lfs version': typeof commandSpec257;
+  readonly 'submodule--helper get-default-remote': typeof commandSpec212;
+  readonly 'submodule--helper foreach': typeof commandSpec213;
+  readonly 'submodule--helper init': typeof commandSpec214;
+  readonly 'submodule--helper status': typeof commandSpec215;
+  readonly 'submodule--helper summary': typeof commandSpec216;
+  readonly 'submodule--helper sync': typeof commandSpec217;
+  readonly 'submodule--helper deinit': typeof commandSpec218;
+  readonly 'submodule--helper clone': typeof commandSpec219;
+  readonly 'submodule--helper update': typeof commandSpec220;
+  readonly 'submodule--helper absorbgitdirs': typeof commandSpec221;
+  readonly 'submodule--helper set-url': typeof commandSpec222;
+  readonly 'submodule--helper set-branch': typeof commandSpec223;
+  readonly 'submodule--helper create-branch': typeof commandSpec224;
+  readonly 'submodule--helper add': typeof commandSpec225;
+  readonly 'submodule--helper gitdir': typeof commandSpec226;
+  readonly 'submodule--helper push-check': typeof commandSpec227;
+  readonly 'submodule--helper migrate-gitdir-configs': typeof commandSpec228;
+  readonly 'submodule add': typeof commandSpec229;
+  readonly 'submodule foreach': typeof commandSpec230;
+  readonly 'submodule init': typeof commandSpec231;
+  readonly 'submodule deinit': typeof commandSpec232;
+  readonly 'submodule update': typeof commandSpec233;
+  readonly 'submodule set-branch': typeof commandSpec234;
+  readonly 'submodule set-url': typeof commandSpec235;
+  readonly 'submodule summary': typeof commandSpec236;
+  readonly 'submodule status': typeof commandSpec237;
+  readonly 'submodule sync': typeof commandSpec238;
+  readonly 'submodule absorbgitdirs': typeof commandSpec239;
+  readonly 'submodule--helper': typeof commandSpec240;
+  readonly 'sparse-checkout': typeof commandSpec241;
+  readonly 'sparse-checkout list': typeof commandSpec242;
+  readonly 'sparse-checkout init': typeof commandSpec243;
+  readonly 'sparse-checkout set': typeof commandSpec244;
+  readonly 'sparse-checkout add': typeof commandSpec245;
+  readonly 'sparse-checkout reapply': typeof commandSpec246;
+  readonly 'sparse-checkout clean': typeof commandSpec247;
+  readonly 'sparse-checkout disable': typeof commandSpec248;
+  readonly 'sparse-checkout check-rules': typeof commandSpec249;
+  readonly submodule: typeof commandSpec250;
+  readonly lfs: typeof commandSpec251;
+  readonly 'lfs checkout': typeof commandSpec252;
+  readonly 'lfs clean': typeof commandSpec253;
+  readonly 'lfs clone': typeof commandSpec254;
+  readonly 'lfs completion': typeof commandSpec255;
+  readonly 'lfs dedup': typeof commandSpec256;
+  readonly 'lfs env': typeof commandSpec257;
+  readonly 'lfs ext': typeof commandSpec258;
+  readonly 'lfs ext list': typeof commandSpec259;
+  readonly 'lfs fetch': typeof commandSpec260;
+  readonly 'lfs filter-process': typeof commandSpec261;
+  readonly 'lfs fsck': typeof commandSpec262;
+  readonly 'lfs help': typeof commandSpec263;
+  readonly 'lfs install': typeof commandSpec264;
+  readonly 'lfs install hooks': typeof commandSpec265;
+  readonly 'lfs lock': typeof commandSpec266;
+  readonly 'lfs locks': typeof commandSpec267;
+  readonly 'lfs logs': typeof commandSpec268;
+  readonly 'lfs logs boomtown': typeof commandSpec269;
+  readonly 'lfs logs clear': typeof commandSpec270;
+  readonly 'lfs logs last': typeof commandSpec271;
+  readonly 'lfs logs show': typeof commandSpec272;
+  readonly 'lfs ls-files': typeof commandSpec273;
+  readonly 'lfs merge-driver': typeof commandSpec274;
+  readonly 'lfs migrate': typeof commandSpec275;
+  readonly 'lfs migrate export': typeof commandSpec276;
+  readonly 'lfs migrate import': typeof commandSpec277;
+  readonly 'lfs migrate info': typeof commandSpec278;
+  readonly 'lfs pointer': typeof commandSpec279;
+  readonly 'lfs post-checkout': typeof commandSpec280;
+  readonly 'lfs post-commit': typeof commandSpec281;
+  readonly 'lfs post-merge': typeof commandSpec282;
+  readonly 'lfs pre-push': typeof commandSpec283;
+  readonly 'lfs prune': typeof commandSpec284;
+  readonly 'lfs pull': typeof commandSpec285;
+  readonly 'lfs push': typeof commandSpec286;
+  readonly 'lfs smudge': typeof commandSpec287;
+  readonly 'lfs standalone-file': typeof commandSpec288;
+  readonly 'lfs status': typeof commandSpec289;
+  readonly 'lfs track': typeof commandSpec290;
+  readonly 'lfs uninstall': typeof commandSpec291;
+  readonly 'lfs uninstall hooks': typeof commandSpec292;
+  readonly 'lfs unlock': typeof commandSpec293;
+  readonly 'lfs untrack': typeof commandSpec294;
+  readonly 'lfs update': typeof commandSpec295;
+  readonly 'lfs version': typeof commandSpec296;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -77630,50 +80105,89 @@ export const COMMAND_SPECS: {
   'rev-parse': commandSpec209,
   'rev-parse --parseopt': commandSpec210,
   'rev-parse --sq-quote': commandSpec211,
-  lfs: commandSpec212,
-  'lfs checkout': commandSpec213,
-  'lfs clean': commandSpec214,
-  'lfs clone': commandSpec215,
-  'lfs completion': commandSpec216,
-  'lfs dedup': commandSpec217,
-  'lfs env': commandSpec218,
-  'lfs ext': commandSpec219,
-  'lfs ext list': commandSpec220,
-  'lfs fetch': commandSpec221,
-  'lfs filter-process': commandSpec222,
-  'lfs fsck': commandSpec223,
-  'lfs help': commandSpec224,
-  'lfs install': commandSpec225,
-  'lfs install hooks': commandSpec226,
-  'lfs lock': commandSpec227,
-  'lfs locks': commandSpec228,
-  'lfs logs': commandSpec229,
-  'lfs logs boomtown': commandSpec230,
-  'lfs logs clear': commandSpec231,
-  'lfs logs last': commandSpec232,
-  'lfs logs show': commandSpec233,
-  'lfs ls-files': commandSpec234,
-  'lfs merge-driver': commandSpec235,
-  'lfs migrate': commandSpec236,
-  'lfs migrate export': commandSpec237,
-  'lfs migrate import': commandSpec238,
-  'lfs migrate info': commandSpec239,
-  'lfs pointer': commandSpec240,
-  'lfs post-checkout': commandSpec241,
-  'lfs post-commit': commandSpec242,
-  'lfs post-merge': commandSpec243,
-  'lfs pre-push': commandSpec244,
-  'lfs prune': commandSpec245,
-  'lfs pull': commandSpec246,
-  'lfs push': commandSpec247,
-  'lfs smudge': commandSpec248,
-  'lfs standalone-file': commandSpec249,
-  'lfs status': commandSpec250,
-  'lfs track': commandSpec251,
-  'lfs uninstall': commandSpec252,
-  'lfs uninstall hooks': commandSpec253,
-  'lfs unlock': commandSpec254,
-  'lfs untrack': commandSpec255,
-  'lfs update': commandSpec256,
-  'lfs version': commandSpec257,
+  'submodule--helper get-default-remote': commandSpec212,
+  'submodule--helper foreach': commandSpec213,
+  'submodule--helper init': commandSpec214,
+  'submodule--helper status': commandSpec215,
+  'submodule--helper summary': commandSpec216,
+  'submodule--helper sync': commandSpec217,
+  'submodule--helper deinit': commandSpec218,
+  'submodule--helper clone': commandSpec219,
+  'submodule--helper update': commandSpec220,
+  'submodule--helper absorbgitdirs': commandSpec221,
+  'submodule--helper set-url': commandSpec222,
+  'submodule--helper set-branch': commandSpec223,
+  'submodule--helper create-branch': commandSpec224,
+  'submodule--helper add': commandSpec225,
+  'submodule--helper gitdir': commandSpec226,
+  'submodule--helper push-check': commandSpec227,
+  'submodule--helper migrate-gitdir-configs': commandSpec228,
+  'submodule add': commandSpec229,
+  'submodule foreach': commandSpec230,
+  'submodule init': commandSpec231,
+  'submodule deinit': commandSpec232,
+  'submodule update': commandSpec233,
+  'submodule set-branch': commandSpec234,
+  'submodule set-url': commandSpec235,
+  'submodule summary': commandSpec236,
+  'submodule status': commandSpec237,
+  'submodule sync': commandSpec238,
+  'submodule absorbgitdirs': commandSpec239,
+  'submodule--helper': commandSpec240,
+  'sparse-checkout': commandSpec241,
+  'sparse-checkout list': commandSpec242,
+  'sparse-checkout init': commandSpec243,
+  'sparse-checkout set': commandSpec244,
+  'sparse-checkout add': commandSpec245,
+  'sparse-checkout reapply': commandSpec246,
+  'sparse-checkout clean': commandSpec247,
+  'sparse-checkout disable': commandSpec248,
+  'sparse-checkout check-rules': commandSpec249,
+  submodule: commandSpec250,
+  lfs: commandSpec251,
+  'lfs checkout': commandSpec252,
+  'lfs clean': commandSpec253,
+  'lfs clone': commandSpec254,
+  'lfs completion': commandSpec255,
+  'lfs dedup': commandSpec256,
+  'lfs env': commandSpec257,
+  'lfs ext': commandSpec258,
+  'lfs ext list': commandSpec259,
+  'lfs fetch': commandSpec260,
+  'lfs filter-process': commandSpec261,
+  'lfs fsck': commandSpec262,
+  'lfs help': commandSpec263,
+  'lfs install': commandSpec264,
+  'lfs install hooks': commandSpec265,
+  'lfs lock': commandSpec266,
+  'lfs locks': commandSpec267,
+  'lfs logs': commandSpec268,
+  'lfs logs boomtown': commandSpec269,
+  'lfs logs clear': commandSpec270,
+  'lfs logs last': commandSpec271,
+  'lfs logs show': commandSpec272,
+  'lfs ls-files': commandSpec273,
+  'lfs merge-driver': commandSpec274,
+  'lfs migrate': commandSpec275,
+  'lfs migrate export': commandSpec276,
+  'lfs migrate import': commandSpec277,
+  'lfs migrate info': commandSpec278,
+  'lfs pointer': commandSpec279,
+  'lfs post-checkout': commandSpec280,
+  'lfs post-commit': commandSpec281,
+  'lfs post-merge': commandSpec282,
+  'lfs pre-push': commandSpec283,
+  'lfs prune': commandSpec284,
+  'lfs pull': commandSpec285,
+  'lfs push': commandSpec286,
+  'lfs smudge': commandSpec287,
+  'lfs standalone-file': commandSpec288,
+  'lfs status': commandSpec289,
+  'lfs track': commandSpec290,
+  'lfs uninstall': commandSpec291,
+  'lfs uninstall hooks': commandSpec292,
+  'lfs unlock': commandSpec293,
+  'lfs untrack': commandSpec294,
+  'lfs update': commandSpec295,
+  'lfs version': commandSpec296,
 };

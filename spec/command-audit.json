@@ -76,13 +76,13 @@
     },
     "submodule update": {
       "state": "partial",
-      "models": [
-        "submoduleUpdate"
-      ],
+      "models": [],
       "tests": [
-        "src/impl/option-constraints.test.ts"
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
       ],
-      "remaining": "require-init, numeric options and complete CLI surface."
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
     },
     "lfs checkout": {
       "state": "partial",
@@ -2619,6 +2619,386 @@
         "test/types/revision-query-command-api.ts"
       ],
       "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper get-default-remote": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper foreach": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper init": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper status": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper summary": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper sync": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper deinit": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper clone": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper update": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper absorbgitdirs": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper set-url": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper set-branch": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper create-branch": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper add": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper gitdir": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper push-check": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper migrate-gitdir-configs": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "submodule add": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule foreach": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule init": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule deinit": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule set-branch": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule set-url": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule summary": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule status": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule sync": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule absorbgitdirs": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "typedCommandAPI": true
+    },
+    "submodule--helper": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout list": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Cone path validation and configured clean.requireForce are state-dependent; native ignored operands and stdin precedence are preserved.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout init": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Cone path validation and configured clean.requireForce are state-dependent; native ignored operands and stdin precedence are preserved.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout set": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Cone path validation and configured clean.requireForce are state-dependent; native ignored operands and stdin precedence are preserved.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout add": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Cone path validation and configured clean.requireForce are state-dependent; native ignored operands and stdin precedence are preserved.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout reapply": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Cone path validation and configured clean.requireForce are state-dependent; native ignored operands and stdin precedence are preserved.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout clean": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Cone path validation and configured clean.requireForce are state-dependent; native ignored operands and stdin precedence are preserved.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout disable": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Cone path validation and configured clean.requireForce are state-dependent; native ignored operands and stdin precedence are preserved.",
+      "typedCommandAPI": true
+    },
+    "sparse-checkout check-rules": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Cone path validation and configured clean.requireForce are state-dependent; native ignored operands and stdin precedence are preserved.",
+      "typedCommandAPI": true
+    },
+    "submodule": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/submodule-sparse.test.ts",
+        "test/types/submodule-sparse-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
       "typedCommandAPI": true
     }
   }
