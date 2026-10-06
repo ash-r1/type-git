@@ -1,5 +1,5 @@
 import { executeCommand } from '../commands/execute.js';
-import type { GitCommandClient } from '../commands/types.js';
+import type { GitCommandClient, GitCommandExecOpts, GitCommandName } from '../commands/types.js';
 import {
   type ExclusiveQuery,
   validateOptions,
@@ -385,7 +385,11 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Execute a raw git command in this repository context
    */
-  public command: GitCommandClient['command'] = async (command, args, opts) => {
+  public command: GitCommandClient['command'] = async (
+    command: GitCommandName,
+    args: readonly unknown[],
+    opts?: GitCommandExecOpts,
+  ) => {
     return executeCommand(this.runner, this.context, command, args, opts);
   };
 

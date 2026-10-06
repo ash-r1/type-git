@@ -8584,43 +8584,53 @@
     "options": {
       "-h": {
         "key": "h",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "-H": {
         "key": "h",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--h": {
         "key": "h",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--H": {
         "key": "h",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--version": {
         "key": "version",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "-V": {
         "key": "version",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--V": {
         "key": "version",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--base-path": {
         "key": "base-path",
-        "value": "string"
+        "value": "string",
+        "before": 1
       },
       "--strict-paths": {
         "key": "strict-paths",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--export-all": {
         "key": "export-all",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       }
     },
     "optionAllowlist": [
@@ -8643,43 +8653,53 @@
     "options": {
       "-h": {
         "key": "h",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "-H": {
         "key": "h",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--h": {
         "key": "h",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--H": {
         "key": "h",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--version": {
         "key": "version",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "-V": {
         "key": "version",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--V": {
         "key": "version",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--base-path": {
         "key": "base-path",
-        "value": "string"
+        "value": "string",
+        "before": 1
       },
       "--strict-paths": {
         "key": "strict-paths",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       },
       "--export-all": {
         "key": "export-all",
-        "value": "flag"
+        "value": "flag",
+        "before": 1
       }
     },
     "optionAllowlist": [
