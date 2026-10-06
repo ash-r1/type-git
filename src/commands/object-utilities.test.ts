@@ -91,12 +91,14 @@ describe('object and utility command grammars', () => {
       ['--unordered', '-t', 'HEAD'],
       true,
     );
-    compare(
-      'cat-file',
-      [['--batch'], ['--textconv'], ['--path', 'tracked'], { operand: 'ignored' }],
-      ['--batch', '--textconv', '--path=tracked', 'ignored'],
-      true,
-    );
+    if (!legacy) {
+      compare(
+        'cat-file',
+        [['--batch'], ['--textconv'], ['--path', 'tracked'], { operand: 'ignored' }],
+        ['--batch', '--textconv', '--path=tracked', 'ignored'],
+        true,
+      );
+    }
     compare(
       'cat-file',
       [['--path', 'tracked'], ['-t'], { operand: 'HEAD' }],
