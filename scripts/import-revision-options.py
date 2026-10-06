@@ -37,7 +37,7 @@ for file, functions in [('revision.c',['handle_revision_opt','handle_revision_ps
     text=(root/file).read_text(); files.append({'file':file,'sha256':hashlib.sha256((root/file).read_bytes()).hexdigest(),'functions':functions})
     for function in functions:
         source=body(text,function)
-        patterns=[('flag',r'strcmp\(arg,\s*"(-[^"=]+)"\)'),('value',r'(?:skip_prefix|starts_with)\(arg,\s*"(-[^"=]+)="'),('value',r'parse_long_opt\("([^"]+)"')]
+        patterns=[('flag',r'strcmp\(arg,\s*\(*\s*"(-[^"=]+)"\s*\)*\)'),('value',r'(?:skip_prefix|starts_with)\(arg,\s*\(*\s*"(-[^"=]+)="'),('value',r'parse_long_opt\("([^"]+)"')]
         for kind,pattern in patterns:
             for match in re.finditer(pattern,source):
                 flag=match[1] if match[1].startswith('-') else '--'+match[1]

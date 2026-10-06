@@ -56,7 +56,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}) {
     for (const group of inherited) Object.assign(options, group.options);
     Object.assign(options, scope.options ?? {});
     for (const flag of scope.omitOptions ?? []) delete options[flag];
-    result[command] = { argv: command.split(' '), options, rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}) };
+    result[command] = { argv: command.split(' '), ...(scope.initial ? { initial: scope.initial } : {}), options, rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}) };
   }
   for (const command of Object.keys(rules)) if (!result[command]) throw new Error(`Rules for unknown Git scope: ${command}`);
   return result;

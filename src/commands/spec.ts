@@ -17,6 +17,8 @@ export type OptionSpec = {
   toggle?: boolean;
   /** Manual parsers such as revision --default require a detached value. */
   separateValue?: boolean;
+  /** Delegating parsers can require a short value in the same argv word. */
+  attachedValue?: boolean;
   /** Git PARSE_OPT_CMDMODE rejects a change to an already selected mode immediately. */
   modeGroup?: string;
   /** Cobra StringSlice treats an empty value as no entries. */
@@ -39,6 +41,8 @@ export type OptionSpec = {
 };
 export type CommandSpec = {
   argv: readonly string[];
+  /** Parser defaults supplied by the command before consuming user options. */
+  initial?: Readonly<Record<string, string | number | boolean>>;
   options: Readonly<Record<string, OptionSpec>>;
   rules: readonly Constraint[];
   source: string;

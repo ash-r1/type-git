@@ -25,6 +25,7 @@ export function commandArguments(
   const operandsBeforeSeparator: string[] = [];
   const pathsAfterSeparator: string[] = [];
   const state: Record<string, unknown> = {
+    ...spec.initial,
     operands,
     inRepository,
     operandsBeforeSeparator,
@@ -140,7 +141,7 @@ export function commandArguments(
           argv.push(flag, String(value));
         } else if (flag.startsWith('--')) {
           argv.push(`${flag}=${value}`);
-        } else if (optional) {
+        } else if (optional || option.attachedValue) {
           argv.push(`${flag}${value}`);
         } else {
           argv.push(flag, String(value));

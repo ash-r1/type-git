@@ -1679,5 +1679,214 @@
     "optionGroups": [
       "diff"
     ]
+  },
+  "reflog list": {
+    "source": "builtin/reflog.c:cmd_reflog_list",
+    "tables": [
+      "builtin/reflog.c:cmd_reflog_list:options"
+    ]
+  },
+  "reflog exists": {
+    "source": "builtin/reflog.c:cmd_reflog_exists",
+    "tables": [
+      "builtin/reflog.c:cmd_reflog_exists:options"
+    ]
+  },
+  "reflog write": {
+    "source": "builtin/reflog.c:cmd_reflog_write",
+    "tables": [
+      "builtin/reflog.c:cmd_reflog_write:options"
+    ]
+  },
+  "reflog delete": {
+    "source": "builtin/reflog.c:cmd_reflog_delete",
+    "tables": [
+      "builtin/reflog.c:cmd_reflog_delete:options"
+    ]
+  },
+  "reflog drop": {
+    "source": "builtin/reflog.c:cmd_reflog_drop",
+    "tables": [
+      "builtin/reflog.c:cmd_reflog_drop:options"
+    ]
+  },
+  "reflog expire": {
+    "source": "builtin/reflog.c:cmd_reflog_expire",
+    "tables": [
+      "builtin/reflog.c:cmd_reflog_expire:options"
+    ]
+  },
+  "reflog show": {
+    "source": "builtin/reflog.c:cmd_reflog_show; builtin/log.c:cmd_log_reflog",
+    "tables": [
+      "builtin/log.c:cmd_log_init_finish:builtin_log_options",
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "initial": {
+      "walk-reflogs": true
+    }
+  },
+  "stash show": {
+    "source": "Git 2.55.0 builtin/stash.c:show_stash/get_stash_info",
+    "tables": [
+      "builtin/stash.c:show_stash:options",
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "options": {
+      "-U": {
+        "key": "unified",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "no-output",
+            "set": false
+          }
+        ],
+        "attachedValue": true
+      },
+      "-X": {
+        "key": "dirstat",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "no-output",
+            "set": false
+          }
+        ],
+        "attachedValue": true
+      },
+      "-B": {
+        "key": "break-rewrites",
+        "value": "optional-string",
+        "attachedValue": true
+      },
+      "-M": {
+        "key": "find-renames",
+        "value": "optional-string",
+        "attachedValue": true
+      },
+      "-C": {
+        "key": "find-copies",
+        "value": "optional-string",
+        "attachedValue": true
+      },
+      "-l": {
+        "key": "l",
+        "value": "integer",
+        "attachedValue": true
+      },
+      "-I": {
+        "key": "ignore-matching-lines",
+        "value": "string",
+        "attachedValue": true
+      },
+      "-S": {
+        "key": "S",
+        "value": "string",
+        "checks": [
+          {
+            "id": "revision.pickaxe-nonempty-S",
+            "kind": "required",
+            "origin": "git",
+            "source": "Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex",
+            "reason": "Pickaxe patterns cannot be empty.",
+            "required": [
+              {
+                "key": "$value",
+                "test": "nonempty"
+              }
+            ]
+          }
+        ],
+        "attachedValue": true
+      },
+      "-G": {
+        "key": "G",
+        "value": "string",
+        "checks": [
+          {
+            "id": "revision.pickaxe-nonempty-G",
+            "kind": "required",
+            "origin": "git",
+            "source": "Git 2.55.0 diff.c:diff_opt_pickaxe_string/diff_opt_pickaxe_regex",
+            "reason": "Pickaxe patterns cannot be empty.",
+            "required": [
+              {
+                "key": "$value",
+                "test": "nonempty"
+              }
+            ]
+          }
+        ],
+        "attachedValue": true
+      },
+      "-O": {
+        "key": "O",
+        "value": "string",
+        "emptyIsUnset": true,
+        "attachedValue": true
+      },
+      "-n": {
+        "key": "max-count",
+        "value": "integer",
+        "parser": "revision-count",
+        "effects": [
+          {
+            "key": "no-walk",
+            "set": false
+          }
+        ],
+        "attachedValue": true
+      },
+      "-u": {
+        "key": "untracked-mode",
+        "value": "flag",
+        "set": "include"
+      },
+      "--include-untracked": {
+        "key": "untracked-mode",
+        "value": "flag",
+        "set": "include"
+      },
+      "--only-untracked": {
+        "key": "untracked-mode",
+        "value": "flag",
+        "set": "only"
+      },
+      "--no-include-untracked": {
+        "key": "untracked-mode",
+        "value": "flag",
+        "set": "none"
+      },
+      "--default": {
+        "key": "default",
+        "value": "string",
+        "separateValue": true,
+        "checks": [
+          {
+            "id": "stash.show-default-word",
+            "kind": "required",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/stash.c:show_stash",
+            "reason": "Stash show splits non-dash words into stash operands before revision parsing; a detached --default value must remain in the revision argument stream.",
+            "required": [
+              {
+                "key": "$value",
+                "test": "startsWith",
+                "value": "-"
+              }
+            ]
+          }
+        ]
+      }
+    }
   }
 }
