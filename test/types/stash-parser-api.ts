@@ -27,3 +27,18 @@ git.command('stash clear', [{ operand: 'file' }, ['-h']]);
 git.command('stash apply', [{ operand: '--unknown' }, ['-h']]);
 // @ts-expect-error Known NUL bytes remain unrepresentable even after help.
 git.command('stash drop', [['-h'], { operand: 'x\0y' }]);
+
+// Assumed push stops on the first path; later option-shaped words are literal paths.
+git.command('stash', [['--patch'], { operand: 'file' }, ['--unified', 'bad']]);
+git.command('stash', [['--'], ['--unified', 'bad']]);
+git.command('stash', [['--']]);
+git.command('stash', [['--unified', '-2'], ['-h']]);
+git.command('stash', [{ operand: '-qh' }]);
+// @ts-expect-error A later separator does not retroactively enable assumed push paths.
+git.command('stash', [{ operand: 'file' }, ['--'], ['-h']]);
+// @ts-expect-error Help after the first operand is a literal path.
+git.command('stash', [{ operand: 'file' }, ['-h']]);
+// @ts-expect-error The integer callback is reached before help.
+git.command('stash', [['--unified', 'bad'], ['-h']]);
+// @ts-expect-error The wrapper detects a single-dash subcommand typo before push's -p.
+git.command('stash', [{ operand: '-push' }, ['-h']]);

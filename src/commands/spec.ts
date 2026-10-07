@@ -122,6 +122,8 @@ export type CommandSpec = {
       kind: 'empty-options';
       keepDashDash?: boolean;
       stopAtUnknown?: boolean;
+      /** Native subcommand names also participate in check_typos. */
+      firstPassLongNames?: readonly string[];
     })[];
     /** Separate option definitions for the subsequent revision/diff parser. */
     remainingOptions?: Readonly<Record<string, OptionSpec>>;
