@@ -2,7 +2,7 @@ import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { matches, violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
-import type { CommandSpec, OptionSpec } from './spec.js';
+import { ARGV_STRING_CONSTRAINT, type CommandSpec, type OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
 /** Build argv without a shell, preserving repeated options and interleaved operands. */
@@ -56,7 +56,10 @@ export function commandArguments(
     if (!Array.isArray(arg)) {
       const operand =
         arg !== null && typeof arg === 'object' && 'operand' in arg ? arg.operand : undefined;
-      if (typeof operand !== 'string' || operand.includes('\0')) {
+      if (
+        typeof operand !== 'string' ||
+        operand.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)
+      ) {
         throw new GitArgumentError('Expected a string operand without NUL');
       }
       if (
@@ -192,7 +195,7 @@ export function commandArguments(
         if (option.value.endsWith('string') && typeof value !== 'string') {
           throw new GitArgumentError(`${flag}: expected a string`);
         }
-        if (String(value).includes('\0')) {
+        if (String(value).includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)) {
           throw new GitArgumentError(`${flag}: NUL is not a valid CLI argument`);
         }
         // Long equals forms preserve empty values; short values are separate tokens.

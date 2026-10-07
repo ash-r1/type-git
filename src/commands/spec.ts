@@ -1,5 +1,14 @@
 import type { GitScalarParser } from '../constraints/git-scalars.js';
-import type { Constraint, Predicate } from '../constraints/model.js';
+import type { Constraint, Evidence, Predicate } from '../constraints/model.js';
+
+/** Representation boundary shared by every command before Git-specific interpretation. */
+export const ARGV_STRING_CONSTRAINT = {
+  id: 'argv.nul-free',
+  origin: 'type-git',
+  forbiddenCharacter: '\0',
+  reason: 'OS argv cannot represent embedded NUL characters.',
+  source: 'docs/design/typed-command-api.md#cli-string-representation',
+} as const satisfies Evidence & { id: string; forbiddenCharacter: string };
 
 /** One CLI spelling; aliases share a normalized key. */
 export type OptionSpec = {

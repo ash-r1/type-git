@@ -601,3 +601,19 @@ normalization-dependent combination errors, and execute wrapped mainline values
 through convenience methods. Nongeneric convenience numeric fields still rely
 on runtime scalar checks. These additions do not establish whole-command
 semantic completeness; all audit scopes remain partial.
+
+## CLI string representation
+
+NUL cannot be represented inside an OS argument string. This is a transport
+restriction, independent of Git's command-specific parsing and help behavior.
+`ARGV_STRING_CONSTRAINT` records this wrapper representation rule once in the
+command schema, with its reason and provenance. Runtime and literal checks use
+its forbidden character. The typed command API checks literal tuples before
+dispatch and rejects known NUL bytes in option values or operand objects,
+including literal unions and templates with a known NUL. Each tuple position is
+checked independently so another dynamic string cannot hide a known NUL. The existing runtime builder checks the same
+representation boundary for dynamic inputs. Broad strings and arrays with
+unknown length retain runtime validation. Stdin is a data stream and continues to
+accept NUL; it is not an argv string. Convenience option objects and
+execution-environment fields require separate auditing; this rule does not claim
+whole-command or whole-wrapper completeness.

@@ -7,6 +7,7 @@ import type { Constraint, Predicate } from '../constraints/model.js';
 import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, RawResult } from '../core/types.js';
+import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { OptionSpec } from './spec.js';
 
@@ -461,19 +462,21 @@ export type CheckedCommandArguments<
   A extends readonly GitCommandArgument<C>[],
 > = number extends A['length']
   ? A
-  : A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
-    ? [Dispatch<C>] extends [never]
-      ? CheckedLocalArguments<C, A>
-      : string extends W
-        ? A
-        : W extends keyof Dispatch<C>
-          ? Dispatch<C>[W] extends infer Target extends GitCommandName
-            ? [CheckedLocalArguments<Target, Rest>] extends [never]
-              ? never
-              : A
-            : never
-          : CheckedLocalArguments<C, A>
-    : CheckedLocalArguments<C, A>;
+  : ArgumentsHaveLiteralNul<A> extends true
+    ? never
+    : A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
+      ? [Dispatch<C>] extends [never]
+        ? CheckedLocalArguments<C, A>
+        : string extends W
+          ? A
+          : W extends keyof Dispatch<C>
+            ? Dispatch<C>[W] extends infer Target extends GitCommandName
+              ? [CheckedLocalArguments<Target, Rest>] extends [never]
+                ? never
+                : A
+              : never
+            : CheckedLocalArguments<C, A>
+      : CheckedLocalArguments<C, A>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {

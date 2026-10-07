@@ -59,6 +59,27 @@ describe('typed command arguments', () => {
     expect(() => commandArguments('lfs locks', [['--limit', 1.5]])).toThrow(GitArgumentError);
   });
 
+  it('rejects NUL operands for every generated scope before command semantics', () => {
+    for (const name of Object.keys(COMMAND_SPECS) as GitCommandName[]) {
+      expect(() => commandArguments(name, [{ operand: 'a\0b' }], true), name).toThrow(
+        'Expected a string operand without NUL',
+      );
+    }
+    expect(() => commandArguments('log', [['-h'], { operand: 'a\0b' }], true)).toThrow(
+      'Expected a string operand without NUL',
+    );
+  });
+
+  it('preserves NUL in stdin data rather than treating it as an argv string', async () => {
+    const input = 'a\0b';
+    const native = spawnSync('git', ['hash-object', '--stdin'], { input, encoding: 'utf8' });
+    expect(native.error).toBeUndefined();
+    expect(native.status).toBe(0);
+    const actual = await new TypeGit().command('hash-object', [['--stdin']], { stdin: input });
+    expect(actual.exitCode).toBe(0);
+    expect(actual.stdout).toBe(native.stdout);
+  });
+
   it('checks effective values and supports help before semantic validation', () => {
     expect(() => commandArguments('lfs checkout', [['--ours'], ['--to', 'out']])).toThrow(
       'exactly one',
