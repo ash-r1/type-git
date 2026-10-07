@@ -23,14 +23,14 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `bugreport` | documented | pending | pending |  | Audit every applicable facet. |
 | `bundle` | documented | pending | pending |  | Audit every applicable facet. |
 | `cat-file` | documented | pending | pending |  | Audit every applicable facet. |
-| `check-attr` | documented | pending | pending |  | Audit every applicable facet. |
-| `check-ignore` | documented | pending | pending |  | Audit every applicable facet. |
-| `check-mailmap` | documented | pending | pending |  | Audit every applicable facet. |
-| `check-ref-format` | documented | pending | pending |  | Audit every applicable facet. |
+| `check-attr` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `check-ignore` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `check-mailmap` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `check-ref-format` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `checkout` | documented | partial | yes | checkoutBranch, checkoutPath | Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. |
 | `checkout--worker` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `checkout-index` | documented | pending | pending |  | Audit every applicable facet. |
-| `cherry` | documented | pending | pending |  | Audit every applicable facet. |
+| `cherry` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `cherry-pick` | documented | partial | yes | cherryPick | Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. |
 | `citool` | documented | pending | pending |  | Audit every applicable facet. |
 | `clean` | documented | partial | yes | clean | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
@@ -47,7 +47,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `config rename-section` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
 | `config set` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
 | `config unset` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
-| `count-objects` | documented | pending | pending |  | Audit every applicable facet. |
+| `count-objects` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `credential` | documented | pending | pending |  | Audit every applicable facet. |
 | `credential-cache` | documented | pending | pending |  | Audit every applicable facet. |
 | `credential-cache--daemon` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
@@ -56,7 +56,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `cvsimport` | documented | pending | pending |  | Audit every applicable facet. |
 | `cvsserver` | documented | pending | pending |  | Audit every applicable facet. |
 | `daemon` | documented | pending | pending |  | Audit every applicable facet. |
-| `describe` | documented | pending | pending |  | Audit every applicable facet. |
+| `describe` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `diagnose` | documented | pending | pending |  | Audit every applicable facet. |
 | `diff` | documented | partial | yes | diff | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
 | `diff --no-index` | reviewed-scope | partial | yes |  | Filesystem-dependent file/directory operand rules, pathspec grammar, callback argument languages and binary output. |
@@ -71,10 +71,10 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `fetch-pack` | documented | pending | pending |  | Audit every applicable facet. |
 | `filter-branch` | documented | pending | pending |  | Audit every applicable facet. |
 | `fmt-merge-msg` | documented | pending | pending |  | Audit every applicable facet. |
-| `for-each-ref` | documented | pending | pending |  | Audit every applicable facet. |
+| `for-each-ref` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `for-each-repo` | documented | pending | pending |  | Audit every applicable facet. |
 | `format-patch` | documented | pending | pending |  | Audit every applicable facet. |
-| `format-rev` | documented | pending | pending |  | Audit every applicable facet. |
+| `format-rev` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `fsck` | documented | pending | pending |  | Audit every applicable facet. |
 | `fsck-objects` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `fsmonitor--daemon` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
@@ -145,9 +145,9 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `lfs update` | lfs-registered | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `lfs version` | lfs-registered | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `log` | documented | partial | yes | log | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
-| `ls-files` | documented | pending | pending |  | Audit every applicable facet. |
-| `ls-remote` | documented | partial | pending | lsRemote | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
-| `ls-tree` | documented | partial | pending | lsTree | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `ls-files` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `ls-remote` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `ls-tree` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `mailinfo` | documented | pending | pending |  | Audit every applicable facet. |
 | `mailsplit` | documented | pending | pending |  | Audit every applicable facet. |
 | `maintenance` | documented | pending | pending |  | Audit every applicable facet. |
@@ -163,11 +163,11 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `merge-subtree` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `merge-tree` | documented | pending | pending |  | Audit every applicable facet. |
 | `mergetool` | documented | pending | pending |  | Audit every applicable facet. |
-| `mktag` | documented | pending | pending |  | Audit every applicable facet. |
-| `mktree` | documented | pending | pending |  | Audit every applicable facet. |
+| `mktag` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `mktree` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `multi-pack-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `mv` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
-| `name-rev` | documented | pending | pending |  | Audit every applicable facet. |
+| `name-rev` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `notes` | documented | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
 | `notes add` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
 | `notes append` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
@@ -183,7 +183,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `pack-objects` | documented | pending | pending |  | Audit every applicable facet. |
 | `pack-redundant` | documented | pending | pending |  | Audit every applicable facet. |
 | `pack-refs` | documented | pending | pending |  | Audit every applicable facet. |
-| `patch-id` | documented | pending | pending |  | Audit every applicable facet. |
+| `patch-id` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `pickaxe` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `prune` | documented | pending | pending |  | Audit every applicable facet. |
 | `prune-packed` | documented | pending | pending |  | Audit every applicable facet. |
@@ -238,8 +238,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `shortlog` | documented | pending | pending |  | Audit every applicable facet. |
 | `show` | documented | partial | yes |  | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
 | `show-branch` | documented | pending | pending |  | Audit every applicable facet. |
-| `show-index` | documented | pending | pending |  | Audit every applicable facet. |
-| `show-ref` | documented | pending | pending |  | Audit every applicable facet. |
+| `show-index` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `show-ref` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `sparse-checkout` | documented | pending | pending |  | Audit every applicable facet. |
 | `stage` | documented | pending | pending |  | Audit every applicable facet. |
 | `stash` | documented | pending | pending |  | Audit every applicable facet. |
@@ -256,15 +256,15 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `stash show` | reviewed-scope | partial | yes |  | Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. |
 | `stash store` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `status` | documented | partial | yes | status | Callback grammars, configuration-dependent defaults, abbreviations and independent coverage of all output values. |
-| `stripspace` | documented | pending | pending |  | Audit every applicable facet. |
+| `stripspace` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `submodule` | documented | pending | pending |  | Audit every applicable facet. |
 | `submodule update` | reviewed-scope | partial | pending | submoduleUpdate | require-init, numeric options and complete CLI surface. |
 | `submodule--helper` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `svn` | documented | pending | pending |  | Audit every applicable facet. |
 | `switch` | documented | partial | yes | switch | Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars. |
-| `symbolic-ref` | documented | pending | pending |  | Audit every applicable facet. |
+| `symbolic-ref` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `tag` | documented | partial | yes | tagCreate | Column and formatting callback grammars, implicit listing with -n=-1, signing configuration, object names and abbreviations. |
-| `unpack-file` | documented | pending | pending |  | Audit every applicable facet. |
+| `unpack-file` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `unpack-objects` | documented | pending | pending |  | Audit every applicable facet. |
 | `update-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `update-ref` | documented | pending | pending |  | Audit every applicable facet. |
@@ -274,9 +274,9 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `upload-pack` | documented | pending | pending |  | Audit every applicable facet. |
 | `url-parse` | documented | pending | pending |  | Audit every applicable facet. |
 | `var` | documented | pending | pending |  | Audit every applicable facet. |
-| `verify-commit` | documented | pending | pending |  | Audit every applicable facet. |
-| `verify-pack` | documented | pending | pending |  | Audit every applicable facet. |
-| `verify-tag` | documented | pending | pending |  | Audit every applicable facet. |
+| `verify-commit` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `verify-pack` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
+| `verify-tag` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `version` | documented | pending | pending |  | Audit every applicable facet. |
 | `whatchanged` | documented | pending | pending |  | Audit every applicable facet. |
 | `worktree` | documented | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
@@ -288,4 +288,4 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `worktree remove` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `worktree repair` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `worktree unlock` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
-| `write-tree` | documented | pending | pending |  | Audit every applicable facet. |
+| `write-tree` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |

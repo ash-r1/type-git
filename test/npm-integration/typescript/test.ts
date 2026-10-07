@@ -42,6 +42,13 @@ async function testTypes(): Promise<void> {
   // @ts-expect-error Reflog mode is initialized before folding user options.
   await git.command('reflog show', [['--graph']]);
 
+  await git.command('check-attr', [['--stdin'], { operand: 'text' }]);
+  await git.command('ls-files', [['--format', '%(path)'], ['--unmerged']]);
+  await git.command('for-each-ref', [['--start-after', 'refs/a'], ['--no-sort'], ['--sort', 'refname']]);
+  // @ts-expect-error Explicit stage conflicts with format.
+  await git.command('ls-files', [['--format', '%(path)'], ['--stage']]);
+  // @ts-expect-error Branch shorthand takes no extra flags.
+  await git.command('check-ref-format', [['--branch'], ['--normalize'], { operand: 'topic' }]);
   await git.command('am', [['--continue'], ['--resolved']]);
   await git.command('am', [['--show-current-patch'], ['--show-current-patch', 'raw']]);
   await git.command('apply', [['--3way'], ['--ours'], ['--theirs']]);

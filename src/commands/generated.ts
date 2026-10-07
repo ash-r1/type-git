@@ -39800,6 +39800,2768 @@ export const COMMAND_SPECS = {
     source: 'builtin/am.c:cmd_am',
     separator: true,
   },
+  'ls-files': {
+    argv: ['ls-files'],
+    options: {
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '-t': {
+        key: 't',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'v',
+        value: 'flag',
+      },
+      '-f': {
+        key: 'f',
+        value: 'flag',
+      },
+      '--cached': {
+        key: 'cached',
+        value: 'flag',
+      },
+      '-c': {
+        key: 'cached',
+        value: 'flag',
+      },
+      '--deleted': {
+        key: 'deleted',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'deleted',
+        value: 'flag',
+      },
+      '--modified': {
+        key: 'modified',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'modified',
+        value: 'flag',
+      },
+      '--others': {
+        key: 'others',
+        value: 'flag',
+      },
+      '-o': {
+        key: 'others',
+        value: 'flag',
+      },
+      '--ignored': {
+        key: 'ignored',
+        value: 'flag',
+      },
+      '-i': {
+        key: 'ignored',
+        value: 'flag',
+      },
+      '--stage': {
+        key: 'stage',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'stage',
+        value: 'flag',
+      },
+      '--killed': {
+        key: 'killed',
+        value: 'flag',
+      },
+      '-k': {
+        key: 'killed',
+        value: 'flag',
+      },
+      '--directory': {
+        key: 'directory',
+        value: 'flag',
+      },
+      '--eol': {
+        key: 'eol',
+        value: 'flag',
+      },
+      '--empty-directory': {
+        key: 'empty-directory',
+        value: 'flag',
+      },
+      '--unmerged': {
+        key: 'unmerged',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'unmerged',
+        value: 'flag',
+      },
+      '--resolve-undo': {
+        key: 'resolve-undo',
+        value: 'flag',
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+      },
+      '-x': {
+        key: 'exclude',
+        value: 'string',
+      },
+      '--exclude-from': {
+        key: 'exclude-from',
+        value: 'string',
+      },
+      '-X': {
+        key: 'exclude-from',
+        value: 'string',
+      },
+      '--exclude-per-directory': {
+        key: 'exclude-per-directory',
+        value: 'string',
+      },
+      '--exclude-standard': {
+        key: 'exclude-standard',
+        value: 'flag',
+      },
+      '--full-name': {
+        key: 'full-name',
+        value: 'flag',
+      },
+      '--recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+      },
+      '--error-unmatch': {
+        key: 'error-unmatch',
+        value: 'flag',
+      },
+      '--with-tree': {
+        key: 'with-tree',
+        value: 'string',
+      },
+      '--abbrev': {
+        key: 'abbrev',
+        value: 'optional-string',
+      },
+      '--debug': {
+        key: 'debug',
+        value: 'flag',
+      },
+      '--deduplicate': {
+        key: 'deduplicate',
+        value: 'flag',
+      },
+      '--sparse': {
+        key: 'sparse',
+        value: 'flag',
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--no-cached': {
+        key: 'cached',
+        value: 'flag',
+        set: false,
+      },
+      '--no-deleted': {
+        key: 'deleted',
+        value: 'flag',
+        set: false,
+      },
+      '--no-modified': {
+        key: 'modified',
+        value: 'flag',
+        set: false,
+      },
+      '--no-others': {
+        key: 'others',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignored': {
+        key: 'ignored',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stage': {
+        key: 'stage',
+        value: 'flag',
+        set: false,
+      },
+      '--no-killed': {
+        key: 'killed',
+        value: 'flag',
+        set: false,
+      },
+      '--no-directory': {
+        key: 'directory',
+        value: 'flag',
+        set: false,
+      },
+      '--no-eol': {
+        key: 'eol',
+        value: 'flag',
+        set: false,
+      },
+      '--no-empty-directory': {
+        key: 'empty-directory',
+        value: 'flag',
+        set: false,
+      },
+      '--no-unmerged': {
+        key: 'unmerged',
+        value: 'flag',
+        set: false,
+      },
+      '--no-resolve-undo': {
+        key: 'resolve-undo',
+        value: 'flag',
+        set: false,
+      },
+      '--no-exclude-per-directory': {
+        key: 'exclude-per-directory',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--no-error-unmatch': {
+        key: 'error-unmatch',
+        value: 'flag',
+        set: false,
+      },
+      '--no-with-tree': {
+        key: 'with-tree',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-abbrev': {
+        key: 'abbrev',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-debug': {
+        key: 'debug',
+        value: 'flag',
+        set: false,
+      },
+      '--no-deduplicate': {
+        key: 'deduplicate',
+        value: 'flag',
+        set: false,
+      },
+      '--no-sparse': {
+        key: 'sparse',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.ls-files.format',
+        kind: 'conflicts',
+        when: {
+          key: 'format',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'stage',
+            test: 'active',
+          },
+          {
+            key: 'others',
+            test: 'active',
+          },
+          {
+            key: 'killed',
+            test: 'active',
+          },
+          {
+            key: 'resolve-undo',
+            test: 'active',
+          },
+          {
+            key: 'deduplicate',
+            test: 'active',
+          },
+          {
+            key: 'eol',
+            test: 'active',
+          },
+          {
+            key: 't',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'These parser states cannot be combined.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c',
+      },
+      {
+        id: 'cli.ls-files.recursive-mode',
+        kind: 'conflicts',
+        when: {
+          key: 'recurse-submodules',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'deleted',
+            test: 'active',
+          },
+          {
+            key: 'others',
+            test: 'active',
+          },
+          {
+            key: 'unmerged',
+            test: 'active',
+          },
+          {
+            key: 'killed',
+            test: 'active',
+          },
+          {
+            key: 'modified',
+            test: 'active',
+          },
+          {
+            key: 'resolve-undo',
+            test: 'active',
+          },
+          {
+            key: 'error-unmatch',
+            test: 'active',
+          },
+          {
+            key: 'with-tree',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'These parser states cannot be combined.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c',
+      },
+      {
+        id: 'cli.ls-files.tree-stage',
+        kind: 'conflicts',
+        when: {
+          key: 'with-tree',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'stage',
+            test: 'active',
+          },
+          {
+            key: 'unmerged',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'These parser states cannot be combined.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c',
+      },
+      {
+        id: 'cli.ls-files.ignored-mode',
+        kind: 'requiresAny',
+        when: {
+          key: 'ignored',
+          test: 'active',
+        },
+        choices: [
+          {
+            key: 'cached',
+            test: 'active',
+          },
+          {
+            key: 'others',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Ignored output requires an explicit cached or others mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c',
+      },
+      {
+        id: 'cli.ls-files.ignored-patterns',
+        kind: 'requiresAny',
+        when: {
+          key: 'ignored',
+          test: 'active',
+        },
+        choices: [
+          {
+            key: 'exclude',
+            test: 'present',
+          },
+          {
+            key: 'exclude-from',
+            test: 'present',
+          },
+          {
+            key: 'exclude-per-directory',
+            test: 'present',
+          },
+          {
+            key: 'exclude-standard',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Ignored output requires an explicit exclude source.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/ls-files.c',
+      },
+    ],
+    source: 'builtin/ls-files.c:cmd_ls_files',
+    separator: true,
+  },
+  'ls-remote': {
+    argv: ['ls-remote'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--upload-pack': {
+        key: 'upload-pack',
+        value: 'string',
+      },
+      '--exec': {
+        key: 'exec',
+        value: 'string',
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '-t': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--branches': {
+        key: 'branches',
+        value: 'flag',
+      },
+      '-b': {
+        key: 'branches',
+        value: 'flag',
+      },
+      '--heads': {
+        key: 'heads',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'heads',
+        value: 'flag',
+      },
+      '--refs': {
+        key: 'refs',
+        value: 'flag',
+      },
+      '--get-url': {
+        key: 'get-url',
+        value: 'flag',
+      },
+      '--sort': {
+        key: 'sort',
+        value: 'string',
+        repeat: true,
+      },
+      '--exit-code': {
+        key: 'exit-code',
+        value: 'flag',
+      },
+      '--symref': {
+        key: 'symref',
+        value: 'flag',
+      },
+      '--server-option': {
+        key: 'server-option',
+        value: 'string',
+        repeat: true,
+      },
+      '-o': {
+        key: 'server-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-upload-pack': {
+        key: 'upload-pack',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-exec': {
+        key: 'exec',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--no-branches': {
+        key: 'branches',
+        value: 'flag',
+        set: false,
+      },
+      '--no-heads': {
+        key: 'heads',
+        value: 'flag',
+        set: false,
+      },
+      '--no-refs': {
+        key: 'refs',
+        value: 'flag',
+        set: false,
+      },
+      '--no-get-url': {
+        key: 'get-url',
+        value: 'flag',
+        set: false,
+      },
+      '--no-sort': {
+        key: 'sort',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-exit-code': {
+        key: 'exit-code',
+        value: 'flag',
+        set: false,
+      },
+      '--no-symref': {
+        key: 'symref',
+        value: 'flag',
+        set: false,
+      },
+      '--no-server-option': {
+        key: 'server-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/ls-remote.c:cmd_ls_remote',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'ls-tree': {
+    argv: ['ls-tree'],
+    options: {
+      '-d': {
+        key: 'd',
+        value: 'flag',
+      },
+      '-r': {
+        key: 'r',
+        value: 'flag',
+      },
+      '-t': {
+        key: 't',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--long': {
+        key: 'long',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_LONG',
+      },
+      '-l': {
+        key: 'long',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_LONG',
+      },
+      '--name-only': {
+        key: 'name-only',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_NAME_ONLY',
+      },
+      '--name-status': {
+        key: 'name-status',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_NAME_STATUS',
+      },
+      '--object-only': {
+        key: 'object-only',
+        value: 'flag',
+        modeGroup: '&cmdmode',
+        modeValue: 'MODE_OBJECT_ONLY',
+      },
+      '--full-name': {
+        key: 'full-name',
+        value: 'flag',
+      },
+      '--full-tree': {
+        key: 'full-tree',
+        value: 'flag',
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--abbrev': {
+        key: 'abbrev',
+        value: 'optional-string',
+      },
+      '--no-full-name': {
+        key: 'full-name',
+        value: 'flag',
+        set: false,
+      },
+      '--no-full-tree': {
+        key: 'full-tree',
+        value: 'flag',
+        set: false,
+      },
+      '--no-abbrev': {
+        key: 'abbrev',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.ls-tree.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/ls-tree.c',
+      },
+      {
+        id: 'cli.ls-tree.format',
+        kind: 'conflicts',
+        when: {
+          key: 'format',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'long',
+            test: 'active',
+          },
+          {
+            key: 'name-only',
+            test: 'active',
+          },
+          {
+            key: 'name-status',
+            test: 'active',
+          },
+          {
+            key: 'object-only',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'These parser states cannot be combined.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/ls-tree.c',
+      },
+    ],
+    source: 'builtin/ls-tree.c:cmd_ls_tree',
+    separator: true,
+  },
+  'for-each-ref': {
+    argv: ['for-each-ref'],
+    initial: {
+      'sort-base': true,
+    },
+    options: {
+      '--shell': {
+        key: 'shell',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'shell',
+        value: 'flag',
+      },
+      '--perl': {
+        key: 'perl',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'perl',
+        value: 'flag',
+      },
+      '--python': {
+        key: 'python',
+        value: 'flag',
+      },
+      '--tcl': {
+        key: 'tcl',
+        value: 'flag',
+      },
+      '--omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+      },
+      '--count': {
+        key: 'count',
+        value: 'integer',
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--start-after': {
+        key: 'start-after',
+        value: 'string',
+      },
+      '--color': {
+        key: 'color',
+        value: 'optional-string',
+        set: 'always',
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--sort': {
+        key: 'sort',
+        value: 'string',
+        repeat: true,
+      },
+      '--points-at': {
+        key: 'points-at',
+        value: 'string',
+      },
+      '--merged': {
+        key: 'merged',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-merged': {
+        key: 'no-merged',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--contains': {
+        key: 'contains',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-contains': {
+        key: 'no-contains',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--include-root-refs': {
+        key: 'include-root-refs',
+        value: 'flag',
+      },
+      '--no-shell': {
+        key: 'shell',
+        value: 'flag',
+        set: false,
+      },
+      '--no-perl': {
+        key: 'perl',
+        value: 'flag',
+        set: false,
+      },
+      '--no-python': {
+        key: 'python',
+        value: 'flag',
+        set: false,
+      },
+      '--no-tcl': {
+        key: 'tcl',
+        value: 'flag',
+        set: false,
+      },
+      '--no-omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--no-count': {
+        key: 'count',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-format': {
+        key: 'format',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-start-after': {
+        key: 'start-after',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-color': {
+        key: 'color',
+        value: 'flag',
+        set: 'always',
+        clear: true,
+      },
+      '--no-exclude': {
+        key: 'exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-sort': {
+        key: 'sort',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+        effects: [
+          {
+            key: 'sort-base',
+            set: false,
+          },
+        ],
+      },
+      '--no-points-at': {
+        key: 'points-at',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-include-root-refs': {
+        key: 'include-root-refs',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.for-each-ref.quote-style',
+        kind: 'exclusive',
+        keys: ['shell', 'perl', 'python', 'tcl'],
+        origin: 'git',
+        reason: 'Only one quoting style may be active.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.for-each-ref.count',
+        kind: 'range',
+        key: 'count',
+        min: 0,
+        origin: 'git',
+        reason: 'Final count must not be negative.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.for-each-ref.stdin-patterns',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.for-each-ref.start-patterns',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'start-after',
+          test: 'present',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.for-each-ref.default-sort',
+        kind: 'arity',
+        key: 'sort',
+        min: 0,
+        max: 0,
+        when: [
+          {
+            key: 'start-after',
+            test: 'present',
+          },
+          {
+            key: 'sort-base',
+            test: 'equals',
+            value: true,
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+      {
+        id: 'cli.for-each-ref.reset-sort',
+        kind: 'arity',
+        key: 'sort',
+        min: 0,
+        max: 1,
+        when: [
+          {
+            key: 'start-after',
+            test: 'present',
+          },
+          {
+            key: 'sort-base',
+            test: 'equals',
+            value: false,
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/for-each-ref.c',
+      },
+    ],
+    source: 'builtin/for-each-ref.c:for_each_ref_core',
+    separator: true,
+  },
+  'show-ref': {
+    argv: ['show-ref'],
+    options: {
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--branches': {
+        key: 'branches',
+        value: 'flag',
+      },
+      '--heads': {
+        key: 'heads',
+        value: 'flag',
+      },
+      '--exists': {
+        key: 'exists',
+        value: 'flag',
+      },
+      '--verify': {
+        key: 'verify',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'h',
+        value: 'flag',
+      },
+      '--head': {
+        key: 'head',
+        value: 'flag',
+      },
+      '--dereference': {
+        key: 'dereference',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'dereference',
+        value: 'flag',
+      },
+      '--hash': {
+        key: 'hash',
+        value: 'optional-string',
+      },
+      '-s': {
+        key: 'hash',
+        value: 'optional-string',
+      },
+      '--abbrev': {
+        key: 'abbrev',
+        value: 'optional-string',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--exclude-existing': {
+        key: 'exclude-existing',
+        value: 'optional-string',
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--no-branches': {
+        key: 'branches',
+        value: 'flag',
+        set: false,
+      },
+      '--no-heads': {
+        key: 'heads',
+        value: 'flag',
+        set: false,
+      },
+      '--no-exists': {
+        key: 'exists',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verify': {
+        key: 'verify',
+        value: 'flag',
+        set: false,
+      },
+      '--no-head': {
+        key: 'head',
+        value: 'flag',
+        set: false,
+      },
+      '--no-dereference': {
+        key: 'dereference',
+        value: 'flag',
+        set: false,
+      },
+      '--no-hash': {
+        key: 'hash',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-abbrev': {
+        key: 'abbrev',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.show-ref.modes',
+        kind: 'exclusive',
+        keys: ['verify', 'exists', 'exclude-existing'],
+        origin: 'git',
+        reason: 'The three explicit show-ref operations are mutually exclusive.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/show-ref.c',
+      },
+      {
+        id: 'cli.show-ref.verify',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'verify',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/show-ref.c',
+      },
+      {
+        id: 'cli.show-ref.exists',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'exists',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/show-ref.c',
+      },
+    ],
+    source: 'builtin/show-ref.c:cmd_show_ref',
+    separator: true,
+  },
+  'symbolic-ref': {
+    argv: ['symbolic-ref'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--delete': {
+        key: 'delete',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'delete',
+        value: 'flag',
+      },
+      '--short': {
+        key: 'short',
+        value: 'flag',
+      },
+      '--recurse': {
+        key: 'recurse',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'm',
+        value: 'string',
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-delete': {
+        key: 'delete',
+        value: 'flag',
+        set: false,
+      },
+      '--no-short': {
+        key: 'short',
+        value: 'flag',
+        set: false,
+      },
+      '--no-recurse': {
+        key: 'recurse',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.symbolic-ref.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c',
+      },
+      {
+        id: 'cli.symbolic-ref.delete',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'delete',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c',
+      },
+      {
+        id: 'cli.symbolic-ref.message',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'm',
+            test: 'equals',
+            value: '',
+          },
+        ],
+        origin: 'git',
+        reason: 'An explicitly empty reflog message is rejected even for queries.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c',
+      },
+      {
+        id: 'cli.symbolic-ref.delete-head',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'operand0',
+            test: 'equals',
+            value: 'HEAD',
+          },
+        ],
+        origin: 'git',
+        reason: 'HEAD cannot be deleted as a symbolic reference.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/symbolic-ref.c',
+      },
+    ],
+    source: 'builtin/symbolic-ref.c:cmd_symbolic_ref',
+    separator: true,
+  },
+  'verify-tag': {
+    argv: ['verify-tag'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--raw': {
+        key: 'raw',
+        value: 'flag',
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-raw': {
+        key: 'raw',
+        value: 'flag',
+        set: false,
+      },
+      '--no-format': {
+        key: 'format',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.verify-tag.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/verify-tag.c',
+      },
+    ],
+    source: 'builtin/verify-tag.c:cmd_verify_tag',
+    separator: true,
+  },
+  'verify-commit': {
+    argv: ['verify-commit'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--raw': {
+        key: 'raw',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-raw': {
+        key: 'raw',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.verify-commit.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/verify-commit.c',
+      },
+    ],
+    source: 'builtin/verify-commit.c:cmd_verify_commit',
+    separator: true,
+  },
+  'count-objects': {
+    argv: ['count-objects'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--human-readable': {
+        key: 'human-readable',
+        value: 'flag',
+      },
+      '-H': {
+        key: 'human-readable',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-human-readable': {
+        key: 'human-readable',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.count-objects.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/count-objects.c',
+      },
+    ],
+    source: 'builtin/count-objects.c:cmd_count_objects',
+    separator: true,
+  },
+  'check-ignore': {
+    argv: ['check-ignore'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--non-matching': {
+        key: 'non-matching',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'non-matching',
+        value: 'flag',
+      },
+      '--no-index': {
+        key: 'no-index',
+        value: 'flag',
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-non-matching': {
+        key: 'non-matching',
+        value: 'flag',
+        set: false,
+      },
+      '--index': {
+        key: 'no-index',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-index': {
+        key: 'no-index',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.check-ignore.stdin-paths',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c',
+      },
+      {
+        id: 'cli.check-ignore.paths',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'stdin',
+          test: 'inactive',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c',
+      },
+      {
+        id: 'cli.check-ignore.quiet-paths',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'quiet',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c',
+      },
+      {
+        id: 'cli.check-ignore.nul-input',
+        kind: 'requires',
+        when: {
+          key: 'z',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'stdin',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'NUL input requires stdin mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c',
+      },
+      {
+        id: 'cli.check-ignore.verbose-nonmatches',
+        kind: 'requires',
+        when: {
+          key: 'non-matching',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'verbose',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Nonmatching output requires verbose mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c',
+      },
+      {
+        id: 'cli.check-ignore.quiet-verbose',
+        kind: 'exclusive',
+        keys: ['quiet', 'verbose'],
+        origin: 'git',
+        reason: 'Quiet and verbose modes conflict.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-ignore.c',
+      },
+    ],
+    source: 'builtin/check-ignore.c:global',
+    separator: true,
+  },
+  'check-attr': {
+    argv: ['check-attr'],
+    options: {
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '-a': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--cached': {
+        key: 'cached',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--source': {
+        key: 'source',
+        value: 'string',
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--no-cached': {
+        key: 'cached',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-source': {
+        key: 'source',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.check-attr.all-attributes',
+        kind: 'arity',
+        key: 'operandsBeforeSeparator',
+        min: 0,
+        max: 0,
+        when: [
+          {
+            key: 'all',
+            test: 'active',
+          },
+          {
+            key: 'hasSeparator',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c',
+      },
+      {
+        id: 'cli.check-attr.all-stdin',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: [
+          {
+            key: 'all',
+            test: 'active',
+          },
+          {
+            key: 'stdin',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c',
+      },
+      {
+        id: 'cli.check-attr.all-files',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: [
+          {
+            key: 'all',
+            test: 'active',
+          },
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c',
+      },
+      {
+        id: 'cli.check-attr.separated-attributes',
+        kind: 'arity',
+        key: 'operandsBeforeSeparator',
+        min: 1,
+        when: [
+          {
+            key: 'all',
+            test: 'inactive',
+          },
+          {
+            key: 'hasSeparator',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c',
+      },
+      {
+        id: 'cli.check-attr.stdin-no-files',
+        kind: 'arity',
+        key: 'pathsAfterSeparator',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'stdin',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c',
+      },
+      {
+        id: 'cli.check-attr.separated-files',
+        kind: 'arity',
+        key: 'pathsAfterSeparator',
+        min: 1,
+        when: [
+          {
+            key: 'hasSeparator',
+            test: 'active',
+          },
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c',
+      },
+      {
+        id: 'cli.check-attr.unseparated-attributes',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: [
+          {
+            key: 'all',
+            test: 'inactive',
+          },
+          {
+            key: 'hasSeparator',
+            test: 'inactive',
+          },
+          {
+            key: 'stdin',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c',
+      },
+      {
+        id: 'cli.check-attr.unseparated-files',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        when: [
+          {
+            key: 'all',
+            test: 'inactive',
+          },
+          {
+            key: 'hasSeparator',
+            test: 'inactive',
+          },
+          {
+            key: 'stdin',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-attr.c',
+      },
+    ],
+    source: 'builtin/check-attr.c:global',
+    separator: true,
+  },
+  'check-mailmap': {
+    argv: ['check-mailmap'],
+    options: {
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--mailmap-file': {
+        key: 'mailmap-file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--mailmap-blob': {
+        key: 'mailmap-blob',
+        value: 'string',
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-mailmap-file': {
+        key: 'mailmap-file',
+        value: 'flag',
+        emptyIsUnset: true,
+        ignore: true,
+      },
+      '--no-mailmap-blob': {
+        key: 'mailmap-blob',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.check-mailmap.contacts',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'stdin',
+          test: 'inactive',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-mailmap.c',
+      },
+    ],
+    source: 'builtin/check-mailmap.c:global',
+    separator: true,
+  },
+  'write-tree': {
+    argv: ['write-tree'],
+    options: {
+      '--missing-ok': {
+        key: 'missing-ok',
+        value: 'flag',
+      },
+      '--prefix': {
+        key: 'prefix',
+        value: 'string',
+      },
+      '--ignore-cache-tree': {
+        key: 'ignore-cache-tree',
+        value: 'flag',
+      },
+      '--no-missing-ok': {
+        key: 'missing-ok',
+        value: 'flag',
+        set: false,
+      },
+      '--no-prefix': {
+        key: 'prefix',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-ignore-cache-tree': {
+        key: 'ignore-cache-tree',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/write-tree.c:cmd_write_tree',
+    separator: true,
+  },
+  mktree: {
+    argv: ['mktree'],
+    options: {
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--missing': {
+        key: 'missing',
+        value: 'flag',
+      },
+      '--batch': {
+        key: 'batch',
+        value: 'flag',
+      },
+      '--no-missing': {
+        key: 'missing',
+        value: 'flag',
+        set: false,
+      },
+      '--no-batch': {
+        key: 'batch',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/mktree.c:cmd_mktree',
+    separator: true,
+  },
+  mktag: {
+    argv: ['mktag'],
+    options: {
+      '--strict': {
+        key: 'strict',
+        value: 'flag',
+      },
+      '--no-strict': {
+        key: 'strict',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/mktag.c:cmd_mktag',
+    separator: true,
+  },
+  'show-index': {
+    argv: ['show-index'],
+    options: {
+      '--object-format': {
+        key: 'object-format',
+        value: 'string',
+      },
+      '--no-object-format': {
+        key: 'object-format',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.show-index.object-format',
+        kind: 'value',
+        key: 'object-format',
+        allowed: ['sha1', 'sha256'],
+        origin: 'git',
+        reason: 'Only compiled-in object hash names are accepted.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/show-index.c',
+      },
+    ],
+    source: 'builtin/show-index.c:cmd_show_index',
+    separator: true,
+  },
+  'verify-pack': {
+    argv: ['verify-pack'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--stat-only': {
+        key: 'stat-only',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'stat-only',
+        value: 'flag',
+      },
+      '--object-format': {
+        key: 'object-format',
+        value: 'string',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stat-only': {
+        key: 'stat-only',
+        value: 'flag',
+        set: false,
+      },
+      '--no-object-format': {
+        key: 'object-format',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.verify-pack.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/verify-pack.c',
+      },
+    ],
+    source: 'builtin/verify-pack.c:cmd_verify_pack',
+    separator: true,
+  },
+  stripspace: {
+    argv: ['stripspace'],
+    options: {
+      '--strip-comments': {
+        key: 'strip-comments',
+        value: 'flag',
+        modeGroup: '&mode',
+        modeValue: 'STRIP_COMMENTS',
+      },
+      '-s': {
+        key: 'strip-comments',
+        value: 'flag',
+        modeGroup: '&mode',
+        modeValue: 'STRIP_COMMENTS',
+      },
+      '--comment-lines': {
+        key: 'comment-lines',
+        value: 'flag',
+        modeGroup: '&mode',
+        modeValue: 'COMMENT_LINES',
+      },
+      '-c': {
+        key: 'comment-lines',
+        value: 'flag',
+        modeGroup: '&mode',
+        modeValue: 'COMMENT_LINES',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.stripspace.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stripspace.c',
+      },
+    ],
+    source: 'builtin/stripspace.c:cmd_stripspace',
+    separator: true,
+  },
+  'patch-id': {
+    argv: ['patch-id'],
+    options: {
+      '--unstable': {
+        key: 'unstable',
+        value: 'flag',
+        modeGroup: '&opts',
+        modeValue: '1',
+      },
+      '--stable': {
+        key: 'stable',
+        value: 'flag',
+        modeGroup: '&opts',
+        modeValue: '2',
+      },
+      '--verbatim': {
+        key: 'verbatim',
+        value: 'flag',
+        modeGroup: '&opts',
+        modeValue: '3',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/patch-id.c:cmd_patch_id',
+    separator: true,
+  },
+  describe: {
+    argv: ['describe'],
+    options: {
+      '--contains': {
+        key: 'contains',
+        value: 'flag',
+      },
+      '--debug': {
+        key: 'debug',
+        value: 'flag',
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--long': {
+        key: 'long',
+        value: 'flag',
+      },
+      '--first-parent': {
+        key: 'first-parent',
+        value: 'flag',
+      },
+      '--abbrev': {
+        key: 'abbrev',
+        value: 'optional-integer',
+        parser: 'abbrev',
+      },
+      '--exact-match': {
+        key: 'exact-match',
+        value: 'flag',
+      },
+      '--candidates': {
+        key: 'candidates',
+        value: 'integer',
+      },
+      '--match': {
+        key: 'match',
+        value: 'string',
+        repeat: true,
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--always': {
+        key: 'always',
+        value: 'flag',
+      },
+      '--dirty': {
+        key: 'dirty',
+        value: 'optional-string',
+        set: '-dirty',
+      },
+      '--broken': {
+        key: 'broken',
+        value: 'optional-string',
+        set: '-broken',
+      },
+      '--no-contains': {
+        key: 'contains',
+        value: 'flag',
+        set: false,
+      },
+      '--no-debug': {
+        key: 'debug',
+        value: 'flag',
+        set: false,
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--no-long': {
+        key: 'long',
+        value: 'flag',
+        set: false,
+      },
+      '--no-first-parent': {
+        key: 'first-parent',
+        value: 'flag',
+        set: false,
+      },
+      '--no-abbrev': {
+        key: 'abbrev',
+        value: 'flag',
+        set: 0,
+      },
+      '--no-exact-match': {
+        key: 'exact-match',
+        value: 'flag',
+        set: false,
+      },
+      '--no-candidates': {
+        key: 'candidates',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-match': {
+        key: 'match',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-exclude': {
+        key: 'exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-always': {
+        key: 'always',
+        value: 'flag',
+        set: false,
+      },
+      '--no-dirty': {
+        key: 'dirty',
+        value: 'flag',
+        set: '-dirty',
+        clear: true,
+      },
+      '--no-broken': {
+        key: 'broken',
+        value: 'flag',
+        set: '-broken',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.describe.dirty',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: [
+          {
+            key: 'dirty',
+            test: 'present',
+          },
+          {
+            key: 'contains',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/describe.c',
+      },
+      {
+        id: 'cli.describe.broken',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: [
+          {
+            key: 'broken',
+            test: 'present',
+          },
+          {
+            key: 'contains',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/describe.c',
+      },
+      {
+        id: 'cli.describe.long-abbrev',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'long',
+            test: 'active',
+          },
+          {
+            key: 'abbrev',
+            test: 'equals',
+            value: 0,
+          },
+        ],
+        origin: 'git',
+        reason: 'Long output requires a nonzero abbreviation length.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/describe.c',
+      },
+    ],
+    source: 'builtin/describe.c:cmd_describe',
+    separator: true,
+  },
+  'name-rev': {
+    argv: ['name-rev'],
+    options: {
+      '--name-only': {
+        key: 'name-only',
+        value: 'flag',
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--refs': {
+        key: 'refs',
+        value: 'string',
+        repeat: true,
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--annotate-stdin': {
+        key: 'annotate-stdin',
+        value: 'flag',
+      },
+      '--undefined': {
+        key: 'undefined',
+        value: 'flag',
+      },
+      '--always': {
+        key: 'always',
+        value: 'flag',
+      },
+      '--peel-tag': {
+        key: 'peel-tag',
+        value: 'flag',
+      },
+      '--no-name-only': {
+        key: 'name-only',
+        value: 'flag',
+        set: false,
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--no-refs': {
+        key: 'refs',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-exclude': {
+        key: 'exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-annotate-stdin': {
+        key: 'annotate-stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-undefined': {
+        key: 'undefined',
+        value: 'flag',
+        set: false,
+      },
+      '--no-always': {
+        key: 'always',
+        value: 'flag',
+        set: false,
+      },
+      '--no-peel-tag': {
+        key: 'peel-tag',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.name-rev.input-sources',
+        kind: 'exclusiveGroups',
+        groups: [
+          [
+            {
+              key: 'all',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'stdin',
+              test: 'active',
+            },
+            {
+              key: 'annotate-stdin',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'operands',
+              test: 'nonempty',
+            },
+          ],
+        ],
+        origin: 'git',
+        reason: 'All refs, stdin annotation, and explicit revisions are alternative inputs.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/name-rev.c',
+      },
+    ],
+    source: 'builtin/name-rev.c:cmd_name_rev',
+    separator: true,
+  },
+  cherry: {
+    argv: ['cherry'],
+    options: {
+      '--abbrev': {
+        key: 'abbrev',
+        value: 'optional-string',
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-abbrev': {
+        key: 'abbrev',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/log.c:cmd_cherry',
+    separator: true,
+  },
+  'format-rev': {
+    argv: ['format-rev'],
+    options: {
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--stdin-mode': {
+        key: 'stdin-mode',
+        value: 'string',
+      },
+      '--notes': {
+        key: 'notes',
+        value: 'string',
+        repeat: true,
+      },
+      '--null': {
+        key: 'null',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'null',
+        value: 'flag',
+      },
+      '--null-input': {
+        key: 'null-input',
+        value: 'flag',
+      },
+      '--null-output': {
+        key: 'null-output',
+        value: 'flag',
+      },
+      '--no-format': {
+        key: 'format',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-stdin-mode': {
+        key: 'stdin-mode',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-notes': {
+        key: 'notes',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-null-input': {
+        key: 'null-input',
+        value: 'flag',
+        set: false,
+      },
+      '--no-null-output': {
+        key: 'null-output',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.format-rev.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/name-rev.c',
+      },
+      {
+        id: 'cli.format-rev.required',
+        kind: 'required',
+        required: [
+          {
+            key: 'format',
+            test: 'present',
+          },
+          {
+            key: 'stdin-mode',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Pretty format and stdin mode must both be supplied.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/name-rev.c',
+      },
+      {
+        id: 'cli.format-rev.stdin-mode',
+        kind: 'value',
+        key: 'stdin-mode',
+        allowed: ['text', 'revs', 'rev'],
+        origin: 'git',
+        reason: 'Stdin mode accepts text, revs, or rev after all options are parsed.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/name-rev.c',
+      },
+    ],
+    source: 'builtin/name-rev.c:cmd_format_rev',
+    separator: true,
+  },
+  'check-ref-format': {
+    argv: ['check-ref-format'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--branch': {
+        key: 'branch',
+        value: 'flag',
+      },
+      '--normalize': {
+        key: 'normalize',
+        value: 'flag',
+      },
+      '--print': {
+        key: 'normalize',
+        value: 'flag',
+      },
+      '--allow-onelevel': {
+        key: 'allow-onelevel',
+        value: 'flag',
+      },
+      '--no-allow-onelevel': {
+        key: 'allow-onelevel',
+        value: 'flag',
+        set: false,
+      },
+      '--refspec-pattern': {
+        key: 'refspec-pattern',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.check-ref-format.ref',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-ref-format.c',
+      },
+      {
+        id: 'cli.check-ref-format.branch-only',
+        kind: 'arity',
+        key: 'argumentTokens',
+        min: 2,
+        max: 2,
+        when: {
+          key: 'branch',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/check-ref-format.c',
+      },
+    ],
+    source: 'builtin/check-ref-format.c:cmd_check_ref_format',
+    separator: false,
+    optionParsing: 'stop-at-operand',
+  },
+  'unpack-file': {
+    argv: ['unpack-file'],
+    options: {},
+    rules: [
+      {
+        id: 'cli.unpack-file.blob',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Operand count follows the native command parser.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/unpack-file.c',
+      },
+    ],
+    source: 'builtin/unpack-file.c:cmd_unpack_file',
+    separator: false,
+    optionParsing: 'none',
+  },
   lfs: {
     argv: ['lfs'],
     options: {

@@ -2364,5 +2364,240 @@
         "modeFromValue": true
       }
     }
+  },
+  "ls-files": {
+    "source": "builtin/ls-files.c:cmd_ls_files",
+    "tables": [
+      "builtin/ls-files.c:cmd_ls_files:builtin_ls_files_options"
+    ]
+  },
+  "ls-remote": {
+    "source": "builtin/ls-remote.c:cmd_ls_remote",
+    "tables": [
+      "builtin/ls-remote.c:cmd_ls_remote:options"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "ls-tree": {
+    "source": "builtin/ls-tree.c:cmd_ls_tree",
+    "tables": [
+      "builtin/ls-tree.c:cmd_ls_tree:ls_tree_options"
+    ]
+  },
+  "for-each-ref": {
+    "source": "builtin/for-each-ref.c:for_each_ref_core",
+    "tables": [
+      "builtin/for-each-ref.c:for_each_ref_core:opts"
+    ],
+    "initial": {
+      "sort-base": true
+    },
+    "options": {
+      "--no-sort": {
+        "key": "sort",
+        "value": "flag",
+        "repeat": true,
+        "clear": true,
+        "effects": [
+          {
+            "key": "sort-base",
+            "set": false
+          }
+        ]
+      }
+    }
+  },
+  "show-ref": {
+    "source": "builtin/show-ref.c:cmd_show_ref",
+    "tables": [
+      "builtin/show-ref.c:cmd_show_ref:show_ref_options"
+    ]
+  },
+  "symbolic-ref": {
+    "source": "builtin/symbolic-ref.c:cmd_symbolic_ref",
+    "tables": [
+      "builtin/symbolic-ref.c:cmd_symbolic_ref:options"
+    ]
+  },
+  "verify-tag": {
+    "source": "builtin/verify-tag.c:cmd_verify_tag",
+    "tables": [
+      "builtin/verify-tag.c:cmd_verify_tag:verify_tag_options"
+    ]
+  },
+  "verify-commit": {
+    "source": "builtin/verify-commit.c:cmd_verify_commit",
+    "tables": [
+      "builtin/verify-commit.c:cmd_verify_commit:verify_commit_options"
+    ]
+  },
+  "count-objects": {
+    "source": "builtin/count-objects.c:cmd_count_objects",
+    "tables": [
+      "builtin/count-objects.c:cmd_count_objects:opts"
+    ]
+  },
+  "check-ignore": {
+    "source": "builtin/check-ignore.c:global",
+    "tables": [
+      "builtin/check-ignore.c:global:check_ignore_options"
+    ],
+    "options": {
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "-q": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "--no-quiet": {
+        "key": "quiet",
+        "value": "flag",
+        "set": false
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag"
+      },
+      "-v": {
+        "key": "verbose",
+        "value": "flag"
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "check-attr": {
+    "source": "builtin/check-attr.c:global",
+    "tables": [
+      "builtin/check-attr.c:global:check_attr_options"
+    ]
+  },
+  "check-mailmap": {
+    "source": "builtin/check-mailmap.c:global",
+    "tables": [
+      "builtin/check-mailmap.c:global:check_mailmap_options"
+    ]
+  },
+  "write-tree": {
+    "source": "builtin/write-tree.c:cmd_write_tree",
+    "tables": [
+      "builtin/write-tree.c:cmd_write_tree:write_tree_options"
+    ]
+  },
+  "mktree": {
+    "source": "builtin/mktree.c:cmd_mktree",
+    "tables": [
+      "builtin/mktree.c:cmd_mktree:option"
+    ]
+  },
+  "mktag": {
+    "source": "builtin/mktag.c:cmd_mktag",
+    "tables": [
+      "builtin/mktag.c:cmd_mktag:builtin_mktag_options"
+    ]
+  },
+  "show-index": {
+    "source": "builtin/show-index.c:cmd_show_index",
+    "tables": [
+      "builtin/show-index.c:cmd_show_index:show_index_options"
+    ]
+  },
+  "verify-pack": {
+    "source": "builtin/verify-pack.c:cmd_verify_pack",
+    "tables": [
+      "builtin/verify-pack.c:cmd_verify_pack:verify_pack_options"
+    ]
+  },
+  "stripspace": {
+    "source": "builtin/stripspace.c:cmd_stripspace",
+    "tables": [
+      "builtin/stripspace.c:cmd_stripspace:options"
+    ]
+  },
+  "patch-id": {
+    "source": "builtin/patch-id.c:cmd_patch_id",
+    "tables": [
+      "builtin/patch-id.c:cmd_patch_id:builtin_patch_id_options"
+    ]
+  },
+  "describe": {
+    "source": "builtin/describe.c:cmd_describe",
+    "tables": [
+      "builtin/describe.c:cmd_describe:options"
+    ],
+    "options": {
+      "--abbrev": {
+        "key": "abbrev",
+        "value": "optional-integer",
+        "parser": "abbrev"
+      },
+      "--no-abbrev": {
+        "key": "abbrev",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "name-rev": {
+    "source": "builtin/name-rev.c:cmd_name_rev",
+    "tables": [
+      "builtin/name-rev.c:cmd_name_rev:opts"
+    ]
+  },
+  "cherry": {
+    "source": "builtin/log.c:cmd_cherry",
+    "tables": [
+      "builtin/log.c:cmd_cherry:options"
+    ]
+  },
+  "format-rev": {
+    "source": "builtin/name-rev.c:cmd_format_rev",
+    "tables": [
+      "builtin/name-rev.c:cmd_format_rev:opts"
+    ]
+  },
+  "check-ref-format": {
+    "source": "builtin/check-ref-format.c:cmd_check_ref_format",
+    "tables": [],
+    "separator": false,
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--branch": {
+        "key": "branch",
+        "value": "flag"
+      },
+      "--normalize": {
+        "key": "normalize",
+        "value": "flag"
+      },
+      "--print": {
+        "key": "normalize",
+        "value": "flag"
+      },
+      "--allow-onelevel": {
+        "key": "allow-onelevel",
+        "value": "flag"
+      },
+      "--no-allow-onelevel": {
+        "key": "allow-onelevel",
+        "value": "flag",
+        "set": false
+      },
+      "--refspec-pattern": {
+        "key": "refspec-pattern",
+        "value": "flag"
+      }
+    }
+  },
+  "unpack-file": {
+    "source": "builtin/unpack-file.c:cmd_unpack_file",
+    "tables": [],
+    "separator": false,
+    "optionParsing": "none"
   }
 }

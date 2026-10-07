@@ -37,30 +37,18 @@ export type GitCommandArgument<C extends GitCommandName> = C extends GitCommandN
   : never;
 export type GitCommandExecOpts = ExecOpts & { stdin?: string };
 
-type AllOptions<C extends GitCommandName> = Options<C>[keyof Options<C>] & OptionSpec;
+type OptionKeys<D> = D extends { key: infer K extends string } ? K : never;
 type EffectKeys<D> = D extends { effects: readonly { key: infer K extends string }[] } ? K : never;
-type Base<C extends GitCommandName> = {
-  [S in AllOptions<C> as S['key']]?:
-    | Value<S>
-    | DefaultValue<S>
-    | (S['value'] extends 'optional-string' | 'optional-integer' ? true : never)
-    | (S extends { repeat: true } ? readonly (Value<S> | DefaultValue<S>)[] : never);
-} & {
-  [K in EffectKeys<Options<C>[keyof Options<C>]>]?: unknown;
-} & {
-  argumentTokens: readonly unknown[];
-  operands: readonly string[];
-  operandsBeforeSeparator: readonly string[];
-  pathsAfterSeparator: readonly string[];
-  hasSeparator?: boolean;
-  operand0?: string;
-  inRepository?: boolean;
-};
+// Initial state needs only the keys. Expanding every option's value language here
+// constructs unions that are immediately discarded and grows with the catalogue.
 type Empty<C extends GitCommandName> = {
-  [K in Exclude<
-    keyof Base<C>,
-    'operands' | 'operandsBeforeSeparator' | 'pathsAfterSeparator'
-  >]?: undefined;
+  [K in
+    | OptionKeys<Options<C>[keyof Options<C>]>
+    | EffectKeys<Options<C>[keyof Options<C>]>
+    | 'argumentTokens'
+    | 'hasSeparator'
+    | 'operand0'
+    | 'inRepository']?: undefined;
 } & {
   operands: readonly [];
   operandsBeforeSeparator: readonly [];
