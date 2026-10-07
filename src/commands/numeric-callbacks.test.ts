@@ -159,7 +159,7 @@ describe('source-audited numeric callback stages', () => {
     expect(parseGitScalar(registry.profiles.abbrev!.parser, '9223372036854775808').value).toBe(4);
   });
 
-  it('checks numeric callback values immediately in every generated scope', () => {
+  it('checks numeric callbacks reached before help in the recorded ordinary pass', () => {
     let total = 0;
     for (const [command, spec] of Object.entries(COMMAND_SPECS) as [
       GitCommandName,
@@ -171,6 +171,16 @@ describe('source-audited numeric callback stages', () => {
           option.parser.kind !== 'decimal' ||
           option.value === 'flag'
         ) {
+          continue;
+        }
+        const firstPass = spec.parserExit?.firstPassOptions;
+        if (
+          firstPass &&
+          (!firstPass.includes(flag) ||
+            spec.parserExit?.wrappers?.some((wrapper) => !wrapper.stopAtUnknown))
+        ) {
+          // A wrapper or earlier pass may reach help before this delegated
+          // callback. Independent phased corpora cover those parser boundaries.
           continue;
         }
         total++;

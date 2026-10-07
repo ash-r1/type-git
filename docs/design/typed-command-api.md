@@ -1251,3 +1251,27 @@ The corpus is finite. Branch merge configuration, rebase state/configuration
 and trailers, show-branch configured default arguments, ref/format/path/file
 resolution, completion, other platforms and other parser modes remain open.
 All command audit scopes remain partial.
+
+### Reference subcommands and signature parser passes
+
+All five refs subcommands (migrate, verify, list, exists and optimize), show-ref,
+symbolic-ref, verify-tag and verify-commit now use their recorded ordinary option
+passes. Both end markers are consumed; remaining words are literal operands.
+KEEP_ARGV0 in verification commands is internal bookkeeping and does not count
+as a public operand. Refs list reuses the for-each-ref table and color grammar.
+
+The native table owns short-option lookup before internal help. Show-ref's -h
+is its HEAD display flag, including inside clusters; it cannot suppress later
+errors or final arity/mode checks. Its parser exits use a separately declared
+internal help spelling. The deterministic compiler selects the first declared
+exit spelling outside Git's excluded first-argument dispatcher position. The
+generator rejects a pass that has no such spelling. Explicit show-ref hash
+lengths reuse the source-audited abbrev callback grammar via hash_callback.
+
+`node scripts/ref-subcommand-corpus.mjs --check` reproduces 3,920 independent
+Git outcomes, each with a compiler assertion in shards of at most 400 cases.
+The oracle supplies valid dash-prefixed refs, including --help-all when a
+required callback consumes that word as its value. It classifies only grammar
+and selected final constraints: repository/keyring signature results, storage
+configuration, ref/format/stdin languages, parent refs dispatcher paths,
+completion and other modes remain separate obligations. All scopes are partial.

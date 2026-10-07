@@ -2241,9 +2241,15 @@
         "test/types/decimal-literals.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-show-ref-corpus-1.ts",
+        "test/types/ref-subcommand-show-ref-corpus-2.ts",
+        "test/types/ref-subcommand-show-ref-corpus-3.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open."
     },
     "symbolic-ref": {
       "state": "partial",
@@ -2254,9 +2260,13 @@
         "test/types/command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-symbolic-ref-corpus-1.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open."
     },
     "verify-tag": {
       "state": "partial",
@@ -2267,9 +2277,13 @@
         "test/types/command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-verify-tag-corpus-1.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open."
     },
     "verify-commit": {
       "state": "partial",
@@ -2280,9 +2294,13 @@
         "test/types/command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-verify-commit-corpus-1.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open."
     },
     "count-objects": {
       "state": "partial",
@@ -2709,9 +2727,13 @@
         "test/types/maintenance-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-refs-migrate-corpus-1.ts"
       ],
-      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open.",
       "typedCommandAPI": true
     },
     "refs verify": {
@@ -2722,9 +2744,13 @@
         "test/types/maintenance-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-refs-verify-corpus-1.ts"
       ],
-      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open.",
       "typedCommandAPI": true
     },
     "refs exists": {
@@ -2735,9 +2761,13 @@
         "test/types/maintenance-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-refs-exists-corpus-1.ts"
       ],
-      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open.",
       "typedCommandAPI": true
     },
     "refs list": {
@@ -2750,9 +2780,16 @@
         "test/types/native-integer-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-refs-list-corpus-1.ts",
+        "test/types/ref-subcommand-refs-list-corpus-2.ts",
+        "test/types/ref-subcommand-refs-list-corpus-3.ts",
+        "test/types/ref-subcommand-refs-list-corpus-4.ts"
       ],
-      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open.",
       "typedCommandAPI": true
     },
     "pack-refs": {
@@ -2776,9 +2813,13 @@
         "test/types/maintenance-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/ref-subcommand.test.ts",
+        "test/types/ref-subcommand-api.ts",
+        "scripts/ref-subcommand-corpus.mjs",
+        "test/types/ref-subcommand-refs-optimize-corpus-1.ts"
       ],
-      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open.",
       "typedCommandAPI": true
     },
     "fsck": {
