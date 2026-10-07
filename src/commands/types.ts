@@ -216,7 +216,27 @@ type CheckedCallbackState<S, D extends OptionSpec, T extends readonly unknown[]>
     ? ParsedState<S, D, T>
     : never
   : ParsedState<S, D, T>;
-type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
+type ScalarLiteral<D extends OptionSpec, V> = V extends string
+  ? string extends V
+    ? true
+    : D extends { parser: 'shortlog-group' }
+      ? AsciiLower<V> extends 'author' | 'committer'
+        ? true
+        : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
+          ? true
+          : false
+      : D extends { parser: 'pull-rebase' }
+        ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off'
+          ? true
+          : V extends 'merges' | 'm' | 'interactive' | 'i'
+            ? true
+            : // Git's signed/base/unit integer language is checked at runtime.
+              V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
+              ? true
+              : false
+        : true
+  : true;
+type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   caseInsensitive: true;
   allowed: infer A extends readonly unknown[];
 }
@@ -234,6 +254,14 @@ type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = D exte
           : false
     : true
   : true;
+type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = T extends readonly [
+  unknown,
+  infer V,
+]
+  ? ScalarLiteral<D, V> extends true
+    ? AllowedEnumLiteral<D, T>
+    : false
+  : AllowedEnumLiteral<D, T>;
 type CheckedTokenState<S, D extends OptionSpec, T extends readonly unknown[]> = AllowedLiteral<
   D,
   T

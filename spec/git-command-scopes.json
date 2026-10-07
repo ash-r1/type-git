@@ -4445,5 +4445,414 @@
         "clear": true
       }
     }
+  },
+  "pickaxe": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "source": "builtin/blame.c",
+    "finalTables": [
+      "builtin/blame.c:cmd_blame:options"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "initial": {
+      "S": false,
+      "reverse": false
+    },
+    "options": {
+      "-S": {
+        "key": "revs-file",
+        "value": "string"
+      },
+      "--diff-algorithm": {
+        "key": "diff-algorithm",
+        "value": "string",
+        "allowed": [
+          "myers",
+          "default",
+          "minimal",
+          "patience",
+          "histogram"
+        ],
+        "caseInsensitive": true
+      },
+      "--reverse": {
+        "key": "blame-reverse",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "children",
+            "set": true
+          }
+        ]
+      },
+      "--line-porcelain": {
+        "key": "line-porcelain",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "porcelain",
+            "set": true
+          }
+        ]
+      },
+      "--no-line-porcelain": {
+        "key": "line-porcelain",
+        "value": "flag",
+        "set": false,
+        "effects": [
+          {
+            "key": "porcelain",
+            "set": false
+          }
+        ]
+      }
+    }
+  },
+  "whatchanged": {
+    "source": "builtin/log.c; revision.c; diff.c; diff-merges.c",
+    "tables": [
+      "builtin/log.c:cmd_log_init_finish:builtin_log_options",
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ]
+  },
+  "shortlog": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "source": "builtin/shortlog.c",
+    "finalTables": [
+      "builtin/shortlog.c:cmd_shortlog:options"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "options": {
+      "--group": {
+        "key": "group",
+        "value": "string",
+        "repeat": true,
+        "parser": "shortlog-group"
+      },
+      "--no-group": {
+        "key": "group",
+        "value": "flag",
+        "repeat": true,
+        "clear": true
+      },
+      "-w": {
+        "key": "wrap",
+        "value": "optional-string",
+        "parser": "shortlog-wrap"
+      }
+    }
+  },
+  "show-branch": {
+    "tables": [
+      "builtin/show-branch.c:cmd_show_branch:builtin_show_branch_options"
+    ],
+    "source": "builtin/show-branch.c",
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--more": {
+        "key": "more",
+        "value": "optional-integer",
+        "set": 1
+      },
+      "--no-more": {
+        "key": "more",
+        "value": "flag",
+        "set": 0
+      },
+      "--no-list": {
+        "key": "more",
+        "value": "flag",
+        "set": 0
+      },
+      "--list": {
+        "key": "more",
+        "value": "flag",
+        "set": -1
+      },
+      "-g": {
+        "key": "reflog",
+        "value": "optional-string",
+        "parser": "show-branch-reflog"
+      },
+      "--reflog": {
+        "key": "reflog",
+        "value": "optional-string",
+        "parser": "show-branch-reflog"
+      }
+    }
+  },
+  "pull": {
+    "tables": [
+      "builtin/pull.c:cmd_pull:pull_options"
+    ],
+    "source": "builtin/pull.c",
+    "options": {
+      "-r": {
+        "key": "rebase",
+        "value": "optional-string",
+        "parser": "pull-rebase"
+      },
+      "--rebase": {
+        "key": "rebase",
+        "value": "optional-string",
+        "parser": "pull-rebase"
+      },
+      "--no-rebase": {
+        "key": "rebase",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "rev-parse": {
+    "tables": [],
+    "source": "builtin/rev-parse.c",
+    "options": {
+      "--local-env-vars": {
+        "key": "local-env-vars",
+        "value": "flag"
+      },
+      "--resolve-git-dir": {
+        "key": "resolve-git-dir",
+        "value": "string",
+        "separateValue": true
+      },
+      "--git-path": {
+        "key": "git-path",
+        "value": "string",
+        "separateValue": true
+      },
+      "--default": {
+        "key": "default",
+        "value": "string",
+        "separateValue": true
+      },
+      "--prefix": {
+        "key": "prefix",
+        "value": "string",
+        "separateValue": true
+      },
+      "--revs-only": {
+        "key": "revs-only",
+        "value": "flag"
+      },
+      "--no-revs": {
+        "key": "no-revs",
+        "value": "flag"
+      },
+      "--flags": {
+        "key": "flags",
+        "value": "flag"
+      },
+      "--no-flags": {
+        "key": "no-flags",
+        "value": "flag"
+      },
+      "--verify": {
+        "key": "verify",
+        "value": "flag"
+      },
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "--sq": {
+        "key": "sq",
+        "value": "flag"
+      },
+      "--not": {
+        "key": "not",
+        "value": "flag"
+      },
+      "--symbolic": {
+        "key": "symbolic",
+        "value": "flag"
+      },
+      "--symbolic-full-name": {
+        "key": "symbolic-full-name",
+        "value": "flag"
+      },
+      "--all": {
+        "key": "all",
+        "value": "flag"
+      },
+      "--bisect": {
+        "key": "bisect",
+        "value": "flag"
+      },
+      "--show-toplevel": {
+        "key": "show-toplevel",
+        "value": "flag"
+      },
+      "--show-superproject-working-tree": {
+        "key": "show-superproject-working-tree",
+        "value": "flag"
+      },
+      "--show-prefix": {
+        "key": "show-prefix",
+        "value": "flag"
+      },
+      "--show-cdup": {
+        "key": "show-cdup",
+        "value": "flag"
+      },
+      "--git-dir": {
+        "key": "git-dir",
+        "value": "flag"
+      },
+      "--absolute-git-dir": {
+        "key": "absolute-git-dir",
+        "value": "flag"
+      },
+      "--git-common-dir": {
+        "key": "git-common-dir",
+        "value": "flag"
+      },
+      "--is-inside-git-dir": {
+        "key": "is-inside-git-dir",
+        "value": "flag"
+      },
+      "--is-inside-work-tree": {
+        "key": "is-inside-work-tree",
+        "value": "flag"
+      },
+      "--is-bare-repository": {
+        "key": "is-bare-repository",
+        "value": "flag"
+      },
+      "--is-shallow-repository": {
+        "key": "is-shallow-repository",
+        "value": "flag"
+      },
+      "--shared-index-path": {
+        "key": "shared-index-path",
+        "value": "flag"
+      },
+      "--show-ref-format": {
+        "key": "show-ref-format",
+        "value": "flag"
+      },
+      "-n": {
+        "key": "n",
+        "value": "string"
+      },
+      "-q": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "--disambiguate": {
+        "key": "disambiguate",
+        "value": "string"
+      },
+      "--glob": {
+        "key": "glob",
+        "value": "string"
+      },
+      "--exclude": {
+        "key": "exclude",
+        "value": "string"
+      },
+      "--since": {
+        "key": "since",
+        "value": "string"
+      },
+      "--after": {
+        "key": "after",
+        "value": "string"
+      },
+      "--before": {
+        "key": "before",
+        "value": "string"
+      },
+      "--until": {
+        "key": "until",
+        "value": "string"
+      },
+      "--branches": {
+        "key": "branches",
+        "value": "optional-string"
+      },
+      "--tags": {
+        "key": "tags",
+        "value": "optional-string"
+      },
+      "--remotes": {
+        "key": "remotes",
+        "value": "optional-string"
+      },
+      "--short": {
+        "key": "short",
+        "value": "optional-string"
+      },
+      "--path-format": {
+        "key": "path-format",
+        "value": "string",
+        "allowed": [
+          "absolute",
+          "relative"
+        ]
+      },
+      "--output-object-format": {
+        "key": "output-object-format",
+        "value": "string",
+        "allowed": [
+          "sha1",
+          "sha256",
+          "storage"
+        ]
+      },
+      "--show-object-format": {
+        "key": "show-object-format",
+        "value": "optional-string",
+        "allowed": [
+          "storage",
+          "compat",
+          "input",
+          "output"
+        ]
+      },
+      "--abbrev-ref": {
+        "key": "abbrev-ref",
+        "value": "optional-string",
+        "allowed": [
+          "strict",
+          "loose"
+        ]
+      },
+      "--exclude-hidden": {
+        "key": "exclude-hidden",
+        "value": "string",
+        "allowed": [
+          "fetch",
+          "receive",
+          "uploadpack"
+        ]
+      }
+    }
+  },
+  "rev-parse --parseopt": {
+    "tables": [
+      "builtin/rev-parse.c:cmd_parseopt:parseopt_opts"
+    ],
+    "source": "builtin/rev-parse.c"
+  },
+  "rev-parse --sq-quote": {
+    "tables": [],
+    "source": "builtin/rev-parse.c",
+    "optionParsing": "none",
+    "separator": false
   }
 }

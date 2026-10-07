@@ -259,3 +259,23 @@ supports numeric compression selections and list/create operand forms. Its outer
 parser consumes `--exec` even locally, where Git ignores it; no artificial remote
 prerequisite is imposed. Configured compression formats, binary transport and
 repository-dependent series validation remain pending in the ledger.
+
+### Revision queries and pull
+
+Pull validates its own rebase and cleanup values before fetching. Fetch input
+restrictions apply even with `--dry-run`; merge-only restrictions are not imposed
+on a dry run. The actual fetch/merge/rebase sequence, configured defaults and
+fetched revisions still require further modeling.
+
+Shortlog accepts case-insensitive author/committer grouping, case-sensitive
+trailer/format prefixes and format strings containing `%`. Its wrap callback
+validates width and indentation immediately. Show-branch preserves the shared
+`--more`/`--list` state, permits simultaneous merge-base and independent flags,
+and distinguishes positive extra depth from list mode for reflogs.
+
+Rev-parse models its native query value enums and separate-value options.
+`rev-parse --parseopt` and `rev-parse --sq-quote` have distinct argument schemas
+because Git dispatches them only as the first command argument. Normal rev-parse
+still needs phase-aware modeling of unknown flags, file detection, hidden refs
+and resolved revision counts. Pickaxe retains blame grammar; Git 2.55's
+whatchanged requires the native `--i-still-use-this` opt-in.
