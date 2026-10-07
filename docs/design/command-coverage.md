@@ -40,8 +40,13 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `commit-graph` | documented | pending | pending |  | Audit every applicable facet. |
 | `commit-tree` | documented | pending | pending |  | Audit every applicable facet. |
 | `config` | documented | pending | pending |  | Audit every applicable facet. |
-| `config get` | reviewed-scope | partial | pending | configGet | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
-| `config list` | reviewed-scope | partial | pending | configList | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `config edit` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
+| `config get` | reviewed-scope | partial | yes | configGet | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
+| `config list` | reviewed-scope | partial | yes | configList | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
+| `config remove-section` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
+| `config rename-section` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
+| `config set` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
+| `config unset` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
 | `count-objects` | documented | pending | pending |  | Audit every applicable facet. |
 | `credential` | documented | pending | pending |  | Audit every applicable facet. |
 | `credential-cache` | documented | pending | pending |  | Audit every applicable facet. |
@@ -162,7 +167,17 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `multi-pack-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `mv` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `name-rev` | documented | pending | pending |  | Audit every applicable facet. |
-| `notes` | documented | pending | pending |  | Audit every applicable facet. |
+| `notes` | documented | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes add` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes append` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes copy` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes edit` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes get-ref` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes list` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes merge` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes prune` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes remove` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
+| `notes show` | reviewed-scope | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
 | `p4` | documented | pending | pending |  | Audit every applicable facet. |
 | `pack-objects` | documented | pending | pending |  | Audit every applicable facet. |
 | `pack-redundant` | documented | pending | pending |  | Audit every applicable facet. |
@@ -223,6 +238,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `stash apply` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `stash branch` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `stash clear` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash create` | reviewed-scope | partial | yes |  | Stash topology and working/index state; message behavior with non-ASCII and arbitrary control characters; independent cross-platform witnesses. |
 | `stash drop` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `stash export` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `stash import` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |

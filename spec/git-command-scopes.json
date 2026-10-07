@@ -1058,5 +1058,476 @@
       "builtin/stash.c:export_stash:options"
     ],
     "options": {}
+  },
+  "config list": {
+    "source": "builtin/config.c",
+    "tables": [
+      "builtin/config.c:cmd_config_list:opts"
+    ],
+    "options": {
+      "--type": {
+        "key": "type",
+        "value": "string",
+        "parser": "config-type",
+        "allowed": [
+          "bool",
+          "int",
+          "bool-or-int",
+          "bool-or-str",
+          "path",
+          "expiry-date",
+          "color"
+        ]
+      },
+      "-t": {
+        "key": "type",
+        "value": "string",
+        "parser": "config-type",
+        "allowed": [
+          "bool",
+          "int",
+          "bool-or-int",
+          "bool-or-str",
+          "path",
+          "expiry-date",
+          "color"
+        ]
+      },
+      "--bool": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool",
+        "parser": "config-type"
+      },
+      "--int": {
+        "key": "type",
+        "value": "flag",
+        "set": "int",
+        "parser": "config-type"
+      },
+      "--bool-or-int": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool-or-int",
+        "parser": "config-type"
+      },
+      "--bool-or-str": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool-or-str",
+        "parser": "config-type"
+      },
+      "--path": {
+        "key": "type",
+        "value": "flag",
+        "set": "path",
+        "parser": "config-type"
+      },
+      "--expiry-date": {
+        "key": "type",
+        "value": "flag",
+        "set": "expiry-date",
+        "parser": "config-type"
+      },
+      "--no-type": {
+        "key": "type",
+        "value": "flag",
+        "clear": true,
+        "parser": "config-type"
+      }
+    }
+  },
+  "config get": {
+    "source": "builtin/config.c",
+    "tables": [
+      "builtin/config.c:cmd_config_get:opts"
+    ],
+    "options": {
+      "--type": {
+        "key": "type",
+        "value": "string",
+        "parser": "config-type",
+        "allowed": [
+          "bool",
+          "int",
+          "bool-or-int",
+          "bool-or-str",
+          "path",
+          "expiry-date",
+          "color"
+        ]
+      },
+      "-t": {
+        "key": "type",
+        "value": "string",
+        "parser": "config-type",
+        "allowed": [
+          "bool",
+          "int",
+          "bool-or-int",
+          "bool-or-str",
+          "path",
+          "expiry-date",
+          "color"
+        ]
+      },
+      "--bool": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool",
+        "parser": "config-type"
+      },
+      "--int": {
+        "key": "type",
+        "value": "flag",
+        "set": "int",
+        "parser": "config-type"
+      },
+      "--bool-or-int": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool-or-int",
+        "parser": "config-type"
+      },
+      "--bool-or-str": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool-or-str",
+        "parser": "config-type"
+      },
+      "--path": {
+        "key": "type",
+        "value": "flag",
+        "set": "path",
+        "parser": "config-type"
+      },
+      "--expiry-date": {
+        "key": "type",
+        "value": "flag",
+        "set": "expiry-date",
+        "parser": "config-type"
+      },
+      "--no-type": {
+        "key": "type",
+        "value": "flag",
+        "clear": true,
+        "parser": "config-type"
+      }
+    },
+    "optionParsing": "stop-at-operand"
+  },
+  "config set": {
+    "source": "builtin/config.c",
+    "tables": [
+      "builtin/config.c:cmd_config_set:opts"
+    ],
+    "options": {
+      "--type": {
+        "key": "type",
+        "value": "string",
+        "parser": "config-type",
+        "allowed": [
+          "bool",
+          "int",
+          "bool-or-int",
+          "bool-or-str",
+          "path",
+          "expiry-date",
+          "color"
+        ]
+      },
+      "-t": {
+        "key": "type",
+        "value": "string",
+        "parser": "config-type",
+        "allowed": [
+          "bool",
+          "int",
+          "bool-or-int",
+          "bool-or-str",
+          "path",
+          "expiry-date",
+          "color"
+        ]
+      },
+      "--bool": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool",
+        "parser": "config-type"
+      },
+      "--int": {
+        "key": "type",
+        "value": "flag",
+        "set": "int",
+        "parser": "config-type"
+      },
+      "--bool-or-int": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool-or-int",
+        "parser": "config-type"
+      },
+      "--bool-or-str": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool-or-str",
+        "parser": "config-type"
+      },
+      "--path": {
+        "key": "type",
+        "value": "flag",
+        "set": "path",
+        "parser": "config-type"
+      },
+      "--expiry-date": {
+        "key": "type",
+        "value": "flag",
+        "set": "expiry-date",
+        "parser": "config-type"
+      },
+      "--no-type": {
+        "key": "type",
+        "value": "flag",
+        "clear": true,
+        "parser": "config-type"
+      }
+    },
+    "optionParsing": "stop-at-operand"
+  },
+  "config unset": {
+    "source": "builtin/config.c",
+    "tables": [
+      "builtin/config.c:cmd_config_unset:opts"
+    ],
+    "options": {},
+    "optionParsing": "stop-at-operand"
+  },
+  "config rename-section": {
+    "source": "builtin/config.c",
+    "tables": [
+      "builtin/config.c:cmd_config_rename_section:opts"
+    ],
+    "options": {},
+    "optionParsing": "stop-at-operand"
+  },
+  "config remove-section": {
+    "source": "builtin/config.c",
+    "tables": [
+      "builtin/config.c:cmd_config_remove_section:opts"
+    ],
+    "options": {},
+    "optionParsing": "stop-at-operand"
+  },
+  "config edit": {
+    "source": "builtin/config.c",
+    "tables": [
+      "builtin/config.c:cmd_config_edit:opts"
+    ],
+    "options": {}
+  },
+  "notes": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:cmd_notes:options"
+    ],
+    "options": {}
+  },
+  "notes list": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:list:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes add": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:add:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes append": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:append_edit:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes edit": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:append_edit:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes show": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:show:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes copy": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:copy:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes merge": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:merge:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes remove": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:remove_cmd:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes prune": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:prune:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "notes get-ref": {
+    "source": "builtin/notes.c",
+    "tables": [
+      "builtin/notes.c:get_ref:options"
+    ],
+    "options": {
+      "--ref": {
+        "key": "ref",
+        "value": "string",
+        "before": 1
+      },
+      "--no-ref": {
+        "key": "ref",
+        "value": "flag",
+        "clear": true,
+        "before": 1
+      }
+    }
+  },
+  "stash create": {
+    "source": "builtin/stash.c",
+    "tables": [],
+    "options": {},
+    "optionParsing": "none",
+    "separator": false
   }
 }

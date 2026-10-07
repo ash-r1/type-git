@@ -43,10 +43,12 @@ export function gitOptions(upstream, scopes, rules) {
       if (options[`--no-${match[1]}`]) options[`--no-${alias.long}`] = options[`--no-${match[1]}`];
     }
     // `--help` is intercepted by Git itself; `-h` can have a command-specific meaning.
-    options['--help'] = { key: 'help', value: 'flag' };
-    if (!options['-h']) options['-h'] = { key: 'help', value: 'flag' };
+    if (scope.optionParsing !== 'none') {
+      options['--help'] = { key: 'help', value: 'flag' };
+      if (!options['-h']) options['-h'] = { key: 'help', value: 'flag' };
+    }
     Object.assign(options, scope.options ?? {});
-    result[command] = { argv: command.split(' '), options, rules: rules[command] ?? [], source: scope.source, separator: scope.separator ?? true };
+    result[command] = { argv: command.split(' '), options, rules: rules[command] ?? [], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}) };
   }
   for (const command of Object.keys(rules)) if (!result[command]) throw new Error(`Rules for unknown Git scope: ${command}`);
   return result;
