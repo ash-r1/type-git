@@ -1391,14 +1391,48 @@
     "tables": [
       "builtin/stash.c:import_stash:options"
     ],
-    "options": {}
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:import_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": true,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:import_stash; parse-options.c:parse_options_step",
+      "reason": "The native parser retains -- as a literal revision operand, consumes --end-of-options, and handles help before final arity or destination checks."
+    }
   },
   "stash export": {
     "source": "builtin/stash.c",
     "tables": [
       "builtin/stash.c:export_stash:options"
     ],
-    "options": {}
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:export_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": true,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:export_stash; parse-options.c:parse_options_step",
+      "reason": "The native parser retains -- as a literal revision operand, consumes --end-of-options, and handles help before final arity or destination checks."
+    }
   },
   "config list": {
     "source": "builtin/config.c",
