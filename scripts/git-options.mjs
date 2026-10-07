@@ -54,6 +54,11 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     for (const flag of scope.omitOptions ?? []) delete options[flag];
     let parserExit = scope.parserExit;
     if (parserExit?.firstPassTables) {
+      for (const word of parserExit.singleWordExits ?? []) {
+        if (!['--git-completion-helper', '--git-completion-helper-all'].includes(word)) throw new Error(`${command}: unaudited single-word parser exit ${word}`);
+        if (options[word]) throw new Error(`${command}: single-word exit collides with an option ${word}`);
+        options[word] = { key: 'help', value: 'flag' };
+      }
       const { firstPassTables, remainingTables, remainingGroups, wrappers, longOptionResolution, ...exit } = parserExit;
       if (exit.remainingSeparator && (exit.remainingOperands !== 'all' || !exit.remainingSeparator.source || !exit.remainingSeparator.reason || exit.remainingSeparator.origin !== 'git' || (exit.remainingSeparator.maxIndex !== undefined && (!Number.isSafeInteger(exit.remainingSeparator.maxIndex) || exit.remainingSeparator.maxIndex < 0)))) throw new Error(`${command}: invalid native operand separator policy`);
       const longForms = longOptionResolution ? parseOptionLongForms(definitionsFor(firstPassTables, command), longOptionResolution === 'abbreviated') : undefined;

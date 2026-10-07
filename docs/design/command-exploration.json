@@ -92,6 +92,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -1054,6 +1058,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--c": "--cached",
@@ -1479,6 +1487,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--d": "--dry-run",
@@ -1696,6 +1708,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--d": "--dry-run",
@@ -2697,6 +2713,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -4302,6 +4322,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": "--ahead-behind",
@@ -5392,6 +5416,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": "--also-filter-submodules",
@@ -7163,6 +7191,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -9009,6 +9041,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -10031,6 +10067,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -11361,6 +11401,10 @@
           "reason": "The native operand phase recognizes -- separately from the initial option pass.",
           "source": "Git 2.55.0 builtin/checkout.c:parse_branchname_arg"
         },
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": "--auto-advance",
@@ -12425,6 +12469,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--c": null,
@@ -13183,6 +13231,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--c": "--conflict",
@@ -14021,6 +14073,10 @@
           "source": "Git 2.55.0 builtin/reset.c:parse_args",
           "maxIndex": 1
         },
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": "--auto-advance",
@@ -14653,6 +14709,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": "--annotate",
@@ -15840,6 +15900,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:clear_stash; parse-options.c:parse_options_step/parse_long_opt",
         "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {},
           "attached": {}
@@ -15906,6 +15970,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:apply_stash; parse-options.c:parse_options_step/parse_long_opt",
         "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--i": "--index",
@@ -16147,6 +16215,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:drop_stash; parse-options.c:parse_options_step/parse_long_opt",
         "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--n": "--no-quiet",
@@ -16250,6 +16322,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:pop_stash; parse-options.c:parse_options_step/parse_long_opt",
         "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--i": "--index",
@@ -16381,6 +16457,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:branch_stash; parse-options.c:parse_options_step/parse_long_opt",
         "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {},
           "attached": {}
@@ -16447,6 +16527,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:store_stash; parse-options.c:parse_options_step/parse_long_opt",
         "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--message": "--message",
@@ -16545,6 +16629,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:push_stash; parse-options.c:parse_options_step/parse_long_opt",
         "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -17126,6 +17214,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:save_stash; parse-options.c:parse_options_step/parse_long_opt",
         "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -17596,6 +17688,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:import_stash; parse-options.c:parse_options_step",
         "reason": "The native parser retains -- as a literal revision operand, consumes --end-of-options, and handles help before final arity or destination checks.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {},
           "attached": {}
@@ -17661,6 +17757,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:export_stash; parse-options.c:parse_options_step",
         "reason": "The native parser retains -- as a literal revision operand, consumes --end-of-options, and handles help before final arity or destination checks.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--n": "--no-to-ref",
@@ -19161,6 +19261,10 @@
         "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
         "keepDashDash": true,
         "splitRemainingPaths": true,
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "firstPassOptions": [
           "--clear-decorations",
           "--decorate",
@@ -22511,6 +22615,10 @@
         "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
         "keepDashDash": true,
         "splitRemainingPaths": true,
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "firstPassOptions": [
           "--clear-decorations",
           "--decorate",
@@ -32288,6 +32396,10 @@
         "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
         "keepDashDash": true,
         "splitRemainingPaths": true,
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "wrappers": [
           {
             "kind": "empty-options",
@@ -35655,6 +35767,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:show_stash/get_stash_info; revision.c:setup_revisions",
         "reason": "The KEEP_UNKNOWN_OPT pass handles untracked flags and help before partitioning retained argv and invoking the revision/diff parser.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--include-untracked": "--include-untracked",
@@ -38941,6 +39057,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -40179,6 +40299,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -42199,6 +42323,10 @@
         "keepDashDash": false,
         "splitRemainingPaths": false,
         "leadingDashReplacement": "@{-1}",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "firstPassOptions": [
           "--abort",
           "--allow-empty",
@@ -47035,6 +47163,10 @@
         "keepDashDash": false,
         "splitRemainingPaths": false,
         "leadingDashReplacement": "@{-1}",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "firstPassOptions": [
           "--abort",
           "--cleanup",
@@ -53066,6 +53198,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--c": null,
@@ -53887,6 +54023,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": "--abbrev",
@@ -54315,6 +54455,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--d": "--delete",
@@ -54529,6 +54673,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--f": "--format",
@@ -54696,6 +54844,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--n": null,
@@ -56944,6 +57096,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--d": "--dry-run",
@@ -57126,6 +57282,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--n": null,
@@ -57266,6 +57426,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {},
           "attached": {}
@@ -57331,6 +57495,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--c": null,
@@ -58220,6 +58388,10 @@
         "keepDashDash": false,
         "keepEndOfOptions": false,
         "remainingOperands": "all",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -72634,6 +72806,10 @@
         "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
         "keepDashDash": true,
         "splitRemainingPaths": true,
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "firstPassOptions": [
           "--add-header",
           "--attach",
@@ -77950,6 +78126,10 @@
         "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
         "keepDashDash": true,
         "splitRemainingPaths": true,
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "firstPassOptions": [
           "--clear-decorations",
           "--decorate",
@@ -82727,6 +82907,10 @@
         "keepEndOfOptions": false,
         "remainingOperands": "all",
         "stopAtOperand": true,
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": "--all",
@@ -86805,6 +86989,10 @@
         "origin": "git",
         "reason": "parse_options with mandatory OPTION_SUBCOMMAND stops at the first exact registered operation. Unknown operands fail before later help; either boundary or argv exhaustion without selection requires a subcommand. Child parsing follows selection.",
         "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {},
           "attached": {}
@@ -86842,6 +87030,14 @@
             "value": "flag"
           },
           "--help-all": {
+            "key": "help",
+            "value": "flag"
+          },
+          "--git-completion-helper": {
+            "key": "help",
+            "value": "flag"
+          },
+          "--git-completion-helper-all": {
             "key": "help",
             "value": "flag"
           },
@@ -87516,6 +87712,10 @@
         "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c",
         "keepDashDash": false,
         "splitRemainingPaths": true,
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "firstPassOptions": [
           "--anonymize",
           "--anonymize-map",
@@ -94579,6 +94779,10 @@
         "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
         "keepDashDash": true,
         "splitRemainingPaths": true,
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "wrappers": [
           {
             "kind": "empty-options",
@@ -97960,6 +98164,10 @@
         "exceptFirst": [
           "--help"
         ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "longForms": {
           "plain": {
             "--a": null,
@@ -99047,6 +99255,10 @@
         "origin": "git",
         "source": "Git 2.55.0 builtin/stash.c:list_stash; parse-options.c:parse_options_step",
         "reason": "The empty KEEP_UNKNOWN_OPT parser scans words for help, drops the first -- marker, and retains unknown words before the repository-ref gate.",
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
         "firstPassOptions": [
           "--help",
           "-h"

@@ -24,6 +24,7 @@ export function initialParserPass(
     const pass = initialParserPass(spec, argv, {
       ...wrapper,
       flags: exit.flags,
+      singleWordExits: exit.singleWordExits,
       firstPassOptions: [],
       firstPassLongNames: wrapper.firstPassLongNames ?? [],
     });
@@ -39,6 +40,9 @@ export function initialParserPass(
     }
     return { exited: true, tokens: [...tokens, [flag]], remaining };
   };
+  if (argv.length === 1 && exit.singleWordExits?.includes(argv[0]!)) {
+    return help();
+  }
   const typo = (word: string) => {
     if (
       word.length >= 3 &&

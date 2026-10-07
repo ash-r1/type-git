@@ -100,6 +100,8 @@ export type CommandSpec = {
     flags: readonly string[];
     /** A first --help is rewritten by Git's dispatcher before this parser runs. */
     exceptFirst?: readonly string[];
+    /** Native completion exits only when this parser invocation has exactly one word. */
+    singleWordExits?: readonly string[];
     /** KEEP_UNKNOWN_OPT pass: only these options execute before an exit in this pass. */
     firstPassOptions?: readonly string[];
     /** Native long names used by the initial parser's single-dash typo check. */

@@ -5135,6 +5135,14 @@ const commandSpec1 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -5452,6 +5460,7 @@ const commandSpec1 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -6337,6 +6346,14 @@ const commandSpec2 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -6400,6 +6417,7 @@ const commandSpec2 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--c': '--cached',
@@ -6791,6 +6809,14 @@ const commandSpec3 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -6817,6 +6843,7 @@ const commandSpec3 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--d': '--dry-run',
@@ -7039,6 +7066,14 @@ const commandSpec4 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -7064,6 +7099,7 @@ const commandSpec4 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--d': '--dry-run',
@@ -8814,6 +8850,14 @@ const commandSpec19 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -9218,6 +9262,7 @@ const commandSpec19 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -10674,6 +10719,14 @@ const commandSpec20 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -10754,6 +10807,7 @@ const commandSpec20 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': '--ahead-behind',
@@ -12390,6 +12444,14 @@ const commandSpec30 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -12537,6 +12599,7 @@ const commandSpec30 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': '--also-filter-submodules',
@@ -14535,6 +14598,14 @@ const commandSpec31 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -14778,6 +14849,7 @@ const commandSpec31 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -16535,6 +16607,14 @@ const commandSpec32 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -16601,6 +16681,7 @@ const commandSpec32 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -17904,6 +17985,14 @@ const commandSpec33 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -18765,6 +18854,7 @@ const commandSpec33 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -19940,6 +20030,14 @@ const commandSpec34 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -20531,6 +20629,7 @@ const commandSpec34 = {
       reason: 'The native operand phase recognizes -- separately from the initial option pass.',
       source: 'Git 2.55.0 builtin/checkout.c:parse_branchname_arg',
     },
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': '--auto-advance',
@@ -21560,6 +21659,14 @@ const commandSpec35 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -21761,6 +21868,7 @@ const commandSpec35 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--c': null,
@@ -22604,6 +22712,14 @@ const commandSpec36 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -22956,6 +23072,7 @@ const commandSpec36 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--c': '--conflict',
@@ -23777,6 +23894,14 @@ const commandSpec37 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -24067,6 +24192,7 @@ const commandSpec37 = {
       source: 'Git 2.55.0 builtin/reset.c:parse_args',
       maxIndex: 1,
     },
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': '--auto-advance',
@@ -24960,6 +25086,14 @@ const commandSpec38 = {
       value: 'flag',
     },
     '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
       key: 'help',
       value: 'flag',
     },
@@ -27087,6 +27221,7 @@ const commandSpec38 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': '--annotate',
@@ -27714,6 +27849,14 @@ const commandSpec39 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -27741,6 +27884,7 @@ const commandSpec39 = {
       'Git 2.55.0 builtin/stash.c:clear_stash; parse-options.c:parse_options_step/parse_long_opt',
     reason:
       'Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {},
       attached: {},
@@ -27816,6 +27960,14 @@ const commandSpec40 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -27843,6 +27995,7 @@ const commandSpec40 = {
       'Git 2.55.0 builtin/stash.c:apply_stash; parse-options.c:parse_options_step/parse_long_opt',
     reason:
       'Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--i': '--index',
@@ -28022,6 +28175,14 @@ const commandSpec41 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -28049,6 +28210,7 @@ const commandSpec41 = {
       'Git 2.55.0 builtin/stash.c:drop_stash; parse-options.c:parse_options_step/parse_long_opt',
     reason:
       'Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--n': '--no-quiet',
@@ -28123,6 +28285,14 @@ const commandSpec42 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -28150,6 +28320,7 @@ const commandSpec42 = {
       'Git 2.55.0 builtin/stash.c:pop_stash; parse-options.c:parse_options_step/parse_long_opt',
     reason:
       'Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--i': '--index',
@@ -28219,6 +28390,14 @@ const commandSpec43 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -28246,6 +28425,7 @@ const commandSpec43 = {
       'Git 2.55.0 builtin/stash.c:branch_stash; parse-options.c:parse_options_step/parse_long_opt',
     reason:
       'Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {},
       attached: {},
@@ -28298,6 +28478,14 @@ const commandSpec44 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -28325,6 +28513,7 @@ const commandSpec44 = {
       'Git 2.55.0 builtin/stash.c:store_stash; parse-options.c:parse_options_step/parse_long_opt',
     reason:
       'Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--message': '--message',
@@ -28516,6 +28705,14 @@ const commandSpec45 = {
       value: 'flag',
     },
     '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
       key: 'help',
       value: 'flag',
     },
@@ -28727,6 +28924,7 @@ const commandSpec45 = {
       'Git 2.55.0 builtin/stash.c:push_stash; parse-options.c:parse_options_step/parse_long_opt',
     reason:
       'Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -29324,6 +29522,14 @@ const commandSpec46 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -29467,6 +29673,7 @@ const commandSpec46 = {
       'Git 2.55.0 builtin/stash.c:save_stash; parse-options.c:parse_options_step/parse_long_opt',
     reason:
       'Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -29838,6 +30045,14 @@ const commandSpec47 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -29863,6 +30078,7 @@ const commandSpec47 = {
     source: 'Git 2.55.0 builtin/stash.c:import_stash; parse-options.c:parse_options_step',
     reason:
       'The native parser retains -- as a literal revision operand, consumes --end-of-options, and handles help before final arity or destination checks.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {},
       attached: {},
@@ -29898,6 +30114,14 @@ const commandSpec48 = {
       value: 'flag',
     },
     '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
       key: 'help',
       value: 'flag',
     },
@@ -29945,6 +30169,7 @@ const commandSpec48 = {
     source: 'Git 2.55.0 builtin/stash.c:export_stash; parse-options.c:parse_options_step',
     reason:
       'The native parser retains -- as a literal revision operand, consumes --end-of-options, and handles help before final arity or destination checks.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--n': '--no-to-ref',
@@ -33934,6 +34159,14 @@ const commandSpec68 = {
       value: 'flag',
       clear: true,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -34208,6 +34441,7 @@ const commandSpec68 = {
     source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
     keepDashDash: true,
     splitRemainingPaths: true,
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     firstPassOptions: [
       '--clear-decorations',
       '--decorate',
@@ -36156,6 +36390,14 @@ const commandSpec69 = {
       value: 'flag',
       clear: true,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -36430,6 +36672,7 @@ const commandSpec69 = {
     source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
     keepDashDash: true,
     splitRemainingPaths: true,
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     firstPassOptions: [
       '--clear-decorations',
       '--decorate',
@@ -47207,6 +47450,14 @@ const commandSpec81 = {
       value: 'flag',
       clear: true,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -47481,6 +47732,7 @@ const commandSpec81 = {
     source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
     keepDashDash: true,
     splitRemainingPaths: true,
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     wrappers: [
       {
         kind: 'empty-options',
@@ -49375,6 +49627,14 @@ const commandSpec82 = {
       value: 'flag',
       clear: true,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -49637,6 +49897,7 @@ const commandSpec82 = {
     source: 'Git 2.55.0 builtin/stash.c:show_stash/get_stash_info; revision.c:setup_revisions',
     reason:
       'The KEEP_UNKNOWN_OPT pass handles untracked flags and help before partitioning retained argv and invoking the revision/diff parser.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--include-untracked': '--include-untracked',
@@ -50167,6 +50428,14 @@ const commandSpec83 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -50260,6 +50529,7 @@ const commandSpec83 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -51800,6 +52070,14 @@ const commandSpec84 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -52183,6 +52461,7 @@ const commandSpec84 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -56795,6 +57074,14 @@ const commandSpec85 = {
       value: 'flag',
       set: false,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -57389,6 +57676,7 @@ const commandSpec85 = {
     keepDashDash: false,
     splitRemainingPaths: false,
     leadingDashReplacement: '@{-1}',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     firstPassOptions: [
       '--abort',
       '--allow-empty',
@@ -60695,6 +60983,14 @@ const commandSpec86 = {
       value: 'flag',
       set: false,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -61195,6 +61491,7 @@ const commandSpec86 = {
     keepDashDash: false,
     splitRemainingPaths: false,
     leadingDashReplacement: '@{-1}',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     firstPassOptions: [
       '--abort',
       '--cleanup',
@@ -63418,6 +63715,14 @@ const commandSpec94 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -63522,6 +63827,7 @@ const commandSpec94 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--c': null,
@@ -64213,6 +64519,14 @@ const commandSpec95 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -64265,6 +64579,7 @@ const commandSpec95 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': '--abbrev',
@@ -64629,6 +64944,14 @@ const commandSpec96 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -64702,6 +65025,7 @@ const commandSpec96 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--d': '--delete',
@@ -64871,6 +65195,14 @@ const commandSpec97 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -64897,6 +65229,7 @@ const commandSpec97 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--f': '--format',
@@ -65025,6 +65358,14 @@ const commandSpec98 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -65051,6 +65392,7 @@ const commandSpec98 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--n': null,
@@ -67630,6 +67972,14 @@ const commandSpec130 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -67678,6 +68028,7 @@ const commandSpec130 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--d': '--dry-run',
@@ -67814,6 +68165,14 @@ const commandSpec131 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -67840,6 +68199,7 @@ const commandSpec131 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--n': null,
@@ -67921,6 +68281,14 @@ const commandSpec132 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -67947,6 +68315,7 @@ const commandSpec132 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {},
       attached: {},
@@ -68248,6 +68617,14 @@ const commandSpec133 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -68351,6 +68728,7 @@ const commandSpec133 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--c': null,
@@ -69008,6 +69386,14 @@ const commandSpec135 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -69034,6 +69420,7 @@ const commandSpec135 = {
     keepDashDash: false,
     keepEndOfOptions: false,
     remainingOperands: 'all',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -92806,6 +93193,14 @@ const commandSpec202 = {
       value: 'flag',
       set: false,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -93192,6 +93587,7 @@ const commandSpec202 = {
     source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
     keepDashDash: true,
     splitRemainingPaths: true,
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     firstPassOptions: [
       '--add-header',
       '--attach',
@@ -97540,6 +97936,14 @@ const commandSpec205 = {
       value: 'flag',
       clear: true,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -97827,6 +98231,7 @@ const commandSpec205 = {
     source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
     keepDashDash: true,
     splitRemainingPaths: true,
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     firstPassOptions: [
       '--clear-decorations',
       '--decorate',
@@ -100118,6 +100523,14 @@ const commandSpec207 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -100222,6 +100635,7 @@ const commandSpec207 = {
     keepEndOfOptions: false,
     remainingOperands: 'all',
     stopAtOperand: true,
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': '--all',
@@ -104950,6 +105364,14 @@ const commandSpec272 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [],
   source: 'builtin/refs.c',
@@ -104964,6 +105386,7 @@ const commandSpec272 = {
     reason:
       'parse_options with mandatory OPTION_SUBCOMMAND stops at the first exact registered operation. Unknown operands fail before later help; either boundary or argv exhaustion without selection requires a subcommand. Child parsing follows selection.',
     source: 'https://github.com/git/git/blob/v2.55.0/parse-options.c',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {},
       attached: {},
@@ -104984,6 +105407,14 @@ const commandSpec272 = {
         value: 'flag',
       },
       '--help-all': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--git-completion-helper': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--git-completion-helper-all': {
         key: 'help',
         value: 'flag',
       },
@@ -107549,6 +107980,14 @@ const commandSpec275 = {
       value: 'flag',
       set: false,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -107836,6 +108275,7 @@ const commandSpec275 = {
     source: 'https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c',
     keepDashDash: false,
     splitRemainingPaths: true,
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     firstPassOptions: [
       '--anonymize',
       '--anonymize-map',
@@ -114685,6 +115125,14 @@ const commandSpec306 = {
       value: 'flag',
       clear: true,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -114960,6 +115408,7 @@ const commandSpec306 = {
     source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
     keepDashDash: true,
     splitRemainingPaths: true,
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     wrappers: [
       {
         kind: 'empty-options',
@@ -115336,6 +115785,14 @@ const commandSpec307 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -115559,6 +116016,7 @@ const commandSpec307 = {
     reason:
       'An optional-subcommand wrapper delegates the first unknown word and tail to assumed push. Its parser stops at the first operand. Only a leading retained -- or active patch mode permits implicit path operands.',
     exceptFirst: ['--help'],
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     longForms: {
       plain: {
         '--a': null,
@@ -120290,6 +120748,14 @@ const commandSpec309 = {
       value: 'flag',
       clear: true,
     },
+    '--git-completion-helper': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [],
   source: 'Git 2.55.0 builtin/stash.c:list_stash; builtin/log.c:cmd_log',
@@ -120301,6 +120767,7 @@ const commandSpec309 = {
     source: 'Git 2.55.0 builtin/stash.c:list_stash; parse-options.c:parse_options_step',
     reason:
       'The empty KEEP_UNKNOWN_OPT parser scans words for help, drops the first -- marker, and retains unknown words before the repository-ref gate.',
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     firstPassOptions: ['--help', '-h'],
     firstPassLongNames: [],
     remainingOptions: remainingOptions0 as RemainingOptions0Type,
