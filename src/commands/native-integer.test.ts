@@ -132,7 +132,11 @@ describe('compiler-recorded native integer parsers', () => {
       CommandSpec,
     ][]) {
       for (const [flag, option] of Object.entries(spec.options)) {
-        if (typeof option.parser !== 'object' || option.value === 'flag') {
+        if (
+          typeof option.parser !== 'object' ||
+          option.parser.kind !== 'integer' ||
+          option.value === 'flag'
+        ) {
           continue;
         }
         count++;
@@ -202,7 +206,11 @@ describe('compiler-recorded native integer parsers', () => {
     expect(snapshot.options.filter((row: { bits: number }) => row.bits === 64)).toHaveLength(8);
     for (const spec of Object.values(COMMAND_SPECS) as CommandSpec[]) {
       for (const [flag, option] of Object.entries(spec.options)) {
-        if (flag.startsWith('--no-') && typeof option.parser === 'object') {
+        if (
+          flag.startsWith('--no-') &&
+          typeof option.parser === 'object' &&
+          option.parser.kind === 'integer'
+        ) {
           expect(option.set).toBe(0);
           expect(option.clear).toBeUndefined();
         }

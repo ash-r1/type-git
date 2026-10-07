@@ -1,7 +1,8 @@
 {
-  "scope": "Deterministic boundary representatives for compiler-recorded native integer parsers, not exhaustive command semantics.",
+  "scope": "Deterministic boundary representatives for compiler-recorded integer handlers and source-audited numeric callbacks, not exhaustive command semantics.",
   "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c",
   "snapshot": "spec/upstream/git-numeric-options.json",
+  "callbacks": "spec/git-numeric-callbacks.json",
   "profiles": {
     "signed-32": {
       "parser": {
@@ -165,6 +166,269 @@
         }
       ]
     },
+    "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "cast",
+        "nonzeroMinimum": 4,
+        "default": "unknown"
+      },
+      "cases": [
+        {
+          "input": "\"\"",
+          "valid": false
+        },
+        {
+          "input": "\" \"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"+001\"",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "\"010\"",
+          "valid": true,
+          "normalized": "10"
+        },
+        {
+          "input": "\"1k\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967295",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "-1",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "2147483648",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "4294967296",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "4294967297",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": true,
+          "normalized": "2147483647"
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"4294967297\"",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "\"-4294967295\"",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "\"9223372036854775807\"",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "\"9223372036854775808\"",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "\"-9223372036854775809\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "9223372036854775808n",
+          "valid": true,
+          "normalized": "4"
+        },
+        {
+          "input": "true",
+          "valid": true,
+          "normalized": "true"
+        }
+      ]
+    },
+    "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": false,
+        "conversion": "cast",
+        "empty": true,
+        "beforeNonnegative": true,
+        "default": "previous"
+      },
+      "cases": [
+        {
+          "input": "\"\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\" \"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"+001\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"010\"",
+          "valid": true,
+          "normalized": "10"
+        },
+        {
+          "input": "\"1k\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967295",
+          "valid": false
+        },
+        {
+          "input": "-1",
+          "valid": false
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483648",
+          "valid": true,
+          "normalized": "2147483648"
+        },
+        {
+          "input": "4294967296",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "4294967297",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": true,
+          "normalized": "2147483648"
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": false
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"4294967297\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"-4294967295\"",
+          "valid": false
+        },
+        {
+          "input": "\"9223372036854775807\"",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "\"9223372036854775808\"",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "\"-9223372036854775809\"",
+          "valid": false
+        },
+        {
+          "input": "9223372036854775808n",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "true",
+          "valid": true,
+          "normalized": "undefined"
+        }
+      ]
+    },
     "unsigned-32": {
       "parser": {
         "kind": "integer",
@@ -319,6 +583,360 @@
         }
       ]
     },
+    "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked",
+        "beforeNonnegative": true
+      },
+      "cases": [
+        {
+          "input": "\"\"",
+          "valid": false
+        },
+        {
+          "input": "\" \"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"+001\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"010\"",
+          "valid": true,
+          "normalized": "10"
+        },
+        {
+          "input": "\"1k\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967295",
+          "valid": false
+        },
+        {
+          "input": "-1",
+          "valid": false
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483648",
+          "valid": false
+        },
+        {
+          "input": "4294967296",
+          "valid": false
+        },
+        {
+          "input": "4294967297",
+          "valid": false
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": false
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": false
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": false
+        },
+        {
+          "input": "\"4294967297\"",
+          "valid": false
+        },
+        {
+          "input": "\"-4294967295\"",
+          "valid": false
+        },
+        {
+          "input": "\"9223372036854775807\"",
+          "valid": false
+        },
+        {
+          "input": "\"9223372036854775808\"",
+          "valid": false
+        },
+        {
+          "input": "\"-9223372036854775809\"",
+          "valid": false
+        },
+        {
+          "input": "9223372036854775808n",
+          "valid": false
+        },
+        {
+          "input": "true",
+          "valid": false
+        }
+      ]
+    },
+    "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "cases": [
+        {
+          "input": "\"\"",
+          "valid": false
+        },
+        {
+          "input": "\" \"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"+001\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"010\"",
+          "valid": true,
+          "normalized": "10"
+        },
+        {
+          "input": "\"1k\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967295",
+          "valid": false
+        },
+        {
+          "input": "-1",
+          "valid": true,
+          "normalized": "-1"
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483648",
+          "valid": false
+        },
+        {
+          "input": "4294967296",
+          "valid": false
+        },
+        {
+          "input": "4294967297",
+          "valid": false
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": false
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": false
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": false
+        },
+        {
+          "input": "\"4294967297\"",
+          "valid": false
+        },
+        {
+          "input": "\"-4294967295\"",
+          "valid": false
+        },
+        {
+          "input": "\"9223372036854775807\"",
+          "valid": false
+        },
+        {
+          "input": "\"9223372036854775808\"",
+          "valid": false
+        },
+        {
+          "input": "\"-9223372036854775809\"",
+          "valid": false
+        },
+        {
+          "input": "9223372036854775808n",
+          "valid": false
+        },
+        {
+          "input": "true",
+          "valid": false
+        }
+      ]
+    },
+    "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"positive\":true}": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "cast",
+        "positive": true
+      },
+      "cases": [
+        {
+          "input": "\"\"",
+          "valid": false
+        },
+        {
+          "input": "\" \"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": false
+        },
+        {
+          "input": "\"+001\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"010\"",
+          "valid": true,
+          "normalized": "10"
+        },
+        {
+          "input": "\"1k\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967295",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "-1",
+          "valid": false
+        },
+        {
+          "input": "0",
+          "valid": false
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483648",
+          "valid": false
+        },
+        {
+          "input": "4294967296",
+          "valid": false
+        },
+        {
+          "input": "4294967297",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": false
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": true,
+          "normalized": "2147483647"
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": false
+        },
+        {
+          "input": "\"4294967297\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"-4294967295\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"9223372036854775807\"",
+          "valid": false
+        },
+        {
+          "input": "\"9223372036854775808\"",
+          "valid": false
+        },
+        {
+          "input": "\"-9223372036854775809\"",
+          "valid": false
+        },
+        {
+          "input": "9223372036854775808n",
+          "valid": false
+        },
+        {
+          "input": "true",
+          "valid": false
+        }
+      ]
+    },
     "unsigned-64": {
       "parser": {
         "kind": "integer",
@@ -455,6 +1073,138 @@
           "valid": false
         }
       ]
+    },
+    "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true}": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": false,
+        "conversion": "cast",
+        "empty": true
+      },
+      "cases": [
+        {
+          "input": "\"\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\" \"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"+001\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"010\"",
+          "valid": true,
+          "normalized": "10"
+        },
+        {
+          "input": "\"1k\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967295",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "-1",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483648",
+          "valid": true,
+          "normalized": "2147483648"
+        },
+        {
+          "input": "4294967296",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "4294967297",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": true,
+          "normalized": "2147483648"
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": true,
+          "normalized": "2147483647"
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"4294967297\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"-4294967295\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"9223372036854775807\"",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "\"9223372036854775808\"",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "\"-9223372036854775809\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "9223372036854775808n",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "true",
+          "valid": false
+        }
+      ]
     }
   },
   "commands": [
@@ -547,6 +1297,22 @@
           "flag": "--no-deepen",
           "key": "deepen",
           "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "branch",
+      "options": [
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
           "default": 0
         }
       ]
@@ -666,6 +1432,16 @@
       "command": "log",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -674,6 +1450,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -681,6 +1503,16 @@
       "command": "show",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -689,6 +1521,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -696,6 +1574,16 @@
       "command": "diff",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -704,6 +1592,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -711,6 +1645,16 @@
       "command": "diff-files",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -719,6 +1663,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -726,6 +1716,16 @@
       "command": "diff-index",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -734,6 +1734,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -741,6 +1787,16 @@
       "command": "diff-tree",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -749,6 +1805,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -756,6 +1858,21 @@
       "command": "diff --no-index",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -764,6 +1881,17 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
         }
       ]
     },
@@ -771,6 +1899,16 @@
       "command": "reflog show",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -779,6 +1917,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -786,6 +1970,16 @@
       "command": "stash show",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -794,6 +1988,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -818,6 +2058,16 @@
       "command": "cherry-pick",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -826,6 +2076,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-m",
+          "key": "mainline",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"positive\":true}"
+        },
+        {
+          "flag": "--mainline",
+          "key": "mainline",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"positive\":true}"
         }
       ]
     },
@@ -833,6 +2129,16 @@
       "command": "revert",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -841,6 +2147,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-m",
+          "key": "mainline",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"positive\":true}"
+        },
+        {
+          "flag": "--mainline",
+          "key": "mainline",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"positive\":true}"
         }
       ]
     },
@@ -848,9 +2200,46 @@
       "command": "apply",
       "options": [
         {
+          "flag": "-p",
+          "key": "p",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}"
+        },
+        {
           "flag": "-C",
           "key": "C",
           "profile": "unsigned-32"
+        }
+      ]
+    },
+    {
+      "command": "ls-files",
+      "options": [
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "ls-tree",
+      "options": [
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
         }
       ]
     },
@@ -871,8 +2260,29 @@
       ]
     },
     {
+      "command": "show-ref",
+      "options": [
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
+        }
+      ]
+    },
+    {
       "command": "describe",
       "options": [
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
         {
           "flag": "--candidates",
           "key": "candidates",
@@ -882,6 +2292,22 @@
           "flag": "--no-candidates",
           "key": "candidates",
           "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "cherry",
+      "options": [
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
           "default": 0
         }
       ]
@@ -1134,6 +2560,16 @@
       "command": "rev-list",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1142,6 +2578,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -1165,25 +2647,15 @@
       "command": "backfill",
       "options": [
         {
-          "flag": "--inter-hunk-context",
-          "key": "inter-hunk-context",
-          "profile": "unsigned-32"
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
         },
         {
-          "flag": "-l",
-          "key": "l",
-          "profile": "signed-32"
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
         },
-        {
-          "flag": "--min-batch-size",
-          "key": "min-batch-size",
-          "profile": "unsigned-64"
-        }
-      ]
-    },
-    {
-      "command": "last-modified",
-      "options": [
         {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
@@ -1198,6 +2670,123 @@
           "flag": "--max-depth",
           "key": "max-depth",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-batch-size",
+          "key": "min-batch-size",
+          "profile": "unsigned-64"
+        }
+      ]
+    },
+    {
+      "command": "last-modified",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -1205,6 +2794,21 @@
       "command": "diff-pairs",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1213,6 +2817,17 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
         }
       ]
     },
@@ -1220,6 +2835,21 @@
       "command": "range-diff",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1228,6 +2858,17 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
         },
         {
           "flag": "--creation-factor",
@@ -1246,6 +2887,16 @@
       "command": "replay",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1254,6 +2905,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -1261,9 +2958,71 @@
       "command": "blame",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -1271,9 +3030,71 @@
       "command": "annotate",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -1284,6 +3105,16 @@
           "flag": "--max-depth",
           "key": "max-depth",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--context",
+          "key": "context",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true}"
+        },
+        {
+          "flag": "-C",
+          "key": "context",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true}"
         },
         {
           "flag": "--before-context",
@@ -1321,6 +3152,12 @@
           "profile": "signed-32"
         },
         {
+          "flag": "--no-context",
+          "key": "context",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true}",
+          "default": 0
+        },
+        {
           "flag": "--no-threads",
           "key": "threads",
           "profile": "signed-32",
@@ -1331,12 +3168,27 @@
           "key": "max-count",
           "profile": "signed-32",
           "default": 0
+        },
+        {
+          "flag": "-<digits>",
+          "key": "context",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true}"
         }
       ]
     },
     {
       "command": "format-patch",
       "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
         {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
@@ -1346,6 +3198,47 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         },
         {
           "flag": "--start-number",
@@ -1386,9 +3279,71 @@
       "command": "pickaxe",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -1396,6 +3351,16 @@
       "command": "whatchanged",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1404,6 +3369,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -1411,6 +3422,16 @@
       "command": "shortlog",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1419,6 +3440,47 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -1589,6 +3651,16 @@
       "command": "fast-export",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1597,6 +3669,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         },
         {
           "flag": "--progress",
@@ -1701,6 +3819,21 @@
       "command": "difftool",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1709,6 +3842,17 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-abbrev",
+          "key": "abbrev",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
         }
       ]
     },
@@ -1716,6 +3860,16 @@
       "command": "reflog",
       "options": [
         {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
           "flag": "--inter-hunk-context",
           "key": "inter-hunk-context",
           "profile": "unsigned-32"
@@ -1724,6 +3878,52 @@
           "flag": "-l",
           "key": "l",
           "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },

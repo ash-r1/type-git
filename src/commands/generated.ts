@@ -2273,6 +2273,7 @@ const commandSpec19 = {
       key: 'gpg-sign',
       value: 'optional-string',
       set: '',
+      emptyValueFlag: '--gpg-sign',
     },
     '--all': {
       key: 'all',
@@ -3107,6 +3108,7 @@ const commandSpec20 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--no-verbose': {
       key: 'verbose',
@@ -5788,8 +5790,17 @@ const commandSpec33 = {
       set: 'HEAD',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--all': {
       key: 'scope',
@@ -5949,9 +5960,18 @@ const commandSpec33 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-delete': {
       key: 'delete',
@@ -14766,23 +14786,44 @@ const commandSpec68 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -15043,6 +15084,7 @@ const commandSpec68 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -15051,6 +15093,7 @@ const commandSpec68 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -15067,6 +15110,7 @@ const commandSpec68 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -15290,8 +15334,13 @@ const commandSpec68 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -15722,7 +15771,14 @@ const commandSpec68 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -15770,7 +15826,13 @@ const commandSpec68 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -15838,7 +15900,13 @@ const commandSpec68 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -15869,7 +15937,13 @@ const commandSpec68 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -15923,7 +15997,13 @@ const commandSpec68 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -15944,7 +16024,13 @@ const commandSpec68 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -16186,7 +16272,13 @@ const commandSpec68 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -16300,7 +16392,13 @@ const commandSpec68 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -16713,23 +16811,44 @@ const commandSpec69 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -16990,6 +17109,7 @@ const commandSpec69 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -16998,6 +17118,7 @@ const commandSpec69 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -17014,6 +17135,7 @@ const commandSpec69 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -17237,8 +17359,13 @@ const commandSpec69 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -17669,7 +17796,14 @@ const commandSpec69 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -17717,7 +17851,13 @@ const commandSpec69 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -17785,7 +17925,13 @@ const commandSpec69 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -17816,7 +17962,13 @@ const commandSpec69 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -17870,7 +18022,13 @@ const commandSpec69 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -17891,7 +18049,13 @@ const commandSpec69 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -18133,7 +18297,13 @@ const commandSpec69 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -18247,7 +18417,13 @@ const commandSpec69 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -18616,23 +18792,44 @@ const commandSpec70 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -18893,6 +19090,7 @@ const commandSpec70 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -18901,6 +19099,7 @@ const commandSpec70 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -18917,6 +19116,7 @@ const commandSpec70 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -19144,8 +19344,13 @@ const commandSpec70 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -19534,7 +19739,14 @@ const commandSpec70 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -19582,7 +19794,13 @@ const commandSpec70 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -19650,7 +19868,13 @@ const commandSpec70 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -19681,7 +19905,13 @@ const commandSpec70 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -19735,7 +19965,13 @@ const commandSpec70 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -19756,7 +19992,13 @@ const commandSpec70 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -19998,7 +20240,13 @@ const commandSpec70 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -20112,7 +20360,13 @@ const commandSpec70 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -20481,23 +20735,44 @@ const commandSpec71 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -20758,6 +21033,7 @@ const commandSpec71 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -20766,6 +21042,7 @@ const commandSpec71 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -20782,6 +21059,7 @@ const commandSpec71 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -21009,8 +21287,13 @@ const commandSpec71 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -21399,7 +21682,14 @@ const commandSpec71 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -21447,7 +21737,13 @@ const commandSpec71 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -21515,7 +21811,13 @@ const commandSpec71 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -21546,7 +21848,13 @@ const commandSpec71 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -21600,7 +21908,13 @@ const commandSpec71 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -21621,7 +21935,13 @@ const commandSpec71 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -21863,7 +22183,13 @@ const commandSpec71 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -21977,7 +22303,13 @@ const commandSpec71 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -22334,23 +22666,44 @@ const commandSpec72 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -22611,6 +22964,7 @@ const commandSpec72 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -22619,6 +22973,7 @@ const commandSpec72 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -22635,6 +22990,7 @@ const commandSpec72 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -22862,8 +23218,13 @@ const commandSpec72 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -23252,7 +23613,14 @@ const commandSpec72 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -23300,7 +23668,13 @@ const commandSpec72 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -23368,7 +23742,13 @@ const commandSpec72 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -23399,7 +23779,13 @@ const commandSpec72 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -23453,7 +23839,13 @@ const commandSpec72 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -23474,7 +23866,13 @@ const commandSpec72 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -23716,7 +24114,13 @@ const commandSpec72 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -23823,7 +24227,13 @@ const commandSpec72 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -24169,23 +24579,44 @@ const commandSpec73 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -24446,6 +24877,7 @@ const commandSpec73 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -24454,6 +24886,7 @@ const commandSpec73 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -24470,6 +24903,7 @@ const commandSpec73 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -24697,8 +25131,13 @@ const commandSpec73 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -25087,7 +25526,14 @@ const commandSpec73 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -25135,7 +25581,13 @@ const commandSpec73 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -25203,7 +25655,13 @@ const commandSpec73 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -25234,7 +25692,13 @@ const commandSpec73 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -25288,7 +25752,13 @@ const commandSpec73 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -25309,7 +25779,13 @@ const commandSpec73 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -25551,7 +26027,13 @@ const commandSpec73 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -25650,7 +26132,13 @@ const commandSpec73 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -26004,23 +26492,44 @@ const commandSpec74 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -26230,8 +26739,17 @@ const commandSpec74 = {
       value: 'flag',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--src-prefix': {
       key: 'src-prefix',
@@ -26281,6 +26799,7 @@ const commandSpec74 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -26289,6 +26808,7 @@ const commandSpec74 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -26305,6 +26825,7 @@ const commandSpec74 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -26532,8 +27053,13 @@ const commandSpec74 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -26580,9 +27106,18 @@ const commandSpec74 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-find-copies-harder': {
       key: 'find-copies-harder',
@@ -27130,23 +27665,44 @@ const commandSpec81 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -27407,6 +27963,7 @@ const commandSpec81 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -27415,6 +27972,7 @@ const commandSpec81 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -27431,6 +27989,7 @@ const commandSpec81 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -27654,8 +28213,13 @@ const commandSpec81 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -28086,7 +28650,14 @@ const commandSpec81 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -28134,7 +28705,13 @@ const commandSpec81 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -28202,7 +28779,13 @@ const commandSpec81 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -28233,7 +28816,13 @@ const commandSpec81 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -28287,7 +28876,13 @@ const commandSpec81 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -28308,7 +28903,13 @@ const commandSpec81 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -28550,7 +29151,13 @@ const commandSpec81 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -28664,7 +29271,13 @@ const commandSpec81 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -29038,17 +29651,27 @@ const commandSpec82 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
@@ -29056,6 +29679,17 @@ const commandSpec82 = {
         },
       ],
       attachedValue: true,
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -29576,8 +30210,13 @@ const commandSpec82 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -29988,7 +30627,14 @@ const commandSpec82 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -30036,7 +30682,13 @@ const commandSpec82 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -30104,7 +30756,13 @@ const commandSpec82 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -30135,7 +30793,13 @@ const commandSpec82 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -30189,7 +30853,13 @@ const commandSpec82 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -30210,7 +30880,13 @@ const commandSpec82 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -30452,7 +31128,13 @@ const commandSpec82 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -30566,7 +31248,13 @@ const commandSpec82 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -30994,6 +31682,7 @@ const commandSpec83 = {
       key: 'gpg-sign',
       value: 'optional-string',
       set: '',
+      emptyValueFlag: '--gpg-sign',
     },
     '--autostash': {
       key: 'autostash',
@@ -31564,6 +32253,7 @@ const commandSpec84 = {
       key: 'gpg-sign',
       value: 'optional-string',
       set: '',
+      emptyValueFlag: '--gpg-sign',
     },
     '--autostash': {
       key: 'autostash',
@@ -32281,7 +32971,7 @@ const commandSpec85 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
@@ -32292,10 +32982,20 @@ const commandSpec85 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
@@ -32306,6 +33006,17 @@ const commandSpec85 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -32745,6 +33456,7 @@ const commandSpec85 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
       effects: [
         {
           key: 'revision-argument',
@@ -32765,6 +33477,7 @@ const commandSpec85 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
       effects: [
         {
           key: 'revision-argument',
@@ -32805,6 +33518,7 @@ const commandSpec85 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
       effects: [
         {
           key: 'revision-argument',
@@ -33196,6 +33910,7 @@ const commandSpec85 = {
       key: 'gpg-sign',
       value: 'optional-string',
       set: '',
+      emptyValueFlag: '--gpg-sign',
     },
     '-G': {
       key: 'G',
@@ -33294,8 +34009,13 @@ const commandSpec85 = {
       ],
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'revision-argument',
@@ -34008,7 +34728,14 @@ const commandSpec85 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -34110,7 +34837,13 @@ const commandSpec85 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -34242,7 +34975,13 @@ const commandSpec85 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -34277,7 +35016,13 @@ const commandSpec85 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -34335,7 +35080,13 @@ const commandSpec85 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -34386,7 +35137,13 @@ const commandSpec85 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -35050,7 +35807,14 @@ const commandSpec85 = {
     '-m': {
       key: 'mainline',
       value: 'integer',
-      parser: 'mainline',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        positive: true,
+      },
     },
     '-n': {
       key: 'no-commit',
@@ -35143,7 +35907,14 @@ const commandSpec85 = {
     '--mainline': {
       key: 'mainline',
       value: 'integer',
-      parser: 'mainline',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        positive: true,
+      },
     },
     '--rerere-autoupdate': {
       key: 'rerere-autoupdate',
@@ -35922,7 +36693,7 @@ const commandSpec86 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
@@ -35933,10 +36704,20 @@ const commandSpec86 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
@@ -35947,6 +36728,17 @@ const commandSpec86 = {
           set: true,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -36386,6 +37178,7 @@ const commandSpec86 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
       effects: [
         {
           key: 'revision-argument',
@@ -36406,6 +37199,7 @@ const commandSpec86 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
       effects: [
         {
           key: 'revision-argument',
@@ -36446,6 +37240,7 @@ const commandSpec86 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
       effects: [
         {
           key: 'revision-argument',
@@ -36837,6 +37632,7 @@ const commandSpec86 = {
       key: 'gpg-sign',
       value: 'optional-string',
       set: '',
+      emptyValueFlag: '--gpg-sign',
     },
     '-G': {
       key: 'G',
@@ -36935,8 +37731,13 @@ const commandSpec86 = {
       ],
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
       effects: [
         {
           key: 'revision-argument',
@@ -37649,7 +38450,14 @@ const commandSpec86 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -37751,7 +38559,13 @@ const commandSpec86 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -37883,7 +38697,13 @@ const commandSpec86 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -37918,7 +38738,13 @@ const commandSpec86 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -37976,7 +38802,13 @@ const commandSpec86 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -38027,7 +38859,13 @@ const commandSpec86 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -38691,7 +39529,14 @@ const commandSpec86 = {
     '-m': {
       key: 'mainline',
       value: 'integer',
-      parser: 'mainline',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        positive: true,
+      },
     },
     '-n': {
       key: 'no-commit',
@@ -38784,7 +39629,14 @@ const commandSpec86 = {
     '--mainline': {
       key: 'mainline',
       value: 'integer',
-      parser: 'mainline',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        positive: true,
+      },
     },
     '--rerere-autoupdate': {
       key: 'rerere-autoupdate',
@@ -39380,6 +40232,7 @@ const commandSpec87 = {
       key: 'gpg-sign',
       value: 'optional-string',
       set: '',
+      emptyValueFlag: '--gpg-sign',
     },
     '--no-gpg-sign': {
       key: 'gpg-sign',
@@ -39555,7 +40408,14 @@ const commandSpec89 = {
     '-p': {
       key: 'p',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'cli.apply.strip-count',
@@ -40170,6 +41030,7 @@ const commandSpec90 = {
       key: 'gpg-sign',
       value: 'optional-string',
       set: '',
+      emptyValueFlag: '--gpg-sign',
     },
     '--empty': {
       key: 'empty',
@@ -40470,8 +41331,17 @@ const commandSpec91 = {
       value: 'string',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--debug': {
       key: 'debug',
@@ -40570,9 +41440,18 @@ const commandSpec91 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-debug': {
       key: 'debug',
@@ -40971,8 +41850,17 @@ const commandSpec93 = {
       value: 'string',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--no-full-name': {
       key: 'full-name',
@@ -40985,9 +41873,18 @@ const commandSpec93 = {
       set: false,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--help': {
       key: 'help',
@@ -41379,10 +42276,20 @@ const commandSpec95 = {
     '-s': {
       key: 'hash',
       value: 'optional-string',
+      emptyValueFlag: '--hash',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--quiet': {
       key: 'quiet',
@@ -41439,9 +42346,18 @@ const commandSpec95 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-quiet': {
       key: 'quiet',
@@ -42545,7 +43461,15 @@ const commandSpec110 = {
     '--abbrev': {
       key: 'abbrev',
       value: 'optional-integer',
-      parser: 'abbrev',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
     },
     '--exact-match': {
       key: 'exact-match',
@@ -42881,8 +43805,17 @@ const commandSpec112 = {
   argv: ['cherry'],
   options: {
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--verbose': {
       key: 'verbose',
@@ -42895,9 +43828,18 @@ const commandSpec112 = {
       repeat: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-verbose': {
       key: 'verbose',
@@ -50172,23 +51114,44 @@ const commandSpec184 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -50449,6 +51412,7 @@ const commandSpec184 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -50457,6 +51421,7 @@ const commandSpec184 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -50473,6 +51438,7 @@ const commandSpec184 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -50700,8 +51666,13 @@ const commandSpec184 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -51090,7 +52061,14 @@ const commandSpec184 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -51144,7 +52122,13 @@ const commandSpec184 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -51212,7 +52196,13 @@ const commandSpec184 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -51243,7 +52233,13 @@ const commandSpec184 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -51297,7 +52293,13 @@ const commandSpec184 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -51318,7 +52320,13 @@ const commandSpec184 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -51599,7 +52607,13 @@ const commandSpec184 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -51719,7 +52733,13 @@ const commandSpec184 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -53524,23 +54544,44 @@ const commandSpec194 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -53801,6 +54842,7 @@ const commandSpec194 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -53809,6 +54851,7 @@ const commandSpec194 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -53825,6 +54868,7 @@ const commandSpec194 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -54054,8 +55098,13 @@ const commandSpec194 = {
       skipEmpty: true,
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -54462,7 +55511,14 @@ const commandSpec194 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -54510,7 +55566,13 @@ const commandSpec194 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -54578,7 +55640,13 @@ const commandSpec194 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -54609,7 +55677,13 @@ const commandSpec194 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -54663,7 +55737,13 @@ const commandSpec194 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -54684,7 +55764,13 @@ const commandSpec194 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -54934,7 +56020,13 @@ const commandSpec194 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -55056,7 +56148,13 @@ const commandSpec194 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -55486,23 +56584,44 @@ const commandSpec195 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -55763,6 +56882,7 @@ const commandSpec195 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -55771,6 +56891,7 @@ const commandSpec195 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -55787,6 +56908,7 @@ const commandSpec195 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -56409,7 +57531,14 @@ const commandSpec195 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -56457,7 +57586,13 @@ const commandSpec195 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -56525,7 +57660,13 @@ const commandSpec195 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -56556,7 +57697,13 @@ const commandSpec195 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -56610,7 +57757,13 @@ const commandSpec195 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -56631,7 +57784,13 @@ const commandSpec195 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -56873,7 +58032,13 @@ const commandSpec195 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -56987,7 +58152,13 @@ const commandSpec195 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -57345,23 +58516,44 @@ const commandSpec196 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -57571,8 +58763,17 @@ const commandSpec196 = {
       value: 'flag',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--src-prefix': {
       key: 'src-prefix',
@@ -57622,6 +58823,7 @@ const commandSpec196 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -57630,6 +58832,7 @@ const commandSpec196 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -57646,6 +58849,7 @@ const commandSpec196 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -57873,8 +59077,13 @@ const commandSpec196 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -57921,9 +59130,18 @@ const commandSpec196 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-find-copies-harder': {
       key: 'find-copies-harder',
@@ -58151,23 +59369,44 @@ const commandSpec197 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -58377,8 +59616,17 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--src-prefix': {
       key: 'src-prefix',
@@ -58428,6 +59676,7 @@ const commandSpec197 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -58436,6 +59685,7 @@ const commandSpec197 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -58452,6 +59702,7 @@ const commandSpec197 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -58679,8 +59930,13 @@ const commandSpec197 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -58727,9 +59983,18 @@ const commandSpec197 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-find-copies-harder': {
       key: 'find-copies-harder',
@@ -59052,23 +60317,44 @@ const commandSpec198 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -59329,6 +60615,7 @@ const commandSpec198 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -59337,6 +60624,7 @@ const commandSpec198 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -59353,6 +60641,7 @@ const commandSpec198 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -59580,8 +60869,13 @@ const commandSpec198 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -59970,7 +61264,14 @@ const commandSpec198 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -60018,7 +61319,13 @@ const commandSpec198 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -60086,7 +61393,13 @@ const commandSpec198 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -60117,7 +61430,13 @@ const commandSpec198 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -60171,7 +61490,13 @@ const commandSpec198 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -60192,7 +61517,13 @@ const commandSpec198 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -60434,7 +61765,13 @@ const commandSpec198 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -60548,7 +61885,13 @@ const commandSpec198 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -61052,23 +62395,44 @@ const commandSpec199 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -61278,8 +62642,17 @@ const commandSpec199 = {
       value: 'flag',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--src-prefix': {
       key: 'src-prefix',
@@ -61329,6 +62702,7 @@ const commandSpec199 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -61560,8 +62934,13 @@ const commandSpec199 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -61608,9 +62987,18 @@ const commandSpec199 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-find-copies-harder': {
       key: 'find-copies-harder',
@@ -61951,7 +63339,14 @@ const commandSpec199 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -61999,7 +63394,13 @@ const commandSpec199 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -62067,7 +63468,13 @@ const commandSpec199 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -62098,7 +63505,13 @@ const commandSpec199 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -62152,7 +63565,13 @@ const commandSpec199 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -62173,7 +63592,13 @@ const commandSpec199 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -62420,7 +63845,13 @@ const commandSpec199 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -63095,23 +64526,44 @@ const commandSpec200 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -63321,8 +64773,17 @@ const commandSpec200 = {
       value: 'flag',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--src-prefix': {
       key: 'src-prefix',
@@ -63372,6 +64833,7 @@ const commandSpec200 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -63603,8 +65065,13 @@ const commandSpec200 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -63651,9 +65118,18 @@ const commandSpec200 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-find-copies-harder': {
       key: 'find-copies-harder',
@@ -63994,7 +65470,14 @@ const commandSpec200 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -64042,7 +65525,13 @@ const commandSpec200 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -64110,7 +65599,13 @@ const commandSpec200 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -64141,7 +65636,13 @@ const commandSpec200 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -64195,7 +65696,13 @@ const commandSpec200 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -64216,7 +65723,13 @@ const commandSpec200 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -64463,7 +65976,13 @@ const commandSpec200 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -65281,12 +66800,28 @@ const commandSpec201 = {
       value: 'flag',
     },
     '--context': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+      },
       key: 'context',
-      value: 'string',
+      value: 'integer',
     },
     '-C': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+      },
       key: 'context',
-      value: 'string',
+      value: 'integer',
     },
     '--before-context': {
       parser: {
@@ -65400,6 +66935,7 @@ const commandSpec201 = {
     '-O': {
       key: 'open-files-in-pager',
       value: 'optional-string',
+      emptyValueFlag: '--open-files-in-pager',
     },
     '--ext-grep': {
       key: 'ext-grep',
@@ -65565,9 +67101,17 @@ const commandSpec201 = {
       set: false,
     },
     '--no-context': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+      },
       key: 'context',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-threads': {
       key: 'threads',
@@ -65628,6 +67172,14 @@ const commandSpec201 = {
   numericOption: {
     key: 'context',
     value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: false,
+      conversion: 'cast',
+      empty: true,
+    },
   },
   rules: [
     {
@@ -65823,23 +67375,44 @@ const commandSpec202 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -66095,6 +67668,7 @@ const commandSpec202 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -66103,6 +67677,7 @@ const commandSpec202 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -66119,6 +67694,7 @@ const commandSpec202 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -66347,8 +67923,13 @@ const commandSpec202 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -66732,7 +68313,14 @@ const commandSpec202 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -66780,7 +68368,13 @@ const commandSpec202 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -66848,7 +68442,13 @@ const commandSpec202 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -66879,7 +68479,13 @@ const commandSpec202 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -66933,7 +68539,13 @@ const commandSpec202 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -66954,7 +68566,13 @@ const commandSpec202 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -67196,7 +68814,13 @@ const commandSpec202 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -68332,23 +69956,44 @@ const commandSpec204 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -68558,8 +70203,17 @@ const commandSpec204 = {
       value: 'flag',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--src-prefix': {
       key: 'src-prefix',
@@ -68609,6 +70263,7 @@ const commandSpec204 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -68840,8 +70495,13 @@ const commandSpec204 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -68888,9 +70548,18 @@ const commandSpec204 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-find-copies-harder': {
       key: 'find-copies-harder',
@@ -69231,7 +70900,14 @@ const commandSpec204 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -69279,7 +70955,13 @@ const commandSpec204 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -69347,7 +71029,13 @@ const commandSpec204 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -69378,7 +71066,13 @@ const commandSpec204 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -69432,7 +71126,13 @@ const commandSpec204 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -69453,7 +71153,13 @@ const commandSpec204 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -69700,7 +71406,13 @@ const commandSpec204 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -70436,23 +72148,44 @@ const commandSpec205 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -70713,6 +72446,7 @@ const commandSpec205 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -70721,6 +72455,7 @@ const commandSpec205 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -70737,6 +72472,7 @@ const commandSpec205 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -70960,8 +72696,13 @@ const commandSpec205 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -71392,7 +73133,14 @@ const commandSpec205 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -71440,7 +73188,13 @@ const commandSpec205 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -71508,7 +73262,13 @@ const commandSpec205 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -71539,7 +73299,13 @@ const commandSpec205 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -71593,7 +73359,13 @@ const commandSpec205 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -71614,7 +73386,13 @@ const commandSpec205 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -71856,7 +73634,13 @@ const commandSpec205 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -71970,7 +73754,13 @@ const commandSpec205 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -72337,23 +74127,44 @@ const commandSpec206 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -72608,6 +74419,7 @@ const commandSpec206 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -72616,6 +74428,7 @@ const commandSpec206 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -72632,6 +74445,7 @@ const commandSpec206 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -72860,8 +74674,13 @@ const commandSpec206 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -73249,7 +75068,14 @@ const commandSpec206 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -73297,7 +75123,13 @@ const commandSpec206 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -73365,7 +75197,13 @@ const commandSpec206 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -73396,7 +75234,13 @@ const commandSpec206 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -73450,7 +75294,13 @@ const commandSpec206 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -73471,7 +75321,13 @@ const commandSpec206 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -73713,7 +75569,13 @@ const commandSpec206 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -74515,6 +76377,7 @@ const commandSpec208 = {
     '-S': {
       key: 'gpg-sign',
       value: 'optional-string',
+      emptyValueFlag: '--gpg-sign',
     },
     '--allow-unrelated-histories': {
       key: 'allow-unrelated-histories',
@@ -74569,6 +76432,7 @@ const commandSpec208 = {
     '-j': {
       key: 'jobs',
       value: 'optional-string',
+      emptyValueFlag: '--jobs',
     },
     '--dry-run': {
       key: 'dry-run',
@@ -79139,23 +81003,44 @@ const commandSpec275 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -79416,6 +81301,7 @@ const commandSpec275 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -79424,6 +81310,7 @@ const commandSpec275 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -79440,6 +81327,7 @@ const commandSpec275 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -79667,8 +81555,13 @@ const commandSpec275 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -80057,7 +81950,14 @@ const commandSpec275 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -80105,7 +82005,13 @@ const commandSpec275 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -80173,7 +82079,13 @@ const commandSpec275 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -80204,7 +82116,13 @@ const commandSpec275 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -80258,7 +82176,13 @@ const commandSpec275 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -80279,7 +82203,13 @@ const commandSpec275 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -80521,7 +82451,13 @@ const commandSpec275 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -80635,7 +82571,13 @@ const commandSpec275 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',
@@ -83545,12 +85487,33 @@ const commandSpec291 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '-U': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -83587,6 +85550,7 @@ const commandSpec291 = {
     '-X': {
       key: 'dirstat',
       value: 'optional-string',
+      emptyValueFlag: '--dirstat',
     },
     '--cumulative': {
       key: 'cumulative',
@@ -83658,8 +85622,17 @@ const commandSpec291 = {
       value: 'flag',
     },
     '--abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
-      value: 'optional-string',
+      value: 'optional-integer',
     },
     '--src-prefix': {
       key: 'src-prefix',
@@ -83709,6 +85682,7 @@ const commandSpec291 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -83717,6 +85691,7 @@ const commandSpec291 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -83733,6 +85708,7 @@ const commandSpec291 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -83925,8 +85901,13 @@ const commandSpec291 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -83959,9 +85940,18 @@ const commandSpec291 = {
       clear: true,
     },
     '--no-abbrev': {
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'cast',
+        nonzeroMinimum: 4,
+        default: 'unknown',
+      },
       key: 'abbrev',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-find-copies-harder': {
       key: 'find-copies-harder',
@@ -86068,23 +88058,44 @@ const commandSpec306 = {
     },
     '--unified': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
     },
     '-U': {
       key: 'unified',
-      value: 'optional-string',
+      value: 'optional-integer',
       effects: [
         {
           key: 'no-output',
           set: false,
         },
       ],
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'cast',
+        empty: true,
+        beforeNonnegative: true,
+        default: 'previous',
+      },
+      emptyValueFlag: '--unified',
     },
     '--function-context': {
       key: 'function-context',
@@ -86345,6 +88356,7 @@ const commandSpec306 = {
     '-B': {
       key: 'break-rewrites',
       value: 'optional-string',
+      emptyValueFlag: '--break-rewrites',
     },
     '--find-renames': {
       key: 'find-renames',
@@ -86353,6 +88365,7 @@ const commandSpec306 = {
     '-M': {
       key: 'find-renames',
       value: 'optional-string',
+      emptyValueFlag: '--find-renames',
     },
     '--irreversible-delete': {
       key: 'irreversible-delete',
@@ -86369,6 +88382,7 @@ const commandSpec306 = {
     '-C': {
       key: 'find-copies',
       value: 'optional-string',
+      emptyValueFlag: '--find-copies',
     },
     '--find-copies-harder': {
       key: 'find-copies-harder',
@@ -86592,8 +88606,13 @@ const commandSpec306 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
-      value: 'string',
+      value: 'integer',
     },
     '--output': {
       key: 'output',
@@ -87024,7 +89043,14 @@ const commandSpec306 = {
       key: 'expand-tabs',
       value: 'optional-integer',
       set: 8,
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+        beforeNonnegative: true,
+      },
       checks: [
         {
           id: 'revision.tabs-nonnegative',
@@ -87072,7 +89098,13 @@ const commandSpec306 = {
     '--graph-lane-limit': {
       key: 'graph-lane-limit',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--grep': {
       key: 'grep',
@@ -87140,7 +89172,13 @@ const commandSpec306 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -87171,7 +89209,13 @@ const commandSpec306 = {
     '--max-count-oldest': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'max-count-mode',
@@ -87225,7 +89269,13 @@ const commandSpec306 = {
     '--max-parents': {
       key: 'max-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--maximal-only': {
       key: 'maximal-only',
@@ -87246,7 +89296,13 @@ const commandSpec306 = {
     '--min-parents': {
       key: 'min-parents',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
     },
     '--no-abbrev-commit': {
       key: 'abbrev-commit',
@@ -87488,7 +89544,13 @@ const commandSpec306 = {
     '--skip': {
       key: 'skip',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       checks: [
         {
           id: 'revision.skip-after-oldest',
@@ -87602,7 +89664,13 @@ const commandSpec306 = {
     '-n': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'checked',
+      },
       effects: [
         {
           key: 'no-walk',

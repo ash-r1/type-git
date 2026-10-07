@@ -1754,14 +1754,16 @@
     "options": {
       "-U": {
         "key": "unified",
-        "value": "optional-string",
+        "value": "optional-integer",
         "effects": [
           {
             "key": "no-output",
             "set": false
           }
         ],
-        "attachedValue": true
+        "attachedValue": true,
+        "parser": "unified-context",
+        "emptyValueFlag": "--unified"
       },
       "-X": {
         "key": "dirstat",
@@ -2291,7 +2293,7 @@
       "-p": {
         "key": "p",
         "value": "integer",
-        "parser": "revision-count",
+        "parser": "strip-count",
         "checks": [
           {
             "id": "cli.apply.strip-count",
@@ -4311,7 +4313,8 @@
     "optionParsing": "stop-at-operand",
     "numericOption": {
       "key": "context",
-      "value": "integer"
+      "value": "integer",
+      "parser": "grep-context"
     },
     "initial": {
       "max-count": -1

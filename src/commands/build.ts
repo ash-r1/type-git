@@ -96,11 +96,19 @@ export function commandArguments(
     if (typeof flag !== 'string') {
       throw new GitArgumentError(`${command}: option names must be strings`);
     }
-    const numeric = !Object.hasOwn(spec.options, flag) && spec.numericOption && /^-\d+$/.test(flag);
+    const numeric =
+      !Object.hasOwn(spec.options, flag) && spec.numericOption && /^-\d+$/.exec(flag)?.[0] === flag;
     const option: OptionSpec | undefined = Object.hasOwn(spec.options, flag)
       ? spec.options[flag]
       : numeric
-        ? { ...spec.numericOption!, value: 'flag', set: Number(flag.slice(1)) }
+        ? {
+            ...spec.numericOption!,
+            value: 'flag',
+            set:
+              typeof spec.numericOption!.parser === 'object'
+                ? flag.slice(1)
+                : Number(flag.slice(1)),
+          }
         : undefined;
     if (!option || arg.length > 2) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
@@ -108,7 +116,18 @@ export function commandArguments(
     const supplied = arg.length === 2 && arg[1] !== undefined;
     const rawValue = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);
     const integerParser = typeof option.parser === 'object';
-    const integer = integerParser ? parseGitScalar(option.parser!, rawValue) : undefined;
+    if (
+      integerParser &&
+      supplied &&
+      typeof rawValue !== 'string' &&
+      typeof rawValue !== 'number' &&
+      typeof rawValue !== 'bigint'
+    ) {
+      throw new GitArgumentError(`${flag}: expected a number, bigint or numeric string`);
+    }
+    const integer = integerParser
+      ? parseGitScalar(option.parser!, rawValue, state[option.key])
+      : undefined;
     if (integer && !integer.valid) {
       throw new GitArgumentError(`${flag}: invalid integer value ${String(rawValue)}`);
     }
@@ -177,7 +196,9 @@ export function commandArguments(
           throw new GitArgumentError(`${flag}: NUL is not a valid CLI argument`);
         }
         // Long equals forms preserve empty values; short values are separate tokens.
-        if (option.separateValue) {
+        if (optional && !flag.startsWith('--') && rawValue === '' && option.emptyValueFlag) {
+          argv.push(`${option.emptyValueFlag}=`);
+        } else if (option.separateValue) {
           argv.push(flag, String(rawValue));
         } else if (flag.startsWith('--')) {
           argv.push(`${flag}=${rawValue}`);

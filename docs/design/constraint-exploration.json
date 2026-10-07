@@ -2272,7 +2272,11 @@
         "1",
         "2",
         "1.5",
-        "9007199254740992"
+        "9007199254740992",
+        "-4294967295",
+        "2147483648",
+        "4294967296",
+        "4294967297"
       ],
       "strategy": [
         "undefined",
@@ -2354,13 +2358,13 @@
         "\"stop\""
       ]
     },
-    "total": "8035387920",
-    "accepted": "249298560",
-    "nodes": 429,
+    "total": "12627038160",
+    "accepted": "415393920",
+    "nodes": 392,
     "isolatedRuleWitnesses": {
       "cherryPick.abort-continue-skip": "{\"continue\":true,\"skip\":true}",
       "cherryPick.unsupported": "{\"noVerify\":false}",
-      "cherryPick.mainline": "{\"mainline\":1.5}",
+      "cherryPick.mainline": null,
       "cherryPick.mainline-range": "{\"mainline\":-1}",
       "cherryPick.abort-options": "{\"abort\":true,\"strategyOption\":\"\"}",
       "cherryPick.continue-options": "{\"continue\":true,\"strategyOption\":\"\"}",
@@ -2720,7 +2724,11 @@
         "1",
         "2",
         "1.5",
-        "9007199254740992"
+        "9007199254740992",
+        "-4294967295",
+        "2147483648",
+        "4294967296",
+        "4294967297"
       ],
       "abort": [
         "undefined",
@@ -2786,13 +2794,13 @@
         "true"
       ]
     },
-    "total": "74401740",
-    "accepted": "3162240",
-    "nodes": 172,
+    "total": "116917020",
+    "accepted": "5261760",
+    "nodes": 163,
     "isolatedRuleWitnesses": {
       "revert.abort-continue-skip": "{\"continue\":true,\"skip\":true}",
       "revert.unsupported": "{\"noVerify\":false}",
-      "revert.mainline": "{\"mainline\":1.5}",
+      "revert.mainline": null,
       "revert.mainline-range": "{\"mainline\":-1}",
       "revert.abort-options": "{\"abort\":true,\"strategyOption\":\"\"}",
       "revert.continue-options": "{\"continue\":true,\"strategyOption\":\"\"}",
