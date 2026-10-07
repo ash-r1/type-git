@@ -1071,3 +1071,33 @@ default heap limit.
 Repository/configuration state, stash/revision object resolution, pathspec
 languages, remaining revision callbacks, completion and other native parser
 modes remain open. Every audit scope remains partial.
+
+## Ordinary worktree option passes
+
+`add`, `rm`, `mv` and `clean` record their native option tables and ordinary
+parse-options behavior: long abbreviations enabled, unknown options rejected,
+and both `--` and `--end-of-options` consumed. Their remaining words become
+literal path operands. Add's KEEP_ARGV0 retains the command name only for its
+internal consumers; Type-Git already separates that name from the argument
+stream. Native interactive/edit branches and their repository effects remain
+separate from this option-pass model.
+
+Serialized short clusters and native long prefixes are resolved before callback
+checks. `add --dry-r -h` and `rm -nh` reach help, whereas `rm --quiet=1 -h` fails
+first. Plain paths do not stop these parsers: `add file -h` displays help.
+After a consumed marker, option-shaped words are literal paths. Thus `mv -- -h`
+has only one path and fails arity; `mv -- file -h` has two paths, with their
+filesystem validity left to Git. Add's `--chmod=bad -h` reaches help before its
+final mode check, while a reached invalid integer callback still fails first.
+
+`node scripts/worktree-parser-corpus.mjs --check` reproduces 3,935 independent
+Git outcomes across the four commands. Native names supply prefix/negation
+candidates; Git supplies every expected result. Spelling probes have two final
+help words, and final path/rule probes use dry-run in an isolated repository
+with tracked dash-prefixed files. File-backed LF/NUL stdin supplies the selected
+pathspec input mode without a broken-pipe race on early help exits. Runtime and
+four isolated compiler fixtures check all outcomes; none are omitted.
+
+Configuration, interactive/edit execution, index/worktree state, pathspec and
+filesystem resolution, completion and other parser modes remain audit
+obligations. A finite corpus does not establish complete Git coverage.
