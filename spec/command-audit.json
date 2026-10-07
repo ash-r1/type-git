@@ -3150,6 +3150,86 @@
         "test/types/bisect-command-api.ts"
       ],
       "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bundle": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/root-dispatch.test.ts",
+        "test/types/root-dispatch-command-api.ts"
+      ],
+      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+    },
+    "commit-graph": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/root-dispatch.test.ts",
+        "test/types/root-dispatch-command-api.ts"
+      ],
+      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+    },
+    "history": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/root-dispatch.test.ts",
+        "test/types/root-dispatch-command-api.ts"
+      ],
+      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+    },
+    "hook": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/root-dispatch.test.ts",
+        "test/types/root-dispatch-command-api.ts"
+      ],
+      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+    },
+    "maintenance": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/root-dispatch.test.ts",
+        "test/types/root-dispatch-command-api.ts"
+      ],
+      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+    },
+    "multi-pack-index": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/root-dispatch.test.ts",
+        "test/types/root-dispatch-command-api.ts"
+      ],
+      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+    },
+    "refs": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/root-dispatch.test.ts",
+        "test/types/root-dispatch-command-api.ts"
+      ],
+      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+    },
+    "repo": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/root-dispatch.test.ts",
+        "test/types/root-dispatch-command-api.ts"
+      ],
+      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
     }
   }
 }

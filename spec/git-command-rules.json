@@ -15428,5 +15428,202 @@
       "reason": "The native operation enforces this argument count.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
     }
+  ],
+  "bundle": [
+    {
+      "id": "cli.bundle.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native dispatcher requires a registered subcommand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bundle.c"
+    },
+    {
+      "id": "cli.bundle.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "create",
+        "verify",
+        "list-heads",
+        "unbundle"
+      ],
+      "origin": "git",
+      "reason": "This root dispatcher accepts only its registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bundle.c"
+    }
+  ],
+  "commit-graph": [
+    {
+      "id": "cli.commit-graph.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native dispatcher requires a registered subcommand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit-graph.c"
+    },
+    {
+      "id": "cli.commit-graph.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "verify",
+        "write"
+      ],
+      "origin": "git",
+      "reason": "This root dispatcher accepts only its registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit-graph.c"
+    }
+  ],
+  "history": [
+    {
+      "id": "cli.history.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native dispatcher requires a registered subcommand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/history.c"
+    },
+    {
+      "id": "cli.history.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "fixup",
+        "reword",
+        "split"
+      ],
+      "origin": "git",
+      "reason": "This root dispatcher accepts only its registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/history.c"
+    }
+  ],
+  "hook": [
+    {
+      "id": "cli.hook.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native dispatcher requires a registered subcommand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hook.c"
+    },
+    {
+      "id": "cli.hook.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "run",
+        "list"
+      ],
+      "origin": "git",
+      "reason": "This root dispatcher accepts only its registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hook.c"
+    }
+  ],
+  "maintenance": [
+    {
+      "id": "cli.maintenance.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native dispatcher requires a registered subcommand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/gc.c"
+    },
+    {
+      "id": "cli.maintenance.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "run",
+        "start",
+        "stop",
+        "register",
+        "unregister",
+        "is-needed"
+      ],
+      "origin": "git",
+      "reason": "This root dispatcher accepts only its registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/gc.c"
+    }
+  ],
+  "multi-pack-index": [
+    {
+      "id": "cli.multi-pack-index.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native dispatcher requires a registered subcommand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c"
+    },
+    {
+      "id": "cli.multi-pack-index.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "repack",
+        "write",
+        "compact",
+        "verify",
+        "expire"
+      ],
+      "origin": "git",
+      "reason": "This root dispatcher accepts only its registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c"
+    }
+  ],
+  "refs": [
+    {
+      "id": "cli.refs.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native dispatcher requires a registered subcommand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/refs.c"
+    },
+    {
+      "id": "cli.refs.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "migrate",
+        "verify",
+        "list",
+        "exists",
+        "optimize"
+      ],
+      "origin": "git",
+      "reason": "This root dispatcher accepts only its registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/refs.c"
+    }
+  ],
+  "repo": [
+    {
+      "id": "cli.repo.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native dispatcher requires a registered subcommand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
+    },
+    {
+      "id": "cli.repo.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "info",
+        "structure"
+      ],
+      "origin": "git",
+      "reason": "This root dispatcher accepts only its registered operations.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repo.c"
+    }
   ]
 }
