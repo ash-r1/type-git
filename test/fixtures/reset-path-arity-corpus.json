@@ -1,0 +1,986 @@
+{
+  "profile": "Git 2.55.0; fixed dates and clean repository; at most one retained word can be a revision; recognized separators, mode restrictions and pathspec-file boundaries; no user repository access",
+  "cases": [
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--hard"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--hard",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--hard"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--hard",
+        "HEAD",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do hard reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--hard"
+        ],
+        {
+          "operand": "file"
+        },
+        {
+          "operand": "other"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--hard",
+        "file",
+        "other"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do hard reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--hard"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD~1"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--hard",
+        "HEAD",
+        "HEAD~1",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do hard reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--hard"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--hard",
+        "HEAD",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--hard"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--hard",
+        "HEAD",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do hard reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--hard"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        },
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--hard",
+        "HEAD",
+        "file",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--soft"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--soft",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--soft"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--soft",
+        "HEAD",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do soft reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--soft"
+        ],
+        {
+          "operand": "file"
+        },
+        {
+          "operand": "other"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--soft",
+        "file",
+        "other"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do soft reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--soft"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD~1"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--soft",
+        "HEAD",
+        "HEAD~1",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do soft reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--soft"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--soft",
+        "HEAD",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--soft"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--soft",
+        "HEAD",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do soft reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--soft"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        },
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--soft",
+        "HEAD",
+        "file",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--merge",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--merge",
+        "HEAD",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do merge reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        {
+          "operand": "file"
+        },
+        {
+          "operand": "other"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--merge",
+        "file",
+        "other"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do merge reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD~1"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--merge",
+        "HEAD",
+        "HEAD~1",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do merge reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--merge",
+        "HEAD",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--merge",
+        "HEAD",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do merge reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--merge"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        },
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--merge",
+        "HEAD",
+        "file",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--keep"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--keep",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--keep"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--keep",
+        "HEAD",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do keep reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--keep"
+        ],
+        {
+          "operand": "file"
+        },
+        {
+          "operand": "other"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--keep",
+        "file",
+        "other"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do keep reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--keep"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD~1"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--keep",
+        "HEAD",
+        "HEAD~1",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do keep reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--keep"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--keep",
+        "HEAD",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--keep"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--keep",
+        "HEAD",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Cannot do keep reset with paths."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--keep"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        },
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--keep",
+        "HEAD",
+        "file",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--mixed"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--mixed",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--mixed"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--mixed",
+        "HEAD",
+        "file"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": "warning: --mixed with paths is deprecated; use 'git reset -- <paths>' instead."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--mixed"
+        ],
+        {
+          "operand": "file"
+        },
+        {
+          "operand": "other"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--mixed",
+        "file",
+        "other"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": "warning: --mixed with paths is deprecated; use 'git reset -- <paths>' instead."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--mixed"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD~1"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--mixed",
+        "HEAD",
+        "HEAD~1",
+        "--",
+        "file"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": "warning: --mixed with paths is deprecated; use 'git reset -- <paths>' instead."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--mixed"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--mixed",
+        "HEAD",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--mixed"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--mixed",
+        "HEAD",
+        "--",
+        "file"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": "warning: --mixed with paths is deprecated; use 'git reset -- <paths>' instead."
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--mixed"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        },
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--mixed",
+        "HEAD",
+        "file",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "-"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--pathspec-from-file=-"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "-"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--pathspec-from-file=-",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "-"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--pathspec-from-file=-",
+        "HEAD",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--pathspec-from-file' and pathspec arguments cannot be used together"
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "-"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD~1"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--pathspec-from-file=-",
+        "HEAD",
+        "HEAD~1",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--pathspec-from-file' and pathspec arguments cannot be used together"
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--pathspec-from-file",
+          "-"
+        ],
+        [
+          "--"
+        ],
+        {
+          "operand": "file"
+        }
+      ],
+      "argv": [
+        "reset",
+        "--pathspec-from-file=-",
+        "--",
+        "file"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--pathspec-from-file' and pathspec arguments cannot be used together"
+    }
+  ]
+}
