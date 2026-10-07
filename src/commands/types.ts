@@ -473,6 +473,37 @@ type OperandInitial<C extends GitCommandName, R extends readonly string[], S> = 
     ? Put<Put<Put<S, 'literalOperands', true>, 'ended', true>, 'hasSeparator', true>
     : Put<S, 'literalOperands', true>
   : Put<S, 'literalOperands', true>;
+// The operand consumer can recognize a boundary independently of parse-options.
+// Reset only examines argv[0..1]; checkout scans for the first retained --.
+type SplitOperandWords<
+  R extends readonly string[],
+  Max,
+  Before extends readonly string[] = readonly [],
+> = R extends readonly [infer H extends string, ...infer Rest extends readonly string[]]
+  ? H extends '--'
+    ? { before: Before; after: Rest }
+    : Before['length'] extends Max
+      ? { before: readonly [...Before, H, ...Rest] }
+      : SplitOperandWords<Rest, Max, readonly [...Before, H]>
+  : { before: Before };
+type OperandWordState<C extends GitCommandName, R extends readonly string[], S> = Spec<C> extends {
+  parserExit: { remainingSeparator: infer Separator };
+}
+  ? SplitOperandWords<R, Separator extends { maxIndex: infer Max } ? Max : never> extends infer P
+    ? P extends {
+        before: infer Before extends readonly string[];
+        after: infer After extends readonly string[];
+      }
+      ? State<
+          C,
+          OperandTokens<After>,
+          Put<Put<State<C, OperandTokens<Before>, S>, 'ended', true>, 'hasSeparator', true>
+        >
+      : P extends { before: infer Before extends readonly string[] }
+        ? State<C, OperandTokens<Before>, S>
+        : InvalidPass
+    : InvalidPass
+  : State<C, OperandTokens<R>, S>;
 type OperandPassState<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -481,15 +512,13 @@ type OperandPassState<
 > = State<C, E, Put<Initial<C>, 'argumentTokens', A>> extends infer S
   ? [S] extends [never]
     ? InvalidPass
-    : State<
+    : OperandWordState<
         C,
-        OperandTokens<
-          Spec<C> extends { parserExit: { remainingOperands: 'drop-leading-dashdash' } }
-            ? R extends readonly ['--', ...infer Rest extends string[]]
-              ? Rest
-              : R
+        Spec<C> extends { parserExit: { remainingOperands: 'drop-leading-dashdash' } }
+          ? R extends readonly ['--', ...infer Rest extends string[]]
+            ? Rest
             : R
-        >,
+          : R,
         OperandInitial<C, R, S>
       >
   : InvalidPass;

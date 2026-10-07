@@ -1141,3 +1141,44 @@ cases, each keeping all source roots and the default heap limit.
 These checks do not establish completeness: repository/configuration effects,
 nonempty object/ref resolution, tty-dependent columns, pathspecs, other callbacks,
 completion and other native parser modes remain open. All scopes remain partial.
+
+
+## Checkout-family and reset operand boundaries
+
+`checkout`, `switch`, `restore` and `reset` model their ordinary option pass
+before the native operand consumer. Prefixes, clusters, unknown-option errors,
+callback timing and help exits come from each command's source tables. Switch
+and restore consume both end markers; all following words become literal
+operands. Thus `restore -- -h` names a path and `switch -- main -h` has two
+references, rather than requesting help.
+
+Checkout and reset retain `--` but consume `--end-of-options` in the initial
+pass. Their `remainingSeparator` metadata describes the separate operand phase:
+checkout scans the whole retained stream for the first `--`; reset recognizes
+one only at index 0 or 1. A recognized marker sets `hasSeparator`, divides
+`operandsBeforeSeparator` and `pathsAfterSeparator`, and is excluded from operand
+counts. Further markers are literal words. Reset's later marker is a path, so
+`reset file other -- -h` does not have the same reference-arity error as
+`checkout file other -- -h`. Reference/path resolution remains with native Git.
+
+The same metadata drives runtime and literal TypeScript state construction.
+Existing mode/path constraints run on the resulting state: `reset --hard -- -h`
+and `checkout --detach -- -h` cannot treat the literal path as help to bypass
+those constraints. NUL and token-shape checks still precede parser exits.
+
+
+Reset can consume at most one retained word as a revision. When no marker is
+recognized, two or more words therefore necessarily include paths. Declarative
+arity rules reject such words with non-mixed modes or a pathspec file. A finite
+40-case independent oracle checks explicit and late markers, mode selection,
+pathspec-file input and help timing. Single-word ref/path resolution remains
+native. This supplements the original 7,885-case option-pass corpus.
+
+`node scripts/checkout-parser-corpus.mjs --check` reproduces 7,885 independent
+native outcomes with tracked dash-prefixed files, valid dash-prefixed refs and
+file-backed LF/NUL stdin. Author/committer dates are fixed so diagnostic commit
+hashes also reproduce byte for byte. Deterministic compiler shards of at most 400 cases
+retain every outcome, all source roots and the default heap limit. Repository
+and configuration state, ref/path ambiguity, pathspec languages and files,
+interactive modes, remaining callbacks and parser modes remain audit obligations.
+All scopes remain partial.

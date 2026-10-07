@@ -117,6 +117,8 @@ export type CommandSpec = {
     };
     /** Commands which consume the retained argv as operands, without a revision parser. */
     remainingOperands?: 'all' | 'drop-leading-dashdash';
+    /** Native operand phase recognizes its own -- boundary at selected positions. */
+    remainingSeparator?: Evidence & { maxIndex?: number };
     /** Partition retained words before revision parsing; nonmatching words are separate operands. */
     remainingPartition?: Evidence & {
       optionPrefix: string;
