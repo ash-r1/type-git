@@ -35,6 +35,31 @@ const mixedRules: Constraint[] = [
 ];
 
 describe('reduced ordered decision diagrams', () => {
+  it('solves scalar grammars and their guards with the same finite counts as enumeration', () => {
+    const scalarRules: Constraint[] = [
+      { ...evidence, id: 'filter', kind: 'scalar', key: 'filter', parser: 'object-filter' },
+      {
+        ...evidence,
+        id: 'depth',
+        kind: 'scalar',
+        key: 'depth',
+        parser: 'depth-initial',
+        guard: [p('enabled')],
+      },
+    ];
+    const scalarDomains = {
+      filter: [undefined, 'blob:none', 'auto', 'tree:-1'],
+      depth: [undefined, -1, 0, 1, 4294967297],
+      enabled: [undefined, true],
+    };
+    const expected = [...assignments(scalarDomains)].filter(
+      (input) => violations(scalarRules, input).length === 0,
+    );
+    const actual = solve(scalarRules, scalarDomains);
+    expect(actual.total).toBe(40n);
+    expect(actual.accepted).toBe(BigInt(expected.length));
+    expect(violations(scalarRules, actual.witness!)).toEqual([]);
+  });
   it('agrees with full enumeration for every subset of a mixed constraint system', () => {
     const inputs = [...assignments(domains)];
     for (let mask = 0; mask < 2 ** mixedRules.length; mask++) {
