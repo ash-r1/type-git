@@ -50,6 +50,7 @@ export function commandArguments(
   };
   let ended = false;
   let literalOperands = false;
+  let parserExited = false;
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
@@ -63,7 +64,7 @@ export function commandArguments(
         throw new GitArgumentError('Expected a string operand without NUL');
       }
       if (
-        !(ended || literalOperands) &&
+        !(parserExited || ended || literalOperands) &&
         spec.optionParsing !== 'none' &&
         !(spec.optionParsing === 'stop-at-operand' && operands.length > 0) &&
         operand.startsWith('-') &&
@@ -78,13 +79,16 @@ export function commandArguments(
       (ended ? pathsAfterSeparator : operandsBeforeSeparator).push(operand);
       continue;
     }
-    if (literalOperands || (spec.optionParsing === 'stop-at-operand' && operands.length > 0)) {
+    if (
+      !parserExited &&
+      (literalOperands || (spec.optionParsing === 'stop-at-operand' && operands.length > 0))
+    ) {
       throw new GitArgumentError(
         `${command}: options must precede the first operand; use an operand object for literal words`,
       );
     }
     if (arg[0] === '--' && arg.length === 1) {
-      if (!spec.separator || ended) {
+      if (!parserExited && (!spec.separator || ended)) {
         throw new GitArgumentError(`${command}: unexpected end-of-options marker`);
       }
       ended = true;
@@ -92,7 +96,7 @@ export function commandArguments(
       argv.push('--');
       continue;
     }
-    if (ended) {
+    if (!parserExited && ended) {
       throw new GitArgumentError(`${command}: options cannot follow the end-of-options marker`);
     }
     const flag = arg[0];
@@ -128,14 +132,15 @@ export function commandArguments(
     ) {
       throw new GitArgumentError(`${flag}: expected a number, bigint or numeric string`);
     }
-    const integer = integerParser
-      ? parseGitScalar(option.parser!, rawValue, state[option.key])
-      : undefined;
+    const integer =
+      integerParser && !parserExited
+        ? parseGitScalar(option.parser!, rawValue, state[option.key])
+        : undefined;
     if (integer && !integer.valid) {
       throw new GitArgumentError(`${flag}: invalid integer value ${String(rawValue)}`);
     }
     const value = integer ? integer.value : rawValue;
-    if (option.checks) {
+    if (!parserExited && option.checks) {
       const inputState = { ...state };
       inputState.$value = value;
       inputState.$remaining = args.slice(index + 1);
@@ -146,7 +151,7 @@ export function commandArguments(
         );
       }
     }
-    if (option.modeGroup) {
+    if (!parserExited && option.modeGroup) {
       const mode =
         value === false || value === undefined
           ? false
@@ -161,6 +166,7 @@ export function commandArguments(
       }
     }
     if (
+      !parserExited &&
       (supplied || numeric) &&
       option.allowed &&
       !option.allowed.includes(
@@ -220,6 +226,16 @@ export function commandArguments(
       argv.splice(position, 0, ...emitted);
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
+    if (parserExited) {
+      continue;
+    }
+    if (
+      spec.parserExit?.flags.includes(flag) &&
+      !(index === 0 && spec.parserExit.exceptFirst?.includes(flag))
+    ) {
+      parserExited = true;
+      continue;
+    }
     const parsed =
       integer ??
       (option.parser
@@ -268,7 +284,7 @@ export function commandArguments(
     }
   }
   state.operand0 = operands[0];
-  if (state.help !== true) {
+  if (!parserExited && state.help !== true) {
     const errors = violations(spec.rules, state);
     if (errors.length > 0) {
       throw new GitArgumentError(

@@ -81,4 +81,10 @@ export type CommandSpec = {
   separator: boolean;
   /** Native parser dispatch can stop at the first operand or treat all words as operands. */
   optionParsing?: 'stop-at-operand' | 'none';
+  /** Audited single-pass parser exits; subsequent words are serialized but not interpreted. */
+  parserExit?: Evidence & {
+    flags: readonly string[];
+    /** A first --help is rewritten by Git's dispatcher before this parser runs. */
+    exceptFirst?: readonly string[];
+  };
 };

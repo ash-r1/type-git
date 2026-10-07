@@ -1620,5 +1620,26 @@
         ]
       }
     }
+  },
+  "color-flag": {
+    "source": "https://github.com/git/git/blob/v2.55.0/parse-options-cb.c; https://github.com/git/git/blob/v2.55.0/color.c",
+    "options": {
+      "--color": {
+        "key": "color",
+        "value": "optional-string",
+        "set": "always",
+        "allowed": [
+          "always",
+          "auto",
+          "never"
+        ],
+        "caseInsensitive": true
+      },
+      "--no-color": {
+        "key": "color",
+        "value": "flag",
+        "set": "never"
+      }
+    }
   }
 }
