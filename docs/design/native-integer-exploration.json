@@ -1,0 +1,1751 @@
+{
+  "scope": "Deterministic boundary representatives for compiler-recorded native integer parsers, not exhaustive command semantics.",
+  "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c",
+  "snapshot": "spec/upstream/git-numeric-options.json",
+  "profiles": {
+    "signed-32": {
+      "parser": {
+        "kind": "integer",
+        "signed": true,
+        "bits": 32
+      },
+      "cases": [
+        {
+          "input": "-2147483649n",
+          "valid": false
+        },
+        {
+          "input": "-2147483648n",
+          "valid": true,
+          "normalized": "-2147483648"
+        },
+        {
+          "input": "-1n",
+          "valid": true,
+          "normalized": "-1"
+        },
+        {
+          "input": "0n",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1n",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483647n",
+          "valid": true,
+          "normalized": "2147483647"
+        },
+        {
+          "input": "2147483648n",
+          "valid": false
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": false
+        },
+        {
+          "input": "\"-2147483648\"",
+          "valid": true,
+          "normalized": "-2147483648"
+        },
+        {
+          "input": "\"-1\"",
+          "valid": true,
+          "normalized": "-1"
+        },
+        {
+          "input": "\"0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"1\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"2147483647\"",
+          "valid": true,
+          "normalized": "2147483647"
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": false
+        },
+        {
+          "input": "-2147483649",
+          "valid": false
+        },
+        {
+          "input": "-2147483648",
+          "valid": true,
+          "normalized": "-2147483648"
+        },
+        {
+          "input": "-1",
+          "valid": true,
+          "normalized": "-1"
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483647",
+          "valid": true,
+          "normalized": "2147483647"
+        },
+        {
+          "input": "2147483648",
+          "valid": false
+        },
+        {
+          "input": "\"\"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"08\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": true,
+          "normalized": "16"
+        },
+        {
+          "input": "\"0b10\"",
+          "valid": true,
+          "normalized": "2"
+        },
+        {
+          "input": "\"  +010k\"",
+          "valid": true,
+          "normalized": "8192"
+        },
+        {
+          "input": "\"1m\"",
+          "valid": true,
+          "normalized": "1048576"
+        },
+        {
+          "input": "\"-2g\"",
+          "valid": true,
+          "normalized": "-2147483648"
+        },
+        {
+          "input": "\"1 \"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "\"1.5\"",
+          "valid": false
+        },
+        {
+          "input": "9007199254740992",
+          "valid": false
+        }
+      ]
+    },
+    "unsigned-32": {
+      "parser": {
+        "kind": "integer",
+        "signed": false,
+        "bits": 32
+      },
+      "cases": [
+        {
+          "input": "-4294967297n",
+          "valid": false
+        },
+        {
+          "input": "-4294967296n",
+          "valid": false
+        },
+        {
+          "input": "-1n",
+          "valid": false
+        },
+        {
+          "input": "0n",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1n",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "4294967295n",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "4294967296n",
+          "valid": false
+        },
+        {
+          "input": "\"-4294967297\"",
+          "valid": false
+        },
+        {
+          "input": "\"-4294967296\"",
+          "valid": false
+        },
+        {
+          "input": "\"-1\"",
+          "valid": false
+        },
+        {
+          "input": "\"0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"1\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"4294967295\"",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967297",
+          "valid": false
+        },
+        {
+          "input": "-4294967296",
+          "valid": false
+        },
+        {
+          "input": "-1",
+          "valid": false
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "4294967295",
+          "valid": true,
+          "normalized": "4294967295"
+        },
+        {
+          "input": "4294967296",
+          "valid": false
+        },
+        {
+          "input": "\"\"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": false
+        },
+        {
+          "input": "\"08\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": true,
+          "normalized": "16"
+        },
+        {
+          "input": "\"0b10\"",
+          "valid": true,
+          "normalized": "2"
+        },
+        {
+          "input": "\"  +010k\"",
+          "valid": true,
+          "normalized": "8192"
+        },
+        {
+          "input": "\"1m\"",
+          "valid": true,
+          "normalized": "1048576"
+        },
+        {
+          "input": "\"-2g\"",
+          "valid": false
+        },
+        {
+          "input": "\"1 \"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "\"1.5\"",
+          "valid": false
+        },
+        {
+          "input": "9007199254740992",
+          "valid": false
+        }
+      ]
+    },
+    "unsigned-64": {
+      "parser": {
+        "kind": "integer",
+        "signed": false,
+        "bits": 64
+      },
+      "cases": [
+        {
+          "input": "-18446744073709551617n",
+          "valid": false
+        },
+        {
+          "input": "-18446744073709551616n",
+          "valid": false
+        },
+        {
+          "input": "-1n",
+          "valid": false
+        },
+        {
+          "input": "0n",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1n",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "18446744073709551615n",
+          "valid": true,
+          "normalized": "18446744073709551615n"
+        },
+        {
+          "input": "18446744073709551616n",
+          "valid": false
+        },
+        {
+          "input": "\"-18446744073709551617\"",
+          "valid": false
+        },
+        {
+          "input": "\"-18446744073709551616\"",
+          "valid": false
+        },
+        {
+          "input": "\"-1\"",
+          "valid": false
+        },
+        {
+          "input": "\"0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"1\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"18446744073709551615\"",
+          "valid": true,
+          "normalized": "18446744073709551615n"
+        },
+        {
+          "input": "\"18446744073709551616\"",
+          "valid": false
+        },
+        {
+          "input": "-1",
+          "valid": false
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"\"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": false
+        },
+        {
+          "input": "\"08\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": true,
+          "normalized": "16"
+        },
+        {
+          "input": "\"0b10\"",
+          "valid": true,
+          "normalized": "2"
+        },
+        {
+          "input": "\"  +010k\"",
+          "valid": true,
+          "normalized": "8192"
+        },
+        {
+          "input": "\"1m\"",
+          "valid": true,
+          "normalized": "1048576"
+        },
+        {
+          "input": "\"-2g\"",
+          "valid": false
+        },
+        {
+          "input": "\"1 \"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "\"1.5\"",
+          "valid": false
+        },
+        {
+          "input": "9007199254740992",
+          "valid": false
+        }
+      ]
+    }
+  },
+  "commands": [
+    {
+      "command": "add",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "commit",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "clone",
+      "options": [
+        {
+          "flag": "--jobs",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-j",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-jobs",
+          "key": "jobs",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "fetch",
+      "options": [
+        {
+          "flag": "--jobs",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-j",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--deepen",
+          "key": "deepen",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-jobs",
+          "key": "jobs",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-deepen",
+          "key": "deepen",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "checkout",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "restore",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "reset",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "tag",
+      "options": [
+        {
+          "flag": "-n",
+          "key": "n",
+          "profile": "signed-32",
+          "default": 1
+        }
+      ]
+    },
+    {
+      "command": "stash push",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "stash save",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "log",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "show",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "diff",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "diff-files",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "diff-index",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "diff-tree",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "diff --no-index",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "reflog show",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "stash show",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "merge",
+      "options": [
+        {
+          "flag": "--log",
+          "key": "log",
+          "profile": "signed-32",
+          "default": 20
+        },
+        {
+          "flag": "--no-log",
+          "key": "log",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "cherry-pick",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "revert",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "apply",
+      "options": [
+        {
+          "flag": "-C",
+          "key": "C",
+          "profile": "unsigned-32"
+        }
+      ]
+    },
+    {
+      "command": "for-each-ref",
+      "options": [
+        {
+          "flag": "--count",
+          "key": "count",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-count",
+          "key": "count",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "describe",
+      "options": [
+        {
+          "flag": "--candidates",
+          "key": "candidates",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-candidates",
+          "key": "candidates",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "gc",
+      "options": [
+        {
+          "flag": "--max-cruft-size",
+          "key": "max-cruft-size",
+          "profile": "unsigned-64"
+        }
+      ]
+    },
+    {
+      "command": "commit-graph write",
+      "options": [
+        {
+          "flag": "--max-commits",
+          "key": "max-commits",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--size-multiple",
+          "key": "size-multiple",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-max-commits",
+          "key": "max-commits",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-size-multiple",
+          "key": "size-multiple",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "multi-pack-index repack",
+      "options": [
+        {
+          "flag": "--batch-size",
+          "key": "batch-size",
+          "profile": "unsigned-64"
+        }
+      ]
+    },
+    {
+      "command": "refs list",
+      "options": [
+        {
+          "flag": "--count",
+          "key": "count",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-count",
+          "key": "count",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "stage",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "merge-file",
+      "options": [
+        {
+          "flag": "--marker-size",
+          "key": "marker-size",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-marker-size",
+          "key": "marker-size",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "repack",
+      "options": [
+        {
+          "flag": "--combine-cruft-below-size",
+          "key": "combine-cruft-below-size",
+          "profile": "unsigned-64"
+        },
+        {
+          "flag": "--max-cruft-size",
+          "key": "max-cruft-size",
+          "profile": "unsigned-64"
+        },
+        {
+          "flag": "--name-hash-version",
+          "key": "name-hash-version",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--max-pack-size",
+          "key": "max-pack-size",
+          "profile": "unsigned-64"
+        },
+        {
+          "flag": "--geometric",
+          "key": "geometric",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-g",
+          "key": "geometric",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-name-hash-version",
+          "key": "name-hash-version",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-geometric",
+          "key": "geometric",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "column",
+      "options": [
+        {
+          "flag": "--raw-mode",
+          "key": "raw-mode",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "--width",
+          "key": "width",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--padding",
+          "key": "padding",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-width",
+          "key": "width",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-padding",
+          "key": "padding",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "fmt-merge-msg",
+      "options": [
+        {
+          "flag": "--log",
+          "key": "log",
+          "profile": "signed-32",
+          "default": 20
+        },
+        {
+          "flag": "--summary",
+          "key": "summary",
+          "profile": "signed-32",
+          "default": 20
+        },
+        {
+          "flag": "--no-log",
+          "key": "log",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-summary",
+          "key": "summary",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "hook run",
+      "options": [
+        {
+          "flag": "--jobs",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-j",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-jobs",
+          "key": "jobs",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "credential-cache",
+      "options": [
+        {
+          "flag": "--timeout",
+          "key": "timeout",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-timeout",
+          "key": "timeout",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "rev-list",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "bundle create",
+      "options": [
+        {
+          "flag": "--version",
+          "key": "version",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-version",
+          "key": "version",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "backfill",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--min-batch-size",
+          "key": "min-batch-size",
+          "profile": "unsigned-64"
+        }
+      ]
+    },
+    {
+      "command": "last-modified",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "diff-pairs",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "range-diff",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--creation-factor",
+          "key": "creation-factor",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-creation-factor",
+          "key": "creation-factor",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "replay",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "blame",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        }
+      ]
+    },
+    {
+      "command": "annotate",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        }
+      ]
+    },
+    {
+      "command": "grep",
+      "options": [
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--before-context",
+          "key": "before-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-B",
+          "key": "before-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "--after-context",
+          "key": "after-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-A",
+          "key": "after-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "--threads",
+          "key": "threads",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-m",
+          "key": "max-count",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-threads",
+          "key": "threads",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-max-count",
+          "key": "max-count",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "format-patch",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--start-number",
+          "key": "start-number",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--filename-max-length",
+          "key": "filename-max-length",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--creation-factor",
+          "key": "creation-factor",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-start-number",
+          "key": "start-number",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-filename-max-length",
+          "key": "filename-max-length",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-creation-factor",
+          "key": "creation-factor",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "pickaxe",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        }
+      ]
+    },
+    {
+      "command": "whatchanged",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "shortlog",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "show-branch",
+      "options": [
+        {
+          "flag": "--more",
+          "key": "more",
+          "profile": "signed-32",
+          "default": 1
+        },
+        {
+          "flag": "--no-more",
+          "key": "more",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "submodule--helper summary",
+      "options": [
+        {
+          "flag": "--summary-limit",
+          "key": "summary-limit",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-n",
+          "key": "summary-limit",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-summary-limit",
+          "key": "summary-limit",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "submodule--helper clone",
+      "options": [
+        {
+          "flag": "--depth",
+          "key": "depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-depth",
+          "key": "depth",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "submodule--helper update",
+      "options": [
+        {
+          "flag": "--depth",
+          "key": "depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--jobs",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-j",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-depth",
+          "key": "depth",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-jobs",
+          "key": "jobs",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "submodule--helper add",
+      "options": [
+        {
+          "flag": "--depth",
+          "key": "depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-depth",
+          "key": "depth",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "submodule add",
+      "options": [
+        {
+          "flag": "--depth",
+          "key": "depth",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "submodule update",
+      "options": [
+        {
+          "flag": "--depth",
+          "key": "depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--jobs",
+          "key": "jobs",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-j",
+          "key": "jobs",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "submodule summary",
+      "options": [
+        {
+          "flag": "--summary-limit",
+          "key": "summary-limit",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-n",
+          "key": "summary-limit",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "update-index",
+      "options": [
+        {
+          "flag": "--index-version",
+          "key": "index-version",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-index-version",
+          "key": "index-version",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "fast-export",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--progress",
+          "key": "progress",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-progress",
+          "key": "progress",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "pack-objects",
+      "options": [
+        {
+          "flag": "--max-pack-size",
+          "key": "max-pack-size",
+          "profile": "unsigned-64"
+        },
+        {
+          "flag": "--window",
+          "key": "window",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--window-memory",
+          "key": "window-memory",
+          "profile": "unsigned-64"
+        },
+        {
+          "flag": "--depth",
+          "key": "depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--threads",
+          "key": "threads",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--compression",
+          "key": "compression",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--name-hash-version",
+          "key": "name-hash-version",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-window",
+          "key": "window",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-depth",
+          "key": "depth",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-threads",
+          "key": "threads",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-compression",
+          "key": "compression",
+          "profile": "signed-32",
+          "default": 0
+        },
+        {
+          "flag": "--no-name-hash-version",
+          "key": "name-hash-version",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "upload-pack",
+      "options": [
+        {
+          "flag": "--timeout",
+          "key": "timeout",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--no-timeout",
+          "key": "timeout",
+          "profile": "signed-32",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "command": "difftool",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "reflog",
+      "options": [
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        }
+      ]
+    },
+    {
+      "command": "stash",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "signed-32"
+        }
+      ]
+    }
+  ]
+}

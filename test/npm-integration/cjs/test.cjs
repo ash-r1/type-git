@@ -45,6 +45,9 @@ async function testRuntime() {
   const version = await git.version();
   assert(version, 'version() should return a string');
   assert(version.match(/^\d+\.\d+/), 'version should be in semver format');
+  assert.strictEqual((await git.command('column', [['--width', '0x10'], ['-h']])).exitCode, 129);
+  assert.strictEqual((await git.command('column', [['--width', 16n], ['-h']])).exitCode, 129);
+  await assert.rejects(git.command('column', [['--width', 2147483648], ['-h']]), { name: 'GitArgumentError', message: /invalid integer/ });
   console.log(`   ✓ Runtime works (Git version: ${version})`);
   console.log('\n✓ All CJS integration tests passed!\n');
 }

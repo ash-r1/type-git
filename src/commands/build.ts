@@ -106,7 +106,13 @@ export function commandArguments(
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
     }
     const supplied = arg.length === 2 && arg[1] !== undefined;
-    const value = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);
+    const rawValue = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);
+    const integerParser = typeof option.parser === 'object';
+    const integer = integerParser ? parseGitScalar(option.parser!, rawValue) : undefined;
+    if (integer && !integer.valid) {
+      throw new GitArgumentError(`${flag}: invalid integer value ${String(rawValue)}`);
+    }
+    const value = integer ? integer.value : rawValue;
     if (option.checks) {
       const inputState = { ...state };
       inputState.$value = value;
@@ -161,7 +167,7 @@ export function commandArguments(
         throw new GitArgumentError(`${flag}: missing option value`);
       }
       if (supplied) {
-        if (option.value.endsWith('integer') && !Number.isSafeInteger(value)) {
+        if (option.value.endsWith('integer') && !integerParser && !Number.isSafeInteger(value)) {
           throw new GitArgumentError(`${flag}: expected a safe integer`);
         }
         if (option.value.endsWith('string') && typeof value !== 'string') {
@@ -172,13 +178,13 @@ export function commandArguments(
         }
         // Long equals forms preserve empty values; short values are separate tokens.
         if (option.separateValue) {
-          argv.push(flag, String(value));
+          argv.push(flag, String(rawValue));
         } else if (flag.startsWith('--')) {
-          argv.push(`${flag}=${value}`);
+          argv.push(`${flag}=${rawValue}`);
         } else if (optional || option.attachedValue) {
-          argv.push(`${flag}${value}`);
+          argv.push(`${flag}${rawValue}`);
         } else {
-          argv.push(flag, String(value));
+          argv.push(flag, String(rawValue));
         }
       } else {
         argv.push(flag);
@@ -190,9 +196,11 @@ export function commandArguments(
       argv.splice(position, 0, ...emitted);
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
-    const parsed = option.parser
-      ? parseGitScalar(option.parser, value, state[option.key])
-      : { valid: true, value };
+    const parsed =
+      integer ??
+      (option.parser
+        ? parseGitScalar(option.parser, value, state[option.key])
+        : { valid: true, value });
     if (!parsed.valid) {
       throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
     }

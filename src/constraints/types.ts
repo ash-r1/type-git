@@ -1,3 +1,5 @@
+import type { GitIntegerParser } from './git-integer.js';
+import type { GitIntegerLiteral } from './git-integer-types.js';
 import type { Constraint, Predicate } from './model.js';
 import type { ObjectFilterLiteral } from './object-filter-types.js';
 
@@ -171,15 +173,19 @@ type Unless<T, W> = W extends Predicate
 type Apply<T, R extends Constraint> = R extends { guard: infer G extends readonly Predicate[] }
   ? NotEvery<T, G> | ApplyBody<T, R>
   : ApplyBody<T, R>;
-type ScalarValue<V, P> = P extends 'object-filter' | 'object-filter-auto'
-  ? V extends undefined
+type ScalarValue<V, P> = P extends GitIntegerParser
+  ? GitIntegerLiteral<V, P> extends true
     ? V
-    : V extends string
-      ? ObjectFilterLiteral<V, P extends 'object-filter-auto' ? true : false> extends true
-        ? V
+    : never
+  : P extends 'object-filter' | 'object-filter-auto'
+    ? V extends undefined
+      ? V
+      : V extends string
+        ? ObjectFilterLiteral<V, P extends 'object-filter-auto' ? true : false> extends true
+          ? V
+          : never
         : never
-      : never
-  : V;
+    : V;
 type ApplyBody<T, R extends Constraint> = R extends {
   kind: 'scalar';
   key: infer K extends keyof T;

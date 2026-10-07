@@ -53,6 +53,7 @@ export function optionDomains(options, aliases, rules = []) {
 }
 
 export function literal(value) {
+  if (typeof value === 'bigint') return `${value}n`;
   if (typeof value === 'function') return '() => undefined';
   if (value === undefined) return 'undefined';
   if (value instanceof Date) return `new Date(${JSON.stringify(value.toISOString())})`;

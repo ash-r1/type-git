@@ -60,6 +60,31 @@ describe('reduced ordered decision diagrams', () => {
     expect(actual.accepted).toBe(BigInt(expected.length));
     expect(violations(scalarRules, actual.witness!)).toEqual([]);
   });
+  it('solves compiler-width scalar rules with exact bigint boundaries', () => {
+    const rules: Constraint[] = [
+      {
+        ...evidence,
+        id: 'unsigned64',
+        kind: 'scalar',
+        key: 'value',
+        parser: { kind: 'integer', signed: false, bits: 64 },
+        guard: [p('enabled')],
+      },
+    ];
+    const values = {
+      value: [undefined, '-0', '0x10', 0n, 18446744073709551615n, 18446744073709551616n],
+      enabled: [false, true],
+    };
+    const result = solve(rules, values);
+    expect(result.total).toBe(12n);
+    expect(result.accepted).toBe(10n);
+    expect(result.accepted).toBe(
+      BigInt(
+        [...assignments(values)].filter((input) => violations(rules, input).length === 0).length,
+      ),
+    );
+    expect(violations(rules, result.counterexamples.unsigned64!)).toHaveLength(1);
+  });
   it('agrees with full enumeration for every subset of a mixed constraint system', () => {
     const inputs = [...assignments(domains)];
     for (let mask = 0; mask < 2 ** mixedRules.length; mask++) {

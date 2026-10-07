@@ -28,6 +28,7 @@ node scripts/import-lfs-options.mjs /path/to/git-lfs-3.8.0 /path/to/cobra-1.10.2
 make hook-list.h config-list.h command-list.h
 # Back in Type-Git:
 python3 scripts/import-git-options.py /path/to/git-2.55.0
+python3 scripts/import-git-numeric-options.py /path/to/git-2.55.0
 pnpm commands:generate
 pnpm constraints:generate
 ```
@@ -524,3 +525,41 @@ A `scalar` constraint associates a normalized option key with one of the shared 
 Clone and fetch check their final depth with `atoi`, before transport-specific parsing. The pinned Linux libc profile converts the decimal prefix to a signed long (clamping overflow) and then to a signed 32-bit integer. Consequently, `2147483648` fails this check while `4294967297` and `-4294967295` pass. The shared final rule preserves those results in CLI and convenience APIs. `1suffix` also passes this initial stage; a transport may reject it later. Native tests use fetch with no remotes to isolate the initial stage, and actual local clones to verify wrapped numeric values. Transport-specific checks and other libc/data-model profiles remain open.
 
 The clone and submodule-update convenience methods now use the shared object-filter grammar before spawning Git. Their non-generic option objects retain broad string fields, so those value grammars are checked at runtime. The generated compiler fixtures deliberately project out scalar and numeric checks that broad public property types cannot express. Generic literal command arguments retain their existing grammar checking, and exact finite-domain counts still include scalar rules. Representative scalar values are explicitly recorded, including valid forms and overflow boundaries; these are bounded domains, not complete string languages.
+
+## Compiler-recorded integer constraints
+
+`spec/upstream/git-numeric-options.json` records all 67 `OPTION_INTEGER` and
+`OPTION_UNSIGNED` definitions in the pinned preprocessed tables. The importer
+compiles the 34 translation units without linking or running Git. It follows GCC
+raw-tree initializer references to obtain evaluated storage widths, enum flags,
+and optional defaults, and requires exact identity coverage against the existing
+table snapshot. All 221 Git-local input dependencies are fingerprinted. The
+compiler version, target, flags, and `CHAR_BIT` are recorded; reproduction needs
+that profile. `commands:upstream-check ... --c-tables` reproduces both snapshots.
+
+The recorded definitions contain 54 signed 32-bit, five unsigned 32-bit, and eight
+unsigned 64-bit values. Generated option schemas carry the shared structured
+parser `{ kind: 'integer', signed, bits }`. Git 2.55 rejects overflow immediately,
+even before a subsequent overwrite or parse-options `-h` token. Negation assigns zero where
+supported; optional values use the evaluated defaults (for example, merge log
+length 20 and show-branch `--more` 1). This parser is distinct from clone/fetch's
+initial `atoi` depth check and from bespoke callbacks.
+
+Values may be safe integer numbers, bigint values, or native strings. Strings
+preserve base-0 decimal/octal/hexadecimal/C23 binary notation, ASCII leading
+whitespace, signs, and case-insensitive `k/m/g` units. Unsigned options reject
+spelled negative zero. Strings and bigint retain full 64-bit precision; unsafe
+JavaScript numbers are rejected as an explicit precision-preservation policy.
+Argv retains the input spelling, while combination constraints see the normalized
+integer. Literal TypeScript tuples use generated small multiplication tables to
+normalize the same grammar before bounds and combination checks. Scalar validation for dynamic values
+and very long literal strings is deferred to runtime.
+
+`native-integer-exploration.json` lists deterministic boundary representatives,
+their normalized results, and every generated scope using these parsers. This is
+a finite verification report, not exhaustive discovery of Git semantics. The
+native tests compare three storage profiles against independently invoked Git
+and exercise immediate validation across the generated numeric options.
+Command-specific semantic restrictions, callback-defined numeric languages,
+configuration-derived defaults, platform differences, and preemptive help paths
+remain separate audit work. All command audit entries remain partial.
