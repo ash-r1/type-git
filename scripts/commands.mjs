@@ -60,6 +60,7 @@ try {
   for (const name of Object.keys(additional)) if (!catalog[name]) throw new Error(`Rules for unknown command ${name}`);
   for (const [name, entry] of Object.entries(catalog)) {
     const keys = new Set(['argumentTokens', 'operands', 'operand0', 'inRepository', 'hasSeparator', 'operandsBeforeSeparator', 'pathsAfterSeparator', ...Object.keys(entry.initial ?? {}), ...[...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])].flatMap((opt) => [opt.key, ...(opt.effects ?? []).map(effect => effect.key)])]);
+    if (entry.parserExit?.remainingPartition) keys.add(entry.parserExit.remainingPartition.operandKey);
     for (const rule of entry.rules) for (const key of referencedKeys(rule)) if (!keys.has(key)) throw new Error(`${name}: rule ${rule.id} refers to unknown input ${key}`);
     for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && key !== '$remaining' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
   }

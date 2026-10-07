@@ -2240,7 +2240,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "options": {
       "-U": {
@@ -2378,24 +2379,40 @@
       "--default": {
         "key": "default",
         "value": "string",
-        "separateValue": true,
-        "checks": [
-          {
-            "id": "stash.show-default-word",
-            "kind": "required",
-            "origin": "git",
-            "source": "Git 2.55.0 builtin/stash.c:show_stash",
-            "reason": "Stash show splits non-dash words into stash operands before revision parsing; a detached --default value must remain in the revision argument stream.",
-            "required": [
-              {
-                "key": "$value",
-                "test": "startsWith",
-                "value": "-"
-              }
-            ]
-          }
-        ]
+        "separateValue": true
       }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:show_stash:options"
+      ],
+      "longOptionResolution": "exact",
+      "unknownOptions": "keep",
+      "keepDashDash": true,
+      "keepEndOfOptions": true,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": true,
+      "remainingPartition": {
+        "optionPrefix": "-",
+        "operandKey": "stash-operands",
+        "origin": "git",
+        "source": "Git 2.55.0 builtin/stash.c:show_stash",
+        "reason": "Every retained word beginning with - enters revision_args; all other words enter stash_args, even after an end marker. Only stash_args counts toward get_stash_info arity."
+      },
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:show_stash/get_stash_info; revision.c:setup_revisions",
+      "reason": "The KEEP_UNKNOWN_OPT pass handles untracked flags and help before partitioning retained argv and invoking the revision/diff parser."
     }
   },
   "merge": {

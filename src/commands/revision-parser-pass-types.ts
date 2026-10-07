@@ -1,3 +1,4 @@
+import type { DynamicWord } from './initial-parser-pass-types.js';
 import type { CommandSpec } from './spec.js';
 
 type Token = readonly string[] | { operand: string };
@@ -141,3 +142,31 @@ export type RevisionParserPass<S, A extends readonly string[]> = S extends Comma
     ? Split<S, ReplaceDash<S, A>>
     : Walk<S, ReplaceDash<S, A>>
   : Invalid;
+
+// Match the native retained-word partition before the later parser sees any words.
+type PartitionWords<
+  A extends readonly string[],
+  Prefix extends string,
+  Key extends string,
+  Words extends readonly string[] = [],
+  OperandWords extends readonly string[] = [],
+  N extends readonly unknown[] = [],
+> = N['length'] extends 128
+  ? Deferred
+  : A extends readonly [infer W extends string, ...infer R extends string[]]
+    ? DynamicWord<W> extends true
+      ? Deferred
+      : W extends `${Prefix}${string}`
+        ? PartitionWords<R, Prefix, Key, readonly [...Words, W], OperandWords, Tick<N>>
+        : PartitionWords<R, Prefix, Key, Words, readonly [...OperandWords, W], Tick<N>>
+    : { words: Words; state: { [K in Key]: OperandWords } };
+export type PartitionRemaining<S, A extends readonly string[]> = S extends {
+  parserExit: {
+    remainingPartition: {
+      optionPrefix: infer Prefix extends string;
+      operandKey: infer Key extends string;
+    };
+  };
+}
+  ? PartitionWords<A, Prefix, Key>
+  : { words: A; state: {} };

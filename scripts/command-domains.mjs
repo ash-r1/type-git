@@ -32,6 +32,7 @@ export function commandDomains(spec, referencedKeys) {
     }
   }
   domains.operands = [[], ['value'], ['value', 'value'], ['value', 'value', 'value'], ['value', 'value', 'value', 'value']];
+  if (spec.parserExit?.remainingPartition) domains[spec.parserExit.remainingPartition.operandKey] = [...domains.operands];
   domains.operand0 = [undefined, 'value'];
   domains.inRepository = [undefined, false, true];
   const equalKeys = [];

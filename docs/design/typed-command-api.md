@@ -1030,3 +1030,44 @@ literal `--` and `-h` refs. Both runtime and compiler fixtures consume the nativ
 results. Ref syntax/resolution, export-chain topology, repository/configuration
 state, completion and other parser modes remain audit obligations. These scopes
 remain partial.
+
+## Stash show retained-argument partition
+
+`parserExit.remainingPartition` records an ordered prefix partition before the
+revision parser. Words beginning with `optionPrefix` remain in the option stream;
+all other words populate the separate `operandKey` array. The runtime and bounded
+literal interpreters use the same declaration. The generator checks the state
+key for collisions, and deterministic state exploration includes its operand
+cardinality domain. These normalized states are not a proof of argv reachability.
+
+For `stash show`, the initial KEEP_UNKNOWN_OPT pass handles its own untracked
+flags and help. It then partitions every retained word by a leading `-`, even
+words after `--`. Plain words are stash references; dash-prefixed words enter
+setup_revisions, which performs its own end-marker processing. For example,
+`stash show -- --default foo` uses `foo` as the stash reference and `--default`
+as a path. `stash show -- -h -unknown` has no explicit stash reference and two
+paths. In contrast, `stash show -- foo one` supplies two stash references and
+fails arity validation. Path arguments never increase the stash-reference count.
+
+The initial pass rejects `--include-untracked=1 -h` before help, but unknown diff
+words are deferred: `--color=bad -h` displays help without running the color
+callback. Long abbreviations are disabled in that initial KEEP_UNKNOWN_OPT pass.
+Detached values are partitioned too: without help, `--default foo` leaves the
+revision parser with a missing value. Existing native revision/diff dictionaries
+and the shared color grammar apply only to the resulting revision stream.
+Dynamic words, symbolic numeric templates and compiler-budget-exceeding literals
+are deferred; known literal NUL remains rejected before parsing.
+
+`node scripts/stash-show-corpus.mjs --check` reproduces 1,132 independent Git
+outcomes in a repository with a real stash and valid plain/dash-prefixed refs.
+Both scoped and root-dispatched calls are checked. A valid `-h` ref matters after
+`--end-of-options`: a missing ref failure does not make that spelling universally
+invalid. Runtime and compiler fixtures consume the same native outcomes. The
+compiler corpus is divided deterministically into files of at most 400 cases,
+each requesting an isolated contract batch via `@typecheck-isolated`. The runner
+keeps every assertion, all source roots, the same compiler options and Node's
+default heap limit.
+
+Repository/configuration state, stash/revision object resolution, pathspec
+languages, remaining revision callbacks, completion and other native parser
+modes remain open. Every audit scope remains partial.
