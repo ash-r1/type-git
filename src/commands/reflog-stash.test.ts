@@ -123,7 +123,7 @@ describe('reflog operations and stash diff delegation', () => {
     ]);
     const result = await repo.command('stash show', [['-S', 'two'], ['-n', 1], ['-p']]);
     const actual = direct(['stash', 'show', '-Stwo', '-n1', '-p']);
-    expect(result.exitCode).toBe(0);
+    expect(result.exitCode, JSON.stringify(result)).toBe(0);
     expect(result.stdout).toBe(actual.stdout);
     expect((await repo.command('stash show', [['-p']])).stdout).toContain('+two');
     expect(direct(['stash', 'show', '-S', 'two', '-p']).status).not.toBe(0);

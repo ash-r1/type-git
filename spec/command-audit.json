@@ -5042,9 +5042,12 @@
         "test/types/fallback-dispatch-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/conditional-stash.test.ts",
+        "test/types/conditional-stash-corpus.ts",
+        "test/types/conditional-stash-api.ts"
       ],
-      "remaining": "List returns before delegated log parsing when refs/stash is absent. Arguments currently use literal operand objects; typed log options and their constraints require a conditional repository-state phase rather than unconditional callback validation."
+      "remaining": "Empty initial parser, help/typo timing, separator removal, typed child-option vocabulary, refs/stash gate, injected child argv and parent exit-status mapping are modeled. 204 sequences in both ref states (408 outcomes) include independent native trace2 child evidence. With unknown ref state, child validation remains delegated to native execution; configuration, object/path resolution, completion exits, remaining child grammars and other conditional pipelines remain open."
     },
     "scalar": {
       "state": "partial",

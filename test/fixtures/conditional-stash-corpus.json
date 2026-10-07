@@ -1,0 +1,8190 @@
+{
+  "profile": "Git 2.55.0; isolated seeded repository before/after creation of refs/stash; child argv from native trace2; unknown repository state accepts either feasible branch",
+  "cases": [
+    {
+      "command": "stash list",
+      "tokens": [],
+      "argv": [
+        "stash",
+        "list"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=0"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=0",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=0"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=0",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\"",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--color=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\"",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--color=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: invalid --decorate option: bad",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--decorate=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: invalid --decorate option: bad",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--decorate=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--graph"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--graph",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--graph"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--graph",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--reverse"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--reverse",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--reverse"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--reverse",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--reverse"
+        ],
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--reverse",
+        "--reverse"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--reverse",
+            "--reverse",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--reverse"
+        ],
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--reverse",
+        "--reverse"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--reverse",
+            "--reverse",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--no-walk"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--no-walk"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--no-walk",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--no-walk"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--no-walk"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--no-walk",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--pretty",
+          "oneline"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--pretty=oneline"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--pretty=oneline",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--pretty",
+          "oneline"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--pretty=oneline"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--pretty=oneline",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--format",
+          "%gs"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--format=%gs"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--format=%gs",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--format",
+          "%gs"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--format=%gs"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--format=%gs",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-g"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-g"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-g",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-g"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-g"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-g",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--unknown"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: unrecognized argument: --unknown",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--unknown",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--unknown"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: unrecognized argument: --unknown",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--unknown",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "missing-revision"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "missing-revision"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: bad revision 'missing-revision'",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "missing-revision",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "missing-revision"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "missing-revision"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: bad revision 'missing-revision'",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "missing-revision",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "HEAD"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "HEAD",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "HEAD"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "HEAD",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\"",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--color=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\"",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--color=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 1,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 1,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--",
+        "--",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--",
+            "--color=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--",
+        "--",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--",
+            "--color=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--end-of-options",
+        "HEAD"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--end-of-options",
+            "HEAD",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--end-of-options",
+        "HEAD"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--end-of-options",
+            "HEAD",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "--"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-G",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "--"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-G",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "--"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--default",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "--"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--default",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=bad",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=bad",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=bad",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=bad",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=bad",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=bad",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=bad",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=bad",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=bad",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=bad",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=bad",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=bad",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=auto",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=auto",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "auto"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=auto",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "auto"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=auto",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "auto"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=auto",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "auto"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=auto",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=auto",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=auto",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=auto",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=auto",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=auto",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "auto"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=auto",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color=auto"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "short"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=short",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "short"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=short",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "short"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=short",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "short"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=short",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "short"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=short",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "short"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=short",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "short"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=short",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "short"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=short",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "short"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=short",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "short"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=short",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "short"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=short",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "short"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=short",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "short"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color=short"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          ""
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          ""
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          ""
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          ""
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          ""
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          ""
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          ""
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          ""
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color="
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=2147483648",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=2147483648",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--decorate=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=2147483648",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=2147483648",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--decorate=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=2147483648",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--decorate=2147483648",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--decorate=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "2147483648"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=2147483648",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "2147483648"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=2147483648",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-h",
+        "--color=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "2147483648"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=2147483648",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "2147483648"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=2147483648",
+        "--help"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help",
+        "--color=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--color",
+          "2147483648"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=2147483648",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--color",
+          "2147483648"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--color=2147483648",
+        "--help-all"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--help-all",
+        "--color=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "-h",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "-h",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "-h",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "-h",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--help",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--help",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--help",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--help",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--help-all",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--help-all",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--help-all",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--help-all",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "-no-color",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": false,
+          "status": 129,
+          "diagnostic": "error: did you mean `--no-color` (with two dashes)?",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 129,
+          "diagnostic": "error: did you mean `--no-color` (with two dashes)?",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "-no-color",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": false,
+          "status": 129,
+          "diagnostic": "error: did you mean `--no-color` (with two dashes)?",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 129,
+          "diagnostic": "error: did you mean `--no-color` (with two dashes)?",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "-no-color",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": false,
+          "status": 129,
+          "diagnostic": "error: did you mean `--no-color` (with two dashes)?",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 129,
+          "diagnostic": "error: did you mean `--no-color` (with two dashes)?",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "-no-color",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": false,
+          "status": 129,
+          "diagnostic": "error: did you mean `--no-color` (with two dashes)?",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 129,
+          "diagnostic": "error: did you mean `--no-color` (with two dashes)?",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": false
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "-qh",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "-qh",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "-qh",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "-qh",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--decorate=bad",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--decorate=bad",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--decorate=bad",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--decorate=bad",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 129,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 1,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-G",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 1,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-G",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 1,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--default",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 1,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--default",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 129
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "-G",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--end-of-options",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: unrecognized argument: -h",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-G",
+            "--end-of-options",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "-G",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "-G",
+        "--end-of-options",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: unrecognized argument: -h",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "-G",
+            "--end-of-options",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--end-of-options",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: unrecognized argument: -h",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--default",
+            "--end-of-options",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--default",
+        "--end-of-options",
+        "-h"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: unrecognized argument: -h",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--default",
+            "--end-of-options",
+            "-h",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=0"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=0",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=0"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=0",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--max-count",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=-1"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=-1",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--max-count",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=-1"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=-1",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 0
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: 'bad': not an integer",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=bad"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: 'bad': not an integer",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=bad",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash list",
+      "tokens": [
+        [
+          "--max-count",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: '2147483648': not an integer",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=2147483648",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "command": "stash",
+      "tokens": [
+        {
+          "operand": "list"
+        },
+        [
+          "--max-count",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "stash",
+        "list",
+        "--max-count=2147483648"
+      ],
+      "outcomes": [
+        {
+          "refExists": false,
+          "valid": true,
+          "status": 0,
+          "diagnostic": "",
+          "childArgv": null,
+          "childStatus": null
+        },
+        {
+          "refExists": true,
+          "valid": false,
+          "status": 1,
+          "diagnostic": "fatal: '2147483648': not an integer",
+          "childArgv": [
+            "log",
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent",
+            "--max-count=2147483648",
+            "refs/stash",
+            "--"
+          ],
+          "childStatus": 128
+        }
+      ],
+      "accepted": true
+    }
+  ]
+}

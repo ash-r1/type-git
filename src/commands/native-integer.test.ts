@@ -125,7 +125,7 @@ describe('compiler-recorded native integer parsers', () => {
     30000,
   );
 
-  it('validates each numeric schema before a later overwrite or help', () => {
+  it('validates every numeric grammar and only executes callbacks reached before help', () => {
     let count = 0;
     for (const [command, spec] of Object.entries(COMMAND_SPECS) as [
       GitCommandName,
@@ -140,15 +140,50 @@ describe('compiler-recorded native integer parsers', () => {
           continue;
         }
         count++;
+        const firstPass = spec.parserExit?.firstPassOptions;
+        const deferred =
+          firstPass &&
+          (!firstPass.includes(flag) ||
+            spec.parserExit?.wrappers?.some((wrapper) => !wrapper.stopAtUnknown));
         for (const value of ['', 'invalid', '18446744073709551616', Number.MAX_SAFE_INTEGER + 1]) {
-          expect(
-            () => commandArguments(command, [[flag, value], [flag, 1], ['-h']], true),
-            `${command} ${flag}`,
-          ).toThrow('invalid integer');
+          expect(parseGitScalar(option.parser, value).valid, `${command} ${flag}`).toBe(false);
+          const build = (): string[] =>
+            commandArguments(command, [[flag, value], [flag, 1], ['-h']], true);
+          if (deferred) {
+            expect(build, `${command} ${flag}`).not.toThrow();
+          } else {
+            expect(build, `${command} ${flag}`).toThrow('invalid integer');
+          }
         }
       }
     }
     expect(count).toBeGreaterThan(80);
+  });
+
+  it.skipIf(legacy)('checks callback reachability against independent native help paths', () => {
+    for (const [command, flag, reached] of [
+      ['log', '--inter-hunk-context', false],
+      ['reflog show', '--inter-hunk-context', false],
+      ['stash list', '--inter-hunk-context', false],
+      ['cherry-pick', '--mainline', true],
+      ['format-patch', '--start-number', true],
+    ] as const) {
+      const native = spawnSync(
+        'git',
+        ['-C', root, ...command.split(' '), `${flag}=invalid`, '-h'],
+        { env, encoding: 'utf8', timeout: 5000 },
+      );
+      expect(native.error).toBeUndefined();
+      expect(native.status).toBe(129);
+      expect(native.stderr.startsWith('error:'), `${command}: ${native.stderr}`).toBe(reached);
+      const build = (): string[] => commandArguments(command, [[flag, 'invalid'], ['-h']], true);
+      if (reached) {
+        expect(build).toThrow(GitArgumentError);
+      } else {
+        expect(native.stdout).toContain('usage:');
+        expect(build).not.toThrow();
+      }
+    }
   });
 
   it('preserves spellings and normalizes values for final constraints', () => {

@@ -892,3 +892,49 @@ The existing subject/cover constraints are checked after replaying both phases;
 their keys cannot be overwritten by the later revision option dictionary. This
 preserves rejection but does not promise Git's ordering between two diagnostics.
 All audit scopes remain partial.
+
+## Repository-conditioned child commands
+
+`conditionalCommand` records a native reference-existence gate after an empty
+first parser. It names the reference, the successful no-child branch, and the
+child command with fixed argv before and after the retained user words. The
+child branch also records whether its exit status is preserved or converted to
+zero/nonzero. `conditionalCommandPaths` enumerates absent and present states in
+a fixed order, or selects a known state, without consulting a repository.
+Generation checks that this model is attached to an empty first parser and does
+not silently skip option callbacks or unconditional semantic rules.
+
+`stash list` now inherits the typed log option vocabulary. Its empty native
+parser still detects help and single-dash typos before looking up `refs/stash`.
+It drops the first `--` and retains the later words. If the ref is absent, Git
+returns success. Otherwise it invokes:
+
+```
+git log '--format=%gd: %gs' -g --first-parent <retained words> refs/stash --
+```
+
+The parent stash dispatcher converts a nonzero child status to 1. An earlier
+help exit from the empty parser still exits directly with 129.
+
+An unbound repository state permits either feasible branch. Thus both the
+compiler and argument builder accept `stash list --color=bad`: Git ignores the
+value without a stash and rejects it when a stash exists. The same applies to
+child combination rules such as `--graph` with reflog traversal. The builder
+performs no additional ref query; native Git evaluates its own gate at execution.
+Primitive tuple shapes, NUL rejection and the unconditional parser still apply.
+This is state-dependent deferral, not a claim that the child arguments are valid.
+
+`node scripts/conditional-stash-corpus.mjs --check` reproduces 204 direct/dispatched API cases
+(101 distinct argv forms) in both ref states, totaling 408 native outcomes. It independently
+captures actual child argv with Git trace2 and probes child exit status. Runtime
+and compiler fixtures check the unknown-state result; branch-plan tests compare
+both known-state paths with the native traces. Public API tests create a stash
+between calls and observe Git selecting different outcomes for the same options.
+Successful command output and trace timing/identifiers are excluded from the
+reproducible fixture.
+
+The condition and injected argv are present in command and numeric exploration
+artifacts. Child grammar/semantic validation remains delegated when repository
+state is unknown. Configuration, object/path resolution, completion exits and
+other conditional command pipelines remain audit obligations; all scopes remain
+partial.

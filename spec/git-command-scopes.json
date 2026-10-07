@@ -8129,10 +8129,46 @@
     }
   },
   "stash list": {
-    "source": "builtin/stash.c:list_stash",
+    "source": "Git 2.55.0 builtin/stash.c:list_stash; builtin/log.c:cmd_log",
     "tables": [],
-    "optionParsing": "none",
-    "separator": false
+    "inheritOptions": "log",
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:list_stash:options"
+      ],
+      "keepDashDash": false,
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:list_stash; parse-options.c:parse_options_step",
+      "reason": "The empty KEEP_UNKNOWN_OPT parser scans words for help, drops the first -- marker, and retains unknown words before the repository-ref gate."
+    },
+    "conditionalCommand": {
+      "when": {
+        "refExists": "refs/stash"
+      },
+      "otherwise": {
+        "exitCode": 0
+      },
+      "origin": "git",
+      "reason": "No stash ref returns success without parsing child options. Otherwise Git runs log with fixed arguments before and after the retained user words.",
+      "source": "Git 2.55.0 builtin/stash.c:list_stash/cmd_stash",
+      "invoke": {
+        "command": "log",
+        "prepend": [
+          "--format=%gd: %gs",
+          "-g",
+          "--first-parent"
+        ],
+        "append": [
+          "refs/stash",
+          "--"
+        ],
+        "exitStatus": "boolean"
+      }
+    }
   },
   "scalar clone": {
     "executable": "scalar",
