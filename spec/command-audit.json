@@ -1992,7 +1992,9 @@
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
         "src/commands/stash-show.test.ts",
-        "test/types/stash-show-corpus.ts",
+        "test/types/stash-show-corpus-1.ts",
+        "test/types/stash-show-corpus-2.ts",
+        "test/types/stash-show-corpus-3.ts",
         "test/types/stash-show-api.ts"
       ],
       "remaining": "Initial KEEP_UNKNOWN_OPT pass, own-flag/help timing, ordered retained-word prefix partition, separate stash-reference arity, later revision/diff parsing and color grammar are modeled. 1,132 independent native outcomes include both direct and root dispatch and valid dash-prefixed refs to distinguish object absence from syntax. Configuration/repository state, stash/revision object resolution, pathspec languages, remaining revision callbacks, completion and other parser modes remain open; finite examples and normalized state counts do not establish completeness."

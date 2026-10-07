@@ -1063,9 +1063,10 @@ outcomes in a repository with a real stash and valid plain/dash-prefixed refs.
 Both scoped and root-dispatched calls are checked. A valid `-h` ref matters after
 `--end-of-options`: a missing ref failure does not make that spelling universally
 invalid. Runtime and compiler fixtures consume the same native outcomes. The
-large compiler fixture requests an isolated contract batch via
-`@typecheck-isolated`; the runner keeps every assertion, all source roots, the
-same compiler options and Node's default heap limit.
+compiler corpus is divided deterministically into files of at most 400 cases,
+each requesting an isolated contract batch via `@typecheck-isolated`. The runner
+keeps every assertion, all source roots, the same compiler options and Node's
+default heap limit.
 
 Repository/configuration state, stash/revision object resolution, pathspec
 languages, remaining revision callbacks, completion and other native parser
