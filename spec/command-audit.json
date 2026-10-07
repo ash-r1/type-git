@@ -3250,6 +3250,46 @@
         "test/types/index-export-command-api.ts"
       ],
       "remaining": "Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly."
+    },
+    "pack-objects": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/pack.test.ts",
+        "test/types/pack-command-api.ts"
+      ],
+      "remaining": "Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files."
+    },
+    "index-pack": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/pack.test.ts",
+        "test/types/pack-command-api.ts"
+      ],
+      "remaining": "Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files."
+    },
+    "unpack-objects": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/pack.test.ts",
+        "test/types/pack-command-api.ts"
+      ],
+      "remaining": "Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files."
+    },
+    "pack-redundant": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/pack.test.ts",
+        "test/types/pack-command-api.ts"
+      ],
+      "remaining": "Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files."
     }
   }
 }

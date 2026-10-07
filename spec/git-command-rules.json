@@ -15691,5 +15691,690 @@
       "reason": "The two import filename pointers are mutually exclusive, including empty strings.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c"
     }
+  ],
+  "pack-objects": [
+    {
+      "id": "cli.pack-objects.arity-0-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "stdout",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "The native parser requires this count of pack filename arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.arity-1-1",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "stdout",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "The native parser requires this count of pack filename arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.compression",
+      "kind": "value",
+      "key": "compression",
+      "allowed": [
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "origin": "git",
+      "reason": "The final compression level is -1 or 0 through 9.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.name-hash",
+      "kind": "value",
+      "key": "name-hash-version",
+      "allowed": [
+        1,
+        2
+      ],
+      "guard": [
+        {
+          "key": "name-hash-version",
+          "test": "positive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Nonnegative name hash versions must be 1 or 2; negatives select configured defaults.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.zero-name-hash",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "name-hash-version",
+          "test": "equals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "reason": "Zero is not a name hash version.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.transfer-size",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdout",
+          "test": "active"
+        },
+        {
+          "key": "max-pack-size",
+          "test": "nonzero"
+        }
+      ],
+      "origin": "git",
+      "reason": "A nonzero pack size limit is incompatible with stdout.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.thin-output",
+      "kind": "requires",
+      "when": {
+        "key": "thin",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "stdout",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Thin packs require stdout.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.unreachable",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "keep-unreachable",
+          "test": "active"
+        },
+        {
+          "key": "unpack-unreachable",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Keeping and unpacking unreachable objects conflict.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.promisor",
+      "kind": "exclusive",
+      "keys": [
+        "exclude-promisor-objects",
+        "exclude-promisor-objects-best-effort"
+      ],
+      "origin": "git",
+      "reason": "Strict and best-effort promisor exclusions conflict.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-filter",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "filter",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Stdin pack input cannot be filtered.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-cruft",
+      "kind": "exclusive",
+      "keys": [
+        "stdin-packs",
+        "cruft"
+      ],
+      "origin": "git",
+      "reason": "Stdin pack and cruft input conflict.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-revs",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "revs",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-all",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "all",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-reflog",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "reflog",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-indexed-objects",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-keep-unreachable",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "keep-unreachable",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-unpack-unreachable",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "unpack-unreachable",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-pack-loose-unreachable",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "pack-loose-unreachable",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-exclude-promisor-objects-best-effort",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "exclude-promisor-objects-best-effort",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.stdin-packs-thin",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin-packs",
+          "test": "active"
+        },
+        {
+          "key": "thin",
+          "test": "active"
+        },
+        {
+          "key": "path-walk",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Thin mode enables revision walking when path-walk is disabled.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-revs",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "revs",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-all",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "all",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-reflog",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "reflog",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-indexed-objects",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "indexed-objects",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-keep-unreachable",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "keep-unreachable",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-unpack-unreachable",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "unpack-unreachable",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-pack-loose-unreachable",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "pack-loose-unreachable",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-exclude-promisor-objects-best-effort",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "exclude-promisor-objects-best-effort",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This option enables the internal revision walk, which conflicts with this input mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-thin",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "thin",
+          "test": "active"
+        },
+        {
+          "key": "path-walk",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Thin mode enables revision walking when path-walk is disabled.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-unpacked",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "unpacked",
+          "test": "active"
+        },
+        {
+          "key": "stdin-packs",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Without stdin-packs this option enables revision walking, incompatible with cruft input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    },
+    {
+      "id": "cli.pack-objects.cruft-exclude-promisor-objects",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "cruft",
+          "test": "active"
+        },
+        {
+          "key": "exclude-promisor-objects",
+          "test": "active"
+        },
+        {
+          "key": "stdin-packs",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Without stdin-packs this option enables revision walking, incompatible with cruft input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-objects.c"
+    }
+  ],
+  "index-pack": [
+    {
+      "id": "cli.index-pack.arity-0-1",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "The native parser requires this count of pack filename arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+    },
+    {
+      "id": "cli.index-pack.arity-1-1",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "stdin",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "The native parser requires this count of pack filename arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+    },
+    {
+      "id": "cli.index-pack.thin-stdin",
+      "kind": "requires",
+      "when": {
+        "key": "fix-thin",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Fixing thin packs requires stdin.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+    },
+    {
+      "id": "cli.index-pack.promisor-name",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "promisor",
+          "test": "present"
+        },
+        {
+          "key": "operands",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Promisor input cannot have an explicit pack name.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+    },
+    {
+      "id": "cli.index-pack.stdin-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "active"
+        },
+        {
+          "key": "object-format",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit object format conflicts with stdin.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+    },
+    {
+      "id": "cli.index-pack.stdin-repository",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "active"
+        },
+        {
+          "key": "inRepository",
+          "test": "equals",
+          "value": false
+        }
+      ],
+      "origin": "git",
+      "reason": "Stdin requires repository context.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+    },
+    {
+      "id": "cli.index-pack.verify-index",
+      "kind": "requiresAny",
+      "when": {
+        "key": "verify",
+        "test": "active"
+      },
+      "choices": [
+        {
+          "key": "output",
+          "test": "present"
+        },
+        {
+          "key": "operands",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Verification requires an index filename or a pack filename from which to derive it.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/index-pack.c"
+    }
+  ],
+  "unpack-objects": [
+    {
+      "id": "cli.unpack-objects.arity-0-0",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "The native parser requires this count of pack filename arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/unpack-objects.c"
+    }
+  ],
+  "pack-redundant": [
+    {
+      "id": "cli.pack-redundant.acknowledgement",
+      "kind": "required",
+      "required": [
+        {
+          "key": "i-still-use-this",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Git 2.55 requires explicit acknowledgement for this obsolete command.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-redundant.c"
+    },
+    {
+      "id": "cli.pack-redundant.arity-1-None",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "all",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "The native parser requires this count of pack filename arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/pack-redundant.c"
+    }
   ]
 }

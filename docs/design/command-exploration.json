@@ -52020,6 +52020,662 @@
       }
     },
     {
+      "command": "pack-objects",
+      "rules": 31,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all-progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all-progress-implied": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "index-version": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-pack-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "incremental": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "window": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "window-memory": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "depth": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "reuse-delta": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reuse-object": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "delta-base-offset": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "threads": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "non-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "revs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unpacked": [
+          "undefined",
+          "true"
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "reflog": [
+          "undefined",
+          "true"
+        ],
+        "indexed-objects": [
+          "undefined",
+          "true"
+        ],
+        "stdin-packs": [
+          "undefined",
+          "\"\"",
+          "\"follow\"",
+          "true",
+          "false"
+        ],
+        "stdout": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "include-tag": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keep-unreachable": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "pack-loose-unreachable": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unpack-unreachable": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "false"
+        ],
+        "cruft": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cruft-expiration": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "sparse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "thin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "path-walk": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "shallow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "honor-pack-keep": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keep-pack": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "compression": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "keep-true-parents": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "use-bitmap-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "write-bitmap-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "write-bitmap-index-quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "missing": [
+          "undefined",
+          "\"error\"",
+          "\"allow-any\"",
+          "\"allow-promisor\""
+        ],
+        "exclude-promisor-objects": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "exclude-promisor-objects-best-effort": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "delta-islands": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "uri-protocol": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "name-hash-version": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "27972836991031132182528000000",
+      "accepted": "433790667430418786549760000",
+      "nodes": 1552,
+      "isolatedRuleWitnesses": {
+        "cli.pack-objects.arity-0-0": "{\"operands\":[\"value\"],\"stdout\":true}",
+        "cli.pack-objects.arity-1-1": "{\"operands\":[]}",
+        "cli.pack-objects.compression": "{\"compression\":-2,\"operands\":[],\"stdout\":true}",
+        "cli.pack-objects.name-hash": null,
+        "cli.pack-objects.zero-name-hash": "{\"name-hash-version\":0,\"operands\":[],\"stdout\":true}",
+        "cli.pack-objects.transfer-size": "{\"max-pack-size\":-2,\"operands\":[],\"stdout\":true}",
+        "cli.pack-objects.thin-output": "{\"operands\":[\"value\"],\"thin\":true}",
+        "cli.pack-objects.unreachable": "{\"keep-unreachable\":true,\"operands\":[],\"stdout\":true,\"unpack-unreachable\":\"\"}",
+        "cli.pack-objects.promisor": "{\"exclude-promisor-objects\":true,\"exclude-promisor-objects-best-effort\":true,\"operands\":[],\"stdout\":true}",
+        "cli.pack-objects.stdin-filter": "{\"filter\":\"\",\"operands\":[],\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-cruft": "{\"cruft\":true,\"operands\":[],\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-packs-revs": "{\"operands\":[],\"revs\":true,\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-packs-all": "{\"all\":true,\"operands\":[],\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-packs-reflog": "{\"operands\":[],\"reflog\":true,\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-packs-indexed-objects": "{\"indexed-objects\":true,\"operands\":[],\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-packs-keep-unreachable": "{\"keep-unreachable\":true,\"operands\":[],\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-packs-unpack-unreachable": "{\"operands\":[],\"stdin-packs\":\"\",\"stdout\":true,\"unpack-unreachable\":\"\"}",
+        "cli.pack-objects.stdin-packs-pack-loose-unreachable": "{\"operands\":[],\"pack-loose-unreachable\":true,\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-packs-exclude-promisor-objects-best-effort": "{\"exclude-promisor-objects-best-effort\":true,\"operands\":[],\"stdin-packs\":\"\",\"stdout\":true}",
+        "cli.pack-objects.stdin-packs-thin": "{\"operands\":[],\"stdin-packs\":\"\",\"stdout\":true,\"thin\":true}",
+        "cli.pack-objects.cruft-revs": "{\"cruft\":true,\"operands\":[],\"revs\":true,\"stdout\":true}",
+        "cli.pack-objects.cruft-all": "{\"all\":true,\"cruft\":true,\"operands\":[],\"stdout\":true}",
+        "cli.pack-objects.cruft-reflog": "{\"cruft\":true,\"operands\":[],\"reflog\":true,\"stdout\":true}",
+        "cli.pack-objects.cruft-indexed-objects": "{\"cruft\":true,\"indexed-objects\":true,\"operands\":[],\"stdout\":true}",
+        "cli.pack-objects.cruft-keep-unreachable": "{\"cruft\":true,\"keep-unreachable\":true,\"operands\":[],\"stdout\":true}",
+        "cli.pack-objects.cruft-unpack-unreachable": "{\"cruft\":true,\"operands\":[],\"stdout\":true,\"unpack-unreachable\":\"\"}",
+        "cli.pack-objects.cruft-pack-loose-unreachable": "{\"cruft\":true,\"operands\":[],\"pack-loose-unreachable\":true,\"stdout\":true}",
+        "cli.pack-objects.cruft-exclude-promisor-objects-best-effort": "{\"cruft\":true,\"exclude-promisor-objects-best-effort\":true,\"operands\":[],\"stdout\":true}",
+        "cli.pack-objects.cruft-thin": "{\"cruft\":true,\"operands\":[],\"stdout\":true,\"thin\":true}",
+        "cli.pack-objects.cruft-unpacked": "{\"cruft\":true,\"operands\":[],\"stdout\":true,\"unpacked\":true}",
+        "cli.pack-objects.cruft-exclude-promisor-objects": "{\"cruft\":true,\"exclude-promisor-objects\":true,\"operands\":[],\"stdout\":true}"
+      }
+    },
+    {
+      "command": "index-pack",
+      "transitions": [
+        {
+          "flag": "--progress-title",
+          "rules": [
+            "cli.index-pack.progress-title-once"
+          ],
+          "domains": {
+            "progress-title": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.index-pack.progress-title-once": "{\"progress-title\":\"\"}"
+          }
+        },
+        {
+          "flag": "-o",
+          "rules": [
+            "cli.index-pack.output-once"
+          ],
+          "domains": {
+            "output": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.index-pack.output-once": "{\"output\":\"\"}"
+          }
+        }
+      ],
+      "rules": 7,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "fix-thin": [
+          "undefined",
+          "true"
+        ],
+        "check-self-contained-and-connected": [
+          "undefined",
+          "true"
+        ],
+        "verify": [
+          "undefined",
+          "true"
+        ],
+        "show-resolving-progress": [
+          "undefined",
+          "true"
+        ],
+        "report-end-of-input": [
+          "undefined",
+          "true"
+        ],
+        "rev-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "strict": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "fsck-objects": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "keep": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "promisor": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "threads": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pack_header": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "index-version": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-input-size": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "object-format": [
+          "undefined",
+          "\"sha1\"",
+          "\"sha256\""
+        ],
+        "progress-title": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1399680000000",
+      "accepted": "44841600000",
+      "nodes": 117,
+      "isolatedRuleWitnesses": {
+        "cli.index-pack.arity-0-1": "{\"operands\":[\"value\",\"value\"],\"stdin\":true}",
+        "cli.index-pack.arity-1-1": "{\"operands\":[]}",
+        "cli.index-pack.thin-stdin": "{\"fix-thin\":true,\"operands\":[\"value\"]}",
+        "cli.index-pack.promisor-name": "{\"operands\":[\"value\"],\"promisor\":\"\"}",
+        "cli.index-pack.stdin-format": "{\"object-format\":\"sha1\",\"operands\":[],\"stdin\":true}",
+        "cli.index-pack.stdin-repository": "{\"inRepository\":false,\"operands\":[],\"stdin\":true}",
+        "cli.index-pack.verify-index": "{\"operands\":[],\"stdin\":true,\"verify\":true}"
+      }
+    },
+    {
+      "command": "unpack-objects",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "recover": [
+          "undefined",
+          "true"
+        ],
+        "strict": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "pack_header": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-input-size": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "72000",
+      "accepted": "14400",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.unpack-objects.arity-0-0": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "pack-redundant",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "alt-odb": [
+          "undefined",
+          "true"
+        ],
+        "i-still-use-this": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "960",
+      "accepted": "432",
+      "nodes": 14,
+      "isolatedRuleWitnesses": {
+        "cli.pack-redundant.acknowledgement": "{\"operands\":[\"value\"]}",
+        "cli.pack-redundant.arity-1-None": "{\"i-still-use-this\":true,\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {
