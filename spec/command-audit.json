@@ -1524,10 +1524,13 @@
         "test/types/command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/stash-transfer.test.ts",
+        "test/types/stash-transfer-corpus.ts",
+        "test/types/stash-transfer-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+      "remaining": "Native option passes, help timing, long-prefix/negation resolution, unknown-option rejection, retained -- and consumed --end-of-options, literal revision operands and final arity/destination checks are modeled. 488 independent native cases cover direct and root-dispatched calls with valid stash/export-chain refs for literal dash words. Ref syntax/resolution, export-chain topology, repository/configuration state, completion and other parser modes remain open; finite examples do not establish completeness."
     },
     "stash export": {
       "state": "partial",
@@ -1537,10 +1540,13 @@
         "test/types/command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/stash-transfer.test.ts",
+        "test/types/stash-transfer-corpus.ts",
+        "test/types/stash-transfer-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+      "remaining": "Native option passes, help timing, long-prefix/negation resolution, unknown-option rejection, retained -- and consumed --end-of-options, literal revision operands and final arity/destination checks are modeled. 488 independent native cases cover direct and root-dispatched calls with valid stash/export-chain refs for literal dash words. Ref syntax/resolution, export-chain topology, repository/configuration state, completion and other parser modes remain open; finite examples do not establish completeness."
     },
     "config set": {
       "state": "partial",

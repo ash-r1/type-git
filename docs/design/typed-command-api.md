@@ -1005,3 +1005,28 @@ contrast assumed/explicit push boundaries in a clean repository with tracked
 option-shaped filenames. These tests cover finite examples, not all argv or
 repository states. Global help, completion, configuration, pathspec languages and
 other callback grammars remain separate audit obligations; no scope is complete.
+
+## Stash import/export parsing
+
+The import and export scopes use their own native option tables with
+KEEP_DASHDASH, ordinary long abbreviation, and unknown-option rejection. Both
+consume `--end-of-options`, but retain `--` as a literal revision operand. Thus
+`stash import -- -h` has two operands and fails its arity check. `stash import --`
+has one operand; whether the literal `--` names a valid export chain is a native
+repository question. Export similarly accepts a literal `--` stash reference.
+These commands do not share push's leading-separator removal.
+
+Help exits before final arity/destination rules. For example,
+`stash export --print --to-ref=refs/exported -h` shows help; without `-h` the two
+destinations conflict. `--pri` abbreviates `--print`, while `--no-print` is
+rejected before help because the command-mode declaration forbids negation.
+Native spelling tables and both existing parser interpreters provide this
+behavior without command-specific runtime branches.
+
+`node scripts/stash-transfer-corpus.mjs --check` reproduces 488 independent Git
+outcomes, including root dispatch and direct scoped calls. An isolated repository
+provides real stash commits for export and real export chains for import, with
+literal `--` and `-h` refs. Both runtime and compiler fixtures consume the native
+results. Ref syntax/resolution, export-chain topology, repository/configuration
+state, completion and other parser modes remain audit obligations. These scopes
+remain partial.
