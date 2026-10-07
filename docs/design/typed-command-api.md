@@ -300,3 +300,19 @@ force flag because `clean.requireForce=false` permits omission. Cone path rules,
 submodule repository state, callback languages and nested root dispatch remain
 explicitly partial in the coverage ledger. Tests use isolated local repositories
 and enable only file transport for fixture submodules.
+
+### Bisect operations and relational constraints
+
+All builtin bisect operations and standard state aliases have schemas. The root
+also accepts repository-defined term names. Start validates the final good/bad
+term values, so a later alias can replace an invalid earlier name. The abstract
+`equalsKey` predicate compares two normalized fields; the decision diagram reads
+both variables, and domain construction propagates shared representatives through
+related fields to a fixed point. Known equal literals are rejected by TypeScript;
+dynamic strings and unions are validated at runtime.
+
+Terms counts argument tokens, including repeated identical flags. Log preserves
+ignored arguments, while view/visualize and run retain delegated literal words.
+Repository state, revision/path disambiguation and the complete refname language
+remain explicit gaps. Deterministic counts describe bounded normalized states,
+not all argv sequences or complete upstream discovery.

@@ -5367,5 +5367,151 @@
         "value": "flag"
       }
     }
+  },
+  "bisect": {
+    "tables": [
+      "builtin/bisect.c:cmd_bisect:options"
+    ],
+    "source": "builtin/bisect.c",
+    "optionParsing": "stop-at-operand",
+    "separator": true
+  },
+  "bisect start": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "separator": true,
+    "omitOptions": [
+      "-h",
+      "--help"
+    ],
+    "initial": {
+      "term-good": "good",
+      "term-bad": "bad"
+    },
+    "options": {
+      "--no-checkout": {
+        "key": "no-checkout",
+        "value": "flag"
+      },
+      "--first-parent": {
+        "key": "first-parent",
+        "value": "flag"
+      },
+      "--term-good": {
+        "key": "term-good",
+        "value": "string"
+      },
+      "--term-old": {
+        "key": "term-good",
+        "value": "string"
+      },
+      "--term-bad": {
+        "key": "term-bad",
+        "value": "string"
+      },
+      "--term-new": {
+        "key": "term-bad",
+        "value": "string"
+      }
+    }
+  },
+  "bisect reset": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect terms": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "separator": false,
+    "options": {
+      "--term-good": {
+        "key": "term-good",
+        "value": "flag"
+      },
+      "--term-old": {
+        "key": "term-old",
+        "value": "flag"
+      },
+      "--term-bad": {
+        "key": "term-bad",
+        "value": "flag"
+      },
+      "--term-new": {
+        "key": "term-new",
+        "value": "flag"
+      }
+    },
+    "omitOptions": [
+      "-h",
+      "--help"
+    ]
+  },
+  "bisect next": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect log": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect replay": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect skip": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect visualize": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect view": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect run": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect good": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect bad": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect old": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "bisect new": {
+    "tables": [],
+    "source": "builtin/bisect.c",
+    "optionParsing": "none",
+    "separator": false
   }
 }

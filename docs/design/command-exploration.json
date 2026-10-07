@@ -49441,6 +49441,519 @@
       }
     },
     {
+      "command": "bisect",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bisect.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "bisect start",
+      "rules": 28,
+      "domains": {
+        "term-good": [
+          "undefined",
+          "\"good\"",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"help\"",
+          "\"start\"",
+          "\"skip\"",
+          "\"next\"",
+          "\"reset\"",
+          "\"visualize\"",
+          "\"view\"",
+          "\"replay\"",
+          "\"log\"",
+          "\"run\"",
+          "\"terms\"",
+          "\"bad\"",
+          "\"new\"",
+          "\"old\""
+        ],
+        "term-bad": [
+          "undefined",
+          "\"bad\"",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"help\"",
+          "\"start\"",
+          "\"skip\"",
+          "\"next\"",
+          "\"reset\"",
+          "\"visualize\"",
+          "\"view\"",
+          "\"replay\"",
+          "\"log\"",
+          "\"run\"",
+          "\"terms\"",
+          "\"good\"",
+          "\"old\"",
+          "\"new\""
+        ],
+        "no-checkout": [
+          "undefined",
+          "true"
+        ],
+        "first-parent": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "48000",
+      "accepted": "2640",
+      "nodes": 405,
+      "isolatedRuleWitnesses": {
+        "cli.bisect-start.distinct-terms": "{\"operands\":[],\"term-bad\":\"value\",\"term-good\":\"value\"}",
+        "cli.bisect-start.nonempty-terms": "{\"operands\":[],\"term-good\":\"good\"}",
+        "cli.bisect-start.term-good-help": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"help\"}",
+        "cli.bisect-start.term-good-start": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"start\"}",
+        "cli.bisect-start.term-good-skip": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"skip\"}",
+        "cli.bisect-start.term-good-next": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"next\"}",
+        "cli.bisect-start.term-good-reset": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"reset\"}",
+        "cli.bisect-start.term-good-visualize": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"visualize\"}",
+        "cli.bisect-start.term-good-view": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"view\"}",
+        "cli.bisect-start.term-good-replay": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"replay\"}",
+        "cli.bisect-start.term-good-log": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"log\"}",
+        "cli.bisect-start.term-good-run": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"run\"}",
+        "cli.bisect-start.term-good-terms": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"terms\"}",
+        "cli.bisect-start.term-good-bad": "{\"operands\":[],\"term-bad\":\"value\",\"term-good\":\"bad\"}",
+        "cli.bisect-start.term-good-new": "{\"operands\":[],\"term-bad\":\"bad\",\"term-good\":\"new\"}",
+        "cli.bisect-start.term-bad-help": "{\"operands\":[],\"term-bad\":\"help\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-start": "{\"operands\":[],\"term-bad\":\"start\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-skip": "{\"operands\":[],\"term-bad\":\"skip\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-next": "{\"operands\":[],\"term-bad\":\"next\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-reset": "{\"operands\":[],\"term-bad\":\"reset\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-visualize": "{\"operands\":[],\"term-bad\":\"visualize\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-view": "{\"operands\":[],\"term-bad\":\"view\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-replay": "{\"operands\":[],\"term-bad\":\"replay\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-log": "{\"operands\":[],\"term-bad\":\"log\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-run": "{\"operands\":[],\"term-bad\":\"run\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-terms": "{\"operands\":[],\"term-bad\":\"terms\",\"term-good\":\"good\"}",
+        "cli.bisect-start.term-bad-good": "{\"operands\":[],\"term-bad\":\"good\",\"term-good\":\"value\"}",
+        "cli.bisect-start.term-bad-old": "{\"operands\":[],\"term-bad\":\"old\",\"term-good\":\"good\"}"
+      }
+    },
+    {
+      "command": "bisect reset",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bisect-reset.operands": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "bisect terms",
+      "rules": 2,
+      "domains": {
+        "term-good": [
+          "undefined",
+          "true"
+        ],
+        "term-old": [
+          "undefined",
+          "true"
+        ],
+        "term-bad": [
+          "undefined",
+          "true"
+        ],
+        "term-new": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]"
+        ]
+      },
+      "total": "1440",
+      "accepted": "192",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.bisect-terms.operands": "{\"operands\":[\"value\"]}",
+        "cli.bisect-terms.argumentTokens": "{\"argumentTokens\":[\"value\",\"value\"],\"operands\":[]}"
+      }
+    },
+    {
+      "command": "bisect next",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "6",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bisect-next.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "bisect log",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "bisect replay",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "6",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bisect-replay.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "bisect skip",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "bisect visualize",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "bisect view",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "bisect run",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "24",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bisect-run.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "bisect good",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "bisect bad",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bisect-bad.operands": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "bisect old",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "bisect new",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bisect-new.operands": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

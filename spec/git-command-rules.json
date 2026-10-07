@@ -14921,5 +14921,512 @@
       "reason": "The shell accepts a leading cached flag only for status or summary.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-submodule.sh"
     }
+  ],
+  "bisect": [
+    {
+      "id": "cli.bisect.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
+  ],
+  "bisect start": [
+    {
+      "id": "cli.bisect-start.distinct-terms",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equalsKey",
+          "valueKey": "term-bad"
+        }
+      ],
+      "origin": "git",
+      "reason": "write_terms requires distinct final good and bad term names.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.nonempty-terms",
+      "kind": "required",
+      "required": [
+        {
+          "key": "term-good",
+          "test": "nonempty"
+        },
+        {
+          "key": "term-bad",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Term names must be nonempty refname components.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-help",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "help"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-start",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "start"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-skip",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "skip"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-next",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "next"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-reset",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "reset"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-visualize",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "visualize"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-view",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "view"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-replay",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "replay"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-log",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "log"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-run",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "run"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-terms",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "terms"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-bad",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "bad"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-good-new",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-good",
+          "test": "equals",
+          "value": "new"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-help",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "help"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-start",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "start"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-skip",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "skip"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-next",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "next"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-reset",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "reset"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-visualize",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "visualize"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-view",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "view"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-replay",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "replay"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-log",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "log"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-run",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "run"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-terms",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "terms"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-good",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "good"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-start.term-bad-old",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "term-bad",
+          "test": "equals",
+          "value": "old"
+        }
+      ],
+      "origin": "git",
+      "reason": "check_term_format forbids builtin command names and reversing the meaning of standard terms.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
+  ],
+  "bisect reset": [
+    {
+      "id": "cli.bisect-reset.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
+  ],
+  "bisect terms": [
+    {
+      "id": "cli.bisect-terms.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    },
+    {
+      "id": "cli.bisect-terms.argumentTokens",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
+  ],
+  "bisect next": [
+    {
+      "id": "cli.bisect-next.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
+  ],
+  "bisect log": [],
+  "bisect replay": [
+    {
+      "id": "cli.bisect-replay.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
+  ],
+  "bisect skip": [],
+  "bisect visualize": [],
+  "bisect view": [],
+  "bisect run": [
+    {
+      "id": "cli.bisect-run.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
+  ],
+  "bisect good": [],
+  "bisect bad": [
+    {
+      "id": "cli.bisect-bad.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
+  ],
+  "bisect old": [],
+  "bisect new": [
+    {
+      "id": "cli.bisect-new.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "The native operation enforces this argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bisect.c"
+    }
   ]
 }

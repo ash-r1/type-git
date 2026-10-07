@@ -3000,6 +3000,156 @@
       ],
       "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
       "typedCommandAPI": true
+    },
+    "bisect": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect start": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect reset": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect terms": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect next": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect log": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect replay": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect skip": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect visualize": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect view": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect run": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect good": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect bad": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect old": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
+    },
+    "bisect new": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/bisect.test.ts",
+        "test/types/bisect-command-api.ts"
+      ],
+      "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
     }
   }
 }
