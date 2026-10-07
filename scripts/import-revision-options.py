@@ -44,6 +44,7 @@ for file, functions in [('revision.c',['handle_revision_opt','handle_revision_ps
                 if flag=='--':continue
                 item=options.setdefault(flag,{'forms':[],'sources':[]})
                 if kind not in item['forms']:item['forms'].append(kind)
+                if pattern.startswith('parse_long_opt'): item['detachedValue'] = True
                 origin=f'{file}:{function}'
                 if origin not in item['sources']:item['sources'].append(origin)
 report={'baseline':'2.55.0','scope':'Literal option-test candidates; not proof of complete argument or callback semantics. Numeric shorthand -<n> and attached -n<n> require separate handling.','files':files,'options':dict(sorted(options.items()))}

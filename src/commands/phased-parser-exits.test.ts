@@ -52,6 +52,7 @@ describe('initial parser exits before deferred revision/diff callbacks', () => {
     expect(initialParserPass(COMMAND_SPECS.log, ['-G', '-L', '-h'])).toEqual({
       exited: false,
       tokens: [['-L', '-h']],
+      remaining: ['-G'],
     });
     for (const boundary of ['--', '--end-of-options']) {
       expect(initialParserPass(COMMAND_SPECS.log, ['--default', boundary, '-h']).exited).toBe(

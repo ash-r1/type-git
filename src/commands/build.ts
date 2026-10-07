@@ -3,6 +3,7 @@ import { matches, violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
 import { initialParserPass } from './initial-parser-pass.js';
+import { revisionParserPass } from './revision-parser-pass.js';
 import { ARGV_STRING_CONSTRAINT, type CommandSpec, type OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
@@ -19,7 +20,12 @@ function buildArguments(
   command: GitCommandName,
   args: readonly unknown[],
   inRepository?: boolean,
-  evaluationMode: 'full' | 'shape' | 'first-pass' = 'full',
+  evaluationMode: 'full' | 'shape' | 'first-pass' | 'pipeline' = 'full',
+  replay?: {
+    firstCount: number;
+    options: Readonly<Record<string, OptionSpec>>;
+    original: readonly unknown[];
+  },
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
@@ -45,6 +51,7 @@ function buildArguments(
       args.slice(1),
       inRepository,
       evaluationMode,
+      replay,
     );
   }
   if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
@@ -54,6 +61,15 @@ function buildArguments(
       buildArguments(command, pass.tokens, inRepository, 'first-pass');
       return serialized;
     }
+    if (!pass.delegated) {
+      const remaining = revisionParserPass(spec, pass.remaining);
+      buildArguments(command, [...pass.tokens, ...remaining], inRepository, 'pipeline', {
+        firstCount: pass.tokens.length,
+        options: spec.parserExit.remainingOptions!,
+        original: args,
+      });
+      return serialized;
+    }
   }
   const argv = [...spec.argv];
   const operands: string[] = [];
@@ -61,7 +77,7 @@ function buildArguments(
   const pathsAfterSeparator: string[] = [];
   const state: Record<string, unknown> = {
     ...spec.initial,
-    argumentTokens: args,
+    argumentTokens: replay?.original ?? args,
     operands,
     inRepository,
     operandsBeforeSeparator,
@@ -99,7 +115,10 @@ function buildArguments(
       continue;
     }
     if (
-      !parserExited &&
+      !(
+        parserExited ||
+        (replay && index >= replay.firstCount && arg[0] === '--' && arg.length === 1)
+      ) &&
       (literalOperands || (spec.optionParsing === 'stop-at-operand' && operands.length > 0))
     ) {
       throw new GitArgumentError(
@@ -122,10 +141,13 @@ function buildArguments(
     if (typeof flag !== 'string') {
       throw new GitArgumentError(`${command}: option names must be strings`);
     }
+    const activeOptions = replay && index >= replay.firstCount ? replay.options : spec.options;
     const numeric =
-      !Object.hasOwn(spec.options, flag) && spec.numericOption && /^-\d+$/.exec(flag)?.[0] === flag;
-    const option: OptionSpec | undefined = Object.hasOwn(spec.options, flag)
-      ? spec.options[flag]
+      !Object.hasOwn(activeOptions, flag) &&
+      spec.numericOption &&
+      /^-\d+$/.exec(flag)?.[0] === flag;
+    const option: OptionSpec | undefined = Object.hasOwn(activeOptions, flag)
+      ? activeOptions[flag]
       : numeric
         ? {
             ...spec.numericOption!,
@@ -249,6 +271,7 @@ function buildArguments(
       continue;
     }
     if (
+      evaluationMode !== 'pipeline' &&
       spec.parserExit?.flags.includes(flag) &&
       !(index === 0 && spec.parserExit.exceptFirst?.includes(flag))
     ) {

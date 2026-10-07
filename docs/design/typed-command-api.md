@@ -748,11 +748,9 @@ remaining revision stream. Literal parser walks stop after 128 steps; dynamic
 words and budget-exceeding cases defer to runtime. Known invalid union branches
 are retained as errors. Structured value-shape and OS NUL checks always apply.
 
-This models exits from the initial pass. When it does not exit, the existing
-command validator remains responsible for later checks; re-parsing the residual
-argv after cross-tuple consumption remains an explicit audit obligation.
-Completion helpers, other callbacks, global help dispatch and repository state
-are also unfinished. All 430 audit scopes remain partial.
+When the initial pass does not exit, its retained argv is decoded by the
+revision/diff phase described below. Completion helpers, other callbacks, global
+help dispatch and repository-dependent revision/path classification remain unfinished. All 430 audit scopes remain partial.
 
 ## String callback languages
 
@@ -785,3 +783,49 @@ Unicode), then probes exact signature modes, aliases, prefixes and mutations.
 The fast-import oracle supplies empty stdin in an isolated repository; it does
 not sign or import commits. The finite corpus does not establish command-wide
 completeness. All audit entries remain partial.
+
+## Retained argv and revision/diff phases
+
+For the six initial-pass scopes, the parser result includes the exact retained
+argv. A consumed short-option prefix is removed from a cluster; operands and
+unknown words keep their order. `keepDashDash` records whether the initial pass
+retains `--`; `--end-of-options` is always retained. Git's global leading
+`--help` dispatch is kept separate from this command pipeline.
+
+The subsequent phase has its own option definitions from pinned diff tables and
+revision declarations. A flag such as `-n` therefore retains its phase-specific
+meaning. The revision snapshot additionally records which `parse_long_opt`
+branches accept detached values; `--default` has its separately recorded
+manual detached-only form. Manual revision spellings are matched before diff
+short clusters, without enabling long abbreviations. Reached callback effects
+are applied in phase order before final combination rules.
+
+When `setup_revisions` searches for `--`, it does so before consuming option
+values. Its tail becomes path operands. The sequencer's `assume_dashdash` mode
+omits that search, and its leading retained `-` is translated to `@{-1}`.
+`--end-of-options` stops option lookup when reached, but can itself be consumed
+as an earlier option's value. All these operations use serialized words, so
+boundaries can fall inside API tuples. The original argv is still emitted.
+
+For example, `log -G -L -h` fails because the initial `-L` consumes `-h` and
+leaves `-G` without a value. `log -n -L 1,1:file 0` leaves `-n 0` for the next
+phase and is valid with the referenced file. `log -- --color=invalid` treats
+the last word as a path; `fast-export -- --color=invalid` removes its first
+separator and reaches the invalid color callback. An option tuple still
+controls serialization and value shape, but the native phases determine how
+its emitted words are interpreted.
+
+`node scripts/residual-argv-corpus.mjs --check` reproduces 134 independent Git
+outcomes in a seeded, isolated repository, including previous-checkout handling.
+Both runtime and bounded compiler interpreters are checked. Existing history,
+revision/diff and sequencer tests cover the surrounding rules. This does not
+complete repository-dependent revision/path disambiguation, stdin languages,
+all callbacks or every early exit. All audit scopes remain partial.
+
+Identical later-phase dictionaries are shared in generated source and declaration
+types. `pnpm test:types` checks every root from `tsconfig.contracts.json`, with
+contract fixtures sorted and batched in groups of twelve and all source roots
+present in every batch. Each batch uses the same compiler settings and automatic
+type discovery. This releases TypeScript's literal-instantiation cache between
+independent fixture groups instead of exceeding its default heap as the oracle
+suite grows. No fixture or assertion is removed.
