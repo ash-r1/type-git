@@ -8,7 +8,9 @@
     "send-pack.c": "2840dec4d1887ac2f8470fa57a9eae56b8948d6e493ea5e0ee96cef4e6c38cbb",
     "rebase.c": "a3dbc80daffeb797e56dca56677b498e681852fa72862280b16f6445edd80206",
     "builtin/push.c": "80b564b62e0eed0657973c1325e5f7dc7da73480aa3640398e0ba603525eb3f7",
-    "builtin/pull.c": "92fa45da7b63e7e91dea45829d4772c26970458cee8fe8622ba65b1f491b3cc3"
+    "builtin/pull.c": "92fa45da7b63e7e91dea45829d4772c26970458cee8fe8622ba65b1f491b3cc3",
+    "builtin/log.c": "fcd109d84314e40de11a186ebae6d58c5955e26bcc61425433bd4c45be35df80",
+    "builtin/fast-export.c": "538ecd9d6f583081dad7954b2441015cbd0e9e1cec344ff0dc104387929974cf"
   },
   "boolean": {
     "true": [
@@ -73,6 +75,23 @@
         "i": "interactive"
       },
       "source": "rebase.c:rebase_parse_value; builtin/pull.c:parse_opt_rebase"
+    },
+    "log-decorate": {
+      "allowTrue": true,
+      "names": {
+        "short": "short",
+        "full": "full",
+        "auto": "auto"
+      },
+      "source": "builtin/log.c:parse_decoration_style/decorate_callback; auto decoration depends on output configuration"
+    },
+    "fast-export-reencode": {
+      "allowTrue": true,
+      "names": {
+        "abort": "abort"
+      },
+      "caseInsensitive": true,
+      "source": "builtin/fast-export.c:parse_opt_reencode_mode"
     }
   }
 }

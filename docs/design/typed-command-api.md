@@ -645,16 +645,15 @@ even for words ignored by Git.
 `node scripts/parser-exit-corpus.mjs --check` replays a deterministic independent
 Git 2.55.0 corpus, classifies native diagnostics, and reproduces the runtime and
 compiler fixtures. This finite corpus is not an exhaustive command proof.
-The annotation is deliberately per scope: `grep -h` is an ordinary option, `log`
-has an earlier parsing pass than its diff options, and `diff-files` processes
-those options before handling help. Their exit phases, completion helpers,
+The annotation is deliberately per scope: `grep -h` is an ordinary option and
+`diff-files` processes those options before handling help. Other exit phases, completion helpers,
 abbreviations, repository/configuration failures and other parse exits remain
 separate audit obligations. All command audit entries remain partial.
 
 ## Boolean callback profiles
 
 `spec/git-boolean-callbacks.json` records Git's textual boolean names, signed
-32-bit integer parser and five callback profiles. Generated constants are shared
+32-bit integer parser and seven callback profiles. Generated constants are shared
 by runtime validation and compiler literal checks. Callback profiles distinguish
 fetch recursion (`on-demand`), push recursion (`on-demand`, `check`, `only`, but
 no true value), signed push (ASCII case-insensitive `if-asked`), pull rebase
@@ -709,3 +708,48 @@ also uses the shared color callback grammar.
 numeric outcomes and seven ordered help/color cases across finite tuple
 combinations, numeric boundaries, whitespace and comma tails. This does not prove every platform, repository condition
 or unbounded input language complete. All command audit entries remain partial.
+
+## Initial parser exits before deferred options
+
+Six additional scopes (`log`, `show`, `whatchanged`, `fast-export`, `cherry-pick`
+and `revert`) use an initial `parse_options` pass with `KEEP_UNKNOWN_OPT` before
+revision/diff parsing. `parserExit.firstPassTables` in the source scopes names
+that pass's pinned upstream tables. Generation resolves aliases and negations
+into `firstPassOptions`, with original long names for Git's single-dash typo
+check. These declarations appear in the deterministic exploration report.
+
+Runtime and compiler interpreters walk serialized argv words. Recognized options
+consume their values, including words originating in another API tuple. Unknown
+words are deferred; long abbreviations are disabled by `KEEP_UNKNOWN_OPT`.
+Short clusters follow the native lookup and typo-check order. `--` and
+`--end-of-options` stop this pass. If help exits the pass, only the callbacks and
+mode transitions reached before that exit are validated; later phases and final
+combination rules do not execute. Output argv retains its original order.
+
+For example, `log --color=invalid -h` reaches help, but
+`log --decorate=invalid -h` fails its initial callback. `log -n -h` also reaches
+help: the initial pass does not know `-n`, so the next word is an independent
+help flag. Conversely, `log -n --decorate=invalid -h` reaches the invalid
+decoration callback. A recognized `-L` consumes the next word, even `-h`.
+
+The decoration and fast-export reencoding callbacks use the shared boolean
+registry. Decoration additionally accepts case-sensitive `short`, `full` and
+`auto`; reencoding accepts ASCII case-insensitive `abort`. Decoration's `auto`
+value remains symbolic because its resolved style depends on the environment.
+The six scopes also use the shared color grammar for callbacks reached in the
+later diff pass.
+
+`node scripts/phased-parser-exit-corpus.mjs --check` reproduces 669 independent
+native outcomes and their compiler fixtures. It enumerates permutations of
+initial/deferred callbacks, help and operands, then exercises value bounds,
+split values, short clusters and separators. Separate interpreter assertions
+cover consumed help and both stop markers without claiming to validate the
+remaining revision stream. Literal parser walks stop after 128 steps; dynamic
+words and budget-exceeding cases defer to runtime. Known invalid union branches
+are retained as errors. Structured value-shape and OS NUL checks always apply.
+
+This models exits from the initial pass. When it does not exit, the existing
+command validator remains responsible for later checks; re-parsing the residual
+argv after cross-tuple consumption remains an explicit audit obligation.
+Completion helpers, other callbacks, global help dispatch and repository state
+are also unfinished. All 430 audit scopes remain partial.

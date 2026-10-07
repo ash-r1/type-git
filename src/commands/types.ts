@@ -16,6 +16,7 @@ import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, RawResult } from '../core/types.js';
 import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
+import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { OptionSpec } from './spec.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
@@ -444,6 +445,28 @@ type State<
           : Put<S, 'parserExited', true>
         : State<C, Rest, ApplyToken<C, Put<S, '$remaining', Rest>, H>, false>
       : S;
+type InvalidPass = { invalidParserPass: true };
+type ParsedPassState<C extends GitCommandName, A extends readonly unknown[], Pass> = Pass extends {
+  exited: true;
+  tokens: infer T extends readonly unknown[];
+}
+  ? [State<C, T>] extends [never]
+    ? InvalidPass
+    : State<C, T>
+  : Pass extends { exited: 'invalid' }
+    ? InvalidPass
+    : Pass extends { exited: 'dynamic' }
+      ? { parserExited: true }
+      : State<C, A>;
+type CommandState<C extends GitCommandName, A extends readonly unknown[]> = Spec<C> extends {
+  parserExit: { firstPassOptions: readonly string[] };
+}
+  ? ParsedPassState<C, A, InitialParserPass<Spec<C>, A>> extends infer S
+    ? [Extract<S, InvalidPass>] extends [never]
+      ? S
+      : never
+    : never
+  : State<C, A>;
 // Evaluate one rule at a time: constructing their Cartesian union can exceed TypeScript's union limit.
 type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
@@ -460,11 +483,11 @@ type CheckedLocalArguments<
 > = A extends readonly LocalCommandArgument<C>[]
   ? number extends A['length']
     ? A
-    : [State<C, A>] extends [never]
+    : [CommandState<C, A>] extends [never]
       ? never
-      : State<C, A> extends { help: true } | { parserExited: true }
+      : CommandState<C, A> extends { help: true } | { parserExited: true }
         ? A
-        : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+        : CheckRules<CommandState<C, A>, Spec<C>['rules']> extends true
           ? A
           : never
   : never;

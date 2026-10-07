@@ -61,4 +61,22 @@ export const BOOLEAN_CALLBACKS = {
     },
     source: 'rebase.c:rebase_parse_value; builtin/pull.c:parse_opt_rebase',
   },
+  'log-decorate': {
+    allowTrue: true,
+    names: {
+      short: 'short',
+      full: 'full',
+      auto: 'auto',
+    },
+    source:
+      'builtin/log.c:parse_decoration_style/decorate_callback; auto decoration depends on output configuration',
+  },
+  'fast-export-reencode': {
+    allowTrue: true,
+    names: {
+      abort: 'abort',
+    },
+    caseInsensitive: true,
+    source: 'builtin/fast-export.c:parse_opt_reencode_mode',
+  },
 } as const satisfies Record<string, GitBooleanProfile>;
