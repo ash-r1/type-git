@@ -34,3 +34,9 @@ export type DynamicWrapperWords = Check<
     exited: 'dynamic';
   } ? true : false
 >;
+
+git.command('reflog show', [{ operand: '-show' }, ['-h']]);
+// @ts-expect-error Root subcommand names participate in native typo checks before help.
+git.command('reflog', [{ operand: '-show' }, ['-h']]);
+// @ts-expect-error Typo detection includes prefixes of at least three characters.
+git.command('reflog', [{ operand: '-sho' }, ['-h']]);

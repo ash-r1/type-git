@@ -38,6 +38,11 @@ try {
       [['--default', '--decorate'], operand('HEAD')],
       [operand('--end-of-options'), operand('HEAD')],
     ];
+    const upstream = JSON.parse(await readFile(new URL('spec/upstream/git-option-tables.json', root), 'utf8'));
+    const wrapper = upstream.files.find(file => file.file === 'builtin/reflog.c').tables.find(table => table.function === 'cmd_reflog');
+    for (const name of wrapper.options.map(option => option.long).filter(Boolean)) {
+      for (let size = 1; size <= name.length; size++) sequences.push([operand(`-${name.slice(0, size)}`), ['-h']]);
+    }
     const before = [['--decorate', 'bad'], ['--color', 'bad'], ['--graph'], ['--max-count', 'bad']];
     const helps = [['-h'], ['--help'], operand('--help-all')];
     for (const early of before) for (const help of helps) {

@@ -853,7 +853,7 @@ subsequent revision/diff parser. Existing implicit reflog traversal and final
 combination rules still apply when no parser exits. The API emits the original
 argv and checks representation constraints even after help.
 
-`node scripts/wrapper-parser-corpus.mjs --check` reproduces 320 independent Git
+`node scripts/wrapper-parser-corpus.mjs --check` reproduces 425 independent Git
 outcomes, including direct `reflog show` and dispatch through a `show` operand.
 The corpus checks callback order, retained words, separators, numeric values,
 short clusters and final traversal rules in an isolated seeded repository.
@@ -970,11 +970,9 @@ never reparsed as options. The original argv is emitted unchanged.
 Help exits before final arity and patch/context restrictions. An integer
 callback still fails before a later help token: `stash push --unified=bad -h`
 fails, whereas `stash push --unified=-2 -h` displays help. Without help the
-existing final range and patch requirements apply. Root stash's assumed-push
-path has different flags and remains a separate audit; it is not inferred from
-the explicit push subcommand.
+existing final range and patch requirements apply.
 
-`node scripts/stash-parser-corpus.mjs --check` reproduces 3,452 native outcomes.
+`node scripts/stash-parser-corpus.mjs --check` reproduces 4,978 native outcomes across the eight explicit subcommands and assumed push.
 It enumerates native-name prefixes with and without `=`, including negations,
 short clusters and selected final constraints. The isolated repository is clean;
 string-taking prefix probes end with two help words, and stdin is empty. A valid
@@ -982,3 +980,28 @@ stash object at `refs/tags/-h` makes the post-separator store case independent o
 object absence. Runtime and compiler fixtures consume the independent results.
 Configuration, path/object resolution, completion, alias families, other native
 parser modes and further callback grammars remain open. All scopes stay partial.
+
+
+## Assumed stash push and subcommand-name typos
+
+Root `stash` records its optional-subcommand wrapper followed by the push table
+with STOP_AT_NON_OPTION. Exact first-word dispatch still selects explicit child
+schemas. Otherwise the first operand stops option parsing, so `stash file -h`
+does not display help. A leading retained `--` is removed before pathspec
+processing but preserved as a boundary in the validation state. Without that
+boundary, only active patch mode permits implicit paths. A later `--` is just a
+path: `stash file -- -h` still fails the assumed-push check. With patch mode,
+`stash --patch file --unified=bad` treats the final word as a path, whereas
+explicit push parses it as an invalid integer. Path existence remains native
+repository-dependent validation. Tuples and operand objects serialize identically
+before this parser pass; argv is emitted unchanged.
+
+Native `check_typos` examines all long names, including subcommand declarations.
+The generator therefore carries each wrapper table's names into both parser
+interpreters. `reflog -sho -h` and `stash -push -h` fail at the wrapper before
+fallback help; `reflog show -sho -h` reaches help in the empty show wrapper.
+The independent native corpora enumerate these names' single-dash prefixes and
+contrast assumed/explicit push boundaries in a clean repository with tracked
+option-shaped filenames. These tests cover finite examples, not all argv or
+repository states. Global help, completion, configuration, pathspec languages and
+other callback grammars remain separate audit obligations; no scope is complete.
