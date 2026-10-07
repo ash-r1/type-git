@@ -4854,5 +4854,518 @@
     "source": "builtin/rev-parse.c",
     "optionParsing": "none",
     "separator": false
+  },
+  "submodule--helper get-default-remote": {
+    "tables": [
+      "builtin/submodule--helper.c:module_get_default_remote:options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper foreach": {
+    "tables": [
+      "builtin/submodule--helper.c:module_foreach:module_foreach_options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper init": {
+    "tables": [
+      "builtin/submodule--helper.c:module_init:module_init_options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper status": {
+    "tables": [
+      "builtin/submodule--helper.c:module_status:module_status_options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper summary": {
+    "tables": [
+      "builtin/submodule--helper.c:module_summary:module_summary_options"
+    ],
+    "source": "builtin/submodule--helper.c",
+    "options": {
+      "--no-summary-limit": {
+        "key": "summary-limit",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "submodule--helper sync": {
+    "tables": [
+      "builtin/submodule--helper.c:module_sync:module_sync_options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper deinit": {
+    "tables": [
+      "builtin/submodule--helper.c:module_deinit:module_deinit_options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper clone": {
+    "tables": [
+      "builtin/submodule--helper.c:module_clone:module_clone_options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper update": {
+    "tables": [
+      "builtin/submodule--helper.c:module_update:module_update_options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper absorbgitdirs": {
+    "tables": [
+      "builtin/submodule--helper.c:absorb_git_dirs:embed_gitdir_options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper set-url": {
+    "tables": [
+      "builtin/submodule--helper.c:module_set_url:options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper set-branch": {
+    "tables": [
+      "builtin/submodule--helper.c:module_set_branch:options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper create-branch": {
+    "tables": [
+      "builtin/submodule--helper.c:module_create_branch:options"
+    ],
+    "source": "builtin/submodule--helper.c",
+    "options": {
+      "-t": {
+        "key": "track",
+        "value": "optional-string",
+        "allowed": [
+          "direct",
+          "inherit"
+        ]
+      },
+      "--track": {
+        "key": "track",
+        "value": "optional-string",
+        "allowed": [
+          "direct",
+          "inherit"
+        ]
+      }
+    }
+  },
+  "submodule--helper add": {
+    "tables": [
+      "builtin/submodule--helper.c:module_add:options"
+    ],
+    "source": "builtin/submodule--helper.c"
+  },
+  "submodule--helper gitdir": {
+    "tables": [],
+    "source": "builtin/submodule--helper.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "submodule--helper push-check": {
+    "tables": [],
+    "source": "builtin/submodule--helper.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "submodule--helper migrate-gitdir-configs": {
+    "tables": [],
+    "source": "builtin/submodule--helper.c",
+    "optionParsing": "none",
+    "separator": false
+  },
+  "submodule add": {
+    "tables": [
+      "builtin/submodule--helper.c:module_add:options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {
+      "-b": {
+        "key": "branch",
+        "value": "string",
+        "checks": [
+          {
+            "id": "cli.submodule-add.short-branch",
+            "kind": "required",
+            "required": [
+              {
+                "key": "$value",
+                "test": "nonempty"
+              }
+            ],
+            "origin": "git",
+            "source": "Git 2.55.0 git-submodule.sh",
+            "reason": "The shell frontend rejects an empty separate short branch value."
+          }
+        ]
+      }
+    },
+    "optionAllowlist": [
+      "-b",
+      "--branch",
+      "-f",
+      "--force",
+      "-q",
+      "--quiet",
+      "--progress",
+      "--reference",
+      "--ref-format",
+      "--dissociate",
+      "--name",
+      "--depth",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule foreach": {
+    "tables": [
+      "builtin/submodule--helper.c:module_foreach:module_foreach_options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {},
+    "optionAllowlist": [
+      "-q",
+      "--quiet",
+      "--recursive",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand",
+    "separator": false
+  },
+  "submodule init": {
+    "tables": [
+      "builtin/submodule--helper.c:module_init:module_init_options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {},
+    "optionAllowlist": [
+      "-q",
+      "--quiet",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule deinit": {
+    "tables": [
+      "builtin/submodule--helper.c:module_deinit:module_deinit_options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {},
+    "optionAllowlist": [
+      "-f",
+      "--force",
+      "-q",
+      "--quiet",
+      "--all",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule update": {
+    "tables": [
+      "builtin/submodule--helper.c:module_update:module_update_options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {
+      "-i": {
+        "key": "init",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "short-init",
+            "set": true
+          }
+        ]
+      },
+      "-v": {
+        "key": "quiet",
+        "value": "flag",
+        "set": false
+      },
+      "--verbose": {
+        "key": "quiet",
+        "value": "flag",
+        "set": false
+      },
+      "--reference": {
+        "key": "reference",
+        "value": "string"
+      },
+      "--init": {
+        "key": "init",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "short-init",
+            "set": false
+          }
+        ]
+      }
+    },
+    "optionAllowlist": [
+      "-q",
+      "--quiet",
+      "-v",
+      "--verbose",
+      "--progress",
+      "-i",
+      "--init",
+      "--require-init",
+      "--remote",
+      "-N",
+      "--no-fetch",
+      "-f",
+      "--force",
+      "-r",
+      "--rebase",
+      "--ref-format",
+      "--reference",
+      "--dissociate",
+      "-m",
+      "--merge",
+      "--recursive",
+      "--checkout",
+      "--recommend-shallow",
+      "--no-recommend-shallow",
+      "--depth",
+      "-j",
+      "--jobs",
+      "--single-branch",
+      "--no-single-branch",
+      "--filter",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule set-branch": {
+    "tables": [
+      "builtin/submodule--helper.c:module_set_branch:options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {
+      "-b": {
+        "key": "branch",
+        "value": "string",
+        "checks": [
+          {
+            "id": "cli.submodule-set-branch.short-branch",
+            "kind": "required",
+            "required": [
+              {
+                "key": "$value",
+                "test": "nonempty"
+              }
+            ],
+            "origin": "git",
+            "source": "Git 2.55.0 git-submodule.sh",
+            "reason": "The shell frontend rejects an empty separate short branch value."
+          }
+        ]
+      }
+    },
+    "optionAllowlist": [
+      "-q",
+      "--quiet",
+      "-d",
+      "--default",
+      "-b",
+      "--branch",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule set-url": {
+    "tables": [
+      "builtin/submodule--helper.c:module_set_url:options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {},
+    "optionAllowlist": [
+      "-q",
+      "--quiet",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule summary": {
+    "tables": [
+      "builtin/submodule--helper.c:module_summary:module_summary_options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {
+      "--no-summary-limit": {
+        "key": "summary-limit",
+        "value": "flag",
+        "set": 0
+      },
+      "-q": {
+        "key": "quiet",
+        "value": "flag",
+        "before": 1
+      },
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag",
+        "before": 1
+      }
+    },
+    "optionAllowlist": [
+      "--cached",
+      "--files",
+      "--for-status",
+      "-n",
+      "--summary-limit",
+      "-q",
+      "--quiet",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule status": {
+    "tables": [
+      "builtin/submodule--helper.c:module_status:module_status_options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {},
+    "optionAllowlist": [
+      "-q",
+      "--quiet",
+      "--cached",
+      "--recursive",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule sync": {
+    "tables": [
+      "builtin/submodule--helper.c:module_sync:module_sync_options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {},
+    "optionAllowlist": [
+      "-q",
+      "--quiet",
+      "--recursive",
+      "-h",
+      "--help"
+    ],
+    "optionParsing": "stop-at-operand"
+  },
+  "submodule absorbgitdirs": {
+    "tables": [
+      "builtin/submodule--helper.c:absorb_git_dirs:embed_gitdir_options"
+    ],
+    "source": "git-submodule.sh",
+    "options": {
+      "-q": {
+        "key": "quiet",
+        "value": "flag",
+        "before": 1
+      },
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag",
+        "before": 1
+      }
+    }
+  },
+  "submodule--helper": {
+    "tables": [
+      "builtin/submodule--helper.c:cmd_submodule__helper:options"
+    ],
+    "source": "builtin/submodule--helper.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "sparse-checkout": {
+    "tables": [
+      "builtin/sparse-checkout.c:cmd_sparse_checkout:builtin_sparse_checkout_options"
+    ],
+    "source": "builtin/sparse-checkout.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "sparse-checkout list": {
+    "tables": [
+      "builtin/sparse-checkout.c:sparse_checkout_list:builtin_sparse_checkout_list_options"
+    ],
+    "source": "builtin/sparse-checkout.c"
+  },
+  "sparse-checkout init": {
+    "tables": [
+      "builtin/sparse-checkout.c:sparse_checkout_init:builtin_sparse_checkout_init_options"
+    ],
+    "source": "builtin/sparse-checkout.c"
+  },
+  "sparse-checkout set": {
+    "tables": [
+      "builtin/sparse-checkout.c:sparse_checkout_set:builtin_sparse_checkout_set_options"
+    ],
+    "source": "builtin/sparse-checkout.c"
+  },
+  "sparse-checkout add": {
+    "tables": [
+      "builtin/sparse-checkout.c:sparse_checkout_add:builtin_sparse_checkout_add_options"
+    ],
+    "source": "builtin/sparse-checkout.c"
+  },
+  "sparse-checkout reapply": {
+    "tables": [
+      "builtin/sparse-checkout.c:sparse_checkout_reapply:builtin_sparse_checkout_reapply_options"
+    ],
+    "source": "builtin/sparse-checkout.c"
+  },
+  "sparse-checkout clean": {
+    "tables": [
+      "builtin/sparse-checkout.c:sparse_checkout_clean:builtin_sparse_checkout_clean_options"
+    ],
+    "source": "builtin/sparse-checkout.c"
+  },
+  "sparse-checkout disable": {
+    "tables": [
+      "builtin/sparse-checkout.c:sparse_checkout_disable:builtin_sparse_checkout_disable_options"
+    ],
+    "source": "builtin/sparse-checkout.c"
+  },
+  "sparse-checkout check-rules": {
+    "tables": [
+      "builtin/sparse-checkout.c:sparse_checkout_check_rules:builtin_sparse_checkout_check_rules_options"
+    ],
+    "source": "builtin/sparse-checkout.c"
+  },
+  "submodule": {
+    "tables": [],
+    "source": "git-submodule.sh",
+    "optionParsing": "stop-at-operand",
+    "separator": false,
+    "options": {
+      "-q": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "--cached": {
+        "key": "cached",
+        "value": "flag"
+      }
+    }
   }
 }

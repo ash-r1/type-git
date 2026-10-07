@@ -47332,6 +47332,2115 @@
       "isolatedRuleWitnesses": {}
     },
     {
+      "command": "submodule--helper get-default-remote",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-get-default-remote.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule--helper foreach",
+      "rules": 0,
+      "domains": {
+        "super-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "recursive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3600",
+      "accepted": "3600",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule--helper init",
+      "rules": 0,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "240",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule--helper status",
+      "rules": 0,
+      "domains": {
+        "super-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "cached": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recursive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "10800",
+      "accepted": "10800",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule--helper summary",
+      "rules": 1,
+      "domains": {
+        "cached": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "files": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "for-status": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "summary-limit": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "9720",
+      "accepted": "8820",
+      "nodes": 13,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-summary.sources": "{\"cached\":true,\"files\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule--helper sync",
+      "rules": 0,
+      "domains": {
+        "super-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "recursive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3600",
+      "accepted": "3600",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule--helper deinit",
+      "rules": 2,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2880",
+      "accepted": "1728",
+      "nodes": 9,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-deinit.all-paths": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.submodule--helper-deinit.explicit-paths": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule--helper clone",
+      "rules": 3,
+      "domains": {
+        "prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "name": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "url": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reference": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "dissociate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "depth": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "require-init": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "single-branch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "25515000000",
+      "accepted": "1049760000",
+      "nodes": 21,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-clone.operands": "{\"operands\":[\"value\"],\"path\":\"value\",\"url\":\"\"}",
+        "cli.submodule--helper-clone.source": "{\"operands\":[]}",
+        "cli.submodule--helper-clone.ref-format": "{\"operands\":[],\"path\":\"value\",\"ref-format\":\"\",\"url\":\"\"}"
+      }
+    },
+    {
+      "command": "submodule--helper update",
+      "rules": 2,
+      "domains": {
+        "super-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "init": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "remote": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recursive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-fetch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "checkout": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "merge": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "rebase": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reference": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "dissociate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "depth": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "jobs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "recommend-shallow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "require-init": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "single-branch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "32141551680000",
+      "accepted": "8877190464000",
+      "nodes": 21,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-update.filter-init": "{\"filter\":\"\",\"operands\":[]}",
+        "cli.submodule--helper-update.ref-format": "{\"operands\":[],\"ref-format\":\"\"}"
+      }
+    },
+    {
+      "command": "submodule--helper absorbgitdirs",
+      "rules": 0,
+      "domains": {
+        "super-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "300",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule--helper set-url",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-set-url.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule--helper set-branch",
+      "rules": 3,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "default": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ]
+      },
+      "total": "13500",
+      "accepted": "1620",
+      "nodes": 21,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-set-branch.operands": "{\"argumentTokens\":[],\"default\":true,\"operands\":[]}",
+        "cli.submodule--helper-set-branch.selection": "{\"argumentTokens\":[],\"operands\":[\"value\"]}",
+        "cli.submodule--helper-set-branch.exclusive": "{\"argumentTokens\":[],\"branch\":\"\",\"default\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "submodule--helper create-branch",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "create-reflog": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "track": [
+          "undefined",
+          "\"direct\"",
+          "\"inherit\"",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "34560",
+      "accepted": "6912",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-create-branch.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule--helper add",
+      "rules": 2,
+      "domains": {
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reference": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "dissociate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "name": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "depth": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "45360000",
+      "accepted": "7776000",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-add.operands": "{\"operands\":[]}",
+        "cli.submodule--helper-add.ref-format": "{\"operands\":[\"value\"],\"ref-format\":\"\"}"
+      }
+    },
+    {
+      "command": "submodule--helper gitdir",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "6",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-gitdir.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule--helper push-check",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "18",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper-push-check.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule--helper migrate-gitdir-configs",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule add",
+      "transitions": [
+        {
+          "flag": "-b",
+          "rules": [
+            "cli.submodule-add.short-branch"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "cli.submodule-add.short-branch": "{}"
+          }
+        }
+      ],
+      "rules": 2,
+      "domains": {
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "progress": [
+          "undefined",
+          "true"
+        ],
+        "reference": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "dissociate": [
+          "undefined",
+          "true"
+        ],
+        "name": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "depth": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "20160000",
+      "accepted": "3456000",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.submodule-add.operands": "{\"operands\":[]}",
+        "cli.submodule-add.ref-format": "{\"operands\":[\"value\"],\"ref-format\":\"\"}"
+      }
+    },
+    {
+      "command": "submodule foreach",
+      "rules": 0,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "recursive": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "480",
+      "accepted": "480",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule init",
+      "rules": 0,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "240",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule deinit",
+      "rules": 2,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1920",
+      "accepted": "960",
+      "nodes": 9,
+      "isolatedRuleWitnesses": {
+        "cli.submodule-deinit.all-paths": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.submodule-deinit.explicit-paths": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule update",
+      "rules": 3,
+      "domains": {
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "short-init": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "init": [
+          "undefined",
+          "true"
+        ],
+        "remote": [
+          "undefined",
+          "true"
+        ],
+        "recursive": [
+          "undefined",
+          "true"
+        ],
+        "no-fetch": [
+          "undefined",
+          "true"
+        ],
+        "checkout": [
+          "undefined",
+          "true"
+        ],
+        "merge": [
+          "undefined",
+          "true"
+        ],
+        "rebase": [
+          "undefined",
+          "true"
+        ],
+        "reference": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "dissociate": [
+          "undefined",
+          "true"
+        ],
+        "depth": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "jobs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "recommend-shallow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true"
+        ],
+        "require-init": [
+          "undefined",
+          "true"
+        ],
+        "single-branch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "209018880000",
+      "accepted": "47775744000",
+      "nodes": 37,
+      "isolatedRuleWitnesses": {
+        "cli.submodule-update.filter-init": "{\"filter\":\"\",\"operands\":[]}",
+        "cli.submodule-update.ref-format": "{\"operands\":[],\"ref-format\":\"\"}",
+        "cli.submodule-update.short-init-forwarding": "{\"operands\":[],\"short-init\":true}"
+      }
+    },
+    {
+      "command": "submodule set-branch",
+      "transitions": [
+        {
+          "flag": "-b",
+          "rules": [
+            "cli.submodule-set-branch.short-branch"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "cli.submodule-set-branch.short-branch": "{}"
+          }
+        }
+      ],
+      "rules": 3,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "default": [
+          "undefined",
+          "true"
+        ],
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ]
+      },
+      "total": "6000",
+      "accepted": "600",
+      "nodes": 21,
+      "isolatedRuleWitnesses": {
+        "cli.submodule-set-branch.operands": "{\"argumentTokens\":[],\"default\":true,\"operands\":[]}",
+        "cli.submodule-set-branch.selection": "{\"argumentTokens\":[],\"operands\":[\"value\"]}",
+        "cli.submodule-set-branch.exclusive": "{\"argumentTokens\":[],\"branch\":\"\",\"default\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "submodule set-url",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.submodule-set-url.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule summary",
+      "rules": 1,
+      "domains": {
+        "cached": [
+          "undefined",
+          "true"
+        ],
+        "files": [
+          "undefined",
+          "true"
+        ],
+        "for-status": [
+          "undefined",
+          "true"
+        ],
+        "summary-limit": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "5760",
+      "accepted": "4560",
+      "nodes": 13,
+      "isolatedRuleWitnesses": {
+        "cli.submodule-summary.sources": "{\"cached\":true,\"files\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "submodule status",
+      "rules": 0,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "cached": [
+          "undefined",
+          "true"
+        ],
+        "recursive": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "960",
+      "accepted": "960",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule sync",
+      "rules": 0,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "recursive": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "480",
+      "accepted": "480",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule absorbgitdirs",
+      "rules": 0,
+      "domains": {
+        "super-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "600",
+      "accepted": "600",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule--helper",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"get-default-remote\"",
+          "\"foreach\"",
+          "\"init\"",
+          "\"status\"",
+          "\"summary\"",
+          "\"sync\"",
+          "\"deinit\"",
+          "\"clone\"",
+          "\"update\"",
+          "\"absorbgitdirs\"",
+          "\"set-url\"",
+          "\"set-branch\"",
+          "\"create-branch\"",
+          "\"add\"",
+          "\"gitdir\"",
+          "\"push-check\"",
+          "\"migrate-gitdir-configs\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "570",
+      "accepted": "432",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.submodule--helper.operation": "{\"operands\":[]}",
+        "cli.submodule--helper.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "sparse-checkout",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"list\"",
+          "\"init\"",
+          "\"set\"",
+          "\"add\"",
+          "\"reapply\"",
+          "\"clean\"",
+          "\"disable\"",
+          "\"check-rules\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "216",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.sparse-checkout.operation": "{\"operands\":[]}",
+        "cli.sparse-checkout.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "sparse-checkout list",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "60",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "sparse-checkout init",
+      "rules": 0,
+      "domains": {
+        "cone": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sparse-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "540",
+      "accepted": "540",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "sparse-checkout set",
+      "rules": 0,
+      "domains": {
+        "cone": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sparse-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "skip-checks": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2160",
+      "accepted": "2160",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "sparse-checkout add",
+      "rules": 0,
+      "domains": {
+        "skip-checks": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "360",
+      "accepted": "360",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "sparse-checkout reapply",
+      "rules": 0,
+      "domains": {
+        "cone": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sparse-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "540",
+      "accepted": "540",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "sparse-checkout clean",
+      "rules": 0,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2880",
+      "accepted": "2880",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "sparse-checkout disable",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "60",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "sparse-checkout check-rules",
+      "rules": 0,
+      "domains": {
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "cone": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "rules-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1800",
+      "accepted": "1800",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "submodule",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "cached": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"add\"",
+          "\"foreach\"",
+          "\"init\"",
+          "\"deinit\"",
+          "\"update\"",
+          "\"set-branch\"",
+          "\"set-url\"",
+          "\"summary\"",
+          "\"status\"",
+          "\"sync\"",
+          "\"absorbgitdirs\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1560",
+      "accepted": "900",
+      "nodes": 12,
+      "isolatedRuleWitnesses": {
+        "cli.submodule.known-operation": "{\"operand0\":\"value\",\"operands\":[]}",
+        "cli.submodule.cached-operation": "{\"cached\":true,\"operand0\":\"add\",\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

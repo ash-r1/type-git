@@ -279,3 +279,24 @@ because Git dispatches them only as the first command argument. Normal rev-parse
 still needs phase-aware modeling of unknown flags, file detection, hidden refs
 and resolved revision counts. Pickaxe retains blame grammar; Git 2.55's
 whatchanged requires the native `--i-still-use-this` opt-in.
+
+### Submodule frontends and sparse checkouts
+
+Public submodule operations and all registered submodule helper operations have
+separate schemas. An explicit frontend allowlist prevents helper-only options
+from leaking into the shell interface. Foreach's shell parser rejects `--`, while
+the helper accepts it; summary's quiet option is emitted before the operation.
+Update forwards strategy flags to the helper in fixed rebase/merge/checkout order.
+
+Git 2.55's shell recognizes `-i` but forwards it unchanged to a helper which does
+not recognize that spelling. The model therefore rejects a final `-i`, while
+accepting `-i --init`, where the long spelling replaces it before delegation.
+`--require-init` satisfies filter initialization even if a later helper
+`--no-init` appears. Summary's zero limit exits before checking cached/files.
+
+Sparse-checkout list/init/reapply/disable/clean retain Git's ignored operands.
+Set/add preserve stdin precedence, and clean does not impose an unconditional
+force flag because `clean.requireForce=false` permits omission. Cone path rules,
+submodule repository state, callback languages and nested root dispatch remain
+explicitly partial in the coverage ledger. Tests use isolated local repositories
+and enable only file transport for fixture submodules.
