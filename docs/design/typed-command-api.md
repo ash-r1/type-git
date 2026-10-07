@@ -938,3 +938,47 @@ artifacts. Child grammar/semantic validation remains delegated when repository
 state is unknown. Configuration, object/path resolution, completion exits and
 other conditional command pipelines remain audit obligations; all scopes remain
 partial.
+
+## Native option spelling and terminal operand phases
+
+Stash apply, pop, drop, clear, branch, store, push and save now execute their
+source-recorded option passes over serialized argv before applying final rules.
+`unknownOptions`, `stopAtOperand`, `keepDashDash`, `keepEndOfOptions` and
+`remainingOperands` record the parser flags and the consumer of the remaining
+words. The same runtime and bounded literal interpreters handle these fields.
+
+`parse-option-long-forms.mjs` deterministically compiles finite long-name
+resolution tables from pinned native declarations. It records separate mappings
+for bare and equals-attached words, including exact matches, unique prefixes,
+negation and ambiguity. Exact matches take precedence over earlier ambiguous
+prefixes. Git's very short negations can depend on the presence of `=`; for
+example, stash drop accepts `--n` but rejects `--n=1`. Double `no-` handling
+follows the native declaration's own `no-` prefix. Alias-family tables are
+rejected by this compiler until their equivalence rules are supported; the eight
+audited stash tables contain none. Short clusters and single-dash typo checks
+retain their native order. Raw spelling examples use operand objects so the
+serialized word, rather than an undeclared tuple name, reaches the parser.
+
+Clear stops on its first operand, so `stash clear file -h` is an arity error.
+Store uses KEEP_UNKNOWN_OPT, which disables long abbreviations and retains
+unknown words for its object operand; `stash store --unknown -h` still displays
+help. Store retains `--end-of-options`, while the ordinary parsers consume it.
+Push drops a leading retained `--` before pathspec processing. Save keeps `--`
+as part of its message. Retained words are replayed as literal operands and
+never reparsed as options. The original argv is emitted unchanged.
+
+Help exits before final arity and patch/context restrictions. An integer
+callback still fails before a later help token: `stash push --unified=bad -h`
+fails, whereas `stash push --unified=-2 -h` displays help. Without help the
+existing final range and patch requirements apply. Root stash's assumed-push
+path has different flags and remains a separate audit; it is not inferred from
+the explicit push subcommand.
+
+`node scripts/stash-parser-corpus.mjs --check` reproduces 3,452 native outcomes.
+It enumerates native-name prefixes with and without `=`, including negations,
+short clusters and selected final constraints. The isolated repository is clean;
+string-taking prefix probes end with two help words, and stdin is empty. A valid
+stash object at `refs/tags/-h` makes the post-separator store case independent of
+object absence. Runtime and compiler fixtures consume the independent results.
+Configuration, path/object resolution, completion, alias families, other native
+parser modes and further callback grammars remain open. All scopes stay partial.

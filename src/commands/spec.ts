@@ -104,6 +104,17 @@ export type CommandSpec = {
     firstPassLongNames?: readonly string[];
     /** PARSE_OPT_KEEP_DASHDASH; --end-of-options is always retained. */
     keepDashDash?: boolean;
+    /** Ordinary parsers consume --end-of-options; KEEP_UNKNOWN_OPT retains it. */
+    keepEndOfOptions?: boolean;
+    unknownOptions?: 'error' | 'keep';
+    stopAtOperand?: boolean;
+    /** Compiled native long spellings; null denotes ambiguity. */
+    longForms?: {
+      plain: Readonly<Record<string, string | null>>;
+      attached: Readonly<Record<string, string | null>>;
+    };
+    /** Commands which consume the retained argv as operands, without a revision parser. */
+    remainingOperands?: 'all' | 'drop-leading-dashdash';
     /** Stop at the first unknown option or operand (SUBCOMMAND_OPTIONAL fallback). */
     stopAtUnknown?: boolean;
     /** Ordered native wrappers with no option callbacks, before the first value parser. */

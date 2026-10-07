@@ -1,3 +1,4 @@
+import { parseOptionLongForms } from './parse-option-long-forms.mjs';
 /** Convert pinned Git parse-options tables. Custom parsers require separate scopes. */
 export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot, callbacks = { profiles: {} }, revisionSnapshot) {
   const resolve = option => callbacks.profiles[option.parser] ? { ...option, parser: callbacks.profiles[option.parser].parser } : option;
@@ -53,7 +54,9 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     for (const flag of scope.omitOptions ?? []) delete options[flag];
     let parserExit = scope.parserExit;
     if (parserExit?.firstPassTables) {
-      const { firstPassTables, remainingTables, remainingGroups, wrappers, ...exit } = parserExit;
+      const { firstPassTables, remainingTables, remainingGroups, wrappers, longOptionResolution, ...exit } = parserExit;
+      const longForms = longOptionResolution ? parseOptionLongForms(definitionsFor(firstPassTables, command), longOptionResolution === 'abbreviated') : undefined;
+      if (longForms) for (const canonical of [...Object.values(longForms.plain), ...Object.values(longForms.attached)]) if (canonical !== null && !options[canonical]) throw new Error(`${command}: unresolved native long form ${canonical}`);
       if (scope.conditionalCommand && (definitionsFor(firstPassTables, command).length || wrappers?.length || remainingTables?.length || remainingGroups?.length)) throw new Error(`${command}: conditional invocation currently requires an empty first parser without intermediate phases`);
       const prefix = wrappers?.map(({ tables: wrapperTables, ...wrapper }) => {
         const definitions = definitionsFor(wrapperTables, command);
@@ -70,7 +73,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       const remainingDetachedOptions = Object.entries(remainingOptions).filter(([flag, option]) => option.separateValue || (flag.startsWith('--') && !option.value.startsWith('optional-') && option.value !== 'flag' && (Object.hasOwn(revisionSnapshot?.options ?? {}, flag) ? revisionSnapshot.options[flag].detachedValue : true))).map(([flag]) => flag).sort();
       if (scope.inheritedOptionMarker) for (const [flag, option] of Object.entries(remainingOptions)) remainingOptions[flag] = { ...option, effects: [...(option.effects ?? []), { key: scope.inheritedOptionMarker, set: true }] };
       remainingOptions['--end-of-options'] = { key: 'revision-end-of-options', value: 'flag', consumesRest: true, ignore: true };
-      parserExit = { ...exit, ...(prefix ? { wrappers: prefix } : {}), firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions };
+      parserExit = { ...exit, ...(longForms ? { longForms } : {}), ...(prefix ? { wrappers: prefix } : {}), firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions };
     }
     result[command] = { argv: command.split(' '), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}), ...(scope.conditionalCommand ? { conditionalCommand: scope.conditionalCommand } : {}) };
   }

@@ -1,7 +1,7 @@
 import { GitArgumentError } from '../core/types.js';
 import type { CommandSpec } from './spec.js';
 
-/** KEEP_UNKNOWN_OPT disables long abbreviations. Unknown words survive for later passes. */
+/** Execute the source-recorded option pass over serialized words. */
 export function initialParserPass(
   spec: CommandSpec,
   argv: readonly string[],
@@ -44,7 +44,7 @@ export function initialParserPass(
   while (index < argv.length) {
     const word = argv[index++]!;
     if (word === '--' || word === '--end-of-options') {
-      if (word === '--end-of-options' || exit.keepDashDash) {
+      if (word === '--end-of-options' ? exit.keepEndOfOptions !== false : exit.keepDashDash) {
         remaining.push(word);
       }
       remaining.push(...argv.slice(index));
@@ -55,7 +55,7 @@ export function initialParserPass(
     }
     if (!word.startsWith('-') || word === '-') {
       remaining.push(word);
-      if (exit.stopAtUnknown) {
+      if (exit.stopAtUnknown || exit.stopAtOperand) {
         remaining.push(...argv.slice(index));
         break;
       }
@@ -63,8 +63,20 @@ export function initialParserPass(
     }
     if (word.startsWith('--')) {
       const equal = word.indexOf('=');
-      const flag = equal < 0 ? word : word.slice(0, equal);
-      if (!recognized.has(flag)) {
+      const incoming = equal < 0 ? word : word.slice(0, equal);
+      const forms = equal < 0 ? exit.longForms?.plain : exit.longForms?.attached;
+      const flag = forms
+        ? Object.hasOwn(forms, incoming)
+          ? forms[incoming]
+          : undefined
+        : incoming;
+      if (flag === null) {
+        throw new GitArgumentError(`${incoming}: ambiguous option`);
+      }
+      if (!flag || !recognized.has(flag)) {
+        if (exit.unknownOptions === 'error') {
+          throw new GitArgumentError(`${incoming}: unknown option`);
+        }
         remaining.push(word);
         if (exit.stopAtUnknown) {
           remaining.push(...argv.slice(index));
@@ -103,6 +115,9 @@ export function initialParserPass(
         }
         if (flag === '-h') {
           return help();
+        }
+        if (exit.unknownOptions === 'error') {
+          throw new GitArgumentError(`${flag}: unknown option`);
         }
         remaining.push(`-${cluster}`);
         if (exit.stopAtUnknown) {
