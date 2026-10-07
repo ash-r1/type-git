@@ -5,15 +5,21 @@ import type { CommandSpec } from './spec.js';
 export function initialParserPass(
   spec: CommandSpec,
   argv: readonly string[],
-): { exited: boolean; tokens: readonly (readonly string[])[] } {
+): {
+  exited: boolean;
+  tokens: readonly (readonly string[])[];
+  remaining: readonly string[];
+  delegated?: true;
+} {
   const exit = spec.parserExit!;
   const recognized = new Set(exit.firstPassOptions?.filter((flag) => !exit.flags.includes(flag)));
   const tokens: string[][] = [];
+  const remaining: string[] = [];
   // Git's top-level dispatcher owns this position, before the command parser runs.
   if (exit.exceptFirst?.includes(argv[0] ?? '')) {
-    return { exited: false, tokens };
+    return { exited: false, tokens, remaining: argv, delegated: true };
   }
-  const help = () => ({ exited: true, tokens: [...tokens, ['-h']] });
+  const help = () => ({ exited: true, tokens: [...tokens, ['-h']], remaining });
   const typo = (word: string) => {
     if (
       word.length >= 3 &&
@@ -26,18 +32,24 @@ export function initialParserPass(
   while (index < argv.length) {
     const word = argv[index++]!;
     if (word === '--' || word === '--end-of-options') {
+      if (word === '--end-of-options' || exit.keepDashDash) {
+        remaining.push(word);
+      }
+      remaining.push(...argv.slice(index));
       break;
     }
     if (word === '--help' || word === '--help-all') {
       return help();
     }
     if (!word.startsWith('-') || word === '-') {
+      remaining.push(word);
       continue;
     }
     if (word.startsWith('--')) {
       const equal = word.indexOf('=');
       const flag = equal < 0 ? word : word.slice(0, equal);
       if (!recognized.has(flag)) {
+        remaining.push(word);
         continue;
       }
       const option = spec.options[flag]!;
@@ -72,6 +84,7 @@ export function initialParserPass(
         if (flag === '-h') {
           return help();
         }
+        remaining.push(`-${cluster}`);
         break;
       }
       cluster = cluster.slice(1);
@@ -97,5 +110,5 @@ export function initialParserPass(
       first = false;
     }
   }
-  return { exited: false, tokens };
+  return { exited: false, tokens, remaining };
 }

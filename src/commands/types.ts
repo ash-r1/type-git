@@ -19,6 +19,7 @@ import type { ExecOpts, RawResult } from '../core/types.js';
 import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
+import type { RevisionParserPass } from './revision-parser-pass-types.js';
 import type { OptionSpec } from './spec.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
@@ -402,8 +403,14 @@ type ApplyNumeric<C extends GitCommandName, S, T> = T extends readonly [`-${infe
       : ApplyOption<S, NumericOption<C>, readonly [T[0], NumericValue<NumericOption<C>, Text>]>
     : never
   : S;
-type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
-  ? ParsingEnded<C, S> extends true
+type ApplyToken<C extends GitCommandName, S, T, O = Options<C>> = T extends readonly ['--']
+  ? (
+      '--end-of-options' extends keyof O
+        ? S extends { ended: true }
+          ? true
+          : false
+        : ParsingEnded<C, S>
+    ) extends true
     ? never
     : Put<Put<S, 'ended', true>, 'hasSeparator', true>
   : T extends { operand: infer V extends string }
@@ -419,8 +426,8 @@ type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
       : never
     : ParsingEnded<C, S> extends true
       ? never
-      : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
-        ? Options<C>[K] extends infer D extends OptionSpec
+      : T extends readonly [infer K extends keyof O, ...unknown[]]
+        ? O[K] extends infer D extends OptionSpec
           ? ApplyOption<S, D, T>
           : never
         : ApplyNumeric<C, S, T>;
@@ -438,6 +445,7 @@ type State<
   A extends readonly unknown[],
   S = Put<Initial<C>, 'argumentTokens', A>,
   First extends boolean = true,
+  O = Options<C>,
 > = [S] extends [never]
   ? never
   : S extends { parserExited: true }
@@ -447,21 +455,52 @@ type State<
         ? ParsingEnded<C, S> extends true
           ? never
           : Put<S, 'parserExited', true>
-        : State<C, Rest, ApplyToken<C, Put<S, '$remaining', Rest>, H>, false>
+        : State<C, Rest, ApplyToken<C, Put<S, '$remaining', Rest>, H, O>, false, O>
       : S;
 type InvalidPass = { invalidParserPass: true };
-type ParsedPassState<C extends GitCommandName, A extends readonly unknown[], Pass> = Pass extends {
-  exited: true;
-  tokens: infer T extends readonly unknown[];
-}
-  ? [State<C, T>] extends [never]
-    ? InvalidPass
-    : State<C, T>
-  : Pass extends { exited: 'invalid' }
-    ? InvalidPass
-    : Pass extends { exited: 'dynamic' }
+type RemainingOptions<C extends GitCommandName> =
+  Spec<C> extends { parserExit: { remainingOptions: infer O } } ? O : never;
+type RemainingState<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  E extends readonly unknown[],
+  R extends readonly string[],
+> = RevisionParserPass<Spec<C>, R> extends infer P
+  ? P extends { tokens: infer T extends readonly unknown[] }
+    ? State<
+        C,
+        T,
+        State<C, E, Put<Initial<C>, 'argumentTokens', A>>,
+        true,
+        RemainingOptions<C>
+      > extends infer S
+      ? [S] extends [never]
+        ? InvalidPass
+        : S
+      : InvalidPass
+    : P extends { dynamic: true }
       ? { parserExited: true }
-      : State<C, A>;
+      : InvalidPass
+  : InvalidPass;
+type ParsedPassState<C extends GitCommandName, A extends readonly unknown[], Pass> = Pass extends {
+  delegated: true;
+}
+  ? State<C, A>
+  : Pass extends { exited: true; tokens: infer T extends readonly unknown[] }
+    ? [State<C, T>] extends [never]
+      ? InvalidPass
+      : State<C, T>
+    : Pass extends {
+          exited: false;
+          tokens: infer E extends readonly unknown[];
+          remaining: infer R extends readonly string[];
+        }
+      ? RemainingState<C, A, E, R>
+      : Pass extends { exited: 'invalid' }
+        ? InvalidPass
+        : Pass extends { exited: 'dynamic' }
+          ? { parserExited: true }
+          : InvalidPass;
 type CommandState<C extends GitCommandName, A extends readonly unknown[]> = Spec<C> extends {
   parserExit: { firstPassOptions: readonly string[] };
 }

@@ -263,3 +263,13 @@ export function testStringCallbackTypes(git: Git, dynamic: string): void {
   // @ts-expect-error Only sign-if-invalid accepts a key suffix.
   git.command('fast-import', [['--signed-tags', 'strip=key']]);
 }
+
+export function testResidualArgvTypes(git: Git): void {
+  git.command('log', [['-n', '-L'], { operand: '1,1:file' }, { operand: '0' }]);
+  git.command('log', [['--'], ['--color', 'invalid']]);
+  git.command('fast-export', [['-G', '--'], ['-h']]);
+  // @ts-expect-error -L consumes -h in the initial pass, leaving -G without a value.
+  git.command('log', [['-G', '-L'], ['-h']]);
+  // @ts-expect-error Fast-export drops the first -- and the next pass validates color.
+  git.command('fast-export', [['--'], ['--color', 'invalid']]);
+}
