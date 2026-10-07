@@ -1197,7 +1197,7 @@ resolves the `--branches` alias, while an attached value such as
 `--branches=1` still fails before help. Both end markers are consumed, and
 following words become literal operands instead of callbacks or help tokens.
 
-`node --test scripts/parse-option-long-forms.test.mjs` checks alias pair identity,
+`node --test scripts/parse-option-long-forms.node-test.mjs` checks alias pair identity,
 nontransitive relationships, parsed flags, sticky ambiguity, exact precedence,
 inherited flags and native rejection of nested/missing aliases.
 `node scripts/alias-parser-corpus.mjs --check` reproduces 9,997 independent native
@@ -1209,3 +1209,19 @@ dry-run. No external network transfer is required.
 Ref/refspec grammars and resolution, repository/configuration and transport state,
 other callback languages, completion, platform profiles and other parser modes
 remain open. Every scope remains partial.
+
+
+## Contract compilation cache
+
+The deterministic contract runner starts a fresh compiler process for every
+batch, retaining every assertion, all source roots, the original semantic
+compiler options and Node's default heap. It uses TypeScript's standard
+incremental build cache to avoid repeatedly checking unchanged dependencies.
+The cache lives in that run's temporary directory and is removed on success or
+failure; it is never reused across runs. `node scripts/check-types.mjs --fresh`
+disables this optimization while preserving the same batches and assertions.
+
+`node --test scripts/check-types-cache.node-test.mjs` verifies that the compiler
+checks a new invalid fixture after cache population, clears diagnostics when
+that fixture is fixed, and rechecks an unchanged fixture when its imported
+source changes. Compiler-cache behavior does not add audit completeness evidence.
