@@ -563,3 +563,39 @@ and exercise immediate validation across the generated numeric options.
 Command-specific semantic restrictions, callback-defined numeric languages,
 configuration-derived defaults, platform differences, and preemptive help paths
 remain separate audit work. All command audit entries remain partial.
+
+## Numeric callback conversion stages
+
+`spec/git-numeric-callbacks.json` separates callback semantics from the native
+integer table handlers. Its source-audited profiles record strict decimal syntax,
+LP64 `strtol` overflow saturation, checked or cast 32-bit storage, signedness,
+empty values, and checks before/after conversion. Source fingerprints include the
+implementations and storage/default declarations. This is an explicit source
+audit, not automatic discovery of every C callback. The generated profile module
+also supplies the `cherryPick` and `revert` convenience-method mainline rules.
+
+For example, `--mainline=4294967297` and `--mainline=-4294967295` both narrow to
+one. `--mainline=2147483648` becomes negative and fails. Native parse-options
+integer handlers instead reject overflow and accept base-0/unit spellings.
+Revision counts use strict decimal checked integers; tab widths and apply strip
+counts add a nonnegative check. Diff context checks negativity before narrowing to unsigned
+storage, whereas grep context can narrow a negative int into unsigned context.
+The abbreviation callback clamps nonzero results below four after conversion.
+The separate revision parser's permissive `--abbrev` handling remains distinct.
+
+Numbers, bigint values, and strings use the same declared profiles. Literal
+TypeScript normalization uses deterministic decimal subtraction/modulo tables;
+invalid literal unions are rejected, while dynamic inputs and very long strings
+receive runtime scalar validation. Numeric shorthand preserves digit strings
+rather than rounding them through JavaScript numbers. Absent optional diff
+context preserves prior state. Where an optional short option has an equivalent
+long spelling, an explicitly empty value uses that long equals form: `['-U', '']`
+becomes `--unified=`, preserving zero context instead of accidentally requesting
+the omitted-value behavior. Other argument spellings stay unchanged.
+
+The finite numeric exploration report includes these profiles and their boundary
+representatives. Tests compare parser rejection with independent Git, verify
+normalization-dependent combination errors, and execute wrapped mainline values
+through convenience methods. Nongeneric convenience numeric fields still rely
+on runtime scalar checks. These additions do not establish whole-command
+semantic completeness; all audit scopes remain partial.

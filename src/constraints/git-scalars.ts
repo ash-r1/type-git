@@ -1,3 +1,4 @@
+import { type GitDecimalParser, parseGitDecimal } from './git-decimal.js';
 import { type GitIntegerParser, integerState, parseGitInteger } from './git-integer.js';
 import { validObjectFilter } from './object-filter.js';
 
@@ -32,6 +33,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 
 export type GitScalarParser =
   | GitIntegerParser
+  | GitDecimalParser
   | 'depth-initial'
   | 'object-filter'
   | 'object-filter-auto'
@@ -43,9 +45,6 @@ export type GitScalarParser =
   | 'shortlog-wrap'
   | 'show-branch-reflog'
   | 'rev-list-missing'
-  | 'abbrev'
-  | 'mainline'
-  | 'revision-count'
   | 'git-bool'
   | 'fetch-recurse'
   | 'push-recurse'
@@ -56,6 +55,9 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (typeof parser === 'object' && parser.kind === 'decimal') {
+    return parseGitDecimal(value, parser, previous);
+  }
   if (typeof parser === 'object') {
     const parsed = parseGitInteger(value, parser);
     return parsed === undefined ? { valid: false } : { valid: true, value: integerState(parsed) };
@@ -166,30 +168,6 @@ export function parseGitScalar(
       value: ['error', 'allow-any', 'print', 'print-info', 'allow-promisor'].includes(String(value))
         ? value
         : previous,
-    };
-  }
-  if (parser === 'abbrev') {
-    if (value === true) {
-      return { valid: true, value };
-    }
-    if (typeof value !== 'number' || !Number.isSafeInteger(value)) {
-      return { valid: false };
-    }
-    const converted = value | 0;
-    return { valid: true, value: converted !== 0 && converted < 4 ? 4 : converted };
-  }
-  if (parser === 'mainline') {
-    const mainline = typeof value === 'number' && Number.isSafeInteger(value) ? value | 0 : 0;
-    return { valid: mainline > 0, value: mainline };
-  }
-  if (parser === 'revision-count') {
-    return {
-      valid:
-        typeof value === 'number' &&
-        Number.isInteger(value) &&
-        value >= -2147483648 &&
-        value <= 2147483647,
-      value,
     };
   }
   if (parser === 'config-type') {

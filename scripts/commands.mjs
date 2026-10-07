@@ -17,7 +17,7 @@ const additional = JSON.parse(await readFile(new URL('spec/lfs-command-rules.jso
 const temp = await mkdtemp(join(tmpdir(), 'type-git-cli-spec-'));
 try {
   await writeFile(join(temp, 'package.json'), '{"type":"module"}');
-  for (const name of ['commands', 'inputs', 'model', 'scalars', 'git-scalars', 'git-integer', 'object-filter', 'decision-diagram']) {
+  for (const name of ['commands', 'inputs', 'model', 'scalars', 'git-scalars', 'git-integer', 'git-decimal', 'numeric-callbacks.generated', 'object-filter', 'decision-diagram']) {
     const source = await readFile(new URL(`src/constraints/${name}.ts`, root), 'utf8');
     await writeFile(join(temp, `${name}.js`), ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText);
   }
@@ -46,7 +46,7 @@ try {
       scopes[name] = { ...scopes[name], options: { ...entry.options, ...scopes[name].options } };
     }
   }
-  const catalog = gitOptions(native, scopes, nativeRules, groups, JSON.parse(await readFile(new URL('spec/upstream/git-numeric-options.json', root), 'utf8')));
+  const catalog = gitOptions(native, scopes, nativeRules, groups, JSON.parse(await readFile(new URL('spec/upstream/git-numeric-options.json', root), 'utf8')), JSON.parse(await readFile(new URL('spec/git-numeric-callbacks.json', root), 'utf8')));
   for (const [name, entry] of Object.entries(upstream.commands)) {
     const inherited = mappings[name] ? COMMAND_CONSTRAINTS[mappings[name]].filter((r) => r.origin === 'git' && r.kind !== 'unsupported').map(rename) : [];
     if (name === 'lfs checkout') inherited.push(...INPUT_CONSTRAINTS.lfsCheckout.map(rename));
@@ -64,6 +64,10 @@ try {
     for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && key !== '$remaining' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
   }
   for (const [name, entry] of Object.entries(catalog)) {
+    for (const [flag, option] of Object.entries(entry.options)) if (option.emptyValueFlag) {
+      const target = entry.options[option.emptyValueFlag];
+      if (flag.startsWith('--') || !option.emptyValueFlag.startsWith('--') || !option.value.startsWith('optional-') || !target || target.key !== option.key || target.value !== option.value) throw new Error(`${name} ${flag}: invalid empty-value alias`);
+    }
     const keys = new Set([...Object.keys(entry.initial ?? {}), ...Object.values(entry.options).flatMap(option => [option.key, ...(option.effects ?? []).map(effect => effect.key)])]);
     for (const [flag, option] of Object.entries(entry.options)) for (const effect of option.effects ?? []) for (const predicate of effect.when?.all ?? []) {
       for (const key of [predicate.key, ...(predicate.valueKey ? [predicate.valueKey] : [])]) if (!keys.has(key)) throw new Error(`${name} ${flag}: effect refers to unknown input ${key}`);
@@ -92,9 +96,9 @@ try {
   const numericScopes = [];
   for (const [command, spec] of Object.entries(catalog)) {
     const options = [];
-    for (const [flag, option] of Object.entries(spec.options)) {
+    for (const [flag, option] of [...Object.entries(spec.options), ...(spec.numericOption ? [['-<digits>', spec.numericOption]] : [])]) {
       if (typeof option.parser !== 'object') continue;
-      const id = `${option.parser.signed ? 'signed' : 'unsigned'}-${option.parser.bits}`;
+      const id = option.parser.kind === 'decimal' ? `decimal:${JSON.stringify(option.parser)}` : `${option.parser.signed ? 'signed' : 'unsigned'}-${option.parser.bits}`;
       if (!numericProfiles.has(id)) numericProfiles.set(id, {
         parser: option.parser,
         cases: scalarRepresentatives(option.parser).map(value => {
@@ -107,9 +111,10 @@ try {
     if (options.length) numericScopes.push({ command, options });
   }
   const numericReport = JSON.stringify({
-    scope: 'Deterministic boundary representatives for compiler-recorded native integer parsers, not exhaustive command semantics.',
+    scope: 'Deterministic boundary representatives for compiler-recorded integer handlers and source-audited numeric callbacks, not exhaustive command semantics.',
     source: 'https://github.com/git/git/blob/v2.55.0/parse-options.c',
     snapshot: 'spec/upstream/git-numeric-options.json',
+    callbacks: 'spec/git-numeric-callbacks.json',
     profiles: Object.fromEntries(numericProfiles), commands: numericScopes,
   }, null, 2) + '\n';
   const numericTarget = new URL('docs/design/native-integer-exploration.json', root);

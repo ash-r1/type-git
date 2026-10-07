@@ -19,6 +19,8 @@ export type OptionSpec = {
   separateValue?: boolean;
   /** Delegating parsers can require a short value in the same argv word. */
   attachedValue?: boolean;
+  /** An empty optional short argument needs its equivalent long equals spelling. */
+  emptyValueFlag?: string;
   /** Git PARSE_OPT_CMDMODE rejects a change to an already selected mode immediately. */
   modeGroup?: string;
   /** Native mode identity; aliases can select the same enum value. */

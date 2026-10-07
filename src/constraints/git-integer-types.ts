@@ -1,7 +1,7 @@
 import type { GitIntegerParser } from './git-integer.js';
 import type { IntegerLimits, IntegerProducts } from './integer-type-tables.js';
 
-type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+export type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type HexDigit = Digit | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
 type DigitIndex = {
   '0': 0;
@@ -22,8 +22,8 @@ type DigitIndex = {
   f: 15;
 };
 type Base = 2 | 8 | 10 | 16;
-type Strip<S extends string> = S extends `0${infer R}` ? Strip<R> : S extends '' ? '0' : S;
-type Reverse<S extends string, R extends string = ''> = S extends `${infer H}${infer T}`
+export type Strip<S extends string> = S extends `0${infer R}` ? Strip<R> : S extends '' ? '0' : S;
+export type Reverse<S extends string, R extends string = ''> = S extends `${infer H}${infer T}`
   ? Reverse<T, `${H}${R}`>
   : R;
 type Multiply<
@@ -39,7 +39,7 @@ type Multiply<
     ? Multiply<T, B, Carry, `${D}${R}`>
     : never
   : Strip<`${C}${R}`>;
-type AddDigit<S extends string, B extends Base, D extends HexDigit> = Multiply<
+export type AddDigit<S extends string, B extends Base, D extends HexDigit> = Multiply<
   Reverse<S>,
   B,
   `${DigitIndex[D]}`
@@ -92,7 +92,7 @@ type Magnitude<S extends string> = S extends `0${'x' | 'X'}${infer R}`
     : S extends `0${string}`
       ? Digits<S, 8>
       : Digits<S, 10>;
-type Trim<S extends string, Steps extends unknown[] = []> = Steps['length'] extends 128
+export type Trim<S extends string, Steps extends unknown[] = []> = Steps['length'] extends 128
   ? string
   : S extends `${' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${infer R}`
     ? Trim<R, [...Steps, 0]>
@@ -115,7 +115,7 @@ type Lexical<A extends string, B extends string> = A extends `${infer H extends 
       : SmallerDigit<H, J>
     : false
   : true;
-type AtMost<A extends string, B extends string> = Shorter<A, B> extends 'equal'
+export type AtMost<A extends string, B extends string> = Shorter<A, B> extends 'equal'
   ? Lexical<A, B>
   : Shorter<A, B>;
 type Bounded<S extends string, Negative extends boolean, P extends GitIntegerParser> = S extends
@@ -164,7 +164,7 @@ export type GitIntegerLiteral<V, P extends GitIntegerParser> = Extract<
 > extends never
   ? true
   : false;
-type State<S extends string> = S extends 'dynamic'
+export type State<S extends string> = S extends 'dynamic'
   ? number | bigint
   : S extends 'invalid'
     ? never

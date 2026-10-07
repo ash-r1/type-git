@@ -1,4 +1,5 @@
 import type { Constraint } from './model.js';
+import { NUMERIC_CALLBACK_PARSERS } from './numeric-callbacks.generated.js';
 
 const git = (file: string) => `https://github.com/git/git/blob/v2.48.0/${file}`;
 const lfs = (command: string) =>
@@ -1325,12 +1326,13 @@ export const COMMAND_CONSTRAINTS = {
     },
     {
       id: 'cherryPick.mainline-range',
-      kind: 'range',
+      kind: 'scalar',
       key: 'mainline',
-      min: 1,
+      parser: NUMERIC_CALLBACK_PARSERS.mainline,
       origin: 'git',
-      reason: 'Git rejects values below 1 for mainline.',
-      source: git('builtin/revert.c'),
+      reason:
+        'Git requires a positive mainline after decimal strtol conversion and narrowing to int.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/revert.c',
     },
     {
       id: 'cherryPick.abort-options',
@@ -1451,12 +1453,13 @@ export const COMMAND_CONSTRAINTS = {
     },
     {
       id: 'revert.mainline-range',
-      kind: 'range',
+      kind: 'scalar',
       key: 'mainline',
-      min: 1,
+      parser: NUMERIC_CALLBACK_PARSERS.mainline,
       origin: 'git',
-      reason: 'Git rejects values below 1 for mainline.',
-      source: git('builtin/revert.c'),
+      reason:
+        'Git requires a positive mainline after decimal strtol conversion and narrowing to int.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/revert.c',
     },
     {
       id: 'revert.abort-options',
