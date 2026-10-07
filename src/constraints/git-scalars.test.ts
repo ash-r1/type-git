@@ -56,6 +56,14 @@ describe('Git scalar grammars', () => {
         },
       );
       expect(result.error).toBeUndefined();
+      // The recorded Git 2.55/C23 libc profile accepts binary notation. Some
+      // installed Git/libc profiles (including Windows CI) reject it. Verify
+      // that known profile boundary explicitly rather than claiming agreement.
+      if (value === '0b1' && result.status !== 0) {
+        expect(result.stderr).toContain('bad boolean');
+        expect(gitBoolean(value)).toBe(true);
+        continue;
+      }
       // Git 2.25 rejects INT_MIN; the pinned 2.55 parser accepts it.
       if (
         process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true' &&
