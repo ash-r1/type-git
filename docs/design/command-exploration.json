@@ -10801,7 +10801,7 @@
         "remainingLongNames": [],
         "remainingDetachedOptions": []
       },
-      "rules": 12,
+      "rules": 14,
       "domains": {
         "quiet": [
           "undefined",
@@ -10906,8 +10906,8 @@
         ]
       },
       "total": "3401222400",
-      "accepted": "84391200",
-      "nodes": 479,
+      "accepted": "61498656",
+      "nodes": 583,
       "isolatedRuleWitnesses": {
         "reset-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
         "reset-unified-patch": "{\"operands\":[],\"unified\":0}",
@@ -10920,7 +10920,9 @@
         "reset-intent-mode": "{\"intent-to-add\":true,\"mode\":\"soft\",\"operands\":[]}",
         "reset-reference-arity": "{\"hasSeparator\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\",\"value\"]}",
         "reset-paths-mode": "{\"mode\":\"soft\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
-        "reset-file-paths": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"pathspec-from-file\":\"\"}"
+        "reset-file-paths": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"pathspec-from-file\":\"\"}",
+        "reset-unseparated-paths-mode": "{\"mode\":\"soft\",\"operands\":[\"value\",\"value\"]}",
+        "reset-unseparated-file-paths": "{\"operands\":[\"value\",\"value\"],\"pathspec-from-file\":\"\"}"
       }
     },
     {

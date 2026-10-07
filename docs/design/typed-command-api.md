@@ -1166,6 +1166,14 @@ Existing mode/path constraints run on the resulting state: `reset --hard -- -h`
 and `checkout --detach -- -h` cannot treat the literal path as help to bypass
 those constraints. NUL and token-shape checks still precede parser exits.
 
+
+Reset can consume at most one retained word as a revision. When no marker is
+recognized, two or more words therefore necessarily include paths. Declarative
+arity rules reject such words with non-mixed modes or a pathspec file. A finite
+40-case independent oracle checks explicit and late markers, mode selection,
+pathspec-file input and help timing. Single-word ref/path resolution remains
+native. This supplements the original 7,885-case option-pass corpus.
+
 `node scripts/checkout-parser-corpus.mjs --check` reproduces 7,885 independent
 native outcomes with tracked dash-prefixed files, valid dash-prefixed refs and
 file-backed LF/NUL stdin. Author/committer dates are fixed so diagnostic commit

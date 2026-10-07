@@ -20310,6 +20310,53 @@ const commandSpec37 = {
         test: 'present',
       },
     },
+    {
+      id: 'reset-unseparated-paths-mode',
+      kind: 'arity',
+      origin: 'git',
+      reason:
+        'Without a recognized separator, at most one retained word can be a revision. Two or more words necessarily include paths and cannot use a non-mixed reset mode.',
+      source: 'Git 2.55.0 builtin/reset.c:parse_args/cmd_reset',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      when: [
+        {
+          key: 'hasSeparator',
+          test: 'inactive',
+        },
+        {
+          key: 'mode',
+          test: 'present',
+        },
+        {
+          key: 'mode',
+          test: 'notEquals',
+          value: 'mixed',
+        },
+      ],
+    },
+    {
+      id: 'reset-unseparated-file-paths',
+      kind: 'arity',
+      origin: 'git',
+      reason:
+        'Without a recognized separator, at most one retained word can be a revision. Additional words necessarily include explicit paths, which cannot accompany a pathspec file.',
+      source: 'Git 2.55.0 builtin/reset.c:parse_args/cmd_reset',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      when: [
+        {
+          key: 'hasSeparator',
+          test: 'inactive',
+        },
+        {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+      ],
+    },
   ],
   source: 'builtin/reset.c',
   separator: true,
