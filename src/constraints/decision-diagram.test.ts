@@ -60,6 +60,37 @@ describe('reduced ordered decision diagrams', () => {
     expect(actual.accepted).toBe(BigInt(expected.length));
     expect(violations(scalarRules, actual.witness!)).toEqual([]);
   });
+  it('solves final boolean spellings without collapsing omitted and disabled states', () => {
+    const rules: Constraint[] = [
+      { ...evidence, id: 'mode', kind: 'scalar', key: 'untracked', parser: 'untracked-files' },
+      {
+        ...evidence,
+        id: 'matching',
+        kind: 'forbid',
+        when: [
+          { key: 'ignored', test: 'equals', value: 'matching' },
+          { key: 'untracked', test: 'gitDisabled' },
+        ],
+      },
+    ];
+    const values = {
+      untracked: [undefined, 'no', 'OFF', '-0', '1', 'normal', 'all', 'bad'],
+      ignored: [undefined, 'matching'],
+    };
+    const result = solve(rules, values);
+    expect(result.total).toBe(16n);
+    expect(result.accepted).toBe(11n);
+    expect(result.accepted).toBe(
+      BigInt(
+        [...assignments(values)].filter((value) => violations(rules, value).length === 0).length,
+      ),
+    );
+    expect(solve(rules, { ignored: values.ignored, untracked: values.untracked })).toEqual(result);
+    expect(violations(rules, { ignored: 'matching' })).toEqual([]);
+    expect(
+      violations(rules, { ignored: 'matching', untracked: 'OFF' }).map((rule) => rule.id),
+    ).toEqual(['matching']);
+  });
   it('solves compiler-width scalar rules with exact bigint boundaries', () => {
     const rules: Constraint[] = [
       {

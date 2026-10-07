@@ -1131,16 +1131,12 @@
     },
     {
       "id": "cli.status.untracked",
-      "kind": "value",
+      "kind": "scalar",
       "key": "untracked-files",
-      "allowed": [
-        "all",
-        "normal",
-        "no"
-      ],
       "origin": "git",
       "reason": "Unknown untracked-file mode.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c",
+      "parser": "untracked-files"
     },
     {
       "id": "cli.status.ignored",
@@ -1166,8 +1162,7 @@
         },
         {
           "key": "untracked-files",
-          "test": "equals",
-          "value": "no"
+          "test": "gitDisabled"
         }
       ],
       "origin": "git",
@@ -1210,16 +1205,12 @@
     },
     {
       "id": "cli.commit.untracked",
-      "kind": "value",
+      "kind": "scalar",
       "key": "untracked-files",
-      "allowed": [
-        "all",
-        "normal",
-        "no"
-      ],
       "origin": "git",
       "reason": "Unknown untracked-file mode.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c",
+      "parser": "untracked-files"
     },
     {
       "id": "cli.commit.author",
@@ -1588,6 +1579,21 @@
       "origin": "git",
       "reason": "Explicit context requires interactive mode.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/commit.c"
+    },
+    {
+      "id": "cli.commit.cleanup",
+      "kind": "value",
+      "key": "cleanup",
+      "allowed": [
+        "default",
+        "strip",
+        "whitespace",
+        "verbatim",
+        "scissors"
+      ],
+      "origin": "git",
+      "reason": "Unknown commit message cleanup mode.",
+      "source": "Git 2.55.0 builtin/commit.c:cmd_commit -> sequencer.c:get_cleanup_mode (after option parsing, before dry-run)"
     }
   ],
   "push": [
@@ -6130,6 +6136,29 @@
           "test": "nonempty"
         }
       ]
+    },
+    {
+      "id": "tag.column-lines",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "column",
+          "test": "equals",
+          "value": "always"
+        },
+        {
+          "key": "n",
+          "test": "present"
+        },
+        {
+          "key": "n",
+          "test": "notEquals",
+          "value": -1
+        }
+      ],
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/tag.c:cmd_tag; column.c:finalize_colopts; column.h:explicitly_enable_column",
+      "reason": "Explicit always-enabled columns conflict with requested tag message lines. Auto depends on tty/pager state and remains deferred."
     }
   ],
   "stash clear": [

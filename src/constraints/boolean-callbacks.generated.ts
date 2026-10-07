@@ -79,4 +79,13 @@ export const BOOLEAN_CALLBACKS = {
     caseInsensitive: true,
     source: 'builtin/fast-export.c:parse_opt_reencode_mode',
   },
+  'untracked-files': {
+    allowTrue: true,
+    names: {
+      normal: 'normal',
+      all: 'all',
+    },
+    source:
+      'builtin/commit.c:parse_untracked_setting_name; evaluated after parse_options by handle_untracked_files_arg; false means no, true means normal',
+  },
 } as const satisfies Record<string, GitBooleanProfile>;

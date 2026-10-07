@@ -104,6 +104,18 @@ type ResolveLong<
       ? undefined
       : F
     : F;
+type TakesOptionalDefault<
+  D extends OptionSpec,
+  R extends readonly string[],
+> = D['value'] extends 'flag'
+  ? true
+  : D['value'] extends `optional-${string}`
+    ? D extends { lastArgDefault: true }
+      ? R extends readonly []
+        ? true
+        : false
+      : true
+    : false;
 type LongOption<
   S extends CommandSpec,
   W extends string,
@@ -122,7 +134,7 @@ type LongOption<
         ? Option<S, K>['value'] extends 'flag'
           ? Invalid
           : Walk<S, R, readonly [...T, readonly [K, V]], N, Out>
-        : Option<S, K>['value'] extends 'flag' | `optional-${string}`
+        : TakesOptionalDefault<Option<S, K>, R> extends true
           ? Walk<S, R, readonly [...T, readonly [K]], N, Out>
           : R extends readonly [infer Value extends string, ...infer Rest extends string[]]
             ? Walk<S, Rest, readonly [...T, readonly [K, Value]], N, Out>
@@ -191,7 +203,7 @@ type Short<
                   Out
                 >
             : Rest extends ''
-              ? Option<S, `-${C}`>['value'] extends `optional-${string}`
+              ? TakesOptionalDefault<Option<S, `-${C}`>, R> extends true
                 ? Walk<S, R, readonly [...T, readonly [`-${C}`]], N, Out>
                 : R extends readonly [infer V extends string, ...infer Tail extends string[]]
                   ? Walk<S, Tail, readonly [...T, readonly [`-${C}`, V]], N, Out>

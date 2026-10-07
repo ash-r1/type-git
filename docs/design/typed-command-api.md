@@ -1101,3 +1101,43 @@ four isolated compiler fixtures check all outcomes; none are omitted.
 Configuration, interactive/edit execution, index/worktree state, pathspec and
 filesystem resolution, completion and other parser modes remain audit
 obligations. A finite corpus does not establish complete Git coverage.
+
+
+## Reference, status and commit option passes
+
+`branch`, `tag`, `status` and `commit` use their native ordinary option tables:
+long abbreviations enabled, unknown options rejected, both end markers consumed,
+and remaining words retained as operands. LASTARG_DEFAULT is distinct from an
+ordinary optional argument. For example, `branch --contains` defaults to HEAD,
+but `branch --contains -h --color=bad` consumes `-h` as the object argument and
+then rejects the color. `branch --track -h` instead reaches help. Nonempty object
+names are resolved by Git; reached callbacks reject explicitly empty names.
+
+The shared `column-mode` grammar accepts only the source's exact space/comma
+separated tokens, including empty lists. Its projection tracks the last explicit
+enable word (`always`, `never`, `auto`) with a per-occurrence default of `always`.
+`tag --column=never,row -n0` is allowed; `tag --column=row -n0` is rejected;
+`-n-1` retains the native no-lines sentinel. `auto` depends on tty/pager state
+and remains a native decision. Invalid column tokens are rejected before later
+help, as in Git. The native callback grammar also applies to other generated
+options using `parseopt_column_callback`.
+
+Untracked-file modes are checked after option parsing. The shared source-backed
+boolean profile accepts Git's boolean/configuration-integer spellings plus exact
+`normal` and `all`. A false-valued spelling conflicts with status's
+`--ignored=matching`; `--untracked-files=bad -h` reaches help. Repeated values and
+negations retain native last-assignment behavior. Commit cleanup is likewise a
+final rule, allowing `default`, `strip`, `whitespace`, `verbatim` and `scissors`,
+including under `--dry-run`.
+
+`node scripts/reference-parser-corpus.mjs --check` reproduces 9,796 independent
+Git outcomes. Native names supply deterministic prefix/negation candidates;
+Git supplies every expected outcome. A seeded repository has staged changes
+and valid object names `bad`, `1`, `-h`, `--`, and `file`, so consuming those
+words is not mistaken for a universal syntax error. Runtime and compiler checks
+cover every row. Compiler fixtures are deterministic shards of at most 400
+cases, each keeping all source roots and the default heap limit.
+
+These checks do not establish completeness: repository/configuration effects,
+nonempty object/ref resolution, tty-dependent columns, pathspecs, other callbacks,
+completion and other native parser modes remain open. All scopes remain partial.
