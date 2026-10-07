@@ -26,6 +26,8 @@ export type OptionSpec = {
   toggle?: boolean;
   /** Manual parsers such as revision --default require a detached value. */
   separateValue?: boolean;
+  /** PARSE_OPT_LASTARG_DEFAULT consumes a next word, defaulting only at end of argv. */
+  lastArgDefault?: boolean;
   /** Delegating parsers can require a short value in the same argv word. */
   attachedValue?: boolean;
   /** An empty optional short argument needs its equivalent long equals spelling. */

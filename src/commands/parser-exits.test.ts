@@ -69,8 +69,13 @@ describe('ordered exits in audited single-pass parsers', () => {
         ['--color', 'never'],
       ]),
     ).toThrow(GitArgumentError);
+    // End markers leave literal patterns; the color callback is not reached.
+    expect(
+      commandArguments('branch', [['--list'], ['--'], { operand: '-h' }, ['--color', 'invalid']]),
+    ).toEqual(['branch', '--list', '--', '-h', '--color=invalid']);
+    // A literal -h cannot suppress the final creation arity check.
     expect(() =>
-      commandArguments('branch', [['--'], { operand: '-h' }, ['--color', 'invalid']]),
+      commandArguments('branch', [['--'], ['-h'], { operand: 'two' }, { operand: 'three' }]),
     ).toThrow(GitArgumentError);
     expect(() => commandArguments('show-branch', [{ operand: 'HEAD' }, ['-h']])).toThrow(
       GitArgumentError,
