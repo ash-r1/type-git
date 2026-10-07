@@ -19808,5 +19808,207 @@
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
     }
   ],
-  "stash list": []
+  "stash list": [],
+  "scalar clone": [
+    {
+      "id": "cli.scalar.clone.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar list": [
+    {
+      "id": "cli.scalar.list.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar register": [
+    {
+      "id": "cli.scalar.register.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar unregister": [
+    {
+      "id": "cli.scalar.unregister.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar run": [
+    {
+      "id": "cli.scalar.run.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    },
+    {
+      "id": "cli.scalar.run.task",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "all",
+        "config",
+        "commit-graph",
+        "fetch",
+        "loose-objects",
+        "pack-files"
+      ],
+      "origin": "git",
+      "reason": "Scalar accepts only its registered maintenance task names.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar reconfigure": [
+    {
+      "id": "cli.scalar.reconfigure.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    },
+    {
+      "id": "cli.scalar.reconfigure.all-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Reconfigure all cannot also select an enlistment.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    },
+    {
+      "id": "cli.scalar.reconfigure.maintenance",
+      "kind": "value",
+      "key": "maintenance",
+      "allowed": [
+        "enable",
+        "disable",
+        "keep"
+      ],
+      "guard": [
+        {
+          "key": "all",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Maintenance mode is checked only in the all-enlistments branch, after final option replacement.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar delete": [
+    {
+      "id": "cli.scalar.delete.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar help": [
+    {
+      "id": "cli.scalar.help.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar version": [
+    {
+      "id": "cli.scalar.version.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar diagnose": [
+    {
+      "id": "cli.scalar.diagnose.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "This scalar operation restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "scalar": [
+    {
+      "id": "cli.scalar.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Scalar requires a registered operation.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    },
+    {
+      "id": "cli.scalar.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "clone",
+        "list",
+        "register",
+        "unregister",
+        "run",
+        "reconfigure",
+        "delete",
+        "help",
+        "version",
+        "diagnose"
+      ],
+      "origin": "git",
+      "reason": "Scalar only dispatches registered operation names.",
+      "source": "https://github.com/git/git/blob/v2.55.0/scalar.c"
+    }
+  ],
+  "gitk": [],
+  "gitweb": []
 }

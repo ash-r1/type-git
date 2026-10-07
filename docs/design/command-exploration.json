@@ -57695,6 +57695,800 @@
       "isolatedRuleWitnesses": {}
     },
     {
+      "command": "scalar clone",
+      "executable": "scalar",
+      "rules": 1,
+      "domains": {
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "full-clone": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "single-branch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "src": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "maintenance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "7290000",
+      "accepted": "2916000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.clone.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "scalar list",
+      "executable": "scalar",
+      "rules": 1,
+      "domains": {
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3000",
+      "accepted": "600",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.list.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "scalar register",
+      "executable": "scalar",
+      "rules": 1,
+      "domains": {
+        "maintenance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "18000",
+      "accepted": "7200",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.register.operands": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "scalar unregister",
+      "executable": "scalar",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6000",
+      "accepted": "2400",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.unregister.operands": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "scalar run",
+      "executable": "scalar",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"all\"",
+          "\"config\"",
+          "\"commit-graph\"",
+          "\"fetch\"",
+          "\"loose-objects\"",
+          "\"pack-files\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "24000",
+      "accepted": "8400",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.run.operands": "{\"operands\":[]}",
+        "cli.scalar.run.task": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "scalar reconfigure",
+      "executable": "scalar",
+      "rules": 3,
+      "domains": {
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "maintenance": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"enable\"",
+          "\"disable\"",
+          "\"keep\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "144000",
+      "accepted": "43200",
+      "nodes": 24,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.reconfigure.operands": "{\"operands\":[\"value\",\"value\"]}",
+        "cli.scalar.reconfigure.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.scalar.reconfigure.maintenance": "{\"all\":true,\"maintenance\":\"\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "scalar delete",
+      "executable": "scalar",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6000",
+      "accepted": "1200",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.delete.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "scalar help",
+      "executable": "scalar",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6000",
+      "accepted": "1200",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.help.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "scalar version",
+      "executable": "scalar",
+      "rules": 1,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "build-options": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "72000",
+      "accepted": "14400",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.version.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "scalar diagnose",
+      "executable": "scalar",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6000",
+      "accepted": "2400",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.diagnose.operands": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "scalar",
+      "executable": "scalar",
+      "dispatch": {
+        "clone": "scalar clone",
+        "list": "scalar list",
+        "register": "scalar register",
+        "unregister": "scalar unregister",
+        "run": "scalar run",
+        "reconfigure": "scalar reconfigure",
+        "delete": "scalar delete",
+        "help": "scalar help",
+        "version": "scalar version",
+        "diagnose": "scalar diagnose"
+      },
+      "rules": 2,
+      "domains": {
+        "C": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "c": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"clone\"",
+          "\"list\"",
+          "\"register\"",
+          "\"unregister\"",
+          "\"run\"",
+          "\"reconfigure\"",
+          "\"delete\"",
+          "\"help\"",
+          "\"version\"",
+          "\"diagnose\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "18000",
+      "accepted": "13200",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.scalar.operation": "{\"operands\":[]}",
+        "cli.scalar.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "gitk",
+      "executable": "gitk",
+      "rules": 0,
+      "domains": {
+        "select-commit": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "argscmd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "750",
+      "accepted": "750",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "gitweb",
+      "executable": "gitweb",
+      "rules": 0,
+      "domains": {
+        "fastcgi": [
+          "undefined",
+          "true"
+        ],
+        "nproc": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "360",
+      "accepted": "360",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

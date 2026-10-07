@@ -7473,5 +7473,347 @@
     "tables": [],
     "optionParsing": "none",
     "separator": false
+  },
+  "scalar clone": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_clone",
+    "tables": [
+      "scalar.c:cmd_clone:clone_options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar list": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_list",
+    "tables": [],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ],
+    "optionParsing": "none",
+    "separator": false
+  },
+  "scalar register": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_register",
+    "tables": [
+      "scalar.c:cmd_register:options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar unregister": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_unregister",
+    "tables": [
+      "scalar.c:cmd_unregister:options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar run": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_run",
+    "tables": [
+      "scalar.c:cmd_run:options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar reconfigure": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_reconfigure",
+    "tables": [
+      "scalar.c:cmd_reconfigure:options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar delete": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_delete",
+    "tables": [
+      "scalar.c:cmd_delete:options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar help": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_help",
+    "tables": [
+      "scalar.c:cmd_help:options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar version": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_version",
+    "tables": [
+      "scalar.c:cmd_version:options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar diagnose": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_diagnose",
+    "tables": [
+      "scalar.c:cmd_diagnose:options"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "before": 1,
+        "repeat": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "scalar": {
+    "executable": "scalar",
+    "source": "scalar.c:cmd_main",
+    "tables": [],
+    "separator": false,
+    "optionParsing": "stop-at-operand",
+    "omitOptions": [
+      "--help",
+      "-h"
+    ],
+    "options": {
+      "-C": {
+        "key": "C",
+        "value": "string",
+        "separateValue": true,
+        "repeat": true
+      },
+      "-c": {
+        "key": "c",
+        "value": "string",
+        "separateValue": true,
+        "repeat": true
+      }
+    },
+    "dispatch": {
+      "clone": "scalar clone",
+      "list": "scalar list",
+      "register": "scalar register",
+      "unregister": "scalar unregister",
+      "run": "scalar run",
+      "reconfigure": "scalar reconfigure",
+      "delete": "scalar delete",
+      "help": "scalar help",
+      "version": "scalar version",
+      "diagnose": "scalar diagnose"
+    }
+  },
+  "gitk": {
+    "executable": "gitk",
+    "source": "gitk-git/gitk:argv loop",
+    "tables": [],
+    "optionParsing": "none",
+    "options": {
+      "--select-commit": {
+        "key": "select-commit",
+        "value": "string"
+      },
+      "--argscmd": {
+        "key": "argscmd",
+        "value": "string"
+      }
+    }
+  },
+  "gitweb": {
+    "executable": "gitweb",
+    "source": "gitweb/gitweb.perl:evaluate_argv",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": true,
+    "options": {
+      "--fastcgi": {
+        "key": "fastcgi",
+        "value": "flag"
+      },
+      "--fcgi": {
+        "key": "fastcgi",
+        "value": "flag"
+      },
+      "-f": {
+        "key": "fastcgi",
+        "value": "flag"
+      },
+      "--nproc": {
+        "key": "nproc",
+        "value": "integer"
+      },
+      "-n": {
+        "key": "nproc",
+        "value": "integer"
+      }
+    }
   }
 }
