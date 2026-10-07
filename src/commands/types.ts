@@ -1,3 +1,9 @@
+import type { AsciiLower } from '../constraints/ascii-types.js';
+import type { GitBooleanCallback } from '../constraints/git-boolean.js';
+import type {
+  GitBooleanCallbackLiteral,
+  GitBooleanCallbackValue,
+} from '../constraints/git-boolean-types.js';
 import type {
   GitNumericLiteral,
   GitNumericParser,
@@ -16,39 +22,6 @@ type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
 type NumericOption<C extends GitCommandName> =
   Spec<C> extends { numericOption: infer D extends OptionSpec } ? D : never;
-type AsciiUpper =
-  | 'A'
-  | 'B'
-  | 'C'
-  | 'D'
-  | 'E'
-  | 'F'
-  | 'G'
-  | 'H'
-  | 'I'
-  | 'J'
-  | 'K'
-  | 'L'
-  | 'M'
-  | 'N'
-  | 'O'
-  | 'P'
-  | 'Q'
-  | 'R'
-  | 'S'
-  | 'T'
-  | 'U'
-  | 'V'
-  | 'W'
-  | 'X'
-  | 'Y'
-  | 'Z';
-// Validate the supplied literal instead of enumerating 2^N enum spellings.
-type AsciiLower<S extends string> = string extends S
-  ? string
-  : S extends `${infer H}${infer R}`
-    ? `${H extends AsciiUpper ? Lowercase<H> : H}${AsciiLower<R>}`
-    : S;
 type PrimitiveValue<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean'
   ? boolean
   : S['value'] extends 'integer' | 'optional-integer'
@@ -119,16 +92,24 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   : D extends { set: infer V }
     ? V
     : true;
-type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitNumericParser }
+type Normalize<V, D extends OptionSpec, Previous> = D extends {
+  parser: infer P extends GitNumericParser;
+}
   ? GitNumericValue<V, P>
-  : D extends { caseInsensitive: true }
-    ? D extends { preserveCase: true }
-      ? V
-      : V extends string
-        ? AsciiLower<V>
-        : V
-    : V;
-type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
+  : D extends { parser: infer P extends GitBooleanCallback }
+    ? GitBooleanCallbackValue<V, P, Previous>
+    : D extends { caseInsensitive: true }
+      ? D extends { preserveCase: true }
+        ? V
+        : V extends string
+          ? AsciiLower<V>
+          : V
+      : V;
+type TokenValue<
+  T extends readonly unknown[],
+  D extends OptionSpec,
+  Previous = undefined,
+> = Normalize<
   T extends readonly [unknown, infer V]
     ? V extends undefined
       ? DefaultValue<D>
@@ -138,7 +119,8 @@ type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
           : V
         : V
     : DefaultValue<D>,
-  D
+  D,
+  Previous
 >;
 type Append<S, D extends OptionSpec, V> = D extends { clear: true }
   ? readonly []
@@ -224,7 +206,7 @@ type UnparsedOptionState<S, D extends OptionSpec, T extends readonly unknown[]> 
     ? Put<S, D['key'], D['key'] extends keyof S ? (S[D['key']] extends true ? false : true) : true>
     : D extends { repeat: true }
       ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
-      : Put<S, D['key'], TokenValue<T, D>>;
+      : Put<S, D['key'], TokenValue<T, D, D['key'] extends keyof S ? S[D['key']] : undefined>>;
 type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: 'rev-list-missing';
 }
@@ -280,28 +262,23 @@ type CheckedCallbackState<S, D extends OptionSpec, T extends readonly unknown[]>
   : ParsedState<S, D, T>;
 type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitNumericParser }
   ? GitNumericLiteral<V, P>
-  : V extends string
-    ? string extends V
+  : D extends { parser: infer P extends GitBooleanCallback }
+    ? V extends undefined
       ? true
-      : D extends { parser: 'object-filter' | 'object-filter-auto' }
-        ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
-        : D extends { parser: 'shortlog-group' }
-          ? AsciiLower<V> extends 'author' | 'committer'
-            ? true
-            : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
+      : GitBooleanCallbackLiteral<V, P>
+    : V extends string
+      ? string extends V
+        ? true
+        : D extends { parser: 'object-filter' | 'object-filter-auto' }
+          ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
+          : D extends { parser: 'shortlog-group' }
+            ? AsciiLower<V> extends 'author' | 'committer'
               ? true
-              : false
-          : D extends { parser: 'pull-rebase' }
-            ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off'
-              ? true
-              : V extends 'merges' | 'm' | 'interactive' | 'i'
+              : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
                 ? true
-                : // Git's signed/base/unit integer language is checked at runtime.
-                  V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
-                  ? true
-                  : false
+                : false
             : true
-    : true;
+      : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: GitNumericParser;
   allowed: infer A extends readonly unknown[];

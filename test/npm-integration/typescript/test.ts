@@ -213,3 +213,18 @@ export function testParserExitTypes(git: Git, dynamic: string): void {
   // @ts-expect-error Help cannot suppress the argv representation rule.
   git.command('show-branch', [['-h'], ['--color', 'a\0b']]);
 }
+
+export function testBooleanCallbackTypes(git: Git, dynamic: string): void {
+  git.command('push', [['--signed', 'IF-ASKED'], ['-h']]);
+  git.command('push', [['--signed', undefined], ['-h']]);
+  git.command('fetch', [['--porcelain'], ['--recurse-submodules', '0k']]);
+  git.command('fetch', [['--porcelain'], ['--recurse-submodules', dynamic]]);
+  // @ts-expect-error Truthy values are not a push recursion mode.
+  git.command('push', [['--recurse-submodules', '1k'], ['-h']]);
+  // @ts-expect-error Numeric boolean input still has signed integer bounds.
+  git.command('checkout', [['--recurse-submodules', '2147483648'], ['-h']]);
+  // @ts-expect-error Unicode case folding differs from native ASCII matching.
+  git.command('push', [['--signed', 'if-asKed'], ['-h']]);
+  // @ts-expect-error Normalize numeric booleans before checking combinations.
+  git.command('fetch', [['--porcelain'], ['--recurse-submodules', '1k']]);
+}
