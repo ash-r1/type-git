@@ -2601,12 +2601,9 @@
         ],
         "recurse-submodules": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
+          "false",
           "true",
-          "false"
+          "\"on-demand\""
         ],
         "dry-run": [
           "undefined",
@@ -2697,11 +2694,9 @@
         ],
         "recurse-submodules-default": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "false"
+          "false",
+          "true",
+          "\"on-demand\""
         ],
         "update-shallow": [
           "undefined",
@@ -2824,8 +2819,8 @@
           "true"
         ]
       },
-      "total": "3330860981442321600000000000",
-      "accepted": "178157388440471040000000000",
+      "total": "1268899421501836800000000000",
+      "accepted": "53360632701895680000000000",
       "nodes": 437,
       "isolatedRuleWitnesses": {
         "cli.fetch.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",
@@ -2925,11 +2920,10 @@
         ],
         "recurse-submodules": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "false"
+          "false",
+          "\"on-demand\"",
+          "\"check\"",
+          "\"only\""
         ],
         "thin": [
           "undefined",
@@ -2977,12 +2971,9 @@
         ],
         "signed": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
+          "false",
           "true",
-          "false"
+          "\"if-asked\""
         ],
         "atomic": [
           "undefined",
@@ -3030,8 +3021,8 @@
           "true"
         ]
       },
-      "total": "9762996322800000",
-      "accepted": "4242684821760000",
+      "total": "4649045868000000",
+      "accepted": "2020326105600000",
       "nodes": 78,
       "isolatedRuleWitnesses": {
         "cli.push.mode": "{\"mirror\":true,\"operands\":[],\"tags\":true}",
@@ -3375,12 +3366,8 @@
         ],
         "recurse-submodules": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
+          "false",
+          "true"
         ],
         "progress": [
           "undefined",
@@ -3510,8 +3497,8 @@
           "true"
         ]
       },
-      "total": "46283834419200000",
-      "accepted": "52971393484800",
+      "total": "19835929036800000",
+      "accepted": "22702025779200",
       "nodes": 2433,
       "isolatedRuleWitnesses": {
         "checkout-creation": "{\"b\":\"\",\"operands\":[],\"orphan\":\"\"}",
@@ -3597,12 +3584,8 @@
         ],
         "recurse-submodules": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
+          "false",
+          "true"
         ],
         "progress": [
           "undefined",
@@ -3675,8 +3658,8 @@
           "true"
         ]
       },
-      "total": "29393280000",
-      "accepted": "424569600",
+      "total": "12597120000",
+      "accepted": "181958400",
       "nodes": 347,
       "isolatedRuleWitnesses": {
         "switch-creation": "{\"force-create\":\"\",\"operands\":[],\"orphan\":\"\"}",
@@ -3743,12 +3726,8 @@
         ],
         "recurse-submodules": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
+          "false",
+          "true"
         ],
         "progress": [
           "undefined",
@@ -3831,8 +3810,8 @@
           "true"
         ]
       },
-      "total": "476171136000",
-      "accepted": "2260887552",
+      "total": "204073344000",
+      "accepted": "968951808",
       "nodes": 1208,
       "isolatedRuleWitnesses": {
         "restore-patch-overlay": "{\"operands\":[],\"overlay\":true,\"patch\":true}",
@@ -3893,12 +3872,8 @@
         ],
         "recurse-submodules": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
-          "false"
+          "false",
+          "true"
         ],
         "patch": [
           "undefined",
@@ -3978,8 +3953,8 @@
           "true"
         ]
       },
-      "total": "7936185600",
-      "accepted": "196912800",
+      "total": "3401222400",
+      "accepted": "84391200",
       "nodes": 479,
       "isolatedRuleWitnesses": {
         "reset-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
@@ -47060,21 +47035,16 @@
         ],
         "recurse-submodules": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
+          "false",
           "true",
-          "false"
+          "\"on-demand\""
         ],
         "rebase": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
+          "false",
           "true",
-          "false"
+          "\"merges\"",
+          "\"interactive\""
         ],
         "n": [
           "undefined",
@@ -47346,8 +47316,8 @@
           "true"
         ]
       },
-      "total": "50443327363189005000000000000",
-      "accepted": "13317038423881897320000000000",
+      "total": "20589113209464900000000000000",
+      "accepted": "5435525887298733600000000000",
       "nodes": 33,
       "isolatedRuleWitnesses": {
         "cli.pull.cleanup": "{\"cleanup\":\"\",\"operands\":[]}",
@@ -53235,12 +53205,9 @@
         ],
         "signed": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
+          "false",
           "true",
-          "false"
+          "\"if-asked\""
         ],
         "push-option": [
           "undefined",
@@ -53318,8 +53285,8 @@
           "true"
         ]
       },
-      "total": "5022117450000",
-      "accepted": "2232052200000",
+      "total": "2869781400000",
+      "accepted": "1275458400000",
       "nodes": 34,
       "isolatedRuleWitnesses": {
         "cli.send-pack.operands-1-None": "{\"operands\":[]}",

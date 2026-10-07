@@ -650,3 +650,34 @@ has an earlier parsing pass than its diff options, and `diff-files` processes
 those options before handling help. Their exit phases, completion helpers,
 abbreviations, repository/configuration failures and other parse exits remain
 separate audit obligations. All command audit entries remain partial.
+
+## Boolean callback profiles
+
+`spec/git-boolean-callbacks.json` records Git's textual boolean names, signed
+32-bit integer parser and five callback profiles. Generated constants are shared
+by runtime validation and compiler literal checks. Callback profiles distinguish
+fetch recursion (`on-demand`), push recursion (`on-demand`, `check`, `only`, but
+no true value), signed push (ASCII case-insensitive `if-asked`), pull rebase
+(`merges`/`m` and `interactive`/`i`) and ordinary boolean worktree recursion.
+The push-only `only-is-on-demand` transition rewrites a previous `only` value;
+otherwise it preserves the previous value.
+
+Numeric literals use the same radix/unit/bounds model as Git configuration
+integers. Known values are normalized before combination checks: `0k` disables
+recursion, while `1k` enables it and conflicts with fetch porcelain mode. Broad
+strings, symbolic string templates and compiler walks beyond 128 characters
+retain an unknown string state and are checked at runtime. Known invalid members
+of literal unions are rejected. Optional values explicitly passed as `undefined`
+continue to use their schema defaults.
+
+The independent oracle `node scripts/boolean-callback-corpus.mjs --check`
+reproduces 59 native boolean values (including their normalized output) and 649
+callback outcomes at 11 option sites in eight commands. It requires the pinned
+Git 2.55.0 signed-integer/libc profile. Native ASCII matching also rejects
+`if-asKed`, which JavaScript Unicode lowercasing would incorrectly accept.
+The command explorer derives the complete finite set of normalized boolean and
+callback-name values directly from these profiles; it does not approximate them
+with arbitrary string samples. This is a per-field domain, not a proof that every
+combined command state is reachable. Source fingerprints are checked by the upstream verifier. The finite corpus
+and bounded literal evaluator do not claim completeness for every platform or
+command; help phases, repository state and dynamic values remain audit work.
