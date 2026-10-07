@@ -753,3 +753,35 @@ command validator remains responsible for later checks; re-parsing the residual
 argv after cross-tuple consumption remains an explicit audit obligation.
 Completion helpers, other callbacks, global help dispatch and repository state
 are also unfinished. All 430 audit scopes remain partial.
+
+## String callback languages
+
+`spec/git-string-callbacks.json` declares two case-sensitive regular string
+languages and their pinned source hashes. A choice profile contains exact words
+and prefixes with arbitrary suffixes. A first-separator profile requires two
+nonempty fields, with an optional nonempty identity form when no separator is
+present. Runtime and compiler interpreters consume the generated declarations;
+neither keeps a second hand-written list of accepted modes.
+
+`fast-export --anonymize-map` splits on the first colon. `name`, `one:two` and
+`one:two:` are accepted; an empty string, `:name` and `name:` are rejected.
+`fast-import --signed-tags` and `--signed-commits` use the modes in Git's
+`parse_sign_mode`, including the exact aliases and `sign-if-invalid=` followed
+by any key text. The empty key suffix is accepted. Key lookup, signing and
+verification outcomes are outside this lexical grammar.
+
+The compiler walks to the first separator and defers when a symbolic prefix
+could itself contain one. For example, `${string}:` may represent `one:two:`
+and therefore cannot be rejected just because its visible suffix is a colon.
+A known empty key and known invalid union members are rejected. Dynamic strings
+and walks beyond 128 characters defer to runtime; NUL remains an independent
+OS representation error. Command parser timing still applies, so an invalid
+anonymization map after a reached initial-pass help exit is ignored.
+
+`node scripts/string-callback-corpus.mjs --check` reproduces 962 native callback
+outcomes, with 960 within the compiler budget. It exhausts strings of length
+zero through four over a five-character alphabet (including colon, newline and
+Unicode), then probes exact signature modes, aliases, prefixes and mutations.
+The fast-import oracle supplies empty stdin in an isolated repository; it does
+not sign or import commits. The finite corpus does not establish command-wide
+completeness. All audit entries remain partial.

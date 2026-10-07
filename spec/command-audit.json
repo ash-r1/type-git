@@ -4539,9 +4539,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/phased-parser-exits.test.ts",
         "test/types/phased-parser-exit-corpus.ts",
-        "test/types/phased-parser-exits.ts"
+        "test/types/phased-parser-exits.ts",
+        "src/commands/string-callbacks.test.ts",
+        "test/types/string-callbacks.ts",
+        "test/types/string-callback-corpus.ts"
       ],
-      "remaining": "Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. Residual argv parsing when the initial pass does not exit (including values consumed across API token boundaries), completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations."
+      "remaining": "Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. Residual argv parsing when the initial pass does not exit (including values consumed across API token boundaries), completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Anonymization-map and signature-mode callback string languages now share declarative runtime/compiler profiles with a finite native oracle. Compiler-budget and symbolic values defer to runtime; stream commands, key resolution, non-exiting parser phases, other callbacks and environment conditions remain open."
     },
     "pack-objects": {
       "state": "partial",
@@ -4897,9 +4900,12 @@
         "test/types/import-http-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/string-callbacks.test.ts",
+        "test/types/string-callbacks.ts",
+        "test/types/string-callback-corpus.ts"
       ],
-      "remaining": "Stream/configuration/server state, full unsigned scalar and object-ID languages, HTTP manual-parser ignored/prefix options and positional phases, marks-file/path processing and submodule maps remain pending. Tests use empty/local input, CGI fixtures and parser errors without sending mail or contacting remote services."
+      "remaining": "Stream/configuration/server state, full unsigned scalar and object-ID languages, HTTP manual-parser ignored/prefix options and positional phases, marks-file/path processing and submodule maps remain pending. Tests use empty/local input, CGI fixtures and parser errors without sending mail or contacting remote services. Anonymization-map and signature-mode callback string languages now share declarative runtime/compiler profiles with a finite native oracle. Compiler-budget and symbolic values defer to runtime; stream commands, key resolution, non-exiting parser phases, other callbacks and environment conditions remain open."
     },
     "http-fetch": {
       "state": "partial",
