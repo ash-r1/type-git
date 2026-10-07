@@ -1,5 +1,5 @@
 import type { GitScalarParser } from '../constraints/git-scalars.js';
-import type { Constraint } from '../constraints/model.js';
+import type { Constraint, Predicate } from '../constraints/model.js';
 
 /** One CLI spelling; aliases share a normalized key. */
 export type OptionSpec = {
@@ -42,10 +42,13 @@ export type OptionSpec = {
   consumesRest?: boolean;
   /** Before-token constraints: $value is incoming; $remaining contains subsequent API tokens. */
   checks?: readonly Constraint[];
-  /** Ordered callback side effects on other parser variables. */
+  /** Ordered callback side effects after assigning the option. `all` tests the current state. */
   effects?: readonly {
     key: string;
-    when?: { equals: string | number | boolean } | { notEquals: string | number | boolean };
+    when?:
+      | { equals: string | number | boolean }
+      | { notEquals: string | number | boolean }
+      | { all: readonly Predicate[] };
     set: string | number | boolean;
   }[];
 };

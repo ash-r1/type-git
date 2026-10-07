@@ -16,7 +16,7 @@ const additional = JSON.parse(await readFile(new URL('spec/lfs-command-rules.jso
 const temp = await mkdtemp(join(tmpdir(), 'type-git-cli-spec-'));
 try {
   await writeFile(join(temp, 'package.json'), '{"type":"module"}');
-  for (const name of ['commands', 'inputs', 'model', 'scalars', 'git-scalars', 'decision-diagram']) {
+  for (const name of ['commands', 'inputs', 'model', 'scalars', 'git-scalars', 'object-filter', 'decision-diagram']) {
     const source = await readFile(new URL(`src/constraints/${name}.ts`, root), 'utf8');
     await writeFile(join(temp, `${name}.js`), ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText);
   }
@@ -60,6 +60,12 @@ try {
     const keys = new Set(['argumentTokens', 'operands', 'operand0', 'inRepository', 'hasSeparator', 'operandsBeforeSeparator', 'pathsAfterSeparator', ...Object.keys(entry.initial ?? {}), ...[...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])].flatMap((opt) => [opt.key, ...(opt.effects ?? []).map(effect => effect.key)])]);
     for (const rule of entry.rules) for (const key of referencedKeys(rule)) if (!keys.has(key)) throw new Error(`${name}: rule ${rule.id} refers to unknown input ${key}`);
     for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && key !== '$remaining' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
+  }
+  for (const [name, entry] of Object.entries(catalog)) {
+    const keys = new Set([...Object.keys(entry.initial ?? {}), ...Object.values(entry.options).flatMap(option => [option.key, ...(option.effects ?? []).map(effect => effect.key)])]);
+    for (const [flag, option] of Object.entries(entry.options)) for (const effect of option.effects ?? []) for (const predicate of effect.when?.all ?? []) {
+      for (const key of [predicate.key, ...(predicate.valueKey ? [predicate.valueKey] : [])]) if (!keys.has(key)) throw new Error(`${name} ${flag}: effect refers to unknown input ${key}`);
+    }
   }
   for (const [name, spec] of Object.entries(catalog)) for (const [word, target] of Object.entries(spec.dispatch ?? {})) {
     if (!catalog[target] || target !== `${name} ${word}` || catalog[target].executable !== spec.executable) throw new Error(`${name}: invalid dispatch target ${word}: ${target}`);

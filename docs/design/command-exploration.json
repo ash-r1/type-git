@@ -2033,6 +2033,48 @@
     },
     {
       "command": "clone",
+      "transitions": [
+        {
+          "flag": "--filter",
+          "rules": [
+            "filter.after-auto",
+            "filter.auto-after-filter",
+            "filter.auto-after-transform"
+          ],
+          "domains": {
+            "filter-history": [
+              "undefined",
+              "\"disabled\"",
+              "\"combined\"",
+              "\"single\"",
+              "false"
+            ],
+            "filter": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"auto\""
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"auto\""
+            ]
+          },
+          "total": "180",
+          "accepted": "129",
+          "isolatedRuleWitnesses": {
+            "filter.after-auto": "{\"filter\":\"auto\"}",
+            "filter.auto-after-filter": "{\"$value\":\"auto\",\"filter\":\"\"}",
+            "filter.auto-after-transform": "{\"$value\":\"auto\",\"filter-history\":\"disabled\"}"
+          }
+        }
+      ],
       "rules": 7,
       "domains": {
         "verbose": [
@@ -2260,6 +2302,13 @@
           "undefined",
           "true"
         ],
+        "filter-history": [
+          "undefined",
+          "\"disabled\"",
+          "\"combined\"",
+          "\"single\"",
+          "false"
+        ],
         "filter": [
           "undefined",
           "\"\"",
@@ -2310,8 +2359,8 @@
           "true"
         ]
       },
-      "total": "15254681754375000000000000",
-      "accepted": "90838637024025600000000",
+      "total": "76273408771875000000000000",
+      "accepted": "454193185120128000000000",
       "nodes": 661,
       "isolatedRuleWitnesses": {
         "cli.clone.operands": "{\"operands\":[]}",
@@ -2325,6 +2374,48 @@
     },
     {
       "command": "fetch",
+      "transitions": [
+        {
+          "flag": "--filter",
+          "rules": [
+            "filter.after-auto",
+            "filter.auto-after-filter",
+            "filter.auto-after-transform"
+          ],
+          "domains": {
+            "filter-history": [
+              "undefined",
+              "\"disabled\"",
+              "\"combined\"",
+              "\"single\"",
+              "false"
+            ],
+            "filter": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"auto\""
+            ],
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"auto\""
+            ]
+          },
+          "total": "180",
+          "accepted": "129",
+          "isolatedRuleWitnesses": {
+            "filter.after-auto": "{\"filter\":\"auto\"}",
+            "filter.auto-after-filter": "{\"$value\":\"auto\",\"filter\":\"\"}",
+            "filter.auto-after-transform": "{\"$value\":\"auto\",\"filter-history\":\"disabled\"}"
+          }
+        }
+      ],
       "rules": 11,
       "domains": {
         "verbose": [
@@ -2560,6 +2651,13 @@
           "true",
           "false"
         ],
+        "filter-history": [
+          "undefined",
+          "\"disabled\"",
+          "\"combined\"",
+          "\"single\"",
+          "false"
+        ],
         "filter": [
           "undefined",
           "\"\"",
@@ -2613,8 +2711,8 @@
           "true"
         ]
       },
-      "total": "256220075495563200000000000",
-      "accepted": "31177542977082432000000000",
+      "total": "1281100377477816000000000000",
+      "accepted": "155887714885412160000000000",
       "nodes": 395,
       "isolatedRuleWitnesses": {
         "cli.fetch.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",

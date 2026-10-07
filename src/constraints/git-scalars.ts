@@ -1,3 +1,5 @@
+import { validObjectFilter } from './object-filter.js';
+
 const ASCII_UPPERCASE = /[A-Z]/g;
 export function asciiLower(value: string): string {
   return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
@@ -41,6 +43,8 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'object-filter'
+  | 'object-filter-auto'
   | 'fast-import-sign'
   | 'fast-export-reencode'
   | 'anonymize-map'
@@ -62,6 +66,14 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'object-filter' || parser === 'object-filter-auto') {
+    return {
+      valid:
+        value === undefined ||
+        (typeof value === 'string' && validObjectFilter(value, parser === 'object-filter-auto')),
+      value,
+    };
+  }
   if (parser === 'fast-import-sign') {
     const text = String(value);
     return {

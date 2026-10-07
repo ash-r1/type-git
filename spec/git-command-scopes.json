@@ -550,7 +550,10 @@
         "value": "flag",
         "set": false
       }
-    }
+    },
+    "optionGroups": [
+      "object-filter-auto"
+    ]
   },
   "fetch": {
     "tables": [
@@ -563,7 +566,10 @@
         "value": "flag",
         "set": false
       }
-    }
+    },
+    "optionGroups": [
+      "object-filter-auto"
+    ]
   },
   "push": {
     "tables": [
@@ -6114,7 +6120,8 @@
       },
       "--filter": {
         "key": "filter",
-        "value": "string"
+        "value": "string",
+        "parser": "object-filter"
       },
       "--no-filter": {
         "key": "filter",
