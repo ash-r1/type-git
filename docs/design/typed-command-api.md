@@ -324,3 +324,20 @@ require an operation from their native dispatch tables. Common parent options
 such as object-dir can precede it. Subsequent words are delegated literally;
 select an operation-specific schema to validate that operation's arguments.
 Unlike bisect's custom terms, these dispatchers have a closed operation set.
+
+### Index callback boundaries and export modes
+
+Update-index processes paths between options and requires `--stdin` and
+`--index-info` to be last. Callback checks can inspect `$remaining`, a tuple of
+subsequent API tokens, at runtime, during literal type evaluation and in bounded
+exploration. `--again` and `--unresolve` consume the remaining words literally;
+subsequent option-looking words are represented as operand objects. Cacheinfo
+uses separate-value serialization for its native comma or legacy forms.
+
+Git 2.55 interprets negative index-version values as requests to print the
+current version; positive values must be 2, 3 or 4. Git 2.25 rejects negatives,
+so the legacy comparison excludes that changed behavior. Chmod validates each
+occurrence immediately. Fast-export validates its signature, reencoding and
+anonymization callbacks, preserves native negations and checks final import
+filename/anonymization relationships. Streaming inputs, ref/object/index state,
+legacy cacheinfo parsing and further revision processing remain pending.

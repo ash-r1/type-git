@@ -5571,5 +5571,169 @@
     ],
     "source": "builtin/repo.c",
     "optionParsing": "stop-at-operand"
+  },
+  "update-index": {
+    "tables": [
+      "builtin/update-index.c:cmd_update_index:options"
+    ],
+    "source": "builtin/update-index.c",
+    "options": {
+      "--stdin": {
+        "key": "stdin",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.update-index.stdin-last",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The low-level callback requires this option to be the last argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/update-index.c"
+          }
+        ]
+      },
+      "--index-info": {
+        "key": "index-info",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.update-index.index-info-last",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The low-level callback requires this option to be the last argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/update-index.c"
+          }
+        ]
+      },
+      "--again": {
+        "key": "again",
+        "value": "flag",
+        "consumesRest": true
+      },
+      "-g": {
+        "key": "again",
+        "value": "flag",
+        "consumesRest": true
+      },
+      "--unresolve": {
+        "key": "unresolve",
+        "value": "flag",
+        "consumesRest": true
+      },
+      "--cacheinfo": {
+        "key": "cacheinfo",
+        "value": "string",
+        "separateValue": true
+      },
+      "--chmod": {
+        "key": "chmod",
+        "value": "string",
+        "allowed": [
+          "+x",
+          "-x"
+        ]
+      },
+      "--show-index-version": {
+        "key": "index-version",
+        "value": "flag",
+        "set": -1
+      },
+      "--no-show-index-version": {
+        "key": "index-version",
+        "value": "flag",
+        "set": 0
+      },
+      "--no-index-version": {
+        "key": "index-version",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "fast-export": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "finalTables": [
+      "builtin/fast-export.c:cmd_fast_export:options"
+    ],
+    "source": "builtin/fast-export.c",
+    "options": {
+      "--signed-tags": {
+        "key": "signed-tags",
+        "value": "string",
+        "allowed": [
+          "abort",
+          "verbatim",
+          "ignore",
+          "warn-verbatim",
+          "warn",
+          "warn-strip",
+          "strip"
+        ]
+      },
+      "--no-signed-tags": {
+        "key": "signed-tags",
+        "value": "flag",
+        "ignore": true
+      },
+      "--signed-commits": {
+        "key": "signed-commits",
+        "value": "string",
+        "allowed": [
+          "abort",
+          "verbatim",
+          "ignore",
+          "warn-verbatim",
+          "warn",
+          "warn-strip",
+          "strip"
+        ]
+      },
+      "--no-signed-commits": {
+        "key": "signed-commits",
+        "value": "flag",
+        "ignore": true
+      },
+      "--tag-of-filtered-object": {
+        "key": "tag-of-filtered-object",
+        "value": "string",
+        "allowed": [
+          "abort",
+          "drop",
+          "rewrite"
+        ]
+      },
+      "--no-tag-of-filtered-object": {
+        "key": "tag-of-filtered-object",
+        "value": "flag",
+        "set": "abort"
+      },
+      "--reencode": {
+        "key": "reencode",
+        "value": "string",
+        "parser": "fast-export-reencode"
+      },
+      "--no-reencode": {
+        "key": "reencode",
+        "value": "flag",
+        "set": "abort"
+      },
+      "--anonymize-map": {
+        "key": "anonymize-map",
+        "value": "string",
+        "repeat": true,
+        "parser": "anonymize-map"
+      }
+    }
   }
 }

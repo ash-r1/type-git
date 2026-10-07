@@ -41,6 +41,8 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'fast-export-reencode'
+  | 'anonymize-map'
   | 'pull-rebase'
   | 'shortlog-group'
   | 'shortlog-wrap'
@@ -59,6 +61,14 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'anonymize-map') {
+    const text = String(value);
+    const colon = text.indexOf(':');
+    return { valid: text.length > 0 && colon !== 0 && colon !== text.length - 1, value };
+  }
+  if (parser === 'fast-export-reencode' && asciiLower(String(value)) === 'abort') {
+    return { valid: true, value: 'abort' };
+  }
   if (parser === 'shortlog-group') {
     return {
       valid:
