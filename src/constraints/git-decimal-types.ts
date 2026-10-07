@@ -50,6 +50,16 @@ type Clamp<M extends string, Negative extends boolean> = AtMost<
   : Negative extends true
     ? '9223372036854775808'
     : '9223372036854775807';
+type UnsignedLong<M extends string, Negative extends boolean> = AtMost<
+  M,
+  '18446744073709551615'
+> extends true
+  ? Negative extends true
+    ? M extends '0'
+      ? '0'
+      : Subtract<'18446744073709551616', M>
+    : M
+  : '18446744073709551615';
 type Decimal<S extends string, Steps extends unknown[] = []> = string extends S
   ? 'dynamic'
   : Steps['length'] extends 128
@@ -75,14 +85,22 @@ type After<S extends string, P extends GitDecimalParser> = P extends { positive:
       : S
     : S;
 type Convert<M extends string, Negative extends boolean, P extends GitDecimalParser> = P extends {
-  beforeNonnegative: true;
+  unsignedLong: true;
 }
-  ? Negative extends true
-    ? M extends '0'
-      ? Converted<M, Negative, P>
-      : 'invalid'
-    : Converted<M, Negative, P>
-  : Converted<M, Negative, P>;
+  ? UnsignedLong<M, Negative> extends infer U extends string
+    ? P['conversion'] extends 'checked'
+      ? AtMost<U, P['signed'] extends true ? '2147483647' : '4294967295'> extends true
+        ? After<U, P>
+        : 'invalid'
+      : After<Narrow<U, false, P['signed']>, P>
+    : never
+  : P extends { beforeNonnegative: true }
+    ? Negative extends true
+      ? M extends '0'
+        ? Converted<M, Negative, P>
+        : 'invalid'
+      : Converted<M, Negative, P>
+    : Converted<M, Negative, P>;
 type Converted<
   M extends string,
   Negative extends boolean,

@@ -1,0 +1,6241 @@
+{
+  "profile": "Git 2.55.0; LP64 strtoul saturation, unsigned negation and 32-bit int storage; LC_ALL=C",
+  "cases": [
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,9,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,9\n",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",0,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",0,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",0,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",0,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",0,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",0,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",0,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",1,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",1,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",1,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",1,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",1,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",1,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",1,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",1,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",6,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",6,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",6,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",6,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",6,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",6,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",6,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",6,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",9,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",9,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",9,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",9,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",9,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",9,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",9,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",9,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",10,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",10,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",10,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",10,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",10,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",10,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",10,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",10,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",76,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",76,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",76,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",76,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",76,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",76,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",76,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",2147483647,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",2147483647,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",2147483647,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",2147483647,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",2147483647,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",2147483647,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",2147483647,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": ",2147483647,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,,2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,0,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,0,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,0,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,0,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,0,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,0,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,0,2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,1,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,1,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,1,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,1,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,1,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,1,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,1,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,1,2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,6,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,6,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,6,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,6,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,6,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,6,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,6,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,6,2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,9,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,9,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,9,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,9,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,9,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,9,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,9,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,9,2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,10,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,10,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,10,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,10,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,10,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,10,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,10,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,10,2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,76,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,76,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,76,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,76,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,76,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,76,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,76,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,76,2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,2147483647,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,2147483647,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,2147483647,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,2147483647,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,2147483647,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,2147483647,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,2147483647,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0,2147483647,2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,0,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,0,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,0,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,0,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,0,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,0,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,0,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,1,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,1,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,1,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,1,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,1,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,1,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,1,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,1,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,6,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,6,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,6,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,6,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,6,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,6,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,6,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,6,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,9,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,9,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,9,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,9,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,9,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,9,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,9,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,9,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,10,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,10,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,10,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,10,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,10,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,10,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,10,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,10,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,76,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,76,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,76,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,76,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,76,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,76,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,76,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,2147483647,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,2147483647,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,2147483647,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,2147483647,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,2147483647,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,2147483647,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,2147483647,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1,2147483647,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,0,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,0,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,0,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,0,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,0,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,0,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,0,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,1,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,1,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,1,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,1,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,1,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,1,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,1,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,1,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,6,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,6,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,6,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,6,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,6,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,6,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,6,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,6,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,9,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,9,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,9,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,9,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,9,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,9,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,9,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,9,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,10,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,10,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,10,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,10,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,10,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,10,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,10,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,10,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,76,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,76,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,76,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,76,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,76,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,76,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,76,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,2147483647,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,2147483647,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,2147483647,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,2147483647,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,2147483647,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,2147483647,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,2147483647,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "6,2147483647,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,0,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,0,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,0,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,0,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,0,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,0,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,0,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,1,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,1,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,1,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,1,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,1,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,1,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,1,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,1,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,6,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,6,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,6,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,6,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,6,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,6,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,6,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,6,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,9,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,9,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,9,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,9,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,9,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,9,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,9,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,9,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,10,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,10,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,10,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,10,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,10,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,10,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,10,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,10,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,76,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,76,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,76,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,76,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,76,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,76,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,76,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,2147483647,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,2147483647,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,2147483647,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,2147483647,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,2147483647,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,2147483647,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,2147483647,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9,2147483647,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,0,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,0,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,0,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,0,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,0,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,0,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,0,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,1,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,1,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,1,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,1,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,1,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,1,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,1,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,1,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,6,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,6,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,6,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,6,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,6,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,6,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,6,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,6,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,9,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,9,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,9,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,9,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,9,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,9,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,9,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,9,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,10,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,10,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,10,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,10,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,10,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,10,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,10,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,10,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,76,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,76,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,76,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,76,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,76,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,76,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,76,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,2147483647,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,2147483647,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,2147483647,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,2147483647,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,2147483647,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,2147483647,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,2147483647,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "10,2147483647,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,6,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,10,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,10,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,10,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,10,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,10,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,10,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,10,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,10,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483647,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483647,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483647,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483647,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483647,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483647,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483647,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483647,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,0,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,0,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,0,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,0,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,0,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,0,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,0,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,1,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,1,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,1,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,1,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,1,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,1,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,1,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,1,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,6,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,6,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,6,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,6,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,6,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,6,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,6,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,6,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,9,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,9,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,9,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,9,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,9,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,9,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,9,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,9,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,10,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,10,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,10,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,10,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,10,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,10,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,10,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,10,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,76,",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,76,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,76,1",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,76,6",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,76,9",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,76,10",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,76,76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,76,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,2147483647,",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,2147483647,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,2147483647,1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,2147483647,6",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,2147483647,9",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,2147483647,10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,2147483647,76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647,2147483647,2147483647",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-0,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "+0,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,+0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,+0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-1,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-1,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "010,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,010,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,010",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "08,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,08,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,08",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0x10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0x10,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0x10,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,0x10",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0b1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "0b1,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0b1,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,0b1",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1k",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "1k,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,1k,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,1k",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "2147483648,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,2147483648,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,2147483648",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-2147483648",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-2147483648,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-2147483648,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-2147483648",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "4294967296",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "4294967296,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,4294967296,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,4294967296",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9223372036854775808",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "9223372036854775808,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,9223372036854775808,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,9223372036854775808",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "18446744073709551615",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "18446744073709551615,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,18446744073709551615,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,18446744073709551615",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "18446744073709551616",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "18446744073709551616,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,18446744073709551616,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,18446744073709551616",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "18446744073709551617",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "18446744073709551617,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,18446744073709551617,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,18446744073709551617",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744073709551615",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744073709551615,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-18446744073709551615,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-18446744073709551615",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744073709551540",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744073709551540,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-18446744073709551540,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-18446744073709551540",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744071562067969",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744071562067969,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-18446744071562067969,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-18446744071562067969",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744071562067968",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744071562067968,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-18446744071562067968,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-18446744071562067968",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744073709551616",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744073709551616,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-18446744073709551616,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-18446744073709551616",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744073709551617",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-18446744073709551617,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-18446744073709551617,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-18446744073709551617",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "99999999999999999999999999999999999999999999999999",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "99999999999999999999999999999999999999999999999999,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,99999999999999999999999999999999999999999999999999,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,99999999999999999999999999999999999999999999999999",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-99999999999999999999999999999999999999999999999999",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-99999999999999999999999999999999999999999999999999,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-99999999999999999999999999999999999999999999999999,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-99999999999999999999999999999999999999999999999999",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": " 76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": " 76,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76, 76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0, 76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "\t76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "\t76,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,\t76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,\t76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "\n76",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "\n76,0,0",
+      "valid": true
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,\n76,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,\n76",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76 ",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76 ,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76 ,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,76 ",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76\n",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76\n,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76\n,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,76\n",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76\r",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76\r,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76\r,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,76\r",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76\r\n",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76\r\n,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76\r\n,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,76\r\n",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76 ",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76 ,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76 ,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,76 ",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76 ",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76 ,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,76 ,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,76 ",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": " ,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76, ,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0, ",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "\n",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "\n,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,\n,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,\n",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "+",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "+,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,+,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,+",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "-,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,-,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,-",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "invalid",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "invalid,0,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,invalid,0",
+      "valid": false
+    },
+    {
+      "parser": "shortlog-wrap",
+      "command": "shortlog",
+      "flag": "-w",
+      "value": "76,0,invalid",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": ",date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": ",date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": ",",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": ",,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-0,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-0,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-0,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-0,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+0,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+0,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+0,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+0,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-1,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-1,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-1,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-1,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "010,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "010,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "010,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "010,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "08",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "08,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "08,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "08,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "08,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0x10",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0x10,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0x10,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0x10,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0x10,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0b1",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0b1,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0b1,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0b1,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "0b1,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1k",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1k,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1k,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1k,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "1k,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483647,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483647,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483647,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483647,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483648",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483648,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483648,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483648,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "2147483648,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-2147483648,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-2147483648,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-2147483648,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-2147483648,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "4294967296",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "4294967296,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "4294967296,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "4294967296,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "4294967296,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "9223372036854775808",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "9223372036854775808,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "9223372036854775808,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "9223372036854775808,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "9223372036854775808,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551615",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551615,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551615,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551615,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551615,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551616",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551616,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551616,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551616,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551616,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551617",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551617,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551617,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551617,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "18446744073709551617,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551615",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551615,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551615,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551615,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551615,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551540",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551540,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551540,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551540,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551540,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067969",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067969,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067969,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067969,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067969,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067968",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067968,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067968,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067968,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744071562067968,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551616",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551616,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551616,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551616,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551616,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551617",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551617,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551617,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551617,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-18446744073709551617,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "99999999999999999999999999999999999999999999999999",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "99999999999999999999999999999999999999999999999999,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "99999999999999999999999999999999999999999999999999,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "99999999999999999999999999999999999999999999999999,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "99999999999999999999999999999999999999999999999999,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-99999999999999999999999999999999999999999999999999",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-99999999999999999999999999999999999999999999999999,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-99999999999999999999999999999999999999999999999999,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-99999999999999999999999999999999999999999999999999,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-99999999999999999999999999999999999999999999999999,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " 76",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " 76,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " 76,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " 76,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " 76,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\t76",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\t76,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\t76,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\t76,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\t76,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n76",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n76,date",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n76,date\n",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n76,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n76,,",
+      "valid": true
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\n,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\n,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\n,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\n,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r\n,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r\n,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r\n,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76\r\n,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "76 ,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " ,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " ,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " ,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": " ,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "\n,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "+,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "-,,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "invalid",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "invalid,date",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "invalid,date\n",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "invalid,",
+      "valid": false
+    },
+    {
+      "parser": "show-branch-reflog",
+      "command": "show-branch",
+      "flag": "--reflog",
+      "value": "invalid,,",
+      "valid": false
+    }
+  ],
+  "exits": [
+    {
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "-w",
+          "76\n"
+        ]
+      ],
+      "argv": [
+        "shortlog",
+        "-h",
+        "-w76\n"
+      ],
+      "valid": true
+    },
+    {
+      "tokens": [
+        [
+          "-w",
+          "76\n"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "shortlog",
+        "-w76\n",
+        "-h"
+      ],
+      "valid": false
+    },
+    {
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "shortlog",
+        "--color=invalid",
+        "-h"
+      ],
+      "valid": false
+    },
+    {
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "shortlog",
+        "-h",
+        "--color=invalid"
+      ],
+      "valid": true
+    },
+    {
+      "tokens": [
+        [
+          "--color",
+          "AUTO"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "shortlog",
+        "--color=AUTO",
+        "-h"
+      ],
+      "valid": true
+    },
+    {
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "shortlog",
+        "--no-color",
+        "-h"
+      ],
+      "valid": true
+    },
+    {
+      "tokens": [
+        [
+          "-w",
+          "-18446744073709551540"
+        ],
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "shortlog",
+        "-w-18446744073709551540",
+        "--color=auto",
+        "-h"
+      ],
+      "valid": true
+    }
+  ]
+}

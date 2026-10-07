@@ -45481,6 +45481,18 @@
     },
     {
       "command": "shortlog",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/shortlog.c:cmd_shortlog parse_options_step/parse_revision_opt loop; parse-options.c; git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "transitions": [
         {
           "flag": "-S",
@@ -45860,11 +45872,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -46872,8 +46882,8 @@
           "true"
         ]
       },
-      "total": "6749945724081320474636376706890754293082538008517082611712000000000000000000000000000000000000000000000",
-      "accepted": "11053688895712034339073667494787157203177336810523678132404224000000000000000000000000000000000000000",
+      "total": "4499963816054213649757584471260502862055025339011388407808000000000000000000000000000000000000000000000",
+      "accepted": "7369125930474689559382444996524771468784891207015785421602816000000000000000000000000000000000000000",
       "nodes": 13627,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
