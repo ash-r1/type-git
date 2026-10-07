@@ -62,6 +62,12 @@ function buildArguments(
       return serialized;
     }
     if (!pass.delegated) {
+      if (spec.conditionalCommand) {
+        // A missing ref returns success before the child parses any values.
+        // Ref existence is unknown here; native Git evaluates its own gate
+        // without an additional, potentially stale preflight in this builder.
+        return serialized;
+      }
       const remaining = revisionParserPass(spec, pass.remaining);
       buildArguments(command, [...pass.tokens, ...remaining], inRepository, 'pipeline', {
         firstCount: pass.tokens.length,
