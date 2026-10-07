@@ -586,7 +586,9 @@ The separate revision parser's permissive `--abbrev` handling remains distinct.
 Numbers, bigint values, and strings use the same declared profiles. Literal
 TypeScript normalization uses deterministic decimal subtraction/modulo tables;
 invalid literal unions are rejected, while dynamic inputs and very long strings
-receive runtime scalar validation. Numeric shorthand preserves digit strings
+receive runtime scalar validation. Symbolic number/bigint slots inside numeric
+strings also defer to runtime, including templates with a fixed prefix or unit
+suffix; a known invalid prefix is still rejected. Numeric shorthand preserves digit strings
 rather than rounding them through JavaScript numbers. Absent optional diff
 context preserves prior state. Where an optional short option has an equivalent
 long spelling, an explicitly empty value uses that long equals form: `['-U', '']`

@@ -2,6 +2,10 @@ import type { ObjectFilterLiteral } from '../../src/constraints/object-filter-ty
 type Yes<T extends true> = T;
 type No<T extends false> = T;
 export type Limits = [
+  Yes<ObjectFilterLiteral<`tree:${number}`>>,
+  Yes<ObjectFilterLiteral<`tree:${bigint}`>>,
+  Yes<ObjectFilterLiteral<`tree:1${number}`>>,
+  Yes<ObjectFilterLiteral<`blob:limit=${number}k`>>,
   Yes<ObjectFilterLiteral<string>>,
   No<ObjectFilterLiteral<'tree:1' | 'tree:18446744073709551616'>>,
   Yes<ObjectFilterLiteral<'tree:1' | 'tree:2'>>,

@@ -179,7 +179,8 @@ export function testNumericCallbackTypes(git: Git): void {
   git.command('rev-list', [['--max-count', '1k'], ['--all']]);
 }
 
-export function testObjectFilterByteTypes(git: Git): void {
+export function testObjectFilterByteTypes(git: Git, dynamicCount: number): void {
+  git.command('fetch', [['--filter', `tree:${dynamicCount}`]]);
   git.command('fetch', [['--filter', 'tree:18446744073709551615']]);
   git.command('fetch', [['--filter', 'combine:tree:%2b1']]);
   // @ts-expect-error Numeric unit multiplication overflows unsigned long.
