@@ -184,3 +184,20 @@ These scopes remain partial. In particular, column's original first --command
 value, delegated filter/format grammars, configuration-dependent restrictions,
 numeric spellings and binary output require further work. Raw string output does
 not provide a binary archive/object transport contract.
+
+### Protocol and text utilities
+
+The CLI catalogue includes mailinfo, mailsplit, interpret-trailers, url-parse,
+hook run/list, credential operations and helpers, checkout--worker, merge helpers
+and archive transport helpers. Mail splitting preserves attached short-option
+values and its positional output-directory forms. Trailer callbacks accept
+ASCII case-insensitive enums, including long names, and `--parse` updates the
+three underlying flags; later negation and clearing the trailer list are honored.
+Hook arguments require a separator after the hook name. Unknown hook names need
+the native opt-in flag. Credential-store ignores unknown operations, while the
+root credential command rejects them; credential-cache also ignores extra words.
+
+This adds argument schemas, not typed wire protocols. Tests use synthetic
+credentials, isolated files, harmless fixture hooks, and local protocol input.
+They never start a credential cache daemon. Binary I/O, platform conditions and
+the full delegated protocol grammars remain separate work in the coverage ledger.

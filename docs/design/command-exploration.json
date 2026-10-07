@@ -28648,6 +28648,988 @@
       }
     },
     {
+      "command": "mailinfo",
+      "rules": 1,
+      "domains": {
+        "k": [
+          "undefined",
+          "true"
+        ],
+        "b": [
+          "undefined",
+          "true"
+        ],
+        "message-id": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "u": [
+          "undefined",
+          "true"
+        ],
+        "n": [
+          "undefined",
+          "true"
+        ],
+        "encoding": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "scissors": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quoted-cr": [
+          "undefined",
+          "\"nowarn\"",
+          "\"warn\"",
+          "\"strip\""
+        ],
+        "inbody-headers": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "518400",
+      "accepted": "103680",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.mailinfo.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "mailsplit",
+      "transitions": [
+        {
+          "flag": "-o",
+          "rules": [
+            "cli.mailsplit.empty-output"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "4",
+          "isolatedRuleWitnesses": {
+            "cli.mailsplit.empty-output": "{\"$value\":\"\"}"
+          }
+        }
+      ],
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "digits": [
+          "undefined",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "start": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "true"
+        ],
+        "output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bare": [
+          "undefined",
+          "true"
+        ],
+        "keep-cr": [
+          "undefined",
+          "true"
+        ],
+        "mboxrd": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"-\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "403200",
+      "accepted": "295680",
+      "nodes": 17,
+      "isolatedRuleWitnesses": {
+        "cli.mailsplit.implicit-output": "{\"operands\":[]}",
+        "cli.mailsplit.stdin-marker": "{\"operand0\":\"-\",\"operands\":[],\"output\":\"\"}"
+      }
+    },
+    {
+      "command": "interpret-trailers",
+      "rules": 2,
+      "domains": {
+        "in-place": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "trim-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "where": [
+          "undefined",
+          "\"after\"",
+          "\"before\"",
+          "\"end\"",
+          "\"start\""
+        ],
+        "if-exists": [
+          "undefined",
+          "\"addifdifferent\"",
+          "\"addifdifferentneighbor\"",
+          "\"add\"",
+          "\"replace\"",
+          "\"donothing\""
+        ],
+        "if-missing": [
+          "undefined",
+          "\"donothing\"",
+          "\"add\""
+        ],
+        "only-trailers": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "only-input": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unfold": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "parse": [
+          "undefined",
+          "true"
+        ],
+        "no-divider": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "trailer": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "78732000",
+      "accepted": "53887680",
+      "nodes": 20,
+      "isolatedRuleWitnesses": {
+        "cli.interpret-trailers.input-only": "{\"only-input\":true,\"operands\":[],\"trailer\":[\"\"]}",
+        "cli.interpret-trailers.in-place": "{\"in-place\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "url-parse",
+      "rules": 2,
+      "domains": {
+        "component": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"path\"",
+          "\"host\"",
+          "\"scheme\"",
+          "\"user\"",
+          "\"password\"",
+          "\"port\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "660",
+      "accepted": "336",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.url-parse.urls": "{\"operands\":[]}",
+        "cli.url-parse.component": "{\"component\":\"\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "hook run",
+      "rules": 4,
+      "domains": {
+        "allow-unknown-hook-name": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-missing": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "to-stdin": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "jobs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"applypatch-msg\"",
+          "\"commit-msg\"",
+          "\"fsmonitor-watchman\"",
+          "\"p4-changelist\"",
+          "\"p4-post-changelist\"",
+          "\"p4-pre-submit\"",
+          "\"p4-prepare-changelist\"",
+          "\"post-applypatch\"",
+          "\"post-checkout\"",
+          "\"post-commit\"",
+          "\"post-index-change\"",
+          "\"post-merge\"",
+          "\"post-receive\"",
+          "\"post-rewrite\"",
+          "\"post-update\"",
+          "\"pre-applypatch\"",
+          "\"pre-auto-gc\"",
+          "\"pre-commit\"",
+          "\"pre-merge-commit\"",
+          "\"pre-push\"",
+          "\"pre-rebase\"",
+          "\"pre-receive\"",
+          "\"prepare-commit-msg\"",
+          "\"proc-receive\"",
+          "\"push-to-checkout\"",
+          "\"reference-transaction\"",
+          "\"sendemail-validate\"",
+          "\"update\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "1944000",
+      "accepted": "356400",
+      "nodes": 64,
+      "isolatedRuleWitnesses": {
+        "cli.hook-run.hook-name": "{\"operand0\":\"value\",\"operands\":[\"value\"]}",
+        "cli.hook-run.hook-only": "{\"operands\":[]}",
+        "cli.hook-run.hook-before-args": "{\"hasSeparator\":true,\"operands\":[]}",
+        "cli.hook-run.jobs": "{\"jobs\":-2,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "hook list",
+      "rules": 2,
+      "domains": {
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "show-scope": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "allow-unknown-hook-name": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"applypatch-msg\"",
+          "\"commit-msg\"",
+          "\"fsmonitor-watchman\"",
+          "\"p4-changelist\"",
+          "\"p4-post-changelist\"",
+          "\"p4-pre-submit\"",
+          "\"p4-prepare-changelist\"",
+          "\"post-applypatch\"",
+          "\"post-checkout\"",
+          "\"post-commit\"",
+          "\"post-index-change\"",
+          "\"post-merge\"",
+          "\"post-receive\"",
+          "\"post-rewrite\"",
+          "\"post-update\"",
+          "\"pre-applypatch\"",
+          "\"pre-auto-gc\"",
+          "\"pre-commit\"",
+          "\"pre-merge-commit\"",
+          "\"pre-push\"",
+          "\"pre-rebase\"",
+          "\"pre-receive\"",
+          "\"prepare-commit-msg\"",
+          "\"proc-receive\"",
+          "\"push-to-checkout\"",
+          "\"reference-transaction\"",
+          "\"sendemail-validate\"",
+          "\"update\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "16200",
+      "accepted": "3168",
+      "nodes": 14,
+      "isolatedRuleWitnesses": {
+        "cli.hook-list.hook-name": "{\"operand0\":\"value\",\"operands\":[\"value\"]}",
+        "cli.hook-list.hook": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "credential",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"fill\"",
+          "\"approve\"",
+          "\"reject\"",
+          "\"capability\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "30",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.credential.operands": "{\"operands\":[]}",
+        "cli.credential.operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "credential fill",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.credential-fill.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "credential approve",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.credential-approve.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "credential reject",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.credential-reject.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "credential capability",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.credential-capability.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "credential-store",
+      "rules": 1,
+      "domains": {
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "60",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.credential-store.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "credential-cache",
+      "rules": 1,
+      "domains": {
+        "timeout": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "socket": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1800",
+      "accepted": "1440",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.credential-cache.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "credential-cache--daemon",
+      "rules": 1,
+      "domains": {
+        "debug": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "144",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.credential-cache--daemon.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "checkout--worker",
+      "rules": 1,
+      "domains": {
+        "prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "60",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.checkout--worker.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "merge-ours",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "60",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {
+        "cli.merge-ours.operands": null
+      }
+    },
+    {
+      "command": "merge-one-file",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "96",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.merge-one-file.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "get-tar-commit-id",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.get-tar-commit-id.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "upload-archive",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.upload-archive.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "upload-archive--writer",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.upload-archive--writer.operands": "{\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

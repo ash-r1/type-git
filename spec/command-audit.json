@@ -2148,6 +2148,206 @@
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
       "typedCommandAPI": true
+    },
+    "mailinfo": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "mailsplit": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "interpret-trailers": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "url-parse": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "hook run": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. The alternative --end-of-options marker and unusual literal marker positions need separate grammar work.",
+      "typedCommandAPI": true
+    },
+    "hook list": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "credential": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "credential fill": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "credential approve": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "credential reject": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "credential capability": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "credential-store": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "credential-cache": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "credential-cache--daemon": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "checkout--worker": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "merge-ours": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "merge-one-file": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "get-tar-commit-id": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "upload-archive": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
+    },
+    "upload-archive--writer": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/protocol-utilities.test.ts",
+        "test/types/protocol-utility-command-api.ts"
+      ],
+      "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
+      "typedCommandAPI": true
     }
   }
 }

@@ -28,7 +28,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `check-mailmap` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `check-ref-format` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `checkout` | documented | partial | yes | checkoutBranch, checkoutPath | Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. |
-| `checkout--worker` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
+| `checkout--worker` | builtin-undocumented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `checkout-index` | documented | partial | yes |  | Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. |
 | `cherry` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `cherry-pick` | documented | partial | yes | cherryPick | Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. |
@@ -50,10 +50,14 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `config set` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
 | `config unset` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
 | `count-objects` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
-| `credential` | documented | pending | pending |  | Audit every applicable facet. |
-| `credential-cache` | documented | pending | pending |  | Audit every applicable facet. |
-| `credential-cache--daemon` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
-| `credential-store` | documented | pending | pending |  | Audit every applicable facet. |
+| `credential` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `credential approve` | reviewed-scope | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `credential capability` | reviewed-scope | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `credential fill` | reviewed-scope | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `credential reject` | reviewed-scope | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `credential-cache` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `credential-cache--daemon` | builtin-undocumented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `credential-store` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `cvsexportcommit` | documented | pending | pending |  | Audit every applicable facet. |
 | `cvsimport` | documented | pending | pending |  | Audit every applicable facet. |
 | `cvsserver` | documented | pending | pending |  | Audit every applicable facet. |
@@ -81,7 +85,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `fsck-objects` | builtin-undocumented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `fsmonitor--daemon` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `gc` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
-| `get-tar-commit-id` | documented | pending | pending |  | Audit every applicable facet. |
+| `get-tar-commit-id` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `gitk` | companion | pending | pending |  | Audit every applicable facet. |
 | `gitweb` | companion | pending | pending |  | Audit every applicable facet. |
 | `grep` | documented | pending | pending |  | Audit every applicable facet. |
@@ -90,6 +94,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `help` | documented | pending | pending |  | Audit every applicable facet. |
 | `history` | documented | pending | pending |  | Audit every applicable facet. |
 | `hook` | documented | pending | pending |  | Audit every applicable facet. |
+| `hook list` | reviewed-scope | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `hook run` | reviewed-scope | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. The alternative --end-of-options marker and unusual literal marker positions need separate grammar work. |
 | `http-backend` | documented | pending | pending |  | Audit every applicable facet. |
 | `http-fetch` | documented | pending | pending |  | Audit every applicable facet. |
 | `http-push` | documented | pending | pending |  | Audit every applicable facet. |
@@ -98,7 +104,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `init` | documented | partial | yes | init | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `init-db` | builtin-undocumented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `instaweb` | documented | pending | pending |  | Audit every applicable facet. |
-| `interpret-trailers` | documented | pending | pending |  | Audit every applicable facet. |
+| `interpret-trailers` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `last-modified` | documented | pending | pending |  | Audit every applicable facet. |
 | `lfs` | reviewed-scope | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `lfs checkout` | lfs-registered | partial | yes | lfsCheckout | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
@@ -150,8 +156,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `ls-files` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `ls-remote` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `ls-tree` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
-| `mailinfo` | documented | pending | pending |  | Audit every applicable facet. |
-| `mailsplit` | documented | pending | pending |  | Audit every applicable facet. |
+| `mailinfo` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `mailsplit` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `maintenance` | documented | pending | pending |  | Audit every applicable facet. |
 | `maintenance is-needed` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `maintenance register` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
@@ -163,8 +169,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `merge-base` | documented | partial | yes |  | Object and ref resolution, fork-point reflog state and abbreviated option spellings. |
 | `merge-file` | documented | partial | yes |  | Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. |
 | `merge-index` | documented | pending | pending |  | Audit every applicable facet. |
-| `merge-one-file` | documented | pending | pending |  | Audit every applicable facet. |
-| `merge-ours` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
+| `merge-one-file` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `merge-ours` | builtin-undocumented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `merge-recursive` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `merge-recursive-ours` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `merge-recursive-theirs` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
@@ -293,10 +299,10 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `update-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `update-ref` | documented | partial | yes |  | Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. |
 | `update-server-info` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
-| `upload-archive` | documented | pending | pending |  | Audit every applicable facet. |
-| `upload-archive--writer` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
+| `upload-archive` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
+| `upload-archive--writer` | builtin-undocumented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `upload-pack` | documented | pending | pending |  | Audit every applicable facet. |
-| `url-parse` | documented | pending | pending |  | Audit every applicable facet. |
+| `url-parse` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `var` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `verify-commit` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `verify-pack` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |

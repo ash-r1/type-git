@@ -48302,6 +48302,1069 @@ export const COMMAND_SPECS = {
     separator: false,
     optionParsing: 'none',
   },
+  mailinfo: {
+    argv: ['mailinfo'],
+    options: {
+      '-k': {
+        key: 'k',
+        value: 'flag',
+      },
+      '-b': {
+        key: 'b',
+        value: 'flag',
+      },
+      '--message-id': {
+        key: 'message-id',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'message-id',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'u',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'n',
+        value: 'flag',
+      },
+      '--encoding': {
+        key: 'encoding',
+        value: 'string',
+      },
+      '--scissors': {
+        key: 'scissors',
+        value: 'flag',
+      },
+      '--quoted-cr': {
+        key: 'quoted-cr',
+        value: 'string',
+        allowed: ['nowarn', 'warn', 'strip'],
+      },
+      '--inbody-headers': {
+        key: 'inbody-headers',
+        value: 'flag',
+      },
+      '--no-message-id': {
+        key: 'message-id',
+        value: 'flag',
+        set: false,
+      },
+      '--no-scissors': {
+        key: 'scissors',
+        value: 'flag',
+        set: false,
+      },
+      '--no-inbody-headers': {
+        key: 'inbody-headers',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.mailinfo.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        max: 2,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/mailinfo.c',
+      },
+    ],
+    source: 'builtin/mailinfo.c',
+    separator: true,
+  },
+  mailsplit: {
+    argv: ['mailsplit'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'digits',
+        value: 'integer',
+        attachedValue: true,
+        allowed: [3, 4, 5, 6, 7, 8, 9],
+      },
+      '-f': {
+        key: 'start',
+        value: 'optional-integer',
+        attachedValue: true,
+      },
+      '-o': {
+        key: 'output',
+        value: 'string',
+        attachedValue: true,
+        checks: [
+          {
+            id: 'cli.mailsplit.empty-output',
+            kind: 'forbid',
+            when: [
+              {
+                key: '$value',
+                test: 'equals',
+                value: '',
+              },
+            ],
+            origin: 'git',
+            reason: 'The attached output directory cannot be empty.',
+            source: 'https://github.com/git/git/blob/v2.55.0/builtin/mailsplit.c',
+          },
+        ],
+      },
+      '-b': {
+        key: 'bare',
+        value: 'flag',
+      },
+      '--keep-cr': {
+        key: 'keep-cr',
+        value: 'flag',
+      },
+      '--mboxrd': {
+        key: 'mboxrd',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.mailsplit.implicit-output',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'output',
+          test: 'inactive',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/mailsplit.c',
+      },
+      {
+        id: 'cli.mailsplit.stdin-marker',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'operand0',
+            test: 'equals',
+            value: '-',
+          },
+          {
+            key: 'hasSeparator',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'A lone dash is parsed as an unknown option unless parsing has ended.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/mailsplit.c',
+      },
+    ],
+    source: 'builtin/mailsplit.c',
+    separator: true,
+    optionParsing: 'stop-at-operand',
+  },
+  'interpret-trailers': {
+    argv: ['interpret-trailers'],
+    options: {
+      '--in-place': {
+        key: 'in-place',
+        value: 'flag',
+      },
+      '--trim-empty': {
+        key: 'trim-empty',
+        value: 'flag',
+      },
+      '--where': {
+        key: 'where',
+        value: 'string',
+        allowed: ['after', 'before', 'end', 'start'],
+        caseInsensitive: true,
+      },
+      '--if-exists': {
+        key: 'if-exists',
+        value: 'string',
+        allowed: ['addifdifferent', 'addifdifferentneighbor', 'add', 'replace', 'donothing'],
+        caseInsensitive: true,
+      },
+      '--if-missing': {
+        key: 'if-missing',
+        value: 'string',
+        allowed: ['donothing', 'add'],
+        caseInsensitive: true,
+      },
+      '--only-trailers': {
+        key: 'only-trailers',
+        value: 'flag',
+      },
+      '--only-input': {
+        key: 'only-input',
+        value: 'flag',
+      },
+      '--unfold': {
+        key: 'unfold',
+        value: 'flag',
+      },
+      '--parse': {
+        key: 'parse',
+        value: 'flag',
+        effects: [
+          {
+            key: 'only-trailers',
+            set: true,
+          },
+          {
+            key: 'only-input',
+            set: true,
+          },
+          {
+            key: 'unfold',
+            set: true,
+          },
+        ],
+      },
+      '--no-divider': {
+        key: 'no-divider',
+        value: 'flag',
+      },
+      '--trailer': {
+        key: 'trailer',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-in-place': {
+        key: 'in-place',
+        value: 'flag',
+        set: false,
+      },
+      '--no-trim-empty': {
+        key: 'trim-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--no-where': {
+        key: 'where',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-if-exists': {
+        key: 'if-exists',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-if-missing': {
+        key: 'if-missing',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-only-trailers': {
+        key: 'only-trailers',
+        value: 'flag',
+        set: false,
+      },
+      '--no-only-input': {
+        key: 'only-input',
+        value: 'flag',
+        set: false,
+      },
+      '--no-unfold': {
+        key: 'unfold',
+        value: 'flag',
+        set: false,
+      },
+      '--divider': {
+        key: 'no-divider',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-divider': {
+        key: 'no-divider',
+        value: 'flag',
+        set: false,
+      },
+      '--no-trailer': {
+        key: 'trailer',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.interpret-trailers.input-only',
+        kind: 'conflicts',
+        when: {
+          key: 'only-input',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'trailer',
+            test: 'nonempty',
+          },
+        ],
+        origin: 'git',
+        reason: 'Input-only parsing cannot add trailers unless the trailer list was cleared.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/interpret-trailers.c',
+      },
+      {
+        id: 'cli.interpret-trailers.in-place',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'in-place',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/interpret-trailers.c',
+      },
+    ],
+    source: 'builtin/interpret-trailers.c',
+    separator: true,
+  },
+  'url-parse': {
+    argv: ['url-parse'],
+    options: {
+      '--component': {
+        key: 'component',
+        value: 'string',
+      },
+      '-c': {
+        key: 'component',
+        value: 'string',
+      },
+      '--no-component': {
+        key: 'component',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.url-parse.urls',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/url-parse.c',
+      },
+      {
+        id: 'cli.url-parse.component',
+        kind: 'value',
+        key: 'component',
+        allowed: ['path', 'host', 'scheme', 'user', 'password', 'port'],
+        origin: 'git',
+        reason: 'The final component name must be supported.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/url-parse.c',
+      },
+    ],
+    source: 'builtin/url-parse.c',
+    separator: true,
+  },
+  'hook run': {
+    argv: ['hook', 'run'],
+    options: {
+      '--allow-unknown-hook-name': {
+        key: 'allow-unknown-hook-name',
+        value: 'flag',
+      },
+      '--ignore-missing': {
+        key: 'ignore-missing',
+        value: 'flag',
+      },
+      '--to-stdin': {
+        key: 'to-stdin',
+        value: 'string',
+      },
+      '--jobs': {
+        key: 'jobs',
+        value: 'integer',
+      },
+      '-j': {
+        key: 'jobs',
+        value: 'integer',
+      },
+      '--no-allow-unknown-hook-name': {
+        key: 'allow-unknown-hook-name',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-missing': {
+        key: 'ignore-missing',
+        value: 'flag',
+        set: false,
+      },
+      '--no-to-stdin': {
+        key: 'to-stdin',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-jobs': {
+        key: 'jobs',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.hook-run.hook-name',
+        kind: 'value',
+        guard: [
+          {
+            key: 'allow-unknown-hook-name',
+            test: 'inactive',
+          },
+        ],
+        key: 'operand0',
+        allowed: [
+          'applypatch-msg',
+          'commit-msg',
+          'fsmonitor-watchman',
+          'p4-changelist',
+          'p4-post-changelist',
+          'p4-pre-submit',
+          'p4-prepare-changelist',
+          'post-applypatch',
+          'post-checkout',
+          'post-commit',
+          'post-index-change',
+          'post-merge',
+          'post-receive',
+          'post-rewrite',
+          'post-update',
+          'pre-applypatch',
+          'pre-auto-gc',
+          'pre-commit',
+          'pre-merge-commit',
+          'pre-push',
+          'pre-rebase',
+          'pre-receive',
+          'prepare-commit-msg',
+          'proc-receive',
+          'push-to-checkout',
+          'reference-transaction',
+          'sendemail-validate',
+          'update',
+        ],
+        origin: 'git',
+        reason: 'Unknown hook names require an explicit opt-in.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/hook.c',
+      },
+      {
+        id: 'cli.hook-run.hook-only',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'hasSeparator',
+          test: 'inactive',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/hook.c',
+      },
+      {
+        id: 'cli.hook-run.hook-before-args',
+        kind: 'arity',
+        key: 'operandsBeforeSeparator',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'hasSeparator',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/hook.c',
+      },
+      {
+        id: 'cli.hook-run.jobs',
+        kind: 'range',
+        key: 'jobs',
+        min: -1,
+        origin: 'git',
+        reason: 'Jobs accepts -1 for CPU count or nonnegative values.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/hook.c',
+      },
+    ],
+    source: 'builtin/hook.c',
+    separator: true,
+  },
+  'hook list': {
+    argv: ['hook', 'list'],
+    options: {
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--show-scope': {
+        key: 'show-scope',
+        value: 'flag',
+      },
+      '--allow-unknown-hook-name': {
+        key: 'allow-unknown-hook-name',
+        value: 'flag',
+      },
+      '--no-show-scope': {
+        key: 'show-scope',
+        value: 'flag',
+        set: false,
+      },
+      '--no-allow-unknown-hook-name': {
+        key: 'allow-unknown-hook-name',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.hook-list.hook-name',
+        kind: 'value',
+        guard: [
+          {
+            key: 'allow-unknown-hook-name',
+            test: 'inactive',
+          },
+        ],
+        key: 'operand0',
+        allowed: [
+          'applypatch-msg',
+          'commit-msg',
+          'fsmonitor-watchman',
+          'p4-changelist',
+          'p4-post-changelist',
+          'p4-pre-submit',
+          'p4-prepare-changelist',
+          'post-applypatch',
+          'post-checkout',
+          'post-commit',
+          'post-index-change',
+          'post-merge',
+          'post-receive',
+          'post-rewrite',
+          'post-update',
+          'pre-applypatch',
+          'pre-auto-gc',
+          'pre-commit',
+          'pre-merge-commit',
+          'pre-push',
+          'pre-rebase',
+          'pre-receive',
+          'prepare-commit-msg',
+          'proc-receive',
+          'push-to-checkout',
+          'reference-transaction',
+          'sendemail-validate',
+          'update',
+        ],
+        origin: 'git',
+        reason: 'Unknown hook names require an explicit opt-in.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/hook.c',
+      },
+      {
+        id: 'cli.hook-list.hook',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/hook.c',
+      },
+    ],
+    source: 'builtin/hook.c',
+    separator: true,
+  },
+  credential: {
+    argv: ['credential'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.credential.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
+      },
+      {
+        id: 'cli.credential.operation',
+        kind: 'value',
+        key: 'operand0',
+        allowed: ['fill', 'approve', 'reject', 'capability'],
+        origin: 'git',
+        reason: 'Only the native credential operations are recognized.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
+      },
+    ],
+    source: 'builtin/credential.c',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'credential fill': {
+    argv: ['credential', 'fill'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.credential-fill.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
+      },
+    ],
+    source: 'builtin/credential.c',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'credential approve': {
+    argv: ['credential', 'approve'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.credential-approve.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
+      },
+    ],
+    source: 'builtin/credential.c',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'credential reject': {
+    argv: ['credential', 'reject'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.credential-reject.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
+      },
+    ],
+    source: 'builtin/credential.c',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'credential capability': {
+    argv: ['credential', 'capability'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.credential-capability.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
+      },
+    ],
+    source: 'builtin/credential.c',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'credential-store': {
+    argv: ['credential-store'],
+    options: {
+      '--file': {
+        key: 'file',
+        value: 'string',
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.credential-store.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential-store.c',
+      },
+    ],
+    source: 'builtin/credential-store.c',
+    separator: true,
+  },
+  'credential-cache': {
+    argv: ['credential-cache'],
+    options: {
+      '--timeout': {
+        key: 'timeout',
+        value: 'integer',
+      },
+      '--socket': {
+        key: 'socket',
+        value: 'string',
+      },
+      '--no-timeout': {
+        key: 'timeout',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-socket': {
+        key: 'socket',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.credential-cache.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential-cache.c',
+      },
+    ],
+    source: 'builtin/credential-cache.c',
+    separator: true,
+  },
+  'credential-cache--daemon': {
+    argv: ['credential-cache--daemon'],
+    options: {
+      '--debug': {
+        key: 'debug',
+        value: 'flag',
+      },
+      '--no-debug': {
+        key: 'debug',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.credential-cache--daemon.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential-cache--daemon.c',
+      },
+    ],
+    source: 'builtin/credential-cache--daemon.c',
+    separator: true,
+  },
+  'checkout--worker': {
+    argv: ['checkout--worker'],
+    options: {
+      '--prefix': {
+        key: 'prefix',
+        value: 'string',
+      },
+      '--no-prefix': {
+        key: 'prefix',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.checkout--worker.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout--worker.c',
+      },
+    ],
+    source: 'builtin/checkout--worker.c',
+    separator: true,
+  },
+  'merge-ours': {
+    argv: ['merge-ours'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.merge-ours.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-ours.c',
+      },
+    ],
+    source: 'builtin/merge-ours.c',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'merge-one-file': {
+    argv: ['merge-one-file'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.merge-one-file.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 7,
+        max: 7,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/git-merge-one-file.sh',
+      },
+    ],
+    source: 'git-merge-one-file.sh',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'get-tar-commit-id': {
+    argv: ['get-tar-commit-id'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.get-tar-commit-id.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/get-tar-commit-id.c',
+      },
+    ],
+    source: 'builtin/get-tar-commit-id.c',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'upload-archive': {
+    argv: ['upload-archive'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.upload-archive.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c',
+      },
+    ],
+    source: 'builtin/upload-archive.c',
+    separator: false,
+    optionParsing: 'none',
+  },
+  'upload-archive--writer': {
+    argv: ['upload-archive--writer'],
+    options: {
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.upload-archive--writer.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'Native mode requires this number of arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c',
+      },
+    ],
+    source: 'builtin/upload-archive.c',
+    separator: false,
+    optionParsing: 'none',
+  },
   lfs: {
     argv: ['lfs'],
     options: {
