@@ -40,7 +40,7 @@ export async function contracts(git: Git, repo: WorktreeRepo, bare: BareRepo, fl
   await repo.add(['file'], { pathspecFromFile: 'paths.txt' });
   // @ts-expect-error Checkout pathspec files are also a separate input mode.
   await repo.checkout(['file'], { pathspecFromFile: 'paths.txt' });
-  // @ts-expect-error Conflicting transports.
+  // Git accepts this combination; serialization preserves its semantics.
   await git.clone('url', 'path', { ipv4: true, ipv6: true });
   // @ts-expect-error Conflicting repository layout.
   await git.init('path', { bare: true, separateGitDir: 'other' });
@@ -57,13 +57,13 @@ export async function contracts(git: Git, repo: WorktreeRepo, bare: BareRepo, fl
   await repo.status({ nullTerminated: false });
   // @ts-expect-error Stats cannot be parsed as commits.
   await repo.log({ stat: true });
-  // @ts-expect-error Contradictory history filters.
+  // Git accepts this combination; serialization preserves its semantics.
   await repo.log({ merges: true, noMerges: true });
   // @ts-expect-error No remote is accepted for fetch --all.
   await repo.fetch({ all: true, remote: 'origin' });
   // @ts-expect-error Conflicting shallow controls.
   await bare.fetch({ depth: 1, unshallow: true });
-  // @ts-expect-error Force overrides lease protection.
+  // Git accepts this combination; serialization preserves its semantics.
   await bare.push({ force: true, forceWithLease: true });
   // @ts-expect-error --all cannot take refspecs.
   await repo.push({ all: true, refspec: 'main' });
@@ -71,19 +71,19 @@ export async function contracts(git: Git, repo: WorktreeRepo, bare: BareRepo, fl
   await repo.commit({ message: 'test', dryRun: true });
   // @ts-expect-error Conflicting message sources.
   await repo.commit({ message: 'test', file: 'message.txt' });
-  // @ts-expect-error Name output and patches have different contracts.
+  // Git gives name-only output precedence over patch output.
   await repo.diff('HEAD', { nameOnly: true, patch: true });
   // @ts-expect-error Merge-base is a flag, not a string-valued option.
   await repo.diff('HEAD', { mergeBase: 'main' });
   // @ts-expect-error Exclusive checkout modes.
   await repo.checkout('new', { createBranch: true, detach: true });
-  // @ts-expect-error Cannot select both sides of a conflict.
+  // Git accepts this combination; serialization preserves its semantics.
   await repo.checkout(['file'], { ours: true, theirs: true });
   // @ts-expect-error Cannot select conflict stages from a tree.
   await repo.restore(['file'], { source: 'HEAD', ours: true });
   // @ts-expect-error Mutually exclusive sequencer operations.
   await repo.rebase({ abort: true, continue: true });
-  // @ts-expect-error Control operations cannot silently ignore mutation options.
+  // Git accepts this combination; serialization preserves its semantics.
   await repo.rebase({ abort: true, upstream: 'main' });
   // @ts-expect-error Revert has no --no-verify flag.
   await repo.revert('HEAD', { noVerify: true });

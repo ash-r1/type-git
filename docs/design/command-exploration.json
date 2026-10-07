@@ -1,0 +1,3738 @@
+{
+  "scope": "Exact finite normalized-state counts. Domains over-approximate argv-reachable states; counts do not prove upstream completeness or reachability. No random sampling.",
+  "commands": [
+    {
+      "command": "hash-object",
+      "rules": 3,
+      "domains": {
+        "t": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "w": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]",
+          "[\"value\",\"value\"]"
+        ],
+        "stdin-paths": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-filters": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "literally": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "405000",
+      "accepted": "120960",
+      "nodes": 52,
+      "isolatedRuleWitnesses": {
+        "cli.hash-object.stdin-count": "{\"operands\":[],\"stdin\":[true,true]}",
+        "cli.hash-object.stdin-paths": "{\"operands\":[],\"stdin\":[true],\"stdin-paths\":true}",
+        "cli.hash-object.path-filters": "{\"no-filters\":true,\"operands\":[],\"path\":\"\"}"
+      }
+    },
+    {
+      "command": "add",
+      "rules": 13,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "interactive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto-advance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "edit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "update": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "renormalize": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "intent-to-add": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "refresh": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-errors": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-missing": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sparse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "chmod": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"+x\"",
+          "\"-x\""
+        ],
+        "warn-embedded-repo": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "17356437907200",
+      "accepted": "964023161472",
+      "nodes": 776,
+      "isolatedRuleWitnesses": {
+        "cli.add.pathspec-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
+        "cli.add.pathspec-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
+        "cli.add.all-update": "{\"all\":true,\"operands\":[],\"update\":true}",
+        "cli.add.ignore-missing": "{\"ignore-missing\":true,\"operands\":[]}",
+        "cli.add.chmod": "{\"chmod\":\"\",\"operands\":[]}",
+        "cli.add.interactive": "{\"interactive\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
+        "cli.add.patch": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
+        "cli.add.edit-pathspec-file": "{\"edit\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
+        "cli.add.auto-advance": "{\"auto-advance\":false,\"operands\":[]}",
+        "cli.add.unified-minimum": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "cli.add.unified-interactive": "{\"operands\":[],\"unified\":0}",
+        "cli.add.inter-hunk-context-minimum": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "cli.add.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "rm",
+      "rules": 3,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "cached": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "r": [
+          "undefined",
+          "true"
+        ],
+        "ignore-unmatch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sparse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2332800",
+      "accepted": "622080",
+      "nodes": 19,
+      "isolatedRuleWitnesses": {
+        "cli.rm.pathspec-file-nul": "{\"operands\":[\"value\"],\"pathspec-file-nul\":true}",
+        "cli.rm.pathspec-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
+        "cli.rm.paths": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "mv",
+      "rules": 1,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "k": [
+          "undefined",
+          "true"
+        ],
+        "sparse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "17280",
+      "accepted": "10368",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.mv.paths": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "clean",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "interactive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "d": [
+          "undefined",
+          "true"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "x": [
+          "undefined",
+          "true"
+        ],
+        "X": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "345600",
+      "accepted": "259200",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.clean.ignored": "{\"X\":true,\"operands\":[],\"x\":true}"
+      }
+    },
+    {
+      "command": "init",
+      "rules": 4,
+      "domains": {
+        "template": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bare": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "shared": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "separate-git-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "initial-branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "object-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"sha1\"",
+          "\"sha256\""
+        ],
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "19845000",
+      "accepted": "1069200",
+      "nodes": 44,
+      "isolatedRuleWitnesses": {
+        "cli.init.directory": "{\"operands\":[\"value\",\"value\"]}",
+        "cli.init.bare-directory": "{\"bare\":true,\"operands\":[],\"separate-git-dir\":\"\"}",
+        "cli.init.object-format": "{\"object-format\":\"\",\"operands\":[]}",
+        "cli.init.ref-format": "{\"operands\":[],\"ref-format\":\"\"}"
+      }
+    },
+    {
+      "command": "remote",
+      "rules": 0,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "240",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "remote add",
+      "rules": 4,
+      "domains": {
+        "fetch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "track": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "master": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "mirror": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "\"push\"",
+          "\"fetch\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "864000",
+      "accepted": "31104",
+      "nodes": 36,
+      "isolatedRuleWitnesses": {
+        "cli.remote add.operands": "{\"operands\":[]}",
+        "cli.remote add.mirror": "{\"mirror\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.remote add.mirror-master": "{\"master\":\"\",\"mirror\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.remote add.push-track": "{\"mirror\":\"push\",\"operands\":[\"value\",\"value\"],\"track\":[\"\"]}"
+      }
+    },
+    {
+      "command": "remote rename",
+      "rules": 1,
+      "domains": {
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "144",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.remote rename.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote rm",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.remote rm.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote remove",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.remote remove.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote set-head",
+      "rules": 4,
+      "domains": {
+        "auto": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "delete": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2160",
+      "accepted": "384",
+      "nodes": 34,
+      "isolatedRuleWitnesses": {
+        "cli.remote set-head.mode": "{\"auto\":true,\"delete\":true,\"operands\":[\"value\"]}",
+        "cli.remote set-head.explicit-head": "{\"operands\":[]}",
+        "cli.remote set-head.auto": "{\"auto\":true,\"operands\":[]}",
+        "cli.remote set-head.delete": "{\"delete\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote set-branches",
+      "rules": 1,
+      "domains": {
+        "add": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "576",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.remote set-branches.remote": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote get-url",
+      "rules": 1,
+      "domains": {
+        "push": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2160",
+      "accepted": "432",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.remote get-url.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote set-url",
+      "rules": 4,
+      "domains": {
+        "push": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "add": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "delete": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6480",
+      "accepted": "1728",
+      "nodes": 34,
+      "isolatedRuleWitnesses": {
+        "cli.remote set-url.mode": "{\"add\":true,\"delete\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.remote set-url.operands": "{\"operands\":[]}",
+        "cli.remote set-url.add": "{\"add\":true,\"operands\":[\"value\",\"value\",\"value\"]}",
+        "cli.remote set-url.delete": "{\"delete\":true,\"operands\":[\"value\",\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "remote show",
+      "rules": 0,
+      "domains": {
+        "n": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "480",
+      "accepted": "480",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "remote prune",
+      "rules": 1,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "576",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.remote prune.remote": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "remote update",
+      "rules": 0,
+      "domains": {
+        "prune": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "720",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "init-db",
+      "rules": 4,
+      "domains": {
+        "template": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bare": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "shared": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "separate-git-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "initial-branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "object-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"sha1\"",
+          "\"sha256\""
+        ],
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "19845000",
+      "accepted": "1069200",
+      "nodes": 44,
+      "isolatedRuleWitnesses": {
+        "cli.init-db.directory": "{\"operands\":[\"value\",\"value\"]}",
+        "cli.init-db.bare-directory": "{\"bare\":true,\"operands\":[],\"separate-git-dir\":\"\"}",
+        "cli.init-db.object-format": "{\"object-format\":\"\",\"operands\":[]}",
+        "cli.init-db.ref-format": "{\"operands\":[],\"ref-format\":\"\"}"
+      }
+    },
+    {
+      "command": "lfs",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "version": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "270",
+      "accepted": "270",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs checkout",
+      "rules": 6,
+      "domains": {
+        "base": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "ours": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "theirs": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "12150",
+      "accepted": "2088",
+      "nodes": 86,
+      "isolatedRuleWitnesses": {
+        "lfsCheckout.stage": "{\"operands\":[\"value\"],\"ours\":true,\"theirs\":true,\"to\":\"value\"}",
+        "lfsCheckout.destination-stage": "{\"operands\":[\"value\"],\"to\":\"value\"}",
+        "lfsCheckout.base-destination": "{\"base\":true,\"operands\":[]}",
+        "lfsCheckout.ours-destination": "{\"operands\":[],\"ours\":true}",
+        "lfsCheckout.theirs-destination": "{\"operands\":[],\"theirs\":true}",
+        "lfsCheckout.conflict-path": "{\"operands\":[],\"theirs\":true,\"to\":\"value\"}"
+      }
+    },
+    {
+      "command": "lfs clean",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs clone",
+      "rules": 1,
+      "domains": {
+        "bare": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "config": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dissociate": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ipv4": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "ipv6": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "jobs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "local": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "mirror": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-checkout": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-hardlinks": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-shallow-submodules": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-single-branch": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "origin": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "progress": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "recursive": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "reference": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reference-if-able": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "separate-git-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-since": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-submodules": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "shared": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "single-branch": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "skip-repo": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "template": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "upload-pack": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verbose": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "766139150610351562500",
+      "accepted": "306455660244140625000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.clone.operands-0": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs completion",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"bash\"",
+          "\"fish\"",
+          "\"zsh\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "225",
+      "accepted": "36",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.completion.operands-0": "{\"operands\":[]}",
+        "cli.lfs.completion.shell": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "lfs dedup",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "test": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "270",
+      "accepted": "270",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs env",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs ext",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs ext list",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs fetch",
+      "rules": 3,
+      "domains": {
+        "all": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "json": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "prune": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "recent": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "refetch": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "4920750",
+      "accepted": "2363904",
+      "nodes": 77,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.fetch.all-filters": "{\"all\":true,\"operands\":[],\"recent\":true}",
+        "cli.lfs.fetch.json-prune": "{\"json\":true,\"operands\":[],\"prune\":true}",
+        "cli.lfs.fetch.operands-2": "{\"operands\":[\"value\",\"value\"],\"stdin\":true}"
+      }
+    },
+    {
+      "command": "lfs filter-process",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "skip": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "270",
+      "accepted": "270",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs fsck",
+      "rules": 0,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "objects": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pointers": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2430",
+      "accepted": "2430",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs help",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs install",
+      "rules": 7,
+      "domains": {
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "local": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "manual": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "skip-repo": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "skip-smudge": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "system": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "worktree": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "984150",
+      "accepted": "449280",
+      "nodes": 160,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.install.scope": "{\"operands\":[],\"system\":true,\"worktree\":true}",
+        "cli.lfs.install.file-local": "{\"file\":\"value\",\"local\":true,\"operands\":[]}",
+        "cli.lfs.install.file-worktree": "{\"file\":\"value\",\"operands\":[],\"worktree\":true}",
+        "cli.lfs.install.file-system": "{\"file\":\"value\",\"operands\":[],\"system\":true}",
+        "cli.lfs.install.hook-options-local": "{\"force\":true,\"local\":true,\"manual\":true,\"operands\":[]}",
+        "cli.lfs.install.hook-options-worktree": "{\"force\":true,\"manual\":true,\"operands\":[],\"worktree\":true}",
+        "cli.lfs.install.hook-options-inRepository": "{\"force\":true,\"inRepository\":true,\"manual\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs install hooks",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs lock",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "json": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1350",
+      "accepted": "1350",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs locks",
+      "rules": 3,
+      "domains": {
+        "cached": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "json": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "limit": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "local": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verify": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "5467500",
+      "accepted": "2624400",
+      "nodes": 59,
+      "isolatedRuleWitnesses": {
+        "lfsLocks.verify-limit": "{\"limit\":-2,\"operands\":[],\"verify\":true}",
+        "lfsLocks.cached": "{\"cached\":true,\"operands\":[],\"path\":\"value\"}",
+        "lfsLocks.verify": "{\"operands\":[],\"path\":\"value\",\"verify\":true}"
+      }
+    },
+    {
+      "command": "lfs logs",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs logs boomtown",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs logs clear",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs logs last",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs logs show",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs ls-files",
+      "rules": 2,
+      "domains": {
+        "all": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "debug": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "deleted": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "json": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "long": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "name-only": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "size": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "4920750",
+      "accepted": "2952450",
+      "nodes": 17,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.ls-files.operands-0": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.lfs.ls-files.operands-1": "{\"deleted\":true,\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "lfs merge-driver",
+      "rules": 1,
+      "domains": {
+        "ancestor": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "current": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "marker-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "other": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "program": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1687500",
+      "accepted": "218700",
+      "nodes": 14,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.merge-driver.files": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs migrate",
+      "rules": 0,
+      "domains": {
+        "everything": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-ref": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-ref": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "skip-fetch": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "yes": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3888000",
+      "accepted": "3888000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs migrate export",
+      "rules": 4,
+      "domains": {
+        "everything": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-ref": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-ref": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "object-map": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "skip-fetch": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "yes": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "291600000",
+      "accepted": "117369000",
+      "nodes": 44,
+      "isolatedRuleWitnesses": {
+        "lfsMigrateExport.everything-includeRef": "{\"everything\":true,\"include\":\"value\",\"include-ref\":[\"value\"],\"operands\":[]}",
+        "lfsMigrateExport.everything-excludeRef": "{\"everything\":true,\"exclude-ref\":[\"value\"],\"include\":\"value\",\"operands\":[]}",
+        "lfsMigrateExport.everything-refs": "{\"everything\":true,\"include\":\"value\",\"operands\":[\"value\"]}",
+        "lfsMigrateExport.include": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs migrate import",
+      "rules": 9,
+      "domains": {
+        "above": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "everything": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-ref": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "fixup": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-ref": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-rewrite": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "object-map": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "skip-fetch": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "yes": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "13122000000",
+      "accepted": "5556535200",
+      "nodes": 264,
+      "isolatedRuleWitnesses": {
+        "lfsMigrateImport.above-include": "{\"above\":\"1kb\",\"include\":\"\",\"operands\":[]}",
+        "lfsMigrateImport.above-exclude": "{\"above\":\"1kb\",\"exclude\":\"\",\"operands\":[]}",
+        "lfsMigrateImport.above-fixup": "{\"above\":\"1kb\",\"fixup\":true,\"operands\":[]}",
+        "lfsMigrateImport.everything-includeRef": "{\"everything\":true,\"include-ref\":[\"value\"],\"operands\":[]}",
+        "lfsMigrateImport.everything-excludeRef": "{\"everything\":true,\"exclude-ref\":[\"value\"],\"operands\":[]}",
+        "lfsMigrateImport.everything-refs": "{\"everything\":true,\"operands\":[\"value\"]}",
+        "lfsMigrateImport.no-rewrite-fixup": "{\"fixup\":true,\"no-rewrite\":true,\"operands\":[\"value\"]}",
+        "lfsMigrateImport.files": "{\"no-rewrite\":true,\"operands\":[]}",
+        "lfsMigrateImport.fixup-patterns": "{\"fixup\":true,\"include\":\"\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs migrate info",
+      "rules": 6,
+      "domains": {
+        "above": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "everything": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-ref": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "fixup": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include-ref": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "pointers": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"follow\"",
+          "\"no-follow\"",
+          "\"ignore\""
+        ],
+        "skip-fetch": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "top": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "unit": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "yes": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "13996800000",
+      "accepted": "3161138400",
+      "nodes": 163,
+      "isolatedRuleWitnesses": {
+        "lfsMigrateInfo.everything-includeRef": "{\"everything\":true,\"include-ref\":[\"value\"],\"operands\":[]}",
+        "lfsMigrateInfo.everything-excludeRef": "{\"everything\":true,\"exclude-ref\":[\"value\"],\"operands\":[]}",
+        "lfsMigrateInfo.everything-refs": "{\"everything\":true,\"operands\":[\"value\"]}",
+        "lfsMigrateInfo.fixup-patterns": "{\"fixup\":true,\"include\":\"\",\"operands\":[]}",
+        "lfsMigrateInfo.fixup-pointers": "{\"fixup\":true,\"operands\":[],\"pointers\":\"follow\"}",
+        "cli.lfs.migrate.info.pointers": "{\"operands\":[],\"pointers\":\"\"}"
+      }
+    },
+    {
+      "command": "lfs pointer",
+      "rules": 5,
+      "domains": {
+        "check": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-extensions": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-strict": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pointer": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stdin": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "strict": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "546750",
+      "accepted": "306000",
+      "nodes": 93,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.pointer.input": "{\"operands\":[]}",
+        "cli.lfs.pointer.pointer-stdin": "{\"operands\":[],\"pointer\":\"value\",\"stdin\":true}",
+        "cli.lfs.pointer.check-pointer": "{\"check\":true,\"operands\":[],\"pointer\":\"value\"}",
+        "cli.lfs.pointer.check-file-stdin": "{\"check\":true,\"file\":\"value\",\"operands\":[],\"stdin\":true}",
+        "cli.lfs.pointer.check-strict": "{\"check\":true,\"no-strict\":true,\"operands\":[],\"stdin\":true,\"strict\":true}"
+      }
+    },
+    {
+      "command": "lfs post-checkout",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "18",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.post-checkout.operands-0": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs post-commit",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs post-merge",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "18",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.post-merge.operands-0": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs pre-push",
+      "rules": 1,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "270",
+      "accepted": "216",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.pre-push.operands-0": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs prune",
+      "rules": 2,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "force": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-verify-remote": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-verify-unreachable": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "recent": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "verify-remote": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "verify-unreachable": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "when-unverified": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"halt\"",
+          "\"continue\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "4133430",
+      "accepted": "1574640",
+      "nodes": 15,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.prune.verification": "{\"no-verify-remote\":true,\"operands\":[],\"verify-remote\":true}",
+        "cli.lfs.prune.unverified": "{\"operands\":[],\"when-unverified\":\"\"}"
+      }
+    },
+    {
+      "command": "lfs pull",
+      "rules": 0,
+      "domains": {
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2250",
+      "accepted": "2250",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs push",
+      "rules": 4,
+      "domains": {
+        "all": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "object-id": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "7290",
+      "accepted": "3618",
+      "nodes": 42,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.push.operands-0": "{\"all\":true,\"operands\":[]}",
+        "cli.lfs.push.operands-1": "{\"operands\":[\"value\",\"value\"],\"stdin\":true}",
+        "cli.lfs.push.operands-2": "{\"operands\":[\"value\"]}",
+        "cli.lfs.push.operands-3": "{\"all\":true,\"object-id\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "lfs smudge",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "skip": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "270",
+      "accepted": "270",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs standalone-file",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs status",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "json": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "porcelain": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "810",
+      "accepted": "810",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs track",
+      "rules": 1,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "filename": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "json": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "lockable": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-excluded": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "no-modify-attrs": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "not-lockable": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "590490",
+      "accepted": "433026",
+      "nodes": 6,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.track.operands-0": "{\"json\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "lfs uninstall",
+      "rules": 4,
+      "domains": {
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "local": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "skip-repo": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "system": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "worktree": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "36450",
+      "accepted": "17280",
+      "nodes": 44,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.uninstall.scope": "{\"operands\":[],\"system\":true,\"worktree\":true}",
+        "cli.lfs.uninstall.file-local": "{\"file\":\"value\",\"local\":true,\"operands\":[]}",
+        "cli.lfs.uninstall.file-worktree": "{\"file\":\"value\",\"operands\":[],\"worktree\":true}",
+        "cli.lfs.uninstall.file-system": "{\"file\":\"value\",\"operands\":[],\"system\":true}"
+      }
+    },
+    {
+      "command": "lfs uninstall hooks",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs unlock",
+      "rules": 2,
+      "domains": {
+        "force": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "id": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "json": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "remote": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "20250",
+      "accepted": "9450",
+      "nodes": 14,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.unlock.one-input": "{\"id\":\"value\",\"operands\":[\"value\"]}",
+        "cli.lfs.unlock.input": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs untrack",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90",
+      "accepted": "90",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "lfs update",
+      "rules": 1,
+      "domains": {
+        "force": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "manual": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "810",
+      "accepted": "720",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.lfs.update.force-manual": "{\"force\":true,\"manual\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "lfs version",
+      "rules": 0,
+      "domains": {
+        "comics": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "270",
+      "accepted": "270",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    }
+  ]
+}

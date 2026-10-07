@@ -1,0 +1,359 @@
+{
+  "hash-object": {
+    "tables": [
+      "builtin/hash-object.c:cmd_hash_object:hash_object_options"
+    ],
+    "source": "builtin/hash-object.c"
+  },
+  "add": {
+    "tables": [
+      "builtin/add.c:global:builtin_add_options"
+    ],
+    "source": "builtin/add.c",
+    "options": {
+      "--ignore-removal": {
+        "key": "all",
+        "value": "flag",
+        "set": false
+      },
+      "--no-ignore-removal": {
+        "key": "all",
+        "value": "flag",
+        "set": true
+      }
+    }
+  },
+  "rm": {
+    "tables": [
+      "builtin/rm.c:global:builtin_rm_options"
+    ],
+    "source": "builtin/rm.c"
+  },
+  "mv": {
+    "tables": [
+      "builtin/mv.c:cmd_mv:builtin_mv_options"
+    ],
+    "source": "builtin/mv.c"
+  },
+  "clean": {
+    "tables": [
+      "builtin/clean.c:cmd_clean:options"
+    ],
+    "source": "builtin/clean.c"
+  },
+  "init": {
+    "tables": [
+      "builtin/init-db.c:cmd_init_db:init_db_options"
+    ],
+    "source": "builtin/init-db.c"
+  },
+  "remote": {
+    "tables": [
+      "builtin/remote.c:cmd_remote:options"
+    ],
+    "source": "builtin/remote.c"
+  },
+  "remote add": {
+    "tables": [
+      "builtin/remote.c:add:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote rename": {
+    "tables": [
+      "builtin/remote.c:mv:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote rm": {
+    "tables": [
+      "builtin/remote.c:rm:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote remove": {
+    "tables": [
+      "builtin/remote.c:rm:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote set-head": {
+    "tables": [
+      "builtin/remote.c:set_head:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote set-branches": {
+    "tables": [
+      "builtin/remote.c:set_branches:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote get-url": {
+    "tables": [
+      "builtin/remote.c:get_url:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote set-url": {
+    "tables": [
+      "builtin/remote.c:set_url:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote show": {
+    "tables": [
+      "builtin/remote.c:show:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote prune": {
+    "tables": [
+      "builtin/remote.c:prune:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "remote update": {
+    "tables": [
+      "builtin/remote.c:update:options"
+    ],
+    "source": "builtin/remote.c",
+    "options": {
+      "-v": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1
+      },
+      "--no-verbose": {
+        "key": "verbose",
+        "value": "flag",
+        "repeat": true,
+        "before": 1,
+        "set": false
+      }
+    }
+  },
+  "init-db": {
+    "tables": [
+      "builtin/init-db.c:cmd_init_db:init_db_options"
+    ],
+    "source": "builtin/init-db.c"
+  }
+}

@@ -1,0 +1,792 @@
+{
+  "hash-object": [
+    {
+      "id": "cli.hash-object.stdin-count",
+      "kind": "arity",
+      "key": "stdin",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "Multiple --stdin arguments are not supported.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hash-object.c"
+    },
+    {
+      "id": "cli.hash-object.stdin-paths",
+      "kind": "conflicts",
+      "when": {
+        "key": "stdin-paths",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "stdin",
+          "test": "nonempty"
+        },
+        {
+          "key": "operands",
+          "test": "nonempty"
+        },
+        {
+          "key": "path",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Stdin paths cannot be combined with stdin objects, explicit files, or an attribute path.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hash-object.c"
+    },
+    {
+      "id": "cli.hash-object.path-filters",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "path",
+          "test": "present"
+        },
+        {
+          "key": "no-filters",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "An attribute path cannot be specified when filters are disabled.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/hash-object.c"
+    }
+  ],
+  "add": [
+    {
+      "id": "cli.add.pathspec-file-nul",
+      "kind": "requires",
+      "when": {
+        "key": "pathspec-file-nul",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "pathspec-from-file",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "NUL pathspec input requires a pathspec file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c",
+      "guard": [
+        {
+          "key": "interactive",
+          "test": "inactive"
+        },
+        {
+          "key": "patch",
+          "test": "inactive"
+        },
+        {
+          "key": "edit",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "cli.add.pathspec-file-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "pathspec-from-file",
+        "test": "present"
+      },
+      "origin": "git",
+      "reason": "Pathspec files cannot be combined with explicit paths.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c",
+      "guard": [
+        {
+          "key": "interactive",
+          "test": "inactive"
+        },
+        {
+          "key": "patch",
+          "test": "inactive"
+        },
+        {
+          "key": "edit",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "cli.add.all-update",
+      "kind": "exclusive",
+      "keys": [
+        "all",
+        "update"
+      ],
+      "guard": [
+        {
+          "key": "interactive",
+          "test": "inactive"
+        },
+        {
+          "key": "patch",
+          "test": "inactive"
+        },
+        {
+          "key": "edit",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit all and update modes cannot be combined.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.ignore-missing",
+      "kind": "requires",
+      "when": {
+        "key": "ignore-missing",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "dry-run",
+          "test": "active"
+        }
+      ],
+      "guard": [
+        {
+          "key": "interactive",
+          "test": "inactive"
+        },
+        {
+          "key": "patch",
+          "test": "inactive"
+        },
+        {
+          "key": "edit",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Ignoring missing paths requires dry-run.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.chmod",
+      "kind": "value",
+      "key": "chmod",
+      "allowed": [
+        "+x",
+        "-x"
+      ],
+      "guard": [
+        {
+          "key": "interactive",
+          "test": "inactive"
+        },
+        {
+          "key": "patch",
+          "test": "inactive"
+        },
+        {
+          "key": "edit",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "The executable bit must be +x or -x.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.interactive",
+      "kind": "conflicts",
+      "when": {
+        "key": "interactive",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "dry-run",
+          "test": "active"
+        },
+        {
+          "key": "pathspec-from-file",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Interactive add cannot use dry-run or a pathspec file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.patch",
+      "kind": "conflicts",
+      "when": {
+        "key": "patch",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "dry-run",
+          "test": "active"
+        },
+        {
+          "key": "pathspec-from-file",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Interactive add cannot use dry-run or a pathspec file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.edit-pathspec-file",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "edit",
+          "test": "active"
+        },
+        {
+          "key": "pathspec-from-file",
+          "test": "present"
+        }
+      ],
+      "guard": [
+        {
+          "key": "interactive",
+          "test": "inactive"
+        },
+        {
+          "key": "patch",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Edit mode cannot read a pathspec file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.auto-advance",
+      "kind": "requiresAny",
+      "when": {
+        "key": "auto-advance",
+        "test": "equals",
+        "value": false
+      },
+      "choices": [
+        {
+          "key": "interactive",
+          "test": "active"
+        },
+        {
+          "key": "patch",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Disabling automatic advancement requires interactive mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.unified-minimum",
+      "kind": "range",
+      "key": "unified",
+      "min": -1,
+      "origin": "git",
+      "reason": "Context must not be less than the unset sentinel -1.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.unified-interactive",
+      "kind": "requiresAny",
+      "when": {
+        "key": "unified",
+        "test": "present"
+      },
+      "guard": [
+        {
+          "key": "unified",
+          "test": "notEquals",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "key": "interactive",
+          "test": "active"
+        },
+        {
+          "key": "patch",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicit context other than -1 requires interactive mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.inter-hunk-context-minimum",
+      "kind": "range",
+      "key": "inter-hunk-context",
+      "min": -1,
+      "origin": "git",
+      "reason": "Context must not be less than the unset sentinel -1.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    },
+    {
+      "id": "cli.add.inter-hunk-context-interactive",
+      "kind": "requiresAny",
+      "when": {
+        "key": "inter-hunk-context",
+        "test": "present"
+      },
+      "guard": [
+        {
+          "key": "inter-hunk-context",
+          "test": "notEquals",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "key": "interactive",
+          "test": "active"
+        },
+        {
+          "key": "patch",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicit context other than -1 requires interactive mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/add.c"
+    }
+  ],
+  "rm": [
+    {
+      "id": "cli.rm.pathspec-file-nul",
+      "kind": "requires",
+      "when": {
+        "key": "pathspec-file-nul",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "pathspec-from-file",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "NUL pathspec input requires a pathspec file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rm.c"
+    },
+    {
+      "id": "cli.rm.pathspec-file-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "pathspec-from-file",
+        "test": "present"
+      },
+      "origin": "git",
+      "reason": "Pathspec files cannot be combined with explicit paths.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rm.c"
+    },
+    {
+      "id": "cli.rm.paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "guard": [
+        {
+          "key": "pathspec-from-file",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "At least one path is required unless paths are read from a file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rm.c"
+    }
+  ],
+  "mv": [
+    {
+      "id": "cli.mv.paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "Move requires at least one source and a destination.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/mv.c"
+    }
+  ],
+  "clean": [
+    {
+      "id": "cli.clean.ignored",
+      "kind": "exclusive",
+      "keys": [
+        "x",
+        "X"
+      ],
+      "origin": "git",
+      "reason": "Removing all untracked files and only ignored files are incompatible.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/clean.c"
+    }
+  ],
+  "init": [
+    {
+      "id": "cli.init.directory",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "Init accepts at most one directory.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/init-db.c"
+    },
+    {
+      "id": "cli.init.bare-directory",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "bare",
+          "test": "active"
+        },
+        {
+          "key": "separate-git-dir",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "A separate Git directory is incompatible with bare initialization.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/init-db.c"
+    },
+    {
+      "id": "cli.init.object-format",
+      "kind": "value",
+      "key": "object-format",
+      "allowed": [
+        "sha1",
+        "sha256"
+      ],
+      "origin": "git",
+      "reason": "Unknown object hash algorithm.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/init-db.c"
+    },
+    {
+      "id": "cli.init.ref-format",
+      "kind": "value",
+      "key": "ref-format",
+      "allowed": [
+        "files",
+        "reftable"
+      ],
+      "origin": "git",
+      "reason": "Unknown reference storage format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/init-db.c"
+    }
+  ],
+  "init-db": [
+    {
+      "id": "cli.init-db.directory",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "Init accepts at most one directory.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/init-db.c"
+    },
+    {
+      "id": "cli.init-db.bare-directory",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "bare",
+          "test": "active"
+        },
+        {
+          "key": "separate-git-dir",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "A separate Git directory is incompatible with bare initialization.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/init-db.c"
+    },
+    {
+      "id": "cli.init-db.object-format",
+      "kind": "value",
+      "key": "object-format",
+      "allowed": [
+        "sha1",
+        "sha256"
+      ],
+      "origin": "git",
+      "reason": "Unknown object hash algorithm.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/init-db.c"
+    },
+    {
+      "id": "cli.init-db.ref-format",
+      "kind": "value",
+      "key": "ref-format",
+      "allowed": [
+        "files",
+        "reftable"
+      ],
+      "origin": "git",
+      "reason": "Unknown reference storage format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/init-db.c"
+    }
+  ],
+  "remote add": [
+    {
+      "id": "cli.remote add.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "remote add requires exactly 2 operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote add.mirror",
+      "kind": "value",
+      "key": "mirror",
+      "allowed": [
+        "push",
+        "fetch",
+        true
+      ],
+      "origin": "git",
+      "reason": "Mirror mode must be push, fetch, or the deprecated valueless form.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote add.mirror-master",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "mirror",
+          "test": "present"
+        },
+        {
+          "key": "master",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Setting the default branch is incompatible with mirroring.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote add.push-track",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "mirror",
+          "test": "equals",
+          "value": "push"
+        },
+        {
+          "key": "track",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit tracked branches require a fetch mirror.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ],
+  "remote rename": [
+    {
+      "id": "cli.remote rename.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "remote rename requires exactly 2 operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ],
+  "remote rm": [
+    {
+      "id": "cli.remote rm.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "remote rm requires exactly 1 operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ],
+  "remote remove": [
+    {
+      "id": "cli.remote remove.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "remote remove requires exactly 1 operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ],
+  "remote get-url": [
+    {
+      "id": "cli.remote get-url.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "remote get-url requires exactly 1 operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ],
+  "remote set-head": [
+    {
+      "id": "cli.remote set-head.mode",
+      "kind": "exclusive",
+      "keys": [
+        "auto",
+        "delete"
+      ],
+      "origin": "git",
+      "reason": "Automatic selection and deletion are incompatible.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote set-head.explicit-head",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "guard": [
+        {
+          "key": "auto",
+          "test": "inactive"
+        },
+        {
+          "key": "delete",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicit head requires the remote and branch.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote set-head.auto",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "guard": [
+        {
+          "key": "auto",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Automatic selection or deletion takes one remote.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote set-head.delete",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "guard": [
+        {
+          "key": "delete",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Automatic selection or deletion takes one remote.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ],
+  "remote set-branches": [
+    {
+      "id": "cli.remote set-branches.remote",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "A remote name is required.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ],
+  "remote prune": [
+    {
+      "id": "cli.remote prune.remote",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "A remote name is required.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ],
+  "remote set-url": [
+    {
+      "id": "cli.remote set-url.mode",
+      "kind": "exclusive",
+      "keys": [
+        "add",
+        "delete"
+      ],
+      "origin": "git",
+      "reason": "Adding and deleting URLs are incompatible.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote set-url.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 3,
+      "origin": "git",
+      "reason": "Set URL requires a remote, a URL, and optionally the old URL.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote set-url.add",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "guard": [
+        {
+          "key": "add",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Adding or deleting a URL takes exactly two operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    },
+    {
+      "id": "cli.remote set-url.delete",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "guard": [
+        {
+          "key": "delete",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Adding or deleting a URL takes exactly two operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote.c"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import type { GitCommandClient } from '../commands/types.js';
 import type { CheckedOptions } from './option-rules.js';
 /**
  * Core Git interface - repository-agnostic operations
@@ -135,11 +136,11 @@ export type LsRemoteOpts = CheckedOptions<
 
     // New options
     /** @deprecated Use raw() for this operation or output format. */
-    getUrl?: never;
+    getUrl?: boolean;
     /** Sort refs by the given key (e.g., 'version:refname') */
     sort?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    symref?: never;
+    symref?: boolean;
   },
   'lsRemote'
 >;
@@ -371,7 +372,7 @@ export interface GlobalConfigOperations {
  * Provides type-safe wrappers for Git commands that don't require a repository context.
  * Each method corresponds to a specific Git CLI command.
  */
-export interface Git {
+export interface Git extends GitCommandClient {
   /**
    * Open an existing worktree repository
    *

@@ -1,3 +1,10 @@
+import { commandArguments } from '../commands/build.js';
+import type {
+  CheckedCommandArguments,
+  GitCommandArgument,
+  GitCommandExecOpts,
+  GitCommandName,
+} from '../commands/types.js';
 import {
   type ExclusiveQuery,
   validateOptions,
@@ -381,8 +388,20 @@ export class BareRepoImpl implements BareRepo {
   }
 
   /**
-   * Execute a raw git command in this repository context
+   * Execute a typed Git command with validated arguments in this repository context
    */
+  public async command<
+    C extends GitCommandName,
+    const A extends readonly GitCommandArgument<NoInfer<C>>[],
+  >(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts?: GitCommandExecOpts,
+  ): Promise<RawResult> {
+    return await this.raw(commandArguments(command, args, true), opts);
+  }
+
+  /** Execute a raw Git command without typed argument validation. */
   public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
@@ -636,6 +655,7 @@ export class BareRepoImpl implements BareRepo {
     url: string,
     opts?: RemoteAddOpts & ExecOpts,
   ): Promise<void> {
+    validateOptions('remoteAdd', opts);
     const args = ['remote', 'add'];
 
     if (opts?.track) {
@@ -652,6 +672,9 @@ export class BareRepoImpl implements BareRepo {
       args.push('--mirror=push');
     }
 
+    if (opts?.tags !== undefined) {
+      args.push(opts.tags ? '--tags' : '--no-tags');
+    }
     args.push(name, url);
 
     await this.runner.runOrThrow(this.context, args, {

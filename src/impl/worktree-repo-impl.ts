@@ -1,5 +1,13 @@
+import { commandArguments } from '../commands/build.js';
+import type {
+  CheckedCommandArguments,
+  GitCommandArgument,
+  GitCommandExecOpts,
+  GitCommandName,
+} from '../commands/types.js';
 import {
   type ExclusiveQuery,
+  validateInput,
   validateOptions,
   validatePathInput,
   validateRevParseQuery,
@@ -324,8 +332,20 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   /**
-   * Execute a raw git command in this repository context
+   * Execute a typed Git command with validated arguments in this repository context
    */
+  public async command<
+    C extends GitCommandName,
+    const A extends readonly GitCommandArgument<NoInfer<C>>[],
+  >(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts?: GitCommandExecOpts,
+  ): Promise<RawResult> {
+    return await this.raw(commandArguments(command, args, true), opts);
+  }
+
+  /** Execute a raw Git command without typed argument validation. */
   public async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
@@ -531,7 +551,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     // Rename detection
     if (opts?.noRenames) {
       args.push('--no-renames');
-    } else if (opts?.findRenames !== undefined) {
+    }
+    if (opts?.findRenames !== undefined) {
       if (opts.findRenames === true) {
         args.push('--find-renames');
       } else if (typeof opts.findRenames === 'number') {
@@ -624,7 +645,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     if (opts?.since) {
       const since = opts.since instanceof Date ? opts.since.toISOString() : opts.since;
       args.push(`--since=${since}`);
-    } else if (opts?.after) {
+    }
+    if (opts?.after) {
       const after = opts.after instanceof Date ? opts.after.toISOString() : opts.after;
       args.push(`--after=${after}`);
     }
@@ -632,7 +654,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     if (opts?.until) {
       const until = opts.until instanceof Date ? opts.until.toISOString() : opts.until;
       args.push(`--until=${until}`);
-    } else if (opts?.before) {
+    }
+    if (opts?.before) {
       const before = opts.before instanceof Date ? opts.before.toISOString() : opts.before;
       args.push(`--before=${before}`);
     }
@@ -1387,7 +1410,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       return [];
     }
 
+    validateOptions('lfsLocks', opts);
     const args = ['lfs', 'locks', '--json'];
+    if (opts?.verify) {
+      args.push('--verify');
+    }
 
     if (opts?.remote) {
       args.push('--remote', opts.remote);
@@ -1417,22 +1444,43 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       signal: opts?.signal,
     });
 
-    const data = JSON.parse(result.stdout) as Array<{
+    type Lock = {
       id: string;
       path: string;
-      owner: { name: string };
-      // biome-ignore lint/style/useNamingConvention: locked_at is from git-lfs JSON output
+      owner?: { name: string };
+      // biome-ignore lint/style/useNamingConvention: Git LFS JSON field
       locked_at: string;
-    }>;
-
-    return data.map((lock) => ({
+    };
+    const data = JSON.parse(result.stdout) as
+      | Lock[]
+      | { ours: Lock[] | null; theirs: Lock[] | null }
+      | null;
+    const convert = (lock: Lock, ours?: boolean): LfsLockEntry => ({
       id: lock.id,
       path: lock.path,
-      owner: { name: lock.owner.name },
+      owner: { name: lock.owner?.name ?? '' },
       lockedAt: new Date(lock.locked_at),
-    }));
+      ...(ours === undefined ? {} : { ours }),
+    });
+    if (!data) {
+      return [];
+    }
+    return Array.isArray(data)
+      ? data.map((lock) => convert(lock))
+      : [
+          ...(data.ours ?? []).map((lock) => convert(lock, true)),
+          ...(data.theirs ?? []).map((lock) => convert(lock, false)),
+        ];
   }
 
+  private lfsCheckout(
+    patterns: string | [string],
+    opts: LfsCheckoutOpts & { to: string } & ExecOpts,
+  ): Promise<void>;
+  private lfsCheckout(
+    patterns?: string | string[],
+    opts?: LfsCheckoutOpts & { to?: '' } & ExecOpts,
+  ): Promise<void>;
   private async lfsCheckout(
     patterns?: string | string[],
     opts?: LfsCheckoutOpts & ExecOpts,
@@ -1443,22 +1491,15 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     const args = ['lfs', 'checkout'];
 
-    if (opts?.onProgress) {
-      args.push('--progress');
-    }
-
-    if (opts?.include) {
-      const includes = Array.isArray(opts.include) ? opts.include : [opts.include];
-      for (const pattern of includes) {
-        args.push('--include', pattern);
+    validateOptions('lfsCheckout', opts);
+    validateInput('lfsCheckout', { ...opts, patterns });
+    for (const stage of ['base', 'ours', 'theirs'] as const) {
+      if (opts?.[stage]) {
+        args.push(`--${stage}`);
       }
     }
-
-    if (opts?.exclude) {
-      const excludes = Array.isArray(opts.exclude) ? opts.exclude : [opts.exclude];
-      for (const pattern of excludes) {
-        args.push('--exclude', pattern);
-      }
+    if (opts?.to !== undefined) {
+      args.push('--to', opts.to);
     }
 
     if (patterns) {
@@ -1473,125 +1514,120 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async lfsMigrateInfo(opts?: LfsMigrateInfoOpts & ExecOpts): Promise<string> {
+    validateOptions('lfsMigrateInfo', opts);
     if (this._lfsMode === 'disabled') {
       return '';
     }
-
     const args = ['lfs', 'migrate', 'info'];
-
     this.appendMigrateArgs(args, opts);
-
-    const result = await this.runner.runOrThrow(this.context, args, {
-      signal: opts?.signal,
-    });
-
+    for (const key of ['above', 'top', 'unit', 'pointers'] as const) {
+      if (opts?.[key] !== undefined) {
+        args.push(`--${key}=${opts[key]}`);
+      }
+    }
+    if (opts?.fixup) {
+      args.push('--fixup');
+    }
+    if (opts?.refs) {
+      args.push('--', ...(Array.isArray(opts.refs) ? opts.refs : [opts.refs]));
+    }
+    const result = await this.runner.runOrThrow(this.context, args, { signal: opts?.signal });
     return result.stdout;
   }
 
   private async lfsMigrateImport(opts?: LfsMigrateImportOpts & ExecOpts): Promise<void> {
+    validateOptions('lfsMigrateImport', opts);
     if (this._lfsMode === 'disabled') {
       return;
     }
-
     const args = ['lfs', 'migrate', 'import'];
-
     this.appendMigrateArgs(args, opts);
-
+    if (opts?.above !== undefined) {
+      args.push(`--above=${opts.above}`);
+    }
+    if (opts?.fixup) {
+      args.push('--fixup');
+    }
     if (opts?.noRewrite) {
       args.push('--no-rewrite');
     }
-
-    if (opts?.object) {
-      const objects = Array.isArray(opts.object) ? opts.object : [opts.object];
-      for (const obj of objects) {
-        args.push('--object', obj);
-      }
-    }
-
     if (opts?.verbose) {
       args.push('--verbose');
     }
-
+    if (opts?.objectMap !== undefined) {
+      args.push(`--object-map=${opts.objectMap}`);
+    }
+    if (opts?.message !== undefined) {
+      args.push(`--message=${opts.message}`);
+    }
+    const operands = opts?.noRewrite ? opts.files : opts?.refs;
+    if (operands) {
+      args.push('--', ...(Array.isArray(operands) ? operands : [operands]));
+    }
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
       onProgress: opts?.onProgress,
     });
   }
 
-  private async lfsMigrateExport(opts?: LfsMigrateExportOpts & ExecOpts): Promise<void> {
+  private async lfsMigrateExport(opts: LfsMigrateExportOpts & ExecOpts): Promise<void> {
+    validateOptions('lfsMigrateExport', opts);
     if (this._lfsMode === 'disabled') {
       return;
     }
-
     const args = ['lfs', 'migrate', 'export'];
-
     this.appendMigrateArgs(args, opts);
-
-    if (opts?.remote) {
-      args.push('--remote', opts.remote);
+    if (opts.remote !== undefined) {
+      args.push(`--remote=${opts.remote}`);
     }
-
-    if (opts?.verbose) {
+    if (opts.verbose) {
       args.push('--verbose');
     }
-
+    if (opts.objectMap !== undefined) {
+      args.push(`--object-map=${opts.objectMap}`);
+    }
+    if (opts.refs) {
+      args.push('--', ...(Array.isArray(opts.refs) ? opts.refs : [opts.refs]));
+    }
     await this.runner.runOrThrow(this.context, args, {
-      signal: opts?.signal,
-      onProgress: opts?.onProgress,
+      signal: opts.signal,
+      onProgress: opts.onProgress,
     });
   }
 
-  private appendMigrateArgs(args: string[], opts?: LfsMigrateInfoOpts): void {
+  private appendMigrateArgs(
+    args: string[],
+    opts?: Pick<
+      LfsMigrateInfoOpts,
+      'everything' | 'include' | 'exclude' | 'includeRef' | 'excludeRef' | 'skipFetch' | 'yesReally'
+    >,
+  ): void {
     if (opts?.everything) {
       args.push('--everything');
     }
-
-    if (opts?.include) {
-      const patterns = Array.isArray(opts.include) ? opts.include : [opts.include];
-      for (const pattern of patterns) {
-        args.push('--include', pattern);
+    for (const key of ['include', 'exclude'] as const) {
+      const value = opts?.[key];
+      // Cobra StringVar replaces preceding values. Emit one comma-separated filter.
+      if (value !== undefined) {
+        args.push(`--${key}=${Array.isArray(value) ? value.join(',') : value}`);
       }
     }
-
-    if (opts?.exclude) {
-      const patterns = Array.isArray(opts.exclude) ? opts.exclude : [opts.exclude];
-      for (const pattern of patterns) {
-        args.push('--exclude', pattern);
+    for (const [key, flag] of [
+      ['includeRef', '--include-ref'],
+      ['excludeRef', '--exclude-ref'],
+    ] as const) {
+      const value = opts?.[key];
+      if (value !== undefined) {
+        for (const ref of Array.isArray(value) ? value : [value]) {
+          args.push(`${flag}=${ref}`);
+        }
       }
     }
-
-    if (opts?.includeRef) {
-      const refs = Array.isArray(opts.includeRef) ? opts.includeRef : [opts.includeRef];
-      for (const ref of refs) {
-        args.push('--include-ref', ref);
-      }
-    }
-
-    if (opts?.excludeRef) {
-      const refs = Array.isArray(opts.excludeRef) ? opts.excludeRef : [opts.excludeRef];
-      for (const ref of refs) {
-        args.push('--exclude-ref', ref);
-      }
-    }
-
-    if (opts?.above !== undefined) {
-      args.push('--above', String(opts.above));
-    }
-
-    if (opts?.top !== undefined) {
-      args.push('--top', String(opts.top));
-    }
-
     if (opts?.skipFetch) {
       args.push('--skip-fetch');
     }
-
     if (opts?.yesReally) {
       args.push('--yes');
-    }
-
-    if (opts?.fixup) {
-      args.push('--fixup');
     }
   }
 
@@ -2248,7 +2284,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.gpgSign) {
       args.push('-S');
-    } else if (opts?.noGpgSign) {
+    }
+    if (opts?.noGpgSign) {
       args.push('--no-gpg-sign');
     }
 
@@ -2408,9 +2445,11 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.nameOnly) {
       args.push('--name-only');
-    } else if (opts?.nameStatus) {
+    }
+    if (opts?.nameStatus) {
       args.push('--name-status');
-    } else if (opts?.stat) {
+    }
+    if (opts?.stat) {
       args.push('--stat');
     }
 
@@ -2936,6 +2975,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // ==========================================================================
 
   public async reset(target?: string, opts?: ResetOpts & ExecOpts): Promise<void> {
+    validateOptions('reset', opts);
     const args = ['reset'];
 
     // Existing options
@@ -3062,6 +3102,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async stashPush(opts?: StashPushOpts & ExecOpts): Promise<void> {
+    validateOptions('stashPush', opts);
     const args = ['stash', 'push'];
 
     // Existing options
@@ -3073,8 +3114,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--include-untracked');
     }
 
-    if (opts?.keepIndex) {
-      args.push('--keep-index');
+    if (opts?.keepIndex !== undefined) {
+      args.push(opts.keepIndex ? '--keep-index' : '--no-keep-index');
     }
 
     // New options
@@ -3282,6 +3323,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async tagCreate(name: string, opts?: TagCreateOpts & ExecOpts): Promise<void> {
+    validateOptions('tagCreate', opts);
     const args = ['tag'];
 
     // Existing options
@@ -3289,7 +3331,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('-s');
     }
 
-    if (opts?.message) {
+    if (opts?.message !== undefined) {
       // If signing with -s, we don't need -a (signed tags are always annotated)
       if (!opts.sign) {
         args.push('-a');
@@ -3302,7 +3344,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     // New options
-    if (opts?.file) {
+    if (opts?.file !== undefined) {
       // If using file, we need -a for annotated tag (unless signing)
       if (!(opts.sign || opts.message)) {
         args.push('-a');
@@ -3430,28 +3472,17 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     opts?: CherryPickOpts & ExecOpts,
   ): Promise<void> {
     validateOptions('cherryPick', opts);
-    if (opts?.abort) {
-      await this.runner.runOrThrow(this.context, ['cherry-pick', '--abort'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.continue) {
-      await this.runner.runOrThrow(this.context, ['cherry-pick', '--continue'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.skip) {
-      await this.runner.runOrThrow(this.context, ['cherry-pick', '--skip'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
     const args = ['cherry-pick'];
+    const control = opts?.abort || opts?.continue || opts?.skip;
+    if (opts?.abort) {
+      args.push('--abort');
+    }
+    if (opts?.continue) {
+      args.push('--continue');
+    }
+    if (opts?.skip) {
+      args.push('--skip');
+    }
 
     if (opts?.edit) {
       args.push('-e');
@@ -3470,7 +3501,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     }
 
     if (opts?.strategy) {
-      args.push('-s', opts.strategy);
+      args.push('--strategy', opts.strategy);
     }
 
     // New options
@@ -3519,8 +3550,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--empty', opts.empty);
     }
 
-    const commitList = Array.isArray(commits) ? commits : [commits];
-    args.push(...commitList);
+    if (!control) {
+      const commitList = Array.isArray(commits) ? commits : [commits];
+      args.push(...commitList);
+    }
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -3628,28 +3661,16 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   public async rebase(opts?: RebaseOpts & ExecOpts): Promise<void> {
     validateOptions('rebase', opts);
-    if (opts?.abort) {
-      await this.runner.runOrThrow(this.context, ['rebase', '--abort'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.continue) {
-      await this.runner.runOrThrow(this.context, ['rebase', '--continue'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.skip) {
-      await this.runner.runOrThrow(this.context, ['rebase', '--skip'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
     const args = ['rebase'];
+    if (opts?.abort) {
+      args.push('--abort');
+    }
+    if (opts?.continue) {
+      args.push('--continue');
+    }
+    if (opts?.skip) {
+      args.push('--skip');
+    }
 
     if (opts?.onto) {
       args.push('--onto', opts.onto);
@@ -3825,7 +3846,8 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
     if (opts?.ours) {
       args.push('--ours');
-    } else if (opts?.theirs) {
+    }
+    if (opts?.theirs) {
       args.push('--theirs');
     }
 
@@ -3887,28 +3909,17 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
   public async revert(commits: string | string[], opts?: RevertOpts & ExecOpts): Promise<void> {
     validateOptions('revert', opts);
-    if (opts?.abort) {
-      await this.runner.runOrThrow(this.context, ['revert', '--abort'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.continue) {
-      await this.runner.runOrThrow(this.context, ['revert', '--continue'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
-    if (opts?.skip) {
-      await this.runner.runOrThrow(this.context, ['revert', '--skip'], {
-        signal: opts?.signal,
-      });
-      return;
-    }
-
     const args = ['revert'];
+    const control = opts?.abort || opts?.continue || opts?.skip;
+    if (opts?.abort) {
+      args.push('--abort');
+    }
+    if (opts?.continue) {
+      args.push('--continue');
+    }
+    if (opts?.skip) {
+      args.push('--skip');
+    }
 
     if (opts?.edit) {
       args.push('-e');
@@ -3960,8 +3971,10 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       args.push('--reference');
     }
 
-    const commitList = Array.isArray(commits) ? commits : [commits];
-    args.push(...commitList);
+    if (!control) {
+      const commitList = Array.isArray(commits) ? commits : [commits];
+      args.push(...commitList);
+    }
 
     await this.runner.runOrThrow(this.context, args, {
       signal: opts?.signal,
@@ -4347,6 +4360,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async submoduleUpdate(opts?: SubmoduleOpts & ExecOpts): Promise<void> {
+    validateOptions('submoduleUpdate', opts);
     const args = ['submodule', 'update'];
 
     if (opts?.init) {
@@ -4623,6 +4637,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     url: string,
     opts?: RemoteAddOpts & ExecOpts,
   ): Promise<void> {
+    validateOptions('remoteAdd', opts);
     const args = ['remote', 'add'];
 
     if (opts?.track) {

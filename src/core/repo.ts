@@ -1,3 +1,4 @@
+import type { GitCommandClient } from '../commands/types.js';
 import type { CheckedOptions, ExclusiveQuery } from './option-rules.js';
 /**
  * Repository interfaces - operations that require a repository context
@@ -9,7 +10,7 @@ import type { ExecOpts, GitProgress, LfsMode, RawResult } from './types.js';
 /**
  * Base repository interface
  */
-export interface RepoBase {
+export interface RepoBase extends GitCommandClient {
   readonly kind: 'worktree' | 'bare';
   /**
    * Execute a raw git command in this repository context
@@ -125,11 +126,11 @@ export type RepoLsRemoteOpts = CheckedOptions<
     /** Show only actual refs (not peeled tags) */
     refsOnly?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    getUrl?: never;
+    getUrl?: boolean;
     /** Sort refs by the given key (e.g., 'version:refname') */
     sort?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    symref?: never;
+    symref?: boolean;
     /** Specific refs to query (branch names, tag names, or full ref paths) */
     refs?: string[];
   },
@@ -223,19 +224,19 @@ export type StatusOpts = CheckedOptions<
   {
     // Existing options
     /** Porcelain output format version (1 or 2) */
-    porcelain?: 2;
+    porcelain?: 1 | 2;
     /** How to show untracked files */
     untracked?: 'no' | 'normal' | 'all';
 
     // New options
     /** @deprecated Use raw() for this operation or output format. */
-    verbose?: never;
+    verbose?: boolean;
     /** Show stash information */
     showStash?: boolean;
     /** Compute ahead/behind counts for the branch */
     aheadBehind?: boolean;
     /** Use NUL as line terminator */
-    nullTerminated?: true;
+    nullTerminated?: boolean;
     /** How to show ignored files */
     ignored?: 'traditional' | 'no' | 'matching';
     /** How to handle submodules */
@@ -294,23 +295,23 @@ export type LogOpts = CheckedOptions<
 
     // New options
     /** @deprecated Use raw() for this operation or output format. */
-    source?: never;
+    source?: boolean;
     /** Use mailmap file to map author names */
     useMailmap?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    decorateRefs?: never;
+    decorateRefs?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    decorateRefsExclude?: never;
+    decorateRefsExclude?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    decorate?: never;
+    decorate?: 'short' | 'full' | 'auto' | 'no';
     /** @deprecated Use raw() for this operation or output format. */
-    stat?: never;
+    stat?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    shortstat?: never;
+    shortstat?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    nameOnly?: never;
+    nameOnly?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    nameStatus?: never;
+    nameStatus?: boolean;
     /** Show only merge commits */
     merges?: boolean;
     /** Do not show merge commits */
@@ -362,7 +363,7 @@ export type FetchOpts = CheckedOptions<
     /** Force update of local branches */
     force?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    multiple?: never;
+    multiple?: boolean;
     /** Do not fetch any tags */
     noTags?: boolean;
     /** Number of parallel children for fetching submodules */
@@ -508,9 +509,9 @@ export type AddOpts = CheckedOptions<
     /** Force add of ignored files */
     force?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    interactive?: never;
+    interactive?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    patch?: never;
+    patch?: boolean;
 
     // New options
     /** Be verbose */
@@ -703,7 +704,7 @@ export type CommitOpts = CheckedOptions<
     /** Override commit date */
     date?: string | Date;
     /** @deprecated Use raw() for this operation or output format. */
-    dryRun?: never;
+    dryRun?: boolean;
     /** Bypass pre-commit and commit-msg hooks */
     noVerify?: boolean;
     /** GPG-sign the commit with the default key */
@@ -719,7 +720,7 @@ export type CommitOpts = CheckedOptions<
     /** Read commit message from file */
     file?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    reeditMessage?: never;
+    reeditMessage?: string;
     /** Take existing commit message and reuse it */
     reuseMessage?: string;
     /** Create a fixup commit for the specified commit */
@@ -791,7 +792,7 @@ export type DiffOpts = CheckedOptions<
 
     // New options
     /** Use NUL as line terminator */
-    nullTerminated?: true;
+    nullTerminated?: boolean;
     /** Generate patch output */
     patch?: boolean;
     /** Generate patch and raw format together */
@@ -825,7 +826,7 @@ export type DiffOpts = CheckedOptions<
     /** Show changes relative to a merge base */
     mergeBase?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    noIndex?: never;
+    noIndex?: boolean;
     /** Show word diff */
     wordDiff?: 'color' | 'plain' | 'porcelain' | 'none';
   },
@@ -1020,23 +1021,26 @@ export type PullOpts = CheckedOptions<
 /**
  * Options for git reset
  */
-export type ResetOpts = {
-  // Existing options
-  /** Reset mode */
-  mode?: 'soft' | 'mixed' | 'hard' | 'merge' | 'keep';
+export type ResetOpts = CheckedOptions<
+  {
+    // Existing options
+    /** Reset mode */
+    mode?: 'soft' | 'mixed' | 'hard' | 'merge' | 'keep';
 
-  // New options
-  /** Be quiet (report only errors) */
-  quiet?: boolean;
-  /** Skip refreshing the index after reset */
-  noRefresh?: boolean;
-  /** Reset submodules */
-  recurseSubmodules?: boolean;
-  /** Record intention to add unstaged files */
-  intentToAdd?: boolean;
-  /** Read pathspecs from file instead of command line */
-  pathspecFromFile?: string;
-};
+    // New options
+    /** Be quiet (report only errors) */
+    quiet?: boolean;
+    /** Skip refreshing the index after reset */
+    noRefresh?: boolean;
+    /** Reset submodules */
+    recurseSubmodules?: boolean;
+    /** Record intention to add unstaged files */
+    intentToAdd?: boolean;
+    /** Read pathspecs from file instead of command line */
+    pathspecFromFile?: string;
+  },
+  'reset'
+>;
 
 /**
  * Options for git rm
@@ -1076,27 +1080,30 @@ export type StashEntry = {
 /**
  * Options for git stash push
  */
-export type StashPushOpts = {
-  // Existing options
-  /** Stash message */
-  message?: string;
-  /** Include untracked files */
-  includeUntracked?: boolean;
-  /** Keep index */
-  keepIndex?: boolean;
-  /** Specific paths to stash */
-  paths?: string[];
+export type StashPushOpts = CheckedOptions<
+  {
+    // Existing options
+    /** Stash message */
+    message?: string;
+    /** Include untracked files */
+    includeUntracked?: boolean;
+    /** Keep index */
+    keepIndex?: boolean;
+    /** Specific paths to stash */
+    paths?: string[];
 
-  // New options
-  /** Stash only staged changes */
-  staged?: boolean;
-  /** Suppress output */
-  quiet?: boolean;
-  /** Stash all files including untracked and ignored */
-  all?: boolean;
-  /** Read pathspecs from file instead of command line */
-  pathspecFromFile?: string;
-};
+    // New options
+    /** Stash only staged changes */
+    staged?: boolean;
+    /** Suppress output */
+    quiet?: boolean;
+    /** Stash all files including untracked and ignored */
+    all?: boolean;
+    /** Read pathspecs from file instead of command line */
+    pathspecFromFile?: string;
+  },
+  'stashPush'
+>;
 
 /**
  * Options for git stash pop/apply
@@ -1195,29 +1202,32 @@ export type TagListOpts = {
 /**
  * Options for creating a tag
  */
-export type TagCreateOpts = {
-  // Existing options
-  /** Tag message (creates annotated tag) */
-  message?: string;
-  /** Force (overwrite existing tag) */
-  force?: boolean;
-  /** Commit to tag */
-  commit?: string;
-  /** GPG-sign the tag with the default key */
-  sign?: boolean;
+export type TagCreateOpts = CheckedOptions<
+  {
+    // Existing options
+    /** Tag message (creates annotated tag) */
+    message?: string;
+    /** Force (overwrite existing tag) */
+    force?: boolean;
+    /** Commit to tag */
+    commit?: string;
+    /** GPG-sign the tag with the default key */
+    sign?: boolean;
 
-  // New options
-  /** Read tag message from file */
-  file?: string;
-  /** Add trailers to the tag message */
-  trailer?: string | string[];
-  /** How to clean up the tag message */
-  cleanup?: string;
-  /** Key to use for GPG signing */
-  localUser?: string;
-  /** Create the tag's reflog */
-  createReflog?: boolean;
-};
+    // New options
+    /** Read tag message from file */
+    file?: string;
+    /** Add trailers to the tag message */
+    trailer?: string | string[];
+    /** How to clean up the tag message */
+    cleanup?: string;
+    /** Key to use for GPG signing */
+    localUser?: string;
+    /** Create the tag's reflog */
+    createReflog?: boolean;
+  },
+  'tagCreate'
+>;
 
 // =============================================================================
 // Medium Priority Commands
@@ -1246,7 +1256,7 @@ export type CherryPickOpts = CheckedOptions<
     /** Skip current commit */
     skip?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    noVerify?: never;
+    noVerify?: boolean;
 
     // New options
     /** How to clean up the commit message */
@@ -1329,7 +1339,7 @@ export type RebaseOpts = CheckedOptions<
     /** Onto target */
     onto?: string;
     /** @deprecated Use raw() for this operation or output format. */
-    interactive?: never;
+    interactive?: boolean;
     /** Preserve merges */
     rebaseMerges?: boolean;
     /** Abort rebase */
@@ -1452,7 +1462,7 @@ export type RevertOpts = CheckedOptions<
     /** Skip current commit */
     skip?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    noVerify?: never;
+    noVerify?: boolean;
 
     // New options
     /** How to clean up the commit message */
@@ -1612,34 +1622,37 @@ export type RevParsePathOpts = {
 /**
  * Options for git submodule
  */
-export type SubmoduleOpts = {
-  /** Recursive operation */
-  recursive?: boolean;
-  /** Initialize submodules */
-  init?: boolean;
-  /** Remote tracking branch */
-  remote?: boolean;
-  /** Force update */
-  force?: boolean;
+export type SubmoduleOpts = CheckedOptions<
+  {
+    /** Recursive operation */
+    recursive?: boolean;
+    /** Initialize submodules */
+    init?: boolean;
+    /** Remote tracking branch */
+    remote?: boolean;
+    /** Force update */
+    force?: boolean;
 
-  // New options
-  /** Do not fetch from remotes */
-  noFetch?: boolean;
-  /** Checkout the superproject's recorded commit */
-  checkout?: boolean;
-  /** Merge the commit into the current branch */
-  merge?: boolean;
-  /** Rebase the current branch onto the commit */
-  rebase?: boolean;
-  /** Use recommended shallow clone depth */
-  recommendShallow?: boolean;
-  /** Reference repository for shared clone */
-  reference?: string;
-  /** Clone only one branch */
-  singleBranch?: boolean;
-  /** Partial clone filter specification */
-  filter?: string;
-};
+    // New options
+    /** Do not fetch from remotes */
+    noFetch?: boolean;
+    /** Checkout the superproject's recorded commit */
+    checkout?: boolean;
+    /** Merge the commit into the current branch */
+    merge?: boolean;
+    /** Rebase the current branch onto the commit */
+    rebase?: boolean;
+    /** Use recommended shallow clone depth */
+    recommendShallow?: boolean;
+    /** Reference repository for shared clone */
+    reference?: string;
+    /** Clone only one branch */
+    singleBranch?: boolean;
+    /** Partial clone filter specification */
+    filter?: string;
+  },
+  'submoduleUpdate'
+>;
 
 /**
  * Options for adding a submodule
@@ -1739,7 +1752,7 @@ export type LfsStatus = {
 export type LfsPullOpts = CheckedOptions<
   {
     remote?: string;
-    ref?: never;
+    ref?: string;
     include?: string[];
     exclude?: string[];
   },
@@ -1770,11 +1783,11 @@ export type LfsPushOpts = CheckedOptions<
  */
 export type LfsStatusOpts = CheckedOptions<
   {
-    json?: true;
+    json?: boolean;
 
     // New options
     /** @deprecated Use raw() for this operation or output format. */
-    porcelain?: never;
+    porcelain?: boolean;
   },
   'lfsStatus'
 >;
@@ -1903,7 +1916,7 @@ export type LfsLsFilesOpts = CheckedOptions<
     /** Show file sizes */
     size?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    debug?: never;
+    debug?: boolean;
     /** Show all LFS files (not just current ref) */
     all?: boolean;
     /** Show deleted files */
@@ -1913,9 +1926,9 @@ export type LfsLsFilesOpts = CheckedOptions<
     /** Exclude patterns */
     exclude?: string | string[];
     /** @deprecated Use raw() for this operation or output format. */
-    nameOnly?: never;
+    nameOnly?: boolean;
     /** Output in JSON format */
-    json?: true;
+    json?: boolean;
     /** Ref to list files for */
     ref?: string;
   },
@@ -1958,6 +1971,8 @@ export type LfsTrackOpts = {
  * LFS lock entry
  */
 export type LfsLockEntry = {
+  /** Whether the lock belongs to us; provided when verifying locks. */
+  ours?: boolean;
   /** Lock ID */
   id: string;
   /** Locked file path */
@@ -1997,100 +2012,136 @@ export type LfsUnlockOpts = {
 /**
  * Options for LFS locks
  */
-export type LfsLocksOpts = {
-  /** Remote name */
-  remote?: string;
-  /** Filter by lock ID */
-  id?: string;
-  /** Filter by path */
-  path?: string;
-  /** Show local cache only */
-  local?: boolean;
-  /** Show cached locks */
-  cached?: boolean;
-  /** Verify locks with server */
-  verify?: boolean;
-  /** Limit number of results */
-  limit?: number;
-  /** Output in JSON format */
-  json?: boolean;
-};
+export type LfsLocksOpts = CheckedOptions<
+  {
+    /** Remote name */
+    remote?: string;
+    /** Filter by lock ID */
+    id?: string;
+    /** Filter by path */
+    path?: string;
+    /** Show local cache only */
+    local?: boolean;
+    /** Show cached locks */
+    cached?: boolean;
+    /** Verify locks with server */
+    verify?: boolean;
+    /** Limit number of results */
+    limit?: number;
+    /** Output in JSON format */
+    json?: boolean;
+  },
+  'lfsLocks'
+>;
 
 /**
  * Options for LFS checkout
  */
-export type LfsCheckoutOpts = {
-  /** Use base version for conflicts */
-  base?: boolean;
-  /** Use ours version for conflicts */
-  ours?: boolean;
-  /** Use theirs version for conflicts */
-  theirs?: boolean;
-  /** Write to file instead of working tree */
-  to?: string;
-  /** Include patterns */
-  include?: string | string[];
-  /** Exclude patterns */
-  exclude?: string | string[];
-};
+export type LfsCheckoutOpts = CheckedOptions<
+  {
+    /** Use base version for conflicts */
+    base?: boolean;
+    /** Use ours version for conflicts */
+    ours?: boolean;
+    /** Use theirs version for conflicts */
+    theirs?: boolean;
+    /** Write to file instead of working tree */
+    to?: string;
+    /** Include patterns */
+    include?: string | string[];
+    /** Exclude patterns */
+    exclude?: string | string[];
+  },
+  'lfsCheckout'
+>;
 
 /**
  * Options for LFS migrate info
  */
-export type LfsMigrateInfoOpts = {
-  /** Only show files above this size */
-  above?: string | number;
-  /** Show top N files */
-  top?: number;
-  /** Size unit (b, kb, mb, gb) */
-  unit?: 'b' | 'kb' | 'mb' | 'gb';
-  /** Show pointer files */
-  pointers?: 'follow' | 'no-follow' | 'ignore';
-  /** Fix up tracking patterns */
-  fixup?: boolean;
-  /** Include patterns */
-  include?: string | string[];
-  /** Exclude patterns */
-  exclude?: string | string[];
-  /** Include refs */
-  includeRef?: string | string[];
-  /** Exclude refs */
-  excludeRef?: string | string[];
-  /** Skip fetching from remote */
-  skipFetch?: boolean;
-  /** Operate on all refs */
-  everything?: boolean;
-  /** Confirm destructive operation */
-  yesReally?: boolean;
-};
+export type LfsMigrateInfoOpts = CheckedOptions<
+  {
+    /** Include patterns (combined as a comma-separated LFS filter). */
+    include?: string | string[];
+    exclude?: string | string[];
+    includeRef?: string | string[];
+    excludeRef?: string | string[];
+    skipFetch?: boolean;
+    everything?: boolean;
+    yesReally?: boolean;
+    /** Positional references to migrate. */
+    refs?: string | string[];
+    above?: string | number;
+    top?: number;
+    /** Git LFS storage unit (for example b, kb, mb, gb, tib). */
+    unit?: string;
+    pointers?: 'follow' | 'no-follow' | 'ignore';
+    fixup?: boolean;
+  },
+  'lfsMigrateInfo'
+>;
 
-/**
- * Options for LFS migrate import
- */
-export type LfsMigrateImportOpts = LfsMigrateInfoOpts & {
-  /** Show verbose output */
-  verbose?: boolean;
-  /** Write object map file */
-  objectMap?: string;
-  /** Don't rewrite history */
-  noRewrite?: boolean;
-  /** Commit message for fixup */
-  message?: string;
-  /** Object IDs to import */
-  object?: string | string[];
-};
+/** Options for git lfs migrate import. */
+export type LfsMigrateImportOpts = CheckedOptions<
+  {
+    /** Include patterns (combined as a comma-separated LFS filter). */
+    include?: string | string[];
+    exclude?: string | string[];
+    includeRef?: string | string[];
+    excludeRef?: string | string[];
+    skipFetch?: boolean;
+    everything?: boolean;
+    yesReally?: boolean;
+    /** Positional references to migrate. */
+    refs?: string | string[];
+    above?: string | number;
+    fixup?: boolean;
+    verbose?: boolean;
+    objectMap?: string;
+    noRewrite?: boolean;
+    message?: string;
+    /** Files for --no-rewrite; these are positional paths, not object IDs. */
+    files?: [string, ...string[]];
+    /** @deprecated Git LFS migrate has no --object option. Use files with noRewrite. */
+    object?: string | string[];
+    /** @deprecated Supported only by migrate info. */
+    top?: number;
+    /** @deprecated Supported only by migrate info. */
+    unit?: string;
+    /** @deprecated Supported only by migrate info. */
+    pointers?: string;
+  },
+  'lfsMigrateImport'
+>;
 
-/**
- * Options for LFS migrate export
- */
-export type LfsMigrateExportOpts = LfsMigrateInfoOpts & {
-  /** Show verbose output */
-  verbose?: boolean;
-  /** Write object map file */
-  objectMap?: string;
-  /** Remote name */
-  remote?: string;
-};
+/** Options for git lfs migrate export. */
+export type LfsMigrateExportOpts = CheckedOptions<
+  {
+    /** Include patterns (combined as a comma-separated LFS filter). */
+    include?: string | string[];
+    exclude?: string | string[];
+    includeRef?: string | string[];
+    excludeRef?: string | string[];
+    skipFetch?: boolean;
+    everything?: boolean;
+    yesReally?: boolean;
+    /** Positional references to migrate. */
+    refs?: string | string[];
+    verbose?: boolean;
+    objectMap?: string;
+    remote?: string;
+    /** @deprecated Supported only by migrate info/import. */
+    above?: string | number;
+    /** @deprecated Supported only by migrate info. */
+    top?: number;
+    /** @deprecated Supported only by migrate info. */
+    unit?: string;
+    /** @deprecated Supported only by migrate info. */
+    pointers?: string;
+    /** @deprecated Supported only by migrate info/import. */
+    fixup?: boolean;
+  },
+  'lfsMigrateExport'
+>;
 
 /**
  * LFS environment info
@@ -2545,7 +2596,14 @@ export interface LfsOperations {
    *
    * Wraps: `git lfs checkout`
    */
-  checkout(patterns?: string | string[], opts?: LfsCheckoutOpts & ExecOpts): Promise<void>;
+  checkout(
+    patterns: string | [string],
+    opts: LfsCheckoutOpts & { to: string } & ExecOpts,
+  ): Promise<void>;
+  checkout(
+    patterns?: string | string[],
+    opts?: LfsCheckoutOpts & { to?: '' } & ExecOpts,
+  ): Promise<void>;
 
   /**
    * Show information about LFS files that would be migrated
@@ -2566,7 +2624,7 @@ export interface LfsOperations {
    *
    * Wraps: `git lfs migrate export`
    */
-  migrateExport(opts?: LfsMigrateExportOpts & ExecOpts): Promise<void>;
+  migrateExport(opts: LfsMigrateExportOpts & ExecOpts): Promise<void>;
 
   /**
    * Get LFS environment information
@@ -2764,18 +2822,21 @@ export type RemoteInfo = {
 /**
  * Options for adding a remote
  */
-export type RemoteAddOpts = {
-  /** Set up tracking for default branch */
-  track?: string;
-  /** Only fetch specified branches */
-  fetch?: boolean;
-  /** Set up as mirror */
-  mirror?: 'fetch' | 'push';
+export type RemoteAddOpts = CheckedOptions<
+  {
+    /** Set up tracking for default branch */
+    track?: string;
+    /** Only fetch specified branches */
+    fetch?: boolean;
+    /** Set up as mirror */
+    mirror?: 'fetch' | 'push';
 
-  // New options
-  /** Import tags from remote (true) or not (false) */
-  tags?: boolean;
-};
+    // New options
+    /** Import tags from remote (true) or not (false) */
+    tags?: boolean;
+  },
+  'remoteAdd'
+>;
 
 /**
  * Options for remote set-head
@@ -2974,7 +3035,7 @@ export type ConfigListOpts = CheckedOptions<
     /** Respect include directives */
     includes?: boolean;
     /** @deprecated Use raw() for this operation or output format. */
-    nameOnly?: never;
+    nameOnly?: boolean;
   },
   'configList'
 >;
