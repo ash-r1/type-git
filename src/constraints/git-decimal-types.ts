@@ -59,7 +59,11 @@ type Decimal<S extends string, Steps extends unknown[] = []> = string extends S
       : S extends `${infer H}${infer R}`
         ? H extends Digit
           ? Decimal<R, [...Steps, 0]>
-          : false
+          : `${number}` extends H
+            ? 'dynamic'
+            : `${bigint}` extends H
+              ? 'dynamic'
+              : false
         : 'dynamic';
 type After<S extends string, P extends GitDecimalParser> = P extends { positive: true }
   ? S extends '0' | `-${string}`

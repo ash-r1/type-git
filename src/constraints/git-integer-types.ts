@@ -83,7 +83,11 @@ type Digits<
         : S extends `${infer H}${infer R}`
           ? Lowercase<H> extends Permitted<B>
             ? Digits<R, B, AddDigit<A, B, Lowercase<H>>, true, [...Steps, 0]>
-            : 'invalid'
+            : `${number}` extends H
+              ? 'dynamic'
+              : `${bigint}` extends H
+                ? 'dynamic'
+                : 'invalid'
           : 'dynamic';
 type Magnitude<S extends string> = S extends `0${'x' | 'X'}${infer R}`
   ? Digits<R, 16>
