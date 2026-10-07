@@ -55,10 +55,10 @@
     "version-packages": "changeset version",
     "release": "changeset publish",
     "test:types": "tsc --project tsconfig.contracts.json",
-    "constraints:generate": "node scripts/compound-decimals.mjs && node scripts/boolean-callbacks.mjs && node scripts/numeric-callbacks.mjs && node scripts/constraints.mjs && node scripts/command-coverage.mjs",
-    "constraints:check": "node scripts/compound-decimals.mjs --check && node scripts/boolean-callbacks.mjs --check && node scripts/numeric-callbacks.mjs --check && node scripts/constraints.mjs --check && node scripts/command-coverage.mjs --check",
-    "commands:generate": "node scripts/compound-decimals.mjs && node scripts/boolean-callbacks.mjs && node scripts/numeric-callbacks.mjs && node scripts/integer-type-tables.mjs && node scripts/url-byte-types.mjs && node scripts/commands.mjs",
-    "commands:check": "node scripts/compound-decimals.mjs --check && node scripts/boolean-callbacks.mjs --check && node scripts/numeric-callbacks.mjs --check && node scripts/integer-type-tables.mjs --check && node scripts/url-byte-types.mjs --check && node scripts/commands.mjs --check",
+    "constraints:generate": "node scripts/string-callbacks.mjs && node scripts/compound-decimals.mjs && node scripts/boolean-callbacks.mjs && node scripts/numeric-callbacks.mjs && node scripts/constraints.mjs && node scripts/command-coverage.mjs",
+    "constraints:check": "node scripts/string-callbacks.mjs --check && node scripts/compound-decimals.mjs --check && node scripts/boolean-callbacks.mjs --check && node scripts/numeric-callbacks.mjs --check && node scripts/constraints.mjs --check && node scripts/command-coverage.mjs --check",
+    "commands:generate": "node scripts/string-callbacks.mjs && node scripts/compound-decimals.mjs && node scripts/boolean-callbacks.mjs && node scripts/numeric-callbacks.mjs && node scripts/integer-type-tables.mjs && node scripts/url-byte-types.mjs && node scripts/commands.mjs",
+    "commands:check": "node scripts/string-callbacks.mjs --check && node scripts/compound-decimals.mjs --check && node scripts/boolean-callbacks.mjs --check && node scripts/numeric-callbacks.mjs --check && node scripts/integer-type-tables.mjs --check && node scripts/url-byte-types.mjs --check && node scripts/commands.mjs --check",
     "commands:upstream-check": "node scripts/verify-upstream.mjs"
   },
   "keywords": [

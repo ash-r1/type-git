@@ -12,6 +12,8 @@ import type {
 } from '../constraints/git-numeric-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
+import type { StringCallbackParser } from '../constraints/string-callback.js';
+import type { StringCallbackLiteral } from '../constraints/string-callback-types.js';
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, RawResult } from '../core/types.js';
 import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
@@ -268,23 +270,25 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
     ? V extends undefined
       ? true
       : GitBooleanCallbackLiteral<V, P>
-    : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
-      ? V extends undefined
-        ? true
-        : CompoundDecimalLiteral<V, D['parser']>
-      : V extends string
-        ? string extends V
+    : D extends { parser: infer P extends StringCallbackParser }
+      ? StringCallbackLiteral<V, P>
+      : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+        ? V extends undefined
           ? true
-          : D extends { parser: 'object-filter' | 'object-filter-auto' }
-            ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
-            : D extends { parser: 'shortlog-group' }
-              ? AsciiLower<V> extends 'author' | 'committer'
-                ? true
-                : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
+          : CompoundDecimalLiteral<V, D['parser']>
+        : V extends string
+          ? string extends V
+            ? true
+            : D extends { parser: 'object-filter' | 'object-filter-auto' }
+              ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
+              : D extends { parser: 'shortlog-group' }
+                ? AsciiLower<V> extends 'author' | 'committer'
                   ? true
-                  : false
-              : true
-        : true;
+                  : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
+                    ? true
+                    : false
+                : true
+          : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: GitNumericParser;
   allowed: infer A extends readonly unknown[];

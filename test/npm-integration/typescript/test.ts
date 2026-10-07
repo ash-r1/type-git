@@ -252,3 +252,14 @@ export function testPhasedParserExitTypes(git: Git, dynamic: string): void {
   // @ts-expect-error The split value is another initial-pass option, not opaque data.
   git.command('log', [['-n', '--decorate=invalid'], ['-h']]);
 }
+
+export function testStringCallbackTypes(git: Git, dynamic: string): void {
+  git.command('fast-export', [['--anonymize-map', 'one:two:'], ['-h']]);
+  git.command('fast-export', [['-h'], ['--anonymize-map', ':']]);
+  git.command('fast-import', [['--signed-tags', 'sign-if-invalid=']]);
+  git.command('fast-import', [['--signed-commits', dynamic]]);
+  // @ts-expect-error The first separator leaves an empty key.
+  git.command('fast-export', [['--anonymize-map', ':value'], ['-h']]);
+  // @ts-expect-error Only sign-if-invalid accepts a key suffix.
+  git.command('fast-import', [['--signed-tags', 'strip=key']]);
+}
