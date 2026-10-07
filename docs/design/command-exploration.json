@@ -24696,6 +24696,1999 @@
       }
     },
     {
+      "command": "gc",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "prune": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cruft": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "max-cruft-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "aggressive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keep-largest-pack": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "expire-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "skip-foreground-tasks": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "94478400",
+      "accepted": "18895680",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.gc.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "maintenance run",
+      "transitions": [
+        {
+          "flag": "--task",
+          "rules": [
+            "cli.maintenance-run.task-duplicate"
+          ],
+          "domains": {
+            "task": [
+              "undefined",
+              "[]",
+              "[\"prefetch\"]",
+              "[\"prefetch\",\"prefetch\"]",
+              "[\"loose-objects\"]",
+              "[\"loose-objects\",\"loose-objects\"]",
+              "[\"incremental-repack\"]",
+              "[\"incremental-repack\",\"incremental-repack\"]",
+              "[\"geometric-repack\"]",
+              "[\"geometric-repack\",\"geometric-repack\"]",
+              "[\"gc\"]",
+              "[\"gc\",\"gc\"]",
+              "[\"commit-graph\"]",
+              "[\"commit-graph\",\"commit-graph\"]",
+              "[\"pack-refs\"]",
+              "[\"pack-refs\",\"pack-refs\"]",
+              "[\"reflog-expire\"]",
+              "[\"reflog-expire\",\"reflog-expire\"]",
+              "[\"worktree-prune\"]",
+              "[\"worktree-prune\",\"worktree-prune\"]",
+              "[\"rerere-gc\"]",
+              "[\"rerere-gc\",\"rerere-gc\"]",
+              "[\"PREFETCH\"]",
+              "[\"PREFETCH\",\"PREFETCH\"]",
+              "[\"LOOSE-OBJECTS\"]",
+              "[\"LOOSE-OBJECTS\",\"LOOSE-OBJECTS\"]",
+              "[\"INCREMENTAL-REPACK\"]",
+              "[\"INCREMENTAL-REPACK\",\"INCREMENTAL-REPACK\"]",
+              "[\"GEOMETRIC-REPACK\"]",
+              "[\"GEOMETRIC-REPACK\",\"GEOMETRIC-REPACK\"]",
+              "[\"GC\"]",
+              "[\"GC\",\"GC\"]",
+              "[\"COMMIT-GRAPH\"]",
+              "[\"COMMIT-GRAPH\",\"COMMIT-GRAPH\"]",
+              "[\"PACK-REFS\"]",
+              "[\"PACK-REFS\",\"PACK-REFS\"]",
+              "[\"REFLOG-EXPIRE\"]",
+              "[\"REFLOG-EXPIRE\",\"REFLOG-EXPIRE\"]",
+              "[\"WORKTREE-PRUNE\"]",
+              "[\"WORKTREE-PRUNE\",\"WORKTREE-PRUNE\"]",
+              "[\"RERERE-GC\"]",
+              "[\"RERERE-GC\",\"RERERE-GC\"]"
+            ],
+            "$value": [
+              "undefined",
+              "\"prefetch\"",
+              "\"loose-objects\"",
+              "\"incremental-repack\"",
+              "\"geometric-repack\"",
+              "\"gc\"",
+              "\"commit-graph\"",
+              "\"pack-refs\"",
+              "\"reflog-expire\"",
+              "\"worktree-prune\"",
+              "\"rerere-gc\"",
+              "\"PREFETCH\"",
+              "\"LOOSE-OBJECTS\"",
+              "\"INCREMENTAL-REPACK\"",
+              "\"GEOMETRIC-REPACK\"",
+              "\"GC\"",
+              "\"COMMIT-GRAPH\"",
+              "\"PACK-REFS\"",
+              "\"REFLOG-EXPIRE\"",
+              "\"WORKTREE-PRUNE\"",
+              "\"RERERE-GC\""
+            ]
+          },
+          "total": "882",
+          "accepted": "842",
+          "isolatedRuleWitnesses": {
+            "cli.maintenance-run.task-duplicate": "{\"$value\":\"prefetch\",\"task\":[\"prefetch\"]}"
+          }
+        }
+      ],
+      "rules": 2,
+      "domains": {
+        "auto": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "schedule": [
+          "undefined",
+          "\"hourly\"",
+          "\"daily\"",
+          "\"weekly\""
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "task": [
+          "undefined",
+          "[]",
+          "[\"prefetch\"]",
+          "[\"prefetch\",\"prefetch\"]",
+          "[\"loose-objects\"]",
+          "[\"loose-objects\",\"loose-objects\"]",
+          "[\"incremental-repack\"]",
+          "[\"incremental-repack\",\"incremental-repack\"]",
+          "[\"geometric-repack\"]",
+          "[\"geometric-repack\",\"geometric-repack\"]",
+          "[\"gc\"]",
+          "[\"gc\",\"gc\"]",
+          "[\"commit-graph\"]",
+          "[\"commit-graph\",\"commit-graph\"]",
+          "[\"pack-refs\"]",
+          "[\"pack-refs\",\"pack-refs\"]",
+          "[\"reflog-expire\"]",
+          "[\"reflog-expire\",\"reflog-expire\"]",
+          "[\"worktree-prune\"]",
+          "[\"worktree-prune\",\"worktree-prune\"]",
+          "[\"rerere-gc\"]",
+          "[\"rerere-gc\",\"rerere-gc\"]",
+          "[\"PREFETCH\"]",
+          "[\"PREFETCH\",\"PREFETCH\"]",
+          "[\"LOOSE-OBJECTS\"]",
+          "[\"LOOSE-OBJECTS\",\"LOOSE-OBJECTS\"]",
+          "[\"INCREMENTAL-REPACK\"]",
+          "[\"INCREMENTAL-REPACK\",\"INCREMENTAL-REPACK\"]",
+          "[\"GEOMETRIC-REPACK\"]",
+          "[\"GEOMETRIC-REPACK\",\"GEOMETRIC-REPACK\"]",
+          "[\"GC\"]",
+          "[\"GC\",\"GC\"]",
+          "[\"COMMIT-GRAPH\"]",
+          "[\"COMMIT-GRAPH\",\"COMMIT-GRAPH\"]",
+          "[\"PACK-REFS\"]",
+          "[\"PACK-REFS\",\"PACK-REFS\"]",
+          "[\"REFLOG-EXPIRE\"]",
+          "[\"REFLOG-EXPIRE\",\"REFLOG-EXPIRE\"]",
+          "[\"WORKTREE-PRUNE\"]",
+          "[\"WORKTREE-PRUNE\",\"WORKTREE-PRUNE\"]",
+          "[\"RERERE-GC\"]",
+          "[\"RERERE-GC\",\"RERERE-GC\"]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "272160",
+      "accepted": "14904",
+      "nodes": 23,
+      "isolatedRuleWitnesses": {
+        "cli.maintenance-run.operands": "{\"operands\":[\"value\"]}",
+        "cli.maintenance-run.schedule": "{\"operands\":[],\"schedule\":\"hourly\",\"task\":[\"prefetch\"]}"
+      }
+    },
+    {
+      "command": "maintenance register",
+      "rules": 1,
+      "domains": {
+        "config-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "60",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.maintenance-register.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "maintenance unregister",
+      "rules": 1,
+      "domains": {
+        "config-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1200",
+      "accepted": "240",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.maintenance-unregister.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "maintenance start",
+      "rules": 1,
+      "domains": {
+        "scheduler": [
+          "undefined",
+          "\"auto\"",
+          "\"cron\"",
+          "\"crontab\"",
+          "\"systemd\"",
+          "\"systemd-timer\"",
+          "\"launchctl\"",
+          "\"schtasks\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "480",
+      "accepted": "96",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.maintenance-start.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "maintenance stop",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.maintenance-stop.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "maintenance is-needed",
+      "transitions": [
+        {
+          "flag": "--task",
+          "rules": [
+            "cli.maintenance-is-needed.task-duplicate"
+          ],
+          "domains": {
+            "task": [
+              "undefined",
+              "[]",
+              "[\"prefetch\"]",
+              "[\"prefetch\",\"prefetch\"]",
+              "[\"loose-objects\"]",
+              "[\"loose-objects\",\"loose-objects\"]",
+              "[\"incremental-repack\"]",
+              "[\"incremental-repack\",\"incremental-repack\"]",
+              "[\"geometric-repack\"]",
+              "[\"geometric-repack\",\"geometric-repack\"]",
+              "[\"gc\"]",
+              "[\"gc\",\"gc\"]",
+              "[\"commit-graph\"]",
+              "[\"commit-graph\",\"commit-graph\"]",
+              "[\"pack-refs\"]",
+              "[\"pack-refs\",\"pack-refs\"]",
+              "[\"reflog-expire\"]",
+              "[\"reflog-expire\",\"reflog-expire\"]",
+              "[\"worktree-prune\"]",
+              "[\"worktree-prune\",\"worktree-prune\"]",
+              "[\"rerere-gc\"]",
+              "[\"rerere-gc\",\"rerere-gc\"]",
+              "[\"PREFETCH\"]",
+              "[\"PREFETCH\",\"PREFETCH\"]",
+              "[\"LOOSE-OBJECTS\"]",
+              "[\"LOOSE-OBJECTS\",\"LOOSE-OBJECTS\"]",
+              "[\"INCREMENTAL-REPACK\"]",
+              "[\"INCREMENTAL-REPACK\",\"INCREMENTAL-REPACK\"]",
+              "[\"GEOMETRIC-REPACK\"]",
+              "[\"GEOMETRIC-REPACK\",\"GEOMETRIC-REPACK\"]",
+              "[\"GC\"]",
+              "[\"GC\",\"GC\"]",
+              "[\"COMMIT-GRAPH\"]",
+              "[\"COMMIT-GRAPH\",\"COMMIT-GRAPH\"]",
+              "[\"PACK-REFS\"]",
+              "[\"PACK-REFS\",\"PACK-REFS\"]",
+              "[\"REFLOG-EXPIRE\"]",
+              "[\"REFLOG-EXPIRE\",\"REFLOG-EXPIRE\"]",
+              "[\"WORKTREE-PRUNE\"]",
+              "[\"WORKTREE-PRUNE\",\"WORKTREE-PRUNE\"]",
+              "[\"RERERE-GC\"]",
+              "[\"RERERE-GC\",\"RERERE-GC\"]"
+            ],
+            "$value": [
+              "undefined",
+              "\"prefetch\"",
+              "\"loose-objects\"",
+              "\"incremental-repack\"",
+              "\"geometric-repack\"",
+              "\"gc\"",
+              "\"commit-graph\"",
+              "\"pack-refs\"",
+              "\"reflog-expire\"",
+              "\"worktree-prune\"",
+              "\"rerere-gc\"",
+              "\"PREFETCH\"",
+              "\"LOOSE-OBJECTS\"",
+              "\"INCREMENTAL-REPACK\"",
+              "\"GEOMETRIC-REPACK\"",
+              "\"GC\"",
+              "\"COMMIT-GRAPH\"",
+              "\"PACK-REFS\"",
+              "\"REFLOG-EXPIRE\"",
+              "\"WORKTREE-PRUNE\"",
+              "\"RERERE-GC\""
+            ]
+          },
+          "total": "882",
+          "accepted": "842",
+          "isolatedRuleWitnesses": {
+            "cli.maintenance-is-needed.task-duplicate": "{\"$value\":\"prefetch\",\"task\":[\"prefetch\"]}"
+          }
+        }
+      ],
+      "rules": 1,
+      "domains": {
+        "auto": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "task": [
+          "undefined",
+          "[]",
+          "[\"prefetch\"]",
+          "[\"prefetch\",\"prefetch\"]",
+          "[\"loose-objects\"]",
+          "[\"loose-objects\",\"loose-objects\"]",
+          "[\"incremental-repack\"]",
+          "[\"incremental-repack\",\"incremental-repack\"]",
+          "[\"geometric-repack\"]",
+          "[\"geometric-repack\",\"geometric-repack\"]",
+          "[\"gc\"]",
+          "[\"gc\",\"gc\"]",
+          "[\"commit-graph\"]",
+          "[\"commit-graph\",\"commit-graph\"]",
+          "[\"pack-refs\"]",
+          "[\"pack-refs\",\"pack-refs\"]",
+          "[\"reflog-expire\"]",
+          "[\"reflog-expire\",\"reflog-expire\"]",
+          "[\"worktree-prune\"]",
+          "[\"worktree-prune\",\"worktree-prune\"]",
+          "[\"rerere-gc\"]",
+          "[\"rerere-gc\",\"rerere-gc\"]",
+          "[\"PREFETCH\"]",
+          "[\"PREFETCH\",\"PREFETCH\"]",
+          "[\"LOOSE-OBJECTS\"]",
+          "[\"LOOSE-OBJECTS\",\"LOOSE-OBJECTS\"]",
+          "[\"INCREMENTAL-REPACK\"]",
+          "[\"INCREMENTAL-REPACK\",\"INCREMENTAL-REPACK\"]",
+          "[\"GEOMETRIC-REPACK\"]",
+          "[\"GEOMETRIC-REPACK\",\"GEOMETRIC-REPACK\"]",
+          "[\"GC\"]",
+          "[\"GC\",\"GC\"]",
+          "[\"COMMIT-GRAPH\"]",
+          "[\"COMMIT-GRAPH\",\"COMMIT-GRAPH\"]",
+          "[\"PACK-REFS\"]",
+          "[\"PACK-REFS\",\"PACK-REFS\"]",
+          "[\"REFLOG-EXPIRE\"]",
+          "[\"REFLOG-EXPIRE\",\"REFLOG-EXPIRE\"]",
+          "[\"WORKTREE-PRUNE\"]",
+          "[\"WORKTREE-PRUNE\",\"WORKTREE-PRUNE\"]",
+          "[\"RERERE-GC\"]",
+          "[\"RERERE-GC\",\"RERERE-GC\"]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "7560",
+      "accepted": "1512",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.maintenance-is-needed.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "commit-graph verify",
+      "rules": 1,
+      "domains": {
+        "object-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2700",
+      "accepted": "540",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.commit-graph-verify.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "commit-graph write",
+      "rules": 2,
+      "domains": {
+        "object-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reachable": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin-packs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin-commits": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "append": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "changed-paths": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "split": [
+          "undefined",
+          "\"no-merge\"",
+          "\"replace\"",
+          "true"
+        ],
+        "max-commits": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "size-multiple": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "expire-time": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-new-filters": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "787320000",
+      "accepted": "116640000",
+      "nodes": 24,
+      "isolatedRuleWitnesses": {
+        "cli.commit-graph-write.operands": "{\"operands\":[\"value\"]}",
+        "cli.commit-graph-write.input": "{\"operands\":[],\"stdin-commits\":true,\"stdin-packs\":true}"
+      }
+    },
+    {
+      "command": "multi-pack-index write",
+      "rules": 3,
+      "domains": {
+        "object-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "preferred-pack": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bitmap": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "base": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "incremental": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "write-chain-file": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin-packs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "refs-snapshot": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "9112500",
+      "accepted": "445500",
+      "nodes": 27,
+      "isolatedRuleWitnesses": {
+        "cli.multi-pack-index-write.operands": "{\"operands\":[\"value\"]}",
+        "cli.multi-pack-index-write.chain": "{\"operands\":[],\"write-chain-file\":false}",
+        "cli.multi-pack-index-write.base": "{\"base\":\"\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "multi-pack-index compact",
+      "rules": 2,
+      "domains": {
+        "object-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "base": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bitmap": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "incremental": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "write-chain-file": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "121500",
+      "accepted": "18900",
+      "nodes": 14,
+      "isolatedRuleWitnesses": {
+        "cli.multi-pack-index-compact.operands": "{\"operands\":[]}",
+        "cli.multi-pack-index-compact.chain": "{\"operands\":[\"value\",\"value\"],\"write-chain-file\":false}"
+      }
+    },
+    {
+      "command": "multi-pack-index verify",
+      "rules": 1,
+      "domains": {
+        "object-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "900",
+      "accepted": "180",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.multi-pack-index-verify.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "multi-pack-index expire",
+      "rules": 1,
+      "domains": {
+        "object-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "900",
+      "accepted": "180",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.multi-pack-index-expire.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "multi-pack-index repack",
+      "rules": 1,
+      "domains": {
+        "object-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "batch-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "5400",
+      "accepted": "1080",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.multi-pack-index-repack.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "refs migrate",
+      "rules": 3,
+      "domains": {
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-reflog": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3780",
+      "accepted": "216",
+      "nodes": 13,
+      "isolatedRuleWitnesses": {
+        "cli.refs-migrate.operands": "{\"operands\":[\"value\"],\"ref-format\":\"files\"}",
+        "cli.refs-migrate.format-required": "{\"operands\":[]}",
+        "cli.refs-migrate.format": "{\"operands\":[],\"ref-format\":\"\"}"
+      }
+    },
+    {
+      "command": "refs verify",
+      "rules": 1,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "strict": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "540",
+      "accepted": "108",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.refs-verify.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "refs exists",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.refs-exists.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "refs list",
+      "rules": 6,
+      "domains": {
+        "sort-base": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "shell": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "perl": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "python": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tcl": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "omit-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "count": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "start-after": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "sort": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "points-at": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "merged": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "no-merged": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "contains": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "no-contains": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "ignore-case": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "include-root-refs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "688747536000000",
+      "accepted": "66029064192000",
+      "nodes": 196,
+      "isolatedRuleWitnesses": {
+        "cli.refs-list.quote-style": "{\"operands\":[],\"shell\":true,\"tcl\":true}",
+        "cli.refs-list.count": "{\"count\":-2,\"operands\":[]}",
+        "cli.refs-list.stdin-patterns": "{\"operands\":[\"value\"],\"stdin\":true}",
+        "cli.refs-list.start-patterns": "{\"operands\":[\"value\"],\"start-after\":\"\"}",
+        "cli.refs-list.default-sort": "{\"operands\":[],\"sort\":[\"\"],\"sort-base\":true,\"start-after\":\"\"}",
+        "cli.refs-list.reset-sort": "{\"operands\":[],\"sort\":[\"\",\"\"],\"sort-base\":false,\"start-after\":\"\"}"
+      }
+    },
+    {
+      "command": "pack-refs",
+      "rules": 1,
+      "domains": {
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prune": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "include": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "162000",
+      "accepted": "32400",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.pack-refs.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "refs optimize",
+      "rules": 1,
+      "domains": {
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prune": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "include": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "162000",
+      "accepted": "32400",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.refs-optimize.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "fsck",
+      "rules": 0,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "unreachable": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "dangling": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "root": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cache": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reflogs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "full": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "connectivity-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "strict": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "lost-found": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "name-objects": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "references": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "382637520",
+      "accepted": "382637520",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "fsck-objects",
+      "rules": 0,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "unreachable": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "dangling": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "root": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cache": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reflogs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "full": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "connectivity-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "strict": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "lost-found": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "name-objects": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "references": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "382637520",
+      "accepted": "382637520",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "prune",
+      "rules": 0,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "expire": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-promisor-objects": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "32400",
+      "accepted": "32400",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "prune-packed",
+      "rules": 1,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "540",
+      "accepted": "108",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.prune-packed.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "update-server-info",
+      "rules": 1,
+      "domains": {
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.update-server-info.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "stage",
+      "rules": 13,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "interactive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto-advance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "edit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "update": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "renormalize": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "intent-to-add": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "refresh": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-errors": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-missing": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sparse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "chmod": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"+x\"",
+          "\"-x\""
+        ],
+        "warn-embedded-repo": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "17356437907200",
+      "accepted": "964023161472",
+      "nodes": 776,
+      "isolatedRuleWitnesses": {
+        "cli.stage.pathspec-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
+        "cli.stage.pathspec-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
+        "cli.stage.all-update": "{\"all\":true,\"operands\":[],\"update\":true}",
+        "cli.stage.ignore-missing": "{\"ignore-missing\":true,\"operands\":[]}",
+        "cli.stage.chmod": "{\"chmod\":\"\",\"operands\":[]}",
+        "cli.stage.interactive": "{\"interactive\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
+        "cli.stage.patch": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
+        "cli.stage.edit-pathspec-file": "{\"edit\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
+        "cli.stage.auto-advance": "{\"auto-advance\":false,\"operands\":[]}",
+        "cli.stage.unified-minimum": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "cli.stage.unified-interactive": "{\"operands\":[],\"unified\":0}",
+        "cli.stage.inter-hunk-context-minimum": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "cli.stage.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

@@ -7,12 +7,42 @@ import type { OptionSpec } from './spec.js';
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
-type CaseVariants<S extends string> = S extends `${infer H}${infer R}`
-  ? `${Lowercase<H> | Uppercase<H>}${CaseVariants<R>}`
-  : S;
+type AsciiUpper =
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'F'
+  | 'G'
+  | 'H'
+  | 'I'
+  | 'J'
+  | 'K'
+  | 'L'
+  | 'M'
+  | 'N'
+  | 'O'
+  | 'P'
+  | 'Q'
+  | 'R'
+  | 'S'
+  | 'T'
+  | 'U'
+  | 'V'
+  | 'W'
+  | 'X'
+  | 'Y'
+  | 'Z';
+// Validate the supplied literal instead of enumerating 2^N enum spellings.
+type AsciiLower<S extends string> = string extends S
+  ? string
+  : S extends `${infer H}${infer R}`
+    ? `${H extends AsciiUpper ? Lowercase<H> : H}${AsciiLower<R>}`
+    : S;
 type Value<S extends OptionSpec> = S extends { allowed: infer A extends readonly unknown[] }
   ? S extends { caseInsensitive: true }
-    ? CaseVariants<A[number] & string> | Exclude<A[number], string>
+    ? string | Exclude<A[number], string>
     : A[number]
   : S['value'] extends 'flag' | 'boolean'
     ? boolean
@@ -63,9 +93,11 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
     ? V
     : true;
 type Normalize<V, D extends OptionSpec> = D extends { caseInsensitive: true }
-  ? V extends string
-    ? Lowercase<V>
-    : V
+  ? D extends { preserveCase: true }
+    ? V
+    : V extends string
+      ? AsciiLower<V>
+      : V
   : V;
 type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
   T extends readonly [unknown, infer V]
@@ -161,13 +193,37 @@ type ParsedState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
           : ModeState<S, D, T>
       : ModeState<S, D, T>
   : ModeState<S, D, T>;
-type CheckedTokenState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+type CheckedCallbackState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   checks: infer R extends readonly Constraint[];
 }
   ? CheckRules<Put<S, '$value', TokenValue<T, D>>, R> extends true
     ? ParsedState<S, D, T>
     : never
   : ParsedState<S, D, T>;
+type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  caseInsensitive: true;
+  allowed: infer A extends readonly unknown[];
+}
+  ? T extends readonly [unknown, infer V]
+    ? V extends undefined
+      ? true
+      : V extends string
+        ? string extends V
+          ? true
+          : AsciiLower<V> extends A[number]
+            ? true
+            : false
+        : V extends A[number]
+          ? true
+          : false
+    : true
+  : true;
+type CheckedTokenState<S, D extends OptionSpec, T extends readonly unknown[]> = AllowedLiteral<
+  D,
+  T
+> extends true
+  ? CheckedCallbackState<S, D, T>
+  : never;
 type ParsingEnded<C extends GitCommandName, S> = S extends { ended: true }
   ? true
   : Spec<C> extends { optionParsing: 'stop-at-operand' }

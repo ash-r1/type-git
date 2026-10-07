@@ -4,6 +4,7 @@ import {
   conditions,
   matches,
   type Predicate,
+  predicateKeys,
   referencedKeys,
   violations,
 } from './model.js';
@@ -113,11 +114,19 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
   const or = (a: number, b: number) => not(and(not(a), not(b)));
   const all = (items: readonly number[]) => items.reduce(and, 1);
   const any = (items: readonly number[]) => items.reduce(or, 0);
-  const atom = (p: Predicate) =>
-    node(
-      p.key,
-      domains[p.key]!.map((v) => Number(matches(p, { [p.key]: v }))),
-    );
+  function atom(p: Predicate): number {
+    const inputs = [...new Set(predicateKeys(p))].sort();
+    function branch(index: number, state: Assignment): number {
+      const key = inputs[index];
+      return key === undefined
+        ? Number(matches(p, state))
+        : node(
+            key,
+            domains[key]!.map((value) => branch(index + 1, { ...state, [key]: value })),
+          );
+    }
+    return branch(0, {});
+  }
   function compile(rule: Constraint): number {
     if (rule.guard) {
       return or(not(all(rule.guard.map(atom))), compile({ ...rule, guard: undefined }));

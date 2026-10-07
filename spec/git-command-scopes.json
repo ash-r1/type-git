@@ -2599,5 +2599,312 @@
     "tables": [],
     "separator": false,
     "optionParsing": "none"
+  },
+  "gc": {
+    "tables": [
+      "builtin/gc.c:cmd_gc:builtin_gc_options"
+    ],
+    "source": "builtin/gc.c"
+  },
+  "maintenance run": {
+    "tables": [
+      "builtin/gc.c:maintenance_run:builtin_maintenance_run_options"
+    ],
+    "source": "builtin/gc.c",
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--task": {
+        "key": "task",
+        "value": "string",
+        "allowed": [
+          "prefetch",
+          "loose-objects",
+          "incremental-repack",
+          "geometric-repack",
+          "gc",
+          "commit-graph",
+          "pack-refs",
+          "reflog-expire",
+          "worktree-prune",
+          "rerere-gc"
+        ],
+        "caseInsensitive": true,
+        "preserveCase": true,
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.maintenance-run.task-duplicate",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "task",
+                "test": "includes",
+                "valueKey": "$value"
+              }
+            ],
+            "origin": "git",
+            "reason": "Task names are matched case-insensitively, but repeated spellings are rejected case-sensitively before appending.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/gc.c"
+          }
+        ]
+      },
+      "--schedule": {
+        "key": "schedule",
+        "value": "string",
+        "allowed": [
+          "hourly",
+          "daily",
+          "weekly"
+        ],
+        "caseInsensitive": true
+      }
+    },
+    "omitOptions": [
+      "--no-schedule"
+    ]
+  },
+  "maintenance register": {
+    "tables": [
+      "builtin/gc.c:maintenance_register:options"
+    ],
+    "source": "builtin/gc.c"
+  },
+  "maintenance unregister": {
+    "tables": [
+      "builtin/gc.c:maintenance_unregister:options"
+    ],
+    "source": "builtin/gc.c"
+  },
+  "maintenance start": {
+    "tables": [
+      "builtin/gc.c:maintenance_start:options"
+    ],
+    "source": "builtin/gc.c",
+    "options": {
+      "--scheduler": {
+        "key": "scheduler",
+        "value": "string",
+        "allowed": [
+          "auto",
+          "cron",
+          "crontab",
+          "systemd",
+          "systemd-timer",
+          "launchctl",
+          "schtasks"
+        ],
+        "caseInsensitive": true
+      }
+    }
+  },
+  "maintenance stop": {
+    "tables": [
+      "builtin/gc.c:maintenance_stop:options"
+    ],
+    "source": "builtin/gc.c"
+  },
+  "maintenance is-needed": {
+    "tables": [
+      "builtin/gc.c:maintenance_is_needed:options"
+    ],
+    "source": "builtin/gc.c",
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--task": {
+        "key": "task",
+        "value": "string",
+        "allowed": [
+          "prefetch",
+          "loose-objects",
+          "incremental-repack",
+          "geometric-repack",
+          "gc",
+          "commit-graph",
+          "pack-refs",
+          "reflog-expire",
+          "worktree-prune",
+          "rerere-gc"
+        ],
+        "caseInsensitive": true,
+        "preserveCase": true,
+        "repeat": true,
+        "checks": [
+          {
+            "id": "cli.maintenance-is-needed.task-duplicate",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "task",
+                "test": "includes",
+                "valueKey": "$value"
+              }
+            ],
+            "origin": "git",
+            "reason": "Task names are matched case-insensitively, but repeated spellings are rejected case-sensitively before appending.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/gc.c"
+          }
+        ]
+      }
+    }
+  },
+  "commit-graph verify": {
+    "tables": [
+      "builtin/commit-graph.c:global:common_opts",
+      "builtin/commit-graph.c:graph_verify:builtin_commit_graph_verify_options"
+    ],
+    "source": "builtin/commit-graph.c"
+  },
+  "commit-graph write": {
+    "tables": [
+      "builtin/commit-graph.c:global:common_opts",
+      "builtin/commit-graph.c:graph_write:builtin_commit_graph_write_options"
+    ],
+    "source": "builtin/commit-graph.c",
+    "options": {
+      "--split": {
+        "key": "split",
+        "value": "optional-string",
+        "allowed": [
+          "no-merge",
+          "replace"
+        ]
+      }
+    }
+  },
+  "multi-pack-index write": {
+    "tables": [
+      "builtin/multi-pack-index.c:global:common_opts",
+      "builtin/multi-pack-index.c:cmd_multi_pack_index_write:builtin_multi_pack_index_write_options"
+    ],
+    "source": "builtin/multi-pack-index.c"
+  },
+  "multi-pack-index compact": {
+    "tables": [
+      "builtin/multi-pack-index.c:global:common_opts",
+      "builtin/multi-pack-index.c:cmd_multi_pack_index_compact:builtin_multi_pack_index_compact_options"
+    ],
+    "source": "builtin/multi-pack-index.c"
+  },
+  "multi-pack-index verify": {
+    "tables": [
+      "builtin/multi-pack-index.c:global:common_opts",
+      "builtin/multi-pack-index.c:cmd_multi_pack_index_verify:builtin_multi_pack_index_verify_options"
+    ],
+    "source": "builtin/multi-pack-index.c"
+  },
+  "multi-pack-index expire": {
+    "tables": [
+      "builtin/multi-pack-index.c:global:common_opts",
+      "builtin/multi-pack-index.c:cmd_multi_pack_index_expire:builtin_multi_pack_index_expire_options"
+    ],
+    "source": "builtin/multi-pack-index.c"
+  },
+  "multi-pack-index repack": {
+    "tables": [
+      "builtin/multi-pack-index.c:global:common_opts",
+      "builtin/multi-pack-index.c:cmd_multi_pack_index_repack:builtin_multi_pack_index_repack_options"
+    ],
+    "source": "builtin/multi-pack-index.c"
+  },
+  "refs migrate": {
+    "tables": [
+      "builtin/refs.c:cmd_refs_migrate:options"
+    ],
+    "source": "builtin/refs.c"
+  },
+  "refs verify": {
+    "tables": [
+      "builtin/refs.c:cmd_refs_verify:options"
+    ],
+    "source": "builtin/refs.c"
+  },
+  "refs exists": {
+    "tables": [
+      "builtin/refs.c:cmd_refs_exists:options"
+    ],
+    "source": "builtin/refs.c"
+  },
+  "refs list": {
+    "source": "builtin/for-each-ref.c:for_each_ref_core",
+    "tables": [
+      "builtin/for-each-ref.c:for_each_ref_core:opts"
+    ],
+    "initial": {
+      "sort-base": true
+    },
+    "options": {
+      "--no-sort": {
+        "key": "sort",
+        "value": "flag",
+        "repeat": true,
+        "clear": true,
+        "effects": [
+          {
+            "key": "sort-base",
+            "set": false
+          }
+        ]
+      }
+    }
+  },
+  "pack-refs": {
+    "tables": [
+      "pack-refs.c:pack_refs_core:opts"
+    ],
+    "source": "pack-refs.c"
+  },
+  "refs optimize": {
+    "tables": [
+      "pack-refs.c:pack_refs_core:opts"
+    ],
+    "source": "pack-refs.c"
+  },
+  "fsck": {
+    "tables": [
+      "builtin/fsck.c:global:fsck_opts"
+    ],
+    "source": "builtin/fsck.c"
+  },
+  "fsck-objects": {
+    "tables": [
+      "builtin/fsck.c:global:fsck_opts"
+    ],
+    "source": "builtin/fsck.c"
+  },
+  "prune": {
+    "tables": [
+      "builtin/prune.c:cmd_prune:options"
+    ],
+    "source": "builtin/prune.c"
+  },
+  "prune-packed": {
+    "tables": [
+      "builtin/prune-packed.c:cmd_prune_packed:prune_packed_options"
+    ],
+    "source": "builtin/prune-packed.c"
+  },
+  "update-server-info": {
+    "tables": [
+      "builtin/update-server-info.c:cmd_update_server_info:options"
+    ],
+    "source": "builtin/update-server-info.c"
+  },
+  "stage": {
+    "tables": [
+      "builtin/add.c:global:builtin_add_options"
+    ],
+    "source": "builtin/add.c",
+    "options": {
+      "--ignore-removal": {
+        "key": "all",
+        "value": "flag",
+        "set": false
+      },
+      "--no-ignore-removal": {
+        "key": "all",
+        "value": "flag",
+        "set": true
+      }
+    }
   }
 }

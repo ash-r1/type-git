@@ -1668,6 +1668,266 @@
         "test/types/command-api.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+    },
+    "gc": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "maintenance run": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "maintenance register": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "maintenance unregister": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "maintenance start": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "maintenance stop": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "maintenance is-needed": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "commit-graph verify": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "commit-graph write": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "multi-pack-index write": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "multi-pack-index compact": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "multi-pack-index verify": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "multi-pack-index expire": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "multi-pack-index repack": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "refs migrate": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "refs verify": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "refs exists": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "refs list": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "pack-refs": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "refs optimize": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "fsck": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "fsck-objects": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "prune": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "prune-packed": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "update-server-info": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
+    },
+    "stage": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/maintenance.test.ts",
+        "test/types/maintenance-command-api.ts"
+      ],
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "typedCommandAPI": true
     }
   }
 }
