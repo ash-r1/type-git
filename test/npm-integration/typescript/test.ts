@@ -241,3 +241,14 @@ export function testCompoundDecimalTypes(git: Git, dynamic: string): void {
   // @ts-expect-error This overflow saturates ULONG_MAX before the checked int conversion.
   git.command('shortlog', [['-w', '-18446744073709551616'], ['-h']]);
 }
+
+export function testPhasedParserExitTypes(git: Git, dynamic: string): void {
+  git.command('log', [['--color', 'invalid'], ['-h']]);
+  git.command('log', [['-n', '-h']]);
+  git.command('log', [['--decorate', dynamic], ['-h']]);
+  git.command('fast-export', [['--reencode', 'ABORT'], ['-h']]);
+  // @ts-expect-error The initial callback runs before help.
+  git.command('log', [['--decorate', 'invalid'], ['-h']]);
+  // @ts-expect-error The split value is another initial-pass option, not opaque data.
+  git.command('log', [['-n', '--decorate=invalid'], ['-h']]);
+}

@@ -64,6 +64,11 @@ try {
     for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && key !== '$remaining' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
   }
   for (const [name, entry] of Object.entries(catalog)) {
+    if (entry.parserExit?.firstPassOptions) {
+      if (entry.optionParsing) throw new Error(`${name}: phased exits require interleaved option parsing`);
+      for (const flag of entry.parserExit.firstPassOptions) if (!entry.options[flag] || entry.options[flag].consumesRest || entry.options[flag].before !== undefined) throw new Error(`${name} ${flag}: unsupported first-pass option`);
+      for (const flag of entry.parserExit.flags) if (!entry.parserExit.firstPassOptions.includes(flag)) throw new Error(`${name}: exit missing from first pass`);
+    }
     for (const flag of entry.parserExit?.exceptFirst ?? []) if (!entry.parserExit.flags.includes(flag)) throw new Error(`${name} ${flag}: excluded first token must be a parser exit`);
     for (const flag of entry.parserExit?.flags ?? []) {
       const option = entry.options[flag];
