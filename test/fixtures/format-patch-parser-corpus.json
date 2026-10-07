@@ -1,0 +1,5980 @@
+{
+  "profile": "Git 2.55.0; seeded repository; format-patch parser phases; stdout and empty revision range; no user repository access",
+  "cases": [
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-n"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-n",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: options '-n' and '-k' cannot be used together"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-n"
+        ],
+        [
+          "-N"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-n",
+        "-N",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--subject-prefix",
+          ""
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--subject-prefix=",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: options '--subject-prefix/--rfc' and '-k' cannot be used together"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--rfc"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--rfc",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: options '--subject-prefix/--rfc' and '-k' cannot be used together"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--rfc",
+          ""
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--rfc=",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: bad: invalid cover from description mode"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--cover-from-description",
+          "auto"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "--cover-from-description=auto",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--name-only"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--name-only",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --name-only does not make sense"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--name-status"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--name-status",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --name-status does not make sense"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--check"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--check",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: --check does not make sense"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--output-directory=out",
+        "--output-directory=out",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: two output directories?"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "--color=bad",
+        "-h",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "--color=bad",
+        "HEAD",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "-h",
+        "--color=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "-h",
+        "HEAD",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "HEAD",
+        "--color=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "HEAD",
+        "-h",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "--thread=bad",
+        "-h",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "--thread=bad",
+        "HEAD",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "-h",
+        "--thread=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "-h",
+        "HEAD",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "HEAD",
+        "--thread=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "HEAD",
+        "-h",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--thread=bad",
+        "--color=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--thread=bad",
+        "HEAD",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--color=bad",
+        "--thread=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--color=bad",
+        "HEAD",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "HEAD",
+        "--thread=bad",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "HEAD",
+        "--color=bad",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--thread=bad",
+        "--color=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--thread=bad",
+        "-h",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--color=bad",
+        "--thread=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--color=bad",
+        "-h",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "-h",
+        "--thread=bad",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "-h",
+        "--color=bad",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "--color=bad",
+        "-h",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "--color=bad",
+        "HEAD",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "-h",
+        "--color=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "-h",
+        "HEAD",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "HEAD",
+        "--color=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "HEAD",
+        "-h",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "--start-number=bad",
+        "-h",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "--start-number=bad",
+        "HEAD",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "-h",
+        "--start-number=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "-h",
+        "HEAD",
+        "--start-number=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "HEAD",
+        "--start-number=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "HEAD",
+        "-h",
+        "--start-number=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--start-number=bad",
+        "--color=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--start-number=bad",
+        "HEAD",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--color=bad",
+        "--start-number=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--color=bad",
+        "HEAD",
+        "--start-number=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "HEAD",
+        "--start-number=bad",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "HEAD",
+        "--color=bad",
+        "--start-number=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--start-number=bad",
+        "--color=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--start-number=bad",
+        "-h",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--color=bad",
+        "--start-number=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--color=bad",
+        "-h",
+        "--start-number=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "-h",
+        "--start-number=bad",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "-h",
+        "--color=bad",
+        "--start-number=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "--color=bad",
+        "-h",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "--color=bad",
+        "HEAD",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "-h",
+        "--color=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "-h",
+        "HEAD",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "HEAD",
+        "--color=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "HEAD",
+        "-h",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "--cover-from-description=bad",
+        "-h",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "--cover-from-description=bad",
+        "HEAD",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "-h",
+        "--cover-from-description=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "-h",
+        "HEAD",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "HEAD",
+        "--cover-from-description=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--color=bad",
+        "HEAD",
+        "-h",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--cover-from-description=bad",
+        "--color=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--cover-from-description=bad",
+        "HEAD",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--color=bad",
+        "--cover-from-description=bad",
+        "HEAD",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--color=bad",
+        "HEAD",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "HEAD",
+        "--cover-from-description=bad",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "HEAD",
+        "--color=bad",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--cover-from-description=bad",
+        "--color=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--cover-from-description=bad",
+        "-h",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--color=bad",
+        "--cover-from-description=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "--color=bad",
+        "-h",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "-h",
+        "--cover-from-description=bad",
+        "--color=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "HEAD",
+        "-h",
+        "--color=bad",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-n"
+        ],
+        [
+          "-k"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-n",
+        "-k",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "-n"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "-n",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-n"
+        ],
+        [
+          "-k"
+        ],
+        [
+          "--help"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-n",
+        "-k",
+        "--help",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "-n"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help",
+        "-n",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-n"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-n",
+        "-k",
+        "--help-all",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        [
+          "-n"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help-all",
+        "-n",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--subject-prefix",
+          ""
+        ],
+        [
+          "-k"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--subject-prefix=",
+        "-k",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--subject-prefix",
+          ""
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--subject-prefix=",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--subject-prefix",
+          ""
+        ],
+        [
+          "-k"
+        ],
+        [
+          "--help"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--subject-prefix=",
+        "-k",
+        "--help",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--subject-prefix",
+          ""
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help",
+        "--subject-prefix=",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--subject-prefix",
+          ""
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--subject-prefix=",
+        "-k",
+        "--help-all",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--subject-prefix",
+          ""
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help-all",
+        "--subject-prefix=",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--rfc"
+        ],
+        [
+          "-k"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--rfc",
+        "-k",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--rfc"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--rfc",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--rfc"
+        ],
+        [
+          "-k"
+        ],
+        [
+          "--help"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--rfc",
+        "-k",
+        "--help",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--rfc"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help",
+        "--rfc",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--rfc"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--rfc",
+        "-k",
+        "--help-all",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--rfc"
+        ],
+        [
+          "-k"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help-all",
+        "--rfc",
+        "-k",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--output-directory=out",
+        "--output-directory=out",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: two output directories?"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--output-directory=out",
+        "--output-directory=out",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "--help"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--output-directory=out",
+        "--output-directory=out",
+        "--help",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: two output directories?"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help",
+        "--output-directory=out",
+        "--output-directory=out",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--output-directory=out",
+        "--output-directory=out",
+        "--help-all",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: two output directories?"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--output-directory",
+          "out"
+        ],
+        [
+          "--output-directory",
+          "out"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help-all",
+        "--output-directory=out",
+        "--output-directory=out",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--name-only"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--name-only",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--name-only"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--name-only",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--name-only"
+        ],
+        [
+          "--help"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--name-only",
+        "--help",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--name-only"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help",
+        "--name-only",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--name-only"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--name-only",
+        "--help-all",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--name-only"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help-all",
+        "--name-only",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--help"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "--help",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "--help-all",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--help-all",
+        "--cover-from-description=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-h"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-h",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-h"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-h",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "--help"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "--help",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "--help"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "--help",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "--help-all",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "--help-all",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "--thread=bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "--thread=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "--thread=bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "--thread=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "--thread"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "--thread",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "--thread"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "--thread",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-o"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-o",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: options '--stdout' and '--output-directory' cannot be used together"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-o"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-o",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: your current branch appears to be broken"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-nh"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-nh",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-nh"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-nh",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-qh"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-qh",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-qh"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-qh",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-xqh",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-xqh",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-no-color",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-no-color",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "--",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "--"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "--",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "--end-of-options",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: unrecognized argument: -h"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "--end-of-options",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: unrecognized argument: -h"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          ""
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          ""
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          ""
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--thread=",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "shallow"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=shallow",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "shallow"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=shallow",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "shallow"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--thread=shallow",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "deep"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=deep",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "deep"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=deep",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "deep"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--thread=deep",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "SHALLOW"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=SHALLOW",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "SHALLOW"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=SHALLOW",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "SHALLOW"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--thread=SHALLOW",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-h",
+        "--thread=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "0"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=0",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "-1"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=-1",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "-1"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=-1",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "2147483647"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=2147483647",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "2147483647"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=2147483647",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "2147483648"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=2147483648",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: value 2147483648 for option `start-number' not in range [-2147483648,2147483647]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "2147483648"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=2147483648",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: value 2147483648 for option `start-number' not in range [-2147483648,2147483647]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "0x10"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=0x10",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "0x10"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=0x10",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-n"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-n",
+        "x",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-n"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-n",
+        "HEAD",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-N"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-N",
+        "x",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-N"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-N",
+        "HEAD",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-s"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-s",
+        "x",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-s"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-s",
+        "HEAD",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-G",
+          "-q"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-G",
+        "-q",
+        "x",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--default",
+          "-q"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--default",
+        "-q",
+        "HEAD",
+        "--max-count=0",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--thread",
+          "bad"
+        ],
+        [
+          "--no-thread"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--thread=bad",
+        "--no-thread",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--cover-from-description",
+          "bad"
+        ],
+        [
+          "--no-cover-from-description"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--cover-from-description=bad",
+        "--no-cover-from-description",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "-o",
+          "out"
+        ],
+        [
+          "-h"
+        ],
+        [
+          "-o",
+          "out"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "-o",
+        "out",
+        "-h",
+        "-o",
+        "out",
+        "HEAD..HEAD"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git format-patch [<options>] [<since> | <revision-range>]"
+    },
+    {
+      "command": "format-patch",
+      "tokens": [
+        [
+          "--stdout"
+        ],
+        [
+          "--start-number",
+          "bad"
+        ],
+        [
+          "--start-number",
+          "0"
+        ],
+        [
+          "-h"
+        ],
+        {
+          "operand": "HEAD..HEAD"
+        }
+      ],
+      "argv": [
+        "format-patch",
+        "--stdout",
+        "--start-number=bad",
+        "--start-number=0",
+        "-h",
+        "HEAD..HEAD"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `start-number' expects an integer value with an optional k/m/g suffix"
+    }
+  ]
+}

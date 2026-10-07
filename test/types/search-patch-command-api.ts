@@ -33,3 +33,14 @@ git.command('archive', [['--list'], ['--exec', 'ignored']]);
 git.command('archive', [['--list'], { operand: 'HEAD' }]);
 // @ts-expect-error Archive creation requires a tree.
 git.command('archive', []);
+
+// Native help exits the first format-patch pass before final subject/cover rules.
+git.command('format-patch', [['-n'], ['-k'], ['-h']]);
+git.command('format-patch', [['--cover-from-description', 'invalid'], ['-h']]);
+git.command('format-patch', [['--color', 'invalid'], ['-h']]);
+git.command('format-patch', [['-h'], ['--thread', 'invalid']]);
+git.command('format-patch', [['-G', '-n'], { operand: 'x' }, ['--stdout']]);
+// @ts-expect-error The thread callback fails before reaching later help.
+git.command('format-patch', [['--thread', 'invalid'], ['-h']]);
+// @ts-expect-error Earlier directory callbacks reject repetition before help.
+git.command('format-patch', [['-o', 'out'], ['-o', 'out'], ['-h']]);

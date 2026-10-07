@@ -862,3 +862,33 @@ This finite corpus does not establish complete coverage: configuration, object
 resolution, remaining callback grammars and completion exits stay open. Stash
 list's repository-dependent delegation requires a separate conditional phase.
 All 430 audit scopes remain partial.
+
+## Format-patch parser phases
+
+`format-patch` records its own first option table followed directly by
+`setup_revisions`; it does not run the log option table between these phases.
+The first pass preserves `--` and unknown words, consumes values and short
+clusters, and invokes its reached callbacks before local help. Subject/cover
+combination checks and revision/diff callbacks are skipped when help exits.
+
+For example, `format-patch -n -k -h` displays help before checking the conflicting
+subject modes. `format-patch --thread=bad -h` fails in the thread callback first.
+Repeated output directories also fail before help. A deferred invalid color is
+ignored when the first pass reaches help. The first-pass `-n` means numbered
+patches, while retained revision words use the revision dictionary. Consequently
+`-G -n x` leaves `-G x` after applying the numbering flag.
+
+`node scripts/format-patch-parser-corpus.mjs --check` reproduces 187 native
+outcomes, including permutations of early callbacks, final checks, revision
+callbacks, help and operands. Probes run in an isolated seeded repository with
+stdout selected and an empty revision range. Git's invalid thread callback can
+return status 129 with no diagnostic; the oracle distinguishes this from help
+by the actual usage output. Runtime and compiler tests consume the same native
+outcomes, and npm integration checks published declaration behavior.
+
+Repository/configuration state, identity parsing, object-name callbacks, files,
+resolved-series constraints and completion/global-help behavior remain partial.
+The existing subject/cover constraints are checked after replaying both phases;
+their keys cannot be overwritten by the later revision option dictionary. This
+preserves rejection but does not promise Git's ordering between two diagnostics.
+All audit scopes remain partial.

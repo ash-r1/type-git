@@ -3563,9 +3563,11 @@
         "test/types/object-filter-limits.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/format-patch-parser.test.ts",
+        "test/types/format-patch-parser-corpus.ts"
       ],
-      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Creation-factor/range-diff checks depend on the resolved nonempty series; config defaults and output files are not inferred from argument count. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.",
+      "remaining": "The native format-patch option pass, local help timing and retained revision/diff argv are modeled with 187 independent native cases. Subject/cover rules cannot be changed by the later dictionary; rejection is modeled without promising precedence between diagnostics. Repository/configuration/ref resolution, identity/object-name callback grammars, callback side effects, output files, completion/global help and independent witnesses for every rule remain open. Creation-factor/range-diff checks depend on the resolved nonempty series. Other ABI profiles and compiler-budget-exceeding literals remain separate obligations.",
       "typedCommandAPI": true
     },
     "archive": {
