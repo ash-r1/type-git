@@ -3500,6 +3500,56 @@
         "test/types/help-daemon-command-api.ts"
       ],
       "remaining": "This platform-dependent builtin is unavailable in the Linux fixture build; grammar comes from the supported-platform source branch. Native successful operations, IPC lifecycle/configuration behavior and platform-dependent support remain pending."
+    },
+    "fast-import": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Stream/configuration/server state, full unsigned scalar and object-ID languages, HTTP manual-parser ignored/prefix options and positional phases, marks-file/path processing and submodule maps remain pending. Tests use empty/local input, CGI fixtures and parser errors without sending mail or contacting remote services."
+    },
+    "http-fetch": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Stream/configuration/server state, full unsigned scalar and object-ID languages, HTTP manual-parser ignored/prefix options and positional phases, marks-file/path processing and submodule maps remain pending. Tests use empty/local input, CGI fixtures and parser errors without sending mail or contacting remote services."
+    },
+    "http-push": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Stream/configuration/server state, full unsigned scalar and object-ID languages, HTTP manual-parser ignored/prefix options and positional phases, marks-file/path processing and submodule maps remain pending. Tests use empty/local input, CGI fixtures and parser errors without sending mail or contacting remote services."
+    },
+    "http-backend": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Stream/configuration/server state, full unsigned scalar and object-ID languages, HTTP manual-parser ignored/prefix options and positional phases, marks-file/path processing and submodule maps remain pending. Tests use empty/local input, CGI fixtures and parser errors without sending mail or contacting remote services."
+    },
+    "imap-send": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Stream/configuration/server state, full unsigned scalar and object-ID languages, HTTP manual-parser ignored/prefix options and positional phases, marks-file/path processing and submodule maps remain pending. Tests use empty/local input, CGI fixtures and parser errors without sending mail or contacting remote services."
     }
   }
 }

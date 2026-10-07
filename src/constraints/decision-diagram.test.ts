@@ -204,6 +204,26 @@ describe('reduced ordered decision diagrams', () => {
     }
   });
 
+  it('includes both numeric range boundaries in exact guarded counts', () => {
+    const rules: Constraint[] = [
+      {
+        ...evidence,
+        id: 'bounded',
+        kind: 'range',
+        key: 'n',
+        min: 0,
+        max: 2,
+        when: { key: 'enabled', test: 'active' },
+      },
+    ];
+    const domain = { n: [-1, 0, 1, 2, 3], enabled: [false, true] };
+    const result = solve(rules, domain);
+    expect(result.total).toBe(10n);
+    expect(result.accepted).toBe(8n);
+    expect(violations(rules, { n: 3, enabled: true })).toHaveLength(1);
+    expect(violations(rules, { n: 2, enabled: true })).toHaveLength(0);
+  });
+
   it('is deterministic and handles unconstrained, empty, and contradictory spaces', () => {
     const result = solve(mixedRules, domains);
     expect(solve(mixedRules, { c: domains.c, b: domains.b, a: domains.a })).toEqual(result);

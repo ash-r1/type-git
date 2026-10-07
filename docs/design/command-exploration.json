@@ -55118,6 +55118,527 @@
       }
     },
     {
+      "command": "fast-import",
+      "transitions": [
+        {
+          "flag": "--depth",
+          "rules": [
+            "cli.fast-import.depth-integer",
+            "cli.fast-import.depth-bound"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2",
+              "8190",
+              "8191",
+              "8192"
+            ]
+          },
+          "total": "9",
+          "accepted": "6",
+          "isolatedRuleWitnesses": {
+            "cli.fast-import.depth-integer": null,
+            "cli.fast-import.depth-bound": "{\"$value\":8192}"
+          }
+        },
+        {
+          "flag": "--active-branches",
+          "rules": [
+            "cli.fast-import.active-branches-integer"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "total": "6",
+          "accepted": "4",
+          "isolatedRuleWitnesses": {
+            "cli.fast-import.active-branches-integer": "{\"$value\":-2}"
+          }
+        },
+        {
+          "flag": "--cat-blob-fd",
+          "rules": [
+            "cli.fast-import.cat-blob-fd-integer",
+            "cli.fast-import.cat-blob-fd-bound"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2",
+              "2147483646",
+              "2147483647",
+              "2147483648"
+            ]
+          },
+          "total": "9",
+          "accepted": "6",
+          "isolatedRuleWitnesses": {
+            "cli.fast-import.cat-blob-fd-integer": null,
+            "cli.fast-import.cat-blob-fd-bound": "{\"$value\":2147483648}"
+          }
+        }
+      ],
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "stats": [
+          "undefined",
+          "true"
+        ],
+        "allow-unsafe-features": [
+          "undefined",
+          "true"
+        ],
+        "alias": [
+          "undefined",
+          "true"
+        ],
+        "get-mark": [
+          "undefined",
+          "true"
+        ],
+        "cat-blob": [
+          "undefined",
+          "true"
+        ],
+        "relative-marks": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "done": [
+          "undefined",
+          "true"
+        ],
+        "force": [
+          "undefined",
+          "true"
+        ],
+        "notes": [
+          "undefined",
+          "true"
+        ],
+        "ls": [
+          "undefined",
+          "true"
+        ],
+        "max-pack-size": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "big-file-threshold": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "export-pack-edges": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "import-marks": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "import-marks-if-exists": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "export-marks": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "rewrite-submodules-to": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "rewrite-submodules-from": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "date-format": [
+          "undefined",
+          "\"raw\"",
+          "\"raw-permissive\"",
+          "\"rfc2822\"",
+          "\"now\""
+        ],
+        "signed-tags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "signed-commits": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "depth": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "active-branches": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "cat-blob-fd": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "497664000000000000",
+      "accepted": "99532800000000000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.fast-import.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "http-fetch",
+      "rules": 5,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "t": [
+          "undefined",
+          "true"
+        ],
+        "c": [
+          "undefined",
+          "true"
+        ],
+        "a": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "true"
+        ],
+        "recover": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "write-ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "packfile": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "index-pack-arg": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "960000",
+      "accepted": "130560",
+      "nodes": 46,
+      "isolatedRuleWitnesses": {
+        "cli.http-fetch.plain-operands": "{\"operands\":[]}",
+        "cli.http-fetch.stdin-operands": "{\"operands\":[],\"stdin\":true}",
+        "cli.http-fetch.pack-operands": "{\"index-pack-arg\":[\"\"],\"operands\":[],\"packfile\":\"\"}",
+        "cli.http-fetch.pack-args": "{\"operands\":[\"value\"],\"packfile\":\"\"}",
+        "cli.http-fetch.args-pack": "{\"index-pack-arg\":[\"\"],\"operands\":[\"value\"],\"stdin\":true}"
+      }
+    },
+    {
+      "command": "http-push",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "force": [
+          "undefined",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "true"
+        ],
+        "helper-status": [
+          "undefined",
+          "true"
+        ],
+        "verbose": [
+          "undefined",
+          "true"
+        ],
+        "delete": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3840",
+      "accepted": "1920",
+      "nodes": 12,
+      "isolatedRuleWitnesses": {
+        "cli.http-push.destination": "{\"operands\":[]}",
+        "cli.http-push.delete-ref": "{\"delete\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "http-backend",
+      "rules": 0,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "30",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "imap-send",
+      "rules": 1,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "curl": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "folder": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "list": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "24300",
+      "accepted": "4860",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.imap-send.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {
