@@ -422,6 +422,15 @@ export const COMMAND_CONSTRAINTS = {
   ],
   submoduleUpdate: [
     {
+      id: 'submoduleUpdate.filter-grammar',
+      kind: 'scalar',
+      key: 'filter',
+      parser: 'object-filter',
+      origin: 'git',
+      reason: 'The object filter must use a supported Git filter grammar.',
+      source: 'https://github.com/git/git/blob/v2.55.0/list-objects-filter-options.c',
+    },
+    {
       id: 'submoduleUpdate.filter-init',
       kind: 'requires',
       when: present('filter'),
@@ -543,6 +552,15 @@ export const COMMAND_CONSTRAINTS = {
   ],
   clone: [
     {
+      id: 'clone.filter-grammar',
+      kind: 'scalar',
+      key: 'filter',
+      parser: 'object-filter-auto',
+      origin: 'git',
+      reason: 'The object filter must use a supported Git filter grammar.',
+      source: 'https://github.com/git/git/blob/v2.55.0/list-objects-filter-options.c',
+    },
+    {
       id: 'clone.bare-separateGitDir',
       kind: 'exclusive',
       keys: ['bare', 'separateGitDir'],
@@ -580,12 +598,12 @@ export const COMMAND_CONSTRAINTS = {
     },
     {
       id: 'clone.depth-range',
-      kind: 'range',
+      kind: 'scalar',
       key: 'depth',
-      min: 1,
+      parser: 'depth-initial',
       origin: 'git',
-      reason: 'Git rejects values below 1 for depth.',
-      source: git('builtin/clone.c'),
+      reason: 'The final depth must be positive after Git converts it with atoi.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
     },
     {
       id: 'clone.jobs',
@@ -766,12 +784,12 @@ export const COMMAND_CONSTRAINTS = {
     },
     {
       id: 'fetch.depth-range',
-      kind: 'range',
+      kind: 'scalar',
       key: 'depth',
-      min: 1,
+      parser: 'depth-initial',
       origin: 'git',
-      reason: 'Git rejects values below 1 for depth.',
-      source: git('builtin/fetch.c'),
+      reason: 'The final depth must be positive after Git converts it with atoi.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
     },
     {
       id: 'fetch.jobs',

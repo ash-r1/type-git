@@ -1,3 +1,5 @@
+import { scalarRepresentatives } from './scalar-domains.mjs';
+
 /** Fixed structural representatives of normalized CLI state; not all possible CLI strings. */
 export function commandDomains(spec, referencedKeys) {
   const domains = {};
@@ -37,6 +39,10 @@ export function commandDomains(spec, referencedKeys) {
     if (value.key && ['equals', 'notEquals'].includes(value.test)) add(value.key, value.value);
     if (value.key && value.test === 'startsWith') { add(value.key, value.value); add(value.key, value.value + 'value'); }
     if (value.key && value.test === 'lengthEquals') for (const size of [Math.max(0, value.value - 1), value.value, value.value + 1]) add(value.key, Array(size).fill('value'));
+    if (value.kind === 'scalar') {
+      const kinds = new Set((domains[value.key] ?? []).filter(item => item !== undefined).map(item => typeof item));
+      for (const item of scalarRepresentatives(value.parser)) if (kinds.has(typeof item)) add(value.key, item);
+    }
     if (value.kind === 'eachInteger') for (const item of [value.min - 1, value.min, value.min + 1]) { add(value.key, []); add(value.key, [item]); add(value.key, [value.min, item]); }
     if (value.kind === 'elements') {
       add(value.key, []);

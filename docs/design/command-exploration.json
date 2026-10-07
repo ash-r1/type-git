@@ -2075,7 +2075,7 @@
           }
         }
       ],
-      "rules": 7,
+      "rules": 8,
       "domains": {
         "verbose": [
           "undefined",
@@ -2218,7 +2218,15 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"-4294967295\"",
+          "\"-1\"",
+          "\"0\"",
+          "\"1\"",
+          "\"2147483648\"",
+          "\"4294967297\"",
+          "\"1suffix\"",
+          "\"0x10\""
         ],
         "shallow-since": [
           "undefined",
@@ -2359,9 +2367,9 @@
           "true"
         ]
       },
-      "total": "76273408771875000000000000",
-      "accepted": "454193185120128000000000",
-      "nodes": 661,
+      "total": "198310862806875000000000000",
+      "accepted": "542215120220928000000000",
+      "nodes": 785,
       "isolatedRuleWitnesses": {
         "cli.clone.operands": "{\"operands\":[]}",
         "cli.clone.bare-directory": "{\"bare\":true,\"operands\":[\"value\"],\"separate-git-dir\":\"\"}",
@@ -2369,7 +2377,8 @@
         "cli.clone.bundle-shallow": "{\"bundle-uri\":\"\",\"operands\":[\"value\"],\"shallow-since\":\"\"}",
         "cli.clone.filter-submodules": "{\"also-filter-submodules\":true,\"operands\":[\"value\"]}",
         "cli.clone.revision-options": "{\"mirror\":true,\"operands\":[\"value\"],\"revision\":\"\"}",
-        "cli.clone.ref-format": "{\"operands\":[\"value\"],\"ref-format\":\"\"}"
+        "cli.clone.ref-format": "{\"operands\":[\"value\"],\"ref-format\":\"\"}",
+        "cli.clone.depth-initial": "{\"depth\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -2416,7 +2425,7 @@
           }
         }
       ],
-      "rules": 11,
+      "rules": 12,
       "domains": {
         "verbose": [
           "undefined",
@@ -2538,7 +2547,15 @@
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "\"-4294967295\"",
+          "\"-1\"",
+          "\"0\"",
+          "\"1\"",
+          "\"2147483648\"",
+          "\"4294967297\"",
+          "\"1suffix\"",
+          "\"0x10\""
         ],
         "shallow-since": [
           "undefined",
@@ -2711,21 +2728,22 @@
           "true"
         ]
       },
-      "total": "1281100377477816000000000000",
-      "accepted": "155887714885412160000000000",
-      "nodes": 395,
+      "total": "3330860981442321600000000000",
+      "accepted": "178157388440471040000000000",
+      "nodes": 437,
       "isolatedRuleWitnesses": {
         "cli.fetch.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",
         "cli.fetch.deepen-minimum": "{\"deepen\":-2,\"operands\":[]}",
-        "cli.fetch.depth-unshallow": "{\"depth\":\"\",\"operands\":[],\"unshallow\":true}",
-        "cli.fetch.deepen-depth": "{\"deepen\":1,\"depth\":\"\",\"operands\":[]}",
+        "cli.fetch.depth-unshallow": "{\"depth\":\"1kb\",\"operands\":[],\"unshallow\":true}",
+        "cli.fetch.deepen-depth": "{\"deepen\":1,\"depth\":\"1kb\",\"operands\":[]}",
         "cli.fetch.deepen-unshallow": "{\"deepen\":1,\"operands\":[],\"unshallow\":true}",
         "cli.fetch.porcelain-recursion": "{\"operands\":[],\"porcelain\":true,\"recurse-submodules\":true}",
         "cli.fetch.negotiate-only-recursion": "{\"negotiate-only\":true,\"operands\":[],\"recurse-submodules\":true}",
         "cli.fetch.multiple-atomic": "{\"atomic\":true,\"multiple\":true,\"operands\":[\"value\"]}",
         "cli.fetch.multiple-stdin": "{\"multiple\":true,\"operands\":[\"value\"],\"stdin\":true}",
         "cli.fetch.multiple-filter": "{\"filter\":\"\",\"multiple\":true,\"operands\":[\"value\"]}",
-        "cli.fetch.multiple-negotiate-only": "{\"multiple\":true,\"negotiate-only\":true,\"operands\":[\"value\"]}"
+        "cli.fetch.multiple-negotiate-only": "{\"multiple\":true,\"negotiate-only\":true,\"operands\":[\"value\"]}",
+        "cli.fetch.depth-initial": "{\"depth\":\"\",\"operands\":[]}"
       }
     },
     {

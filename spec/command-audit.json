@@ -20,9 +20,10 @@
         "src/commands/native.test.ts",
         "test/types/command-api.ts",
         "src/commands/object-filter.test.ts",
-        "test/types/object-filter.ts"
+        "test/types/object-filter.ts",
+        "src/commands/depth-scalar.test.ts"
       ],
-      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
+      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing.",
       "typedCommandAPI": true
     },
     "reset": {
@@ -81,9 +82,10 @@
       "models": [],
       "tests": [
         "src/commands/submodule-sparse.test.ts",
-        "test/types/submodule-sparse-command-api.ts"
+        "test/types/submodule-sparse-command-api.ts",
+        "src/commands/depth-scalar.test.ts"
       ],
-      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order.",
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Shell frontend flags are allowlisted independently of helper flags; update strategies are forwarded in fixed rebase/merge/checkout order. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing.",
       "typedCommandAPI": true
     },
     "lfs checkout": {
@@ -215,9 +217,10 @@
         "src/commands/native.test.ts",
         "test/types/command-api.ts",
         "src/commands/object-filter.test.ts",
-        "test/types/object-filter.ts"
+        "test/types/object-filter.ts",
+        "src/commands/depth-scalar.test.ts"
       ],
-      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
+      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing.",
       "typedCommandAPI": true
     },
     "push": {
