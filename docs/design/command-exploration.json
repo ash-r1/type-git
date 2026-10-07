@@ -53135,6 +53135,1222 @@
       }
     },
     {
+      "command": "merge-recursive",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ours": [
+          "undefined",
+          "true"
+        ],
+        "theirs": [
+          "undefined",
+          "true"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "renormalize": [
+          "undefined",
+          "true"
+        ],
+        "no-renormalize": [
+          "undefined",
+          "true"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "subtree": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "rename-threshold": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\"",
+          "\"default\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "1327104000",
+      "accepted": "132710400",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.merge-recursive.separator": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\",\"value\"]}",
+        "cli.merge-recursive.heads": "{\"hasSeparator\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "merge-recursive-ours",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ours": [
+          "undefined",
+          "true"
+        ],
+        "theirs": [
+          "undefined",
+          "true"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "renormalize": [
+          "undefined",
+          "true"
+        ],
+        "no-renormalize": [
+          "undefined",
+          "true"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "subtree": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "rename-threshold": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\"",
+          "\"default\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "1327104000",
+      "accepted": "132710400",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.merge-recursive-ours.separator": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\",\"value\"]}",
+        "cli.merge-recursive-ours.heads": "{\"hasSeparator\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "merge-recursive-theirs",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ours": [
+          "undefined",
+          "true"
+        ],
+        "theirs": [
+          "undefined",
+          "true"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "renormalize": [
+          "undefined",
+          "true"
+        ],
+        "no-renormalize": [
+          "undefined",
+          "true"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "subtree": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "rename-threshold": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\"",
+          "\"default\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "1327104000",
+      "accepted": "132710400",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.merge-recursive-theirs.separator": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\",\"value\"]}",
+        "cli.merge-recursive-theirs.heads": "{\"hasSeparator\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "merge-subtree",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "ours": [
+          "undefined",
+          "true"
+        ],
+        "theirs": [
+          "undefined",
+          "true"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "renormalize": [
+          "undefined",
+          "true"
+        ],
+        "no-renormalize": [
+          "undefined",
+          "true"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "subtree": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "rename-threshold": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\"",
+          "\"default\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "1327104000",
+      "accepted": "132710400",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.merge-subtree.separator": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\",\"value\"]}",
+        "cli.merge-subtree.heads": "{\"hasSeparator\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "merge-index",
+      "rules": 1,
+      "domains": {
+        "one-shot": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\"]"
+        ]
+      },
+      "total": "1200",
+      "accepted": "480",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.merge-index.arguments": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "difftool",
+      "rules": 6,
+      "domains": {
+        "patch": [
+          "undefined",
+          "true"
+        ],
+        "no-patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "u": [
+          "undefined",
+          "true"
+        ],
+        "unified": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "function-context": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-stat": [
+          "undefined",
+          "true"
+        ],
+        "numstat": [
+          "undefined",
+          "true"
+        ],
+        "shortstat": [
+          "undefined",
+          "true"
+        ],
+        "dirstat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cumulative": [
+          "undefined",
+          "true"
+        ],
+        "dirstat-by-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "check": [
+          "undefined",
+          "true"
+        ],
+        "summary": [
+          "undefined",
+          "true"
+        ],
+        "name-only": [
+          "undefined",
+          "true"
+        ],
+        "name-status": [
+          "undefined",
+          "true"
+        ],
+        "stat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "stat-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-name-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-graph-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-count": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "compact-summary": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "binary": [
+          "undefined",
+          "true"
+        ],
+        "full-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "ws-error-highlight": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "src-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dst-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "line-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-prefix": [
+          "undefined",
+          "true"
+        ],
+        "default-prefix": [
+          "undefined",
+          "true"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "output-indicator-new": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-old": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-context": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "break-rewrites": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "irreversible-delete": [
+          "undefined",
+          "true"
+        ],
+        "find-copies": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-copies-harder": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "rename-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "follow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "l": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "minimal": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-blank-lines": [
+          "undefined",
+          "true"
+        ],
+        "ignore-matching-lines": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "indent-heuristic": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "anchored": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "word-diff": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "word-diff-regex": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color-words": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved-ws": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "relative": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "text": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "R": [
+          "undefined",
+          "true"
+        ],
+        "exit-code": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ext-diff": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "textconv": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "submodule": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "ita-invisible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "ita-visible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "S": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "G": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pickaxe-all": [
+          "undefined",
+          "true"
+        ],
+        "pickaxe-regex": [
+          "undefined",
+          "true"
+        ],
+        "O": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rotate-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "skip-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "find-object": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "gui": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "dir-diff": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-prompt": [
+          "undefined",
+          "true"
+        ],
+        "prompt": [
+          "undefined",
+          "true"
+        ],
+        "symlinks": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tool": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "tool-help": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "trust-exit-code": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "extcmd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cached": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "151090207009138704289628160000000000000000000000000000",
+      "accepted": "60212245459938239190977740800000000000000000000000000",
+      "nodes": 182,
+      "isolatedRuleWitnesses": {
+        "cli.difftool.gui-tool-extcmd": "{\"gui\":true,\"operands\":[],\"tool\":\"value\"}",
+        "cli.difftool.dir-no-index": "{\"dir-diff\":true,\"no-index\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.difftool.repository": "{\"inRepository\":false,\"operands\":[]}",
+        "cli.difftool.no-index-paths": "{\"no-index\":true,\"operands\":[]}",
+        "cli.difftool.nonempty-tool": "{\"operands\":[],\"tool\":\"\"}",
+        "cli.difftool.nonempty-extcmd": "{\"extcmd\":\"\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "mergetool",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "gui": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prompt": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tool": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "tool-help": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "orderfile": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "97200",
+      "accepted": "97200",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "request-pull",
+      "rules": 2,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "patch": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "120",
+      "accepted": "36",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.request-pull.arguments": "{\"operand0\":\"value\",\"operands\":[]}",
+        "cli.request-pull.start": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {

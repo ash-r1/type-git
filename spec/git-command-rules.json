@@ -16485,5 +16485,289 @@
       "reason": "The native parser requires this number of destination/ref arguments.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote-fd.c"
     }
+  ],
+  "merge-recursive": [
+    {
+      "id": "cli.merge-recursive.separator",
+      "kind": "required",
+      "required": [
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "The two heads follow a required separator.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+    },
+    {
+      "id": "cli.merge-recursive.heads",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "Only two heads after the separator are supported; excess bases are warned about and ignored.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+    }
+  ],
+  "merge-recursive-ours": [
+    {
+      "id": "cli.merge-recursive-ours.separator",
+      "kind": "required",
+      "required": [
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "The two heads follow a required separator.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+    },
+    {
+      "id": "cli.merge-recursive-ours.heads",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "Only two heads after the separator are supported; excess bases are warned about and ignored.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+    }
+  ],
+  "merge-recursive-theirs": [
+    {
+      "id": "cli.merge-recursive-theirs.separator",
+      "kind": "required",
+      "required": [
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "The two heads follow a required separator.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+    },
+    {
+      "id": "cli.merge-recursive-theirs.heads",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "Only two heads after the separator are supported; excess bases are warned about and ignored.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+    }
+  ],
+  "merge-subtree": [
+    {
+      "id": "cli.merge-subtree.separator",
+      "kind": "required",
+      "required": [
+        {
+          "key": "hasSeparator",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "The two heads follow a required separator.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+    },
+    {
+      "id": "cli.merge-subtree.heads",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 2,
+      "max": 2,
+      "origin": "git",
+      "reason": "Only two heads after the separator are supported; excess bases are warned about and ignored.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+    }
+  ],
+  "merge-index": [
+    {
+      "id": "cli.merge-index.arguments",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 2,
+      "origin": "git",
+      "reason": "The native entrypoint requires at least two argument words before interpreting the optional ordered flags.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-index.c"
+    }
+  ],
+  "difftool": [
+    {
+      "id": "cli.difftool.gui-tool-extcmd",
+      "kind": "exclusiveGroups",
+      "groups": [
+        [
+          {
+            "key": "gui",
+            "test": "active"
+          }
+        ],
+        [
+          {
+            "key": "tool",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "extcmd",
+            "test": "present"
+          }
+        ]
+      ],
+      "guard": [
+        {
+          "key": "tool-help",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit GUI, tool and external command selections conflict.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/difftool.c"
+    },
+    {
+      "id": "cli.difftool.dir-no-index",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "dir-diff",
+          "test": "active"
+        },
+        {
+          "key": "no-index",
+          "test": "active"
+        }
+      ],
+      "guard": [
+        {
+          "key": "tool-help",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Directory comparison cannot be combined with no-index.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/difftool.c"
+    },
+    {
+      "id": "cli.difftool.repository",
+      "kind": "requires",
+      "when": {
+        "key": "inRepository",
+        "test": "equals",
+        "value": false
+      },
+      "required": [
+        {
+          "key": "no-index",
+          "test": "active"
+        }
+      ],
+      "guard": [
+        {
+          "key": "tool-help",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Outside a repository difftool requires no-index.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/difftool.c"
+    },
+    {
+      "id": "cli.difftool.no-index-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": {
+        "key": "no-index",
+        "test": "active"
+      },
+      "guard": [
+        {
+          "key": "tool-help",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "No-index comparison requires two paths.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/difftool.c"
+    },
+    {
+      "id": "cli.difftool.nonempty-tool",
+      "kind": "requires",
+      "when": {
+        "key": "tool",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "tool",
+          "test": "nonempty"
+        }
+      ],
+      "guard": [
+        {
+          "key": "tool-help",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "A final explicit tool/command string must be nonempty.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/difftool.c"
+    },
+    {
+      "id": "cli.difftool.nonempty-extcmd",
+      "kind": "requires",
+      "when": {
+        "key": "extcmd",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "extcmd",
+          "test": "nonempty"
+        }
+      ],
+      "guard": [
+        {
+          "key": "tool-help",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "A final explicit tool/command string must be nonempty.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/difftool.c"
+    }
+  ],
+  "mergetool": [],
+  "request-pull": [
+    {
+      "id": "cli.request-pull.arguments",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "The script requires start and URL; additional words after the optional end are ignored.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-request-pull.sh"
+    },
+    {
+      "id": "cli.request-pull.start",
+      "kind": "required",
+      "required": [
+        {
+          "key": "operand0",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "The starting revision string must not be empty.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-request-pull.sh"
+    }
   ]
 }

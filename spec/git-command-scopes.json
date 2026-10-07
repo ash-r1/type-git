@@ -6134,5 +6134,412 @@
     "source": "builtin/remote-fd.c",
     "optionParsing": "none",
     "separator": false
+  },
+  "merge-recursive": {
+    "tables": [],
+    "source": "builtin/merge-recursive.c",
+    "options": {
+      "--ours": {
+        "key": "ours",
+        "value": "flag"
+      },
+      "--theirs": {
+        "key": "theirs",
+        "value": "flag"
+      },
+      "--patience": {
+        "key": "patience",
+        "value": "flag"
+      },
+      "--histogram": {
+        "key": "histogram",
+        "value": "flag"
+      },
+      "--ignore-space-change": {
+        "key": "ignore-space-change",
+        "value": "flag"
+      },
+      "--ignore-all-space": {
+        "key": "ignore-all-space",
+        "value": "flag"
+      },
+      "--ignore-space-at-eol": {
+        "key": "ignore-space-at-eol",
+        "value": "flag"
+      },
+      "--ignore-cr-at-eol": {
+        "key": "ignore-cr-at-eol",
+        "value": "flag"
+      },
+      "--renormalize": {
+        "key": "renormalize",
+        "value": "flag"
+      },
+      "--no-renormalize": {
+        "key": "no-renormalize",
+        "value": "flag"
+      },
+      "--no-renames": {
+        "key": "no-renames",
+        "value": "flag"
+      },
+      "--subtree": {
+        "key": "subtree",
+        "value": "optional-string"
+      },
+      "--find-renames": {
+        "key": "find-renames",
+        "value": "optional-string"
+      },
+      "--rename-threshold": {
+        "key": "rename-threshold",
+        "value": "string"
+      },
+      "--diff-algorithm": {
+        "key": "diff-algorithm",
+        "value": "string",
+        "allowed": [
+          "myers",
+          "minimal",
+          "patience",
+          "histogram",
+          "default"
+        ],
+        "caseInsensitive": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "merge-recursive-ours": {
+    "tables": [],
+    "source": "builtin/merge-recursive.c",
+    "options": {
+      "--ours": {
+        "key": "ours",
+        "value": "flag"
+      },
+      "--theirs": {
+        "key": "theirs",
+        "value": "flag"
+      },
+      "--patience": {
+        "key": "patience",
+        "value": "flag"
+      },
+      "--histogram": {
+        "key": "histogram",
+        "value": "flag"
+      },
+      "--ignore-space-change": {
+        "key": "ignore-space-change",
+        "value": "flag"
+      },
+      "--ignore-all-space": {
+        "key": "ignore-all-space",
+        "value": "flag"
+      },
+      "--ignore-space-at-eol": {
+        "key": "ignore-space-at-eol",
+        "value": "flag"
+      },
+      "--ignore-cr-at-eol": {
+        "key": "ignore-cr-at-eol",
+        "value": "flag"
+      },
+      "--renormalize": {
+        "key": "renormalize",
+        "value": "flag"
+      },
+      "--no-renormalize": {
+        "key": "no-renormalize",
+        "value": "flag"
+      },
+      "--no-renames": {
+        "key": "no-renames",
+        "value": "flag"
+      },
+      "--subtree": {
+        "key": "subtree",
+        "value": "optional-string"
+      },
+      "--find-renames": {
+        "key": "find-renames",
+        "value": "optional-string"
+      },
+      "--rename-threshold": {
+        "key": "rename-threshold",
+        "value": "string"
+      },
+      "--diff-algorithm": {
+        "key": "diff-algorithm",
+        "value": "string",
+        "allowed": [
+          "myers",
+          "minimal",
+          "patience",
+          "histogram",
+          "default"
+        ],
+        "caseInsensitive": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "merge-recursive-theirs": {
+    "tables": [],
+    "source": "builtin/merge-recursive.c",
+    "options": {
+      "--ours": {
+        "key": "ours",
+        "value": "flag"
+      },
+      "--theirs": {
+        "key": "theirs",
+        "value": "flag"
+      },
+      "--patience": {
+        "key": "patience",
+        "value": "flag"
+      },
+      "--histogram": {
+        "key": "histogram",
+        "value": "flag"
+      },
+      "--ignore-space-change": {
+        "key": "ignore-space-change",
+        "value": "flag"
+      },
+      "--ignore-all-space": {
+        "key": "ignore-all-space",
+        "value": "flag"
+      },
+      "--ignore-space-at-eol": {
+        "key": "ignore-space-at-eol",
+        "value": "flag"
+      },
+      "--ignore-cr-at-eol": {
+        "key": "ignore-cr-at-eol",
+        "value": "flag"
+      },
+      "--renormalize": {
+        "key": "renormalize",
+        "value": "flag"
+      },
+      "--no-renormalize": {
+        "key": "no-renormalize",
+        "value": "flag"
+      },
+      "--no-renames": {
+        "key": "no-renames",
+        "value": "flag"
+      },
+      "--subtree": {
+        "key": "subtree",
+        "value": "optional-string"
+      },
+      "--find-renames": {
+        "key": "find-renames",
+        "value": "optional-string"
+      },
+      "--rename-threshold": {
+        "key": "rename-threshold",
+        "value": "string"
+      },
+      "--diff-algorithm": {
+        "key": "diff-algorithm",
+        "value": "string",
+        "allowed": [
+          "myers",
+          "minimal",
+          "patience",
+          "histogram",
+          "default"
+        ],
+        "caseInsensitive": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "merge-subtree": {
+    "tables": [],
+    "source": "builtin/merge-recursive.c",
+    "options": {
+      "--ours": {
+        "key": "ours",
+        "value": "flag"
+      },
+      "--theirs": {
+        "key": "theirs",
+        "value": "flag"
+      },
+      "--patience": {
+        "key": "patience",
+        "value": "flag"
+      },
+      "--histogram": {
+        "key": "histogram",
+        "value": "flag"
+      },
+      "--ignore-space-change": {
+        "key": "ignore-space-change",
+        "value": "flag"
+      },
+      "--ignore-all-space": {
+        "key": "ignore-all-space",
+        "value": "flag"
+      },
+      "--ignore-space-at-eol": {
+        "key": "ignore-space-at-eol",
+        "value": "flag"
+      },
+      "--ignore-cr-at-eol": {
+        "key": "ignore-cr-at-eol",
+        "value": "flag"
+      },
+      "--renormalize": {
+        "key": "renormalize",
+        "value": "flag"
+      },
+      "--no-renormalize": {
+        "key": "no-renormalize",
+        "value": "flag"
+      },
+      "--no-renames": {
+        "key": "no-renames",
+        "value": "flag"
+      },
+      "--subtree": {
+        "key": "subtree",
+        "value": "optional-string"
+      },
+      "--find-renames": {
+        "key": "find-renames",
+        "value": "optional-string"
+      },
+      "--rename-threshold": {
+        "key": "rename-threshold",
+        "value": "string"
+      },
+      "--diff-algorithm": {
+        "key": "diff-algorithm",
+        "value": "string",
+        "allowed": [
+          "myers",
+          "minimal",
+          "patience",
+          "histogram",
+          "default"
+        ],
+        "caseInsensitive": true
+      }
+    },
+    "omitOptions": [
+      "--help"
+    ]
+  },
+  "merge-index": {
+    "tables": [],
+    "source": "builtin/merge-index.c",
+    "optionParsing": "none",
+    "options": {
+      "-o": {
+        "key": "one-shot",
+        "value": "flag"
+      },
+      "-q": {
+        "key": "quiet",
+        "value": "flag"
+      },
+      "-a": {
+        "key": "all",
+        "value": "flag"
+      }
+    }
+  },
+  "difftool": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "source": "builtin/difftool.c",
+    "options": {
+      "--cached": {
+        "key": "cached",
+        "value": "flag"
+      },
+      "--staged": {
+        "key": "cached",
+        "value": "flag"
+      }
+    },
+    "finalTables": [
+      "builtin/difftool.c:cmd_difftool:builtin_difftool_options"
+    ]
+  },
+  "mergetool": {
+    "tables": [],
+    "source": "git-mergetool.sh",
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "-g": {
+        "key": "gui",
+        "value": "flag"
+      },
+      "--gui": {
+        "key": "gui",
+        "value": "flag"
+      },
+      "--prompt": {
+        "key": "prompt",
+        "value": "flag"
+      },
+      "--no-gui": {
+        "key": "gui",
+        "value": "flag",
+        "set": false
+      },
+      "-y": {
+        "key": "prompt",
+        "value": "flag",
+        "set": false
+      },
+      "--no-prompt": {
+        "key": "prompt",
+        "value": "flag",
+        "set": false
+      },
+      "-t": {
+        "key": "tool",
+        "value": "string"
+      },
+      "--tool": {
+        "key": "tool",
+        "value": "string"
+      },
+      "--tool-help": {
+        "key": "tool-help",
+        "value": "optional-string"
+      },
+      "-O": {
+        "key": "orderfile",
+        "value": "optional-string",
+        "attachedValue": true
+      }
+    }
+  },
+  "request-pull": {
+    "tables": [],
+    "source": "git-request-pull.sh",
+    "options": {
+      "-p": {
+        "key": "patch",
+        "value": "flag"
+      }
+    }
   }
 }
