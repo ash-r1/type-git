@@ -109,6 +109,10 @@ export type CommandSpec = {
     /** Ordinary parsers consume --end-of-options; KEEP_UNKNOWN_OPT retains it. */
     keepEndOfOptions?: boolean;
     unknownOptions?: 'error' | 'keep';
+    /** OPTION_SUBCOMMAND is required; selection stops this pass and invokes dispatch. */
+    mandatorySubcommand?: true;
+    /** Serialization shapes for parent and child tuples; not parent option recognition. */
+    argumentOptions?: Readonly<Record<string, OptionSpec>>;
     stopAtOperand?: boolean;
     /** Compiled native long spellings; null denotes ambiguity. */
     longForms?: {

@@ -1283,3 +1283,39 @@ required callback consumes that word as its value. It classifies only grammar
 and selected final constraints: repository/keyring signature results, storage
 configuration, ref/format/stdin languages, parent refs dispatcher paths,
 completion and other modes remain separate obligations. All scopes are partial.
+
+### Mandatory parse-options subcommands
+
+The refs root records mandatory OPTION_SUBCOMMAND selection in its ordinary
+parser pass. Its dispatch dictionary must exactly match the pinned native table.
+This initial mandatory profile has no parent callbacks; shared parent/child
+callback state requires a separate audited transfer model. The parser selects
+an exact operation name and stops immediately; an unknown
+operand errors before later help. Either end marker or exhausted argv before
+selection errors because the subcommand is required. Operation names also take
+part in native single-dash typo detection. These are ordered parser transitions,
+not final operand-count rules.
+
+The selected child schema parses the retained words and checks its callbacks and
+final rules. `refs list --count=bad -h` fails in the reached count callback;
+`refs list --shell --python -h` exits before incompatible quote styles are checked.
+Both the root command API and the operation-specific API share those child
+constraints. A parent help exit preserves ignored child tuples using a generated
+serialization dictionary; that dictionary does not make child options valid
+before selection. The generator rejects conflicting serialization definitions
+and unaudited child parser passes. Literal unions retain invalid parser outcomes
+rather than erasing them through an accepted union member. Broad runtime strings
+and the established compiler budget continue to defer to runtime validation.
+
+Git's global `--help` rewrite is limited to the first word after the top-level
+command. Therefore the five refs child passes do not exclude their own first
+`--help`: `refs verify --help` is an internal parser exit even when represented
+as an operand token. The root's global first `--help` remains delegated.
+
+`node scripts/mandatory-subcommand-corpus.mjs --check` reproduces 614 independent
+Git outcomes for prefixes of every refs operation, unknown/typo words, both
+boundaries, help ordering and selected child callbacks/final rules. The fixtures
+use a fixed-date isolated repository and known fully qualified refs. Ref existence
+and storage operations are not inferred from grammar alone. Global help tools,
+completion, configuration, all ref/format/stdin languages and repository state
+remain open; the finite corpus does not prove completeness. All audits stay partial.
