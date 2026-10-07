@@ -52,6 +52,11 @@ type Emit<K extends string, D extends OptionSpec, V> = [V] extends [undefined]
         : D extends { attachedValue: true }
           ? readonly [`${K}${Text<V>}`]
           : readonly [K, Text<V>];
+type ArgumentOptions<S extends CommandSpec> = S extends {
+  parserExit: { argumentOptions: infer O extends Readonly<Record<string, OptionSpec>> };
+}
+  ? O
+  : S['options'];
 type Serialize<
   S extends CommandSpec,
   A extends readonly unknown[],
@@ -63,8 +68,8 @@ type Serialize<
     ? H extends { operand: infer W extends string }
       ? Serialize<S, R, readonly [...Out, W], Tick<N>>
       : H extends readonly [infer K extends string, infer V]
-        ? K extends keyof S['options']
-          ? Serialize<S, R, readonly [...Out, ...Emit<K, S['options'][K], V>], Tick<N>>
+        ? K extends keyof ArgumentOptions<S>
+          ? Serialize<S, R, readonly [...Out, ...Emit<K, ArgumentOptions<S>[K], V>], Tick<N>>
           : Deferred
         : H extends readonly [infer K extends string]
           ? Serialize<S, R, readonly [...Out, K], Tick<N>>
@@ -105,9 +110,13 @@ type Unknown<
   T extends Tokens,
   N extends readonly unknown[],
   Out extends readonly string[],
-> = S extends { parserExit: { stopAtUnknown: true } } | { parserExit: { stopAtOperand: true } }
-  ? Done<T, readonly [...Out, W, ...R]>
-  : Walk<S, R, T, N, readonly [...Out, W]>;
+> = S extends { parserExit: { mandatorySubcommand: true }; dispatch: infer D }
+  ? W extends keyof D
+    ? Done<T, R> & { subcommand: W }
+    : Invalid
+  : S extends { parserExit: { stopAtUnknown: true } } | { parserExit: { stopAtOperand: true } }
+    ? Done<T, readonly [...Out, W, ...R]>
+    : Walk<S, R, T, N, readonly [...Out, W]>;
 type Unrecognized<
   S extends CommandSpec,
   W extends string,
@@ -260,16 +269,18 @@ type Walk<
     ? DynamicWord<W> extends true
       ? Deferred
       : W extends '--' | '--end-of-options'
-        ? Done<
-            T,
-            W extends '--end-of-options'
-              ? S extends { parserExit: { keepEndOfOptions: false } }
-                ? readonly [...Out, ...R]
-                : readonly [...Out, W, ...R]
-              : S extends { parserExit: { keepDashDash: true } }
-                ? readonly [...Out, W, ...R]
-                : readonly [...Out, ...R]
-          >
+        ? S extends { parserExit: { mandatorySubcommand: true } }
+          ? Invalid
+          : Done<
+              T,
+              W extends '--end-of-options'
+                ? S extends { parserExit: { keepEndOfOptions: false } }
+                  ? readonly [...Out, ...R]
+                  : readonly [...Out, W, ...R]
+                : S extends { parserExit: { keepDashDash: true } }
+                  ? readonly [...Out, W, ...R]
+                  : readonly [...Out, ...R]
+            >
         : W extends '--help' | '--help-all'
           ? Help<S, T>
           : W extends `--${string}`
@@ -279,7 +290,9 @@ type Walk<
               : W extends `-${infer Cluster}`
                 ? Short<S, Cluster, Cluster, R, T, Tick<N>, true, Out>
                 : Unknown<S, W, R, T, Tick<N>, Out>
-    : Done<T, Out>;
+    : S extends { parserExit: { mandatorySubcommand: true } }
+      ? Invalid
+      : Done<T, Out>;
 type Wrapper = NonNullable<NonNullable<CommandSpec['parserExit']>['wrappers']>[number];
 type WrapperWalk<
   S extends CommandSpec,

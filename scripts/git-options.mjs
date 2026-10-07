@@ -72,6 +72,11 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
         return { ...wrapper, firstPassLongNames: [...new Set(definitions.flatMap(option => option.long ? [option.long] : []))].sort() };
       });
       const firstPassOptions = [...new Set([...Object.keys(tableOptions(definitionsFor(firstPassTables, command), command, scope.numericOption, callbacks)), ...exit.flags])].sort();
+      if (exit.mandatorySubcommand) {
+        const definitions = definitionsFor(firstPassTables, command);
+        const names = definitions.filter(option => option.kind === 'OPTION_SUBCOMMAND').map(option => option.long).sort();
+        if (!names.length || definitions.some(option => option.kind !== 'OPTION_SUBCOMMAND') || JSON.stringify(names) !== JSON.stringify(Object.keys(scope.dispatch ?? {}).sort()) || exit.unknownOptions !== 'error' || exit.stopAtUnknown || exit.stopAtOperand || exit.keepDashDash || wrappers?.length || scope.conditionalCommand) throw new Error(`${command}: mandatory subcommand dispatch must match a callback-free native table and ordinary parser flags`);
+      }
       const firstPassLongNames = [...new Set(definitionsFor(firstPassTables, command).flatMap(option => option.long ? [option.long] : []))].sort();
       const remainingOptions = tableOptions(definitionsFor(remainingTables ?? [], command), command, scope.numericOption, callbacks);
       const remainingShortOptions = Object.keys(remainingOptions).filter(flag => /^-[^-]$/.test(flag));
@@ -91,6 +96,17 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     if (target.numericOption) result[command].numericOption = target.numericOption;
   }
   for (const command of Object.keys(rules)) if (!result[command]) throw new Error(`Rules for unknown Git scope: ${command}`);
+  for (const [command, entry] of Object.entries(result)) if (entry.parserExit?.mandatorySubcommand) {
+    const options = { ...entry.options };
+    for (const target of Object.values(entry.dispatch)) {
+      if (!result[target]?.parserExit?.firstPassOptions) throw new Error(`${command}: mandatory target ${target} requires a native first pass`);
+      for (const [flag, option] of Object.entries(result[target].options)) {
+        if (options[flag] && JSON.stringify(options[flag]) !== JSON.stringify(option)) throw new Error(`${command}: conflicting argument serialization for ${flag}`);
+        options[flag] = option;
+      }
+    }
+    entry.parserExit.argumentOptions = options;
+  }
   return result;
 }
 

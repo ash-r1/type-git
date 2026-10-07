@@ -42,6 +42,7 @@ function buildArguments(
   const first = args[0];
   if (
     spec.dispatch &&
+    !spec.parserExit?.mandatorySubcommand &&
     first !== null &&
     typeof first === 'object' &&
     !Array.isArray(first) &&
@@ -62,6 +63,18 @@ function buildArguments(
     const pass = initialParserPass(spec, serialized.slice(spec.argv.length));
     if (pass.exited) {
       buildArguments(command, pass.tokens, inRepository, 'first-pass');
+      return serialized;
+    }
+    if (pass.subcommand !== undefined) {
+      buildArguments(command, pass.tokens, inRepository, 'first-pass');
+      buildArguments(
+        spec.dispatch![pass.subcommand] as GitCommandName,
+        pass.remaining.map((operand) => ({ operand })),
+        inRepository,
+      );
+      return serialized;
+    }
+    if (pass.delegated && spec.parserExit.mandatorySubcommand) {
       return serialized;
     }
     if (!pass.delegated) {
@@ -176,7 +189,12 @@ function buildArguments(
     if (typeof flag !== 'string') {
       throw new GitArgumentError(`${command}: option names must be strings`);
     }
-    const activeOptions = replay && index >= replay.firstCount ? replay.options : spec.options;
+    const activeOptions =
+      evaluationMode === 'shape' && spec.parserExit?.argumentOptions
+        ? spec.parserExit.argumentOptions
+        : replay && index >= replay.firstCount
+          ? replay.options
+          : spec.options;
     const numeric =
       !Object.hasOwn(activeOptions, flag) &&
       spec.numericOption &&

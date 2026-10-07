@@ -617,6 +617,38 @@ type CheckedLocalArguments<
           : never
   : never;
 
+type WordOperands<W extends readonly string[]> = {
+  readonly [K in keyof W]: { readonly operand: W[K] };
+};
+type InvalidSubcommand = { invalidSubcommand: true };
+type CheckedSubcommandPass<C extends GitCommandName, A extends readonly unknown[], P> = P extends {
+  subcommand: infer W extends keyof Dispatch<C>;
+  tokens: infer T extends readonly unknown[];
+  remaining: infer R extends readonly string[];
+}
+  ? [State<C, T>] extends [never]
+    ? InvalidSubcommand
+    : Dispatch<C>[W] extends infer Target extends GitCommandName
+      ? [CheckedLocalArguments<Target, WordOperands<R>>] extends [never]
+        ? InvalidSubcommand
+        : A
+      : InvalidSubcommand
+  : P extends { exited: true; tokens: infer T extends readonly unknown[] }
+    ? [State<C, T>] extends [never]
+      ? InvalidSubcommand
+      : A
+    : P extends { exited: 'dynamic' } | { delegated: true }
+      ? A
+      : InvalidSubcommand;
+type CheckedMandatoryArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = CheckedSubcommandPass<C, A, InitialParserPass<Spec<C>, A>> extends infer P
+  ? [Extract<P, InvalidSubcommand>] extends [never]
+    ? A
+    : never
+  : never;
+
 /** Dispatch precedes option callbacks, so fallback rules cannot reject a child command. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
@@ -625,19 +657,21 @@ export type CheckedCommandArguments<
   ? A
   : ArgumentsHaveLiteralNul<A> extends true
     ? never
-    : A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
-      ? [Dispatch<C>] extends [never]
-        ? CheckedLocalArguments<C, A>
-        : string extends W
-          ? A
-          : W extends keyof Dispatch<C>
-            ? Dispatch<C>[W] extends infer Target extends GitCommandName
-              ? [CheckedLocalArguments<Target, Rest>] extends [never]
-                ? never
-                : A
-              : never
-            : CheckedLocalArguments<C, A>
-      : CheckedLocalArguments<C, A>;
+    : Spec<C> extends { parserExit: { mandatorySubcommand: true } }
+      ? CheckedMandatoryArguments<C, A>
+      : A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
+        ? [Dispatch<C>] extends [never]
+          ? CheckedLocalArguments<C, A>
+          : string extends W
+            ? A
+            : W extends keyof Dispatch<C>
+              ? Dispatch<C>[W] extends infer Target extends GitCommandName
+                ? [CheckedLocalArguments<Target, Rest>] extends [never]
+                  ? never
+                  : A
+                : never
+              : CheckedLocalArguments<C, A>
+        : CheckedLocalArguments<C, A>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {
