@@ -1,4 +1,5 @@
 import { asciiLower } from './ascii.js';
+import { validCompoundDecimal } from './compound-decimal.js';
 import {
   type GitBooleanCallback,
   gitBoolean,
@@ -109,43 +110,8 @@ export function parseGitScalar(
       value,
     };
   }
-  if (parser === 'shortlog-wrap') {
-    if (value === true) {
-      return { valid: true, value };
-    }
-    if (typeof value !== 'string') {
-      return { valid: false };
-    }
-    const parts = value.split(',');
-    if (parts.length > 3) {
-      return { valid: false };
-    }
-    const parsed: number[] = [];
-    for (let index = 0; index < 3; index++) {
-      const part = parts[index] ?? '';
-      if (part === '') {
-        parsed.push([76, 6, 9][index]!);
-        continue;
-      }
-      if (!/^[ \t\r\n\v\f]*[+-]?\d+$/.test(part)) {
-        return { valid: false };
-      }
-      const number = BigInt(part.trimStart());
-      if (number < 0n || number > 2147483647n) {
-        return { valid: false };
-      }
-      parsed.push(Number(number));
-    }
-    const [width, first, rest] = parsed as [number, number, number];
-    return { valid: width === 0 || (width > first && width > rest), value };
-  }
-  if (parser === 'show-branch-reflog') {
-    return {
-      valid:
-        value === true ||
-        (typeof value === 'string' && /^(?:[ \t\r\n\v\f]*[+-]?\d+)?(?:,[\s\S]*)?$/.test(value)),
-      value,
-    };
+  if (parser === 'shortlog-wrap' || parser === 'show-branch-reflog') {
+    return { valid: validCompoundDecimal(parser, value), value };
   }
   if (parser === 'rev-list-missing') {
     return {

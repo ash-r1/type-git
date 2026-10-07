@@ -4792,7 +4792,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "options": {
       "--group": {
@@ -4812,6 +4813,18 @@
         "value": "optional-string",
         "parser": "shortlog-wrap"
       }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "source": "Git 2.55.0 builtin/shortlog.c:cmd_shortlog parse_options_step/parse_revision_opt loop; parse-options.c; git.c:handle_builtin",
+      "exceptFirst": [
+        "--help"
+      ]
     }
   },
   "show-branch": {

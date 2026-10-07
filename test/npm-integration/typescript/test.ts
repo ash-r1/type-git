@@ -228,3 +228,16 @@ export function testBooleanCallbackTypes(git: Git, dynamic: string): void {
   // @ts-expect-error Normalize numeric booleans before checking combinations.
   git.command('fetch', [['--porcelain'], ['--recurse-submodules', '1k']]);
 }
+
+export function testCompoundDecimalTypes(git: Git, dynamic: string): void {
+  git.command('shortlog', [['-w', '-18446744073709551540'], ['-h']]);
+  git.command('shortlog', [['-w', dynamic], ['-h']]);
+  git.command('shortlog', [['-h'], ['-w', '76\n']]);
+  git.command('show-branch', [['--reflog', '1,date\n'], ['-h']]);
+  // @ts-expect-error Width must exceed both nonzero indentations.
+  git.command('shortlog', [['-w', '9,0,9'], ['-h']]);
+  // @ts-expect-error Numeric trailing newlines are not consumed by strtoul.
+  git.command('show-branch', [['--reflog', '1\n'], ['-h']]);
+  // @ts-expect-error This overflow saturates ULONG_MAX before the checked int conversion.
+  git.command('shortlog', [['-w', '-18446744073709551616'], ['-h']]);
+}

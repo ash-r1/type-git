@@ -1,12 +1,14 @@
 import { integerState } from './git-integer.js';
 
-/** Ordered strtol conversion stages on the pinned LP64 Git profile. */
+/** Ordered strtol/strtoul conversion stages on the pinned LP64 Git profile. */
 export type GitDecimalParser = {
   kind: 'decimal';
   longBits: 64;
   bits: 32;
   signed: boolean;
   conversion: 'checked' | 'cast';
+  /** strtoul negates in unsigned long after conversion; overflow saturates ULONG_MAX. */
+  unsignedLong?: true;
   empty?: true;
   beforeNonnegative?: true;
   positive?: true;
@@ -34,6 +36,11 @@ export function parseGitDecimal(
     return { valid: false };
   }
   let parsed = text === '' ? 0n : BigInt(match![1]!);
+  if (parser.unsignedLong) {
+    const maximum = (1n << BigInt(parser.longBits)) - 1n;
+    const magnitude = parsed < 0n ? -parsed : parsed;
+    parsed = magnitude > maximum ? maximum : BigInt.asUintN(parser.longBits, parsed);
+  }
   if (parser.beforeNonnegative && parsed < 0n) {
     return { valid: false };
   }
@@ -43,8 +50,10 @@ export function parseGitDecimal(
       return { valid: false };
     }
   } else {
-    const longLimit = 1n << BigInt(parser.longBits - 1);
-    parsed = parsed < -longLimit ? -longLimit : parsed >= longLimit ? longLimit - 1n : parsed;
+    if (!parser.unsignedLong) {
+      const longLimit = 1n << BigInt(parser.longBits - 1);
+      parsed = parsed < -longLimit ? -longLimit : parsed >= longLimit ? longLimit - 1n : parsed;
+    }
     parsed = parser.signed
       ? BigInt.asIntN(parser.bits, parsed)
       : BigInt.asUintN(parser.bits, parsed);
