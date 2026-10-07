@@ -42,6 +42,6 @@ export function commandDomains(spec, referencedKeys) {
   // Counts intentionally range over normalized states, not option-token permutations.
   // operand0 and operands are correlated in actual argv; avoid reporting a false
   // reachability proof for this over-approximation.
-  for (const rule of spec.rules) for (const key of referencedKeys(rule)) domains[key] ??= key === 'hasSeparator' ? [undefined, true] : key === 'pathsAfterSeparator' || key === 'operandsBeforeSeparator' ? domains.operands : [undefined];
+  for (const rule of spec.rules) for (const key of referencedKeys(rule)) domains[key] ??= key === 'hasSeparator' ? [undefined, true] : key === 'argumentTokens' || key === 'pathsAfterSeparator' || key === 'operandsBeforeSeparator' ? domains.operands : [undefined];
   return domains;
 }
