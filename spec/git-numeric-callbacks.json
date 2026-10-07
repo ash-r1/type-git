@@ -14,7 +14,8 @@
     "object-name.h": "b28f2e711eb7deca2c4e1a750b8a3a7b314c928f8c913cd716cd7e540239ef64",
     "sequencer.h": "bf24c81ddd8049faa006c0a75fe80ae1fb7ccbfb9a0a79032266ee8d9f110eac",
     "parse.c": "efe38c1cb553aab2a697747d9742d55e61fe135e37b17022952715405bccfe91",
-    "apply.c": "7c154909bb277318711ff8e67cc73f2e7c875e48b1de7ce2effa2597020c4057"
+    "apply.c": "7c154909bb277318711ff8e67cc73f2e7c875e48b1de7ce2effa2597020c4057",
+    "builtin/show-ref.c": "a972a01a04d6b3b25cf50b3f99e42d9e8ee5dc166c946f11aff1dce0a8eac702"
   },
   "profiles": {
     "abbrev": {
@@ -30,9 +31,13 @@
       "callbacks": [
         {
           "name": "parse_opt_abbrev_cb"
+        },
+        {
+          "name": "hash_callback",
+          "file": "builtin/show-ref.c"
         }
       ],
-      "source": "parse-options-cb.c:parse_opt_abbrev_cb"
+      "source": "parse-options-cb.c:parse_opt_abbrev_cb; builtin/show-ref.c:hash_callback delegates explicit values; omitted values remain context-dependent"
     },
     "mainline": {
       "parser": {
