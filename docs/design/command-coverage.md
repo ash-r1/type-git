@@ -58,11 +58,12 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `daemon` | documented | pending | pending |  | Audit every applicable facet. |
 | `describe` | documented | pending | pending |  | Audit every applicable facet. |
 | `diagnose` | documented | pending | pending |  | Audit every applicable facet. |
-| `diff` | documented | partial | pending | diff | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
-| `diff-files` | documented | pending | pending |  | Audit every applicable facet. |
-| `diff-index` | documented | pending | pending |  | Audit every applicable facet. |
+| `diff` | documented | partial | yes | diff | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
+| `diff --no-index` | reviewed-scope | partial | yes |  | Filesystem-dependent file/directory operand rules, pathspec grammar, callback argument languages and binary output. |
+| `diff-files` | documented | partial | yes |  | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
+| `diff-index` | documented | partial | yes |  | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
 | `diff-pairs` | documented | pending | pending |  | Audit every applicable facet. |
-| `diff-tree` | documented | pending | pending |  | Audit every applicable facet. |
+| `diff-tree` | documented | partial | yes |  | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
 | `difftool` | documented | pending | pending |  | Audit every applicable facet. |
 | `fast-export` | documented | pending | pending |  | Audit every applicable facet. |
 | `fast-import` | documented | pending | pending |  | Audit every applicable facet. |
@@ -143,7 +144,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `lfs untrack` | lfs-registered | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `lfs update` | lfs-registered | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `lfs version` | lfs-registered | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
-| `log` | documented | partial | pending | log | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
+| `log` | documented | partial | yes | log | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
 | `ls-files` | documented | pending | pending |  | Audit every applicable facet. |
 | `ls-remote` | documented | partial | pending | lsRemote | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
 | `ls-tree` | documented | partial | pending | lsTree | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
@@ -228,7 +229,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `sh-setup` | documented | pending | pending |  | Audit every applicable facet. |
 | `shell` | documented | pending | pending |  | Audit every applicable facet. |
 | `shortlog` | documented | pending | pending |  | Audit every applicable facet. |
-| `show` | documented | pending | pending |  | Audit every applicable facet. |
+| `show` | documented | partial | yes |  | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
 | `show-branch` | documented | pending | pending |  | Audit every applicable facet. |
 | `show-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `show-ref` | documented | pending | pending |  | Audit every applicable facet. |

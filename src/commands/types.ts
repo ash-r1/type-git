@@ -33,12 +33,15 @@ export type GitCommandArgument<C extends GitCommandName> = C extends GitCommandN
 export type GitCommandExecOpts = ExecOpts & { stdin?: string };
 
 type AllOptions<C extends GitCommandName> = Options<C>[keyof Options<C>] & OptionSpec;
+type EffectKeys<D> = D extends { effects: readonly { key: infer K extends string }[] } ? K : never;
 type Base<C extends GitCommandName> = {
   [S in AllOptions<C> as S['key']]?:
     | Value<S>
     | DefaultValue<S>
     | (S['value'] extends 'optional-string' | 'optional-integer' ? true : never)
     | (S extends { repeat: true } ? readonly (Value<S> | DefaultValue<S>)[] : never);
+} & {
+  [K in EffectKeys<Options<C>[keyof Options<C>]>]?: unknown;
 } & {
   operands: readonly string[];
   operandsBeforeSeparator: readonly string[];
@@ -94,30 +97,36 @@ type Accumulate<S, D extends OptionSpec, V> = readonly [
     : readonly []),
   V,
 ];
-type Effects<S, E extends NonNullable<OptionSpec['effects']>> = E extends readonly [
-  infer H extends NonNullable<OptionSpec['effects']>[number],
-  ...infer R extends NonNullable<OptionSpec['effects']>,
-]
-  ? Effects<
-      H extends { when: { equals: infer V } }
-        ? H['key'] extends keyof S
-          ? S[H['key']] extends V
-            ? Put<S, H['key'], H['set']>
-            : S
-          : S
-        : H extends { when: { notEquals: infer V } }
+type Effects<S, E extends NonNullable<OptionSpec['effects']>> = [S] extends [never]
+  ? never
+  : E extends readonly [
+        infer H extends NonNullable<OptionSpec['effects']>[number],
+        ...infer R extends NonNullable<OptionSpec['effects']>,
+      ]
+    ? Effects<
+        H extends { when: { equals: infer V } }
           ? H['key'] extends keyof S
             ? S[H['key']] extends V
-              ? S
+              ? Put<S, H['key'], H['set']>
+              : S
+            : S
+          : H extends { when: { notEquals: infer V } }
+            ? H['key'] extends keyof S
+              ? S[H['key']] extends V
+                ? S
+                : Put<S, H['key'], H['set']>
               : Put<S, H['key'], H['set']>
-            : Put<S, H['key'], H['set']>
-          : Put<S, H['key'], H['set']>,
-      R
-    >
-  : S;
-type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends { repeat: true }
-  ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
-  : Put<S, D['key'], TokenValue<T, D>>;
+            : Put<S, H['key'], H['set']>,
+        R
+      >
+    : S;
+type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends { ignore: true }
+  ? S
+  : D extends { toggle: true }
+    ? Put<S, D['key'], D['key'] extends keyof S ? (S[D['key']] extends true ? false : true) : true>
+    : D extends { repeat: true }
+      ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
+      : Put<S, D['key'], TokenValue<T, D>>;
 type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeGroup: infer G extends string;
 }
@@ -144,6 +153,13 @@ type ParsedState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
           : ModeState<S, D, T>
       : ModeState<S, D, T>
   : ModeState<S, D, T>;
+type CheckedTokenState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  checks: infer R extends readonly Constraint[];
+}
+  ? CheckRules<Put<S, '$value', TokenValue<T, D>>, R> extends true
+    ? ParsedState<S, D, T>
+    : never
+  : ParsedState<S, D, T>;
 type ParsingEnded<C extends GitCommandName, S> = S extends { ended: true }
   ? true
   : Spec<C> extends { optionParsing: 'stop-at-operand' }
@@ -185,22 +201,24 @@ type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
       : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
         ? Options<C>[K] extends infer D extends OptionSpec
           ? D extends { effects: infer E extends NonNullable<OptionSpec['effects']> }
-            ? Effects<ParsedState<S, D, T>, E>
-            : ParsedState<S, D, T>
+            ? Effects<CheckedTokenState<S, D, T>, E>
+            : CheckedTokenState<S, D, T>
           : never
         : S;
-type State<
-  C extends GitCommandName,
-  A extends readonly unknown[],
-  S = Initial<C>,
-> = A extends readonly [infer H, ...infer Rest] ? State<C, Rest, ApplyToken<C, S, H>> : S;
+type State<C extends GitCommandName, A extends readonly unknown[], S = Initial<C>> = [S] extends [
+  never,
+]
+  ? never
+  : A extends readonly [infer H, ...infer Rest]
+    ? State<C, Rest, ApplyToken<C, S, H>>
+    : S;
 // Evaluate one rule at a time: constructing their Cartesian union can exceed TypeScript's union limit.
-type CheckRules<C extends GitCommandName, S, R extends readonly Constraint[]> = R extends readonly [
+type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
   ...infer Rest extends readonly Constraint[],
 ]
   ? S extends Constrained<S, readonly [H]>
-    ? CheckRules<C, S, Rest>
+    ? CheckRules<S, Rest>
     : false
   : true;
 /** Literal option combinations are checked against the same schema as runtime calls. */
@@ -213,7 +231,7 @@ export type CheckedCommandArguments<
     ? never
     : State<C, A> extends { help: true }
       ? A
-      : CheckRules<C, State<C, A>, Spec<C>['rules']> extends true
+      : CheckRules<State<C, A>, Spec<C>['rules']> extends true
         ? A
         : never;
 

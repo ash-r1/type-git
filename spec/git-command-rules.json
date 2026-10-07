@@ -7213,5 +7213,98 @@
       "min": 0,
       "max": 0
     }
+  ],
+  "log": [
+    {
+      "id": "revision.line-pathspec",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history cannot be combined with pathspecs.",
+      "key": "pathsAfterSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "L",
+        "test": "present"
+      }
+    },
+    {
+      "id": "revision.line-full-diff",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history does not support full-diff.",
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ]
+    }
+  ],
+  "show": [
+    {
+      "id": "revision.line-pathspec",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history cannot be combined with pathspecs.",
+      "key": "pathsAfterSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "L",
+        "test": "present"
+      }
+    },
+    {
+      "id": "revision.line-full-diff",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history does not support full-diff.",
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ]
+    }
+  ],
+  "diff": [],
+  "diff-files": [],
+  "diff-index": [],
+  "diff-tree": [
+    {
+      "id": "revision.tree-stdin-base",
+      "kind": "exclusive",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "diff-tree stdin input cannot be combined with merge-base.",
+      "keys": [
+        "stdin",
+        "merge-base"
+      ]
+    }
+  ],
+  "diff --no-index": [
+    {
+      "id": "diff.no-index-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "source": "Git 2.55.0 diff-no-index.c:diff_no_index",
+      "reason": "No-index comparison requires two paths; directory comparisons may additionally accept pathspecs."
+    }
   ]
 }
