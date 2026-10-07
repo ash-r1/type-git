@@ -74,9 +74,12 @@
         "test/types/checkout-parser-reset-corpus-1.ts",
         "test/types/checkout-parser-reset-corpus-2.ts",
         "test/types/checkout-parser-reset-corpus-3.ts",
-        "test/types/checkout-parser-reset-corpus-4.ts"
+        "test/types/checkout-parser-reset-corpus-4.ts",
+        "src/commands/reset-path-arity.test.ts",
+        "test/types/reset-path-arity-corpus.ts",
+        "scripts/reset-path-arity-corpus.mjs"
       ],
-      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence.",
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Guaranteed path arity without a recognized separator is now source-modeled: at most one retained word can be a revision, so two or more necessarily include paths. Single-word ref/path ambiguity and pathspec-file content remain native.",
       "typedCommandAPI": true
     },
     "stash push": {
