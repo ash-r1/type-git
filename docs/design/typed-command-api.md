@@ -829,3 +829,36 @@ present in every batch. Each batch uses the same compiler settings and automatic
 type discovery. This releases TypeScript's literal-instantiation cache between
 independent fixture groups instead of exceeding its default heap as the oracle
 suite grows. No fixture or assertion is removed.
+
+## Ordered reflog wrappers
+
+`parserExit.wrappers` records native parser passes before the log option pass.
+Each entry currently describes an empty option table, including optional
+subcommand dispatch, with its source evidence and separator policy. Generation
+checks the pinned table and rejects wrappers containing option callbacks; these
+need their own stateful phase model. `stopAtUnknown` records the optional
+subcommand parser's return at the first unknown option or operand. Both literal
+and runtime interpreters pass the retained words through wrappers in order.
+
+For `reflog show`, the empty wrapper scans unknown words for help before log
+callbacks execute. Consequently `reflog show --decorate=bad -h` displays help,
+as does `reflog show -G -L -h`. In the root `reflog` fallback, the subcommand
+wrapper stops at the first unknown word. The log pass then rejects the first
+example's decoration, or consumes the second example's `-h` as the `-L` value
+and leaves `-G` without a value. A first `--help` after `show` is local help;
+the root command's global `--help` dispatch remains separately deferred.
+
+Both reflog scopes now share log's decoration grammar, color grammar and
+subsequent revision/diff parser. Existing implicit reflog traversal and final
+combination rules still apply when no parser exits. The API emits the original
+argv and checks representation constraints even after help.
+
+`node scripts/wrapper-parser-corpus.mjs --check` reproduces 320 independent Git
+outcomes, including direct `reflog show` and dispatch through a `show` operand.
+The corpus checks callback order, retained words, separators, numeric values,
+short clusters and final traversal rules in an isolated seeded repository.
+Runtime tests, compiler fixtures and the installed npm package cover these paths.
+This finite corpus does not establish complete coverage: configuration, object
+resolution, remaining callback grammars and completion exits stay open. Stash
+list's repository-dependent delegation requires a separate conditional phase.
+All 430 audit scopes remain partial.

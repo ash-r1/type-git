@@ -53,7 +53,13 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     for (const flag of scope.omitOptions ?? []) delete options[flag];
     let parserExit = scope.parserExit;
     if (parserExit?.firstPassTables) {
-      const { firstPassTables, remainingTables, remainingGroups, ...exit } = parserExit;
+      const { firstPassTables, remainingTables, remainingGroups, wrappers, ...exit } = parserExit;
+      const prefix = wrappers?.map(({ tables: wrapperTables, ...wrapper }) => {
+        const definitions = definitionsFor(wrapperTables, command);
+        if (wrapper.kind !== 'empty-options' || definitions.some(option => option.kind !== 'OPTION_SUBCOMMAND')) throw new Error(`${command}: wrapper must have no option callbacks`);
+        if (definitions.length && !wrapper.stopAtUnknown) throw new Error(`${command}: optional subcommands must stop at unknown words`);
+        return wrapper;
+      });
       const firstPassOptions = [...new Set([...Object.keys(tableOptions(definitionsFor(firstPassTables, command), command, scope.numericOption, callbacks)), ...exit.flags])].sort();
       const firstPassLongNames = [...new Set(definitionsFor(firstPassTables, command).flatMap(option => option.long ? [option.long] : []))].sort();
       const remainingOptions = tableOptions(definitionsFor(remainingTables ?? [], command), command, scope.numericOption, callbacks);
@@ -63,7 +69,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       const remainingDetachedOptions = Object.entries(remainingOptions).filter(([flag, option]) => option.separateValue || (flag.startsWith('--') && !option.value.startsWith('optional-') && option.value !== 'flag' && (Object.hasOwn(revisionSnapshot?.options ?? {}, flag) ? revisionSnapshot.options[flag].detachedValue : true))).map(([flag]) => flag).sort();
       if (scope.inheritedOptionMarker) for (const [flag, option] of Object.entries(remainingOptions)) remainingOptions[flag] = { ...option, effects: [...(option.effects ?? []), { key: scope.inheritedOptionMarker, set: true }] };
       remainingOptions['--end-of-options'] = { key: 'revision-end-of-options', value: 'flag', consumesRest: true, ignore: true };
-      parserExit = { ...exit, firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions };
+      parserExit = { ...exit, ...(prefix ? { wrappers: prefix } : {}), firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions };
     }
     result[command] = { argv: command.split(' '), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}) };
   }

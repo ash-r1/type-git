@@ -5,19 +5,31 @@ import type { CommandSpec } from './spec.js';
 export function initialParserPass(
   spec: CommandSpec,
   argv: readonly string[],
+  exit: NonNullable<CommandSpec['parserExit']> = spec.parserExit!,
 ): {
   exited: boolean;
   tokens: readonly (readonly string[])[];
   remaining: readonly string[];
   delegated?: true;
 } {
-  const exit = spec.parserExit!;
   const recognized = new Set(exit.firstPassOptions?.filter((flag) => !exit.flags.includes(flag)));
   const tokens: string[][] = [];
   const remaining: string[] = [];
   // Git's top-level dispatcher owns this position, before the command parser runs.
   if (exit.exceptFirst?.includes(argv[0] ?? '')) {
     return { exited: false, tokens, remaining: argv, delegated: true };
+  }
+  for (const wrapper of exit.wrappers ?? []) {
+    const pass = initialParserPass(spec, argv, {
+      ...wrapper,
+      flags: exit.flags,
+      firstPassOptions: [],
+      firstPassLongNames: [],
+    });
+    if (pass.exited) {
+      return pass;
+    }
+    argv = pass.remaining;
   }
   const help = () => ({ exited: true, tokens: [...tokens, ['-h']], remaining });
   const typo = (word: string) => {
@@ -43,6 +55,10 @@ export function initialParserPass(
     }
     if (!word.startsWith('-') || word === '-') {
       remaining.push(word);
+      if (exit.stopAtUnknown) {
+        remaining.push(...argv.slice(index));
+        break;
+      }
       continue;
     }
     if (word.startsWith('--')) {
@@ -50,6 +66,10 @@ export function initialParserPass(
       const flag = equal < 0 ? word : word.slice(0, equal);
       if (!recognized.has(flag)) {
         remaining.push(word);
+        if (exit.stopAtUnknown) {
+          remaining.push(...argv.slice(index));
+          break;
+        }
         continue;
       }
       const option = spec.options[flag]!;
@@ -85,6 +105,10 @@ export function initialParserPass(
           return help();
         }
         remaining.push(`-${cluster}`);
+        if (exit.stopAtUnknown) {
+          remaining.push(...argv.slice(index));
+          return { exited: false, tokens, remaining };
+        }
         break;
       }
       cluster = cluster.slice(1);

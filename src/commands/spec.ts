@@ -92,6 +92,14 @@ export type CommandSpec = {
     firstPassLongNames?: readonly string[];
     /** PARSE_OPT_KEEP_DASHDASH; --end-of-options is always retained. */
     keepDashDash?: boolean;
+    /** Stop at the first unknown option or operand (SUBCOMMAND_OPTIONAL fallback). */
+    stopAtUnknown?: boolean;
+    /** Ordered native wrappers with no option callbacks, before the first value parser. */
+    wrappers?: readonly (Evidence & {
+      kind: 'empty-options';
+      keepDashDash?: boolean;
+      stopAtUnknown?: boolean;
+    })[];
     /** Separate option definitions for the subsequent revision/diff parser. */
     remainingOptions?: Readonly<Record<string, OptionSpec>>;
     /** setup_revisions searches for -- before consuming values, unless assume_dashdash. */
