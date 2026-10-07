@@ -55,9 +55,15 @@
         "test/types/parser-exits.ts",
         "src/commands/boolean-callbacks.test.ts",
         "test/types/boolean-callbacks.ts",
-        "test/types/boolean-callback-corpus.ts"
+        "test/types/boolean-callback-corpus.ts",
+        "src/commands/checkout-parser.test.ts",
+        "test/types/checkout-parser-api.ts",
+        "test/types/checkout-parser-reset-corpus-1.ts",
+        "test/types/checkout-parser-reset-corpus-2.ts",
+        "test/types/checkout-parser-reset-corpus-3.ts",
+        "test/types/checkout-parser-reset-corpus-4.ts"
       ],
-      "remaining": "Revision/path disambiguation before --, pathspec file contents, repository state, numeric lexical forms and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence.",
       "typedCommandAPI": true
     },
     "stash push": {
@@ -399,9 +405,18 @@
         "test/types/parser-exits.ts",
         "src/commands/boolean-callbacks.test.ts",
         "test/types/boolean-callbacks.ts",
-        "test/types/boolean-callback-corpus.ts"
+        "test/types/boolean-callback-corpus.ts",
+        "src/commands/checkout-parser.test.ts",
+        "test/types/checkout-parser-api.ts",
+        "test/types/checkout-parser-checkout-corpus-1.ts",
+        "test/types/checkout-parser-checkout-corpus-2.ts",
+        "test/types/checkout-parser-checkout-corpus-3.ts",
+        "test/types/checkout-parser-checkout-corpus-4.ts",
+        "test/types/checkout-parser-checkout-corpus-5.ts",
+        "test/types/checkout-parser-checkout-corpus-6.ts",
+        "test/types/checkout-parser-checkout-corpus-7.ts"
       ],
-      "remaining": "Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence.",
       "typedCommandAPI": true
     },
     "commit": {
@@ -509,9 +524,16 @@
         "test/types/parser-exits.ts",
         "src/commands/boolean-callbacks.test.ts",
         "test/types/boolean-callbacks.ts",
-        "test/types/boolean-callback-corpus.ts"
+        "test/types/boolean-callback-corpus.ts",
+        "src/commands/checkout-parser.test.ts",
+        "test/types/checkout-parser-api.ts",
+        "test/types/checkout-parser-switch-corpus-1.ts",
+        "test/types/checkout-parser-switch-corpus-2.ts",
+        "test/types/checkout-parser-switch-corpus-3.ts",
+        "test/types/checkout-parser-switch-corpus-4.ts",
+        "test/types/checkout-parser-switch-corpus-5.ts"
       ],
-      "remaining": "Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence.",
       "typedCommandAPI": true
     },
     "cherry-pick": {
@@ -596,9 +618,17 @@
         "test/types/parser-exits.ts",
         "src/commands/boolean-callbacks.test.ts",
         "test/types/boolean-callbacks.ts",
-        "test/types/boolean-callback-corpus.ts"
+        "test/types/boolean-callback-corpus.ts",
+        "src/commands/checkout-parser.test.ts",
+        "test/types/checkout-parser-api.ts",
+        "test/types/checkout-parser-restore-corpus-1.ts",
+        "test/types/checkout-parser-restore-corpus-2.ts",
+        "test/types/checkout-parser-restore-corpus-3.ts",
+        "test/types/checkout-parser-restore-corpus-4.ts",
+        "test/types/checkout-parser-restore-corpus-5.ts",
+        "test/types/checkout-parser-restore-corpus-6.ts"
       ],
-      "remaining": "Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
+      "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence.",
       "typedCommandAPI": true
     },
     "revert": {
