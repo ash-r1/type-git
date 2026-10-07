@@ -3995,6 +3995,102 @@ const commandSpec30 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter-auto',
+      checks: [
+        {
+          id: 'filter.after-auto',
+          kind: 'forbid',
+          origin: 'git',
+          source:
+            'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
+          reason: 'No positive filter can follow an auto filter without clearing it.',
+          when: [
+            {
+              key: 'filter',
+              test: 'equals',
+              value: 'auto',
+            },
+          ],
+        },
+        {
+          id: 'filter.auto-after-filter',
+          kind: 'forbid',
+          origin: 'git',
+          source:
+            'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
+          reason: 'Auto cannot be combined with a preceding filter.',
+          when: [
+            {
+              key: 'filter',
+              test: 'present',
+            },
+            {
+              key: '$value',
+              test: 'equals',
+              value: 'auto',
+            },
+          ],
+        },
+        {
+          id: 'filter.auto-after-transform',
+          kind: 'forbid',
+          origin: 'git',
+          source:
+            'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
+          reason:
+            'Transforming a simple filter into a combined filter clears allow_auto_filter, even across --no-filter.',
+          when: [
+            {
+              key: 'filter-history',
+              test: 'equals',
+              value: 'disabled',
+            },
+            {
+              key: '$value',
+              test: 'equals',
+              value: 'auto',
+            },
+          ],
+        },
+      ],
+      effects: [
+        {
+          key: 'filter-history',
+          when: {
+            equals: 'single',
+          },
+          set: 'disabled',
+        },
+        {
+          key: 'filter-history',
+          when: {
+            all: [
+              {
+                key: 'filter-history',
+                test: 'inactive',
+              },
+              {
+                key: 'filter',
+                test: 'startsWith',
+                value: 'combine:',
+              },
+            ],
+          },
+          set: 'combined',
+        },
+        {
+          key: 'filter-history',
+          when: {
+            all: [
+              {
+                key: 'filter-history',
+                test: 'inactive',
+              },
+            ],
+          },
+          set: 'single',
+        },
+      ],
     },
     '--also-filter-submodules': {
       key: 'also-filter-submodules',
@@ -4188,6 +4284,22 @@ const commandSpec30 = {
       key: 'filter',
       value: 'flag',
       clear: true,
+      effects: [
+        {
+          key: 'filter-history',
+          when: {
+            equals: 'single',
+          },
+          set: false,
+        },
+        {
+          key: 'filter-history',
+          when: {
+            equals: 'combined',
+          },
+          set: false,
+        },
+      ],
     },
     '--no-also-filter-submodules': {
       key: 'also-filter-submodules',
@@ -4580,6 +4692,102 @@ const commandSpec31 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter-auto',
+      checks: [
+        {
+          id: 'filter.after-auto',
+          kind: 'forbid',
+          origin: 'git',
+          source:
+            'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
+          reason: 'No positive filter can follow an auto filter without clearing it.',
+          when: [
+            {
+              key: 'filter',
+              test: 'equals',
+              value: 'auto',
+            },
+          ],
+        },
+        {
+          id: 'filter.auto-after-filter',
+          kind: 'forbid',
+          origin: 'git',
+          source:
+            'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
+          reason: 'Auto cannot be combined with a preceding filter.',
+          when: [
+            {
+              key: 'filter',
+              test: 'present',
+            },
+            {
+              key: '$value',
+              test: 'equals',
+              value: 'auto',
+            },
+          ],
+        },
+        {
+          id: 'filter.auto-after-transform',
+          kind: 'forbid',
+          origin: 'git',
+          source:
+            'Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type',
+          reason:
+            'Transforming a simple filter into a combined filter clears allow_auto_filter, even across --no-filter.',
+          when: [
+            {
+              key: 'filter-history',
+              test: 'equals',
+              value: 'disabled',
+            },
+            {
+              key: '$value',
+              test: 'equals',
+              value: 'auto',
+            },
+          ],
+        },
+      ],
+      effects: [
+        {
+          key: 'filter-history',
+          when: {
+            equals: 'single',
+          },
+          set: 'disabled',
+        },
+        {
+          key: 'filter-history',
+          when: {
+            all: [
+              {
+                key: 'filter-history',
+                test: 'inactive',
+              },
+              {
+                key: 'filter',
+                test: 'startsWith',
+                value: 'combine:',
+              },
+            ],
+          },
+          set: 'combined',
+        },
+        {
+          key: 'filter-history',
+          when: {
+            all: [
+              {
+                key: 'filter-history',
+                test: 'inactive',
+              },
+            ],
+          },
+          set: 'single',
+        },
+      ],
     },
     '--auto-maintenance': {
       key: 'auto-maintenance',
@@ -4772,6 +4980,22 @@ const commandSpec31 = {
       key: 'filter',
       value: 'flag',
       clear: true,
+      effects: [
+        {
+          key: 'filter-history',
+          when: {
+            equals: 'single',
+          },
+          set: false,
+        },
+        {
+          key: 'filter-history',
+          when: {
+            equals: 'combined',
+          },
+          set: false,
+        },
+      ],
     },
     '--no-auto-maintenance': {
       key: 'auto-maintenance',
@@ -15919,6 +16143,7 @@ const commandSpec68 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -17855,6 +18080,7 @@ const commandSpec69 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -19709,6 +19935,7 @@ const commandSpec70 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -21563,6 +21790,7 @@ const commandSpec71 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -23398,6 +23626,7 @@ const commandSpec72 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -25214,6 +25443,7 @@ const commandSpec73 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -28207,6 +28437,7 @@ const commandSpec81 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -30099,6 +30330,7 @@ const commandSpec82 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -34570,6 +34802,7 @@ const commandSpec85 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
       effects: [
         {
           key: 'revision-argument',
@@ -38200,6 +38433,7 @@ const commandSpec86 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
       effects: [
         {
           key: 'revision-argument',
@@ -46517,6 +46751,7 @@ const commandSpec147 = {
       value: 'string',
     },
     '--filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'string',
     },
@@ -46551,6 +46786,7 @@ const commandSpec147 = {
       clear: true,
     },
     '--no-filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'flag',
       clear: true,
@@ -47036,6 +47272,7 @@ const commandSpec148 = {
       value: 'integer',
     },
     '--filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'string',
     },
@@ -47145,6 +47382,7 @@ const commandSpec148 = {
       clear: true,
     },
     '--no-filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'flag',
       clear: true,
@@ -51001,6 +51239,7 @@ const commandSpec184 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -54317,6 +54556,7 @@ const commandSpec194 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -56228,6 +56468,7 @@ const commandSpec195 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -59747,6 +59988,7 @@ const commandSpec198 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -61713,6 +61955,7 @@ const commandSpec199 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -63750,6 +63993,7 @@ const commandSpec200 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -66429,6 +66673,7 @@ const commandSpec202 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -68890,6 +69135,7 @@ const commandSpec204 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -71049,6 +71295,7 @@ const commandSpec205 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -72881,6 +73128,7 @@ const commandSpec206 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -74690,6 +74938,7 @@ const commandSpec219 = {
       value: 'flag',
     },
     '--filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'string',
     },
@@ -74756,6 +75005,7 @@ const commandSpec219 = {
       set: false,
     },
     '--no-filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'flag',
       clear: true,
@@ -74919,6 +75169,7 @@ const commandSpec220 = {
       value: 'flag',
     },
     '--filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'string',
     },
@@ -75026,6 +75277,7 @@ const commandSpec220 = {
       set: false,
     },
     '--no-filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'flag',
       clear: true,
@@ -75864,6 +76116,7 @@ const commandSpec233 = {
       value: 'flag',
     },
     '--filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'string',
     },
@@ -79577,6 +79830,7 @@ const commandSpec275 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -80208,6 +80462,7 @@ const commandSpec276 = {
       value: 'flag',
     },
     '--filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'string',
     },
@@ -80404,6 +80659,7 @@ const commandSpec276 = {
       set: false,
     },
     '--no-filter': {
+      parser: 'object-filter',
       key: 'filter',
       value: 'flag',
       clear: true,
@@ -81868,6 +82124,7 @@ const commandSpec283 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
@@ -86440,6 +86697,7 @@ const commandSpec306 = {
     '--filter': {
       key: 'filter',
       value: 'string',
+      parser: 'object-filter',
     },
     '--no-filter': {
       key: 'filter',
