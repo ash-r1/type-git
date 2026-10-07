@@ -359,9 +359,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/worktree-parser.test.ts",
+        "test/types/worktree-parser-add-corpus.ts"
       ],
-      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness.",
       "typedCommandAPI": true
     },
     "checkout": {
@@ -526,9 +528,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/worktree-parser.test.ts",
+        "test/types/worktree-parser-clean-corpus.ts"
       ],
-      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness.",
       "typedCommandAPI": true
     },
     "rebase": {
@@ -743,10 +747,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/worktree-parser.test.ts",
+        "test/types/worktree-parser-rm-corpus.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations."
+      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness."
     },
     "mv": {
       "state": "partial",
@@ -757,10 +763,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/worktree-parser.test.ts",
+        "test/types/worktree-parser-mv-corpus.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations."
+      "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness."
     },
     "remote": {
       "state": "partial",

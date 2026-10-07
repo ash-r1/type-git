@@ -38,3 +38,23 @@ git.command('status', [['--untracked-files', 'invalid'], ['-h']]);
 git.command('rebase', [['--apply'], ['--merge'], ['-h']]);
 // @ts-expect-error The integer callback is reached before help.
 git.command('checkout', [['--unified', 'invalid'], ['-h']]);
+
+// Ordinary worktree parsers decode serialized words before consuming path operands.
+git.command('add', [{ operand: '--dry-r' }, ['-h']]);
+git.command('rm', [{ operand: '-nh' }]);
+git.command('mv', [{ operand: '--ver' }, ['-h']]);
+git.command('clean', [{ operand: '-nq' }]);
+git.command('add', [['--'], ['--unified', 'bad']]);
+git.command('rm', [{ operand: '--end-of-options' }, ['-h']]);
+git.command('mv', [['--'], { operand: 'file' }, ['-h']]);
+git.command('add', [['--chmod', 'bad'], ['-h']]);
+// @ts-expect-error Unknown words are rejected before later help.
+git.command('add', [{ operand: '--unknown' }, ['-h']]);
+// @ts-expect-error Native flags reject attached data before help.
+git.command('rm', [{ operand: '--quiet=1' }, ['-h']]);
+// @ts-expect-error The consumed marker leaves only one path, so mv fails arity.
+git.command('mv', [['--'], ['-h']]);
+// @ts-expect-error The exclude callback explicitly forbids negation.
+git.command('clean', [{ operand: '--no-exclude=x' }, ['-h']]);
+// @ts-expect-error Reached integer syntax errors precede help.
+git.command('add', [['--unified', 'bad'], ['-h']]);
