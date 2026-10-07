@@ -388,3 +388,14 @@ export function testCheckoutParserTypes(git: Git): void {
   // @ts-expect-error Detached checkout cannot update explicitly separated paths.
   git.command('checkout', [['--detach'], ['--'], ['-h']]);
 }
+
+export function testAliasParserTypes(git: Git): void {
+  git.command('clone', [{ operand: '--recur' }, ['-h']]);
+  git.command('fetch', [{ operand: '--negotiation-t=HEAD' }, ['-h']]);
+  git.command('push', [{ operand: '--bra' }, ['-h']]);
+  git.command('clone', [['--'], { operand: 'remote.git' }, ['-h']]);
+  // @ts-expect-error A native alias preserves its target's no-value flag grammar.
+  git.command('push', [{ operand: '--branches=1' }, ['-h']]);
+  // @ts-expect-error Literal -h after -- cannot suppress clone's final arity check.
+  git.command('clone', [['--'], { operand: 'one' }, { operand: 'two' }, ['-h']]);
+}

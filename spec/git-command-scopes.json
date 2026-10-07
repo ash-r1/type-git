@@ -680,11 +680,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/clone.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
+      "source": "Git 2.55.0 builtin/clone.c:cmd_clone; parse-options.c:preprocess_options/register_abbrev/parse_long_opt/parse_options; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/clone.c:cmd_clone:builtin_clone_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "fetch": {
@@ -708,11 +716,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/fetch.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
+      "source": "Git 2.55.0 builtin/fetch.c:cmd_fetch; parse-options.c:preprocess_options/register_abbrev/parse_long_opt/parse_options; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/fetch.c:cmd_fetch:builtin_fetch_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "push": {
@@ -726,11 +742,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/push.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The ordinary parser resolves native aliases, prefixes, clusters and callbacks before help and final semantic rules; both end markers are consumed.",
+      "source": "Git 2.55.0 builtin/push.c:cmd_push; parse-options.c:preprocess_options/register_abbrev/parse_long_opt/parse_options; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/push.c:cmd_push:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "branch": {

@@ -1174,3 +1174,38 @@ retain every outcome, all source roots and the default heap limit. Repository
 and configuration state, ref/path ambiguity, pathspec languages and files,
 interactive modes, remaining callbacks and parser modes remain audit obligations.
 All scopes remain partial.
+
+
+## Native aliases in clone, fetch and push
+
+The long-spelling compiler models `parse-options.c:preprocess_options`,
+`is_alias` and `register_abbrev`. An alias inherits its target's flags while
+retaining its name and position in the option table. Native alias groups are
+pairs of names: an alias and its target. Two aliases of the same target are
+not automatically interchangeable for abbreviation ambiguity. Full parsed flags
+must also match; the very-short negation path keeps OPT_LONG while the ordinary
+path cancels it. Earlier unrelated ambiguity remains recorded, and an exact
+match takes precedence. Missing targets and nested aliases are rejected as in
+native preprocessing.
+
+`clone`, `fetch` and `push` use their ordinary source tables before remaining
+operands. `clone --recur -h` reaches help even though both `--recursive` and
+`--recurse-submodules` match. `fetch --negotiation-t=HEAD -h` reaches help
+through the `--negotiation-tip` alias of `--negotiation-restrict`. The shorter
+`--negotiation-=HEAD` is still ambiguous because `--negotiation-include` also matches. `push --bra -h`
+resolves the `--branches` alias, while an attached value such as
+`--branches=1` still fails before help. Both end markers are consumed, and
+following words become literal operands instead of callbacks or help tokens.
+
+`node --test scripts/parse-option-long-forms.test.mjs` checks alias pair identity,
+nontransitive relationships, parsed flags, sticky ambiguity, exact precedence,
+inherited flags and native rejection of nested/missing aliases.
+`node scripts/alias-parser-corpus.mjs --check` reproduces 9,997 independent native
+outcomes and compiler assertions, with deterministic shards of at most 400 cases.
+The oracle uses fixed dates, a local remote with a configured upstream, and a
+dash-named remote. Clone destinations are fresh; final push/fetch probes use
+dry-run. No external network transfer is required.
+
+Ref/refspec grammars and resolution, repository/configuration and transport state,
+other callback languages, completion, platform profiles and other parser modes
+remain open. Every scope remains partial.
