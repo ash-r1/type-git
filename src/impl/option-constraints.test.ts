@@ -61,6 +61,17 @@ describe('option constraints against independent Git executions', () => {
     return result;
   }
 
+  it('preserves boolean ls-tree abbreviation for worktree and bare repositories', async () => {
+    const bare = await git.clone(repo.workdir, join(root, 'bare'), { bare: true });
+    for (const client of [repo, bare]) {
+      for (const abbrev of [true, false, 7]) {
+        const entries = await client.lsTree('HEAD', { abbrev });
+        expect(entries).toHaveLength(1);
+        expect(entries[0]?.path).toBe('file');
+      }
+    }
+  });
+
   it('compares every LFS checkout stage/destination combination with the LFS parser', async () => {
     for (const options of assignments({
       base: [false, true],

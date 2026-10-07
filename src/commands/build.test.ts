@@ -57,6 +57,18 @@ describe('typed command arguments', () => {
       expect(() => commandArguments('lfs pointer', args)).toThrow(GitArgumentError);
     }
     expect(() => commandArguments('lfs locks', [['--limit', 1.5]])).toThrow(GitArgumentError);
+    expect(commandArguments('lfs pointer', [['--file', 'file'], ['--no-extensions']])).toEqual([
+      'lfs',
+      'pointer',
+      '--file=file',
+      '--no-extensions',
+    ]);
+    expect(() => commandArguments('lfs pointer', [['--file', 'one', 'two']])).toThrow(
+      '--file accepts at most one value',
+    );
+    expect(() => commandArguments('lfs pointer', [['--unknown', 'one', 'two']])).toThrow(
+      'unknown option --unknown',
+    );
   });
 
   it('checks effective values and supports help before semantic validation', () => {
@@ -292,8 +304,14 @@ describe('typed commands against Git LFS', () => {
   it('writes stdin and exposes predictable pointer results through global and repository clients', async () => {
     const file = join(root, 'file.bin');
     await writeFile(file, 'hello');
-    const pointer = await git.command('lfs pointer', [['--file', file], ['--no-extensions']]);
-    expect(pointer.exitCode).toBe(0);
+    // Git LFS before 3.8 always produces plain pointers and has no --no-extensions flag.
+    const help = spawnSync('git', ['lfs', 'pointer', '-h'], { env, encoding: 'utf8' });
+    expect(help.error).toBeUndefined();
+    expect(help.status).toBe(0);
+    const pointer = help.stdout.includes('--no-extensions')
+      ? await git.command('lfs pointer', [['--file', file], ['--no-extensions']])
+      : await git.command('lfs pointer', [['--file', file]]);
+    expect(pointer.exitCode, pointer.stderr).toBe(0);
     expect(pointer.stdout).toContain('version https://git-lfs.github.com/spec/v1');
     const checked = await repo.command('lfs pointer', [['--check'], ['--stdin']], {
       stdin: pointer.stdout,

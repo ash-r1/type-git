@@ -56,8 +56,11 @@ export function commandArguments(
       throw new GitArgumentError(`${command}: option names must be strings`);
     }
     const option = Object.hasOwn(spec.options, flag) ? spec.options[flag] : undefined;
-    if (!option || arg.length > 2) {
+    if (!option) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
+    }
+    if (arg.length > 2) {
+      throw new GitArgumentError(`${command}: ${flag} accepts at most one value`);
     }
     const supplied = arg.length === 2 && arg[1] !== undefined;
     const value = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);

@@ -104,7 +104,7 @@ type CheckRules<C extends GitCommandName, S, R extends readonly Constraint[]> = 
   infer H extends Constraint,
   ...infer Rest extends readonly Constraint[],
 ]
-  ? S extends Constrained<Base<C>, readonly [H]>
+  ? S extends Constrained<S, readonly [H]>
     ? CheckRules<C, S, Rest>
     : false
   : true;

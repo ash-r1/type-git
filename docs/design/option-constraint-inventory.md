@@ -55,7 +55,7 @@ Clone: 28 independent components, 113 exhaustively enumerated representative ass
 | init | init.bare-separateGitDir | git | `{"kind":"exclusive","keys":["bare","separateGitDir"]}` | [Git rejects these simultaneous modes or operands.](https://github.com/git/git/blob/v2.48.0/builtin/init-db.c) |
 | lsRemote | lsRemote.unsupported | type-git | `{"kind":"unsupported","keys":["getUrl","symref"]}` | [The ref-list result cannot represent URL-only output or symbolic-ref records.](./option-constraints.md) |
 | lsTree | lsTree.nameOnly-objectOnly-long | git | `{"kind":"exclusive","keys":["nameOnly","objectOnly","long"]}` | [Git rejects these simultaneous modes or operands.](https://github.com/git/git/blob/v2.48.0/builtin/ls-tree.c) |
-| lsTree | lsTree.abbrev | type-git | `{"kind":"integer","key":"abbrev","min":-9007199254740991}` | [Numeric options use safe integers to avoid fractional truncation or loss of precision.](./option-constraints.md) |
+| lsTree | lsTree.abbrev | type-git | `{"kind":"integer","key":"abbrev","allowBoolean":true,"min":-9007199254740991}` | [Numeric options use safe integers to avoid fractional truncation or loss of precision.](./option-constraints.md) |
 | status | status.unsupported | type-git | `{"kind":"unsupported","keys":["verbose"]}` | [The status result contains porcelain entries, not verbose patch output.](./option-constraints.md) |
 | status | status.porcelain | type-git | `{"kind":"value","key":"porcelain","allowed":[2]}` | [The typed status parser reads porcelain v2.](./option-constraints.md) |
 | status | status.nul | type-git | `{"kind":"value","key":"nullTerminated","allowed":[true]}` | [Structured paths use NUL delimiters to preserve all filenames.](./option-constraints.md) |

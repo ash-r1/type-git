@@ -2,6 +2,15 @@ import type { Constraint, Predicate } from './model.js';
 
 type Inactive<T, K extends keyof T> = { [P in K]?: Extract<T[P], false | undefined> };
 type Active<T, K extends keyof T> = { [P in K]-?: Exclude<T[P], false | undefined> };
+type Nonempty<V> = V extends readonly unknown[]
+  ? V extends readonly []
+    ? never
+    : number extends V['length']
+      ? readonly [V[number], ...V[number][]]
+      : V
+  : V extends string
+    ? Exclude<V, ''>
+    : never;
 type Satisfy<T, P extends Predicate> = P['key'] extends keyof T
   ? P extends { test: 'equals'; value: infer V }
     ? { [K in P['key']]-?: Extract<V, T[K]> }
@@ -9,9 +18,11 @@ type Satisfy<T, P extends Predicate> = P['key'] extends keyof T
       ? { [K in P['key']]?: Exclude<T[K], V> }
       : P['test'] extends 'inactive'
         ? Inactive<T, P['key']>
-        : P['test'] extends 'present'
-          ? { [K in P['key']]-?: Exclude<T[K], undefined> }
-          : Active<T, P['key']>
+        : P['test'] extends 'nonempty'
+          ? { [K in P['key']]-?: Nonempty<T[K]> }
+          : P['test'] extends 'present'
+            ? { [K in P['key']]-?: Exclude<T[K], undefined> }
+            : Active<T, P['key']>
   : never;
 type Reject<T, P extends Predicate> = P['key'] extends keyof T
   ? P extends { test: 'equals'; value: infer V }

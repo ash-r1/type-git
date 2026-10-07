@@ -416,7 +416,7 @@
       ]
     },
     "total": "236196",
-    "accepted": "97200",
+    "accepted": "136080",
     "nodes": 24,
     "isolatedRuleWitnesses": {
       "lsTree.nameOnly-objectOnly-long": "{\"nameOnly\":true,\"objectOnly\":true}",

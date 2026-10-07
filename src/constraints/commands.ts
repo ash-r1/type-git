@@ -631,6 +631,7 @@ export const COMMAND_CONSTRAINTS = {
       id: 'lsTree.abbrev',
       kind: 'integer',
       key: 'abbrev',
+      allowBoolean: true,
       min: Number.MIN_SAFE_INTEGER,
       origin: 'type-git',
       reason:
