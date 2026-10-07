@@ -617,3 +617,36 @@ unknown length retain runtime validation. Stdin is a data stream and continues t
 accept NUL; it is not an argv string. Convenience option objects and
 execution-environment fields require separate auditing; this rule does not claim
 whole-command or whole-wrapper completeness.
+
+## Ordered parser exits
+
+`CommandSpec.parserExit` records an audited parser's exit flags with upstream
+provenance. Its `exceptFirst` list excludes the initial `--help`: Git rewrites
+that position to a separate `git help` invocation before the command parser.
+That dispatcher grammar remains a separate audit obligation. In a single parse-options pass, encountering one of these flags
+terminates interpretation. Earlier callback failures remain errors, while later
+callback values, mode transitions and final semantic constraints are not reached.
+The builder still serializes all supplied words; the compiler stops its state
+walk at the same point. A value spelling `-h` is not an exit token, and a help
+spelling after `--` or after a stop-at-operand boundary is not an active option.
+
+The 19 audited scopes are `add`, `rm`, `mv`, `commit`, `fetch`, `push`, `clone`,
+`merge`, `reset`, `clean`, `rebase`, `checkout`, `switch`, `restore`, `status`,
+`branch`, `for-each-ref`, `tag` and `show-branch`.
+The four latter scopes also share audited `--color` callbacks that accept only
+ASCII case-insensitive `always`, `auto` and `never`, default to `always` without a value, and assign `never` when negated.
+Config boolean synonyms such as `true` are not accepted. Consequently
+`--color=invalid -h` is rejected and `-h --color=invalid` reaches help. Enum-valued
+options in these scopes expose their primitive string shape; literal membership
+is checked in the ordered state walk, and dynamic strings are checked at runtime.
+OS NUL checks and the structured API's option names/value shapes remain active
+even for words ignored by Git.
+
+`node scripts/parser-exit-corpus.mjs --check` replays a deterministic independent
+Git 2.55.0 corpus, classifies native diagnostics, and reproduces the runtime and
+compiler fixtures. This finite corpus is not an exhaustive command proof.
+The annotation is deliberately per scope: `grep -h` is an ordinary option, `log`
+has an earlier parsing pass than its diff options, and `diff-files` processes
+those options before handling help. Their exit phases, completion helpers,
+abbreviations, repository/configuration failures and other parse exits remain
+separate audit obligations. All command audit entries remain partial.
