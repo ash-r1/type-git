@@ -21,6 +21,7 @@ export type OptionSpec = {
   before?: number;
   /** Values rejected immediately by the upstream option parser, even if later overwritten. */
   parser?: GitScalarParser;
+  /** Finite supplied values accepted by both literal types and runtime validation. */
   allowed?: readonly (string | number | boolean)[];
   /** Ordered callback side effects on other parser variables. */
   effects?: readonly {
