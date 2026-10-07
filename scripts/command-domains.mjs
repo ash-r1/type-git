@@ -6,7 +6,7 @@ export function commandDomains(spec, referencedKeys) {
     if (!domains[key].some((old) => JSON.stringify(old) === JSON.stringify(value))) domains[key].push(value);
   };
   for (const [key, value] of Object.entries(spec.initial ?? {})) add(key, value);
-  for (const option of Object.values(spec.options)) {
+  for (const option of [...Object.values(spec.options), ...(spec.numericOption ? [spec.numericOption] : [])]) {
     if (option.ignore) continue;
     if (option.toggle) add(option.key, false);
     for (const effect of option.effects ?? []) add(effect.key, effect.set);

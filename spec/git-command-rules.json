@@ -13514,5 +13514,528 @@
       "reason": "Replay requires an explicit revision source.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c"
     }
+  ],
+  "blame": [
+    {
+      "id": "cli.blame.progress",
+      "kind": "conflicts",
+      "when": {
+        "key": "progress",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "incremental",
+          "test": "active"
+        },
+        {
+          "key": "porcelain",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit progress excludes incremental and porcelain output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.blame.reverse-contents",
+      "kind": "conflicts",
+      "when": {
+        "key": "blame-reverse",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "contents",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Reverse blaming cannot use replacement contents.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.blame.stdin",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Blame disables revision input from stdin.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.blame.path",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.blame.separator-path",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 2,
+      "when": {
+        "key": "hasSeparator",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.blame.old-path-rev",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "pathsAfterSeparator",
+        "test": "lengthEquals",
+        "value": 2
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    }
+  ],
+  "annotate": [
+    {
+      "id": "cli.annotate.progress",
+      "kind": "conflicts",
+      "when": {
+        "key": "progress",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "incremental",
+          "test": "active"
+        },
+        {
+          "key": "porcelain",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit progress excludes incremental and porcelain output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.annotate.reverse-contents",
+      "kind": "conflicts",
+      "when": {
+        "key": "blame-reverse",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "contents",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Reverse blaming cannot use replacement contents.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.annotate.stdin",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "stdin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Blame disables revision input from stdin.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.annotate.path",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.annotate.separator-path",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 2,
+      "when": {
+        "key": "hasSeparator",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    },
+    {
+      "id": "cli.annotate.old-path-rev",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "pathsAfterSeparator",
+        "test": "lengthEquals",
+        "value": 2
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/blame.c"
+    }
+  ],
+  "grep": [
+    {
+      "id": "cli.grep.pattern",
+      "kind": "requiresAny",
+      "when": {
+        "key": "argumentTokens",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "patterns",
+          "test": "nonempty"
+        },
+        {
+          "key": "pattern-files",
+          "test": "nonempty"
+        },
+        {
+          "key": "operands",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "A pattern must be supplied directly, positionally or through a file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/grep.c"
+    },
+    {
+      "id": "cli.grep.sources",
+      "kind": "exclusive",
+      "guard": [
+        {
+          "key": "max-count",
+          "test": "notEquals",
+          "value": 0
+        }
+      ],
+      "keys": [
+        "cached",
+        "untracked",
+        "no-index"
+      ],
+      "origin": "git",
+      "reason": "Index, worktree-plus-untracked and no-index input modes are exclusive.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/grep.c"
+    },
+    {
+      "id": "cli.grep.exclude",
+      "kind": "requiresAny",
+      "guard": [
+        {
+          "key": "max-count",
+          "test": "notEquals",
+          "value": 0
+        }
+      ],
+      "when": {
+        "key": "exclude-standard",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "untracked",
+          "test": "active"
+        },
+        {
+          "key": "no-index",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit exclude-standard settings require untracked or no-index input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/grep.c"
+    },
+    {
+      "id": "cli.grep.submodules",
+      "kind": "conflicts",
+      "guard": [
+        {
+          "key": "no-index",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "recurse-submodules",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "untracked",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Recursive submodule search rejects untracked input unless no-index disables recursion.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/grep.c"
+    },
+    {
+      "id": "cli.grep.threads",
+      "kind": "range",
+      "guard": [
+        {
+          "key": "max-count",
+          "test": "notEquals",
+          "value": 0
+        },
+        {
+          "key": "open-files-in-pager",
+          "test": "inactive"
+        }
+      ],
+      "key": "threads",
+      "min": 0,
+      "origin": "git",
+      "reason": "Negative thread counts are rejected unless pager output forces a single thread.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/grep.c"
+    },
+    {
+      "id": "cli.grep.pager-cached",
+      "kind": "conflicts",
+      "guard": [
+        {
+          "key": "max-count",
+          "test": "notEquals",
+          "value": 0
+        }
+      ],
+      "when": {
+        "key": "open-files-in-pager",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "cached",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Opening matching files in a pager requires worktree contents.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/grep.c"
+    }
+  ],
+  "format-patch": [
+    {
+      "id": "cli.format-patch.numbered-subject",
+      "kind": "exclusive",
+      "keys": [
+        "numbered",
+        "keep-subject"
+      ],
+      "origin": "git",
+      "reason": "Explicit numbering conflicts with keeping the original subject.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.subject-prefix",
+      "kind": "conflicts",
+      "when": {
+        "key": "keep-subject",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "subject-prefix",
+          "test": "present"
+        },
+        {
+          "key": "rfc",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicit prefix, even empty, conflicts with keeping the subject.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.cover-mode",
+      "kind": "value",
+      "key": "cover-from-description",
+      "allowed": [
+        "default",
+        "none",
+        "message",
+        "subject",
+        "auto"
+      ],
+      "origin": "git",
+      "reason": "The final cover-description setting accepts only native modes.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.output-name-only",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Format-patch cannot produce this diff output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.output-name-status",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "name-status",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Format-patch cannot produce this diff output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.output-check",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "check",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Format-patch cannot produce this diff output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.merge-r",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "diff-merges",
+          "test": "equals",
+          "value": "r"
+        }
+      ],
+      "origin": "git",
+      "reason": "Format-patch rejects remerge diff output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.merge-remerge",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "diff-merges",
+          "test": "equals",
+          "value": "remerge"
+        }
+      ],
+      "origin": "git",
+      "reason": "Format-patch rejects remerge diff output.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.destination-stdout",
+      "kind": "conflicts",
+      "when": {
+        "key": "stdout",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "output",
+          "test": "present"
+        },
+        {
+          "key": "output-directory",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Patch output destinations are exclusive.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    {
+      "id": "cli.format-patch.destination-output",
+      "kind": "conflicts",
+      "when": {
+        "key": "output",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "output-directory",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Patch output destinations are exclusive.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    }
+  ],
+  "archive": [
+    {
+      "id": "cli.archive.list",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "list",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/archive.c"
+    },
+    {
+      "id": "cli.archive.tree",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "list",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Native parser requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/archive.c"
+    },
+    {
+      "id": "cli.archive.remote-extra",
+      "kind": "conflicts",
+      "when": {
+        "key": "remote",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "extra-files",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "The remote archive parser rejects extra files after callback list clearing.",
+      "source": "https://github.com/git/git/blob/v2.55.0/archive.c"
+    }
   ]
 }

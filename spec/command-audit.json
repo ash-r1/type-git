@@ -2498,6 +2498,56 @@
       ],
       "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Initial reverse traversal depends on mode before revision parsing; subsequent native warning overrides need phase-aware modeling.",
       "typedCommandAPI": true
+    },
+    "blame": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/search-patch.test.ts",
+        "test/types/search-patch-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "annotate": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/search-patch.test.ts",
+        "test/types/search-patch-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "grep": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/search-patch.test.ts",
+        "test/types/search-patch-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Pattern expression trees, file-supplied patterns, ref/path partitioning, configured no-index fallback and early return on max-count zero remain state-dependent.",
+      "typedCommandAPI": true
+    },
+    "format-patch": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/search-patch.test.ts",
+        "test/types/search-patch-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Creation-factor/range-diff checks depend on the resolved nonempty series; config defaults and output files are not inferred from argument count.",
+      "typedCommandAPI": true
+    },
+    "archive": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/search-patch.test.ts",
+        "test/types/search-patch-command-api.ts"
+      ],
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Compression support depends on the configured format and output filename; remote server version and binary transport remain pending.",
+      "typedCommandAPI": true
     }
   }
 }

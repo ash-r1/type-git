@@ -237,3 +237,25 @@ The generated catalogue declares each command's literal schema separately and
 uses explicit type references in the registry. This preserves per-command
 inference without exceeding TypeScript's declaration serialization limit as the
 catalogue grows.
+
+### Search, attribution, patches and archives
+
+Blame and annotate share native grammar, including the legacy `-- path revision`
+form and the bits changed by porcelain negation. Their `-S` reads a revision file,
+while `--reverse` enables children traversal; these are distinct from the shared
+diff pickaxe and reverse-walk options. Grep consumes options before its first
+operand, accepts numeric context tokens such as `-12`, and returns early for a
+zero match limit before validating several otherwise conflicting options.
+
+Native number callbacks have an explicit `numericOption` schema. Runtime and
+literal type checking recognize decimal-digit tokens only; the original token is
+preserved in argv. Numeric states and callback checks participate in deterministic
+exploration. Combined short-option tokens and integer-overflow spellings still
+require separate audit.
+
+Format-patch preserves its own short-option meanings, single-use output-directory
+callback, final subject settings and immediate thread-style validation. Archive
+supports numeric compression selections and list/create operand forms. Its outer
+parser consumes `--exec` even locally, where Git ignores it; no artificial remote
+prerequisite is imposed. Configured compression formats, binary transport and
+repository-dependent series validation remain pending in the ledger.

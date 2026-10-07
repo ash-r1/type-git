@@ -4149,5 +4149,301 @@
       "diff",
       "revision"
     ]
+  },
+  "blame": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "source": "builtin/blame.c",
+    "finalTables": [
+      "builtin/blame.c:cmd_blame:options"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "initial": {
+      "S": false,
+      "reverse": false
+    },
+    "options": {
+      "-S": {
+        "key": "revs-file",
+        "value": "string"
+      },
+      "--diff-algorithm": {
+        "key": "diff-algorithm",
+        "value": "string",
+        "allowed": [
+          "myers",
+          "default",
+          "minimal",
+          "patience",
+          "histogram"
+        ],
+        "caseInsensitive": true
+      },
+      "--reverse": {
+        "key": "blame-reverse",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "children",
+            "set": true
+          }
+        ]
+      },
+      "--line-porcelain": {
+        "key": "line-porcelain",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "porcelain",
+            "set": true
+          }
+        ]
+      },
+      "--no-line-porcelain": {
+        "key": "line-porcelain",
+        "value": "flag",
+        "set": false,
+        "effects": [
+          {
+            "key": "porcelain",
+            "set": false
+          }
+        ]
+      }
+    }
+  },
+  "annotate": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "source": "builtin/blame.c",
+    "finalTables": [
+      "builtin/blame.c:cmd_blame:options"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "initial": {
+      "S": false,
+      "reverse": false
+    },
+    "options": {
+      "-S": {
+        "key": "revs-file",
+        "value": "string"
+      },
+      "--diff-algorithm": {
+        "key": "diff-algorithm",
+        "value": "string",
+        "allowed": [
+          "myers",
+          "default",
+          "minimal",
+          "patience",
+          "histogram"
+        ],
+        "caseInsensitive": true
+      },
+      "--reverse": {
+        "key": "blame-reverse",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "children",
+            "set": true
+          }
+        ]
+      },
+      "--line-porcelain": {
+        "key": "line-porcelain",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "porcelain",
+            "set": true
+          }
+        ]
+      },
+      "--no-line-porcelain": {
+        "key": "line-porcelain",
+        "value": "flag",
+        "set": false,
+        "effects": [
+          {
+            "key": "porcelain",
+            "set": false
+          }
+        ]
+      }
+    }
+  },
+  "grep": {
+    "tables": [
+      "builtin/grep.c:cmd_grep:options"
+    ],
+    "source": "builtin/grep.c",
+    "optionParsing": "stop-at-operand",
+    "numericOption": {
+      "key": "context",
+      "value": "integer"
+    },
+    "initial": {
+      "max-count": -1
+    },
+    "options": {
+      "-e": {
+        "key": "patterns",
+        "value": "string",
+        "repeat": true
+      },
+      "-f": {
+        "key": "pattern-files",
+        "value": "string",
+        "repeat": true
+      },
+      "-r": {
+        "key": "max-depth",
+        "value": "flag",
+        "set": -1
+      },
+      "--recursive": {
+        "key": "max-depth",
+        "value": "flag",
+        "set": -1
+      },
+      "--no-recursive": {
+        "key": "max-depth",
+        "value": "flag",
+        "set": 0
+      },
+      "--no-threads": {
+        "key": "threads",
+        "value": "flag",
+        "set": 0
+      },
+      "--no-max-count": {
+        "key": "max-count",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "format-patch": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "source": "builtin/log.c",
+    "finalTables": [
+      "builtin/log.c:cmd_format_patch:builtin_format_patch_options"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "options": {
+      "--no-numbered": {
+        "key": "numbered",
+        "value": "flag",
+        "set": false
+      },
+      "-N": {
+        "key": "numbered",
+        "value": "flag",
+        "set": false
+      },
+      "--rfc": {
+        "key": "rfc",
+        "value": "optional-string",
+        "set": "RFC"
+      },
+      "--thread": {
+        "key": "thread",
+        "value": "optional-string",
+        "allowed": [
+          "shallow",
+          "deep"
+        ]
+      },
+      "-o": {
+        "key": "output-directory",
+        "value": "string",
+        "checks": [
+          {
+            "id": "cli.format-patch.single-directory",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "output-directory",
+                "test": "present"
+              }
+            ],
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/log.c:output_directory_callback",
+            "reason": "The output-directory callback rejects a second occurrence, even with the same value."
+          }
+        ]
+      },
+      "--output-directory": {
+        "key": "output-directory",
+        "value": "string",
+        "checks": [
+          {
+            "id": "cli.format-patch.single-directory",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "output-directory",
+                "test": "present"
+              }
+            ],
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/log.c:output_directory_callback",
+            "reason": "The output-directory callback rejects a second occurrence, even with the same value."
+          }
+        ]
+      }
+    }
+  },
+  "archive": {
+    "tables": [
+      "archive.c:parse_archive_args:opts"
+    ],
+    "source": "archive.c",
+    "numericOption": {
+      "key": "compression-level",
+      "value": "integer"
+    },
+    "finalTables": [
+      "builtin/archive.c:cmd_archive:local_opts"
+    ],
+    "options": {
+      "--add-file": {
+        "key": "extra-files",
+        "value": "string",
+        "repeat": true
+      },
+      "--add-virtual-file": {
+        "key": "extra-files",
+        "value": "string",
+        "repeat": true
+      },
+      "--no-add-file": {
+        "key": "extra-files",
+        "value": "flag",
+        "repeat": true,
+        "clear": true
+      },
+      "--no-add-virtual-file": {
+        "key": "extra-files",
+        "value": "flag",
+        "repeat": true,
+        "clear": true
+      }
+    }
   }
 }

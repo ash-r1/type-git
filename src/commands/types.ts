@@ -7,6 +7,8 @@ import type { OptionSpec } from './spec.js';
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
+type NumericOption<C extends GitCommandName> =
+  Spec<C> extends { numericOption: infer D extends OptionSpec } ? D : never;
 type AsciiUpper =
   | 'A'
   | 'B'
@@ -64,6 +66,7 @@ export type GitCommandArgument<C extends GitCommandName> = C extends GitCommandN
         }[keyof Options<C>]
       | { readonly operand: string }
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
+      | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}`])
   : never;
 export type GitCommandExecOpts = ExecOpts & { stdin?: string };
 
@@ -75,6 +78,8 @@ type Empty<C extends GitCommandName> = {
   [K in
     | OptionKeys<Options<C>[keyof Options<C>]>
     | EffectKeys<Options<C>[keyof Options<C>]>
+    | OptionKeys<NumericOption<C>>
+    | EffectKeys<NumericOption<C>>
     | 'argumentTokens'
     | 'hasSeparator'
     | 'operand0'
@@ -256,6 +261,29 @@ type AddOperand<
     V,
   ]
 >;
+type Digits<S extends string> = S extends ''
+  ? true
+  : S extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'}${infer R}`
+    ? Digits<R>
+    : false;
+type ApplyOption<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  effects: infer E extends NonNullable<OptionSpec['effects']>;
+}
+  ? Effects<CheckedTokenState<S, D, T>, E>
+  : CheckedTokenState<S, D, T>;
+type ApplyNumeric<C extends GitCommandName, S, T> = T extends readonly [
+  `-${infer N extends number}`,
+]
+  ? T[0] extends `-${infer Text}`
+    ? (`${number}` extends Text ? true : Digits<Text>) extends true
+      ? NumericOption<C> extends { allowed: infer A extends readonly unknown[] }
+        ? (number extends N ? true : N extends A[number] ? true : false) extends true
+          ? ApplyOption<S, NumericOption<C>, readonly [T[0], N]>
+          : never
+        : ApplyOption<S, NumericOption<C>, readonly [T[0], N]>
+      : never
+    : never
+  : S;
 type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
   ? ParsingEnded<C, S> extends true
     ? never
@@ -275,11 +303,9 @@ type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
       ? never
       : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
         ? Options<C>[K] extends infer D extends OptionSpec
-          ? D extends { effects: infer E extends NonNullable<OptionSpec['effects']> }
-            ? Effects<CheckedTokenState<S, D, T>, E>
-            : CheckedTokenState<S, D, T>
+          ? ApplyOption<S, D, T>
           : never
-        : S;
+        : ApplyNumeric<C, S, T>;
 type State<
   C extends GitCommandName,
   A extends readonly unknown[],
