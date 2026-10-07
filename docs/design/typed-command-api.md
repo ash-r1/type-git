@@ -168,3 +168,19 @@ Negated options and even the `--` separator still count. Explicit trivial mode
 allows exactly one mode flag and three operands. Stdin merging ignores leftover
 operands but excludes a global merge base. These are argument constraints;
 conflicts, tree validity and the stdin protocol remain Git's responsibility.
+
+### Object and utility scopes
+
+`cat-file`, `repack`, `replace`, rerere and its six named operations, for-each-repo,
+column, fmt-merge-msg, bugreport, diagnose, version and var add native schemas.
+Cat-file batch options are single-use callbacks, including repeated identical
+options. Explicit `--no-buffer` still requires batch mode. Batch conversion
+accepts operands ignored by Git, and `--unordered` is not restricted to batch.
+Repack models unreachable-object strategies, geometric/full packing conflicts,
+bitmap prerequisites and the write-midx callback. Extra repack, diagnose, version
+and non-forget rerere operands remain accepted where Git ignores them.
+
+These scopes remain partial. In particular, column's original first --command
+value, delegated filter/format grammars, configuration-dependent restrictions,
+numeric spellings and binary output require further work. Raw string output does
+not provide a binary archive/object transport contract.

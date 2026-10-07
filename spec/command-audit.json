@@ -1978,6 +1978,176 @@
       ],
       "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
       "typedCommandAPI": true
+    },
+    "cat-file": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "repack": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "replace": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "rerere": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "rerere clear": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "rerere forget": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "rerere diff": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "rerere status": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "rerere remaining": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "rerere gc": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "for-each-repo": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "column": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "First --command spelling versus final command value and column-mode callbacks; configuration, numeric lexical forms, abbreviations and witnesses.",
+      "typedCommandAPI": true
+    },
+    "fmt-merge-msg": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "bugreport": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Upstream diagnose with --no-suffix requires separate audit; no extra wrapper prohibition is invented.",
+      "typedCommandAPI": true
+    },
+    "diagnose": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "version": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
+    },
+    "var": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/object-utilities.test.ts",
+        "test/types/object-utility-command-api.ts"
+      ],
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "typedCommandAPI": true
     }
   }
 }

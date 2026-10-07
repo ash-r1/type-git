@@ -3033,5 +3033,230 @@
     ],
     "source": "builtin/merge-tree.c",
     "optionParsing": "stop-at-operand"
+  },
+  "cat-file": {
+    "tables": [
+      "builtin/cat-file.c:cmd_cat_file:options"
+    ],
+    "source": "builtin/cat-file.c",
+    "options": {
+      "--batch": {
+        "key": "batch",
+        "value": "optional-string",
+        "checks": [
+          {
+            "id": "cli.cat-file.batch-once",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "batch-enabled",
+                "test": "active"
+              }
+            ],
+            "origin": "git",
+            "reason": "Only one batch option may be specified, including repetitions of the same option.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+          }
+        ],
+        "effects": [
+          {
+            "key": "batch-enabled",
+            "set": true
+          }
+        ]
+      },
+      "--batch-check": {
+        "key": "batch-check",
+        "value": "optional-string",
+        "checks": [
+          {
+            "id": "cli.cat-file.batch-check-once",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "batch-enabled",
+                "test": "active"
+              }
+            ],
+            "origin": "git",
+            "reason": "Only one batch option may be specified, including repetitions of the same option.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+          }
+        ],
+        "effects": [
+          {
+            "key": "batch-enabled",
+            "set": true
+          }
+        ]
+      },
+      "--batch-command": {
+        "key": "batch-command",
+        "value": "optional-string",
+        "checks": [
+          {
+            "id": "cli.cat-file.batch-command-once",
+            "kind": "forbid",
+            "when": [
+              {
+                "key": "batch-enabled",
+                "test": "active"
+              }
+            ],
+            "origin": "git",
+            "reason": "Only one batch option may be specified, including repetitions of the same option.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+          }
+        ],
+        "effects": [
+          {
+            "key": "batch-enabled",
+            "set": true
+          }
+        ]
+      }
+    }
+  },
+  "repack": {
+    "tables": [
+      "builtin/repack.c:cmd_repack:builtin_repack_options"
+    ],
+    "source": "builtin/repack.c",
+    "options": {
+      "--write-midx": {
+        "key": "write-midx",
+        "value": "optional-string",
+        "allowed": [
+          "",
+          "incremental"
+        ]
+      },
+      "--no-write-midx": {
+        "key": "write-midx",
+        "value": "flag",
+        "set": false
+      },
+      "-m": {
+        "key": "write-midx",
+        "value": "flag"
+      }
+    }
+  },
+  "replace": {
+    "tables": [
+      "builtin/replace.c:cmd_replace:options"
+    ],
+    "source": "builtin/replace.c"
+  },
+  "rerere": {
+    "tables": [
+      "builtin/rerere.c:cmd_rerere:options"
+    ],
+    "source": "builtin/rerere.c"
+  },
+  "rerere clear": {
+    "tables": [
+      "builtin/rerere.c:cmd_rerere:options"
+    ],
+    "source": "builtin/rerere.c"
+  },
+  "rerere forget": {
+    "tables": [
+      "builtin/rerere.c:cmd_rerere:options"
+    ],
+    "source": "builtin/rerere.c"
+  },
+  "rerere diff": {
+    "tables": [
+      "builtin/rerere.c:cmd_rerere:options"
+    ],
+    "source": "builtin/rerere.c"
+  },
+  "rerere status": {
+    "tables": [
+      "builtin/rerere.c:cmd_rerere:options"
+    ],
+    "source": "builtin/rerere.c"
+  },
+  "rerere remaining": {
+    "tables": [
+      "builtin/rerere.c:cmd_rerere:options"
+    ],
+    "source": "builtin/rerere.c"
+  },
+  "rerere gc": {
+    "tables": [
+      "builtin/rerere.c:cmd_rerere:options"
+    ],
+    "source": "builtin/rerere.c"
+  },
+  "for-each-repo": {
+    "tables": [
+      "builtin/for-each-repo.c:cmd_for_each_repo:options"
+    ],
+    "source": "builtin/for-each-repo.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "column": {
+    "tables": [
+      "builtin/column.c:cmd_column:options"
+    ],
+    "source": "builtin/column.c"
+  },
+  "fmt-merge-msg": {
+    "tables": [
+      "builtin/fmt-merge-msg.c:cmd_fmt_merge_msg:options"
+    ],
+    "source": "builtin/fmt-merge-msg.c"
+  },
+  "bugreport": {
+    "tables": [
+      "builtin/bugreport.c:cmd_bugreport:bugreport_options"
+    ],
+    "source": "builtin/bugreport.c",
+    "options": {
+      "--diagnose": {
+        "key": "diagnose",
+        "value": "optional-string",
+        "allowed": [
+          "stats",
+          "all"
+        ]
+      }
+    }
+  },
+  "diagnose": {
+    "tables": [
+      "builtin/diagnose.c:cmd_diagnose:diagnose_options"
+    ],
+    "source": "builtin/diagnose.c",
+    "options": {
+      "--mode": {
+        "key": "mode",
+        "value": "string",
+        "allowed": [
+          "stats",
+          "all"
+        ]
+      }
+    }
+  },
+  "version": {
+    "tables": [
+      "help.c:cmd_version:options"
+    ],
+    "source": "help.c"
+  },
+  "var": {
+    "tables": [],
+    "source": "builtin/var.c",
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "-l": {
+        "key": "list",
+        "value": "flag"
+      }
+    }
   }
 }

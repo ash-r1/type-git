@@ -10844,5 +10844,889 @@
       "reason": "An implicit three-tree merge cannot have any options, even canceled ones or a separator.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-tree.c"
     }
+  ],
+  "cat-file": [
+    {
+      "id": "cli.cat-file.buffer-batch",
+      "kind": "requires",
+      "when": {
+        "key": "buffer",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "batch-enabled",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This setting requires an explicit batch option.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.follow-symlinks-batch",
+      "kind": "requires",
+      "when": {
+        "key": "follow-symlinks",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "batch-enabled",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This setting requires an explicit batch option.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.batch-all-objects-batch",
+      "kind": "requires",
+      "when": {
+        "key": "batch-all-objects",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "batch-enabled",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This setting requires an explicit batch option.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.z-batch",
+      "kind": "requires",
+      "when": {
+        "key": "z",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "batch-enabled",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This setting requires an explicit batch option.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.Z-batch",
+      "kind": "requires",
+      "when": {
+        "key": "Z",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "batch-enabled",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This setting requires an explicit batch option.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.filter-batch",
+      "kind": "requires",
+      "when": {
+        "key": "filter",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "batch-enabled",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This setting requires an explicit batch option.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.batch-query",
+      "kind": "conflicts",
+      "when": {
+        "key": "batch-enabled",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "e",
+          "test": "active"
+        },
+        {
+          "key": "p",
+          "test": "active"
+        },
+        {
+          "key": "t",
+          "test": "active"
+        },
+        {
+          "key": "s",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Single-object query modes cannot be combined with batch mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.path",
+      "kind": "requiresAny",
+      "when": {
+        "key": "path",
+        "test": "present"
+      },
+      "choices": [
+        {
+          "key": "filters",
+          "test": "active"
+        },
+        {
+          "key": "textconv",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicit path requires filters or textconv; batch conversion still accepts it.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.batch-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": [
+        {
+          "key": "batch-enabled",
+          "test": "active"
+        },
+        {
+          "key": "filters",
+          "test": "inactive"
+        },
+        {
+          "key": "textconv",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.e-operand",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "batch-enabled",
+          "test": "inactive"
+        },
+        {
+          "key": "e",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.p-operand",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "batch-enabled",
+          "test": "inactive"
+        },
+        {
+          "key": "p",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.t-operand",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "batch-enabled",
+          "test": "inactive"
+        },
+        {
+          "key": "t",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.s-operand",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "batch-enabled",
+          "test": "inactive"
+        },
+        {
+          "key": "s",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.filters-operand",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "batch-enabled",
+          "test": "inactive"
+        },
+        {
+          "key": "filters",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.textconv-operand",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": [
+        {
+          "key": "batch-enabled",
+          "test": "inactive"
+        },
+        {
+          "key": "textconv",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    },
+    {
+      "id": "cli.cat-file.type-object",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": [
+        {
+          "key": "batch-enabled",
+          "test": "inactive"
+        },
+        {
+          "key": "e",
+          "test": "inactive"
+        },
+        {
+          "key": "p",
+          "test": "inactive"
+        },
+        {
+          "key": "t",
+          "test": "inactive"
+        },
+        {
+          "key": "s",
+          "test": "inactive"
+        },
+        {
+          "key": "filters",
+          "test": "inactive"
+        },
+        {
+          "key": "textconv",
+          "test": "inactive"
+        },
+        {
+          "key": "batch-all-objects",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/cat-file.c"
+    }
+  ],
+  "repack": [
+    {
+      "id": "cli.repack.unreachable",
+      "kind": "exclusiveGroups",
+      "groups": [
+        [
+          {
+            "key": "A",
+            "test": "active"
+          },
+          {
+            "key": "unpack-unreachable",
+            "test": "present"
+          }
+        ],
+        [
+          {
+            "key": "keep-unreachable",
+            "test": "active"
+          }
+        ],
+        [
+          {
+            "key": "cruft",
+            "test": "active"
+          }
+        ]
+      ],
+      "origin": "git",
+      "reason": "Loosening unreachable objects, keeping them and cruft packing are exclusive.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repack.c"
+    },
+    {
+      "id": "cli.repack.geometric",
+      "kind": "conflicts",
+      "when": {
+        "key": "geometric",
+        "test": "nonzero"
+      },
+      "others": [
+        {
+          "key": "a",
+          "test": "active"
+        },
+        {
+          "key": "A",
+          "test": "active"
+        },
+        {
+          "key": "cruft",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "A nonzero geometric factor cannot be combined with packing everything.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repack.c"
+    },
+    {
+      "id": "cli.repack.bitmap",
+      "kind": "requiresAny",
+      "guard": [
+        {
+          "key": "write-midx",
+          "test": "inactive"
+        }
+      ],
+      "when": {
+        "key": "write-bitmap-index",
+        "test": "active"
+      },
+      "choices": [
+        {
+          "key": "a",
+          "test": "active"
+        },
+        {
+          "key": "A",
+          "test": "active"
+        },
+        {
+          "key": "cruft",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit bitmap writing without a MIDX writer requires packing everything.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repack.c"
+    },
+    {
+      "id": "cli.repack.filter-output",
+      "kind": "requires",
+      "when": {
+        "key": "filter-to",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "filter",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "A filter output destination requires an object filter.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/repack.c"
+    }
+  ],
+  "replace": [
+    {
+      "id": "cli.replace.list-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "when": {
+        "key": "list",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.delete-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "delete",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.edit-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "edit",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.graft-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "graft",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.convert-graft-file-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "convert-graft-file",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.implicit-replace",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "when": [
+        {
+          "key": "list",
+          "test": "inactive"
+        },
+        {
+          "key": "delete",
+          "test": "inactive"
+        },
+        {
+          "key": "edit",
+          "test": "inactive"
+        },
+        {
+          "key": "graft",
+          "test": "inactive"
+        },
+        {
+          "key": "convert-graft-file",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.format-mode",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "format",
+          "test": "present"
+        }
+      ],
+      "guard": [
+        {
+          "key": "list",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit object operations cannot use a listing format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.format-delete",
+      "kind": "conflicts",
+      "when": {
+        "key": "delete",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "format",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "A listing format cannot be used in a non-listing mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.format-edit",
+      "kind": "conflicts",
+      "when": {
+        "key": "edit",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "format",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "A listing format cannot be used in a non-listing mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.format-graft",
+      "kind": "conflicts",
+      "when": {
+        "key": "graft",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "format",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "A listing format cannot be used in a non-listing mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.format-convert-graft-file",
+      "kind": "conflicts",
+      "when": {
+        "key": "convert-graft-file",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "format",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "A listing format cannot be used in a non-listing mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.format",
+      "kind": "value",
+      "key": "format",
+      "allowed": [
+        "",
+        "short",
+        "medium",
+        "long"
+      ],
+      "origin": "git",
+      "reason": "The final listing format must be a recognized name (empty means short).",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.force-list",
+      "kind": "conflicts",
+      "when": {
+        "key": "force",
+        "test": "active"
+      },
+      "others": [
+        {
+          "key": "list",
+          "test": "active"
+        },
+        {
+          "key": "delete",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Force is only meaningful when writing a replacement.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.implicit-force-list",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "list",
+          "test": "inactive"
+        },
+        {
+          "key": "delete",
+          "test": "inactive"
+        },
+        {
+          "key": "edit",
+          "test": "inactive"
+        },
+        {
+          "key": "graft",
+          "test": "inactive"
+        },
+        {
+          "key": "convert-graft-file",
+          "test": "inactive"
+        }
+      ],
+      "when": [
+        {
+          "key": "force",
+          "test": "active"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 0
+        }
+      ],
+      "origin": "git",
+      "reason": "Implicit listing cannot force a replacement.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    },
+    {
+      "id": "cli.replace.raw",
+      "kind": "requires",
+      "when": {
+        "key": "raw",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "edit",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Raw object editing requires edit mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replace.c"
+    }
+  ],
+  "rerere": [
+    {
+      "id": "cli.rerere.operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "clear",
+        "forget",
+        "diff",
+        "status",
+        "remaining",
+        "gc"
+      ],
+      "origin": "git",
+      "reason": "The optional first operand must name a recognized rerere operation.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/rerere.c"
+    }
+  ],
+  "rerere clear": [],
+  "rerere forget": [],
+  "rerere diff": [],
+  "rerere status": [],
+  "rerere remaining": [],
+  "rerere gc": [],
+  "for-each-repo": [
+    {
+      "id": "cli.for-each-repo.config",
+      "kind": "required",
+      "required": [
+        {
+          "key": "config",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "A repository-list configuration key is required; an absent key can return before any command is needed.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/for-each-repo.c"
+    }
+  ],
+  "column": [
+    {
+      "id": "cli.column.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/column.c"
+    },
+    {
+      "id": "cli.column.padding",
+      "kind": "range",
+      "key": "padding",
+      "min": 0,
+      "origin": "git",
+      "reason": "Column padding must be nonnegative.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/column.c"
+    }
+  ],
+  "fmt-merge-msg": [
+    {
+      "id": "cli.fmt-merge-msg.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fmt-merge-msg.c"
+    }
+  ],
+  "bugreport": [
+    {
+      "id": "cli.bugreport.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/bugreport.c"
+    }
+  ],
+  "diagnose": [],
+  "version": [],
+  "var": [
+    {
+      "id": "cli.var.tokens",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/var.c"
+    },
+    {
+      "id": "cli.var.listing",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "list",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/var.c"
+    },
+    {
+      "id": "cli.var.query",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "list",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Native mode requires this number of arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/var.c"
+    },
+    {
+      "id": "cli.var.variable",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "GIT_COMMITTER_IDENT",
+        "GIT_AUTHOR_IDENT",
+        "GIT_EDITOR",
+        "GIT_SEQUENCE_EDITOR",
+        "GIT_PAGER",
+        "GIT_DEFAULT_BRANCH",
+        "GIT_SHELL_PATH",
+        "GIT_ATTR_SYSTEM",
+        "GIT_ATTR_GLOBAL",
+        "GIT_CONFIG_SYSTEM",
+        "GIT_CONFIG_GLOBAL"
+      ],
+      "origin": "git",
+      "reason": "Queries must name a native Git variable.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/var.c"
+    }
   ]
 }
