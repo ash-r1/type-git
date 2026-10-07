@@ -20,6 +20,22 @@ export function commandArguments(
   if (!Array.isArray(args)) {
     throw new GitArgumentError('Command arguments must be an array');
   }
+  const first = args[0];
+  if (
+    spec.dispatch &&
+    first !== null &&
+    typeof first === 'object' &&
+    !Array.isArray(first) &&
+    'operand' in first &&
+    typeof first.operand === 'string' &&
+    Object.hasOwn(spec.dispatch, first.operand)
+  ) {
+    return commandArguments(
+      spec.dispatch[first.operand] as GitCommandName,
+      args.slice(1),
+      inRepository,
+    );
+  }
   const argv = [...spec.argv];
   const operands: string[] = [];
   const operandsBeforeSeparator: string[] = [];

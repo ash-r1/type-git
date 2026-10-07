@@ -17406,5 +17406,2407 @@
       "reason": "IMAP send reads messages from stdin and accepts no positional arguments. List and folder may coexist.",
       "source": "https://github.com/git/git/blob/v2.55.0/imap-send.c"
     }
-  ]
+  ],
+  "reflog": [
+    {
+      "id": "revision.line-pathspec",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history cannot be combined with pathspecs.",
+      "key": "pathsAfterSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "L",
+        "test": "present"
+      }
+    },
+    {
+      "id": "revision.line-full-diff",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history does not support full-diff.",
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ]
+    }
+  ],
+  "stash": [
+    {
+      "id": "stash-push-unified-range",
+      "kind": "range",
+      "origin": "git",
+      "reason": "Context must be nonnegative or the unset sentinel -1.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "key": "unified",
+      "min": -1
+    },
+    {
+      "id": "stash-push-unified-patch",
+      "kind": "requires",
+      "origin": "git",
+      "reason": "Explicit context requires patch mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "guard": [
+        {
+          "key": "unified",
+          "test": "present"
+        },
+        {
+          "key": "unified",
+          "test": "notEquals",
+          "value": -1
+        }
+      ],
+      "when": {
+        "key": "unified",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "patch",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "stash-push-inter-hunk-context-range",
+      "kind": "range",
+      "origin": "git",
+      "reason": "Context must be nonnegative or the unset sentinel -1.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "key": "inter-hunk-context",
+      "min": -1
+    },
+    {
+      "id": "stash-push-inter-hunk-context-patch",
+      "kind": "requires",
+      "origin": "git",
+      "reason": "Explicit context requires patch mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "guard": [
+        {
+          "key": "inter-hunk-context",
+          "test": "present"
+        },
+        {
+          "key": "inter-hunk-context",
+          "test": "notEquals",
+          "value": -1
+        }
+      ],
+      "when": {
+        "key": "inter-hunk-context",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "patch",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "stash-push-auto-advance",
+      "kind": "requires",
+      "origin": "git",
+      "reason": "Disabling automatic advance requires patch mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "when": {
+        "key": "auto-advance",
+        "test": "equals",
+        "value": false
+      },
+      "required": [
+        {
+          "key": "patch",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "stash-push-patch-untracked",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Patch and staged-only stashing cannot include untracked files.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "when": [
+        {
+          "key": "patch",
+          "test": "active"
+        },
+        {
+          "key": "include-untracked",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "stash-push-staged-untracked",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Patch and staged-only stashing cannot include untracked files.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "when": [
+        {
+          "key": "staged",
+          "test": "active"
+        },
+        {
+          "key": "include-untracked",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "stash-push-file-patch",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Pathspec files cannot be used in patch mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "when": [
+        {
+          "key": "pathspec-from-file",
+          "test": "present"
+        },
+        {
+          "key": "patch",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "stash-push-file-nul",
+      "kind": "requires",
+      "origin": "git",
+      "reason": "NUL pathspec mode requires a pathspec file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "when": {
+        "key": "pathspec-file-nul",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "pathspec-from-file",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "stash-push-file-staged",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Staged-only stashing cannot use a pathspec file.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "when": [
+        {
+          "key": "pathspec-from-file",
+          "test": "present"
+        },
+        {
+          "key": "staged",
+          "test": "active"
+        }
+      ]
+    },
+    {
+      "id": "stash-push-file-operands",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "Pathspec files replace positional paths.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "pathspec-from-file",
+        "test": "present"
+      }
+    },
+    {
+      "id": "cli.stash.assumed-push-paths",
+      "kind": "arity",
+      "key": "operandsBeforeSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "patch",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Implicit push requires a separator before paths unless patch mode is active.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/stash.c"
+    }
+  ],
+  "config": [
+    {
+      "id": "cli.config.implicit-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 3,
+      "when": {
+        "key": "action",
+        "test": "inactive"
+      },
+      "origin": "git",
+      "reason": "Without an action selector, one to three operands select get, set or set-all.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.location",
+      "kind": "exclusive",
+      "keys": [
+        "global",
+        "system",
+        "local",
+        "worktree",
+        "file",
+        "blob"
+      ],
+      "origin": "git",
+      "reason": "Only one config source can be selected.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-fixed",
+      "kind": "arity",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get"
+        }
+      ],
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "Fixed matching requires a value-pattern operand, including an empty string.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-all-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-all"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-all-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-all-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-all-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-all-fixed",
+      "kind": "arity",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-all"
+        }
+      ],
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "Fixed matching requires a value-pattern operand, including an empty string.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-regexp-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-regexp"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-regexp-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-regexp"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-regexp-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-regexp"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-regexp-fixed",
+      "kind": "arity",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-regexp"
+        }
+      ],
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "Fixed matching requires a value-pattern operand, including an empty string.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-urlmatch-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-urlmatch"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-urlmatch-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-urlmatch"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-urlmatch-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-urlmatch"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-urlmatch-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-urlmatch"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-urlmatch-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-urlmatch"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-urlmatch-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-urlmatch"
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.replace-all-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 3,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "replace-all"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.replace-all-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "replace-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.replace-all-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "replace-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.replace-all-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "replace-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.replace-all-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "replace-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.replace-all-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "replace-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.replace-all-fixed",
+      "kind": "arity",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "replace-all"
+        }
+      ],
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "key": "operands",
+      "min": 3,
+      "origin": "git",
+      "reason": "Fixed matching requires a value-pattern operand, including an empty string.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.add-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "add"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.add-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "add"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.add-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "add"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.add-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "add"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.add-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "add"
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.add-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "add"
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.add-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "add"
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset"
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset"
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-fixed",
+      "kind": "arity",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset"
+        }
+      ],
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "Fixed matching requires a value-pattern operand, including an empty string.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-all-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset-all"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-all-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-all-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-all-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-all-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-all-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-all-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset-all"
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.unset-all-fixed",
+      "kind": "arity",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "unset-all"
+        }
+      ],
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "Fixed matching requires a value-pattern operand, including an empty string.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.rename-section-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 2,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "rename-section"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.rename-section-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "rename-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.rename-section-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "rename-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.rename-section-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "rename-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.rename-section-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "rename-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.rename-section-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "rename-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.rename-section-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "rename-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.rename-section-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "rename-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.remove-section-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "remove-section"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.remove-section-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "remove-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.remove-section-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "remove-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.remove-section-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "remove-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.remove-section-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "remove-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.remove-section-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "remove-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.remove-section-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "remove-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.remove-section-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "remove-section"
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.list-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "list"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.list-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "list"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.list-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "list"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.list-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "list"
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.edit-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "edit"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.edit-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "edit"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.edit-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "edit"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.edit-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "edit"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.edit-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "edit"
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.edit-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "edit"
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.edit-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "edit"
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-color-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-color"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-color-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-color"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-color-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-color"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-color-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-color"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-color-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-color"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-color-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-color"
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-color-type",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-color"
+        }
+      ],
+      "when": [
+        {
+          "key": "type",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Legacy color actions cannot select a variable type.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-colorbool-arity",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-colorbool"
+        }
+      ],
+      "origin": "git",
+      "reason": "The selected legacy action restricts positional argument count.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-colorbool-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-colorbool"
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-colorbool-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-colorbool"
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-colorbool-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-colorbool"
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-colorbool-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-colorbool"
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-colorbool-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-colorbool"
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.get-colorbool-type",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "equals",
+          "value": "get-colorbool"
+        }
+      ],
+      "when": [
+        {
+          "key": "type",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Legacy color actions cannot select a variable type.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.implicit-get-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 1
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.implicit-get-comment",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 1
+        }
+      ],
+      "when": [
+        {
+          "key": "comment",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.implicit-get-fixed",
+      "kind": "arity",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 1
+        }
+      ],
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "key": "operands",
+      "min": 2,
+      "origin": "git",
+      "reason": "Fixed matching requires a value-pattern operand, including an empty string.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 2
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 2
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 2
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 2
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 2
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-fixed",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 2
+        }
+      ],
+      "when": [
+        {
+          "key": "fixed-value",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This action does not accept fixed-value matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-all-name-only",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 3
+        }
+      ],
+      "when": [
+        {
+          "key": "name-only",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-all-show-origin",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 3
+        }
+      ],
+      "when": [
+        {
+          "key": "show-origin",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-all-default",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 3
+        }
+      ],
+      "when": [
+        {
+          "key": "default",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "This display or write modifier is unavailable for the selected legacy action.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-all-write-blob",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 3
+        }
+      ],
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-all-write-file",
+      "kind": "forbid",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 3
+        }
+      ],
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ],
+      "origin": "git",
+      "reason": "Config writes and editing cannot target a blob or standard input.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    },
+    {
+      "id": "cli.config.set-all-fixed",
+      "kind": "arity",
+      "guard": [
+        {
+          "key": "action",
+          "test": "inactive"
+        },
+        {
+          "key": "operands",
+          "test": "lengthEquals",
+          "value": 3
+        }
+      ],
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "key": "operands",
+      "min": 3,
+      "origin": "git",
+      "reason": "Fixed matching requires a value-pattern operand, including an empty string.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c"
+    }
+  ],
+  "stash list": []
 }

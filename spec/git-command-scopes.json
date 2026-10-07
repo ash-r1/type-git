@@ -7205,5 +7205,273 @@
       "imap-send.c:global:imap_send_options"
     ],
     "source": "imap-send.c"
+  },
+  "reflog": {
+    "source": "builtin/reflog.c:cmd_reflog_show; builtin/log.c:cmd_log_reflog",
+    "tables": [
+      "builtin/log.c:cmd_log_init_finish:builtin_log_options",
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "initial": {
+      "walk-reflogs": true
+    },
+    "dispatch": {
+      "list": "reflog list",
+      "exists": "reflog exists",
+      "write": "reflog write",
+      "delete": "reflog delete",
+      "drop": "reflog drop",
+      "expire": "reflog expire",
+      "show": "reflog show"
+    }
+  },
+  "stash": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:push_stash:options"
+    ],
+    "options": {
+      "--all": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": true
+      },
+      "-a": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": true
+      },
+      "--no-all": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": false
+      }
+    },
+    "dispatch": {
+      "clear": "stash clear",
+      "apply": "stash apply",
+      "drop": "stash drop",
+      "pop": "stash pop",
+      "branch": "stash branch",
+      "store": "stash store",
+      "push": "stash push",
+      "save": "stash save",
+      "import": "stash import",
+      "export": "stash export",
+      "create": "stash create",
+      "show": "stash show",
+      "list": "stash list"
+    },
+    "optionParsing": "stop-at-operand"
+  },
+  "config": {
+    "source": "builtin/config.c",
+    "tables": [
+      "builtin/config.c:cmd_config_actions:opts"
+    ],
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--type": {
+        "key": "type",
+        "value": "string",
+        "parser": "config-type",
+        "allowed": [
+          "bool",
+          "int",
+          "bool-or-int",
+          "bool-or-str",
+          "path",
+          "expiry-date",
+          "color"
+        ]
+      },
+      "-t": {
+        "key": "type",
+        "value": "string",
+        "parser": "config-type",
+        "allowed": [
+          "bool",
+          "int",
+          "bool-or-int",
+          "bool-or-str",
+          "path",
+          "expiry-date",
+          "color"
+        ]
+      },
+      "--bool": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool",
+        "parser": "config-type"
+      },
+      "--int": {
+        "key": "type",
+        "value": "flag",
+        "set": "int",
+        "parser": "config-type"
+      },
+      "--bool-or-int": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool-or-int",
+        "parser": "config-type"
+      },
+      "--bool-or-str": {
+        "key": "type",
+        "value": "flag",
+        "set": "bool-or-str",
+        "parser": "config-type"
+      },
+      "--path": {
+        "key": "type",
+        "value": "flag",
+        "set": "path",
+        "parser": "config-type"
+      },
+      "--expiry-date": {
+        "key": "type",
+        "value": "flag",
+        "set": "expiry-date",
+        "parser": "config-type"
+      },
+      "--no-type": {
+        "key": "type",
+        "value": "flag",
+        "clear": true,
+        "parser": "config-type"
+      },
+      "--get": {
+        "key": "action",
+        "value": "flag",
+        "set": "get",
+        "modeGroup": "actions",
+        "modeValue": "get"
+      },
+      "--get-all": {
+        "key": "action",
+        "value": "flag",
+        "set": "get-all",
+        "modeGroup": "actions",
+        "modeValue": "get-all"
+      },
+      "--get-regexp": {
+        "key": "action",
+        "value": "flag",
+        "set": "get-regexp",
+        "modeGroup": "actions",
+        "modeValue": "get-regexp"
+      },
+      "--get-urlmatch": {
+        "key": "action",
+        "value": "flag",
+        "set": "get-urlmatch",
+        "modeGroup": "actions",
+        "modeValue": "get-urlmatch"
+      },
+      "--replace-all": {
+        "key": "action",
+        "value": "flag",
+        "set": "replace-all",
+        "modeGroup": "actions",
+        "modeValue": "replace-all"
+      },
+      "--add": {
+        "key": "action",
+        "value": "flag",
+        "set": "add",
+        "modeGroup": "actions",
+        "modeValue": "add"
+      },
+      "--unset": {
+        "key": "action",
+        "value": "flag",
+        "set": "unset",
+        "modeGroup": "actions",
+        "modeValue": "unset"
+      },
+      "--unset-all": {
+        "key": "action",
+        "value": "flag",
+        "set": "unset-all",
+        "modeGroup": "actions",
+        "modeValue": "unset-all"
+      },
+      "--rename-section": {
+        "key": "action",
+        "value": "flag",
+        "set": "rename-section",
+        "modeGroup": "actions",
+        "modeValue": "rename-section"
+      },
+      "--remove-section": {
+        "key": "action",
+        "value": "flag",
+        "set": "remove-section",
+        "modeGroup": "actions",
+        "modeValue": "remove-section"
+      },
+      "--list": {
+        "key": "action",
+        "value": "flag",
+        "set": "list",
+        "modeGroup": "actions",
+        "modeValue": "list"
+      },
+      "-l": {
+        "key": "action",
+        "value": "flag",
+        "set": "list",
+        "modeGroup": "actions",
+        "modeValue": "list"
+      },
+      "--edit": {
+        "key": "action",
+        "value": "flag",
+        "set": "edit",
+        "modeGroup": "actions",
+        "modeValue": "edit"
+      },
+      "-e": {
+        "key": "action",
+        "value": "flag",
+        "set": "edit",
+        "modeGroup": "actions",
+        "modeValue": "edit"
+      },
+      "--get-color": {
+        "key": "action",
+        "value": "flag",
+        "set": "get-color",
+        "modeGroup": "actions",
+        "modeValue": "get-color"
+      },
+      "--get-colorbool": {
+        "key": "action",
+        "value": "flag",
+        "set": "get-colorbool",
+        "modeGroup": "actions",
+        "modeValue": "get-colorbool"
+      }
+    },
+    "dispatch": {
+      "list": "config list",
+      "get": "config get",
+      "set": "config set",
+      "unset": "config unset",
+      "rename-section": "config rename-section",
+      "remove-section": "config remove-section",
+      "edit": "config edit"
+    }
+  },
+  "stash list": {
+    "source": "builtin/stash.c:list_stash",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false
   }
 }

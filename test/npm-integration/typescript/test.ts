@@ -137,3 +137,17 @@ function testNumericCommandTypes(git: Git, count: number): void {
 }
 
 export { testTypes, testErrorTypes, testNumericCommandTypes };
+
+export function testFallbackCommandTypes(git: Git): void {
+  git.command('config', [{ operand: 'get' }, ['--all'], { operand: 'test.key' }]);
+  // @ts-expect-error Root dispatch must retain the child's conflicting option rule.
+  git.command('config', [{ operand: 'get' }, ['--all'], ['--default', ''], { operand: 'test.key' }]);
+  // @ts-expect-error Child-only options are unavailable before root dispatch.
+  git.command('config', [['--append'], { operand: 'test.key' }, { operand: 'v' }]);
+  git.command('config', [['--edit'], { operand: 'ignored' }]);
+  // @ts-expect-error Modern edit has a different operand contract.
+  git.command('config', [{ operand: 'edit' }, { operand: 'ignored' }]);
+  git.command('stash', [{ operand: 'push' }, { operand: 'path' }]);
+  // @ts-expect-error Implicit push requires a separator before a path.
+  git.command('stash', [{ operand: 'path' }]);
+}

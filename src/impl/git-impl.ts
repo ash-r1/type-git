@@ -1,10 +1,5 @@
 import { commandArguments } from '../commands/build.js';
-import type {
-  CheckedCommandArguments,
-  GitCommandArgument,
-  GitCommandExecOpts,
-  GitCommandName,
-} from '../commands/types.js';
+import type { GitCommandClient, GitCommandExecOpts, GitCommandName } from '../commands/types.js';
 import { validateOptions } from '../core/option-rules.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 /**
@@ -597,16 +592,13 @@ export class GitImpl implements Git {
   /**
    * Execute a typed Git command with validated arguments (repository-agnostic)
    */
-  public async command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & CheckedCommandArguments<C, A>,
+  public command: GitCommandClient['command'] = async (
+    command: GitCommandName,
+    args: readonly unknown[],
     opts?: GitCommandExecOpts,
-  ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, undefined), opts);
-  }
+  ) => {
+    return this.raw(commandArguments(command, args, undefined), opts);
+  };
 
   /** Execute a raw Git command without typed argument validation. */
   public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
