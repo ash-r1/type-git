@@ -34,6 +34,7 @@ export function commandDomains(spec, referencedKeys) {
     if (!value || typeof value !== 'object') return;
     if (value.key && ['equals', 'notEquals'].includes(value.test)) add(value.key, value.value);
     if (value.key && value.test === 'startsWith') { add(value.key, value.value); add(value.key, value.value + 'value'); }
+    if (value.key && value.test === 'lengthEquals') for (const size of [Math.max(0, value.value - 1), value.value, value.value + 1]) add(value.key, Array(size).fill('value'));
     if (value.kind === 'value') for (const allowed of value.allowed) add(value.key, allowed);
     if (value.kind === 'range' || value.kind === 'integer') for (const number of [value.min - 1, value.min, value.min + 1]) add(value.key, number);
     if (value.kind === 'arity') for (const size of [0, value.min, Math.max(0, value.min - 1), (value.max ?? value.min) + 1]) add(value.key, Array(size).fill('value'));

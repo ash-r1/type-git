@@ -26689,6 +26689,624 @@
       }
     },
     {
+      "command": "update-ref",
+      "rules": 7,
+      "domains": {
+        "m": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "d": [
+          "undefined",
+          "true"
+        ],
+        "no-deref": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "create-reflog": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "batch-updates": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "97200",
+      "accepted": "9504",
+      "nodes": 112,
+      "isolatedRuleWitnesses": {
+        "cli.update-ref.message": "{\"m\":\"\",\"operands\":[],\"stdin\":true}",
+        "cli.update-ref.stdin-delete": "{\"d\":true,\"operands\":[],\"stdin\":true}",
+        "cli.update-ref.stdin-operands": "{\"operands\":[\"value\"],\"stdin\":true}",
+        "cli.update-ref.batch-updates-stdin": "{\"batch-updates\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.update-ref.z-stdin": "{\"operands\":[\"value\",\"value\"],\"z\":true}",
+        "cli.update-ref.delete-operands": "{\"d\":true,\"operands\":[]}",
+        "cli.update-ref.update-operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "checkout-index",
+      "transitions": [
+        {
+          "flag": "--stage",
+          "rules": [
+            "cli.checkout-index.stage"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"all\"",
+              "\"1\"",
+              "\"1value\"",
+              "\"2\"",
+              "\"2value\"",
+              "\"3\"",
+              "\"3value\""
+            ]
+          },
+          "total": "12",
+          "accepted": "9",
+          "isolatedRuleWitnesses": {
+            "cli.checkout-index.stage": "{\"$value\":\"\"}"
+          }
+        }
+      ],
+      "rules": 4,
+      "domains": {
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-skip-worktree-bits": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "no-create": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "temp": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stage": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"all\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "41990400",
+      "accepted": "21150720",
+      "nodes": 44,
+      "isolatedRuleWitnesses": {
+        "cli.checkout-index.stage-temp": "{\"operands\":[],\"stage\":\"all\",\"temp\":false}",
+        "cli.checkout-index.sources": "{\"all\":true,\"operands\":[],\"stdin\":true}",
+        "cli.checkout-index.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.checkout-index.stdin-operands": "{\"operands\":[\"value\"],\"stdin\":true}"
+      }
+    },
+    {
+      "command": "read-tree",
+      "transitions": [
+        {
+          "flag": "--exclude-per-directory",
+          "rules": [
+            "cli.read-tree.exclude-order"
+          ],
+          "domains": {
+            "u": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.read-tree.exclude-order": "{}"
+          }
+        }
+      ],
+      "rules": 10,
+      "domains": {
+        "super-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "index-output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "m": [
+          "undefined",
+          "true"
+        ],
+        "trivial": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "aggressive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reset": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"/\"",
+          "\"/value\""
+        ],
+        "u": [
+          "undefined",
+          "true"
+        ],
+        "exclude-per-directory": [
+          "undefined",
+          "\".gitignore\""
+        ],
+        "i": [
+          "undefined",
+          "true"
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-sparse-checkout": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "debug-unpack": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "42326323200",
+      "accepted": "4003084800",
+      "nodes": 261,
+      "isolatedRuleWitnesses": {
+        "cli.read-tree.mode": "{\"operands\":[\"value\"],\"prefix\":\"\",\"reset\":true}",
+        "cli.read-tree.prefix": "{\"operands\":[\"value\"],\"prefix\":\"/\"}",
+        "cli.read-tree.empty-operands": "{\"empty\":true,\"operands\":[\"value\"]}",
+        "cli.read-tree.tree-limit": "{\"operands\":[\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\",\"value\"]}",
+        "cli.read-tree.index-worktree": "{\"i\":true,\"operands\":[\"value\"],\"reset\":true,\"u\":true}",
+        "cli.read-tree.u-merge": "{\"operands\":[],\"u\":true}",
+        "cli.read-tree.i-merge": "{\"i\":true,\"operands\":[]}",
+        "cli.read-tree.m-trees": "{\"m\":true,\"operands\":[]}",
+        "cli.read-tree.reset-trees": "{\"operands\":[],\"reset\":true}",
+        "cli.read-tree.prefix-trees": "{\"operands\":[],\"prefix\":\"\"}"
+      }
+    },
+    {
+      "command": "merge-file",
+      "transitions": [
+        {
+          "flag": "-L",
+          "rules": [
+            "cli.merge-file.labels"
+          ],
+          "domains": {
+            "L": [
+              "undefined",
+              "[]",
+              "[\"\"]",
+              "[\"\",\"\"]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]",
+              "[\"0b\"]",
+              "[\"0b\",\"0b\"]",
+              "[\"1kb\"]",
+              "[\"1kb\",\"1kb\"]",
+              "[\"value\",\"value\",\"value\"]"
+            ]
+          },
+          "total": "11",
+          "accepted": "10",
+          "isolatedRuleWitnesses": {
+            "cli.merge-file.labels": "{\"L\":[\"value\",\"value\",\"value\"]}"
+          }
+        }
+      ],
+      "rules": 1,
+      "domains": {
+        "stdout": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "object-id": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "diff3": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "zdiff3": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ours": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "theirs": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "union": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"default\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\""
+        ],
+        "marker-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "L": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "188956800",
+      "accepted": "37791360",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.merge-file.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "merge-tree",
+      "modes": [
+        {
+          "group": "&o.mode",
+          "tokens": [
+            {
+              "flag": "--write-tree",
+              "mode": "MODE_REAL"
+            },
+            {
+              "flag": "--trivial-merge",
+              "mode": "MODE_TRIVIAL"
+            }
+          ],
+          "total": 6,
+          "accepted": 4,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1
+              ]
+            },
+            {
+              "from": "MODE_REAL",
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "MODE_TRIVIAL",
+              "acceptedTokens": [
+                1
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": 7,
+      "domains": {
+        "write-tree": [
+          "undefined",
+          "true"
+        ],
+        "trivial-merge": [
+          "undefined",
+          "true"
+        ],
+        "messages": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "name-only": [
+          "undefined",
+          "true"
+        ],
+        "allow-unrelated-histories": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "merge-base": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "strategy-option": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\"]"
+        ]
+      },
+      "total": "6912000",
+      "accepted": "408000",
+      "nodes": 386,
+      "isolatedRuleWitnesses": {
+        "cli.merge-tree.quiet": "{\"operands\":[],\"quiet\":true,\"stdin\":true}",
+        "cli.merge-tree.stdin": "{\"operands\":[],\"stdin\":true,\"trivial-merge\":true}",
+        "cli.merge-tree.default-operands": "{\"operands\":[]}",
+        "cli.merge-tree.write-operands": "{\"operands\":[],\"write-tree\":true}",
+        "cli.merge-tree.trivial-operands": "{\"argumentTokens\":[\"value\",\"value\",\"value\",\"value\"],\"operands\":[],\"trivial-merge\":true}",
+        "cli.merge-tree.trivial-tokens": "{\"operands\":[\"value\",\"value\",\"value\"],\"trivial-merge\":true}",
+        "cli.merge-tree.implicit-trivial-tokens": "{\"operands\":[\"value\",\"value\",\"value\"]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {
