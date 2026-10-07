@@ -78,9 +78,56 @@ type Unknown<
   T extends Tokens,
   N extends readonly unknown[],
   Out extends readonly string[],
-> = S extends { parserExit: { stopAtUnknown: true } }
+> = S extends { parserExit: { stopAtUnknown: true } } | { parserExit: { stopAtOperand: true } }
   ? Done<T, readonly [...Out, W, ...R]>
   : Walk<S, R, T, N, readonly [...Out, W]>;
+type Unrecognized<
+  S extends CommandSpec,
+  W extends string,
+  R extends readonly string[],
+  T extends Tokens,
+  N extends readonly unknown[],
+  Out extends readonly string[],
+> = S extends { parserExit: { unknownOptions: 'error' } } ? Invalid : Unknown<S, W, R, T, N, Out>;
+type ResolveLong<
+  S extends CommandSpec,
+  F extends string,
+  Form extends 'plain' | 'attached',
+> = S extends { parserExit: { longForms: infer L } }
+  ? Form extends keyof L
+    ? F extends keyof L[Form]
+      ? L[Form][F]
+      : undefined
+    : undefined
+  : F extends '--help'
+    ? Form extends 'attached'
+      ? undefined
+      : F
+    : F;
+type LongOption<
+  S extends CommandSpec,
+  W extends string,
+  K,
+  V extends string | undefined,
+  R extends readonly string[],
+  T extends Tokens,
+  N extends readonly unknown[],
+  Out extends readonly string[],
+> = K extends null
+  ? Invalid
+  : K extends string
+    ? [Option<S, K>] extends [never]
+      ? Unrecognized<S, W, R, T, N, Out>
+      : V extends string
+        ? Option<S, K>['value'] extends 'flag'
+          ? Invalid
+          : Walk<S, R, readonly [...T, readonly [K, V]], N, Out>
+        : Option<S, K>['value'] extends 'flag' | `optional-${string}`
+          ? Walk<S, R, readonly [...T, readonly [K]], N, Out>
+          : R extends readonly [infer Value extends string, ...infer Rest extends string[]]
+            ? Walk<S, Rest, readonly [...T, readonly [K, Value]], N, Out>
+            : Invalid
+    : Unrecognized<S, W, R, T, N, Out>;
 type Long<
   S extends CommandSpec,
   W extends string,
@@ -89,20 +136,8 @@ type Long<
   N extends readonly unknown[],
   Out extends readonly string[],
 > = W extends `${infer F}=${infer V}`
-  ? F extends '--help'
-    ? Unknown<S, W, R, T, N, Out>
-    : [Option<S, F>] extends [never]
-      ? Unknown<S, W, R, T, N, Out>
-      : Option<S, F>['value'] extends 'flag'
-        ? Invalid
-        : Walk<S, R, readonly [...T, readonly [F, V]], N, Out>
-  : [Option<S, W>] extends [never]
-    ? Unknown<S, W, R, T, N, Out>
-    : Option<S, W>['value'] extends 'flag' | `optional-${string}`
-      ? Walk<S, R, readonly [...T, readonly [W]], N, Out>
-      : R extends readonly [infer V extends string, ...infer Rest extends string[]]
-        ? Walk<S, Rest, readonly [...T, readonly [W, V]], N, Out>
-        : Invalid;
+  ? LongOption<S, W, ResolveLong<S, F, 'attached'>, V, R, T, N, Out>
+  : LongOption<S, W, ResolveLong<S, W, 'plain'>, undefined, R, T, N, Out>;
 type Short<
   S extends CommandSpec,
   W extends string,
@@ -127,8 +162,8 @@ type Short<
           ? First extends true
             ? Typo<S, Original> extends true
               ? Invalid
-              : Unknown<S, `-${W}`, R, T, N, Out>
-            : Unknown<S, `-${W}`, R, T, N, Out>
+              : Unrecognized<S, `-${W}`, R, T, N, Out>
+            : Unrecognized<S, `-${W}`, R, T, N, Out>
           : Option<S, `-${C}`>['value'] extends 'flag'
             ? First extends true
               ? Rest extends ''
@@ -189,7 +224,9 @@ type Walk<
         ? Done<
             T,
             W extends '--end-of-options'
-              ? readonly [...Out, W, ...R]
+              ? S extends { parserExit: { keepEndOfOptions: false } }
+                ? readonly [...Out, ...R]
+                : readonly [...Out, W, ...R]
               : S extends { parserExit: { keepDashDash: true } }
                 ? readonly [...Out, W, ...R]
                 : readonly [...Out, ...R]

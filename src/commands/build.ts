@@ -25,6 +25,7 @@ function buildArguments(
     firstCount: number;
     options: Readonly<Record<string, OptionSpec>>;
     original: readonly unknown[];
+    operandsOnly?: boolean;
   },
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
@@ -68,11 +69,19 @@ function buildArguments(
         // without an additional, potentially stale preflight in this builder.
         return serialized;
       }
-      const remaining = revisionParserPass(spec, pass.remaining);
+      const operandsOnly = spec.parserExit.remainingOperands !== undefined;
+      const words =
+        spec.parserExit.remainingOperands === 'drop-leading-dashdash' && pass.remaining[0] === '--'
+          ? pass.remaining.slice(1)
+          : pass.remaining;
+      const remaining = operandsOnly
+        ? words.map((operand) => ({ operand }))
+        : revisionParserPass(spec, words);
       buildArguments(command, [...pass.tokens, ...remaining], inRepository, 'pipeline', {
         firstCount: pass.tokens.length,
         options: spec.parserExit.remainingOptions!,
         original: args,
+        operandsOnly,
       });
       return serialized;
     }
@@ -95,6 +104,9 @@ function buildArguments(
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
+    if (replay?.operandsOnly && index >= replay.firstCount) {
+      literalOperands = true;
+    }
     if (!Array.isArray(arg)) {
       const operand =
         arg !== null && typeof arg === 'object' && 'operand' in arg ? arg.operand : undefined;

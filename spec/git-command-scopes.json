@@ -1159,42 +1159,150 @@
     "tables": [
       "builtin/stash.c:clear_stash:options"
     ],
-    "options": {}
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:clear_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "stopAtOperand": true,
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:clear_stash; parse-options.c:parse_options_step/parse_long_opt",
+      "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy."
+    }
   },
   "stash apply": {
     "source": "builtin/stash.c",
     "tables": [
       "builtin/stash.c:apply_stash:options"
     ],
-    "options": {}
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:apply_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "stopAtOperand": false,
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:apply_stash; parse-options.c:parse_options_step/parse_long_opt",
+      "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy."
+    }
   },
   "stash drop": {
     "source": "builtin/stash.c",
     "tables": [
       "builtin/stash.c:drop_stash:options"
     ],
-    "options": {}
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:drop_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "stopAtOperand": false,
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:drop_stash; parse-options.c:parse_options_step/parse_long_opt",
+      "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy."
+    }
   },
   "stash pop": {
     "source": "builtin/stash.c",
     "tables": [
       "builtin/stash.c:pop_stash:options"
     ],
-    "options": {}
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:pop_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "stopAtOperand": false,
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:pop_stash; parse-options.c:parse_options_step/parse_long_opt",
+      "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy."
+    }
   },
   "stash branch": {
     "source": "builtin/stash.c",
     "tables": [
       "builtin/stash.c:branch_stash:options"
     ],
-    "options": {}
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:branch_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "stopAtOperand": false,
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:branch_stash; parse-options.c:parse_options_step/parse_long_opt",
+      "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy."
+    }
   },
   "stash store": {
     "source": "builtin/stash.c",
     "tables": [
       "builtin/stash.c:store_stash:options"
     ],
-    "options": {}
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:store_stash:options"
+      ],
+      "longOptionResolution": "exact",
+      "unknownOptions": "keep",
+      "stopAtOperand": false,
+      "keepDashDash": false,
+      "keepEndOfOptions": true,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:store_stash; parse-options.c:parse_options_step/parse_long_opt",
+      "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy."
+    }
   },
   "stash push": {
     "source": "builtin/stash.c",
@@ -1217,6 +1325,24 @@
         "value": "flag",
         "set": false
       }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:push_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "stopAtOperand": false,
+      "keepDashDash": true,
+      "keepEndOfOptions": false,
+      "remainingOperands": "drop-leading-dashdash",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:push_stash; parse-options.c:parse_options_step/parse_long_opt",
+      "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy."
     }
   },
   "stash save": {
@@ -1240,6 +1366,24 @@
         "value": "flag",
         "set": false
       }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:save_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "stopAtOperand": false,
+      "keepDashDash": true,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:save_stash; parse-options.c:parse_options_step/parse_long_opt",
+      "reason": "Parse the native option table before stash semantics. Local help exits before final checks; preserve callback timing, native long spelling resolution, short clusters and the command-specific remaining-operand policy."
     }
   },
   "stash import": {
