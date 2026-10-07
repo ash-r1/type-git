@@ -595,7 +595,7 @@ export class GitImpl implements Git {
   }
 
   /**
-   * Execute a raw git command (repository-agnostic)
+   * Execute a typed Git command with validated arguments (repository-agnostic)
    */
   public async command<
     C extends GitCommandName,
@@ -608,6 +608,7 @@ export class GitImpl implements Git {
     return await this.raw(commandArguments(command, args, undefined), opts);
   }
 
+  /** Execute a raw Git command without typed argument validation. */
   public raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run({ type: 'global' }, argv, opts);
   }

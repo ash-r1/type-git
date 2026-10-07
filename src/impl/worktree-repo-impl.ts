@@ -332,7 +332,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   /**
-   * Execute a raw git command in this repository context
+   * Execute a typed Git command with validated arguments in this repository context
    */
   public async command<
     C extends GitCommandName,
@@ -345,6 +345,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     return await this.raw(commandArguments(command, args, true), opts);
   }
 
+  /** Execute a raw Git command without typed argument validation. */
   public async raw(argv: string[], opts?: ExecOpts): Promise<RawResult> {
     return this.runner.run(this.context, argv, opts);
   }
