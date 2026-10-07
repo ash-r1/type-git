@@ -294,17 +294,29 @@ type Walk<
       ? Invalid
       : Done<T, Out>;
 type Wrapper = NonNullable<NonNullable<CommandSpec['parserExit']>['wrappers']>[number];
+type SingleWordExits<S extends CommandSpec> = S extends {
+  parserExit: { singleWordExits: infer F extends readonly string[] };
+}
+  ? F
+  : readonly [];
+type NativePass<S extends CommandSpec, Words extends readonly string[]> =
+  Words extends readonly [infer W extends string]
+    ? W extends SingleWordExits<S>[number]
+      ? Help<S, []>
+      : Walk<S, Words>
+    : Walk<S, Words>;
 type WrapperWalk<
   S extends CommandSpec,
   Words extends readonly string[],
   Wrappers,
 > = Wrappers extends readonly [infer H, ...infer R]
   ? H extends Wrapper
-    ? Walk<
+    ? NativePass<
         Omit<S, 'parserExit'> & {
           parserExit: H & {
             flags: readonly ['-h', '--help'];
             firstPassOptions: readonly [];
+            singleWordExits: SingleWordExits<S>;
           };
         },
         Words
@@ -314,12 +326,12 @@ type WrapperWalk<
         : P
       : never
     : Invalid
-  : Walk<S, Words>;
+  : NativePass<S, Words>;
 type WithWrappers<S extends CommandSpec, Words extends readonly string[]> = S extends {
   parserExit: { wrappers: infer W };
 }
   ? WrapperWalk<S, Words, W>
-  : Walk<S, Words>;
+  : NativePass<S, Words>;
 /** Bounded literal execution of the source-recorded KEEP_UNKNOWN_OPT passes. */
 type Parsed<S extends CommandSpec, A extends readonly unknown[]> = Serialize<
   S,
