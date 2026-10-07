@@ -8750,12 +8750,14 @@ export const COMMAND_SPECS = {
       '--list': {
         key: 'list',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'l'",
       },
       '-l': {
         key: 'list',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'l'",
       },
       '-n': {
         key: 'n',
@@ -8765,22 +8767,26 @@ export const COMMAND_SPECS = {
       '--delete': {
         key: 'delete',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'d'",
       },
       '-d': {
         key: 'delete',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'d'",
       },
       '--verify': {
         key: 'verify',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'v'",
       },
       '-v': {
         key: 'verify',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'v'",
       },
       '--annotate': {
         key: 'annotate',
@@ -12024,7 +12030,8 @@ export const COMMAND_SPECS = {
       '--print': {
         key: 'print',
         value: 'flag',
-        modeGroup: '(&action)',
+        modeGroup: '&action',
+        modeValue: 'ACTION_PRINT',
       },
       '--to-ref': {
         key: 'to-ref',
@@ -30823,32 +30830,38 @@ export const COMMAND_SPECS = {
       '--continue': {
         key: 'continue',
         value: 'flag',
-        modeGroup: '(&options.action)',
+        modeGroup: '&options.action',
+        modeValue: 'ACTION_CONTINUE',
       },
       '--skip': {
         key: 'skip',
         value: 'flag',
-        modeGroup: '(&options.action)',
+        modeGroup: '&options.action',
+        modeValue: 'ACTION_SKIP',
       },
       '--abort': {
         key: 'abort',
         value: 'flag',
-        modeGroup: '(&options.action)',
+        modeGroup: '&options.action',
+        modeValue: 'ACTION_ABORT',
       },
       '--quit': {
         key: 'quit',
         value: 'flag',
-        modeGroup: '(&options.action)',
+        modeGroup: '&options.action',
+        modeValue: 'ACTION_QUIT',
       },
       '--edit-todo': {
         key: 'edit-todo',
         value: 'flag',
-        modeGroup: '(&options.action)',
+        modeGroup: '&options.action',
+        modeValue: 'ACTION_EDIT_TODO',
       },
       '--show-current-patch': {
         key: 'show-current-patch',
         value: 'flag',
-        modeGroup: '(&options.action)',
+        modeGroup: '&options.action',
+        modeValue: 'ACTION_SHOW_CURRENT_PATCH',
       },
       '--apply': {
         key: 'backend',
@@ -34349,7 +34362,8 @@ export const COMMAND_SPECS = {
       '--skip': {
         key: 'skip',
         value: 'flag',
-        modeGroup: '(&cmd)',
+        modeGroup: '&cmd',
+        modeValue: "'s'",
       },
       '--sparse': {
         key: 'sparse',
@@ -34578,17 +34592,20 @@ export const COMMAND_SPECS = {
       '--quit': {
         key: 'quit',
         value: 'flag',
-        modeGroup: '(&cmd)',
+        modeGroup: '&cmd',
+        modeValue: "'q'",
       },
       '--continue': {
         key: 'continue',
         value: 'flag',
-        modeGroup: '(&cmd)',
+        modeGroup: '&cmd',
+        modeValue: "'c'",
       },
       '--abort': {
         key: 'abort',
         value: 'flag',
-        modeGroup: '(&cmd)',
+        modeGroup: '&cmd',
+        modeValue: "'a'",
       },
       '--cleanup': {
         key: 'cleanup',
@@ -37974,7 +37991,8 @@ export const COMMAND_SPECS = {
       '--skip': {
         key: 'skip',
         value: 'flag',
-        modeGroup: '(&cmd)',
+        modeGroup: '&cmd',
+        modeValue: "'s'",
       },
       '--sparse': {
         key: 'sparse',
@@ -38203,17 +38221,20 @@ export const COMMAND_SPECS = {
       '--quit': {
         key: 'quit',
         value: 'flag',
-        modeGroup: '(&cmd)',
+        modeGroup: '&cmd',
+        modeValue: "'q'",
       },
       '--continue': {
         key: 'continue',
         value: 'flag',
-        modeGroup: '(&cmd)',
+        modeGroup: '&cmd',
+        modeValue: "'c'",
       },
       '--abort': {
         key: 'abort',
         value: 'flag',
-        modeGroup: '(&cmd)',
+        modeGroup: '&cmd',
+        modeValue: "'a'",
       },
       '--cleanup': {
         key: 'cleanup',
@@ -38879,22 +38900,26 @@ export const COMMAND_SPECS = {
       '--octopus': {
         key: 'octopus',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'o'",
       },
       '--independent': {
         key: 'independent',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'r'",
       },
       '--is-ancestor': {
         key: 'is-ancestor',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'a'",
       },
       '--fork-point': {
         key: 'fork-point',
         value: 'flag',
-        modeGroup: '(&cmdmode)',
+        modeGroup: '&cmdmode',
+        modeValue: "'f'",
       },
       '--no-all': {
         key: 'all',
@@ -38989,6 +39014,790 @@ export const COMMAND_SPECS = {
       },
     ],
     source: 'builtin/merge-base.c:cmd_merge_base',
+    separator: true,
+  },
+  apply: {
+    argv: ['apply'],
+    options: {
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+      },
+      '--include': {
+        key: 'include',
+        value: 'string',
+      },
+      '-p': {
+        key: 'p',
+        value: 'integer',
+        parser: 'revision-count',
+        checks: [
+          {
+            id: 'cli.apply.strip-count',
+            kind: 'integer',
+            key: '$value',
+            min: 0,
+            origin: 'git',
+            reason: 'The strip count is a nonnegative signed int.',
+            source: 'https://github.com/git/git/blob/v2.55.0/apply.c',
+          },
+        ],
+      },
+      '--no-add': {
+        key: 'no-add',
+        value: 'flag',
+      },
+      '--stat': {
+        key: 'stat',
+        value: 'flag',
+      },
+      '--allow-binary-replacement': {
+        key: 'allow-binary-replacement',
+        value: 'flag',
+      },
+      '--binary': {
+        key: 'binary',
+        value: 'flag',
+      },
+      '--numstat': {
+        key: 'numstat',
+        value: 'flag',
+      },
+      '--summary': {
+        key: 'summary',
+        value: 'flag',
+      },
+      '--check': {
+        key: 'check',
+        value: 'flag',
+      },
+      '--index': {
+        key: 'index',
+        value: 'flag',
+      },
+      '--intent-to-add': {
+        key: 'intent-to-add',
+        value: 'flag',
+      },
+      '-N': {
+        key: 'intent-to-add',
+        value: 'flag',
+      },
+      '--cached': {
+        key: 'cached',
+        value: 'flag',
+      },
+      '--unsafe-paths': {
+        key: 'unsafe-paths',
+        value: 'flag',
+      },
+      '--apply': {
+        key: 'apply',
+        value: 'flag',
+      },
+      '--3way': {
+        key: '3way',
+        value: 'flag',
+      },
+      '-3': {
+        key: '3way',
+        value: 'flag',
+      },
+      '--ours': {
+        key: 'merge-variant',
+        value: 'flag',
+        set: 'ours',
+      },
+      '--theirs': {
+        key: 'merge-variant',
+        value: 'flag',
+        set: 'theirs',
+      },
+      '--union': {
+        key: 'merge-variant',
+        value: 'flag',
+        set: 'union',
+      },
+      '--build-fake-ancestor': {
+        key: 'build-fake-ancestor',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '-C': {
+        key: 'C',
+        value: 'integer',
+      },
+      '--whitespace': {
+        key: 'whitespace',
+        value: 'string',
+        allowed: ['warn', 'nowarn', 'error', 'error-all', 'strip', 'fix'],
+      },
+      '--ignore-space-change': {
+        key: 'ignore-space-change',
+        value: 'flag',
+      },
+      '--ignore-whitespace': {
+        key: 'ignore-whitespace',
+        value: 'flag',
+      },
+      '--reverse': {
+        key: 'reverse',
+        value: 'flag',
+      },
+      '-R': {
+        key: 'reverse',
+        value: 'flag',
+      },
+      '--unidiff-zero': {
+        key: 'unidiff-zero',
+        value: 'flag',
+      },
+      '--reject': {
+        key: 'reject',
+        value: 'flag',
+      },
+      '--allow-overlap': {
+        key: 'allow-overlap',
+        value: 'flag',
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--inaccurate-eof': {
+        key: 'inaccurate-eof',
+        value: 'flag',
+      },
+      '--recount': {
+        key: 'recount',
+        value: 'flag',
+      },
+      '--directory': {
+        key: 'directory',
+        value: 'string',
+      },
+      '--allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+      },
+      '--add': {
+        key: 'no-add',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-add': {
+        key: 'no-add',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stat': {
+        key: 'stat',
+        value: 'flag',
+        set: false,
+      },
+      '--no-allow-binary-replacement': {
+        key: 'allow-binary-replacement',
+        value: 'flag',
+        set: false,
+      },
+      '--no-binary': {
+        key: 'binary',
+        value: 'flag',
+        set: false,
+      },
+      '--no-numstat': {
+        key: 'numstat',
+        value: 'flag',
+        set: false,
+      },
+      '--no-summary': {
+        key: 'summary',
+        value: 'flag',
+        set: false,
+      },
+      '--no-check': {
+        key: 'check',
+        value: 'flag',
+        set: false,
+      },
+      '--no-index': {
+        key: 'index',
+        value: 'flag',
+        set: false,
+      },
+      '--no-intent-to-add': {
+        key: 'intent-to-add',
+        value: 'flag',
+        set: false,
+      },
+      '--no-cached': {
+        key: 'cached',
+        value: 'flag',
+        set: false,
+      },
+      '--no-unsafe-paths': {
+        key: 'unsafe-paths',
+        value: 'flag',
+        set: false,
+      },
+      '--no-apply': {
+        key: 'apply',
+        value: 'flag',
+        set: false,
+      },
+      '--no-3way': {
+        key: '3way',
+        value: 'flag',
+        set: false,
+      },
+      '--no-build-fake-ancestor': {
+        key: 'build-fake-ancestor',
+        value: 'flag',
+        emptyIsUnset: true,
+        ignore: true,
+      },
+      '--no-ignore-space-change': {
+        key: 'ignore-space-change',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-whitespace': {
+        key: 'ignore-whitespace',
+        value: 'flag',
+        set: false,
+      },
+      '--no-reverse': {
+        key: 'reverse',
+        value: 'flag',
+        set: false,
+      },
+      '--no-unidiff-zero': {
+        key: 'unidiff-zero',
+        value: 'flag',
+        set: false,
+      },
+      '--no-reject': {
+        key: 'reject',
+        value: 'flag',
+        set: false,
+      },
+      '--no-allow-overlap': {
+        key: 'allow-overlap',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--no-inaccurate-eof': {
+        key: 'inaccurate-eof',
+        value: 'flag',
+        set: false,
+      },
+      '--no-recount': {
+        key: 'recount',
+        value: 'flag',
+        set: false,
+      },
+      '--no-allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.apply.reject-threeway',
+        kind: 'exclusive',
+        keys: ['reject', '3way'],
+        origin: 'git',
+        reason: 'Reject output cannot be combined with three-way application.',
+        source: 'https://github.com/git/git/blob/v2.55.0/apply.c',
+      },
+      {
+        id: 'cli.apply.merge-variant',
+        kind: 'requires',
+        when: {
+          key: 'merge-variant',
+          test: 'active',
+        },
+        required: [
+          {
+            key: '3way',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'A merge resolution variant requires three-way application.',
+        source: 'https://github.com/git/git/blob/v2.55.0/apply.c',
+      },
+      {
+        id: 'cli.apply.repository-3way',
+        kind: 'forbid',
+        when: [
+          {
+            key: '3way',
+            test: 'active',
+          },
+          {
+            key: 'inRepository',
+            test: 'equals',
+            value: false,
+          },
+        ],
+        origin: 'git',
+        reason: 'This index operation requires a repository.',
+        source: 'https://github.com/git/git/blob/v2.55.0/apply.c',
+      },
+      {
+        id: 'cli.apply.repository-index',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'index',
+            test: 'active',
+          },
+          {
+            key: 'inRepository',
+            test: 'equals',
+            value: false,
+          },
+        ],
+        origin: 'git',
+        reason: 'This index operation requires a repository.',
+        source: 'https://github.com/git/git/blob/v2.55.0/apply.c',
+      },
+      {
+        id: 'cli.apply.repository-cached',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'cached',
+            test: 'active',
+          },
+          {
+            key: 'inRepository',
+            test: 'equals',
+            value: false,
+          },
+        ],
+        origin: 'git',
+        reason: 'This index operation requires a repository.',
+        source: 'https://github.com/git/git/blob/v2.55.0/apply.c',
+      },
+    ],
+    source: 'apply.c:apply_parse_options/check_apply_state',
+    separator: true,
+  },
+  am: {
+    argv: ['am'],
+    options: {
+      '--interactive': {
+        key: 'interactive',
+        value: 'flag',
+      },
+      '-i': {
+        key: 'interactive',
+        value: 'flag',
+      },
+      '--no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'no-verify',
+        value: 'flag',
+      },
+      '--binary': {
+        key: 'binary',
+        value: 'flag',
+      },
+      '-b': {
+        key: 'binary',
+        value: 'flag',
+      },
+      '--3way': {
+        key: '3way',
+        value: 'flag',
+      },
+      '-3': {
+        key: '3way',
+        value: 'flag',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--signoff': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '--utf8': {
+        key: 'utf8',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'utf8',
+        value: 'flag',
+      },
+      '--keep': {
+        key: 'keep',
+        value: 'flag',
+      },
+      '-k': {
+        key: 'keep',
+        value: 'flag',
+      },
+      '--keep-non-patch': {
+        key: 'keep-non-patch',
+        value: 'flag',
+      },
+      '--message-id': {
+        key: 'message-id',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'message-id',
+        value: 'flag',
+      },
+      '--keep-cr': {
+        key: 'keep-cr',
+        value: 'flag',
+      },
+      '--scissors': {
+        key: 'scissors',
+        value: 'flag',
+      },
+      '-c': {
+        key: 'scissors',
+        value: 'flag',
+      },
+      '--quoted-cr': {
+        key: 'quoted-cr',
+        value: 'string',
+        allowed: ['nowarn', 'warn', 'strip'],
+      },
+      '--whitespace': {
+        key: 'whitespace',
+        value: 'string',
+      },
+      '--ignore-space-change': {
+        key: 'ignore-space-change',
+        value: 'flag',
+      },
+      '--ignore-whitespace': {
+        key: 'ignore-whitespace',
+        value: 'flag',
+      },
+      '--directory': {
+        key: 'directory',
+        value: 'string',
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+      },
+      '--include': {
+        key: 'include',
+        value: 'string',
+      },
+      '-C': {
+        key: 'C',
+        value: 'string',
+      },
+      '-p': {
+        key: 'p',
+        value: 'string',
+      },
+      '--patch-format': {
+        key: 'patch-format',
+        value: 'string',
+        allowed: ['mbox', 'stgit', 'stgit-series', 'hg', 'mboxrd'],
+      },
+      '--reject': {
+        key: 'reject',
+        value: 'flag',
+      },
+      '--resolvemsg': {
+        key: 'resolvemsg',
+        value: 'string',
+      },
+      '--continue': {
+        key: 'continue',
+        value: 'flag',
+        modeGroup: '&resume_mode',
+        modeValue: 'RESUME_RESOLVED',
+      },
+      '--resolved': {
+        key: 'resolved',
+        value: 'flag',
+        modeGroup: '&resume_mode',
+        modeValue: 'RESUME_RESOLVED',
+      },
+      '-r': {
+        key: 'resolved',
+        value: 'flag',
+        modeGroup: '&resume_mode',
+        modeValue: 'RESUME_RESOLVED',
+      },
+      '--skip': {
+        key: 'skip',
+        value: 'flag',
+        modeGroup: '&resume_mode',
+        modeValue: 'RESUME_SKIP',
+      },
+      '--abort': {
+        key: 'abort',
+        value: 'flag',
+        modeGroup: '&resume_mode',
+        modeValue: 'RESUME_ABORT',
+      },
+      '--quit': {
+        key: 'quit',
+        value: 'flag',
+        modeGroup: '&resume_mode',
+        modeValue: 'RESUME_QUIT',
+      },
+      '--show-current-patch': {
+        key: 'show-current-patch',
+        value: 'optional-string',
+        set: 'raw',
+        allowed: ['raw', 'diff'],
+        modeGroup: '&resume_mode',
+        modeFromValue: true,
+      },
+      '--retry': {
+        key: 'retry',
+        value: 'flag',
+        modeGroup: '&resume_mode',
+        modeValue: 'RESUME_APPLY',
+      },
+      '--allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+        modeGroup: '&resume_mode',
+        modeValue: 'RESUME_ALLOW_EMPTY',
+      },
+      '--committer-date-is-author-date': {
+        key: 'committer-date-is-author-date',
+        value: 'flag',
+      },
+      '--ignore-date': {
+        key: 'ignore-date',
+        value: 'flag',
+      },
+      '--rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+      },
+      '--gpg-sign': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '-S': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '--empty': {
+        key: 'empty',
+        value: 'string',
+        allowed: ['stop', 'drop', 'keep'],
+      },
+      '--rebasing': {
+        key: 'rebasing',
+        value: 'flag',
+      },
+      '--no-interactive': {
+        key: 'interactive',
+        value: 'flag',
+        set: false,
+      },
+      '--verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--no-binary': {
+        key: 'binary',
+        value: 'flag',
+        set: false,
+      },
+      '--no-3way': {
+        key: '3way',
+        value: 'flag',
+        set: false,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-signoff': {
+        key: 'signoff',
+        value: 'flag',
+        set: false,
+      },
+      '--no-utf8': {
+        key: 'utf8',
+        value: 'flag',
+        set: false,
+      },
+      '--no-keep': {
+        key: 'keep',
+        value: 'flag',
+        set: false,
+      },
+      '--no-keep-non-patch': {
+        key: 'keep-non-patch',
+        value: 'flag',
+        set: false,
+      },
+      '--no-message-id': {
+        key: 'message-id',
+        value: 'flag',
+        set: false,
+      },
+      '--no-keep-cr': {
+        key: 'keep-cr',
+        value: 'flag',
+        set: false,
+      },
+      '--no-scissors': {
+        key: 'scissors',
+        value: 'flag',
+        set: false,
+      },
+      '--no-whitespace': {
+        key: 'whitespace',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-ignore-space-change': {
+        key: 'ignore-space-change',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-whitespace': {
+        key: 'ignore-whitespace',
+        value: 'flag',
+        set: false,
+      },
+      '--no-directory': {
+        key: 'directory',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-exclude': {
+        key: 'exclude',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-include': {
+        key: 'include',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-patch-format': {
+        key: 'patch-format',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-reject': {
+        key: 'reject',
+        value: 'flag',
+        set: false,
+      },
+      '--no-resolvemsg': {
+        key: 'resolvemsg',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-committer-date-is-author-date': {
+        key: 'committer-date-is-author-date',
+        value: 'flag',
+        set: false,
+      },
+      '--no-ignore-date': {
+        key: 'ignore-date',
+        value: 'flag',
+        set: false,
+      },
+      '--no-rerere-autoupdate': {
+        key: 'rerere-autoupdate',
+        value: 'flag',
+        set: false,
+      },
+      '--no-gpg-sign': {
+        key: 'gpg-sign',
+        value: 'flag',
+        set: '',
+        clear: true,
+      },
+      '--no-rebasing': {
+        key: 'rebasing',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/am.c:cmd_am',
     separator: true,
   },
   lfs: {

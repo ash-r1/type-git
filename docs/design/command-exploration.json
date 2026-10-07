@@ -3715,6 +3715,73 @@
     },
     {
       "command": "tag",
+      "modes": [
+        {
+          "group": "&cmdmode",
+          "tokens": [
+            {
+              "flag": "--list",
+              "mode": "'l'"
+            },
+            {
+              "flag": "-l",
+              "mode": "'l'"
+            },
+            {
+              "flag": "--delete",
+              "mode": "'d'"
+            },
+            {
+              "flag": "-d",
+              "mode": "'d'"
+            },
+            {
+              "flag": "--verify",
+              "mode": "'v'"
+            },
+            {
+              "flag": "-v",
+              "mode": "'v'"
+            }
+          ],
+          "total": 24,
+          "accepted": 12,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "from": "'l'",
+              "acceptedTokens": [
+                0,
+                1
+              ]
+            },
+            {
+              "from": "'d'",
+              "acceptedTokens": [
+                2,
+                3
+              ]
+            },
+            {
+              "from": "'v'",
+              "acceptedTokens": [
+                4,
+                5
+              ]
+            }
+          ]
+        }
+      ],
       "rules": 115,
       "domains": {
         "list": [
@@ -4537,6 +4604,33 @@
     },
     {
       "command": "stash export",
+      "modes": [
+        {
+          "group": "&action",
+          "tokens": [
+            {
+              "flag": "--print",
+              "mode": "ACTION_PRINT"
+            }
+          ],
+          "total": 2,
+          "accepted": 2,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "ACTION_PRINT",
+              "acceptedTokens": [
+                0
+              ]
+            }
+          ]
+        }
+      ],
       "rules": 2,
       "domains": {
         "print": [
@@ -18327,6 +18421,88 @@
     },
     {
       "command": "rebase",
+      "modes": [
+        {
+          "group": "&options.action",
+          "tokens": [
+            {
+              "flag": "--continue",
+              "mode": "ACTION_CONTINUE"
+            },
+            {
+              "flag": "--skip",
+              "mode": "ACTION_SKIP"
+            },
+            {
+              "flag": "--abort",
+              "mode": "ACTION_ABORT"
+            },
+            {
+              "flag": "--quit",
+              "mode": "ACTION_QUIT"
+            },
+            {
+              "flag": "--edit-todo",
+              "mode": "ACTION_EDIT_TODO"
+            },
+            {
+              "flag": "--show-current-patch",
+              "mode": "ACTION_SHOW_CURRENT_PATCH"
+            }
+          ],
+          "total": 42,
+          "accepted": 12,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "from": "ACTION_CONTINUE",
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "ACTION_SKIP",
+              "acceptedTokens": [
+                1
+              ]
+            },
+            {
+              "from": "ACTION_ABORT",
+              "acceptedTokens": [
+                2
+              ]
+            },
+            {
+              "from": "ACTION_QUIT",
+              "acceptedTokens": [
+                3
+              ]
+            },
+            {
+              "from": "ACTION_EDIT_TODO",
+              "acceptedTokens": [
+                4
+              ]
+            },
+            {
+              "from": "ACTION_SHOW_CURRENT_PATCH",
+              "acceptedTokens": [
+                5
+              ]
+            }
+          ]
+        }
+      ],
       "transitions": [
         {
           "flag": "--apply",
@@ -18759,6 +18935,66 @@
     },
     {
       "command": "cherry-pick",
+      "modes": [
+        {
+          "group": "&cmd",
+          "tokens": [
+            {
+              "flag": "--skip",
+              "mode": "'s'"
+            },
+            {
+              "flag": "--quit",
+              "mode": "'q'"
+            },
+            {
+              "flag": "--continue",
+              "mode": "'c'"
+            },
+            {
+              "flag": "--abort",
+              "mode": "'a'"
+            }
+          ],
+          "total": 20,
+          "accepted": 8,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "from": "'s'",
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "'q'",
+              "acceptedTokens": [
+                1
+              ]
+            },
+            {
+              "from": "'c'",
+              "acceptedTokens": [
+                2
+              ]
+            },
+            {
+              "from": "'a'",
+              "acceptedTokens": [
+                3
+              ]
+            }
+          ]
+        }
+      ],
       "transitions": [
         {
           "flag": "-G",
@@ -20225,6 +20461,66 @@
     },
     {
       "command": "revert",
+      "modes": [
+        {
+          "group": "&cmd",
+          "tokens": [
+            {
+              "flag": "--skip",
+              "mode": "'s'"
+            },
+            {
+              "flag": "--quit",
+              "mode": "'q'"
+            },
+            {
+              "flag": "--continue",
+              "mode": "'c'"
+            },
+            {
+              "flag": "--abort",
+              "mode": "'a'"
+            }
+          ],
+          "total": 20,
+          "accepted": 8,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "from": "'s'",
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "'q'",
+              "acceptedTokens": [
+                1
+              ]
+            },
+            {
+              "from": "'c'",
+              "acceptedTokens": [
+                2
+              ]
+            },
+            {
+              "from": "'a'",
+              "acceptedTokens": [
+                3
+              ]
+            }
+          ]
+        }
+      ],
       "transitions": [
         {
           "flag": "-G",
@@ -21725,6 +22021,66 @@
     },
     {
       "command": "merge-base",
+      "modes": [
+        {
+          "group": "&cmdmode",
+          "tokens": [
+            {
+              "flag": "--octopus",
+              "mode": "'o'"
+            },
+            {
+              "flag": "--independent",
+              "mode": "'r'"
+            },
+            {
+              "flag": "--is-ancestor",
+              "mode": "'a'"
+            },
+            {
+              "flag": "--fork-point",
+              "mode": "'f'"
+            }
+          ],
+          "total": 20,
+          "accepted": 8,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "from": "'o'",
+              "acceptedTokens": [
+                0
+              ]
+            },
+            {
+              "from": "'r'",
+              "acceptedTokens": [
+                1
+              ]
+            },
+            {
+              "from": "'a'",
+              "acceptedTokens": [
+                2
+              ]
+            },
+            {
+              "from": "'f'",
+              "acceptedTokens": [
+                3
+              ]
+            }
+          ]
+        }
+      ],
       "rules": 4,
       "domains": {
         "all": [
@@ -21778,6 +22134,607 @@
         "merge-base.ancestor-arity": "{\"is-ancestor\":true,\"operands\":[]}",
         "merge-base.fork-arity": "{\"fork-point\":true,\"operands\":[]}"
       }
+    },
+    {
+      "command": "apply",
+      "transitions": [
+        {
+          "flag": "-p",
+          "rules": [
+            "cli.apply.strip-count"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "total": "6",
+          "accepted": "4",
+          "isolatedRuleWitnesses": {
+            "cli.apply.strip-count": "{\"$value\":-2}"
+          }
+        }
+      ],
+      "rules": 5,
+      "domains": {
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "p": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-add": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stat": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "allow-binary-replacement": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "binary": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "numstat": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "summary": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "check": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "intent-to-add": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cached": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unsafe-paths": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "apply": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "3way": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "merge-variant": [
+          "undefined",
+          "\"ours\"",
+          "\"theirs\"",
+          "\"union\""
+        ],
+        "build-fake-ancestor": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "C": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "whitespace": [
+          "undefined",
+          "\"warn\"",
+          "\"nowarn\"",
+          "\"error\"",
+          "\"error-all\"",
+          "\"strip\"",
+          "\"fix\""
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-whitespace": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reverse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unidiff-zero": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reject": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "allow-overlap": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "inaccurate-eof": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recount": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "directory": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "allow-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "21351672957963600000",
+      "accepted": "6062820716458800000",
+      "nodes": 58,
+      "isolatedRuleWitnesses": {
+        "cli.apply.reject-threeway": "{\"3way\":true,\"operands\":[],\"reject\":true}",
+        "cli.apply.merge-variant": "{\"merge-variant\":\"ours\",\"operands\":[]}",
+        "cli.apply.repository-3way": "{\"3way\":true,\"inRepository\":false,\"operands\":[]}",
+        "cli.apply.repository-index": "{\"inRepository\":false,\"index\":true,\"operands\":[]}",
+        "cli.apply.repository-cached": "{\"cached\":true,\"inRepository\":false,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "am",
+      "modes": [
+        {
+          "group": "&resume_mode",
+          "tokens": [
+            {
+              "flag": "--continue",
+              "mode": "RESUME_RESOLVED"
+            },
+            {
+              "flag": "--resolved",
+              "mode": "RESUME_RESOLVED"
+            },
+            {
+              "flag": "-r",
+              "mode": "RESUME_RESOLVED"
+            },
+            {
+              "flag": "--skip",
+              "mode": "RESUME_SKIP"
+            },
+            {
+              "flag": "--abort",
+              "mode": "RESUME_ABORT"
+            },
+            {
+              "flag": "--quit",
+              "mode": "RESUME_QUIT"
+            },
+            {
+              "flag": "--show-current-patch",
+              "mode": "raw"
+            },
+            {
+              "flag": "--show-current-patch",
+              "value": "raw",
+              "mode": "raw"
+            },
+            {
+              "flag": "--show-current-patch",
+              "value": "diff",
+              "mode": "diff"
+            },
+            {
+              "flag": "--retry",
+              "mode": "RESUME_APPLY"
+            },
+            {
+              "flag": "--allow-empty",
+              "mode": "RESUME_ALLOW_EMPTY"
+            }
+          ],
+          "total": 99,
+          "accepted": 22,
+          "transitions": [
+            {
+              "from": null,
+              "acceptedTokens": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ]
+            },
+            {
+              "from": "RESUME_RESOLVED",
+              "acceptedTokens": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "from": "RESUME_SKIP",
+              "acceptedTokens": [
+                3
+              ]
+            },
+            {
+              "from": "RESUME_ABORT",
+              "acceptedTokens": [
+                4
+              ]
+            },
+            {
+              "from": "RESUME_QUIT",
+              "acceptedTokens": [
+                5
+              ]
+            },
+            {
+              "from": "raw",
+              "acceptedTokens": [
+                6,
+                7
+              ]
+            },
+            {
+              "from": "diff",
+              "acceptedTokens": [
+                8
+              ]
+            },
+            {
+              "from": "RESUME_APPLY",
+              "acceptedTokens": [
+                9
+              ]
+            },
+            {
+              "from": "RESUME_ALLOW_EMPTY",
+              "acceptedTokens": [
+                10
+              ]
+            }
+          ]
+        }
+      ],
+      "rules": 0,
+      "domains": {
+        "interactive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-verify": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "binary": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "3way": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "signoff": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "utf8": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keep": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keep-non-patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "message-id": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keep-cr": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "scissors": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quoted-cr": [
+          "undefined",
+          "\"nowarn\"",
+          "\"warn\"",
+          "\"strip\""
+        ],
+        "whitespace": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-whitespace": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "directory": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "include": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "C": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "p": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "patch-format": [
+          "undefined",
+          "\"mbox\"",
+          "\"stgit\"",
+          "\"stgit-series\"",
+          "\"hg\"",
+          "\"mboxrd\""
+        ],
+        "reject": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "resolvemsg": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "continue": [
+          "undefined",
+          "true"
+        ],
+        "resolved": [
+          "undefined",
+          "true"
+        ],
+        "skip": [
+          "undefined",
+          "true"
+        ],
+        "abort": [
+          "undefined",
+          "true"
+        ],
+        "quit": [
+          "undefined",
+          "true"
+        ],
+        "show-current-patch": [
+          "undefined",
+          "\"raw\"",
+          "\"diff\""
+        ],
+        "retry": [
+          "undefined",
+          "true"
+        ],
+        "allow-empty": [
+          "undefined",
+          "true"
+        ],
+        "committer-date-is-author-date": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-date": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "rerere-autoupdate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "gpg-sign": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "empty": [
+          "undefined",
+          "\"stop\"",
+          "\"drop\"",
+          "\"keep\""
+        ],
+        "rebasing": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1338925209984000000000",
+      "accepted": "1338925209984000000000",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
     },
     {
       "command": "lfs",
