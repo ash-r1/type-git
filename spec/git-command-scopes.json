@@ -3605,5 +3605,321 @@
         "value": "flag"
       }
     }
+  },
+  "rev-list": {
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "source": "builtin/rev-list.c",
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "initial": {
+      "missing": "error"
+    },
+    "options": {
+      "--header": {
+        "key": "header",
+        "value": "flag"
+      },
+      "--timestamp": {
+        "key": "timestamp",
+        "value": "flag"
+      },
+      "--bisect-all": {
+        "key": "bisect-all",
+        "value": "flag"
+      },
+      "--bisect-vars": {
+        "key": "bisect-vars",
+        "value": "flag"
+      },
+      "--use-bitmap-index": {
+        "key": "use-bitmap-index",
+        "value": "flag"
+      },
+      "--test-bitmap": {
+        "key": "test-bitmap",
+        "value": "flag"
+      },
+      "--filter-provided-objects": {
+        "key": "filter-provided-objects",
+        "value": "flag"
+      },
+      "--filter-print-omitted": {
+        "key": "filter-print-omitted",
+        "value": "flag"
+      },
+      "--exclude-promisor-objects": {
+        "key": "exclude-promisor-objects",
+        "value": "flag"
+      },
+      "--object-names": {
+        "key": "object-names",
+        "value": "flag"
+      },
+      "--commit-header": {
+        "key": "commit-header",
+        "value": "flag"
+      },
+      "--no-object-names": {
+        "key": "object-names",
+        "value": "flag",
+        "set": false
+      },
+      "--no-commit-header": {
+        "key": "commit-header",
+        "value": "flag",
+        "set": false
+      },
+      "--progress": {
+        "key": "progress",
+        "value": "string"
+      },
+      "--missing": {
+        "key": "missing",
+        "value": "string",
+        "parser": "rev-list-missing"
+      },
+      "--disk-usage": {
+        "key": "disk-usage",
+        "value": "optional-string",
+        "allowed": [
+          "human"
+        ]
+      },
+      "-z": {
+        "key": "rev-list-nul",
+        "value": "flag"
+      },
+      "--notes": {
+        "key": "notes",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "notes-enabled",
+            "set": true
+          },
+          {
+            "key": "notes-given",
+            "set": true
+          }
+        ]
+      },
+      "--show-notes": {
+        "key": "show-notes",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "notes-enabled",
+            "set": true
+          },
+          {
+            "key": "notes-given",
+            "set": true
+          }
+        ]
+      },
+      "--no-notes": {
+        "key": "notes-enabled",
+        "value": "flag",
+        "set": false,
+        "effects": [
+          {
+            "key": "notes-given",
+            "set": true
+          }
+        ]
+      },
+      "--standard-notes": {
+        "key": "standard-notes",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "notes-given",
+            "set": true
+          }
+        ]
+      },
+      "--pretty": {
+        "key": "pretty",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "verbose-header",
+            "set": true
+          }
+        ]
+      },
+      "--format": {
+        "key": "format",
+        "value": "string",
+        "effects": [
+          {
+            "key": "verbose-header",
+            "set": true
+          }
+        ]
+      },
+      "--oneline": {
+        "key": "oneline",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "verbose-header",
+            "set": true
+          }
+        ]
+      },
+      "-v": {
+        "key": "verbose-header",
+        "value": "flag"
+      },
+      "-r": {
+        "key": "revision-diff",
+        "value": "flag"
+      },
+      "-t": {
+        "key": "revision-diff",
+        "value": "flag"
+      }
+    }
+  },
+  "bundle create": {
+    "tables": [
+      "builtin/bundle.c:cmd_bundle_create:options"
+    ],
+    "source": "builtin/bundle.c",
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--no-version": {
+        "key": "version",
+        "value": "flag",
+        "set": 0
+      }
+    }
+  },
+  "bundle verify": {
+    "tables": [
+      "builtin/bundle.c:cmd_bundle_verify:options"
+    ],
+    "source": "builtin/bundle.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "bundle list-heads": {
+    "tables": [
+      "builtin/bundle.c:cmd_bundle_list_heads:options"
+    ],
+    "source": "builtin/bundle.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "bundle unbundle": {
+    "tables": [
+      "builtin/bundle.c:cmd_bundle_unbundle:options"
+    ],
+    "source": "builtin/bundle.c",
+    "optionParsing": "stop-at-operand"
+  },
+  "history fixup": {
+    "tables": [
+      "builtin/history.c:cmd_history_fixup:options"
+    ],
+    "source": "builtin/history.c",
+    "options": {
+      "--update-refs": {
+        "key": "update-refs",
+        "value": "string",
+        "allowed": [
+          "branches",
+          "head"
+        ]
+      },
+      "--empty": {
+        "key": "empty",
+        "value": "string",
+        "allowed": [
+          "drop",
+          "keep",
+          "abort"
+        ]
+      }
+    }
+  },
+  "history reword": {
+    "tables": [
+      "builtin/history.c:cmd_history_reword:options"
+    ],
+    "source": "builtin/history.c",
+    "options": {
+      "--update-refs": {
+        "key": "update-refs",
+        "value": "string",
+        "allowed": [
+          "branches",
+          "head"
+        ]
+      }
+    }
+  },
+  "history split": {
+    "tables": [
+      "builtin/history.c:cmd_history_split:options"
+    ],
+    "source": "builtin/history.c",
+    "options": {
+      "--update-refs": {
+        "key": "update-refs",
+        "value": "string",
+        "allowed": [
+          "branches",
+          "head"
+        ]
+      }
+    }
+  },
+  "repo info": {
+    "tables": [
+      "builtin/repo.c:cmd_repo_info:options"
+    ],
+    "source": "builtin/repo.c",
+    "options": {
+      "--format": {
+        "key": "format",
+        "value": "string",
+        "allowed": [
+          "nul",
+          "lines",
+          "table"
+        ]
+      },
+      "-z": {
+        "key": "format",
+        "value": "flag",
+        "set": "nul"
+      }
+    }
+  },
+  "repo structure": {
+    "tables": [
+      "builtin/repo.c:cmd_repo_structure:options"
+    ],
+    "source": "builtin/repo.c",
+    "options": {
+      "--format": {
+        "key": "format",
+        "value": "string",
+        "allowed": [
+          "nul",
+          "lines",
+          "table"
+        ]
+      },
+      "-z": {
+        "key": "format",
+        "value": "flag",
+        "set": "nul"
+      }
+    }
   }
 }

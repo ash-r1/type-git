@@ -6650,6 +6650,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -7452,8 +7453,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "10714199562033842023232343979191673481083393664312829542400000000000000000000000000000000000000000000000000",
-      "accepted": "11165342318901044786943098479582987073916501828811796093337600000000000000000000000000000000000000000000",
+      "total": "12857039474440610427878812775030008177300072397175395450880000000000000000000000000000000000000000000000000",
+      "accepted": "13398410782681253744331718175499584488699802194574155312005120000000000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -8101,6 +8102,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -8903,8 +8905,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "10714199562033842023232343979191673481083393664312829542400000000000000000000000000000000000000000000000000",
-      "accepted": "11165342318901044786943098479582987073916501828811796093337600000000000000000000000000000000000000000000",
+      "total": "12857039474440610427878812775030008177300072397175395450880000000000000000000000000000000000000000000000000",
+      "accepted": "13398410782681253744331718175499584488699802194574155312005120000000000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -9489,6 +9491,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -10304,8 +10307,8 @@
           "true"
         ]
       },
-      "total": "154319746778265214326391785708522046023834888169114828800000000000000000000000000000000000000000000000",
-      "accepted": "344609330830279160090836372826635403515941414469499879424000000000000000000000000000000000000000000",
+      "total": "185183696133918257191670142850226455228601865802937794560000000000000000000000000000000000000000000000",
+      "accepted": "413531196996334992109003647391962484219129697363399855308800000000000000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -10888,6 +10891,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -11695,8 +11699,8 @@
           "true"
         ]
       },
-      "total": "38579936694566303581597946427130511505958722042278707200000000000000000000000000000000000000000000000",
-      "accepted": "86152332707569790022709093206658850878985353617374969856000000000000000000000000000000000000000000",
+      "total": "46295924033479564297917535712556613807150466450734448640000000000000000000000000000000000000000000000",
+      "accepted": "103382799249083748027250911847990621054782424340849963827200000000000000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -12278,6 +12282,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -13092,8 +13097,8 @@
           "true"
         ]
       },
-      "total": "132274068667084469422621530607304610877572761287812710400000000000000000000000000000000000000000000000",
-      "accepted": "295379426425953565792145462422830345870806926688142753792000000000000000000000000000000000000000000",
+      "total": "158728882400501363307145836728765533053087313545375252480000000000000000000000000000000000000000000000",
+      "accepted": "354455311711144278950574554907396415044968312025771304550400000000000000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -13658,6 +13663,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -14464,8 +14470,8 @@
           "true"
         ]
       },
-      "total": "33068517166771117355655382651826152719393190321953177600000000000000000000000000000000000000000000000",
-      "accepted": "55383642454866293586027274204280689850776298754026766336000000000000000000000000000000000000000000",
+      "total": "39682220600125340826786459182191383263271828386343813120000000000000000000000000000000000000000000000",
+      "accepted": "66460370945839552303232729045136827820931558504832119603200000000000000000000000000000000000000000",
       "nodes": 11842,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -14856,6 +14862,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -15057,8 +15064,8 @@
           "true"
         ]
       },
-      "total": "5829097492636524085248000000000000000000000000000",
-      "accepted": "149224895811495016582348800000000000000000000000",
+      "total": "6994916991163828902297600000000000000000000000000",
+      "accepted": "179069874973794019898818560000000000000000000000",
       "nodes": 231,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\",\"value\"]}",
@@ -15970,6 +15977,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -16768,8 +16776,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "10714199562033842023232343979191673481083393664312829542400000000000000000000000000000000000000000000000000",
-      "accepted": "11165342318901044786943098479582987073916501828811796093337600000000000000000000000000000000000000000000",
+      "total": "12857039474440610427878812775030008177300072397175395450880000000000000000000000000000000000000000000000000",
+      "accepted": "13398410782681253744331718175499584488699802194574155312005120000000000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -17377,6 +17385,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -18179,8 +18188,8 @@
           "true"
         ]
       },
-      "total": "33068517166771117355655382651826152719393190321953177600000000000000000000000000000000000000000000000",
-      "accepted": "29537942642595356579214546242283034587080692668814275379200000000000000000000000000000000000000000",
+      "total": "39682220600125340826786459182191383263271828386343813120000000000000000000000000000000000000000000000",
+      "accepted": "35445531171114427895057455490739641504496831202577130455040000000000000000000000000000000000000000",
       "nodes": 9936,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -19540,6 +19549,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -20429,8 +20439,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "138856026323958592621091177970324088314840781889494270869504000000000000000000000000000000000000000000000000000",
-      "accepted": "20841972328615283602293783828554909204644136747115352707563520000000000000000000000000000000000000000000000",
+      "total": "166627231588750311145309413564388905977808938267393125043404800000000000000000000000000000000000000000000000000",
+      "accepted": "25010366794338340322752540594265891045572964096538423249076224000000000000000000000000000000000000000000000",
       "nodes": 77274,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
@@ -21066,6 +21076,7 @@
         "diff-algorithm": [
           "undefined",
           "\"myers\"",
+          "\"default\"",
           "\"minimal\"",
           "\"patience\"",
           "\"histogram\""
@@ -21930,8 +21941,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "642851973722030521393940638751500408865003619858769772544000000000000000000000000000000000000000000000000000",
-      "accepted": "136797596863519745157487367284573303931417457922446112849920000000000000000000000000000000000000000000000",
+      "total": "771422368466436625672728766501800490638004343830523727052800000000000000000000000000000000000000000000000000",
+      "accepted": "164157116236223694188984840741487964717700949506935335419904000000000000000000000000000000000000000000000",
       "nodes": 48871,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
@@ -29627,6 +29638,1907 @@
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.upload-archive--writer.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "rev-list",
+      "transitions": [
+        {
+          "flag": "-S",
+          "rules": [
+            "revision.pickaxe-nonempty-S"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-S": "{}"
+          }
+        },
+        {
+          "flag": "-G",
+          "rules": [
+            "revision.pickaxe-nonempty-G"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-G": "{}"
+          }
+        },
+        {
+          "flag": "--cherry",
+          "rules": [
+            "revision.cherry-prior-conflict"
+          ],
+          "domains": {
+            "left-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-prior-conflict": "{\"left-only\":true}"
+          }
+        },
+        {
+          "flag": "--cherry-mark",
+          "rules": [
+            "revision.cherry-mark-prior-conflict"
+          ],
+          "domains": {
+            "cherry-pick": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-mark-prior-conflict": "{\"cherry-pick\":true}"
+          }
+        },
+        {
+          "flag": "--cherry-pick",
+          "rules": [
+            "revision.cherry-pick-prior-conflict"
+          ],
+          "domains": {
+            "cherry-mark": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-pick-prior-conflict": "{\"cherry-mark\":true}"
+          }
+        },
+        {
+          "flag": "--expand-tabs",
+          "rules": [
+            "revision.tabs-nonnegative"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2",
+              "8"
+            ]
+          },
+          "total": "7",
+          "accepted": "5",
+          "isolatedRuleWitnesses": {
+            "revision.tabs-nonnegative": "{\"$value\":-2}"
+          }
+        },
+        {
+          "flag": "--left-only",
+          "rules": [
+            "revision.left-only-prior-conflict"
+          ],
+          "domains": {
+            "right-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.left-only-prior-conflict": "{\"right-only\":true}"
+          }
+        },
+        {
+          "flag": "--max-count",
+          "rules": [
+            "revision.count-after-oldest"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "revision.count-after-oldest": "{\"max-count-mode\":\"oldest\"}"
+          }
+        },
+        {
+          "flag": "--max-count-oldest",
+          "rules": [
+            "revision.oldest-after-count",
+            "revision.oldest-after-skip"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ],
+            "max-count": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ],
+            "skip": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "total": "108",
+          "accepted": "40",
+          "isolatedRuleWitnesses": {
+            "revision.oldest-after-count": "{\"max-count\":-2}",
+            "revision.oldest-after-skip": "{\"skip\":1}"
+          }
+        },
+        {
+          "flag": "--right-only",
+          "rules": [
+            "revision.right-only-prior-conflict"
+          ],
+          "domains": {
+            "left-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.right-only-prior-conflict": "{\"left-only\":true}"
+          }
+        },
+        {
+          "flag": "--skip",
+          "rules": [
+            "revision.skip-after-oldest"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "revision.skip-after-oldest": "{\"max-count-mode\":\"oldest\"}"
+          }
+        },
+        {
+          "flag": "--stdin",
+          "rules": [
+            "revision.stdin-repeated"
+          ],
+          "domains": {
+            "stdin": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.stdin-repeated": "{\"stdin\":true}"
+          }
+        }
+      ],
+      "rules": 48,
+      "domains": {
+        "missing": [
+          "undefined",
+          "\"error\"",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-output": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "patch": [
+          "undefined",
+          "true"
+        ],
+        "name-only": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "name-status": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "check": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "u": [
+          "undefined",
+          "true"
+        ],
+        "unified": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "function-context": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-stat": [
+          "undefined",
+          "true"
+        ],
+        "numstat": [
+          "undefined",
+          "true"
+        ],
+        "shortstat": [
+          "undefined",
+          "true"
+        ],
+        "dirstat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cumulative": [
+          "undefined",
+          "true"
+        ],
+        "dirstat-by-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "summary": [
+          "undefined",
+          "true"
+        ],
+        "stat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "stat-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-name-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-graph-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-count": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "compact-summary": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "binary": [
+          "undefined",
+          "true"
+        ],
+        "full-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "ws-error-highlight": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rev-list-nul": [
+          "undefined",
+          "true"
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "src-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dst-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "line-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-prefix": [
+          "undefined",
+          "true"
+        ],
+        "default-prefix": [
+          "undefined",
+          "true"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "output-indicator-new": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-old": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-context": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "break-rewrites": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "irreversible-delete": [
+          "undefined",
+          "true"
+        ],
+        "find-copies": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-copies-harder": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "rename-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "follow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "l": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "minimal": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-blank-lines": [
+          "undefined",
+          "true"
+        ],
+        "ignore-matching-lines": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "indent-heuristic": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"default\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\""
+        ],
+        "anchored": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "word-diff": [
+          "undefined",
+          "\"plain\"",
+          "\"color\"",
+          "\"porcelain\"",
+          "\"none\"",
+          "true"
+        ],
+        "word-diff-regex": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color-words": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved-ws": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "relative": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "text": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "R": [
+          "undefined",
+          "true"
+        ],
+        "exit-code": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ext-diff": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "textconv": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-submodules": [
+          "undefined",
+          "\"all\"",
+          "\"dirty\"",
+          "\"untracked\"",
+          "\"none\"",
+          "true"
+        ],
+        "submodule": [
+          "undefined",
+          "\"short\"",
+          "\"log\"",
+          "\"diff\"",
+          "true"
+        ],
+        "ita-invisible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "ita-visible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "S": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "G": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pickaxe-all": [
+          "undefined",
+          "true"
+        ],
+        "pickaxe-regex": [
+          "undefined",
+          "true"
+        ],
+        "O": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rotate-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "skip-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "find-object": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-abbrev": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "abbrev-commit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "after": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "all-match": [
+          "undefined",
+          "true"
+        ],
+        "alternate-refs": [
+          "undefined",
+          "true"
+        ],
+        "always": [
+          "undefined",
+          "true"
+        ],
+        "limited": [
+          "undefined",
+          "true"
+        ],
+        "ancestry-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "author": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "author-date-order": [
+          "undefined",
+          "true"
+        ],
+        "basic-regexp": [
+          "undefined",
+          "true"
+        ],
+        "before": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bisect": [
+          "undefined",
+          "true"
+        ],
+        "boundary": [
+          "undefined",
+          "true"
+        ],
+        "branches": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "combined-all-paths": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "diff-merges": [
+          "undefined",
+          "\"dense-combined\"",
+          "\"first-parent\"",
+          "\"off\"",
+          "\"none\"",
+          "\"1\"",
+          "\"separate\"",
+          "\"c\"",
+          "\"combined\"",
+          "\"cc\"",
+          "\"r\"",
+          "\"remerge\"",
+          "\"m\"",
+          "\"on\""
+        ],
+        "cherry-mark": [
+          "undefined",
+          "true"
+        ],
+        "right-only": [
+          "undefined",
+          "true"
+        ],
+        "max-parents": [
+          "undefined",
+          "1",
+          "-2",
+          "-1",
+          "0",
+          "2"
+        ],
+        "cherry": [
+          "undefined",
+          "true"
+        ],
+        "cherry-pick": [
+          "undefined",
+          "true"
+        ],
+        "children": [
+          "undefined",
+          "true"
+        ],
+        "committer": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "count": [
+          "undefined",
+          "true"
+        ],
+        "date": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "date-order": [
+          "undefined",
+          "true"
+        ],
+        "default": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dense": [
+          "undefined",
+          "true"
+        ],
+        "no-walk": [
+          "undefined",
+          "false",
+          "\"sorted\"",
+          "\"unsorted\"",
+          "true"
+        ],
+        "encode-email-headers": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "encoding": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-first-parent-only": [
+          "undefined",
+          "true"
+        ],
+        "exclude-hidden": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "expand-tabs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "8"
+        ],
+        "extended-regexp": [
+          "undefined",
+          "true"
+        ],
+        "first-parent": [
+          "undefined",
+          "true"
+        ],
+        "fixed-strings": [
+          "undefined",
+          "true"
+        ],
+        "verbose-header": [
+          "undefined",
+          "true"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "full-diff": [
+          "undefined",
+          "true"
+        ],
+        "full-history": [
+          "undefined",
+          "true"
+        ],
+        "glob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "graph": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "graph-lane-limit": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "grep": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "grep-reflog": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ignore-missing": [
+          "undefined",
+          "true"
+        ],
+        "in-commit-order": [
+          "undefined",
+          "true"
+        ],
+        "indexed-objects": [
+          "undefined",
+          "true"
+        ],
+        "invert-grep": [
+          "undefined",
+          "true"
+        ],
+        "left-only": [
+          "undefined",
+          "true"
+        ],
+        "left-right": [
+          "undefined",
+          "true"
+        ],
+        "log-size": [
+          "undefined",
+          "true"
+        ],
+        "max-age": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-count-mode": [
+          "undefined",
+          "\"newest\"",
+          "\"oldest\""
+        ],
+        "max-count": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "maximal-only": [
+          "undefined",
+          "true"
+        ],
+        "merge": [
+          "undefined",
+          "true"
+        ],
+        "merges": [
+          "undefined",
+          "true"
+        ],
+        "min-age": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "min-parents": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-commit-id": [
+          "undefined",
+          "true"
+        ],
+        "no-kept-objects": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "no-max-parents": [
+          "undefined",
+          "true"
+        ],
+        "no-merges": [
+          "undefined",
+          "true"
+        ],
+        "no-min-parents": [
+          "undefined",
+          "true"
+        ],
+        "notes-given": [
+          "undefined",
+          "true"
+        ],
+        "notes-enabled": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "show-signature": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "standard-notes": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "not": [
+          "undefined",
+          "true"
+        ],
+        "notes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "objects": [
+          "undefined",
+          "true"
+        ],
+        "objects-edge": [
+          "undefined",
+          "true"
+        ],
+        "objects-edge-aggressive": [
+          "undefined",
+          "true"
+        ],
+        "oneline": [
+          "undefined",
+          "true"
+        ],
+        "rewrite-parents": [
+          "undefined",
+          "true"
+        ],
+        "parents": [
+          "undefined",
+          "true"
+        ],
+        "perl-regexp": [
+          "undefined",
+          "true"
+        ],
+        "pretty": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "reflog": [
+          "undefined",
+          "true"
+        ],
+        "regexp-ignore-case": [
+          "undefined",
+          "true"
+        ],
+        "relative-date": [
+          "undefined",
+          "true"
+        ],
+        "remotes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "remove-empty": [
+          "undefined",
+          "true"
+        ],
+        "reverse": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "root": [
+          "undefined",
+          "true"
+        ],
+        "show-linear-break": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "show-notes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "show-notes-by-default": [
+          "undefined",
+          "true"
+        ],
+        "show-pulls": [
+          "undefined",
+          "true"
+        ],
+        "simplify-by-decoration": [
+          "undefined",
+          "true"
+        ],
+        "simplify-merges": [
+          "undefined",
+          "true"
+        ],
+        "since": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "since-as-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "single-worktree": [
+          "undefined",
+          "true"
+        ],
+        "skip": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "sparse": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "tags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "topo-order": [
+          "undefined",
+          "true"
+        ],
+        "unpacked": [
+          "undefined",
+          "true"
+        ],
+        "until": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verify-objects": [
+          "undefined",
+          "true"
+        ],
+        "walk-reflogs": [
+          "undefined",
+          "true"
+        ],
+        "revision-diff": [
+          "undefined",
+          "true"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "header": [
+          "undefined",
+          "true"
+        ],
+        "timestamp": [
+          "undefined",
+          "true"
+        ],
+        "bisect-all": [
+          "undefined",
+          "true"
+        ],
+        "bisect-vars": [
+          "undefined",
+          "true"
+        ],
+        "use-bitmap-index": [
+          "undefined",
+          "true"
+        ],
+        "test-bitmap": [
+          "undefined",
+          "true"
+        ],
+        "filter-provided-objects": [
+          "undefined",
+          "true"
+        ],
+        "filter-print-omitted": [
+          "undefined",
+          "true"
+        ],
+        "exclude-promisor-objects": [
+          "undefined",
+          "true"
+        ],
+        "object-names": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "commit-header": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "disk-usage": [
+          "undefined",
+          "\"human\"",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "argumentTokens": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operandsBeforeSeparator": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ]
+      },
+      "total": "308568947386574650269091506600720196255201737532209490821120000000000000000000000000000000000000000000000000",
+      "accepted": "201562405889443582634639641101777027234346932993802871150745747456000000000000000000000000000000000000000",
+      "nodes": 588652,
+      "isolatedRuleWitnesses": {
+        "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"test-bitmap\":true}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"pickaxe-regex\":true,\"test-bitmap\":true}",
+        "diff.object-pickaxe-all": "{\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"pickaxe-all\":true,\"verify-objects\":true}",
+        "revision.graph-walk-order": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"reverse\":true,\"verify-objects\":true,\"walk-reflogs\":true}",
+        "revision.boundary-maximal": "{\"argumentTokens\":[],\"boundary\":true,\"maximal-only\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "revision.graph-lanes": "{\"argumentTokens\":[],\"graph-lane-limit\":1,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "revision.grep-reflog": "{\"argumentTokens\":[],\"grep-reflog\":[\"\"],\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "revision.linear-graph": "{\"argumentTokens\":[],\"graph\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"show-linear-break\":\"\",\"verify-objects\":true}",
+        "revision.children-parents": "{\"argumentTokens\":[],\"children\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"rewrite-parents\":true,\"verify-objects\":true}",
+        "revision.limited-reflog": "{\"argumentTokens\":[],\"limited\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true,\"walk-reflogs\":true}",
+        "revision.combined-paths": "{\"argumentTokens\":[],\"combined-all-paths\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "revision.object-filter": "{\"argumentTokens\":[],\"filter\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"test-bitmap\":true}",
+        "cli.rev-list.missing-promisor": "{\"argumentTokens\":[],\"exclude-promisor-objects\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.nul-output": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"rev-list-nul\":true,\"verbose-header\":true,\"verify-objects\":true}",
+        "cli.rev-list.notes": "{\"argumentTokens\":[],\"notes-enabled\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.default-notes": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"show-notes-by-default\":true,\"verify-objects\":true}",
+        "cli.rev-list.marked-count-objects": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "cli.rev-list.marked-count-objects-edge": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects-edge\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "cli.rev-list.marked-count-objects-edge-aggressive": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"objects-edge-aggressive\":true,\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "cli.rev-list.marked-count-verify-objects": "{\"argumentTokens\":[],\"count\":true,\"left-right\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.input": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[]}",
+        "cli.rev-list.revision-diff": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"revision-diff\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-patch": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"patch\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-u": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"u\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-unified": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"unified\":\"\",\"verify-objects\":true}",
+        "cli.rev-list.diff-raw": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"raw\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-patch-with-raw": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"patch-with-raw\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-patch-with-stat": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"patch-with-stat\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-numstat": "{\"argumentTokens\":[],\"numstat\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-shortstat": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"shortstat\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-summary": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"summary\":true,\"verify-objects\":true}",
+        "cli.rev-list.diff-stat": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat\":\"\",\"verify-objects\":true}",
+        "cli.rev-list.diff-stat-width": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat-width\":\"\",\"verify-objects\":true}",
+        "cli.rev-list.diff-stat-name-width": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat-name-width\":\"\",\"verify-objects\":true}",
+        "cli.rev-list.diff-stat-graph-width": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat-graph-width\":\"\",\"verify-objects\":true}",
+        "cli.rev-list.diff-stat-count": "{\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"stat-count\":\"\",\"verify-objects\":true}",
+        "cli.rev-list.diff-compact-summary": "{\"argumentTokens\":[],\"compact-summary\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-binary": "{\"argumentTokens\":[],\"binary\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-dirstat": "{\"argumentTokens\":[],\"dirstat\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-cumulative": "{\"argumentTokens\":[],\"cumulative\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-dirstat-by-file": "{\"argumentTokens\":[],\"dirstat-by-file\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-name-only": "{\"argumentTokens\":[],\"name-only\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-name-status": "{\"argumentTokens\":[],\"name-status\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.diff-check": "{\"argumentTokens\":[],\"check\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.search-S": "{\"S\":\"\",\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.search-G": "{\"G\":\"\",\"argumentTokens\":[],\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
+        "cli.rev-list.search-follow": "{\"argumentTokens\":[],\"follow\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}"
+      }
+    },
+    {
+      "command": "bundle create",
+      "rules": 2,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all-progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all-progress-implied": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "version": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "34020",
+      "accepted": "15552",
+      "nodes": 7,
+      "isolatedRuleWitnesses": {
+        "cli.bundle-create.file": "{\"operands\":[]}",
+        "cli.bundle-create.version": "{\"operands\":[\"value\"],\"version\":-2}"
+      }
+    },
+    {
+      "command": "bundle verify",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "144",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bundle-verify.file": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "bundle list-heads",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bundle-list-heads.file": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "bundle unbundle",
+      "rules": 1,
+      "domains": {
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "144",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.bundle-unbundle.file": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "history fixup",
+      "rules": 1,
+      "domains": {
+        "update-refs": [
+          "undefined",
+          "\"branches\"",
+          "\"head\""
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reedit-message": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "empty": [
+          "undefined",
+          "\"drop\"",
+          "\"keep\"",
+          "\"abort\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "6480",
+      "accepted": "1296",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.history-fixup.revision": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "history reword",
+      "rules": 1,
+      "domains": {
+        "update-refs": [
+          "undefined",
+          "\"branches\"",
+          "\"head\""
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "540",
+      "accepted": "108",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.history-reword.revision": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "history split",
+      "rules": 1,
+      "domains": {
+        "update-refs": [
+          "undefined",
+          "\"branches\"",
+          "\"head\""
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "540",
+      "accepted": "432",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.history-split.revision": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "repo info",
+      "rules": 4,
+      "domains": {
+        "format": [
+          "undefined",
+          "\"nul\"",
+          "\"lines\"",
+          "\"table\""
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keys": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "2160",
+      "accepted": "864",
+      "nodes": 38,
+      "isolatedRuleWitnesses": {
+        "cli.repo-info.keys-all": "{\"all\":true,\"keys\":true,\"operands\":[]}",
+        "cli.repo-info.keys-operands": "{\"keys\":true,\"operands\":[\"value\"]}",
+        "cli.repo-info.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.repo-info.format": "{\"format\":\"table\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "repo structure",
+      "rules": 1,
+      "domains": {
+        "format": [
+          "undefined",
+          "\"nul\"",
+          "\"lines\"",
+          "\"table\""
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "144",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.repo-structure.operands": "{\"operands\":[\"value\"]}"
       }
     },
     {
