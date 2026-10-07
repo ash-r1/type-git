@@ -3430,6 +3430,76 @@
         "test/types/merge-tools-command-api.ts"
       ],
       "remaining": "Merge bases/head/index state, rename score grammar, merge-index ordered prefix interpretation, shell tool wildcard spellings, delegated diff processing after tool-help and remote request-pull resolution remain pending. No fixed maximum is invented for ignored excess merge bases or request-pull words."
+    },
+    "help": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Viewer/configuration state, numeric lexical forms, service protocol and filesystem/credential state remain pending. Daemon inetd/port constraints require native unsigned-to-int conversion and are not yet encoded."
+    },
+    "daemon": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Viewer/configuration state, numeric lexical forms, service protocol and filesystem/credential state remain pending. Daemon inetd/port constraints require native unsigned-to-int conversion and are not yet encoded."
+    },
+    "fsmonitor--daemon": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "This platform-dependent builtin is unavailable in the Linux fixture build; grammar comes from the supported-platform source branch. Native successful operations, IPC lifecycle/configuration behavior and platform-dependent support remain pending."
+    },
+    "fsmonitor--daemon start": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "This platform-dependent builtin is unavailable in the Linux fixture build; grammar comes from the supported-platform source branch. Native successful operations, IPC lifecycle/configuration behavior and platform-dependent support remain pending."
+    },
+    "fsmonitor--daemon run": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "This platform-dependent builtin is unavailable in the Linux fixture build; grammar comes from the supported-platform source branch. Native successful operations, IPC lifecycle/configuration behavior and platform-dependent support remain pending."
+    },
+    "fsmonitor--daemon stop": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "This platform-dependent builtin is unavailable in the Linux fixture build; grammar comes from the supported-platform source branch. Native successful operations, IPC lifecycle/configuration behavior and platform-dependent support remain pending."
+    },
+    "fsmonitor--daemon status": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "This platform-dependent builtin is unavailable in the Linux fixture build; grammar comes from the supported-platform source branch. Native successful operations, IPC lifecycle/configuration behavior and platform-dependent support remain pending."
     }
   }
 }

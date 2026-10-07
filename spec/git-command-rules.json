@@ -16769,5 +16769,508 @@
       "reason": "The starting revision string must not be empty.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-request-pull.sh"
     }
+  ],
+  "help": [
+    {
+      "id": "cli.help.external-commands",
+      "kind": "requires",
+      "when": {
+        "key": "external-commands",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "all",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit enable or disable of this selector requires all mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.aliases",
+      "kind": "requires",
+      "when": {
+        "key": "aliases",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "all",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Explicit enable or disable of this selector requires all mode.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.all-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "all",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Listing modes accept no document operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.all-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "format",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes cannot select a manual viewer format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.guides-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "guides",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Listing modes accept no document operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.guides-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "guides",
+          "test": "active"
+        },
+        {
+          "key": "format",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes cannot select a manual viewer format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.user-interfaces-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "user-interfaces",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Listing modes accept no document operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.user-interfaces-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "user-interfaces",
+          "test": "active"
+        },
+        {
+          "key": "format",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes cannot select a manual viewer format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.developer-interfaces-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "developer-interfaces",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Listing modes accept no document operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.developer-interfaces-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "developer-interfaces",
+          "test": "active"
+        },
+        {
+          "key": "format",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes cannot select a manual viewer format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.config-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "config",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Listing modes accept no document operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.config-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "config",
+          "test": "active"
+        },
+        {
+          "key": "format",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes cannot select a manual viewer format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.config-for-completion-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "config-for-completion",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Listing modes accept no document operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.config-for-completion-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "config-for-completion",
+          "test": "active"
+        },
+        {
+          "key": "format",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes cannot select a manual viewer format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.config-sections-for-completion-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "config-sections-for-completion",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Listing modes accept no document operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.config-sections-for-completion-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "config-sections-for-completion",
+          "test": "active"
+        },
+        {
+          "key": "format",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes cannot select a manual viewer format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.aliases-for-completion-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "aliases-for-completion",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Listing modes accept no document operands.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    },
+    {
+      "id": "cli.help.aliases-for-completion-format",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "aliases-for-completion",
+          "test": "active"
+        },
+        {
+          "key": "format",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Listing modes cannot select a manual viewer format.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/help.c"
+    }
+  ],
+  "daemon": [
+    {
+      "id": "cli.daemon.inetd-detach",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "inetd",
+          "test": "active"
+        },
+        {
+          "key": "detach",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "Inetd mode cannot detach.",
+      "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
+    },
+    {
+      "id": "cli.daemon.group-user",
+      "kind": "requires",
+      "when": {
+        "key": "group",
+        "test": "present"
+      },
+      "required": [
+        {
+          "key": "user",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "An explicit group requires a user, including empty values.",
+      "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
+    },
+    {
+      "id": "cli.daemon.strict-paths",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "when": {
+        "key": "strict-paths",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "Strict paths requires at least one allowed directory argument.",
+      "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
+    },
+    {
+      "id": "cli.daemon.inetd-user",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "inetd",
+          "test": "active"
+        },
+        {
+          "key": "user",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Inetd mode excludes explicit credentials and listen addresses.",
+      "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
+    },
+    {
+      "id": "cli.daemon.inetd-group",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "inetd",
+          "test": "active"
+        },
+        {
+          "key": "group",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Inetd mode excludes explicit credentials and listen addresses.",
+      "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
+    },
+    {
+      "id": "cli.daemon.inetd-listen",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "inetd",
+          "test": "active"
+        },
+        {
+          "key": "listen",
+          "test": "present"
+        }
+      ],
+      "origin": "git",
+      "reason": "Inetd mode excludes explicit credentials and listen addresses.",
+      "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
+    }
+  ],
+  "fsmonitor--daemon": [
+    {
+      "id": "cli.fsmonitor--daemon.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Exactly one operation is required by the root parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    },
+    {
+      "id": "cli.fsmonitor--daemon.threads",
+      "kind": "range",
+      "key": "ipc-threads",
+      "min": 1,
+      "origin": "git",
+      "reason": "At least one IPC worker thread is required after option parsing.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    },
+    {
+      "id": "cli.fsmonitor--daemon.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "start",
+        "run",
+        "stop",
+        "status"
+      ],
+      "origin": "git",
+      "reason": "Only the four registered daemon operations are accepted.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    }
+  ],
+  "fsmonitor--daemon start": [
+    {
+      "id": "cli.fsmonitor--daemon-start.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Exactly one operation is required by the root parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    },
+    {
+      "id": "cli.fsmonitor--daemon-start.threads",
+      "kind": "range",
+      "key": "ipc-threads",
+      "min": 1,
+      "origin": "git",
+      "reason": "At least one IPC worker thread is required after option parsing.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    }
+  ],
+  "fsmonitor--daemon run": [
+    {
+      "id": "cli.fsmonitor--daemon-run.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Exactly one operation is required by the root parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    },
+    {
+      "id": "cli.fsmonitor--daemon-run.threads",
+      "kind": "range",
+      "key": "ipc-threads",
+      "min": 1,
+      "origin": "git",
+      "reason": "At least one IPC worker thread is required after option parsing.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    }
+  ],
+  "fsmonitor--daemon stop": [
+    {
+      "id": "cli.fsmonitor--daemon-stop.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Exactly one operation is required by the root parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    },
+    {
+      "id": "cli.fsmonitor--daemon-stop.threads",
+      "kind": "range",
+      "key": "ipc-threads",
+      "min": 1,
+      "origin": "git",
+      "reason": "At least one IPC worker thread is required after option parsing.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    }
+  ],
+  "fsmonitor--daemon status": [
+    {
+      "id": "cli.fsmonitor--daemon-status.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Exactly one operation is required by the root parser.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    },
+    {
+      "id": "cli.fsmonitor--daemon-status.threads",
+      "kind": "range",
+      "key": "ipc-threads",
+      "min": 1,
+      "origin": "git",
+      "reason": "At least one IPC worker thread is required after option parsing.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c"
+    }
   ]
 }
