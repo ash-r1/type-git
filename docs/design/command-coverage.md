@@ -16,7 +16,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `apply` | documented | partial | yes |  | Patch content/index/repository conditions, path normalization, numeric lexical spellings, abbreviations and binary I/O. Git 2.55 negated whitespace/directory callbacks abort the process; these two spellings are deliberately omitted (documented wrapper exception). |
 | `archimport` | documented | pending | pending |  | Audit every applicable facet. |
 | `archive` | documented | pending | pending |  | Audit every applicable facet. |
-| `backfill` | documented | pending | pending |  | Audit every applicable facet. |
+| `backfill` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. |
 | `bisect` | documented | pending | pending |  | Audit every applicable facet. |
 | `blame` | documented | pending | pending |  | Audit every applicable facet. |
 | `branch` | documented | partial | yes |  | Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering. |
@@ -72,7 +72,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `diff --no-index` | reviewed-scope | partial | yes |  | Filesystem-dependent file/directory operand rules, pathspec grammar, callback argument languages and binary output. |
 | `diff-files` | documented | partial | yes |  | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
 | `diff-index` | documented | partial | yes |  | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
-| `diff-pairs` | documented | pending | pending |  | Audit every applicable facet. |
+| `diff-pairs` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. |
 | `diff-tree` | documented | partial | yes |  | Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. |
 | `difftool` | documented | pending | pending |  | Audit every applicable facet. |
 | `fast-export` | documented | pending | pending |  | Audit every applicable facet. |
@@ -112,7 +112,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `init-db` | builtin-undocumented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `instaweb` | documented | pending | pending |  | Audit every applicable facet. |
 | `interpret-trailers` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
-| `last-modified` | documented | pending | pending |  | Audit every applicable facet. |
+| `last-modified` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Its single positive commit requirement depends on revision resolution, not raw operand count. |
 | `lfs` | reviewed-scope | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `lfs checkout` | lfs-registered | partial | yes | lfsCheckout | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `lfs clean` | lfs-registered | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
@@ -216,7 +216,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `pull` | documented | partial | pending | pull | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
 | `push` | documented | partial | yes | push | Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations. |
 | `quiltimport` | documented | pending | pending |  | Audit every applicable facet. |
-| `range-diff` | documented | pending | pending |  | Audit every applicable facet. |
+| `range-diff` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. One symmetric range, two ranges or three commits are resolved before optional paths; no raw maximum operand count is imposed without a separator. |
 | `read-tree` | documented | partial | yes |  | Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. |
 | `rebase` | documented | partial | yes | rebase | Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions. |
 | `receive-pack` | documented | pending | pending |  | Audit every applicable facet. |
@@ -250,7 +250,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `remote-fd` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `repack` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
 | `replace` | documented | partial | yes |  | Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. |
-| `replay` | documented | pending | pending |  | Audit every applicable facet. |
+| `replay` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Initial reverse traversal depends on mode before revision parsing; subsequent native warning overrides need phase-aware modeling. |
 | `repo` | documented | pending | pending |  | Audit every applicable facet. |
 | `repo info` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
 | `repo structure` | reviewed-scope | partial | yes |  | Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. |
