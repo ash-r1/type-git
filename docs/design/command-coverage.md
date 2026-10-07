@@ -195,6 +195,13 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `rebase` | documented | partial | pending | rebase | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
 | `receive-pack` | documented | pending | pending |  | Audit every applicable facet. |
 | `reflog` | documented | pending | pending |  | Audit every applicable facet. |
+| `reflog delete` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
+| `reflog drop` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
+| `reflog exists` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
+| `reflog expire` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
+| `reflog list` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
+| `reflog show` | reviewed-scope | partial | yes |  | Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. |
+| `reflog write` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
 | `refs` | documented | pending | pending |  | Audit every applicable facet. |
 | `remote` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `remote add` | reviewed-scope | partial | yes | remoteAdd | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
@@ -246,6 +253,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `stash pop` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `stash push` | reviewed-scope | partial | yes | stashPush | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `stash save` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
+| `stash show` | reviewed-scope | partial | yes |  | Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. |
 | `stash store` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `status` | documented | partial | yes | status | Callback grammars, configuration-dependent defaults, abbreviations and independent coverage of all output values. |
 | `stripspace` | documented | pending | pending |  | Audit every applicable facet. |

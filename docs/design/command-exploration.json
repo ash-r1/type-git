@@ -6158,7 +6158,7 @@
           }
         }
       ],
-      "rules": 14,
+      "rules": 15,
       "domains": {
         "quiet": [
           "undefined",
@@ -7319,6 +7319,13 @@
           "undefined",
           "true"
         ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -7341,9 +7348,9 @@
           "[\"value\"]"
         ]
       },
-      "total": "2142839912406768404646468795838334696216678732862565908480000000000000000000000000000000000000000000000000",
-      "accepted": "2350598382926535744619599679912207805035053016591957072281600000000000000000000000000000000000000000000",
-      "nodes": 9090,
+      "total": "10714199562033842023232343979191673481083393664312829542400000000000000000000000000000000000000000000000000",
+      "accepted": "11165342318901044786943098479582987073916501828811796093337600000000000000000000000000000000000000000000",
+      "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -7357,6 +7364,7 @@
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
         "revision.line-pathspec": "{\"L\":\"\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
         "revision.line-full-diff": "{\"L\":\"\",\"full-diff\":true,\"operands\":[]}"
       }
@@ -7601,7 +7609,7 @@
           }
         }
       ],
-      "rules": 14,
+      "rules": 15,
       "domains": {
         "quiet": [
           "undefined",
@@ -8762,6 +8770,13 @@
           "undefined",
           "true"
         ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -8784,9 +8799,9 @@
           "[\"value\"]"
         ]
       },
-      "total": "2142839912406768404646468795838334696216678732862565908480000000000000000000000000000000000000000000000000",
-      "accepted": "2350598382926535744619599679912207805035053016591957072281600000000000000000000000000000000000000000000",
-      "nodes": 9090,
+      "total": "10714199562033842023232343979191673481083393664312829542400000000000000000000000000000000000000000000000000",
+      "accepted": "11165342318901044786943098479582987073916501828811796093337600000000000000000000000000000000000000000000",
+      "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -8800,6 +8815,7 @@
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
         "revision.line-pathspec": "{\"L\":\"\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
         "revision.line-full-diff": "{\"L\":\"\",\"full-diff\":true,\"operands\":[]}"
       }
@@ -9045,7 +9061,7 @@
           }
         }
       ],
-      "rules": 12,
+      "rules": 13,
       "domains": {
         "no-output": [
           "undefined",
@@ -10148,6 +10164,13 @@
           "undefined",
           "true"
         ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
         "merge-base": [
           "undefined",
           "true"
@@ -10177,9 +10200,9 @@
           "true"
         ]
       },
-      "total": "30863949355653042865278357141704409204766977633822965760000000000000000000000000000000000000000000000",
-      "accepted": "72549332806374560019123446910870611266513981993578921984000000000000000000000000000000000000000000",
-      "nodes": 4121,
+      "total": "154319746778265214326391785708522046023834888169114828800000000000000000000000000000000000000000000000",
+      "accepted": "344609330830279160090836372826635403515941414469499879424000000000000000000000000000000000000000000",
+      "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -10192,7 +10215,8 @@
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
-        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}"
+        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}"
       }
     },
     {
@@ -10436,7 +10460,7 @@
           }
         }
       ],
-      "rules": 12,
+      "rules": 13,
       "domains": {
         "no-output": [
           "undefined",
@@ -11539,6 +11563,13 @@
           "undefined",
           "true"
         ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
         "silent-removed": [
           "undefined",
           "true"
@@ -11560,9 +11591,9 @@
           "true"
         ]
       },
-      "total": "7715987338913260716319589285426102301191744408455741440000000000000000000000000000000000000000000000",
-      "accepted": "18137333201593640004780861727717652816628495498394730496000000000000000000000000000000000000000000",
-      "nodes": 4121,
+      "total": "38579936694566303581597946427130511505958722042278707200000000000000000000000000000000000000000000000",
+      "accepted": "86152332707569790022709093206658850878985353617374969856000000000000000000000000000000000000000000",
+      "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -11575,7 +11606,8 @@
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
-        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}"
+        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}"
       }
     },
     {
@@ -11818,7 +11850,7 @@
           }
         }
       ],
-      "rules": 12,
+      "rules": 13,
       "domains": {
         "no-output": [
           "undefined",
@@ -12924,6 +12956,13 @@
           "undefined",
           "true"
         ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
         "merge-base": [
           "undefined",
           "true"
@@ -12949,9 +12988,9 @@
           "true"
         ]
       },
-      "total": "26454813733416893884524306121460922175514552257562542080000000000000000000000000000000000000000000000",
-      "accepted": "62185142405463908587820097352174809657011984565924790272000000000000000000000000000000000000000000",
-      "nodes": 4121,
+      "total": "132274068667084469422621530607304610877572761287812710400000000000000000000000000000000000000000000000",
+      "accepted": "295379426425953565792145462422830345870806926688142753792000000000000000000000000000000000000000000",
+      "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -12964,7 +13003,8 @@
         "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
-        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}"
+        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}"
       }
     },
     {
@@ -13190,7 +13230,7 @@
           }
         }
       ],
-      "rules": 13,
+      "rules": 14,
       "domains": {
         "no-output": [
           "undefined",
@@ -14292,6 +14332,13 @@
           "undefined",
           "true"
         ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
         "merge-base": [
           "undefined",
           "true"
@@ -14313,9 +14360,9 @@
           "true"
         ]
       },
-      "total": "6613703433354223471131076530365230543878638064390635520000000000000000000000000000000000000000000000",
-      "accepted": "11659714201024482860216268253532776810689747106110898176000000000000000000000000000000000000000000",
-      "nodes": 5885,
+      "total": "33068517166771117355655382651826152719393190321953177600000000000000000000000000000000000000000000000",
+      "accepted": "55383642454866293586027274204280689850776298754026766336000000000000000000000000000000000000000000",
+      "nodes": 11842,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -14329,6 +14376,7 @@
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
         "revision.tree-stdin-base": "{\"merge-base\":true,\"operands\":[],\"stdin\":true}"
       }
     },
@@ -14914,6 +14962,3137 @@
         "diff.pickaxe-regex": "{\"G\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-regex\":true}",
         "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[\"value\",\"value\"],\"pickaxe-all\":true}",
         "diff.no-index-paths": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "reflog list",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "reflog.list-arity": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "reflog exists",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "reflog.exists-arity": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "reflog write",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "72",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "reflog.write-arity": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "reflog delete",
+      "rules": 1,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "rewrite": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "updateref": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "4860",
+      "accepted": "3888",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "reflog.delete-arity": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "reflog drop",
+      "rules": 1,
+      "domains": {
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "single-worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "540",
+      "accepted": "396",
+      "nodes": 6,
+      "isolatedRuleWitnesses": {
+        "reflog.drop-all-refs": "{\"all\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "reflog expire",
+      "rules": 0,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "rewrite": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "updateref": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "expire": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "expire-unreachable": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stale-fix": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "single-worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3280500",
+      "accepted": "3280500",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "reflog show",
+      "transitions": [
+        {
+          "flag": "-S",
+          "rules": [
+            "revision.pickaxe-nonempty-S"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-S": "{}"
+          }
+        },
+        {
+          "flag": "-G",
+          "rules": [
+            "revision.pickaxe-nonempty-G"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-G": "{}"
+          }
+        },
+        {
+          "flag": "--cherry",
+          "rules": [
+            "revision.cherry-prior-conflict"
+          ],
+          "domains": {
+            "left-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-prior-conflict": "{\"left-only\":true}"
+          }
+        },
+        {
+          "flag": "--cherry-mark",
+          "rules": [
+            "revision.cherry-mark-prior-conflict"
+          ],
+          "domains": {
+            "cherry-pick": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-mark-prior-conflict": "{\"cherry-pick\":true}"
+          }
+        },
+        {
+          "flag": "--cherry-pick",
+          "rules": [
+            "revision.cherry-pick-prior-conflict"
+          ],
+          "domains": {
+            "cherry-mark": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-pick-prior-conflict": "{\"cherry-mark\":true}"
+          }
+        },
+        {
+          "flag": "--expand-tabs",
+          "rules": [
+            "revision.tabs-nonnegative"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2",
+              "8"
+            ]
+          },
+          "total": "7",
+          "accepted": "5",
+          "isolatedRuleWitnesses": {
+            "revision.tabs-nonnegative": "{\"$value\":-2}"
+          }
+        },
+        {
+          "flag": "--left-only",
+          "rules": [
+            "revision.left-only-prior-conflict"
+          ],
+          "domains": {
+            "right-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.left-only-prior-conflict": "{\"right-only\":true}"
+          }
+        },
+        {
+          "flag": "--max-count",
+          "rules": [
+            "revision.count-after-oldest"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "revision.count-after-oldest": "{\"max-count-mode\":\"oldest\"}"
+          }
+        },
+        {
+          "flag": "--max-count-oldest",
+          "rules": [
+            "revision.oldest-after-count",
+            "revision.oldest-after-skip"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ],
+            "max-count": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ],
+            "skip": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "total": "108",
+          "accepted": "40",
+          "isolatedRuleWitnesses": {
+            "revision.oldest-after-count": "{\"max-count\":-2}",
+            "revision.oldest-after-skip": "{\"skip\":1}"
+          }
+        },
+        {
+          "flag": "--right-only",
+          "rules": [
+            "revision.right-only-prior-conflict"
+          ],
+          "domains": {
+            "left-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.right-only-prior-conflict": "{\"left-only\":true}"
+          }
+        },
+        {
+          "flag": "--skip",
+          "rules": [
+            "revision.skip-after-oldest"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "revision.skip-after-oldest": "{\"max-count-mode\":\"oldest\"}"
+          }
+        },
+        {
+          "flag": "--stdin",
+          "rules": [
+            "revision.stdin-repeated"
+          ],
+          "domains": {
+            "stdin": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.stdin-repeated": "{\"stdin\":true}"
+          }
+        }
+      ],
+      "rules": 15,
+      "domains": {
+        "walk-reflogs": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "source": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "use-mailmap": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "i-still-use-this": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "clear-decorations": [
+          "undefined",
+          "true"
+        ],
+        "decorate-refs": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "decorate-refs-exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "decorate": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "L": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-output": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "patch": [
+          "undefined",
+          "true"
+        ],
+        "name-only": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "name-status": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "check": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "u": [
+          "undefined",
+          "true"
+        ],
+        "unified": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "function-context": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-stat": [
+          "undefined",
+          "true"
+        ],
+        "numstat": [
+          "undefined",
+          "true"
+        ],
+        "shortstat": [
+          "undefined",
+          "true"
+        ],
+        "dirstat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cumulative": [
+          "undefined",
+          "true"
+        ],
+        "dirstat-by-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "summary": [
+          "undefined",
+          "true"
+        ],
+        "stat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "stat-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-name-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-graph-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-count": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "compact-summary": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "binary": [
+          "undefined",
+          "true"
+        ],
+        "full-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "ws-error-highlight": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "src-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dst-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "line-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-prefix": [
+          "undefined",
+          "true"
+        ],
+        "default-prefix": [
+          "undefined",
+          "true"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "output-indicator-new": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-old": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-context": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "break-rewrites": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "irreversible-delete": [
+          "undefined",
+          "true"
+        ],
+        "find-copies": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-copies-harder": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "rename-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "follow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "l": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "minimal": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-blank-lines": [
+          "undefined",
+          "true"
+        ],
+        "ignore-matching-lines": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "indent-heuristic": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\""
+        ],
+        "anchored": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "word-diff": [
+          "undefined",
+          "\"plain\"",
+          "\"color\"",
+          "\"porcelain\"",
+          "\"none\"",
+          "true"
+        ],
+        "word-diff-regex": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color-words": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved-ws": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "relative": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "text": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "R": [
+          "undefined",
+          "true"
+        ],
+        "exit-code": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ext-diff": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "textconv": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-submodules": [
+          "undefined",
+          "\"all\"",
+          "\"dirty\"",
+          "\"untracked\"",
+          "\"none\"",
+          "true"
+        ],
+        "submodule": [
+          "undefined",
+          "\"short\"",
+          "\"log\"",
+          "\"diff\"",
+          "true"
+        ],
+        "ita-invisible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "ita-visible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "S": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "G": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pickaxe-all": [
+          "undefined",
+          "true"
+        ],
+        "pickaxe-regex": [
+          "undefined",
+          "true"
+        ],
+        "O": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rotate-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "skip-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "find-object": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-abbrev": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "abbrev-commit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "after": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "all-match": [
+          "undefined",
+          "true"
+        ],
+        "alternate-refs": [
+          "undefined",
+          "true"
+        ],
+        "always": [
+          "undefined",
+          "true"
+        ],
+        "limited": [
+          "undefined",
+          "true"
+        ],
+        "ancestry-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "author": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "author-date-order": [
+          "undefined",
+          "true"
+        ],
+        "basic-regexp": [
+          "undefined",
+          "true"
+        ],
+        "before": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bisect": [
+          "undefined",
+          "true"
+        ],
+        "boundary": [
+          "undefined",
+          "true"
+        ],
+        "branches": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "combined-all-paths": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "diff-merges": [
+          "undefined",
+          "\"dense-combined\"",
+          "\"first-parent\"",
+          "\"off\"",
+          "\"none\"",
+          "\"1\"",
+          "\"separate\"",
+          "\"c\"",
+          "\"combined\"",
+          "\"cc\"",
+          "\"r\"",
+          "\"remerge\"",
+          "\"m\"",
+          "\"on\""
+        ],
+        "cherry-mark": [
+          "undefined",
+          "true"
+        ],
+        "right-only": [
+          "undefined",
+          "true"
+        ],
+        "max-parents": [
+          "undefined",
+          "1",
+          "-2",
+          "-1",
+          "0",
+          "2"
+        ],
+        "cherry": [
+          "undefined",
+          "true"
+        ],
+        "cherry-pick": [
+          "undefined",
+          "true"
+        ],
+        "children": [
+          "undefined",
+          "true"
+        ],
+        "committer": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "count": [
+          "undefined",
+          "true"
+        ],
+        "date": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "date-order": [
+          "undefined",
+          "true"
+        ],
+        "default": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dense": [
+          "undefined",
+          "true"
+        ],
+        "no-walk": [
+          "undefined",
+          "false",
+          "\"sorted\"",
+          "\"unsorted\"",
+          "true"
+        ],
+        "encode-email-headers": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "encoding": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-first-parent-only": [
+          "undefined",
+          "true"
+        ],
+        "exclude-hidden": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "expand-tabs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "8"
+        ],
+        "extended-regexp": [
+          "undefined",
+          "true"
+        ],
+        "first-parent": [
+          "undefined",
+          "true"
+        ],
+        "fixed-strings": [
+          "undefined",
+          "true"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "full-diff": [
+          "undefined",
+          "true"
+        ],
+        "full-history": [
+          "undefined",
+          "true"
+        ],
+        "glob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "graph": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "graph-lane-limit": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "grep": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "grep-reflog": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ignore-missing": [
+          "undefined",
+          "true"
+        ],
+        "in-commit-order": [
+          "undefined",
+          "true"
+        ],
+        "indexed-objects": [
+          "undefined",
+          "true"
+        ],
+        "invert-grep": [
+          "undefined",
+          "true"
+        ],
+        "left-only": [
+          "undefined",
+          "true"
+        ],
+        "left-right": [
+          "undefined",
+          "true"
+        ],
+        "log-size": [
+          "undefined",
+          "true"
+        ],
+        "max-age": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-count-mode": [
+          "undefined",
+          "\"newest\"",
+          "\"oldest\""
+        ],
+        "max-count": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "maximal-only": [
+          "undefined",
+          "true"
+        ],
+        "merge": [
+          "undefined",
+          "true"
+        ],
+        "merges": [
+          "undefined",
+          "true"
+        ],
+        "min-age": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "min-parents": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-commit-id": [
+          "undefined",
+          "true"
+        ],
+        "no-kept-objects": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "no-max-parents": [
+          "undefined",
+          "true"
+        ],
+        "no-merges": [
+          "undefined",
+          "true"
+        ],
+        "no-min-parents": [
+          "undefined",
+          "true"
+        ],
+        "no-notes": [
+          "undefined",
+          "true"
+        ],
+        "show-signature": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "standard-notes": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "not": [
+          "undefined",
+          "true"
+        ],
+        "notes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "objects": [
+          "undefined",
+          "true"
+        ],
+        "objects-edge": [
+          "undefined",
+          "true"
+        ],
+        "objects-edge-aggressive": [
+          "undefined",
+          "true"
+        ],
+        "oneline": [
+          "undefined",
+          "true"
+        ],
+        "rewrite-parents": [
+          "undefined",
+          "true"
+        ],
+        "parents": [
+          "undefined",
+          "true"
+        ],
+        "perl-regexp": [
+          "undefined",
+          "true"
+        ],
+        "pretty": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "reflog": [
+          "undefined",
+          "true"
+        ],
+        "regexp-ignore-case": [
+          "undefined",
+          "true"
+        ],
+        "relative-date": [
+          "undefined",
+          "true"
+        ],
+        "remotes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "remove-empty": [
+          "undefined",
+          "true"
+        ],
+        "reverse": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "root": [
+          "undefined",
+          "true"
+        ],
+        "show-linear-break": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "show-notes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "show-notes-by-default": [
+          "undefined",
+          "true"
+        ],
+        "show-pulls": [
+          "undefined",
+          "true"
+        ],
+        "simplify-by-decoration": [
+          "undefined",
+          "true"
+        ],
+        "simplify-merges": [
+          "undefined",
+          "true"
+        ],
+        "since": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "since-as-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "single-worktree": [
+          "undefined",
+          "true"
+        ],
+        "skip": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "sparse": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "tags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "topo-order": [
+          "undefined",
+          "true"
+        ],
+        "unpacked": [
+          "undefined",
+          "true"
+        ],
+        "until": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verify-objects": [
+          "undefined",
+          "true"
+        ],
+        "r": [
+          "undefined",
+          "true"
+        ],
+        "t": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "true"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ]
+      },
+      "total": "10714199562033842023232343979191673481083393664312829542400000000000000000000000000000000000000000000000000",
+      "accepted": "11165342318901044786943098479582987073916501828811796093337600000000000000000000000000000000000000000000",
+      "nodes": 17668,
+      "isolatedRuleWitnesses": {
+        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
+        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
+        "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
+        "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
+        "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
+        "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
+        "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
+        "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
+        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
+        "revision.line-pathspec": "{\"L\":\"\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "revision.line-full-diff": "{\"L\":\"\",\"full-diff\":true,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "stash show",
+      "transitions": [
+        {
+          "flag": "-S",
+          "rules": [
+            "revision.pickaxe-nonempty-S"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-S": "{}"
+          }
+        },
+        {
+          "flag": "-G",
+          "rules": [
+            "revision.pickaxe-nonempty-G"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "revision.pickaxe-nonempty-G": "{}"
+          }
+        },
+        {
+          "flag": "--cherry",
+          "rules": [
+            "revision.cherry-prior-conflict"
+          ],
+          "domains": {
+            "left-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-prior-conflict": "{\"left-only\":true}"
+          }
+        },
+        {
+          "flag": "--cherry-mark",
+          "rules": [
+            "revision.cherry-mark-prior-conflict"
+          ],
+          "domains": {
+            "cherry-pick": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-mark-prior-conflict": "{\"cherry-pick\":true}"
+          }
+        },
+        {
+          "flag": "--cherry-pick",
+          "rules": [
+            "revision.cherry-pick-prior-conflict"
+          ],
+          "domains": {
+            "cherry-mark": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.cherry-pick-prior-conflict": "{\"cherry-mark\":true}"
+          }
+        },
+        {
+          "flag": "--default",
+          "rules": [
+            "stash.show-default-word"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\"",
+              "\"-\"",
+              "\"-value\""
+            ]
+          },
+          "total": "7",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "stash.show-default-word": "{}"
+          }
+        },
+        {
+          "flag": "--expand-tabs",
+          "rules": [
+            "revision.tabs-nonnegative"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2",
+              "8"
+            ]
+          },
+          "total": "7",
+          "accepted": "5",
+          "isolatedRuleWitnesses": {
+            "revision.tabs-nonnegative": "{\"$value\":-2}"
+          }
+        },
+        {
+          "flag": "--left-only",
+          "rules": [
+            "revision.left-only-prior-conflict"
+          ],
+          "domains": {
+            "right-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.left-only-prior-conflict": "{\"right-only\":true}"
+          }
+        },
+        {
+          "flag": "--max-count",
+          "rules": [
+            "revision.count-after-oldest"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "revision.count-after-oldest": "{\"max-count-mode\":\"oldest\"}"
+          }
+        },
+        {
+          "flag": "--max-count-oldest",
+          "rules": [
+            "revision.oldest-after-count",
+            "revision.oldest-after-skip"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ],
+            "max-count": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ],
+            "skip": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "total": "108",
+          "accepted": "40",
+          "isolatedRuleWitnesses": {
+            "revision.oldest-after-count": "{\"max-count\":-2}",
+            "revision.oldest-after-skip": "{\"skip\":1}"
+          }
+        },
+        {
+          "flag": "--right-only",
+          "rules": [
+            "revision.right-only-prior-conflict"
+          ],
+          "domains": {
+            "left-only": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.right-only-prior-conflict": "{\"left-only\":true}"
+          }
+        },
+        {
+          "flag": "--skip",
+          "rules": [
+            "revision.skip-after-oldest"
+          ],
+          "domains": {
+            "max-count-mode": [
+              "undefined",
+              "\"newest\"",
+              "\"oldest\""
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "revision.skip-after-oldest": "{\"max-count-mode\":\"oldest\"}"
+          }
+        },
+        {
+          "flag": "--stdin",
+          "rules": [
+            "revision.stdin-repeated"
+          ],
+          "domains": {
+            "stdin": [
+              "undefined",
+              "true"
+            ]
+          },
+          "total": "2",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "revision.stdin-repeated": "{\"stdin\":true}"
+          }
+        }
+      ],
+      "rules": 14,
+      "domains": {
+        "untracked-mode": [
+          "undefined",
+          "\"include\"",
+          "\"only\"",
+          "\"none\""
+        ],
+        "no-output": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "patch": [
+          "undefined",
+          "true"
+        ],
+        "name-only": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "name-status": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "check": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "unified": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "function-context": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-raw": [
+          "undefined",
+          "true"
+        ],
+        "patch-with-stat": [
+          "undefined",
+          "true"
+        ],
+        "numstat": [
+          "undefined",
+          "true"
+        ],
+        "shortstat": [
+          "undefined",
+          "true"
+        ],
+        "dirstat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "cumulative": [
+          "undefined",
+          "true"
+        ],
+        "dirstat-by-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "summary": [
+          "undefined",
+          "true"
+        ],
+        "stat": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "stat-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-name-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-graph-width": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "stat-count": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "compact-summary": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "binary": [
+          "undefined",
+          "true"
+        ],
+        "full-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "ws-error-highlight": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "src-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dst-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "line-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-prefix": [
+          "undefined",
+          "true"
+        ],
+        "default-prefix": [
+          "undefined",
+          "true"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "output-indicator-new": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-old": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output-indicator-context": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "break-rewrites": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "irreversible-delete": [
+          "undefined",
+          "true"
+        ],
+        "find-copies": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "find-copies-harder": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-renames": [
+          "undefined",
+          "true"
+        ],
+        "rename-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "follow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "l": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "minimal": [
+          "undefined",
+          "true"
+        ],
+        "ignore-all-space": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-change": [
+          "undefined",
+          "true"
+        ],
+        "ignore-space-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-cr-at-eol": [
+          "undefined",
+          "true"
+        ],
+        "ignore-blank-lines": [
+          "undefined",
+          "true"
+        ],
+        "ignore-matching-lines": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "indent-heuristic": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patience": [
+          "undefined",
+          "true"
+        ],
+        "histogram": [
+          "undefined",
+          "true"
+        ],
+        "diff-algorithm": [
+          "undefined",
+          "\"myers\"",
+          "\"minimal\"",
+          "\"patience\"",
+          "\"histogram\""
+        ],
+        "anchored": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "word-diff": [
+          "undefined",
+          "\"plain\"",
+          "\"color\"",
+          "\"porcelain\"",
+          "\"none\"",
+          "true"
+        ],
+        "word-diff-regex": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color-words": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "color-moved-ws": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "relative": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "text": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "R": [
+          "undefined",
+          "true"
+        ],
+        "exit-code": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ext-diff": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "textconv": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-submodules": [
+          "undefined",
+          "\"all\"",
+          "\"dirty\"",
+          "\"untracked\"",
+          "\"none\"",
+          "true"
+        ],
+        "submodule": [
+          "undefined",
+          "\"short\"",
+          "\"log\"",
+          "\"diff\"",
+          "true"
+        ],
+        "ita-invisible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "ita-visible-in-index": [
+          "undefined",
+          "true"
+        ],
+        "S": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "G": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pickaxe-all": [
+          "undefined",
+          "true"
+        ],
+        "pickaxe-regex": [
+          "undefined",
+          "true"
+        ],
+        "O": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "rotate-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "skip-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "find-object": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "diff-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "output": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-abbrev": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "abbrev-commit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "after": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true"
+        ],
+        "all-match": [
+          "undefined",
+          "true"
+        ],
+        "alternate-refs": [
+          "undefined",
+          "true"
+        ],
+        "always": [
+          "undefined",
+          "true"
+        ],
+        "limited": [
+          "undefined",
+          "true"
+        ],
+        "ancestry-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "author": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "author-date-order": [
+          "undefined",
+          "true"
+        ],
+        "basic-regexp": [
+          "undefined",
+          "true"
+        ],
+        "before": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "bisect": [
+          "undefined",
+          "true"
+        ],
+        "boundary": [
+          "undefined",
+          "true"
+        ],
+        "branches": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "combined-all-paths": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "diff-merges": [
+          "undefined",
+          "\"dense-combined\"",
+          "\"first-parent\"",
+          "\"off\"",
+          "\"none\"",
+          "\"1\"",
+          "\"separate\"",
+          "\"c\"",
+          "\"combined\"",
+          "\"cc\"",
+          "\"r\"",
+          "\"remerge\"",
+          "\"m\"",
+          "\"on\""
+        ],
+        "cherry-mark": [
+          "undefined",
+          "true"
+        ],
+        "right-only": [
+          "undefined",
+          "true"
+        ],
+        "max-parents": [
+          "undefined",
+          "1",
+          "-2",
+          "-1",
+          "0",
+          "2"
+        ],
+        "cherry": [
+          "undefined",
+          "true"
+        ],
+        "cherry-pick": [
+          "undefined",
+          "true"
+        ],
+        "children": [
+          "undefined",
+          "true"
+        ],
+        "committer": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "count": [
+          "undefined",
+          "true"
+        ],
+        "date": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "date-order": [
+          "undefined",
+          "true"
+        ],
+        "default": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "dense": [
+          "undefined",
+          "true"
+        ],
+        "no-walk": [
+          "undefined",
+          "false",
+          "\"sorted\"",
+          "\"unsorted\"",
+          "true"
+        ],
+        "encode-email-headers": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "encoding": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exclude-first-parent-only": [
+          "undefined",
+          "true"
+        ],
+        "exclude-hidden": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "expand-tabs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2",
+          "8"
+        ],
+        "extended-regexp": [
+          "undefined",
+          "true"
+        ],
+        "first-parent": [
+          "undefined",
+          "true"
+        ],
+        "fixed-strings": [
+          "undefined",
+          "true"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "full-diff": [
+          "undefined",
+          "true"
+        ],
+        "full-history": [
+          "undefined",
+          "true"
+        ],
+        "glob": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "graph": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "graph-lane-limit": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "grep": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "grep-reflog": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ignore-missing": [
+          "undefined",
+          "true"
+        ],
+        "in-commit-order": [
+          "undefined",
+          "true"
+        ],
+        "indexed-objects": [
+          "undefined",
+          "true"
+        ],
+        "invert-grep": [
+          "undefined",
+          "true"
+        ],
+        "left-only": [
+          "undefined",
+          "true"
+        ],
+        "left-right": [
+          "undefined",
+          "true"
+        ],
+        "log-size": [
+          "undefined",
+          "true"
+        ],
+        "max-age": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "max-count-mode": [
+          "undefined",
+          "\"newest\"",
+          "\"oldest\""
+        ],
+        "max-count": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "maximal-only": [
+          "undefined",
+          "true"
+        ],
+        "merge": [
+          "undefined",
+          "true"
+        ],
+        "merges": [
+          "undefined",
+          "true"
+        ],
+        "min-age": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "min-parents": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "no-commit-id": [
+          "undefined",
+          "true"
+        ],
+        "no-kept-objects": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "no-max-parents": [
+          "undefined",
+          "true"
+        ],
+        "no-merges": [
+          "undefined",
+          "true"
+        ],
+        "no-min-parents": [
+          "undefined",
+          "true"
+        ],
+        "no-notes": [
+          "undefined",
+          "true"
+        ],
+        "show-signature": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "standard-notes": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "not": [
+          "undefined",
+          "true"
+        ],
+        "notes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "objects": [
+          "undefined",
+          "true"
+        ],
+        "objects-edge": [
+          "undefined",
+          "true"
+        ],
+        "objects-edge-aggressive": [
+          "undefined",
+          "true"
+        ],
+        "oneline": [
+          "undefined",
+          "true"
+        ],
+        "rewrite-parents": [
+          "undefined",
+          "true"
+        ],
+        "parents": [
+          "undefined",
+          "true"
+        ],
+        "perl-regexp": [
+          "undefined",
+          "true"
+        ],
+        "pretty": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "reflog": [
+          "undefined",
+          "true"
+        ],
+        "regexp-ignore-case": [
+          "undefined",
+          "true"
+        ],
+        "relative-date": [
+          "undefined",
+          "true"
+        ],
+        "remotes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "remove-empty": [
+          "undefined",
+          "true"
+        ],
+        "reverse": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "root": [
+          "undefined",
+          "true"
+        ],
+        "show-linear-break": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "show-notes": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "show-notes-by-default": [
+          "undefined",
+          "true"
+        ],
+        "show-pulls": [
+          "undefined",
+          "true"
+        ],
+        "simplify-by-decoration": [
+          "undefined",
+          "true"
+        ],
+        "simplify-merges": [
+          "undefined",
+          "true"
+        ],
+        "since": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "since-as-filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "single-worktree": [
+          "undefined",
+          "true"
+        ],
+        "skip": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "sparse": [
+          "undefined",
+          "true"
+        ],
+        "stdin": [
+          "undefined",
+          "true"
+        ],
+        "tags": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "topo-order": [
+          "undefined",
+          "true"
+        ],
+        "unpacked": [
+          "undefined",
+          "true"
+        ],
+        "until": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "verify-objects": [
+          "undefined",
+          "true"
+        ],
+        "walk-reflogs": [
+          "undefined",
+          "true"
+        ],
+        "r": [
+          "undefined",
+          "true"
+        ],
+        "t": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "true"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "33068517166771117355655382651826152719393190321953177600000000000000000000000000000000000000000000000",
+      "accepted": "29537942642595356579214546242283034587080692668814275379200000000000000000000000000000000000000000",
+      "nodes": 9936,
+      "isolatedRuleWitnesses": {
+        "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
+        "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
+        "diff.pickaxe-regex": "{\"G\":\"\",\"operands\":[],\"pickaxe-regex\":true}",
+        "diff.object-pickaxe-all": "{\"find-object\":\"\",\"operands\":[],\"pickaxe-all\":true}",
+        "revision.graph-walk-order": "{\"operands\":[],\"reverse\":true,\"walk-reflogs\":true}",
+        "revision.boundary-maximal": "{\"boundary\":true,\"maximal-only\":true,\"operands\":[]}",
+        "revision.graph-lanes": "{\"graph-lane-limit\":1,\"operands\":[]}",
+        "revision.grep-reflog": "{\"grep-reflog\":[\"\"],\"operands\":[]}",
+        "revision.linear-graph": "{\"graph\":true,\"operands\":[],\"show-linear-break\":\"\"}",
+        "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
+        "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
+        "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
+        "stash.show-arity": "{\"operands\":[\"value\",\"value\"]}"
       }
     },
     {

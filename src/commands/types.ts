@@ -50,7 +50,7 @@ type Base<C extends GitCommandName> = {
   operand0?: string;
   inRepository?: boolean;
 };
-type Initial<C extends GitCommandName> = {
+type Empty<C extends GitCommandName> = {
   [K in Exclude<
     keyof Base<C>,
     'operands' | 'operandsBeforeSeparator' | 'pathsAfterSeparator'
@@ -60,6 +60,8 @@ type Initial<C extends GitCommandName> = {
   operandsBeforeSeparator: readonly [];
   pathsAfterSeparator: readonly [];
 };
+type Initial<C extends GitCommandName> =
+  Spec<C> extends { initial: infer D } ? Omit<Empty<C>, keyof D> & D : Empty<C>;
 type Put<S, K extends PropertyKey, V> = Omit<S, K> & { [P in K]: V };
 type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   ? undefined

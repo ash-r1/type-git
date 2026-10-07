@@ -72,6 +72,9 @@ describe('revision and diff parser constraints', () => {
         ['--name-only', '--name-status', '-p'],
         ['-s', '--name-only', '--stat'],
         ['-s', '--name-only', '--binary'],
+        ['-s', '--name-only', '--dirstat'],
+        ['-s', '--name-only', '--cumulative'],
+        ['-s', '--name-only', '--dirstat-by-file'],
       ]) {
         compare(
           'diff',
@@ -200,6 +203,22 @@ describe('revision and diff parser constraints', () => {
       }
     }
   });
+  it.skipIf(legacy)(
+    'requires object enumeration for active filters and permits clearing the filter',
+    () => {
+      compare('log', [['--filter', 'blob:none']], ['--filter=blob:none']);
+      compare(
+        'log',
+        [['--filter', 'blob:none'], ['--objects']],
+        ['--filter=blob:none', '--objects'],
+      );
+      compare(
+        'log',
+        [['--filter', 'blob:none'], ['--no-filter']],
+        ['--filter=blob:none', '--no-filter'],
+      );
+    },
+  );
   it('executes each new command and preserves detached --default values', async () => {
     expect(
       (
