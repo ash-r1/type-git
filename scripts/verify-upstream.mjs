@@ -27,6 +27,7 @@ for (const [path, digest] of Object.entries(inventory.sources)) {
   add(base, rest.join('/'), digest);
 }
 for (const [path, digest] of Object.entries((await load('lfs-options')).sources)) add(lfs, path, digest);
+for (const [path, digest] of Object.entries((await load('git-numeric-options')).sources)) add(git, path, digest);
 const tables = await load('git-option-tables');
 for (const [path, digest] of Object.entries(tables.headers)) add(git, path, digest);
 for (const record of [...tables.files, ...(await load('git-revision-options')).files]) add(git, record.file, record.sha256);
@@ -54,7 +55,11 @@ try {
     ['python3', 'extract-p4-options.py', [git], 'p4-options'],
     ['python3', 'extract-svn-options.py', [git], 'svn-options'],
   ];
-  if (flags.includes('--c-tables')) jobs.push(['python3', 'import-git-options.py', [git], 'git-option-tables']);
+  if (flags.includes('--c-tables')) {
+    await copyFile(new URL('scripts/git_numeric_dump.py', root), join(temp, 'scripts/git_numeric_dump.py'));
+    jobs.push(['python3', 'import-git-options.py', [git], 'git-option-tables']);
+    jobs.push(['python3', 'import-git-numeric-options.py', [git], 'git-numeric-options']);
+  }
   for (const [executable, script, args, snapshot] of jobs) {
     const destination = join(temp, 'scripts', script);
     await copyFile(new URL(`scripts/${script}`, root), destination);

@@ -151,3 +151,17 @@ export function testFallbackCommandTypes(git: Git): void {
   // @ts-expect-error Implicit push requires a separator before a path.
   git.command('stash', [{ operand: 'path' }]);
 }
+
+export function testNativeIntegerTypes(git: Git, mixed: 1 | 2147483648): void {
+  git.command('column', [['--width', '  +010k'], ['-h']]);
+  git.command('pack-objects', [['--max-pack-size', 18446744073709551615n], ['-h']]);
+  git.command('pack-objects', [['--max-pack-size', '0x0'], ['--stdout']]);
+  // @ts-expect-error Native signed storage overflows before help.
+  git.command('column', [['--width', 2147483648], ['-h']]);
+  // @ts-expect-error An invalid member of a literal union is not a valid numeric argument.
+  git.command('column', [['--width', mixed], ['-h']]);
+  // @ts-expect-error Unicode Kelvin sign is not Git's ASCII k unit.
+  git.command('column', [['--width', '1K'], ['-h']]);
+  // @ts-expect-error A nonzero normalized value conflicts with stdout.
+  git.command('pack-objects', [['--max-pack-size', '0b1k'], ['--stdout']]);
+}
