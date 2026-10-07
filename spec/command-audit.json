@@ -31,9 +31,22 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "scripts/parse-option-long-forms.node-test.mjs",
+        "src/commands/alias-parser.test.ts",
+        "test/types/alias-parser-api.ts",
+        "test/types/alias-parser-clone-corpus-1.ts",
+        "test/types/alias-parser-clone-corpus-10.ts",
+        "test/types/alias-parser-clone-corpus-2.ts",
+        "test/types/alias-parser-clone-corpus-3.ts",
+        "test/types/alias-parser-clone-corpus-4.ts",
+        "test/types/alias-parser-clone-corpus-5.ts",
+        "test/types/alias-parser-clone-corpus-6.ts",
+        "test/types/alias-parser-clone-corpus-7.ts",
+        "test/types/alias-parser-clone-corpus-8.ts",
+        "test/types/alias-parser-clone-corpus-9.ts"
       ],
-      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "reset": {
@@ -343,9 +356,23 @@
         "test/types/parser-exits.ts",
         "src/commands/boolean-callbacks.test.ts",
         "test/types/boolean-callbacks.ts",
-        "test/types/boolean-callback-corpus.ts"
+        "test/types/boolean-callback-corpus.ts",
+        "scripts/parse-option-long-forms.node-test.mjs",
+        "src/commands/alias-parser.test.ts",
+        "test/types/alias-parser-api.ts",
+        "test/types/alias-parser-fetch-corpus-1.ts",
+        "test/types/alias-parser-fetch-corpus-10.ts",
+        "test/types/alias-parser-fetch-corpus-11.ts",
+        "test/types/alias-parser-fetch-corpus-2.ts",
+        "test/types/alias-parser-fetch-corpus-3.ts",
+        "test/types/alias-parser-fetch-corpus-4.ts",
+        "test/types/alias-parser-fetch-corpus-5.ts",
+        "test/types/alias-parser-fetch-corpus-6.ts",
+        "test/types/alias-parser-fetch-corpus-7.ts",
+        "test/types/alias-parser-fetch-corpus-8.ts",
+        "test/types/alias-parser-fetch-corpus-9.ts"
       ],
-      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
+      "remaining": "Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "push": {
@@ -364,9 +391,18 @@
         "test/types/parser-exits.ts",
         "src/commands/boolean-callbacks.test.ts",
         "test/types/boolean-callbacks.ts",
-        "test/types/boolean-callback-corpus.ts"
+        "test/types/boolean-callback-corpus.ts",
+        "scripts/parse-option-long-forms.node-test.mjs",
+        "src/commands/alias-parser.test.ts",
+        "test/types/alias-parser-api.ts",
+        "test/types/alias-parser-push-corpus-1.ts",
+        "test/types/alias-parser-push-corpus-2.ts",
+        "test/types/alias-parser-push-corpus-3.ts",
+        "test/types/alias-parser-push-corpus-4.ts",
+        "test/types/alias-parser-push-corpus-5.ts",
+        "test/types/alias-parser-push-corpus-6.ts"
       ],
-      "remaining": "Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
+      "remaining": "Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "add": {
