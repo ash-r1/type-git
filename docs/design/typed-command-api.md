@@ -1233,3 +1233,29 @@ disables this optimization while preserving the same batches and assertions.
 checks a new invalid fixture after cache population, clears diagnostics when
 that fixture is fixed, and rechecks an unchanged fixture when its imported
 source changes. Compiler-cache behavior does not add audit completeness evidence.
+
+### Ordinary history and reference inspection passes
+
+Merge, rebase, for-each-ref and show-branch now resolve their recorded native
+option tables before replaying reached callbacks and final constraints. Long
+prefixes and short clusters follow the same source-backed spelling compiler.
+Both end markers are consumed and the remaining words are literal operands.
+Show-branch additionally stops at the first ordinary operand: in
+`show-branch main --color=invalid`, the last word is a ref, so the color callback
+is never reached. Whether that ref exists is left to Git.
+
+Merge's reached message-file callback rejects an empty filename before help.
+Nonempty file access remains native. Strategy names remain open because Git
+looks up executable custom merge strategies; even an empty name can be supported
+by an executable named `git-merge-` on PATH.
+
+`node scripts/history-parser-corpus.mjs --check` reproduces 9,608 independent
+Git 2.55.0 outcomes from native table prefixes, native negations, value suffixes,
+short clusters, help ordering and selected final boundary/combination rules.
+Fixed commit dates, valid dash-prefixed refs, readable message files and custom
+strategy executables distinguish syntax from unknown repository/filesystem
+state. Every row has a type assertion, sharded at no more than 400 outcomes.
+The corpus is finite. Branch merge configuration, rebase state/configuration
+and trailers, show-branch configured default arguments, ref/format/path/file
+resolution, completion, other platforms and other parser modes remain open.
+All command audit scopes remain partial.

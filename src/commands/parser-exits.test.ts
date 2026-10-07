@@ -77,9 +77,12 @@ describe('ordered exits in audited single-pass parsers', () => {
     expect(() =>
       commandArguments('branch', [['--'], ['-h'], { operand: 'two' }, { operand: 'three' }]),
     ).toThrow(GitArgumentError);
-    expect(() => commandArguments('show-branch', [{ operand: 'HEAD' }, ['-h']])).toThrow(
-      GitArgumentError,
-    );
+    // After the first operand, -h is a literal ref whose resolution belongs to Git.
+    expect(commandArguments('show-branch', [{ operand: 'HEAD' }, ['-h']])).toEqual([
+      'show-branch',
+      'HEAD',
+      '-h',
+    ]);
     // grep -h means no filename; diff-files does not use the audited exit pass.
     for (const name of ['grep', 'diff-files'] as const) {
       expect((COMMAND_SPECS[name] as { parserExit?: unknown }).parserExit).toBeUndefined();
