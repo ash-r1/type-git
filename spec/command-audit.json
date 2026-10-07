@@ -1990,9 +1990,12 @@
         "test/types/object-filter-limits.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/stash-show.test.ts",
+        "test/types/stash-show-corpus.ts",
+        "test/types/stash-show-api.ts"
       ],
-      "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
+      "remaining": "Initial KEEP_UNKNOWN_OPT pass, own-flag/help timing, ordered retained-word prefix partition, separate stash-reference arity, later revision/diff parsing and color grammar are modeled. 1,132 independent native outcomes include both direct and root dispatch and valid dash-prefixed refs to distinguish object absence from syntax. Configuration/repository state, stash/revision object resolution, pathspec languages, remaining revision callbacks, completion and other parser modes remain open; finite examples and normalized state counts do not establish completeness."
     },
     "merge-base": {
       "models": [],

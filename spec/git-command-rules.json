@@ -7428,7 +7428,7 @@
       "origin": "git",
       "source": "Git 2.55.0 builtin/stash.c:get_stash_info",
       "reason": "Stash show accepts at most one stash revision.",
-      "key": "operands",
+      "key": "stash-operands",
       "min": 0,
       "max": 1
     }
