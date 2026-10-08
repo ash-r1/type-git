@@ -29,7 +29,10 @@
         "1",
         "2",
         "1.5",
-        "9007199254740992"
+        "9007199254740992",
+        "-4294967295",
+        "2147483648",
+        "4294967297"
       ],
       "branch": [
         "undefined",
@@ -171,7 +174,13 @@
       "filter": [
         "undefined",
         "\"\"",
-        "\"value\""
+        "\"value\"",
+        "\"invalid\"",
+        "\"blob:none\"",
+        "\"auto\"",
+        "\"tree:0\"",
+        "\"tree:-1\"",
+        "\"combine:+\""
       ],
       "alsoFilterSubmodules": [
         "undefined",
@@ -189,10 +198,11 @@
         "true"
       ]
     },
-    "total": "17935405284689424",
-    "accepted": "2560694464094400",
-    "nodes": 142,
+    "total": "76866022648668960",
+    "accepted": "7255300981600800",
+    "nodes": 178,
     "isolatedRuleWitnesses": {
+      "clone.filter-grammar": "{\"filter\":\"\"}",
       "clone.bare-separateGitDir": "{\"bare\":true,\"separateGitDir\":\"\"}",
       "clone.mirror-separateGitDir": "{\"mirror\":true,\"separateGitDir\":\"\"}",
       "clone.submodule-filter": "{\"alsoFilterSubmodules\":true}",
@@ -679,7 +689,10 @@
         "1",
         "2",
         "1.5",
-        "9007199254740992"
+        "9007199254740992",
+        "-4294967295",
+        "2147483648",
+        "4294967297"
       ],
       "verbose": [
         "undefined",
@@ -842,8 +855,8 @@
         "true"
       ]
     },
-    "total": "2259861065870867424",
-    "accepted": "45143537111123040",
+    "total": "3228372951244096320",
+    "accepted": "65207331382733280",
     "nodes": 242,
     "isolatedRuleWitnesses": {
       "fetch.depth-unshallow": "{\"depth\":1,\"unshallow\":true}",
@@ -2848,14 +2861,21 @@
       "filter": [
         "undefined",
         "\"\"",
-        "\"value\""
+        "\"value\"",
+        "\"invalid\"",
+        "\"blob:none\"",
+        "\"auto\"",
+        "\"tree:0\"",
+        "\"tree:-1\"",
+        "\"combine:+\""
       ]
     },
-    "total": "531441",
-    "accepted": "295245",
-    "nodes": 6,
+    "total": "1594323",
+    "accepted": "354294",
+    "nodes": 11,
     "isolatedRuleWitnesses": {
-      "submoduleUpdate.filter-init": "{\"filter\":\"\"}"
+      "submoduleUpdate.filter-grammar": "{\"filter\":\"\",\"init\":true}",
+      "submoduleUpdate.filter-init": "{\"filter\":\"blob:none\"}"
     }
   },
   {

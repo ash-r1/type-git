@@ -4464,6 +4464,16 @@ const commandSpec30 = {
       reason: 'Unknown reference storage format.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
     },
+    {
+      id: 'cli.clone.depth-initial',
+      kind: 'scalar',
+      key: 'depth',
+      parser: 'depth-initial',
+      origin: 'git',
+      reason:
+        'The final depth must be positive after Git converts it with atoi; transport validation is a later phase.',
+      source: 'Git 2.55.0 builtin/clone.c; pinned 64-bit libc and 32-bit int profile',
+    },
   ],
   source: 'builtin/clone.c',
   separator: true,
@@ -5258,6 +5268,16 @@ const commandSpec31 = {
       origin: 'git',
       reason: 'This option requires a single selected remote.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+    },
+    {
+      id: 'cli.fetch.depth-initial',
+      kind: 'scalar',
+      key: 'depth',
+      parser: 'depth-initial',
+      origin: 'git',
+      reason:
+        'The final depth must be positive after Git converts it with atoi; transport validation is a later phase.',
+      source: 'Git 2.55.0 builtin/fetch.c; pinned 64-bit libc and 32-bit int profile',
     },
   ],
   source: 'builtin/fetch.c',

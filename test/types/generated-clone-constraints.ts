@@ -8,147 +8,183 @@ export const case2: CloneOpts = {"recurseSubmodules":true};
 export const case3: CloneOpts = {"filter":"blob:none"};
 export const case4: CloneOpts = {"filter":"blob:none","recurseSubmodules":false};
 export const case5: CloneOpts = {"filter":"blob:none","recurseSubmodules":true};
-export const case6: CloneOpts = {"alsoFilterSubmodules":false};
-export const case7: CloneOpts = {"alsoFilterSubmodules":false,"recurseSubmodules":false};
-export const case8: CloneOpts = {"alsoFilterSubmodules":false,"recurseSubmodules":true};
-export const case9: CloneOpts = {"alsoFilterSubmodules":false,"filter":"blob:none"};
-export const case10: CloneOpts = {"alsoFilterSubmodules":false,"filter":"blob:none","recurseSubmodules":false};
-export const case11: CloneOpts = {"alsoFilterSubmodules":false,"filter":"blob:none","recurseSubmodules":true};
+export const case6: CloneOpts = {"filter":"auto"};
+export const case7: CloneOpts = {"filter":"auto","recurseSubmodules":false};
+export const case8: CloneOpts = {"filter":"auto","recurseSubmodules":true};
+export const case9: CloneOpts = {"filter":"invalid"};
+export const case10: CloneOpts = {"filter":"invalid","recurseSubmodules":false};
+export const case11: CloneOpts = {"filter":"invalid","recurseSubmodules":true};
+export const case12: CloneOpts = {"filter":""};
+export const case13: CloneOpts = {"filter":"","recurseSubmodules":false};
+export const case14: CloneOpts = {"filter":"","recurseSubmodules":true};
+export const case15: CloneOpts = {"alsoFilterSubmodules":false};
+export const case16: CloneOpts = {"alsoFilterSubmodules":false,"recurseSubmodules":false};
+export const case17: CloneOpts = {"alsoFilterSubmodules":false,"recurseSubmodules":true};
+export const case18: CloneOpts = {"alsoFilterSubmodules":false,"filter":"blob:none"};
+export const case19: CloneOpts = {"alsoFilterSubmodules":false,"filter":"blob:none","recurseSubmodules":false};
+export const case20: CloneOpts = {"alsoFilterSubmodules":false,"filter":"blob:none","recurseSubmodules":true};
+export const case21: CloneOpts = {"alsoFilterSubmodules":false,"filter":"auto"};
+export const case22: CloneOpts = {"alsoFilterSubmodules":false,"filter":"auto","recurseSubmodules":false};
+export const case23: CloneOpts = {"alsoFilterSubmodules":false,"filter":"auto","recurseSubmodules":true};
+export const case24: CloneOpts = {"alsoFilterSubmodules":false,"filter":"invalid"};
+export const case25: CloneOpts = {"alsoFilterSubmodules":false,"filter":"invalid","recurseSubmodules":false};
+export const case26: CloneOpts = {"alsoFilterSubmodules":false,"filter":"invalid","recurseSubmodules":true};
+export const case27: CloneOpts = {"alsoFilterSubmodules":false,"filter":""};
+export const case28: CloneOpts = {"alsoFilterSubmodules":false,"filter":"","recurseSubmodules":false};
+export const case29: CloneOpts = {"alsoFilterSubmodules":false,"filter":"","recurseSubmodules":true};
 // @ts-expect-error clone.submodule-filter
-export const case12: CloneOpts = {"alsoFilterSubmodules":true};
+export const case30: CloneOpts = {"alsoFilterSubmodules":true};
 // @ts-expect-error clone.submodule-filter
-export const case13: CloneOpts = {"alsoFilterSubmodules":true,"recurseSubmodules":false};
+export const case31: CloneOpts = {"alsoFilterSubmodules":true,"recurseSubmodules":false};
 // @ts-expect-error clone.submodule-filter
-export const case14: CloneOpts = {"alsoFilterSubmodules":true,"recurseSubmodules":true};
+export const case32: CloneOpts = {"alsoFilterSubmodules":true,"recurseSubmodules":true};
 // @ts-expect-error clone.submodule-filter
-export const case15: CloneOpts = {"alsoFilterSubmodules":true,"filter":"blob:none"};
+export const case33: CloneOpts = {"alsoFilterSubmodules":true,"filter":"blob:none"};
 // @ts-expect-error clone.submodule-filter
-export const case16: CloneOpts = {"alsoFilterSubmodules":true,"filter":"blob:none","recurseSubmodules":false};
-export const case17: CloneOpts = {"alsoFilterSubmodules":true,"filter":"blob:none","recurseSubmodules":true};
+export const case34: CloneOpts = {"alsoFilterSubmodules":true,"filter":"blob:none","recurseSubmodules":false};
+export const case35: CloneOpts = {"alsoFilterSubmodules":true,"filter":"blob:none","recurseSubmodules":true};
+// @ts-expect-error clone.submodule-filter
+export const case36: CloneOpts = {"alsoFilterSubmodules":true,"filter":"auto"};
+// @ts-expect-error clone.submodule-filter
+export const case37: CloneOpts = {"alsoFilterSubmodules":true,"filter":"auto","recurseSubmodules":false};
+export const case38: CloneOpts = {"alsoFilterSubmodules":true,"filter":"auto","recurseSubmodules":true};
+// @ts-expect-error clone.submodule-filter
+export const case39: CloneOpts = {"alsoFilterSubmodules":true,"filter":"invalid"};
+// @ts-expect-error clone.submodule-filter
+export const case40: CloneOpts = {"alsoFilterSubmodules":true,"filter":"invalid","recurseSubmodules":false};
+export const case41: CloneOpts = {"alsoFilterSubmodules":true,"filter":"invalid","recurseSubmodules":true};
+// @ts-expect-error clone.submodule-filter
+export const case42: CloneOpts = {"alsoFilterSubmodules":true,"filter":""};
+// @ts-expect-error clone.submodule-filter
+export const case43: CloneOpts = {"alsoFilterSubmodules":true,"filter":"","recurseSubmodules":false};
+export const case44: CloneOpts = {"alsoFilterSubmodules":true,"filter":"","recurseSubmodules":true};
 // Component: bare, mirror, separateGitDir
-export const case18: CloneOpts = {};
-export const case19: CloneOpts = {"separateGitDir":"separate"};
-export const case20: CloneOpts = {"mirror":false};
-export const case21: CloneOpts = {"mirror":false,"separateGitDir":"separate"};
-export const case22: CloneOpts = {"mirror":true};
+export const case45: CloneOpts = {};
+export const case46: CloneOpts = {"separateGitDir":"separate"};
+export const case47: CloneOpts = {"mirror":false};
+export const case48: CloneOpts = {"mirror":false,"separateGitDir":"separate"};
+export const case49: CloneOpts = {"mirror":true};
 // @ts-expect-error clone.mirror-separateGitDir
-export const case23: CloneOpts = {"mirror":true,"separateGitDir":"separate"};
-export const case24: CloneOpts = {"bare":false};
-export const case25: CloneOpts = {"bare":false,"separateGitDir":"separate"};
-export const case26: CloneOpts = {"bare":false,"mirror":false};
-export const case27: CloneOpts = {"bare":false,"mirror":false,"separateGitDir":"separate"};
-export const case28: CloneOpts = {"bare":false,"mirror":true};
+export const case50: CloneOpts = {"mirror":true,"separateGitDir":"separate"};
+export const case51: CloneOpts = {"bare":false};
+export const case52: CloneOpts = {"bare":false,"separateGitDir":"separate"};
+export const case53: CloneOpts = {"bare":false,"mirror":false};
+export const case54: CloneOpts = {"bare":false,"mirror":false,"separateGitDir":"separate"};
+export const case55: CloneOpts = {"bare":false,"mirror":true};
 // @ts-expect-error clone.mirror-separateGitDir
-export const case29: CloneOpts = {"bare":false,"mirror":true,"separateGitDir":"separate"};
-export const case30: CloneOpts = {"bare":true};
+export const case56: CloneOpts = {"bare":false,"mirror":true,"separateGitDir":"separate"};
+export const case57: CloneOpts = {"bare":true};
 // @ts-expect-error clone.bare-separateGitDir
-export const case31: CloneOpts = {"bare":true,"separateGitDir":"separate"};
-export const case32: CloneOpts = {"bare":true,"mirror":false};
+export const case58: CloneOpts = {"bare":true,"separateGitDir":"separate"};
+export const case59: CloneOpts = {"bare":true,"mirror":false};
 // @ts-expect-error clone.bare-separateGitDir
-export const case33: CloneOpts = {"bare":true,"mirror":false,"separateGitDir":"separate"};
-export const case34: CloneOpts = {"bare":true,"mirror":true};
+export const case60: CloneOpts = {"bare":true,"mirror":false,"separateGitDir":"separate"};
+export const case61: CloneOpts = {"bare":true,"mirror":true};
 // @ts-expect-error clone.bare-separateGitDir, clone.mirror-separateGitDir
-export const case35: CloneOpts = {"bare":true,"mirror":true,"separateGitDir":"separate"};
+export const case62: CloneOpts = {"bare":true,"mirror":true,"separateGitDir":"separate"};
 // Component: branch
-export const case36: CloneOpts = {};
-export const case37: CloneOpts = {"branch":"main"};
+export const case63: CloneOpts = {};
+export const case64: CloneOpts = {"branch":"main"};
 // Component: cleanupOnAbort
-export const case38: CloneOpts = {};
-export const case39: CloneOpts = {"cleanupOnAbort":false};
-export const case40: CloneOpts = {"cleanupOnAbort":true};
+export const case65: CloneOpts = {};
+export const case66: CloneOpts = {"cleanupOnAbort":false};
+export const case67: CloneOpts = {"cleanupOnAbort":true};
 // Component: config
-export const case41: CloneOpts = {};
-export const case42: CloneOpts = {"config":{"core.filemode":"false"}};
+export const case68: CloneOpts = {};
+export const case69: CloneOpts = {"config":{"core.filemode":"false"}};
 // Component: depth
-export const case43: CloneOpts = {};
-export const case44: CloneOpts = {"depth":-1};
-export const case45: CloneOpts = {"depth":0};
-export const case46: CloneOpts = {"depth":1};
-export const case47: CloneOpts = {"depth":2};
-export const case48: CloneOpts = {"depth":1.5};
-// Component: dissociate
-export const case49: CloneOpts = {};
-export const case50: CloneOpts = {"dissociate":false};
-export const case51: CloneOpts = {"dissociate":true};
-// Component: ipv4
-export const case52: CloneOpts = {};
-export const case53: CloneOpts = {"ipv4":false};
-export const case54: CloneOpts = {"ipv4":true};
-// Component: ipv6
-export const case55: CloneOpts = {};
-export const case56: CloneOpts = {"ipv6":false};
-export const case57: CloneOpts = {"ipv6":true};
-// Component: jobs
-export const case58: CloneOpts = {};
-export const case59: CloneOpts = {"jobs":-1};
-export const case60: CloneOpts = {"jobs":0};
-export const case61: CloneOpts = {"jobs":1};
-export const case62: CloneOpts = {"jobs":2};
-export const case63: CloneOpts = {"jobs":1.5};
-// Component: local
-export const case64: CloneOpts = {};
-export const case65: CloneOpts = {"local":false};
-export const case66: CloneOpts = {"local":true};
-// Component: noCheckout
-export const case67: CloneOpts = {};
-export const case68: CloneOpts = {"noCheckout":false};
-export const case69: CloneOpts = {"noCheckout":true};
-// Component: noHardlinks
 export const case70: CloneOpts = {};
-export const case71: CloneOpts = {"noHardlinks":false};
-export const case72: CloneOpts = {"noHardlinks":true};
-// Component: noTags
-export const case73: CloneOpts = {};
-export const case74: CloneOpts = {"noTags":false};
-export const case75: CloneOpts = {"noTags":true};
-// Component: origin
-export const case76: CloneOpts = {};
-export const case77: CloneOpts = {"origin":"origin"};
-// Component: quiet
-export const case78: CloneOpts = {};
-export const case79: CloneOpts = {"quiet":false};
-export const case80: CloneOpts = {"quiet":true};
-// Component: reference
-export const case81: CloneOpts = {};
-export const case82: CloneOpts = {"reference":"reference"};
-// Component: referenceIfAble
-export const case83: CloneOpts = {};
-export const case84: CloneOpts = {"referenceIfAble":"reference"};
-// Component: rejectShallow
+export const case71: CloneOpts = {"depth":-1};
+export const case72: CloneOpts = {"depth":0};
+export const case73: CloneOpts = {"depth":1};
+export const case74: CloneOpts = {"depth":2};
+export const case75: CloneOpts = {"depth":1.5};
+export const case76: CloneOpts = {"depth":2147483648};
+export const case77: CloneOpts = {"depth":4294967297};
+export const case78: CloneOpts = {"depth":-4294967295};
+// Component: dissociate
+export const case79: CloneOpts = {};
+export const case80: CloneOpts = {"dissociate":false};
+export const case81: CloneOpts = {"dissociate":true};
+// Component: ipv4
+export const case82: CloneOpts = {};
+export const case83: CloneOpts = {"ipv4":false};
+export const case84: CloneOpts = {"ipv4":true};
+// Component: ipv6
 export const case85: CloneOpts = {};
-export const case86: CloneOpts = {"rejectShallow":false};
-export const case87: CloneOpts = {"rejectShallow":true};
-// Component: remoteSubmodules
+export const case86: CloneOpts = {"ipv6":false};
+export const case87: CloneOpts = {"ipv6":true};
+// Component: jobs
 export const case88: CloneOpts = {};
-export const case89: CloneOpts = {"remoteSubmodules":false};
-export const case90: CloneOpts = {"remoteSubmodules":true};
-// Component: shallowExclude
-export const case91: CloneOpts = {};
-export const case92: CloneOpts = {"shallowExclude":"main"};
-export const case93: CloneOpts = {"shallowExclude":["main"]};
-// Component: shallowSince
+export const case89: CloneOpts = {"jobs":-1};
+export const case90: CloneOpts = {"jobs":0};
+export const case91: CloneOpts = {"jobs":1};
+export const case92: CloneOpts = {"jobs":2};
+export const case93: CloneOpts = {"jobs":1.5};
+// Component: local
 export const case94: CloneOpts = {};
-export const case95: CloneOpts = {"shallowSince":"2020-01-01"};
-// Component: shallowSubmodules
-export const case96: CloneOpts = {};
-export const case97: CloneOpts = {"shallowSubmodules":false};
-export const case98: CloneOpts = {"shallowSubmodules":true};
-// Component: shared
-export const case99: CloneOpts = {};
-export const case100: CloneOpts = {"shared":false};
-export const case101: CloneOpts = {"shared":true};
-// Component: singleBranch
-export const case102: CloneOpts = {};
-export const case103: CloneOpts = {"singleBranch":false};
-export const case104: CloneOpts = {"singleBranch":true};
-// Component: sparse
-export const case105: CloneOpts = {};
-export const case106: CloneOpts = {"sparse":false};
-export const case107: CloneOpts = {"sparse":true};
-// Component: template
+export const case95: CloneOpts = {"local":false};
+export const case96: CloneOpts = {"local":true};
+// Component: noCheckout
+export const case97: CloneOpts = {};
+export const case98: CloneOpts = {"noCheckout":false};
+export const case99: CloneOpts = {"noCheckout":true};
+// Component: noHardlinks
+export const case100: CloneOpts = {};
+export const case101: CloneOpts = {"noHardlinks":false};
+export const case102: CloneOpts = {"noHardlinks":true};
+// Component: noTags
+export const case103: CloneOpts = {};
+export const case104: CloneOpts = {"noTags":false};
+export const case105: CloneOpts = {"noTags":true};
+// Component: origin
+export const case106: CloneOpts = {};
+export const case107: CloneOpts = {"origin":"origin"};
+// Component: quiet
 export const case108: CloneOpts = {};
-export const case109: CloneOpts = {"template":"template"};
+export const case109: CloneOpts = {"quiet":false};
+export const case110: CloneOpts = {"quiet":true};
+// Component: reference
+export const case111: CloneOpts = {};
+export const case112: CloneOpts = {"reference":"reference"};
+// Component: referenceIfAble
+export const case113: CloneOpts = {};
+export const case114: CloneOpts = {"referenceIfAble":"reference"};
+// Component: rejectShallow
+export const case115: CloneOpts = {};
+export const case116: CloneOpts = {"rejectShallow":false};
+export const case117: CloneOpts = {"rejectShallow":true};
+// Component: remoteSubmodules
+export const case118: CloneOpts = {};
+export const case119: CloneOpts = {"remoteSubmodules":false};
+export const case120: CloneOpts = {"remoteSubmodules":true};
+// Component: shallowExclude
+export const case121: CloneOpts = {};
+export const case122: CloneOpts = {"shallowExclude":"main"};
+export const case123: CloneOpts = {"shallowExclude":["main"]};
+// Component: shallowSince
+export const case124: CloneOpts = {};
+export const case125: CloneOpts = {"shallowSince":"2020-01-01"};
+// Component: shallowSubmodules
+export const case126: CloneOpts = {};
+export const case127: CloneOpts = {"shallowSubmodules":false};
+export const case128: CloneOpts = {"shallowSubmodules":true};
+// Component: shared
+export const case129: CloneOpts = {};
+export const case130: CloneOpts = {"shared":false};
+export const case131: CloneOpts = {"shared":true};
+// Component: singleBranch
+export const case132: CloneOpts = {};
+export const case133: CloneOpts = {"singleBranch":false};
+export const case134: CloneOpts = {"singleBranch":true};
+// Component: sparse
+export const case135: CloneOpts = {};
+export const case136: CloneOpts = {"sparse":false};
+export const case137: CloneOpts = {"sparse":true};
+// Component: template
+export const case138: CloneOpts = {};
+export const case139: CloneOpts = {"template":"template"};
 // Component: verbose
-export const case110: CloneOpts = {};
-export const case111: CloneOpts = {"verbose":false};
-export const case112: CloneOpts = {"verbose":true};
+export const case140: CloneOpts = {};
+export const case141: CloneOpts = {"verbose":false};
+export const case142: CloneOpts = {"verbose":true};
