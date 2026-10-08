@@ -293,3 +293,13 @@ export function testFormatPatchParserTypes(git: Git): void {
   // @ts-expect-error Repeated directory callbacks execute before help.
   git.command('format-patch', [['-o', 'out'], ['-o', 'out'], ['-h']]);
 }
+
+export function testConditionalStashTypes(git: Git): void {
+  git.command('stash list', [['--format', '%gs'], ['--max-count', '1']]);
+  git.command('stash list', [['--color', 'invalid']]);
+  git.command('stash', [{ operand: 'list' }, ['--graph']]);
+  // @ts-expect-error Native unconditional typo detection precedes the ref gate.
+  git.command('stash list', [{ operand: '-no-color' }]);
+  // @ts-expect-error A help exit cannot serialize a NUL byte.
+  git.command('stash list', [['-h'], ['--format', '\0']]);
+}

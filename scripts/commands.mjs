@@ -64,6 +64,12 @@ try {
     for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && key !== '$remaining' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
   }
   for (const [name, entry] of Object.entries(catalog)) {
+    if (entry.conditionalCommand) {
+      const branch = entry.conditionalCommand;
+      if (!entry.parserExit?.firstPassOptions || entry.rules.length || entry.parserExit.firstPassOptions.some(flag => !entry.parserExit.flags.includes(flag))) throw new Error(`${name}: conditional invocation requires an empty first parser and no unconditional child rules`);
+      if (!catalog[branch.invoke.command] || branch.otherwise.exitCode !== 0 || !branch.when.refExists || !Array.isArray(branch.invoke.prepend) || !Array.isArray(branch.invoke.append) || !['boolean', 'preserve'].includes(branch.invoke.exitStatus)) throw new Error(`${name}: invalid conditional invocation`);
+      for (const word of [...branch.invoke.prepend, ...branch.invoke.append]) if (typeof word !== 'string' || word.includes('\0')) throw new Error(`${name}: invalid injected argv word`);
+    }
     if (entry.parserExit?.firstPassOptions) {
       if (entry.optionParsing) throw new Error(`${name}: phased exits require interleaved option parsing`);
       for (const flag of entry.parserExit.firstPassOptions) if (!entry.options[flag] || entry.options[flag].consumesRest || entry.options[flag].before !== undefined) throw new Error(`${name} ${flag}: unsupported first-pass option`);
@@ -133,7 +139,7 @@ try {
       });
       options.push({ flag, key: option.key, profile: id, ...(option.set !== undefined ? { default: option.set } : {}) });
     }
-    if (options.length) numericScopes.push({ command, options });
+    if (options.length) numericScopes.push({ command, options, ...(spec.conditionalCommand ? { conditionalCommand: spec.conditionalCommand } : {}) });
   }
   const numericReport = JSON.stringify({
     scope: 'Deterministic boundary representatives for compiler-recorded integer handlers and source-audited numeric callbacks, not exhaustive command semantics.',
@@ -157,7 +163,7 @@ try {
       return { flag, rules: option.checks.map(rule => rule.id), domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
     });
     const modes = commandModes(spec);
-    return { command, ...(spec.parserExit ? { parserExit: spec.parserExit } : {}), ...(spec.executable ? { executable: spec.executable } : {}), ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
+    return { command, ...(spec.conditionalCommand ? { conditionalCommand: spec.conditionalCommand } : {}), ...(spec.parserExit ? { parserExit: spec.parserExit } : {}), ...(spec.executable ? { executable: spec.executable } : {}), ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
   });
   const report = JSON.stringify({ scope: 'Exact finite normalized-state counts. Domains over-approximate argv-reachable states; counts do not prove upstream completeness or reachability. No random sampling.', commands: exploration }, null, 2) + '\n';
   const reportPath = new URL('docs/design/command-exploration.json', root);

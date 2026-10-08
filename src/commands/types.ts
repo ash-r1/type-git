@@ -495,7 +495,9 @@ type ParsedPassState<C extends GitCommandName, A extends readonly unknown[], Pas
           tokens: infer E extends readonly unknown[];
           remaining: infer R extends readonly string[];
         }
-      ? RemainingState<C, A, E, R>
+      ? Spec<C> extends { conditionalCommand: unknown }
+        ? { repositoryDependent: true }
+        : RemainingState<C, A, E, R>
       : Pass extends { exited: 'invalid' }
         ? InvalidPass
         : Pass extends { exited: 'dynamic' }
@@ -528,7 +530,10 @@ type CheckedLocalArguments<
     ? A
     : [CommandState<C, A>] extends [never]
       ? never
-      : CommandState<C, A> extends { help: true } | { parserExited: true }
+      : CommandState<C, A> extends
+            | { help: true }
+            | { parserExited: true }
+            | { repositoryDependent: true }
         ? A
         : CheckRules<CommandState<C, A>, Spec<C>['rules']> extends true
           ? A

@@ -3946,6 +3946,101 @@
           "profile": "signed-32"
         }
       ]
+    },
+    {
+      "command": "stash list",
+      "options": [
+        {
+          "flag": "--unified",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "-U",
+          "key": "unified",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":false,\"conversion\":\"cast\",\"empty\":true,\"beforeNonnegative\":true,\"default\":\"previous\"}"
+        },
+        {
+          "flag": "--inter-hunk-context",
+          "key": "inter-hunk-context",
+          "profile": "unsigned-32"
+        },
+        {
+          "flag": "-l",
+          "key": "l",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--max-depth",
+          "key": "max-depth",
+          "profile": "signed-32"
+        },
+        {
+          "flag": "--expand-tabs",
+          "key": "expand-tabs",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"beforeNonnegative\":true}",
+          "default": 8
+        },
+        {
+          "flag": "--graph-lane-limit",
+          "key": "graph-lane-limit",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-count-oldest",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--max-parents",
+          "key": "max-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--min-parents",
+          "key": "min-parents",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "--skip",
+          "key": "skip",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        },
+        {
+          "flag": "-n",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
+        }
+      ],
+      "conditionalCommand": {
+        "when": {
+          "refExists": "refs/stash"
+        },
+        "otherwise": {
+          "exitCode": 0
+        },
+        "origin": "git",
+        "reason": "No stash ref returns success without parsing child options. Otherwise Git runs log with fixed arguments before and after the retained user words.",
+        "source": "Git 2.55.0 builtin/stash.c:list_stash/cmd_stash",
+        "invoke": {
+          "command": "log",
+          "prepend": [
+            "--format=%gd: %gs",
+            "-g",
+            "--first-parent"
+          ],
+          "append": [
+            "refs/stash",
+            "--"
+          ],
+          "exitStatus": "boolean"
+        }
+      }
     }
   ]
 }

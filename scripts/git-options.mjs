@@ -54,6 +54,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     let parserExit = scope.parserExit;
     if (parserExit?.firstPassTables) {
       const { firstPassTables, remainingTables, remainingGroups, wrappers, ...exit } = parserExit;
+      if (scope.conditionalCommand && (definitionsFor(firstPassTables, command).length || wrappers?.length || remainingTables?.length || remainingGroups?.length)) throw new Error(`${command}: conditional invocation currently requires an empty first parser without intermediate phases`);
       const prefix = wrappers?.map(({ tables: wrapperTables, ...wrapper }) => {
         const definitions = definitionsFor(wrapperTables, command);
         if (wrapper.kind !== 'empty-options' || definitions.some(option => option.kind !== 'OPTION_SUBCOMMAND')) throw new Error(`${command}: wrapper must have no option callbacks`);
@@ -71,7 +72,13 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       remainingOptions['--end-of-options'] = { key: 'revision-end-of-options', value: 'flag', consumesRest: true, ignore: true };
       parserExit = { ...exit, ...(prefix ? { wrappers: prefix } : {}), firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions };
     }
-    result[command] = { argv: command.split(' '), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}) };
+    result[command] = { argv: command.split(' '), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}), ...(scope.conditionalCommand ? { conditionalCommand: scope.conditionalCommand } : {}) };
+  }
+  for (const [command, scope] of Object.entries(scopes)) if (scope.inheritOptions) {
+    const target = result[scope.inheritOptions];
+    if (!target || scopes[scope.inheritOptions].inheritOptions || scope.conditionalCommand?.invoke.command !== scope.inheritOptions) throw new Error(`${command}: option inheritance requires a direct conditional target`);
+    result[command].options = { ...target.options, ...result[command].options };
+    if (target.numericOption) result[command].numericOption = target.numericOption;
   }
   for (const command of Object.keys(rules)) if (!result[command]) throw new Error(`Rules for unknown Git scope: ${command}`);
   return result;
