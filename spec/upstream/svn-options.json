@@ -1,0 +1,4418 @@
+{
+  "version": "2.55.0",
+  "source": "git-svn.perl",
+  "sha256": "2ef2480022de5721ae82e35bd9bfc55b43bf713c6222a67c87ee0ad69371d162",
+  "commands": {
+    "svn fetch": {
+      "declarations": [
+        "revision|r=s",
+        "fetch-all|all",
+        "parent|p",
+        "follow-parent|follow!",
+        "authors-file|A=s",
+        "authors-prog=s",
+        "repack:i",
+        "noMetadata",
+        "useSvmProps",
+        "useSvnsyncProps",
+        "log-window-size=i",
+        "no-checkout",
+        "quiet|q+",
+        "repack-flags|repack-args|repack-opts=s",
+        "use-log-author",
+        "add-author-from",
+        "localtime",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--fetch-all": {
+          "key": "fetch-all",
+          "value": "flag"
+        },
+        "--all": {
+          "key": "fetch-all",
+          "value": "flag"
+        },
+        "--parent": {
+          "key": "parent",
+          "value": "flag"
+        },
+        "--p": {
+          "key": "parent",
+          "value": "flag"
+        },
+        "-p": {
+          "key": "parent",
+          "value": "flag"
+        },
+        "--follow-parent": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--follow": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--authors-file": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "-A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--authors-prog": {
+          "key": "authors-prog",
+          "value": "string"
+        },
+        "--repack": {
+          "key": "repack",
+          "value": "optional-integer"
+        },
+        "--log-window-size": {
+          "key": "log-window-size",
+          "value": "integer"
+        },
+        "--no-checkout": {
+          "key": "no-checkout",
+          "value": "flag"
+        },
+        "--quiet": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "-q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--repack-flags": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-args": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-opts": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--use-log-author": {
+          "key": "use-log-author",
+          "value": "flag"
+        },
+        "--add-author-from": {
+          "key": "add-author-from",
+          "value": "flag"
+        },
+        "--localtime": {
+          "key": "localtime",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn clone": {
+      "declarations": [
+        "revision|r=s",
+        "preserve-empty-dirs",
+        "placeholder-filename=s",
+        "follow-parent|follow!",
+        "authors-file|A=s",
+        "authors-prog=s",
+        "repack:i",
+        "noMetadata",
+        "useSvmProps",
+        "useSvnsyncProps",
+        "log-window-size=i",
+        "no-checkout",
+        "quiet|q+",
+        "repack-flags|repack-args|repack-opts=s",
+        "use-log-author",
+        "add-author-from",
+        "localtime",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "template=s",
+        "shared:s",
+        "trunk|T=s",
+        "tags|t=s@",
+        "branches|b=s@",
+        "prefix=s",
+        "stdlayout|s",
+        "minimize-url|m!",
+        "no-metadata",
+        "use-svm-props",
+        "use-svnsync-props",
+        "rewrite-root=s",
+        "rewrite-uuid=s",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--preserve-empty-dirs": {
+          "key": "preserve-empty-dirs",
+          "value": "flag"
+        },
+        "--placeholder-filename": {
+          "key": "placeholder-filename",
+          "value": "string"
+        },
+        "--follow-parent": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--follow": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--authors-file": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "-A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--authors-prog": {
+          "key": "authors-prog",
+          "value": "string"
+        },
+        "--repack": {
+          "key": "repack",
+          "value": "optional-integer"
+        },
+        "--log-window-size": {
+          "key": "log-window-size",
+          "value": "integer"
+        },
+        "--no-checkout": {
+          "key": "no-checkout",
+          "value": "flag"
+        },
+        "--quiet": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "-q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--repack-flags": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-args": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-opts": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--use-log-author": {
+          "key": "use-log-author",
+          "value": "flag"
+        },
+        "--add-author-from": {
+          "key": "add-author-from",
+          "value": "flag"
+        },
+        "--localtime": {
+          "key": "localtime",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--template": {
+          "key": "template",
+          "value": "string"
+        },
+        "--shared": {
+          "key": "shared",
+          "value": "optional-string"
+        },
+        "--trunk": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "--T": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "-T": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "--tags": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "--t": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "-t": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "--branches": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "--b": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "-b": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "--prefix": {
+          "key": "prefix",
+          "value": "string"
+        },
+        "--stdlayout": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "--s": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "-s": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "--minimize-url": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "--no-minimize-url": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--nominimize-url": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--m": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "-m": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "--no-m": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--nom": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--no-metadata": {
+          "key": "no-metadata",
+          "value": "flag"
+        },
+        "--use-svm-props": {
+          "key": "use-svm-props",
+          "value": "flag"
+        },
+        "--use-svnsync-props": {
+          "key": "use-svnsync-props",
+          "value": "flag"
+        },
+        "--rewrite-root": {
+          "key": "rewrite-root",
+          "value": "string"
+        },
+        "--rewrite-uuid": {
+          "key": "rewrite-uuid",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn init": {
+      "declarations": [
+        "template=s",
+        "shared:s",
+        "trunk|T=s",
+        "tags|t=s@",
+        "branches|b=s@",
+        "prefix=s",
+        "stdlayout|s",
+        "minimize-url|m!",
+        "no-metadata",
+        "use-svm-props",
+        "use-svnsync-props",
+        "rewrite-root=s",
+        "rewrite-uuid=s",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--template": {
+          "key": "template",
+          "value": "string"
+        },
+        "--shared": {
+          "key": "shared",
+          "value": "optional-string"
+        },
+        "--trunk": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "--T": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "-T": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "--tags": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "--t": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "-t": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "--branches": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "--b": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "-b": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "--prefix": {
+          "key": "prefix",
+          "value": "string"
+        },
+        "--stdlayout": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "--s": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "-s": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "--minimize-url": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "--no-minimize-url": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--nominimize-url": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--m": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "-m": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "--no-m": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--nom": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--no-metadata": {
+          "key": "no-metadata",
+          "value": "flag"
+        },
+        "--use-svm-props": {
+          "key": "use-svm-props",
+          "value": "flag"
+        },
+        "--use-svnsync-props": {
+          "key": "use-svnsync-props",
+          "value": "flag"
+        },
+        "--rewrite-root": {
+          "key": "rewrite-root",
+          "value": "string"
+        },
+        "--rewrite-uuid": {
+          "key": "rewrite-uuid",
+          "value": "string"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn multi-init": {
+      "declarations": [
+        "template=s",
+        "shared:s",
+        "trunk|T=s",
+        "tags|t=s@",
+        "branches|b=s@",
+        "prefix=s",
+        "stdlayout|s",
+        "minimize-url|m!",
+        "no-metadata",
+        "use-svm-props",
+        "use-svnsync-props",
+        "rewrite-root=s",
+        "rewrite-uuid=s",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--template": {
+          "key": "template",
+          "value": "string"
+        },
+        "--shared": {
+          "key": "shared",
+          "value": "optional-string"
+        },
+        "--trunk": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "--T": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "-T": {
+          "key": "trunk",
+          "value": "string"
+        },
+        "--tags": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "--t": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "-t": {
+          "key": "tags",
+          "value": "string",
+          "repeat": true
+        },
+        "--branches": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "--b": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "-b": {
+          "key": "branches",
+          "value": "string",
+          "repeat": true
+        },
+        "--prefix": {
+          "key": "prefix",
+          "value": "string"
+        },
+        "--stdlayout": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "--s": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "-s": {
+          "key": "stdlayout",
+          "value": "flag"
+        },
+        "--minimize-url": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "--no-minimize-url": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--nominimize-url": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--m": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "-m": {
+          "key": "minimize-url",
+          "value": "flag"
+        },
+        "--no-m": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--nom": {
+          "key": "minimize-url",
+          "value": "flag",
+          "set": false
+        },
+        "--no-metadata": {
+          "key": "no-metadata",
+          "value": "flag"
+        },
+        "--use-svm-props": {
+          "key": "use-svm-props",
+          "value": "flag"
+        },
+        "--use-svnsync-props": {
+          "key": "use-svnsync-props",
+          "value": "flag"
+        },
+        "--rewrite-root": {
+          "key": "rewrite-root",
+          "value": "string"
+        },
+        "--rewrite-uuid": {
+          "key": "rewrite-uuid",
+          "value": "string"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn dcommit": {
+      "declarations": [
+        "merge|m|M",
+        "strategy|s=s",
+        "verbose|v",
+        "dry-run|n",
+        "fetch-all|all",
+        "commit-url=s",
+        "set-svn-props=s",
+        "revision|r=i",
+        "no-rebase",
+        "mergeinfo=s",
+        "interactive|i",
+        "edit|e",
+        "rmdir",
+        "find-copies-harder",
+        "l=i",
+        "copy-similarity|C=i",
+        "follow-parent|follow!",
+        "authors-file|A=s",
+        "authors-prog=s",
+        "repack:i",
+        "noMetadata",
+        "useSvmProps",
+        "useSvnsyncProps",
+        "log-window-size=i",
+        "no-checkout",
+        "quiet|q+",
+        "repack-flags|repack-args|repack-opts=s",
+        "use-log-author",
+        "add-author-from",
+        "localtime",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--merge": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "--m": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "-m": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "--M": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "-M": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "--strategy": {
+          "key": "strategy",
+          "value": "string"
+        },
+        "--s": {
+          "key": "strategy",
+          "value": "string"
+        },
+        "-s": {
+          "key": "strategy",
+          "value": "string"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "--n": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "-n": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "--fetch-all": {
+          "key": "fetch-all",
+          "value": "flag"
+        },
+        "--all": {
+          "key": "fetch-all",
+          "value": "flag"
+        },
+        "--commit-url": {
+          "key": "commit-url",
+          "value": "string"
+        },
+        "--set-svn-props": {
+          "key": "set-svn-props",
+          "value": "string"
+        },
+        "--revision": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--no-rebase": {
+          "key": "no-rebase",
+          "value": "flag"
+        },
+        "--mergeinfo": {
+          "key": "mergeinfo",
+          "value": "string"
+        },
+        "--interactive": {
+          "key": "interactive",
+          "value": "flag"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--edit": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "--e": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "-e": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "--rmdir": {
+          "key": "rmdir",
+          "value": "flag"
+        },
+        "--find-copies-harder": {
+          "key": "find-copies-harder",
+          "value": "flag"
+        },
+        "--l": {
+          "key": "l",
+          "value": "integer"
+        },
+        "-l": {
+          "key": "l",
+          "value": "integer"
+        },
+        "--copy-similarity": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "--C": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "-C": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "--follow-parent": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--follow": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--authors-file": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "-A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--authors-prog": {
+          "key": "authors-prog",
+          "value": "string"
+        },
+        "--repack": {
+          "key": "repack",
+          "value": "optional-integer"
+        },
+        "--log-window-size": {
+          "key": "log-window-size",
+          "value": "integer"
+        },
+        "--no-checkout": {
+          "key": "no-checkout",
+          "value": "flag"
+        },
+        "--quiet": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "-q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--repack-flags": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-args": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-opts": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--use-log-author": {
+          "key": "use-log-author",
+          "value": "flag"
+        },
+        "--add-author-from": {
+          "key": "add-author-from",
+          "value": "flag"
+        },
+        "--localtime": {
+          "key": "localtime",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn branch": {
+      "declarations": [
+        "message|m=s",
+        "destination|d=s",
+        "dry-run|n",
+        "parents",
+        "tag|t",
+        "username=s",
+        "commit-url=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--message": {
+          "key": "message",
+          "value": "string"
+        },
+        "--m": {
+          "key": "message",
+          "value": "string"
+        },
+        "-m": {
+          "key": "message",
+          "value": "string"
+        },
+        "--destination": {
+          "key": "destination",
+          "value": "string"
+        },
+        "--d": {
+          "key": "destination",
+          "value": "string"
+        },
+        "-d": {
+          "key": "destination",
+          "value": "string"
+        },
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "--n": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "-n": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "--parents": {
+          "key": "parents",
+          "value": "flag"
+        },
+        "--tag": {
+          "key": "tag",
+          "value": "flag"
+        },
+        "--t": {
+          "key": "tag",
+          "value": "flag"
+        },
+        "-t": {
+          "key": "tag",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--commit-url": {
+          "key": "commit-url",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn tag": {
+      "declarations": [
+        "message|m=s",
+        "destination|d=s",
+        "dry-run|n",
+        "parents",
+        "username=s",
+        "commit-url=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--message": {
+          "key": "message",
+          "value": "string"
+        },
+        "--m": {
+          "key": "message",
+          "value": "string"
+        },
+        "-m": {
+          "key": "message",
+          "value": "string"
+        },
+        "--destination": {
+          "key": "destination",
+          "value": "string"
+        },
+        "--d": {
+          "key": "destination",
+          "value": "string"
+        },
+        "-d": {
+          "key": "destination",
+          "value": "string"
+        },
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "--n": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "-n": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "--parents": {
+          "key": "parents",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--commit-url": {
+          "key": "commit-url",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn set-tree": {
+      "declarations": [
+        "stdin",
+        "edit|e",
+        "rmdir",
+        "find-copies-harder",
+        "l=i",
+        "copy-similarity|C=i",
+        "follow-parent|follow!",
+        "authors-file|A=s",
+        "authors-prog=s",
+        "repack:i",
+        "noMetadata",
+        "useSvmProps",
+        "useSvnsyncProps",
+        "log-window-size=i",
+        "no-checkout",
+        "quiet|q+",
+        "repack-flags|repack-args|repack-opts=s",
+        "use-log-author",
+        "add-author-from",
+        "localtime",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--stdin": {
+          "key": "stdin",
+          "value": "flag"
+        },
+        "--edit": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "--e": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "-e": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "--rmdir": {
+          "key": "rmdir",
+          "value": "flag"
+        },
+        "--find-copies-harder": {
+          "key": "find-copies-harder",
+          "value": "flag"
+        },
+        "--l": {
+          "key": "l",
+          "value": "integer"
+        },
+        "-l": {
+          "key": "l",
+          "value": "integer"
+        },
+        "--copy-similarity": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "--C": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "-C": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "--follow-parent": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--follow": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--authors-file": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "-A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--authors-prog": {
+          "key": "authors-prog",
+          "value": "string"
+        },
+        "--repack": {
+          "key": "repack",
+          "value": "optional-integer"
+        },
+        "--log-window-size": {
+          "key": "log-window-size",
+          "value": "integer"
+        },
+        "--no-checkout": {
+          "key": "no-checkout",
+          "value": "flag"
+        },
+        "--quiet": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "-q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--repack-flags": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-args": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-opts": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--use-log-author": {
+          "key": "use-log-author",
+          "value": "flag"
+        },
+        "--add-author-from": {
+          "key": "add-author-from",
+          "value": "flag"
+        },
+        "--localtime": {
+          "key": "localtime",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn create-ignore": {
+      "declarations": [
+        "revision|r=i",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn mkdirs": {
+      "declarations": [
+        "revision|r=i",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn propget": {
+      "declarations": [
+        "revision|r=i",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn propset": {
+      "declarations": [
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn proplist": {
+      "declarations": [
+        "revision|r=i",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn show-ignore": {
+      "declarations": [
+        "revision|r=i",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn show-externals": {
+      "declarations": [
+        "revision|r=i",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "integer"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn multi-fetch": {
+      "declarations": [
+        "revision|r=s",
+        "follow-parent|follow!",
+        "authors-file|A=s",
+        "authors-prog=s",
+        "repack:i",
+        "noMetadata",
+        "useSvmProps",
+        "useSvnsyncProps",
+        "log-window-size=i",
+        "no-checkout",
+        "quiet|q+",
+        "repack-flags|repack-args|repack-opts=s",
+        "use-log-author",
+        "add-author-from",
+        "localtime",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--follow-parent": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--follow": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--authors-file": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "-A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--authors-prog": {
+          "key": "authors-prog",
+          "value": "string"
+        },
+        "--repack": {
+          "key": "repack",
+          "value": "optional-integer"
+        },
+        "--log-window-size": {
+          "key": "log-window-size",
+          "value": "integer"
+        },
+        "--no-checkout": {
+          "key": "no-checkout",
+          "value": "flag"
+        },
+        "--quiet": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "-q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--repack-flags": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-args": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-opts": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--use-log-author": {
+          "key": "use-log-author",
+          "value": "flag"
+        },
+        "--add-author-from": {
+          "key": "add-author-from",
+          "value": "flag"
+        },
+        "--localtime": {
+          "key": "localtime",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn migrate": {
+      "declarations": [
+        "minimize",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--minimize": {
+          "key": "minimize",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn log": {
+      "declarations": [
+        "limit=i",
+        "revision|r=s",
+        "verbose|v",
+        "incremental",
+        "oneline",
+        "show-commit",
+        "non-recursive",
+        "authors-file|A=s",
+        "color",
+        "pager=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--limit": {
+          "key": "limit",
+          "value": "integer"
+        },
+        "--revision": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--incremental": {
+          "key": "incremental",
+          "value": "flag"
+        },
+        "--oneline": {
+          "key": "oneline",
+          "value": "flag"
+        },
+        "--show-commit": {
+          "key": "show-commit",
+          "value": "flag"
+        },
+        "--non-recursive": {
+          "key": "non-recursive",
+          "value": "flag"
+        },
+        "--authors-file": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "-A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--color": {
+          "key": "color",
+          "value": "flag"
+        },
+        "--pager": {
+          "key": "pager",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn find-rev": {
+      "declarations": [
+        "B|before",
+        "A|after",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--B": {
+          "key": "B",
+          "value": "flag"
+        },
+        "-B": {
+          "key": "B",
+          "value": "flag"
+        },
+        "--before": {
+          "key": "B",
+          "value": "flag"
+        },
+        "--A": {
+          "key": "A",
+          "value": "flag"
+        },
+        "-A": {
+          "key": "A",
+          "value": "flag"
+        },
+        "--after": {
+          "key": "A",
+          "value": "flag"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn rebase": {
+      "declarations": [
+        "merge|m|M",
+        "verbose|v",
+        "strategy|s=s",
+        "local|l",
+        "fetch-all|all",
+        "dry-run|n",
+        "rebase-merges|p",
+        "follow-parent|follow!",
+        "authors-file|A=s",
+        "authors-prog=s",
+        "repack:i",
+        "noMetadata",
+        "useSvmProps",
+        "useSvnsyncProps",
+        "log-window-size=i",
+        "no-checkout",
+        "quiet|q+",
+        "repack-flags|repack-args|repack-opts=s",
+        "use-log-author",
+        "add-author-from",
+        "localtime",
+        "username=s",
+        "config-dir=s",
+        "no-auth-cache",
+        "ignore-paths=s",
+        "include-paths=s",
+        "ignore-refs=s",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--merge": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "--m": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "-m": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "--M": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "-M": {
+          "key": "merge",
+          "value": "flag"
+        },
+        "--verbose": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "-v": {
+          "key": "verbose",
+          "value": "flag"
+        },
+        "--strategy": {
+          "key": "strategy",
+          "value": "string"
+        },
+        "--s": {
+          "key": "strategy",
+          "value": "string"
+        },
+        "-s": {
+          "key": "strategy",
+          "value": "string"
+        },
+        "--local": {
+          "key": "local",
+          "value": "flag"
+        },
+        "--l": {
+          "key": "local",
+          "value": "flag"
+        },
+        "-l": {
+          "key": "local",
+          "value": "flag"
+        },
+        "--fetch-all": {
+          "key": "fetch-all",
+          "value": "flag"
+        },
+        "--all": {
+          "key": "fetch-all",
+          "value": "flag"
+        },
+        "--dry-run": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "--n": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "-n": {
+          "key": "dry-run",
+          "value": "flag"
+        },
+        "--rebase-merges": {
+          "key": "rebase-merges",
+          "value": "flag"
+        },
+        "--p": {
+          "key": "rebase-merges",
+          "value": "flag"
+        },
+        "-p": {
+          "key": "rebase-merges",
+          "value": "flag"
+        },
+        "--follow-parent": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow-parent": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--follow": {
+          "key": "follow-parent",
+          "value": "flag"
+        },
+        "--no-follow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--nofollow": {
+          "key": "follow-parent",
+          "value": "flag",
+          "set": false
+        },
+        "--authors-file": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "-A": {
+          "key": "authors-file",
+          "value": "string"
+        },
+        "--authors-prog": {
+          "key": "authors-prog",
+          "value": "string"
+        },
+        "--repack": {
+          "key": "repack",
+          "value": "optional-integer"
+        },
+        "--log-window-size": {
+          "key": "log-window-size",
+          "value": "integer"
+        },
+        "--no-checkout": {
+          "key": "no-checkout",
+          "value": "flag"
+        },
+        "--quiet": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "-q": {
+          "key": "quiet",
+          "value": "flag"
+        },
+        "--repack-flags": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-args": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--repack-opts": {
+          "key": "repack-flags",
+          "value": "string"
+        },
+        "--use-log-author": {
+          "key": "use-log-author",
+          "value": "flag"
+        },
+        "--add-author-from": {
+          "key": "add-author-from",
+          "value": "flag"
+        },
+        "--localtime": {
+          "key": "localtime",
+          "value": "flag"
+        },
+        "--username": {
+          "key": "username",
+          "value": "string"
+        },
+        "--config-dir": {
+          "key": "config-dir",
+          "value": "string"
+        },
+        "--no-auth-cache": {
+          "key": "no-auth-cache",
+          "value": "flag"
+        },
+        "--ignore-paths": {
+          "key": "ignore-paths",
+          "value": "string"
+        },
+        "--include-paths": {
+          "key": "include-paths",
+          "value": "string"
+        },
+        "--ignore-refs": {
+          "key": "ignore-refs",
+          "value": "string"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn commit-diff": {
+      "declarations": [
+        "message|m=s",
+        "file|F=s",
+        "revision|r=s",
+        "edit|e",
+        "rmdir",
+        "find-copies-harder",
+        "l=i",
+        "copy-similarity|C=i",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--message": {
+          "key": "message",
+          "value": "string"
+        },
+        "--m": {
+          "key": "message",
+          "value": "string"
+        },
+        "-m": {
+          "key": "message",
+          "value": "string"
+        },
+        "--file": {
+          "key": "file",
+          "value": "string"
+        },
+        "--F": {
+          "key": "file",
+          "value": "string"
+        },
+        "-F": {
+          "key": "file",
+          "value": "string"
+        },
+        "--revision": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--edit": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "--e": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "-e": {
+          "key": "edit",
+          "value": "flag"
+        },
+        "--rmdir": {
+          "key": "rmdir",
+          "value": "flag"
+        },
+        "--find-copies-harder": {
+          "key": "find-copies-harder",
+          "value": "flag"
+        },
+        "--l": {
+          "key": "l",
+          "value": "integer"
+        },
+        "-l": {
+          "key": "l",
+          "value": "integer"
+        },
+        "--copy-similarity": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "--C": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "-C": {
+          "key": "copy-similarity",
+          "value": "integer"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn info": {
+      "declarations": [
+        "url",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--url": {
+          "key": "url",
+          "value": "flag"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn blame": {
+      "declarations": [
+        "git-format",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--git-format": {
+          "key": "git-format",
+          "value": "flag"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn reset": {
+      "declarations": [
+        "revision|r=s",
+        "parent|p",
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--revision": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "-r": {
+          "key": "revision",
+          "value": "string"
+        },
+        "--parent": {
+          "key": "parent",
+          "value": "flag"
+        },
+        "--p": {
+          "key": "parent",
+          "value": "flag"
+        },
+        "-p": {
+          "key": "parent",
+          "value": "flag"
+        },
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn gc": {
+      "declarations": [
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    },
+    "svn": {
+      "declarations": [
+        "h|H",
+        "version|V",
+        "minimize-connections",
+        "id|i=s",
+        "svn-remote|remote|R=s"
+      ],
+      "options": {
+        "--h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-h": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "-H": {
+          "key": "help",
+          "value": "flag"
+        },
+        "--version": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "-V": {
+          "key": "version",
+          "value": "flag",
+          "effects": [
+            {
+              "key": "help",
+              "set": true
+            }
+          ]
+        },
+        "--minimize-connections": {
+          "key": "minimize-connections",
+          "value": "flag"
+        },
+        "--id": {
+          "key": "id",
+          "value": "string"
+        },
+        "--i": {
+          "key": "id",
+          "value": "string"
+        },
+        "-i": {
+          "key": "id",
+          "value": "string"
+        },
+        "--svn-remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--remote": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "--R": {
+          "key": "svn-remote",
+          "value": "string"
+        },
+        "-R": {
+          "key": "svn-remote",
+          "value": "string"
+        }
+      }
+    }
+  }
+}
