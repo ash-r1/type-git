@@ -1,27 +1,8 @@
-/** Literal grammar; unsigned-long bounds and percent-decoded components are checked at runtime. */
-type White = ' ' | '\t' | '\r' | '\n' | '\v' | '\f';
-type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
-type Hex = Digit | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
-type Trim<S extends string> = S extends `${White}${infer R}` ? Trim<R> : S;
-type Digits<S extends string, D extends string> = S extends ''
-  ? true
-  : S extends `${D}${infer R}`
-    ? Digits<R, D>
-    : false;
-type NonemptyDigits<S extends string, D extends string> = S extends '' ? false : Digits<S, D>;
-type Unsigned<S extends string> = S extends `0${'x' | 'X'}${infer R}`
-  ? NonemptyDigits<R, Hex>
-  : S extends `0${'b' | 'B'}${infer R}`
-    ? NonemptyDigits<R, '0' | '1'>
-    : S extends `0${infer R}`
-      ? Digits<R, Exclude<Digit, '8' | '9'>>
-      : NonemptyDigits<S, Digit>;
-type Unit<S extends string> = S extends `${infer R}${'k' | 'K' | 'm' | 'M' | 'g' | 'G'}`
-  ? Unsigned<R>
-  : Unsigned<S>;
-type Positive<S extends string> = Trim<S> extends `+${infer R}` ? Unit<R> : Unit<Trim<S>>;
+import type { GitIntegerLiteral } from './git-integer-types.js';
+import type { ReservedControl, UrlBytes } from './url-byte-types.js';
+
 type Reserved =
-  | White
+  | ReservedControl
   | '~'
   | '`'
   | '!'
@@ -45,31 +26,61 @@ type Reserved =
   | '<'
   | '>'
   | '?';
-type Child<S extends string> = S extends ''
+// A bounded compiler walk defers large/dynamic inputs to the iterative runtime parser.
+type Decode<
+  S extends string,
+  Out extends string = '',
+  Steps extends unknown[] = [],
+> = string extends S
+  ? string
+  : Steps['length'] extends 128
+    ? string
+    : S extends ''
+      ? Out
+      : S extends `%${infer A}${infer B}${infer R}`
+        ? Lowercase<`${A}${B}`> extends keyof UrlBytes
+          ? Decode<R, `${Out}${UrlBytes[Lowercase<`${A}${B}`>]}`, [...Steps, 0]>
+          : Decode<S extends `%${infer Rest}` ? Rest : never, `${Out}%`, [...Steps, 0]>
+        : S extends `${infer H}${infer R}`
+          ? Decode<R, `${Out}${H}`, [...Steps, 0]>
+          : string;
+type Child<S extends string, Depth extends unknown[]> = S extends ''
   ? true
   : S extends `${string}${Reserved}${string}`
     ? false
-    : S extends `${string}%${string}`
-      ? true
-      : ObjectFilterLiteral<S, false>;
-type Combined<S extends string> = S extends `${infer L}+${infer R}`
-  ? Child<L> extends true
-    ? Combined<R>
-    : false
-  : Child<S>;
-export type ObjectFilterLiteral<S extends string, Auto extends boolean = false> = string extends S
+    : Parsed<S extends `${string}%${string}` ? Decode<S> : S, false, [...Depth, 0]>;
+type Combined<
+  S extends string,
+  Depth extends unknown[],
+  Steps extends unknown[] = [],
+> = string extends S
   ? true
-  : S extends
-        | 'blob:none'
-        | `sparse:oid=${string}`
-        | `object:type=${'commit' | 'tree' | 'blob' | 'tag'}`
+  : Steps['length'] extends 128
     ? true
-    : S extends 'auto'
-      ? Auto
-      : S extends `blob:limit=${infer N}` | `tree:${infer N}`
-        ? Positive<N>
-        : S extends `combine:${infer R}`
-          ? R extends ''
-            ? false
-            : Combined<R>
-          : false;
+    : S extends `${infer L}+${infer R}`
+      ? Child<L, Depth> extends true
+        ? Combined<R, Depth, [...Steps, 0]>
+        : false
+      : Child<S, Depth>;
+type Parsed<S extends string, Auto extends boolean, Depth extends unknown[] = []> = string extends S
+  ? true
+  : Depth['length'] extends 32
+    ? true
+    : S extends
+          | 'blob:none'
+          | `sparse:oid=${string}`
+          | `object:type=${'commit' | 'tree' | 'blob' | 'tag'}`
+      ? true
+      : S extends 'auto'
+        ? Auto
+        : S extends `blob:limit=${infer N}` | `tree:${infer N}`
+          ? GitIntegerLiteral<N, { kind: 'integer'; signed: false; bits: 64 }>
+          : S extends `combine:${infer R}`
+            ? R extends ''
+              ? false
+              : Combined<R, Depth>
+            : false;
+export type ObjectFilterLiteral<
+  S extends string,
+  Auto extends boolean = false,
+> = false extends Parsed<S, Auto> ? false : true;

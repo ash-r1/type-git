@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -81,6 +82,10 @@ const scopes: GitCommandName[] = [
   'fetch-pack',
 ];
 
+const byteCorpus = JSON.parse(
+  readFileSync(new URL('../../test/fixtures/object-filter-corpus.json', import.meta.url), 'utf8'),
+) as { cases: { filter: string; valid: boolean }[] };
+
 describe.skipIf(legacy)('Git 2.55 object-filter callbacks', () => {
   let root: string;
   let env: NodeJS.ProcessEnv;
@@ -135,6 +140,17 @@ describe.skipIf(legacy)('Git 2.55 object-filter callbacks', () => {
       expect(build, args.join(' ')).toThrow(GitArgumentError);
     }
   }
+
+  it('matches every byte and numeric boundary in the independent Git corpus', () => {
+    for (const entry of byteCorpus.cases) {
+      const build = () => commandArguments('cat-file', [['--filter', entry.filter], ['-h']], true);
+      if (entry.valid) {
+        expect(build, entry.filter).not.toThrow();
+      } else {
+        expect(build, entry.filter).toThrow(GitArgumentError);
+      }
+    }
+  });
 
   it.each(scopes)('matches the independent lexical corpus in %s', (command) => {
     for (const value of valid) {

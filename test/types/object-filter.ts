@@ -40,3 +40,23 @@ git.command('rev-list', [['--objects'], ['--filter', 'tree:bad'], { operand: 'HE
 
 // Unknown filter choices retain runtime validation rather than assuming a simple filter.
 git.command('fetch', [['--filter', dynamic], ['--filter', 'tree:1'], ['--no-filter'], ['--filter', 'auto']]);
+
+// Numeric widths and percent-decoding share the pinned runtime profile.
+git.command('fetch', [['--filter', 'blob:limit=18446744073709551615']]);
+git.command('fetch', [['--filter', 'tree:0xffffffffffffffff']]);
+git.command('fetch', [['--filter', 'combine:tree:%2b1']]);
+git.command('fetch', [['--filter', 'combine:combine:blob:none%2Btree:1']]);
+// @ts-expect-error Unsigned long overflows before help or a later reset.
+git.command('cat-file', [['--filter', 'tree:18446744073709551616'], ['-h']]);
+// @ts-expect-error Unit multiplication also checks the 64-bit bound.
+git.command('fetch', [['--filter', 'blob:limit=17179869184g'], ['--no-filter']]);
+// @ts-expect-error Decoding happens before the nested grammar and numeric bound checks.
+git.command('fetch', [['--filter', 'combine:tree:1844674407370955161%36']]);
+// @ts-expect-error The decoded plus starts another child, which cannot be auto.
+git.command('fetch', [['--filter', 'combine:combine:tree:1%2Bauto']]);
+// @ts-expect-error Git reserves unescaped bytes through ASCII space, including SOH.
+git.command('fetch', [['--filter', 'combine:sparse:oid=\u0001']]);
+declare const numericTemplate: `tree:${number}`;
+git.command('fetch', [['--filter', numericTemplate]]);
+declare const encodedTemplate: `combine:tree:%${string}`;
+git.command('fetch', [['--filter', encodedTemplate]]);
