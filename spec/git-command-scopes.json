@@ -4795,13 +4795,14 @@
     "tables": [
       "diff.c:add_diff_options:parseopts"
     ],
-    "source": "builtin/log.c",
+    "source": "Git 2.55.0 builtin/log.c:cmd_format_patch; revision.c:setup_revisions; diff.c",
     "finalTables": [
       "builtin/log.c:cmd_format_patch:builtin_format_patch_options"
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "options": {
       "--no-numbered": {
@@ -4865,6 +4866,31 @@
           }
         ]
       }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/log.c:cmd_format_patch:builtin_format_patch_options"
+      ],
+      "origin": "git",
+      "reason": "The format-patch option pass retains unknown words for setup_revisions and exits at local help before final subject/cover checks and deferred revision/diff callbacks. Earlier native callbacks still execute.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+      "keepDashDash": true,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": true
     }
   },
   "archive": {
