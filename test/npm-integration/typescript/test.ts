@@ -273,3 +273,13 @@ export function testResidualArgvTypes(git: Git): void {
   // @ts-expect-error Fast-export drops the first -- and the next pass validates color.
   git.command('fast-export', [['--'], ['--color', 'invalid']]);
 }
+
+export function testReflogWrapperTypes(git: Git): void {
+  git.command('reflog show', [['--decorate', 'invalid'], ['-h']]);
+  git.command('reflog', [{ operand: 'show' }, ['-G', '-L'], ['-h']]);
+  git.command('reflog show', [['--help'], ['--decorate', 'invalid']]);
+  // @ts-expect-error The root wrapper delegates before reaching help.
+  git.command('reflog', [['--decorate', 'invalid'], ['-h']]);
+  // @ts-expect-error No wrapper help exit suppresses this invalid callback.
+  git.command('reflog show', [['--decorate', 'invalid']]);
+}

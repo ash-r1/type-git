@@ -1992,17 +1992,66 @@
     ]
   },
   "reflog show": {
-    "source": "builtin/reflog.c:cmd_reflog_show; builtin/log.c:cmd_log_reflog",
+    "source": "Git 2.55.0 builtin/reflog.c:cmd_reflog/cmd_reflog_show; builtin/log.c:cmd_log_reflog/cmd_log_init_finish; revision.c",
     "tables": [
       "builtin/log.c:cmd_log_init_finish:builtin_log_options",
       "diff.c:add_diff_options:parseopts"
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "initial": {
       "walk-reflogs": true
+    },
+    "options": {
+      "--decorate": {
+        "key": "decorate",
+        "value": "optional-string",
+        "set": true,
+        "parser": "log-decorate"
+      },
+      "--no-decorate": {
+        "key": "decorate",
+        "value": "flag",
+        "set": false
+      }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/log.c:cmd_log_init_finish:builtin_log_options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+      "keepDashDash": true,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": true,
+      "wrappers": [
+        {
+          "kind": "empty-options",
+          "tables": [
+            "builtin/reflog.c:cmd_reflog_show:options"
+          ],
+          "keepDashDash": true,
+          "stopAtUnknown": false,
+          "origin": "git",
+          "reason": "The empty wrapper scans retained unknown words for internal help before any log callbacks run.",
+          "source": "Git 2.55.0 builtin/reflog.c:cmd_reflog_show; parse-options.c:parse_options_step"
+        }
+      ]
     }
   },
   "stash show": {
@@ -7740,14 +7789,15 @@
     "source": "imap-send.c"
   },
   "reflog": {
-    "source": "builtin/reflog.c:cmd_reflog_show; builtin/log.c:cmd_log_reflog",
+    "source": "Git 2.55.0 builtin/reflog.c:cmd_reflog/cmd_reflog_show; builtin/log.c:cmd_log_reflog/cmd_log_init_finish; revision.c",
     "tables": [
       "builtin/log.c:cmd_log_init_finish:builtin_log_options",
       "diff.c:add_diff_options:parseopts"
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "initial": {
       "walk-reflogs": true
@@ -7760,6 +7810,57 @@
       "drop": "reflog drop",
       "expire": "reflog expire",
       "show": "reflog show"
+    },
+    "options": {
+      "--decorate": {
+        "key": "decorate",
+        "value": "optional-string",
+        "set": true,
+        "parser": "log-decorate"
+      },
+      "--no-decorate": {
+        "key": "decorate",
+        "value": "flag",
+        "set": false
+      }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/log.c:cmd_log_init_finish:builtin_log_options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+      "keepDashDash": true,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": true,
+      "wrappers": [
+        {
+          "kind": "empty-options",
+          "tables": [
+            "builtin/reflog.c:cmd_reflog:options"
+          ],
+          "keepDashDash": true,
+          "stopAtUnknown": true,
+          "origin": "git",
+          "reason": "The optional-subcommand wrapper stops on its first unknown word and delegates the remaining argv.",
+          "source": "Git 2.55.0 builtin/reflog.c:cmd_reflog; parse-options.c:parse_options_step"
+        }
+      ]
     }
   },
   "stash": {
