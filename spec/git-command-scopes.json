@@ -959,7 +959,12 @@
       "-n": {
         "key": "n",
         "value": "optional-integer",
-        "set": 1
+        "set": 1,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -1787,7 +1792,12 @@
       "-l": {
         "key": "l",
         "value": "integer",
-        "attachedValue": true
+        "attachedValue": true,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "-I": {
         "key": "ignore-matching-lines",
@@ -3802,7 +3812,12 @@
       "--no-version": {
         "key": "version",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -4330,12 +4345,22 @@
       "--no-threads": {
         "key": "threads",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-max-count": {
         "key": "max-count",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -4571,12 +4596,22 @@
       "--more": {
         "key": "more",
         "value": "optional-integer",
-        "set": 1
+        "set": 1,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-more": {
         "key": "more",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-list": {
         "key": "more",
@@ -4894,7 +4929,12 @@
       "--no-summary-limit": {
         "key": "summary-limit",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -5657,7 +5697,12 @@
       "--no-index-version": {
         "key": "index-version",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -5797,12 +5842,22 @@
       "--no-compression": {
         "key": "compression",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-name-hash-version": {
         "key": "name-hash-version",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-max-pack-size": {
         "key": "max-pack-size",

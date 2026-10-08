@@ -1,4 +1,5 @@
 import ts from 'typescript';
+import { scalarRepresentatives } from './scalar-domains.mjs';
 import { commandDomains } from './command-domains.mjs';
 import { commandModes } from './command-modes.mjs';
 import { literal } from './constraint-domains.mjs';
@@ -16,12 +17,13 @@ const additional = JSON.parse(await readFile(new URL('spec/lfs-command-rules.jso
 const temp = await mkdtemp(join(tmpdir(), 'type-git-cli-spec-'));
 try {
   await writeFile(join(temp, 'package.json'), '{"type":"module"}');
-  for (const name of ['commands', 'inputs', 'model', 'scalars', 'git-scalars', 'object-filter', 'decision-diagram']) {
+  for (const name of ['commands', 'inputs', 'model', 'scalars', 'git-scalars', 'git-integer', 'object-filter', 'decision-diagram']) {
     const source = await readFile(new URL(`src/constraints/${name}.ts`, root), 'utf8');
     await writeFile(join(temp, `${name}.js`), ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText);
   }
   const { COMMAND_CONSTRAINTS } = await import(pathToFileURL(join(temp, 'commands.js')));
   const { INPUT_CONSTRAINTS } = await import(pathToFileURL(join(temp, 'inputs.js')));
+  const { parseGitScalar } = await import(pathToFileURL(join(temp, 'git-scalars.js')));
   const { solve } = await import(pathToFileURL(join(temp, 'decision-diagram.js')));
   const { referencedKeys } = await import(pathToFileURL(join(temp, 'model.js')));
   const mappings = { 'lfs checkout': 'lfsCheckout', 'lfs locks': 'lfsLocks', 'lfs migrate info': 'lfsMigrateInfo', 'lfs migrate import': 'lfsMigrateImport', 'lfs migrate export': 'lfsMigrateExport' };
@@ -44,7 +46,7 @@ try {
       scopes[name] = { ...scopes[name], options: { ...entry.options, ...scopes[name].options } };
     }
   }
-  const catalog = gitOptions(native, scopes, nativeRules, groups);
+  const catalog = gitOptions(native, scopes, nativeRules, groups, JSON.parse(await readFile(new URL('spec/upstream/git-numeric-options.json', root), 'utf8')));
   for (const [name, entry] of Object.entries(upstream.commands)) {
     const inherited = mappings[name] ? COMMAND_CONSTRAINTS[mappings[name]].filter((r) => r.origin === 'git' && r.kind !== 'unsupported').map(rename) : [];
     if (name === 'lfs checkout') inherited.push(...INPUT_CONSTRAINTS.lfsCheckout.map(rename));
@@ -86,6 +88,34 @@ try {
   if (process.argv.includes('--check')) {
     if (await readFile(target, 'utf8').catch(() => '') !== content) throw new Error('Command specs are stale; run pnpm commands:generate');
   } else await writeFile(target, content);
+  const numericProfiles = new Map();
+  const numericScopes = [];
+  for (const [command, spec] of Object.entries(catalog)) {
+    const options = [];
+    for (const [flag, option] of Object.entries(spec.options)) {
+      if (typeof option.parser !== 'object') continue;
+      const id = `${option.parser.signed ? 'signed' : 'unsigned'}-${option.parser.bits}`;
+      if (!numericProfiles.has(id)) numericProfiles.set(id, {
+        parser: option.parser,
+        cases: scalarRepresentatives(option.parser).map(value => {
+          const result = parseGitScalar(option.parser, value);
+          return { input: literal(value), valid: result.valid, ...(result.valid ? { normalized: literal(result.value) } : {}) };
+        }),
+      });
+      options.push({ flag, key: option.key, profile: id, ...(option.set !== undefined ? { default: option.set } : {}) });
+    }
+    if (options.length) numericScopes.push({ command, options });
+  }
+  const numericReport = JSON.stringify({
+    scope: 'Deterministic boundary representatives for compiler-recorded native integer parsers, not exhaustive command semantics.',
+    source: 'https://github.com/git/git/blob/v2.55.0/parse-options.c',
+    snapshot: 'spec/upstream/git-numeric-options.json',
+    profiles: Object.fromEntries(numericProfiles), commands: numericScopes,
+  }, null, 2) + '\n';
+  const numericTarget = new URL('docs/design/native-integer-exploration.json', root);
+  if (process.argv.includes('--check')) {
+    if (await readFile(numericTarget, 'utf8').catch(() => '') !== numericReport) throw new Error('Integer parser exploration is stale; run pnpm commands:generate');
+  } else await writeFile(numericTarget, numericReport);
   const exploration = Object.entries(catalog).map(([command, spec]) => {
     const domains = commandDomains(spec, referencedKeys);
     const result = solve(spec.rules, domains);

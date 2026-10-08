@@ -1,3 +1,5 @@
+import type { GitIntegerParser } from '../constraints/git-integer.js';
+import type { GitIntegerLiteral, GitIntegerValue } from '../constraints/git-integer-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
 import type { Constrained } from '../constraints/types.js';
@@ -43,15 +45,17 @@ type AsciiLower<S extends string> = string extends S
   : S extends `${infer H}${infer R}`
     ? `${H extends AsciiUpper ? Lowercase<H> : H}${AsciiLower<R>}`
     : S;
-type Value<S extends OptionSpec> = S extends { allowed: infer A extends readonly unknown[] }
-  ? S extends { caseInsensitive: true }
-    ? string | Exclude<A[number], string>
-    : A[number]
-  : S['value'] extends 'flag' | 'boolean'
-    ? boolean
-    : S['value'] extends 'integer' | 'optional-integer'
-      ? number
-      : string;
+type Value<S extends OptionSpec> = S extends { parser: GitIntegerParser }
+  ? number | string | bigint
+  : S extends { allowed: infer A extends readonly unknown[] }
+    ? S extends { caseInsensitive: true }
+      ? string | Exclude<A[number], string>
+      : A[number]
+    : S['value'] extends 'flag' | 'boolean'
+      ? boolean
+      : S['value'] extends 'integer' | 'optional-integer'
+        ? number
+        : string;
 type Token<K, S extends OptionSpec> = S['value'] extends 'flag'
   ? readonly [flag: K]
   : S['value'] extends 'boolean' | 'optional-string' | 'optional-integer'
@@ -106,13 +110,15 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   : D extends { set: infer V }
     ? V
     : true;
-type Normalize<V, D extends OptionSpec> = D extends { caseInsensitive: true }
-  ? D extends { preserveCase: true }
-    ? V
-    : V extends string
-      ? AsciiLower<V>
-      : V
-  : V;
+type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitIntegerParser }
+  ? GitIntegerValue<V, P>
+  : D extends { caseInsensitive: true }
+    ? D extends { preserveCase: true }
+      ? V
+      : V extends string
+        ? AsciiLower<V>
+        : V
+    : V;
 type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
   T extends readonly [unknown, infer V]
     ? V extends undefined
@@ -259,46 +265,61 @@ type CheckedCallbackState<S, D extends OptionSpec, T extends readonly unknown[]>
     ? ParsedState<S, D, T>
     : never
   : ParsedState<S, D, T>;
-type ScalarLiteral<D extends OptionSpec, V> = V extends string
-  ? string extends V
-    ? true
-    : D extends { parser: 'object-filter' | 'object-filter-auto' }
-      ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
-      : D extends { parser: 'shortlog-group' }
-        ? AsciiLower<V> extends 'author' | 'committer'
-          ? true
-          : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
+type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitIntegerParser }
+  ? GitIntegerLiteral<V, P>
+  : V extends string
+    ? string extends V
+      ? true
+      : D extends { parser: 'object-filter' | 'object-filter-auto' }
+        ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
+        : D extends { parser: 'shortlog-group' }
+          ? AsciiLower<V> extends 'author' | 'committer'
             ? true
-            : false
-        : D extends { parser: 'pull-rebase' }
-          ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off'
-            ? true
-            : V extends 'merges' | 'm' | 'interactive' | 'i'
+            : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
               ? true
-              : // Git's signed/base/unit integer language is checked at runtime.
-                V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
+              : false
+          : D extends { parser: 'pull-rebase' }
+            ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off'
+              ? true
+              : V extends 'merges' | 'm' | 'interactive' | 'i'
                 ? true
-                : false
-          : true
-  : true;
+                : // Git's signed/base/unit integer language is checked at runtime.
+                  V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
+                  ? true
+                  : false
+            : true
+    : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
-  caseInsensitive: true;
+  parser: GitIntegerParser;
   allowed: infer A extends readonly unknown[];
 }
   ? T extends readonly [unknown, infer V]
     ? V extends undefined
       ? true
-      : V extends string
-        ? string extends V
-          ? true
-          : AsciiLower<V> extends A[number]
-            ? true
-            : false
-        : V extends A[number]
+      : number extends TokenValue<T, D>
+        ? true
+        : TokenValue<T, D> extends A[number]
           ? true
           : false
     : true
-  : true;
+  : D extends {
+        caseInsensitive: true;
+        allowed: infer A extends readonly unknown[];
+      }
+    ? T extends readonly [unknown, infer V]
+      ? V extends undefined
+        ? true
+        : V extends string
+          ? string extends V
+            ? true
+            : AsciiLower<V> extends A[number]
+              ? true
+              : false
+          : V extends A[number]
+            ? true
+            : false
+      : true
+    : true;
 type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = T extends readonly [
   unknown,
   infer V,

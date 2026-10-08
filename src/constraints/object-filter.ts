@@ -1,22 +1,11 @@
+import { parseGitInteger } from './git-integer.js';
+
 /** Git 2.55 list-objects-filter-options.c, parse.c and url.c (64-bit unsigned long profile). */
 // biome-ignore lint/suspicious/noControlCharactersInRegex: Git reserves every ASCII control byte.
 const RESERVED = /[\x00-\x20~`!@#$^&*()[\]{}\\;'",<>?]/;
 
 function unsignedLong(text: string): boolean {
-  const match = /^[ \t\r\n\v\f]*\+?(0[xX][\da-fA-F]+|0[bB][01]+|0[0-7]*|[1-9]\d*)([kKmMgG]?)$/.exec(
-    text,
-  );
-  if (!match) {
-    return false;
-  }
-  const digits = match[1]!;
-  const value = /^0[xXbB]/.test(digits)
-    ? BigInt(digits)
-    : digits.startsWith('0')
-      ? BigInt(`0o${digits}`)
-      : BigInt(digits);
-  const power = { '': 0n, k: 10n, m: 20n, g: 30n }[(match[2] ?? '').toLowerCase()]!;
-  return value << power <= 18446744073709551615n;
+  return parseGitInteger(text, { kind: 'integer', signed: false, bits: 64 }) !== undefined;
 }
 
 // Git preserves malformed escapes and %00; it decodes bytes, not UTF-8 characters.

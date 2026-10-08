@@ -45,6 +45,8 @@ const invalid = [
   'blob:limit=08',
   'blob:limit=1kb',
   'blob:limit=1 ',
+  'blob:limit=1\n',
+  'tree:1\r\n',
   'blob:limit=18446744073709551616',
   'blob:limit=17179869184g',
   'tree:',

@@ -1,3 +1,4 @@
+import { type GitIntegerParser, integerState, parseGitInteger } from './git-integer.js';
 import { validObjectFilter } from './object-filter.js';
 
 const ASCII_UPPERCASE = /[A-Z]/g;
@@ -5,22 +6,9 @@ export function asciiLower(value: string): string {
   return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
 }
 
-/** Git 2.55 parse.c: signed 32-bit configuration integers with base-0 (including C23 binary literals) and k/m/g units. */
+/** Signed configuration integers use the same parser with an int storage width. */
 export function gitInteger(value: string): bigint | undefined {
-  const match =
-    /^[ \t\r\n\v\f]*([+-]?)(0[xX][\da-fA-F]+|0[bB][01]+|0[0-7]*|[1-9]\d*)([kKmMgG]?)$/.exec(value);
-  if (!match) {
-    return undefined;
-  }
-  const digits = match[2]!;
-  const magnitude = /^0[xXbB]/.test(digits)
-    ? BigInt(digits)
-    : digits.startsWith('0')
-      ? BigInt(`0o${digits}`)
-      : BigInt(digits);
-  const power = { '': 0n, k: 10n, m: 20n, g: 30n }[asciiLower(match[3] ?? '')]!;
-  const number = (match[1] === '-' ? -magnitude : magnitude) * (1n << power);
-  return number >= -2147483648n && number <= 2147483647n ? number : undefined;
+  return parseGitInteger(value, { kind: 'integer', signed: true, bits: 32 });
 }
 
 /** Undefined means an invalid spelling, not false. An absent option value is handled by its schema. */
@@ -43,6 +31,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | GitIntegerParser
   | 'depth-initial'
   | 'object-filter'
   | 'object-filter-auto'
@@ -67,6 +56,10 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (typeof parser === 'object') {
+    const parsed = parseGitInteger(value, parser);
+    return parsed === undefined ? { valid: false } : { valid: true, value: integerState(parsed) };
+  }
   if (parser === 'depth-initial') {
     // Git clone/fetch call atoi before transport-specific validation. The pinned
     // 64-bit libc clamps strtol overflow, then atoi converts to a signed int.

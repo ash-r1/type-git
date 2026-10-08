@@ -147,3 +147,6 @@ website/src/content/docs/api/
 
 .pnpm-store
 .DS_Store
+
+# Python importer bytecode
+/scripts/__pycache__/

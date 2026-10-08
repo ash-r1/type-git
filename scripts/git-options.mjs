@@ -1,9 +1,16 @@
 /** Convert pinned Git parse-options tables. Custom parsers require separate scopes. */
-export function gitOptions(upstream, scopes, rules, groups = {}) {
+export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot) {
+  const numeric = new Map((numericSnapshot?.options ?? []).map(row => [JSON.stringify([row.file, row.function, row.table, row.flag, row.kind]), row]));
   const candidates = new Map();
   for (const file of upstream.files) for (const table of file.tables) {
     const id = `${file.file}:${table.function ?? 'global'}:${table.name}`;
-    candidates.set(id, [...(candidates.get(id) ?? []), table]);
+    const options = table.options.map(option => {
+      if (!['OPTION_INTEGER', 'OPTION_UNSIGNED'].includes(option.kind)) return option;
+      const metadata = numeric.get(JSON.stringify([file.file, table.function ?? null, table.name, option.long ?? option.short, option.kind]));
+      if (!metadata) throw new Error(`Missing compiler-evaluated integer metadata: ${id} ${option.long ?? option.short}`);
+      return { ...option, numeric: metadata };
+    });
+    candidates.set(id, [...(candidates.get(id) ?? []), { ...table, options }]);
   }
   const tables = new Map();
   for (const [id, entries] of candidates) {
@@ -32,6 +39,12 @@ export function gitOptions(upstream, scopes, rules, groups = {}) {
       options[flag] = { ...option, effects: [...(option.effects ?? []), { key: scope.inheritedOptionMarker, set: true }] };
     }
     Object.assign(options, tableOptions(definitionsFor(scope.finalTables ?? [], command), command, scope.numericOption));
+    for (const [flag, override] of Object.entries(scope.options ?? {})) {
+      if (scope.omitOptions?.includes(flag) || (scope.optionAllowlist && !scope.optionAllowlist.includes(flag))) continue;
+      if (typeof options[flag]?.parser === 'object' && JSON.stringify(override.parser) !== JSON.stringify(options[flag].parser)) {
+        throw new Error(`${command} ${flag}: scope override drops or changes compiler-recorded integer metadata`);
+      }
+    }
     Object.assign(options, scope.options ?? {});
     if (scope.optionAllowlist) for (const flag of Object.keys(options)) {
       if (!scope.optionAllowlist.includes(flag)) delete options[flag];
@@ -64,8 +77,8 @@ function tableOptions(definitions, command, numericOption) {
       const value = noarg ? 'flag' : `${optional ? 'optional-' : ''}${numeric ? 'integer' : 'string'}`;
       const defaultString = optional && fields.defval?.match(/"(?:\\.|[^"\\])*"/);
       const callback = (fields.callback ?? '').replace(/[&()]/g, '');
-      const parser = { opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
-      const base = { ...(parser ? { parser } : {}), key, value, ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
+      const parser = numeric ? { kind: 'integer', signed: kind === 'OPTION_INTEGER', bits: definition.numeric.bits } : { opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
+      const base = { ...(parser ? { parser } : {}), key, value, ...(numeric && optional ? { set: definition.numeric.default } : {}), ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
       if (flags.includes('PARSE_OPT_CMDMODE')) {
         base.modeGroup = fields.value.replace(/[()\s]/g, '');
         if (kind === 'OPTION_SET_INT' && fields.defval) base.modeValue = fields.defval.replace(/[()\s]/g, '');
@@ -73,7 +86,7 @@ function tableOptions(definitions, command, numericOption) {
       if (long) options[`--${long}`] ??= base;
       if (short) options[`${flags.includes('PARSE_OPT_NODASH') ? '' : '-'}${short}`] ??= base;
       if (long && !flags.includes('PARSE_OPT_NONEG')) {
-        const negated = { ...base, value: 'flag', ...(kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || (parser && parser !== 'object-filter') ? { set: false } : { clear: true }) };
+        const negated = { ...base, value: 'flag', ...(numeric ? { set: 0 } : kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || (parser && parser !== 'object-filter') ? { set: false } : { clear: true }) };
         negations[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] ??= negated;
         if (long.startsWith('no-')) negations[`--no-${long}`] ??= negated;
       }
