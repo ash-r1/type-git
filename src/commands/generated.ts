@@ -699,6 +699,15 @@ const commandSpec1 = {
   ],
   source: 'builtin/add.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/add.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec2 = {
   argv: ['rm'],
@@ -858,6 +867,15 @@ const commandSpec2 = {
   ],
   source: 'builtin/rm.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/rm.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec3 = {
   argv: ['mv'],
@@ -942,6 +960,15 @@ const commandSpec3 = {
   ],
   source: 'builtin/mv.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/mv.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec4 = {
   argv: ['clean'],
@@ -1045,6 +1072,15 @@ const commandSpec4 = {
   ],
   source: 'builtin/clean.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/clean.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec5 = {
   argv: ['init'],
@@ -3014,6 +3050,15 @@ const commandSpec19 = {
   ],
   source: 'builtin/commit.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/commit.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec20 = {
   argv: ['status'],
@@ -3261,6 +3306,15 @@ const commandSpec20 = {
   ],
   source: 'builtin/commit.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/commit.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec21 = {
   argv: ['worktree'],
@@ -4524,6 +4578,15 @@ const commandSpec30 = {
   ],
   source: 'builtin/clone.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/clone.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec31 = {
   argv: ['fetch'],
@@ -5354,6 +5417,15 @@ const commandSpec31 = {
   ],
   source: 'builtin/fetch.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/fetch.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec32 = {
   argv: ['push'],
@@ -5701,6 +5773,15 @@ const commandSpec32 = {
   ],
   source: 'builtin/push.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/push.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec33 = {
   argv: ['branch'],
@@ -5758,6 +5839,8 @@ const commandSpec33 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      allowed: ['always', 'auto', 'never'],
+      caseInsensitive: true,
     },
     '--remotes': {
       key: 'scope',
@@ -5956,8 +6039,7 @@ const commandSpec33 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-abbrev': {
       parser: {
@@ -6907,6 +6989,15 @@ const commandSpec33 = {
   ],
   source: 'builtin/branch.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec34 = {
   argv: ['checkout'],
@@ -7767,6 +7858,15 @@ const commandSpec34 = {
   ],
   source: 'builtin/checkout.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec35 = {
   argv: ['switch'],
@@ -8158,6 +8258,15 @@ const commandSpec35 = {
   ],
   source: 'builtin/checkout.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec36 = {
   argv: ['restore'],
@@ -8732,6 +8841,15 @@ const commandSpec36 = {
   ],
   source: 'builtin/checkout.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec37 = {
   argv: ['reset'],
@@ -9117,6 +9235,15 @@ const commandSpec37 = {
   ],
   source: 'builtin/reset.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/reset.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec38 = {
   argv: ['tag'],
@@ -9296,6 +9423,8 @@ const commandSpec38 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      allowed: ['always', 'auto', 'never'],
+      caseInsensitive: true,
     },
     '--ignore-case': {
       key: 'ignore-case',
@@ -9383,8 +9512,7 @@ const commandSpec38 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-ignore-case': {
       key: 'ignore-case',
@@ -11486,6 +11614,15 @@ const commandSpec38 = {
   ],
   source: 'builtin/tag.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec39 = {
   argv: ['stash', 'clear'],
@@ -31936,6 +32073,15 @@ const commandSpec83 = {
   ],
   source: 'builtin/merge.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/merge.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec84 = {
   argv: ['rebase'],
@@ -32893,6 +33039,15 @@ const commandSpec84 = {
   ],
   source: 'builtin/rebase.c:cmd_rebase',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/rebase.c:cmd_rebase; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec85 = {
   argv: ['cherry-pick'],
@@ -41993,6 +42148,8 @@ const commandSpec94 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      allowed: ['always', 'auto', 'never'],
+      caseInsensitive: true,
     },
     '--exclude': {
       key: 'exclude',
@@ -42088,8 +42245,7 @@ const commandSpec94 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-exclude': {
       key: 'exclude',
@@ -42229,6 +42385,15 @@ const commandSpec94 = {
   ],
   source: 'builtin/for-each-ref.c:for_each_ref_core',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec95 = {
   argv: ['show-ref'],
@@ -76022,6 +76187,8 @@ const commandSpec207 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      allowed: ['always', 'auto', 'never'],
+      caseInsensitive: true,
     },
     '--more': {
       key: 'more',
@@ -76097,8 +76264,7 @@ const commandSpec207 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-more': {
       key: 'more',
@@ -76255,6 +76421,15 @@ const commandSpec207 = {
   source: 'builtin/show-branch.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec208 = {
   argv: ['pull'],

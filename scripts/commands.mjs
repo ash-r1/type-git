@@ -64,6 +64,11 @@ try {
     for (const option of [...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])]) for (const rule of option.checks ?? []) for (const key of referencedKeys(rule)) if (key !== '$value' && key !== '$remaining' && !keys.has(key)) throw new Error(`${name}: transition ${rule.id} refers to unknown input ${key}`);
   }
   for (const [name, entry] of Object.entries(catalog)) {
+    for (const flag of entry.parserExit?.exceptFirst ?? []) if (!entry.parserExit.flags.includes(flag)) throw new Error(`${name} ${flag}: excluded first token must be a parser exit`);
+    for (const flag of entry.parserExit?.flags ?? []) {
+      const option = entry.options[flag];
+      if (!option || option.key !== 'help' || option.value !== 'flag' || option.before !== undefined || option.parser || option.checks?.length || option.effects?.length || option.modeGroup) throw new Error(`${name} ${flag}: parser exit must be a plain help flag`);
+    }
     for (const [flag, option] of Object.entries(entry.options)) if (option.emptyValueFlag) {
       const target = entry.options[option.emptyValueFlag];
       if (flag.startsWith('--') || !option.emptyValueFlag.startsWith('--') || !option.value.startsWith('optional-') || !target || target.key !== option.key || target.value !== option.value) throw new Error(`${name} ${flag}: invalid empty-value alias`);
@@ -132,7 +137,7 @@ try {
       return { flag, rules: option.checks.map(rule => rule.id), domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
     });
     const modes = commandModes(spec);
-    return { command, ...(spec.executable ? { executable: spec.executable } : {}), ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
+    return { command, ...(spec.parserExit ? { parserExit: spec.parserExit } : {}), ...(spec.executable ? { executable: spec.executable } : {}), ...(spec.dispatch ? { dispatch: spec.dispatch } : {}), ...(modes.length ? { modes } : {}), ...(transitions.length ? { transitions } : {}), rules: spec.rules.length, domains: Object.fromEntries(Object.entries(domains).map(([key, values]) => [key, values.map(literal)])), total: String(result.total), accepted: String(result.accepted), nodes: result.nodes.length, isolatedRuleWitnesses: Object.fromEntries(Object.entries(result.counterexamples).map(([id, witness]) => [id, witness === undefined ? null : literal(witness)])) };
   });
   const report = JSON.stringify({ scope: 'Exact finite normalized-state counts. Domains over-approximate argv-reachable states; counts do not prove upstream completeness or reachability. No random sampling.', commands: exploration }, null, 2) + '\n';
   const reportPath = new URL('docs/design/command-exploration.json', root);

@@ -77,6 +77,18 @@
     },
     {
       "command": "add",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/add.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 13,
       "domains": {
         "dry-run": [
@@ -240,6 +252,18 @@
     },
     {
       "command": "rm",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/rm.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 3,
       "domains": {
         "dry-run": [
@@ -322,6 +346,18 @@
     },
     {
       "command": "mv",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/mv.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 1,
       "domains": {
         "verbose": [
@@ -380,6 +416,18 @@
     },
     {
       "command": "clean",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/clean.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 1,
       "domains": {
         "quiet": [
@@ -1190,6 +1238,18 @@
     },
     {
       "command": "commit",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/commit.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 21,
       "domains": {
         "quiet": [
@@ -1482,6 +1542,18 @@
     },
     {
       "command": "status",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/commit.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 5,
       "domains": {
         "verbose": [
@@ -2033,6 +2105,18 @@
     },
     {
       "command": "clone",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/clone.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "transitions": [
         {
           "flag": "--filter",
@@ -2383,6 +2467,18 @@
     },
     {
       "command": "fetch",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/fetch.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "transitions": [
         {
           "flag": "--filter",
@@ -2748,6 +2844,18 @@
     },
     {
       "command": "push",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/push.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 4,
       "domains": {
         "verbose": [
@@ -2934,6 +3042,18 @@
     },
     {
       "command": "branch",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 34,
       "domains": {
         "verbose": [
@@ -2969,11 +3089,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "scope": [
           "undefined",
@@ -3160,8 +3278,8 @@
           "true"
         ]
       },
-      "total": "1199676988145664000000",
-      "accepted": "1755379983561523200",
+      "total": "799784658763776000000",
+      "accepted": "1170253322374348800",
       "nodes": 2530,
       "isolatedRuleWitnesses": {
         "branch-actions": "{\"operands\":[],\"unset-upstream\":true,\"without\":\"\"}",
@@ -3202,6 +3320,18 @@
     },
     {
       "command": "checkout",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 33,
       "domains": {
         "b": [
@@ -3421,6 +3551,18 @@
     },
     {
       "command": "switch",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 11,
       "domains": {
         "create": [
@@ -3552,6 +3694,18 @@
     },
     {
       "command": "restore",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 19,
       "domains": {
         "source": [
@@ -3704,6 +3858,18 @@
     },
     {
       "command": "reset",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/reset.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 12,
       "domains": {
         "quiet": [
@@ -3832,6 +3998,18 @@
     },
     {
       "command": "tag",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "modes": [
         {
           "group": "&cmdmode",
@@ -4080,11 +4258,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ignore-case": [
           "undefined",
@@ -4112,8 +4288,8 @@
           "true"
         ]
       },
-      "total": "42316648611840000000",
-      "accepted": "1254510901094400",
+      "total": "28211099074560000000",
+      "accepted": "836340600729600",
       "nodes": 7690,
       "isolatedRuleWitnesses": {
         "tag-list-annotate": "{\"annotate\":true,\"list\":true,\"operands\":[\"value\"]}",
@@ -18346,6 +18522,18 @@
     },
     {
       "command": "merge",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/merge.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 5,
       "domains": {
         "n": [
@@ -18566,6 +18754,18 @@
     },
     {
       "command": "rebase",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "modes": [
         {
           "group": "&options.action",
@@ -23344,6 +23544,18 @@
     },
     {
       "command": "for-each-ref",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 6,
       "domains": {
         "sort-base": [
@@ -23400,11 +23612,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "exclude": [
           "undefined",
@@ -23505,8 +23715,8 @@
           "true"
         ]
       },
-      "total": "688747536000000",
-      "accepted": "66029064192000",
+      "total": "459165024000000",
+      "accepted": "44019376128000",
       "nodes": 196,
       "isolatedRuleWitnesses": {
         "cli.for-each-ref.quote-style": "{\"operands\":[],\"shell\":true,\"tcl\":true}",
@@ -46709,6 +46919,18 @@
     },
     {
       "command": "show-branch",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+        "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
+        "exceptFirst": [
+          "--help"
+        ]
+      },
       "rules": 4,
       "domains": {
         "all": [
@@ -46723,11 +46945,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "more": [
           "undefined",
@@ -46809,8 +47029,8 @@
           "true"
         ]
       },
-      "total": "1020366720",
-      "accepted": "136935360",
+      "total": "680244480",
+      "accepted": "91290240",
       "nodes": 101,
       "isolatedRuleWitnesses": {
         "cli.show-branch.listing-more": "{\"merge-base\":true,\"more\":-2,\"operands\":[]}",

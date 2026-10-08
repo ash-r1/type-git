@@ -200,3 +200,16 @@ export function testArgvStringTypes(git: Git, dynamic: string): void {
   // @ts-expect-error The same representation rule applies through command dispatch.
   git.command('config', [{ operand: 'get' }, { operand: 'a\0b' }]);
 }
+
+export function testParserExitTypes(git: Git, dynamic: string): void {
+  git.command('branch', [['--color', 'AuTo'], ['-h']]);
+  git.command('branch', [['-h'], ['--color', 'invalid'], ['--track', 'invalid']]);
+  git.command('branch', [['--color', dynamic], ['-h']]);
+  git.command('for-each-ref', [['-h'], ['--count', 'invalid']]);
+  // @ts-expect-error The callback rejects invalid color before reaching help.
+  git.command('branch', [['--color', 'invalid'], ['-h']]);
+  // @ts-expect-error Config boolean synonyms do not belong to the color callback grammar.
+  git.command('tag', [['--color', 'true']]);
+  // @ts-expect-error Help cannot suppress the argv representation rule.
+  git.command('show-branch', [['-h'], ['--color', 'a\0b']]);
+}
