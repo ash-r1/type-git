@@ -174,7 +174,7 @@ describe('source-audited numeric callback stages', () => {
     expect(parseGitScalar(registry.profiles.abbrev!.parser, '9223372036854775808').value).toBe(4);
   });
 
-  it('checks numeric callback values immediately in every generated scope', () => {
+  it('checks reached numeric callback values before overwrites in every generated scope', () => {
     let total = 0;
     for (const [command, spec] of Object.entries(COMMAND_SPECS) as [
       GitCommandName,
@@ -190,7 +190,15 @@ describe('source-audited numeric callback stages', () => {
         }
         total++;
         expect(
-          () => commandArguments(command, [[flag, '1k'], [flag, 1], ['-h']], true),
+          () =>
+            commandArguments(
+              command,
+              [
+                [flag, '1k'],
+                [flag, 1],
+              ],
+              true,
+            ),
           `${command} ${flag}`,
         ).toThrow('invalid integer');
       }

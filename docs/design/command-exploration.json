@@ -6292,6 +6292,52 @@
     },
     {
       "command": "log",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+        "firstPassOptions": [
+          "--clear-decorations",
+          "--decorate",
+          "--decorate-refs",
+          "--decorate-refs-exclude",
+          "--help",
+          "--i-still-use-this",
+          "--mailmap",
+          "--no-decorate",
+          "--no-decorate-refs",
+          "--no-decorate-refs-exclude",
+          "--no-i-still-use-this",
+          "--no-mailmap",
+          "--no-quiet",
+          "--no-source",
+          "--no-use-mailmap",
+          "--quiet",
+          "--source",
+          "--use-mailmap",
+          "-L",
+          "-h",
+          "-q"
+        ],
+        "firstPassLongNames": [
+          "clear-decorations",
+          "decorate",
+          "decorate-refs",
+          "decorate-refs-exclude",
+          "i-still-use-this",
+          "mailmap",
+          "quiet",
+          "source",
+          "use-mailmap"
+        ]
+      },
       "transitions": [
         {
           "flag": "-S",
@@ -6583,11 +6629,11 @@
         ],
         "decorate": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"short\"",
+          "\"full\"",
+          "\"auto\""
         ],
         "L": [
           "undefined",
@@ -6734,11 +6780,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -7723,8 +7767,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "17999855264216854599030337885042011448220101356045553631232000000000000000000000000000000000000000000000000",
-      "accepted": "18757775095753755242064405445699418284179723072403817436807168000000000000000000000000000000000000000000",
+      "total": "11999903509477903066020225256694674298813400904030369087488000000000000000000000000000000000000000000000000",
+      "accepted": "12505183397169170161376270297132945522786482048269211624538112000000000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -7746,6 +7790,52 @@
     },
     {
       "command": "show",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+        "firstPassOptions": [
+          "--clear-decorations",
+          "--decorate",
+          "--decorate-refs",
+          "--decorate-refs-exclude",
+          "--help",
+          "--i-still-use-this",
+          "--mailmap",
+          "--no-decorate",
+          "--no-decorate-refs",
+          "--no-decorate-refs-exclude",
+          "--no-i-still-use-this",
+          "--no-mailmap",
+          "--no-quiet",
+          "--no-source",
+          "--no-use-mailmap",
+          "--quiet",
+          "--source",
+          "--use-mailmap",
+          "-L",
+          "-h",
+          "-q"
+        ],
+        "firstPassLongNames": [
+          "clear-decorations",
+          "decorate",
+          "decorate-refs",
+          "decorate-refs-exclude",
+          "i-still-use-this",
+          "mailmap",
+          "quiet",
+          "source",
+          "use-mailmap"
+        ]
+      },
       "transitions": [
         {
           "flag": "-S",
@@ -8037,11 +8127,11 @@
         ],
         "decorate": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"short\"",
+          "\"full\"",
+          "\"auto\""
         ],
         "L": [
           "undefined",
@@ -8188,11 +8278,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -9177,8 +9265,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "17999855264216854599030337885042011448220101356045553631232000000000000000000000000000000000000000000000000",
-      "accepted": "18757775095753755242064405445699418284179723072403817436807168000000000000000000000000000000000000000000",
+      "total": "11999903509477903066020225256694674298813400904030369087488000000000000000000000000000000000000000000000000",
+      "accepted": "12505183397169170161376270297132945522786482048269211624538112000000000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -19255,6 +19343,82 @@
     },
     {
       "command": "cherry-pick",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/revert.c",
+        "firstPassOptions": [
+          "--abort",
+          "--allow-empty",
+          "--allow-empty-message",
+          "--cleanup",
+          "--commit",
+          "--continue",
+          "--edit",
+          "--empty",
+          "--ff",
+          "--gpg-sign",
+          "--help",
+          "--keep-redundant-commits",
+          "--mainline",
+          "--no-allow-empty",
+          "--no-allow-empty-message",
+          "--no-cleanup",
+          "--no-commit",
+          "--no-edit",
+          "--no-ff",
+          "--no-gpg-sign",
+          "--no-keep-redundant-commits",
+          "--no-mainline",
+          "--no-no-commit",
+          "--no-rerere-autoupdate",
+          "--no-signoff",
+          "--no-strategy",
+          "--no-strategy-option",
+          "--quit",
+          "--rerere-autoupdate",
+          "--signoff",
+          "--skip",
+          "--strategy",
+          "--strategy-option",
+          "-S",
+          "-X",
+          "-e",
+          "-h",
+          "-m",
+          "-n",
+          "-r",
+          "-s",
+          "-x"
+        ],
+        "firstPassLongNames": [
+          "abort",
+          "allow-empty",
+          "allow-empty-message",
+          "cleanup",
+          "continue",
+          "edit",
+          "empty",
+          "ff",
+          "gpg-sign",
+          "keep-redundant-commits",
+          "mainline",
+          "no-commit",
+          "quit",
+          "rerere-autoupdate",
+          "signoff",
+          "skip",
+          "strategy",
+          "strategy-option"
+        ]
+      },
       "modes": [
         {
           "group": "&cmd",
@@ -19676,11 +19840,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -20752,8 +20914,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "233278124224250435603433178990144468368932513574350375060766720000000000000000000000000000000000000000000000000",
-      "accepted": "35014513512073676451853556831972247463802149735153792548706713600000000000000000000000000000000000000000000",
+      "total": "155518749482833623735622119326762978912621675716233583373844480000000000000000000000000000000000000000000000000",
+      "accepted": "23343009008049117634569037887981498309201433156769195032471142400000000000000000000000000000000000000000000",
       "nodes": 77274,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
@@ -20784,6 +20946,70 @@
     },
     {
       "command": "revert",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/revert.c",
+        "firstPassOptions": [
+          "--abort",
+          "--cleanup",
+          "--commit",
+          "--continue",
+          "--edit",
+          "--gpg-sign",
+          "--help",
+          "--mainline",
+          "--no-cleanup",
+          "--no-commit",
+          "--no-edit",
+          "--no-gpg-sign",
+          "--no-mainline",
+          "--no-no-commit",
+          "--no-reference",
+          "--no-rerere-autoupdate",
+          "--no-signoff",
+          "--no-strategy",
+          "--no-strategy-option",
+          "--quit",
+          "--reference",
+          "--rerere-autoupdate",
+          "--signoff",
+          "--skip",
+          "--strategy",
+          "--strategy-option",
+          "-S",
+          "-X",
+          "-e",
+          "-h",
+          "-m",
+          "-n",
+          "-r",
+          "-s"
+        ],
+        "firstPassLongNames": [
+          "abort",
+          "cleanup",
+          "continue",
+          "edit",
+          "gpg-sign",
+          "mainline",
+          "no-commit",
+          "quit",
+          "reference",
+          "rerere-autoupdate",
+          "signoff",
+          "skip",
+          "strategy",
+          "strategy-option"
+        ]
+      },
       "modes": [
         {
           "group": "&cmd",
@@ -21205,11 +21431,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -22256,8 +22480,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "1079991315853011275941820273102520686893206081362733217873920000000000000000000000000000000000000000000000000",
-      "accepted": "229819962730713171864578777038083150604781329309709469587865600000000000000000000000000000000000000000000",
+      "total": "719994210568674183961213515401680457928804054241822145249280000000000000000000000000000000000000000000000000",
+      "accepted": "153213308487142114576385851358722100403187552873139646391910400000000000000000000000000000000000000000000",
       "nodes": 48871,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
@@ -44026,6 +44250,52 @@
     },
     {
       "command": "whatchanged",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+        "firstPassOptions": [
+          "--clear-decorations",
+          "--decorate",
+          "--decorate-refs",
+          "--decorate-refs-exclude",
+          "--help",
+          "--i-still-use-this",
+          "--mailmap",
+          "--no-decorate",
+          "--no-decorate-refs",
+          "--no-decorate-refs-exclude",
+          "--no-i-still-use-this",
+          "--no-mailmap",
+          "--no-quiet",
+          "--no-source",
+          "--no-use-mailmap",
+          "--quiet",
+          "--source",
+          "--use-mailmap",
+          "-L",
+          "-h",
+          "-q"
+        ],
+        "firstPassLongNames": [
+          "clear-decorations",
+          "decorate",
+          "decorate-refs",
+          "decorate-refs-exclude",
+          "i-still-use-this",
+          "mailmap",
+          "quiet",
+          "source",
+          "use-mailmap"
+        ]
+      },
       "transitions": [
         {
           "flag": "-S",
@@ -44317,11 +44587,11 @@
         ],
         "decorate": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true"
+          "false",
+          "true",
+          "\"short\"",
+          "\"full\"",
+          "\"auto\""
         ],
         "L": [
           "undefined",
@@ -44468,11 +44738,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -45457,8 +45725,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "17999855264216854599030337885042011448220101356045553631232000000000000000000000000000000000000000000000000",
-      "accepted": "6252591698584585080688135148566472761393241024134605812269056000000000000000000000000000000000000000000",
+      "total": "11999903509477903066020225256694674298813400904030369087488000000000000000000000000000000000000000000000000",
+      "accepted": "4168394465723056720458756765710981840928827349423070541512704000000000000000000000000000000000000000000",
       "nodes": 21883,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"i-still-use-this\":true,\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -50867,6 +51135,78 @@
     },
     {
       "command": "fast-export",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+        "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c",
+        "firstPassOptions": [
+          "--anonymize",
+          "--anonymize-map",
+          "--data",
+          "--export-marks",
+          "--fake-missing-tagger",
+          "--full-tree",
+          "--help",
+          "--import-marks",
+          "--import-marks-if-exists",
+          "--mark-tags",
+          "--no-anonymize",
+          "--no-data",
+          "--no-export-marks",
+          "--no-fake-missing-tagger",
+          "--no-full-tree",
+          "--no-import-marks",
+          "--no-import-marks-if-exists",
+          "--no-mark-tags",
+          "--no-no-data",
+          "--no-progress",
+          "--no-reencode",
+          "--no-reference-excluded-parents",
+          "--no-refspec",
+          "--no-show-original-ids",
+          "--no-signed-commits",
+          "--no-signed-tags",
+          "--no-tag-of-filtered-object",
+          "--no-use-done-feature",
+          "--progress",
+          "--reencode",
+          "--reference-excluded-parents",
+          "--refspec",
+          "--show-original-ids",
+          "--signed-commits",
+          "--signed-tags",
+          "--tag-of-filtered-object",
+          "--use-done-feature",
+          "-h"
+        ],
+        "firstPassLongNames": [
+          "anonymize",
+          "anonymize-map",
+          "export-marks",
+          "fake-missing-tagger",
+          "full-tree",
+          "import-marks",
+          "import-marks-if-exists",
+          "mark-tags",
+          "no-data",
+          "progress",
+          "reencode",
+          "reference-excluded-parents",
+          "refspec",
+          "show-original-ids",
+          "signed-commits",
+          "signed-tags",
+          "tag-of-filtered-object",
+          "use-done-feature"
+        ]
+      },
       "transitions": [
         {
           "flag": "-S",
@@ -51245,11 +51585,9 @@
         ],
         "color": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "\"always\""
+          "\"always\"",
+          "\"auto\"",
+          "\"never\""
         ],
         "ws-error-highlight": [
           "undefined",
@@ -52253,10 +52591,8 @@
         ],
         "reencode": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
+          "false",
+          "true",
           "\"abort\""
         ],
         "export-marks": [
@@ -52367,8 +52703,8 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "83980124720730156817235944436452008612815704886766135021876019200000000000000000000000000000000000000000000000000",
-      "accepted": "15752929587614769682327624208541937070400404873989305113970154143744000000000000000000000000000000000000000000",
+      "total": "37324499875880069696549308638423114939029202171896060009722675200000000000000000000000000000000000000000000000000",
+      "accepted": "7001302038939897636590055203796416475733513277328580050653401841664000000000000000000000000000000000000000000",
       "nodes": 11475,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[\"value\"],\"name-status\":true,\"no-output\":true,\"operands\":[]}",

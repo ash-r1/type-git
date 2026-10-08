@@ -2,6 +2,7 @@ import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { matches, violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
+import { initialParserPass } from './initial-parser-pass.js';
 import { ARGV_STRING_CONSTRAINT, type CommandSpec, type OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
@@ -10,6 +11,15 @@ export function commandArguments(
   command: GitCommandName,
   args: readonly unknown[],
   inRepository?: boolean,
+): string[] {
+  return buildArguments(command, args, inRepository);
+}
+
+function buildArguments(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+  evaluationMode: 'full' | 'shape' | 'first-pass' = 'full',
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
@@ -30,11 +40,20 @@ export function commandArguments(
     typeof first.operand === 'string' &&
     Object.hasOwn(spec.dispatch, first.operand)
   ) {
-    return commandArguments(
+    return buildArguments(
       spec.dispatch[first.operand] as GitCommandName,
       args.slice(1),
       inRepository,
+      evaluationMode,
     );
+  }
+  if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
+    const serialized = buildArguments(command, args, inRepository, 'shape');
+    const pass = initialParserPass(spec, serialized.slice(spec.argv.length));
+    if (pass.exited) {
+      buildArguments(command, pass.tokens, inRepository, 'first-pass');
+      return serialized;
+    }
   }
   const argv = [...spec.argv];
   const operands: string[] = [];
@@ -50,7 +69,7 @@ export function commandArguments(
   };
   let ended = false;
   let literalOperands = false;
-  let parserExited = false;
+  let parserExited = evaluationMode === 'shape';
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {

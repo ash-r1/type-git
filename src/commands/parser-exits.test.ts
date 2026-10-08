@@ -75,8 +75,8 @@ describe('ordered exits in audited single-pass parsers', () => {
     expect(() => commandArguments('show-branch', [{ operand: 'HEAD' }, ['-h']])).toThrow(
       GitArgumentError,
     );
-    // grep -h means no filename; diff/log have distinct parsing phases.
-    for (const name of ['grep', 'diff-files', 'log'] as const) {
+    // grep -h means no filename; diff-files does not use the audited exit pass.
+    for (const name of ['grep', 'diff-files'] as const) {
       expect((COMMAND_SPECS[name] as { parserExit?: unknown }).parserExit).toBeUndefined();
     }
   });

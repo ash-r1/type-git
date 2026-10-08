@@ -1735,8 +1735,37 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
-    ]
+      "revision",
+      "color-flag"
+    ],
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/log.c:cmd_log_init_finish:builtin_log_options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    "options": {
+      "--decorate": {
+        "key": "decorate",
+        "value": "optional-string",
+        "set": true,
+        "parser": "log-decorate"
+      },
+      "--no-decorate": {
+        "key": "decorate",
+        "value": "flag",
+        "set": false
+      }
+    }
   },
   "show": {
     "source": "builtin/log.c; revision.c; diff.c; diff-merges.c",
@@ -1746,8 +1775,37 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
-    ]
+      "revision",
+      "color-flag"
+    ],
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/log.c:cmd_log_init_finish:builtin_log_options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    "options": {
+      "--decorate": {
+        "key": "decorate",
+        "value": "optional-string",
+        "set": true,
+        "parser": "log-decorate"
+      },
+      "--no-decorate": {
+        "key": "decorate",
+        "value": "flag",
+        "set": false
+      }
+    }
   },
   "diff": {
     "source": "builtin/diff.c; revision.c; diff.c; diff-merges.c",
@@ -2406,7 +2464,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "finalTables": [
       "builtin/revert.c:run_sequencer:base_options",
@@ -2436,12 +2495,36 @@
           "drop",
           "keep"
         ]
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "initial": {
       "S": false
     },
-    "inheritedOptionMarker": "revision-argument"
+    "inheritedOptionMarker": "revision-argument",
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/revert.c:run_sequencer:base_options",
+        "builtin/revert.c:run_sequencer:cp_extra#1"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/revert.c"
+    }
   },
   "revert": {
     "source": "builtin/revert.c:run_sequencer",
@@ -2450,7 +2533,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "finalTables": [
       "builtin/revert.c:run_sequencer:base_options",
@@ -2471,12 +2555,36 @@
         "key": "mainline",
         "value": "flag",
         "set": 0
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "initial": {
       "S": false
     },
-    "inheritedOptionMarker": "revision-argument"
+    "inheritedOptionMarker": "revision-argument",
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/revert.c:run_sequencer:base_options",
+        "builtin/revert.c:run_sequencer:cp_extra#2"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/revert.c"
+    }
   },
   "commit-tree": {
     "source": "builtin/commit-tree.c:cmd_commit_tree",
@@ -4779,8 +4887,37 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
-    ]
+      "revision",
+      "color-flag"
+    ],
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/log.c:cmd_log_init_finish:builtin_log_options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+    },
+    "options": {
+      "--decorate": {
+        "key": "decorate",
+        "value": "optional-string",
+        "set": true,
+        "parser": "log-decorate"
+      },
+      "--no-decorate": {
+        "key": "decorate",
+        "value": "flag",
+        "set": false
+      }
+    }
   },
   "shortlog": {
     "tables": [
@@ -5968,7 +6105,8 @@
     ],
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "color-flag"
     ],
     "finalTables": [
       "builtin/fast-export.c:cmd_fast_export:options"
@@ -6041,6 +6179,21 @@
         "repeat": true,
         "parser": "anonymize-map"
       }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/fast-export.c:cmd_fast_export:options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c"
     }
   },
   "pack-objects": {

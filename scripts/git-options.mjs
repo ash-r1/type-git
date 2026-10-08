@@ -51,7 +51,14 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       if (!scope.optionAllowlist.includes(flag)) delete options[flag];
     }
     for (const flag of scope.omitOptions ?? []) delete options[flag];
-    result[command] = { argv: command.split(' '), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(scope.parserExit ? { parserExit: scope.parserExit } : {}) };
+    let parserExit = scope.parserExit;
+    if (parserExit?.firstPassTables) {
+      const { firstPassTables, ...exit } = parserExit;
+      const firstPassOptions = [...new Set([...Object.keys(tableOptions(definitionsFor(firstPassTables, command), command, scope.numericOption, callbacks)), ...exit.flags])].sort();
+      const firstPassLongNames = [...new Set(definitionsFor(firstPassTables, command).flatMap(option => option.long ? [option.long] : []))].sort();
+      parserExit = { ...exit, firstPassOptions, firstPassLongNames };
+    }
+    result[command] = { argv: command.split(' '), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}) };
   }
   for (const command of Object.keys(rules)) if (!result[command]) throw new Error(`Rules for unknown Git scope: ${command}`);
   return result;
