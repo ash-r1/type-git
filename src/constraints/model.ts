@@ -42,7 +42,7 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
     | { kind: 'conflicts'; when: Predicate; others: readonly Predicate[] }
     | { kind: 'forbid'; when: readonly Predicate[] }
     | { kind: 'unsupported'; keys: readonly string[] }
-    | { kind: 'value'; key: string; allowed: readonly (string | number | boolean)[] }
+    | { kind: 'value' | 'elements'; key: string; allowed: readonly (string | number | boolean)[] }
     | { kind: 'range'; key: string; min: number; max?: number; when?: Predicate }
     | { kind: 'integer'; key: string; min: number; allowBoolean?: boolean }
   );
@@ -123,6 +123,13 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
       return rule.when.every((p) => matches(p, options));
     case 'unsupported':
       return rule.keys.some((key) => options[key] !== undefined);
+    case 'elements': {
+      const items = options[rule.key];
+      return (
+        items !== undefined &&
+        (!Array.isArray(items) || items.some((item) => !rule.allowed.includes(item)))
+      );
+    }
     case 'value':
       return options[rule.key] !== undefined && !rule.allowed.some((v) => v === options[rule.key]);
     case 'range':
@@ -176,6 +183,7 @@ function bodyKeys(rule: Constraint): string[] {
     case 'range':
       return rule.when ? [rule.key, ...predicateKeys(rule.when)] : [rule.key];
     case 'value':
+    case 'elements':
     case 'integer':
       return [rule.key];
   }

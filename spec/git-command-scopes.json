@@ -7815,5 +7815,377 @@
         "value": "integer"
       }
     }
+  },
+  "filter-branch": {
+    "source": "git-filter-branch.sh",
+    "tables": [],
+    "optionParsing": "stop-at-operand",
+    "options": {
+      "--force": {
+        "key": "force",
+        "value": "flag"
+      },
+      "-f": {
+        "key": "force",
+        "value": "flag"
+      },
+      "--remap-to-ancestor": {
+        "key": "remap-to-ancestor",
+        "value": "flag"
+      },
+      "--prune-empty": {
+        "key": "prune-empty",
+        "value": "flag"
+      },
+      "-d": {
+        "key": "d",
+        "value": "string",
+        "separateValue": true
+      },
+      "--setup": {
+        "key": "setup",
+        "value": "string",
+        "separateValue": true
+      },
+      "--subdirectory-filter": {
+        "key": "subdirectory-filter",
+        "value": "string",
+        "separateValue": true
+      },
+      "--env-filter": {
+        "key": "env-filter",
+        "value": "string",
+        "separateValue": true
+      },
+      "--tree-filter": {
+        "key": "tree-filter",
+        "value": "string",
+        "separateValue": true
+      },
+      "--index-filter": {
+        "key": "index-filter",
+        "value": "string",
+        "separateValue": true
+      },
+      "--parent-filter": {
+        "key": "parent-filter",
+        "value": "string",
+        "separateValue": true
+      },
+      "--msg-filter": {
+        "key": "msg-filter",
+        "value": "string",
+        "separateValue": true
+      },
+      "--commit-filter": {
+        "key": "commit-filter",
+        "value": "string",
+        "separateValue": true
+      },
+      "--tag-name-filter": {
+        "key": "tag-name-filter",
+        "value": "string",
+        "separateValue": true
+      },
+      "--original": {
+        "key": "original",
+        "value": "string",
+        "separateValue": true
+      },
+      "--state-branch": {
+        "key": "state-branch",
+        "value": "string",
+        "separateValue": true
+      }
+    }
+  },
+  "quiltimport": {
+    "source": "git-quiltimport.sh",
+    "tables": [],
+    "options": {
+      "--dry-run": {
+        "key": "dry-run",
+        "value": "flag"
+      },
+      "-n": {
+        "key": "dry-run",
+        "value": "flag"
+      },
+      "--keep-non-patch": {
+        "key": "keep-non-patch",
+        "value": "flag"
+      },
+      "--author": {
+        "key": "author",
+        "value": "string"
+      },
+      "--patches": {
+        "key": "patches",
+        "value": "string"
+      },
+      "--series": {
+        "key": "series",
+        "value": "string"
+      }
+    }
+  },
+  "instaweb": {
+    "source": "git-instaweb.sh",
+    "tables": [],
+    "options": {
+      "--start": {
+        "key": "action",
+        "set": "start",
+        "value": "flag"
+      },
+      "--stop": {
+        "key": "action",
+        "set": "stop",
+        "value": "flag"
+      },
+      "--restart": {
+        "key": "action",
+        "set": "restart",
+        "value": "flag"
+      },
+      "--local": {
+        "key": "local",
+        "value": "flag"
+      },
+      "-l": {
+        "key": "local",
+        "value": "flag"
+      },
+      "-p": {
+        "key": "port",
+        "value": "string"
+      },
+      "--port": {
+        "key": "port",
+        "value": "string"
+      },
+      "-d": {
+        "key": "httpd",
+        "value": "string"
+      },
+      "--httpd": {
+        "key": "httpd",
+        "value": "string"
+      },
+      "-b": {
+        "key": "browser",
+        "value": "string"
+      },
+      "--browser": {
+        "key": "browser",
+        "value": "string"
+      },
+      "-m": {
+        "key": "module-path",
+        "value": "string"
+      },
+      "--module-path": {
+        "key": "module-path",
+        "value": "string"
+      }
+    }
+  },
+  "instaweb start": {
+    "source": "git-instaweb.sh",
+    "tables": [],
+    "options": {
+      "--start": {
+        "key": "action",
+        "set": "start",
+        "value": "flag"
+      },
+      "--stop": {
+        "key": "action",
+        "set": "stop",
+        "value": "flag"
+      },
+      "--restart": {
+        "key": "action",
+        "set": "restart",
+        "value": "flag"
+      },
+      "--local": {
+        "key": "local",
+        "value": "flag"
+      },
+      "-l": {
+        "key": "local",
+        "value": "flag"
+      },
+      "-p": {
+        "key": "port",
+        "value": "string"
+      },
+      "--port": {
+        "key": "port",
+        "value": "string"
+      },
+      "-d": {
+        "key": "httpd",
+        "value": "string"
+      },
+      "--httpd": {
+        "key": "httpd",
+        "value": "string"
+      },
+      "-b": {
+        "key": "browser",
+        "value": "string"
+      },
+      "--browser": {
+        "key": "browser",
+        "value": "string"
+      },
+      "-m": {
+        "key": "module-path",
+        "value": "string"
+      },
+      "--module-path": {
+        "key": "module-path",
+        "value": "string"
+      }
+    }
+  },
+  "instaweb stop": {
+    "source": "git-instaweb.sh",
+    "tables": [],
+    "options": {
+      "--start": {
+        "key": "action",
+        "set": "start",
+        "value": "flag"
+      },
+      "--stop": {
+        "key": "action",
+        "set": "stop",
+        "value": "flag"
+      },
+      "--restart": {
+        "key": "action",
+        "set": "restart",
+        "value": "flag"
+      },
+      "--local": {
+        "key": "local",
+        "value": "flag"
+      },
+      "-l": {
+        "key": "local",
+        "value": "flag"
+      },
+      "-p": {
+        "key": "port",
+        "value": "string"
+      },
+      "--port": {
+        "key": "port",
+        "value": "string"
+      },
+      "-d": {
+        "key": "httpd",
+        "value": "string"
+      },
+      "--httpd": {
+        "key": "httpd",
+        "value": "string"
+      },
+      "-b": {
+        "key": "browser",
+        "value": "string"
+      },
+      "--browser": {
+        "key": "browser",
+        "value": "string"
+      },
+      "-m": {
+        "key": "module-path",
+        "value": "string"
+      },
+      "--module-path": {
+        "key": "module-path",
+        "value": "string"
+      }
+    }
+  },
+  "instaweb restart": {
+    "source": "git-instaweb.sh",
+    "tables": [],
+    "options": {
+      "--start": {
+        "key": "action",
+        "set": "start",
+        "value": "flag"
+      },
+      "--stop": {
+        "key": "action",
+        "set": "stop",
+        "value": "flag"
+      },
+      "--restart": {
+        "key": "action",
+        "set": "restart",
+        "value": "flag"
+      },
+      "--local": {
+        "key": "local",
+        "value": "flag"
+      },
+      "-l": {
+        "key": "local",
+        "value": "flag"
+      },
+      "-p": {
+        "key": "port",
+        "value": "string"
+      },
+      "--port": {
+        "key": "port",
+        "value": "string"
+      },
+      "-d": {
+        "key": "httpd",
+        "value": "string"
+      },
+      "--httpd": {
+        "key": "httpd",
+        "value": "string"
+      },
+      "-b": {
+        "key": "browser",
+        "value": "string"
+      },
+      "--browser": {
+        "key": "browser",
+        "value": "string"
+      },
+      "-m": {
+        "key": "module-path",
+        "value": "string"
+      },
+      "--module-path": {
+        "key": "module-path",
+        "value": "string"
+      }
+    }
+  },
+  "shell": {
+    "source": "shell.c:cmd_main",
+    "tables": [],
+    "separator": false,
+    "options": {
+      "-c": {
+        "key": "command",
+        "value": "string",
+        "separateValue": true
+      }
+    },
+    "optionAllowlist": [
+      "-c"
+    ]
   }
 }

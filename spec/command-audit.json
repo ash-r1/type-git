@@ -3733,6 +3733,98 @@
         "test/types/companion-command-api.ts"
       ],
       "remaining": "Standalone executable routing is modeled. Scalar repository/enlistment/config conditions, prefix dispatch and clone path derivation remain pending. Gitk delegates revision words as literal operands; its GUI and Tcl command execution are not native-tested in this headless environment. Gitweb native execution is unverified because CGI.pm is unavailable; FastCGI lifecycle, Perl parser abbreviation/error continuation and request configuration require further audit."
+    },
+    "filter-branch": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+    },
+    "quiltimport": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+    },
+    "instaweb": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+    },
+    "instaweb start": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+    },
+    "instaweb stop": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+    },
+    "instaweb restart": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+    },
+    "shell": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+    },
+    "sh-i18n": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": false,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Git installs this as a non-executable shell library sourced by shell frontends, not a git subcommand. Standalone command API is inapplicable. Audit its environment-driven setup and shell functions through their callers.",
+      "apiApplicability": "sourced-library"
+    },
+    "sh-setup": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": false,
+      "tests": [
+        "src/commands/shell-frontends.test.ts",
+        "test/types/shell-frontend-command-api.ts"
+      ],
+      "remaining": "Git installs this as a non-executable shell library sourced by shell frontends, not a git subcommand. Standalone command API is inapplicable. Audit its environment-driven setup and shell functions through their callers.",
+      "apiApplicability": "sourced-library"
     }
   }
 }
