@@ -1,54 +1,36 @@
+import { asciiLower } from './ascii.js';
+import {
+  type GitBooleanCallback,
+  gitBoolean,
+  isBooleanCallback,
+  parseBooleanCallback,
+} from './git-boolean.js';
 import { type GitDecimalParser, parseGitDecimal } from './git-decimal.js';
 import { type GitIntegerParser, integerState, parseGitInteger } from './git-integer.js';
 import { validObjectFilter } from './object-filter.js';
 
-const ASCII_UPPERCASE = /[A-Z]/g;
-export function asciiLower(value: string): string {
-  return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
-}
+export { asciiLower } from './ascii.js';
+export { gitBoolean } from './git-boolean.js';
 
 /** Signed configuration integers use the same parser with an int storage width. */
 export function gitInteger(value: string): bigint | undefined {
   return parseGitInteger(value, { kind: 'integer', signed: true, bits: 32 });
 }
 
-/** Undefined means an invalid spelling, not false. An absent option value is handled by its schema. */
-export function gitBoolean(value: unknown): boolean | undefined {
-  if (typeof value === 'boolean') {
-    return value;
-  }
-  if (typeof value !== 'string') {
-    return undefined;
-  }
-  const text = value.toLowerCase();
-  if (['true', 'yes', 'on'].includes(text)) {
-    return true;
-  }
-  if (['', 'false', 'no', 'off'].includes(text)) {
-    return false;
-  }
-  const integer = gitInteger(value);
-  return integer === undefined ? undefined : integer !== 0n;
-}
-
 export type GitScalarParser =
   | GitIntegerParser
   | GitDecimalParser
+  | GitBooleanCallback
   | 'depth-initial'
   | 'object-filter'
   | 'object-filter-auto'
   | 'fast-import-sign'
   | 'fast-export-reencode'
   | 'anonymize-map'
-  | 'pull-rebase'
   | 'shortlog-group'
   | 'shortlog-wrap'
   | 'show-branch-reflog'
   | 'rev-list-missing'
-  | 'git-bool'
-  | 'fetch-recurse'
-  | 'push-recurse'
-  | 'push-signed'
   | 'config-type';
 export function parseGitScalar(
   parser: GitScalarParser,
@@ -61,6 +43,9 @@ export function parseGitScalar(
   if (typeof parser === 'object') {
     const parsed = parseGitInteger(value, parser);
     return parsed === undefined ? { valid: false } : { valid: true, value: integerState(parsed) };
+  }
+  if (isBooleanCallback(parser)) {
+    return parseBooleanCallback(parser, value, previous);
   }
   if (parser === 'depth-initial') {
     // Git clone/fetch call atoi before transport-specific validation. The pinned
@@ -183,24 +168,6 @@ export function parseGitScalar(
       value,
     };
   }
-  if (parser === 'push-recurse' && value === 'only-is-on-demand') {
-    return { valid: true, value: previous === 'only' ? 'on-demand' : previous };
-  }
   const boolean = gitBoolean(value);
-  if (boolean !== undefined) {
-    return { valid: parser !== 'push-recurse' || !boolean, value: boolean };
-  }
-  if (parser === 'fetch-recurse' && value === 'on-demand') {
-    return { valid: true, value };
-  }
-  if (parser === 'pull-rebase' && ['merges', 'm', 'interactive', 'i'].includes(String(value))) {
-    return { valid: true, value: value === 'm' ? 'merges' : value === 'i' ? 'interactive' : value };
-  }
-  if (parser === 'push-recurse' && ['on-demand', 'check', 'only'].includes(String(value))) {
-    return { valid: true, value };
-  }
-  if (parser === 'push-signed' && typeof value === 'string' && value.toLowerCase() === 'if-asked') {
-    return { valid: true, value: 'if-asked' };
-  }
-  return { valid: false };
+  return boolean === undefined ? { valid: false } : { valid: true, value: boolean };
 }

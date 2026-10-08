@@ -52,9 +52,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/boolean-callbacks.test.ts",
+        "test/types/boolean-callbacks.ts",
+        "test/types/boolean-callback-corpus.ts"
       ],
-      "remaining": "Revision/path disambiguation before --, pathspec file contents, repository state, numeric lexical forms and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Revision/path disambiguation before --, pathspec file contents, repository state, numeric lexical forms and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
       "typedCommandAPI": true
     },
     "stash push": {
@@ -305,9 +308,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/boolean-callbacks.test.ts",
+        "test/types/boolean-callbacks.ts",
+        "test/types/boolean-callback-corpus.ts"
       ],
-      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
       "typedCommandAPI": true
     },
     "push": {
@@ -323,9 +329,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/boolean-callbacks.test.ts",
+        "test/types/boolean-callbacks.ts",
+        "test/types/boolean-callback-corpus.ts"
       ],
-      "remaining": "Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
       "typedCommandAPI": true
     },
     "add": {
@@ -362,9 +371,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/boolean-callbacks.test.ts",
+        "test/types/boolean-callbacks.ts",
+        "test/types/boolean-callback-corpus.ts"
       ],
-      "remaining": "Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
       "typedCommandAPI": true
     },
     "commit": {
@@ -437,9 +449,12 @@
         "test/types/revision-query-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/boolean-callbacks.test.ts",
+        "test/types/boolean-callbacks.ts",
+        "test/types/boolean-callback-corpus.ts"
       ],
-      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Fetch-to-merge/rebase delegation, repeated passthrough argv, shallow transport rules and fetched revision state need phase-aware modeling.",
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Fetch-to-merge/rebase delegation, repeated passthrough argv, shallow transport rules and fetched revision state need phase-aware modeling. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
       "typedCommandAPI": true
     },
     "switch": {
@@ -455,9 +470,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/boolean-callbacks.test.ts",
+        "test/types/boolean-callbacks.ts",
+        "test/types/boolean-callback-corpus.ts"
       ],
-      "remaining": "Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
       "typedCommandAPI": true
     },
     "cherry-pick": {
@@ -531,9 +549,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/boolean-callbacks.test.ts",
+        "test/types/boolean-callbacks.ts",
+        "test/types/boolean-callback-corpus.ts"
       ],
-      "remaining": "Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
       "typedCommandAPI": true
     },
     "revert": {
@@ -4593,9 +4614,12 @@
         "test/types/transport-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/boolean-callbacks.test.ts",
+        "test/types/boolean-callbacks.ts",
+        "test/types/boolean-callback-corpus.ts"
       ],
-      "remaining": "Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input."
+      "remaining": "Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations."
     },
     "fetch-pack": {
       "state": "partial",
