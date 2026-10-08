@@ -1,4 +1,5 @@
-import type { Constraint } from '../constraints/model.js';
+import type { Constraint, Predicate } from '../constraints/model.js';
+import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
@@ -143,6 +144,34 @@ type Accumulate<S, D extends OptionSpec, V> = readonly [
     : readonly []),
   V,
 ];
+// Distinguish impossible conditions from unknown runtime values before updating parser state.
+type EffectCondition<
+  S,
+  P extends readonly Predicate[],
+  C = Constrained<
+    S,
+    readonly [
+      {
+        id: 'effect';
+        kind: 'required';
+        required: P;
+        origin: 'git';
+        source: '';
+        reason: '';
+      },
+    ]
+  >,
+> = S extends C
+  ? true
+  : {
+        [K in Extract<P[number]['key'], keyof S>]: K extends keyof C
+          ? [C[K]] extends [never]
+            ? K
+            : never
+          : K;
+      }[Extract<P[number]['key'], keyof S>] extends never
+    ? 'unknown'
+    : false;
 type Effects<S, E extends NonNullable<OptionSpec['effects']>> = [S] extends [never]
   ? never
   : E extends readonly [
@@ -150,19 +179,25 @@ type Effects<S, E extends NonNullable<OptionSpec['effects']>> = [S] extends [nev
         ...infer R extends NonNullable<OptionSpec['effects']>,
       ]
     ? Effects<
-        H extends { when: { equals: infer V } }
-          ? H['key'] extends keyof S
-            ? S[H['key']] extends V
-              ? Put<S, H['key'], H['set']>
-              : S
-            : S
-          : H extends { when: { notEquals: infer V } }
+        H extends { when: { all: infer P extends readonly Predicate[] } }
+          ? EffectCondition<S, P> extends true
+            ? Put<S, H['key'], H['set']>
+            : EffectCondition<S, P> extends false
+              ? S
+              : Put<S, H['key'], string | number | boolean | undefined>
+          : H extends { when: { equals: infer V } }
             ? H['key'] extends keyof S
               ? S[H['key']] extends V
-                ? S
+                ? Put<S, H['key'], H['set']>
+                : S
+              : S
+            : H extends { when: { notEquals: infer V } }
+              ? H['key'] extends keyof S
+                ? S[H['key']] extends V
+                  ? S
+                  : Put<S, H['key'], H['set']>
                 : Put<S, H['key'], H['set']>
-              : Put<S, H['key'], H['set']>
-            : Put<S, H['key'], H['set']>,
+              : Put<S, H['key'], H['set']>,
         R
       >
     : S;
@@ -227,22 +262,24 @@ type CheckedCallbackState<S, D extends OptionSpec, T extends readonly unknown[]>
 type ScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends V
     ? true
-    : D extends { parser: 'shortlog-group' }
-      ? AsciiLower<V> extends 'author' | 'committer'
-        ? true
-        : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
+    : D extends { parser: 'object-filter' | 'object-filter-auto' }
+      ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
+      : D extends { parser: 'shortlog-group' }
+        ? AsciiLower<V> extends 'author' | 'committer'
           ? true
-          : false
-      : D extends { parser: 'pull-rebase' }
-        ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off'
-          ? true
-          : V extends 'merges' | 'm' | 'interactive' | 'i'
+          : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
             ? true
-            : // Git's signed/base/unit integer language is checked at runtime.
-              V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
+            : false
+        : D extends { parser: 'pull-rebase' }
+          ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off'
+            ? true
+            : V extends 'merges' | 'm' | 'interactive' | 'i'
               ? true
-              : false
-        : true
+              : // Git's signed/base/unit integer language is checked at runtime.
+                V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
+                ? true
+                : false
+          : true
   : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   caseInsensitive: true;

@@ -18,9 +18,11 @@
       "tests": [
         "src/impl/option-constraints.test.ts",
         "src/commands/native.test.ts",
-        "test/types/command-api.ts"
+        "test/types/command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks.",
+      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
       "typedCommandAPI": true
     },
     "reset": {
@@ -211,9 +213,11 @@
       ],
       "tests": [
         "src/commands/native.test.ts",
-        "test/types/command-api.ts"
+        "test/types/command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations.",
+      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
       "typedCommandAPI": true
     },
     "push": {
@@ -1986,9 +1990,11 @@
       "models": [],
       "tests": [
         "src/commands/object-utilities.test.ts",
-        "test/types/object-utility-command-api.ts"
+        "test/types/object-utility-command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
       "typedCommandAPI": true
     },
     "repack": {
@@ -1996,9 +2002,11 @@
       "models": [],
       "tests": [
         "src/commands/object-utilities.test.ts",
-        "test/types/object-utility-command-api.ts"
+        "test/types/object-utility-command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
       "typedCommandAPI": true
     },
     "replace": {
@@ -2356,9 +2364,11 @@
       "models": [],
       "tests": [
         "src/commands/history-walk.test.ts",
-        "test/types/history-walk-command-api.ts"
+        "test/types/history-walk-command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Raw pre-scan of option-looking operands and bitmap early-return parsing need phase-aware modeling; finite state counts do not prove argv reachability.",
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Raw pre-scan of option-looking operands and bitmap early-return parsing need phase-aware modeling; finite state counts do not prove argv reachability. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
       "typedCommandAPI": true
     },
     "bundle create": {
@@ -2696,9 +2706,11 @@
       "models": [],
       "tests": [
         "src/commands/submodule-sparse.test.ts",
-        "test/types/submodule-sparse-command-api.ts"
+        "test/types/submodule-sparse-command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
       "typedCommandAPI": true
     },
     "submodule--helper update": {
@@ -2706,9 +2718,11 @@
       "models": [],
       "tests": [
         "src/commands/submodule-sparse.test.ts",
-        "test/types/submodule-sparse-command-api.ts"
+        "test/types/submodule-sparse-command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
+      "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open.",
       "typedCommandAPI": true
     },
     "submodule--helper absorbgitdirs": {
@@ -3257,9 +3271,11 @@
       "typedCommandAPI": true,
       "tests": [
         "src/commands/pack.test.ts",
-        "test/types/pack-command-api.ts"
+        "test/types/pack-command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files."
+      "remaining": "Pack/index and streaming object contents, full index-version/header/thread/size grammars including C integer conversion, fsck callbacks, filter syntax, path-walk/configuration overrides and binary output contracts remain pending. Tests operate only on isolated local pack files. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open."
     },
     "index-pack": {
       "state": "partial",
@@ -3327,9 +3343,11 @@
       "typedCommandAPI": true,
       "tests": [
         "src/commands/transport.test.ts",
-        "test/types/transport-command-api.ts"
+        "test/types/transport-command-api.ts",
+        "src/commands/object-filter.test.ts",
+        "test/types/object-filter.ts"
       ],
-      "remaining": "Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input."
+      "remaining": "Protocol negotiation, server capabilities, refspec and filter languages, stdin records, configured remotes, native numeric conversion, remote-fd URL grammar and remote-ext percent expansion remain pending. Tests use only isolated local repositories, dry-run sends and capability-only helper input. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open."
     },
     "remote-ext": {
       "state": "partial",
