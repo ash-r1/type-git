@@ -8715,5 +8715,986 @@
       "--export-all"
     ],
     "optionParsing": "stop-at-operand"
+  },
+  "send-email": {
+    "source": "git-send-email.perl",
+    "tables": [],
+    "optionParsing": "none",
+    "options": {
+      "--identity": {
+        "key": "identity",
+        "value": "string"
+      },
+      "--no-identity": {
+        "key": "no-identity",
+        "value": "flag"
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--h": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--dump-aliases": {
+        "key": "dump-aliases",
+        "value": "flag"
+      },
+      "--translate-aliases": {
+        "key": "translate-aliases",
+        "value": "flag"
+      },
+      "--sender": {
+        "key": "sender",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--from": {
+        "key": "sender",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--in-reply-to": {
+        "key": "in-reply-to",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--reply-to": {
+        "key": "reply-to",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--subject": {
+        "key": "subject",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--to": {
+        "key": "to",
+        "value": "string",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--to-cmd": {
+        "key": "to-cmd",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-to": {
+        "key": "no-to",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--cc": {
+        "key": "cc",
+        "value": "string",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-cc": {
+        "key": "no-cc",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--bcc": {
+        "key": "bcc",
+        "value": "string",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-bcc": {
+        "key": "no-bcc",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--chain-reply-to": {
+        "key": "chain-reply-to",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-chain-reply-to": {
+        "key": "chain-reply-to",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nochain-reply-to": {
+        "key": "chain-reply-to",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--sendmail-cmd": {
+        "key": "sendmail-cmd",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-server": {
+        "key": "smtp-server",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-server-option": {
+        "key": "smtp-server-option",
+        "value": "string",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-server-port": {
+        "key": "smtp-server-port",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-user": {
+        "key": "smtp-user",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-pass": {
+        "key": "smtp-pass",
+        "value": "optional-string",
+        "set": "",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-ssl": {
+        "key": "smtp-encryption",
+        "value": "flag",
+        "set": "ssl",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-encryption": {
+        "key": "smtp-encryption",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-ssl-cert-path": {
+        "key": "smtp-ssl-cert-path",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-ssl-client-cert": {
+        "key": "smtp-ssl-client-cert",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-ssl-client-key": {
+        "key": "smtp-ssl-client-key",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-debug": {
+        "key": "smtp-debug",
+        "value": "optional-integer",
+        "set": 0,
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-domain": {
+        "key": "smtp-domain",
+        "value": "optional-string",
+        "set": "",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--smtp-auth": {
+        "key": "smtp-auth",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-smtp-auth": {
+        "key": "smtp-auth",
+        "value": "flag",
+        "set": "none",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--imap-sent-folder": {
+        "key": "imap-sent-folder",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--use-imap-only": {
+        "key": "use-imap-only",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-use-imap-only": {
+        "key": "use-imap-only",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nouse-imap-only": {
+        "key": "use-imap-only",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--annotate": {
+        "key": "annotate",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-annotate": {
+        "key": "annotate",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--noannotate": {
+        "key": "annotate",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--compose": {
+        "key": "compose",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--quiet": {
+        "key": "quiet",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--cc-cmd": {
+        "key": "cc-cmd",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--header-cmd": {
+        "key": "header-cmd",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-header-cmd": {
+        "key": "no-header-cmd",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--suppress-from": {
+        "key": "suppress-from",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-suppress-from": {
+        "key": "suppress-from",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nosuppress-from": {
+        "key": "suppress-from",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--suppress-cc": {
+        "key": "suppress-cc",
+        "value": "string",
+        "repeat": true,
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--signed-off-cc": {
+        "key": "signed-off-cc",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-signed-off-cc": {
+        "key": "signed-off-cc",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nosigned-off-cc": {
+        "key": "signed-off-cc",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--signed-off-by-cc": {
+        "key": "signed-off-cc",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-signed-off-by-cc": {
+        "key": "signed-off-cc",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nosigned-off-by-cc": {
+        "key": "signed-off-cc",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--cc-cover": {
+        "key": "cc-cover",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-cc-cover": {
+        "key": "cc-cover",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nocc-cover": {
+        "key": "cc-cover",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--to-cover": {
+        "key": "to-cover",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-to-cover": {
+        "key": "to-cover",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--noto-cover": {
+        "key": "to-cover",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--confirm": {
+        "key": "confirm",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--dry-run": {
+        "key": "dry-run",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--envelope-sender": {
+        "key": "envelope-sender",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--thread": {
+        "key": "thread",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-thread": {
+        "key": "thread",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nothread": {
+        "key": "thread",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--validate": {
+        "key": "validate",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-validate": {
+        "key": "validate",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--novalidate": {
+        "key": "validate",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--transfer-encoding": {
+        "key": "transfer-encoding",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--mailmap": {
+        "key": "mailmap",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-mailmap": {
+        "key": "mailmap",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nomailmap": {
+        "key": "mailmap",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--use-mailmap": {
+        "key": "mailmap",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-use-mailmap": {
+        "key": "mailmap",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nouse-mailmap": {
+        "key": "mailmap",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--format-patch": {
+        "key": "format-patch",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-format-patch": {
+        "key": "format-patch",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--noformat-patch": {
+        "key": "format-patch",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--8bit-encoding": {
+        "key": "8bit-encoding",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--compose-encoding": {
+        "key": "compose-encoding",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--force": {
+        "key": "force",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--xmailer": {
+        "key": "xmailer",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-xmailer": {
+        "key": "xmailer",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--noxmailer": {
+        "key": "xmailer",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--batch-size": {
+        "key": "batch-size",
+        "value": "integer",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--relogin-delay": {
+        "key": "relogin-delay",
+        "value": "integer",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--git-completion-helper": {
+        "key": "git-completion-helper",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "-v": {
+        "key": "v",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--v": {
+        "key": "v",
+        "value": "string",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--outlook-id-fix": {
+        "key": "outlook-id-fix",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ]
+      },
+      "--no-outlook-id-fix": {
+        "key": "outlook-id-fix",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      },
+      "--nooutlook-id-fix": {
+        "key": "outlook-id-fix",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "ordinary-options",
+            "set": true
+          }
+        ],
+        "set": false
+      }
+    }
   }
 }

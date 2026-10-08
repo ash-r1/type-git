@@ -59506,6 +59506,466 @@
       }
     },
     {
+      "command": "send-email",
+      "rules": 7,
+      "domains": {
+        "identity": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-identity": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "dump-aliases": [
+          "undefined",
+          "true"
+        ],
+        "translate-aliases": [
+          "undefined",
+          "true"
+        ],
+        "ordinary-options": [
+          "undefined",
+          "true"
+        ],
+        "sender": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "in-reply-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reply-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "subject": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "to": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "to-cmd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-to": [
+          "undefined",
+          "true"
+        ],
+        "cc": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "no-cc": [
+          "undefined",
+          "true"
+        ],
+        "bcc": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "no-bcc": [
+          "undefined",
+          "true"
+        ],
+        "chain-reply-to": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sendmail-cmd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-server": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-server-option": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "smtp-server-port": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-user": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-pass": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-encryption": [
+          "undefined",
+          "\"ssl\"",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-ssl-cert-path": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-ssl-client-cert": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-ssl-client-key": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-debug": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "smtp-domain": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "smtp-auth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"none\""
+        ],
+        "imap-sent-folder": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "use-imap-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "annotate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "compose": [
+          "undefined",
+          "true"
+        ],
+        "quiet": [
+          "undefined",
+          "true"
+        ],
+        "cc-cmd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "header-cmd": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "no-header-cmd": [
+          "undefined",
+          "true"
+        ],
+        "suppress-from": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "suppress-cc": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]",
+          "[\"all\"]",
+          "[\"all\",\"all\"]",
+          "[\"all\",\"invalid\"]",
+          "[\"cccmd\"]",
+          "[\"cccmd\",\"cccmd\"]",
+          "[\"cccmd\",\"invalid\"]",
+          "[\"cc\"]",
+          "[\"cc\",\"cc\"]",
+          "[\"cc\",\"invalid\"]",
+          "[\"author\"]",
+          "[\"author\",\"author\"]",
+          "[\"author\",\"invalid\"]",
+          "[\"self\"]",
+          "[\"self\",\"self\"]",
+          "[\"self\",\"invalid\"]",
+          "[\"sob\"]",
+          "[\"sob\",\"sob\"]",
+          "[\"sob\",\"invalid\"]",
+          "[\"body\"]",
+          "[\"body\",\"body\"]",
+          "[\"body\",\"invalid\"]",
+          "[\"bodycc\"]",
+          "[\"bodycc\",\"bodycc\"]",
+          "[\"bodycc\",\"invalid\"]",
+          "[\"misc-by\"]",
+          "[\"misc-by\",\"misc-by\"]",
+          "[\"misc-by\",\"invalid\"]"
+        ],
+        "signed-off-cc": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cc-cover": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "to-cover": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "confirm": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"auto\"",
+          "\"autovalue\"",
+          "\"cc\"",
+          "\"ccvalue\"",
+          "\"compose\"",
+          "\"composevalue\"",
+          "\"always\"",
+          "\"alwaysvalue\"",
+          "\"never\"",
+          "\"nevervalue\""
+        ],
+        "dry-run": [
+          "undefined",
+          "true"
+        ],
+        "envelope-sender": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "thread": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "validate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "transfer-encoding": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "mailmap": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "format-patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "8bit-encoding": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "compose-encoding": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force": [
+          "undefined",
+          "true"
+        ],
+        "xmailer": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "batch-size": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "relogin-delay": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "git-completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "v": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "outlook-id-fix": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "403159446365625000000000000000000000000",
+      "accepted": "84445559711718750000000000000000000000",
+      "nodes": 164,
+      "isolatedRuleWitnesses": {
+        "cli.send-email.alias-modes": "{\"dump-aliases\":true,\"operands\":[],\"translate-aliases\":true}",
+        "cli.send-email.dump-aliases-options": "{\"dump-aliases\":true,\"operands\":[],\"ordinary-options\":true}",
+        "cli.send-email.dump-aliases-operands": "{\"dump-aliases\":true,\"operands\":[\"value\"]}",
+        "cli.send-email.translate-aliases-options": "{\"operands\":[],\"ordinary-options\":true,\"translate-aliases\":true}",
+        "cli.send-email.translate-aliases-operands": "{\"operands\":[\"value\"],\"translate-aliases\":true}",
+        "cli.send-email.suppress-fields": "{\"operands\":[],\"suppress-cc\":[\"\"]}",
+        "cli.send-email.confirm-prefix": "{\"confirm\":\"\",\"operands\":[]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {
