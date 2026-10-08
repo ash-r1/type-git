@@ -20444,5 +20444,208 @@
       "reason": "The native confirmation regexp accepts these prefixes, including trailing characters.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
     }
+  ],
+  "citool": [
+    {
+      "id": "cli.citool.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Commit UI and picker commands reject remaining words after their own options.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "gui citool": [
+    {
+      "id": "cli.gui.citool.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Commit UI and picker commands reject remaining words after their own options.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "gui gui": [
+    {
+      "id": "cli.gui.gui.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Commit UI and picker commands reject remaining words after their own options.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "gui pick": [
+    {
+      "id": "cli.gui.pick.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "Commit UI and picker commands reject remaining words after their own options.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "gui browser": [
+    {
+      "id": "cli.gui.browser.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Browser/blame accepts a required path and at most one revision.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    },
+    {
+      "id": "cli.gui.browser.separator-path",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "hasSeparator",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "An explicit separator must immediately precede the required path.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    },
+    {
+      "id": "cli.gui.browser.words-false",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 3,
+      "guard": [
+        {
+          "key": "trace",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "The Tcl parser bounds total words after removing the global trace selector.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    },
+    {
+      "id": "cli.gui.browser.words-true",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 4,
+      "guard": [
+        {
+          "key": "trace",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "The Tcl parser bounds total words after removing the global trace selector.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "gui blame": [
+    {
+      "id": "cli.gui.blame.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Browser/blame accepts a required path and at most one revision.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    },
+    {
+      "id": "cli.gui.blame.separator-path",
+      "kind": "arity",
+      "key": "pathsAfterSeparator",
+      "min": 1,
+      "max": 1,
+      "when": {
+        "key": "hasSeparator",
+        "test": "active"
+      },
+      "origin": "git",
+      "reason": "An explicit separator must immediately precede the required path.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    },
+    {
+      "id": "cli.gui.blame.words-false",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 4,
+      "guard": [
+        {
+          "key": "trace",
+          "test": "inactive"
+        }
+      ],
+      "origin": "git",
+      "reason": "The Tcl parser bounds total words after removing the global trace selector.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    },
+    {
+      "id": "cli.gui.blame.words-true",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 5,
+      "guard": [
+        {
+          "key": "trace",
+          "test": "active"
+        }
+      ],
+      "origin": "git",
+      "reason": "The Tcl parser bounds total words after removing the global trace selector.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "gui": [
+    {
+      "id": "cli.gui.operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "citool",
+        "gui",
+        "pick",
+        "browser",
+        "blame"
+      ],
+      "origin": "git",
+      "reason": "An explicit first word must name a GUI operation; no words opens the default UI.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "gui version": [
+    {
+      "id": "cli.gui.version.no-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "The version shell prelude takes no additional words.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
+  ],
+  "citool version": [
+    {
+      "id": "cli.citool.version.no-operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "origin": "git",
+      "reason": "The version shell prelude takes no additional words.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
+    }
   ]
 }

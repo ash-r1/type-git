@@ -59966,6 +59966,474 @@
       }
     },
     {
+      "command": "citool",
+      "dispatch": {
+        "version": "citool version"
+      },
+      "transitions": [
+        {
+          "flag": "--version",
+          "rules": [
+            "cli.citool.version-alone"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.citool.version-alone": "{}"
+          }
+        }
+      ],
+      "rules": 1,
+      "domains": {
+        "trace": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "amend": [
+          "undefined",
+          "true"
+        ],
+        "nocommit": [
+          "undefined",
+          "true"
+        ],
+        "commitmsg": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "960",
+      "accepted": "192",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.citool.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "gui citool",
+      "rules": 1,
+      "domains": {
+        "trace": [
+          "undefined",
+          "true"
+        ],
+        "amend": [
+          "undefined",
+          "true"
+        ],
+        "nocommit": [
+          "undefined",
+          "true"
+        ],
+        "commitmsg": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "480",
+      "accepted": "96",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.gui.citool.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "gui gui",
+      "rules": 1,
+      "domains": {
+        "trace": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.gui.gui.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "gui pick",
+      "rules": 1,
+      "domains": {
+        "trace": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.gui.pick.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "gui browser",
+      "rules": 4,
+      "domains": {
+        "trace": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "2400",
+      "accepted": "360",
+      "nodes": 49,
+      "isolatedRuleWitnesses": {
+        "cli.gui.browser.operands": "{\"argumentTokens\":[\"value\"],\"operands\":[]}",
+        "cli.gui.browser.separator-path": "{\"argumentTokens\":[\"value\"],\"hasSeparator\":true,\"operands\":[\"value\"]}",
+        "cli.gui.browser.words-false": "{\"operands\":[\"value\"]}",
+        "cli.gui.browser.words-true": "{\"operands\":[\"value\"],\"trace\":true}"
+      }
+    },
+    {
+      "command": "gui blame",
+      "transitions": [
+        {
+          "flag": "--line",
+          "rules": [
+            "cli.gui.blame.line-first",
+            "cli.gui.blame.line-once",
+            "cli.gui.blame.line-digits",
+            "cli.gui.blame.line-path"
+          ],
+          "domains": {
+            "line": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ],
+            "$value": [
+              "undefined",
+              "-2",
+              "-1",
+              "0",
+              "1",
+              "2"
+            ],
+            "operands": [
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]",
+              "[\"value\",\"value\",\"value\"]",
+              "[\"value\",\"value\",\"value\",\"value\"]"
+            ],
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "720",
+          "accepted": "8",
+          "isolatedRuleWitnesses": {
+            "cli.gui.blame.line-first": "{\"$remaining\":[\"value\"],\"operands\":[\"value\"]}",
+            "cli.gui.blame.line-once": "{\"$remaining\":[\"value\"],\"line\":-2,\"operands\":[]}",
+            "cli.gui.blame.line-digits": "{\"$remaining\":[\"value\"],\"$value\":-2,\"operands\":[]}",
+            "cli.gui.blame.line-path": "{\"operands\":[]}"
+          }
+        }
+      ],
+      "rules": 4,
+      "domains": {
+        "trace": [
+          "undefined",
+          "true"
+        ],
+        "line": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "14400",
+      "accepted": "2160",
+      "nodes": 49,
+      "isolatedRuleWitnesses": {
+        "cli.gui.blame.operands": "{\"argumentTokens\":[\"value\"],\"operands\":[]}",
+        "cli.gui.blame.separator-path": "{\"argumentTokens\":[\"value\"],\"hasSeparator\":true,\"operands\":[\"value\"]}",
+        "cli.gui.blame.words-false": "{\"operands\":[\"value\"]}",
+        "cli.gui.blame.words-true": "{\"operands\":[\"value\"],\"trace\":true}"
+      }
+    },
+    {
+      "command": "gui",
+      "dispatch": {
+        "citool": "gui citool",
+        "gui": "gui gui",
+        "pick": "gui pick",
+        "browser": "gui browser",
+        "blame": "gui blame",
+        "version": "gui version"
+      },
+      "transitions": [
+        {
+          "flag": "--version",
+          "rules": [
+            "cli.gui.version-alone"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.gui.version-alone": "{}"
+          }
+        }
+      ],
+      "rules": 1,
+      "domains": {
+        "trace": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\"",
+          "\"citool\"",
+          "\"gui\"",
+          "\"pick\"",
+          "\"browser\"",
+          "\"blame\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "420",
+      "accepted": "360",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.gui.operation": "{\"operand0\":\"value\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "gui version",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "6",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.gui.version.no-operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "citool version",
+      "rules": 1,
+      "domains": {
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "30",
+      "accepted": "6",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.citool.version.no-operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
       "command": "lfs",
       "rules": 0,
       "domains": {
