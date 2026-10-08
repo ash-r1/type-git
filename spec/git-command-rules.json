@@ -20624,6 +20624,119 @@
       "source": "https://github.com/git/git/blob/v2.55.0/git-gui/git-gui.sh"
     }
   ],
+  "p4 submit": [
+    {
+      "id": "cli.p4.submit.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "Submit and its commit alias accept at most one local branch.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    },
+    {
+      "id": "cli.p4.submit.changelists",
+      "kind": "eachInteger",
+      "key": "update_shelve",
+      "min": 1,
+      "origin": "git",
+      "reason": "Every update-shelve changelist must be positive after parsing completes.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    }
+  ],
+  "p4 commit": [
+    {
+      "id": "cli.p4.commit.operands",
+      "kind": "arity",
+      "key": "operands",
+      "min": 0,
+      "max": 1,
+      "origin": "git",
+      "reason": "Submit and its commit alias accept at most one local branch.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    },
+    {
+      "id": "cli.p4.commit.changelists",
+      "kind": "eachInteger",
+      "key": "update_shelve",
+      "min": 1,
+      "origin": "git",
+      "reason": "Every update-shelve changelist must be positive after parsing completes.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    }
+  ],
+  "p4 sync": [],
+  "p4 rebase": [],
+  "p4 clone": [
+    {
+      "id": "cli.p4.clone.depot",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "Clone requires at least one depot path.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    },
+    {
+      "id": "cli.p4.clone.keep-destination",
+      "kind": "requires",
+      "when": {
+        "key": "keepRepoPath",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "cloneDestination",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "Keep-path requires a nonempty explicit destination before any positional destination is inferred.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    }
+  ],
+  "p4 branches": [],
+  "p4 unshelve": [
+    {
+      "id": "cli.p4.unshelve.change",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Unshelve requires exactly one changelist operand.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    }
+  ],
+  "p4": [
+    {
+      "id": "cli.p4.operation",
+      "kind": "arity",
+      "key": "operands",
+      "min": 1,
+      "origin": "git",
+      "reason": "The frontend requires a registered operation as the first word.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    },
+    {
+      "id": "cli.p4.known-operation",
+      "kind": "value",
+      "key": "operand0",
+      "allowed": [
+        "submit",
+        "commit",
+        "sync",
+        "rebase",
+        "clone",
+        "branches",
+        "unshelve"
+      ],
+      "origin": "git",
+      "reason": "Only the registered Python command classes are dispatched.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-p4.py"
+    }
+  ],
   "gui version": [
     {
       "id": "cli.gui.version.no-operands",

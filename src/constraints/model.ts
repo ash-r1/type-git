@@ -44,6 +44,7 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
     | { kind: 'unsupported'; keys: readonly string[] }
     | { kind: 'value' | 'elements'; key: string; allowed: readonly (string | number | boolean)[] }
     | { kind: 'range'; key: string; min: number; max?: number; when?: Predicate }
+    | { kind: 'eachInteger'; key: string; min: number }
     | { kind: 'integer'; key: string; min: number; allowBoolean?: boolean }
   );
 
@@ -123,6 +124,14 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
       return rule.when.every((p) => matches(p, options));
     case 'unsupported':
       return rule.keys.some((key) => options[key] !== undefined);
+    case 'eachInteger': {
+      const items = options[rule.key];
+      return (
+        items !== undefined &&
+        (!Array.isArray(items) ||
+          items.some((item) => !Number.isSafeInteger(item) || item < rule.min))
+      );
+    }
     case 'elements': {
       const items = options[rule.key];
       return (
@@ -184,6 +193,7 @@ function bodyKeys(rule: Constraint): string[] {
       return rule.when ? [rule.key, ...predicateKeys(rule.when)] : [rule.key];
     case 'value':
     case 'elements':
+    case 'eachInteger':
     case 'integer':
       return [rule.key];
   }

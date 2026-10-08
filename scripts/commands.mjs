@@ -37,6 +37,11 @@ try {
   const scopes = JSON.parse(await readFile(new URL('spec/git-command-scopes.json', root), 'utf8'));
   const nativeRules = JSON.parse(await readFile(new URL('spec/git-command-rules.json', root), 'utf8'));
   const groups = JSON.parse(await readFile(new URL('spec/git-option-groups.json', root), 'utf8'));
+  const p4 = JSON.parse(await readFile(new URL('spec/upstream/p4-options.json', root), 'utf8'));
+  for (const [name, entry] of Object.entries(p4.commands)) {
+    if (!scopes[name]) throw new Error(`Missing scope for extracted P4 operation ${name}`);
+    scopes[name] = { ...scopes[name], options: { ...entry.options, ...scopes[name].options } };
+  }
   const catalog = gitOptions(native, scopes, nativeRules, groups);
   for (const [name, entry] of Object.entries(upstream.commands)) {
     const inherited = mappings[name] ? COMMAND_CONSTRAINTS[mappings[name]].filter((r) => r.origin === 'git' && r.kind !== 'unsupported').map(rename) : [];
