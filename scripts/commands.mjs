@@ -49,9 +49,11 @@ try {
     const inherited = mappings[name] ? COMMAND_CONSTRAINTS[mappings[name]].filter((r) => r.origin === 'git' && r.kind !== 'unsupported').map(rename) : [];
     if (name === 'lfs checkout') inherited.push(...INPUT_CONSTRAINTS.lfsCheckout.map(rename));
     const rules = [...inherited, ...(additional[name] ?? [])];
+    if (entry.minimumOperands !== undefined) rules.push({ id: `cli.${name.replaceAll(' ', '.')}.operands`, kind: 'arity', key: 'operands', min: entry.minimumOperands, origin: 'git', reason: 'The completion helper requires at least one literal argument, including an empty fragment.', source: entry.source });
     const keys = new Set(['argumentTokens', 'operands', 'operand0', 'inRepository', 'hasSeparator', 'operandsBeforeSeparator', 'pathsAfterSeparator', ...Object.keys(entry.initial ?? {}), ...[...Object.values(entry.options), ...(entry.numericOption ? [entry.numericOption] : [])].flatMap((opt) => [opt.key, ...(opt.effects ?? []).map(effect => effect.key)])]);
     for (const rule of rules) for (const key of referencedKeys(rule)) if (!keys.has(key)) throw new Error(`${name}: rule ${rule.id} refers to unknown input ${key}`);
-    catalog[name] = { ...entry, options: Object.fromEntries(Object.entries(entry.options).map(([flag, opt]) => [flag, opt.repeat ? { ...opt, skipEmpty: true } : opt])), rules };
+    const { minimumOperands: _minimumOperands, ...entrySpec } = entry;
+    catalog[name] = { ...entrySpec, options: Object.fromEntries(Object.entries(entry.options).map(([flag, opt]) => [flag, opt.repeat ? { ...opt, skipEmpty: true } : opt])), rules };
   }
   for (const name of Object.keys(additional)) if (!catalog[name]) throw new Error(`Rules for unknown command ${name}`);
   for (const [name, entry] of Object.entries(catalog)) {

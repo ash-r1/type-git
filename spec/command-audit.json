@@ -4325,6 +4325,26 @@
         "test/types/gui-command-api.ts"
       ],
       "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "lfs __complete": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/lfs-completion.test.ts",
+        "test/types/lfs-completion-command-api.ts"
+      ],
+      "remaining": "Pinned Cobra registration and MinimumNArgs grammar, aliases and literal flag handling are verified against native Git LFS. Completion callbacks and repository/config-dependent suggestions remain under audit."
+    },
+    "lfs __completeNoDesc": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/lfs-completion.test.ts",
+        "test/types/lfs-completion-command-api.ts"
+      ],
+      "remaining": "Pinned Cobra registration and MinimumNArgs grammar, aliases and literal flag handling are verified against native Git LFS. Completion callbacks and repository/config-dependent suggestions remain under audit."
     }
   }
 }
