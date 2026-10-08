@@ -17,7 +17,7 @@ const additional = JSON.parse(await readFile(new URL('spec/lfs-command-rules.jso
 const temp = await mkdtemp(join(tmpdir(), 'type-git-cli-spec-'));
 try {
   await writeFile(join(temp, 'package.json'), '{"type":"module"}');
-  for (const name of ['commands', 'inputs', 'model', 'scalars', 'git-scalars', 'ascii', 'git-boolean', 'boolean-callbacks.generated', 'git-integer', 'git-decimal', 'numeric-callbacks.generated', 'object-filter', 'decision-diagram']) {
+  for (const name of ['commands', 'inputs', 'model', 'scalars', 'git-scalars', 'ascii', 'git-boolean', 'boolean-callbacks.generated', 'git-integer', 'git-decimal', 'compound-decimal', 'compound-decimals.generated', 'numeric-callbacks.generated', 'object-filter', 'decision-diagram']) {
     const source = await readFile(new URL(`src/constraints/${name}.ts`, root), 'utf8');
     await writeFile(join(temp, `${name}.js`), ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText);
   }

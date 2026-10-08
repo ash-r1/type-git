@@ -1,4 +1,5 @@
 import type { AsciiLower } from '../constraints/ascii-types.js';
+import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
 import type { GitBooleanCallback } from '../constraints/git-boolean.js';
 import type {
   GitBooleanCallbackLiteral,
@@ -266,19 +267,23 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
     ? V extends undefined
       ? true
       : GitBooleanCallbackLiteral<V, P>
-    : V extends string
-      ? string extends V
+    : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+      ? V extends undefined
         ? true
-        : D extends { parser: 'object-filter' | 'object-filter-auto' }
-          ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
-          : D extends { parser: 'shortlog-group' }
-            ? AsciiLower<V> extends 'author' | 'committer'
-              ? true
-              : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
+        : CompoundDecimalLiteral<V, D['parser']>
+      : V extends string
+        ? string extends V
+          ? true
+          : D extends { parser: 'object-filter' | 'object-filter-auto' }
+            ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
+            : D extends { parser: 'shortlog-group' }
+              ? AsciiLower<V> extends 'author' | 'committer'
                 ? true
-                : false
-            : true
-      : true;
+                : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
+                  ? true
+                  : false
+              : true
+        : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: GitNumericParser;
   allowed: infer A extends readonly unknown[];
