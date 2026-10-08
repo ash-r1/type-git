@@ -1,5 +1,8 @@
-import type { GitIntegerParser } from '../constraints/git-integer.js';
-import type { GitIntegerLiteral, GitIntegerValue } from '../constraints/git-integer-types.js';
+import type {
+  GitNumericLiteral,
+  GitNumericParser,
+  GitNumericValue,
+} from '../constraints/git-numeric-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
 import type { Constrained } from '../constraints/types.js';
@@ -45,7 +48,7 @@ type AsciiLower<S extends string> = string extends S
   : S extends `${infer H}${infer R}`
     ? `${H extends AsciiUpper ? Lowercase<H> : H}${AsciiLower<R>}`
     : S;
-type Value<S extends OptionSpec> = S extends { parser: GitIntegerParser }
+type Value<S extends OptionSpec> = S extends { parser: GitNumericParser }
   ? number | string | bigint
   : S extends { allowed: infer A extends readonly unknown[] }
     ? S extends { caseInsensitive: true }
@@ -71,7 +74,7 @@ type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
         }[keyof Options<C>]
       | { readonly operand: string }
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
-      | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}`])
+      | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}` | `-${bigint}`])
   : never;
 type Dispatch<C extends GitCommandName> = Spec<C> extends { dispatch: infer D } ? D : never;
 type DispatchTarget<C extends GitCommandName> = Extract<
@@ -110,8 +113,8 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   : D extends { set: infer V }
     ? V
     : true;
-type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitIntegerParser }
-  ? GitIntegerValue<V, P>
+type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitNumericParser }
+  ? GitNumericValue<V, P>
   : D extends { caseInsensitive: true }
     ? D extends { preserveCase: true }
       ? V
@@ -224,7 +227,11 @@ type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
     : string extends TokenValue<T, D>
       ? UnparsedOptionState<S, D, T>
       : S
-  : UnparsedOptionState<S, D, T>;
+  : D extends { parser: { kind: 'decimal'; default: 'previous' } }
+    ? T extends readonly [unknown] | readonly [unknown, undefined]
+      ? S
+      : UnparsedOptionState<S, D, T>
+    : UnparsedOptionState<S, D, T>;
 type ModeValue<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeFromValue: true;
 }
@@ -265,8 +272,8 @@ type CheckedCallbackState<S, D extends OptionSpec, T extends readonly unknown[]>
     ? ParsedState<S, D, T>
     : never
   : ParsedState<S, D, T>;
-type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitIntegerParser }
-  ? GitIntegerLiteral<V, P>
+type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitNumericParser }
+  ? GitNumericLiteral<V, P>
   : V extends string
     ? string extends V
       ? true
@@ -290,7 +297,7 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
             : true
     : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
-  parser: GitIntegerParser;
+  parser: GitNumericParser;
   allowed: infer A extends readonly unknown[];
 }
   ? T extends readonly [unknown, infer V]
@@ -374,17 +381,22 @@ type ApplyOption<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
     ? never
     : Put<AppliedOption<S, D, T>, 'literalOperands', true>
   : AppliedOption<S, D, T>;
-type ApplyNumeric<C extends GitCommandName, S, T> = T extends readonly [
-  `-${infer N extends number}`,
-]
-  ? T[0] extends `-${infer Text}`
-    ? (`${number}` extends Text ? true : Digits<Text>) extends true
-      ? NumericOption<C> extends { allowed: infer A extends readonly unknown[] }
+type NumericValue<D extends OptionSpec, Text extends string> = D extends {
+  parser: GitNumericParser;
+}
+  ? Text
+  : Text extends `${infer N extends number}`
+    ? N
+    : number;
+type ApplyNumeric<C extends GitCommandName, S, T> = T extends readonly [`-${infer Text}`]
+  ? (`${number}` extends Text ? true : `${bigint}` extends Text ? true : Digits<Text>) extends true
+    ? NumericOption<C> extends { allowed: infer A extends readonly unknown[] }
+      ? NumericValue<NumericOption<C>, Text> extends infer N
         ? (number extends N ? true : N extends A[number] ? true : false) extends true
           ? ApplyOption<S, NumericOption<C>, readonly [T[0], N]>
           : never
-        : ApplyOption<S, NumericOption<C>, readonly [T[0], N]>
-      : never
+        : never
+      : ApplyOption<S, NumericOption<C>, readonly [T[0], NumericValue<NumericOption<C>, Text>]>
     : never
   : S;
 type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']

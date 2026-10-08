@@ -165,3 +165,16 @@ export function testNativeIntegerTypes(git: Git, mixed: 1 | 2147483648): void {
   // @ts-expect-error A nonzero normalized value conflicts with stdout.
   git.command('pack-objects', [['--max-pack-size', '0b1k'], ['--stdout']]);
 }
+
+export function testNumericCallbackTypes(git: Git): void {
+  git.command('describe', [['--abbrev', '2147483648'], ['--long']]);
+  git.command('cherry-pick', [['--mainline', '-4294967295'], ['-h']]);
+  git.command('grep', [['-9223372036854775808'], { operand: 'needle' }]);
+  git.command('diff-files', [['-U', '']]);
+  // @ts-expect-error Narrowing a multiple of 2^32 produces zero before final combination checks.
+  git.command('describe', [['--abbrev', '4294967296'], ['--long']]);
+  // @ts-expect-error Mainline must be positive after C conversion, not before it.
+  git.command('cherry-pick', [['--mainline', '2147483648'], ['-h']]);
+  // @ts-expect-error Decimal callbacks do not parse native integer k/m/g units.
+  git.command('rev-list', [['--max-count', '1k'], ['--all']]);
+}

@@ -272,7 +272,7 @@
         "key": "expand-tabs",
         "value": "optional-integer",
         "set": 8,
-        "parser": "revision-count",
+        "parser": "tab-width",
         "checks": [
           {
             "id": "revision.tabs-nonnegative",
@@ -1147,23 +1147,26 @@
       },
       "--unified": {
         "key": "unified",
-        "value": "optional-string",
+        "value": "optional-integer",
         "effects": [
           {
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "unified-context"
       },
       "-U": {
         "key": "unified",
-        "value": "optional-string",
+        "value": "optional-integer",
         "effects": [
           {
             "key": "no-output",
             "set": false
           }
-        ]
+        ],
+        "parser": "unified-context",
+        "emptyValueFlag": "--unified"
       },
       "--raw": {
         "key": "raw",
