@@ -1,5 +1,5 @@
 /** Convert pinned Git parse-options tables. Custom parsers require separate scopes. */
-export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot, callbacks = { profiles: {} }) {
+export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot, callbacks = { profiles: {} }, revisionSnapshot) {
   const resolve = option => callbacks.profiles[option.parser] ? { ...option, parser: callbacks.profiles[option.parser].parser } : option;
   const numeric = new Map((numericSnapshot?.options ?? []).map(row => [JSON.stringify([row.file, row.function, row.table, row.flag, row.kind]), row]));
   const candidates = new Map();
@@ -53,10 +53,17 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     for (const flag of scope.omitOptions ?? []) delete options[flag];
     let parserExit = scope.parserExit;
     if (parserExit?.firstPassTables) {
-      const { firstPassTables, ...exit } = parserExit;
+      const { firstPassTables, remainingTables, remainingGroups, ...exit } = parserExit;
       const firstPassOptions = [...new Set([...Object.keys(tableOptions(definitionsFor(firstPassTables, command), command, scope.numericOption, callbacks)), ...exit.flags])].sort();
       const firstPassLongNames = [...new Set(definitionsFor(firstPassTables, command).flatMap(option => option.long ? [option.long] : []))].sort();
-      parserExit = { ...exit, firstPassOptions, firstPassLongNames };
+      const remainingOptions = tableOptions(definitionsFor(remainingTables ?? [], command), command, scope.numericOption, callbacks);
+      const remainingShortOptions = Object.keys(remainingOptions).filter(flag => /^-[^-]$/.test(flag));
+      const remainingLongNames = [...new Set(definitionsFor(remainingTables ?? [], command).flatMap(option => option.long ? [option.long] : []))].sort();
+      for (const name of remainingGroups ?? []) Object.assign(remainingOptions, Object.fromEntries(Object.entries(groups[name].options).map(([flag, option]) => [flag, resolve(option)])));
+      const remainingDetachedOptions = Object.entries(remainingOptions).filter(([flag, option]) => option.separateValue || (flag.startsWith('--') && !option.value.startsWith('optional-') && option.value !== 'flag' && (Object.hasOwn(revisionSnapshot?.options ?? {}, flag) ? revisionSnapshot.options[flag].detachedValue : true))).map(([flag]) => flag).sort();
+      if (scope.inheritedOptionMarker) for (const [flag, option] of Object.entries(remainingOptions)) remainingOptions[flag] = { ...option, effects: [...(option.effects ?? []), { key: scope.inheritedOptionMarker, set: true }] };
+      remainingOptions['--end-of-options'] = { key: 'revision-end-of-options', value: 'flag', consumesRest: true, ignore: true };
+      parserExit = { ...exit, firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions };
     }
     result[command] = { argv: command.split(' '), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}) };
   }
