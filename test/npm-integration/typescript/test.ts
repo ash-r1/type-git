@@ -190,3 +190,13 @@ export function testObjectFilterByteTypes(git: Git, dynamicCount: number): void 
   // @ts-expect-error Escaped separators are applied in the next nested combine stage.
   git.command('fetch', [['--filter', 'combine:combine:tree:1%2Bauto']]);
 }
+
+export function testArgvStringTypes(git: Git, dynamic: string): void {
+  // @ts-expect-error Other dynamic tokens cannot erase a known NUL value.
+  git.command('log', [['--format', 'a\0b'], { operand: dynamic }, ['-h']]);
+  git.command('log', [['--format', 'text'], ['-h']]);
+  // @ts-expect-error NUL cannot be serialized even when help suppresses Git semantic rules.
+  git.command('log', [['--format', 'a\0b'], ['-h']]);
+  // @ts-expect-error The same representation rule applies through command dispatch.
+  git.command('config', [{ operand: 'get' }, { operand: 'a\0b' }]);
+}
