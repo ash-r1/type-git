@@ -2,6 +2,7 @@
   "baseline": "2.55.0",
   "profile": {
     "compiler": "cc",
+    "compilerVersion": "cc (Debian 14.2.0-19) 14.2.0",
     "target": "aarch64-linux-gnu",
     "flags": [
       "-E",

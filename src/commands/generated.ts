@@ -93502,6 +93502,7 @@ const commandSpec352 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
     },
     '--log-window-size': {
       key: 'log-window-size',
@@ -93735,6 +93736,7 @@ const commandSpec353 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
     },
     '--log-window-size': {
       key: 'log-window-size',
@@ -93811,6 +93813,7 @@ const commandSpec353 = {
     '--shared': {
       key: 'shared',
       value: 'optional-string',
+      set: '',
     },
     '--trunk': {
       key: 'trunk',
@@ -94083,6 +94086,7 @@ const commandSpec354 = {
     '--shared': {
       key: 'shared',
       value: 'optional-string',
+      set: '',
     },
     '--trunk': {
       key: 'trunk',
@@ -94352,6 +94356,7 @@ const commandSpec355 = {
     '--shared': {
       key: 'shared',
       value: 'optional-string',
+      set: '',
     },
     '--trunk': {
       key: 'trunk',
@@ -94805,6 +94810,7 @@ const commandSpec356 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
     },
     '--log-window-size': {
       key: 'log-window-size',
@@ -95351,6 +95357,7 @@ const commandSpec359 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
     },
     '--log-window-size': {
       key: 'log-window-size',
@@ -96259,6 +96266,7 @@ const commandSpec367 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
     },
     '--log-window-size': {
       key: 'log-window-size',
@@ -96952,6 +96960,7 @@ const commandSpec371 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
     },
     '--log-window-size': {
       key: 'log-window-size',

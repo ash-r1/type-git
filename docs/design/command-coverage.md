@@ -8,6 +8,8 @@ Version-pinned upstream commands, registered aliases/helpers, and companion prog
 
 Inventory contains 221 entries; the table also includes individually reviewed operation scopes. Candidate nested dispatch names are retained in the JSON inventory, not counted as audited operations.
 
+Typed inventory entries: 219/221; sourced-library exclusions: 2. Total typed operation scopes: 426. Completed constraint audits: 0.
+
 | Command / operation | Classification | Audit | Typed CLI | Models | Remaining work |
 | --- | --- | --- | --- | --- | --- |
 | `add` | documented | partial | yes | add | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |

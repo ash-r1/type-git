@@ -10,6 +10,9 @@ import re
 import sys
 from pathlib import Path
 
+if 'DEF_VER=v2.55.0' not in (Path(sys.argv[1]) / 'GIT-VERSION-GEN').read_text():
+    raise ValueError('Expected Git 2.55.0 source tree')
+
 source_path = Path(sys.argv[1]) / 'git-svn.perl'
 source = source_path.read_text()
 shared = {}
@@ -42,6 +45,8 @@ def options(decls):
         kind = 'integer' if 'i' in suffix else 'string' if 's' in suffix else 'flag'
         if suffix.startswith(':'): kind = 'optional-' + kind
         opt = {'key': key, 'value': kind}
+        if suffix == ':s': opt['set'] = ''
+        if suffix == ':i': opt['set'] = 0
         if '@' in suffix: opt['repeat'] = True
         if key == 'version': opt['effects'] = [{'key': 'help', 'set': True}]
         for name in names:
