@@ -3825,6 +3825,66 @@
       ],
       "remaining": "Git installs this as a non-executable shell library sourced by shell frontends, not a git subcommand. Standalone command API is inapplicable. Audit its environment-driven setup and shell functions through their callers.",
       "apiApplicability": "sourced-library"
+    },
+    "archimport": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Models native Getopt vocabulary and direct positional/export constraints. External Arch/CVS services, author/regex/config languages, protocol operations and environment-sensitive parser behavior remain pending. CVS server native execution is skipped when DBI is unavailable; help text is not used as a substitute for the implemented grammar."
+    },
+    "cvsexportcommit": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Models native Getopt vocabulary and direct positional/export constraints. External Arch/CVS services, author/regex/config languages, protocol operations and environment-sensitive parser behavior remain pending. CVS server native execution is skipped when DBI is unavailable; help text is not used as a substitute for the implemented grammar."
+    },
+    "cvsimport": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Models native Getopt vocabulary and direct positional/export constraints. External Arch/CVS services, author/regex/config languages, protocol operations and environment-sensitive parser behavior remain pending. CVS server native execution is skipped when DBI is unavailable; help text is not used as a substitute for the implemented grammar."
+    },
+    "cvsserver": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Models native Getopt vocabulary and direct positional/export constraints. External Arch/CVS services, author/regex/config languages, protocol operations and environment-sensitive parser behavior remain pending. CVS server native execution is skipped when DBI is unavailable; help text is not used as a substitute for the implemented grammar."
+    },
+    "cvsserver server": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Models native Getopt vocabulary and direct positional/export constraints. External Arch/CVS services, author/regex/config languages, protocol operations and environment-sensitive parser behavior remain pending. CVS server native execution is skipped when DBI is unavailable; help text is not used as a substitute for the implemented grammar."
+    },
+    "cvsserver pserver": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Models native Getopt vocabulary and direct positional/export constraints. External Arch/CVS services, author/regex/config languages, protocol operations and environment-sensitive parser behavior remain pending. CVS server native execution is skipped when DBI is unavailable; help text is not used as a substitute for the implemented grammar."
     }
   }
 }
