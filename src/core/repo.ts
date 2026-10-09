@@ -1614,6 +1614,14 @@ export type RevParseQuietRefOpts = RevParseRefBaseOpts & {
 };
 
 /**
+ * Ref resolution options accepted by every `revParse(ref)` overload, including a dynamic
+ * `quiet` flag when `verify` is set
+ */
+export type RevParseAnyRefOpts =
+  | RevParseRefOpts
+  | (RevParseRefBaseOpts & { verify: true; quiet?: boolean });
+
+/**
  * Options that return other information from rev-parse
  */
 export type RevParseOtherQuery = ExclusiveQuery<
@@ -3755,10 +3763,7 @@ export interface WorktreeRepo extends RepoBase {
    */
   revParse(ref: string, opts: RevParseQuietRefOpts & ExecOpts): Promise<string | undefined>;
   revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
-  revParse(
-    ref: string,
-    opts?: (RevParseRefOpts | RevParseQuietRefOpts) & ExecOpts,
-  ): Promise<string | undefined>;
+  revParse(ref: string, opts?: RevParseAnyRefOpts & ExecOpts): Promise<string | undefined>;
   revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
   revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
@@ -3875,10 +3880,7 @@ export interface BareRepo extends RepoBase {
    */
   revParse(ref: string, opts: RevParseQuietRefOpts & ExecOpts): Promise<string | undefined>;
   revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
-  revParse(
-    ref: string,
-    opts?: (RevParseRefOpts | RevParseQuietRefOpts) & ExecOpts,
-  ): Promise<string | undefined>;
+  revParse(ref: string, opts?: RevParseAnyRefOpts & ExecOpts): Promise<string | undefined>;
   revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
   revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;

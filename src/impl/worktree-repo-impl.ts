@@ -98,6 +98,7 @@ import type {
   ResetOpts,
   RestoreOpts,
   RevertOpts,
+  RevParseAnyRefOpts,
   RevParseBooleanQuery,
   RevParseListQuery,
   RevParsePathOpts,
@@ -4049,10 +4050,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
    */
   public revParse(ref: string, opts: RevParseQuietRefOpts & ExecOpts): Promise<string | undefined>;
   public revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
-  public revParse(
-    ref: string,
-    opts?: (RevParseRefOpts | RevParseQuietRefOpts) & ExecOpts,
-  ): Promise<string | undefined>;
+  public revParse(ref: string, opts?: RevParseAnyRefOpts & ExecOpts): Promise<string | undefined>;
   public revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   public revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
   public revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
@@ -4070,7 +4068,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       | (ExclusiveQuery<{ showObjectFormat: true | 'storage' | 'input' | 'output' }> & ExecOpts)
       | (ExclusiveQuery<{ showRefFormat: true }> & ExecOpts)
       | (ExclusiveQuery<{ localEnvVars: true }> & ExecOpts),
-    opts?: (RevParseRefOpts | RevParseQuietRefOpts) & ExecOpts,
+    opts?: RevParseAnyRefOpts & ExecOpts,
   ): Promise<string | boolean | string[] | undefined> {
     const args: string[] = ['rev-parse'];
 

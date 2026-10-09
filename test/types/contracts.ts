@@ -35,6 +35,9 @@ export async function contracts(git: Git, repo: WorktreeRepo, bare: BareRepo, fl
   expectType<string>(await repo.revParse('HEAD', { verify: true }));
   expectType<string | undefined>(await repo.revParse('HEAD', { verify: true, quiet: true }));
   expectType<string | undefined>(await bare.revParse('HEAD', { verify: true, quiet: true }));
+  expectType<string | undefined>(await repo.revParse('HEAD', { verify: true, quiet: flag }));
+  expectType<string | undefined>(await bare.revParse('HEAD', { verify: true, quiet: flag }));
+  expectType<string>(await repo.revParse('HEAD', { verify: true, quiet: false }));
   // @ts-expect-error A quiet lookup may resolve to undefined.
   expectType<string>(await repo.revParse('HEAD', { verify: true, quiet: true }));
   // @ts-expect-error Git only honors --quiet in --verify mode.
