@@ -354,10 +354,12 @@ export const COMMAND_SPECS = {
       '--pathspec-from-file': {
         key: 'pathspec-from-file',
         value: 'string',
+        emptyIsUnset: true,
       },
       '--no-pathspec-from-file': {
         key: 'pathspec-from-file',
         value: 'flag',
+        emptyIsUnset: true,
         clear: true,
       },
       '--pathspec-file-nul': {
@@ -765,10 +767,12 @@ export const COMMAND_SPECS = {
       '--pathspec-from-file': {
         key: 'pathspec-from-file',
         value: 'string',
+        emptyIsUnset: true,
       },
       '--no-pathspec-from-file': {
         key: 'pathspec-from-file',
         value: 'flag',
+        emptyIsUnset: true,
         clear: true,
       },
       '--pathspec-file-nul': {
@@ -1253,6 +1257,7 @@ export const COMMAND_SPECS = {
       '--mirror': {
         key: 'mirror',
         value: 'optional-string',
+        allowed: ['fetch', 'push'],
       },
       '--no-mirror': {
         key: 'mirror',
@@ -2126,6 +2131,9947 @@ export const COMMAND_SPECS = {
       },
     ],
     source: 'builtin/init-db.c',
+    separator: true,
+  },
+  commit: {
+    argv: ['commit'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '-F': {
+        key: 'file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        emptyIsUnset: true,
+        clear: true,
+      },
+      '--author': {
+        key: 'author',
+        value: 'string',
+      },
+      '--no-author': {
+        key: 'author',
+        value: 'flag',
+        clear: true,
+      },
+      '--date': {
+        key: 'date',
+        value: 'string',
+      },
+      '--no-date': {
+        key: 'date',
+        value: 'flag',
+        clear: true,
+      },
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--no-message': {
+        key: 'message',
+        value: 'flag',
+        clear: true,
+      },
+      '--reedit-message': {
+        key: 'reedit-message',
+        value: 'string',
+      },
+      '-c': {
+        key: 'reedit-message',
+        value: 'string',
+      },
+      '--no-reedit-message': {
+        key: 'reedit-message',
+        value: 'flag',
+        clear: true,
+      },
+      '--reuse-message': {
+        key: 'reuse-message',
+        value: 'string',
+      },
+      '-C': {
+        key: 'reuse-message',
+        value: 'string',
+      },
+      '--no-reuse-message': {
+        key: 'reuse-message',
+        value: 'flag',
+        clear: true,
+      },
+      '--fixup': {
+        key: 'fixup',
+        value: 'string',
+      },
+      '--no-fixup': {
+        key: 'fixup',
+        value: 'flag',
+        clear: true,
+      },
+      '--squash': {
+        key: 'squash',
+        value: 'string',
+      },
+      '--no-squash': {
+        key: 'squash',
+        value: 'flag',
+        clear: true,
+      },
+      '--reset-author': {
+        key: 'reset-author',
+        value: 'flag',
+      },
+      '--no-reset-author': {
+        key: 'reset-author',
+        value: 'flag',
+        set: false,
+      },
+      '--trailer': {
+        key: 'trailer',
+        value: 'string',
+      },
+      '--no-trailer': {
+        key: 'trailer',
+        value: 'flag',
+        clear: true,
+      },
+      '--signoff': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'signoff',
+        value: 'flag',
+      },
+      '--no-signoff': {
+        key: 'signoff',
+        value: 'flag',
+        set: false,
+      },
+      '--template': {
+        key: 'template',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '-t': {
+        key: 'template',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-template': {
+        key: 'template',
+        value: 'flag',
+        emptyIsUnset: true,
+        clear: true,
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--cleanup': {
+        key: 'cleanup',
+        value: 'string',
+      },
+      '--no-cleanup': {
+        key: 'cleanup',
+        value: 'flag',
+        clear: true,
+      },
+      '--status': {
+        key: 'status',
+        value: 'flag',
+      },
+      '--no-status': {
+        key: 'status',
+        value: 'flag',
+        set: false,
+      },
+      '--gpg-sign': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '-S': {
+        key: 'gpg-sign',
+        value: 'optional-string',
+        set: '',
+      },
+      '--no-gpg-sign': {
+        key: 'gpg-sign',
+        value: 'flag',
+        set: '',
+        clear: true,
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '-a': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--include': {
+        key: 'include',
+        value: 'flag',
+      },
+      '-i': {
+        key: 'include',
+        value: 'flag',
+      },
+      '--no-include': {
+        key: 'include',
+        value: 'flag',
+        set: false,
+      },
+      '--interactive': {
+        key: 'interactive',
+        value: 'flag',
+      },
+      '--no-interactive': {
+        key: 'interactive',
+        value: 'flag',
+        set: false,
+      },
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '--no-patch': {
+        key: 'patch',
+        value: 'flag',
+        set: false,
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '-U': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+      },
+      '--only': {
+        key: 'only',
+        value: 'flag',
+      },
+      '-o': {
+        key: 'only',
+        value: 'flag',
+      },
+      '--no-only': {
+        key: 'only',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'no-verify',
+        value: 'flag',
+      },
+      '--verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--short': {
+        key: 'format',
+        value: 'flag',
+        set: 'short',
+      },
+      '--no-short': {
+        key: 'format',
+        value: 'flag',
+        set: false,
+      },
+      '--branch': {
+        key: 'branch',
+        value: 'flag',
+      },
+      '--no-branch': {
+        key: 'branch',
+        value: 'flag',
+        set: false,
+      },
+      '--ahead-behind': {
+        key: 'ahead-behind',
+        value: 'flag',
+      },
+      '--no-ahead-behind': {
+        key: 'ahead-behind',
+        value: 'flag',
+        set: false,
+      },
+      '--porcelain': {
+        key: 'format',
+        value: 'flag',
+        set: 'porcelain',
+      },
+      '--no-porcelain': {
+        key: 'format',
+        value: 'flag',
+        set: false,
+      },
+      '--long': {
+        key: 'format',
+        value: 'flag',
+        set: 'long',
+      },
+      '--no-long': {
+        key: 'format',
+        value: 'flag',
+        set: false,
+      },
+      '--null': {
+        key: 'null',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'null',
+        value: 'flag',
+      },
+      '--no-null': {
+        key: 'null',
+        value: 'flag',
+        set: false,
+      },
+      '--amend': {
+        key: 'amend',
+        value: 'flag',
+      },
+      '--no-amend': {
+        key: 'amend',
+        value: 'flag',
+        set: false,
+      },
+      '--no-post-rewrite': {
+        key: 'no-post-rewrite',
+        value: 'flag',
+      },
+      '--post-rewrite': {
+        key: 'no-post-rewrite',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-post-rewrite': {
+        key: 'no-post-rewrite',
+        value: 'flag',
+        set: false,
+      },
+      '--untracked-files': {
+        key: 'untracked-files',
+        value: 'optional-string',
+        set: 'all',
+      },
+      '-u': {
+        key: 'untracked-files',
+        value: 'optional-string',
+        set: 'all',
+      },
+      '--no-untracked-files': {
+        key: 'untracked-files',
+        value: 'flag',
+        set: 'all',
+        clear: true,
+      },
+      '--pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'flag',
+        emptyIsUnset: true,
+        clear: true,
+      },
+      '--pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+      },
+      '--no-pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+        set: false,
+      },
+      '--allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+      },
+      '--no-allow-empty': {
+        key: 'allow-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--allow-empty-message': {
+        key: 'allow-empty-message',
+        value: 'flag',
+      },
+      '--no-allow-empty-message': {
+        key: 'allow-empty-message',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.commit.long-nul',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'format',
+            test: 'equals',
+            value: 'long',
+          },
+          {
+            key: 'null',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Long output cannot be NUL terminated.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.untracked',
+        kind: 'value',
+        key: 'untracked-files',
+        allowed: ['all', 'normal', 'no'],
+        origin: 'git',
+        reason: 'Unknown untracked-file mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.author',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'reset-author',
+            test: 'active',
+          },
+          {
+            key: 'author',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Reset author cannot be combined with an explicit author.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.fixup-squash',
+        kind: 'exclusive',
+        keys: ['fixup', 'squash'],
+        origin: 'git',
+        reason: 'Fixup and squash are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.message-source',
+        kind: 'exclusive',
+        keys: ['reuse-message', 'reedit-message', 'file', 'fixup'],
+        origin: 'git',
+        reason: 'Reused, edited, file, and fixup messages are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.literal-message-source',
+        kind: 'exclusive',
+        keys: ['message', 'reuse-message', 'reedit-message', 'file'],
+        origin: 'git',
+        reason: 'Literal, reused, edited, and file messages are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.content-mode',
+        kind: 'exclusive',
+        keys: ['include', 'only', 'all', 'interactive'],
+        origin: 'git',
+        reason: 'Include, only, all, and interactive modes are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.patch-mode',
+        kind: 'conflicts',
+        when: {
+          key: 'patch',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'include',
+            test: 'active',
+          },
+          {
+            key: 'only',
+            test: 'active',
+          },
+          {
+            key: 'all',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Patch mode implies interactive and conflicts with include, only, or all.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.all-paths',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'all',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'All mode does not accept explicit paths.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.pathspec-file-modes',
+        kind: 'conflicts',
+        when: {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'all',
+            test: 'active',
+          },
+          {
+            key: 'interactive',
+            test: 'active',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Pathspec file cannot be used with all or interactive modes.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.pathspec-file-paths',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+        origin: 'git',
+        reason: 'Pathspec file replaces explicit paths.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.pathspec-nul',
+        kind: 'requires',
+        when: {
+          key: 'pathspec-file-nul',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'NUL pathspec input requires a file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.include-paths',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        guard: [
+          {
+            key: 'include',
+            test: 'active',
+          },
+          {
+            key: 'pathspec-from-file',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'Include mode needs paths or a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.fixup-amend-message',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'fixup',
+            test: 'startsWith',
+            value: 'amend:',
+          },
+          {
+            key: 'message',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Amend/reword fixup cannot use a literal message.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+        guard: [
+          {
+            key: 'dry-run',
+            test: 'inactive',
+          },
+          {
+            key: 'format',
+            test: 'inactive',
+          },
+          {
+            key: 'null',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'cli.commit.fixup-reword-message',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'fixup',
+            test: 'startsWith',
+            value: 'reword:',
+          },
+          {
+            key: 'message',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Amend/reword fixup cannot use a literal message.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+        guard: [
+          {
+            key: 'dry-run',
+            test: 'inactive',
+          },
+          {
+            key: 'format',
+            test: 'inactive',
+          },
+          {
+            key: 'null',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'cli.commit.reword-paths',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'fixup',
+          test: 'startsWith',
+          value: 'reword:',
+        },
+        origin: 'git',
+        reason: 'Reword fixup does not accept explicit paths.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.reword-content',
+        kind: 'conflicts',
+        when: {
+          key: 'fixup',
+          test: 'startsWith',
+          value: 'reword:',
+        },
+        others: [
+          {
+            key: 'all',
+            test: 'active',
+          },
+          {
+            key: 'include',
+            test: 'active',
+          },
+          {
+            key: 'interactive',
+            test: 'active',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'only',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Reword fixup cannot include changed files.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.unified-minimum',
+        kind: 'range',
+        key: 'unified',
+        min: -1,
+        origin: 'git',
+        reason: 'Context must not be less than the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.unified-interactive',
+        kind: 'requiresAny',
+        when: {
+          key: 'unified',
+          test: 'present',
+        },
+        guard: [
+          {
+            key: 'unified',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        choices: [
+          {
+            key: 'interactive',
+            test: 'active',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Explicit context requires interactive mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.inter-hunk-context-minimum',
+        kind: 'range',
+        key: 'inter-hunk-context',
+        min: -1,
+        origin: 'git',
+        reason: 'Context must not be less than the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.commit.inter-hunk-context-interactive',
+        kind: 'requiresAny',
+        when: {
+          key: 'inter-hunk-context',
+          test: 'present',
+        },
+        guard: [
+          {
+            key: 'inter-hunk-context',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        choices: [
+          {
+            key: 'interactive',
+            test: 'active',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Explicit context requires interactive mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+    ],
+    source: 'builtin/commit.c',
+    separator: true,
+  },
+  status: {
+    argv: ['status'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--short': {
+        key: 'format',
+        value: 'flag',
+        set: 'short',
+      },
+      '-s': {
+        key: 'format',
+        value: 'flag',
+        set: 'short',
+      },
+      '--no-short': {
+        key: 'format',
+        value: 'flag',
+        set: false,
+      },
+      '--branch': {
+        key: 'branch',
+        value: 'flag',
+      },
+      '-b': {
+        key: 'branch',
+        value: 'flag',
+      },
+      '--no-branch': {
+        key: 'branch',
+        value: 'flag',
+        set: false,
+      },
+      '--show-stash': {
+        key: 'show-stash',
+        value: 'flag',
+      },
+      '--no-show-stash': {
+        key: 'show-stash',
+        value: 'flag',
+        set: false,
+      },
+      '--ahead-behind': {
+        key: 'ahead-behind',
+        value: 'flag',
+      },
+      '--no-ahead-behind': {
+        key: 'ahead-behind',
+        value: 'flag',
+        set: false,
+      },
+      '--porcelain': {
+        key: 'format',
+        value: 'optional-string',
+        set: '1',
+        allowed: ['1', '2', 'v1', 'v2'],
+      },
+      '--no-porcelain': {
+        key: 'format',
+        value: 'flag',
+        set: false,
+      },
+      '--long': {
+        key: 'format',
+        value: 'flag',
+        set: 'long',
+      },
+      '--no-long': {
+        key: 'format',
+        value: 'flag',
+        set: false,
+      },
+      '--null': {
+        key: 'null',
+        value: 'flag',
+      },
+      '-z': {
+        key: 'null',
+        value: 'flag',
+      },
+      '--no-null': {
+        key: 'null',
+        value: 'flag',
+        set: false,
+      },
+      '--untracked-files': {
+        key: 'untracked-files',
+        value: 'optional-string',
+        set: 'all',
+      },
+      '-u': {
+        key: 'untracked-files',
+        value: 'optional-string',
+        set: 'all',
+      },
+      '--no-untracked-files': {
+        key: 'untracked-files',
+        value: 'flag',
+        set: 'all',
+        clear: true,
+      },
+      '--ignored': {
+        key: 'ignored',
+        value: 'optional-string',
+        set: 'traditional',
+      },
+      '--no-ignored': {
+        key: 'ignored',
+        value: 'flag',
+        set: 'traditional',
+        clear: true,
+      },
+      '--ignore-submodules': {
+        key: 'ignore-submodules',
+        value: 'optional-string',
+        set: 'all',
+      },
+      '--no-ignore-submodules': {
+        key: 'ignore-submodules',
+        value: 'flag',
+        set: 'all',
+        clear: true,
+      },
+      '--column': {
+        key: 'column',
+        value: 'optional-string',
+      },
+      '--no-column': {
+        key: 'column',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-renames': {
+        key: 'no-renames',
+        value: 'flag',
+      },
+      '--renames': {
+        key: 'no-renames',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-renames': {
+        key: 'no-renames',
+        value: 'flag',
+        set: false,
+      },
+      '--find-renames': {
+        key: 'find-renames',
+        value: 'optional-string',
+      },
+      '-M': {
+        key: 'find-renames',
+        value: 'optional-string',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.status.long-nul',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'format',
+            test: 'equals',
+            value: 'long',
+          },
+          {
+            key: 'null',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Long output cannot be NUL terminated.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.status.untracked',
+        kind: 'value',
+        key: 'untracked-files',
+        allowed: ['all', 'normal', 'no'],
+        origin: 'git',
+        reason: 'Unknown untracked-file mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.status.ignored',
+        kind: 'value',
+        key: 'ignored',
+        allowed: ['traditional', 'matching', 'no'],
+        origin: 'git',
+        reason: 'Unknown ignored-file mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.status.ignored-untracked',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'ignored',
+            test: 'equals',
+            value: 'matching',
+          },
+          {
+            key: 'untracked-files',
+            test: 'equals',
+            value: 'no',
+          },
+        ],
+        origin: 'git',
+        reason: 'Matching ignored files requires showing untracked files.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+      {
+        id: 'cli.status.ignore-submodules',
+        kind: 'value',
+        key: 'ignore-submodules',
+        allowed: ['all', 'none', 'untracked', 'dirty'],
+        origin: 'git',
+        reason: 'Unknown submodule ignore mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/commit.c',
+      },
+    ],
+    source: 'builtin/commit.c',
+    separator: true,
+  },
+  worktree: {
+    argv: ['worktree'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  'worktree add': {
+    argv: ['worktree', 'add'],
+    options: {
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '-b': {
+        key: 'b',
+        value: 'string',
+      },
+      '-B': {
+        key: 'B',
+        value: 'string',
+      },
+      '--orphan': {
+        key: 'orphan',
+        value: 'flag',
+      },
+      '--no-orphan': {
+        key: 'orphan',
+        value: 'flag',
+        set: false,
+      },
+      '--detach': {
+        key: 'detach',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'detach',
+        value: 'flag',
+      },
+      '--no-detach': {
+        key: 'detach',
+        value: 'flag',
+        set: false,
+      },
+      '--checkout': {
+        key: 'checkout',
+        value: 'flag',
+      },
+      '--no-checkout': {
+        key: 'checkout',
+        value: 'flag',
+        set: false,
+      },
+      '--lock': {
+        key: 'lock',
+        value: 'flag',
+      },
+      '--no-lock': {
+        key: 'lock',
+        value: 'flag',
+        set: false,
+      },
+      '--reason': {
+        key: 'reason',
+        value: 'string',
+      },
+      '--no-reason': {
+        key: 'reason',
+        value: 'flag',
+        clear: true,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--track': {
+        key: 'track',
+        value: 'flag',
+      },
+      '--no-track': {
+        key: 'track',
+        value: 'flag',
+        set: false,
+      },
+      '--guess-remote': {
+        key: 'guess-remote',
+        value: 'flag',
+      },
+      '--no-guess-remote': {
+        key: 'guess-remote',
+        value: 'flag',
+        set: false,
+      },
+      '--relative-paths': {
+        key: 'relative-paths',
+        value: 'flag',
+      },
+      '--no-relative-paths': {
+        key: 'relative-paths',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.worktree add.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        origin: 'git',
+        reason: 'worktree add accepts 1 to 2 operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+      {
+        id: 'cli.worktree add.branch-mode',
+        kind: 'exclusive',
+        keys: ['b', 'B', 'detach'],
+        origin: 'git',
+        reason: 'New branch, reset branch, and detach modes are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+      {
+        id: 'cli.worktree add.orphan-options',
+        kind: 'conflicts',
+        when: {
+          key: 'orphan',
+          test: 'active',
+        },
+        others: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'track',
+            test: 'present',
+          },
+          {
+            key: 'checkout',
+            test: 'equals',
+            value: false,
+          },
+        ],
+        origin: 'git',
+        reason:
+          'Orphan mode is incompatible with detach, explicit tracking, and disabling checkout.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+      {
+        id: 'cli.worktree add.orphan-commit',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        when: {
+          key: 'orphan',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Orphan mode cannot specify a commit-ish.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+      {
+        id: 'cli.worktree add.reason-lock',
+        kind: 'requires',
+        when: {
+          key: 'reason',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'lock',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'A lock reason requires locking the new worktree.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+    ],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  'worktree prune': {
+    argv: ['worktree', 'prune'],
+    options: {
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--expire': {
+        key: 'expire',
+        value: 'string',
+      },
+      '--no-expire': {
+        key: 'expire',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.worktree prune.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'worktree prune accepts 0 to 0 operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+    ],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  'worktree list': {
+    argv: ['worktree', 'list'],
+    options: {
+      '--porcelain': {
+        key: 'porcelain',
+        value: 'flag',
+      },
+      '--no-porcelain': {
+        key: 'porcelain',
+        value: 'flag',
+        set: false,
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--expire': {
+        key: 'expire',
+        value: 'string',
+      },
+      '--no-expire': {
+        key: 'expire',
+        value: 'flag',
+        clear: true,
+      },
+      '-z': {
+        key: 'z',
+        value: 'flag',
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.worktree list.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        origin: 'git',
+        reason: 'worktree list accepts 0 to 0 operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+      {
+        id: 'cli.worktree list.porcelain-verbose',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'porcelain',
+            test: 'active',
+          },
+          {
+            key: 'verbose',
+            test: 'nonempty',
+          },
+        ],
+        origin: 'git',
+        reason: 'Verbose and porcelain formats are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+      {
+        id: 'cli.worktree list.nul',
+        kind: 'requires',
+        when: {
+          key: 'z',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'porcelain',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'NUL termination requires porcelain format.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+    ],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  'worktree lock': {
+    argv: ['worktree', 'lock'],
+    options: {
+      '--reason': {
+        key: 'reason',
+        value: 'string',
+      },
+      '--no-reason': {
+        key: 'reason',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.worktree lock.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'worktree lock accepts 1 to 1 operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+    ],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  'worktree unlock': {
+    argv: ['worktree', 'unlock'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.worktree unlock.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'worktree unlock accepts 1 to 1 operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+    ],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  'worktree move': {
+    argv: ['worktree', 'move'],
+    options: {
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--relative-paths': {
+        key: 'relative-paths',
+        value: 'flag',
+      },
+      '--no-relative-paths': {
+        key: 'relative-paths',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.worktree move.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        max: 2,
+        origin: 'git',
+        reason: 'worktree move accepts 2 to 2 operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+    ],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  'worktree remove': {
+    argv: ['worktree', 'remove'],
+    options: {
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.worktree remove.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 1,
+        origin: 'git',
+        reason: 'worktree remove accepts 1 to 1 operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/worktree.c',
+      },
+    ],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  'worktree repair': {
+    argv: ['worktree', 'repair'],
+    options: {
+      '--relative-paths': {
+        key: 'relative-paths',
+        value: 'flag',
+      },
+      '--no-relative-paths': {
+        key: 'relative-paths',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [],
+    source: 'builtin/worktree.c',
+    separator: true,
+  },
+  clone: {
+    argv: ['clone'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--reject-shallow': {
+        key: 'reject-shallow',
+        value: 'flag',
+      },
+      '--no-reject-shallow': {
+        key: 'reject-shallow',
+        value: 'flag',
+        set: false,
+      },
+      '--no-checkout': {
+        key: 'no-checkout',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'no-checkout',
+        value: 'flag',
+      },
+      '--checkout': {
+        key: 'no-checkout',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-checkout': {
+        key: 'no-checkout',
+        value: 'flag',
+        set: false,
+      },
+      '--bare': {
+        key: 'bare',
+        value: 'flag',
+      },
+      '--no-bare': {
+        key: 'bare',
+        value: 'flag',
+        set: false,
+      },
+      '--naked': {
+        key: 'bare',
+        value: 'flag',
+      },
+      '--no-naked': {
+        key: 'bare',
+        value: 'flag',
+        set: false,
+      },
+      '--mirror': {
+        key: 'mirror',
+        value: 'flag',
+      },
+      '--no-mirror': {
+        key: 'mirror',
+        value: 'flag',
+        set: false,
+      },
+      '--local': {
+        key: 'local',
+        value: 'flag',
+      },
+      '-l': {
+        key: 'local',
+        value: 'flag',
+      },
+      '--no-local': {
+        key: 'local',
+        value: 'flag',
+        set: false,
+      },
+      '--no-hardlinks': {
+        key: 'no-hardlinks',
+        value: 'flag',
+      },
+      '--hardlinks': {
+        key: 'no-hardlinks',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-hardlinks': {
+        key: 'no-hardlinks',
+        value: 'flag',
+        set: false,
+      },
+      '--shared': {
+        key: 'shared',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'shared',
+        value: 'flag',
+      },
+      '--no-shared': {
+        key: 'shared',
+        value: 'flag',
+        set: false,
+      },
+      '--recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'optional-string',
+        set: '.',
+        repeat: true,
+      },
+      '--no-recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: '.',
+        repeat: true,
+        clear: true,
+      },
+      '--jobs': {
+        key: 'jobs',
+        value: 'integer',
+      },
+      '-j': {
+        key: 'jobs',
+        value: 'integer',
+      },
+      '--no-jobs': {
+        key: 'jobs',
+        value: 'flag',
+        clear: true,
+      },
+      '--template': {
+        key: 'template',
+        value: 'string',
+      },
+      '--no-template': {
+        key: 'template',
+        value: 'flag',
+        clear: true,
+      },
+      '--reference': {
+        key: 'reference',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-reference': {
+        key: 'reference',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--reference-if-able': {
+        key: 'reference-if-able',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-reference-if-able': {
+        key: 'reference-if-able',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--dissociate': {
+        key: 'dissociate',
+        value: 'flag',
+      },
+      '--no-dissociate': {
+        key: 'dissociate',
+        value: 'flag',
+        set: false,
+      },
+      '--origin': {
+        key: 'origin',
+        value: 'string',
+      },
+      '-o': {
+        key: 'origin',
+        value: 'string',
+      },
+      '--no-origin': {
+        key: 'origin',
+        value: 'flag',
+        clear: true,
+      },
+      '--branch': {
+        key: 'branch',
+        value: 'string',
+      },
+      '-b': {
+        key: 'branch',
+        value: 'string',
+      },
+      '--no-branch': {
+        key: 'branch',
+        value: 'flag',
+        clear: true,
+      },
+      '--revision': {
+        key: 'revision',
+        value: 'string',
+      },
+      '--no-revision': {
+        key: 'revision',
+        value: 'flag',
+        clear: true,
+      },
+      '--upload-pack': {
+        key: 'upload-pack',
+        value: 'string',
+      },
+      '-u': {
+        key: 'upload-pack',
+        value: 'string',
+      },
+      '--no-upload-pack': {
+        key: 'upload-pack',
+        value: 'flag',
+        clear: true,
+      },
+      '--depth': {
+        key: 'depth',
+        value: 'string',
+      },
+      '--no-depth': {
+        key: 'depth',
+        value: 'flag',
+        clear: true,
+      },
+      '--shallow-since': {
+        key: 'shallow-since',
+        value: 'string',
+      },
+      '--no-shallow-since': {
+        key: 'shallow-since',
+        value: 'flag',
+        clear: true,
+      },
+      '--shallow-exclude': {
+        key: 'shallow-exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-shallow-exclude': {
+        key: 'shallow-exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--single-branch': {
+        key: 'single-branch',
+        value: 'flag',
+      },
+      '--no-single-branch': {
+        key: 'single-branch',
+        value: 'flag',
+        set: false,
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--shallow-submodules': {
+        key: 'shallow-submodules',
+        value: 'flag',
+      },
+      '--no-shallow-submodules': {
+        key: 'shallow-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--separate-git-dir': {
+        key: 'separate-git-dir',
+        value: 'string',
+      },
+      '--no-separate-git-dir': {
+        key: 'separate-git-dir',
+        value: 'flag',
+        clear: true,
+      },
+      '--ref-format': {
+        key: 'ref-format',
+        value: 'string',
+      },
+      '--no-ref-format': {
+        key: 'ref-format',
+        value: 'flag',
+        clear: true,
+      },
+      '--config': {
+        key: 'config',
+        value: 'string',
+        repeat: true,
+      },
+      '-c': {
+        key: 'config',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-config': {
+        key: 'config',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--server-option': {
+        key: 'server-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-server-option': {
+        key: 'server-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--ipv4': {
+        key: 'ipv4',
+        value: 'flag',
+      },
+      '-4': {
+        key: 'ipv4',
+        value: 'flag',
+      },
+      '--ipv6': {
+        key: 'ipv6',
+        value: 'flag',
+      },
+      '-6': {
+        key: 'ipv6',
+        value: 'flag',
+      },
+      '--filter': {
+        key: 'filter',
+        value: 'string',
+      },
+      '--no-filter': {
+        key: 'filter',
+        value: 'flag',
+        clear: true,
+      },
+      '--also-filter-submodules': {
+        key: 'also-filter-submodules',
+        value: 'flag',
+      },
+      '--no-also-filter-submodules': {
+        key: 'also-filter-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--remote-submodules': {
+        key: 'remote-submodules',
+        value: 'flag',
+      },
+      '--no-remote-submodules': {
+        key: 'remote-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--sparse': {
+        key: 'sparse',
+        value: 'flag',
+      },
+      '--no-sparse': {
+        key: 'sparse',
+        value: 'flag',
+        set: false,
+      },
+      '--bundle-uri': {
+        key: 'bundle-uri',
+        value: 'string',
+      },
+      '--no-bundle-uri': {
+        key: 'bundle-uri',
+        value: 'flag',
+        clear: true,
+      },
+      '--recursive': {
+        key: 'recurse-submodules',
+        value: 'optional-string',
+        set: '.',
+        repeat: true,
+      },
+      '--no-recursive': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: '.',
+        repeat: true,
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.clone.operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        origin: 'git',
+        reason: 'clone accepts 1 to 2 operands.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
+      },
+      {
+        id: 'cli.clone.bare-directory',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'bare',
+            test: 'active',
+          },
+          {
+            key: 'separate-git-dir',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Bare clones cannot use a separate Git directory.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
+      },
+      {
+        id: 'cli.clone.mirror-directory',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'mirror',
+            test: 'active',
+          },
+          {
+            key: 'separate-git-dir',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Mirror implies bare and cannot use a separate Git directory.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
+      },
+      {
+        id: 'cli.clone.bundle-shallow',
+        kind: 'conflicts',
+        when: {
+          key: 'bundle-uri',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'depth',
+            test: 'present',
+          },
+          {
+            key: 'shallow-since',
+            test: 'present',
+          },
+          {
+            key: 'shallow-exclude',
+            test: 'nonempty',
+          },
+        ],
+        origin: 'git',
+        reason: 'Bundle URI cannot be combined with shallow clone options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
+      },
+      {
+        id: 'cli.clone.filter-submodules',
+        kind: 'requires',
+        when: {
+          key: 'also-filter-submodules',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'filter',
+            test: 'present',
+          },
+          {
+            key: 'recurse-submodules',
+            test: 'nonempty',
+          },
+        ],
+        origin: 'git',
+        reason: 'Filtering submodules requires filtering and recursive submodule initialization.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
+      },
+      {
+        id: 'cli.clone.revision-options',
+        kind: 'conflicts',
+        when: {
+          key: 'revision',
+          test: 'present',
+        },
+        others: [
+          {
+            key: 'branch',
+            test: 'present',
+          },
+          {
+            key: 'mirror',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'An explicit revision is incompatible with branch selection and mirroring.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
+      },
+      {
+        id: 'cli.clone.ref-format',
+        kind: 'value',
+        key: 'ref-format',
+        allowed: ['files', 'reftable'],
+        origin: 'git',
+        reason: 'Unknown reference storage format.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/clone.c',
+      },
+    ],
+    source: 'builtin/clone.c',
+    separator: true,
+  },
+  fetch: {
+    argv: ['fetch'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--set-upstream': {
+        key: 'set-upstream',
+        value: 'flag',
+      },
+      '--no-set-upstream': {
+        key: 'set-upstream',
+        value: 'flag',
+        set: false,
+      },
+      '--append': {
+        key: 'append',
+        value: 'flag',
+      },
+      '-a': {
+        key: 'append',
+        value: 'flag',
+      },
+      '--no-append': {
+        key: 'append',
+        value: 'flag',
+        set: false,
+      },
+      '--atomic': {
+        key: 'atomic',
+        value: 'flag',
+      },
+      '--no-atomic': {
+        key: 'atomic',
+        value: 'flag',
+        set: false,
+      },
+      '--upload-pack': {
+        key: 'upload-pack',
+        value: 'string',
+      },
+      '--no-upload-pack': {
+        key: 'upload-pack',
+        value: 'flag',
+        clear: true,
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--multiple': {
+        key: 'multiple',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'multiple',
+        value: 'flag',
+      },
+      '--no-multiple': {
+        key: 'multiple',
+        value: 'flag',
+        set: false,
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '-t': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '-n': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--jobs': {
+        key: 'jobs',
+        value: 'integer',
+      },
+      '-j': {
+        key: 'jobs',
+        value: 'integer',
+      },
+      '--no-jobs': {
+        key: 'jobs',
+        value: 'flag',
+        clear: true,
+      },
+      '--prefetch': {
+        key: 'prefetch',
+        value: 'flag',
+      },
+      '--no-prefetch': {
+        key: 'prefetch',
+        value: 'flag',
+        set: false,
+      },
+      '--prune': {
+        key: 'prune',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'prune',
+        value: 'flag',
+      },
+      '--no-prune': {
+        key: 'prune',
+        value: 'flag',
+        set: false,
+      },
+      '--prune-tags': {
+        key: 'prune-tags',
+        value: 'flag',
+      },
+      '-P': {
+        key: 'prune-tags',
+        value: 'flag',
+      },
+      '--no-prune-tags': {
+        key: 'prune-tags',
+        value: 'flag',
+        set: false,
+      },
+      '--recurse-submodules': {
+        parser: 'fetch-recurse',
+        key: 'recurse-submodules',
+        value: 'optional-string',
+      },
+      '--no-recurse-submodules': {
+        parser: 'fetch-recurse',
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--porcelain': {
+        key: 'porcelain',
+        value: 'flag',
+      },
+      '--no-porcelain': {
+        key: 'porcelain',
+        value: 'flag',
+        set: false,
+      },
+      '--write-fetch-head': {
+        key: 'write-fetch-head',
+        value: 'flag',
+      },
+      '--no-write-fetch-head': {
+        key: 'write-fetch-head',
+        value: 'flag',
+        set: false,
+      },
+      '--keep': {
+        key: 'keep',
+        value: 'flag',
+      },
+      '-k': {
+        key: 'keep',
+        value: 'flag',
+      },
+      '--no-keep': {
+        key: 'keep',
+        value: 'flag',
+        set: false,
+      },
+      '--update-head-ok': {
+        key: 'update-head-ok',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'update-head-ok',
+        value: 'flag',
+      },
+      '--no-update-head-ok': {
+        key: 'update-head-ok',
+        value: 'flag',
+        set: false,
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--depth': {
+        key: 'depth',
+        value: 'string',
+      },
+      '--no-depth': {
+        key: 'depth',
+        value: 'flag',
+        clear: true,
+      },
+      '--shallow-since': {
+        key: 'shallow-since',
+        value: 'string',
+      },
+      '--no-shallow-since': {
+        key: 'shallow-since',
+        value: 'flag',
+        clear: true,
+      },
+      '--shallow-exclude': {
+        key: 'shallow-exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-shallow-exclude': {
+        key: 'shallow-exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--deepen': {
+        key: 'deepen',
+        value: 'integer',
+      },
+      '--no-deepen': {
+        key: 'deepen',
+        value: 'flag',
+        clear: true,
+      },
+      '--unshallow': {
+        key: 'unshallow',
+        value: 'flag',
+      },
+      '--refetch': {
+        key: 'refetch',
+        value: 'flag',
+      },
+      '--submodule-prefix': {
+        key: 'submodule-prefix',
+        value: 'string',
+      },
+      '--no-submodule-prefix': {
+        key: 'submodule-prefix',
+        value: 'flag',
+        clear: true,
+      },
+      '--recurse-submodules-default': {
+        parser: 'fetch-recurse',
+        key: 'recurse-submodules-default',
+        value: 'string',
+      },
+      '--no-recurse-submodules-default': {
+        parser: 'fetch-recurse',
+        key: 'recurse-submodules-default',
+        value: 'flag',
+        set: false,
+      },
+      '--update-shallow': {
+        key: 'update-shallow',
+        value: 'flag',
+      },
+      '--no-update-shallow': {
+        key: 'update-shallow',
+        value: 'flag',
+        set: false,
+      },
+      '--refmap': {
+        key: 'refmap',
+        value: 'string',
+      },
+      '--server-option': {
+        key: 'server-option',
+        value: 'string',
+        repeat: true,
+      },
+      '-o': {
+        key: 'server-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-server-option': {
+        key: 'server-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--ipv4': {
+        key: 'ipv4',
+        value: 'flag',
+      },
+      '-4': {
+        key: 'ipv4',
+        value: 'flag',
+      },
+      '--ipv6': {
+        key: 'ipv6',
+        value: 'flag',
+      },
+      '-6': {
+        key: 'ipv6',
+        value: 'flag',
+      },
+      '--negotiation-restrict': {
+        key: 'negotiation-restrict',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-negotiation-restrict': {
+        key: 'negotiation-restrict',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--negotiation-include': {
+        key: 'negotiation-include',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-negotiation-include': {
+        key: 'negotiation-include',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--negotiate-only': {
+        key: 'negotiate-only',
+        value: 'flag',
+      },
+      '--no-negotiate-only': {
+        key: 'negotiate-only',
+        value: 'flag',
+        set: false,
+      },
+      '--filter': {
+        key: 'filter',
+        value: 'string',
+      },
+      '--no-filter': {
+        key: 'filter',
+        value: 'flag',
+        clear: true,
+      },
+      '--auto-maintenance': {
+        key: 'auto-maintenance',
+        value: 'flag',
+      },
+      '--no-auto-maintenance': {
+        key: 'auto-maintenance',
+        value: 'flag',
+        set: false,
+      },
+      '--auto-gc': {
+        key: 'auto-gc',
+        value: 'flag',
+      },
+      '--no-auto-gc': {
+        key: 'auto-gc',
+        value: 'flag',
+        set: false,
+      },
+      '--show-forced-updates': {
+        key: 'show-forced-updates',
+        value: 'flag',
+      },
+      '--no-show-forced-updates': {
+        key: 'show-forced-updates',
+        value: 'flag',
+        set: false,
+      },
+      '--write-commit-graph': {
+        key: 'write-commit-graph',
+        value: 'flag',
+      },
+      '--no-write-commit-graph': {
+        key: 'write-commit-graph',
+        value: 'flag',
+        set: false,
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--negotiation-tip': {
+        key: 'negotiation-restrict',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-negotiation-tip': {
+        key: 'negotiation-restrict',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.fetch.all-operands',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'all',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Fetch all does not accept explicit remotes or refspecs.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.deepen-minimum',
+        kind: 'range',
+        key: 'deepen',
+        min: 0,
+        origin: 'git',
+        reason: 'Deepen cannot be negative.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.depth-unshallow',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'depth',
+            test: 'present',
+          },
+          {
+            key: 'unshallow',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Depth and unshallow are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.deepen-depth',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'deepen',
+            test: 'nonzero',
+          },
+          {
+            key: 'depth',
+            test: 'present',
+          },
+        ],
+        origin: 'git',
+        reason: 'Nonzero deepen and depth are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.deepen-unshallow',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'deepen',
+            test: 'nonzero',
+          },
+          {
+            key: 'unshallow',
+            test: 'active',
+          },
+        ],
+        origin: 'git',
+        reason: 'Nonzero deepen and unshallow are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.porcelain-recursion',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'porcelain',
+            test: 'active',
+          },
+          {
+            key: 'recurse-submodules',
+            test: 'gitEnabled',
+          },
+        ],
+        origin: 'git',
+        reason: 'This mode cannot recurse into submodules.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.negotiate-only-recursion',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'negotiate-only',
+            test: 'active',
+          },
+          {
+            key: 'recurse-submodules',
+            test: 'gitEnabled',
+          },
+        ],
+        origin: 'git',
+        reason: 'This mode cannot recurse into submodules.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.multiple-atomic',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'multiple',
+            test: 'active',
+          },
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'atomic',
+            test: 'active',
+          },
+        ],
+        guard: [
+          {
+            key: 'all',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'This option requires a single selected remote.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.multiple-stdin',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'multiple',
+            test: 'active',
+          },
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'stdin',
+            test: 'active',
+          },
+        ],
+        guard: [
+          {
+            key: 'all',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'This option requires a single selected remote.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.multiple-filter',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'multiple',
+            test: 'active',
+          },
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'filter',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'all',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'This option requires a single selected remote.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+      {
+        id: 'cli.fetch.multiple-negotiate-only',
+        kind: 'forbid',
+        when: [
+          {
+            key: 'multiple',
+            test: 'active',
+          },
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'negotiate-only',
+            test: 'active',
+          },
+        ],
+        guard: [
+          {
+            key: 'all',
+            test: 'inactive',
+          },
+        ],
+        origin: 'git',
+        reason: 'This option requires a single selected remote.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/fetch.c',
+      },
+    ],
+    source: 'builtin/fetch.c',
+    separator: true,
+  },
+  push: {
+    argv: ['push'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        set: false,
+      },
+      '--repo': {
+        key: 'repo',
+        value: 'string',
+      },
+      '--no-repo': {
+        key: 'repo',
+        value: 'flag',
+        clear: true,
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--mirror': {
+        key: 'mirror',
+        value: 'flag',
+      },
+      '--no-mirror': {
+        key: 'mirror',
+        value: 'flag',
+        set: false,
+      },
+      '--delete': {
+        key: 'delete',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'delete',
+        value: 'flag',
+      },
+      '--no-delete': {
+        key: 'delete',
+        value: 'flag',
+        set: false,
+      },
+      '--tags': {
+        key: 'tags',
+        value: 'flag',
+      },
+      '--no-tags': {
+        key: 'tags',
+        value: 'flag',
+        set: false,
+      },
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '-n': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--porcelain': {
+        key: 'porcelain',
+        value: 'flag',
+      },
+      '--no-porcelain': {
+        key: 'porcelain',
+        value: 'flag',
+        set: false,
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        set: false,
+      },
+      '--force-with-lease': {
+        key: 'force-with-lease',
+        value: 'optional-string',
+      },
+      '--no-force-with-lease': {
+        key: 'force-with-lease',
+        value: 'flag',
+        clear: true,
+      },
+      '--force-if-includes': {
+        key: 'force-if-includes',
+        value: 'flag',
+      },
+      '--no-force-if-includes': {
+        key: 'force-if-includes',
+        value: 'flag',
+        set: false,
+      },
+      '--recurse-submodules': {
+        parser: 'push-recurse',
+        key: 'recurse-submodules',
+        value: 'string',
+      },
+      '--no-recurse-submodules': {
+        parser: 'push-recurse',
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--thin': {
+        key: 'thin',
+        value: 'flag',
+      },
+      '--no-thin': {
+        key: 'thin',
+        value: 'flag',
+        set: false,
+      },
+      '--receive-pack': {
+        key: 'receive-pack',
+        value: 'string',
+      },
+      '--no-receive-pack': {
+        key: 'receive-pack',
+        value: 'flag',
+        clear: true,
+      },
+      '--exec': {
+        key: 'exec',
+        value: 'string',
+      },
+      '--no-exec': {
+        key: 'exec',
+        value: 'flag',
+        clear: true,
+      },
+      '--set-upstream': {
+        key: 'set-upstream',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'set-upstream',
+        value: 'flag',
+      },
+      '--no-set-upstream': {
+        key: 'set-upstream',
+        value: 'flag',
+        set: false,
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--prune': {
+        key: 'prune',
+        value: 'flag',
+      },
+      '--no-prune': {
+        key: 'prune',
+        value: 'flag',
+        set: false,
+      },
+      '--no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+      },
+      '--verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-verify': {
+        key: 'no-verify',
+        value: 'flag',
+        set: false,
+      },
+      '--follow-tags': {
+        key: 'follow-tags',
+        value: 'flag',
+      },
+      '--no-follow-tags': {
+        key: 'follow-tags',
+        value: 'flag',
+        set: false,
+      },
+      '--signed': {
+        parser: 'push-signed',
+        key: 'signed',
+        value: 'optional-string',
+      },
+      '--no-signed': {
+        parser: 'push-signed',
+        key: 'signed',
+        value: 'flag',
+        set: false,
+      },
+      '--atomic': {
+        key: 'atomic',
+        value: 'flag',
+      },
+      '--no-atomic': {
+        key: 'atomic',
+        value: 'flag',
+        set: false,
+      },
+      '--push-option': {
+        key: 'push-option',
+        value: 'string',
+        repeat: true,
+      },
+      '-o': {
+        key: 'push-option',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-push-option': {
+        key: 'push-option',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--ipv4': {
+        key: 'ipv4',
+        value: 'flag',
+      },
+      '-4': {
+        key: 'ipv4',
+        value: 'flag',
+      },
+      '--ipv6': {
+        key: 'ipv6',
+        value: 'flag',
+      },
+      '-6': {
+        key: 'ipv6',
+        value: 'flag',
+      },
+      '--branches': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--no-branches': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'cli.push.mode',
+        kind: 'exclusive',
+        keys: ['delete', 'tags', 'all', 'mirror'],
+        origin: 'git',
+        reason: 'Delete, tags, all, and mirror modes are mutually incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/push.c',
+      },
+      {
+        id: 'cli.push.delete-refs',
+        kind: 'arity',
+        key: 'operands',
+        min: 2,
+        when: {
+          key: 'delete',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Deletion requires a positional remote and at least one ref.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/push.c',
+      },
+      {
+        id: 'cli.push.all-refs',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'all',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Bulk pushes cannot specify explicit refspecs.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/push.c',
+      },
+      {
+        id: 'cli.push.mirror-refs',
+        kind: 'arity',
+        key: 'operands',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'mirror',
+          test: 'active',
+        },
+        origin: 'git',
+        reason: 'Bulk pushes cannot specify explicit refspecs.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/push.c',
+      },
+    ],
+    source: 'builtin/push.c',
+    separator: true,
+  },
+  branch: {
+    argv: ['branch'],
+    options: {
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '-v': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--track': {
+        key: 'track',
+        value: 'optional-string',
+        set: 'direct',
+        allowed: ['direct', 'inherit'],
+      },
+      '-t': {
+        key: 'track',
+        value: 'optional-string',
+        set: 'direct',
+        allowed: ['direct', 'inherit'],
+      },
+      '--no-track': {
+        key: 'track',
+        value: 'flag',
+        set: false,
+      },
+      '--set-upstream': {
+        key: 'track',
+        value: 'flag',
+        set: 'override',
+      },
+      '--no-set-upstream': {
+        key: 'track',
+        value: 'flag',
+        set: false,
+      },
+      '--set-upstream-to': {
+        key: 'set-upstream-to',
+        value: 'string',
+      },
+      '-u': {
+        key: 'set-upstream-to',
+        value: 'string',
+      },
+      '--no-set-upstream-to': {
+        key: 'set-upstream-to',
+        value: 'flag',
+        clear: true,
+      },
+      '--unset-upstream': {
+        key: 'unset-upstream',
+        value: 'flag',
+      },
+      '--no-unset-upstream': {
+        key: 'unset-upstream',
+        value: 'flag',
+        set: false,
+      },
+      '--color': {
+        key: 'color',
+        value: 'optional-string',
+        set: 'always',
+      },
+      '--no-color': {
+        key: 'color',
+        value: 'flag',
+        set: 'always',
+        clear: true,
+      },
+      '--remotes': {
+        key: 'scope',
+        value: 'flag',
+        set: 'remotes',
+      },
+      '-r': {
+        key: 'scope',
+        value: 'flag',
+        set: 'remotes',
+      },
+      '--contains': {
+        key: 'contains',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-contains': {
+        key: 'no-contains',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--with': {
+        key: 'with',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--without': {
+        key: 'without',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--abbrev': {
+        key: 'abbrev',
+        value: 'optional-string',
+      },
+      '--no-abbrev': {
+        key: 'abbrev',
+        value: 'flag',
+        clear: true,
+      },
+      '--all': {
+        key: 'scope',
+        value: 'flag',
+        set: 'all',
+      },
+      '-a': {
+        key: 'scope',
+        value: 'flag',
+        set: 'all',
+      },
+      '--delete': {
+        key: 'delete',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'delete',
+        value: 'flag',
+      },
+      '--no-delete': {
+        key: 'delete',
+        value: 'flag',
+        set: false,
+      },
+      '-D': {
+        key: 'D',
+        value: 'flag',
+      },
+      '--move': {
+        key: 'move',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'move',
+        value: 'flag',
+      },
+      '--no-move': {
+        key: 'move',
+        value: 'flag',
+        set: false,
+      },
+      '-M': {
+        key: 'M',
+        value: 'flag',
+      },
+      '--omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+      },
+      '--no-omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--copy': {
+        key: 'copy',
+        value: 'flag',
+      },
+      '-c': {
+        key: 'copy',
+        value: 'flag',
+      },
+      '--no-copy': {
+        key: 'copy',
+        value: 'flag',
+        set: false,
+      },
+      '-C': {
+        key: 'C',
+        value: 'flag',
+      },
+      '--list': {
+        key: 'list',
+        value: 'flag',
+      },
+      '-l': {
+        key: 'list',
+        value: 'flag',
+      },
+      '--no-list': {
+        key: 'list',
+        value: 'flag',
+        set: false,
+      },
+      '--show-current': {
+        key: 'show-current',
+        value: 'flag',
+      },
+      '--no-show-current': {
+        key: 'show-current',
+        value: 'flag',
+        set: false,
+      },
+      '--create-reflog': {
+        key: 'create-reflog',
+        value: 'flag',
+      },
+      '--no-create-reflog': {
+        key: 'create-reflog',
+        value: 'flag',
+        set: false,
+      },
+      '--edit-description': {
+        key: 'edit-description',
+        value: 'flag',
+      },
+      '--no-edit-description': {
+        key: 'edit-description',
+        value: 'flag',
+        set: false,
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--merged': {
+        key: 'merged',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-merged': {
+        key: 'no-merged',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--column': {
+        key: 'column',
+        value: 'optional-string',
+      },
+      '--no-column': {
+        key: 'column',
+        value: 'flag',
+        clear: true,
+      },
+      '--sort': {
+        key: 'sort',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-sort': {
+        key: 'sort',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--points-at': {
+        key: 'points-at',
+        value: 'string',
+      },
+      '--no-points-at': {
+        key: 'points-at',
+        value: 'flag',
+        clear: true,
+      },
+      '--ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+      },
+      '-i': {
+        key: 'ignore-case',
+        value: 'flag',
+      },
+      '--no-ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+        set: false,
+      },
+      '--recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+      },
+      '--no-recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--no-format': {
+        key: 'format',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'branch-actions',
+        kind: 'exclusiveGroups',
+        origin: 'git',
+        reason:
+          'Only one branch action group may be selected; force variants can coexist with their ordinary action.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        groups: [
+          [
+            {
+              key: 'delete',
+              test: 'active',
+            },
+            {
+              key: 'D',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'move',
+              test: 'active',
+            },
+            {
+              key: 'M',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'copy',
+              test: 'active',
+            },
+            {
+              key: 'C',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'list',
+              test: 'active',
+            },
+            {
+              key: 'contains',
+              test: 'present',
+            },
+            {
+              key: 'no-contains',
+              test: 'present',
+            },
+            {
+              key: 'with',
+              test: 'present',
+            },
+            {
+              key: 'without',
+              test: 'present',
+            },
+            {
+              key: 'merged',
+              test: 'present',
+            },
+            {
+              key: 'no-merged',
+              test: 'present',
+            },
+            {
+              key: 'points-at',
+              test: 'present',
+            },
+          ],
+          [
+            {
+              key: 'show-current',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'edit-description',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'set-upstream-to',
+              test: 'present',
+            },
+          ],
+          [
+            {
+              key: 'unset-upstream',
+              test: 'active',
+            },
+          ],
+        ],
+      },
+      {
+        id: 'branch-delete-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'delete',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-D-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'D',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-move-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'move',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-M-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'M',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-copy-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'copy',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-C-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'C',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-edit-description-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'edit-description',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-unset-upstream-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'unset-upstream',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-set-upstream-to-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'The selected branch action restricts its positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'set-upstream-to',
+          test: 'present',
+        },
+      },
+      {
+        id: 'branch-recurse-delete',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'delete',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-D',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'D',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-move',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'move',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-M',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'M',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-copy',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'copy',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-C',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'C',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-list',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'list',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-show-current',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'show-current',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-edit-description',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'edit-description',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-set-upstream-to',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'set-upstream-to',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-unset-upstream',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Explicit submodule recursion is only valid when creating a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'recurse-submodules',
+            test: 'active',
+          },
+          {
+            key: 'unset-upstream',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'branch-recurse-name',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Creating branches recursively needs a branch name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 1,
+        when: {
+          key: 'recurse-submodules',
+          test: 'active',
+        },
+      },
+      {
+        id: 'branch-delete-all-delete',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Deletion accepts local or remote branches, not the combined all scope.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'scope',
+            test: 'equals',
+            value: 'all',
+          },
+        ],
+      },
+      {
+        id: 'branch-delete-all-D',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Deletion accepts local or remote branches, not the combined all scope.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        when: [
+          {
+            key: 'D',
+            test: 'active',
+          },
+          {
+            key: 'scope',
+            test: 'equals',
+            value: 'all',
+          },
+        ],
+      },
+      {
+        id: 'branch-create-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Creating a branch accepts a name and an optional start point.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        key: 'operands',
+        min: 0,
+        max: 2,
+        guard: [
+          {
+            key: 'delete',
+            test: 'inactive',
+          },
+          {
+            key: 'D',
+            test: 'inactive',
+          },
+          {
+            key: 'move',
+            test: 'inactive',
+          },
+          {
+            key: 'M',
+            test: 'inactive',
+          },
+          {
+            key: 'copy',
+            test: 'inactive',
+          },
+          {
+            key: 'C',
+            test: 'inactive',
+          },
+          {
+            key: 'list',
+            test: 'inactive',
+          },
+          {
+            key: 'contains',
+            test: 'inactive',
+          },
+          {
+            key: 'no-contains',
+            test: 'inactive',
+          },
+          {
+            key: 'with',
+            test: 'inactive',
+          },
+          {
+            key: 'without',
+            test: 'inactive',
+          },
+          {
+            key: 'merged',
+            test: 'inactive',
+          },
+          {
+            key: 'no-merged',
+            test: 'inactive',
+          },
+          {
+            key: 'points-at',
+            test: 'inactive',
+          },
+          {
+            key: 'show-current',
+            test: 'inactive',
+          },
+          {
+            key: 'edit-description',
+            test: 'inactive',
+          },
+          {
+            key: 'set-upstream-to',
+            test: 'inactive',
+          },
+          {
+            key: 'unset-upstream',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'branch-create-scope',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Creation cannot use a listing scope or the removed set-upstream mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        guard: [
+          {
+            key: 'delete',
+            test: 'inactive',
+          },
+          {
+            key: 'D',
+            test: 'inactive',
+          },
+          {
+            key: 'move',
+            test: 'inactive',
+          },
+          {
+            key: 'M',
+            test: 'inactive',
+          },
+          {
+            key: 'copy',
+            test: 'inactive',
+          },
+          {
+            key: 'C',
+            test: 'inactive',
+          },
+          {
+            key: 'list',
+            test: 'inactive',
+          },
+          {
+            key: 'contains',
+            test: 'inactive',
+          },
+          {
+            key: 'no-contains',
+            test: 'inactive',
+          },
+          {
+            key: 'with',
+            test: 'inactive',
+          },
+          {
+            key: 'without',
+            test: 'inactive',
+          },
+          {
+            key: 'merged',
+            test: 'inactive',
+          },
+          {
+            key: 'no-merged',
+            test: 'inactive',
+          },
+          {
+            key: 'points-at',
+            test: 'inactive',
+          },
+          {
+            key: 'show-current',
+            test: 'inactive',
+          },
+          {
+            key: 'edit-description',
+            test: 'inactive',
+          },
+          {
+            key: 'set-upstream-to',
+            test: 'inactive',
+          },
+          {
+            key: 'unset-upstream',
+            test: 'inactive',
+          },
+        ],
+        when: [
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'scope',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'branch-create-track',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Creation cannot use a listing scope or the removed set-upstream mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/branch.c',
+        guard: [
+          {
+            key: 'delete',
+            test: 'inactive',
+          },
+          {
+            key: 'D',
+            test: 'inactive',
+          },
+          {
+            key: 'move',
+            test: 'inactive',
+          },
+          {
+            key: 'M',
+            test: 'inactive',
+          },
+          {
+            key: 'copy',
+            test: 'inactive',
+          },
+          {
+            key: 'C',
+            test: 'inactive',
+          },
+          {
+            key: 'list',
+            test: 'inactive',
+          },
+          {
+            key: 'contains',
+            test: 'inactive',
+          },
+          {
+            key: 'no-contains',
+            test: 'inactive',
+          },
+          {
+            key: 'with',
+            test: 'inactive',
+          },
+          {
+            key: 'without',
+            test: 'inactive',
+          },
+          {
+            key: 'merged',
+            test: 'inactive',
+          },
+          {
+            key: 'no-merged',
+            test: 'inactive',
+          },
+          {
+            key: 'points-at',
+            test: 'inactive',
+          },
+          {
+            key: 'show-current',
+            test: 'inactive',
+          },
+          {
+            key: 'edit-description',
+            test: 'inactive',
+          },
+          {
+            key: 'set-upstream-to',
+            test: 'inactive',
+          },
+          {
+            key: 'unset-upstream',
+            test: 'inactive',
+          },
+        ],
+        when: [
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'track',
+            test: 'equals',
+            value: 'override',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/branch.c',
+    separator: true,
+  },
+  checkout: {
+    argv: ['checkout'],
+    options: {
+      '-b': {
+        key: 'b',
+        value: 'string',
+      },
+      '-B': {
+        key: 'B',
+        value: 'string',
+      },
+      '-l': {
+        key: 'l',
+        value: 'flag',
+      },
+      '--guess': {
+        key: 'guess',
+        value: 'flag',
+      },
+      '--no-guess': {
+        key: 'guess',
+        value: 'flag',
+        set: false,
+      },
+      '--overlay': {
+        key: 'overlay',
+        value: 'flag',
+      },
+      '--no-overlay': {
+        key: 'overlay',
+        value: 'flag',
+        set: false,
+      },
+      '--auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+      },
+      '--no-auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+        set: false,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'optional-string',
+        parser: 'git-bool',
+      },
+      '--no-recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--merge': {
+        key: 'merge',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'merge',
+        value: 'flag',
+      },
+      '--no-merge': {
+        key: 'merge',
+        value: 'flag',
+        set: false,
+      },
+      '--conflict': {
+        key: 'conflict',
+        value: 'string',
+        allowed: ['merge', 'diff3', 'zdiff3'],
+        effects: [
+          {
+            key: 'merge',
+            when: {
+              notEquals: true,
+            },
+            set: -1,
+          },
+        ],
+      },
+      '--no-conflict': {
+        key: 'conflict',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'merge',
+            when: {
+              equals: -1,
+            },
+            set: false,
+          },
+        ],
+      },
+      '--detach': {
+        key: 'detach',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'detach',
+        value: 'flag',
+      },
+      '--no-detach': {
+        key: 'detach',
+        value: 'flag',
+        set: false,
+      },
+      '--track': {
+        key: 'track',
+        value: 'optional-string',
+        set: 'direct',
+        allowed: ['direct', 'inherit'],
+      },
+      '-t': {
+        key: 'track',
+        value: 'optional-string',
+        set: 'direct',
+        allowed: ['direct', 'inherit'],
+      },
+      '--no-track': {
+        key: 'track',
+        value: 'flag',
+        set: false,
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        set: false,
+      },
+      '--orphan': {
+        key: 'orphan',
+        value: 'string',
+      },
+      '--no-orphan': {
+        key: 'orphan',
+        value: 'flag',
+        clear: true,
+      },
+      '--overwrite-ignore': {
+        key: 'overwrite-ignore',
+        value: 'flag',
+      },
+      '--no-overwrite-ignore': {
+        key: 'overwrite-ignore',
+        value: 'flag',
+        set: false,
+      },
+      '--ignore-other-worktrees': {
+        key: 'ignore-other-worktrees',
+        value: 'flag',
+      },
+      '--no-ignore-other-worktrees': {
+        key: 'ignore-other-worktrees',
+        value: 'flag',
+        set: false,
+      },
+      '--ours': {
+        key: 'stage',
+        value: 'flag',
+        set: 2,
+      },
+      '-2': {
+        key: 'stage',
+        value: 'flag',
+        set: 2,
+      },
+      '--theirs': {
+        key: 'stage',
+        value: 'flag',
+        set: 3,
+      },
+      '-3': {
+        key: 'stage',
+        value: 'flag',
+        set: 3,
+      },
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '--no-patch': {
+        key: 'patch',
+        value: 'flag',
+        set: false,
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '-U': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+      },
+      '--ignore-skip-worktree-bits': {
+        key: 'ignore-skip-worktree-bits',
+        value: 'flag',
+      },
+      '--no-ignore-skip-worktree-bits': {
+        key: 'ignore-skip-worktree-bits',
+        value: 'flag',
+        set: false,
+      },
+      '--pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'flag',
+        emptyIsUnset: true,
+        clear: true,
+      },
+      '--pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+      },
+      '--no-pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'checkout-creation',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one branch creation mode is accepted.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        keys: ['b', 'B', 'orphan'],
+      },
+      {
+        id: 'checkout-detach-b',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Detaching cannot create a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'b',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'checkout-detach-B',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Detaching cannot create a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'B',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'checkout-detach-orphan',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Detaching cannot create a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'orphan',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'checkout-detach-tracking',
+        kind: 'forbid',
+        origin: 'git',
+        reason:
+          'Orphan and detached modes reject explicitly specified tracking, including no-track.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'track',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'checkout-orphan-tracking',
+        kind: 'forbid',
+        origin: 'git',
+        reason:
+          'Orphan and detached modes reject explicitly specified tracking, including no-track.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'orphan',
+            test: 'active',
+          },
+          {
+            key: 'track',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'checkout-force-merge',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Force and merge modes are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'force',
+            test: 'active',
+          },
+          {
+            key: 'merge',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-overlay',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode rejects explicitly enabled overlay mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'overlay',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-merge',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode cannot recreate a merge.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'merge',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-file-patch',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Pathspec files cannot be used in patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-file-nul',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'NUL pathspec mode requires a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: {
+          key: 'pathspec-file-nul',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'checkout-unified-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'unified',
+        min: -1,
+      },
+      {
+        id: 'checkout-unified-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        guard: [
+          {
+            key: 'unified',
+            test: 'present',
+          },
+          {
+            key: 'unified',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'unified',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-inter-hunk-context-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'inter-hunk-context',
+        min: -1,
+      },
+      {
+        id: 'checkout-inter-hunk-context-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        guard: [
+          {
+            key: 'inter-hunk-context',
+            test: 'present',
+          },
+          {
+            key: 'inter-hunk-context',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'inter-hunk-context',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-file-detach',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'A pathspec file cannot be combined with detach.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+          {
+            key: 'detach',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-force',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Force implies ignore-unmerged, which rejects patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'force',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-auto-advance',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Disabling automatic advance requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: {
+          key: 'auto-advance',
+          test: 'equals',
+          value: false,
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-b',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode updates paths and cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'b',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-B',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode updates paths and cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'B',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-orphan',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode updates paths and cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'orphan',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-detach',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode updates paths and cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'detach',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-l',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode updates paths and cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'l',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-patch-track',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode rejects explicit tracking.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'track',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'checkout-reference-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Only one reference may precede an explicit separator.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'operandsBeforeSeparator',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'hasSeparator',
+          test: 'active',
+        },
+      },
+      {
+        id: 'checkout-explicit-path-modes',
+        kind: 'exclusiveGroups',
+        origin: 'git',
+        reason: 'Explicit path checkout rejects simultaneous force, merge and stage selection.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        guard: [
+          {
+            key: 'pathsAfterSeparator',
+            test: 'nonempty',
+          },
+        ],
+        groups: [
+          [
+            {
+              key: 'force',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'merge',
+              test: 'active',
+            },
+          ],
+          [
+            {
+              key: 'stage',
+              test: 'active',
+            },
+          ],
+        ],
+      },
+      {
+        id: 'checkout-paths-b',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Updating paths cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathsAfterSeparator',
+            test: 'nonempty',
+          },
+          {
+            key: 'b',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-paths-B',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Updating paths cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathsAfterSeparator',
+            test: 'nonempty',
+          },
+          {
+            key: 'B',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-paths-orphan',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Updating paths cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathsAfterSeparator',
+            test: 'nonempty',
+          },
+          {
+            key: 'orphan',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-paths-detach',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Updating paths cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathsAfterSeparator',
+            test: 'nonempty',
+          },
+          {
+            key: 'detach',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-paths-l',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Updating paths cannot switch branches or create a reflog.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathsAfterSeparator',
+            test: 'nonempty',
+          },
+          {
+            key: 'l',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'checkout-paths-track',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Updating paths rejects explicitly specified tracking.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathsAfterSeparator',
+            test: 'nonempty',
+          },
+          {
+            key: 'track',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'checkout-file-paths',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Explicit paths cannot accompany a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'pathsAfterSeparator',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+      },
+    ],
+    source: 'builtin/checkout.c',
+    separator: true,
+  },
+  switch: {
+    argv: ['switch'],
+    options: {
+      '--create': {
+        key: 'create',
+        value: 'string',
+      },
+      '-c': {
+        key: 'create',
+        value: 'string',
+      },
+      '--no-create': {
+        key: 'create',
+        value: 'flag',
+        clear: true,
+      },
+      '--force-create': {
+        key: 'force-create',
+        value: 'string',
+      },
+      '-C': {
+        key: 'force-create',
+        value: 'string',
+      },
+      '--no-force-create': {
+        key: 'force-create',
+        value: 'flag',
+        clear: true,
+      },
+      '--guess': {
+        key: 'guess',
+        value: 'flag',
+      },
+      '--no-guess': {
+        key: 'guess',
+        value: 'flag',
+        set: false,
+      },
+      '--discard-changes': {
+        key: 'discard-changes',
+        value: 'flag',
+      },
+      '--no-discard-changes': {
+        key: 'discard-changes',
+        value: 'flag',
+        set: false,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'optional-string',
+        parser: 'git-bool',
+      },
+      '--no-recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--merge': {
+        key: 'merge',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'merge',
+        value: 'flag',
+      },
+      '--no-merge': {
+        key: 'merge',
+        value: 'flag',
+        set: false,
+      },
+      '--conflict': {
+        key: 'conflict',
+        value: 'string',
+        allowed: ['merge', 'diff3', 'zdiff3'],
+        effects: [
+          {
+            key: 'merge',
+            when: {
+              notEquals: true,
+            },
+            set: -1,
+          },
+        ],
+      },
+      '--no-conflict': {
+        key: 'conflict',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'merge',
+            when: {
+              equals: -1,
+            },
+            set: false,
+          },
+        ],
+      },
+      '--detach': {
+        key: 'detach',
+        value: 'flag',
+      },
+      '-d': {
+        key: 'detach',
+        value: 'flag',
+      },
+      '--no-detach': {
+        key: 'detach',
+        value: 'flag',
+        set: false,
+      },
+      '--track': {
+        key: 'track',
+        value: 'optional-string',
+        set: 'direct',
+        allowed: ['direct', 'inherit'],
+      },
+      '-t': {
+        key: 'track',
+        value: 'optional-string',
+        set: 'direct',
+        allowed: ['direct', 'inherit'],
+      },
+      '--no-track': {
+        key: 'track',
+        value: 'flag',
+        set: false,
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        set: false,
+      },
+      '--orphan': {
+        key: 'orphan',
+        value: 'string',
+      },
+      '--no-orphan': {
+        key: 'orphan',
+        value: 'flag',
+        clear: true,
+      },
+      '--overwrite-ignore': {
+        key: 'overwrite-ignore',
+        value: 'flag',
+      },
+      '--no-overwrite-ignore': {
+        key: 'overwrite-ignore',
+        value: 'flag',
+        set: false,
+      },
+      '--ignore-other-worktrees': {
+        key: 'ignore-other-worktrees',
+        value: 'flag',
+      },
+      '--no-ignore-other-worktrees': {
+        key: 'ignore-other-worktrees',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'switch-creation',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Only one branch creation mode is accepted.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        keys: ['create', 'force-create', 'orphan'],
+      },
+      {
+        id: 'switch-detach-create',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Detaching cannot create a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'create',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'switch-detach-force-create',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Detaching cannot create a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'force-create',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'switch-detach-orphan',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Detaching cannot create a branch.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'orphan',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'switch-detach-tracking',
+        kind: 'forbid',
+        origin: 'git',
+        reason:
+          'Orphan and detached modes reject explicitly specified tracking, including no-track.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'detach',
+            test: 'active',
+          },
+          {
+            key: 'track',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'switch-orphan-tracking',
+        kind: 'forbid',
+        origin: 'git',
+        reason:
+          'Orphan and detached modes reject explicitly specified tracking, including no-track.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'orphan',
+            test: 'active',
+          },
+          {
+            key: 'track',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'switch-force-merge',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Force and merge modes are incompatible.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'force',
+            test: 'active',
+          },
+          {
+            key: 'merge',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'switch-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Switch accepts at most one start point.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+      {
+        id: 'switch-target',
+        kind: 'requiresAny',
+        origin: 'git',
+        reason: 'Switch needs a target, a new branch, or explicit detach.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: {
+          key: 'help',
+          test: 'inactive',
+        },
+        choices: [
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'create',
+            test: 'present',
+          },
+          {
+            key: 'force-create',
+            test: 'present',
+          },
+          {
+            key: 'orphan',
+            test: 'present',
+          },
+          {
+            key: 'detach',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'switch-orphan-start',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Switch orphan mode starts with an empty tree and takes no start point.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'orphan',
+          test: 'present',
+        },
+      },
+      {
+        id: 'switch-discard-merge',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Discarding changes cannot merge them.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'discard-changes',
+            test: 'active',
+          },
+          {
+            key: 'merge',
+            test: 'active',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/checkout.c',
+    separator: true,
+  },
+  restore: {
+    argv: ['restore'],
+    options: {
+      '--source': {
+        key: 'source',
+        value: 'string',
+      },
+      '-s': {
+        key: 'source',
+        value: 'string',
+      },
+      '--no-source': {
+        key: 'source',
+        value: 'flag',
+        clear: true,
+      },
+      '--staged': {
+        key: 'staged',
+        value: 'flag',
+      },
+      '-S': {
+        key: 'staged',
+        value: 'flag',
+      },
+      '--no-staged': {
+        key: 'staged',
+        value: 'flag',
+        set: false,
+      },
+      '--worktree': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '-W': {
+        key: 'worktree',
+        value: 'flag',
+      },
+      '--no-worktree': {
+        key: 'worktree',
+        value: 'flag',
+        set: false,
+      },
+      '--ignore-unmerged': {
+        key: 'ignore-unmerged',
+        value: 'flag',
+      },
+      '--no-ignore-unmerged': {
+        key: 'ignore-unmerged',
+        value: 'flag',
+        set: false,
+      },
+      '--overlay': {
+        key: 'overlay',
+        value: 'flag',
+      },
+      '--no-overlay': {
+        key: 'overlay',
+        value: 'flag',
+        set: false,
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'optional-string',
+        parser: 'git-bool',
+      },
+      '--no-recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--progress': {
+        key: 'progress',
+        value: 'flag',
+      },
+      '--no-progress': {
+        key: 'progress',
+        value: 'flag',
+        set: false,
+      },
+      '--merge': {
+        key: 'merge',
+        value: 'flag',
+      },
+      '-m': {
+        key: 'merge',
+        value: 'flag',
+      },
+      '--no-merge': {
+        key: 'merge',
+        value: 'flag',
+        set: false,
+      },
+      '--conflict': {
+        key: 'conflict',
+        value: 'string',
+        allowed: ['merge', 'diff3', 'zdiff3'],
+        effects: [
+          {
+            key: 'merge',
+            when: {
+              notEquals: true,
+            },
+            set: -1,
+          },
+        ],
+      },
+      '--no-conflict': {
+        key: 'conflict',
+        value: 'flag',
+        clear: true,
+        effects: [
+          {
+            key: 'merge',
+            when: {
+              equals: -1,
+            },
+            set: false,
+          },
+        ],
+      },
+      '--ours': {
+        key: 'stage',
+        value: 'flag',
+        set: 2,
+      },
+      '-2': {
+        key: 'stage',
+        value: 'flag',
+        set: 2,
+      },
+      '--theirs': {
+        key: 'stage',
+        value: 'flag',
+        set: 3,
+      },
+      '-3': {
+        key: 'stage',
+        value: 'flag',
+        set: 3,
+      },
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '--no-patch': {
+        key: 'patch',
+        value: 'flag',
+        set: false,
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '-U': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+      },
+      '--ignore-skip-worktree-bits': {
+        key: 'ignore-skip-worktree-bits',
+        value: 'flag',
+      },
+      '--no-ignore-skip-worktree-bits': {
+        key: 'ignore-skip-worktree-bits',
+        value: 'flag',
+        set: false,
+      },
+      '--pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'flag',
+        emptyIsUnset: true,
+        clear: true,
+      },
+      '--pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+      },
+      '--no-pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'restore-patch-overlay',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode rejects explicitly enabled overlay mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'overlay',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-patch-merge',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch mode cannot recreate a merge.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'merge',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-file-patch',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Pathspec files cannot be used in patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-file-nul',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'NUL pathspec mode requires a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: {
+          key: 'pathspec-file-nul',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'restore-unified-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'unified',
+        min: -1,
+      },
+      {
+        id: 'restore-unified-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        guard: [
+          {
+            key: 'unified',
+            test: 'present',
+          },
+          {
+            key: 'unified',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'unified',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-inter-hunk-context-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'inter-hunk-context',
+        min: -1,
+      },
+      {
+        id: 'restore-inter-hunk-context-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        guard: [
+          {
+            key: 'inter-hunk-context',
+            test: 'present',
+          },
+          {
+            key: 'inter-hunk-context',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'inter-hunk-context',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-paths',
+        kind: 'requiresAny',
+        origin: 'git',
+        reason: 'Restore needs paths, a pathspec file, or patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: {
+          key: 'help',
+          test: 'inactive',
+        },
+        choices: [
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-file-operands',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'A pathspec file replaces positional paths.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+      },
+      {
+        id: 'restore-staged-stage',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Index restoration rejects merge and conflict-stage selection.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'staged',
+            test: 'active',
+          },
+          {
+            key: 'stage',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-staged-merge',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Index restoration rejects merge and conflict-stage selection.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'staged',
+            test: 'active',
+          },
+          {
+            key: 'merge',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-source-stage',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Restoring from a tree rejects merge and conflict-stage selection.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'source',
+            test: 'present',
+          },
+          {
+            key: 'stage',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-source-merge',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Restoring from a tree rejects merge and conflict-stage selection.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'source',
+            test: 'present',
+          },
+          {
+            key: 'merge',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-merge-stage',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Merge and conflict-stage selection cannot coexist.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        keys: ['merge', 'stage'],
+      },
+      {
+        id: 'restore-ignore-unmerged-merge',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Ignoring unmerged entries rejects merge and patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'ignore-unmerged',
+            test: 'active',
+          },
+          {
+            key: 'merge',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-ignore-unmerged-patch',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Ignoring unmerged entries rejects merge and patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'ignore-unmerged',
+            test: 'active',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'restore-destination-staged',
+        kind: 'forbid',
+        origin: 'git',
+        reason:
+          'Specifying either destination disables the default; at least one must remain enabled.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'staged',
+            test: 'present',
+          },
+          {
+            key: 'staged',
+            test: 'inactive',
+          },
+          {
+            key: 'worktree',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'restore-destination-worktree',
+        kind: 'forbid',
+        origin: 'git',
+        reason:
+          'Specifying either destination disables the default; at least one must remain enabled.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/checkout.c',
+        when: [
+          {
+            key: 'worktree',
+            test: 'present',
+          },
+          {
+            key: 'staged',
+            test: 'inactive',
+          },
+          {
+            key: 'worktree',
+            test: 'inactive',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/checkout.c',
+    separator: true,
+  },
+  reset: {
+    argv: ['reset'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--no-refresh': {
+        key: 'no-refresh',
+        value: 'flag',
+      },
+      '--refresh': {
+        key: 'no-refresh',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-refresh': {
+        key: 'no-refresh',
+        value: 'flag',
+        set: false,
+      },
+      '--mixed': {
+        key: 'mode',
+        value: 'flag',
+        set: 'mixed',
+      },
+      '--soft': {
+        key: 'mode',
+        value: 'flag',
+        set: 'soft',
+      },
+      '--hard': {
+        key: 'mode',
+        value: 'flag',
+        set: 'hard',
+      },
+      '--merge': {
+        key: 'mode',
+        value: 'flag',
+        set: 'merge',
+      },
+      '--keep': {
+        key: 'mode',
+        value: 'flag',
+        set: 'keep',
+      },
+      '--recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'optional-string',
+        parser: 'git-bool',
+      },
+      '--no-recurse-submodules': {
+        key: 'recurse-submodules',
+        value: 'flag',
+        set: false,
+      },
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '--no-patch': {
+        key: 'patch',
+        value: 'flag',
+        set: false,
+      },
+      '--auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+      },
+      '--no-auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+        set: false,
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '-U': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+      },
+      '--intent-to-add': {
+        key: 'intent-to-add',
+        value: 'flag',
+      },
+      '-N': {
+        key: 'intent-to-add',
+        value: 'flag',
+      },
+      '--no-intent-to-add': {
+        key: 'intent-to-add',
+        value: 'flag',
+        set: false,
+      },
+      '--pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'flag',
+        emptyIsUnset: true,
+        clear: true,
+      },
+      '--pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+      },
+      '--no-pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'reset-unified-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        key: 'unified',
+        min: -1,
+      },
+      {
+        id: 'reset-unified-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        guard: [
+          {
+            key: 'unified',
+            test: 'present',
+          },
+          {
+            key: 'unified',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'unified',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'reset-inter-hunk-context-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        key: 'inter-hunk-context',
+        min: -1,
+      },
+      {
+        id: 'reset-inter-hunk-context-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        guard: [
+          {
+            key: 'inter-hunk-context',
+            test: 'present',
+          },
+          {
+            key: 'inter-hunk-context',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'inter-hunk-context',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'reset-auto-advance',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Disabling automatic advance requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        when: {
+          key: 'auto-advance',
+          test: 'equals',
+          value: false,
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'reset-file-patch',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Pathspec files cannot be used in patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        when: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'reset-file-nul',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'NUL pathspec mode requires a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        when: {
+          key: 'pathspec-file-nul',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'reset-patch-mode',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch reset rejects an explicit reset mode, including mixed.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'mode',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'reset-intent-mode',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Intent-to-add requires the default or explicit mixed mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        guard: [
+          {
+            key: 'patch',
+            test: 'inactive',
+          },
+        ],
+        when: [
+          {
+            key: 'intent-to-add',
+            test: 'active',
+          },
+          {
+            key: 'mode',
+            test: 'present',
+          },
+          {
+            key: 'mode',
+            test: 'notEquals',
+            value: 'mixed',
+          },
+        ],
+      },
+      {
+        id: 'reset-reference-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Only one revision may precede an explicit separator.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        key: 'operandsBeforeSeparator',
+        min: 0,
+        max: 1,
+        when: {
+          key: 'hasSeparator',
+          test: 'active',
+        },
+      },
+      {
+        id: 'reset-paths-mode',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Only default or mixed reset can update explicit paths.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        when: [
+          {
+            key: 'pathsAfterSeparator',
+            test: 'nonempty',
+          },
+          {
+            key: 'mode',
+            test: 'present',
+          },
+          {
+            key: 'mode',
+            test: 'notEquals',
+            value: 'mixed',
+          },
+        ],
+      },
+      {
+        id: 'reset-file-paths',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Explicit paths cannot accompany a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/reset.c',
+        key: 'pathsAfterSeparator',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+      },
+    ],
+    source: 'builtin/reset.c',
+    separator: true,
+  },
+  tag: {
+    argv: ['tag'],
+    options: {
+      '--list': {
+        key: 'list',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '-l': {
+        key: 'list',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '-n': {
+        key: 'n',
+        value: 'optional-integer',
+        set: 1,
+      },
+      '--delete': {
+        key: 'delete',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '-d': {
+        key: 'delete',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '--verify': {
+        key: 'verify',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '-v': {
+        key: 'verify',
+        value: 'flag',
+        modeGroup: '(&cmdmode)',
+      },
+      '--annotate': {
+        key: 'annotate',
+        value: 'flag',
+      },
+      '-a': {
+        key: 'annotate',
+        value: 'flag',
+      },
+      '--no-annotate': {
+        key: 'annotate',
+        value: 'flag',
+        set: false,
+      },
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--file': {
+        key: 'file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '-F': {
+        key: 'file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-file': {
+        key: 'file',
+        value: 'flag',
+        emptyIsUnset: true,
+        clear: true,
+      },
+      '--trailer': {
+        key: 'trailer',
+        value: 'string',
+      },
+      '--no-trailer': {
+        key: 'trailer',
+        value: 'flag',
+        clear: true,
+      },
+      '--edit': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '-e': {
+        key: 'edit',
+        value: 'flag',
+      },
+      '--no-edit': {
+        key: 'edit',
+        value: 'flag',
+        set: false,
+      },
+      '--sign': {
+        key: 'sign',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'sign',
+        value: 'flag',
+      },
+      '--no-sign': {
+        key: 'sign',
+        value: 'flag',
+        set: false,
+      },
+      '--cleanup': {
+        key: 'cleanup',
+        value: 'string',
+      },
+      '--no-cleanup': {
+        key: 'cleanup',
+        value: 'flag',
+        clear: true,
+      },
+      '--local-user': {
+        key: 'local-user',
+        value: 'string',
+      },
+      '-u': {
+        key: 'local-user',
+        value: 'string',
+      },
+      '--no-local-user': {
+        key: 'local-user',
+        value: 'flag',
+        clear: true,
+      },
+      '--force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '-f': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-force': {
+        key: 'force',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--create-reflog': {
+        key: 'create-reflog',
+        value: 'flag',
+      },
+      '--no-create-reflog': {
+        key: 'create-reflog',
+        value: 'flag',
+        set: false,
+      },
+      '--column': {
+        key: 'column',
+        value: 'optional-string',
+      },
+      '--no-column': {
+        key: 'column',
+        value: 'flag',
+        clear: true,
+      },
+      '--contains': {
+        key: 'contains',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-contains': {
+        key: 'no-contains',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--with': {
+        key: 'with',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--without': {
+        key: 'without',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--merged': {
+        key: 'merged',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-merged': {
+        key: 'no-merged',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+      },
+      '--no-omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--sort': {
+        key: 'sort',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-sort': {
+        key: 'sort',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--points-at': {
+        key: 'points-at',
+        value: 'optional-string',
+        set: 'HEAD',
+      },
+      '--no-points-at': {
+        key: 'points-at',
+        value: 'flag',
+        set: 'HEAD',
+        clear: true,
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--no-format': {
+        key: 'format',
+        value: 'flag',
+        clear: true,
+      },
+      '--color': {
+        key: 'color',
+        value: 'optional-string',
+        set: 'always',
+      },
+      '--no-color': {
+        key: 'color',
+        value: 'flag',
+        set: 'always',
+        clear: true,
+      },
+      '--ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+      },
+      '-i': {
+        key: 'ignore-case',
+        value: 'flag',
+      },
+      '--no-ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'tag-list-annotate',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-list-edit',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'edit',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-list-sign',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'sign',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-list-message',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'message',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-list-file',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'file',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-list-local-user',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-list-trailer',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-list-force',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'list',
+            test: 'active',
+          },
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-annotate',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-edit',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'edit',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-sign',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'sign',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-message',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'message',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-file',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'file',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-local-user',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-trailer',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-force',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-annotate',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-edit',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'edit',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-sign',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'sign',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-message',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'message',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-file',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'file',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-local-user',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-trailer',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-force',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag creation options cannot accompany a listing, deletion, or verification mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-filter-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-filter-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-filter-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-filter-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-filter-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-filter-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-filter-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-delete-filter-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'delete',
+            test: 'active',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-filter-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-filter-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-filter-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-filter-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-filter-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-filter-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-filter-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-verify-filter-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Tag filters and message-line output require list mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'verify',
+            test: 'active',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-name-annotate',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation needs a tag name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'annotate',
+          test: 'active',
+        },
+      },
+      {
+        id: 'tag-implicit-list-annotate-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-annotate-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-annotate-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-annotate-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-annotate-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-annotate-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-annotate-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-annotate-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'annotate',
+            test: 'active',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-name-edit',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation needs a tag name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'edit',
+          test: 'active',
+        },
+      },
+      {
+        id: 'tag-implicit-list-edit-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-edit-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-edit-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-edit-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-edit-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-edit-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-edit-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-edit-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'edit',
+            test: 'active',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-name-sign',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation needs a tag name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'sign',
+          test: 'active',
+        },
+      },
+      {
+        id: 'tag-implicit-list-sign-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'sign',
+            test: 'active',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-sign-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'sign',
+            test: 'active',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-sign-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'sign',
+            test: 'active',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-sign-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'sign',
+            test: 'active',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-sign-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'sign',
+            test: 'active',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-sign-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'sign',
+            test: 'active',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-sign-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'sign',
+            test: 'active',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-sign-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'sign',
+            test: 'active',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-name-message',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation needs a tag name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'message',
+          test: 'present',
+        },
+      },
+      {
+        id: 'tag-implicit-list-message-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-message-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-message-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-message-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-message-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-message-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-message-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-message-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-name-file',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation needs a tag name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'file',
+          test: 'present',
+        },
+      },
+      {
+        id: 'tag-implicit-list-file-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'file',
+            test: 'present',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-file-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'file',
+            test: 'present',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-file-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'file',
+            test: 'present',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-file-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'file',
+            test: 'present',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-file-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'file',
+            test: 'present',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-file-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'file',
+            test: 'present',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-file-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'file',
+            test: 'present',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-file-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'file',
+            test: 'present',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-name-local-user',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation needs a tag name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'local-user',
+          test: 'present',
+        },
+      },
+      {
+        id: 'tag-implicit-list-local-user-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-local-user-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-local-user-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-local-user-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-local-user-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-local-user-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-local-user-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-local-user-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'local-user',
+            test: 'present',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-name-trailer',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation needs a tag name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'trailer',
+          test: 'present',
+        },
+      },
+      {
+        id: 'tag-implicit-list-trailer-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-trailer-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-trailer-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-trailer-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-trailer-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-trailer-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-trailer-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-trailer-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'trailer',
+            test: 'present',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-name-force',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation needs a tag name.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+        when: {
+          key: 'force',
+          test: 'nonempty',
+        },
+      },
+      {
+        id: 'tag-implicit-list-force-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+          {
+            key: 'contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-force-no-contains',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+          {
+            key: 'no-contains',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-force-with',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+          {
+            key: 'with',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-force-without',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+          {
+            key: 'without',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-force-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+          {
+            key: 'merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-force-no-merged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+          {
+            key: 'no-merged',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-force-points-at',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+          {
+            key: 'points-at',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-implicit-list-force-n',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Implicit tag listing cannot use creation options.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'force',
+            test: 'nonempty',
+          },
+          {
+            key: 'n',
+            test: 'present',
+          },
+        ],
+        guard: [
+          {
+            key: 'n',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+      },
+      {
+        id: 'tag-creation-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Tag creation takes a name and optional object.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'operands',
+        min: 0,
+        max: 2,
+        guard: [
+          {
+            key: 'list',
+            test: 'inactive',
+          },
+          {
+            key: 'delete',
+            test: 'inactive',
+          },
+          {
+            key: 'verify',
+            test: 'inactive',
+          },
+          {
+            key: 'contains',
+            test: 'inactive',
+          },
+          {
+            key: 'no-contains',
+            test: 'inactive',
+          },
+          {
+            key: 'with',
+            test: 'inactive',
+          },
+          {
+            key: 'without',
+            test: 'inactive',
+          },
+          {
+            key: 'merged',
+            test: 'inactive',
+          },
+          {
+            key: 'no-merged',
+            test: 'inactive',
+          },
+          {
+            key: 'points-at',
+            test: 'inactive',
+          },
+          {
+            key: 'n',
+            test: 'inactive',
+          },
+        ],
+      },
+      {
+        id: 'tag-message-sources',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'File and inline tag messages cannot coexist.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        when: [
+          {
+            key: 'message',
+            test: 'present',
+          },
+          {
+            key: 'file',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'tag-cleanup',
+        kind: 'value',
+        origin: 'git',
+        reason: 'Tag cleanup accepts strip, whitespace and verbatim.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/tag.c',
+        key: 'cleanup',
+        allowed: ['strip', 'whitespace', 'verbatim'],
+        guard: [
+          {
+            key: 'list',
+            test: 'inactive',
+          },
+          {
+            key: 'delete',
+            test: 'inactive',
+          },
+          {
+            key: 'verify',
+            test: 'inactive',
+          },
+          {
+            key: 'contains',
+            test: 'inactive',
+          },
+          {
+            key: 'no-contains',
+            test: 'inactive',
+          },
+          {
+            key: 'with',
+            test: 'inactive',
+          },
+          {
+            key: 'without',
+            test: 'inactive',
+          },
+          {
+            key: 'merged',
+            test: 'inactive',
+          },
+          {
+            key: 'no-merged',
+            test: 'inactive',
+          },
+          {
+            key: 'points-at',
+            test: 'inactive',
+          },
+          {
+            key: 'n',
+            test: 'inactive',
+          },
+          {
+            key: 'operands',
+            test: 'nonempty',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/tag.c',
+    separator: true,
+  },
+  'stash clear': {
+    argv: ['stash', 'clear'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-clear-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'This stash operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash apply': {
+    argv: ['stash', 'apply'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--index': {
+        key: 'index',
+        value: 'flag',
+      },
+      '--no-index': {
+        key: 'index',
+        value: 'flag',
+        set: false,
+      },
+      '--label-ours': {
+        key: 'label-ours',
+        value: 'string',
+      },
+      '--no-label-ours': {
+        key: 'label-ours',
+        value: 'flag',
+        clear: true,
+      },
+      '--label-theirs': {
+        key: 'label-theirs',
+        value: 'string',
+      },
+      '--no-label-theirs': {
+        key: 'label-theirs',
+        value: 'flag',
+        clear: true,
+      },
+      '--label-base': {
+        key: 'label-base',
+        value: 'string',
+      },
+      '--no-label-base': {
+        key: 'label-base',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-apply-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'This stash operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash drop': {
+    argv: ['stash', 'drop'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-drop-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'This stash operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash pop': {
+    argv: ['stash', 'pop'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--index': {
+        key: 'index',
+        value: 'flag',
+      },
+      '--no-index': {
+        key: 'index',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-pop-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'This stash operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'operands',
+        min: 0,
+        max: 1,
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash branch': {
+    argv: ['stash', 'branch'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-branch-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'This stash operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'operands',
+        min: 1,
+        max: 2,
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash store': {
+    argv: ['stash', 'store'],
+    options: {
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--no-message': {
+        key: 'message',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-store-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'This stash operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'operands',
+        min: 1,
+        max: 1,
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash push': {
+    argv: ['stash', 'push'],
+    options: {
+      '--keep-index': {
+        key: 'keep-index',
+        value: 'flag',
+      },
+      '-k': {
+        key: 'keep-index',
+        value: 'flag',
+      },
+      '--no-keep-index': {
+        key: 'keep-index',
+        value: 'flag',
+        set: false,
+      },
+      '--staged': {
+        key: 'staged',
+        value: 'flag',
+      },
+      '-S': {
+        key: 'staged',
+        value: 'flag',
+      },
+      '--no-staged': {
+        key: 'staged',
+        value: 'flag',
+        set: false,
+      },
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '--no-patch': {
+        key: 'patch',
+        value: 'flag',
+        set: false,
+      },
+      '--auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+      },
+      '--no-auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+        set: false,
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '-U': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--include-untracked': {
+        key: 'include-untracked',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'include-untracked',
+        value: 'flag',
+      },
+      '--no-include-untracked': {
+        key: 'include-untracked',
+        value: 'flag',
+        set: false,
+      },
+      '--all': {
+        key: 'include-untracked',
+        value: 'flag',
+        set: true,
+      },
+      '-a': {
+        key: 'include-untracked',
+        value: 'flag',
+        set: true,
+      },
+      '--no-all': {
+        key: 'include-untracked',
+        value: 'flag',
+        set: false,
+      },
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--no-message': {
+        key: 'message',
+        value: 'flag',
+        clear: true,
+      },
+      '--pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'string',
+        emptyIsUnset: true,
+      },
+      '--no-pathspec-from-file': {
+        key: 'pathspec-from-file',
+        value: 'flag',
+        emptyIsUnset: true,
+        clear: true,
+      },
+      '--pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+      },
+      '--no-pathspec-file-nul': {
+        key: 'pathspec-file-nul',
+        value: 'flag',
+        set: false,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-push-unified-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'unified',
+        min: -1,
+      },
+      {
+        id: 'stash-push-unified-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        guard: [
+          {
+            key: 'unified',
+            test: 'present',
+          },
+          {
+            key: 'unified',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'unified',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-push-inter-hunk-context-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'inter-hunk-context',
+        min: -1,
+      },
+      {
+        id: 'stash-push-inter-hunk-context-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        guard: [
+          {
+            key: 'inter-hunk-context',
+            test: 'present',
+          },
+          {
+            key: 'inter-hunk-context',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'inter-hunk-context',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-push-auto-advance',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Disabling automatic advance requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: {
+          key: 'auto-advance',
+          test: 'equals',
+          value: false,
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-push-patch-untracked',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch and staged-only stashing cannot include untracked files.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'include-untracked',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-push-staged-untracked',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch and staged-only stashing cannot include untracked files.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: [
+          {
+            key: 'staged',
+            test: 'active',
+          },
+          {
+            key: 'include-untracked',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-push-file-patch',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Pathspec files cannot be used in patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-push-file-nul',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'NUL pathspec mode requires a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: {
+          key: 'pathspec-file-nul',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'stash-push-file-staged',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Staged-only stashing cannot use a pathspec file.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: [
+          {
+            key: 'pathspec-from-file',
+            test: 'present',
+          },
+          {
+            key: 'staged',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-push-file-operands',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'Pathspec files replace positional paths.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'operands',
+        min: 0,
+        max: 0,
+        when: {
+          key: 'pathspec-from-file',
+          test: 'present',
+        },
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash save': {
+    argv: ['stash', 'save'],
+    options: {
+      '--keep-index': {
+        key: 'keep-index',
+        value: 'flag',
+      },
+      '-k': {
+        key: 'keep-index',
+        value: 'flag',
+      },
+      '--no-keep-index': {
+        key: 'keep-index',
+        value: 'flag',
+        set: false,
+      },
+      '--staged': {
+        key: 'staged',
+        value: 'flag',
+      },
+      '-S': {
+        key: 'staged',
+        value: 'flag',
+      },
+      '--no-staged': {
+        key: 'staged',
+        value: 'flag',
+        set: false,
+      },
+      '--patch': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'patch',
+        value: 'flag',
+      },
+      '--no-patch': {
+        key: 'patch',
+        value: 'flag',
+        set: false,
+      },
+      '--auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+      },
+      '--no-auto-advance': {
+        key: 'auto-advance',
+        value: 'flag',
+        set: false,
+      },
+      '--unified': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '-U': {
+        key: 'unified',
+        value: 'integer',
+      },
+      '--inter-hunk-context': {
+        key: 'inter-hunk-context',
+        value: 'integer',
+      },
+      '--quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '-q': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+      },
+      '--no-quiet': {
+        key: 'quiet',
+        value: 'flag',
+        repeat: true,
+        set: false,
+      },
+      '--include-untracked': {
+        key: 'include-untracked',
+        value: 'flag',
+      },
+      '-u': {
+        key: 'include-untracked',
+        value: 'flag',
+      },
+      '--no-include-untracked': {
+        key: 'include-untracked',
+        value: 'flag',
+        set: false,
+      },
+      '--all': {
+        key: 'include-untracked',
+        value: 'flag',
+        set: true,
+      },
+      '-a': {
+        key: 'include-untracked',
+        value: 'flag',
+        set: true,
+      },
+      '--no-all': {
+        key: 'include-untracked',
+        value: 'flag',
+        set: false,
+      },
+      '--message': {
+        key: 'message',
+        value: 'string',
+      },
+      '-m': {
+        key: 'message',
+        value: 'string',
+      },
+      '--no-message': {
+        key: 'message',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-save-unified-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'unified',
+        min: -1,
+      },
+      {
+        id: 'stash-save-unified-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        guard: [
+          {
+            key: 'unified',
+            test: 'present',
+          },
+          {
+            key: 'unified',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'unified',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-save-inter-hunk-context-range',
+        kind: 'range',
+        origin: 'git',
+        reason: 'Context must be nonnegative or the unset sentinel -1.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'inter-hunk-context',
+        min: -1,
+      },
+      {
+        id: 'stash-save-inter-hunk-context-patch',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Explicit context requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        guard: [
+          {
+            key: 'inter-hunk-context',
+            test: 'present',
+          },
+          {
+            key: 'inter-hunk-context',
+            test: 'notEquals',
+            value: -1,
+          },
+        ],
+        when: {
+          key: 'inter-hunk-context',
+          test: 'present',
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-save-auto-advance',
+        kind: 'requires',
+        origin: 'git',
+        reason: 'Disabling automatic advance requires patch mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: {
+          key: 'auto-advance',
+          test: 'equals',
+          value: false,
+        },
+        required: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-save-patch-untracked',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch and staged-only stashing cannot include untracked files.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: [
+          {
+            key: 'patch',
+            test: 'active',
+          },
+          {
+            key: 'include-untracked',
+            test: 'active',
+          },
+        ],
+      },
+      {
+        id: 'stash-save-staged-untracked',
+        kind: 'forbid',
+        origin: 'git',
+        reason: 'Patch and staged-only stashing cannot include untracked files.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: [
+          {
+            key: 'staged',
+            test: 'active',
+          },
+          {
+            key: 'include-untracked',
+            test: 'active',
+          },
+        ],
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash import': {
+    argv: ['stash', 'import'],
+    options: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-import-arity',
+        kind: 'arity',
+        origin: 'git',
+        reason: 'This stash operation restricts the number of positional arguments.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        key: 'operands',
+        min: 1,
+        max: 1,
+      },
+    ],
+    source: 'builtin/stash.c',
+    separator: true,
+  },
+  'stash export': {
+    argv: ['stash', 'export'],
+    options: {
+      '--print': {
+        key: 'print',
+        value: 'flag',
+        modeGroup: '(&action)',
+      },
+      '--to-ref': {
+        key: 'to-ref',
+        value: 'string',
+      },
+      '--no-to-ref': {
+        key: 'to-ref',
+        value: 'flag',
+        clear: true,
+      },
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+    },
+    rules: [
+      {
+        id: 'stash-export-destination',
+        kind: 'requiresAny',
+        origin: 'git',
+        reason: 'Stash export requires exactly one output mode.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        when: {
+          key: 'help',
+          test: 'inactive',
+        },
+        choices: [
+          {
+            key: 'print',
+            test: 'active',
+          },
+          {
+            key: 'to-ref',
+            test: 'present',
+          },
+        ],
+      },
+      {
+        id: 'stash-export-modes',
+        kind: 'exclusive',
+        origin: 'git',
+        reason: 'Stash export cannot print and update a ref together.',
+        source: 'https://github.com/git/git/blob/v2.55.0/builtin/stash.c',
+        keys: ['print', 'to-ref'],
+      },
+    ],
+    source: 'builtin/stash.c',
     separator: true,
   },
   lfs: {

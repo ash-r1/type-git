@@ -16,9 +16,12 @@
         "clone"
       ],
       "tests": [
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "Transport/configuration conditions; options not exposed by CloneOpts."
+      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks.",
+      "typedCommandAPI": true
     },
     "reset": {
       "state": "partial",
@@ -26,9 +29,12 @@
         "reset"
       ],
       "tests": [
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "Patch input, positional paths, file content dependent pathspec checks, complete CLI surface."
+      "remaining": "Revision/path disambiguation before --, pathspec file contents, repository state, numeric lexical forms and abbreviations.",
+      "typedCommandAPI": true
     },
     "stash push": {
       "state": "partial",
@@ -36,9 +42,12 @@
         "stashPush"
       ],
       "tests": [
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "Patch mode and complete CLI surface."
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate.",
+      "typedCommandAPI": true
     },
     "tag": {
       "state": "partial",
@@ -46,9 +55,12 @@
         "tagCreate"
       ],
       "tests": [
-        "src/impl/option-constraints.test.ts"
+        "src/impl/option-constraints.test.ts",
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
       ],
-      "remaining": "List/verify/delete modes and complete CLI surface."
+      "remaining": "Column and formatting callback grammars, implicit listing with -n=-1, signing configuration, object names and abbreviations.",
+      "typedCommandAPI": true
     },
     "remote add": {
       "state": "partial",
@@ -169,8 +181,12 @@
       "models": [
         "status"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Callback grammars, configuration-dependent defaults, abbreviations and independent coverage of all output values.",
+      "typedCommandAPI": true
     },
     "log": {
       "state": "partial",
@@ -185,16 +201,24 @@
       "models": [
         "fetch"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations.",
+      "typedCommandAPI": true
     },
     "push": {
       "state": "partial",
       "models": [
         "push"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations.",
+      "typedCommandAPI": true
     },
     "add": {
       "state": "partial",
@@ -213,16 +237,24 @@
         "checkoutBranch",
         "checkoutPath"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations.",
+      "typedCommandAPI": true
     },
     "commit": {
       "state": "partial",
       "models": [
         "commit"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Cleanup/fixup value grammars, repository-dependent author/content modes, callbacks and abbreviations.",
+      "typedCommandAPI": true
     },
     "diff": {
       "state": "partial",
@@ -253,8 +285,12 @@
       "models": [
         "switch"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars.",
+      "typedCommandAPI": true
     },
     "cherry-pick": {
       "state": "partial",
@@ -288,8 +324,12 @@
       "models": [
         "restore"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations.",
+      "typedCommandAPI": true
     },
     "revert": {
       "state": "partial",
@@ -359,8 +399,12 @@
       "models": [
         "worktreeAdd"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate.",
+      "typedCommandAPI": true
     },
     "remote set-head": {
       "state": "partial",
@@ -838,6 +882,186 @@
       ],
       "typedCommandAPI": true,
       "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+    },
+    "worktree": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "worktree prune": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "worktree list": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "worktree lock": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "worktree unlock": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "worktree move": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "worktree remove": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "worktree repair": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "branch": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering."
+    },
+    "stash clear": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "stash apply": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "stash drop": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "stash pop": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "stash branch": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "stash store": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "stash save": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "stash import": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "stash export": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/native.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
     }
   }
 }
