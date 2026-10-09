@@ -56,6 +56,13 @@ export function validateRevParseQuery(query: object): void {
   }
 }
 
+/** Git only honors `rev-parse --quiet` in `--verify` mode. */
+export function validateRevParseRefOpts(opts: { verify?: boolean; quiet?: boolean } = {}): void {
+  if (opts.quiet && !opts.verify) {
+    throw new GitArgumentError('revParse: quiet requires verify');
+  }
+}
+
 export function validatePathInput(
   name: string,
   paths: string | string[],

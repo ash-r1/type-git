@@ -511,6 +511,31 @@ describe('High-level API', () => {
       expect(sha).toMatch(SHA40_REGEX);
     });
 
+    it('should return undefined for a missing commit with verify and quiet', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+      const missing = '1234567890123456789012345678901234567890';
+
+      await expect(
+        repo.revParse(`${missing}^{commit}`, { verify: true, quiet: true }),
+      ).resolves.toBeUndefined();
+      await expect(repo.revParse(`${missing}^{commit}`, { verify: true })).rejects.toThrow();
+
+      const head = await repo.revParse('HEAD');
+      await expect(repo.revParse('HEAD^{commit}', { verify: true, quiet: true })).resolves.toBe(
+        head,
+      );
+    });
+
+    it('should reject quiet without verify', async () => {
+      const repoPath = join(tempDir, 'repo');
+      const repo = await initRepoWithCommit(repoPath);
+
+      await expect(repo.revParse('HEAD', { quiet: true } as never)).rejects.toThrow(
+        'revParse: quiet requires verify',
+      );
+    });
+
     it('should resolve HEAD with short option', async () => {
       const repoPath = join(tempDir, 'repo');
       const repo = await initRepoWithCommit(repoPath);

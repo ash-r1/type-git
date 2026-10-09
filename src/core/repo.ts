@@ -1577,9 +1577,9 @@ export type RevParseListQuery = ExclusiveQuery<
 >;
 
 /**
- * Options that modify how a ref is resolved
+ * Options that modify how a ref is resolved (shared by all ref-resolution modes)
  */
-export type RevParseRefOpts = {
+export type RevParseRefBaseOpts = {
   /** Verify that the parameter can be turned into a raw SHA-1 (stricter parsing) */
   verify?: boolean;
   /** Shorten to unique prefix (true for default length, number for specific length) */
@@ -1590,12 +1590,36 @@ export type RevParseRefOpts = {
   symbolic?: boolean;
   /** Output full refname (e.g., "refs/heads/main" instead of "main") */
   symbolicFullName?: boolean;
-  /**
-   * In --verify mode, exit silently with non-zero status on invalid input
-   * instead of outputting an error message. Only works with --verify.
-   */
-  quiet?: boolean;
 };
+
+/**
+ * Options that modify how a ref is resolved
+ *
+ * Resolution failures throw a `GitError`. Use {@link RevParseQuietRefOpts} to get
+ * `undefined` instead.
+ */
+export type RevParseRefOpts = RevParseRefBaseOpts & { quiet?: false };
+
+/**
+ * Options for resolving a ref that may not exist (`git rev-parse --verify --quiet`)
+ *
+ * When the ref cannot be resolved (e.g. the commit does not exist), `revParse` returns
+ * `undefined` instead of throwing. Other failures (e.g. not a repository) still throw.
+ * `quiet` requires `verify`, as Git only honors `--quiet` in `--verify` mode.
+ */
+export type RevParseQuietRefOpts = RevParseRefBaseOpts & {
+  verify: true;
+  /** Return `undefined` instead of throwing when the ref cannot be resolved */
+  quiet: true;
+};
+
+/**
+ * Ref resolution options accepted by every `revParse(ref)` overload, including a dynamic
+ * `quiet` flag when `verify` is set
+ */
+export type RevParseAnyRefOpts =
+  | RevParseRefOpts
+  | (RevParseRefBaseOpts & { verify: true; quiet?: boolean });
 
 /**
  * Options that return other information from rev-parse
@@ -3711,6 +3735,11 @@ export interface WorktreeRepo extends RepoBase {
    * const parentSha = await repo.revParse('HEAD~1');
    * const short = await repo.revParse('HEAD', { short: true });
    * const branch = await repo.revParse('HEAD', { abbrevRef: true });
+   *
+   * // Returns undefined instead of throwing when the commit does not exist.
+   * // Peel with ^{commit}: a full 40-hex SHA is otherwise echoed back without
+   * // checking that the object exists.
+   * const commit = await repo.revParse(`${sha}^{commit}`, { verify: true, quiet: true });
    * ```
    *
    * **Query paths:**
@@ -3732,7 +3761,9 @@ export interface WorktreeRepo extends RepoBase {
    * const featureBranches = await repo.revParse({ branches: 'feature/*' });
    * ```
    */
+  revParse(ref: string, opts: RevParseQuietRefOpts & ExecOpts): Promise<string | undefined>;
   revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  revParse(ref: string, opts?: RevParseAnyRefOpts & ExecOpts): Promise<string | undefined>;
   revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
   revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
@@ -3847,7 +3878,9 @@ export interface BareRepo extends RepoBase {
    * const isShallow = await repo.revParse({ isShallowRepository: true });
    * ```
    */
+  revParse(ref: string, opts: RevParseQuietRefOpts & ExecOpts): Promise<string | undefined>;
   revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  revParse(ref: string, opts?: RevParseAnyRefOpts & ExecOpts): Promise<string | undefined>;
   revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
   revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;

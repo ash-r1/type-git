@@ -9,6 +9,7 @@ import {
   type ExclusiveQuery,
   validateOptions,
   validateRevParseQuery,
+  validateRevParseRefOpts,
 } from '../core/option-rules.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
 import { fetch as fetchRepository, push as pushRepository } from '../internal/transport.js';
@@ -40,10 +41,12 @@ import type {
   RemoteUrlOpts,
   RepoLsRemoteOpts,
   RepoLsRemoteResult,
+  RevParseAnyRefOpts,
   RevParseBooleanQuery,
   RevParseListQuery,
   RevParsePathOpts,
   RevParsePathQuery,
+  RevParseQuietRefOpts,
   RevParseRefOpts,
 } from '../core/repo.js';
 import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
@@ -125,7 +128,7 @@ function normalizeRemoteUrls(remotes: Map<string, RemoteInfo>): void {
 /**
  * Add ref resolution options to args
  */
-function addRefOptions(args: string[], opts?: RevParseRefOpts): void {
+function addRefOptions(args: string[], opts?: RevParseAnyRefOpts): void {
   if (!opts) {
     return;
   }
@@ -550,7 +553,9 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Parse revision specification and return information about the repository
    */
+  public revParse(ref: string, opts: RevParseQuietRefOpts & ExecOpts): Promise<string | undefined>;
   public revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  public revParse(ref: string, opts?: RevParseAnyRefOpts & ExecOpts): Promise<string | undefined>;
   public revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   public revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
   public revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
@@ -568,18 +573,22 @@ export class BareRepoImpl implements BareRepo {
       | (ExclusiveQuery<{ showObjectFormat: true | 'storage' | 'input' | 'output' }> & ExecOpts)
       | (ExclusiveQuery<{ showRefFormat: true }> & ExecOpts)
       | (ExclusiveQuery<{ localEnvVars: true }> & ExecOpts),
-    opts?: RevParseRefOpts & ExecOpts,
-  ): Promise<string | boolean | string[]> {
+    opts?: RevParseAnyRefOpts & ExecOpts,
+  ): Promise<string | boolean | string[] | undefined> {
     const args: string[] = ['rev-parse'];
 
     // Handle ref string case (first overload)
     if (typeof refOrOpts === 'string') {
+      validateRevParseRefOpts(opts);
       addRefOptions(args, opts);
       args.push(refOrOpts);
 
-      const result = await this.runner.runOrThrow(this.context, args, {
-        signal: opts?.signal,
-      });
+      const result = await this.runner.run(this.context, args, { signal: opts?.signal });
+      // --verify --quiet exits 1 without output when the ref cannot be resolved
+      if (opts?.quiet && result.exitCode === 1 && !result.aborted) {
+        return undefined;
+      }
+      this.runner.checkResult(this.context, args, result);
       return result.stdout.trim();
     }
 
