@@ -32,6 +32,13 @@ export async function contracts(git: Git, repo: WorktreeRepo, bare: BareRepo, fl
   expectType<boolean>(await repo.revParse({ isBareRepository: true }));
   expectType<string[]>(await bare.revParse({ branches: true }));
   expectType<string>(await repo.revParse({ gitDir: true }));
+  expectType<string>(await repo.revParse('HEAD', { verify: true }));
+  expectType<string | undefined>(await repo.revParse('HEAD', { verify: true, quiet: true }));
+  expectType<string | undefined>(await bare.revParse('HEAD', { verify: true, quiet: true }));
+  // @ts-expect-error A quiet lookup may resolve to undefined.
+  expectType<string>(await repo.revParse('HEAD', { verify: true, quiet: true }));
+  // @ts-expect-error Git only honors --quiet in --verify mode.
+  await repo.revParse('HEAD', { quiet: true });
   await repo.fetch({ ipv4: flag, ipv6: false });
   await repo.lfs.push({ objectId: ['oid'], stdin: true });
   await repo.add([], { pathspecFromFile: 'paths.txt' });

@@ -11,6 +11,7 @@ import {
   validateOptions,
   validatePathInput,
   validateRevParseQuery,
+  validateRevParseRefOpts,
 } from '../core/option-rules.js';
 import { GitError } from '../core/types.js';
 import { listConfig, readConfig, readTypedConfig } from '../internal/config.js';
@@ -101,6 +102,7 @@ import type {
   RevParseListQuery,
   RevParsePathOpts,
   RevParsePathQuery,
+  RevParseQuietRefOpts,
   RevParseRefOpts,
   RmOpts,
   ShowOpts,
@@ -4045,7 +4047,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
    *
    * Overloaded implementation handling all rev-parse variants.
    */
+  public revParse(ref: string, opts: RevParseQuietRefOpts & ExecOpts): Promise<string | undefined>;
   public revParse(ref: string, opts?: RevParseRefOpts & ExecOpts): Promise<string>;
+  public revParse(
+    ref: string,
+    opts?: (RevParseRefOpts | RevParseQuietRefOpts) & ExecOpts,
+  ): Promise<string | undefined>;
   public revParse(opts: RevParsePathQuery & RevParsePathOpts & ExecOpts): Promise<string>;
   public revParse(opts: RevParseBooleanQuery & ExecOpts): Promise<boolean>;
   public revParse(opts: RevParseListQuery & ExecOpts): Promise<string[]>;
@@ -4063,12 +4070,13 @@ export class WorktreeRepoImpl implements WorktreeRepo {
       | (ExclusiveQuery<{ showObjectFormat: true | 'storage' | 'input' | 'output' }> & ExecOpts)
       | (ExclusiveQuery<{ showRefFormat: true }> & ExecOpts)
       | (ExclusiveQuery<{ localEnvVars: true }> & ExecOpts),
-    opts?: RevParseRefOpts & ExecOpts,
-  ): Promise<string | boolean | string[]> {
+    opts?: (RevParseRefOpts | RevParseQuietRefOpts) & ExecOpts,
+  ): Promise<string | boolean | string[] | undefined> {
     const args: string[] = ['rev-parse'];
 
     // Handle ref string case (first overload)
     if (typeof refOrOpts === 'string') {
+      validateRevParseRefOpts(opts);
       // Add ref resolution options
       if (opts?.verify) {
         args.push('--verify');
@@ -4101,9 +4109,12 @@ export class WorktreeRepoImpl implements WorktreeRepo {
 
       args.push(refOrOpts);
 
-      const result = await this.runner.runOrThrow(this.context, args, {
-        signal: opts?.signal,
-      });
+      const result = await this.runner.run(this.context, args, { signal: opts?.signal });
+      // --verify --quiet exits 1 without output when the ref cannot be resolved
+      if (opts?.quiet && result.exitCode === 1 && !result.aborted) {
+        return undefined;
+      }
+      this.runner.checkResult(this.context, args, result);
       return result.stdout.trim();
     }
 

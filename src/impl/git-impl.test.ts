@@ -387,6 +387,17 @@ describe('GitImpl', () => {
       expect('gitDir' in repo).toBe(true);
     });
 
+    it('should return undefined for a missing commit with verify and quiet', async () => {
+      const repoPath = join(tempDir, 'test-bare.git');
+      await git.init(repoPath, { bare: true });
+
+      const repo = await git.openBare(repoPath);
+      await expect(
+        repo.revParse('HEAD^{commit}', { verify: true, quiet: true }),
+      ).resolves.toBeUndefined();
+      await expect(repo.revParse('HEAD^{commit}', { verify: true })).rejects.toThrow(GitError);
+    });
+
     it('should throw for worktree repository', async () => {
       const repoPath = join(tempDir, 'test-repo');
       await git.init(repoPath);
