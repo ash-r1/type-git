@@ -1,5 +1,25 @@
 # type-git
 
+## 0.5.0
+
+### Minor Changes
+
+- [#129](https://github.com/ash-r1/type-git/pull/129) [`b279425`](https://github.com/ash-r1/type-git/commit/b2794250531b096b8206dc6fb42d78adf795c634) Thanks [@ash-r1](https://github.com/ash-r1)! - Derive typed option validation from an evidence-backed declarative constraint model. Add deterministic finite-domain exploration, generated clone type cases, and independent Git conformance tests.
+
+  Remove overly strict restrictions on Git-supported flag combinations, preserve Git's argument precedence, and add missing clone filter prerequisites and other documented Git constraints. Allow zero parallel jobs and zero deepen values. Forward compatible sequencer control options instead of discarding them.
+
+  Some previously accepted invalid combinations now fail earlier, including submodule filtering without its prerequisites, delete pushes without refs, incompatible commit message sources, and orphan worktree options. Every modeled restriction now records whether it comes from Git or a documented typed API exception.
+
+  Preserve boolean ls-tree abbreviation, check literal command constraints against normalized option state, and distinguish excess option values from unknown flags.
+
+- [#129](https://github.com/ash-r1/type-git/pull/129) [`b279425`](https://github.com/ash-r1/type-git/commit/b2794250531b096b8206dc6fb42d78adf795c634) Thanks [@ash-r1](https://github.com/ash-r1)! - Add deterministic decision-diagram exploration and compiler witnesses for every modelled option family, and a version-pinned upstream command audit ledger. Enforce evidenced reset, stash, tag, remote, submodule and LFS constraints; forward LFS conflict checkout, lock verification and migrate options correctly. LFS migration now separates mode-specific options and exposes positional refs/files.
+
+- [#194](https://github.com/ash-r1/type-git/pull/194) [`b2ed982`](https://github.com/ash-r1/type-git/commit/b2ed982315fab0d910825db8bca1b875c1609d38) Thanks [@ash-r1](https://github.com/ash-r1)! - `revParse(ref, { verify: true, quiet: true })` now returns `undefined` when the ref cannot be resolved (for example, a commit that does not exist) instead of throwing a `GitError`. Other failures, such as running outside a repository, still throw. The return type of this overload is `Promise<string | undefined>`.
+
+  `quiet` now requires `verify`, matching Git, which only honors `--quiet` in `--verify` mode. Passing `quiet` without `verify` is a type error and throws `GitArgumentError` at runtime.
+
+- [#129](https://github.com/ash-r1/type-git/pull/129) [`b279425`](https://github.com/ash-r1/type-git/commit/b2794250531b096b8206dc6fb42d78adf795c634) Thanks [@ash-r1](https://github.com/ash-r1)! - Add ordered, typed CLI command access to global, worktree, and bare clients. Generate Git LFS registrations and native Git option tables from pinned upstream sources, validate declarative option/operand constraints at compile time and runtime, and publish deterministic finite-state exploration and coverage records.
+
 ## 0.4.0
 
 This release tightens public input/output contracts and includes breaking type changes.
