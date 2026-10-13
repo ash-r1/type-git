@@ -8070,7 +8070,40 @@
       "show": "stash show",
       "list": "stash list"
     },
-    "optionParsing": "stop-at-operand"
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/stash.c:push_stash:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "stopAtOperand": true,
+      "keepDashDash": true,
+      "keepEndOfOptions": false,
+      "remainingOperands": "drop-leading-dashdash",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:cmd_stash/push_stash; parse-options.c:parse_options_step/check_typos",
+      "reason": "An optional-subcommand wrapper delegates the first unknown word and tail to assumed push. Its parser stops at the first operand. Only a leading retained -- or active patch mode permits implicit path operands.",
+      "exceptFirst": [
+        "--help"
+      ],
+      "wrappers": [
+        {
+          "kind": "empty-options",
+          "tables": [
+            "builtin/stash.c:cmd_stash:options"
+          ],
+          "keepDashDash": true,
+          "stopAtUnknown": true,
+          "origin": "git",
+          "source": "Git 2.55.0 builtin/stash.c:cmd_stash; parse-options.c:parse_options_step/check_typos",
+          "reason": "The optional-subcommand parser stops at unknown options or operands; native subcommand names still participate in single-dash typo detection."
+        }
+      ]
+    }
   },
   "config": {
     "source": "builtin/config.c",

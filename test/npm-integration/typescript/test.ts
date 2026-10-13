@@ -317,3 +317,14 @@ export function testNativeStashParserTypes(git: Git): void {
   // @ts-expect-error The long-name prefix is ambiguous.
   git.command('stash apply', [{ operand: '--label=ours' }, ['-h']]);
 }
+
+export function testAssumedStashTypes(git: Git): void {
+  git.command('stash', [['--patch'], { operand: 'file' }, ['--unified', 'bad']]);
+  git.command('stash', [['--'], ['--unified', 'bad']]);
+  git.command('stash', [['--unified', '-2'], ['-h']]);
+  git.command('reflog show', [{ operand: '-show' }, ['-h']]);
+  // @ts-expect-error A separator after the first operand is a literal path.
+  git.command('stash', [{ operand: 'file' }, ['--'], ['-h']]);
+  // @ts-expect-error The initial wrapper catches the subcommand-name typo before help.
+  git.command('reflog', [{ operand: '-sho' }, ['-h']]);
+}

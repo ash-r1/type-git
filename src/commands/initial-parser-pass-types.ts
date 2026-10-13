@@ -253,7 +253,6 @@ type WrapperWalk<
           parserExit: H & {
             flags: readonly ['-h', '--help'];
             firstPassOptions: readonly [];
-            firstPassLongNames: readonly [];
           };
         },
         Words

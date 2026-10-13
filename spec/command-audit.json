@@ -78,7 +78,7 @@
         "test/types/stash-parser-corpus.ts",
         "test/types/stash-parser-api.ts"
       ],
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 3,452 independent native cases across eight explicit stash subcommands. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. Root assumed-push parsing is a separate obligation; no completeness claim follows from the finite corpus.",
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus.",
       "typedCommandAPI": true
     },
     "tag": {
@@ -1416,7 +1416,7 @@
         "test/types/stash-parser-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 3,452 independent native cases across eight explicit stash subcommands. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. Root assumed-push parsing is a separate obligation; no completeness claim follows from the finite corpus."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus."
     },
     "stash apply": {
       "state": "partial",
@@ -1432,7 +1432,7 @@
         "test/types/stash-parser-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 3,452 independent native cases across eight explicit stash subcommands. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. Root assumed-push parsing is a separate obligation; no completeness claim follows from the finite corpus."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus."
     },
     "stash drop": {
       "state": "partial",
@@ -1448,7 +1448,7 @@
         "test/types/stash-parser-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 3,452 independent native cases across eight explicit stash subcommands. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. Root assumed-push parsing is a separate obligation; no completeness claim follows from the finite corpus."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus."
     },
     "stash pop": {
       "state": "partial",
@@ -1464,7 +1464,7 @@
         "test/types/stash-parser-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 3,452 independent native cases across eight explicit stash subcommands. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. Root assumed-push parsing is a separate obligation; no completeness claim follows from the finite corpus."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus."
     },
     "stash branch": {
       "state": "partial",
@@ -1480,7 +1480,7 @@
         "test/types/stash-parser-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 3,452 independent native cases across eight explicit stash subcommands. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. Root assumed-push parsing is a separate obligation; no completeness claim follows from the finite corpus."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus."
     },
     "stash store": {
       "state": "partial",
@@ -1496,7 +1496,7 @@
         "test/types/stash-parser-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 3,452 independent native cases across eight explicit stash subcommands. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. Root assumed-push parsing is a separate obligation; no completeness claim follows from the finite corpus."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus."
     },
     "stash save": {
       "state": "partial",
@@ -1514,7 +1514,7 @@
         "test/types/stash-parser-api.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 3,452 independent native cases across eight explicit stash subcommands. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. Root assumed-push parsing is a separate obligation; no completeness claim follows from the finite corpus."
+      "remaining": "Native option pass, help timing, prefix/negation ambiguity, short clusters, unknown-word policy, end markers and literal remaining operands are modeled with 4,978 independent native cases across eight explicit stash subcommands and assumed push. Repository/configuration/path/object resolution, completion exits, other native parser modes and further callback grammars remain open. No completeness claim follows from the finite corpus."
     },
     "stash import": {
       "state": "partial",
@@ -1966,7 +1966,7 @@
         "test/types/wrapper-parser-corpus.ts",
         "test/types/wrapper-parser-api.ts"
       ],
-      "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 320 independent native cases across direct and dispatched calls. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations."
+      "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 425 independent native cases across direct and dispatched calls. Subcommand-name typo prefixes are included. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations."
     },
     "stash show": {
       "state": "partial",
@@ -5030,9 +5030,12 @@
         "test/types/native-integer-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/stash-parser.test.ts",
+        "test/types/stash-parser-corpus.ts",
+        "test/types/stash-parser-api.ts"
       ],
-      "remaining": "Exact first-word dispatch and fallback grammar are modeled. Remaining inherited callback phases, repository/configuration conditions, config key/value languages, abbreviated and special help dispatch, and delegated revision semantics require further audit. Finite normalized-state counts are branch-specific, not a claim of full argv reachability. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Exact child dispatch, optional-subcommand wrapper typo checks, assumed-push STOP_AT_NON_OPTION, native long prefix/negation resolution, help timing and retained leading-separator path boundaries are modeled. 4,978 independent native cases cover root and eight explicit stash subcommands. Configuration, repository/path/object resolution, completion/global help, further callback grammars and other parser modes remain open. Finite outcomes do not establish full argv reachability or audit completeness."
     },
     "reflog": {
       "state": "partial",
@@ -5055,7 +5058,7 @@
         "test/types/wrapper-parser-corpus.ts",
         "test/types/wrapper-parser-api.ts"
       ],
-      "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 320 independent native cases across direct and dispatched calls. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations."
+      "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 425 independent native cases across direct and dispatched calls. Subcommand-name typo prefixes are included. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations."
     },
     "stash list": {
       "state": "partial",

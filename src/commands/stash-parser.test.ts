@@ -29,6 +29,16 @@ describe('native stash option parsers', () => {
     expect(mismatches).toEqual([]);
   });
   it('retains each command-specific operand boundary', () => {
+    expect(initialParserPass(COMMAND_SPECS.stash, ['--patch', 'file', '--', '-h'])).toEqual({
+      exited: false,
+      tokens: [['--patch']],
+      remaining: ['file', '--', '-h'],
+    });
+    expect(initialParserPass(COMMAND_SPECS.stash, ['--', 'file', '-h'])).toEqual({
+      exited: false,
+      tokens: [],
+      remaining: ['--', 'file', '-h'],
+    });
     expect(initialParserPass(COMMAND_SPECS['stash clear'], ['file', '-h'])).toEqual({
       exited: false,
       tokens: [],

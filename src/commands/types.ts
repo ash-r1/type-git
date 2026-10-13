@@ -461,6 +461,13 @@ type InvalidPass = { invalidParserPass: true };
 type RemainingOptions<C extends GitCommandName> =
   Spec<C> extends { parserExit: { remainingOptions: infer O } } ? O : never;
 type OperandTokens<R extends readonly string[]> = { [I in keyof R]: { operand: R[I] } };
+type OperandInitial<C extends GitCommandName, R extends readonly string[], S> = Spec<C> extends {
+  parserExit: { remainingOperands: 'drop-leading-dashdash' };
+}
+  ? R extends readonly ['--', ...unknown[]]
+    ? Put<Put<Put<S, 'literalOperands', true>, 'ended', true>, 'hasSeparator', true>
+    : Put<S, 'literalOperands', true>
+  : Put<S, 'literalOperands', true>;
 type OperandPassState<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -478,7 +485,7 @@ type OperandPassState<
               : R
             : R
         >,
-        Put<S, 'literalOperands', true>
+        OperandInitial<C, R, S>
       >
   : InvalidPass;
 type RemainingState<

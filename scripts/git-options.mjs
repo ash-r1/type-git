@@ -62,7 +62,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
         const definitions = definitionsFor(wrapperTables, command);
         if (wrapper.kind !== 'empty-options' || definitions.some(option => option.kind !== 'OPTION_SUBCOMMAND')) throw new Error(`${command}: wrapper must have no option callbacks`);
         if (definitions.length && !wrapper.stopAtUnknown) throw new Error(`${command}: optional subcommands must stop at unknown words`);
-        return wrapper;
+        return { ...wrapper, firstPassLongNames: [...new Set(definitions.flatMap(option => option.long ? [option.long] : []))].sort() };
       });
       const firstPassOptions = [...new Set([...Object.keys(tableOptions(definitionsFor(firstPassTables, command), command, scope.numericOption, callbacks)), ...exit.flags])].sort();
       const firstPassLongNames = [...new Set(definitionsFor(firstPassTables, command).flatMap(option => option.long ? [option.long] : []))].sort();

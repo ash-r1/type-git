@@ -18,7 +18,8 @@ try {
   if (git(['--version']).stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires Git 2.55.0');
   if (git(['init', '-qb', 'main']).status !== 0) throw new Error('Cannot initialize oracle');
   await writeFile(join(directory, 'file'), 'one\n');
-  if (git(['add', 'file']).status !== 0 || git(['commit', '-qm', 'seed']).status !== 0) throw new Error('Cannot seed oracle');
+  for (const path of ['-h', '--', '--patch', '--no-patch', '--unified=bad']) await writeFile(join(directory, path), 'tracked\n');
+  if (git(['add', '--', '.']).status !== 0 || git(['commit', '-qm', 'seed']).status !== 0) throw new Error('Cannot seed oracle');
   // A literal -h after -- is an object operand in store, not help. Give it a
   // valid stash object so this boundary case does not depend on a missing ref.
   await writeFile(join(directory, 'file'), 'two\n');
@@ -36,9 +37,9 @@ try {
     if (![0, 1, 128, 129].includes(result.status)) throw new Error(`Unclassified ${JSON.stringify(argv)}: ${result.status}: ${result.stderr}`);
     cases.push({ command, tokens, argv, valid, status: result.status, diagnostic: result.stderr.split('\n')[0] });
   };
-  for (const sub of ['apply', 'pop', 'drop', 'clear', 'branch', 'store', 'push', 'save']) {
-    const command = `stash ${sub}`;
-    const table = tables.find(table => table.function === `${sub}_stash` && table.name === 'options');
+  for (const sub of ['apply', 'pop', 'drop', 'clear', 'branch', 'store', 'push', 'save', '']) {
+    const command = sub ? `stash ${sub}` : 'stash';
+    const table = tables.find(table => table.function === `${sub || 'push'}_stash` && table.name === 'options');
     const words = new Set(['--n', '--no', '--no-', '--unknown']);
     for (const option of table.options) if (option.long) {
       for (const name of [option.long, `no-${option.long}`, `no-no-${option.long}`]) {
@@ -53,10 +54,10 @@ try {
     for (const word of ['-h', '-qh', '-qxh', '-xqh', '-quiet', '-no-color', '-mh', '-m', '-U1h']) {
       sequences.push([operand(word), ['-h'], ['-h']]);
     }
-    sequences.push([operand('file'), ['-h']], [['-h'], operand('-unknown')], [['--help'], operand('-unknown')],
+    sequences.push([operand('file'), ['-h']], [['-h'], operand('-unknown')], ...(sub ? [[['--help'], operand('-unknown')]] : []),
       [operand('one'), operand('two'), operand('three'), ['-h']]);
     if (sub === 'clear' || sub === 'store') sequences.push([['--'], ['-h']], [operand('--end-of-options'), ['-h']]);
-    if (sub === 'push' || sub === 'save') {
+    if (sub === 'push' || sub === 'save' || sub === '') {
       for (const value of ['-2', '-1', '0', '1', 'bad', '2147483648', '0x10']) for (const flag of ['--unified', '--inter-hunk-context']) {
         sequences.push([[flag, value], ['-h']], [['-h'], [flag, value]], [[flag, value]]);
       }
@@ -65,15 +66,31 @@ try {
         [['--no-auto-advance']], [['--no-auto-advance'], ['-h']],
         [['--staged'], ['--include-untracked']], [['--staged'], ['--include-untracked'], ['-h']],
         [['-m', '--'], ['-h']], [['--'], operand('file')]);
-      if (sub === 'push') sequences.push([['--pathspec-file-nul']], [['--pathspec-file-nul'], ['-h']],
+      if (sub !== 'save') sequences.push([['--pathspec-file-nul']], [['--pathspec-file-nul'], ['-h']],
         [['--pathspec-from-file', '-'], ['--pathspec-file-nul']],
         [['--pathspec-from-file', ''], ['--pathspec-file-nul']]);
       else sequences.push([['--'], ['--unified', 'bad']], [operand('--end-of-options'), ['--unified', 'bad']]);
     }
+    if (!sub) {
+      const prefixes = [[], [['--patch']], [['--patch'], ['--no-patch']], [['--unified', '-1']]];
+      const tails = [[], [operand('file')], [operand('file'), ['-h']],
+        [['--']], [['--'], operand('file')], [['--'], ['-h']],
+        [operand('file'), ['--'], ['-h']], [operand('--end-of-options'), operand('file')],
+        [operand('--end-of-options'), ['--'], operand('file')],
+        [operand('file'), ['--patch']], [operand('file'), ['--no-patch']],
+        [operand('file'), ['--unified', 'bad']], [['--'], ['--unified', 'bad']]];
+      for (const prefix of prefixes) for (const tail of tails) sequences.push([...prefix, ...tail]);
+      for (const path of ['file', '-h', '--']) sequences.push([['-m', path], ['--'], operand('file')]);
+      // Contrast explicit push's interleaved parser with assumed push on identical words.
+      for (const tail of tails) record('stash push', tail);
+      for (const name of tables.find(table => table.function === 'cmd_stash').options.map(option => option.long).filter(Boolean)) {
+        for (let size = 1; size <= name.length; size++) sequences.push([operand(`-${name.slice(0, size)}`), ['-h'], ['-h']]);
+      }
+    }
     const distinct = new Map(sequences.map(tokens => [JSON.stringify(tokens), tokens]));
     for (const tokens of distinct.values()) record(command, tokens);
   }
-  const fixture = JSON.stringify({ profile: 'Git 2.55.0; isolated clean seeded repository with a valid refs/tags/-h stash object; native long prefixes with and without equals, two terminal help words, short clusters and selected repository-independent final constraints; stdin empty', cases }, null, 2) + '\n';
+  const fixture = JSON.stringify({ profile: 'Git 2.55.0; isolated clean seeded repository with a valid refs/tags/-h stash object; native long prefixes with and without equals, two terminal help words, short clusters, assumed-push operand boundaries, wrapper subcommand typos and selected repository-independent final constraints; stdin empty', cases }, null, 2) + '\n';
   const types = `// Generated by node scripts/stash-parser-corpus.mjs from independent Git outcomes.\nimport type { CheckedCommandArguments, GitCommandArgument, GitCommandName } from '../../src/commands/types.js';\ntype Check<T extends true> = T;\ntype Accepted<C extends GitCommandName, A extends readonly GitCommandArgument<C>[]> = [CheckedCommandArguments<C, A>] extends [never] ? false : true;\nexport type NativeStashParserCases = readonly [\n` + cases.map(row => `  Check<Accepted<${JSON.stringify(row.command)}, ${JSON.stringify(row.tokens)}> extends ${row.valid} ? true : false>,`).join('\n') + '\n];\n';
   for (const [path, content] of [['test/fixtures/stash-parser-corpus.json', fixture], ['test/types/stash-parser-corpus.ts', types]]) {
     const target = new URL(path, root);

@@ -18,6 +18,13 @@ describe('ordered reflog wrapper parsers', () => {
       }
     }
   });
+  it('uses native subcommand names for typo detection before the fallback parser', () => {
+    for (const word of ['-show', '-sho']) {
+      expect(() => initialParserPass(COMMAND_SPECS.reflog, [word, '-h'])).toThrow(GitArgumentError);
+      expect(initialParserPass(COMMAND_SPECS['reflog show'], [word, '-h']).exited).toBe(true);
+    }
+    expect(() => initialParserPass(COMMAND_SPECS.stash, ['-push', '-h'])).toThrow(GitArgumentError);
+  });
   it('distinguishes the optional-subcommand fallback from the empty show wrapper', () => {
     expect(initialParserPass(COMMAND_SPECS.reflog, ['--decorate=bad', '-h'])).toEqual({
       exited: true,
