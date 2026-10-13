@@ -33,3 +33,12 @@ git.command('replay', [['--onto', ''], ['--advance', 'main'], { operand: 'main..
 git.command('replay', [['--onto', 'main'], ['--contained'], ['--ref', 'refs/heads/out'], { operand: 'main..topic' }]);
 // @ts-expect-error No implicit HEAD source exists for replay.
 git.command('replay', [['--onto', 'main']]);
+
+// The native field is size_t, not unsigned int: 64-bit Git accepts this value.
+git.command('backfill', [['--min-batch-size', 4294967296]]);
+git.command('backfill', [['--min-batch-size', 9007199254740991]]);
+// @ts-expect-error Negative batch sizes are rejected immediately.
+git.command('backfill', [['--min-batch-size', -1], ['--min-batch-size', 1]]);
+declare const negativeOrValid: -1 | 1;
+// @ts-expect-error Every union member must satisfy the unsigned domain.
+git.command('backfill', [['--min-batch-size', negativeOrValid]]);

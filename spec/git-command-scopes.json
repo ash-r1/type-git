@@ -4156,6 +4156,11 @@
         "value": "string",
         "repeat": true,
         "skipEmpty": true
+      },
+      "--min-batch-size": {
+        "key": "min-batch-size",
+        "value": "integer",
+        "parser": "unsigned-size"
       }
     }
   },

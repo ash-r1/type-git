@@ -3,13 +3,23 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { nativeSizeTBits } from '../constraints/c-abi.js';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
-const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+// Native comparisons target the pinned Git 2.55 grammar. A pre-2.55
+// installation still exercises shared behavior without claiming that profile.
+const installedGit = spawnSync('git', ['--version'], { encoding: 'utf8', timeout: 10000 });
+const gitVersion = /^git version (\d+)\.(\d+)(?:\.|$)/.exec(installedGit.stdout ?? '');
+if (installedGit.error || installedGit.status !== 0 || !gitVersion) {
+  throw new Error('Cannot determine the installed Git version for native delegated-walk tests');
+}
+const supportsPinnedGit =
+  Number(gitVersion[1]) > 2 || (Number(gitVersion[1]) === 2 && Number(gitVersion[2]) >= 55);
+const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true' || !supportsPinnedGit;
 describe('delegated revision and diff grammars', () => {
   let root: string;
   let repo: WorktreeRepo;
@@ -25,6 +35,7 @@ describe('delegated revision and diff grammars', () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-delegated-walk-'));
     env = {
       ...process.env,
+      LC_ALL: 'C',
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
@@ -131,6 +142,22 @@ describe('delegated revision and diff grammars', () => {
     );
     compare('backfill', [['--follow'], { operand: 'tracked' }], ['--follow', 'tracked'], false);
     compare('backfill', [['--follow'], ['--no-follow']], ['--follow', '--no-follow'], true);
+  });
+  it.skipIf(legacy)('matches unsigned backfill batch size boundaries', () => {
+    for (const value of [
+      -1,
+      2 ** 64,
+      ...(nativeSizeTBits(process.arch) === 32 ? [4294967296] : []),
+    ]) {
+      compare('backfill', [['--min-batch-size', value]], [`--min-batch-size=${value}`], false);
+    }
+    for (const value of [
+      0,
+      4294967295,
+      ...(nativeSizeTBits(process.arch) === 64 ? [4294967296, Number.MAX_SAFE_INTEGER] : []),
+    ]) {
+      compare('backfill', [['--min-batch-size', value]], [`--min-batch-size=${value}`], true);
+    }
   });
   it.skipIf(legacy)('matches last-modified defaults and own short options', () => {
     compare('last-modified', [], [], true);

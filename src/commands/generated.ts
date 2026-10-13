@@ -54414,6 +54414,7 @@ const commandSpec194 = {
     '--min-batch-size': {
       key: 'min-batch-size',
       value: 'integer',
+      parser: 'unsigned-size',
     },
     '--include-edges': {
       key: 'include-edges',

@@ -236,6 +236,12 @@ syntax require further work.
 
 Backfill rejects explicit merge-diff selections, including `--no-diff-merges`,
 and preserves accumulating diff filters even when followed by an empty filter.
+Its batch size uses native `size_t` width: negative values fail immediately,
+while 64-bit Git accepts values above the unsigned 32-bit maximum. The numeric
+API accepts safe JavaScript integers; literal contracts permit values valid on
+64-bit targets, and runtime validation applies the host pointer width, including
+64-bit Windows where C `long` remains 32-bit. Explicit ABI simulation tests do
+not substitute for running a 32-bit Git binary.
 Last-modified starts with boundary and combined-diff settings and consumes its
 own `-r`, `-t` and `-z` before revision parsing. Its single-positive-commit limit
 requires object resolution; it is not approximated by a raw operand count.
