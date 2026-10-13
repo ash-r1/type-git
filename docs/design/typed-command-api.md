@@ -109,7 +109,7 @@ Source comparisons and compiler fixtures cover these distinctions, merge-base mo
 
 Mainline conversion follows the host C ABI: Git's `strtol` result narrows to an `int` before the positive check. LP64 systems narrow a 64-bit `long`; Windows LLP64 and 32-bit Unix ILP32 saturate a 32-bit `long` first. Runtime architecture selects the native width. The native boundary fixtures verify both installed profiles. Literal mainline validation computes both supported ABI conversions: it rejects values invalid on both and retains the possible normalized values for final constraints. ABI-dependent acceptance remains subject to runtime conversion because declarations cannot infer the executing Git ABI.
 
-Git 2.55 stash pickaxe execution has an upstream argument-lifetime limitation: revision parsing frees removed strvec elements while the pickaxe callback retains a pointer. Windows Git can abort with `BUG: diffcore-pickaxe.c:…: should have needle under -G or -S`. The fixture recognizes only that native Windows exit/diagnostic, retains exact argument serialization checks, and compares outputs whenever both native executions succeed. Type-Git continues to pass the valid Git invocation through.
+Git 2.55 stash pickaxe execution has an upstream argument-lifetime limitation: revision parsing frees removed strvec elements while the pickaxe callback retains a pointer. Linux and Windows Git can abort with `BUG: diffcore-pickaxe.c:…: should have needle under -G or -S` (SIGABRT on Unix, exit 3 on Windows). The fixture recognizes only that exact diagnostic and exit form, retains exact argument serialization and unrelated validation checks, and records the output comparison as skipped when the bug occurs. Successful executions still require equal output. Type-Git continues to pass the valid Git invocation through.
 
 ## Patch application and native mode identities
 
@@ -124,3 +124,18 @@ One narrow wrapper exception is recorded: Git 2.55 advertises generated negation
 `apply -C` uses Git 2.55's checked unsigned 32-bit parser (0 through 4294967295), including immediate rejection before a later option can replace it. Git 2.25 used unchecked conversion and unsigned narrowing; legacy comparisons record that difference explicitly.
 
 `am` queues apply-option spellings rather than clearing earlier entries. Negated whitespace/directory spellings therefore remain dangerous even if followed by positive settings. The typed wrapper permits them with quit, abort or show-current-patch modes (which return before `run_apply`), and rejects combinations that can reach the aborting apply callbacks. This guard is a documented wrapper exception; it does not impose unconditional apply validation on am or reject safe stray-state cleanup.
+
+## File, reference and object inspection
+
+The catalogue includes `ls-files`, `ls-remote`, `ls-tree`, `for-each-ref`, `show-ref`, `symbolic-ref`, `check-attr`, `check-ignore`, `check-mailmap`, `check-ref-format`, `describe`, `name-rev`, `cherry`, `format-rev`, `count-objects`, `write-tree`, `mktree`, `mktag`, `show-index`, `unpack-file`, `verify-commit`, `verify-tag`, `verify-pack`, `stripspace` and `patch-id`.
+
+- `check-attr` partitions attributes and paths at `--`; `--all` and `--stdin` change those operand requirements. `-z` needs stdin in `check-ignore`, but is also valid for direct path output in `check-attr`.
+- `ls-files` checks format conflicts before implicit unmerged/stage propagation. Explicit `--stage` conflicts with `--format`, while `--unmerged` and `-v` remain valid. Ignored output needs an explicit mode and exclude source.
+- `for-each-ref --start-after` checks the sort list including its initial `refname` entry. Clearing with `--no-sort` before adding one sort is valid. Stdin contents and format/sort mini-languages remain separate obligations.
+- `describe --contains` delegates before dirty/broken operand checks; those checks only apply without contains. `name-rev` ORs deprecated stdin into annotate-stdin after parsing, preserving their independent negations.
+- Native ignored operands remain accepted for `write-tree`, `mktree`, `mktag`, `show-index` and `patch-id`. `cherry` with more than three operands falls back to configured upstream and ignores the words. These are source-derived behaviors, not recommended usage.
+- `check-ref-format` stops at its first operand and has no `--` separator. Its special branch form accepts exactly the flag and branch operand. Reference syntax and repository expansion remain delegated to Git.
+
+The scopes are partial: signatures and object identities, path/ref/format languages, stream contents, binary transport, configuration, abbreviations and historical-version differences still need evidence. In particular, exposing `show-index` does not make the current string-based stdin API a general binary protocol API.
+
+Abbreviation callbacks also narrow `strtol` to a signed int before applying the minimum length. Runtime validation uses the host C-long width for the pre-narrowing saturation, so Windows/32-bit Unix and LP64 Unix can differ at large safe-integer boundaries. Native describe/long comparisons retain that distinction.

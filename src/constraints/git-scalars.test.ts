@@ -97,6 +97,18 @@ describe('Git scalar grammars', () => {
     });
     expect(parseGitScalar('push-signed', 'IF-ASKED')).toEqual({ valid: true, value: 'if-asked' });
   });
+  it('models strtol saturation before narrowing abbreviation counts', () => {
+    for (const bits of [32, 64] as const) {
+      expect(parseGitScalar('abbrev', 4294967296, undefined, bits)).toEqual({
+        valid: true,
+        value: bits === 32 ? 2147483647 : 0,
+      });
+      expect(parseGitScalar('abbrev', -4294967295, undefined, bits)).toEqual({
+        valid: true,
+        value: 4,
+      });
+    }
+  });
   it('binds ILP32, LP64 and LLP64 mainline conversions to the host architecture', () => {
     for (const [platform, architecture, expected] of [
       ['linux', 'ia32', 32],
