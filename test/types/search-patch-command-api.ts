@@ -1,0 +1,45 @@
+import type { Git } from '../../src/core/git.js';
+declare const git: Git;
+git.command('blame', [{ operand: 'tracked' }]);
+git.command('annotate', [['--'], { operand: 'tracked' }, { operand: 'HEAD' }]);
+git.command('blame', [['--line-porcelain'], ['--no-porcelain'], ['--progress'], { operand: 'tracked' }]);
+// @ts-expect-error Explicit progress conflicts with porcelain output.
+git.command('blame', [['--porcelain'], ['--progress'], { operand: 'tracked' }]);
+// @ts-expect-error The legacy two-word form after -- cannot have earlier operands.
+git.command('blame', [{ operand: 'HEAD' }, ['--'], { operand: 'tracked' }, { operand: 'HEAD' }]);
+git.command('grep', [['-12'], { operand: 'pattern' }]);
+git.command('grep', [['-001'], { operand: 'pattern' }]);
+// @ts-expect-error Numeric shorthand consists of decimal digits only.
+git.command('grep', [['-1.5'], { operand: 'pattern' }]);
+// @ts-expect-error Numeric shorthand is scoped to native number callbacks.
+git.command('archive', [['-12', 1], ['--list']]);
+// @ts-expect-error Grep requires a pattern.
+git.command('grep', []);
+// @ts-expect-error Explicit exclude-standard requires untracked input.
+git.command('grep', [['--no-exclude-standard'], { operand: 'pattern' }]);
+git.command('grep', [['--max-count', 0], ['--cached'], ['--untracked'], { operand: 'pattern' }]);
+// @ts-expect-error Nonzero-limit grep rejects multiple source modes.
+git.command('grep', [['--cached'], ['--untracked'], { operand: 'pattern' }]);
+git.command('format-patch', [['-n'], ['-N'], ['-k'], ['--stdout']]);
+// @ts-expect-error Explicit numbered subjects conflict with keeping subjects.
+git.command('format-patch', [['-n'], ['-k'], ['--stdout']]);
+// @ts-expect-error Callback rejects the second output directory immediately.
+git.command('format-patch', [['-o', 'out'], ['-o', 'out']]);
+// @ts-expect-error Thread style callback is case sensitive.
+git.command('format-patch', [['--thread', 'DEEP']]);
+git.command('archive', [['-123'], ['--list']]);
+git.command('archive', [['--list'], ['--exec', 'ignored']]);
+// @ts-expect-error Listing does not accept a tree.
+git.command('archive', [['--list'], { operand: 'HEAD' }]);
+// @ts-expect-error Archive creation requires a tree.
+git.command('archive', []);
+
+// Native signed integer callbacks reject overflow before later overwrite/early return.
+// @ts-expect-error Thread count overflows the native 32-bit field.
+git.command('grep', [['--threads', 2147483648], { operand: 'pattern' }]);
+// @ts-expect-error An invalid max-count cannot be cleared by a later zero.
+git.command('grep', [['--max-count', 2147483648], ['--max-count', 0], { operand: 'pattern' }]);
+// @ts-expect-error The short alias shares the same native callback range.
+git.command('grep', [['-m', -2147483649], { operand: 'pattern' }]);
+git.command('grep', [['--max-count', 0], ['--threads', -2147483648], { operand: 'pattern' }]);
+git.command('grep', [['--max-count', 0], ['--threads', 2147483647], { operand: 'pattern' }]);
