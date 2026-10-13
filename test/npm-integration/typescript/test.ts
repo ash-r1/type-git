@@ -115,4 +115,16 @@ function testErrorTypes(error: unknown): void {
 }
 
 // Export to prevent unused warnings
-export { testTypes, testErrorTypes };
+function testNumericCommandTypes(git: Git, count: number): void {
+  git.command('grep', [['-12'], { operand: 'pattern' }]);
+  git.command('grep', [[`-${count}`], { operand: 'pattern' }]);
+  git.command('archive', [['-123'], ['--list']]);
+  // @ts-expect-error Numeric shorthand accepts decimal digits, not fractions.
+  git.command('grep', [['-1.5'], { operand: 'pattern' }]);
+  // @ts-expect-error Exponent notation is not a single numeric shorthand token.
+  git.command('grep', [['-1e2'], { operand: 'pattern' }]);
+  // @ts-expect-error Numeric shorthand is not available on arbitrary commands.
+  git.command('version', [['-12']]);
+}
+
+export { testTypes, testErrorTypes, testNumericCommandTypes };
