@@ -7,6 +7,32 @@ import { type Constraint, violations } from './model.js';
 const evidence = { origin: 'git', reason: 'Test constraint', source: 'fixture' } as const;
 
 describe('finite constraint exploration', () => {
+  it('checks all delegated option values while preserving early-help precedence', () => {
+    const rule: Constraint = {
+      ...evidence,
+      id: 'patterns',
+      kind: 'required',
+      required: [{ key: 'tokens', test: 'optionValuesNonempty', value: '-S' }],
+      guard: [{ key: 'help', test: 'inactive' }],
+    };
+    for (const tokens of [
+      [['-S']],
+      [['-S', undefined]],
+      [['-S', '']],
+      [
+        ['-S', ''],
+        ['-S', 'later'],
+      ],
+    ]) {
+      expect(violations([rule], { tokens, help: false }).map((item) => item.id)).toEqual([
+        'patterns',
+      ]);
+      expect(violations([rule], { tokens, help: true })).toEqual([]);
+    }
+    for (const tokens of [[], [['-S', '--tool-help']], [{ operand: '' }], [['-G', '']]]) {
+      expect(violations([rule], { tokens, help: false })).toEqual([]);
+    }
+  });
   it('decomposes the solution space without losing higher-order or independent interactions', () => {
     const rules: Constraint[] = [
       {

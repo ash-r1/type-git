@@ -412,3 +412,28 @@ Remote-ext and remote-fd each accept two literal arguments. Their protocol,
 URL/expansion grammars, stdin records and repository/server-dependent behavior
 remain pending. Tests advertise local repositories, dry-run sends to isolated
 bare fixtures, and request helper capabilities without connecting.
+
+### Merge strategies and tool frontends
+
+When dispatched as a merge, recursive merge aliases require exactly two heads
+after `--`; excess bases are accepted with Git's warning rather than capped by
+the schema. Strategy flags retain last-selection behavior. Git rewrites a first
+`--help` argument to its help command before the manual merge parser runs. That
+first-position dispatch is modeled explicitly, including a trailing separator;
+later --help remains invalid in the manual merge parser. Complete delegated
+help argument/viewer behavior remains an audit obligation. Merge-index preserves its native argument-word
+minimum, including a no-work `-o <program>` invocation; its positional prefix
+interpretation and index-dependent program calls remain pending.
+
+Difftool's explicit GUI/tool/extcmd choices conflict, but mergetool has no such
+blanket restriction. Difftool tool-help returns before deferred diff parsing and
+final tool selection checks, so inherited immediate diff callback restrictions
+are not imposed on that path. Complete delegated diff phase validation remains
+pending. Request-pull accepts interleaved patch selection and ignores words after
+the optional end ref; tests resolve only local fixture refs.
+
+Recursive merge aliases recognize `-h` and `--help-all` only as the sole command argument; native usage exits with status 129 on Git 2.25/2.47/2.55 and status 0 on Git 2.56, and is tested by its usage output separately from ordinary command execution. First-position `--help` delegates to the global help dispatcher and can retain trailing arguments. `request-pull` requires nonempty start and URL strings; dynamic URL strings defer their value check to runtime.
+
+Difftool pickaxe `-S` and `-G` values are emitted in the same argv word to preserve option-looking search strings through the frontend. No-index requires at least two paths; additional directory pathspecs are supported by newer Git and depend on filesystem state, so native Git checks that condition. Older Git rejecting the directory pathspec fixture is recorded as an explicit unsupported-feature skip.
+
+Difftool retains every incoming pickaxe pattern for delegated validation: Git 2.55/2.56 reject empty `-S` or `-G` even before a later nonempty value can replace it. Tool-help returns before this delegated phase, so empty patterns remain allowed in that early-return mode and are emitted as separate empty argv words to preserve operand boundaries. Git 2.25/2.47 allow the overwritten empty pattern controls; those older-profile comparisons are recorded as unsupported validation skips. Git 2.47 can abort when an un-replaced empty pickaxe reaches diffcore; that failure is not treated as parser rejection.

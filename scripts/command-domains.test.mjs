@@ -2,6 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { commandDomains } from './command-domains.mjs';
 
 describe('relational command domains', () => {
+  it('distinguishes empty positional strings from absent operands when referenced', () => {
+    const keys = rule => rule.required.map(predicate => predicate.key);
+    const rules = [{ kind: 'required', required: [{ key: 'operand0', test: 'nonempty' }, { key: 'operand1', test: 'nonempty' }] }];
+    const domains = commandDomains({ options: {}, rules }, keys);
+    expect(new Set(domains.operand0)).toEqual(new Set(['', undefined, 'value']));
+    expect(new Set(domains.operand1)).toEqual(new Set(['', undefined, 'value']));
+    const unused = commandDomains({ options: {}, rules: [] }, keys);
+    expect(unused.operand0).toEqual([undefined, 'value']);
+    expect(unused.operand1).toBeUndefined();
+  });
   it('propagates defaults and literals across transitive equalities to a fixed point', () => {
     const links = [
       { kind: 'forbid', when: [{ key: 'b', test: 'equalsKey', valueKey: 'c' }] },

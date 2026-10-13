@@ -90,6 +90,9 @@ export function commandArguments(
     if (!option) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
     }
+    if (option.firstOnly && index !== 0) {
+      throw new GitArgumentError(`${command}: ${flag} must be the first argument`);
+    }
     if (arg.length > 2) {
       throw new GitArgumentError(`${command}: ${flag} accepts at most one value`);
     }
@@ -163,6 +166,8 @@ export function commandArguments(
           argv.push(flag, String(value));
         } else if (flag.startsWith('--')) {
           argv.push(`${flag}=${value}`);
+        } else if (option.attachedValue && !optional && value === '') {
+          argv.push(flag, '');
         } else if (optional || option.attachedValue) {
           argv.push(`${flag}${value}`);
         } else {
@@ -222,6 +227,7 @@ export function commandArguments(
     }
   }
   state.operand0 = operands[0];
+  state.operand1 = operands[1];
   if (state.help !== true) {
     const errors = violations(spec.rules, state);
     if (errors.length > 0) {

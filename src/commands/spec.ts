@@ -39,6 +39,8 @@ export type OptionSpec = {
   caseInsensitive?: boolean;
   /** Match enum names without changing the spelling stored by the callback. */
   preserveCase?: boolean;
+  /** A global dispatcher accepts this option only as the first command argument. */
+  firstOnly?: boolean;
   /** The native callback consumes all remaining words as literal operands. */
   consumesRest?: boolean;
   /** Before-token constraints: $value is incoming; $remaining contains subsequent API tokens. */

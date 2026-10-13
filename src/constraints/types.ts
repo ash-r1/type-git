@@ -77,59 +77,106 @@ type LengthMatch<V, N extends number, Included extends boolean> = V extends read
   : Included extends true
     ? never
     : V;
+type PatternValueStatus<V> = V extends string
+  ? '' extends V
+    ? string extends V
+      ? 'unknown'
+      : 'invalid'
+    : 'valid'
+  : 'invalid';
+type MergePatternStatus<A, B> = 'invalid' extends A | B
+  ? 'invalid'
+  : 'unknown' extends A | B
+    ? 'unknown'
+    : 'valid';
+type OptionValuesStatus<A, F extends string> = A extends readonly [infer H, ...infer R]
+  ? MergePatternStatus<
+      H extends readonly [infer Name, ...infer Values]
+        ? Name extends F
+          ? Values extends readonly [infer V, ...unknown[]]
+            ? PatternValueStatus<V>
+            : number extends Values['length']
+              ? 'unknown'
+              : 'invalid'
+          : F extends Name
+            ? 'unknown'
+            : 'valid'
+        : 'valid',
+      OptionValuesStatus<R, F>
+    >
+  : A extends readonly unknown[]
+    ? number extends A['length']
+      ? 'unknown'
+      : 'valid'
+    : 'invalid';
+type OptionValuesMatch<A, F extends string, Included extends boolean> = Included extends true
+  ? 'invalid' extends OptionValuesStatus<A, F>
+    ? never
+    : A
+  : OptionValuesStatus<A, F> extends 'valid'
+    ? never
+    : A;
 type Satisfy<T, P extends Predicate> = P['key'] extends keyof T
-  ? P extends { test: 'equalsKey'; valueKey: infer V extends string }
-    ? EqualKeys<T, P['key'], V, true>
-    : P extends { test: 'lengthEquals'; value: infer N extends number }
-      ? { [K in P['key']]-?: LengthMatch<T[K], N, true> }
-      : P extends { test: 'includes'; valueKey: infer V extends string }
-        ? Membership<T, P['key'], V, true>
-        : P extends { test: 'equals'; value: infer V }
-          ? { [K in P['key']]-?: Extract<V, T[K]> }
-          : P extends { test: 'startsWith'; value: infer V extends string }
-            ? { [K in P['key']]-?: Extract<`${V}${string}`, T[K]> | Extract<T[K], `${V}${string}`> }
-            : P extends { test: 'notEquals'; value: infer V }
-              ? { [K in P['key']]?: Exclude<T[K], V> }
-              : P['test'] extends 'positive'
-                ? { [K in P['key']]-?: PositiveNumberMatch<T[K], true> }
-                : P['test'] extends 'gitEnabled'
-                  ? { [K in P['key']]-?: MaybeGitEnabled<T[K]> }
-                  : P['test'] extends 'inactive'
-                    ? Inactive<T, P['key']>
-                    : P['test'] extends 'nonempty'
-                      ? { [K in P['key']]-?: Nonempty<T[K]> }
-                      : P['test'] extends 'present'
-                        ? { [K in P['key']]-?: Exclude<T[K], undefined> }
-                        : Active<T, P['key']>
+  ? P extends { test: 'optionValuesNonempty'; value: infer F extends string }
+    ? { [K in P['key']]-?: OptionValuesMatch<T[K], F, true> }
+    : P extends { test: 'equalsKey'; valueKey: infer V extends string }
+      ? EqualKeys<T, P['key'], V, true>
+      : P extends { test: 'lengthEquals'; value: infer N extends number }
+        ? { [K in P['key']]-?: LengthMatch<T[K], N, true> }
+        : P extends { test: 'includes'; valueKey: infer V extends string }
+          ? Membership<T, P['key'], V, true>
+          : P extends { test: 'equals'; value: infer V }
+            ? { [K in P['key']]-?: Extract<V, T[K]> }
+            : P extends { test: 'startsWith'; value: infer V extends string }
+              ? {
+                  [K in P['key']]-?:
+                    | Extract<`${V}${string}`, T[K]>
+                    | Extract<T[K], `${V}${string}`>;
+                }
+              : P extends { test: 'notEquals'; value: infer V }
+                ? { [K in P['key']]?: Exclude<T[K], V> }
+                : P['test'] extends 'positive'
+                  ? { [K in P['key']]-?: PositiveNumberMatch<T[K], true> }
+                  : P['test'] extends 'gitEnabled'
+                    ? { [K in P['key']]-?: MaybeGitEnabled<T[K]> }
+                    : P['test'] extends 'inactive'
+                      ? Inactive<T, P['key']>
+                      : P['test'] extends 'nonempty'
+                        ? { [K in P['key']]-?: Nonempty<T[K]> }
+                        : P['test'] extends 'present'
+                          ? { [K in P['key']]-?: Exclude<T[K], undefined> }
+                          : Active<T, P['key']>
   : never;
 type Reject<T, P extends Predicate> = P['key'] extends keyof T
-  ? P extends { test: 'equalsKey'; valueKey: infer V extends string }
-    ? EqualKeys<T, P['key'], V, false>
-    : P extends { test: 'lengthEquals'; value: infer N extends number }
-      ? { [K in P['key']]?: LengthMatch<T[K], N, false> }
-      : P extends { test: 'includes'; valueKey: infer V extends string }
-        ? Membership<T, P['key'], V, false>
-        : P extends { test: 'equals'; value: infer V }
-          ? { [K in P['key']]?: Exclude<T[K], V> }
-          : P extends { test: 'startsWith'; value: infer V extends string }
-            ? { [K in P['key']]?: Exclude<T[K], `${V}${string}`> }
-            : P extends { test: 'notEquals'; value: infer V }
-              ? { [K in P['key']]-?: Extract<V, T[K]> }
-              : P['test'] extends 'gitEnabled'
-                ? { [K in P['key']]?: MaybeGitDisabled<T[K]> }
-                : P['test'] extends 'inactive'
-                  ? Active<T, P['key']>
-                  : P['test'] extends 'present'
-                    ? { [K in P['key']]?: never }
-                    : P['test'] extends 'nonzero'
-                      ? { [K in P['key']]?: Extract<0 | false | undefined, T[K]> }
-                      : P['test'] extends 'nonempty'
-                        ? { [K in P['key']]?: Extract<'' | [] | readonly [] | undefined, T[K]> }
-                        : P['test'] extends 'positive'
-                          ? { [K in P['key']]?: PositiveNumberMatch<T[K], false> }
-                          : P['test'] extends 'bytesPositive'
-                            ? unknown // Unit-bearing strings still require their scalar grammar.
-                            : Inactive<T, P['key']>
+  ? P extends { test: 'optionValuesNonempty'; value: infer F extends string }
+    ? { [K in P['key']]?: OptionValuesMatch<T[K], F, false> }
+    : P extends { test: 'equalsKey'; valueKey: infer V extends string }
+      ? EqualKeys<T, P['key'], V, false>
+      : P extends { test: 'lengthEquals'; value: infer N extends number }
+        ? { [K in P['key']]?: LengthMatch<T[K], N, false> }
+        : P extends { test: 'includes'; valueKey: infer V extends string }
+          ? Membership<T, P['key'], V, false>
+          : P extends { test: 'equals'; value: infer V }
+            ? { [K in P['key']]?: Exclude<T[K], V> }
+            : P extends { test: 'startsWith'; value: infer V extends string }
+              ? { [K in P['key']]?: Exclude<T[K], `${V}${string}`> }
+              : P extends { test: 'notEquals'; value: infer V }
+                ? { [K in P['key']]-?: Extract<V, T[K]> }
+                : P['test'] extends 'gitEnabled'
+                  ? { [K in P['key']]?: MaybeGitDisabled<T[K]> }
+                  : P['test'] extends 'inactive'
+                    ? Active<T, P['key']>
+                    : P['test'] extends 'present'
+                      ? { [K in P['key']]?: never }
+                      : P['test'] extends 'nonzero'
+                        ? { [K in P['key']]?: Extract<0 | false | undefined, T[K]> }
+                        : P['test'] extends 'nonempty'
+                          ? { [K in P['key']]?: Extract<'' | [] | readonly [] | undefined, T[K]> }
+                          : P['test'] extends 'positive'
+                            ? { [K in P['key']]?: PositiveNumberMatch<T[K], false> }
+                            : P['test'] extends 'bytesPositive'
+                              ? unknown // Unit-bearing strings still require their scalar grammar.
+                              : Inactive<T, P['key']>
   : unknown;
 type Every<T, P extends readonly Predicate[]> = P extends readonly [
   infer H extends Predicate,
