@@ -418,3 +418,11 @@ git.command('cherry-pick', [['--mainline', 1.5], ['--no-mainline'], ['--quit']])
 git.command('cherry-pick', [['--mainline', 4294967296], ['--no-mainline'], ['--quit']]);
 // @ts-expect-error Either accepting ABI normalizes mainline to a nonzero value incompatible with quit.
 git.command('cherry-pick', [['--mainline', 4294967297], ['--quit']]);
+
+git.command('tag', [['--list'], ['--no-trailer']]);
+git.command('tag', [['--trailer', 'Reviewed-by: Test'], ['--no-trailer']]);
+git.command('tag', [['--contains', 'HEAD'], ['--no-trailer']]);
+// @ts-expect-error A trailer added after a clear still requires creation mode.
+git.command('tag', [['--list'], ['--no-trailer'], ['--trailer', 'Reviewed-by: Test']]);
+// @ts-expect-error An empty rebase-merges value still requests the merge backend.
+git.command('rebase', [['--apply'], ['--rebase-merges', ''], { operand: 'HEAD' }]);

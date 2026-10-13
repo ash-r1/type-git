@@ -9131,7 +9131,7 @@ export const COMMAND_SPECS = {
           },
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
         ],
       },
@@ -9267,7 +9267,7 @@ export const COMMAND_SPECS = {
           },
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
         ],
       },
@@ -9403,7 +9403,7 @@ export const COMMAND_SPECS = {
           },
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
         ],
       },
@@ -10663,7 +10663,7 @@ export const COMMAND_SPECS = {
         max: 2,
         when: {
           key: 'trailer',
-          test: 'present',
+          test: 'nonempty',
         },
       },
       {
@@ -10675,7 +10675,7 @@ export const COMMAND_SPECS = {
         when: [
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
           {
             key: 'contains',
@@ -10692,7 +10692,7 @@ export const COMMAND_SPECS = {
         when: [
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
           {
             key: 'no-contains',
@@ -10709,7 +10709,7 @@ export const COMMAND_SPECS = {
         when: [
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
           {
             key: 'with',
@@ -10726,7 +10726,7 @@ export const COMMAND_SPECS = {
         when: [
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
           {
             key: 'without',
@@ -10743,7 +10743,7 @@ export const COMMAND_SPECS = {
         when: [
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
           {
             key: 'merged',
@@ -10760,7 +10760,7 @@ export const COMMAND_SPECS = {
         when: [
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
           {
             key: 'no-merged',
@@ -10777,7 +10777,7 @@ export const COMMAND_SPECS = {
         when: [
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
           {
             key: 'points-at',
@@ -10794,7 +10794,7 @@ export const COMMAND_SPECS = {
         when: [
           {
             key: 'trailer',
-            test: 'present',
+            test: 'nonempty',
           },
           {
             key: 'n',

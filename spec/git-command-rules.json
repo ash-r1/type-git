@@ -4142,7 +4142,7 @@
         },
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         }
       ]
     },
@@ -4278,7 +4278,7 @@
         },
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         }
       ]
     },
@@ -4414,7 +4414,7 @@
         },
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         }
       ]
     },
@@ -5674,7 +5674,7 @@
       "max": 2,
       "when": {
         "key": "trailer",
-        "test": "present"
+        "test": "nonempty"
       }
     },
     {
@@ -5686,7 +5686,7 @@
       "when": [
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         },
         {
           "key": "contains",
@@ -5703,7 +5703,7 @@
       "when": [
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         },
         {
           "key": "no-contains",
@@ -5720,7 +5720,7 @@
       "when": [
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         },
         {
           "key": "with",
@@ -5737,7 +5737,7 @@
       "when": [
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         },
         {
           "key": "without",
@@ -5754,7 +5754,7 @@
       "when": [
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         },
         {
           "key": "merged",
@@ -5771,7 +5771,7 @@
       "when": [
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         },
         {
           "key": "no-merged",
@@ -5788,7 +5788,7 @@
       "when": [
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         },
         {
           "key": "points-at",
@@ -5805,7 +5805,7 @@
       "when": [
         {
           "key": "trailer",
-          "test": "present"
+          "test": "nonempty"
         },
         {
           "key": "n",

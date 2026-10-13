@@ -1,4 +1,5 @@
 import process from 'node:process';
+import { nativeCLongBits } from './c-abi.js';
 
 const ASCII_UPPERCASE = /[A-Z]/g;
 export function asciiLower(value: string): string {
@@ -54,7 +55,7 @@ export function parseGitScalar(
   parser: GitScalarParser,
   value: unknown,
   previous?: unknown,
-  cLongBits: 32 | 64 = process.platform === 'win32' ? 32 : 64,
+  cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
 ): { valid: boolean; value?: unknown } {
   if (parser === 'mainline') {
     // builtin/revert.c narrows strtol's long result to int before checking
