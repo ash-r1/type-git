@@ -36,6 +36,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'revision-count'
   | 'git-bool'
   | 'fetch-recurse'
   | 'push-recurse'
@@ -46,6 +47,16 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'revision-count') {
+    return {
+      valid:
+        typeof value === 'number' &&
+        Number.isInteger(value) &&
+        value >= -2147483648 &&
+        value <= 2147483647,
+      value,
+    };
+  }
   if (parser === 'config-type') {
     if (value === undefined) {
       return { valid: true, value };

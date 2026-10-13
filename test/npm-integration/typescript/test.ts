@@ -27,6 +27,16 @@ async function testTypes(): Promise<void> {
   const version: string = await git.version();
   console.log(version);
 
+  // Public declarations retain ordered command validation after bundling.
+  await git.command('log', [['--default', 'HEAD'], ['--format', '%s']]);
+  await git.command('log', [['--max-count', -1], ['--max-count-oldest', 2]]);
+  await git.command('diff', [['--name-only'], ['-s']]);
+  await git.command('diff --no-index', [{ operand: 'left' }, { operand: 'right' }]);
+  // @ts-expect-error The reverse order retains incompatible output bits.
+  await git.command('diff', [['-s'], ['--name-only']]);
+  // @ts-expect-error A later token cannot recover from an immediate parser rejection.
+  await git.command('log', [['--max-count-oldest', 2], ['--skip', 0], ['--max-count', 1]]);
+
   // Test raw method return type
   const rawResult: RawResult = await git.raw(['--version']);
   const _stdout: string = rawResult.stdout;

@@ -1529,5 +1529,155 @@
     "options": {},
     "optionParsing": "none",
     "separator": false
+  },
+  "log": {
+    "source": "builtin/log.c; revision.c; diff.c; diff-merges.c",
+    "tables": [
+      "builtin/log.c:cmd_log_init_finish:builtin_log_options",
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ]
+  },
+  "show": {
+    "source": "builtin/log.c; revision.c; diff.c; diff-merges.c",
+    "tables": [
+      "builtin/log.c:cmd_log_init_finish:builtin_log_options",
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ]
+  },
+  "diff": {
+    "source": "builtin/diff.c; revision.c; diff.c; diff-merges.c",
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "options": {
+      "--merge-base": {
+        "key": "merge-base",
+        "value": "flag"
+      },
+      "--cached": {
+        "key": "cached",
+        "value": "flag"
+      },
+      "--staged": {
+        "key": "cached",
+        "value": "flag"
+      },
+      "--base": {
+        "key": "max-count",
+        "value": "flag",
+        "set": 1
+      },
+      "--ours": {
+        "key": "max-count",
+        "value": "flag",
+        "set": 2
+      },
+      "--theirs": {
+        "key": "max-count",
+        "value": "flag",
+        "set": 3
+      },
+      "-q": {
+        "key": "silent-removed",
+        "value": "flag"
+      }
+    }
+  },
+  "diff-files": {
+    "source": "builtin/diff-files.c; revision.c; diff.c; diff-merges.c",
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "options": {
+      "--base": {
+        "key": "max-count",
+        "value": "flag",
+        "set": 1
+      },
+      "--ours": {
+        "key": "max-count",
+        "value": "flag",
+        "set": 2
+      },
+      "--theirs": {
+        "key": "max-count",
+        "value": "flag",
+        "set": 3
+      },
+      "-q": {
+        "key": "silent-removed",
+        "value": "flag"
+      }
+    }
+  },
+  "diff-index": {
+    "source": "builtin/diff-index.c; revision.c; diff.c; diff-merges.c",
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "options": {
+      "--merge-base": {
+        "key": "merge-base",
+        "value": "flag"
+      },
+      "--cached": {
+        "key": "cached",
+        "value": "flag"
+      },
+      "-m": {
+        "key": "match-missing",
+        "value": "flag"
+      }
+    }
+  },
+  "diff-tree": {
+    "source": "builtin/diff-tree.c; revision.c; diff.c; diff-merges.c",
+    "tables": [
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff",
+      "revision"
+    ],
+    "options": {
+      "--merge-base": {
+        "key": "merge-base",
+        "value": "flag"
+      },
+      "--stdin": {
+        "key": "stdin",
+        "value": "flag"
+      }
+    }
+  },
+  "diff --no-index": {
+    "source": "Git 2.55.0 diff-no-index.c:diff_no_index; diff.c:add_diff_options",
+    "tables": [
+      "diff-no-index.c:diff_no_index:no_index_options",
+      "diff.c:add_diff_options:parseopts"
+    ],
+    "optionGroups": [
+      "diff"
+    ]
   }
 }

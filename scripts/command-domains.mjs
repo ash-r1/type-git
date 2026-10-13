@@ -6,6 +6,8 @@ export function commandDomains(spec, referencedKeys) {
     if (!domains[key].some((old) => JSON.stringify(old) === JSON.stringify(value))) domains[key].push(value);
   };
   for (const option of Object.values(spec.options)) {
+    if (option.ignore) continue;
+    if (option.toggle) add(option.key, false);
     for (const effect of option.effects ?? []) add(effect.key, effect.set);
     if (option.clear) { add(option.key, option.repeat ? [] : undefined); continue; }
     const values = option.allowed ? [...option.allowed] : option.value === 'flag' ? [option.set ?? true]
