@@ -407,3 +407,14 @@ git.command('merge-base', [['--all'], ['--independent'], { operand: 'HEAD' }]);
 git.command('commit-tree', [['-m', 'first'], ['-F', 'file'], { operand: 'HEAD^{tree}' }]);
 // @ts-expect-error Commit-tree requires one tree.
 git.command('commit-tree', []);
+
+// @ts-expect-error Zero is rejected by the native mainline callback on both supported C ABIs.
+git.command('cherry-pick', [['--mainline', 0], { operand: 'HEAD' }]);
+// @ts-expect-error A later clear cannot hide an invalid earlier mainline value.
+git.command('revert', [['-m', -1], ['--no-mainline'], ['--quit']]);
+// @ts-expect-error Fractional mainline values are invalid before continuation dispatch.
+git.command('cherry-pick', [['--mainline', 1.5], ['--no-mainline'], ['--quit']]);
+// The execution ABI is unknown to declarations: LLP64 saturates positive overflow.
+git.command('cherry-pick', [['--mainline', 4294967296], ['--no-mainline'], ['--quit']]);
+// @ts-expect-error Either accepting ABI normalizes mainline to a nonzero value incompatible with quit.
+git.command('cherry-pick', [['--mainline', 4294967297], ['--quit']]);

@@ -1,3 +1,4 @@
+import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
 import type { Constrained } from '../constraints/types.js';
@@ -140,7 +141,11 @@ type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
     ? Put<S, D['key'], D['key'] extends keyof S ? (S[D['key']] extends true ? false : true) : true>
     : D extends { repeat: true }
       ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
-      : Put<S, D['key'], TokenValue<T, D>>;
+      : Put<
+          S,
+          D['key'],
+          D extends { parser: 'mainline' } ? MainlineValue<TokenValue<T, D>> : TokenValue<T, D>
+        >;
 type RevisionCountValid<V> = V extends number
   ? [SafeIntegerAtLeast<V, -2147483648, false>] extends [never]
     ? false
@@ -154,7 +159,11 @@ type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extend
   ? RevisionCountValid<TokenValue<T, D>> extends false
     ? never
     : UncheckedModeState<S, D, T>
-  : UncheckedModeState<S, D, T>;
+  : D extends { parser: 'mainline' }
+    ? MainlineLiteral<TokenValue<T, D>> extends false
+      ? never
+      : UncheckedModeState<S, D, T>
+    : UncheckedModeState<S, D, T>;
 type UncheckedModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeGroup: infer G extends string;
 }

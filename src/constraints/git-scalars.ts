@@ -1,3 +1,5 @@
+import process from 'node:process';
+
 const ASCII_UPPERCASE = /[A-Z]/g;
 export function asciiLower(value: string): string {
   return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
@@ -52,9 +54,18 @@ export function parseGitScalar(
   parser: GitScalarParser,
   value: unknown,
   previous?: unknown,
+  cLongBits: 32 | 64 = process.platform === 'win32' ? 32 : 64,
 ): { valid: boolean; value?: unknown } {
   if (parser === 'mainline') {
-    const mainline = typeof value === 'number' && Number.isSafeInteger(value) ? value | 0 : 0;
+    // builtin/revert.c narrows strtol's long result to int before checking
+    // positivity. LLP64 Git saturates at LONG_MAX/MIN before that narrowing.
+    const converted =
+      typeof value === 'number' && Number.isSafeInteger(value)
+        ? cLongBits === 32
+          ? Math.min(2147483647, Math.max(-2147483648, value))
+          : value
+        : 0;
+    const mainline = converted | 0;
     return { valid: mainline > 0, value: mainline };
   }
   if (parser === 'revision-count') {
