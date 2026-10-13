@@ -7306,5 +7306,113 @@
       "source": "Git 2.55.0 diff-no-index.c:diff_no_index",
       "reason": "No-index comparison requires two paths; directory comparisons may additionally accept pathspecs."
     }
+  ],
+  "reflog list": [
+    {
+      "id": "reflog.list-arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/reflog.c",
+      "reason": "Git checks the operation-specific operand count; exists ignores extra operands.",
+      "key": "operands",
+      "min": 0,
+      "max": 0
+    }
+  ],
+  "reflog exists": [
+    {
+      "id": "reflog.exists-arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/reflog.c",
+      "reason": "Git checks the operation-specific operand count; exists ignores extra operands.",
+      "key": "operands",
+      "min": 1
+    }
+  ],
+  "reflog write": [
+    {
+      "id": "reflog.write-arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/reflog.c",
+      "reason": "Git checks the operation-specific operand count; exists ignores extra operands.",
+      "key": "operands",
+      "min": 4,
+      "max": 4
+    }
+  ],
+  "reflog delete": [
+    {
+      "id": "reflog.delete-arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/reflog.c",
+      "reason": "Git checks the operation-specific operand count; exists ignores extra operands.",
+      "key": "operands",
+      "min": 1
+    }
+  ],
+  "reflog drop": [
+    {
+      "id": "reflog.drop-all-refs",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/reflog.c",
+      "reason": "Explicit refs cannot accompany --all.",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "all",
+        "test": "active"
+      }
+    }
+  ],
+  "reflog expire": [],
+  "reflog show": [
+    {
+      "id": "revision.line-pathspec",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history cannot be combined with pathspecs.",
+      "key": "pathsAfterSeparator",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "L",
+        "test": "present"
+      }
+    },
+    {
+      "id": "revision.line-full-diff",
+      "kind": "conflicts",
+      "origin": "git",
+      "source": "Git 2.55.0 revision.c:handle_revision_opt/setup_revisions",
+      "reason": "Line-range history does not support full-diff.",
+      "when": {
+        "key": "L",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "full-diff",
+          "test": "active"
+        }
+      ]
+    }
+  ],
+  "stash show": [
+    {
+      "id": "stash.show-arity",
+      "kind": "arity",
+      "origin": "git",
+      "source": "Git 2.55.0 builtin/stash.c:get_stash_info",
+      "reason": "Stash show accepts at most one stash revision.",
+      "key": "operands",
+      "min": 0,
+      "max": 1
+    }
   ]
 }
