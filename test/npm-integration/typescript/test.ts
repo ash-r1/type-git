@@ -42,6 +42,13 @@ async function testTypes(): Promise<void> {
   // @ts-expect-error Reflog mode is initialized before folding user options.
   await git.command('reflog show', [['--graph']]);
 
+  await git.command('am', [['--continue'], ['--resolved']]);
+  await git.command('am', [['--show-current-patch'], ['--show-current-patch', 'raw']]);
+  await git.command('apply', [['--3way'], ['--ours'], ['--theirs']]);
+  // @ts-expect-error Callback values select conflicting native modes.
+  await git.command('am', [['--show-current-patch', 'raw'], ['--show-current-patch', 'diff']]);
+  // @ts-expect-error Three-way application cannot produce rejects.
+  await git.command('apply', [['--3way'], ['--reject']]);
   await git.command('rebase', [['--empty', 'AsK'], { operand: 'HEAD' }]);
   await git.command('cherry-pick', [['--quit'], ['--quit'], ['-S']]);
   // @ts-expect-error Merge continuation uses original argument count.

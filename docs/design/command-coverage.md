@@ -11,9 +11,9 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | Command / operation | Classification | Audit | Typed CLI | Models | Remaining work |
 | --- | --- | --- | --- | --- | --- |
 | `add` | documented | partial | yes | add | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
-| `am` | documented | pending | pending |  | Audit every applicable facet. |
+| `am` | documented | partial | yes |  | Session/configuration-dependent operands and defaults, delegated apply parser (only reached for actual patch application), mail/patch formats, binary I/O and abbreviations. Interactive operand requirements depend on session state; no unconditional rule is imposed. |
 | `annotate` | documented | pending | pending |  | Audit every applicable facet. |
-| `apply` | documented | pending | pending |  | Audit every applicable facet. |
+| `apply` | documented | partial | yes |  | Patch content/index/repository conditions, path normalization, numeric lexical spellings, abbreviations and binary I/O. Git 2.55 negated whitespace/directory callbacks abort the process; these two spellings are deliberately omitted (documented wrapper exception). |
 | `archimport` | documented | pending | pending |  | Audit every applicable facet. |
 | `archive` | documented | pending | pending |  | Audit every applicable facet. |
 | `backfill` | documented | pending | pending |  | Audit every applicable facet. |

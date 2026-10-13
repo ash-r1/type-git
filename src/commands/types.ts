@@ -153,6 +153,13 @@ type RevisionCountValid<V> = V extends number
       ? false
       : true
   : false;
+type ModeValue<D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  modeFromValue: true;
+}
+  ? TokenValue<T, D>
+  : D extends { modeValue: infer M }
+    ? M
+    : D['key'];
 type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: 'revision-count';
 }
@@ -170,12 +177,12 @@ type UncheckedModeState<S, D extends OptionSpec, T extends readonly unknown[]> =
   ? `mode:${G}` extends keyof S
     ? TokenValue<T, D> extends false | undefined
       ? never
-      : S[`mode:${G}`] extends D['key']
+      : S[`mode:${G}`] extends ModeValue<D, T>
         ? OptionState<S, D, T>
         : never
     : TokenValue<T, D> extends false | undefined
       ? OptionState<S, D, T>
-      : Put<OptionState<S, D, T>, `mode:${G}`, D['key']>
+      : Put<OptionState<S, D, T>, `mode:${G}`, ModeValue<D, T>>
   : OptionState<S, D, T>;
 type ParsedState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: 'config-type';

@@ -1414,6 +1414,26 @@
       "state": "partial",
       "typedCommandAPI": true,
       "remaining": "Tree and parent object validity, signing/configuration, message-file and binary stdin protocols, abbreviations."
+    },
+    "apply": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/patch.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Patch content/index/repository conditions, path normalization, numeric lexical spellings, abbreviations and binary I/O. Git 2.55 negated whitespace/directory callbacks abort the process; these two spellings are deliberately omitted (documented wrapper exception)."
+    },
+    "am": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/patch.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Session/configuration-dependent operands and defaults, delegated apply parser (only reached for actual patch application), mail/patch formats, binary I/O and abbreviations. Interactive operand requirements depend on session state; no unconditional rule is imposed."
     }
   }
 }
