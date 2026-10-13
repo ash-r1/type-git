@@ -32,6 +32,7 @@ describe('patch application parser grammars', () => {
       GIT_EDITOR: 'true',
     };
     await writeFile(join(root, 'global'), '');
+    await writeFile(join(root, 'context.patch'), patch);
     repo = await new TypeGit({ home: root, inheritEnv: false, env }).init(join(root, 'repo'));
     await writeFile(join(repo.workdir, 'tracked'), 'one\n');
     await repo.add('tracked');
@@ -126,15 +127,18 @@ describe('patch application parser grammars', () => {
 
   it('checks unsigned context counts before a later value can replace them', () => {
     for (const value of [-1, 0, 1, 2147483648, 4294967295, 4294967296]) {
-      const actual = direct(['apply', '-C', String(value), '-C1', '--stat'], patch);
+      // A file avoids an stdin EPIPE when invalid options make Git exit before reading.
+      const file = join(root, 'context.patch');
+      const actual = direct(['apply', '-C', String(value), '-C1', '--stat', file]);
       expect(actual.error).toBeUndefined();
-      const build = () => commandArguments('apply', [['-C', value], ['-C', 1], ['--stat']]);
+      const build = () =>
+        commandArguments('apply', [['-C', value], ['-C', 1], ['--stat'], { operand: file }]);
       if (legacy && (value < 0 || value > 4294967295)) {
         // Git 2.25 uses unchecked strtol followed by unsigned narrowing.
         expect(actual.status, actual.stderr).toBe(0);
         expect(build).toThrow(GitArgumentError);
       } else if (actual.status === 0) {
-        expect(build()).toEqual(['apply', '-C', String(value), '-C', '1', '--stat']);
+        expect(build()).toEqual(['apply', '-C', String(value), '-C', '1', '--stat', file]);
       } else {
         expect(build, actual.stderr).toThrow(GitArgumentError);
       }
