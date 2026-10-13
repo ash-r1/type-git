@@ -242,6 +242,43 @@ describe('patch application parser grammars', () => {
     expect(wrapped.exitCode, wrapped.stderr).toBe(0);
   });
 
+  it('keeps aborting delegated negations conditional on reaching apply', async () => {
+    for (const flag of ['--no-whitespace', '--no-directory']) {
+      // run_apply delegates these negations to BUG_ON_OPT_NEG callbacks.
+      expect(() => commandArguments('am', [[flag]])).toThrow(GitArgumentError);
+      expect(() => commandArguments('am', [[flag], ['--whitespace', 'warn']])).toThrow(
+        GitArgumentError,
+      );
+      expect(() => commandArguments('am', [['--continue'], [flag]])).toThrow(GitArgumentError);
+      for (const mode of ['--quit', '--abort', '--show-current-patch']) {
+        for (const flags of [
+          [mode, flag],
+          [flag, mode],
+        ]) {
+          expect(
+            commandArguments(
+              'am',
+              flags.map((f) => [f]),
+            ),
+          ).toEqual(['am', ...flags]);
+        }
+      }
+      for (const flags of [
+        ['--quit', flag],
+        [flag, '--quit'],
+      ]) {
+        const stray = join(repo.workdir, '.git', 'rebase-apply');
+        await mkdir(stray);
+        const native = direct(['am', ...flags]);
+        expect(native.signal).toBe(null);
+        expect(native.status, native.stderr).toBe(0);
+        await mkdir(stray);
+        const wrapped = await repo.command('am', flags.map((f) => [f]) as never);
+        expect(wrapped.exitCode, wrapped.stderr).toBe(0);
+      }
+    }
+  });
+
   it('applies a patch and a mail series through the public API', async () => {
     const checked = await repo.command('apply', [['--check']], { stdin: patch });
     expect(checked.exitCode, checked.stderr).toBe(0);

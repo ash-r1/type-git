@@ -2396,7 +2396,59 @@
           "diff"
         ],
         "modeGroup": "&resume_mode",
-        "modeFromValue": true
+        "modeFromValue": true,
+        "effects": [
+          {
+            "key": "preapply-exit",
+            "set": true
+          }
+        ]
+      },
+      "--no-whitespace": {
+        "key": "whitespace",
+        "value": "flag",
+        "clear": true,
+        "effects": [
+          {
+            "key": "unsafe-apply-negation",
+            "set": true
+          }
+        ]
+      },
+      "--no-directory": {
+        "key": "directory",
+        "value": "flag",
+        "clear": true,
+        "effects": [
+          {
+            "key": "unsafe-apply-negation",
+            "set": true
+          }
+        ]
+      },
+      "--quit": {
+        "key": "quit",
+        "value": "flag",
+        "modeGroup": "&resume_mode",
+        "modeValue": "RESUME_QUIT",
+        "effects": [
+          {
+            "key": "preapply-exit",
+            "set": true
+          }
+        ]
+      },
+      "--abort": {
+        "key": "abort",
+        "value": "flag",
+        "modeGroup": "&resume_mode",
+        "modeValue": "RESUME_ABORT",
+        "effects": [
+          {
+            "key": "preapply-exit",
+            "set": true
+          }
+        ]
       }
     }
   }

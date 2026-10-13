@@ -8646,5 +8646,23 @@
       "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
     }
   ],
-  "am": []
+  "am": [
+    {
+      "id": "wrapper.am.aborting-apply-negation",
+      "kind": "requires",
+      "when": {
+        "key": "unsafe-apply-negation",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "preapply-exit",
+          "test": "active"
+        }
+      ],
+      "origin": "type-git",
+      "reason": "Negated whitespace/directory callbacks abort Git 2.55 if patch application is reached; only modes that exit before run_apply are supported with these spellings.",
+      "source": "Git 2.55.0 builtin/am.c:run_apply/cmd_am and apply.c:apply_option_parse_whitespace/apply_option_parse_directory"
+    }
+  ]
 }

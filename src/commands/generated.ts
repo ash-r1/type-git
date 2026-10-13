@@ -39625,12 +39625,24 @@ export const COMMAND_SPECS = {
         value: 'flag',
         modeGroup: '&resume_mode',
         modeValue: 'RESUME_ABORT',
+        effects: [
+          {
+            key: 'preapply-exit',
+            set: true,
+          },
+        ],
       },
       '--quit': {
         key: 'quit',
         value: 'flag',
         modeGroup: '&resume_mode',
         modeValue: 'RESUME_QUIT',
+        effects: [
+          {
+            key: 'preapply-exit',
+            set: true,
+          },
+        ],
       },
       '--show-current-patch': {
         key: 'show-current-patch',
@@ -39639,6 +39651,12 @@ export const COMMAND_SPECS = {
         allowed: ['raw', 'diff'],
         modeGroup: '&resume_mode',
         modeFromValue: true,
+        effects: [
+          {
+            key: 'preapply-exit',
+            set: true,
+          },
+        ],
       },
       '--retry': {
         key: 'retry',
@@ -39753,6 +39771,12 @@ export const COMMAND_SPECS = {
         key: 'whitespace',
         value: 'flag',
         clear: true,
+        effects: [
+          {
+            key: 'unsafe-apply-negation',
+            set: true,
+          },
+        ],
       },
       '--no-ignore-space-change': {
         key: 'ignore-space-change',
@@ -39768,6 +39792,12 @@ export const COMMAND_SPECS = {
         key: 'directory',
         value: 'flag',
         clear: true,
+        effects: [
+          {
+            key: 'unsafe-apply-negation',
+            set: true,
+          },
+        ],
       },
       '--no-exclude': {
         key: 'exclude',
@@ -39829,7 +39859,27 @@ export const COMMAND_SPECS = {
         value: 'flag',
       },
     },
-    rules: [],
+    rules: [
+      {
+        id: 'wrapper.am.aborting-apply-negation',
+        kind: 'requires',
+        when: {
+          key: 'unsafe-apply-negation',
+          test: 'active',
+        },
+        required: [
+          {
+            key: 'preapply-exit',
+            test: 'active',
+          },
+        ],
+        origin: 'type-git',
+        reason:
+          'Negated whitespace/directory callbacks abort Git 2.55 if patch application is reached; only modes that exit before run_apply are supported with these spellings.',
+        source:
+          'Git 2.55.0 builtin/am.c:run_apply/cmd_am and apply.c:apply_option_parse_whitespace/apply_option_parse_directory',
+      },
+    ],
     source: 'builtin/am.c:cmd_am',
     separator: true,
   },

@@ -478,3 +478,13 @@ git.command('apply', [['-p', validCountUnion]]);
 git.command('apply', [['-p', signedCountUnion], ['-p', 1]]);
 // @ts-expect-error The shared revision-count path also rejects overflow union members.
 git.command('rev-list', [['--max-count', signedCountUnion], { operand: 'HEAD' }]);
+
+git.command('am', [['--quit'], ['--no-whitespace']]);
+git.command('am', [['--no-directory'], ['--abort']]);
+git.command('am', [['--show-current-patch', 'diff'], ['--no-directory']]);
+// @ts-expect-error Normal patch application would reach Git's aborting negated callback.
+git.command('am', [['--no-whitespace']]);
+// @ts-expect-error A later positive setting does not remove the queued negation.
+git.command('am', [['--no-directory'], ['--directory', 'safe']]);
+// @ts-expect-error Continue may apply later patches and is not a pre-apply exit.
+git.command('am', [['--continue'], ['--no-whitespace']]);

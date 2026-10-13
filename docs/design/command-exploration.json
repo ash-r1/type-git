@@ -22543,7 +22543,7 @@
           ]
         }
       ],
-      "rules": 0,
+      "rules": 1,
       "domains": {
         "interactive": [
           "undefined",
@@ -22696,6 +22696,10 @@
           "undefined",
           "true"
         ],
+        "preapply-exit": [
+          "undefined",
+          "true"
+        ],
         "abort": [
           "undefined",
           "true"
@@ -22750,6 +22754,10 @@
           "true",
           "false"
         ],
+        "unsafe-apply-negation": [
+          "undefined",
+          "true"
+        ],
         "help": [
           "undefined",
           "true"
@@ -22771,10 +22779,12 @@
           "true"
         ]
       },
-      "total": "1338925209984000000000",
-      "accepted": "1338925209984000000000",
-      "nodes": 0,
-      "isolatedRuleWitnesses": {}
+      "total": "5355700839936000000000",
+      "accepted": "4016775629952000000000",
+      "nodes": 6,
+      "isolatedRuleWitnesses": {
+        "wrapper.am.aborting-apply-negation": "{\"operands\":[],\"unsafe-apply-negation\":true}"
+      }
     },
     {
       "command": "lfs",

@@ -1433,7 +1433,7 @@
         "src/commands/patch.test.ts",
         "test/types/command-api.ts"
       ],
-      "remaining": "Session/configuration-dependent operands and defaults, delegated apply parser (only reached for actual patch application), mail/patch formats, binary I/O and abbreviations. Interactive operand requirements depend on session state; no unconditional rule is imposed."
+      "remaining": "Session/configuration-dependent operands and defaults, delegated apply parser (only reached for actual patch application), mail/patch formats, binary I/O and abbreviations. Interactive operand requirements depend on session state; no unconditional rule is imposed. Negated whitespace/directory are permitted only with quit, abort or show-current-patch modes which return before apply; otherwise the typed wrapper rejects them to avoid Git 2.55 aborting callbacks."
     }
   }
 }
