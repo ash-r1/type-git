@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Deterministic candidates from pinned Git's manual revision parsers.
 
-Literal tests establish spellings, not semantics. Scopes and state transitions are
+Literal tests establish candidates, including rejected/removed spellings, not valid
+argument forms or semantics. Scopes and state transitions are
 reviewed separately. Numeric shorthand and repository-dependent branches remain explicit.
 """
 import hashlib

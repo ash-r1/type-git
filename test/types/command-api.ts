@@ -287,3 +287,23 @@ git.command('diff --no-index', [['--graph'], { operand: 'left' }, { operand: 'ri
 git.command('diff --no-index', [{ operand: 'left' }]);
 // @ts-expect-error A -n count also blocks oldest mode unless it is -1.
 git.command('log', [['-n', 2], ['--max-count-oldest', 1]]);
+
+// The inventory includes a removed spelling that Git recognizes only to reject.
+git.command('log', [['--unpacked'], { operand: 'HEAD' }]);
+// @ts-expect-error Git rejects --unpacked=<packfile>; only the bare flag is supported.
+git.command('log', [['--unpacked', 'HEAD'], { operand: 'HEAD' }]);
+git.command('show', [['--unpacked'], { operand: 'HEAD' }]);
+// @ts-expect-error Git rejects --unpacked=<packfile>; only the bare flag is supported.
+git.command('show', [['--unpacked', 'HEAD'], { operand: 'HEAD' }]);
+git.command('diff', [['--unpacked'], { operand: 'HEAD' }]);
+// @ts-expect-error Git rejects --unpacked=<packfile>; only the bare flag is supported.
+git.command('diff', [['--unpacked', 'HEAD'], { operand: 'HEAD' }]);
+git.command('diff-files', [['--unpacked']]);
+// @ts-expect-error Git rejects --unpacked=<packfile>; only the bare flag is supported.
+git.command('diff-files', [['--unpacked', 'HEAD']]);
+git.command('diff-index', [['--unpacked'], { operand: 'HEAD' }]);
+// @ts-expect-error Git rejects --unpacked=<packfile>; only the bare flag is supported.
+git.command('diff-index', [['--unpacked', 'HEAD'], { operand: 'HEAD' }]);
+git.command('diff-tree', [['--unpacked'], { operand: 'HEAD' }]);
+// @ts-expect-error Git rejects --unpacked=<packfile>; only the bare flag is supported.
+git.command('diff-tree', [['--unpacked', 'HEAD'], { operand: 'HEAD' }]);

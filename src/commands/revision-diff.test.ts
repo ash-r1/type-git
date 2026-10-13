@@ -21,6 +21,7 @@ describe('revision and diff parser constraints', () => {
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
+      LC_ALL: 'C',
       GIT_CONFIG_GLOBAL: join(root, 'global'),
       GIT_AUTHOR_NAME: 'Test',
       GIT_AUTHOR_EMAIL: 'test@example.com',
@@ -56,6 +57,37 @@ describe('revision and diff parser constraints', () => {
       );
     }
   };
+  it('accepts bare unpacked traversal and rejects its removed attached-value form', () => {
+    for (const command of [
+      'log',
+      'show',
+      'diff',
+      'diff-files',
+      'diff-index',
+      'diff-tree',
+    ] as const) {
+      const operands = command === 'diff-files' ? [] : ['HEAD'];
+      const bare = direct([command, '--unpacked', ...operands]);
+      expect(bare.error).toBeUndefined();
+      expect(bare.signal).toBeNull();
+      expect(bare.status, bare.stderr).toBe(0);
+      expect(
+        commandArguments(command, [['--unpacked'], ...operands.map((operand) => ({ operand }))]),
+      ).toEqual([command, '--unpacked', ...operands]);
+      const removed = direct([command, '--unpacked=HEAD', ...operands]);
+      expect(removed.error).toBeUndefined();
+      expect(removed.signal).toBeNull();
+      expect(removed.status).toBe(128);
+      expect(removed.stderr).toContain('--unpacked=<packfile> no longer supported');
+      expect(() =>
+        commandArguments(command, [
+          ['--unpacked', 'HEAD'],
+          ...operands.map((operand) => ({ operand })),
+        ]),
+      ).toThrow('this flag takes no value');
+    }
+  });
+
   it.skipIf(legacy)(
     'matches all ordered output-format pairs and selected resetting triples',
     () => {
