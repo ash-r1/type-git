@@ -4732,9 +4732,12 @@
         "test/types/root-dispatch-command-api.ts",
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
-        "test/types/argument-string-predicate.ts"
+        "test/types/argument-string-predicate.ts",
+        "src/commands/mandatory-subcommand.test.ts",
+        "test/types/mandatory-subcommand-api.ts",
+        "test/fixtures/mandatory-subcommand-corpus.json"
       ],
-      "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
+      "remaining": "Mandatory OPTION_SUBCOMMAND selection, parent unknown/help/boundary ordering and selected child constraints are modeled from the native table. Finite prefix and child-rule oracle cases do not prove all argv: global --help dispatch, completion, ref/format/stdin languages, configuration and repository conditions remain pending."
     },
     "repo": {
       "state": "partial",

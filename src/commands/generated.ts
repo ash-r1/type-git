@@ -67669,7 +67669,6 @@ const commandSpec130 = {
   separator: true,
   parserExit: {
     flags: ['-h', '--help'],
-    exceptFirst: ['--help'],
     origin: 'git',
     reason:
       'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.',
@@ -67832,7 +67831,6 @@ const commandSpec131 = {
   separator: true,
   parserExit: {
     flags: ['-h', '--help'],
-    exceptFirst: ['--help'],
     origin: 'git',
     reason:
       'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.',
@@ -67940,7 +67938,6 @@ const commandSpec132 = {
   separator: true,
   parserExit: {
     flags: ['-h', '--help'],
-    exceptFirst: ['--help'],
     origin: 'git',
     reason:
       'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.',
@@ -68345,7 +68342,6 @@ const commandSpec133 = {
   separator: true,
   parserExit: {
     flags: ['-h', '--help'],
-    exceptFirst: ['--help'],
     origin: 'git',
     reason:
       'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.',
@@ -69029,7 +69025,6 @@ const commandSpec135 = {
   separator: true,
   parserExit: {
     flags: ['-h', '--help'],
-    exceptFirst: ['--help'],
     origin: 'git',
     reason:
       'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.',
@@ -104935,6 +104930,13 @@ const commandSpec271 = {
 } as const satisfies CommandSpec;
 const commandSpec272 = {
   argv: ['refs'],
+  dispatch: {
+    migrate: 'refs migrate',
+    verify: 'refs verify',
+    list: 'refs list',
+    exists: 'refs exists',
+    optimize: 'refs optimize',
+  },
   options: {
     '--help': {
       key: 'help',
@@ -104944,30 +104946,407 @@ const commandSpec272 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
-  rules: [
-    {
-      id: 'cli.refs.operation',
-      kind: 'arity',
-      key: 'operands',
-      min: 1,
-      origin: 'git',
-      reason: 'The native dispatcher requires a registered subcommand.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/refs.c',
-    },
-    {
-      id: 'cli.refs.known-operation',
-      kind: 'value',
-      key: 'operand0',
-      allowed: ['migrate', 'verify', 'list', 'exists', 'optimize'],
-      origin: 'git',
-      reason: 'This root dispatcher accepts only its registered operations.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/refs.c',
-    },
-  ],
+  rules: [],
   source: 'builtin/refs.c',
   separator: true,
-  optionParsing: 'stop-at-operand',
+  parserExit: {
+    flags: ['-h', '--help-all', '--help'],
+    exceptFirst: ['--help'],
+    unknownOptions: 'error',
+    keepEndOfOptions: false,
+    mandatorySubcommand: true,
+    origin: 'git',
+    reason:
+      'parse_options with mandatory OPTION_SUBCOMMAND stops at the first exact registered operation. Unknown operands fail before later help; either boundary or argv exhaustion without selection requires a subcommand. Child parsing follows selection.',
+    source: 'https://github.com/git/git/blob/v2.55.0/parse-options.c',
+    longForms: {
+      plain: {},
+      attached: {},
+    },
+    firstPassOptions: ['--help', '--help-all', '-h'],
+    firstPassLongNames: ['exists', 'list', 'migrate', 'optimize', 'verify'],
+    remainingOptions: remainingOptions0 as RemainingOptions0Type,
+    remainingShortOptions: [],
+    remainingLongNames: [],
+    remainingDetachedOptions: [],
+    argumentOptions: {
+      '--help': {
+        key: 'help',
+        value: 'flag',
+      },
+      '-h': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--help-all': {
+        key: 'help',
+        value: 'flag',
+      },
+      '--ref-format': {
+        key: 'ref-format',
+        value: 'string',
+      },
+      '--dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+      },
+      '--no-reflog': {
+        key: 'no-reflog',
+        value: 'flag',
+      },
+      '--no-dry-run': {
+        key: 'dry-run',
+        value: 'flag',
+        set: false,
+      },
+      '--reflog': {
+        key: 'no-reflog',
+        value: 'flag',
+        set: false,
+      },
+      '--no-no-reflog': {
+        key: 'no-reflog',
+        value: 'flag',
+        set: false,
+      },
+      '--verbose': {
+        key: 'verbose',
+        value: 'flag',
+      },
+      '--strict': {
+        key: 'strict',
+        value: 'flag',
+      },
+      '--no-verbose': {
+        key: 'verbose',
+        value: 'flag',
+        set: false,
+      },
+      '--no-strict': {
+        key: 'strict',
+        value: 'flag',
+        set: false,
+      },
+      '--shell': {
+        key: 'shell',
+        value: 'flag',
+      },
+      '-s': {
+        key: 'shell',
+        value: 'flag',
+      },
+      '--perl': {
+        key: 'perl',
+        value: 'flag',
+      },
+      '-p': {
+        key: 'perl',
+        value: 'flag',
+      },
+      '--python': {
+        key: 'python',
+        value: 'flag',
+      },
+      '--tcl': {
+        key: 'tcl',
+        value: 'flag',
+      },
+      '--omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+      },
+      '--count': {
+        parser: {
+          kind: 'integer',
+          signed: true,
+          bits: 32,
+        },
+        key: 'count',
+        value: 'integer',
+      },
+      '--format': {
+        key: 'format',
+        value: 'string',
+      },
+      '--start-after': {
+        key: 'start-after',
+        value: 'string',
+      },
+      '--color': {
+        key: 'color',
+        value: 'optional-string',
+        set: 'always',
+        allowed: ['always', 'auto', 'never'],
+        caseInsensitive: true,
+      },
+      '--exclude': {
+        key: 'exclude',
+        value: 'string',
+        repeat: true,
+      },
+      '--sort': {
+        key: 'sort',
+        value: 'string',
+        repeat: true,
+      },
+      '--points-at': {
+        key: 'points-at',
+        value: 'string',
+        checks: [
+          {
+            id: 'native.object-name-nonempty',
+            kind: 'required',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+            origin: 'git',
+            source:
+              'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
+            reason:
+              'An explicitly supplied empty object name cannot resolve; nonempty object resolution remains native.',
+          },
+        ],
+      },
+      '--merged': {
+        lastArgDefault: true,
+        key: 'merged',
+        value: 'optional-string',
+        set: 'HEAD',
+        checks: [
+          {
+            id: 'native.object-name-nonempty',
+            kind: 'required',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+            origin: 'git',
+            source:
+              'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
+            reason:
+              'An explicitly supplied empty object name cannot resolve; nonempty object resolution remains native.',
+          },
+        ],
+      },
+      '--no-merged': {
+        lastArgDefault: true,
+        key: 'no-merged',
+        value: 'optional-string',
+        set: 'HEAD',
+        checks: [
+          {
+            id: 'native.object-name-nonempty',
+            kind: 'required',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+            origin: 'git',
+            source:
+              'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
+            reason:
+              'An explicitly supplied empty object name cannot resolve; nonempty object resolution remains native.',
+          },
+        ],
+      },
+      '--contains': {
+        lastArgDefault: true,
+        key: 'contains',
+        value: 'optional-string',
+        set: 'HEAD',
+        checks: [
+          {
+            id: 'native.object-name-nonempty',
+            kind: 'required',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+            origin: 'git',
+            source:
+              'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
+            reason:
+              'An explicitly supplied empty object name cannot resolve; nonempty object resolution remains native.',
+          },
+        ],
+      },
+      '--no-contains': {
+        lastArgDefault: true,
+        key: 'no-contains',
+        value: 'optional-string',
+        set: 'HEAD',
+        checks: [
+          {
+            id: 'native.object-name-nonempty',
+            kind: 'required',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+            origin: 'git',
+            source:
+              'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1',
+            reason:
+              'An explicitly supplied empty object name cannot resolve; nonempty object resolution remains native.',
+          },
+        ],
+      },
+      '--ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+      },
+      '--stdin': {
+        key: 'stdin',
+        value: 'flag',
+      },
+      '--include-root-refs': {
+        key: 'include-root-refs',
+        value: 'flag',
+      },
+      '--no-shell': {
+        key: 'shell',
+        value: 'flag',
+        set: false,
+      },
+      '--no-perl': {
+        key: 'perl',
+        value: 'flag',
+        set: false,
+      },
+      '--no-python': {
+        key: 'python',
+        value: 'flag',
+        set: false,
+      },
+      '--no-tcl': {
+        key: 'tcl',
+        value: 'flag',
+        set: false,
+      },
+      '--no-omit-empty': {
+        key: 'omit-empty',
+        value: 'flag',
+        set: false,
+      },
+      '--no-count': {
+        parser: {
+          kind: 'integer',
+          signed: true,
+          bits: 32,
+        },
+        key: 'count',
+        value: 'flag',
+        set: 0,
+      },
+      '--no-format': {
+        key: 'format',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-start-after': {
+        key: 'start-after',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-color': {
+        key: 'color',
+        value: 'flag',
+        set: 'never',
+      },
+      '--no-exclude': {
+        key: 'exclude',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+      '--no-sort': {
+        key: 'sort',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+        effects: [
+          {
+            key: 'sort-base',
+            set: false,
+          },
+        ],
+      },
+      '--no-points-at': {
+        key: 'points-at',
+        value: 'flag',
+        clear: true,
+      },
+      '--no-ignore-case': {
+        key: 'ignore-case',
+        value: 'flag',
+        set: false,
+      },
+      '--no-stdin': {
+        key: 'stdin',
+        value: 'flag',
+        set: false,
+      },
+      '--no-include-root-refs': {
+        key: 'include-root-refs',
+        value: 'flag',
+        set: false,
+      },
+      '--all': {
+        key: 'all',
+        value: 'flag',
+      },
+      '--prune': {
+        key: 'prune',
+        value: 'flag',
+      },
+      '--auto': {
+        key: 'auto',
+        value: 'flag',
+      },
+      '--include': {
+        key: 'include',
+        value: 'string',
+        repeat: true,
+      },
+      '--no-all': {
+        key: 'all',
+        value: 'flag',
+        set: false,
+      },
+      '--no-prune': {
+        key: 'prune',
+        value: 'flag',
+        set: false,
+      },
+      '--no-auto': {
+        key: 'auto',
+        value: 'flag',
+        set: false,
+      },
+      '--no-include': {
+        key: 'include',
+        value: 'flag',
+        repeat: true,
+        clear: true,
+      },
+    },
+  },
 } as const satisfies CommandSpec;
 const commandSpec273 = {
   argv: ['repo'],

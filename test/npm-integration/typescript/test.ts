@@ -399,3 +399,16 @@ export function testAliasParserTypes(git: Git): void {
   // @ts-expect-error Literal -h after -- cannot suppress clone's final arity check.
   git.command('clone', [['--'], { operand: 'one' }, { operand: 'two' }, ['-h']]);
 }
+
+function mandatorySubcommandContracts(git: Git) {
+  git.command('refs', [{ operand: 'list' }, ['--count', 1]]);
+  git.command('refs', [['-h'], { operand: 'list' }, ['--count', 'bad']]);
+  git.command('refs', [{ operand: 'verify' }, { operand: '--help' }]);
+  // @ts-expect-error Unknown mandatory subcommands fail before later help.
+  git.command('refs', [{ operand: 'unknown' }, ['-h']]);
+  // @ts-expect-error A boundary cannot replace mandatory subcommand selection.
+  git.command('refs', [['--'], { operand: 'list' }]);
+  // @ts-expect-error The selected child rejects malformed callback values.
+  git.command('refs', [{ operand: 'list' }, ['--count', 'bad'], ['-h']]);
+}
+void mandatorySubcommandContracts;

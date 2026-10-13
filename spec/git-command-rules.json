@@ -15669,32 +15669,7 @@
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/multi-pack-index.c"
     }
   ],
-  "refs": [
-    {
-      "id": "cli.refs.operation",
-      "kind": "arity",
-      "key": "operands",
-      "min": 1,
-      "origin": "git",
-      "reason": "The native dispatcher requires a registered subcommand.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/refs.c"
-    },
-    {
-      "id": "cli.refs.known-operation",
-      "kind": "value",
-      "key": "operand0",
-      "allowed": [
-        "migrate",
-        "verify",
-        "list",
-        "exists",
-        "optimize"
-      ],
-      "origin": "git",
-      "reason": "This root dispatcher accepts only its registered operations.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/refs.c"
-    }
-  ],
+  "refs": [],
   "repo": [
     {
       "id": "cli.repo.operation",
