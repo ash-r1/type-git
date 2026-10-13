@@ -31,6 +31,8 @@ export type OptionSpec = {
   parser?: GitScalarParser;
   /** Finite supplied values accepted by both literal types and runtime validation. */
   allowed?: readonly (string | number | boolean)[];
+  /** Git callbacks using ASCII case-insensitive enum matching. */
+  caseInsensitive?: boolean;
   /** Constraints evaluated before this token changes parser state; $value is the incoming value. */
   checks?: readonly Constraint[];
   /** Ordered callback side effects on other parser variables. */

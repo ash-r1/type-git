@@ -1,3 +1,8 @@
+const ASCII_UPPERCASE = /[A-Z]/g;
+export function asciiLower(value: string): string {
+  return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
+}
+
 /** Git 2.55 parse.c: signed 32-bit configuration integers with base-0 (including C23 binary literals) and k/m/g units. */
 export function gitInteger(value: string): bigint | undefined {
   const match =
@@ -11,7 +16,7 @@ export function gitInteger(value: string): bigint | undefined {
     : digits.startsWith('0')
       ? BigInt(`0o${digits}`)
       : BigInt(digits);
-  const power = { '': 0n, k: 10n, m: 20n, g: 30n }[match[3]!.toLowerCase()]!;
+  const power = { '': 0n, k: 10n, m: 20n, g: 30n }[asciiLower(match[3] ?? '')]!;
   const number = (match[1] === '-' ? -magnitude : magnitude) * (1n << power);
   return number >= -2147483648n && number <= 2147483647n ? number : undefined;
 }
@@ -36,6 +41,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'mainline'
   | 'revision-count'
   | 'git-bool'
   | 'fetch-recurse'
@@ -47,6 +53,10 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'mainline') {
+    const mainline = typeof value === 'number' && Number.isSafeInteger(value) ? value | 0 : 0;
+    return { valid: mainline > 0, value: mainline };
+  }
   if (parser === 'revision-count') {
     return {
       valid:

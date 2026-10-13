@@ -42,6 +42,13 @@ async function testTypes(): Promise<void> {
   // @ts-expect-error Reflog mode is initialized before folding user options.
   await git.command('reflog show', [['--graph']]);
 
+  await git.command('rebase', [['--empty', 'AsK'], { operand: 'HEAD' }]);
+  await git.command('cherry-pick', [['--quit'], ['--quit'], ['-S']]);
+  // @ts-expect-error Merge continuation uses original argument count.
+  await git.command('merge', [['--quit'], ['--quit']]);
+  // @ts-expect-error The two same-named C tables have different command scopes.
+  await git.command('cherry-pick', [['--reference'], { operand: 'HEAD' }]);
+
   // Test raw method return type
   const rawResult: RawResult = await git.raw(['--version']);
   const _stdout: string = rawResult.stdout;
