@@ -48,7 +48,10 @@ export function commandDomains(spec, referencedKeys) {
     }
     if (value.kind === 'elements') {
       add(value.key, []);
-      for (const allowed of value.allowed) { add(value.key, [allowed]); add(value.key, [allowed, allowed]); add(value.key, [allowed, 'invalid']); }
+      let rejected = 'invalid';
+      while (value.allowed.includes(rejected)) rejected += '-';
+      add(value.key, [rejected]);
+      for (const allowed of value.allowed) { add(value.key, [allowed]); add(value.key, [allowed, allowed]); add(value.key, [allowed, rejected]); }
     }
     if (value.kind === 'value') for (const allowed of value.allowed) add(value.key, allowed);
     if (value.kind === 'range' || value.kind === 'integer') for (const number of [value.min - 1, value.min, value.min + 1]) add(value.key, number);

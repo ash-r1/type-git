@@ -58973,6 +58973,7 @@
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"invalid\"]",
           "[\"start\"]",
           "[\"start\",\"start\"]",
           "[\"start\",\"invalid\"]",
@@ -58996,7 +58997,7 @@
           "true"
         ]
       },
-      "total": "1020000",
+      "total": "1080000",
       "accepted": "540000",
       "nodes": 2,
       "isolatedRuleWitnesses": {
@@ -59055,6 +59056,7 @@
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"invalid\"]",
           "[\"start\"]",
           "[\"start\",\"start\"]",
           "[\"start\",\"invalid\"]",
@@ -59078,7 +59080,7 @@
           "true"
         ]
       },
-      "total": "1020000",
+      "total": "1080000",
       "accepted": "540000",
       "nodes": 2,
       "isolatedRuleWitnesses": {
@@ -59137,6 +59139,7 @@
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"invalid\"]",
           "[\"start\"]",
           "[\"start\",\"start\"]",
           "[\"start\",\"invalid\"]",
@@ -59160,7 +59163,7 @@
           "true"
         ]
       },
-      "total": "1020000",
+      "total": "1080000",
       "accepted": "540000",
       "nodes": 2,
       "isolatedRuleWitnesses": {
@@ -59219,6 +59222,7 @@
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"invalid\"]",
           "[\"start\"]",
           "[\"start\",\"start\"]",
           "[\"start\",\"invalid\"]",
@@ -59242,7 +59246,7 @@
           "true"
         ]
       },
-      "total": "1020000",
+      "total": "1080000",
       "accepted": "540000",
       "nodes": 2,
       "isolatedRuleWitnesses": {

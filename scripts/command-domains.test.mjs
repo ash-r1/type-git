@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { commandDomains } from './command-domains.mjs';
+import { solve } from '../src/constraints/decision-diagram.ts';
+import { violations } from '../src/constraints/model.ts';
 
 describe('relational command domains', () => {
   it('distinguishes empty positional strings from absent operands when referenced', () => {
@@ -28,4 +30,23 @@ describe('relational command domains', () => {
       expect(commandDomains({ initial, options: {}, rules }, keys)).toEqual(domains);
     }
   });
+});
+
+
+it('keeps an invalid element witness even when placeholder words are allowed', () => {
+  for (const allowed of [['value', 'invalid'], [], ['value', 'invalid', 'invalid-', 'invalid--']]) {
+    const rule = { id: 'elements-witness', kind: 'elements', key: 'actions', allowed,
+      origin: 'git', reason: 'Independent representative test', source: 'fixture' };
+    const domains = commandDomains({ options: {}, rules: [rule] }, r => [r.key]);
+    const rejected = domains.actions.filter(items => Array.isArray(items)
+      && items.some(item => !allowed.includes(item)));
+    expect(rejected.length).toBeGreaterThan(0);
+    for (const member of allowed) {
+      expect(rejected.some(items => items.includes(member))).toBe(true);
+    }
+    const result = solve([rule], { actions: domains.actions });
+    const witness = result.counterexamples[rule.id];
+    expect(witness).toBeDefined();
+    expect(violations([rule], witness).map(r => r.id)).toEqual([rule.id]);
+  }
 });

@@ -19,6 +19,8 @@ git.command('instaweb', [{ operand: 'stop' }, { operand: 'unknown' }]);
 git.command('instaweb stop', [['--port', 'unvalidated-by-stop']]);
 // @ts-expect-error Git installs this as a sourced library, not a standalone command.
 git.command('sh-setup', [{ operand: '-h' }]);
+// @ts-expect-error The other sourced library is not a standalone command either.
+git.command('sh-i18n', [{ operand: '-h' }]);
 
 
 import type { Constraint } from '../../src/constraints/model.js';
@@ -54,3 +56,10 @@ git.command('shell', [['--help'], { operand: 'ignored' }]);
 git.command('shell', [['-c', 'fixture'], ['--help']]);
 // @ts-expect-error Short -h is not the global documentation dispatcher here.
 git.command('shell', [['-h']]);
+
+
+import type { GitCommandName } from '../../src/commands/types.js';
+type AssertNoCommand<T extends never> = T;
+export type SourcedLibrariesHaveNoStandaloneCommand = AssertNoCommand<
+  Extract<GitCommandName, 'sh-setup' | 'sh-i18n'>
+>;
