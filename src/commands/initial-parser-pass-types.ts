@@ -8,7 +8,34 @@ type Done<T extends Tokens, R extends readonly string[]> = {
   tokens: T;
   remaining: R;
 };
-type Help<T extends Tokens> = { exited: true; tokens: readonly [...T, readonly ['-h']] };
+type HelpFlags<S extends CommandSpec> = S extends {
+  parserExit: { flags: readonly (infer F)[] };
+}
+  ? F
+  : never;
+type ExceptFirst<S extends CommandSpec> = S extends {
+  parserExit: { exceptFirst: readonly (infer F)[] };
+}
+  ? F
+  : never;
+type FirstInternalHelp<F extends readonly string[], E> = F extends readonly [
+  infer H extends string,
+  ...infer R extends string[],
+]
+  ? H extends E
+    ? FirstInternalHelp<R, E>
+    : H
+  : never;
+type Help<S extends CommandSpec, T extends Tokens> = S extends {
+  parserExit: { flags: infer F extends readonly string[] };
+}
+  ? { exited: true; tokens: readonly [...T, readonly [FirstInternalHelp<F, ExceptFirst<S>>]] }
+  : never;
+type ShortHelp<S extends CommandSpec, C extends string> = C extends 'h'
+  ? '-h' extends HelpFlags<S>
+    ? true
+    : false
+  : false;
 type Text<V> = V extends string | number | bigint | boolean ? `${V}` : never;
 type Emit<K extends string, D extends OptionSpec, V> = [V] extends [undefined]
   ? readonly [K]
@@ -164,12 +191,12 @@ type Short<
   : string extends W
     ? Deferred
     : W extends `${infer C}${infer Rest}`
-      ? C extends 'h'
+      ? ShortHelp<S, C> extends true
         ? First extends true
           ? Typo<S, Original> extends true
             ? Invalid
-            : Help<T>
-          : Help<T>
+            : Help<S, T>
+          : Help<S, T>
         : [Option<S, `-${C}`>] extends [never]
           ? First extends true
             ? Typo<S, Original> extends true
@@ -244,7 +271,7 @@ type Walk<
                 : readonly [...Out, ...R]
           >
         : W extends '--help' | '--help-all'
-          ? Help<T>
+          ? Help<S, T>
           : W extends `--${string}`
             ? Long<S, W, R, T, Tick<N>, Out>
             : W extends '-'

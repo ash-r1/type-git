@@ -31,7 +31,13 @@ export function initialParserPass(
     }
     argv = pass.remaining;
   }
-  const help = () => ({ exited: true, tokens: [...tokens, ['-h']], remaining });
+  const help = () => {
+    const flag = exit.flags.find((candidate) => !exit.exceptFirst?.includes(candidate));
+    if (!flag) {
+      throw new Error('Native parser metadata requires an internal help spelling');
+    }
+    return { exited: true, tokens: [...tokens, [flag]], remaining };
+  };
   const typo = (word: string) => {
     if (
       word.length >= 3 &&
@@ -112,7 +118,7 @@ export function initialParserPass(
       const flag = `-${cluster[0]}`;
       const option = recognized.has(flag) ? spec.options[flag] : undefined;
       // Internal -h is checked when the short-option lookup fails.
-      if (!option || flag === '-h') {
+      if (!option) {
         if (first) {
           typo(word.slice(1));
         }

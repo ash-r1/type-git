@@ -3248,25 +3248,111 @@
     "source": "builtin/show-ref.c:cmd_show_ref",
     "tables": [
       "builtin/show-ref.c:cmd_show_ref:show_ref_options"
-    ]
+    ],
+    "parserExit": {
+      "flags": [
+        "--help-all",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 builtin/show-ref.c:cmd_show_ref; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "builtin/show-ref.c:cmd_show_ref:show_ref_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
+    }
   },
   "symbolic-ref": {
     "source": "builtin/symbolic-ref.c:cmd_symbolic_ref",
     "tables": [
       "builtin/symbolic-ref.c:cmd_symbolic_ref:options"
-    ]
+    ],
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 builtin/symbolic-ref.c:cmd_symbolic_ref; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "builtin/symbolic-ref.c:cmd_symbolic_ref:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    }
   },
   "verify-tag": {
     "source": "builtin/verify-tag.c:cmd_verify_tag",
     "tables": [
       "builtin/verify-tag.c:cmd_verify_tag:verify_tag_options"
-    ]
+    ],
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 builtin/verify-tag.c:cmd_verify_tag; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "builtin/verify-tag.c:cmd_verify_tag:verify_tag_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    }
   },
   "verify-commit": {
     "source": "builtin/verify-commit.c:cmd_verify_commit",
     "tables": [
       "builtin/verify-commit.c:cmd_verify_commit:verify_commit_options"
-    ]
+    ],
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 builtin/verify-commit.c:cmd_verify_commit; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "builtin/verify-commit.c:cmd_verify_commit:verify_commit_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    }
   },
   "count-objects": {
     "source": "builtin/count-objects.c:cmd_count_objects",
@@ -3647,19 +3733,79 @@
     "tables": [
       "builtin/refs.c:cmd_refs_migrate:options"
     ],
-    "source": "builtin/refs.c"
+    "source": "builtin/refs.c",
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 builtin/refs.c; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "builtin/refs.c:cmd_refs_migrate:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    }
   },
   "refs verify": {
     "tables": [
       "builtin/refs.c:cmd_refs_verify:options"
     ],
-    "source": "builtin/refs.c"
+    "source": "builtin/refs.c",
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 builtin/refs.c; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "builtin/refs.c:cmd_refs_verify:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    }
   },
   "refs exists": {
     "tables": [
       "builtin/refs.c:cmd_refs_exists:options"
     ],
-    "source": "builtin/refs.c"
+    "source": "builtin/refs.c",
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 builtin/refs.c; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "builtin/refs.c:cmd_refs_exists:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    }
   },
   "refs list": {
     "source": "builtin/for-each-ref.c:for_each_ref_core",
@@ -3682,7 +3828,30 @@
           }
         ]
       }
-    }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 builtin/for-each-ref.c:for_each_ref_core; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "builtin/for-each-ref.c:for_each_ref_core:opts"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    },
+    "optionGroups": [
+      "color-flag"
+    ]
   },
   "pack-refs": {
     "tables": [
@@ -3694,7 +3863,27 @@
     "tables": [
       "pack-refs.c:pack_refs_core:opts"
     ],
-    "source": "pack-refs.c"
+    "source": "pack-refs.c",
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "origin": "git",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
+      "source": "Git 2.55.0 pack-refs.c; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
+      "firstPassTables": [
+        "pack-refs.c:pack_refs_core:opts"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
+    }
   },
   "fsck": {
     "tables": [

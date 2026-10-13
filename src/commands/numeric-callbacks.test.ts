@@ -188,6 +188,16 @@ describe('source-audited numeric callback stages', () => {
         ) {
           continue;
         }
+        const firstPass = spec.parserExit?.firstPassOptions;
+        if (
+          firstPass &&
+          (!firstPass.includes(flag) ||
+            spec.parserExit?.wrappers?.some((wrapper) => !wrapper.stopAtUnknown))
+        ) {
+          // A wrapper or earlier pass may reach help before this delegated
+          // callback. Independent phased corpora cover those parser boundaries.
+          continue;
+        }
         total++;
         const build = (): string[] =>
           commandArguments(

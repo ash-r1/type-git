@@ -2263,9 +2263,25 @@
       "command": "show-ref",
       "options": [
         {
+          "flag": "--hash",
+          "key": "hash",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
+          "flag": "-s",
+          "key": "hash",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
           "flag": "--abbrev",
           "key": "abbrev",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}"
+        },
+        {
+          "flag": "--no-hash",
+          "key": "hash",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"nonzeroMinimum\":4,\"default\":\"unknown\"}",
+          "default": 0
         },
         {
           "flag": "--no-abbrev",

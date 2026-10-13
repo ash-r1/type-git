@@ -73,6 +73,7 @@ try {
     }
     if (entry.parserExit?.firstPassOptions) {
       if (entry.optionParsing) throw new Error(`${name}: phased exits require interleaved option parsing`);
+      if (!entry.parserExit.flags.some(flag => !entry.parserExit.exceptFirst?.includes(flag))) throw new Error(`${name}: native parser requires an internal help spelling`);
       for (const flag of entry.parserExit.firstPassOptions) if (!entry.options[flag] || entry.options[flag].consumesRest || entry.options[flag].before !== undefined) throw new Error(`${name} ${flag}: unsupported first-pass option`);
       for (const flag of entry.parserExit.flags) if (!entry.parserExit.firstPassOptions.includes(flag)) throw new Error(`${name}: exit missing from first pass`);
     }
