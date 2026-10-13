@@ -6366,6 +6366,40 @@
         "key": "help",
         "value": "flag",
         "firstOnly": true
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true,
+        "checks": [
+          {
+            "id": "cli.merge-recursive.sole-help",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The manual recursive merge parser recognizes this help spelling only as its sole argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+          }
+        ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true,
+        "checks": [
+          {
+            "id": "cli.merge-recursive.sole-help",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The manual recursive merge parser recognizes this help spelling only as its sole argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+          }
+        ]
       }
     }
   },
@@ -6445,6 +6479,40 @@
         "key": "help",
         "value": "flag",
         "firstOnly": true
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true,
+        "checks": [
+          {
+            "id": "cli.merge-recursive-ours.sole-help",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The manual recursive merge parser recognizes this help spelling only as its sole argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+          }
+        ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true,
+        "checks": [
+          {
+            "id": "cli.merge-recursive-ours.sole-help",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The manual recursive merge parser recognizes this help spelling only as its sole argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+          }
+        ]
       }
     }
   },
@@ -6524,6 +6592,40 @@
         "key": "help",
         "value": "flag",
         "firstOnly": true
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true,
+        "checks": [
+          {
+            "id": "cli.merge-recursive-theirs.sole-help",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The manual recursive merge parser recognizes this help spelling only as its sole argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+          }
+        ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true,
+        "checks": [
+          {
+            "id": "cli.merge-recursive-theirs.sole-help",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The manual recursive merge parser recognizes this help spelling only as its sole argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+          }
+        ]
       }
     }
   },
@@ -6603,6 +6705,40 @@
         "key": "help",
         "value": "flag",
         "firstOnly": true
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true,
+        "checks": [
+          {
+            "id": "cli.merge-subtree.sole-help",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The manual recursive merge parser recognizes this help spelling only as its sole argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+          }
+        ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true,
+        "checks": [
+          {
+            "id": "cli.merge-subtree.sole-help",
+            "kind": "arity",
+            "key": "$remaining",
+            "min": 0,
+            "max": 0,
+            "origin": "git",
+            "reason": "The manual recursive merge parser recognizes this help spelling only as its sole argument.",
+            "source": "https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c"
+          }
+        ]
       }
     }
   },
@@ -6638,6 +6774,16 @@
       "--staged": {
         "key": "cached",
         "value": "flag"
+      },
+      "-S": {
+        "key": "S",
+        "value": "string",
+        "attachedValue": true
+      },
+      "-G": {
+        "key": "G",
+        "value": "string",
+        "attachedValue": true
       }
     },
     "finalTables": [

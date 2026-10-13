@@ -225,6 +225,7 @@ export function commandArguments(
     }
   }
   state.operand0 = operands[0];
+  state.operand1 = operands[1];
   if (state.help !== true) {
     const errors = violations(spec.rules, state);
     if (errors.length > 0) {

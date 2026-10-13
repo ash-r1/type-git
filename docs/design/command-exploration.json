@@ -53186,6 +53186,44 @@
     },
     {
       "command": "merge-recursive",
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.merge-recursive.sole-help"
+          ],
+          "domains": {
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "cli.merge-recursive.sole-help": "{\"$remaining\":[\"value\"]}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.merge-recursive.sole-help"
+          ],
+          "domains": {
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "cli.merge-recursive.sole-help": "{\"$remaining\":[\"value\"]}"
+          }
+        }
+      ],
       "rules": 2,
       "domains": {
         "help": [
@@ -53305,6 +53343,44 @@
     },
     {
       "command": "merge-recursive-ours",
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.merge-recursive-ours.sole-help"
+          ],
+          "domains": {
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "cli.merge-recursive-ours.sole-help": "{\"$remaining\":[\"value\"]}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.merge-recursive-ours.sole-help"
+          ],
+          "domains": {
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "cli.merge-recursive-ours.sole-help": "{\"$remaining\":[\"value\"]}"
+          }
+        }
+      ],
       "rules": 2,
       "domains": {
         "help": [
@@ -53424,6 +53500,44 @@
     },
     {
       "command": "merge-recursive-theirs",
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.merge-recursive-theirs.sole-help"
+          ],
+          "domains": {
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "cli.merge-recursive-theirs.sole-help": "{\"$remaining\":[\"value\"]}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.merge-recursive-theirs.sole-help"
+          ],
+          "domains": {
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "cli.merge-recursive-theirs.sole-help": "{\"$remaining\":[\"value\"]}"
+          }
+        }
+      ],
       "rules": 2,
       "domains": {
         "help": [
@@ -53543,6 +53657,44 @@
     },
     {
       "command": "merge-subtree",
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.merge-subtree.sole-help"
+          ],
+          "domains": {
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "cli.merge-subtree.sole-help": "{\"$remaining\":[\"value\"]}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.merge-subtree.sole-help"
+          ],
+          "domains": {
+            "$remaining": [
+              "undefined",
+              "[]",
+              "[\"value\"]"
+            ]
+          },
+          "total": "3",
+          "accepted": "2",
+          "isolatedRuleWitnesses": {
+            "cli.merge-subtree.sole-help": "{\"$remaining\":[\"value\"]}"
+          }
+        }
+      ],
       "rules": 2,
       "domains": {
         "help": [
@@ -54289,7 +54441,7 @@
         ]
       },
       "total": "151090207009138704289628160000000000000000000000000000",
-      "accepted": "60212245459938239190977740800000000000000000000000000",
+      "accepted": "62002944209676179389965926400000000000000000000000000",
       "nodes": 182,
       "isolatedRuleWitnesses": {
         "cli.difftool.gui-tool-extcmd": "{\"gui\":true,\"operands\":[],\"tool\":\"value\"}",
@@ -54365,7 +54517,7 @@
     },
     {
       "command": "request-pull",
-      "rules": 2,
+      "rules": 3,
       "domains": {
         "help": [
           "undefined",
@@ -54386,18 +54538,24 @@
           "undefined",
           "\"value\""
         ],
+        "operand1": [
+          "undefined",
+          "\"\"",
+          "\"value\""
+        ],
         "inRepository": [
           "undefined",
           "false",
           "true"
         ]
       },
-      "total": "120",
+      "total": "360",
       "accepted": "36",
-      "nodes": 7,
+      "nodes": 15,
       "isolatedRuleWitnesses": {
-        "cli.request-pull.arguments": "{\"operand0\":\"value\",\"operands\":[]}",
-        "cli.request-pull.start": "{\"operands\":[\"value\",\"value\"]}"
+        "cli.request-pull.arguments": "{\"operand0\":\"value\",\"operand1\":\"value\",\"operands\":[]}",
+        "cli.request-pull.start": "{\"operand1\":\"value\",\"operands\":[\"value\",\"value\"]}",
+        "cli.request-pull.url": "{\"operand0\":\"value\",\"operands\":[\"value\",\"value\"]}"
       }
     },
     {

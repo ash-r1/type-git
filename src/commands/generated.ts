@@ -82033,6 +82033,20 @@ const commandSpec286 = {
     '-h': {
       key: 'help',
       value: 'flag',
+      firstOnly: true,
+      checks: [
+        {
+          id: 'cli.merge-recursive.sole-help',
+          kind: 'arity',
+          key: '$remaining',
+          min: 0,
+          max: 0,
+          origin: 'git',
+          reason:
+            'The manual recursive merge parser recognizes this help spelling only as its sole argument.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+        },
+      ],
     },
     '--ours': {
       key: 'ours',
@@ -82095,6 +82109,24 @@ const commandSpec286 = {
       value: 'string',
       allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
       caseInsensitive: true,
+    },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+      firstOnly: true,
+      checks: [
+        {
+          id: 'cli.merge-recursive.sole-help',
+          kind: 'arity',
+          key: '$remaining',
+          min: 0,
+          max: 0,
+          origin: 'git',
+          reason:
+            'The manual recursive merge parser recognizes this help spelling only as its sole argument.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+        },
+      ],
     },
   },
   rules: [
@@ -82137,6 +82169,20 @@ const commandSpec287 = {
     '-h': {
       key: 'help',
       value: 'flag',
+      firstOnly: true,
+      checks: [
+        {
+          id: 'cli.merge-recursive-ours.sole-help',
+          kind: 'arity',
+          key: '$remaining',
+          min: 0,
+          max: 0,
+          origin: 'git',
+          reason:
+            'The manual recursive merge parser recognizes this help spelling only as its sole argument.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+        },
+      ],
     },
     '--ours': {
       key: 'ours',
@@ -82199,6 +82245,24 @@ const commandSpec287 = {
       value: 'string',
       allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
       caseInsensitive: true,
+    },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+      firstOnly: true,
+      checks: [
+        {
+          id: 'cli.merge-recursive-ours.sole-help',
+          kind: 'arity',
+          key: '$remaining',
+          min: 0,
+          max: 0,
+          origin: 'git',
+          reason:
+            'The manual recursive merge parser recognizes this help spelling only as its sole argument.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+        },
+      ],
     },
   },
   rules: [
@@ -82241,6 +82305,20 @@ const commandSpec288 = {
     '-h': {
       key: 'help',
       value: 'flag',
+      firstOnly: true,
+      checks: [
+        {
+          id: 'cli.merge-recursive-theirs.sole-help',
+          kind: 'arity',
+          key: '$remaining',
+          min: 0,
+          max: 0,
+          origin: 'git',
+          reason:
+            'The manual recursive merge parser recognizes this help spelling only as its sole argument.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+        },
+      ],
     },
     '--ours': {
       key: 'ours',
@@ -82303,6 +82381,24 @@ const commandSpec288 = {
       value: 'string',
       allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
       caseInsensitive: true,
+    },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+      firstOnly: true,
+      checks: [
+        {
+          id: 'cli.merge-recursive-theirs.sole-help',
+          kind: 'arity',
+          key: '$remaining',
+          min: 0,
+          max: 0,
+          origin: 'git',
+          reason:
+            'The manual recursive merge parser recognizes this help spelling only as its sole argument.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+        },
+      ],
     },
   },
   rules: [
@@ -82345,6 +82441,20 @@ const commandSpec289 = {
     '-h': {
       key: 'help',
       value: 'flag',
+      firstOnly: true,
+      checks: [
+        {
+          id: 'cli.merge-subtree.sole-help',
+          kind: 'arity',
+          key: '$remaining',
+          min: 0,
+          max: 0,
+          origin: 'git',
+          reason:
+            'The manual recursive merge parser recognizes this help spelling only as its sole argument.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+        },
+      ],
     },
     '--ours': {
       key: 'ours',
@@ -82407,6 +82517,24 @@ const commandSpec289 = {
       value: 'string',
       allowed: ['myers', 'minimal', 'patience', 'histogram', 'default'],
       caseInsensitive: true,
+    },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+      firstOnly: true,
+      checks: [
+        {
+          id: 'cli.merge-subtree.sole-help',
+          kind: 'arity',
+          key: '$remaining',
+          min: 0,
+          max: 0,
+          origin: 'git',
+          reason:
+            'The manual recursive merge parser recognizes this help spelling only as its sole argument.',
+          source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-recursive.c',
+        },
+      ],
     },
   },
   rules: [
@@ -82829,10 +82957,12 @@ const commandSpec291 = {
     '-S': {
       key: 'S',
       value: 'string',
+      attachedValue: true,
     },
     '-G': {
       key: 'G',
       value: 'string',
+      attachedValue: true,
     },
     '--pickaxe-all': {
       key: 'pickaxe-all',
@@ -83175,7 +83305,6 @@ const commandSpec291 = {
       kind: 'arity',
       key: 'operands',
       min: 2,
-      max: 2,
       when: {
         key: 'no-index',
         test: 'active',
@@ -83187,7 +83316,8 @@ const commandSpec291 = {
         },
       ],
       origin: 'git',
-      reason: 'No-index comparison requires two paths.',
+      reason:
+        'No-index comparison requires two paths; directory pathspec support depends on the selected Git and filesystem and is delegated to native Git.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
     },
     {
@@ -83339,6 +83469,19 @@ const commandSpec293 = {
       ],
       origin: 'git',
       reason: 'The starting revision string must not be empty.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-request-pull.sh',
+    },
+    {
+      id: 'cli.request-pull.url',
+      kind: 'required',
+      required: [
+        {
+          key: 'operand1',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      reason: 'The URL string must not be empty.',
       source: 'https://github.com/git/git/blob/v2.55.0/git-request-pull.sh',
     },
   ],

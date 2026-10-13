@@ -90,6 +90,7 @@ type Empty<C extends GitCommandName> = {
     | 'argumentTokens'
     | 'hasSeparator'
     | 'operand0'
+    | 'operand1'
     | 'inRepository']?: undefined;
 } & {
   operands: readonly [];
@@ -459,7 +460,15 @@ type ApplyToken<
     ? S extends { operands: infer P extends readonly string[] }
       ? AddOperand<
           Put<
-            Put<S, 'operands', readonly [...P, V]>,
+            Put<
+              Put<S, 'operands', readonly [...P, V]>,
+              'operand1',
+              P extends readonly [string]
+                ? V
+                : S extends { operand1: infer Second }
+                  ? Second
+                  : undefined
+            >,
             'operand0',
             P extends readonly [] ? V : S extends { operand0: infer F } ? F : string
           >,

@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -13,12 +13,12 @@ describe('merge strategies and tool frontends', () => {
   let root: string;
   let repo: WorktreeRepo;
   let env: NodeJS.ProcessEnv;
-  const direct = (args: string[], input = '') =>
+  const direct = (args: string[], input = '', timeout = 10000) =>
     spawnSync('git', ['-C', repo.workdir, ...args], {
       env,
       input,
       encoding: 'utf8',
-      timeout: 10000,
+      timeout,
     });
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-merge-tools-'));
@@ -48,7 +48,7 @@ describe('merge strategies and tool frontends', () => {
     for (const [key, value] of [
       ['help.format', 'man'],
       ['man.viewer', 'fixture'],
-      ['man.fixture.cmd', 'true'],
+      ['man.fixture.cmd', `"${process.execPath.replaceAll('\\', '/')}" -e "process.exit(0)"`],
       ['difftool.fixture.cmd', 'true'],
     ]) {
       expect(direct(['config', key, value]).status).toBe(0);
@@ -66,8 +66,9 @@ describe('merge strategies and tool frontends', () => {
     argv: string[],
     valid: boolean,
     input = '',
+    timeout = 10000,
   ) => {
-    const actual = direct([...command.split(' '), ...argv], input);
+    const actual = direct([...command.split(' '), ...argv], input, timeout);
     const label = `${command} ${argv.join(' ')}: ${actual.stderr}`;
     expect(actual.signal, label).toBe(null);
     expect(actual.error, label).toBeUndefined();
@@ -87,6 +88,16 @@ describe('merge strategies and tool frontends', () => {
       'merge-recursive-theirs',
       'merge-subtree',
     ] as const) {
+      for (const flag of ['-h', '--help-all']) {
+        const help = direct([command, flag]);
+        expect(help.error).toBeUndefined();
+        expect(help.signal).toBe(null);
+        expect(help.status, help.stderr).toBe(129);
+        expect(help.stdout + help.stderr).toContain('usage:');
+        expect(commandArguments(command, [[flag]], true)).toEqual([command, flag]);
+        compare(command, [[flag], ['--']], [flag, '--'], false);
+        compare(command, [['--ours'], [flag]], ['--ours', flag], false);
+      }
       compare(command, [['--help']], ['--help'], true);
       compare(command, [['--help'], ['--']], ['--help', '--'], true);
       compare(command, [['--ours'], ['--help']], ['--ours', '--help'], false);
@@ -94,7 +105,7 @@ describe('merge strategies and tool frontends', () => {
       expect(actual.exitCode, actual.stderr).toBe(0);
       expect(actual.aborted).toBe(false);
     }
-  });
+  }, 30000);
   it('requires exactly two heads after a separator for every recursive alias', () => {
     for (const command of [
       'merge-recursive',
@@ -192,6 +203,8 @@ describe('merge strategies and tool frontends', () => {
       [['--tool-help'], ['--gui'], ['--tool', 'unused'], ['--diff-algorithm', 'unknown']],
       ['--tool-help', '--gui', '--tool=unused', '--diff-algorithm=unknown'],
       true,
+      '',
+      30000,
     );
     compare(
       'difftool',
@@ -207,6 +220,50 @@ describe('merge strategies and tool frontends', () => {
       true,
     );
     compare('difftool', [['--dir-diff'], ['--no-index']], ['--dir-diff', '--no-index'], false);
+  }, 45000);
+  it('preserves option-looking pickaxe values through difftool forwarding', () => {
+    for (const flag of ['-S', '-G'] as const) {
+      const args = [[flag, '--tool-help'], { operand: 'HEAD' }, { operand: 'HEAD' }] as const;
+      const argv = ['difftool', `${flag}--tool-help`, 'HEAD', 'HEAD'];
+      expect(commandArguments('difftool', args, true)).toEqual(argv);
+      const result = direct(argv);
+      expect(result.error).toBeUndefined();
+      expect(result.signal).toBe(null);
+      expect(result.status, result.stderr).toBe(0);
+      expect(result.stdout).toBe('');
+    }
+  });
+  it('delegates directory no-index pathspecs to the selected native Git', async (context) => {
+    const help = direct(['diff', '--no-index', '-h']);
+    expect(help.error).toBeUndefined();
+    expect(help.signal).toBe(null);
+    expect(help.status).toBe(129);
+    const left = join(root, 'left');
+    const right = join(root, 'right');
+    await mkdir(left);
+    await mkdir(right);
+    await writeFile(join(left, 'same.ts'), 'same\n');
+    await writeFile(join(right, 'same.ts'), 'same\n');
+    const args = [
+      ['--no-index'],
+      { operand: left },
+      { operand: right },
+      ['--'],
+      { operand: '*.ts' },
+    ] as const;
+    const argv = ['difftool', '--no-index', left, right, '--', '*.ts'];
+    expect(commandArguments('difftool', args, true)).toEqual(argv);
+    const actual = direct(argv);
+    expect(actual.error).toBeUndefined();
+    expect(actual.signal).toBe(null);
+    if (!(help.stdout + help.stderr).includes('[<pathspec>...]')) {
+      expect(actual.status).toBe(129);
+      context.skip();
+      return;
+    }
+    expect(actual.status, actual.stderr).toBe(0);
+    const result = await repo.command('difftool', args);
+    expect(result.exitCode, result.stderr).toBe(0);
   });
   it('preserves mergetool selection and ignored request-pull tail arguments', () => {
     compare(
@@ -216,6 +273,7 @@ describe('merge strategies and tool frontends', () => {
       true,
     );
     compare('request-pull', [{ operand: 'HEAD' }], ['HEAD'], false);
+    compare('request-pull', [{ operand: 'HEAD' }, { operand: '' }], ['HEAD', ''], false);
     compare(
       'request-pull',
       [{ operand: '' }, { operand: repo.workdir }],

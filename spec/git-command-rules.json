@@ -16697,7 +16697,6 @@
       "kind": "arity",
       "key": "operands",
       "min": 2,
-      "max": 2,
       "when": {
         "key": "no-index",
         "test": "active"
@@ -16709,7 +16708,7 @@
         }
       ],
       "origin": "git",
-      "reason": "No-index comparison requires two paths.",
+      "reason": "No-index comparison requires two paths; directory pathspec support depends on the selected Git and filesystem and is delegated to native Git.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/difftool.c"
     },
     {
@@ -16781,6 +16780,19 @@
       ],
       "origin": "git",
       "reason": "The starting revision string must not be empty.",
+      "source": "https://github.com/git/git/blob/v2.55.0/git-request-pull.sh"
+    },
+    {
+      "id": "cli.request-pull.url",
+      "kind": "required",
+      "required": [
+        {
+          "key": "operand1",
+          "test": "nonempty"
+        }
+      ],
+      "origin": "git",
+      "reason": "The URL string must not be empty.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-request-pull.sh"
     }
   ]

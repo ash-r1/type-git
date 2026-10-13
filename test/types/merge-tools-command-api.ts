@@ -43,3 +43,51 @@ git.command('merge-subtree', [['--ours'], ['--help']]);
 declare const chooseHelp: boolean;
 const helpVariants = chooseHelp ? [['--help']] as const : [['--help'], ['--']] as const;
 git.command('merge-recursive', helpVariants);
+
+git.command('merge-recursive', [['-h']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive', [['-h'], ['--']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive', [['--ours'], ['-h']]);
+git.command('merge-recursive', [['--help-all']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive', [['--help-all'], ['--']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive', [['--ours'], ['--help-all']]);
+git.command('merge-recursive-ours', [['-h']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive-ours', [['-h'], ['--']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive-ours', [['--ours'], ['-h']]);
+git.command('merge-recursive-ours', [['--help-all']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive-ours', [['--help-all'], ['--']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive-ours', [['--ours'], ['--help-all']]);
+git.command('merge-recursive-theirs', [['-h']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive-theirs', [['-h'], ['--']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive-theirs', [['--ours'], ['-h']]);
+git.command('merge-recursive-theirs', [['--help-all']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive-theirs', [['--help-all'], ['--']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-recursive-theirs', [['--ours'], ['--help-all']]);
+git.command('merge-subtree', [['-h']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-subtree', [['-h'], ['--']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-subtree', [['--ours'], ['-h']]);
+git.command('merge-subtree', [['--help-all']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-subtree', [['--help-all'], ['--']]);
+// @ts-expect-error Native short/all help requires the sole argument.
+git.command('merge-subtree', [['--ours'], ['--help-all']]);
+// @ts-expect-error The required URL must not be empty.
+git.command('request-pull', [{ operand: 'HEAD' }, { operand: '' }]);
+declare const dynamicUrl: string;
+git.command('request-pull', [{ operand: 'HEAD' }, { operand: dynamicUrl }]);
+git.command('difftool', [['-S', '--tool-help'], { operand: 'HEAD' }, { operand: 'HEAD' }]);
+git.command('difftool', [['--no-index'], { operand: 'left' }, { operand: 'right' }, ['--'], { operand: '*.ts' }]);
+git.command('difftool', [['-G', '--tool-help'], { operand: 'HEAD' }, { operand: 'HEAD' }]);

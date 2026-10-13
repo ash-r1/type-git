@@ -29,6 +29,7 @@ export function commandDomains(spec, referencedKeys) {
   }
   domains.operands = [[], ['value'], ['value', 'value'], ['value', 'value', 'value'], ['value', 'value', 'value', 'value']];
   domains.operand0 = [undefined, 'value'];
+  if (spec.rules.some(rule => referencedKeys(rule).includes('operand1'))) domains.operand1 = [undefined, '', 'value'];
   domains.inRepository = [undefined, false, true];
   const equalKeys = [];
   function visit(value) {
@@ -58,7 +59,7 @@ export function commandDomains(spec, referencedKeys) {
     }
   } while (changed);
   // Counts intentionally range over normalized states, not option-token permutations.
-  // operand0 and operands are correlated in actual argv; avoid reporting a false
+  // operand0, operand1 and operands are correlated in actual argv; avoid reporting a false
   // reachability proof for this over-approximation.
   for (const rule of spec.rules) for (const key of referencedKeys(rule)) domains[key] ??= key === 'hasSeparator' ? [undefined, true] : key === 'argumentTokens' || key === 'pathsAfterSeparator' || key === 'operandsBeforeSeparator' ? domains.operands : [undefined];
   return domains;
