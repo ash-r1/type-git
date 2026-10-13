@@ -48,6 +48,7 @@ export function commandDomains(spec, referencedKeys) {
     }
     if (value.kind === 'value') for (const allowed of value.allowed) add(value.key, allowed);
     if (value.kind === 'range' || value.kind === 'integer') for (const number of [value.min - 1, value.min, value.min + 1]) add(value.key, number);
+    if (value.kind === 'range' && value.max !== undefined) for (const number of [value.max - 1, value.max, value.max + 1]) add(value.key, number);
     if (value.kind === 'arity') for (const size of [0, value.min, Math.max(0, value.min - 1), (value.max ?? value.min) + 1]) add(value.key, Array(size).fill('value'));
     for (const child of Object.values(value)) visit(child);
   }

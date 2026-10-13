@@ -3508,6 +3508,56 @@
         "test/types/help-daemon-command-api.ts"
       ],
       "remaining": "Running versus non-running state output and IPC/configuration compatibility remain pending. Supported-branch integer grammar is modeled from source; actual native tests run only when the selected executable advertises IPC options. Unsupported-platform and missing-command outcomes are explicit skips, not successful native lifecycle tests."
+    },
+    "fast-import": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Complete data-stream/feature/object-ID/marks/path/submodule-map handling, unsigned-long scalar lexical and ABI boundaries, packing and signing execution/configuration remain pending. Depth upper bound and signing callback literals are modeled; separator availability is selected-native-dependent and is not claimed universal."
+    },
+    "http-fetch": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Object-ID/URL grammar, real object and pack transfers, index-pack argument order, ignored/prefix options, curl/protocol/server/configuration state and positional modes remain pending. Empty target input and parser prerequisite checks do not establish complete HTTP transfer behavior."
+    },
+    "http-push": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Refspec/delete/ref state, WebDAV/authentication/configuration, URL and manual-parser spellings, remote protocol/output remain pending. Current arity failures are checked without contacting a destination."
+    },
+    "http-backend": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Full CGI method/environment/path/namespace/authentication behavior and upload/receive streaming protocols remain pending. Local HEAD response and ignored argv are tested; full service lifecycle and binary RPC behavior are not claimed."
+    },
+    "imap-send": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/import-http.test.ts",
+        "test/types/import-http-command-api.ts"
+      ],
+      "remaining": "Mailbox/message input, folder/flag selection, credentials/authentication, curl/TLS and server/configuration-dependent behavior remain pending. Current tests distinguish parser rejection from missing configuration and send no mail; list/folder support is probed on the selected executable."
     }
   }
 }

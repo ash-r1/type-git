@@ -291,25 +291,49 @@ type CheckedCallbackState<
     ? ParsedState<S, D, T>
     : never
   : ParsedState<S, D, T>;
-type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: 'anonymize-map' }
-  ? V extends string
-    ? string extends V
+type ImportSignLiteral<V> = V extends string
+  ? string extends V
+    ? true
+    : V extends object
       ? true
-      : V extends object
+      : {} extends Record<V, unknown>
         ? true
-        : V extends ''
-          ? false
-          : V extends `${infer Key}:${infer Replacement}`
-            ? Key extends ''
-              ? false
-              : Replacement extends ''
+        : V extends
+              | 'abort'
+              | 'verbatim'
+              | 'ignore'
+              | 'warn-verbatim'
+              | 'warn'
+              | 'warn-strip'
+              | 'strip'
+              | 'abort-if-invalid'
+              | 'strip-if-invalid'
+              | 'sign-if-invalid'
+              | `sign-if-invalid=${string}`
+          ? true
+          : false
+  : true;
+type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: 'fast-import-sign' }
+  ? ImportSignLiteral<V>
+  : D extends { parser: 'anonymize-map' }
+    ? V extends string
+      ? string extends V
+        ? true
+        : V extends object
+          ? true
+          : V extends ''
+            ? false
+            : V extends `${infer Key}:${infer Replacement}`
+              ? Key extends ''
                 ? false
-                : true
-            : true
-    : true
-  : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-    ? ParsedScalarLiteral<D, V>
-    : true;
+                : Replacement extends ''
+                  ? false
+                  : true
+              : true
+      : true
+    : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+      ? ParsedScalarLiteral<D, V>
+      : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true

@@ -1,6 +1,11 @@
 import type { GitEnabledLiteral } from './git-enabled-types.js';
 import type { Constraint, Predicate } from './model.js';
-import type { NumberAtLeast, PositiveNumberMatch, SafeIntegerAtLeast } from './number-types.js';
+import type {
+  NumberAtLeast,
+  NumberAtMost,
+  PositiveNumberMatch,
+  SafeIntegerAtLeast,
+} from './number-types.js';
 
 type MaybeGitDisabled<V> = V extends unknown
   ? GitEnabledLiteral<V> extends true
@@ -249,7 +254,13 @@ type ApplyBody<T, R extends Constraint> = R extends {
   key: infer K extends keyof T;
   min: infer M extends number;
 }
-  ? { [P in K]?: NumberAtLeast<T[P], M> } | (R extends { when: infer W } ? Unless<T, W> : never)
+  ?
+      | {
+          [P in K]?: R extends { max: infer U extends number }
+            ? NumberAtMost<NumberAtLeast<T[P], M>, U>
+            : NumberAtLeast<T[P], M>;
+        }
+      | (R extends { when: infer W } ? Unless<T, W> : never)
   : R extends { kind: 'integer'; key: infer K extends keyof T; min: infer M extends number }
     ? { [P in K]?: SafeIntegerAtLeast<T[P], M, R extends { allowBoolean: true } ? true : false> }
     : R extends {
