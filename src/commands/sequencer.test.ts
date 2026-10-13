@@ -135,6 +135,40 @@ describe('merge, rebase and sequencer parser grammars', () => {
       );
     },
   );
+  it.skipIf(legacy)('treats an empty rebase-merges value as an active merge request', () => {
+    for (const tokens of [
+      [['--apply'], ['--rebase-merges', '']],
+      [['--rebase-merges', ''], ['--apply']],
+    ]) {
+      expect(() => commandArguments('rebase', [...tokens, { operand: 'HEAD' }])).toThrow(
+        GitArgumentError,
+      );
+      const argv = tokens.map((token) =>
+        token.length === 1 ? token[0]! : `${token[0]}=${token[1]}`,
+      );
+      const result = direct(['rebase', ...argv, 'HEAD']);
+      expect(result.error).toBeUndefined();
+      expect(result.status).not.toBe(0);
+    }
+  });
+  it.skipIf(legacy)('allows cleared trailer vectors in explicit and implicit tag listings', () => {
+    for (const flags of [
+      ['--list', '--no-trailer'],
+      ['--no-trailer'],
+      ['--list', '--trailer=Reviewed-by: Test', '--no-trailer'],
+      ['--contains=HEAD', '--no-trailer'],
+      ['--no-trailer', '--contains=HEAD'],
+      ['--list', '--trailer=Reviewed-by: Test'],
+      ['--list', '--no-trailer', '--trailer=Reviewed-by: Test'],
+    ]) {
+      const tokens = flags.map((flag) =>
+        flag.includes('=')
+          ? [flag.slice(0, flag.indexOf('=')), flag.slice(flag.indexOf('=') + 1)]
+          : [flag],
+      );
+      compare('tag', tokens, flags);
+    }
+  });
   it('distinguishes sequencer continuation options from merge continuation options', async () => {
     for (const name of ['cherry-pick', 'revert'] as const) {
       for (const flags of [
