@@ -405,7 +405,7 @@ type AppliedOption<
 }
   ? Effects<CheckedTokenState<S, D, T, Remaining>, E>
   : CheckedTokenState<S, D, T, Remaining>;
-type ApplyOption<
+type PositionedOption<
   S,
   D extends OptionSpec,
   T extends readonly unknown[],
@@ -417,19 +417,31 @@ type ApplyOption<
     ? never
     : Put<AppliedOption<S, D, T, Remaining>, 'literalOperands', true>
   : AppliedOption<S, D, T, Remaining>;
+type ApplyOption<
+  S,
+  D extends OptionSpec,
+  T extends readonly unknown[],
+  Remaining extends readonly unknown[],
+  First extends boolean,
+> = D extends { firstOnly: true }
+  ? First extends true
+    ? PositionedOption<S, D, T, Remaining>
+    : never
+  : PositionedOption<S, D, T, Remaining>;
 type ApplyNumeric<
   C extends GitCommandName,
   S,
   T,
   Remaining extends readonly unknown[],
+  First extends boolean,
 > = T extends readonly [`-${infer N extends number}`]
   ? T[0] extends `-${infer Text}`
     ? (`${number}` extends Text ? true : Digits<Text>) extends true
       ? NumericOption<C> extends { allowed: infer A extends readonly unknown[] }
         ? (number extends N ? true : N extends A[number] ? true : false) extends true
-          ? ApplyOption<S, NumericOption<C>, readonly [T[0], N], Remaining>
+          ? ApplyOption<S, NumericOption<C>, readonly [T[0], N], Remaining, First>
           : never
-        : ApplyOption<S, NumericOption<C>, readonly [T[0], N], Remaining>
+        : ApplyOption<S, NumericOption<C>, readonly [T[0], N], Remaining, First>
       : never
     : never
   : S;
@@ -438,6 +450,7 @@ type ApplyToken<
   S,
   T,
   Remaining extends readonly unknown[],
+  First extends boolean,
 > = T extends readonly ['--']
   ? ParsingEnded<C, S> extends true
     ? never
@@ -457,17 +470,18 @@ type ApplyToken<
       ? never
       : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
         ? Options<C>[K] extends infer D extends OptionSpec
-          ? ApplyOption<S, D, T, Remaining>
+          ? ApplyOption<S, D, T, Remaining, First>
           : never
-        : ApplyNumeric<C, S, T, Remaining>;
+        : ApplyNumeric<C, S, T, Remaining, First>;
 type State<
   C extends GitCommandName,
   A extends readonly unknown[],
   S = Put<Initial<C>, 'argumentTokens', A>,
+  First extends boolean = true,
 > = [S] extends [never]
   ? never
   : A extends readonly [infer H, ...infer Rest]
-    ? State<C, Rest, ApplyToken<C, S, H, Rest>>
+    ? State<C, Rest, ApplyToken<C, S, H, Rest, First>, false>
     : S;
 // Evaluate one rule at a time: constructing their Cartesian union can exceed TypeScript's union limit.
 type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [

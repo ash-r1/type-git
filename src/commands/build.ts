@@ -90,6 +90,9 @@ export function commandArguments(
     if (!option) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
     }
+    if (option.firstOnly && index !== 0) {
+      throw new GitArgumentError(`${command}: ${flag} must be the first argument`);
+    }
     if (arg.length > 2) {
       throw new GitArgumentError(`${command}: ${flag} accepts at most one value`);
     }

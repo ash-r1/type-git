@@ -3358,6 +3358,86 @@
         "test/types/transport-command-api.ts"
       ],
       "remaining": "File-descriptor URL grammar, descriptor availability and duplex I/O, helper negotiation/streaming records, repository/configuration restrictions and independent rule witnesses remain pending. Current comparisons request capabilities only, without opening the advertised descriptor connection."
+    },
+    "merge-recursive": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge-base/head/index and rename/content effects, rename score lexical grammar, complete delegated global-help argument/viewer behavior and independent rule witnesses remain pending. First-position --help (including a trailing separator) is modeled; later --help is rejected by the manual parser. Excess bases are not capped where native Git ignores them with a warning."
+    },
+    "merge-recursive-ours": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge-base/head/index and rename/content effects, rename score lexical grammar, complete delegated global-help argument/viewer behavior and independent rule witnesses remain pending. First-position --help (including a trailing separator) is modeled; later --help is rejected by the manual parser. Excess bases are not capped where native Git ignores them with a warning."
+    },
+    "merge-recursive-theirs": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge-base/head/index and rename/content effects, rename score lexical grammar, complete delegated global-help argument/viewer behavior and independent rule witnesses remain pending. First-position --help (including a trailing separator) is modeled; later --help is rejected by the manual parser. Excess bases are not capped where native Git ignores them with a warning."
+    },
+    "merge-subtree": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Merge-base/head/index and rename/content effects, rename score lexical grammar, complete delegated global-help argument/viewer behavior and independent rule witnesses remain pending. First-position --help (including a trailing separator) is modeled; later --help is rejected by the manual parser. Excess bases are not capped where native Git ignores them with a warning."
+    },
+    "merge-index": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Ordered prefix/program/path interpretation, actual conflicted-index program invocations and exit protocols, repository state, global-help delegation and independent rule witnesses remain pending. Native argument-word minimum and no-work -o program invocation have comparisons."
+    },
+    "difftool": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Delegated diff phase/callback validation, configured GUI/tool/extcmd selection, shell wildcard spellings, path/repository effects, viewer execution and independent rule witnesses remain pending. Tool-help early return is modeled separately from normal validation."
+    },
+    "mergetool": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Configured GUI/tool selection, conflicted-index/path state, shell option spellings, tool execution/exit protocols, prompts and independent rule witnesses remain pending. Native ignored selection combinations have isolated comparisons."
+    },
+    "request-pull": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/merge-tools.test.ts",
+        "test/types/merge-tools-command-api.ts"
+      ],
+      "remaining": "Remote/ref/revision resolution, URL and signature output, patch contents, shell option spellings and independent rule witnesses remain pending. Interleaved patch flags and ignored tail operands use isolated local refs."
     }
   }
 }
