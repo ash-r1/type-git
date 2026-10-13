@@ -924,3 +924,116 @@ describe('CliRunner', () => {
     });
   });
 });
+
+describe('selected Git executable ABI', () => {
+  it('rejects 64-bit size_t input when the selected Git reports 32-bit size_t', async () => {
+    const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 4\n' });
+    const runner = new CliRunner(adapters, { gitBinary: 'git32' });
+    await expect(
+      runner.runCommand({ type: 'global' }, 'backfill', [['--min-batch-size', 4294967296]], true),
+    ).rejects.toThrow('invalid unsigned-size');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({ argv: ['git32', 'version', '--build-options'] }),
+      undefined,
+    );
+  });
+  it('uses selected 64-bit size_t even when its C long is 32-bit', async () => {
+    const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 8\n' });
+    const runner = new CliRunner(adapters, { gitBinary: './git64' });
+    await runner.runCommand(
+      { type: 'worktree', workdir: '/repo' },
+      'backfill',
+      [['--min-batch-size', 4294967296]],
+      true,
+      { env: { PATH: '/selected' } },
+    );
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    expect(adapters.exec.spawn).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        argv: ['./git64', '-C', '/repo', 'version', '--build-options'],
+        cwd: '/repo',
+        env: expect.objectContaining({ PATH: '/selected' }),
+      }),
+      undefined,
+    );
+    expect(adapters.exec.spawn).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        argv: ['./git64', '-C', '/repo', 'backfill', '--min-batch-size=4294967296'],
+        cwd: '/repo',
+        env: expect.objectContaining({ PATH: '/selected' }),
+      }),
+      undefined,
+    );
+  });
+  it('fails explicitly rather than guessing when Git omits its widths', async () => {
+    const adapters = createMockAdapters({ stdout: 'git version custom\n' });
+    const runner = new CliRunner(adapters);
+    await expect(
+      runner.runCommand(
+        { type: 'bare', gitDir: '/repo.git' },
+        'backfill',
+        [['--min-batch-size', 4294967296]],
+        true,
+      ),
+    ).rejects.toThrow('Cannot determine integer widths');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+  it('returns cancellation without running an ABI-dependent command', async () => {
+    const adapters = createMockAdapters();
+    const runner = new CliRunner(adapters);
+    const abort = new AbortController();
+    abort.abort();
+    const result = await runner.runCommand(
+      { type: 'global' },
+      'backfill',
+      [['--min-batch-size', 1]],
+      undefined,
+      { signal: abort.signal },
+    );
+    expect(result.aborted).toBe(true);
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
+});
+
+describe('ABI-independent command preflight', () => {
+  it('rejects unsigned negatives without spawning any Git process', async () => {
+    const adapters = createMockAdapters();
+    const runner = new CliRunner(adapters);
+    await expect(
+      runner.runCommand({ type: 'global' }, 'backfill', [['--min-batch-size', -1]], true),
+    ).rejects.toThrow('invalid unsigned-size');
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
+  it('rejects malformed tokens alongside an ABI-dependent value without probing', async () => {
+    const adapters = createMockAdapters();
+    const runner = new CliRunner(adapters);
+    await expect(
+      runner.runCommand(
+        { type: 'global' },
+        'backfill',
+        [['--min-batch-size', 4294967296], ['--not-a-real-option']],
+        true,
+      ),
+    ).rejects.toThrow();
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
+  it('executes ABI-independent valid input without requiring build metadata', async () => {
+    const adapters = createMockAdapters({ stdout: 'command output' });
+    const runner = new CliRunner(adapters, { gitBinary: 'selected-git' });
+    const result = await runner.runCommand(
+      { type: 'global' },
+      'backfill',
+      [['--min-batch-size', 1]],
+      true,
+    );
+    expect(result.stdout).toBe('command output');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({ argv: ['selected-git', 'backfill', '--min-batch-size=1'] }),
+      undefined,
+    );
+  });
+});

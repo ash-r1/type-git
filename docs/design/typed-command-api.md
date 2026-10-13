@@ -232,6 +232,33 @@ restrictions. The ledger remains partial: two-phase revision parsing, ref and
 object resolution, interactive history rewriting and nested bundle revision
 syntax require further work.
 
+### Commands delegating revision and diff parsing
+
+Backfill rejects explicit merge-diff selections, including `--no-diff-merges`,
+and preserves accumulating diff filters even when followed by an empty filter.
+Its batch size uses native `size_t` width: negative values fail immediately,
+while 64-bit Git accepts values above the unsigned 32-bit maximum. The numeric
+API accepts safe JavaScript integers; literal contracts permit values valid on
+64-bit targets, and typed command execution queries the selected Git executable with
+`version --build-options` for its actual `sizeof-long` and `sizeof-size_t`.
+An ABI-independent preflight rejects universally invalid arguments before any process
+is spawned and skips probing for arguments valid on all supported widths. Only
+ABI-dependent validity triggers a probe. The same execution context and per-call
+environment select the probe and command;
+no JavaScript host ABI is substituted. Missing or unsupported widths fail explicitly.
+This also handles 64-bit Windows where C `long` remains 32-bit. Explicit ABI simulation tests do
+not substitute for running a 32-bit Git binary.
+Last-modified starts with boundary and combined-diff settings and consumes its
+own `-r`, `-t` and `-z` before revision parsing. Its single-positive-commit limit
+requires object resolution; it is not approximated by a raw operand count.
+Diff-pairs requires NUL input and excludes path/revision operands.
+
+Range-diff resolves one symmetric range, two ranges or three commits before
+optional paths. Paths may follow without a separator, so a general three-operand
+limit would reject valid Git commands. Replay requires exactly one target mode,
+preserves final ref-action selection, and accepts options which Git subsequently
+overrides with a warning. Phase-specific defaults and delegated value languages
+remain recorded as pending in the ledger.
 The generated catalogue declares each command's literal schema separately and
 uses explicit type references in the registry. This preserves per-command
 inference without exceeding TypeScript's declaration serialization limit as the

@@ -1,5 +1,5 @@
 import process from 'node:process';
-import { nativeCLongBits } from './c-abi.js';
+import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 
 const ASCII_UPPERCASE = /[A-Z]/g;
 export function asciiLower(value: string): string {
@@ -49,6 +49,7 @@ export type GitScalarParser =
   | 'mainline'
   | 'revision-count'
   | 'unsigned-int'
+  | 'unsigned-size'
   | 'git-bool'
   | 'fetch-recurse'
   | 'push-recurse'
@@ -59,6 +60,7 @@ export function parseGitScalar(
   value: unknown,
   previous?: unknown,
   cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
+  sizeTBits: 32 | 64 = nativeSizeTBits(process.arch),
 ): { valid: boolean; value?: unknown } {
   if (parser === 'rev-list-missing') {
     return {
@@ -90,6 +92,16 @@ export function parseGitScalar(
         : 0;
     const mainline = converted | 0;
     return { valid: mainline > 0, value: mainline };
+  }
+  if (parser === 'unsigned-size') {
+    return {
+      valid:
+        typeof value === 'number' &&
+        Number.isSafeInteger(value) &&
+        value >= 0 &&
+        (sizeTBits === 64 || value <= 4294967295),
+      value,
+    };
   }
   if (parser === 'revision-count' || parser === 'unsigned-int') {
     return {

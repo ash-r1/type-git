@@ -232,11 +232,17 @@ type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extend
     ? false extends IntegerRangeValid<TokenValue<T, D>, 0, 4294967295>
       ? never
       : UncheckedModeState<S, D, T>
-    : D extends { parser: 'mainline' }
-      ? MainlineLiteral<TokenValue<T, D>> extends false
+    : D extends { parser: 'unsigned-size' }
+      ? // Literal contracts have no target ABI; represent valid LP64/LLP64 inputs.
+        // Runtime parsing applies the actual size_t width on ILP32 hosts.
+        false extends IntegerRangeValid<TokenValue<T, D>, 0, 9007199254740991>
         ? never
         : UncheckedModeState<S, D, T>
-      : UncheckedModeState<S, D, T>;
+      : D extends { parser: 'mainline' }
+        ? MainlineLiteral<TokenValue<T, D>> extends false
+          ? never
+          : UncheckedModeState<S, D, T>
+        : UncheckedModeState<S, D, T>;
 type UncheckedModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeGroup: infer G extends string;
 }

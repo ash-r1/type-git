@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import { describe, expect, it } from 'vitest';
-import { nativeCLongBits } from './c-abi.js';
+import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 import { gitBoolean, parseGitScalar } from './git-scalars.js';
 
 describe('Git scalar grammars', () => {
@@ -132,6 +132,22 @@ describe('Git scalar grammars', () => {
       expect(parseGitScalar('mainline', -4294967295, undefined, bits)).toEqual(
         bits === 32 ? { valid: false, value: -2147483648 } : { valid: true, value: 1 },
       );
+    }
+  });
+  it('models size_t separately from C long on LLP64 hosts', () => {
+    expect(nativeSizeTBits('x64')).toBe(64);
+    expect(nativeSizeTBits('arm64')).toBe(64);
+    expect(nativeSizeTBits('ia32')).toBe(32);
+    for (const bits of [32, 64] as const) {
+      expect(parseGitScalar('unsigned-size', 4294967296, undefined, 32, bits).valid).toBe(
+        bits === 64,
+      );
+      expect(parseGitScalar('unsigned-size', -1, undefined, 64, bits).valid).toBe(false);
+      expect(parseGitScalar('unsigned-size', 0, undefined, 64, bits).valid).toBe(true);
+      expect(parseGitScalar('unsigned-size', 1.5, undefined, 64, bits).valid).toBe(false);
+      expect(
+        parseGitScalar('unsigned-size', Number.MAX_SAFE_INTEGER + 1, undefined, 64, bits).valid,
+      ).toBe(false);
     }
   });
 });
