@@ -488,7 +488,7 @@ import { checkRepositoryContract } from '../contracts/repository.ts';
 Deno.test('shared repository contracts through the Deno TypeGit entrypoint', async () => {
   const directory = await Deno.makeTempDir({ prefix: 'type-git-deno-contracts-' });
   try {
-    const git = await TypeGit.create({ home: directory, useLegacyVersion: USE_LEGACY_VERSION });
+    const git = await TypeGit.create({ home: directory, companionBinaries: { gitk: 'git' }, useLegacyVersion: USE_LEGACY_VERSION });
     await checkRepositoryContract(git, directory, Deno.writeTextFile);
   } finally { await Deno.remove(directory, { recursive: true }); }
 });

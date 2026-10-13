@@ -66,5 +66,29 @@ export async function checkRepositoryContract(git: Git, directory: string, write
   const versionBytes = await git.command('version', [], { stdout: 'bytes' });
   const versionText = await git.command('version', []);
   check(versionBytes.exitCode === 0 && new TextDecoder().decode(versionBytes.stdout) === versionText.stdout, 'global binary stdout must use the selected adapter');
+  // The configured gitk program is actual Git, exercising companion transport
+  // and repository cwd without claiming native GUI execution.
+  const companionStored = await repo.command('gitk', [
+    { operand: 'hash-object' }, { operand: '-w' }, { operand: '--stdin' },
+  ], { stdin: payload });
+  check(companionStored.exitCode === 0 && companionStored.stdout.trim() === oid,
+    'companion input must preserve the offset byte view and return native text');
+  const companionBlob = await repo.command('gitk', [
+    { operand: 'cat-file' }, { operand: '-p' }, { operand: oid },
+  ], { stdout: 'bytes' });
+  check(companionBlob.exitCode === 0 && companionBlob.stdout.length === payload.length
+    && companionBlob.stdout.every((value, i) => value === payload[i]),
+    'worktree companion output must preserve every non-UTF-8 byte');
+  const companionBareBlob = await bare.command('gitk', [
+    { operand: 'cat-file' }, { operand: '-p' }, { operand: bareStored.stdout.trim() },
+  ], { stdout: 'bytes' });
+  check(companionBareBlob.exitCode === 0 && companionBareBlob.stdout.length === payload.length
+    && companionBareBlob.stdout.every((value, i) => value === payload[i]),
+    'bare companion cwd and byte output must retain the repository context');
+  const companionVersion = await git.command('gitk', [{ operand: 'version' }], { stdout: 'bytes' });
+  check(companionVersion.exitCode === 0
+    && new TextDecoder().decode(companionVersion.stdout) === versionText.stdout,
+    'global companion byte output must use the selected runtime adapter');
+
 
 }

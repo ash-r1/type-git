@@ -307,9 +307,21 @@ export class CliRunner {
    * process environment is never forwarded wholesale unless `inheritEnv: true` is set
    * (environment variable traversal prevention).
    */
-  private buildEnv(): Record<string, string> {
+  private buildEnv(executable?: CompanionExecutable): Record<string, string> {
+    let inheritEnv = this.inheritEnv;
+    if (
+      executable === 'gitk' &&
+      inheritEnv !== true &&
+      inheritEnv !== false &&
+      typeof inheritEnv !== 'function'
+    ) {
+      const displayVariables = ['DISPLAY', 'XAUTHORITY'];
+      inheritEnv = Array.isArray(inheritEnv)
+        ? [...inheritEnv, ...displayVariables]
+        : { ...inheritEnv, add: [...(inheritEnv?.add ?? []), ...displayVariables] };
+    }
     const env: Record<string, string> = {
-      ...resolveInheritedEnv(process.env, this.inheritEnv, process.platform),
+      ...resolveInheritedEnv(process.env, inheritEnv, process.platform),
       ...this.baseEnv,
     };
 
@@ -533,7 +545,7 @@ export class CliRunner {
       } as RawResult<string | Uint8Array>;
     }
 
-    const env = this.buildEnv();
+    const env = this.buildEnv(executable);
 
     // Apply per-call environment overrides (e.g. GIT_LFS_SKIP_SMUDGE) on top of
     // the resolved environment.

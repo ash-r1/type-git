@@ -6,6 +6,7 @@ import process from 'node:process';
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { AuditEvent } from '../core/types.js';
+import type { EnvInheritance } from '../core/env.js';
 import { createGitSync } from '../impl/git-impl.js';
 import { CliRunner } from './cli-runner.js';
 
@@ -169,4 +170,60 @@ describe('standalone execution against actual process adapters', () => {
     expect(result.exitCode, result.stderr).toBe(0);
     expect(result.stdout).toEqual(input);
   });
+});
+
+it('inherits gitk display defaults while honoring explicit environment restrictions', async () => {
+  const fixtures = {
+    DISPLAY: ':type-git-fixture',
+    XAUTHORITY: '/type-git-fixture/Xauthority',
+    TYPE_GIT_GUI_SECRET: 'parent-secret-fixture',
+  };
+  const previous = Object.fromEntries(Object.keys(fixtures).map((key) => [key, process.env[key]]));
+  Object.assign(process.env, fixtures);
+  try {
+    const { adapters, spawn } = fixture();
+    const defaults = new CliRunner(adapters).withOptions({ env: { EXTRA: 'value' } });
+    await defaults.runCompanion({ type: 'global' }, 'gitk', []);
+    const defaultEnv = spawn.mock.calls.at(-1)?.[0].env;
+    expect(defaultEnv).toMatchObject({
+      DISPLAY: fixtures.DISPLAY,
+      XAUTHORITY: fixtures.XAUTHORITY,
+      EXTRA: 'value',
+    });
+    expect(defaultEnv).not.toHaveProperty('TYPE_GIT_GUI_SECRET');
+    for (const inheritEnv of [[], { add: [] }] satisfies EnvInheritance[]) {
+      await new CliRunner(adapters, { inheritEnv }).runCompanion({ type: 'global' }, 'gitk', []);
+      expect(spawn.mock.calls.at(-1)?.[0].env).toMatchObject({
+        DISPLAY: fixtures.DISPLAY,
+        XAUTHORITY: fixtures.XAUTHORITY,
+      });
+    }
+
+    for (const executable of ['scalar', 'gitweb'] as const) {
+      await defaults.runCompanion({ type: 'global' }, executable, []);
+      expect(spawn.mock.calls.at(-1)?.[0].env).not.toHaveProperty('DISPLAY');
+    }
+    await defaults.run({ type: 'global' }, ['version']);
+    expect(spawn.mock.calls.at(-1)?.[0].env).not.toHaveProperty('DISPLAY');
+    const policies: EnvInheritance[] = [false, () => false, { remove: ['DISPLAY', 'XAUTHORITY'] }];
+    for (const inheritEnv of policies) {
+      await new CliRunner(adapters, { inheritEnv }).runCompanion({ type: 'global' }, 'gitk', []);
+      const env = spawn.mock.calls.at(-1)?.[0].env;
+      expect(env).not.toHaveProperty('DISPLAY');
+      expect(env).not.toHaveProperty('XAUTHORITY');
+    }
+    await new CliRunner(adapters, {
+      inheritEnv: false,
+      env: { DISPLAY: 'explicit-base' },
+    }).runCompanion({ type: 'global' }, 'gitk', [], { env: { DISPLAY: 'explicit-call' } });
+    expect(spawn.mock.calls.at(-1)?.[0].env).toMatchObject({ DISPLAY: 'explicit-call' });
+  } finally {
+    for (const [name, value] of Object.entries(previous)) {
+      if (value === undefined) {
+        delete process.env[name];
+      } else {
+        process.env[name] = value;
+      }
+    }
+  }
 });
