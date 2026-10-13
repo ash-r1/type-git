@@ -50789,6 +50789,10 @@
       ],
       "rules": 16,
       "domains": {
+        "rewrite-parents": [
+          "undefined",
+          "true"
+        ],
         "no-output": [
           "undefined",
           "false",
@@ -51725,10 +51729,6 @@
           "true"
         ],
         "oneline": [
-          "undefined",
-          "true"
-        ],
-        "rewrite-parents": [
           "undefined",
           "true"
         ],

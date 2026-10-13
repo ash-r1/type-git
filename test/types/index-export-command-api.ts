@@ -49,3 +49,13 @@ git.command('fast-export', [['--anonymize'], ['--anonymize-map', 'from:']]);
 git.command('fast-export', [['--anonymize'], ['--anonymize-map', '']]);
 git.command('fast-export', [['--anonymize'], ['--anonymize-map', 'from:to:']]);
 git.command('fast-export', [['--reencode', 'NO']]);
+
+// @ts-expect-error Fast-export rewrites parents by default, conflicting with children output.
+git.command('fast-export', [['--children'], ['--no-data']]);
+git.command('fast-export', [['--parents'], ['--no-data']]);
+// @ts-expect-error Progress overflow is rejected before a later valid value.
+git.command('fast-export', [['--progress', 2147483648], ['--progress', 1], ['--no-data']]);
+// @ts-expect-error Progress underflow is rejected before a later valid value.
+git.command('fast-export', [['--progress', -2147483649], ['--progress', 1], ['--no-data']]);
+git.command('fast-export', [['--progress', 2147483647], ['--progress', 1], ['--no-data']]);
+git.command('fast-export', [['--progress', -2147483648], ['--progress', 1], ['--no-data']]);

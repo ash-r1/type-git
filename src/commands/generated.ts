@@ -78082,6 +78082,9 @@ const commandSpec274 = {
 } as const satisfies CommandSpec;
 const commandSpec275 = {
   argv: ['fast-export'],
+  initial: {
+    'rewrite-parents': true,
+  },
   options: {
     '--patch': {
       key: 'patch',
@@ -79671,6 +79674,7 @@ const commandSpec275 = {
     '--progress': {
       key: 'progress',
       value: 'integer',
+      parser: 'revision-count',
     },
     '--signed-tags': {
       key: 'signed-tags',

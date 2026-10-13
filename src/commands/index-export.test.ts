@@ -216,6 +216,34 @@ describe('index callback phases and fast export', () => {
       }
     },
   );
+  it('rejects children against implicit parent rewriting', () => {
+    compare('fast-export', [['--children'], ['--no-data']], ['--children', '--no-data'], false);
+    compare('fast-export', [['--parents'], ['--no-data']], ['--parents', '--no-data'], true);
+    compare(
+      'fast-export',
+      [['--children'], ['--parents'], ['--no-data']],
+      ['--children', '--parents', '--no-data'],
+      false,
+    );
+  });
+  it.skipIf(!checkedNativeInts)('rejects export progress overflow before a valid overwrite', () => {
+    for (const value of [-2147483649, 2147483648]) {
+      compare(
+        'fast-export',
+        [['--progress', value], ['--progress', 1], ['--no-data']],
+        [`--progress=${value}`, '--progress=1', '--no-data'],
+        false,
+      );
+    }
+    for (const value of [-2147483648, 2147483647]) {
+      compare(
+        'fast-export',
+        [['--progress', value], ['--progress', 1], ['--no-data']],
+        [`--progress=${value}`, '--progress=1', '--no-data'],
+        true,
+      );
+    }
+  });
   it('matches export input choices and final anonymization prerequisites', () => {
     compare('fast-export', [], [], false);
     compare('fast-export', [['--no-data']], ['--no-data'], true);

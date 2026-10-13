@@ -5853,7 +5853,15 @@
         "value": "string",
         "repeat": true,
         "parser": "anonymize-map"
+      },
+      "--progress": {
+        "key": "progress",
+        "value": "integer",
+        "parser": "revision-count"
       }
+    },
+    "initial": {
+      "rewrite-parents": true
     }
   }
 }
