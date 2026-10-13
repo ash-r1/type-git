@@ -519,3 +519,5 @@ The `value` and `elements` rules retain separate discriminated-union members. El
 Native shell/instaweb comparisons first check the selected executable. The tested Git for Windows installation omits these frontends; only an explicit command-not-installed diagnostic triggers a skip, which is not counted as successful argument validation. Other probe errors, signals or unexpected responses remain failures.
 
 Git-shell accepts the first `--help` through Git’s global documentation dispatch, including ignored extra subject words. A later `--help` is not that dispatcher, and `-h` is not substituted for it. Native tests configure a child Node man viewer and observe its marker; this proves native dispatch without claiming a rendered system manual. Further help-tail options and historical-version differences remain part of the global-help audit.
+
+The tested Git for Windows installation also rejects `shell --help` because the shell command is not installed. Its native documentation comparison is skipped on the same verified missing-command diagnostic; successful documentation dispatch is established on the available Linux profiles, not inferred for Windows.

@@ -66,8 +66,8 @@ describe('native shell frontends', () => {
       input: '',
       timeout: 10000,
     });
-  const frontendMissing = (command: 'shell' | 'instaweb'): boolean => {
-    const probe = direct([command, command === 'shell' ? '-c' : '-h']);
+  const frontendMissing = (command: 'shell' | 'instaweb', documentation = false): boolean => {
+    const probe = direct([command, documentation ? '--help' : command === 'shell' ? '-c' : '-h']);
     expect(probe.error).toBeUndefined();
     expect(probe.signal).toBeNull();
     const diagnostic = probe.stdout + probe.stderr;
@@ -78,7 +78,10 @@ describe('native shell frontends', () => {
       );
       return true;
     }
-    if (command === 'shell') {
+    if (documentation) {
+      expect(probe.status, diagnostic).toBe(0);
+      expect(probe.stdout).toContain('native-doc-viewer');
+    } else if (command === 'shell') {
       expect(probe.status, diagnostic).toBe(128);
       expect(diagnostic).toContain('Run with no arguments or with -c cmd');
     } else {
@@ -141,7 +144,11 @@ describe('native shell frontends', () => {
     compare('shell', [], [], true);
     expect(direct(['shell', '-c', 'fixture hello']).stdout).toBe('hello\n');
   });
-  it('preserves global shell documentation dispatch before native shell parsing', () => {
+  it('preserves global shell documentation dispatch before native shell parsing', ({ skip }) => {
+    if (frontendMissing('shell', true)) {
+      skip();
+      return;
+    }
     for (const [args, words] of [
       [[['--help']], ['--help']],
       [
