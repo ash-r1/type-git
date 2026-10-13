@@ -9,7 +9,16 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
-const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+// Native comparisons target the pinned Git 2.55 grammar. A pre-2.55
+// installation still exercises shared behavior without claiming that profile.
+const installedGit = spawnSync('git', ['--version'], { encoding: 'utf8', timeout: 10000 });
+const gitVersion = /^git version (\d+)\.(\d+)(?:\.|$)/.exec(installedGit.stdout ?? '');
+if (installedGit.error || installedGit.status !== 0 || !gitVersion) {
+  throw new Error('Cannot determine the installed Git version for native object/utility tests');
+}
+const supportsPinnedGit =
+  Number(gitVersion[1]) > 2 || (Number(gitVersion[1]) === 2 && Number(gitVersion[2]) >= 55);
+const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true' || !supportsPinnedGit;
 describe('object and utility command grammars', () => {
   let root: string;
   let repo: WorktreeRepo;
@@ -25,6 +34,7 @@ describe('object and utility command grammars', () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-object-utilities-'));
     env = {
       ...process.env,
+      LC_ALL: 'C',
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
