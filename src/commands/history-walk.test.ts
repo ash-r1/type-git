@@ -133,6 +133,14 @@ describe('history walking, bundles and repository inspection grammars', () => {
         valid,
       );
     }
+    for (const missing of ['print', 'unknown', 'error']) {
+      compare(
+        'rev-list',
+        [['--missing', missing], ['--exclude-promisor-objects'], ['--all']],
+        [`--missing=${missing}`, '--exclude-promisor-objects', '--all'],
+        missing !== 'print',
+      );
+    }
     compare('rev-list', [['-z'], { operand: 'HEAD' }], ['-z', 'HEAD'], true);
     for (const flag of [
       '--header',

@@ -50,3 +50,23 @@ git.command('repo info', [['--format', 'table']]);
 git.command('repo info', [['--all'], { operand: 'object.format' }]);
 // @ts-expect-error The callback rejects unknown values before later correction.
 git.command('repo structure', [['--format', 'unknown'], ['--format', 'lines']]);
+
+// Native --missing=print conflicts here, while unknown preserves the previous
+// selection. Every possible value must remain represented in the parser state.
+declare const maybePrint: 'print' | 'unknown';
+// @ts-expect-error The print member can conflict with promisor exclusion.
+git.command('rev-list', [['--missing', maybePrint], ['--exclude-promisor-objects'], ['--all']]);
+declare const errorOrUnknown: 'error' | 'unknown';
+git.command('rev-list', [['--missing', errorOrUnknown], ['--exclude-promisor-objects'], ['--all']]);
+declare const printTemplate: `print${string}`;
+// @ts-expect-error The template can contain the recognized print action.
+git.command('rev-list', [['--missing', printTemplate], ['--exclude-promisor-objects'], ['--all']]);
+declare const opaqueAction: string & { readonly actionBrand: unique symbol };
+// @ts-expect-error An opaque action may select a conflicting recognized action.
+git.command('rev-list', [['--missing', opaqueAction], ['--exclude-promisor-objects'], ['--all']]);
+git.command('rev-list', [['--missing', opaqueAction], ['--all']]);
+
+// A subsequent recognized action replaces every possible prior selection.
+git.command('rev-list', [['--missing', maybePrint], ['--missing', 'error'], ['--exclude-promisor-objects'], ['--all']]);
+// @ts-expect-error A subsequent unknown action preserves the possible print selection.
+git.command('rev-list', [['--missing', maybePrint], ['--missing', 'unknown'], ['--exclude-promisor-objects'], ['--all']]);
