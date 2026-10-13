@@ -62,8 +62,11 @@ log_success "Package built"
 
 # Step 2: Create tarball
 log_info "Creating npm tarball..."
-TARBALL=$(npm pack --ignore-scripts --pack-destination "$ROOT_DIR" 2>/dev/null | tail -n1)
+# npm 10.8.2's bundled pacote runs prepare even with --ignore-scripts.
+# The pinned pnpm honors this setting; installation below still uses npm.
+TARBALL="type-git-integration.tgz"
 TARBALL_PATH="$ROOT_DIR/$TARBALL"
+pnpm --config.ignore-scripts=true pack --out "$TARBALL_PATH" >/dev/null
 log_success "Created $TARBALL"
 
 # Step 3: Run ESM tests
