@@ -61,7 +61,7 @@ type Token<K, S extends OptionSpec> = S['value'] extends 'flag'
     ? readonly [flag: K, value?: Value<S>]
     : readonly [flag: K, value: Value<S>];
 /** Tuples identify options; objects identify positional operands. Their order is preserved. */
-export type GitCommandArgument<C extends GitCommandName> = C extends GitCommandName
+type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
   ?
       | {
           [K in keyof Options<C>]: Options<C>[K] extends OptionSpec
@@ -72,6 +72,14 @@ export type GitCommandArgument<C extends GitCommandName> = C extends GitCommandN
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
       | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}`])
   : never;
+type Dispatch<C extends GitCommandName> = Spec<C> extends { dispatch: infer D } ? D : never;
+type DispatchTarget<C extends GitCommandName> = Extract<
+  Dispatch<C>[keyof Dispatch<C>],
+  GitCommandName
+>;
+export type GitCommandArgument<C extends GitCommandName> =
+  | LocalCommandArgument<C>
+  | LocalCommandArgument<DispatchTarget<C>>;
 export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = ExecOpts & {
   stdin?: string | Uint8Array;
   stdout?: Mode;
@@ -526,18 +534,44 @@ type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
     : false
   : true;
 /** Literal option combinations are checked against the same schema as runtime calls. */
+type CheckedLocalArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = A extends readonly LocalCommandArgument<C>[]
+  ? number extends A['length']
+    ? A
+    : [State<C, A>] extends [never]
+      ? never
+      : State<C, A> extends { help: true }
+        ? A
+        : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+          ? A
+          : never
+  : never;
+
+/** Dispatch precedes option callbacks, so fallback rules cannot reject a child command. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
 > = number extends A['length']
   ? A
-  : [State<C, A>] extends [never]
-    ? never
-    : State<C, A> extends { help: true }
-      ? A
-      : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+  : A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
+    ? [Dispatch<C>] extends [never]
+      ? CheckedLocalArguments<C, A>
+      : string extends W
         ? A
-        : never;
+        : W extends object
+          ? A
+          : {} extends Record<W, unknown>
+            ? A
+            : W extends keyof Dispatch<C>
+              ? Dispatch<C>[W] extends infer Target extends GitCommandName
+                ? [CheckedLocalArguments<Target, Rest>] extends [never]
+                  ? never
+                  : A
+                : never
+              : CheckedLocalArguments<C, A>
+    : CheckedLocalArguments<C, A>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {

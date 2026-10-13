@@ -3558,6 +3558,46 @@
         "test/types/import-http-command-api.ts"
       ],
       "remaining": "Mailbox/message input, folder/flag selection, credentials/authentication, curl/TLS and server/configuration-dependent behavior remain pending. Current tests distinguish parser rejection from missing configuration and send no mail; list/folder support is probed on the selected executable."
+    },
+    "config": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/fallback-dispatch.test.ts",
+        "test/types/fallback-dispatch-command-api.ts"
+      ],
+      "remaining": "Exact first-word child dispatch and legacy fallback actions are modeled. Full key/value/path/configuration languages, callback ordering, action/type/source selectors, abbreviations and help precedence across selected Git versions remain pending. Native old-profile modern selector cases omitted by the fixture are not claimed covered; finite counts do not prove argv reachability."
+    },
+    "stash": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/fallback-dispatch.test.ts",
+        "test/types/fallback-dispatch-command-api.ts"
+      ],
+      "remaining": "Exact child dispatch, implicit push/path separator rules and delegated list behavior are modeled. Index/worktree/ref stash state, patch/untracked/file/callback phases, partial delegated revision and output/merge behavior, abbreviations/help and selected-version differences remain pending. Native success for an empty stash does not prove all stash lifecycle behavior."
+    },
+    "reflog": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/fallback-dispatch.test.ts",
+        "test/types/fallback-dispatch-command-api.ts"
+      ],
+      "remaining": "Exact child dispatch and implicit show fallback are modeled. Ref/reflog contents, expiry/deletion/configuration state, delegated revision/numeric/parser phases, aliases/help and selected-version differences remain pending. Finite normalized states do not prove all native reflog behavior."
+    },
+    "stash list": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/fallback-dispatch.test.ts",
+        "test/types/fallback-dispatch-command-api.ts"
+      ],
+      "remaining": "List returns before delegated log parsing when refs/stash is absent. Arguments currently use literal operand objects; typed log options and their constraints require a conditional repository-state phase rather than unconditional callback validation."
     }
   }
 }

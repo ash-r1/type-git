@@ -475,3 +475,17 @@ Full stream protocols, numeric/URL/object-ID grammars, manual option prefixes an
 server/configuration-dependent semantics remain pending.
 
 Fast-import depth uses its native immediate upper bound of 8191, and signing callbacks preserve their case-sensitive mode language, including an empty `sign-if-invalid=` key suffix. Compiler checks mirror those boundaries for all literal alternatives; dynamic, opaque and template strings defer to runtime. The installed Git 2.56 accepts a fast-import separator while Git 2.25/2.47/2.55 reject it: the typed API preserves the marker and native Git determines availability. Unsupported native comparisons are explicit skips. HTTP index-pack options may be absent from help text, so capability checks use a controlled parser response with no target objects or network access.
+
+### Native fallback dispatch
+
+`config`, `stash` and `reflog` declare exact first-word dispatch targets. An initial operand such as `{ operand: 'get' }` selects its child schema before any fallback callbacks or rules run. A preceding option or separator stays in the fallback grammar. The generator verifies every target against the catalogue and emits the dispatch map in the exploration report; each branch retains its own finite normalized-state exploration.
+
+Legacy config modes derive implicit get/set/set-all from operand count, preserve immediate command-mode conflicts, and constrain display modifiers, value patterns and write destinations. Legacy `--edit` ignores extra operands, while modern `edit` rejects them. Reflog `exists` similarly ignores extra operands. Implicit stash requires a separator before non-patch paths; explicit `stash push` has its own parsing behavior.
+
+`stash list` returns before delegated log parsing when no stash ref exists. Its current schema therefore accepts literal argument words rather than claiming unconditional log-option validation. Repository-state-dependent delegation and the inherited revision callback phases remain audit gaps. Root scopes and their children are partial, not complete.
+
+Implementation classes reference `GitCommandClient['command']` directly in their declarations. This avoids expanding the complete command union independently in each class during declaration serialization. Dispatch type checks expand child option languages only for dispatching command names.
+
+The build emits declarations once with TypeScript and then bundles the emitted files, keeping source checking and declaration bundling in separate phases. Declaration emission uses `--noCheck`; `pnpm typecheck` still performs full source and contract checking, and `prepublishOnly` runs it before publication. Packed ESM/CJS and TypeScript consumer tests cover the final artifacts. Root dispatch type checks retain direct schema lookup to avoid distributive expansion across every command during inference.
+
+Root dispatch preserves actual selected Git ABI widths and routes byte/text output through the current execution path. Dynamic, opaque and template first words defer to runtime dispatch; known literal alternatives still require valid child arguments. ABI plumbing is tested with a synthetic registry route to the existing shortlog scalar parser, not presented as native support for a synthetic command. Package declarations are emitted separately without a second source checker; source and compiler-contract checks are required independently, and npm ESM/CJS/TypeScript consumers are verified.
