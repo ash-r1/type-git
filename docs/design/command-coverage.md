@@ -38,6 +38,8 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `column` | documented | pending | pending |  | Audit every applicable facet. |
 | `commit` | documented | partial | yes | commit | Cleanup/fixup value grammars, repository-dependent author/content modes, callbacks and abbreviations. |
 | `commit-graph` | documented | pending | pending |  | Audit every applicable facet. |
+| `commit-graph verify` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `commit-graph write` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `commit-tree` | documented | partial | yes |  | Tree and parent object validity, signing/configuration, message-file and binary stdin protocols, abbreviations. |
 | `config` | documented | pending | pending |  | Audit every applicable facet. |
 | `config edit` | reviewed-scope | partial | yes |  | Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit. |
@@ -75,10 +77,10 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `for-each-repo` | documented | pending | pending |  | Audit every applicable facet. |
 | `format-patch` | documented | pending | pending |  | Audit every applicable facet. |
 | `format-rev` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
-| `fsck` | documented | pending | pending |  | Audit every applicable facet. |
-| `fsck-objects` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
+| `fsck` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `fsck-objects` | builtin-undocumented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `fsmonitor--daemon` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
-| `gc` | documented | pending | pending |  | Audit every applicable facet. |
+| `gc` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `get-tar-commit-id` | documented | pending | pending |  | Audit every applicable facet. |
 | `gitk` | companion | pending | pending |  | Audit every applicable facet. |
 | `gitweb` | companion | pending | pending |  | Audit every applicable facet. |
@@ -151,6 +153,12 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `mailinfo` | documented | pending | pending |  | Audit every applicable facet. |
 | `mailsplit` | documented | pending | pending |  | Audit every applicable facet. |
 | `maintenance` | documented | pending | pending |  | Audit every applicable facet. |
+| `maintenance is-needed` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `maintenance register` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `maintenance run` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `maintenance start` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `maintenance stop` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `maintenance unregister` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `merge` | documented | partial | yes | merge | Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations. |
 | `merge-base` | documented | partial | yes |  | Object and ref resolution, fork-point reflog state and abbreviated option spellings. |
 | `merge-file` | documented | pending | pending |  | Audit every applicable facet. |
@@ -166,6 +174,11 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `mktag` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `mktree` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `multi-pack-index` | documented | pending | pending |  | Audit every applicable facet. |
+| `multi-pack-index compact` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `multi-pack-index expire` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `multi-pack-index repack` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `multi-pack-index verify` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `multi-pack-index write` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `mv` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `name-rev` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `notes` | documented | partial | yes |  | Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination. |
@@ -182,11 +195,11 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `p4` | documented | pending | pending |  | Audit every applicable facet. |
 | `pack-objects` | documented | pending | pending |  | Audit every applicable facet. |
 | `pack-redundant` | documented | pending | pending |  | Audit every applicable facet. |
-| `pack-refs` | documented | pending | pending |  | Audit every applicable facet. |
+| `pack-refs` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `patch-id` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `pickaxe` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
-| `prune` | documented | pending | pending |  | Audit every applicable facet. |
-| `prune-packed` | documented | pending | pending |  | Audit every applicable facet. |
+| `prune` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `prune-packed` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `pull` | documented | partial | pending | pull | Complete CLI surface, operand rules and independent per-command conformance fixtures. |
 | `push` | documented | partial | yes | push | Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations. |
 | `quiltimport` | documented | pending | pending |  | Audit every applicable facet. |
@@ -203,6 +216,11 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `reflog show` | reviewed-scope | partial | yes |  | Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. |
 | `reflog write` | reviewed-scope | partial | yes |  | Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations. |
 | `refs` | documented | pending | pending |  | Audit every applicable facet. |
+| `refs exists` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `refs list` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `refs migrate` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `refs optimize` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
+| `refs verify` | reviewed-scope | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `remote` | documented | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `remote add` | reviewed-scope | partial | yes | remoteAdd | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `remote get-url` | reviewed-scope | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
@@ -241,7 +259,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `show-index` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `show-ref` | documented | partial | yes |  | Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. |
 | `sparse-checkout` | documented | pending | pending |  | Audit every applicable facet. |
-| `stage` | documented | pending | pending |  | Audit every applicable facet. |
+| `stage` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `stash` | documented | pending | pending |  | Audit every applicable facet. |
 | `stash apply` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
 | `stash branch` | reviewed-scope | partial | yes |  | Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate. |
@@ -268,7 +286,7 @@ Inventory contains 221 entries; the table also includes individually reviewed op
 | `unpack-objects` | documented | pending | pending |  | Audit every applicable facet. |
 | `update-index` | documented | pending | pending |  | Audit every applicable facet. |
 | `update-ref` | documented | pending | pending |  | Audit every applicable facet. |
-| `update-server-info` | documented | pending | pending |  | Audit every applicable facet. |
+| `update-server-info` | documented | partial | yes |  | Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. |
 | `upload-archive` | documented | pending | pending |  | Audit every applicable facet. |
 | `upload-archive--writer` | builtin-undocumented | pending | pending |  | Audit every applicable facet. |
 | `upload-pack` | documented | pending | pending |  | Audit every applicable facet. |
