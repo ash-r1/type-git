@@ -1,4 +1,3 @@
-import { commandArguments } from '../commands/build.js';
 import type {
   CheckedCommandArguments,
   GitCommandArgument,
@@ -345,7 +344,7 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     args: A & CheckedCommandArguments<C, A>,
     opts?: GitCommandExecOpts,
   ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, true), opts);
+    return await this.runner.runCommand(this.context, command, args, true, opts);
   }
 
   /** Execute a raw Git command without typed argument validation. */

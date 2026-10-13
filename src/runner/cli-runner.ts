@@ -8,6 +8,8 @@
  */
 
 import process from 'node:process';
+import { commandArguments, commandUsesNativeABI } from '../commands/build.js';
+import type { GitCommandName } from '../commands/types.js';
 import type { ExecAdapter, RuntimeAdapters } from '../core/adapters.js';
 import { type EnvInheritance, resolveInheritedEnv } from '../core/env.js';
 import type {
@@ -19,7 +21,7 @@ import type {
   LfsProgress,
   RawResult,
 } from '../core/types.js';
-import { GitError } from '../core/types.js';
+import { GitArgumentError, GitError } from '../core/types.js';
 import { detectErrorCategory, parseGitProgress, parseLfsStderrProgress } from '../parsers/index.js';
 
 /**
@@ -338,6 +340,39 @@ export class CliRunner {
   /**
    * Run a Git command
    */
+  public async runCommand(
+    context: ExecutionContext,
+    command: GitCommandName,
+    args: readonly unknown[],
+    inRepository: boolean | undefined,
+    opts?: RunOptions,
+  ): Promise<RawResult> {
+    let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 } | undefined;
+    if (commandUsesNativeABI(command, args)) {
+      // Resolve the executable with the same context and per-call environment.
+      // A cached host width is wrong when gitBinary/PATH selects another ABI.
+      const probe = await this.run(context, ['version', '--build-options'], {
+        ...(opts?.env ? { env: opts.env } : {}),
+        ...(opts?.signal ? { signal: opts.signal } : {}),
+      });
+      if (probe.aborted) {
+        return probe;
+      }
+      const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
+      const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
+      if (!longBytes || !sizeBytes) {
+        throw new GitArgumentError(
+          'Cannot determine integer widths of the selected Git executable',
+        );
+      }
+      abi = {
+        longBits: longBytes === '4' ? 32 : 64,
+        sizeTBits: sizeBytes === '4' ? 32 : 64,
+      };
+    }
+    return await this.run(context, commandArguments(command, args, inRepository, abi), opts);
+  }
+
   public async run(
     context: ExecutionContext,
     args: string[],

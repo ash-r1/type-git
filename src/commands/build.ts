@@ -10,6 +10,7 @@ export function commandArguments(
   command: GitCommandName,
   args: readonly unknown[],
   inRepository?: boolean,
+  abi?: { longBits: 32 | 64; sizeTBits: 32 | 64 },
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
@@ -171,7 +172,7 @@ export function commandArguments(
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
     const parsed = option.parser
-      ? parseGitScalar(option.parser, value, state[option.key])
+      ? parseGitScalar(option.parser, value, state[option.key], abi?.longBits, abi?.sizeTBits)
       : { valid: true, value };
     if (!parsed.valid) {
       throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
@@ -220,4 +221,23 @@ export function commandArguments(
     }
   }
   return argv;
+}
+
+/** Whether emitted options need the selected executable's native integer widths. */
+export function commandUsesNativeABI(command: GitCommandName, args: readonly unknown[]): boolean {
+  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+    return false;
+  }
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  return args.some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
+      return false;
+    }
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    return (
+      option?.parser === 'abbrev' ||
+      option?.parser === 'mainline' ||
+      option?.parser === 'unsigned-size'
+    );
+  });
 }

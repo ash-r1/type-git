@@ -239,8 +239,11 @@ and preserves accumulating diff filters even when followed by an empty filter.
 Its batch size uses native `size_t` width: negative values fail immediately,
 while 64-bit Git accepts values above the unsigned 32-bit maximum. The numeric
 API accepts safe JavaScript integers; literal contracts permit values valid on
-64-bit targets, and runtime validation applies the host pointer width, including
-64-bit Windows where C `long` remains 32-bit. Explicit ABI simulation tests do
+64-bit targets, and typed command execution queries the selected Git executable with
+`version --build-options` for its actual `sizeof-long` and `sizeof-size_t`.
+The same execution context and per-call environment select the probe and command;
+no JavaScript host ABI is substituted. Missing or unsupported widths fail explicitly.
+This also handles 64-bit Windows where C `long` remains 32-bit. Explicit ABI simulation tests do
 not substitute for running a 32-bit Git binary.
 Last-modified starts with boundary and combined-diff settings and consumes its
 own `-r`, `-t` and `-z` before revision parsing. Its single-positive-commit limit

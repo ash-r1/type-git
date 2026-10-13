@@ -199,6 +199,14 @@ describe('delegated revision and diff grammars', () => {
       true,
     );
     compare('replay', tail, argv, false);
+    for (const source of ['--reflog', '--indexed-objects']) {
+      compare(
+        'replay',
+        [['--onto', 'HEAD~'], ['--ref-action', 'print'], [source]],
+        ['--onto=HEAD~', '--ref-action=print', source],
+        false,
+      );
+    }
     compare(
       'replay',
       [['--onto', 'HEAD~'], ['--advance', 'HEAD'], ...tail],

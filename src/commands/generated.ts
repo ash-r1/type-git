@@ -60236,15 +60236,7 @@ const commandSpec198 = {
           test: 'active',
         },
         {
-          key: 'reflog',
-          test: 'active',
-        },
-        {
           key: 'alternate-refs',
-          test: 'active',
-        },
-        {
-          key: 'indexed-objects',
           test: 'active',
         },
         {

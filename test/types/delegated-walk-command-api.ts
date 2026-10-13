@@ -42,3 +42,9 @@ git.command('backfill', [['--min-batch-size', -1], ['--min-batch-size', 1]]);
 declare const negativeOrValid: -1 | 1;
 // @ts-expect-error Every union member must satisfy the unsigned domain.
 git.command('backfill', [['--min-batch-size', negativeOrValid]]);
+
+// @ts-expect-error Reflog objects alone do not populate replay's command-line revisions.
+git.command('replay', [['--onto', 'main'], ['--ref-action', 'print'], ['--reflog']]);
+// @ts-expect-error Index objects alone cannot supply replay commits.
+git.command('replay', [['--onto', 'main'], ['--ref-action', 'print'], ['--indexed-objects']]);
+git.command('replay', [['--onto', 'main'], ['--ref-action', 'print'], ['--reflog'], { operand: 'main..topic' }]);

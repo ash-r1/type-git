@@ -37037,8 +37037,8 @@
         ]
       },
       "total": "6510364317208063729394653459578273816630534344634531840000000000000000000000000000000000000000000000000000",
-      "accepted": "412053107577457932019555998659361990336035819629083186796953600000000000000000000000000000000000000000",
-      "nodes": 92902,
+      "accepted": "412049530717216055238095234397902963874816290326455322568294400000000000000000000000000000000000000000",
+      "nodes": 87176,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",

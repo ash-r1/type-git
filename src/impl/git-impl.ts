@@ -1,4 +1,3 @@
-import { commandArguments } from '../commands/build.js';
 import type {
   CheckedCommandArguments,
   GitCommandArgument,
@@ -605,7 +604,7 @@ export class GitImpl implements Git {
     args: A & CheckedCommandArguments<C, A>,
     opts?: GitCommandExecOpts,
   ): Promise<RawResult> {
-    return await this.raw(commandArguments(command, args, undefined), opts);
+    return await this.runner.runCommand({ type: 'global' }, command, args, undefined, opts);
   }
 
   /** Execute a raw Git command without typed argument validation. */
