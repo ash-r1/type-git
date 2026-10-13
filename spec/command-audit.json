@@ -526,9 +526,19 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/history-parser.test.ts",
+        "test/types/history-parser-api.ts",
+        "scripts/history-parser-corpus.mjs",
+        "test/types/history-parser-merge-corpus-1.ts",
+        "test/types/history-parser-merge-corpus-2.ts",
+        "test/types/history-parser-merge-corpus-3.ts",
+        "test/types/history-parser-merge-corpus-4.ts",
+        "test/types/history-parser-merge-corpus-5.ts",
+        "test/types/history-parser-merge-corpus-6.ts",
+        "test/types/history-parser-merge-corpus-7.ts"
       ],
-      "remaining": "Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open.",
       "typedCommandAPI": true
     },
     "pull": {
@@ -634,9 +644,23 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/history-parser.test.ts",
+        "test/types/history-parser-api.ts",
+        "scripts/history-parser-corpus.mjs",
+        "test/types/history-parser-rebase-corpus-1.ts",
+        "test/types/history-parser-rebase-corpus-10.ts",
+        "test/types/history-parser-rebase-corpus-11.ts",
+        "test/types/history-parser-rebase-corpus-2.ts",
+        "test/types/history-parser-rebase-corpus-3.ts",
+        "test/types/history-parser-rebase-corpus-4.ts",
+        "test/types/history-parser-rebase-corpus-5.ts",
+        "test/types/history-parser-rebase-corpus-6.ts",
+        "test/types/history-parser-rebase-corpus-7.ts",
+        "test/types/history-parser-rebase-corpus-8.ts",
+        "test/types/history-parser-rebase-corpus-9.ts"
       ],
-      "remaining": "Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open.",
       "typedCommandAPI": true
     },
     "restore": {
@@ -2197,9 +2221,16 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/commands/history-parser.test.ts",
+        "test/types/history-parser-api.ts",
+        "scripts/history-parser-corpus.mjs",
+        "test/types/history-parser-for-each-ref-corpus-1.ts",
+        "test/types/history-parser-for-each-ref-corpus-2.ts",
+        "test/types/history-parser-for-each-ref-corpus-3.ts",
+        "test/types/history-parser-for-each-ref-corpus-4.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open."
     },
     "show-ref": {
       "state": "partial",
@@ -3814,9 +3845,15 @@
         "test/types/parser-exits.ts",
         "src/commands/compound-decimals.test.ts",
         "test/types/compound-decimals.ts",
-        "test/types/compound-decimal-corpus.ts"
+        "test/types/compound-decimal-corpus.ts",
+        "src/commands/history-parser.test.ts",
+        "test/types/history-parser-api.ts",
+        "scripts/history-parser-corpus.mjs",
+        "test/types/history-parser-show-branch-corpus-1.ts",
+        "test/types/history-parser-show-branch-corpus-2.ts",
+        "test/types/history-parser-show-branch-corpus-3.ts"
       ],
-      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Reflog count conversion/MAX_REVS and resolved branch expansion limits remain pending. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Compound decimal grammar, LP64 unsigned-long conversion and literal field relations are now modeled against a finite native corpus; other ABI profiles, reflog date/object resolution and other callback/repository semantics remain separate obligations.",
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Reflog count conversion/MAX_REVS and resolved branch expansion limits remain pending. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Compound decimal grammar, LP64 unsigned-long conversion and literal field relations are now modeled against a finite native corpus; other ABI profiles, reflog date/object resolution and other callback/repository semantics remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open.",
       "typedCommandAPI": true
     },
     "rev-parse": {

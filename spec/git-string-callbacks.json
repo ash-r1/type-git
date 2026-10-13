@@ -1,11 +1,13 @@
 {
   "version": "2.55.0",
-  "scope": "Case-sensitive callback string languages. First-separator pairs and finite choices with arbitrary suffix prefixes. OS NUL and command parser timing are checked separately.",
+  "scope": "Case-sensitive callback string languages. First-separator pairs and finite choices with arbitrary suffix prefixes. OS NUL and command parser timing are checked separately. Source fingerprints also cover reached message-file nonempty checks; filesystem access remains native.",
   "sources": {
     "builtin/fast-export.c": "538ecd9d6f583081dad7954b2441015cbd0e9e1cec344ff0dc104387929974cf",
     "builtin/fast-import.c": "638077395df97ab9ba1cc6e7cd61f715ebb2a2760a1081ce5e6e52402b6c14fe",
     "gpg-interface.c": "a4e80fd3a259a219129afac05bdf304b42fcfa55f07b15f781d226227d455c0f",
-    "column.c": "7f180656b3d4a4ea41cb179379d4ff2b772ef8001fbb7e2b464218a94c65cae7"
+    "column.c": "7f180656b3d4a4ea41cb179379d4ff2b772ef8001fbb7e2b464218a94c65cae7",
+    "builtin/merge.c": "3ab6a184e4ff7fd28bfcceb28df63f08460fc92d2598686fcc56e86290ba870d",
+    "strbuf.c": "fc6f170a22ce422ae4bad3e2211c35a8cd9d81f6f4ef210e039519c52b7ac388"
   },
   "profiles": {
     "anonymize-map": {

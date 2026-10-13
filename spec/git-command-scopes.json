@@ -2588,6 +2588,44 @@
         "key": "strategy",
         "value": "string",
         "repeat": true
+      },
+      "--file": {
+        "key": "file",
+        "value": "string",
+        "checks": [
+          {
+            "id": "merge.message-file-nonempty",
+            "kind": "required",
+            "required": [
+              {
+                "key": "$value",
+                "test": "nonempty"
+              }
+            ],
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/merge.c:option_read_message; strbuf.c:strbuf_read_file",
+            "reason": "An explicitly empty message filename cannot be read; nonempty file existence and access remain native."
+          }
+        ]
+      },
+      "-F": {
+        "key": "file",
+        "value": "string",
+        "checks": [
+          {
+            "id": "merge.message-file-nonempty",
+            "kind": "required",
+            "required": [
+              {
+                "key": "$value",
+                "test": "nonempty"
+              }
+            ],
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/merge.c:option_read_message; strbuf.c:strbuf_read_file",
+            "reason": "An explicitly empty message filename cannot be read; nonempty file existence and access remain native."
+          }
+        ]
       }
     },
     "parserExit": {
@@ -2596,11 +2634,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/merge.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary.",
+      "source": "Git 2.55.0 builtin/merge.c; parse-options.c:parse_options/parse_long_opt; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/merge.c:global:builtin_merge_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "rebase": {
@@ -2852,11 +2898,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary.",
+      "source": "Git 2.55.0 builtin/rebase.c:cmd_rebase; parse-options.c:parse_options/parse_long_opt; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/rebase.c:cmd_rebase:builtin_rebase_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "cherry-pick": {
@@ -3175,11 +3229,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary.",
+      "source": "Git 2.55.0 builtin/for-each-ref.c:for_each_ref_core; parse-options.c:parse_options/parse_long_opt; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/for-each-ref.c:for_each_ref_core:opts"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "show-ref": {
@@ -5429,7 +5491,6 @@
       "builtin/show-branch.c:cmd_show_branch:builtin_show_branch_options"
     ],
     "source": "builtin/show-branch.c",
-    "optionParsing": "stop-at-operand",
     "options": {
       "--more": {
         "key": "more",
@@ -5481,11 +5542,20 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary.",
+      "source": "Git 2.55.0 builtin/show-branch.c; parse-options.c:parse_options/parse_long_opt; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/show-branch.c:cmd_show_branch:builtin_show_branch_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "stopAtOperand": true
     }
   },
   "pull": {
