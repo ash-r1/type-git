@@ -176,6 +176,34 @@ describe('reduced ordered decision diagrams', () => {
     }
   });
 
+  it('counts relational equality exactly in either variable order', () => {
+    for (const [key, valueKey] of [
+      ['good', 'bad'],
+      ['bad', 'good'],
+    ]) {
+      const rules: Constraint[] = [
+        {
+          ...evidence,
+          id: 'different',
+          kind: 'forbid',
+          when: [{ key: key!, test: 'equalsKey', valueKey: valueKey! }],
+        },
+      ];
+      const termDomains = { good: ['a', 'b', 'c'], bad: ['a', 'b', 'c'] };
+      const result = solve(rules, termDomains);
+      expect(result.total).toBe(9n);
+      expect(result.accepted).toBe(6n);
+      expect(result.accepted).toBe(
+        BigInt(
+          [...assignments(termDomains)].filter((input) => violations(rules, input).length === 0)
+            .length,
+        ),
+      );
+      expect(result.counterexamples.different!.good).toBe(result.counterexamples.different!.bad);
+      expect(solve(rules, { bad: termDomains.bad, good: termDomains.good })).toEqual(result);
+    }
+  });
+
   it('is deterministic and handles unconstrained, empty, and contradictory spaces', () => {
     const result = solve(mixedRules, domains);
     expect(solve(mixedRules, { c: domains.c, b: domains.b, a: domains.a })).toEqual(result);
