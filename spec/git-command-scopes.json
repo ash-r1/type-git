@@ -4422,6 +4422,21 @@
         "key": "max-count",
         "value": "flag",
         "set": 0
+      },
+      "--threads": {
+        "key": "threads",
+        "value": "integer",
+        "parser": "revision-count"
+      },
+      "--max-count": {
+        "key": "max-count",
+        "value": "integer",
+        "parser": "revision-count"
+      },
+      "-m": {
+        "key": "max-count",
+        "value": "integer",
+        "parser": "revision-count"
       }
     }
   },

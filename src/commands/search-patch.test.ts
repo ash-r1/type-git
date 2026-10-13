@@ -280,4 +280,35 @@ describe('search, attribution, patch and archive grammars', () => {
       GitArgumentError,
     );
   });
+  it.skipIf(Number(gitVersion[1]) === 2 && Number(gitVersion[2]) < 55)(
+    'matches immediate signed integer bounds for grep counts and threads',
+    () => {
+      for (const flag of ['--threads', '--max-count', '-m']) {
+        for (const value of [-2147483649, 2147483648]) {
+          compare(
+            'grep',
+            [[flag, value], { operand: 'one' }],
+            flag.startsWith('--') ? [`${flag}=${value}`, 'one'] : [flag, String(value), 'one'],
+            false,
+          );
+        }
+      }
+      for (const value of [-2147483648, 2147483647]) {
+        compare(
+          'grep',
+          [['--max-count', 0], ['--threads', value], { operand: 'one' }],
+          ['--max-count=0', `--threads=${value}`, 'one'],
+          true,
+          '',
+          1,
+        );
+      }
+      compare(
+        'grep',
+        [['--max-count', 2147483648], ['--max-count', 0], { operand: 'one' }],
+        ['--max-count=2147483648', '--max-count=0', 'one'],
+        false,
+      );
+    },
+  );
 });

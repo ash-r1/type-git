@@ -64546,6 +64546,7 @@ const commandSpec201 = {
     '--threads': {
       key: 'threads',
       value: 'integer',
+      parser: 'revision-count',
     },
     '--show-function': {
       key: 'show-function',
@@ -64622,10 +64623,12 @@ const commandSpec201 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
+      parser: 'revision-count',
     },
     '-m': {
       key: 'max-count',
       value: 'integer',
+      parser: 'revision-count',
     },
     '--no-cached': {
       key: 'cached',
