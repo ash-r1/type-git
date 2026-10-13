@@ -24,7 +24,8 @@ export type Predicate =
     }
   | { key: string; test: 'equals' | 'notEquals'; value: string | number | boolean }
   | { key: string; test: 'startsWith'; value: string }
-  | { key: string; test: 'includes'; valueKey: string };
+  | { key: string; test: 'includes'; valueKey: string }
+  | { key: string; test: 'lengthEquals'; value: number };
 export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] } & (
     | {
         kind: 'arity';
@@ -49,6 +50,8 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
 export function matches(predicate: Predicate, options: Readonly<Record<string, unknown>>): boolean {
   const value = options[predicate.key];
   switch (predicate.test) {
+    case 'lengthEquals':
+      return Array.isArray(value) && value.length === predicate.value;
     case 'includes':
       return Array.isArray(value) && value.includes(options[predicate.valueKey]);
     case 'gitEnabled':
