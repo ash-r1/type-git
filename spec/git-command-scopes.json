@@ -28,11 +28,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "reason": "The native option pass handles help, abbreviated long names and short clusters before final rules; both end markers are consumed and all retained words become path operands. Git global first-word --help remains delegated.",
       "source": "Git 2.55.0 builtin/add.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/add.c:global:builtin_add_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "rm": {
@@ -46,11 +54,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "reason": "The native option pass handles help, abbreviated long names and short clusters before final rules; both end markers are consumed and all retained words become path operands. Git global first-word --help remains delegated.",
       "source": "Git 2.55.0 builtin/rm.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/rm.c:global:builtin_rm_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "mv": {
@@ -64,11 +80,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "reason": "The native option pass handles help, abbreviated long names and short clusters before final rules; both end markers are consumed and all retained words become path operands. Git global first-word --help remains delegated.",
       "source": "Git 2.55.0 builtin/mv.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/mv.c:cmd_mv:builtin_mv_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "clean": {
@@ -82,11 +106,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "reason": "The native option pass handles help, abbreviated long names and short clusters before final rules; both end markers are consumed and all retained words become path operands. Git global first-word --help remains delegated.",
       "source": "Git 2.55.0 builtin/clean.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/clean.c:cmd_clean:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "init": {
