@@ -73,6 +73,12 @@ type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
       | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}`])
   : never;
 type Dispatch<C extends GitCommandName> = Spec<C> extends { dispatch: infer D } ? D : never;
+type DispatchOption<C extends GitCommandName> =
+  Spec<C> extends {
+    dispatchOptions: readonly (infer K)[];
+  }
+    ? K
+    : never;
 type DispatchTarget<C extends GitCommandName> = Extract<
   Dispatch<C>[keyof Dispatch<C>],
   GitCommandName
@@ -554,6 +560,7 @@ type InvalidDispatchAlternative<
   C extends GitCommandName,
   W extends string,
   Rest extends readonly unknown[],
+  Prefix extends readonly unknown[] = readonly [],
 > = W extends unknown
   ? string extends W
     ? never
@@ -563,28 +570,43 @@ type InvalidDispatchAlternative<
         ? never
         : W extends keyof Dispatch<C>
           ? Dispatch<C>[W] extends infer Target extends GitCommandName
-            ? [CheckedLocalArguments<Target, Rest>] extends [never]
+            ? [CheckedLocalArguments<Target, readonly [...Prefix, ...Rest]>] extends [never]
               ? true
               : never
             : true
-          : [CheckedLocalArguments<C, readonly [{ readonly operand: W }, ...Rest]>] extends [never]
+          : [
+                CheckedLocalArguments<C, readonly [...Prefix, { readonly operand: W }, ...Rest]>,
+              ] extends [never]
             ? true
             : never
   : never;
 
-/** Dispatch precedes option callbacks, so fallback rules cannot reject a child command. */
+type CheckedDispatchedArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Remaining extends readonly unknown[] = A,
+  Prefix extends readonly unknown[] = readonly [],
+> = Remaining extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
+  ? [InvalidDispatchAlternative<C, W, Rest, Prefix>] extends [never]
+    ? A
+    : never
+  : Remaining extends readonly [infer H, ...infer Rest]
+    ? H extends readonly [infer K, ...unknown[]]
+      ? K extends DispatchOption<C>
+        ? CheckedDispatchedArguments<C, A, Rest, readonly [...Prefix, H]>
+        : CheckedLocalArguments<C, A>
+      : CheckedLocalArguments<C, A>
+    : CheckedLocalArguments<C, A>;
+
+/** Select child grammar after precisely the native dispatcher's global options. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
 > = number extends A['length']
   ? A
-  : A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
-    ? [Dispatch<C>] extends [never]
-      ? CheckedLocalArguments<C, A>
-      : [InvalidDispatchAlternative<C, W, Rest>] extends [never]
-        ? A
-        : never
-    : CheckedLocalArguments<C, A>;
+  : [Dispatch<C>] extends [never]
+    ? CheckedLocalArguments<C, A>
+    : CheckedDispatchedArguments<C, A>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {

@@ -52,10 +52,15 @@ export type OptionSpec = {
     set: string | number | boolean;
   }[];
 };
+export type CompanionExecutable = 'scalar' | 'gitk' | 'gitweb';
 export type CommandSpec = {
+  /** Standalone upstream program instead of a git subcommand. */
+  executable?: CompanionExecutable;
   argv: readonly string[];
   /** Dispatch only an exact first operand; otherwise use this scope's fallback grammar. */
   dispatch?: Readonly<Record<string, string>>;
+  /** Global options consumed before selecting a dispatched operation. */
+  dispatchOptions?: readonly string[];
   /** Parser defaults supplied by the command before consuming user options. */
   initial?: Readonly<Record<string, string | number | boolean>>;
   options: Readonly<Record<string, OptionSpec>>;

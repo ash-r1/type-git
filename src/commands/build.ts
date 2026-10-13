@@ -5,6 +5,38 @@ import { COMMAND_SPECS } from './generated.js';
 import type { CommandSpec, OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
+function dispatchArguments(
+  spec: CommandSpec,
+  args: readonly unknown[],
+): { command: GitCommandName; args: readonly unknown[] } | undefined {
+  if (!spec.dispatch) {
+    return undefined;
+  }
+  let index = 0;
+  while (index < args.length) {
+    const token = args[index];
+    if (!Array.isArray(token) || !spec.dispatchOptions?.includes(token[0])) {
+      break;
+    }
+    index++;
+  }
+  const word = args[index];
+  if (
+    word !== null &&
+    typeof word === 'object' &&
+    !Array.isArray(word) &&
+    'operand' in word &&
+    typeof word.operand === 'string' &&
+    Object.hasOwn(spec.dispatch, word.operand)
+  ) {
+    return {
+      command: spec.dispatch[word.operand] as GitCommandName,
+      args: [...args.slice(0, index), ...args.slice(index + 1)],
+    };
+  }
+  return undefined;
+}
+
 /** Build argv without a shell, preserving repeated options and interleaved operands. */
 export function commandArguments(
   command: GitCommandName,
@@ -21,22 +53,9 @@ export function commandArguments(
   if (!Array.isArray(args)) {
     throw new GitArgumentError('Command arguments must be an array');
   }
-  const first = args[0];
-  if (
-    spec.dispatch &&
-    first !== null &&
-    typeof first === 'object' &&
-    !Array.isArray(first) &&
-    'operand' in first &&
-    typeof first.operand === 'string' &&
-    Object.hasOwn(spec.dispatch, first.operand)
-  ) {
-    return commandArguments(
-      spec.dispatch[first.operand] as GitCommandName,
-      args.slice(1),
-      inRepository,
-      abi,
-    );
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandArguments(dispatched.command, dispatched.args, inRepository, abi);
   }
   const argv = [...spec.argv];
   const operands: string[] = [];
@@ -262,17 +281,9 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
-  const first = args[0];
-  if (
-    spec.dispatch &&
-    first !== null &&
-    typeof first === 'object' &&
-    !Array.isArray(first) &&
-    'operand' in first &&
-    typeof first.operand === 'string' &&
-    Object.hasOwn(spec.dispatch, first.operand)
-  ) {
-    return commandUsesNativeABI(spec.dispatch[first.operand] as GitCommandName, args.slice(1));
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesNativeABI(dispatched.command, dispatched.args);
   }
   return args.some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
