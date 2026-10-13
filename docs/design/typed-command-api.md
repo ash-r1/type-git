@@ -208,8 +208,9 @@ and non-forget rerere operands remain accepted where Git ignores them.
 
 These scopes remain partial. In particular, column's original first --command
 value, delegated filter/format grammars, configuration-dependent restrictions,
-numeric spellings and binary output require further work. Raw string output does
-not provide a binary archive/object transport contract.
+numeric spellings and command-specific archive/batch-object binary protocols
+require further work. The shared byte transport and single-object/pack round trip
+have runtime contracts; they do not establish every archive or batch protocol.
 
 ### Protocol and text utilities
 
@@ -393,6 +394,9 @@ Index-pack has its own manual argument grammar, singleton output/title options,
 stdin requirements and verification filename derivation. Unpack-objects consumes
 binary stdin without positional filenames. Pack-redundant preserves all-mode's
 ignored operands and Git 2.55's explicit obsolete-command acknowledgement.
-Tests create local pack fixtures and compare their native parsers. Full streaming
-and numeric callback grammars, configuration/path-walk overrides and binary
-output API contracts remain pending; these scopes are not marked complete.
+Tests create local pack fixtures and compare their native parsers. Public byte
+stdout/stdin have compiler and shared Node/Bun/Deno runtime contracts, including
+a large non-UTF-8 pack round trip and isolated audit data. Full streaming and
+remaining numeric callback grammars, configuration/path-walk overrides and
+command-specific pack format/content behavior remain pending; these scopes
+are not marked complete.

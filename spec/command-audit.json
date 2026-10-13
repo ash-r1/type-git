@@ -3267,7 +3267,7 @@
         "src/commands/pack.test.ts",
         "test/types/pack-command-api.ts"
       ],
-      "remaining": "Object/revision selection and streaming input grammar, filter/path-walk/configuration interactions, bitmap/cruft/reachability effects, full numeric lexical and C-width grammars beyond signed32 compression/depth/window/threads, filesystem destinations, binary output, abbreviations and independent witnesses remain pending. Older Git differs in stdin-packs modes and promisor exclusion."
+      "remaining": "Object/revision selection and streaming input grammar, filter/path-walk/configuration interactions, bitmap/cruft/reachability effects, full numeric lexical and C-width grammars beyond signed32 compression/depth/window/threads, filesystem destinations, command-specific pack output/content behavior, abbreviations and independent witnesses remain pending. Older Git differs in stdin-packs modes and promisor exclusion."
     },
     "index-pack": {
       "state": "partial",
