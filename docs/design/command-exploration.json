@@ -6143,6 +6143,39 @@
     },
     {
       "command": "stash import",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "unknownOptions": "error",
+        "keepDashDash": true,
+        "keepEndOfOptions": false,
+        "remainingOperands": "all",
+        "origin": "git",
+        "source": "Git 2.55.0 builtin/stash.c:import_stash; parse-options.c:parse_options_step",
+        "reason": "The native parser retains -- as a literal revision operand, consumes --end-of-options, and handles help before final arity or destination checks.",
+        "longForms": {
+          "plain": {},
+          "attached": {}
+        },
+        "firstPassOptions": [
+          "--help",
+          "-h"
+        ],
+        "firstPassLongNames": [],
+        "remainingOptions": {
+          "--end-of-options": {
+            "key": "revision-end-of-options",
+            "value": "flag",
+            "consumesRest": true,
+            "ignore": true
+          }
+        },
+        "remainingShortOptions": [],
+        "remainingLongNames": [],
+        "remainingDetachedOptions": []
+      },
       "rules": 1,
       "domains": {
         "help": [
@@ -6175,6 +6208,85 @@
     },
     {
       "command": "stash export",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "unknownOptions": "error",
+        "keepDashDash": true,
+        "keepEndOfOptions": false,
+        "remainingOperands": "all",
+        "origin": "git",
+        "source": "Git 2.55.0 builtin/stash.c:export_stash; parse-options.c:parse_options_step",
+        "reason": "The native parser retains -- as a literal revision operand, consumes --end-of-options, and handles help before final arity or destination checks.",
+        "longForms": {
+          "plain": {
+            "--n": "--no-to-ref",
+            "--no": "--no-to-ref",
+            "--no-": null,
+            "--no-t": "--no-to-ref",
+            "--no-to": "--no-to-ref",
+            "--no-to-": "--no-to-ref",
+            "--no-to-r": "--no-to-ref",
+            "--no-to-re": "--no-to-ref",
+            "--no-to-ref": "--no-to-ref",
+            "--p": "--print",
+            "--pr": "--print",
+            "--pri": "--print",
+            "--prin": "--print",
+            "--print": "--print",
+            "--t": "--to-ref",
+            "--to": "--to-ref",
+            "--to-": "--to-ref",
+            "--to-r": "--to-ref",
+            "--to-re": "--to-ref",
+            "--to-ref": "--to-ref"
+          },
+          "attached": {
+            "--no-": "--no-to-ref",
+            "--no-t": "--no-to-ref",
+            "--no-to": "--no-to-ref",
+            "--no-to-": "--no-to-ref",
+            "--no-to-r": "--no-to-ref",
+            "--no-to-re": "--no-to-ref",
+            "--no-to-ref": "--no-to-ref",
+            "--p": "--print",
+            "--pr": "--print",
+            "--pri": "--print",
+            "--prin": "--print",
+            "--print": "--print",
+            "--t": "--to-ref",
+            "--to": "--to-ref",
+            "--to-": "--to-ref",
+            "--to-r": "--to-ref",
+            "--to-re": "--to-ref",
+            "--to-ref": "--to-ref"
+          }
+        },
+        "firstPassOptions": [
+          "--help",
+          "--no-to-ref",
+          "--print",
+          "--to-ref",
+          "-h"
+        ],
+        "firstPassLongNames": [
+          "print",
+          "to-ref"
+        ],
+        "remainingOptions": {
+          "--end-of-options": {
+            "key": "revision-end-of-options",
+            "value": "flag",
+            "consumesRest": true,
+            "ignore": true
+          }
+        },
+        "remainingShortOptions": [],
+        "remainingLongNames": [],
+        "remainingDetachedOptions": []
+      },
       "modes": [
         {
           "group": "&action",

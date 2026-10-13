@@ -328,3 +328,14 @@ export function testAssumedStashTypes(git: Git): void {
   // @ts-expect-error The initial wrapper catches the subcommand-name typo before help.
   git.command('reflog', [{ operand: '-sho' }, ['-h']]);
 }
+
+export function testStashTransferTypes(git: Git): void {
+  git.command('stash import', [{ operand: 'one' }, { operand: 'two' }, ['-h']]);
+  git.command('stash import', [['--']]);
+  git.command('stash export', [['--print'], ['--to-ref', 'refs/exported'], ['-h']]);
+  git.command('stash export', [{ operand: '--pri' }, ['-h']]);
+  // @ts-expect-error -- is retained, so this has two operands.
+  git.command('stash import', [['--'], ['-h']]);
+  // @ts-expect-error Native command-mode flags cannot be negated.
+  git.command('stash export', [{ operand: '--no-print' }, ['-h']]);
+}
