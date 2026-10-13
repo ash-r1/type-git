@@ -303,3 +303,17 @@ export function testConditionalStashTypes(git: Git): void {
   // @ts-expect-error A help exit cannot serialize a NUL byte.
   git.command('stash list', [['-h'], ['--format', '\0']]);
 }
+
+export function testNativeStashParserTypes(git: Git): void {
+  git.command('stash push', [['--unified', '-2'], ['-h']]);
+  git.command('stash pop', [{ operand: '-qh' }]);
+  git.command('stash apply', [{ operand: '--label-o=ours' }, ['-h']]);
+  git.command('stash store', [{ operand: '--unknown' }, ['-h']]);
+  git.command('stash save', [['--'], ['--unified', 'bad']]);
+  // @ts-expect-error Clear stops parsing at the first operand.
+  git.command('stash clear', [{ operand: 'file' }, ['-h']]);
+  // @ts-expect-error Invalid integer callbacks execute before help.
+  git.command('stash push', [['--unified', 'bad'], ['-h']]);
+  // @ts-expect-error The long-name prefix is ambiguous.
+  git.command('stash apply', [{ operand: '--label=ours' }, ['-h']]);
+}
