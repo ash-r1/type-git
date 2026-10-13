@@ -76,7 +76,9 @@
     },
     "submodule update": {
       "state": "partial",
-      "models": [],
+      "models": [
+        "submoduleUpdate"
+      ],
       "tests": [
         "src/commands/submodule-sparse.test.ts",
         "test/types/submodule-sparse-command-api.ts"
