@@ -91021,6 +91021,11 @@ const commandSpec328 = {
 const commandSpec329 = {
   argv: ['shell'],
   options: {
+    '--help': {
+      key: 'help',
+      value: 'flag',
+      firstOnly: true,
+    },
     '-c': {
       key: 'command',
       value: 'string',

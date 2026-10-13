@@ -46,3 +46,11 @@ import type { Constrained } from '../../src/constraints/types.js';
 // @ts-expect-error Known object elements cannot belong to a primitive vocabulary.
 const invalidObjects: Constrained<{ actions: readonly object[] }, readonly [typeof elementRule]> = { actions: [{}] };
 void invalidObjects;
+
+
+git.command('shell', [['--help']]);
+git.command('shell', [['--help'], { operand: 'ignored' }]);
+// @ts-expect-error Global documentation dispatch only starts at the first argument.
+git.command('shell', [['-c', 'fixture'], ['--help']]);
+// @ts-expect-error Short -h is not the global documentation dispatcher here.
+git.command('shell', [['-h']]);

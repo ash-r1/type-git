@@ -59253,6 +59253,10 @@
       "command": "shell",
       "rules": 4,
       "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
         "command": [
           "undefined",
           "\"\"",
@@ -59285,8 +59289,8 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "1200",
-      "accepted": "96",
+      "total": "2400",
+      "accepted": "192",
       "nodes": 38,
       "isolatedRuleWitnesses": {
         "cli.shell.command-words": "{\"command\":\"\",\"operand0\":\"\",\"operands\":[]}",

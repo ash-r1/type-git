@@ -15,6 +15,8 @@ describe('native shell frontends', () => {
   let env: NodeJS.ProcessEnv;
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-shell-'));
+    const viewer = join(root, 'man-viewer.cjs');
+    await writeFile(viewer, "process.stdout.write('native-doc-viewer\\n'); process.exit(0);\n");
     env = {
       ...process.env,
       HOME: root,
@@ -22,6 +24,7 @@ describe('native shell frontends', () => {
       GIT_CONFIG_GLOBAL: join(root, 'global'),
       GIT_CONFIG_NOSYSTEM: '1',
       LC_ALL: 'C',
+      NODE_OPTIONS: `--require "${viewer.replaceAll('\\', '/')}"`,
       GIT_AUTHOR_NAME: 'Test',
       GIT_AUTHOR_EMAIL: 'test@example.com',
       GIT_COMMITTER_NAME: 'Test',
@@ -34,6 +37,20 @@ describe('native shell frontends', () => {
     await writeFile(join(repo.workdir, 'tracked'), 'one\n');
     await repo.add('.');
     await repo.commit({ message: 'initial' });
+    for (const [key, value] of [
+      ['help.format', 'man'],
+      ['man.viewer', 'man'],
+      ['man.man.path', process.execPath],
+    ]) {
+      const configured = spawnSync('git', ['-C', repo.workdir, 'config', key, value], {
+        env,
+        encoding: 'utf8',
+        timeout: 10000,
+      });
+      expect(configured.error).toBeUndefined();
+      expect(configured.signal).toBeNull();
+      expect(configured.status, configured.stderr).toBe(0);
+    }
     await mkdir(join(root, 'git-shell-commands'));
     const fixture = join(root, 'git-shell-commands', 'fixture');
     await writeFile(fixture, '#!/bin/sh\nprintf "%s\\n" "$@"\n');
@@ -123,6 +140,21 @@ describe('native shell frontends', () => {
     compare('shell', [{ operand: 'unknown' }], ['unknown'], false);
     compare('shell', [], [], true);
     expect(direct(['shell', '-c', 'fixture hello']).stdout).toBe('hello\n');
+  });
+  it('preserves global shell documentation dispatch before native shell parsing', () => {
+    for (const [args, words] of [
+      [[['--help']], ['--help']],
+      [
+        [['--help'], { operand: 'ignored' }],
+        ['--help', 'ignored'],
+      ],
+    ] as const) {
+      const result = compare('shell', args, [...words], true);
+      expect(result.stdout).toContain('native-doc-viewer');
+    }
+    if (!frontendMissing('shell')) {
+      compare('shell', [['-c', 'fixture'], ['--help']], ['-c', 'fixture', '--help'], false);
+    }
   });
   it('matches filter-branch conflicts including an empty commit filter', () => {
     for (const filter of ['', 'git commit-tree "$@"']) {

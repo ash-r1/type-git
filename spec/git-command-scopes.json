@@ -8508,10 +8508,16 @@
         "key": "command",
         "value": "string",
         "separateValue": true
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true
       }
     },
     "optionAllowlist": [
-      "-c"
+      "-c",
+      "--help"
     ]
   }
 }
