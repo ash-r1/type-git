@@ -32,7 +32,7 @@ import type {
   ConfigSetOpts,
   WorktreeRepo,
 } from '../core/repo.js';
-import type { ExecOpts, GitOpenOptions, RawResult } from '../core/types.js';
+import type { ExecOpts, GitOpenOptions, GitOutputMode, RawResult } from '../core/types.js';
 import { GitError } from '../core/types.js';
 import { parseLsRemote } from '../parsers/index.js';
 import { CliRunner, type CliRunnerOptions } from '../runner/cli-runner.js';
@@ -596,14 +596,38 @@ export class GitImpl implements Git {
   /**
    * Execute a typed Git command with validated arguments (repository-agnostic)
    */
-  public async command<
+  public command<
+    C extends GitCommandName,
+    const A extends readonly GitCommandArgument<NoInfer<C>>[],
+  >(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  public command<
     C extends GitCommandName,
     const A extends readonly GitCommandArgument<NoInfer<C>>[],
   >(
     command: C,
     args: A & CheckedCommandArguments<C, A>,
     opts?: GitCommandExecOpts,
-  ): Promise<RawResult> {
+  ): Promise<RawResult>;
+  public command<
+    C extends GitCommandName,
+    const A extends readonly GitCommandArgument<NoInfer<C>>[],
+  >(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>>;
+  public async command<
+    C extends GitCommandName,
+    const A extends readonly GitCommandArgument<NoInfer<C>>[],
+  >(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts?: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>> {
     return await this.runner.runCommand({ type: 'global' }, command, args, undefined, opts);
   }
 

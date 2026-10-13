@@ -48,7 +48,7 @@ import type {
   RevParseQuietRefOpts,
   RevParseRefOpts,
 } from '../core/repo.js';
-import type { ExecOpts, ExecutionContext, RawResult } from '../core/types.js';
+import type { ExecOpts, ExecutionContext, GitOutputMode, RawResult } from '../core/types.js';
 import { parseLines, parseLsRemote, parseLsTree } from '../parsers/index.js';
 import type { CliRunner } from '../runner/cli-runner.js';
 
@@ -392,14 +392,38 @@ export class BareRepoImpl implements BareRepo {
   /**
    * Execute a typed Git command with validated arguments in this repository context
    */
-  public async command<
+  public command<
+    C extends GitCommandName,
+    const A extends readonly GitCommandArgument<NoInfer<C>>[],
+  >(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  public command<
     C extends GitCommandName,
     const A extends readonly GitCommandArgument<NoInfer<C>>[],
   >(
     command: C,
     args: A & CheckedCommandArguments<C, A>,
     opts?: GitCommandExecOpts,
-  ): Promise<RawResult> {
+  ): Promise<RawResult>;
+  public command<
+    C extends GitCommandName,
+    const A extends readonly GitCommandArgument<NoInfer<C>>[],
+  >(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>>;
+  public async command<
+    C extends GitCommandName,
+    const A extends readonly GitCommandArgument<NoInfer<C>>[],
+  >(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts?: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>> {
     return await this.runner.runCommand(this.context, command, args, true, opts);
   }
 

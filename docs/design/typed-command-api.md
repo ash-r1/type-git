@@ -14,7 +14,19 @@ await repo.command('lfs pointer', [['--check'], ['--stdin']], { stdin: pointer }
 
 Option tuples distinguish flag names and values from positional operands. Argument ordering, repetitions, empty values, aliases, and explicit `['--']` are preserved. An operand beginning with a dash needs the separator. Git's parent-only options, such as `remote -v show`, have an explicit insertion position. Native Git boolean flags take no value; use their negated spelling. LFS flags also accept boolean values, including `false`.
 
-A known option name does not imply that its argument contents are fully validated. Git still evaluates repository state, configuration, object names, protocols, and callback-specific argument languages. Execution returns `RawResult`, including nonzero exit status. `stdin` and output currently use strings; binary protocols require further work. `raw()` remains available for commands not yet in the typed catalogue.
+A known option name does not imply that its argument contents are fully validated. Git still evaluates repository state, configuration, object names, protocols, and callback-specific argument languages. Execution returns `RawResult`, including nonzero exit status. `stdin` accepts UTF-8 strings or unencoded `Uint8Array` views. Output defaults to decoded text; request `{ stdout: 'bytes' }` for binary protocols such as packs. This returns `RawResult<Uint8Array>` without UTF-8 decoding. All three builtin adapters support binary collection, while custom adapters require `spawnBytes` for this mode. Audit events retain an independent copy of binary data in `stdoutBytes` and leave the text `stdout` empty. `raw()` remains available for commands not yet in the typed catalogue.
+
+```ts
+const object = await repo.command('hash-object', [['-w'], ['--stdin']], {
+  stdin: new Uint8Array([0, 128, 255]),
+});
+const pack = await repo.command('pack-objects', [['--stdout']], {
+  stdin: `${object.stdout.trim()}\n`,
+  stdout: 'bytes',
+});
+await repo.command('index-pack', [['--stdin']], { stdin: pack.stdout });
+await repo.command('unpack-objects', [['-n'], ['--strict']], { stdin: pack.stdout });
+```
 
 Literal tuples are folded in order into normalized state. TypeScript tests each declarative rule separately, avoiding a Cartesian union of every allowed combination. Dynamic arrays retain option-name/value-shape checking and receive combination checking at runtime. JavaScript callers receive the same runtime validation. Both layers use the same generated rule declarations. Help bypasses semantic constraints, while argument syntax remains checked.
 
@@ -196,8 +208,9 @@ and non-forget rerere operands remain accepted where Git ignores them.
 
 These scopes remain partial. In particular, column's original first --command
 value, delegated filter/format grammars, configuration-dependent restrictions,
-numeric spellings and binary output require further work. Raw string output does
-not provide a binary archive/object transport contract.
+numeric spellings and command-specific archive/batch-object binary protocols
+require further work. The shared byte transport and single-object/pack round trip
+have runtime contracts; they do not establish every archive or batch protocol.
 
 ### Protocol and text utilities
 
@@ -367,3 +380,23 @@ occurrence immediately. Fast-export validates its signature, reencoding and
 anonymization callbacks, preserves native negations and checks final import
 filename/anonymization relationships. Streaming inputs, ref/object/index state,
 legacy cacheinfo parsing and further revision processing remain pending.
+
+### Pack creation and inspection
+
+Pack-objects distinguishes a single output prefix from stdout transfer, requires
+stdout for thin packs, and rejects nonzero transfer size limits. Stdin-pack and
+cruft modes exclude the internal revision walker; flags such as all, reflog and
+indexed-objects imply that walker. Unpacked and strict promisor exclusion retain
+their special stdin-pack behavior. Cruft expiration enables cruft until a later
+option clears it. Negative depth/window values are accepted and clamped by Git.
+
+Index-pack has its own manual argument grammar, singleton output/title options,
+stdin requirements and verification filename derivation. Unpack-objects consumes
+binary stdin without positional filenames. Pack-redundant preserves all-mode's
+ignored operands and Git 2.55's explicit obsolete-command acknowledgement.
+Tests create local pack fixtures and compare their native parsers. Public byte
+stdout/stdin have compiler and shared Node/Bun/Deno runtime contracts, including
+a large non-UTF-8 pack round trip and isolated audit data. Full streaming and
+remaining numeric callback grammars, configuration/path-walk overrides and
+command-specific pack format/content behavior remain pending; these scopes
+are not marked complete.

@@ -1,3 +1,4 @@
+import { readBytes } from '../../internal/bytes.js';
 /**
  * Deno ExecAdapter implementation
  *
@@ -108,7 +109,10 @@ async function* streamToAsyncIterable(
 /**
  * Read all data from a ReadableStream as a string
  */
-async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
+async function readStream(
+  stream: ReadableStream<Uint8Array>,
+  onChunk?: (text: string) => void,
+): Promise<string> {
   const reader = stream.getReader();
   const decoder = new TextDecoder();
   let result = '';
@@ -119,9 +123,15 @@ async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
       if (done) {
         break;
       }
-      result += decoder.decode(value, { stream: true });
+      const text = decoder.decode(value, { stream: true });
+      result += text;
+      onChunk?.(text);
     }
-    result += decoder.decode(); // Flush remaining
+    const tail = decoder.decode();
+    result += tail;
+    if (tail) {
+      onChunk?.(tail);
+    }
   } finally {
     reader.releaseLock();
   }
@@ -131,14 +141,14 @@ async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
 
 async function writeStdin(
   stream: WritableStream<Uint8Array> | null,
-  input: string | undefined,
+  input: string | Uint8Array | undefined,
 ): Promise<unknown> {
   if (!stream || input === undefined) {
     return;
   }
   const writer = stream.getWriter();
   try {
-    await writer.write(new TextEncoder().encode(input));
+    await writer.write(typeof input === 'string' ? new TextEncoder().encode(input) : input);
     await writer.close();
   } catch (error) {
     // Preserve the exit result when the child closes its input early.
@@ -164,6 +174,21 @@ export class DenoExecAdapter implements ExecAdapter {
   }
 
   public async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
+    return (await this.spawnResult(options, handlers, false)) as SpawnResult;
+  }
+
+  public async spawnBytes(
+    options: SpawnOptions,
+    handlers?: Pick<StreamHandler, 'onStderr'>,
+  ): Promise<SpawnResult<Uint8Array>> {
+    return (await this.spawnResult(options, handlers, true)) as SpawnResult<Uint8Array>;
+  }
+
+  private async spawnResult(
+    options: SpawnOptions,
+    handlers: StreamHandler | undefined,
+    binary: boolean,
+  ): Promise<SpawnResult<string | Uint8Array>> {
     const { argv, env, inheritEnv, cwd, signal } = options;
 
     const command = argv[0];
@@ -176,7 +201,7 @@ export class DenoExecAdapter implements ExecAdapter {
     // Check if already aborted
     if (signal?.aborted) {
       return {
-        stdout: '',
+        stdout: binary ? new Uint8Array(0) : '',
         stderr: '',
         exitCode: -1,
         signal: 'SIGTERM',
@@ -214,10 +239,15 @@ export class DenoExecAdapter implements ExecAdapter {
     }
 
     try {
-      let stdout = '';
+      let stdout: string | Uint8Array = '';
       let stderr = '';
 
-      if (handlers?.onStdout || handlers?.onStderr) {
+      if (binary) {
+        [stdout, stderr] = await Promise.all([
+          child.stdout ? readBytes(child.stdout) : Promise.resolve(new Uint8Array(0)),
+          child.stderr ? readStream(child.stderr, handlers?.onStderr) : Promise.resolve(''),
+        ]);
+      } else if (handlers?.onStdout || handlers?.onStderr) {
         // Stream processing mode
         const stdoutPromise = (async (): Promise<string> => {
           if (!child.stdout) {

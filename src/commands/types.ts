@@ -2,7 +2,7 @@ import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-typ
 import type { Constraint } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
 import type { Constrained } from '../constraints/types.js';
-import type { ExecOpts, RawResult } from '../core/types.js';
+import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { OptionSpec } from './spec.js';
 
@@ -72,7 +72,10 @@ export type GitCommandArgument<C extends GitCommandName> = C extends GitCommandN
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
       | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}`])
   : never;
-export type GitCommandExecOpts = ExecOpts & { stdin?: string };
+export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = ExecOpts & {
+  stdin?: string | Uint8Array;
+  stdout?: Mode;
+};
 
 type OptionKeys<D> = D extends { key: infer K extends string } ? K : never;
 type EffectKeys<D> = D extends { effects: readonly { key: infer K extends string }[] } ? K : never;
@@ -494,6 +497,16 @@ export interface GitCommandClient {
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
     args: A & CheckedCommandArguments<C, A>,
+    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
     opts?: GitCommandExecOpts,
   ): Promise<RawResult>;
+  command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
+    command: C,
+    args: A & CheckedCommandArguments<C, A>,
+    opts: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>>;
 }
