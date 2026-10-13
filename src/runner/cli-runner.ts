@@ -613,7 +613,9 @@ export class CliRunner {
         argv,
         context,
         stdout: typeof result.stdout === 'string' ? result.stdout : '',
-        ...(typeof result.stdout === 'string' ? {} : { stdoutBytes: result.stdout }),
+        ...(typeof result.stdout === 'string'
+          ? {}
+          : { stdoutBytes: new Uint8Array(result.stdout) }),
         stderr: result.stderr,
         exitCode: result.exitCode,
         aborted: result.aborted,

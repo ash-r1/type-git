@@ -111,7 +111,8 @@ describe('pack command constraints', () => {
         onAudit: (event) => {
           if (event.type === 'end' && event.stdoutBytes) {
             expect(event.stdout).toBe('');
-            auditedBytes.push(event.stdoutBytes);
+            auditedBytes.push(new Uint8Array(event.stdoutBytes));
+            event.stdoutBytes.fill(0);
           }
         },
       },
