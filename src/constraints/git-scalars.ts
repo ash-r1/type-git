@@ -44,6 +44,10 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'pull-rebase'
+  | 'shortlog-group'
+  | 'shortlog-wrap'
+  | 'show-branch-reflog'
   | 'rev-list-missing'
   | 'abbrev'
   | 'mainline'
@@ -62,6 +66,55 @@ export function parseGitScalar(
   cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
   sizeTBits: 32 | 64 = nativeSizeTBits(process.arch),
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'shortlog-group') {
+    return {
+      valid:
+        typeof value === 'string' &&
+        (['author', 'committer'].includes(asciiLower(value)) ||
+          value.startsWith('trailer:') ||
+          value.startsWith('format:') ||
+          value.includes('%')),
+      value,
+    };
+  }
+  if (parser === 'shortlog-wrap') {
+    if (value === true) {
+      return { valid: true, value };
+    }
+    if (typeof value !== 'string') {
+      return { valid: false };
+    }
+    const parts = value.split(',');
+    if (parts.length > 3) {
+      return { valid: false };
+    }
+    const parsed: number[] = [];
+    for (let index = 0; index < 3; index++) {
+      const part = parts[index] ?? '';
+      if (part === '') {
+        parsed.push([76, 6, 9][index]!);
+        continue;
+      }
+      if (!/^[ \t\r\n\v\f]*[+-]?\d+$/.test(part)) {
+        return { valid: false };
+      }
+      const number = BigInt(part.trimStart());
+      if (number < 0n || number > 2147483647n) {
+        return { valid: false };
+      }
+      parsed.push(Number(number));
+    }
+    const [width, first, rest] = parsed as [number, number, number];
+    return { valid: width === 0 || (width > first && width > rest), value };
+  }
+  if (parser === 'show-branch-reflog') {
+    return {
+      valid:
+        value === true ||
+        (typeof value === 'string' && /^(?:[ \t\r\n\v\f]*[+-]?\d+)?(?:,[\s\S]*)?$/.test(value)),
+      value,
+    };
+  }
   if (parser === 'rev-list-missing') {
     return {
       valid: typeof value === 'string',
@@ -135,6 +188,9 @@ export function parseGitScalar(
   }
   if (parser === 'fetch-recurse' && value === 'on-demand') {
     return { valid: true, value };
+  }
+  if (parser === 'pull-rebase' && ['merges', 'm', 'interactive', 'i'].includes(String(value))) {
+    return { valid: true, value: value === 'm' ? 'merges' : value === 'i' ? 'interactive' : value };
   }
   if (parser === 'push-recurse' && ['on-demand', 'check', 'only'].includes(String(value))) {
     return { valid: true, value };
