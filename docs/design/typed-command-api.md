@@ -505,3 +505,21 @@ Scalar maintenance-mode comparisons require the selected executable to advertise
 The shared Node/Bun/Deno repository contract configures the companion program to actual Git and checks offset binary stdin, large non-UTF-8 byte output in worktree and bare contexts, and global byte output. These checks validate the configured-program transport and cwd behavior; they do not claim native gitk GUI or gitweb CGI/FastCGI execution.
 
 gitk adds `DISPLAY` and `XAUTHORITY` to its default allowlist-based inheritance, as required by [X11 display and authorization configuration](https://xorg.freedesktop.org/releases/X11R6.8.2/doc/startx.1.html). Explicit `inheritEnv: false`, predicates and allowlist removals remain authoritative, and configured/per-call environment overrides retain precedence. Git, Scalar and gitweb retain their existing defaults. Routing tests verify the environment supplied to the process adapter; native GUI launch remains pending.
+
+### Shell frontends and libraries
+
+Filter-branch's long option values remain separate argv words; prune-empty conflicts even with an empty explicit commit filter. Quiltimport accepts trailing words after its parseopt phase. Instaweb action selectors replace each other, and every positional action word must belong to its shell cases. The shared `elements` constraint checks array membership in a finite vocabulary in both runtime and TypeScript; the decision diagram explores deterministic representatives including mixed valid/invalid arrays.
+
+Git-shell supports interactive mode, one `-c` command string, or its single `cvs server` compatibility word. Custom commands under `git-shell-commands` mean its command language cannot be restricted to the three built-in Git services.
+
+Git installs `git-sh-i18n` and `git-sh-setup` as libraries for sourcing by other shell scripts. The tested Linux installations for Git 2.25/2.47/2.55/2.56 use mode 0644; other platform permissions are not inferred from that observation. Their standalone typed command API is marked inapplicable rather than generating invalid `git sh-i18n`/`git sh-setup` invocations. Their setup and function semantics remain subject to audit through callers; native tests source the installed libraries in isolated child shells.
+
+The `value` and `elements` rules retain separate discriminated-union members. Element type checks reject any known invalid finite alternative or known object element; dynamic, opaque and template scalar values defer to runtime validation. This does not weaken existing numeric bounds, requires-any alternatives, or option-value predicates. Native negative comparisons assert terminal status and parser diagnostics, and library sourcing must complete successfully before its marker is printed.
+
+Native shell/instaweb comparisons first check the selected executable. The tested Git for Windows installation omits these frontends; only an explicit command-not-installed diagnostic triggers a skip, which is not counted as successful argument validation. Other probe errors, signals or unexpected responses remain failures.
+
+Git-shell accepts the first `--help` through Git’s global documentation dispatch, including ignored extra subject words. A later `--help` is not that dispatcher, and `-h` is not substituted for it. Native tests configure a child Node man viewer and observe its marker; this proves native dispatch without claiming a rendered system manual. Further help-tail options and historical-version differences remain part of the global-help audit.
+
+The tested Git for Windows installation also rejects `shell --help` because the shell command is not installed. Its native documentation comparison is skipped on the same verified missing-command diagnostic; successful documentation dispatch is established on the available Linux profiles, not inferred for Windows.
+
+Filter-branch’s leading `-h` is handled by its sourced git-sh-setup library and prints usage with status 0 on all four tested profiles. Leading `--help` uses Git’s documentation dispatcher. Both help forms are limited to the first argument; a late help flag is rejected by the native filter-branch parser and cannot suppress conflict checks.

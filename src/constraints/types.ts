@@ -69,6 +69,22 @@ type EqualKeys<T, K extends keyof T, V extends string, Included extends boolean>
         ? unknown
         : { [P in K]?: Exclude<T[P], T[V]> }
   : unknown;
+type InvalidElement<E, Allowed> = E extends unknown
+  ? unknown extends E
+    ? never
+    : E extends string | number | boolean
+      ? IsUnknownScalar<E> extends true
+        ? never
+        : E extends Allowed
+          ? never
+          : true
+      : true
+  : never;
+type AllowedElements<V, Allowed> = V extends readonly (infer E)[]
+  ? [InvalidElement<E, Allowed>] extends [never]
+    ? V
+    : never
+  : never;
 type LengthMatch<V, N extends number, Included extends boolean> = V extends readonly unknown[]
   ? number extends V['length']
     ? V
@@ -313,15 +329,21 @@ type ApplyBody<T, R extends Constraint> = R extends {
                   ? Reject<T, P> | None<T, Q>
                   : R extends { kind: 'forbid'; when: infer P extends readonly Predicate[] }
                     ? NotEvery<T, P>
-                    : R extends { kind: 'unsupported'; keys: infer K extends readonly string[] }
-                      ? { [P in K[number]]?: never }
-                      : R extends {
-                            kind: 'value';
-                            key: infer K extends keyof T;
-                            allowed: infer V extends readonly unknown[];
-                          }
-                        ? { [P in K]?: Extract<V[number], T[P]> }
-                        : unknown; // Unmodeled scalar languages remain runtime checks.
+                    : R extends {
+                          kind: 'elements';
+                          key: infer K extends keyof T;
+                          allowed: infer V extends readonly unknown[];
+                        }
+                      ? { [P in K]?: AllowedElements<Exclude<T[P], undefined>, V[number]> }
+                      : R extends { kind: 'unsupported'; keys: infer K extends readonly string[] }
+                        ? { [P in K[number]]?: never }
+                        : R extends {
+                              kind: 'value';
+                              key: infer K extends keyof T;
+                              allowed: infer V extends readonly unknown[];
+                            }
+                          ? { [P in K]?: Extract<V[number], T[P]> }
+                          : unknown; // Unmodeled scalar languages remain runtime checks.
 
 type Rules<T, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
