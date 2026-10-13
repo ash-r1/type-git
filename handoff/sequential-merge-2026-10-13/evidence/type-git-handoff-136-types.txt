@@ -1,0 +1,18 @@
+
+> type-git@0.5.0 typecheck /tmp/type-git-merge-main-136
+> pnpm constraints:check && pnpm commands:check && tsc --noEmit && pnpm test:types
+
+
+> type-git@0.5.0 constraints:check /tmp/type-git-merge-main-136
+> node scripts/constraints.mjs --check && node scripts/command-coverage.mjs --check
+
+Constraint artifacts verified: 28 clone components, 113 cases.
+Coverage ledger checked: 279 scopes, 0 complete.
+
+> type-git@0.5.0 commands:check /tmp/type-git-merge-main-136
+> node scripts/commands.mjs --check
+
+Generated/checked 135 typed command specifications.
+
+> type-git@0.5.0 test:types /tmp/type-git-merge-main-136
+> tsc --project tsconfig.contracts.json

@@ -1,0 +1,5 @@
+
+> type-git@0.4.0 commands:check /tmp/type-git-merge-prep-192
+> node scripts/string-callbacks.mjs --check && node scripts/compound-decimals.mjs --check && node scripts/boolean-callbacks.mjs --check && node scripts/numeric-callbacks.mjs --check && node scripts/integer-type-tables.mjs --check && node scripts/url-byte-types.mjs --check && node scripts/commands.mjs --check
+
+Generated/checked 428 typed command specifications.

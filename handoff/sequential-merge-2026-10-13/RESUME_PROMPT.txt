@@ -1,0 +1,7 @@
+ash-r1/type-git の PR 整理・改善作業を再開してください。
+
+まず checkpoint/sequential-merge-handoff-2026-10-13 を取得し、handoff/sequential-merge-2026-10-13/README.md と ledger.json を読んでください。保存コードは checkpoint/pr-136-review-wip-2026-10-13 と checkpoint/pr-192-prepared-wip-2026-10-13 にあります。helpers/bootstrap.py で別マシン用の台帳を復元できます。旧 /tmp には依存しないでください。
+
+#129、#132〜#135 はマージ済み。#136 の公開 head は7404b6cですが、追加レビュー修正は保存ブランチにのみ反映済みで、最新 CI／再レビューは必要です。#136 から #192 まで番号順に、実際の最新 main へ feature delta のみを載せ直し、CI全件成功・最新headへのCopilotレビュー全文の確認と指摘対応を済ませ、良ければsquash mergeしてください。#95/#99は対象外。リリースPRは操作せず、mainの0.5.0と既存修正を保持してください。
+
+準備済み#192のtipは古いbaselineなので、treeをmainへ上書きしたり一括mergeしたりしないでください。未実施の検証を成功扱いせず、Git本体の制約を仕様データ・runtime・literal型に忠実に反映してください。作業に必要なfeature push、PRのbase変更、レビュー対応、draft解除、条件を満たしたPRの順次mergeは承認済みです。同じ許可を尋ね直さず、引き継ぎに記載された未完了事項を含めて進めてください。

@@ -1,0 +1,6 @@
+
+> type-git@0.5.0 constraints:check /tmp/type-git-merge-main-136
+> node scripts/constraints.mjs --check && node scripts/command-coverage.mjs --check
+
+Constraint artifacts verified: 28 clone components, 113 cases.
+Coverage ledger checked: 279 scopes, 0 complete.

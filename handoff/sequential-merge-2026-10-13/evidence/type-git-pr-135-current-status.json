@@ -1,0 +1,240 @@
+{
+  "baseRefName": "main",
+  "headRefName": "feature/reflog-stash-command-scopes",
+  "headRefOid": "120945cfe24b4aa9828a1179511e4d5b608ef799",
+  "isDraft": false,
+  "mergeStateStatus": "CLEAN",
+  "number": 135,
+  "reviewDecision": "",
+  "reviews": [
+    {
+      "id": "PRR_kwDOQwrwXs8AAAABR8Um4g",
+      "author": {
+        "login": "copilot-pull-request-reviewer"
+      },
+      "authorAssociation": "NONE",
+      "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe1 Changes recommended\n\nEmpty required attached values can be accepted but serialized as bare options with different Git semantics.\n\n<details open>\n<summary><strong>1 open finding</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Reject empty values for required attached options](https://github.com/ash-r1/type-git/pull/135#discussion_r4254948595) \u00b7 New\n</details>\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nAdds typed validation for reflog operations and delegated `stash show` parsing.\n\n**Changes:**\n- Models reflog defaults, operand arity, and stash-attached short values.\n- Adds object-filter and dirstat constraints.\n- Expands runtime, type, integration, and generated coverage.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| `.changeset/\u200breflog-stash-command-scopes.md` | Records the minor API expansion. |\r\n| `docs/\u200bdesign/\u200bcommand-coverage.md` | Lists new reviewed scopes. |\r\n| `docs/\u200bdesign/\u200bcommand-exploration.json` | Updates generated constraint exploration. |\r\n| `docs/\u200bdesign/\u200btyped-command-api.md` | Documents parser behavior and limitations. |\r\n| `scripts/\u200bcommand-domains.mjs` | Includes initial state in domains. |\r\n| `scripts/\u200bcommands.mjs` | Validates initial-state keys. |\r\n| `scripts/\u200bgit-options.mjs` | Emits command initial state. |\r\n| `scripts/\u200bimport-revision-options.py` | Recognizes parenthesized literals. |\r\n| `spec/\u200bcommand-audit.json` | Audits new command scopes. |\r\n| `spec/\u200bgit-command-rules.json` | Defines reflog and stash arity rules. |\r\n| `spec/\u200bgit-command-scopes.json` | Adds reflog and stash specifications. |\r\n| `spec/\u200bgit-option-groups.json` | Adds filter and dirstat behavior. |\r\n| `spec/\u200bupstream/\u200bgit-revision-options.json` | Records filter spellings. |\r\n| `src/\u200bcommands/\u200bbuild.ts` | Applies defaults and attached values. |\r\n| `src/\u200bcommands/\u200breflog-stash.test.ts` | Tests new command behavior. |\r\n| `src/\u200bcommands/\u200brevision-diff.test.ts` | Tests filter and dirstat constraints. |\r\n| `src/\u200bcommands/\u200bspec.ts` | Extends option and command schemas. |\r\n| `src/\u200bcommands/\u200btypes.ts` | Initializes literal-validation state. |\r\n| `test/\u200bnpm-integration/\u200btypescript/\u200btest.ts` | Validates published declarations. |\r\n| `test/\u200btypes/\u200bcommand-api.ts` | Adds compile-time command fixtures. |\n</details>\n\n\ud83e\udde0 **Review effort:** Balanced\n\n---\n\n\ud83d\udca1 <a href=\"/ash-r1/type-git/new/main?filename=.github/skills/code-review/SKILL.md\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Add a `code-review` agent skill</a> or configure MCP servers for context-aware, tailored reviews. <a href=\"https://docs.github.com/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review?tool=webui#mcp-servers-and-agent-skills\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Learn more in the docs.</a>",
+      "submittedAt": "2026-10-13T05:10:54Z",
+      "includesCreatedEdit": false,
+      "reactionGroups": [],
+      "state": "COMMENTED",
+      "commit": {
+        "oid": "c9232f5b14abb83779ec38bbe161a16c5de97b19"
+      }
+    },
+    {
+      "id": "PRR_kwDOQwrwXs8AAAABR8YSGA",
+      "author": {
+        "login": "ash-r1"
+      },
+      "authorAssociation": "OWNER",
+      "body": "",
+      "submittedAt": "2026-10-13T05:20:44Z",
+      "includesCreatedEdit": false,
+      "reactionGroups": [],
+      "state": "COMMENTED",
+      "commit": {
+        "oid": "120945cfe24b4aa9828a1179511e4d5b608ef799"
+      }
+    },
+    {
+      "id": "PRR_kwDOQwrwXs8AAAABR8Y_AQ",
+      "author": {
+        "login": "copilot-pull-request-reviewer"
+      },
+      "authorAssociation": "NONE",
+      "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe2 Approval recommended\n\nThe runtime, type-level, generated-schema, and native Git behaviors are consistently modeled and comprehensively tested.\n\n**0 open findings**\n\n<details>\n<summary><strong>1 resolved since last review</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Reject empty values for required attached options](https://github.com/ash-r1/type-git/pull/135#discussion_r4254948595)\n</details>\n\n\ud83e\udde0 **Review effort:** Balanced",
+      "submittedAt": "2026-10-13T05:22:33Z",
+      "includesCreatedEdit": false,
+      "reactionGroups": [],
+      "state": "COMMENTED",
+      "commit": {
+        "oid": "120945cfe24b4aa9828a1179511e4d5b608ef799"
+      }
+    }
+  ],
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:20:08Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397873",
+      "name": "Lint",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:20:49Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397701",
+      "name": "Type Check",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:19:59Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397654",
+      "name": "Test (Node.js 20 on ubuntu-latest)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:20:19Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397707",
+      "name": "Test (Node.js 22 on ubuntu-latest)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:20:08Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397760",
+      "name": "Test (Node.js 24 on ubuntu-latest)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:21:26Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397674",
+      "name": "Test (Node.js 20 on windows-latest)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:21:07Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397828",
+      "name": "Test (Node.js 22 on windows-latest)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:21:02Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397977",
+      "name": "Test (Node.js 24 on windows-latest)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:21:21Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397601",
+      "name": "Test (Legacy Git 2.25)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:19:53Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397692",
+      "name": "Test (Bun)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:19:30Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142397392",
+      "name": "Test (Deno)",
+      "startedAt": "2026-10-13T05:19:05Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:22:04Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115142859520",
+      "name": "Build",
+      "startedAt": "2026-10-13T05:20:51Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:24:08Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115143194074",
+      "name": "Test (npm Integration) (20)",
+      "startedAt": "2026-10-13T05:22:06Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-13T05:24:54Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/ash-r1/type-git/actions/runs/38350766132/job/115143193943",
+      "name": "Test (npm Integration) (22)",
+      "startedAt": "2026-10-13T05:22:06Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "StatusContext",
+      "context": "CodeRabbit",
+      "startedAt": "2026-10-13T05:19:14Z",
+      "state": "SUCCESS",
+      "targetUrl": ""
+    }
+  ],
+  "threads": {
+    "pageInfo": {
+      "hasNextPage": false
+    },
+    "nodes": [
+      {
+        "id": "PRRT_kwDOQwrwXs6rt700",
+        "isResolved": true,
+        "isOutdated": false,
+        "path": "src/commands/build.ts",
+        "line": 148,
+        "comments": {
+          "nodes": [
+            {
+              "databaseId": 4254948595,
+              "author": {
+                "login": "copilot-pull-request-reviewer"
+              },
+              "body": "Empty supplied values collapse to a bare short option here. For example, `stash show` marks required `-I` and `-O` values as attached, so `[['-I', ''], ['-p']]` becomes `-I -p`; Git then treats `-p` as `-I`'s argument (or reports a missing argument), rather than preserving the empty regex and patch option. Reject empty values for required attached options in both runtime and literal validation (for example via option checks on the stash overrides) so accepted calls cannot be serialized into different argv semantics.",
+              "url": "https://github.com/ash-r1/type-git/pull/135#discussion_r4254948595"
+            },
+            {
+              "databaseId": 4255000127,
+              "author": {
+                "login": "ash-r1"
+              },
+              "body": "Fixed in 120945c. Native Git 2.55 confirms that `stash show -I \"\" -p` and `-O \"\" -p` treat the detached empty word as a stash reference and fail; attaching it would collapse the value boundary. Added source-backed nonempty checks to only those two stash short-option overrides, regenerated runtime/exploration artifacts, and added rejected public compiler fixtures. Valid `--ignore-matching-lines=` remains accepted and is covered by a native output comparison. Full source/contracts and six modern regression tests pass; Git 2.25 passes four tests with two documented version-specific skips. The native comparison now checks process errors, signals and status before comparing stdout.",
+              "url": "https://github.com/ash-r1/type-git/pull/135#discussion_r4255000127"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

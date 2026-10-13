@@ -1,0 +1,10 @@
+
+ RUN  v2.1.9 /tmp/type-git-merge-main-136
+
+ ✓ src/commands/sequencer.test.ts (7 tests) 130ms
+ ✓ src/constraints/git-scalars.test.ts (3 tests) 65ms
+
+ Test Files  2 passed (2)
+      Tests  10 passed (10)
+   Start at  06:11:55
+   Duration  989ms (transform 539ms, setup 0ms, collect 616ms, tests 195ms, environment 0ms, prepare 62ms)

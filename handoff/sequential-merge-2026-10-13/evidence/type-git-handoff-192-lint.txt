@@ -1,0 +1,387 @@
+
+> type-git@0.4.0 check /tmp/type-git-merge-prep-192
+> biome check src
+
+src/adapters/node/exec.test.ts:347:16 lint/suspicious/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! This async function lacks an await expression.
+
+    345 │         const startTime = Date.now();
+    346 │
+  > 347 │         await (async () => {
+        │                ^^^^^^^^^^^^^
+  > 348 │           await using handle = adapter.spawnStreaming({
+         ...
+  > 355 │           // Scope exits - dispose is called automatically
+  > 356 │         })();
+        │         ^
+    357 │
+    358 │         // Should complete quickly (process killed by dispose)
+
+  i Remove this async modifier, or add an await expression in the function.
+
+    345 │         const startTime = Date.now();
+    346 │
+  > 347 │         await (async () => {
+        │                ^^^^^^^^^^^^^
+  > 348 │           await using handle = adapter.spawnStreaming({
+         ...
+  > 355 │           // Scope exits - dispose is called automatically
+  > 356 │         })();
+        │         ^
+    357 │
+    358 │         // Should complete quickly (process killed by dispose)
+
+  i Async functions without await expressions may not need to be declared async.
+
+
+src/adapters/node/fs.ts:130:7 lint/complexity/noVoid ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The use of void is not allowed.
+
+    128 │       originalStop();
+    129 │       // Fire-and-forget close for sync stop()
+  > 130 │       void closeFileHandle();
+        │       ^^^^^^^^^^^^^^^^^^^^^^
+    131 │     };
+    132 │
+
+  i If you use void to alter the return type of a function or return `undefined`, use the global `undefined` instead.
+
+
+src/commands/bisect.test.ts:16:18 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    14 │   let repo: WorktreeRepo;
+    15 │   let env: NodeJS.ProcessEnv;
+  > 16 │   const direct = (args: string[], input = '') =>
+       │                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 17 │     spawnSync('git', ['-C', repo.workdir, ...args], {
+        ...
+  > 21 │       timeout: 10000,
+  > 22 │     });
+       │     ^^
+    23 │   beforeAll(async () => {
+    24 │     root = await mkdtemp(join(tmpdir(), 'type-git-bisect-'));
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/bisect.test.ts:54:19 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    52 │     await rm(root, { recursive: true, force: true });
+    53 │   });
+  > 54 │   const compare = (
+       │                   ^
+  > 55 │     command: GitCommandName,
+        ...
+  > 71 │     }
+  > 72 │   };
+       │   ^
+    73 │
+    74 │   const reset = () => expect(direct(['bisect', 'reset']).status).toBe(0);
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/bisect.test.ts:66:19 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    64 │     expect(actual.error, label).toBeUndefined();
+    65 │     expect(actual.status === 0, label).toBe(valid);
+  > 66 │     const build = () => commandArguments(command, args, true);
+       │                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    67 │     if (valid) {
+    68 │       expect(build()).toEqual([...command.split(' '), ...argv]);
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/bisect.test.ts:74:17 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    72 │   };
+    73 │
+  > 74 │   const reset = () => expect(direct(['bisect', 'reset']).status).toBe(0);
+       │                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    75 │   const start = () => {
+    76 │     reset();
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/bisect.test.ts:75:17 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    74 │   const reset = () => expect(direct(['bisect', 'reset']).status).toBe(0);
+  > 75 │   const start = () => {
+       │                 ^^^^^^^
+  > 76 │     reset();
+  > 77 │     expect(direct(['bisect', 'start', '--no-checkout', 'HEAD', 'HEAD~5']).status).toBe(0);
+  > 78 │   };
+       │   ^
+    79 │
+    80 │   it('validates final custom terms rather than rejecting overwritten values', () => {
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/build.test.ts:167:105 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━━━━━━
+
+  ! Excessive complexity of 57 detected (max: 20).
+
+    165 │   }, 30000);
+    166 │
+  > 167 │   it('matches native hash-object for every finite combination of its independent constraints', async () => {
+        │                                                                                                         ^^^
+    168 │     const file = join(root, 'hash-input');
+    169 │     await writeFile(file, 'hello');
+
+  i Please refactor this function to reduce its complexity score from 57 to the max allowed complexity 20.
+
+
+src/commands/build.ts:19:10 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Excessive complexity of 255 detected (max: 20).
+
+    17 │ }
+    18 │
+  > 19 │ function buildArguments(
+       │          ^^^^^^^^^^^^^^
+    20 │   command: GitCommandName,
+    21 │   args: readonly unknown[],
+
+  i Please refactor this function to reduce its complexity. It's currently too complex or too deeply nested to calculate an accurate score.
+
+
+src/commands/build.ts:72:9 lint/style/noNonNullAssertion  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Forbidden non-null assertion.
+
+    70 │       buildArguments(command, pass.tokens, inRepository, 'first-pass');
+    71 │       buildArguments(
+  > 72 │         spec.dispatch![pass.subcommand] as GitCommandName,
+       │         ^^^^^^^^^^^^^^
+    73 │         pass.remaining.map((operand) => ({ operand })),
+    74 │         inRepository,
+
+  i Unsafe fix: Replace with optional chain operator ?. This operator includes runtime checks, so it is safer than the compile-only non-null assertion operator
+
+     70  70 │         buildArguments(command, pass.tokens, inRepository, 'first-pass');
+     71  71 │         buildArguments(
+     72     │ - ········spec.dispatch![pass.subcommand]·as·GitCommandName,
+         72 │ + ········spec.dispatch?.[pass.subcommand]·as·GitCommandName,
+     73  73 │           pass.remaining.map((operand) => ({ operand })),
+     74  74 │           inRepository,
+
+
+src/commands/build.ts:104:11 lint/style/noNonNullAssertion  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Forbidden non-null assertion.
+
+    102 │             recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
+    103 │           )
+  > 104 │         : revision!.tokens;
+        │           ^^^^^^^^^
+    105 │       buildArguments(command, [...pass.tokens, ...remaining], inRepository, 'pipeline', {
+    106 │         firstCount: pass.tokens.length,
+
+  i Unsafe fix: Replace with optional chain operator ?. This operator includes runtime checks, so it is safer than the compile-only non-null assertion operator
+
+    102 102 │               recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
+    103 103 │             )
+    104     │ - ········:·revision!.tokens;
+        104 │ + ········:·revision?.tokens;
+    105 105 │         buildArguments(command, [...pass.tokens, ...remaining], inRepository, 'pipeline', {
+    106 106 │           firstCount: pass.tokens.length,
+
+
+src/commands/build.ts:107:18 lint/style/noNonNullAssertion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Forbidden non-null assertion.
+
+    105 │       buildArguments(command, [...pass.tokens, ...remaining], inRepository, 'pipeline', {
+    106 │         firstCount: pass.tokens.length,
+  > 107 │         options: spec.parserExit.remainingOptions!,
+        │                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    108 │         original: args,
+    109 │         operandsOnly,
+
+
+src/commands/build.ts:204:7 lint/performance/useTopLevelRegex ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! This regex literal is not defined in the top level scope. This can lead to performance issues if this function is called frequently.
+
+    202 │       !Object.hasOwn(activeOptions, flag) &&
+    203 │       spec.numericOption &&
+  > 204 │       /^-\d+$/.exec(flag)?.[0] === flag;
+        │       ^^^^^^^^
+    205 │     const option: OptionSpec | undefined = Object.hasOwn(activeOptions, flag)
+    206 │       ? activeOptions[flag]
+
+  i Move the regex literal outside of this scope, and place it at the top level of this module, as a constant.
+
+
+src/commands/build.ts:209:16 lint/style/noNonNullAssertion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Forbidden non-null assertion.
+
+    207 │       : numeric
+    208 │         ? {
+  > 209 │             ...spec.numericOption!,
+        │                ^^^^^^^^^^^^^^^^^^^
+    210 │             value: 'flag',
+    211 │             set:
+
+
+src/commands/build.ts:212:22 lint/style/noNonNullAssertion  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Forbidden non-null assertion.
+
+    210 │             value: 'flag',
+    211 │             set:
+  > 212 │               typeof spec.numericOption!.parser === 'object'
+        │                      ^^^^^^^^^^^^^^^^^^^
+    213 │                 ? flag.slice(1)
+    214 │                 : Number(flag.slice(1)),
+
+  i Unsafe fix: Replace with optional chain operator ?. This operator includes runtime checks, so it is safer than the compile-only non-null assertion operator
+
+    210 210 │               value: 'flag',
+    211 211 │               set:
+    212     │ - ··············typeof·spec.numericOption!.parser·===·'object'
+        212 │ + ··············typeof·spec.numericOption?.parser·===·'object'
+    213 213 │                   ? flag.slice(1)
+    214 214 │                   : Number(flag.slice(1)),
+
+
+src/runner/cli-runner.ts:355:3 lint/suspicious/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! This async function lacks an await expression.
+
+    353 │    * Run a Git command
+    354 │    */
+  > 355 │   public async run(
+        │   ^^^^^^^^^^^^^^^^^
+  > 356 │     context: ExecutionContext,
+         ...
+  > 360 │     return this.execute(context, args, opts);
+  > 361 │   }
+        │   ^
+    362 │
+    363 │   /** Run a standalone upstream program while preserving environment, audit and cancellation. */
+
+  i Remove this async modifier, or add an await expression in the function.
+
+    353 │    * Run a Git command
+    354 │    */
+  > 355 │   public async run(
+        │   ^^^^^^^^^^^^^^^^^
+  > 356 │     context: ExecutionContext,
+         ...
+  > 360 │     return this.execute(context, args, opts);
+  > 361 │   }
+        │   ^
+    362 │
+    363 │   /** Run a standalone upstream program while preserving environment, audit and cancellation. */
+
+  i Async functions without await expressions may not need to be declared async.
+
+
+src/runner/cli-runner.ts:364:3 lint/suspicious/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! This async function lacks an await expression.
+
+    363 │   /** Run a standalone upstream program while preserving environment, audit and cancellation. */
+  > 364 │   public async runCompanion(
+        │   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 365 │     context: ExecutionContext,
+         ...
+  > 370 │     return this.execute(context, args, opts, executable);
+  > 371 │   }
+        │   ^
+    372 │
+    373 │   private async execute(
+
+  i Remove this async modifier, or add an await expression in the function.
+
+    363 │   /** Run a standalone upstream program while preserving environment, audit and cancellation. */
+  > 364 │   public async runCompanion(
+        │   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 365 │     context: ExecutionContext,
+         ...
+  > 370 │     return this.execute(context, args, opts, executable);
+  > 371 │   }
+        │   ^
+    372 │
+    373 │   private async execute(
+
+  i Async functions without await expressions may not need to be declared async.
+
+
+src/runner/cli-runner.ts:373:17 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━━━━━━━━━
+
+  ! Excessive complexity of 39 detected (max: 20).
+
+    371 │   }
+    372 │
+  > 373 │   private async execute(
+        │                 ^^^^^^^
+    374 │     context: ExecutionContext,
+    375 │     args: string[],
+
+  i Please refactor this function to reduce its complexity score from 39 to the max allowed complexity 20.
+
+
+src/runner/companion-runner.test.ts:6:1 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    4 │ import { CliRunner } from './cli-runner.js';
+    5 │
+  > 6 │ function fixture() {
+      │ ^^^^^^^^^^^^^^^^
+    7 │   const adapters = createNodeAdapters();
+    8 │   const spawn = vi
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/runner/companion-runner.test.ts:23:26 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The parameter doesn't have a type defined.
+
+    21 │       env: { GIT_CONFIG_COUNT: '1', GIT_CONFIG_KEY_0: 'test.existing', GIT_CONFIG_VALUE_0: 'yes' },
+    22 │       credential: { helper: 'fixture' },
+  > 23 │       audit: { onAudit: (e) => events.push(e) },
+       │                          ^
+    24 │     }).withOptions({ env: { EXTRA: 'value' } });
+    25 │     const signal = new AbortController().signal;
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a type to the parameter.
+
+
+The number of diagnostics exceeds the limit allowed. Use --max-diagnostics to increase it.
+Diagnostics not shown: 859.
+Checked 149 files in 968ms. No fixes applied.
+Found 879 warnings.

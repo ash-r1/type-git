@@ -1,0 +1,365 @@
+
+> type-git@0.5.0 check /tmp/type-git-merge-main-136
+> biome check src
+
+src/adapters/node/exec.test.ts:347:16 lint/suspicious/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! This async function lacks an await expression.
+
+    345 │         const startTime = Date.now();
+    346 │
+  > 347 │         await (async () => {
+        │                ^^^^^^^^^^^^^
+  > 348 │           await using handle = adapter.spawnStreaming({
+         ...
+  > 355 │           // Scope exits - dispose is called automatically
+  > 356 │         })();
+        │         ^
+    357 │
+    358 │         // Should complete quickly (process killed by dispose)
+
+  i Remove this async modifier, or add an await expression in the function.
+
+    345 │         const startTime = Date.now();
+    346 │
+  > 347 │         await (async () => {
+        │                ^^^^^^^^^^^^^
+  > 348 │           await using handle = adapter.spawnStreaming({
+         ...
+  > 355 │           // Scope exits - dispose is called automatically
+  > 356 │         })();
+        │         ^
+    357 │
+    358 │         // Should complete quickly (process killed by dispose)
+
+  i Async functions without await expressions may not need to be declared async.
+
+
+src/adapters/node/fs.ts:130:7 lint/complexity/noVoid ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The use of void is not allowed.
+
+    128 │       originalStop();
+    129 │       // Fire-and-forget close for sync stop()
+  > 130 │       void closeFileHandle();
+        │       ^^^^^^^^^^^^^^^^^^^^^^
+    131 │     };
+    132 │
+
+  i If you use void to alter the return type of a function or return `undefined`, use the global `undefined` instead.
+
+
+src/commands/build.test.ts:146:105 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━━━━━━
+
+  ! Excessive complexity of 57 detected (max: 20).
+
+    144 │   }, 30000);
+    145 │
+  > 146 │   it('matches native hash-object for every finite combination of its independent constraints', async () => {
+        │                                                                                                         ^^^
+    147 │     const file = join(root, 'hash-input');
+    148 │     await writeFile(file, 'hello');
+
+  i Please refactor this function to reduce its complexity score from 57 to the max allowed complexity 20.
+
+
+src/commands/build.ts:9:17 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Excessive complexity of 161 detected (max: 20).
+
+     8 │ /** Build argv without a shell, preserving repeated options and interleaved operands. */
+   > 9 │ export function commandArguments(
+       │                 ^^^^^^^^^^^^^^^^
+    10 │   command: GitCommandName,
+    11 │   args: readonly unknown[],
+
+  i Please refactor this function to reduce its complexity score from 161 to the max allowed complexity 20.
+
+
+src/commands/config-notes.test.ts:11:7 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The variable doesn't have a type defined.
+
+     9 │ import { commandArguments } from './build.js';
+    10 │
+  > 11 │ const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+       │       ^^^^^^
+    12 │ describe('config and notes command grammars', () => {
+    13 │   let root: string;
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a type to the variable.
+
+
+src/commands/config-notes.test.ts:37:18 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    35 │     await rm(root, { recursive: true, force: true });
+    36 │   });
+  > 37 │   const direct = (args: string[]) =>
+       │                  ^^^^^^^^^^^^^^^^^^^
+  > 38 │     spawnSync('git', ['-C', repo.workdir, ...args], {
+        ...
+  > 42 │       timeout: 10000,
+  > 43 │     });
+       │     ^^
+    44 │
+    45 │   it.skipIf(legacy)(
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/native.test.ts:11:7 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The variable doesn't have a type defined.
+
+     9 │ import { commandArguments } from './build.js';
+    10 │
+  > 11 │ const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+       │       ^^^^^^
+    12 │
+    13 │ describe('native CLI scopes', () => {
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a type to the variable.
+
+
+src/commands/reflog-stash.test.ts:11:7 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The variable doesn't have a type defined.
+
+     9 │ import { commandArguments } from './build.js';
+    10 │
+  > 11 │ const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+       │       ^^^^^^
+    12 │ describe('reflog operations and stash diff delegation', () => {
+    13 │   let root: string;
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a type to the variable.
+
+
+src/commands/reflog-stash.test.ts:40:18 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    38 │     await rm(root, { recursive: true, force: true });
+    39 │   });
+  > 40 │   const direct = (args: string[]) => {
+       │                  ^^^^^^^^^^^^^^^^^^^^^
+  > 41 │     const result = spawnSync('git', ['-C', repo.workdir, ...args], {
+        ...
+  > 49 │     return result;
+  > 50 │   };
+       │   ^
+    51 │
+    52 │   it('initializes reflog traversal before user options and preserves XOR ordering', async () => {
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/reflog-stash.test.ts:137:7 lint/performance/useTopLevelRegex ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! This regex literal is not defined in the top level scope. This can lead to performance issues if this function is called frequently.
+
+    135 │       process.platform === 'win32' &&
+    136 │       status === 3 &&
+  > 137 │       /BUG: diffcore-pickaxe\.c:\d+: should have needle under -G or -S/.test(stderr);
+        │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    138 │     const wrapperBug = nativePickaxeBug(result.exitCode, result.stderr);
+    139 │     const directBug = nativePickaxeBug(actual.status, actual.stderr);
+
+  i Move the regex literal outside of this scope, and place it at the top level of this module, as a constant.
+
+
+src/commands/reflog-stash.test.ts:146:9 lint/complexity/useSimplifiedLogicExpression  FIXABLE  ━━━━━━━━━━
+
+  ! Logical expression contains unnecessary complexity.
+
+    144 │       expect(actual.status, actual.stderr).toBe(0);
+    145 │     }
+  > 146 │     if (!wrapperBug && !directBug) {
+        │         ^^^^^^^^^^^^^^^^^^^^^^^^^
+    147 │       expect(result.stdout).toBe(actual.stdout);
+    148 │     }
+
+  i Safe fix: Reduce the complexity of the logical expression.
+
+    144 144 │         expect(actual.status, actual.stderr).toBe(0);
+    145 145 │       }
+    146     │ - ····if·(!wrapperBug·&&·!directBug)·{
+        146 │ + ····if·(!(wrapperBug·||·directBug))·{
+    147 147 │         expect(result.stdout).toBe(actual.stdout);
+    148 148 │       }
+
+
+src/commands/revision-diff.test.ts:12:7 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The variable doesn't have a type defined.
+
+    10 │ import type { GitCommandName } from './types.js';
+    11 │
+  > 12 │ const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+       │       ^^^^^^
+    13 │ describe('revision and diff parser constraints', () => {
+    14 │   let root: string;
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a type to the variable.
+
+
+src/commands/revision-diff.test.ts:43:18 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    41 │     await rm(root, { recursive: true, force: true });
+    42 │   });
+  > 43 │   const direct = (args: string[]) =>
+       │                  ^^^^^^^^^^^^^^^^^^^
+  > 44 │     spawnSync('git', ['-C', repo.workdir, ...args], {
+        ...
+  > 48 │       timeout: 10000,
+  > 49 │     });
+       │     ^^
+    50 │   const compare = (command: GitCommandName, args: readonly unknown[], argv: string[]) => {
+    51 │     const actual = direct([command, ...argv]);
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/revision-diff.test.ts:50:19 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    48 │       timeout: 10000,
+    49 │     });
+  > 50 │   const compare = (command: GitCommandName, args: readonly unknown[], argv: string[]) => {
+       │                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 51 │     const actual = direct([command, ...argv]);
+        ...
+  > 58 │     }
+  > 59 │   };
+       │   ^
+    60 │   it('accepts bare unpacked traversal and rejects its removed attached-value form', () => {
+    61 │     for (const command of [
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/sequencer.test.ts:12:7 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The variable doesn't have a type defined.
+
+    10 │ import type { GitCommandName } from './types.js';
+    11 │
+  > 12 │ const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+       │       ^^^^^^
+    13 │ describe('merge, rebase and sequencer parser grammars', () => {
+    14 │   let root: string;
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a type to the variable.
+
+
+src/commands/sequencer.test.ts:41:18 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    39 │     await rm(root, { recursive: true, force: true });
+    40 │   });
+  > 41 │   const direct = (args: string[]) =>
+       │                  ^^^^^^^^^^^^^^^^^^^
+  > 42 │     spawnSync('git', ['-C', repo.workdir, ...args], {
+        ...
+  > 46 │       timeout: 10000,
+  > 47 │     });
+       │     ^^
+    48 │   const compare = (command: GitCommandName, args: readonly unknown[], argv: string[]) => {
+    49 │     const actual = direct([command, ...argv]);
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/sequencer.test.ts:48:19 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Missing return type on function.
+
+    46 │       timeout: 10000,
+    47 │     });
+  > 48 │   const compare = (command: GitCommandName, args: readonly unknown[], argv: string[]) => {
+       │                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 49 │     const actual = direct([command, ...argv]);
+        ...
+  > 57 │     }
+  > 58 │   };
+       │   ^
+    59 │   it('checks original merge argument count and the last fast-forward mode', () => {
+    60 │     for (const flags of [
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a return type to the function.
+
+
+src/commands/sequencer.test.ts:147:30 lint/style/noNonNullAssertion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Forbidden non-null assertion.
+
+    145 │       );
+    146 │       const argv = tokens.map((token) =>
+  > 147 │         token.length === 1 ? token[0]! : `${token[0]}=${token[1]}`,
+        │                              ^^^^^^^^^
+    148 │       );
+    149 │       const result = direct(['rebase', ...argv, 'HEAD']);
+
+
+src/runner/cli-runner.test.ts:50:7 lint/nursery/useExplicitType ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! The variable doesn't have a type defined.
+
+    48 │ // The PATH variable key as it appears in this platform's process.env.
+    49 │ // Windows commonly stores it as `Path` (case-insensitive), other platforms use `PATH`.
+  > 50 │ const PATH_KEY = Object.keys(process.env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
+       │       ^^^^^^^^
+    51 │
+    52 │ describe('CliRunner', () => {
+
+  i Declaring the type makes the code self-documented and can speed up TypeScript type checking.
+
+  i Add a type to the variable.
+
+
+src/runner/cli-runner.ts:341:16 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━━━━━━━━━
+
+  ! Excessive complexity of 29 detected (max: 20).
+
+    339 │    * Run a Git command
+    340 │    */
+  > 341 │   public async run(
+        │                ^^^
+    342 │     context: ExecutionContext,
+    343 │     args: string[],
+
+  i Please refactor this function to reduce its complexity score from 29 to the max allowed complexity 20.
+
+
+The number of diagnostics exceeds the limit allowed. Use --max-diagnostics to increase it.
+Diagnostics not shown: 230.
+Checked 71 files in 288ms. No fixes applied.
+Found 250 warnings.

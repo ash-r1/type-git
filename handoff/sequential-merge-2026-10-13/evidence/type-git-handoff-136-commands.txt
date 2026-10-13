@@ -1,0 +1,5 @@
+
+> type-git@0.5.0 commands:check /tmp/type-git-merge-main-136
+> node scripts/commands.mjs --check
+
+Generated/checked 135 typed command specifications.

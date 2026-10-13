@@ -1,0 +1,451 @@
+﻿2026-10-13T05:31:21.9615062Z Current runner version: '2.337.0'
+2026-10-13T05:31:21.9641098Z ##[group]Runner Image Provisioner
+2026-10-13T05:31:21.9642183Z Hosted Compute Agent
+2026-10-13T05:31:21.9642730Z Version: 20260901.588
+2026-10-13T05:31:21.9643382Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-13T05:31:21.9644088Z Build Date: 2026-09-01T19:56:44Z
+2026-10-13T05:31:21.9644730Z Worker ID: {4ef38c88-159c-4257-8e02-0eb5c1a25e23}
+2026-10-13T05:31:21.9645422Z Azure Region: westcentralus
+2026-10-13T05:31:21.9645988Z ##[endgroup]
+2026-10-13T05:31:21.9647404Z ##[group]Operating System
+2026-10-13T05:31:21.9648055Z Microsoft Windows Server 2025
+2026-10-13T05:31:21.9648608Z 10.0.26100
+2026-10-13T05:31:21.9649105Z Datacenter
+2026-10-13T05:31:21.9649598Z ##[endgroup]
+2026-10-13T05:31:21.9650106Z ##[group]Runner Image
+2026-10-13T05:31:21.9650677Z Image: windows-2025-vs2026
+2026-10-13T05:31:21.9651215Z Version: 20260925.250.1
+2026-10-13T05:31:21.9652919Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260925.250/images/windows/Windows2025-VS2026-Readme.md
+2026-10-13T05:31:21.9654756Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260925.250
+2026-10-13T05:31:21.9655693Z ##[endgroup]
+2026-10-13T05:31:21.9656812Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T05:31:21.9658874Z Contents: read
+2026-10-13T05:31:21.9659427Z Metadata: read
+2026-10-13T05:31:21.9659942Z Packages: read
+2026-10-13T05:31:21.9660456Z ##[endgroup]
+2026-10-13T05:31:21.9662508Z Secret source: Actions
+2026-10-13T05:31:21.9663420Z Cache mode: write
+2026-10-13T05:31:21.9664062Z Prepare workflow directory
+2026-10-13T05:31:22.0119490Z Prepare all required actions
+2026-10-13T05:31:22.0184894Z Getting action download info
+2026-10-13T05:31:22.3229222Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-13T05:31:22.4595108Z Download action repository 'pnpm/action-setup@v4' (SHA:b906affcce14559ad1aafd4ab0e942779e9f58b1)
+2026-10-13T05:31:22.9917849Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-13T05:31:23.2906118Z Complete job name: Test (Node.js 20 on windows-latest)
+2026-10-13T05:31:23.4298855Z ##[group]Run git config --global core.autocrlf false
+2026-10-13T05:31:23.4299926Z git config --global core.autocrlf false
+2026-10-13T05:31:23.4951940Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-13T05:31:23.4953672Z ##[endgroup]
+2026-10-13T05:31:24.4893308Z ##[group]Run actions/checkout@v4
+2026-10-13T05:31:24.4894137Z with:
+2026-10-13T05:31:24.4894637Z   repository: ash-r1/type-git
+2026-10-13T05:31:24.4899894Z   token: ***
+2026-10-13T05:31:24.4900388Z   ssh-strict: true
+2026-10-13T05:31:24.4900924Z   ssh-user: git
+2026-10-13T05:31:24.4901447Z   persist-credentials: true
+2026-10-13T05:31:24.4902022Z   clean: true
+2026-10-13T05:31:24.4902573Z   sparse-checkout-cone-mode: true
+2026-10-13T05:31:24.4903236Z   fetch-depth: 1
+2026-10-13T05:31:24.4903779Z   fetch-tags: false
+2026-10-13T05:31:24.4904309Z   show-progress: true
+2026-10-13T05:31:24.4904828Z   lfs: false
+2026-10-13T05:31:24.4905328Z   submodules: false
+2026-10-13T05:31:24.4905872Z   set-safe-directory: true
+2026-10-13T05:31:24.4906489Z   allow-unsafe-pr-checkout: false
+2026-10-13T05:31:24.4907134Z ##[endgroup]
+2026-10-13T05:31:24.6319787Z Syncing repository: ash-r1/type-git
+2026-10-13T05:31:24.6322125Z ##[group]Getting Git version info
+2026-10-13T05:31:24.6323130Z Working directory is 'D:\a\type-git\type-git'
+2026-10-13T05:31:24.7379839Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-13T05:31:24.7667643Z git version 2.55.0.windows.5
+2026-10-13T05:31:24.7717928Z ##[endgroup]
+2026-10-13T05:31:24.7733751Z Copying 'C:\Users\runneradmin\.gitconfig' to 'D:\a\_temp\9f708b7d-22e0-4665-908a-cd7547f2657b\.gitconfig'
+2026-10-13T05:31:24.7754959Z Temporarily overriding HOME='D:\a\_temp\9f708b7d-22e0-4665-908a-cd7547f2657b' before making global git config changes
+2026-10-13T05:31:24.7758774Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T05:31:24.7766295Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\type-git\type-git
+2026-10-13T05:31:24.8083118Z Deleting the contents of 'D:\a\type-git\type-git'
+2026-10-13T05:31:24.8090963Z ##[group]Initializing the repository
+2026-10-13T05:31:24.8099807Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\type-git\type-git
+2026-10-13T05:31:24.9078869Z Initialized empty Git repository in D:/a/type-git/type-git/.git/
+2026-10-13T05:31:24.9130383Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/ash-r1/type-git
+2026-10-13T05:31:24.9834337Z ##[endgroup]
+2026-10-13T05:31:24.9836795Z ##[group]Disabling automatic garbage collection
+2026-10-13T05:31:24.9842432Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-13T05:31:25.0145634Z ##[endgroup]
+2026-10-13T05:31:25.0146811Z ##[group]Setting up auth
+2026-10-13T05:31:25.0158651Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T05:31:25.0475244Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-13T05:31:26.6806333Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T05:31:26.7060459Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-13T05:31:27.2313071Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T05:31:27.2651365Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-13T05:31:27.8027686Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-13T05:31:27.8351287Z ##[endgroup]
+2026-10-13T05:31:27.8351865Z ##[group]Fetching the repository
+2026-10-13T05:31:27.8365957Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7601a457ae7d8ba01f47ee48fe59d621dd45aa90:refs/remotes/pull/136/merge
+2026-10-13T05:31:29.2223956Z From https://github.com/ash-r1/type-git
+2026-10-13T05:31:29.2224959Z  * [new ref]         7601a457ae7d8ba01f47ee48fe59d621dd45aa90 -> pull/136/merge
+2026-10-13T05:31:29.2273946Z ##[endgroup]
+2026-10-13T05:31:29.2274579Z ##[group]Determining the checkout info
+2026-10-13T05:31:29.2277277Z ##[endgroup]
+2026-10-13T05:31:29.2287304Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-13T05:31:29.2737201Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-13T05:31:29.3044463Z ##[group]Checking out the ref
+2026-10-13T05:31:29.3053056Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force refs/remotes/pull/136/merge
+2026-10-13T05:31:29.4228985Z Note: switching to 'refs/remotes/pull/136/merge'.
+2026-10-13T05:31:29.4229513Z
+2026-10-13T05:31:29.4230012Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-13T05:31:29.4230873Z changes and commit them, and you can discard any commits you make in this
+2026-10-13T05:31:29.4231827Z state without impacting any branches by switching back to a branch.
+2026-10-13T05:31:29.4232332Z
+2026-10-13T05:31:29.4232625Z If you want to create a new branch to retain commits you create, you may
+2026-10-13T05:31:29.4233319Z do so (now or later) by using -c with the switch command. Example:
+2026-10-13T05:31:29.4233604Z
+2026-10-13T05:31:29.4235168Z   git switch -c <new-branch-name>
+2026-10-13T05:31:29.4235383Z
+2026-10-13T05:31:29.4235490Z Or undo this operation with:
+2026-10-13T05:31:29.4235695Z
+2026-10-13T05:31:29.4235801Z   git switch -
+2026-10-13T05:31:29.4235940Z
+2026-10-13T05:31:29.4236182Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-13T05:31:29.4236488Z
+2026-10-13T05:31:29.4236837Z HEAD is now at 7601a45 Merge ac1f7e60668573f60c2bd3d7263059e9998f2588 into 7a93d8d10963b79b9ce1febae6149c433802f725
+2026-10-13T05:31:29.4353490Z ##[endgroup]
+2026-10-13T05:31:29.4808768Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-13T05:31:29.5088398Z 7601a457ae7d8ba01f47ee48fe59d621dd45aa90
+2026-10-13T05:31:29.5509660Z ##[group]Run pnpm/action-setup@v4
+2026-10-13T05:31:29.5509991Z with:
+2026-10-13T05:31:29.5510176Z   dest: ~/setup-pnpm
+2026-10-13T05:31:29.5510370Z   run_install: null
+2026-10-13T05:31:29.5510551Z   cache: false
+2026-10-13T05:31:29.5510746Z   cache_dependency_path: pnpm-lock.yaml
+2026-10-13T05:31:29.5511453Z   package_json_file: package.json
+2026-10-13T05:31:29.5511698Z   standalone: false
+2026-10-13T05:31:29.5511880Z ##[endgroup]
+2026-10-13T05:31:29.7464912Z ##[group]Running self-installer...
+2026-10-13T05:31:30.2386182Z (node:1448) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-13T05:31:30.2388155Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-13T05:31:30.5638202Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-10-13T05:31:30.5739827Z Packages: +1
+2026-10-13T05:31:30.5740170Z +
+2026-10-13T05:31:33.2429961Z Progress: resolved 1, reused 0, downloaded 1, added 0
+2026-10-13T05:31:33.8619240Z Progress: resolved 1, reused 0, downloaded 1, added 1, done
+2026-10-13T05:31:33.9413379Z
+2026-10-13T05:31:33.9413889Z dependencies:
+2026-10-13T05:31:33.9414185Z + pnpm 10.26.2 (12.11.2 is available)
+2026-10-13T05:31:33.9414394Z
+2026-10-13T05:31:33.9551079Z Done in 4s
+2026-10-13T05:31:33.9752390Z ##[endgroup]
+2026-10-13T05:31:33.9752676Z Installation Completed!
+2026-10-13T05:31:34.0092523Z ##[group]Run actions/setup-node@v4
+2026-10-13T05:31:34.0092830Z with:
+2026-10-13T05:31:34.0093005Z   node-version: 20
+2026-10-13T05:31:34.0093190Z   cache: pnpm
+2026-10-13T05:31:34.0093368Z   always-auth: false
+2026-10-13T05:31:34.0093560Z   check-latest: false
+2026-10-13T05:31:34.0096432Z   token: ***
+2026-10-13T05:31:34.0096602Z env:
+2026-10-13T05:31:34.0096867Z   PNPM_HOME: C:\Users\runneradmin\setup-pnpm\node_modules\.bin
+2026-10-13T05:31:34.0097179Z ##[endgroup]
+2026-10-13T05:31:34.1939275Z Attempting to download 20...
+2026-10-13T05:31:34.2124328Z (node:7828) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-13T05:31:34.2125939Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-13T05:31:35.0191389Z Acquiring 20.20.2 - x64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-win32-x64.7z
+2026-10-13T05:31:35.5354847Z Extracting ...
+2026-10-13T05:31:37.8062659Z Adding to the cache ...
+2026-10-13T05:31:44.6409727Z ##[group]Environment details
+2026-10-13T05:31:45.8229142Z node: v20.20.2
+2026-10-13T05:31:45.8229447Z npm: 10.8.2
+2026-10-13T05:31:45.8229614Z yarn: 1.22.22
+2026-10-13T05:31:45.8230053Z ##[endgroup]
+2026-10-13T05:31:45.9111561Z [command]C:\Windows\system32\cmd.exe /D /S /C "C:\Users\runneradmin\setup-pnpm\node_modules\.bin\pnpm.CMD store path --silent"
+2026-10-13T05:31:46.4907519Z D:\.pnpm-store\v10
+2026-10-13T05:31:46.8092983Z Cache hit for: node-cache-Windows-x64-pnpm-230fd85d6d16c026f28abd31defb6718dddf182c1022eb5c3a37ea0082755557
+2026-10-13T05:31:46.8209263Z (node:7828) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-13T05:31:48.0319827Z Received 88080384 of 206495433 (42.7%), 82.5 MBs/sec
+2026-10-13T05:31:48.9649560Z Received 206495433 of 206495433 (100.0%), 101.2 MBs/sec
+2026-10-13T05:31:48.9650498Z Cache Size: ~197 MB (206495433 B)
+2026-10-13T05:31:48.9717194Z [command]"C:\Program Files\Git\usr\bin\tar.exe" -xf D:/a/_temp/a2d8c956-fc56-4aa5-84df-9a0fad0ab10c/cache.tzst -P -C D:/a/type-git/type-git --force-local --use-compress-program "zstd -d"
+2026-10-13T05:31:56.2987304Z Cache restored successfully
+2026-10-13T05:31:56.3104469Z Cache restored from key: node-cache-Windows-x64-pnpm-230fd85d6d16c026f28abd31defb6718dddf182c1022eb5c3a37ea0082755557
+2026-10-13T05:31:56.3452283Z ##[group]Run pnpm install --frozen-lockfile
+2026-10-13T05:31:56.3452681Z pnpm install --frozen-lockfile
+2026-10-13T05:31:56.3524902Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-13T05:31:56.3525266Z env:
+2026-10-13T05:31:56.3525524Z   PNPM_HOME: C:\Users\runneradmin\setup-pnpm\node_modules\.bin
+2026-10-13T05:31:56.3525850Z ##[endgroup]
+2026-10-13T05:31:57.1955888Z Scope: all 2 workspace projects
+2026-10-13T05:31:57.2751580Z Lockfile is up to date, resolution step is skipped
+2026-10-13T05:31:57.3617019Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-10-13T05:31:57.5171016Z Packages: +715
+2026-10-13T05:31:57.5174768Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-10-13T05:31:58.3651142Z Progress: resolved 715, reused 485, downloaded 0, added 0
+2026-10-13T05:31:59.3636202Z Progress: resolved 715, reused 715, downloaded 0, added 163
+2026-10-13T05:32:00.3651484Z Progress: resolved 715, reused 715, downloaded 0, added 424
+2026-10-13T05:32:01.3670887Z Progress: resolved 715, reused 715, downloaded 0, added 577
+2026-10-13T05:32:02.2931048Z Progress: resolved 715, reused 715, downloaded 0, added 715, done
+2026-10-13T05:32:03.2832247Z
+2026-10-13T05:32:03.2832956Z devDependencies:
+2026-10-13T05:32:03.2833389Z + @biomejs/biome 2.3.10
+2026-10-13T05:32:03.2833854Z + @changesets/changelog-github 0.5.2
+2026-10-13T05:32:03.2834288Z + @changesets/cli 2.29.8
+2026-10-13T05:32:03.2834642Z + @types/bun 1.3.5
+2026-10-13T05:32:03.2834950Z + @types/node 22.19.3
+2026-10-13T05:32:03.2835240Z + husky 9.1.7
+2026-10-13T05:32:03.2835539Z + lint-staged 16.2.7
+2026-10-13T05:32:03.2835853Z + tsup 8.5.1
+2026-10-13T05:32:03.2836164Z + typescript 5.9.3
+2026-10-13T05:32:03.2836547Z + vitest 2.1.9
+2026-10-13T05:32:03.2864561Z
+2026-10-13T05:32:03.3080003Z . prepare$ husky || true && npm run build
+2026-10-13T05:32:03.4360993Z . prepare: Done
+2026-10-13T05:32:03.4407426Z ╭ Warning ─────────────────────────────────────────────────────────────────────╮
+2026-10-13T05:32:03.4408231Z │                                                                              │
+2026-10-13T05:32:03.4408974Z │   Ignored build scripts: esbuild@0.21.5, esbuild@0.25.12, esbuild@0.27.2,    │
+2026-10-13T05:32:03.4409734Z │   sharp@0.33.5, sharp@0.34.5.                                                │
+2026-10-13T05:32:03.4410476Z │   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+2026-10-13T05:32:03.4411205Z │   to run scripts.                                                            │
+2026-10-13T05:32:03.4411839Z │                                                                              │
+2026-10-13T05:32:03.4412901Z ╰──────────────────────────────────────────────────────────────────────────────╯
+2026-10-13T05:32:03.4525415Z Done in 6.7s using pnpm v10.26.2
+2026-10-13T05:32:03.5877122Z ##[group]Run pnpm test:ci
+2026-10-13T05:32:03.5877466Z pnpm test:ci
+2026-10-13T05:32:03.5947723Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-13T05:32:03.5948075Z env:
+2026-10-13T05:32:03.5948348Z   PNPM_HOME: C:\Users\runneradmin\setup-pnpm\node_modules\.bin
+2026-10-13T05:32:03.5948671Z ##[endgroup]
+2026-10-13T05:32:04.3985883Z
+2026-10-13T05:32:04.3987168Z > type-git@0.5.0 test:ci D:\a\type-git\type-git
+2026-10-13T05:32:04.3987702Z > vitest run
+2026-10-13T05:32:04.3987877Z
+2026-10-13T05:32:04.9877985Z
+2026-10-13T05:32:04.9881176Z  RUN  v2.1.9 D:/a/type-git/type-git
+2026-10-13T05:32:04.9881675Z
+2026-10-13T05:32:05.7640345Z  ✓ src/runner/cli-runner.test.ts (46 tests) 95ms
+2026-10-13T05:32:06.7495479Z  ✓ src/impl/lfs-operations.test.ts (35 tests) 94ms
+2026-10-13T05:32:13.5491686Z  ✓ src/impl/git-impl.test.ts (58 tests) 6941ms
+2026-10-13T05:32:13.5493681Z    ✓ GitImpl > open > should open a worktree repository 1497ms
+2026-10-13T05:32:13.5495326Z    ✓ WorktreeRepoImpl > log > should return commits 364ms
+2026-10-13T05:32:13.5497616Z    ✓ WorktreeRepoImpl > log > should limit commits with maxCount 535ms
+2026-10-13T05:32:13.5499544Z    ✓ WorktreeRepoImpl > worktree > should list worktrees 385ms
+2026-10-13T05:32:19.7631185Z  ✓ src/commands/native.test.ts (9 tests) 5615ms
+2026-10-13T05:32:19.7634674Z    ✓ native CLI scopes > uses the last status format while checking porcelain values when parsed 903ms
+2026-10-13T05:32:19.7654621Z    ✓ native CLI scopes > checks worktree arity, output modes and orphan restrictions 689ms
+2026-10-13T05:32:19.7668028Z    ✓ native CLI scopes > checks commit message/content modes, including dry-run exceptions and empty filenames 429ms
+2026-10-13T05:32:19.7672186Z    ✓ native CLI scopes > matches branch action groups, implicit list filters, and independent force bits 498ms
+2026-10-13T05:32:19.7674900Z    ✓ native CLI scopes > matches restore destinations and the order of conflict callback side effects 1092ms
+2026-10-13T05:32:19.7677563Z    ✓ native CLI scopes > preserves immediate command-mode errors instead of accepting a later cancellation 348ms
+2026-10-13T05:32:19.7679685Z    ✓ native CLI scopes > executes stash push/store/apply/pop/drop/clear and validates their operand grammars 917ms
+2026-10-13T05:32:37.2060088Z  ✓ src/impl/high-level-api.test.ts (47 tests) 30601ms
+2026-10-13T05:32:37.2061869Z    ✓ High-level API > add > should add all files with --all 1544ms
+2026-10-13T05:32:37.2064340Z    ✓ High-level API > branch > should list branches 581ms
+2026-10-13T05:32:37.2065911Z    ✓ High-level API > branch > should get current branch 589ms
+2026-10-13T05:32:37.2067348Z    ✓ High-level API > branch > should create a branch 606ms
+2026-10-13T05:32:37.2068755Z    ✓ High-level API > branch > should delete a branch 587ms
+2026-10-13T05:32:37.2074583Z    ✓ High-level API > branch > should rename a branch 627ms
+2026-10-13T05:32:37.2076647Z    ✓ High-level API > checkout > should checkout a branch 671ms
+2026-10-13T05:32:37.2078265Z    ✓ High-level API > checkout > should create and checkout a branch 639ms
+2026-10-13T05:32:37.2081151Z    ✓ High-level API > checkout > should checkout specific files from index (pathspec mode) 560ms
+2026-10-13T05:32:37.2083245Z    ✓ High-level API > checkout > should checkout specific files from a commit (pathspec mode with source) 920ms
+2026-10-13T05:32:37.2085291Z    ✓ High-level API > checkout > should checkout files from specific commit hash 927ms
+2026-10-13T05:32:37.2086931Z    ✓ High-level API > commit > should create a commit 513ms
+2026-10-13T05:32:37.2088634Z    ✓ High-level API > commit > should create empty commit with allowEmpty 781ms
+2026-10-13T05:32:37.2090365Z    ✓ High-level API > diff > should show diff of working tree changes 551ms
+2026-10-13T05:32:37.2091872Z    ✓ High-level API > diff > should show staged diff 586ms
+2026-10-13T05:32:37.2093238Z    ✓ High-level API > diff > should show name-status diff 605ms
+2026-10-13T05:32:37.2095316Z    ✓ High-level API > reset > should reset staged files 765ms
+2026-10-13T05:32:37.2097239Z    ✓ High-level API > rm > should remove a file from index 611ms
+2026-10-13T05:32:37.2098830Z    ✓ High-level API > stash > should stash changes 892ms
+2026-10-13T05:32:37.2101493Z    ✓ High-level API > stash > should pop stashed changes 849ms
+2026-10-13T05:32:37.2103975Z    ✓ High-level API > switch > should switch branches 710ms
+2026-10-13T05:32:37.2106555Z    ✓ High-level API > switch > should create and switch to a branch 652ms
+2026-10-13T05:32:37.2111750Z    ✓ High-level API > tag > should list tags 618ms
+2026-10-13T05:32:37.2113156Z    ✓ High-level API > tag > should create annotated tag 650ms
+2026-10-13T05:32:37.2114693Z    ✓ High-level API > tag > should delete a tag 660ms
+2026-10-13T05:32:37.2116320Z    ✓ High-level API > merge > should merge branches 1122ms
+2026-10-13T05:32:37.2118508Z    ✓ High-level API > show > should show commit details 568ms
+2026-10-13T05:32:37.2120676Z    ✓ High-level API > clean > should clean untracked files with dry-run 568ms
+2026-10-13T05:32:37.2125190Z    ✓ High-level API > mv > should move a file 614ms
+2026-10-13T05:32:37.2146665Z    ✓ High-level API > restore > should restore staged file 671ms
+2026-10-13T05:32:37.2150218Z    ✓ High-level API > revParse > should resolve HEAD to SHA 570ms
+2026-10-13T05:32:37.2154055Z    ✓ High-level API > revParse > should return undefined for a missing commit with verify and quiet 733ms
+2026-10-13T05:32:37.2156847Z    ✓ High-level API > revParse > should reject quiet without verify 482ms
+2026-10-13T05:32:37.2159365Z    ✓ High-level API > revParse > should resolve HEAD with short option 579ms
+2026-10-13T05:32:37.2161438Z    ✓ High-level API > revParse > should resolve HEAD with specific short length 620ms
+2026-10-13T05:32:37.2164244Z    ✓ High-level API > revParse > should get branch name with abbrevRef 600ms
+2026-10-13T05:32:37.2166471Z    ✓ High-level API > revParse > should get git directory path 573ms
+2026-10-13T05:32:37.2168341Z    ✓ High-level API > revParse > should get repository toplevel 570ms
+2026-10-13T05:32:37.2170325Z    ✓ High-level API > revParse > should check if inside work tree 575ms
+2026-10-13T05:32:37.2173011Z    ✓ High-level API > revParse > should check if bare repository 586ms
+2026-10-13T05:32:37.2174844Z    ✓ High-level API > revParse > should check if shallow repository 575ms
+2026-10-13T05:32:37.2176623Z    ✓ High-level API > revParse > should list all branches 618ms
+2026-10-13T05:32:37.2179172Z    ✓ High-level API > revParse > should get symbolic full name 622ms
+2026-10-13T05:32:37.2180950Z    ✓ High-level API > revParse > should verify a valid ref 601ms
+2026-10-13T05:32:37.2182903Z    ✓ High-level API > revParse > should get object format 572ms
+2026-10-13T05:32:39.1237382Z  ✓ src/adapters/node/exec.test.ts (25 tests) 1431ms
+2026-10-13T05:32:40.7973674Z  ✓ src/impl/output-contracts.test.ts (17 tests) 20280ms
+2026-10-13T05:32:40.7976332Z    ✓ 0.4 typed output contracts (real Git) > round trips unusual names through status, ls-tree, diff, and bare repositories 1356ms
+2026-10-13T05:32:40.7978609Z    ✓ 0.4 typed output contracts (real Git) > preserves both rename paths and the similarity score 945ms
+2026-10-13T05:32:40.7980782Z    ✓ 0.4 typed output contracts (real Git) > preserves control characters and whitespace in commit bodies with user log settings enabled 903ms
+2026-10-13T05:32:40.7983476Z    ✓ 0.4 typed output contracts (real Git) > returns actual config values including whitespace, newlines, tabs, and empty strings in all contexts 3078ms
+2026-10-13T05:32:40.7985874Z    ✓ 0.4 typed output contracts (real Git) > distinguishes implicit true from an explicitly empty false config value 566ms
+2026-10-13T05:32:40.7987911Z    ✓ 0.4 typed output contracts (real Git) > does not hide malformed config as a missing key 516ms
+2026-10-13T05:32:40.7989397Z    ✓ 0.4 typed output contracts (real Git) > propagates cancellation across optional results and merge 390ms
+2026-10-13T05:32:40.7990566Z    ✓ 0.4 typed output contracts (real Git) > throws on failed merge operands instead of inventing a conflict result 497ms
+2026-10-13T05:32:40.7992447Z    ✓ 0.4 typed output contracts (real Git) > returns all real unmerged paths, including modify/delete conflicts 1665ms
+2026-10-13T05:32:40.7995143Z    ✓ 0.4 typed output contracts (real Git) > keeps pre-existing files when init or clone is cancelled 398ms
+2026-10-13T05:32:40.7997293Z    ✓ 0.4 typed output contracts (real Git) > uses the complete transport option set for bare repositories 1150ms
+2026-10-13T05:32:40.7999492Z    ✓ 0.4 typed output contracts (real Git) > rejects invalid runtime options before spawning Git 445ms
+2026-10-13T05:32:40.8000612Z    ✓ 0.4 typed output contracts (real Git) > returns LFS status and file metadata from validated JSON 3063ms
+2026-10-13T05:32:40.8001677Z    ✓ 0.4 typed output contracts (real Git) > returns committed LFS file metadata from validated JSON 3474ms
+2026-10-13T05:32:40.8006661Z    ✓ shared repository contracts through the Node TypeGit entrypoint 1106ms
+2026-10-13T05:32:40.8007627Z    ✓ commit stats are independent of human-readable quiet output 723ms
+2026-10-13T05:32:49.2725124Z  ✓ src/commands/revision-diff.test.ts (10 tests) 7926ms
+2026-10-13T05:32:49.2727999Z    ✓ revision and diff parser constraints > accepts bare unpacked traversal and rejects its removed attached-value form 728ms
+2026-10-13T05:32:49.2730368Z    ✓ revision and diff parser constraints > matches all ordered output-format pairs and selected resetting triples 2502ms
+2026-10-13T05:32:49.2732513Z    ✓ revision and diff parser constraints > matches traversal toggles and immediate, asymmetric cherry selection 751ms
+2026-10-13T05:32:49.2735115Z    ✓ revision and diff parser constraints > retains the max-count-oldest transition rules instead of a final-state exclusion 1815ms
+2026-10-13T05:32:49.2737446Z    ✓ revision and diff parser constraints > resets combined-all-paths when a later merge-diff mode replaces it 677ms
+2026-10-13T05:32:50.2908873Z  ✓ src/adapters/node/fs.test.ts (17 tests) 515ms
+2026-10-13T05:32:50.8621194Z  ✓ src/parsers/parsers.test.ts (28 tests) 25ms
+2026-10-13T05:32:56.0730283Z  ❯ src/commands/sequencer.test.ts (5 tests | 1 failed) 4462ms
+2026-10-13T05:32:56.0734091Z    ✓ merge, rebase and sequencer parser grammars > checks original merge argument count and the last fast-forward mode 493ms
+2026-10-13T05:32:56.0736817Z    ✓ merge, rebase and sequencer parser grammars > checks immediate backend changes, implied backends and case-insensitive rebase enums 1525ms
+2026-10-13T05:32:56.0739076Z    ✓ merge, rebase and sequencer parser grammars > distinguishes sequencer continuation options from merge continuation options 1162ms
+2026-10-13T05:32:56.0741802Z    × merge, rebase and sequencer parser grammars > matches mainline conversion before a later clear can mask invalid input 238ms
+2026-10-13T05:32:56.0743733Z      → --mainline: invalid mainline value 2147483648
+2026-10-13T05:32:56.0745332Z    ✓ merge, rebase and sequencer parser grammars > supports merge-base modes and concatenated commit-tree messages 429ms
+2026-10-13T05:32:56.6941146Z  ✓ src/impl/lfs-progress-wiring.test.ts (9 tests) 41ms
+2026-10-13T05:33:00.1409656Z  ✓ src/commands/config-notes.test.ts (4 tests) 2882ms
+2026-10-13T05:33:00.1412446Z    ✓ config and notes command grammars > round-trips dash-prefixed config values after option parsing has stopped 457ms
+2026-10-13T05:33:00.1415062Z    ✓ config and notes command grammars > matches config type transitions and filter restrictions against Git 423ms
+2026-10-13T05:33:00.1417302Z    ✓ config and notes command grammars > keeps parent notes options before subcommands and allows concatenated message sources 1081ms
+2026-10-13T05:33:00.1419480Z    ✓ config and notes command grammars > treats every stash create argument as message text, including --help and -- 529ms
+2026-10-13T05:33:00.5704352Z  ✓ src/core/env.test.ts (22 tests) 19ms
+2026-10-13T05:33:01.0005375Z  ✓ src/internal/concurrency.test.ts (12 tests) 18ms
+2026-10-13T05:33:03.6885908Z  ❯ src/commands/reflog-stash.test.ts (6 tests | 1 failed) 2118ms
+2026-10-13T05:33:03.6888666Z    ✓ reflog operations and stash diff delegation > accepts ignored extra exists operands and independent expire selections 447ms
+2026-10-13T05:33:03.6895118Z    ✓ reflog operations and stash diff delegation > executes list, write and drop and checks their distinct arities 486ms
+2026-10-13T05:33:03.6903004Z    × reflog operations and stash diff delegation > attaches short option values before stash separates revision options and operands 111ms
+2026-10-13T05:33:03.6906611Z      → BUG: diffcore-pickaxe.c:241: should have needle under -G or -S
+2026-10-13T05:33:03.6907836Z : expected 3 to be +0 // Object.is equality
+2026-10-13T05:33:05.6920969Z  ✓ src/commands/build.test.ts (9 tests) 25991ms
+2026-10-13T05:33:05.6924099Z    ✓ typed commands against Git LFS > executes help safely for every registered scope and matches independent CLI output 19689ms
+2026-10-13T05:33:05.6926553Z    ✓ typed commands against Git LFS > matches native hash-object for every finite combination of its independent constraints 3290ms
+2026-10-13T05:33:05.6928811Z    ✓ typed commands against Git LFS > preserves remote parent options and checks modes against an isolated repository 425ms
+2026-10-13T05:33:05.6931196Z    ✓ typed commands against Git LFS > checks basic command combinations and honors flags that Git ignores in interactive mode 542ms
+2026-10-13T05:33:05.6933498Z    ✓ typed commands against Git LFS > writes stdin and exposes predictable pointer results through global and repository clients 1089ms
+2026-10-13T05:33:05.6935656Z    ✓ typed commands against Git LFS > allows ignored strict flags outside checking mode and effective false flags 541ms
+2026-10-13T05:33:05.7301076Z  ✓ src/constraints/decision-diagram.test.ts (5 tests) 1592ms
+2026-10-13T05:33:05.7302859Z    ✓ reduced ordered decision diagrams > agrees with full enumeration for every subset of a mixed constraint system 1519ms
+2026-10-13T05:33:06.1298946Z  ✓ src/parsers/index.test.ts (26 tests) 19ms
+2026-10-13T05:33:06.3355322Z  ✓ src/impl/lfs-skip-smudge.test.ts (13 tests) 48ms
+2026-10-13T05:33:06.6082753Z  ✓ src/constraints/model.test.ts (5 tests) 28ms
+2026-10-13T05:33:06.9651763Z  ✓ src/impl/lfs-option-serialization.test.ts (4 tests) 33ms
+2026-10-13T05:33:07.4860053Z  ✓ test/unit/types.test.ts (3 tests) 8ms
+2026-10-13T05:33:08.7444442Z  ✓ src/constraints/git-scalars.test.ts (2 tests) 1598ms
+2026-10-13T05:33:08.7446409Z    ✓ Git scalar grammars > matches the independent Git boolean parser across text, base, suffix, sign and overflow boundaries 1594ms
+2026-10-13T05:33:24.8492113Z  ✓ src/impl/option-constraints.test.ts (16 tests) 76265ms
+2026-10-13T05:33:24.8494400Z    ✓ option constraints against independent Git executions > preserves boolean ls-tree abbreviation for worktree and bare repositories 976ms
+2026-10-13T05:33:24.8496286Z    ✓ option constraints against independent Git executions > compares every LFS checkout stage/destination combination with the LFS parser 8774ms
+2026-10-13T05:33:24.8497708Z    ✓ option constraints against independent Git executions > checks cached LFS lock constraints without contacting a server 17755ms
+2026-10-13T05:33:24.8510702Z    ✓ option constraints against independent Git executions > compares LFS migrate info fixup combinations, including empty filters and default pointers 11664ms
+2026-10-13T05:33:24.8512327Z    ✓ option constraints against independent Git executions > checks LFS migrate import size thresholds and no-rewrite prerequisites 4764ms
+2026-10-13T05:33:24.8513638Z    ✓ option constraints against independent Git executions > checks all reset modes and intent-to-add states against Git 1474ms
+2026-10-13T05:33:24.8514990Z    ✓ option constraints against independent Git executions > checks stash staged, untracked, all, file and explicit path combinations against Git 7819ms
+2026-10-13T05:33:24.8516346Z    ✓ option constraints against independent Git executions > checks remote mirror modes and branch tracking against Git 775ms
+2026-10-13T05:33:24.8517631Z    ✓ option constraints against independent Git executions > accepts successive submodule strategies and requires init for filtering 3720ms
+2026-10-13T05:33:24.8519188Z    ✓ option constraints against independent Git executions > checks tag message sources and forwards empty messages 710ms
+2026-10-13T05:33:24.8520580Z    ✓ option constraints against independent Git executions > exhaustively checks clone layout combinations against Git, including successful cases 4873ms
+2026-10-13T05:33:24.8522194Z    ✓ option constraints against independent Git executions > exhaustively checks submodule filter prerequisites against Git 9808ms
+2026-10-13T05:33:24.8523598Z    ✓ option constraints against independent Git executions > accepts locally ignored shallow combinations, zero jobs, and both address-family flags 675ms
+2026-10-13T05:33:24.8525095Z    ✓ option constraints against independent Git executions > preserves Git precedence for diff output, status rename controls, date aliases, and signing 1087ms
+2026-10-13T05:33:24.8526781Z    ✓ option constraints against independent Git executions > passes accepted force/lease and tag combinations through to Git 892ms
+2026-10-13T05:33:24.8528166Z    ✓ option constraints against independent Git executions > rejects missing clone dependencies before any spawn and preserves sequencer options 496ms
+2026-10-13T05:33:24.8690671Z
+2026-10-13T05:33:24.8707789Z ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+2026-10-13T05:33:24.8708483Z
+2026-10-13T05:33:24.8713767Z  FAIL  src/commands/reflog-stash.test.ts > reflog operations and stash diff delegation > attaches short option values before stash separates revision options and operands
+2026-10-13T05:33:24.8738652Z AssertionError: BUG: diffcore-pickaxe.c:241: should have needle under -G or -S
+2026-10-13T05:33:24.8739673Z : expected 3 to be +0 // Object.is equality
+2026-10-13T05:33:24.8740077Z
+2026-10-13T05:33:24.8740311Z - Expected
+2026-10-13T05:33:24.8740714Z + Received
+2026-10-13T05:33:24.8740913Z
+2026-10-13T05:33:24.8741095Z - 0
+2026-10-13T05:33:24.8741435Z + 3
+2026-10-13T05:33:24.8741616Z
+2026-10-13T05:33:24.8742162Z  ❯ src/commands/reflog-stash.test.ts:131:42
+2026-10-13T05:33:24.9149536Z     129|     const actual = direct(['stash', 'show', '-Stwo', '-n1', '-p']);
+2026-10-13T05:33:24.9151551Z     130|     expect(result.exitCode, result.stderr).toBe(0);
+2026-10-13T05:33:24.9152996Z     131|     expect(actual.status, actual.stderr).toBe(0);
+2026-10-13T05:33:24.9153709Z        |                                          ^
+2026-10-13T05:33:24.9154381Z     132|     expect(result.stdout).toBe(actual.stdout);
+2026-10-13T05:33:24.9155434Z     133|     expect((await repo.command('stash show', [['-p']])).stdout).toCont…
+2026-10-13T05:33:24.9156018Z
+2026-10-13T05:33:24.9156264Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+2026-10-13T05:33:24.9156467Z
+2026-10-13T05:33:24.9157340Z  FAIL  src/commands/sequencer.test.ts > merge, rebase and sequencer parser grammars > matches mainline conversion before a later clear can mask invalid input
+2026-10-13T05:33:24.9160555Z GitArgumentError: --mainline: invalid mainline value 2147483648
+2026-10-13T05:33:24.9161598Z  ❯ Module.commandArguments src/commands/build.ts:172:13
+2026-10-13T05:33:24.9231971Z     170|       : { valid: true, value };
+2026-10-13T05:33:24.9233414Z     171|     if (!parsed.valid) {
+2026-10-13T05:33:24.9235401Z     172|       throw new GitArgumentError(`${flag}: invalid ${option.parser} va…
+2026-10-13T05:33:24.9236956Z        |             ^
+2026-10-13T05:33:24.9237581Z     173|     }
+2026-10-13T05:33:24.9239329Z     174|     if (option.ignore) {
+2026-10-13T05:33:24.9241045Z  ❯ compare src/commands/sequencer.test.ts:52:14
+2026-10-13T05:33:24.9243092Z  ❯ src/commands/sequencer.test.ts:185:7
+2026-10-13T05:33:24.9243769Z
+2026-10-13T05:33:24.9244364Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+2026-10-13T05:33:24.9247256Z  Test Files  2 failed | 23 passed (25)
+2026-10-13T05:33:24.9249322Z       Tests  2 failed | 431 passed (433)
+2026-10-13T05:33:24.9249969Z
+2026-10-13T05:33:24.9250322Z    Start at  05:32:04
+2026-10-13T05:33:24.9254072Z    Duration  79.88s (transform 1.57s, setup 0ms, collect 7.08s, tests 188.65s, environment 10ms, prepare 4.57s)
+2026-10-13T05:33:24.9255529Z
+2026-10-13T05:33:24.9293337Z
+2026-10-13T05:33:24.9321286Z ##[error]AssertionError: BUG: diffcore-pickaxe.c:241: should have needle under -G or -S
+: expected 3 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 3
+
+ ❯ src/commands/reflog-stash.test.ts:131:42
+
+
+2026-10-13T05:33:24.9334294Z
+2026-10-13T05:33:24.9337988Z ##[error]GitArgumentError: --mainline: invalid mainline value 2147483648
+ ❯ Module.commandArguments src/commands/build.ts:172:13
+ ❯ compare src/commands/sequencer.test.ts:52:14
+ ❯ src/commands/sequencer.test.ts:185:7
+
+
+2026-10-13T05:33:25.0016251Z  ELIFECYCLE  Command failed with exit code 1.
+2026-10-13T05:33:25.1179934Z ##[error]Process completed with exit code 1.
+2026-10-13T05:33:25.1417611Z Post job cleanup.
+2026-10-13T05:33:25.3441441Z Pruning is unnecessary.
+2026-10-13T05:33:25.3792758Z Post job cleanup.
+2026-10-13T05:33:25.5871081Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-13T05:33:25.6149485Z git version 2.55.0.windows.5
+2026-10-13T05:33:25.6220231Z Copying 'C:\Users\runneradmin\.gitconfig' to 'D:\a\_temp\c9d9f725-6970-4e66-b1b0-f30f45ad3462\.gitconfig'
+2026-10-13T05:33:25.6247399Z Temporarily overriding HOME='D:\a\_temp\c9d9f725-6970-4e66-b1b0-f30f45ad3462' before making global git config changes
+2026-10-13T05:33:25.6248855Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T05:33:25.6260001Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\type-git\type-git
+2026-10-13T05:33:25.6644094Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T05:33:25.7069457Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-13T05:33:26.2868742Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T05:33:26.3140949Z http.https://github.com/.extraheader
+2026-10-13T05:33:26.3193475Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-10-13T05:33:26.3524760Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-13T05:33:26.9216824Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T05:33:26.9548185Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-13T05:33:27.5301950Z Cleaning up orphan processes
+2026-10-13T05:33:27.5471228Z Terminate orphan process: pid (7992) (msedge)
+2026-10-13T05:33:27.5577746Z Terminate orphan process: pid (2272) (msedge)
+2026-10-13T05:33:27.5753352Z Terminate orphan process: pid (2952) (msedge)
+2026-10-13T05:33:27.5896047Z Terminate orphan process: pid (6268) (msedge)
+2026-10-13T05:33:27.6213933Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, pnpm/action-setup@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,6 @@
+
+> type-git@0.4.0 constraints:check /tmp/type-git-merge-prep-192
+> node scripts/string-callbacks.mjs --check && node scripts/compound-decimals.mjs --check && node scripts/boolean-callbacks.mjs --check && node scripts/numeric-callbacks.mjs --check && node scripts/constraints.mjs --check && node scripts/command-coverage.mjs --check
+
+Constraint artifacts verified: 28 clone components, 143 cases.
+Coverage ledger checked: 430 scopes, 0 complete.
