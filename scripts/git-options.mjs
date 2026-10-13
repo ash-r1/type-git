@@ -58,6 +58,12 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       const longForms = longOptionResolution ? parseOptionLongForms(definitionsFor(firstPassTables, command), longOptionResolution === 'abbreviated') : undefined;
       if (longForms) for (const canonical of [...Object.values(longForms.plain), ...Object.values(longForms.attached)]) if (canonical !== null && !options[canonical]) throw new Error(`${command}: unresolved native long form ${canonical}`);
       if (scope.conditionalCommand && (definitionsFor(firstPassTables, command).length || wrappers?.length || remainingTables?.length || remainingGroups?.length)) throw new Error(`${command}: conditional invocation currently requires an empty first parser without intermediate phases`);
+      if (exit.remainingPartition) {
+        const { optionPrefix, operandKey } = exit.remainingPartition;
+        const reserved = ['operands', 'operandsBeforeSeparator', 'pathsAfterSeparator', 'operand0', 'argumentTokens', 'inRepository', 'hasSeparator', 'help', 'parserExited', 'ended', 'literalOperands'];
+        if (typeof optionPrefix !== 'string' || !optionPrefix || typeof operandKey !== 'string' || !/^[a-z][a-z0-9-]*$/.test(operandKey) || reserved.includes(operandKey) || Object.hasOwn(scope.initial ?? {}, operandKey) || Object.values(options).some(option => option.key === operandKey || option.effects?.some(effect => effect.key === operandKey))) throw new Error(`${command}: invalid or colliding retained-word partition`);
+        if (exit.remainingOperands || scope.conditionalCommand) throw new Error(`${command}: retained-word partition requires a revision pass`);
+      }
       const prefix = wrappers?.map(({ tables: wrapperTables, ...wrapper }) => {
         const definitions = definitionsFor(wrapperTables, command);
         if (wrapper.kind !== 'empty-options' || definitions.some(option => option.kind !== 'OPTION_SUBCOMMAND')) throw new Error(`${command}: wrapper must have no option callbacks`);

@@ -19,7 +19,7 @@ import type { ExecOpts, RawResult } from '../core/types.js';
 import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
-import type { RevisionParserPass } from './revision-parser-pass-types.js';
+import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
 import type { OptionSpec } from './spec.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
@@ -488,6 +488,29 @@ type OperandPassState<
         OperandInitial<C, R, S>
       >
   : InvalidPass;
+type RevisionPassState<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  E extends readonly unknown[],
+  R extends readonly string[],
+  Extra,
+> = RevisionParserPass<Spec<C>, R> extends infer P
+  ? P extends { tokens: infer T extends readonly unknown[] }
+    ? State<
+        C,
+        T,
+        State<C, E, Put<Initial<C>, 'argumentTokens', A> & Extra>,
+        true,
+        RemainingOptions<C>
+      > extends infer S
+      ? [S] extends [never]
+        ? InvalidPass
+        : S
+      : InvalidPass
+    : P extends { dynamic: true }
+      ? { parserExited: true }
+      : InvalidPass
+  : InvalidPass;
 type RemainingState<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -495,19 +518,9 @@ type RemainingState<
   R extends readonly string[],
 > = Spec<C> extends { parserExit: { remainingOperands: string } }
   ? OperandPassState<C, A, E, R>
-  : RevisionParserPass<Spec<C>, R> extends infer P
-    ? P extends { tokens: infer T extends readonly unknown[] }
-      ? State<
-          C,
-          T,
-          State<C, E, Put<Initial<C>, 'argumentTokens', A>>,
-          true,
-          RemainingOptions<C>
-        > extends infer S
-        ? [S] extends [never]
-          ? InvalidPass
-          : S
-        : InvalidPass
+  : PartitionRemaining<Spec<C>, R> extends infer P
+    ? P extends { words: infer W extends readonly string[]; state: infer X }
+      ? RevisionPassState<C, A, E, W, X>
       : P extends { dynamic: true }
         ? { parserExited: true }
         : InvalidPass

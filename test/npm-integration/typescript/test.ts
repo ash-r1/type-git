@@ -339,3 +339,13 @@ export function testStashTransferTypes(git: Git): void {
   // @ts-expect-error Native command-mode flags cannot be negated.
   git.command('stash export', [{ operand: '--no-print' }, ['-h']]);
 }
+
+export function testStashShowPartitionTypes(git: Git): void {
+  git.command('stash show', [['--color', 'bad'], ['-h']]);
+  git.command('stash show', [['--'], ['--default', 'foo']]);
+  git.command('stash show', [['--'], ['-h'], { operand: '-unknown' }]);
+  // @ts-expect-error Plain words after -- still count as stash references.
+  git.command('stash show', [['--'], { operand: 'foo' }, { operand: 'one' }]);
+  // @ts-expect-error The native own-table flag is processed before help.
+  git.command('stash show', [{ operand: '--include-untracked=1' }, ['-h']]);
+}

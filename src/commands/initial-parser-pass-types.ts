@@ -198,7 +198,7 @@ type Short<
                   : Invalid
               : Walk<S, R, readonly [...T, readonly [`-${C}`, Rest]], N, Out>
       : Walk<S, R, T, N, Out>;
-type DynamicWord<W extends string, N extends readonly unknown[] = []> = string extends W
+export type DynamicWord<W extends string, N extends readonly unknown[] = []> = string extends W
   ? true
   : `${number}` extends W
     ? true

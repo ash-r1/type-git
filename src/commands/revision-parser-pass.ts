@@ -1,6 +1,23 @@
 import { GitArgumentError } from '../core/types.js';
 import type { CommandSpec, OptionSpec } from './spec.js';
 
+/** Preserve each stream's order when a native command partitions retained argv. */
+export function partitionRemainingArguments(
+  spec: CommandSpec,
+  argv: readonly string[],
+): { words: readonly string[]; state: Readonly<Record<string, readonly string[]>> } {
+  const partition = spec.parserExit?.remainingPartition;
+  if (!partition) {
+    return { words: argv, state: {} };
+  }
+  const words: string[] = [];
+  const operands: string[] = [];
+  for (const word of argv) {
+    (word.startsWith(partition.optionPrefix) ? words : operands).push(word);
+  }
+  return { words, state: { [partition.operandKey]: operands } };
+}
+
 type Token = readonly string[] | { operand: string };
 /** Decode the retained stream in setup_revisions order, before applying callbacks. */
 export function revisionParserPass(spec: CommandSpec, argv: readonly string[]): Token[] {
