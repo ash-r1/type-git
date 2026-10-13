@@ -1,5 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import { describe, expect, it } from 'vitest';
+import { nativeCLongBits } from './c-abi.js';
 import { gitBoolean, parseGitScalar } from './git-scalars.js';
 
 describe('Git scalar grammars', () => {
@@ -95,5 +96,30 @@ describe('Git scalar grammars', () => {
       value: false,
     });
     expect(parseGitScalar('push-signed', 'IF-ASKED')).toEqual({ valid: true, value: 'if-asked' });
+  });
+  it('binds ILP32, LP64 and LLP64 mainline conversions to the host architecture', () => {
+    for (const [platform, architecture, expected] of [
+      ['linux', 'ia32', 32],
+      ['linux', 'arm', 32],
+      ['linux', 'ppc', 32],
+      ['linux', 's390', 32],
+      ['linux', 'x64', 64],
+      ['linux', 'arm64', 64],
+      ['linux', 'ppc64', 64],
+      ['linux', 's390x', 64],
+      ['darwin', 'arm64', 64],
+      ['win32', 'x64', 32],
+      ['win32', 'arm64', 32],
+      ['win32', 'ia32', 32],
+    ] as const) {
+      const bits = nativeCLongBits(platform, architecture);
+      expect(bits).toBe(expected);
+      expect(parseGitScalar('mainline', 4294967296, undefined, bits)).toEqual(
+        bits === 32 ? { valid: true, value: 2147483647 } : { valid: false, value: 0 },
+      );
+      expect(parseGitScalar('mainline', -4294967295, undefined, bits)).toEqual(
+        bits === 32 ? { valid: false, value: -2147483648 } : { valid: true, value: 1 },
+      );
+    }
   });
 });

@@ -1,3 +1,4 @@
+import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
 import type { Constrained } from '../constraints/types.js';
@@ -8,8 +9,13 @@ import type { OptionSpec } from './spec.js';
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
+type CaseVariants<S extends string> = S extends `${infer H}${infer R}`
+  ? `${Lowercase<H> | Uppercase<H>}${CaseVariants<R>}`
+  : S;
 type Value<S extends OptionSpec> = S extends { allowed: infer A extends readonly unknown[] }
-  ? A[number]
+  ? S extends { caseInsensitive: true }
+    ? CaseVariants<A[number] & string> | Exclude<A[number], string>
+    : A[number]
   : S['value'] extends 'flag' | 'boolean'
     ? boolean
     : S['value'] extends 'integer' | 'optional-integer'
@@ -44,6 +50,7 @@ type Base<C extends GitCommandName> = {
 } & {
   [K in EffectKeys<Options<C>[keyof Options<C>]>]?: unknown;
 } & {
+  argumentTokens: readonly unknown[];
   operands: readonly string[];
   operandsBeforeSeparator: readonly string[];
   pathsAfterSeparator: readonly string[];
@@ -69,18 +76,23 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   : D extends { set: infer V }
     ? V
     : true;
-type TokenValue<T extends readonly unknown[], D extends OptionSpec> = T extends readonly [
-  unknown,
-  infer V,
-]
-  ? V extends undefined
-    ? DefaultValue<D>
-    : D extends { emptyIsUnset: true }
-      ? V extends ''
-        ? undefined
+type Normalize<V, D extends OptionSpec> = D extends { caseInsensitive: true }
+  ? V extends string
+    ? Lowercase<V>
+    : V
+  : V;
+type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
+  T extends readonly [unknown, infer V]
+    ? V extends undefined
+      ? DefaultValue<D>
+      : D extends { emptyIsUnset: true }
+        ? V extends ''
+          ? undefined
+          : V
         : V
-      : V
-  : DefaultValue<D>;
+    : DefaultValue<D>,
+  D
+>;
 type Append<S, D extends OptionSpec, V> = D extends { clear: true }
   ? readonly []
   : V extends false
@@ -129,7 +141,11 @@ type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
     ? Put<S, D['key'], D['key'] extends keyof S ? (S[D['key']] extends true ? false : true) : true>
     : D extends { repeat: true }
       ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
-      : Put<S, D['key'], TokenValue<T, D>>;
+      : Put<
+          S,
+          D['key'],
+          D extends { parser: 'mainline' } ? MainlineValue<TokenValue<T, D>> : TokenValue<T, D>
+        >;
 type RevisionCountValid<V> = V extends number
   ? [SafeIntegerAtLeast<V, -2147483648, false>] extends [never]
     ? false
@@ -143,7 +159,11 @@ type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extend
   ? RevisionCountValid<TokenValue<T, D>> extends false
     ? never
     : UncheckedModeState<S, D, T>
-  : UncheckedModeState<S, D, T>;
+  : D extends { parser: 'mainline' }
+    ? MainlineLiteral<TokenValue<T, D>> extends false
+      ? never
+      : UncheckedModeState<S, D, T>
+    : UncheckedModeState<S, D, T>;
 type UncheckedModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeGroup: infer G extends string;
 }
@@ -222,9 +242,11 @@ type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
             : CheckedTokenState<S, D, T>
           : never
         : S;
-type State<C extends GitCommandName, A extends readonly unknown[], S = Initial<C>> = [S] extends [
-  never,
-]
+type State<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  S = Put<Initial<C>, 'argumentTokens', A>,
+> = [S] extends [never]
   ? never
   : A extends readonly [infer H, ...infer Rest]
     ? State<C, Rest, ApplyToken<C, S, H>>
