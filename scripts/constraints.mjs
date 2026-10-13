@@ -10,7 +10,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const scratch = await mkdtemp(join(tmpdir(), 'type-git-constraints-'));
 try {
   await writeFile(join(scratch, 'package.json'), '{"type":"module"}');
-  for (const name of ['model', 'commands', 'explore', 'clone-domains', 'decision-diagram', 'scalars', 'inputs']) {
+  for (const name of ['model', 'commands', 'explore', 'clone-domains', 'decision-diagram', 'scalars', 'git-scalars', 'inputs']) {
     const source = await readFile(join(root, `src/constraints/${name}.ts`), 'utf8');
     const { outputText } = ts.transpileModule(source, {
       compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext },

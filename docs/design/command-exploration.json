@@ -614,13 +614,9 @@
         ],
         "mirror": [
           "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\"",
-          "true",
+          "\"fetch\"",
           "\"push\"",
-          "\"fetch\""
+          "true"
         ],
         "help": [
           "undefined",
@@ -649,13 +645,13 @@
           "true"
         ]
       },
-      "total": "864000",
+      "total": "432000",
       "accepted": "31104",
-      "nodes": 36,
+      "nodes": 27,
       "isolatedRuleWitnesses": {
         "cli.remote add.operands": "{\"operands\":[]}",
-        "cli.remote add.mirror": "{\"mirror\":\"\",\"operands\":[\"value\",\"value\"]}",
-        "cli.remote add.mirror-master": "{\"master\":\"\",\"mirror\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.remote add.mirror": null,
+        "cli.remote add.mirror-master": "{\"master\":\"\",\"mirror\":\"fetch\",\"operands\":[\"value\",\"value\"]}",
         "cli.remote add.push-track": "{\"mirror\":\"push\",\"operands\":[\"value\",\"value\"],\"track\":[\"\"]}"
       }
     },
@@ -1190,6 +1186,3387 @@
         "cli.init-db.bare-directory": "{\"bare\":true,\"operands\":[],\"separate-git-dir\":\"\"}",
         "cli.init-db.object-format": "{\"object-format\":\"\",\"operands\":[]}",
         "cli.init-db.ref-format": "{\"operands\":[],\"ref-format\":\"\"}"
+      }
+    },
+    {
+      "command": "commit",
+      "rules": 21,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "author": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "date": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reedit-message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reuse-message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "fixup": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"amend:\"",
+          "\"amend:value\"",
+          "\"reword:\"",
+          "\"reword:value\""
+        ],
+        "squash": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reset-author": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "trailer": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "signoff": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "template": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "edit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cleanup": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "status": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "gpg-sign": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "include": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "interactive": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-verify": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "format": [
+          "undefined",
+          "\"short\"",
+          "false",
+          "\"porcelain\"",
+          "\"long\""
+        ],
+        "branch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ahead-behind": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "null": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "amend": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-post-rewrite": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "untracked-files": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"all\"",
+          "\"normal\"",
+          "\"no\""
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "allow-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "allow-empty-message": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3530369206012500000000000",
+      "accepted": "117135364873190400000",
+      "nodes": 9032,
+      "isolatedRuleWitnesses": {
+        "cli.commit.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
+        "cli.commit.untracked": "{\"operands\":[],\"untracked-files\":\"\"}",
+        "cli.commit.author": "{\"author\":\"\",\"operands\":[],\"reset-author\":true}",
+        "cli.commit.fixup-squash": "{\"fixup\":\"\",\"operands\":[],\"squash\":\"\"}",
+        "cli.commit.message-source": "{\"fixup\":\"\",\"operands\":[],\"reuse-message\":\"\"}",
+        "cli.commit.literal-message-source": "{\"message\":\"\",\"operands\":[],\"reuse-message\":\"\"}",
+        "cli.commit.content-mode": "{\"interactive\":true,\"only\":true,\"operands\":[]}",
+        "cli.commit.patch-mode": "{\"only\":true,\"operands\":[],\"patch\":true}",
+        "cli.commit.all-paths": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.commit.pathspec-file-modes": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
+        "cli.commit.pathspec-file-paths": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
+        "cli.commit.pathspec-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
+        "cli.commit.include-paths": "{\"include\":true,\"operands\":[]}",
+        "cli.commit.fixup-amend-message": "{\"fixup\":\"amend:\",\"message\":\"\",\"operands\":[]}",
+        "cli.commit.fixup-reword-message": "{\"fixup\":\"reword:\",\"message\":\"\",\"operands\":[]}",
+        "cli.commit.reword-paths": "{\"fixup\":\"reword:\",\"operands\":[\"value\"]}",
+        "cli.commit.reword-content": "{\"fixup\":\"reword:\",\"operands\":[],\"patch\":true}",
+        "cli.commit.unified-minimum": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "cli.commit.unified-interactive": "{\"operands\":[],\"unified\":0}",
+        "cli.commit.inter-hunk-context-minimum": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "cli.commit.inter-hunk-context-interactive": "{\"inter-hunk-context\":0,\"operands\":[]}"
+      }
+    },
+    {
+      "command": "status",
+      "rules": 5,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "format": [
+          "undefined",
+          "\"short\"",
+          "false",
+          "\"1\"",
+          "\"2\"",
+          "\"v1\"",
+          "\"v2\"",
+          "\"long\""
+        ],
+        "branch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-stash": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ahead-behind": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "null": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "untracked-files": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"all\"",
+          "\"normal\"",
+          "\"no\""
+        ],
+        "ignored": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"traditional\"",
+          "\"matching\"",
+          "\"no\""
+        ],
+        "ignore-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"all\"",
+          "\"none\"",
+          "\"untracked\"",
+          "\"dirty\""
+        ],
+        "column": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "no-renames": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "find-renames": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "9674588160",
+      "accepted": "1207224000",
+      "nodes": 68,
+      "isolatedRuleWitnesses": {
+        "cli.status.long-nul": "{\"format\":\"long\",\"null\":true,\"operands\":[]}",
+        "cli.status.untracked": "{\"operands\":[],\"untracked-files\":\"\"}",
+        "cli.status.ignored": "{\"ignored\":\"\",\"operands\":[]}",
+        "cli.status.ignored-untracked": "{\"ignored\":\"matching\",\"operands\":[],\"untracked-files\":\"no\"}",
+        "cli.status.ignore-submodules": "{\"ignore-submodules\":\"\",\"operands\":[]}"
+      }
+    },
+    {
+      "command": "worktree",
+      "rules": 0,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "60",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "worktree add",
+      "rules": 5,
+      "domains": {
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "b": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "B": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "orphan": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "checkout": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "lock": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reason": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "track": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "guess-remote": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "relative-paths": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "262440000",
+      "accepted": "8709120",
+      "nodes": 166,
+      "isolatedRuleWitnesses": {
+        "cli.worktree add.operands": "{\"operands\":[]}",
+        "cli.worktree add.branch-mode": "{\"b\":\"\",\"detach\":true,\"operands\":[\"value\"]}",
+        "cli.worktree add.orphan-options": "{\"operands\":[\"value\"],\"orphan\":true,\"track\":true}",
+        "cli.worktree add.orphan-commit": "{\"operands\":[\"value\",\"value\"],\"orphan\":true}",
+        "cli.worktree add.reason-lock": "{\"operands\":[\"value\"],\"reason\":\"\"}"
+      }
+    },
+    {
+      "command": "worktree prune",
+      "rules": 1,
+      "domains": {
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "expire": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "3600",
+      "accepted": "720",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.worktree prune.operands": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "worktree list",
+      "rules": 3,
+      "domains": {
+        "porcelain": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "expire": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "z": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "7200",
+      "accepted": "720",
+      "nodes": 19,
+      "isolatedRuleWitnesses": {
+        "cli.worktree list.operands": "{\"operands\":[\"value\"]}",
+        "cli.worktree list.porcelain-verbose": "{\"operands\":[],\"porcelain\":true,\"verbose\":[true]}",
+        "cli.worktree list.nul": "{\"operands\":[],\"z\":true}"
+      }
+    },
+    {
+      "command": "worktree lock",
+      "rules": 1,
+      "domains": {
+        "reason": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "300",
+      "accepted": "60",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.worktree lock.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "worktree unlock",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.worktree unlock.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "worktree move",
+      "rules": 1,
+      "domains": {
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "relative-paths": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "144",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.worktree move.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "worktree remove",
+      "rules": 1,
+      "domains": {
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "48",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "cli.worktree remove.operands": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "worktree repair",
+      "rules": 0,
+      "domains": {
+        "relative-paths": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "180",
+      "accepted": "180",
+      "nodes": 0,
+      "isolatedRuleWitnesses": {}
+    },
+    {
+      "command": "clone",
+      "rules": 7,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "reject-shallow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-checkout": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "bare": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "mirror": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "local": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-hardlinks": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "shared": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]",
+          "[\".\"]",
+          "[\".\",\".\"]"
+        ],
+        "jobs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "template": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "reference": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "reference-if-able": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "dissociate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "origin": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "branch": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "revision": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "upload-pack": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-since": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "single-branch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "shallow-submodules": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "separate-git-dir": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ref-format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"files\"",
+          "\"reftable\""
+        ],
+        "config": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "server-option": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ipv4": [
+          "undefined",
+          "true"
+        ],
+        "ipv6": [
+          "undefined",
+          "true"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "also-filter-submodules": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "remote-submodules": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sparse": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "bundle-uri": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "15254681754375000000000000",
+      "accepted": "90838637024025600000000",
+      "nodes": 661,
+      "isolatedRuleWitnesses": {
+        "cli.clone.operands": "{\"operands\":[]}",
+        "cli.clone.bare-directory": "{\"bare\":true,\"operands\":[\"value\"],\"separate-git-dir\":\"\"}",
+        "cli.clone.mirror-directory": "{\"mirror\":true,\"operands\":[\"value\"],\"separate-git-dir\":\"\"}",
+        "cli.clone.bundle-shallow": "{\"bundle-uri\":\"\",\"operands\":[\"value\"],\"shallow-since\":\"\"}",
+        "cli.clone.filter-submodules": "{\"also-filter-submodules\":true,\"operands\":[\"value\"]}",
+        "cli.clone.revision-options": "{\"mirror\":true,\"operands\":[\"value\"],\"revision\":\"\"}",
+        "cli.clone.ref-format": "{\"operands\":[\"value\"],\"ref-format\":\"\"}"
+      }
+    },
+    {
+      "command": "fetch",
+      "rules": 11,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "set-upstream": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "append": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "atomic": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "upload-pack": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "multiple": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "jobs": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "prefetch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prune": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prune-tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "false"
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "porcelain": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "write-fetch-head": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "keep": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "update-head-ok": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "depth": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-since": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "shallow-exclude": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "deepen": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "unshallow": [
+          "undefined",
+          "true"
+        ],
+        "refetch": [
+          "undefined",
+          "true"
+        ],
+        "submodule-prefix": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "recurse-submodules-default": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "false"
+        ],
+        "update-shallow": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "refmap": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "server-option": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ipv4": [
+          "undefined",
+          "true"
+        ],
+        "ipv6": [
+          "undefined",
+          "true"
+        ],
+        "negotiation-restrict": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "negotiation-include": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "negotiate-only": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "filter": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "auto-maintenance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto-gc": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-forced-updates": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "write-commit-graph": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stdin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "256220075495563200000000000",
+      "accepted": "31177542977082432000000000",
+      "nodes": 395,
+      "isolatedRuleWitnesses": {
+        "cli.fetch.all-operands": "{\"all\":true,\"operands\":[\"value\"]}",
+        "cli.fetch.deepen-minimum": "{\"deepen\":-2,\"operands\":[]}",
+        "cli.fetch.depth-unshallow": "{\"depth\":\"\",\"operands\":[],\"unshallow\":true}",
+        "cli.fetch.deepen-depth": "{\"deepen\":1,\"depth\":\"\",\"operands\":[]}",
+        "cli.fetch.deepen-unshallow": "{\"deepen\":1,\"operands\":[],\"unshallow\":true}",
+        "cli.fetch.porcelain-recursion": "{\"operands\":[],\"porcelain\":true,\"recurse-submodules\":true}",
+        "cli.fetch.negotiate-only-recursion": "{\"negotiate-only\":true,\"operands\":[],\"recurse-submodules\":true}",
+        "cli.fetch.multiple-atomic": "{\"atomic\":true,\"multiple\":true,\"operands\":[\"value\"]}",
+        "cli.fetch.multiple-stdin": "{\"multiple\":true,\"operands\":[\"value\"],\"stdin\":true}",
+        "cli.fetch.multiple-filter": "{\"filter\":\"\",\"multiple\":true,\"operands\":[\"value\"]}",
+        "cli.fetch.multiple-negotiate-only": "{\"multiple\":true,\"negotiate-only\":true,\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "push",
+      "rules": 4,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "repo": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "all": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "mirror": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "delete": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "dry-run": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "porcelain": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force-with-lease": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "force-if-includes": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "false"
+        ],
+        "thin": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "receive-pack": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "exec": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "set-upstream": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "prune": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "no-verify": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "follow-tags": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "signed": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "false"
+        ],
+        "atomic": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "push-option": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "ipv4": [
+          "undefined",
+          "true"
+        ],
+        "ipv6": [
+          "undefined",
+          "true"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "9762996322800000",
+      "accepted": "4242684821760000",
+      "nodes": 78,
+      "isolatedRuleWitnesses": {
+        "cli.push.mode": "{\"mirror\":true,\"operands\":[],\"tags\":true}",
+        "cli.push.delete-refs": "{\"delete\":true,\"operands\":[]}",
+        "cli.push.all-refs": "{\"all\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.push.mirror-refs": "{\"mirror\":true,\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "branch",
+      "rules": 34,
+      "domains": {
+        "verbose": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "track": [
+          "undefined",
+          "\"direct\"",
+          "\"inherit\"",
+          "false",
+          "\"override\""
+        ],
+        "set-upstream-to": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "unset-upstream": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "scope": [
+          "undefined",
+          "\"remotes\"",
+          "\"all\""
+        ],
+        "contains": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "no-contains": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "with": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "without": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "abbrev": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "delete": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "D": [
+          "undefined",
+          "true"
+        ],
+        "move": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "M": [
+          "undefined",
+          "true"
+        ],
+        "omit-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "copy": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "C": [
+          "undefined",
+          "true"
+        ],
+        "list": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "show-current": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "create-reflog": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "edit-description": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "merged": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "no-merged": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "column": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "sort": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "points-at": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "ignore-case": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1028294561267712000000",
+      "accepted": "1504611414481305600",
+      "nodes": 2530,
+      "isolatedRuleWitnesses": {
+        "branch-actions": "{\"operands\":[],\"unset-upstream\":true,\"without\":\"\"}",
+        "branch-delete-arity": "{\"delete\":true,\"operands\":[]}",
+        "branch-D-arity": "{\"D\":true,\"operands\":[]}",
+        "branch-move-arity": "{\"move\":true,\"operands\":[]}",
+        "branch-M-arity": "{\"M\":true,\"operands\":[]}",
+        "branch-copy-arity": "{\"copy\":true,\"operands\":[]}",
+        "branch-C-arity": "{\"C\":true,\"operands\":[]}",
+        "branch-edit-description-arity": "{\"edit-description\":true,\"operands\":[\"value\",\"value\"]}",
+        "branch-unset-upstream-arity": "{\"operands\":[\"value\",\"value\"],\"unset-upstream\":true}",
+        "branch-set-upstream-to-arity": "{\"operands\":[\"value\",\"value\"],\"set-upstream-to\":\"\"}",
+        "branch-recurse-delete": "{\"delete\":true,\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-D": "{\"D\":true,\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-move": "{\"move\":true,\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-M": "{\"M\":true,\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-copy": "{\"copy\":true,\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-C": "{\"C\":true,\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-list": "{\"list\":true,\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-contains": "{\"contains\":\"\",\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-no-contains": "{\"no-contains\":\"\",\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-with": "{\"operands\":[\"value\"],\"recurse-submodules\":true,\"with\":\"\"}",
+        "branch-recurse-without": "{\"operands\":[\"value\"],\"recurse-submodules\":true,\"without\":\"\"}",
+        "branch-recurse-merged": "{\"merged\":\"\",\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-no-merged": "{\"no-merged\":\"\",\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-points-at": "{\"operands\":[\"value\"],\"points-at\":\"\",\"recurse-submodules\":true}",
+        "branch-recurse-show-current": "{\"operands\":[\"value\"],\"recurse-submodules\":true,\"show-current\":true}",
+        "branch-recurse-edit-description": "{\"edit-description\":true,\"operands\":[\"value\"],\"recurse-submodules\":true}",
+        "branch-recurse-set-upstream-to": "{\"operands\":[\"value\"],\"recurse-submodules\":true,\"set-upstream-to\":\"\"}",
+        "branch-recurse-unset-upstream": "{\"operands\":[\"value\"],\"recurse-submodules\":true,\"unset-upstream\":true}",
+        "branch-recurse-name": "{\"operands\":[],\"recurse-submodules\":true}",
+        "branch-delete-all-delete": "{\"delete\":true,\"operands\":[\"value\"],\"scope\":\"all\"}",
+        "branch-delete-all-D": "{\"D\":true,\"operands\":[\"value\"],\"scope\":\"all\"}",
+        "branch-create-arity": "{\"operands\":[\"value\",\"value\",\"value\"]}",
+        "branch-create-scope": "{\"operands\":[\"value\"],\"scope\":\"remotes\"}",
+        "branch-create-track": "{\"operands\":[\"value\"],\"track\":\"override\"}"
+      }
+    },
+    {
+      "command": "checkout",
+      "rules": 33,
+      "domains": {
+        "b": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "B": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "l": [
+          "undefined",
+          "true"
+        ],
+        "guess": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "overlay": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto-advance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "merge": [
+          "undefined",
+          "true",
+          "false",
+          "-1"
+        ],
+        "conflict": [
+          "undefined",
+          "\"merge\"",
+          "\"diff3\"",
+          "\"zdiff3\""
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "track": [
+          "undefined",
+          "\"direct\"",
+          "\"inherit\"",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "orphan": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "overwrite-ignore": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-other-worktrees": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "stage": [
+          "undefined",
+          "2",
+          "3"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "ignore-skip-worktree-bits": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "46283834419200000",
+      "accepted": "52971393484800",
+      "nodes": 2433,
+      "isolatedRuleWitnesses": {
+        "checkout-creation": "{\"b\":\"\",\"operands\":[],\"orphan\":\"\"}",
+        "checkout-detach-b": "{\"b\":\"\",\"detach\":true,\"operands\":[]}",
+        "checkout-detach-B": "{\"B\":\"\",\"detach\":true,\"operands\":[]}",
+        "checkout-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"\"}",
+        "checkout-detach-tracking": "{\"detach\":true,\"operands\":[],\"track\":\"direct\"}",
+        "checkout-orphan-tracking": "{\"operands\":[],\"orphan\":\"\",\"track\":\"direct\"}",
+        "checkout-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[]}",
+        "checkout-patch-overlay": "{\"operands\":[],\"overlay\":true,\"patch\":true}",
+        "checkout-patch-merge": "{\"merge\":true,\"operands\":[],\"patch\":true}",
+        "checkout-file-patch": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
+        "checkout-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
+        "checkout-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "checkout-unified-patch": "{\"operands\":[],\"unified\":0}",
+        "checkout-inter-hunk-context-range": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "checkout-inter-hunk-context-patch": "{\"inter-hunk-context\":0,\"operands\":[]}",
+        "checkout-file-detach": "{\"detach\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
+        "checkout-patch-force": "{\"force\":true,\"operands\":[],\"patch\":true}",
+        "checkout-auto-advance": "{\"auto-advance\":false,\"operands\":[]}",
+        "checkout-patch-b": "{\"b\":\"\",\"operands\":[],\"patch\":true}",
+        "checkout-patch-B": "{\"B\":\"\",\"operands\":[],\"patch\":true}",
+        "checkout-patch-orphan": "{\"operands\":[],\"orphan\":\"\",\"patch\":true}",
+        "checkout-patch-detach": "{\"detach\":true,\"operands\":[],\"patch\":true}",
+        "checkout-patch-l": "{\"l\":true,\"operands\":[],\"patch\":true}",
+        "checkout-patch-track": "{\"operands\":[],\"patch\":true,\"track\":\"direct\"}",
+        "checkout-reference-arity": "{\"hasSeparator\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\",\"value\"]}",
+        "checkout-explicit-path-modes": "{\"merge\":true,\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"stage\":2}",
+        "checkout-paths-b": "{\"b\":\"\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "checkout-paths-B": "{\"B\":\"\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "checkout-paths-orphan": "{\"operands\":[],\"orphan\":\"\",\"pathsAfterSeparator\":[\"value\"]}",
+        "checkout-paths-detach": "{\"detach\":true,\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "checkout-paths-l": "{\"l\":true,\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "checkout-paths-track": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"track\":\"direct\"}",
+        "checkout-file-paths": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"pathspec-from-file\":\"\"}"
+      }
+    },
+    {
+      "command": "switch",
+      "rules": 11,
+      "domains": {
+        "create": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force-create": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "guess": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "discard-changes": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "merge": [
+          "undefined",
+          "true",
+          "false",
+          "-1"
+        ],
+        "conflict": [
+          "undefined",
+          "\"merge\"",
+          "\"diff3\"",
+          "\"zdiff3\""
+        ],
+        "detach": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "track": [
+          "undefined",
+          "\"direct\"",
+          "\"inherit\"",
+          "false"
+        ],
+        "force": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "orphan": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "overwrite-ignore": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-other-worktrees": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "29393280000",
+      "accepted": "424569600",
+      "nodes": 347,
+      "isolatedRuleWitnesses": {
+        "switch-creation": "{\"force-create\":\"\",\"operands\":[],\"orphan\":\"\"}",
+        "switch-detach-create": "{\"create\":\"\",\"detach\":true,\"operands\":[]}",
+        "switch-detach-force-create": "{\"detach\":true,\"force-create\":\"\",\"operands\":[]}",
+        "switch-detach-orphan": "{\"detach\":true,\"operands\":[],\"orphan\":\"\"}",
+        "switch-detach-tracking": "{\"detach\":true,\"operands\":[],\"track\":\"direct\"}",
+        "switch-orphan-tracking": "{\"operands\":[],\"orphan\":\"\",\"track\":\"direct\"}",
+        "switch-force-merge": "{\"force\":true,\"merge\":true,\"operands\":[],\"orphan\":\"\"}",
+        "switch-arity": "{\"operands\":[\"value\",\"value\"]}",
+        "switch-target": "{\"operands\":[]}",
+        "switch-orphan-start": "{\"operands\":[\"value\"],\"orphan\":\"\"}",
+        "switch-discard-merge": "{\"discard-changes\":true,\"merge\":true,\"operands\":[],\"orphan\":\"\"}"
+      }
+    },
+    {
+      "command": "restore",
+      "rules": 19,
+      "domains": {
+        "source": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "staged": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "worktree": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "ignore-unmerged": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "overlay": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "false"
+        ],
+        "progress": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "merge": [
+          "undefined",
+          "true",
+          "false",
+          "-1"
+        ],
+        "conflict": [
+          "undefined",
+          "\"merge\"",
+          "\"diff3\"",
+          "\"zdiff3\""
+        ],
+        "stage": [
+          "undefined",
+          "2",
+          "3"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "ignore-skip-worktree-bits": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "476171136000",
+      "accepted": "2260887552",
+      "nodes": 1208,
+      "isolatedRuleWitnesses": {
+        "restore-patch-overlay": "{\"operands\":[],\"overlay\":true,\"patch\":true}",
+        "restore-patch-merge": "{\"merge\":true,\"operands\":[],\"patch\":true}",
+        "restore-file-patch": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
+        "restore-file-nul": "{\"operands\":[],\"patch\":true,\"pathspec-file-nul\":true}",
+        "restore-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "restore-unified-patch": "{\"operands\":[],\"pathspec-from-file\":\"\",\"unified\":0}",
+        "restore-inter-hunk-context-range": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "restore-inter-hunk-context-patch": "{\"inter-hunk-context\":0,\"operands\":[],\"pathspec-from-file\":\"\"}",
+        "restore-paths": "{\"operands\":[]}",
+        "restore-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}",
+        "restore-staged-stage": "{\"operands\":[],\"pathspec-from-file\":\"\",\"stage\":2,\"staged\":true}",
+        "restore-staged-merge": "{\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":true}",
+        "restore-source-stage": "{\"operands\":[],\"pathspec-from-file\":\"\",\"source\":\"\",\"stage\":2}",
+        "restore-source-merge": "{\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\",\"source\":\"\"}",
+        "restore-merge-stage": "{\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\",\"stage\":2}",
+        "restore-ignore-unmerged-merge": "{\"ignore-unmerged\":true,\"merge\":true,\"operands\":[],\"pathspec-from-file\":\"\"}",
+        "restore-ignore-unmerged-patch": "{\"ignore-unmerged\":true,\"operands\":[],\"patch\":true}",
+        "restore-destination-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":false}",
+        "restore-destination-worktree": "{\"operands\":[],\"pathspec-from-file\":\"\",\"worktree\":false}"
+      }
+    },
+    {
+      "command": "reset",
+      "rules": 12,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "no-refresh": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "mode": [
+          "undefined",
+          "\"mixed\"",
+          "\"soft\"",
+          "\"hard\"",
+          "\"merge\"",
+          "\"keep\""
+        ],
+        "recurse-submodules": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true",
+          "false"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto-advance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "intent-to-add": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ],
+        "operandsBeforeSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]"
+        ],
+        "pathsAfterSeparator": [
+          "undefined",
+          "[]",
+          "[\"value\"]"
+        ],
+        "hasSeparator": [
+          "undefined",
+          "true"
+        ]
+      },
+      "total": "7936185600",
+      "accepted": "196912800",
+      "nodes": 479,
+      "isolatedRuleWitnesses": {
+        "reset-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "reset-unified-patch": "{\"operands\":[],\"unified\":0}",
+        "reset-inter-hunk-context-range": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "reset-inter-hunk-context-patch": "{\"inter-hunk-context\":0,\"operands\":[]}",
+        "reset-auto-advance": "{\"auto-advance\":false,\"operands\":[]}",
+        "reset-file-patch": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
+        "reset-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
+        "reset-patch-mode": "{\"mode\":\"mixed\",\"operands\":[],\"patch\":true}",
+        "reset-intent-mode": "{\"intent-to-add\":true,\"mode\":\"soft\",\"operands\":[]}",
+        "reset-reference-arity": "{\"hasSeparator\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\",\"value\"]}",
+        "reset-paths-mode": "{\"mode\":\"soft\",\"operands\":[],\"pathsAfterSeparator\":[\"value\"]}",
+        "reset-file-paths": "{\"operands\":[],\"pathsAfterSeparator\":[\"value\"],\"pathspec-from-file\":\"\"}"
+      }
+    },
+    {
+      "command": "tag",
+      "rules": 115,
+      "domains": {
+        "list": [
+          "undefined",
+          "true"
+        ],
+        "n": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "delete": [
+          "undefined",
+          "true"
+        ],
+        "verify": [
+          "undefined",
+          "true"
+        ],
+        "annotate": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "trailer": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "edit": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sign": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "cleanup": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"strip\"",
+          "\"whitespace\"",
+          "\"verbatim\""
+        ],
+        "local-user": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "force": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "create-reflog": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "column": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "true"
+        ],
+        "contains": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "no-contains": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "with": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "without": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "merged": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "no-merged": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "omit-empty": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "sort": [
+          "undefined",
+          "[]",
+          "[\"\"]",
+          "[\"\",\"\"]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"0b\"]",
+          "[\"0b\",\"0b\"]",
+          "[\"1kb\"]",
+          "[\"1kb\",\"1kb\"]"
+        ],
+        "points-at": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"HEAD\""
+        ],
+        "format": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "color": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\"",
+          "\"always\""
+        ],
+        "ignore-case": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "21158324305920000000",
+      "accepted": "1254170778854400",
+      "nodes": 7690,
+      "isolatedRuleWitnesses": {
+        "tag-list-annotate": "{\"annotate\":true,\"list\":true,\"operands\":[\"value\"]}",
+        "tag-list-edit": "{\"edit\":true,\"list\":true,\"operands\":[\"value\"]}",
+        "tag-list-sign": "{\"list\":true,\"operands\":[\"value\"],\"sign\":true}",
+        "tag-list-message": "{\"list\":true,\"message\":\"\",\"operands\":[\"value\"]}",
+        "tag-list-file": "{\"file\":\"\",\"list\":true,\"operands\":[\"value\"]}",
+        "tag-list-local-user": "{\"list\":true,\"local-user\":\"\",\"operands\":[\"value\"]}",
+        "tag-list-trailer": "{\"list\":true,\"operands\":[\"value\"],\"trailer\":\"\"}",
+        "tag-list-force": "{\"force\":[true],\"list\":true,\"operands\":[\"value\"]}",
+        "tag-delete-annotate": "{\"annotate\":true,\"delete\":true,\"operands\":[\"value\"]}",
+        "tag-delete-edit": "{\"delete\":true,\"edit\":true,\"operands\":[\"value\"]}",
+        "tag-delete-sign": "{\"delete\":true,\"operands\":[\"value\"],\"sign\":true}",
+        "tag-delete-message": "{\"delete\":true,\"message\":\"\",\"operands\":[\"value\"]}",
+        "tag-delete-file": "{\"delete\":true,\"file\":\"\",\"operands\":[\"value\"]}",
+        "tag-delete-local-user": "{\"delete\":true,\"local-user\":\"\",\"operands\":[\"value\"]}",
+        "tag-delete-trailer": "{\"delete\":true,\"operands\":[\"value\"],\"trailer\":\"\"}",
+        "tag-delete-force": "{\"delete\":true,\"force\":[true],\"operands\":[\"value\"]}",
+        "tag-verify-annotate": "{\"annotate\":true,\"operands\":[\"value\"],\"verify\":true}",
+        "tag-verify-edit": "{\"edit\":true,\"operands\":[\"value\"],\"verify\":true}",
+        "tag-verify-sign": "{\"operands\":[\"value\"],\"sign\":true,\"verify\":true}",
+        "tag-verify-message": "{\"message\":\"\",\"operands\":[\"value\"],\"verify\":true}",
+        "tag-verify-file": "{\"file\":\"\",\"operands\":[\"value\"],\"verify\":true}",
+        "tag-verify-local-user": "{\"local-user\":\"\",\"operands\":[\"value\"],\"verify\":true}",
+        "tag-verify-trailer": "{\"operands\":[\"value\"],\"trailer\":\"\",\"verify\":true}",
+        "tag-verify-force": "{\"force\":[true],\"operands\":[\"value\"],\"verify\":true}",
+        "tag-delete-filter-contains": "{\"contains\":\"\",\"delete\":true,\"operands\":[]}",
+        "tag-delete-filter-no-contains": "{\"delete\":true,\"no-contains\":\"\",\"operands\":[]}",
+        "tag-delete-filter-with": "{\"delete\":true,\"operands\":[],\"with\":\"\"}",
+        "tag-delete-filter-without": "{\"delete\":true,\"operands\":[],\"without\":\"\"}",
+        "tag-delete-filter-merged": "{\"delete\":true,\"merged\":\"\",\"operands\":[]}",
+        "tag-delete-filter-no-merged": "{\"delete\":true,\"no-merged\":\"\",\"operands\":[]}",
+        "tag-delete-filter-points-at": "{\"delete\":true,\"operands\":[],\"points-at\":\"\"}",
+        "tag-delete-filter-n": "{\"delete\":true,\"n\":-2,\"operands\":[]}",
+        "tag-verify-filter-contains": "{\"contains\":\"\",\"operands\":[],\"verify\":true}",
+        "tag-verify-filter-no-contains": "{\"no-contains\":\"\",\"operands\":[],\"verify\":true}",
+        "tag-verify-filter-with": "{\"operands\":[],\"verify\":true,\"with\":\"\"}",
+        "tag-verify-filter-without": "{\"operands\":[],\"verify\":true,\"without\":\"\"}",
+        "tag-verify-filter-merged": "{\"merged\":\"\",\"operands\":[],\"verify\":true}",
+        "tag-verify-filter-no-merged": "{\"no-merged\":\"\",\"operands\":[],\"verify\":true}",
+        "tag-verify-filter-points-at": "{\"operands\":[],\"points-at\":\"\",\"verify\":true}",
+        "tag-verify-filter-n": "{\"n\":-2,\"operands\":[],\"verify\":true}",
+        "tag-creation-name-annotate": "{\"annotate\":true,\"operands\":[]}",
+        "tag-implicit-list-annotate-contains": "{\"annotate\":true,\"contains\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-annotate-no-contains": "{\"annotate\":true,\"no-contains\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-annotate-with": "{\"annotate\":true,\"operands\":[\"value\"],\"with\":\"\"}",
+        "tag-implicit-list-annotate-without": "{\"annotate\":true,\"operands\":[\"value\"],\"without\":\"\"}",
+        "tag-implicit-list-annotate-merged": "{\"annotate\":true,\"merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-annotate-no-merged": "{\"annotate\":true,\"no-merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-annotate-points-at": "{\"annotate\":true,\"operands\":[\"value\"],\"points-at\":\"\"}",
+        "tag-implicit-list-annotate-n": "{\"annotate\":true,\"n\":-2,\"operands\":[\"value\"]}",
+        "tag-creation-name-edit": "{\"edit\":true,\"operands\":[]}",
+        "tag-implicit-list-edit-contains": "{\"contains\":\"\",\"edit\":true,\"operands\":[\"value\"]}",
+        "tag-implicit-list-edit-no-contains": "{\"edit\":true,\"no-contains\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-edit-with": "{\"edit\":true,\"operands\":[\"value\"],\"with\":\"\"}",
+        "tag-implicit-list-edit-without": "{\"edit\":true,\"operands\":[\"value\"],\"without\":\"\"}",
+        "tag-implicit-list-edit-merged": "{\"edit\":true,\"merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-edit-no-merged": "{\"edit\":true,\"no-merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-edit-points-at": "{\"edit\":true,\"operands\":[\"value\"],\"points-at\":\"\"}",
+        "tag-implicit-list-edit-n": "{\"edit\":true,\"n\":-2,\"operands\":[\"value\"]}",
+        "tag-creation-name-sign": "{\"operands\":[],\"sign\":true}",
+        "tag-implicit-list-sign-contains": "{\"contains\":\"\",\"operands\":[\"value\"],\"sign\":true}",
+        "tag-implicit-list-sign-no-contains": "{\"no-contains\":\"\",\"operands\":[\"value\"],\"sign\":true}",
+        "tag-implicit-list-sign-with": "{\"operands\":[\"value\"],\"sign\":true,\"with\":\"\"}",
+        "tag-implicit-list-sign-without": "{\"operands\":[\"value\"],\"sign\":true,\"without\":\"\"}",
+        "tag-implicit-list-sign-merged": "{\"merged\":\"\",\"operands\":[\"value\"],\"sign\":true}",
+        "tag-implicit-list-sign-no-merged": "{\"no-merged\":\"\",\"operands\":[\"value\"],\"sign\":true}",
+        "tag-implicit-list-sign-points-at": "{\"operands\":[\"value\"],\"points-at\":\"\",\"sign\":true}",
+        "tag-implicit-list-sign-n": "{\"n\":-2,\"operands\":[\"value\"],\"sign\":true}",
+        "tag-creation-name-message": "{\"message\":\"\",\"operands\":[]}",
+        "tag-implicit-list-message-contains": "{\"contains\":\"\",\"message\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-message-no-contains": "{\"message\":\"\",\"no-contains\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-message-with": "{\"message\":\"\",\"operands\":[\"value\"],\"with\":\"\"}",
+        "tag-implicit-list-message-without": "{\"message\":\"\",\"operands\":[\"value\"],\"without\":\"\"}",
+        "tag-implicit-list-message-merged": "{\"merged\":\"\",\"message\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-message-no-merged": "{\"message\":\"\",\"no-merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-message-points-at": "{\"message\":\"\",\"operands\":[\"value\"],\"points-at\":\"\"}",
+        "tag-implicit-list-message-n": "{\"message\":\"\",\"n\":-2,\"operands\":[\"value\"]}",
+        "tag-creation-name-file": "{\"file\":\"\",\"operands\":[]}",
+        "tag-implicit-list-file-contains": "{\"contains\":\"\",\"file\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-file-no-contains": "{\"file\":\"\",\"no-contains\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-file-with": "{\"file\":\"\",\"operands\":[\"value\"],\"with\":\"\"}",
+        "tag-implicit-list-file-without": "{\"file\":\"\",\"operands\":[\"value\"],\"without\":\"\"}",
+        "tag-implicit-list-file-merged": "{\"file\":\"\",\"merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-file-no-merged": "{\"file\":\"\",\"no-merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-file-points-at": "{\"file\":\"\",\"operands\":[\"value\"],\"points-at\":\"\"}",
+        "tag-implicit-list-file-n": "{\"file\":\"\",\"n\":-2,\"operands\":[\"value\"]}",
+        "tag-creation-name-local-user": "{\"local-user\":\"\",\"operands\":[]}",
+        "tag-implicit-list-local-user-contains": "{\"contains\":\"\",\"local-user\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-local-user-no-contains": "{\"local-user\":\"\",\"no-contains\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-local-user-with": "{\"local-user\":\"\",\"operands\":[\"value\"],\"with\":\"\"}",
+        "tag-implicit-list-local-user-without": "{\"local-user\":\"\",\"operands\":[\"value\"],\"without\":\"\"}",
+        "tag-implicit-list-local-user-merged": "{\"local-user\":\"\",\"merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-local-user-no-merged": "{\"local-user\":\"\",\"no-merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-local-user-points-at": "{\"local-user\":\"\",\"operands\":[\"value\"],\"points-at\":\"\"}",
+        "tag-implicit-list-local-user-n": "{\"local-user\":\"\",\"n\":-2,\"operands\":[\"value\"]}",
+        "tag-creation-name-trailer": "{\"operands\":[],\"trailer\":\"\"}",
+        "tag-implicit-list-trailer-contains": "{\"contains\":\"\",\"operands\":[\"value\"],\"trailer\":\"\"}",
+        "tag-implicit-list-trailer-no-contains": "{\"no-contains\":\"\",\"operands\":[\"value\"],\"trailer\":\"\"}",
+        "tag-implicit-list-trailer-with": "{\"operands\":[\"value\"],\"trailer\":\"\",\"with\":\"\"}",
+        "tag-implicit-list-trailer-without": "{\"operands\":[\"value\"],\"trailer\":\"\",\"without\":\"\"}",
+        "tag-implicit-list-trailer-merged": "{\"merged\":\"\",\"operands\":[\"value\"],\"trailer\":\"\"}",
+        "tag-implicit-list-trailer-no-merged": "{\"no-merged\":\"\",\"operands\":[\"value\"],\"trailer\":\"\"}",
+        "tag-implicit-list-trailer-points-at": "{\"operands\":[\"value\"],\"points-at\":\"\",\"trailer\":\"\"}",
+        "tag-implicit-list-trailer-n": "{\"n\":-2,\"operands\":[\"value\"],\"trailer\":\"\"}",
+        "tag-creation-name-force": "{\"force\":[true],\"operands\":[]}",
+        "tag-implicit-list-force-contains": "{\"contains\":\"\",\"force\":[true],\"operands\":[\"value\"]}",
+        "tag-implicit-list-force-no-contains": "{\"force\":[true],\"no-contains\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-force-with": "{\"force\":[true],\"operands\":[\"value\"],\"with\":\"\"}",
+        "tag-implicit-list-force-without": "{\"force\":[true],\"operands\":[\"value\"],\"without\":\"\"}",
+        "tag-implicit-list-force-merged": "{\"force\":[true],\"merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-force-no-merged": "{\"force\":[true],\"no-merged\":\"\",\"operands\":[\"value\"]}",
+        "tag-implicit-list-force-points-at": "{\"force\":[true],\"operands\":[\"value\"],\"points-at\":\"\"}",
+        "tag-implicit-list-force-n": "{\"force\":[true],\"n\":-2,\"operands\":[\"value\"]}",
+        "tag-creation-arity": "{\"operands\":[\"value\",\"value\",\"value\"]}",
+        "tag-message-sources": "{\"file\":\"\",\"message\":\"\",\"operands\":[\"value\"]}",
+        "tag-cleanup": "{\"cleanup\":\"\",\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "stash clear",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "stash-clear-arity": "{\"operands\":[\"value\"]}"
+      }
+    },
+    {
+      "command": "stash apply",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "label-ours": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "label-theirs": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "label-base": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "90000",
+      "accepted": "36000",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "stash-apply-arity": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "stash drop",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "240",
+      "accepted": "96",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "stash-drop-arity": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "stash pop",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "720",
+      "accepted": "288",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "stash-pop-arity": "{\"operands\":[\"value\",\"value\"]}"
+      }
+    },
+    {
+      "command": "stash branch",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "24",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "stash-branch-arity": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "stash store",
+      "rules": 1,
+      "domains": {
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "1200",
+      "accepted": "240",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "stash-store-arity": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "stash push",
+      "rules": 11,
+      "domains": {
+        "keep-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "staged": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto-advance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "include-untracked": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-from-file": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "pathspec-file-nul": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "157464000",
+      "accepted": "4991040",
+      "nodes": 268,
+      "isolatedRuleWitnesses": {
+        "stash-push-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "stash-push-unified-patch": "{\"operands\":[],\"unified\":0}",
+        "stash-push-inter-hunk-context-range": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "stash-push-inter-hunk-context-patch": "{\"inter-hunk-context\":0,\"operands\":[]}",
+        "stash-push-auto-advance": "{\"auto-advance\":false,\"operands\":[]}",
+        "stash-push-patch-untracked": "{\"include-untracked\":true,\"operands\":[],\"patch\":true}",
+        "stash-push-staged-untracked": "{\"include-untracked\":true,\"operands\":[],\"staged\":true}",
+        "stash-push-file-patch": "{\"operands\":[],\"patch\":true,\"pathspec-from-file\":\"\"}",
+        "stash-push-file-nul": "{\"operands\":[],\"pathspec-file-nul\":true}",
+        "stash-push-file-staged": "{\"operands\":[],\"pathspec-from-file\":\"\",\"staged\":true}",
+        "stash-push-file-operands": "{\"operands\":[\"value\"],\"pathspec-from-file\":\"\"}"
+      }
+    },
+    {
+      "command": "stash save",
+      "rules": 7,
+      "domains": {
+        "keep-index": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "staged": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "patch": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "auto-advance": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "unified": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "inter-hunk-context": [
+          "undefined",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
+        ],
+        "quiet": [
+          "undefined",
+          "[]",
+          "[true]",
+          "[true,true]"
+        ],
+        "include-untracked": [
+          "undefined",
+          "true",
+          "false"
+        ],
+        "message": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "10497600",
+      "accepted": "2080800",
+      "nodes": 111,
+      "isolatedRuleWitnesses": {
+        "stash-save-unified-range": "{\"operands\":[],\"patch\":true,\"unified\":-2}",
+        "stash-save-unified-patch": "{\"operands\":[],\"unified\":0}",
+        "stash-save-inter-hunk-context-range": "{\"inter-hunk-context\":-2,\"operands\":[],\"patch\":true}",
+        "stash-save-inter-hunk-context-patch": "{\"inter-hunk-context\":0,\"operands\":[]}",
+        "stash-save-auto-advance": "{\"auto-advance\":false,\"operands\":[]}",
+        "stash-save-patch-untracked": "{\"include-untracked\":true,\"operands\":[],\"patch\":true}",
+        "stash-save-staged-untracked": "{\"include-untracked\":true,\"operands\":[],\"staged\":true}"
+      }
+    },
+    {
+      "command": "stash import",
+      "rules": 1,
+      "domains": {
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "60",
+      "accepted": "12",
+      "nodes": 2,
+      "isolatedRuleWitnesses": {
+        "stash-import-arity": "{\"operands\":[]}"
+      }
+    },
+    {
+      "command": "stash export",
+      "rules": 2,
+      "domains": {
+        "print": [
+          "undefined",
+          "true"
+        ],
+        "to-ref": [
+          "undefined",
+          "\"\"",
+          "\"value\"",
+          "\"0b\"",
+          "\"1kb\""
+        ],
+        "help": [
+          "undefined",
+          "true"
+        ],
+        "operands": [
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\",\"value\",\"value\"]"
+        ],
+        "operand0": [
+          "undefined",
+          "\"value\""
+        ],
+        "inRepository": [
+          "undefined",
+          "false",
+          "true"
+        ]
+      },
+      "total": "600",
+      "accepted": "330",
+      "nodes": 14,
+      "isolatedRuleWitnesses": {
+        "stash-export-destination": "{\"operands\":[]}",
+        "stash-export-modes": "{\"operands\":[],\"print\":true,\"to-ref\":\"\"}"
       }
     },
     {

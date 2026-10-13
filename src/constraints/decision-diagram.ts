@@ -144,11 +144,15 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
         return not(and(atom(rule.when), any(rule.others.map(atom))));
       case 'forbid':
         return not(all(rule.when.map(atom)));
-      case 'exclusive': {
+      case 'exclusive':
+      case 'exclusiveGroups': {
         let none = 1;
         let atMostOne = 1;
-        for (const key of [...rule.keys].sort()) {
-          const active = atom({ key, test: 'active' });
+        const groups =
+          rule.kind === 'exclusive'
+            ? [...rule.keys].sort().map((key) => atom({ key, test: 'active' }))
+            : rule.groups.map((group) => any(group.map(atom)));
+        for (const active of groups) {
           atMostOne = and(atMostOne, or(not(active), none));
           none = and(none, not(active));
         }

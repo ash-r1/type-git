@@ -77,6 +77,14 @@
         "repeat": true,
         "before": 1,
         "set": false
+      },
+      "--mirror": {
+        "key": "mirror",
+        "value": "optional-string",
+        "allowed": [
+          "fetch",
+          "push"
+        ]
       }
     }
   },
@@ -355,5 +363,700 @@
       "builtin/init-db.c:cmd_init_db:init_db_options"
     ],
     "source": "builtin/init-db.c"
+  },
+  "commit": {
+    "tables": [
+      "builtin/commit.c:cmd_commit:builtin_commit_options"
+    ],
+    "source": "builtin/commit.c",
+    "options": {
+      "--short": {
+        "key": "format",
+        "value": "flag",
+        "set": "short"
+      },
+      "--no-short": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      },
+      "--long": {
+        "key": "format",
+        "value": "flag",
+        "set": "long"
+      },
+      "--no-long": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      },
+      "--porcelain": {
+        "key": "format",
+        "value": "flag",
+        "set": "porcelain"
+      },
+      "--no-porcelain": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      },
+      "--untracked-files": {
+        "key": "untracked-files",
+        "value": "optional-string",
+        "set": "all"
+      },
+      "-u": {
+        "key": "untracked-files",
+        "value": "optional-string",
+        "set": "all"
+      }
+    }
+  },
+  "status": {
+    "tables": [
+      "builtin/commit.c:cmd_status:builtin_status_options"
+    ],
+    "source": "builtin/commit.c",
+    "options": {
+      "--short": {
+        "key": "format",
+        "value": "flag",
+        "set": "short"
+      },
+      "--no-short": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      },
+      "--long": {
+        "key": "format",
+        "value": "flag",
+        "set": "long"
+      },
+      "--no-long": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      },
+      "--porcelain": {
+        "key": "format",
+        "value": "optional-string",
+        "set": "1",
+        "allowed": [
+          "1",
+          "2",
+          "v1",
+          "v2"
+        ]
+      },
+      "--no-porcelain": {
+        "key": "format",
+        "value": "flag",
+        "set": false
+      },
+      "-s": {
+        "key": "format",
+        "value": "flag",
+        "set": "short"
+      },
+      "--untracked-files": {
+        "key": "untracked-files",
+        "value": "optional-string",
+        "set": "all"
+      },
+      "-u": {
+        "key": "untracked-files",
+        "value": "optional-string",
+        "set": "all"
+      },
+      "--ignored": {
+        "key": "ignored",
+        "value": "optional-string",
+        "set": "traditional"
+      },
+      "--ignore-submodules": {
+        "key": "ignore-submodules",
+        "value": "optional-string",
+        "set": "all"
+      }
+    }
+  },
+  "worktree": {
+    "tables": [
+      "builtin/worktree.c:cmd_worktree:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "worktree add": {
+    "tables": [
+      "builtin/worktree.c:add:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "worktree prune": {
+    "tables": [
+      "builtin/worktree.c:prune:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "worktree list": {
+    "tables": [
+      "builtin/worktree.c:list:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "worktree lock": {
+    "tables": [
+      "builtin/worktree.c:lock_worktree:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "worktree unlock": {
+    "tables": [
+      "builtin/worktree.c:unlock_worktree:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "worktree move": {
+    "tables": [
+      "builtin/worktree.c:move_worktree:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "worktree remove": {
+    "tables": [
+      "builtin/worktree.c:remove_worktree:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "worktree repair": {
+    "tables": [
+      "builtin/worktree.c:repair:options"
+    ],
+    "source": "builtin/worktree.c"
+  },
+  "clone": {
+    "tables": [
+      "builtin/clone.c:cmd_clone:builtin_clone_options"
+    ],
+    "source": "builtin/clone.c",
+    "options": {
+      "--naked": {
+        "key": "bare",
+        "value": "flag"
+      },
+      "--no-naked": {
+        "key": "bare",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "fetch": {
+    "tables": [
+      "builtin/fetch.c:cmd_fetch:builtin_fetch_options"
+    ],
+    "source": "builtin/fetch.c",
+    "options": {
+      "-n": {
+        "key": "tags",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "push": {
+    "tables": [
+      "builtin/push.c:cmd_push:options"
+    ],
+    "source": "builtin/push.c"
+  },
+  "branch": {
+    "tables": [
+      "builtin/branch.c:cmd_branch:options"
+    ],
+    "source": "builtin/branch.c",
+    "options": {
+      "--all": {
+        "key": "scope",
+        "value": "flag",
+        "set": "all"
+      },
+      "-a": {
+        "key": "scope",
+        "value": "flag",
+        "set": "all"
+      },
+      "--remotes": {
+        "key": "scope",
+        "value": "flag",
+        "set": "remotes"
+      },
+      "-r": {
+        "key": "scope",
+        "value": "flag",
+        "set": "remotes"
+      },
+      "--track": {
+        "key": "track",
+        "value": "optional-string",
+        "set": "direct",
+        "allowed": [
+          "direct",
+          "inherit"
+        ]
+      },
+      "-t": {
+        "key": "track",
+        "value": "optional-string",
+        "set": "direct",
+        "allowed": [
+          "direct",
+          "inherit"
+        ]
+      },
+      "--no-track": {
+        "key": "track",
+        "value": "flag",
+        "set": false
+      },
+      "--set-upstream": {
+        "key": "track",
+        "value": "flag",
+        "set": "override"
+      },
+      "--no-set-upstream": {
+        "key": "track",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "checkout": {
+    "tables": [
+      "builtin/checkout.c:cmd_checkout:checkout_options",
+      "builtin/checkout.c:add_common_options:options",
+      "builtin/checkout.c:add_common_switch_branch_options:options",
+      "builtin/checkout.c:add_checkout_path_options:options"
+    ],
+    "source": "builtin/checkout.c",
+    "options": {
+      "--conflict": {
+        "key": "conflict",
+        "value": "string",
+        "allowed": [
+          "merge",
+          "diff3",
+          "zdiff3"
+        ],
+        "effects": [
+          {
+            "key": "merge",
+            "when": {
+              "notEquals": true
+            },
+            "set": -1
+          }
+        ]
+      },
+      "--no-conflict": {
+        "key": "conflict",
+        "value": "flag",
+        "clear": true,
+        "effects": [
+          {
+            "key": "merge",
+            "when": {
+              "equals": -1
+            },
+            "set": false
+          }
+        ]
+      },
+      "--recurse-submodules": {
+        "key": "recurse-submodules",
+        "value": "optional-string",
+        "parser": "git-bool"
+      },
+      "--no-recurse-submodules": {
+        "key": "recurse-submodules",
+        "value": "flag",
+        "set": false
+      },
+      "--track": {
+        "key": "track",
+        "value": "optional-string",
+        "set": "direct",
+        "allowed": [
+          "direct",
+          "inherit"
+        ]
+      },
+      "-t": {
+        "key": "track",
+        "value": "optional-string",
+        "set": "direct",
+        "allowed": [
+          "direct",
+          "inherit"
+        ]
+      },
+      "--no-track": {
+        "key": "track",
+        "value": "flag",
+        "set": false
+      },
+      "--force": {
+        "key": "force",
+        "value": "flag"
+      },
+      "-f": {
+        "key": "force",
+        "value": "flag"
+      },
+      "--no-force": {
+        "key": "force",
+        "value": "flag",
+        "set": false
+      },
+      "--ours": {
+        "key": "stage",
+        "value": "flag",
+        "set": 2
+      },
+      "-2": {
+        "key": "stage",
+        "value": "flag",
+        "set": 2
+      },
+      "--theirs": {
+        "key": "stage",
+        "value": "flag",
+        "set": 3
+      },
+      "-3": {
+        "key": "stage",
+        "value": "flag",
+        "set": 3
+      }
+    }
+  },
+  "switch": {
+    "tables": [
+      "builtin/checkout.c:cmd_switch:switch_options",
+      "builtin/checkout.c:add_common_options:options",
+      "builtin/checkout.c:add_common_switch_branch_options:options"
+    ],
+    "source": "builtin/checkout.c",
+    "options": {
+      "--conflict": {
+        "key": "conflict",
+        "value": "string",
+        "allowed": [
+          "merge",
+          "diff3",
+          "zdiff3"
+        ],
+        "effects": [
+          {
+            "key": "merge",
+            "when": {
+              "notEquals": true
+            },
+            "set": -1
+          }
+        ]
+      },
+      "--no-conflict": {
+        "key": "conflict",
+        "value": "flag",
+        "clear": true,
+        "effects": [
+          {
+            "key": "merge",
+            "when": {
+              "equals": -1
+            },
+            "set": false
+          }
+        ]
+      },
+      "--recurse-submodules": {
+        "key": "recurse-submodules",
+        "value": "optional-string",
+        "parser": "git-bool"
+      },
+      "--no-recurse-submodules": {
+        "key": "recurse-submodules",
+        "value": "flag",
+        "set": false
+      },
+      "--track": {
+        "key": "track",
+        "value": "optional-string",
+        "set": "direct",
+        "allowed": [
+          "direct",
+          "inherit"
+        ]
+      },
+      "-t": {
+        "key": "track",
+        "value": "optional-string",
+        "set": "direct",
+        "allowed": [
+          "direct",
+          "inherit"
+        ]
+      },
+      "--no-track": {
+        "key": "track",
+        "value": "flag",
+        "set": false
+      },
+      "--force": {
+        "key": "force",
+        "value": "flag"
+      },
+      "-f": {
+        "key": "force",
+        "value": "flag"
+      },
+      "--no-force": {
+        "key": "force",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "restore": {
+    "tables": [
+      "builtin/checkout.c:cmd_restore:restore_options",
+      "builtin/checkout.c:add_common_options:options",
+      "builtin/checkout.c:add_checkout_path_options:options"
+    ],
+    "source": "builtin/checkout.c",
+    "options": {
+      "--conflict": {
+        "key": "conflict",
+        "value": "string",
+        "allowed": [
+          "merge",
+          "diff3",
+          "zdiff3"
+        ],
+        "effects": [
+          {
+            "key": "merge",
+            "when": {
+              "notEquals": true
+            },
+            "set": -1
+          }
+        ]
+      },
+      "--no-conflict": {
+        "key": "conflict",
+        "value": "flag",
+        "clear": true,
+        "effects": [
+          {
+            "key": "merge",
+            "when": {
+              "equals": -1
+            },
+            "set": false
+          }
+        ]
+      },
+      "--recurse-submodules": {
+        "key": "recurse-submodules",
+        "value": "optional-string",
+        "parser": "git-bool"
+      },
+      "--no-recurse-submodules": {
+        "key": "recurse-submodules",
+        "value": "flag",
+        "set": false
+      },
+      "--ours": {
+        "key": "stage",
+        "value": "flag",
+        "set": 2
+      },
+      "-2": {
+        "key": "stage",
+        "value": "flag",
+        "set": 2
+      },
+      "--theirs": {
+        "key": "stage",
+        "value": "flag",
+        "set": 3
+      },
+      "-3": {
+        "key": "stage",
+        "value": "flag",
+        "set": 3
+      }
+    }
+  },
+  "reset": {
+    "source": "builtin/reset.c",
+    "tables": [
+      "builtin/reset.c:cmd_reset:options"
+    ],
+    "options": {
+      "--soft": {
+        "key": "mode",
+        "value": "flag",
+        "set": "soft"
+      },
+      "--hard": {
+        "key": "mode",
+        "value": "flag",
+        "set": "hard"
+      },
+      "--mixed": {
+        "key": "mode",
+        "value": "flag",
+        "set": "mixed"
+      },
+      "--merge": {
+        "key": "mode",
+        "value": "flag",
+        "set": "merge"
+      },
+      "--keep": {
+        "key": "mode",
+        "value": "flag",
+        "set": "keep"
+      },
+      "--recurse-submodules": {
+        "key": "recurse-submodules",
+        "value": "optional-string",
+        "parser": "git-bool"
+      },
+      "--no-recurse-submodules": {
+        "key": "recurse-submodules",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "tag": {
+    "source": "builtin/tag.c",
+    "tables": [
+      "builtin/tag.c:cmd_tag:options"
+    ],
+    "options": {
+      "-n": {
+        "key": "n",
+        "value": "optional-integer",
+        "set": 1
+      }
+    }
+  },
+  "stash clear": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:clear_stash:options"
+    ],
+    "options": {}
+  },
+  "stash apply": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:apply_stash:options"
+    ],
+    "options": {}
+  },
+  "stash drop": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:drop_stash:options"
+    ],
+    "options": {}
+  },
+  "stash pop": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:pop_stash:options"
+    ],
+    "options": {}
+  },
+  "stash branch": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:branch_stash:options"
+    ],
+    "options": {}
+  },
+  "stash store": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:store_stash:options"
+    ],
+    "options": {}
+  },
+  "stash push": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:push_stash:options"
+    ],
+    "options": {
+      "--all": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": true
+      },
+      "-a": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": true
+      },
+      "--no-all": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "stash save": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:save_stash:options"
+    ],
+    "options": {
+      "--all": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": true
+      },
+      "-a": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": true
+      },
+      "--no-all": {
+        "key": "include-untracked",
+        "value": "flag",
+        "set": false
+      }
+    }
+  },
+  "stash import": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:import_stash:options"
+    ],
+    "options": {}
+  },
+  "stash export": {
+    "source": "builtin/stash.c",
+    "tables": [
+      "builtin/stash.c:export_stash:options"
+    ],
+    "options": {}
   }
 }
