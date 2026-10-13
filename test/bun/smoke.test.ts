@@ -464,7 +464,7 @@ import { checkRepositoryContract } from '../contracts/repository.js';
 test('shared repository contracts through the Bun TypeGit entrypoint', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'type-git-bun-contracts-'));
   try {
-    const git = await TypeGit.create({ home: directory, useLegacyVersion: USE_LEGACY_VERSION });
+    const git = await TypeGit.create({ home: directory, companionBinaries: { gitk: 'git' }, useLegacyVersion: USE_LEGACY_VERSION });
     await checkRepositoryContract(git, directory, (path, value) => writeFile(path, value));
   } finally { await rm(directory, { recursive: true, force: true }); }
 });

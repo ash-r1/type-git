@@ -281,6 +281,7 @@ it('shared repository contracts through the Node TypeGit entrypoint', async () =
   try {
     const git = await TypeGit.create({
       home: directory,
+      companionBinaries: { gitk: 'git' },
       useLegacyVersion: process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true',
     });
     await checkRepositoryContract(git, directory, (path, value) => writeFile(path, value));

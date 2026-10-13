@@ -9,6 +9,8 @@
 
 import process from 'node:process';
 import { commandArguments, commandUsesNativeABI } from '../commands/build.js';
+import { COMMAND_SPECS } from '../commands/generated.js';
+import type { CommandSpec, CompanionExecutable } from '../commands/spec.js';
 import type { GitCommandName } from '../commands/types.js';
 import type {
   ExecAdapter,
@@ -131,6 +133,8 @@ export type CredentialHelperConfig = {
  * Options for CliRunner
  */
 export type CliRunnerOptions = {
+  /** Paths for upstream standalone programs; gitweb defaults to gitweb.cgi on PATH. */
+  companionBinaries?: Partial<Record<CompanionExecutable, string>>;
   /** Git binary path (default: 'git') */
   gitBinary?: string;
   /** Additional environment variables */
@@ -203,6 +207,7 @@ function validateIO(opts: CommandRunOptions | undefined): void {
 export class CliRunner {
   private readonly exec: ExecAdapter;
   private readonly gitBinary: string;
+  private readonly companionBinaries: Record<CompanionExecutable, string>;
   private readonly baseEnv: Record<string, string>;
   private readonly inheritEnv: EnvInheritance | undefined;
   private readonly pathPrefix: string[];
@@ -213,6 +218,11 @@ export class CliRunner {
   public constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
     this.exec = adapters.exec;
     this.gitBinary = options?.gitBinary ?? 'git';
+    this.companionBinaries = {
+      scalar: options?.companionBinaries?.scalar ?? 'scalar',
+      gitk: options?.companionBinaries?.gitk ?? 'gitk',
+      gitweb: options?.companionBinaries?.gitweb ?? 'gitweb.cgi',
+    };
     this.baseEnv = options?.env ?? {};
     this.inheritEnv = options?.inheritEnv;
     this.pathPrefix = options?.pathPrefix ?? [];
@@ -247,6 +257,11 @@ export class CliRunner {
       },
       {
         gitBinary: options.gitBinary ?? this.gitBinary,
+        companionBinaries: {
+          scalar: options.companionBinaries?.scalar ?? this.companionBinaries.scalar,
+          gitk: options.companionBinaries?.gitk ?? this.companionBinaries.gitk,
+          gitweb: options.companionBinaries?.gitweb ?? this.companionBinaries.gitweb,
+        },
         env: mergedEnv,
         inheritEnv,
         pathPrefix: mergedPathPrefix,
@@ -292,9 +307,21 @@ export class CliRunner {
    * process environment is never forwarded wholesale unless `inheritEnv: true` is set
    * (environment variable traversal prevention).
    */
-  private buildEnv(): Record<string, string> {
+  private buildEnv(executable?: CompanionExecutable): Record<string, string> {
+    let inheritEnv = this.inheritEnv;
+    if (
+      executable === 'gitk' &&
+      inheritEnv !== true &&
+      inheritEnv !== false &&
+      typeof inheritEnv !== 'function'
+    ) {
+      const displayVariables = ['DISPLAY', 'XAUTHORITY'];
+      inheritEnv = Array.isArray(inheritEnv)
+        ? [...inheritEnv, ...displayVariables]
+        : { ...inheritEnv, add: [...(inheritEnv?.add ?? []), ...displayVariables] };
+    }
     const env: Record<string, string> = {
-      ...resolveInheritedEnv(process.env, this.inheritEnv, process.platform),
+      ...resolveInheritedEnv(process.env, inheritEnv, process.platform),
       ...this.baseEnv,
     };
 
@@ -393,8 +420,15 @@ export class CliRunner {
   ): Promise<RawResult<string | Uint8Array>> {
     validateIO(opts);
     const binary = opts?.stdout === 'bytes';
-    const execute = (argv: string[]): Promise<RawResult<string | Uint8Array>> =>
-      binary ? this.runBytes(context, argv, opts) : this.run(context, argv, opts);
+    const spec: CommandSpec = COMMAND_SPECS[command];
+    const execute = (argv: string[]): Promise<RawResult<string | Uint8Array>> => {
+      if (spec.executable) {
+        return binary
+          ? this.runCompanionBytes(context, spec.executable, argv.slice(1), opts)
+          : this.runCompanion(context, spec.executable, argv.slice(1), opts);
+      }
+      return binary ? this.runBytes(context, argv, opts) : this.run(context, argv, opts);
+    };
     let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 } | undefined;
     if (commandUsesNativeABI(command, args)) {
       let validWidths = 0;
@@ -469,14 +503,37 @@ export class CliRunner {
     return (await this.execute(context, args, opts, true)) as RawResult<Uint8Array>;
   }
 
+  /** Run a standalone upstream program through the shared text execution path. */
+  public async runCompanion(
+    context: ExecutionContext,
+    executable: CompanionExecutable,
+    args: string[],
+    opts?: RunOptions,
+  ): Promise<RawResult> {
+    return (await this.execute(context, args, opts, false, executable)) as RawResult;
+  }
+
+  /** Capture standalone program output without text decoding. */
+  public async runCompanionBytes(
+    context: ExecutionContext,
+    executable: CompanionExecutable,
+    args: string[],
+    opts?: RunOptions,
+  ): Promise<RawResult<Uint8Array>> {
+    return (await this.execute(context, args, opts, true, executable)) as RawResult<Uint8Array>;
+  }
+
   private async execute(
     context: ExecutionContext,
     args: string[],
     opts: RunOptions | undefined,
     binary: boolean,
+    executable?: CompanionExecutable,
   ): Promise<RawResult<string | Uint8Array>> {
     validateIO({ stdin: opts?.stdin });
-    const argv = this.buildArgv(context, args);
+    const argv = executable
+      ? [this.companionBinaries[executable], ...args]
+      : this.buildArgv(context, args);
     const { signal, onProgress, onLfsProgress, env: envOverride } = opts ?? {};
 
     if (signal?.aborted) {
@@ -488,12 +545,21 @@ export class CliRunner {
       } as RawResult<string | Uint8Array>;
     }
 
-    const env = this.buildEnv();
+    const env = this.buildEnv(executable);
 
     // Apply per-call environment overrides (e.g. GIT_LFS_SKIP_SMUDGE) on top of
     // the resolved environment.
     if (envOverride) {
       Object.assign(env, envOverride);
+    }
+
+    if (executable && this.credential?.helper) {
+      // Companion programs spawn Git themselves; pass the same config override through its environment protocol.
+      const quote = (value: string): string => `'${value.replace(/['!]/g, "'\\$&'")}'`;
+      const parameter = quote(`credential.helper=${this.credential.helper}`);
+      env.GIT_CONFIG_PARAMETERS = env.GIT_CONFIG_PARAMETERS
+        ? `${env.GIT_CONFIG_PARAMETERS} ${parameter}`
+        : parameter;
     }
 
     // Enable LFS progress output to stderr when LFS progress callback is provided
@@ -545,7 +611,12 @@ export class CliRunner {
           // The env above is already fully resolved (including any inherited variables),
           // so the adapter must not merge the parent environment on top of it.
           inheritEnv: false,
-          cwd: context.type === 'worktree' ? context.workdir : undefined,
+          cwd:
+            context.type === 'worktree'
+              ? context.workdir
+              : executable && context.type === 'bare'
+                ? context.gitDir
+                : undefined,
           signal,
         },
         needsStderrStreaming
