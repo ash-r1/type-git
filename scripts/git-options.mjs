@@ -114,13 +114,15 @@ function tableOptions(definitions, command, numericOption, callbacks) {
       let value = noarg ? 'flag' : `${optional ? 'optional-' : ''}${numeric ? 'integer' : 'string'}`;
       const defaultString = optional && fields.defval?.match(/"(?:\\.|[^"\\])*"/);
       const callback = (fields.callback ?? '').replace(/[&()]/g, '');
-      let parser = numeric ? { kind: 'integer', signed: kind === 'OPTION_INTEGER', bits: definition.numeric.bits } : { opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
+      let parser = numeric ? { kind: 'integer', signed: kind === 'OPTION_INTEGER', bits: definition.numeric.bits } : { parseopt_column_callback: 'column-mode', opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
       const numericCallback = Object.values(callbacks.profiles).find(profile => profile.callbacks.some(entry => entry.name === callback && (!entry.file || entry.file === definition.file)));
       if (numericCallback) {
         parser = numericCallback.parser;
         value = `${optional ? 'optional-' : ''}integer`;
       }
-      const base = { ...(parser ? { parser } : {}), key, value, ...(numeric && optional ? { set: definition.numeric.default } : {}), ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
+      const base = { ...(flags.includes('PARSE_OPT_LASTARG_DEFAULT') ? { lastArgDefault: true } : {}), ...(parser ? { parser } : {}), key, value, ...(numeric && optional ? { set: definition.numeric.default } : {}), ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
+      if (callback === 'parseopt_column_callback') base.set = '';
+      if (['parse_opt_commits', 'parse_opt_commit', 'parse_opt_object_name', 'parse_opt_merge_filter'].includes(callback)) base.checks = [{ id: 'native.object-name-nonempty', kind: 'required', required: [{ key: '$value', test: 'nonempty' }], origin: 'git', source: 'Git 2.55.0 parse-options-cb.c/ref-filter.c object-name callbacks; object-name.c:get_oid_1', reason: 'An explicitly supplied empty object name cannot resolve; nonempty object resolution remains native.' }];
       if (flags.includes('PARSE_OPT_CMDMODE')) {
         base.modeGroup = fields.value.replace(/[()\s]/g, '');
         if (kind === 'OPTION_SET_INT' && fields.defval) base.modeValue = fields.defval.replace(/[()\s]/g, '');
@@ -129,6 +131,8 @@ function tableOptions(definitions, command, numericOption, callbacks) {
       if (short) options[`${flags.includes('PARSE_OPT_NODASH') ? '' : '-'}${short}`] ??= optional && long ? { ...base, emptyValueFlag: `--${long}` } : base;
       if (long && !flags.includes('PARSE_OPT_NONEG')) {
         const negated = { ...base, value: 'flag', ...(numeric || numericCallback ? { set: 0, ...(parser.positive ? { parser: undefined } : {}) } : kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || (parser && parser !== 'object-filter') ? { set: false } : { clear: true }) };
+        if (callback === 'parseopt_column_callback') Object.assign(negated, { parser: undefined, set: 'never' });
+        if (base.checks) negated.checks = undefined;
         negations[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] ??= negated;
         if (long.startsWith('no-')) negations[`--no-${long}`] ??= negated;
       }

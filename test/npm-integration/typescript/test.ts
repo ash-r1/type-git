@@ -360,3 +360,18 @@ export function testWorktreeParserTypes(git: Git): void {
   // @ts-expect-error Flags reject attached data before later help.
   git.command('rm', [{ operand: '--quiet=1' }, ['-h']]);
 }
+
+export function testReferenceParserTypes(git: Git): void {
+  git.command('branch', [['--contains']]);
+  git.command('tag', [['--column', 'never,row'], ['-n', '0']]);
+  git.command('status', [['--untracked-files', '-1']]);
+  git.command('commit', [['--cleanup', 'bad'], ['-h']]);
+  // @ts-expect-error LASTARG_DEFAULT consumes -h before the invalid color callback.
+  git.command('branch', [['--contains'], ['-h'], ['--color', 'bad']]);
+  // @ts-expect-error Explicit column mode conflicts with requested lines.
+  git.command('tag', [['--column', 'row'], ['-n', '0']]);
+  // @ts-expect-error Git false-valued spellings suppress untracked files.
+  git.command('status', [['--ignored', 'matching'], ['--untracked-files', 'OFF']]);
+  // @ts-expect-error Invalid cleanup is rejected even in dry-run mode.
+  git.command('commit', [['--dry-run'], ['--cleanup', 'bad']]);
+}

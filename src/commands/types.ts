@@ -13,7 +13,10 @@ import type {
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
 import type { StringCallbackParser } from '../constraints/string-callback.js';
-import type { StringCallbackLiteral } from '../constraints/string-callback-types.js';
+import type {
+  StringCallbackLiteral,
+  StringCallbackValue,
+} from '../constraints/string-callback-types.js';
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, RawResult } from '../core/types.js';
 import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
@@ -103,13 +106,15 @@ type Normalize<V, D extends OptionSpec, Previous> = D extends {
   ? GitNumericValue<V, P>
   : D extends { parser: infer P extends GitBooleanCallback }
     ? GitBooleanCallbackValue<V, P, Previous>
-    : D extends { caseInsensitive: true }
-      ? D extends { preserveCase: true }
-        ? V
-        : V extends string
-          ? AsciiLower<V>
-          : V
-      : V;
+    : D extends { parser: infer P extends StringCallbackParser }
+      ? StringCallbackValue<V, P>
+      : D extends { caseInsensitive: true }
+        ? D extends { preserveCase: true }
+          ? V
+          : V extends string
+            ? AsciiLower<V>
+            : V
+        : V;
 type TokenValue<
   T extends readonly unknown[],
   D extends OptionSpec,

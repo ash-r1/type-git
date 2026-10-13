@@ -497,11 +497,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "reason": "The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed.",
       "source": "Git 2.55.0 builtin/commit.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/commit.c:cmd_commit:builtin_commit_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "status": {
@@ -578,11 +586,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "reason": "The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed.",
       "source": "Git 2.55.0 builtin/commit.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/commit.c:cmd_status:builtin_status_options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "worktree": {
@@ -786,11 +802,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "reason": "The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed.",
       "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/branch.c:cmd_branch:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "checkout": {
@@ -1179,11 +1203,19 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
+      "reason": "The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed.",
       "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/tag.c:cmd_tag:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "stash clear": {

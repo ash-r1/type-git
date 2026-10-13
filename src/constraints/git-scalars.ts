@@ -11,8 +11,8 @@ import { type GitIntegerParser, integerState, parseGitInteger } from './git-inte
 import { validObjectFilter } from './object-filter.js';
 import {
   isStringCallback,
+  parseStringCallback,
   type StringCallbackParser,
-  validStringCallback,
 } from './string-callback.js';
 
 export { asciiLower } from './ascii.js';
@@ -76,7 +76,7 @@ export function parseGitScalar(
     };
   }
   if (isStringCallback(parser)) {
-    return { valid: validStringCallback(parser, value), value };
+    return parseStringCallback(parser, value);
   }
   if (parser === 'shortlog-group') {
     return {
