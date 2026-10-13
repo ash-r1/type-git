@@ -3257,7 +3257,7 @@
         "src/commands/index-export.test.ts",
         "test/types/index-export-command-api.ts"
       ],
-      "remaining": "Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly."
+      "remaining": "Revision traversal and path filtering, object selection and refspec grammar, marks file contents and I/O, signature/tag rewrite effects, commit message encoding and reencoding, anonymization substitutions and collisions, repository state, parser abbreviations and independent witnesses for every rule remain pending. Numeric boolean literal grammar is checked at runtime; selected Git versions have different option support."
     }
   }
 }
