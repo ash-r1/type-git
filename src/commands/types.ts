@@ -1,4 +1,5 @@
 import type { Constraint } from '../constraints/model.js';
+import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
@@ -127,7 +128,21 @@ type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
     : D extends { repeat: true }
       ? Put<S, D['key'], Append<S, D, TokenValue<T, D>>>
       : Put<S, D['key'], TokenValue<T, D>>;
+type RevisionCountValid<V> = V extends number
+  ? [SafeIntegerAtLeast<V, -2147483648, false>] extends [never]
+    ? false
+    : NumberLiteralOrder<V, 2147483647> extends 1
+      ? false
+      : true
+  : false;
 type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  parser: 'revision-count';
+}
+  ? RevisionCountValid<TokenValue<T, D>> extends false
+    ? never
+    : UncheckedModeState<S, D, T>
+  : UncheckedModeState<S, D, T>;
+type UncheckedModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeGroup: infer G extends string;
 }
   ? `mode:${G}` extends keyof S
