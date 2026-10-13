@@ -3438,6 +3438,76 @@
         "test/types/merge-tools-command-api.ts"
       ],
       "remaining": "Remote/ref/revision resolution, URL and signature output, patch contents, shell option spellings and independent rule witnesses remain pending. Interleaved patch flags and ignored tail operands use isolated local refs."
+    },
+    "help": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Complete viewer/configuration/alias resolution, listing output, format selection, abbreviation and value spellings across selected Git versions remain pending. Native listing constraints and selector availability differ in older Git."
+    },
+    "daemon": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Port conversion, service override/enable callback ordering, packet framing and service protocol, path/credential/hook/configuration state, listener lifecycle and cross-version numeric lexical forms remain pending. Timeout/init-timeout unsigned32 and max-connections signed32 callbacks are modeled for the pinned checked parser; older overwritten numeric acceptance is recorded separately."
+    },
+    "fsmonitor--daemon": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Operation dispatch, configuration, supported-platform availability and IPC lifecycle remain pending. Supported-branch integer grammar is modeled from source; actual native tests run only when the selected executable advertises IPC options. Unsupported-platform and missing-command outcomes are explicit skips, not successful native lifecycle tests."
+    },
+    "fsmonitor--daemon start": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Background startup, readiness, detach handling and timeout/IPC lifecycle remain pending. Supported-branch integer grammar is modeled from source; actual native tests run only when the selected executable advertises IPC options. Unsupported-platform and missing-command outcomes are explicit skips, not successful native lifecycle tests."
+    },
+    "fsmonitor--daemon run": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Foreground service, detach and event/IPC lifecycle remain pending. Supported-branch integer grammar is modeled from source; actual native tests run only when the selected executable advertises IPC options. Unsupported-platform and missing-command outcomes are explicit skips, not successful native lifecycle tests."
+    },
+    "fsmonitor--daemon stop": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Existing-daemon shutdown, polling and IPC errors remain pending. Supported-branch integer grammar is modeled from source; actual native tests run only when the selected executable advertises IPC options. Unsupported-platform and missing-command outcomes are explicit skips, not successful native lifecycle tests."
+    },
+    "fsmonitor--daemon status": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/help-daemon.test.ts",
+        "test/types/help-daemon-command-api.ts"
+      ],
+      "remaining": "Running versus non-running state output and IPC/configuration compatibility remain pending. Supported-branch integer grammar is modeled from source; actual native tests run only when the selected executable advertises IPC options. Unsupported-platform and missing-command outcomes are explicit skips, not successful native lifecycle tests."
     }
   }
 }
