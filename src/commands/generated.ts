@@ -77500,7 +77500,7 @@ const commandSpec266 = {
     },
   ],
   source: 'builtin/bundle.c',
-  separator: true,
+  separator: false,
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec267 = {
@@ -77545,7 +77545,7 @@ const commandSpec267 = {
     },
   ],
   source: 'builtin/commit-graph.c',
-  separator: true,
+  separator: false,
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec268 = {
@@ -77581,7 +77581,7 @@ const commandSpec268 = {
     },
   ],
   source: 'builtin/history.c',
-  separator: true,
+  separator: false,
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec269 = {
@@ -77617,7 +77617,7 @@ const commandSpec269 = {
     },
   ],
   source: 'builtin/hook.c',
-  separator: true,
+  separator: false,
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec270 = {
@@ -77653,7 +77653,7 @@ const commandSpec270 = {
     },
   ],
   source: 'builtin/gc.c',
-  separator: true,
+  separator: false,
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec271 = {
@@ -77707,7 +77707,7 @@ const commandSpec271 = {
     },
   ],
   source: 'builtin/multi-pack-index.c',
-  separator: true,
+  separator: false,
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec272 = {
@@ -77743,7 +77743,7 @@ const commandSpec272 = {
     },
   ],
   source: 'builtin/refs.c',
-  separator: true,
+  separator: false,
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec273 = {
@@ -77779,7 +77779,7 @@ const commandSpec273 = {
     },
   ],
   source: 'builtin/repo.c',
-  separator: true,
+  separator: false,
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec274 = {

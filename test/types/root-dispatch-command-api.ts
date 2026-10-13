@@ -16,3 +16,21 @@ git.command('refs', [{ operand: 'unknown' }]);
 git.command('bundle', [['--quiet'], { operand: 'verify' }, { operand: 'file.bundle' }]);
 // @ts-expect-error Parsed parent options cannot follow the operation.
 git.command('commit-graph', [{ operand: 'verify' }, ['--object-dir', '.git/objects']]);
+
+git.command('bundle', [{ operand: 'verify' }, { operand: '--' }, { operand: 'file.bundle' }]);
+// @ts-expect-error Native root dispatch cannot select an operation after a parsed separator.
+git.command('bundle', [['--'], { operand: 'verify' }]);
+// @ts-expect-error Native root dispatch cannot select an operation after a parsed separator.
+git.command('commit-graph', [['--'], { operand: 'verify' }]);
+// @ts-expect-error Native root dispatch cannot select an operation after a parsed separator.
+git.command('history', [['--'], { operand: 'reword' }]);
+// @ts-expect-error Native root dispatch cannot select an operation after a parsed separator.
+git.command('hook', [['--'], { operand: 'run' }]);
+// @ts-expect-error Native root dispatch cannot select an operation after a parsed separator.
+git.command('maintenance', [['--'], { operand: 'run' }]);
+// @ts-expect-error Native root dispatch cannot select an operation after a parsed separator.
+git.command('multi-pack-index', [['--'], { operand: 'verify' }]);
+// @ts-expect-error Native root dispatch cannot select an operation after a parsed separator.
+git.command('refs', [['--'], { operand: 'verify' }]);
+// @ts-expect-error Native root dispatch cannot select an operation after a parsed separator.
+git.command('repo', [['--'], { operand: 'info' }]);

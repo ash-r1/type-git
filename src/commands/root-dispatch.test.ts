@@ -95,6 +95,31 @@ describe('required native root dispatch', () => {
       },
     );
   }
+  const nativeVersion = spawnSync('git', ['version'], { encoding: 'utf8' });
+  const version = /git version (\d+)\.(\d+)/.exec(nativeVersion.stdout);
+  if (nativeVersion.status !== 0 || !version)
+    throw new Error('Cannot inspect selected Git version');
+  // These rejection cases were verified with the native subcommand parser in Git 2.47 and 2.55.
+  // Git 2.25 uses manual dispatch and can accept a separator before the operation.
+  const nativeSubcommandParser = Number(version[1]) > 2 || Number(version[2]) >= 47;
+  for (const [command, operation] of [
+    ['bundle', 'verify'],
+    ['commit-graph', 'verify'],
+    ['history', 'reword'],
+    ['hook', 'run'],
+    ['maintenance', 'run'],
+    ['multi-pack-index', 'verify'],
+    ['refs', 'verify'],
+    ['repo', 'info'],
+  ] as const) {
+    it.skipIf(!nativeSubcommandParser || !nativeCommands.has(command))(
+      `rejects a separator before the ${command} operation`,
+      () => {
+        compare(command, [['--'], { operand: operation }], ['--', operation], false);
+        expect(direct([command, '--', operation]).stderr).toContain('need a subcommand');
+      },
+    );
+  }
   it('forwards operation arguments and accepts common options before dispatch', () => {
     const bundle = join(root, 'test.bundle');
     expect(direct(['bundle', 'create', bundle, 'HEAD']).status).toBe(0);
@@ -102,6 +127,12 @@ describe('required native root dispatch', () => {
       'bundle',
       [{ operand: 'verify' }, { operand: '--quiet' }, { operand: bundle }],
       ['verify', '--quiet', bundle],
+      true,
+    );
+    compare(
+      'bundle',
+      [{ operand: 'verify' }, { operand: '--' }, { operand: bundle }],
+      ['verify', '--', bundle],
       true,
     );
     for (const command of ['commit-graph', 'multi-pack-index'] as const) {
