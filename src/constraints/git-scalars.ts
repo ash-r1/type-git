@@ -44,6 +44,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'rev-list-missing'
   | 'abbrev'
   | 'mainline'
   | 'revision-count'
@@ -59,6 +60,14 @@ export function parseGitScalar(
   previous?: unknown,
   cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'rev-list-missing') {
+    return {
+      valid: typeof value === 'string',
+      value: ['error', 'allow-any', 'print', 'print-info', 'allow-promisor'].includes(String(value))
+        ? value
+        : previous,
+    };
+  }
   if (parser === 'abbrev') {
     if (value === true) {
       return { valid: true, value };

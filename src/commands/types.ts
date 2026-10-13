@@ -161,7 +161,9 @@ type Effects<S, E extends NonNullable<OptionSpec['effects']>> = [S] extends [nev
         R
       >
     : S;
-type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends { ignore: true }
+type UnparsedOptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  ignore: true;
+}
   ? S
   : D extends { toggle: true }
     ? Put<S, D['key'], D['key'] extends keyof S ? (S[D['key']] extends true ? false : true) : true>
@@ -179,6 +181,25 @@ type IntegerRangeValid<V, Min extends number, Max extends number> = V extends nu
       ? false
       : true
   : false;
+type MissingAction = 'error' | 'allow-any' | 'print' | 'print-info' | 'allow-promisor';
+type SelectedMissingActions<S, D extends OptionSpec, V> = V extends MissingAction
+  ? Put<S, D['key'], V>
+  : never;
+// The native prescan ignores unknown actions. Preserve every possible recognized
+// selection in unions/templates, alongside the prior state when an unknown value
+// is possible. Opaque strings can contain any action at runtime.
+type MissingOptionState<S, D extends OptionSpec, V> = V extends string
+  ? V extends object
+    ? S | SelectedMissingActions<S, D, MissingAction>
+    :
+        | (V extends MissingAction ? never : S)
+        | SelectedMissingActions<S, D, Extract<MissingAction, V>>
+  : S;
+type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  parser: 'rev-list-missing';
+}
+  ? MissingOptionState<S, D, TokenValue<T, D>>
+  : UnparsedOptionState<S, D, T>;
 type ModeValue<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeFromValue: true;
 }
