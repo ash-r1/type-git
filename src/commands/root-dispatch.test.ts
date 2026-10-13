@@ -9,7 +9,11 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
-const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+const commandList = spawnSync('git', ['--list-cmds=main'], { encoding: 'utf8' });
+if (commandList.error || commandList.signal || commandList.status !== 0) {
+  throw new Error(`Cannot inspect selected Git commands: ${commandList.stderr}`);
+}
+const nativeCommands = new Set(commandList.stdout.trim().split(/\s+/));
 describe('required native root dispatch', () => {
   let root: string;
   let repo: WorktreeRepo;
@@ -35,6 +39,7 @@ describe('required native root dispatch', () => {
       GIT_COMMITTER_EMAIL: 'test@example.com',
       GIT_EDITOR: 'true',
       GIT_ALLOW_PROTOCOL: 'file',
+      LC_ALL: 'C',
     };
     await writeFile(join(root, 'global'), '');
     repo = await new TypeGit({ home: root, inheritEnv: false, env }).init(join(root, 'repo'));
@@ -72,24 +77,24 @@ describe('required native root dispatch', () => {
     }
   };
 
-  it('requires a registered operation at each root', () => {
-    const commands = legacy
-      ? ['bundle', 'commit-graph', 'multi-pack-index']
-      : [
-          'bundle',
-          'commit-graph',
-          'history',
-          'hook',
-          'maintenance',
-          'multi-pack-index',
-          'refs',
-          'repo',
-        ];
-    for (const command of commands) {
-      compare(command as GitCommandName, [], [], false);
-      compare(command as GitCommandName, [{ operand: 'unknown' }], ['unknown'], false);
-    }
-  });
+  for (const command of [
+    'bundle',
+    'commit-graph',
+    'history',
+    'hook',
+    'maintenance',
+    'multi-pack-index',
+    'refs',
+    'repo',
+  ] as const) {
+    it.skipIf(!nativeCommands.has(command))(
+      `requires a registered operation for ${command}`,
+      () => {
+        compare(command, [], [], false);
+        compare(command, [{ operand: 'unknown' }], ['unknown'], false);
+      },
+    );
+  }
   it('forwards operation arguments and accepts common options before dispatch', () => {
     const bundle = join(root, 'test.bundle');
     expect(direct(['bundle', 'create', bundle, 'HEAD']).status).toBe(0);
@@ -109,31 +114,24 @@ describe('required native root dispatch', () => {
       );
     }
   });
-  it.skipIf(legacy)('executes modern dispatch targets in an isolated repository', () => {
-    compare(
-      'hook',
-      [{ operand: 'run' }, { operand: '--ignore-missing' }, { operand: 'pre-commit' }],
-      ['run', '--ignore-missing', 'pre-commit'],
-      true,
+  const modernTargets = [
+    ['hook', ['run', '--ignore-missing', 'pre-commit']],
+    ['maintenance', ['run', '--task=commit-graph']],
+    ['refs', ['verify']],
+    ['repo', ['info', '--format=lines']],
+    ['history', ['reword', '--dry-run', 'HEAD']],
+  ] as const;
+  for (const [command, words] of modernTargets) {
+    it.skipIf(!nativeCommands.has(command))(
+      `executes ${command} dispatch in an isolated repository`,
+      () => {
+        compare(
+          command,
+          words.map((operand) => ({ operand })),
+          [...words],
+          true,
+        );
+      },
     );
-    compare(
-      'maintenance',
-      [{ operand: 'run' }, { operand: '--task=commit-graph' }],
-      ['run', '--task=commit-graph'],
-      true,
-    );
-    compare('refs', [{ operand: 'verify' }], ['verify'], true);
-    compare(
-      'repo',
-      [{ operand: 'info' }, { operand: '--format=lines' }],
-      ['info', '--format=lines'],
-      true,
-    );
-    compare(
-      'history',
-      [{ operand: 'reword' }, { operand: '--dry-run' }, { operand: 'HEAD' }],
-      ['reword', '--dry-run', 'HEAD'],
-      true,
-    );
-  });
+  }
 });
