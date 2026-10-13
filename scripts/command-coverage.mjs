@@ -31,7 +31,7 @@ const lines = ['# Upstream command coverage', '',
   '| --- | --- | --- | --- | --- | --- |'];
 for (const entry of rows) {
   const record = audit.commands[entry.command];
-  lines.push(`| \`${entry.command}\` | ${entry.classification} | ${record?.state ?? 'pending'} | ${record?.typedCommandAPI ? 'yes' : 'pending'} | ${(record?.models ?? []).join(', ')} | ${record?.remaining ?? 'Audit every applicable facet.'} |`);
+  lines.push(`| \`${entry.command}\` | ${entry.classification} | ${record?.state ?? 'pending'} | ${record?.apiApplicability === 'sourced-library' ? 'n/a (sourced library)' : record?.typedCommandAPI ? 'yes' : 'pending'} | ${(record?.models ?? []).join(', ')} | ${record?.remaining ?? 'Audit every applicable facet.'} |`);
 }
 const text = lines.join('\n') + '\n';
 const target = new URL('docs/design/command-coverage.md', root);

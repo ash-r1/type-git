@@ -505,3 +505,13 @@ Scalar maintenance-mode comparisons require the selected executable to advertise
 The shared Node/Bun/Deno repository contract configures the companion program to actual Git and checks offset binary stdin, large non-UTF-8 byte output in worktree and bare contexts, and global byte output. These checks validate the configured-program transport and cwd behavior; they do not claim native gitk GUI or gitweb CGI/FastCGI execution.
 
 gitk adds `DISPLAY` and `XAUTHORITY` to its default allowlist-based inheritance, as required by [X11 display and authorization configuration](https://xorg.freedesktop.org/releases/X11R6.8.2/doc/startx.1.html). Explicit `inheritEnv: false`, predicates and allowlist removals remain authoritative, and configured/per-call environment overrides retain precedence. Git, Scalar and gitweb retain their existing defaults. Routing tests verify the environment supplied to the process adapter; native GUI launch remains pending.
+
+### Shell frontends and libraries
+
+Filter-branch's long option values remain separate argv words; prune-empty conflicts even with an empty explicit commit filter. Quiltimport accepts trailing words after its parseopt phase. Instaweb action selectors replace each other, and every positional action word must belong to its shell cases. The shared `elements` constraint checks array membership in a finite vocabulary in both runtime and TypeScript; the decision diagram explores deterministic representatives including mixed valid/invalid arrays.
+
+Git-shell supports interactive mode, one `-c` command string, or its single `cvs server` compatibility word. Custom commands under `git-shell-commands` mean its command language cannot be restricted to the three built-in Git services.
+
+Git installs `git-sh-i18n` and `git-sh-setup` as libraries for sourcing by other shell scripts. The tested Linux installations for Git 2.25/2.47/2.55/2.56 use mode 0644; other platform permissions are not inferred from that observation. Their standalone typed command API is marked inapplicable rather than generating invalid `git sh-i18n`/`git sh-setup` invocations. Their setup and function semantics remain subject to audit through callers; native tests source the installed libraries in isolated child shells.
+
+The `value` and `elements` rules retain separate discriminated-union members. Element type checks reject any known invalid finite alternative or known object element; dynamic, opaque and template scalar values defer to runtime validation. This does not weaken existing numeric bounds, requires-any alternatives, or option-value predicates. Native negative comparisons assert terminal status and parser diagnostics, and library sourcing must complete successfully before its marker is printed.
