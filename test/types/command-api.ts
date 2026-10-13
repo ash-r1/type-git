@@ -339,3 +339,9 @@ git.command('log', [['--filter', 'blob:none'], ['--no-filter']]);
 // @ts-expect-error Active object filters require object enumeration.
 git.command('log', [['--filter', 'blob:none']]);
 git.command('diff', [['-s'], ['--name-only'], ['--dirstat']]);
+
+// @ts-expect-error A required attached short value cannot preserve an empty regex in stash show.
+git.command('stash show', [['-I', ''], ['-p']]);
+// @ts-expect-error A required attached short value cannot preserve an empty order-file name.
+git.command('stash show', [['-O', ''], ['-p']]);
+git.command('stash show', [['--ignore-matching-lines', ''], ['-p']]);

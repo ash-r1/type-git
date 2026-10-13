@@ -28906,6 +28906,22 @@ export const COMMAND_SPECS = {
         key: 'ignore-matching-lines',
         value: 'string',
         attachedValue: true,
+        checks: [
+          {
+            id: 'stash.show-attached-nonempty-I',
+            kind: 'required',
+            origin: 'git',
+            source: 'Git 2.55.0 builtin/stash.c:show_stash (non-dash argument partition)',
+            reason:
+              'A required short value must be nonempty to remain attached; stash show interprets a detached empty word as a stash reference.',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+          },
+        ],
       },
       '--indent-heuristic': {
         key: 'indent-heuristic',
@@ -29052,6 +29068,22 @@ export const COMMAND_SPECS = {
         value: 'string',
         emptyIsUnset: true,
         attachedValue: true,
+        checks: [
+          {
+            id: 'stash.show-attached-nonempty-O',
+            kind: 'required',
+            origin: 'git',
+            source: 'Git 2.55.0 builtin/stash.c:show_stash (non-dash argument partition)',
+            reason:
+              'A required short value must be nonempty to remain attached; stash show interprets a detached empty word as a stash reference.',
+            required: [
+              {
+                key: '$value',
+                test: 'nonempty',
+              },
+            ],
+          },
+        ],
       },
       '--rotate-to': {
         key: 'rotate-to',

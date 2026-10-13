@@ -16689,6 +16689,26 @@
       "command": "stash show",
       "transitions": [
         {
+          "flag": "-I",
+          "rules": [
+            "stash.show-attached-nonempty-I"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "stash.show-attached-nonempty-I": "{}"
+          }
+        },
+        {
           "flag": "-S",
           "rules": [
             "revision.pickaxe-nonempty-S"
@@ -16726,6 +16746,26 @@
           "accepted": "3",
           "isolatedRuleWitnesses": {
             "revision.pickaxe-nonempty-G": "{}"
+          }
+        },
+        {
+          "flag": "-O",
+          "rules": [
+            "stash.show-attached-nonempty-O"
+          ],
+          "domains": {
+            "$value": [
+              "undefined",
+              "\"\"",
+              "\"value\"",
+              "\"0b\"",
+              "\"1kb\""
+            ]
+          },
+          "total": "5",
+          "accepted": "3",
+          "isolatedRuleWitnesses": {
+            "stash.show-attached-nonempty-O": "{}"
           }
         },
         {

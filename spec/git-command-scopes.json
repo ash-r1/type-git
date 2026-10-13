@@ -1786,7 +1786,22 @@
       "-I": {
         "key": "ignore-matching-lines",
         "value": "string",
-        "attachedValue": true
+        "attachedValue": true,
+        "checks": [
+          {
+            "id": "stash.show-attached-nonempty-I",
+            "kind": "required",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/stash.c:show_stash (non-dash argument partition)",
+            "reason": "A required short value must be nonempty to remain attached; stash show interprets a detached empty word as a stash reference.",
+            "required": [
+              {
+                "key": "$value",
+                "test": "nonempty"
+              }
+            ]
+          }
+        ]
       },
       "-S": {
         "key": "S",
@@ -1832,7 +1847,22 @@
         "key": "O",
         "value": "string",
         "emptyIsUnset": true,
-        "attachedValue": true
+        "attachedValue": true,
+        "checks": [
+          {
+            "id": "stash.show-attached-nonempty-O",
+            "kind": "required",
+            "origin": "git",
+            "source": "Git 2.55.0 builtin/stash.c:show_stash (non-dash argument partition)",
+            "reason": "A required short value must be nonempty to remain attached; stash show interprets a detached empty word as a stash reference.",
+            "required": [
+              {
+                "key": "$value",
+                "test": "nonempty"
+              }
+            ]
+          }
+        ]
       },
       "-n": {
         "key": "max-count",

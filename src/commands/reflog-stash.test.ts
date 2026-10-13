@@ -37,13 +37,17 @@ describe('reflog operations and stash diff delegation', () => {
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
   });
-  const direct = (args: string[]) =>
-    spawnSync('git', ['-C', repo.workdir, ...args], {
+  const direct = (args: string[]) => {
+    const result = spawnSync('git', ['-C', repo.workdir, ...args], {
       env,
       input: '',
       encoding: 'utf8',
       timeout: 10000,
     });
+    expect(result.error, args.join(' ')).toBeUndefined();
+    expect(result.signal, args.join(' ')).toBeNull();
+    return result;
+  };
 
   it('initializes reflog traversal before user options and preserves XOR ordering', async () => {
     expect((await repo.command('reflog show', [['--grep-reflog', 'initial']])).stdout).toContain(
@@ -123,7 +127,8 @@ describe('reflog operations and stash diff delegation', () => {
     ]);
     const result = await repo.command('stash show', [['-S', 'two'], ['-n', 1], ['-p']]);
     const actual = direct(['stash', 'show', '-Stwo', '-n1', '-p']);
-    expect(result.exitCode).toBe(0);
+    expect(result.exitCode, result.stderr).toBe(0);
+    expect(actual.status, actual.stderr).toBe(0);
     expect(result.stdout).toBe(actual.stdout);
     expect((await repo.command('stash show', [['-p']])).stdout).toContain('+two');
     expect(direct(['stash', 'show', '-S', 'two', '-p']).status).not.toBe(0);
@@ -135,5 +140,19 @@ describe('reflog operations and stash diff delegation', () => {
       GitArgumentError,
     );
     expect(direct(['stash', 'show', '--default', 'stash@{0}']).status).not.toBe(0);
+  });
+  it('rejects empty required attached values before they can consume another option', () => {
+    for (const flag of ['-I', '-O']) {
+      expect(() => commandArguments('stash show', [[flag, ''], ['-p']])).toThrow(GitArgumentError);
+      expect(direct(['stash', 'show', flag, '', '-p']).status).not.toBe(0);
+    }
+  });
+  it.skipIf(legacy)('retains valid empty long regex values', async () => {
+    const actual = direct(['stash', 'show', '--ignore-matching-lines=', '-p']);
+    expect(actual.status, actual.stderr).toBe(0);
+    const result = await repo.command('stash show', [['--ignore-matching-lines', ''], ['-p']]);
+    expect(result.exitCode, result.stderr).toBe(0);
+    expect(result.stdout).toBe(actual.stdout);
+    expect(result.stdout).toBe('');
   });
 });
