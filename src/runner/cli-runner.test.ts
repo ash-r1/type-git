@@ -1037,3 +1037,48 @@ describe('ABI-independent command preflight', () => {
     );
   });
 });
+
+describe('selected Git ABI for shortlog wrapping', () => {
+  it('probes and accepts unsigned-long32 wrap negation from the selected Git', async () => {
+    const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 8\n' });
+    const runner = new CliRunner(adapters, { gitBinary: 'selected-git32-long' });
+    await runner.runCommand(
+      { type: 'worktree', workdir: '/repo' },
+      'shortlog',
+      [['-w', '-4294967295,0,0'], { operand: 'HEAD' }],
+      true,
+    );
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    expect(adapters.exec.spawn).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({
+        argv: ['selected-git32-long', '-C', '/repo', 'version', '--build-options'],
+      }),
+      undefined,
+    );
+    expect(adapters.exec.spawn).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        argv: ['selected-git32-long', '-C', '/repo', 'shortlog', '-w-4294967295,0,0', 'HEAD'],
+      }),
+      undefined,
+    );
+  });
+  it('rejects that same value when the selected Git reports unsigned-long64', async () => {
+    const adapters = createMockAdapters({ stdout: 'sizeof-long: 8\nsizeof-size_t: 8\n' });
+    const runner = new CliRunner(adapters, { gitBinary: 'selected-git64-long' });
+    await expect(
+      runner.runCommand(
+        { type: 'global' },
+        'shortlog',
+        [['-w', '-4294967295,0,0'], { operand: 'HEAD' }],
+        true,
+      ),
+    ).rejects.toThrow('invalid shortlog-wrap');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({ argv: ['selected-git64-long', 'version', '--build-options'] }),
+      undefined,
+    );
+  });
+});

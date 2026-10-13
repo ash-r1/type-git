@@ -294,7 +294,9 @@
     },
     "pull": {
       "state": "partial",
-      "models": [],
+      "models": [
+        "pull"
+      ],
       "tests": [
         "src/commands/revision-query.test.ts",
         "test/types/revision-query-command-api.ts"
