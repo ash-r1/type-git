@@ -349,6 +349,34 @@ export class CliRunner {
   ): Promise<RawResult> {
     let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 } | undefined;
     if (commandUsesNativeABI(command, args)) {
+      let validWidths = 0;
+      let preflightArgv: string[] | undefined;
+      let firstError: GitArgumentError | undefined;
+      for (const longBits of [32, 64] as const) {
+        for (const sizeTBits of [32, 64] as const) {
+          try {
+            const candidate = commandArguments(command, args, inRepository, {
+              longBits,
+              sizeTBits,
+            });
+            validWidths++;
+            preflightArgv ??= candidate;
+          } catch (error) {
+            if (!(error instanceof GitArgumentError)) {
+              throw error;
+            }
+            firstError ??= error;
+          }
+        }
+      }
+      // Universally invalid input never reaches the process adapter. Conversely,
+      // input valid on every supported ABI needs no build-options probe.
+      if (validWidths === 0) {
+        throw firstError;
+      }
+      if (validWidths === 4 && preflightArgv) {
+        return await this.run(context, preflightArgv, opts);
+      }
       // Resolve the executable with the same context and per-call environment.
       // A cached host width is wrong when gitBinary/PATH selects another ABI.
       const probe = await this.run(context, ['version', '--build-options'], {
