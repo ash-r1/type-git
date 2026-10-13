@@ -33,6 +33,9 @@ export function gitOptions(upstream, scopes, rules, groups = {}) {
     }
     Object.assign(options, tableOptions(definitionsFor(scope.finalTables ?? [], command), command, scope.numericOption));
     Object.assign(options, scope.options ?? {});
+    if (scope.optionAllowlist) for (const flag of Object.keys(options)) {
+      if (!scope.optionAllowlist.includes(flag)) delete options[flag];
+    }
     for (const flag of scope.omitOptions ?? []) delete options[flag];
     result[command] = { argv: command.split(' '), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: scope.numericOption } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}) };
   }
