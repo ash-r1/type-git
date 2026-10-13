@@ -3258,6 +3258,46 @@
         "test/types/index-export-command-api.ts"
       ],
       "remaining": "Revision traversal and path filtering, object selection and refspec grammar, marks file contents and I/O, signature/tag rewrite effects, commit message encoding and reencoding, anonymization substitutions and collisions, repository state, parser abbreviations and independent witnesses for every rule remain pending. Numeric boolean literal grammar is checked at runtime; selected Git versions have different option support."
+    },
+    "pack-objects": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/pack.test.ts",
+        "test/types/pack-command-api.ts"
+      ],
+      "remaining": "Object/revision selection and streaming input grammar, filter/path-walk/configuration interactions, bitmap/cruft/reachability effects, full numeric lexical and C-width grammars beyond signed32 compression/depth/window/threads, filesystem destinations, binary output, abbreviations and independent witnesses remain pending. Older Git differs in stdin-packs modes and promisor exclusion."
+    },
+    "index-pack": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/pack.test.ts",
+        "test/types/pack-command-api.ts"
+      ],
+      "remaining": "Pack header/index contents, stdin protocols and thin-pack repair effects, fsck message grammar, object-format/repository relationships, thread/size/index-version numeric parsing, output/promisor/keep file effects, abbreviations and independent witnesses remain pending. Older Git allows explicit promisor pack names that Git2.55 rejects."
+    },
+    "unpack-objects": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/pack.test.ts",
+        "test/types/pack-command-api.ts"
+      ],
+      "remaining": "Binary pack/header/object contents, streaming and truncation failures, object resolution/recovery, fsck grammar, maximum input-size lexical and C-width conversion, configuration/repository effects, abbreviations and independent witnesses remain pending. Positional argument rejection and basic flags have isolated native comparisons."
+    },
+    "pack-redundant": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/pack.test.ts",
+        "test/types/pack-command-api.ts"
+      ],
+      "remaining": "Pack and alternate object-database selection, redundancy minimization and output selection, malformed pack/object contents, option/operand ordering, parser spellings and independent witnesses remain pending. Obsolete acknowledgement and all-mode operands have verified newer-Git comparisons; the older Git2.25 parser differs."
     }
   }
 }
