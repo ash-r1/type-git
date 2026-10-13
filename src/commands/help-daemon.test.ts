@@ -162,19 +162,20 @@ describe('help and daemon entrypoint grammars', () => {
     );
   });
   it('serves a single local read-only request through direct and public byte APIs without a listener', async () => {
-    const directory = join(repo.workdir, '.git');
-    const request = `git-upload-pack ${directory}\0host=localhost\0`;
+    const directory = join(repo.workdir, '.git').replaceAll('\\', '/');
+    const basePath = repo.workdir.replaceAll('\\', '/');
+    const request = `git-upload-pack /.git\0host=localhost\0`;
     const packet = `${(Buffer.byteLength(request) + 4).toString(16).padStart(4, '0')}${request}0000`;
     const advertised = compare(
       'daemon',
-      [['--serve'], ['--export-all'], ['--log-destination', 'stderr']],
-      ['--serve', '--export-all', '--log-destination=stderr'],
+      [['--serve'], ['--export-all'], ['--base-path', basePath], ['--log-destination', 'stderr']],
+      ['--serve', '--export-all', `--base-path=${basePath}`, '--log-destination=stderr'],
       true,
       packet,
     );
     const publicResult = await repo.command(
       'daemon',
-      [['--serve'], ['--export-all'], ['--log-destination', 'stderr']],
+      [['--serve'], ['--export-all'], ['--base-path', basePath], ['--log-destination', 'stderr']],
       { stdin: new Uint8Array(Buffer.from(packet)), stdout: 'bytes' },
     );
     expect(publicResult.exitCode, publicResult.stderr).toBe(0);
@@ -186,24 +187,33 @@ describe('help and daemon entrypoint grammars', () => {
       [
         ['--serve'],
         ['--export-all'],
+        ['--base-path', basePath],
         ['--strict-paths'],
         ['--max-connections', -1],
         { operand: directory },
       ],
-      ['--serve', '--export-all', '--strict-paths', '--max-connections=-1', directory],
+      [
+        '--serve',
+        '--export-all',
+        `--base-path=${basePath}`,
+        '--strict-paths',
+        '--max-connections=-1',
+        directory,
+      ],
       true,
       packet,
     );
     compare(
       'daemon',
-      [['--serve'], ['--export-all'], ['--base-path-relaxed']],
-      ['--serve', '--export-all', '--base-path-relaxed'],
+      [['--serve'], ['--export-all'], ['--base-path', basePath], ['--base-path-relaxed']],
+      ['--serve', '--export-all', `--base-path=${basePath}`, '--base-path-relaxed'],
       true,
       packet,
     );
   });
   it('accepts daemon signed and unsigned integer boundaries with local service input', () => {
-    const request = `git-upload-pack ${join(repo.workdir, '.git')}\0host=localhost\0`;
+    const basePath = repo.workdir.replaceAll('\\', '/');
+    const request = `git-upload-pack /.git\0host=localhost\0`;
     const packet = `${(Buffer.byteLength(request) + 4).toString(16).padStart(4, '0')}${request}0000`;
     for (const [flag, value] of [
       ['--timeout', 4294967295],
@@ -213,15 +223,16 @@ describe('help and daemon entrypoint grammars', () => {
     ] as const) {
       compare(
         'daemon',
-        [['--serve'], ['--export-all'], [flag, value], [flag, 1]],
-        ['--serve', '--export-all', `${flag}=${value}`, `${flag}=1`],
+        [['--serve'], ['--export-all'], ['--base-path', basePath], [flag, value], [flag, 1]],
+        ['--serve', '--export-all', `--base-path=${basePath}`, `${flag}=${value}`, `${flag}=1`],
         true,
         packet,
       );
     }
   });
   it('rejects daemon callback overflow before a later value can replace it', (context) => {
-    const request = `git-upload-pack ${join(repo.workdir, '.git')}\0host=localhost\0`;
+    const basePath = repo.workdir.replaceAll('\\', '/');
+    const request = `git-upload-pack /.git\0host=localhost\0`;
     const packet = `${(Buffer.byteLength(request) + 4).toString(16).padStart(4, '0')}${request}0000`;
     for (const [flag, value] of [
       ['--timeout', 4294967296],
@@ -231,8 +242,20 @@ describe('help and daemon entrypoint grammars', () => {
       ['--max-connections', 2147483648],
       ['--max-connections', -2147483649],
     ] as const) {
-      const args = [['--serve'], ['--export-all'], [flag, value], [flag, 1]] as const;
-      const argv = ['--serve', '--export-all', `${flag}=${value}`, `${flag}=1`];
+      const args = [
+        ['--serve'],
+        ['--export-all'],
+        ['--base-path', basePath],
+        [flag, value],
+        [flag, 1],
+      ] as const;
+      const argv = [
+        '--serve',
+        '--export-all',
+        `--base-path=${basePath}`,
+        `${flag}=${value}`,
+        `${flag}=1`,
+      ];
       if (!native255) {
         const old = direct(['daemon', ...argv], packet);
         expect(old.error).toBeUndefined();

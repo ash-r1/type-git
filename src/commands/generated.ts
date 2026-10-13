@@ -84370,7 +84370,7 @@ const commandSpec297 = {
       min: 0,
       max: 0,
       origin: 'git',
-      reason: 'Exactly one operation is required by the root parser.',
+      reason: 'This fixed operation accepts no additional operands.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
     },
     {
@@ -84435,7 +84435,7 @@ const commandSpec298 = {
       min: 0,
       max: 0,
       origin: 'git',
-      reason: 'Exactly one operation is required by the root parser.',
+      reason: 'This fixed operation accepts no additional operands.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
     },
     {
@@ -84500,7 +84500,7 @@ const commandSpec299 = {
       min: 0,
       max: 0,
       origin: 'git',
-      reason: 'Exactly one operation is required by the root parser.',
+      reason: 'This fixed operation accepts no additional operands.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
     },
     {
@@ -84565,7 +84565,7 @@ const commandSpec300 = {
       min: 0,
       max: 0,
       origin: 'git',
-      reason: 'Exactly one operation is required by the root parser.',
+      reason: 'This fixed operation accepts no additional operands.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/fsmonitor--daemon.c',
     },
     {
