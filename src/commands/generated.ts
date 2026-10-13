@@ -39162,6 +39162,7 @@ export const COMMAND_SPECS = {
       '-C': {
         key: 'C',
         value: 'integer',
+        parser: 'unsigned-int',
       },
       '--whitespace': {
         key: 'whitespace',

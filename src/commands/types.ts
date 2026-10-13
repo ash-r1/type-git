@@ -146,10 +146,10 @@ type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
           D['key'],
           D extends { parser: 'mainline' } ? MainlineValue<TokenValue<T, D>> : TokenValue<T, D>
         >;
-type RevisionCountValid<V> = V extends number
-  ? [SafeIntegerAtLeast<V, -2147483648, false>] extends [never]
+type IntegerRangeValid<V, Min extends number, Max extends number> = V extends number
+  ? [SafeIntegerAtLeast<V, Min, false>] extends [never]
     ? false
-    : NumberLiteralOrder<V, 2147483647> extends 1
+    : NumberLiteralOrder<V, Max> extends 1
       ? false
       : true
   : false;
@@ -163,14 +163,18 @@ type ModeValue<D extends OptionSpec, T extends readonly unknown[]> = D extends {
 type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: 'revision-count';
 }
-  ? RevisionCountValid<TokenValue<T, D>> extends false
+  ? IntegerRangeValid<TokenValue<T, D>, -2147483648, 2147483647> extends false
     ? never
     : UncheckedModeState<S, D, T>
-  : D extends { parser: 'mainline' }
-    ? MainlineLiteral<TokenValue<T, D>> extends false
+  : D extends { parser: 'unsigned-int' }
+    ? false extends IntegerRangeValid<TokenValue<T, D>, 0, 4294967295>
       ? never
       : UncheckedModeState<S, D, T>
-    : UncheckedModeState<S, D, T>;
+    : D extends { parser: 'mainline' }
+      ? MainlineLiteral<TokenValue<T, D>> extends false
+        ? never
+        : UncheckedModeState<S, D, T>
+      : UncheckedModeState<S, D, T>;
 type UncheckedModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeGroup: infer G extends string;
 }

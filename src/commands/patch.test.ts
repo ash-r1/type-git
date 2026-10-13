@@ -124,6 +124,23 @@ describe('patch application parser grammars', () => {
     ]);
   });
 
+  it('checks unsigned context counts before a later value can replace them', () => {
+    for (const value of [-1, 0, 1, 2147483648, 4294967295, 4294967296]) {
+      const actual = direct(['apply', '-C', String(value), '-C1', '--stat'], patch);
+      expect(actual.error).toBeUndefined();
+      const build = () => commandArguments('apply', [['-C', value], ['-C', 1], ['--stat']]);
+      if (legacy && (value < 0 || value > 4294967295)) {
+        // Git 2.25 uses unchecked strtol followed by unsigned narrowing.
+        expect(actual.status, actual.stderr).toBe(0);
+        expect(build).toThrow(GitArgumentError);
+      } else if (actual.status === 0) {
+        expect(build()).toEqual(['apply', '-C', String(value), '-C', '1', '--stat']);
+      } else {
+        expect(build, actual.stderr).toThrow(GitArgumentError);
+      }
+    }
+  });
+
   it('compares native mode identities and immediate enum errors in am', () => {
     const cases = [
       ['--continue', '--resolved', '-r'],

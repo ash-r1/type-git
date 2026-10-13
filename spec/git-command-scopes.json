@@ -2344,6 +2344,11 @@
         "key": "merge-variant",
         "value": "flag",
         "set": "union"
+      },
+      "-C": {
+        "key": "C",
+        "value": "integer",
+        "parser": "unsigned-int"
       }
     }
   },
