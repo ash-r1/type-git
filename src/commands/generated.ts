@@ -90544,10 +90544,12 @@ const commandSpec323 = {
     '--help': {
       key: 'help',
       value: 'flag',
+      firstOnly: true,
     },
     '-h': {
       key: 'help',
       value: 'flag',
+      firstOnly: true,
     },
     '--force': {
       key: 'force',

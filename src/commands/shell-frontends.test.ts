@@ -163,6 +163,22 @@ describe('native shell frontends', () => {
       compare('shell', [['-c', 'fixture'], ['--help']], ['-c', 'fixture', '--help'], false);
     }
   });
+  it('checks filter-branch help position without overriding native short help', () => {
+    const documentation = compare('filter-branch', [['--help']], ['--help'], true);
+    expect(documentation.stdout).toContain('native-doc-viewer');
+    const usage = compare('filter-branch', [['-h']], ['-h'], true);
+    expect(usage.stdout + usage.stderr).toContain('usage: git filter-branch');
+    for (const help of ['-h', '--help'] as const) {
+      const args = [['--prune-empty'], ['--commit-filter', ''], [help]] as const;
+      const words = ['--prune-empty', '--commit-filter', '', help];
+      const result = direct(['filter-branch', ...words]);
+      expect(result.error).toBeUndefined();
+      expect(result.signal).toBeNull();
+      expect(result.status).toBe(1);
+      expect(result.stdout + result.stderr).toContain('usage: git filter-branch');
+      expect(() => commandArguments('filter-branch', args, true)).toThrow(GitArgumentError);
+    }
+  });
   it('matches filter-branch conflicts including an empty commit filter', () => {
     for (const filter of ['', 'git commit-tree "$@"']) {
       const result = compare(

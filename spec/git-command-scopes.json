@@ -8222,6 +8222,16 @@
         "key": "state-branch",
         "value": "string",
         "separateValue": true
+      },
+      "-h": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag",
+        "firstOnly": true
       }
     }
   },

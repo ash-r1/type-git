@@ -63,3 +63,11 @@ type AssertNoCommand<T extends never> = T;
 export type SourcedLibrariesHaveNoStandaloneCommand = AssertNoCommand<
   Extract<GitCommandName, 'sh-setup' | 'sh-i18n'>
 >;
+
+
+git.command('filter-branch', [['-h']]);
+git.command('filter-branch', [['--help']]);
+// @ts-expect-error Late short help does not invoke the sourced-library early exit.
+git.command('filter-branch', [['--prune-empty'], ['--commit-filter', ''], ['-h']]);
+// @ts-expect-error Late long help is not Git's global documentation dispatch.
+git.command('filter-branch', [['--prune-empty'], ['--commit-filter', ''], ['--help']]);
