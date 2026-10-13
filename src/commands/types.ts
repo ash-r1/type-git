@@ -39,13 +39,13 @@ type AsciiUpper =
   | 'Y'
   | 'Z';
 // Validate the supplied literal instead of enumerating 2^N enum spellings.
-type AsciiLower<S extends string> = string extends S
+type AsciiLower<S extends string, Result extends string = ''> = string extends S
   ? string
   : S extends object
     ? string // Opaque branded strings are nonliteral inputs, like ordinary string.
     : S extends `${infer H}${infer R}`
-      ? `${H extends AsciiUpper ? Lowercase<H> : H}${AsciiLower<R>}`
-      : S;
+      ? AsciiLower<R, `${Result}${H extends AsciiUpper ? Lowercase<H> : H}`>
+      : `${Result}${S}`;
 type Value<S extends OptionSpec> = S extends { allowed: infer A extends readonly unknown[] }
   ? S extends { caseInsensitive: true }
     ? string | Exclude<A[number], string>
@@ -274,14 +274,39 @@ type ParsedState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
           : ModeState<S, D, T>
       : ModeState<S, D, T>
   : ModeState<S, D, T>;
-type CheckedCallbackState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+// Callback-only inputs avoid expanding persistent state for every argument.
+type CheckedCallbackState<
+  S,
+  D extends OptionSpec,
+  T extends readonly unknown[],
+  Remaining extends readonly unknown[],
+> = D extends {
   checks: infer R extends readonly Constraint[];
 }
-  ? CheckRules<Put<S, '$value', TokenValue<T, D>>, R> extends true
+  ? CheckRules<Put<Put<S, '$value', TokenValue<T, D>>, '$remaining', Remaining>, R> extends true
     ? ParsedState<S, D, T>
     : never
   : ParsedState<S, D, T>;
-type ScalarLiteral<D extends OptionSpec, V> = V extends string
+type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: 'anonymize-map' }
+  ? V extends string
+    ? string extends V
+      ? true
+      : V extends object
+        ? true
+        : V extends ''
+          ? false
+          : V extends `${infer Key}:${infer Replacement}`
+            ? Key extends ''
+              ? false
+              : Replacement extends ''
+                ? false
+                : true
+            : true
+    : true
+  : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+    ? ParsedScalarLiteral<D, V>
+    : true;
+type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true
     : D extends { parser: 'shortlog-group' }
@@ -290,16 +315,22 @@ type ScalarLiteral<D extends OptionSpec, V> = V extends string
         : V extends `trailer:${string}` | `format:${string}` | `${string}%${string}`
           ? true
           : false
-      : D extends { parser: 'pull-rebase' }
-        ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off'
+      : D extends { parser: 'fast-export-reencode' }
+        ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off' | 'abort'
           ? true
-          : V extends 'merges' | 'm' | 'interactive' | 'i'
+          : V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
+            ? true // Git's integer language is validated at runtime, as for pull --rebase.
+            : false
+        : D extends { parser: 'pull-rebase' }
+          ? AsciiLower<V> extends '' | 'true' | 'false' | 'yes' | 'no' | 'on' | 'off'
             ? true
-            : // Git's signed/base/unit integer language is checked at runtime.
-              V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
+            : V extends 'merges' | 'm' | 'interactive' | 'i'
               ? true
-              : false
-        : true
+              : // Git's signed/base/unit integer language is checked at runtime.
+                V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+' | '-' | ' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${string}`
+                ? true
+                : false
+          : true
   : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   caseInsensitive: true;
@@ -327,13 +358,15 @@ type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = T exte
     ? AllowedEnumLiteral<D, T>
     : false
   : AllowedEnumLiteral<D, T>;
-type CheckedTokenState<S, D extends OptionSpec, T extends readonly unknown[]> = AllowedLiteral<
-  D,
-  T
-> extends true
-  ? CheckedCallbackState<S, D, T>
-  : never;
-type ParsingEnded<C extends GitCommandName, S> = S extends { ended: true }
+type CheckedTokenState<
+  S,
+  D extends OptionSpec,
+  T extends readonly unknown[],
+  Remaining extends readonly unknown[],
+> = AllowedLiteral<D, T> extends true ? CheckedCallbackState<S, D, T, Remaining> : never;
+type ParsingEnded<C extends GitCommandName, S> = S extends
+  | { ended: true }
+  | { literalOperands: true }
   ? true
   : Spec<C> extends { optionParsing: 'stop-at-operand' }
     ? S extends { operands: readonly [] }
@@ -359,25 +392,50 @@ type Digits<S extends string> = S extends ''
   : S extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'}${infer R}`
     ? Digits<R>
     : false;
-type ApplyOption<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+type AppliedOption<
+  S,
+  D extends OptionSpec,
+  T extends readonly unknown[],
+  Remaining extends readonly unknown[],
+> = D extends {
   effects: infer E extends NonNullable<OptionSpec['effects']>;
 }
-  ? Effects<CheckedTokenState<S, D, T>, E>
-  : CheckedTokenState<S, D, T>;
-type ApplyNumeric<C extends GitCommandName, S, T> = T extends readonly [
-  `-${infer N extends number}`,
-]
+  ? Effects<CheckedTokenState<S, D, T, Remaining>, E>
+  : CheckedTokenState<S, D, T, Remaining>;
+type ApplyOption<
+  S,
+  D extends OptionSpec,
+  T extends readonly unknown[],
+  Remaining extends readonly unknown[],
+> = D extends {
+  consumesRest: true;
+}
+  ? [AppliedOption<S, D, T, Remaining>] extends [never]
+    ? never
+    : Put<AppliedOption<S, D, T, Remaining>, 'literalOperands', true>
+  : AppliedOption<S, D, T, Remaining>;
+type ApplyNumeric<
+  C extends GitCommandName,
+  S,
+  T,
+  Remaining extends readonly unknown[],
+> = T extends readonly [`-${infer N extends number}`]
   ? T[0] extends `-${infer Text}`
     ? (`${number}` extends Text ? true : Digits<Text>) extends true
       ? NumericOption<C> extends { allowed: infer A extends readonly unknown[] }
         ? (number extends N ? true : N extends A[number] ? true : false) extends true
-          ? ApplyOption<S, NumericOption<C>, readonly [T[0], N]>
+          ? ApplyOption<S, NumericOption<C>, readonly [T[0], N], Remaining>
           : never
-        : ApplyOption<S, NumericOption<C>, readonly [T[0], N]>
+        : ApplyOption<S, NumericOption<C>, readonly [T[0], N], Remaining>
       : never
     : never
   : S;
-type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
+type ApplyToken<
+  C extends GitCommandName,
+  S,
+  T,
+  Remaining extends readonly unknown[],
+> = T extends readonly ['--']
   ? ParsingEnded<C, S> extends true
     ? never
     : Put<Put<S, 'ended', true>, 'hasSeparator', true>
@@ -396,9 +454,9 @@ type ApplyToken<C extends GitCommandName, S, T> = T extends readonly ['--']
       ? never
       : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
         ? Options<C>[K] extends infer D extends OptionSpec
-          ? ApplyOption<S, D, T>
+          ? ApplyOption<S, D, T, Remaining>
           : never
-        : ApplyNumeric<C, S, T>;
+        : ApplyNumeric<C, S, T, Remaining>;
 type State<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -406,7 +464,7 @@ type State<
 > = [S] extends [never]
   ? never
   : A extends readonly [infer H, ...infer Rest]
-    ? State<C, Rest, ApplyToken<C, S, H>>
+    ? State<C, Rest, ApplyToken<C, S, H, Rest>>
     : S;
 // Evaluate one rule at a time: constructing their Cartesian union can exceed TypeScript's union limit.
 type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
