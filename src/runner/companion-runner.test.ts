@@ -6,6 +6,7 @@ import process from 'node:process';
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
 import type { AuditEvent } from '../core/types.js';
+import { createGitSync } from '../impl/git-impl.js';
 import { CliRunner } from './cli-runner.js';
 
 function fixture() {
@@ -151,16 +152,19 @@ describe('standalone execution against actual process adapters', () => {
   });
 
   it('retains offset binary input and undecoded companion output', async () => {
-    const runner = new CliRunner(createNodeAdapters(), {
+    const git = createGitSync({
+      adapters: createNodeAdapters(),
       companionBinaries: { gitk: process.execPath },
     });
     const backing = new Uint8Array([99, 0, 255, 128, 13, 10, 99]);
     const input = backing.subarray(1, 6);
-    const result = await runner.runCompanionBytes(
-      { type: 'global' },
+    const result = await git.command(
       'gitk',
-      ['-e', "process.stdin.on('data', chunk => process.stdout.write(chunk))"],
-      { stdin: input },
+      [
+        { operand: '-e' },
+        { operand: "process.stdin.on('data', chunk => process.stdout.write(chunk))" },
+      ],
+      { stdin: input, stdout: 'bytes' },
     );
     expect(result.exitCode, result.stderr).toBe(0);
     expect(result.stdout).toEqual(input);
