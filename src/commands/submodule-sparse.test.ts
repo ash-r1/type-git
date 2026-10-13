@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -288,12 +288,20 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
     await writeFile(join(child.workdir, 'content'), 'child\n');
     await child.add('.');
     await child.commit({ message: 'child' });
-    compare(
-      'submodule add',
-      [{ operand: child.workdir }, { operand: 'module' }],
-      [child.workdir, 'module'],
-      true,
-    );
+    const addArgs = [{ operand: child.workdir }, { operand: 'module' }] as const;
+    expect(commandArguments('submodule add', addArgs, true)).toEqual([
+      'submodule',
+      'add',
+      child.workdir,
+      'module',
+    ]);
+    const added = await repo.command('submodule add', addArgs);
+    expect(added.exitCode).toBe(0);
+    expect(added.aborted).toBe(false);
+    expect(await readFile(join(repo.workdir, 'module', 'content'), 'utf8')).toBe('child\n');
+    expect(
+      direct(['config', '-f', '.gitmodules', '--get', 'submodule.module.path']).stdout.trim(),
+    ).toBe('module');
     if (!legacy) {
       // The old shell frontend rejects an empty equals-form branch value.
       compare(
