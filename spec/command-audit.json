@@ -197,7 +197,7 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection.",
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection.",
       "typedCommandAPI": true
     },
     "fetch": {
@@ -1257,7 +1257,7 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
     },
     "diff-files": {
       "state": "partial",
@@ -1267,7 +1267,7 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
     },
     "diff-index": {
       "state": "partial",
@@ -1277,7 +1277,7 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
     },
     "diff-tree": {
       "state": "partial",
@@ -1287,7 +1287,7 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection."
     },
     "diff --no-index": {
       "state": "partial",
