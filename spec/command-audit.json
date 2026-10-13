@@ -1298,6 +1298,86 @@
         "test/types/command-api.ts"
       ],
       "remaining": "Filesystem-dependent file/directory operand rules, pathspec grammar, callback argument languages and binary output."
+    },
+    "reflog list": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/reflog-stash.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations."
+    },
+    "reflog exists": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/reflog-stash.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations."
+    },
+    "reflog write": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/reflog-stash.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations."
+    },
+    "reflog delete": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/reflog-stash.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations."
+    },
+    "reflog drop": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/reflog-stash.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations."
+    },
+    "reflog expire": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/reflog-stash.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Reference/OID syntax and repository resolution, expiry-date callbacks, root dispatch, configuration/version behavior and abbreviations."
+    },
+    "reflog show": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/reflog-stash.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate."
+    },
+    "stash show": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/reflog-stash.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate."
     }
   }
 }

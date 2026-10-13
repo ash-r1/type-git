@@ -307,3 +307,41 @@ git.command('diff-index', [['--unpacked', 'HEAD'], { operand: 'HEAD' }]);
 git.command('diff-tree', [['--unpacked'], { operand: 'HEAD' }]);
 // @ts-expect-error Git rejects --unpacked=<packfile>; only the bare flag is supported.
 git.command('diff-tree', [['--unpacked', 'HEAD'], { operand: 'HEAD' }]);
+
+git.command('reflog show', [['--grep-reflog', 'pattern']]);
+git.command('reflog show', [['--reverse'], ['--reverse']]);
+// @ts-expect-error Reflog traversal is already active before the graph option.
+git.command('reflog show', [['--graph']]);
+// @ts-expect-error Reverse conflicts with the command's implicit reflog traversal.
+git.command('reflog show', [['--reverse']]);
+git.command('reflog exists', [{ operand: 'HEAD' }, { operand: 'ignored extra' }]);
+git.command('reflog expire', [['--single-worktree']]);
+git.command('reflog expire', [['--all'], { operand: 'HEAD' }]);
+git.command('reflog drop', []);
+git.command('reflog drop', [{ operand: 'refs/heads/temporary' }]);
+// @ts-expect-error Drop prohibits explicit refs with --all (expire does not).
+git.command('reflog drop', [['--all'], { operand: 'HEAD' }]);
+// @ts-expect-error A ref is required by exists.
+git.command('reflog exists', []);
+// @ts-expect-error List takes no operands.
+git.command('reflog list', [{ operand: 'HEAD' }]);
+git.command('reflog write', [{ operand: 'HEAD' }, { operand: 'old' }, { operand: 'new' }, { operand: 'message' }]);
+// @ts-expect-error Write requires four operands.
+git.command('reflog write', [{ operand: 'HEAD' }]);
+git.command('stash show', [['-S', 'needle'], ['-n', 1], ['-p']]);
+// @ts-expect-error Non-dash --default values become stash operands before revision parsing.
+git.command('stash show', [['--default', 'HEAD']]);
+// @ts-expect-error Only one stash operand is accepted.
+git.command('stash show', [{ operand: 'one' }, { operand: 'two' }]);
+
+git.command('log', [['--filter', 'blob:none'], ['--objects']]);
+git.command('log', [['--filter', 'blob:none'], ['--no-filter']]);
+// @ts-expect-error Active object filters require object enumeration.
+git.command('log', [['--filter', 'blob:none']]);
+git.command('diff', [['-s'], ['--name-only'], ['--dirstat']]);
+
+// @ts-expect-error A required attached short value cannot preserve an empty regex in stash show.
+git.command('stash show', [['-I', ''], ['-p']]);
+// @ts-expect-error A required attached short value cannot preserve an empty order-file name.
+git.command('stash show', [['-O', ''], ['-p']]);
+git.command('stash show', [['--ignore-matching-lines', ''], ['-p']]);

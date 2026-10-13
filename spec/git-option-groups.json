@@ -875,6 +875,15 @@
       "-v": {
         "key": "v",
         "value": "flag"
+      },
+      "--filter": {
+        "key": "filter",
+        "value": "string"
+      },
+      "--no-filter": {
+        "key": "filter",
+        "value": "flag",
+        "clear": true
       }
     },
     "rules": [
@@ -1030,6 +1039,35 @@
             "key": "diff-merges",
             "test": "equals",
             "value": "m"
+          }
+        ]
+      },
+      {
+        "id": "revision.object-filter",
+        "kind": "requiresAny",
+        "origin": "git",
+        "source": "Git 2.55.0 revision.c:handle_revision_pseudo_opt/setup_revisions",
+        "reason": "Object filtering requires object enumeration.",
+        "when": {
+          "key": "filter",
+          "test": "present"
+        },
+        "choices": [
+          {
+            "key": "objects",
+            "test": "active"
+          },
+          {
+            "key": "objects-edge",
+            "test": "active"
+          },
+          {
+            "key": "objects-edge-aggressive",
+            "test": "active"
+          },
+          {
+            "key": "verify-objects",
+            "test": "active"
           }
         ]
       }
@@ -1350,6 +1388,46 @@
           "short",
           "log",
           "diff"
+        ]
+      },
+      "--dirstat": {
+        "key": "dirstat",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "no-output",
+            "set": false
+          }
+        ]
+      },
+      "-X": {
+        "key": "dirstat",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "no-output",
+            "set": false
+          }
+        ]
+      },
+      "--cumulative": {
+        "key": "cumulative",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "no-output",
+            "set": false
+          }
+        ]
+      },
+      "--dirstat-by-file": {
+        "key": "dirstat-by-file",
+        "value": "optional-string",
+        "effects": [
+          {
+            "key": "no-output",
+            "set": false
+          }
         ]
       }
     },
