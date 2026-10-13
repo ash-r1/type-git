@@ -178,7 +178,7 @@ type SameMode<A, B> = [A] extends [B]
 type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: 'revision-count';
 }
-  ? IntegerRangeValid<TokenValue<T, D>, -2147483648, 2147483647> extends false
+  ? false extends IntegerRangeValid<TokenValue<T, D>, -2147483648, 2147483647>
     ? never
     : UncheckedModeState<S, D, T>
   : D extends { parser: 'unsigned-int' }

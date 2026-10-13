@@ -470,3 +470,11 @@ git.command('am', [['--show-current-patch', 'raw'], ['--show-current-patch', pat
 git.command('am', [['--show-current-patch', patchMode], ['--show-current-patch', 'raw']]);
 // @ts-expect-error Equal unions do not prove that both runtime selections are identical.
 git.command('am', [['--show-current-patch', patchMode], ['--show-current-patch', patchMode]]);
+
+declare const signedCountUnion: 1 | 2147483648;
+declare const validCountUnion: 1 | 2;
+git.command('apply', [['-p', validCountUnion]]);
+// @ts-expect-error Every signed parser union member must fit the int32 range.
+git.command('apply', [['-p', signedCountUnion], ['-p', 1]]);
+// @ts-expect-error The shared revision-count path also rejects overflow union members.
+git.command('rev-list', [['--max-count', signedCountUnion], { operand: 'HEAD' }]);
