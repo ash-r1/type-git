@@ -3298,6 +3298,66 @@
         "test/types/pack-command-api.ts"
       ],
       "remaining": "Pack and alternate object-database selection, redundancy minimization and output selection, malformed pack/object contents, option/operand ordering, parser spellings and independent witnesses remain pending. Obsolete acknowledgement and all-mode operands have verified newer-Git comparisons; the older Git2.25 parser differs."
+    },
+    "upload-pack": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/transport.test.ts",
+        "test/types/transport-command-api.ts"
+      ],
+      "remaining": "Upload negotiation, request packet grammar, protocol versions/capabilities, filtering and repository/configuration restrictions, timeout lexical/C-width conversion, server hooks and independent rule witnesses remain pending. Current comparisons advertise isolated local repositories; they do not exercise a complete client/server exchange."
+    },
+    "receive-pack": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/transport.test.ts",
+        "test/types/transport-command-api.ts"
+      ],
+      "remaining": "Receive request packet grammar, advertised capabilities, update transactions, hooks, permissions, repository/configuration restrictions and independent rule witnesses remain pending. Current comparisons advertise isolated local repositories without changing refs."
+    },
+    "send-pack": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/transport.test.ts",
+        "test/types/transport-command-api.ts"
+      ],
+      "remaining": "Refspec parsing/resolution, negotiation, signing and push options, stdin packet records, remote/configuration restrictions, atomic update effects and independent rule witnesses remain pending. Current comparisons dry-run against an isolated local bare repository and verify unchanged destination refs."
+    },
+    "fetch-pack": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/transport.test.ts",
+        "test/types/transport-command-api.ts"
+      ],
+      "remaining": "Manual depth/numeric lexical conversion, refspec and object selection, request/response packet grammar, shallow/promisor/filter effects, remote/configuration restrictions and independent rule witnesses remain pending. Current comparisons use local repositories and diagnostic-only numeric controls."
+    },
+    "remote-ext": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/transport.test.ts",
+        "test/types/transport-command-api.ts"
+      ],
+      "remaining": "URL command grammar and percent expansions, helper negotiation/streaming records, command execution environment, repository/configuration restrictions and independent rule witnesses remain pending. Current comparisons request capabilities only from an isolated no-op helper."
+    },
+    "remote-fd": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/transport.test.ts",
+        "test/types/transport-command-api.ts"
+      ],
+      "remaining": "File-descriptor URL grammar, descriptor availability and duplex I/O, helper negotiation/streaming records, repository/configuration restrictions and independent rule witnesses remain pending. Current comparisons request capabilities only, without opening the advertised descriptor connection."
     }
   }
 }

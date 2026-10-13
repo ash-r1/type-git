@@ -400,3 +400,15 @@ a large non-UTF-8 pack round trip and isolated audit data. Full streaming and
 remaining numeric callback grammars, configuration/path-walk overrides and
 command-specific pack format/content behavior remain pending; these scopes
 are not marked complete.
+
+### Transport entrypoints and remote helpers
+
+Upload-pack and receive-pack require a single repository directory and retain
+native advertise/stateless option combinations. Send-pack requires a destination;
+all and mirror conflict with each other and with explicit refspecs. Fetch-pack
+uses its manual parser: options precede the destination, automatic negations and
+`--` are not added, and depth strings retain the native permissive conversion.
+Remote-ext and remote-fd each accept two literal arguments. Their protocol,
+URL/expansion grammars, stdin records and repository/server-dependent behavior
+remain pending. Tests advertise local repositories, dry-run sends to isolated
+bare fixtures, and request helper capabilities without connecting.
