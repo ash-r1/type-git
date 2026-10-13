@@ -36,3 +36,10 @@ git.command('bisect reset', [{ operand: 'HEAD' }, { operand: 'HEAD~1' }]);
 // @ts-expect-error Next accepts no arguments.
 git.command('bisect next', [{ operand: 'HEAD' }]);
 git.command('bisect replay', [{ operand: 'logfile' }]);
+
+declare const oldOpaqueTerm: string & { readonly termBrand: unique symbol };
+declare const newOpaqueTerm: typeof oldOpaqueTerm;
+declare const oldTemplateTerm: `custom-${string}`;
+declare const newTemplateTerm: typeof oldTemplateTerm;
+git.command('bisect start', [['--term-good', oldOpaqueTerm], ['--term-bad', newOpaqueTerm]]);
+git.command('bisect start', [['--term-good', oldTemplateTerm], ['--term-bad', newTemplateTerm]]);

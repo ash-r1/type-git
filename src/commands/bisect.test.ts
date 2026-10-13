@@ -24,6 +24,7 @@ describe('bisect dispatch and term constraints', () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-bisect-'));
     env = {
       ...process.env,
+      LC_ALL: 'C',
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
@@ -84,6 +85,8 @@ describe('bisect dispatch and term constraints', () => {
       ['good', 'good', false],
       ['bad', 'broken', false],
       ['old', 'new', true],
+      ['custom-fixed', 'custom-broken', true],
+      ['custom-same', 'custom-same', false],
       ['start', 'broken', false],
       ['fixed', 'run', false],
       ['', 'broken', false],

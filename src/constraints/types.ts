@@ -48,7 +48,13 @@ type IsUnknownScalar<V> = string extends V
       ? true
       : true extends IsUnion<V>
         ? true
-        : false;
+        : [V] extends [string]
+          ? {} extends Record<Extract<V, string>, unknown>
+            ? true // Template patterns and opaque string keys are not singleton values.
+            : false
+          : V extends object
+            ? true
+            : false;
 type EqualKeys<T, K extends keyof T, V extends string, Included extends boolean> = V extends keyof T
   ? Included extends true
     ? { [P in K]?: T[P] & T[V] }
