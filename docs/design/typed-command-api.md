@@ -437,3 +437,22 @@ Recursive merge aliases recognize `-h` and `--help-all` only as the sole command
 Difftool pickaxe `-S` and `-G` values are emitted in the same argv word to preserve option-looking search strings through the frontend. No-index requires at least two paths; additional directory pathspecs are supported by newer Git and depend on filesystem state, so native Git checks that condition. Older Git rejecting the directory pathspec fixture is recorded as an explicit unsupported-feature skip.
 
 Difftool retains every incoming pickaxe pattern for delegated validation: Git 2.55/2.56 reject empty `-S` or `-G` even before a later nonempty value can replace it. Tool-help returns before this delegated phase, so empty patterns remain allowed in that early-return mode and are emitted as separate empty argv words to preserve operand boundaries. Git 2.25/2.47 allow the overwritten empty pattern controls; those older-profile comparisons are recorded as unsupported validation skips. Git 2.47 can abort when an un-replaced empty pickaxe reaches diffcore; that failure is not treated as parser rejection.
+
+### Help and service entrypoints
+
+Help listing modes exclude document operands and manual viewer formats. Explicit
+negative aliases/external-commands selectors still require all mode. Viewer
+format flags share one final selection, so a negation can clear a prior format.
+Daemon distinguishes inetd credentials/listening from service input, requires
+paths for strict-paths, and preserves negative max-connections as unlimited.
+Its port conversion, full callback values and environment-dependent services
+remain pending. Tests use single local upload requests over stdin and open no
+listening socket.
+
+Fsmonitor--daemon start/run/stop/status have schemas from the supported-platform
+source branch. Native parser and non-running status comparisons run when the
+selected executable advertises its IPC options. Missing commands and unsupported
+platforms are explicit skips. These checks do not claim complete native lifecycle
+validation.
+
+Daemon timeout/init-timeout use checked unsigned 32-bit integers, and max-connections uses checked signed 32-bit integers before later overwrite; negative max-connections remains unlimited. Native Git 2.25 and 2.47 accept overwritten out-of-range controls, which are explicitly recorded as unsupported rejection-profile skips. Fsmonitor supported-branch integer callbacks use signed 32-bit integers, while its thread minimum is checked after parsing and can be satisfied by a later overwrite. Capability probes inspect both stdout and stderr and validate process completion; unsupported platforms and missing executables are explicit skips. A supported native status command returning exit code 1 with `not watching` represents a valid non-running state, not parser rejection.
