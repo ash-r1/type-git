@@ -31247,11 +31247,11 @@
         ]
       },
       "total": "34020",
-      "accepted": "15552",
+      "accepted": "11664",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.bundle-create.file": "{\"operands\":[]}",
-        "cli.bundle-create.version": "{\"operands\":[\"value\"],\"version\":-2}"
+        "cli.bundle-create.version": "{\"operands\":[\"value\",\"value\"],\"version\":-2}"
       }
     },
     {

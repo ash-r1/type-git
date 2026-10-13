@@ -13093,9 +13093,9 @@
       "id": "cli.bundle-create.file",
       "kind": "arity",
       "key": "operands",
-      "min": 1,
+      "min": 2,
       "origin": "git",
-      "reason": "Native mode requires this number of arguments.",
+      "reason": "Bundle creation needs an output file and at least one revision-selection argument; otherwise Git refuses an empty bundle.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/bundle.c"
     },
     {

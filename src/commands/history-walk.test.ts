@@ -35,6 +35,7 @@ describe('history walking, bundles and repository inspection grammars', () => {
     env = {
       ...process.env,
       LC_ALL: 'C',
+      GIT_DEFAULT_HASH: 'sha1',
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
@@ -181,6 +182,7 @@ describe('history walking, bundles and repository inspection grammars', () => {
 
   it('matches bundle dispatch before the output path and revision words after it', () => {
     const file = join(root, 'test.bundle');
+    compare('bundle create', [{ operand: file }], [file], false);
     const version = legacy ? [] : [['--version', 3]];
     const versionArgv = legacy ? [] : ['--version=3'];
     compare(
@@ -189,6 +191,17 @@ describe('history walking, bundles and repository inspection grammars', () => {
       [...versionArgv, file, '--all'],
       true,
     );
+    // Git 2.25 does not retain stdin-selected refs for bundle creation.
+    if (!legacy) {
+      const stdinFile = join(root, 'stdin.bundle');
+      compare(
+        'bundle create',
+        [{ operand: stdinFile }, { operand: '--stdin' }],
+        [stdinFile, '--stdin'],
+        true,
+        'HEAD\n',
+      );
+    }
     compare('bundle verify', [{ operand: file }, { operand: 'ignored' }], [file, 'ignored'], true);
     compare('bundle list-heads', [{ operand: file }], [file], true);
     compare('bundle unbundle', [{ operand: file }], [file], true);

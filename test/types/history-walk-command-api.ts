@@ -70,3 +70,7 @@ git.command('rev-list', [['--missing', opaqueAction], ['--all']]);
 git.command('rev-list', [['--missing', maybePrint], ['--missing', 'error'], ['--exclude-promisor-objects'], ['--all']]);
 // @ts-expect-error A subsequent unknown action preserves the possible print selection.
 git.command('rev-list', [['--missing', maybePrint], ['--missing', 'unknown'], ['--exclude-promisor-objects'], ['--all']]);
+
+// @ts-expect-error An output path alone selects no references for a bundle.
+git.command('bundle create', [{ operand: 'out.bundle' }]);
+git.command('bundle create', [{ operand: 'out.bundle' }, { operand: '--stdin' }], { stdin: 'HEAD\n' });
