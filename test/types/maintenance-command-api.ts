@@ -64,3 +64,13 @@ git.command('stage', [['--all']]);
 git.command('stage', [['--pathspec-file-nul']]);
 const dynamic: readonly GitCommandArgument<'maintenance run'>[] = [['--task', task]];
 git.command('maintenance run', dynamic);
+
+// Opaque string brands carry dynamic text; native callback validation remains required.
+declare const maintenanceTextBrand: unique symbol;
+type MaintenanceText = string & { readonly [maintenanceTextBrand]: true };
+declare const dynamicTask: MaintenanceText;
+declare const dynamicTask2: MaintenanceText;
+declare const dynamicScheduler: MaintenanceText;
+git.command('maintenance run', [['--task', dynamicTask]]);
+git.command('maintenance run', [['--task', dynamicTask], ['--task', dynamicTask2]]);
+git.command('maintenance start', [['--scheduler', dynamicScheduler], ['-h']]);

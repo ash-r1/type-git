@@ -39,9 +39,11 @@ type AsciiUpper =
 // Validate the supplied literal instead of enumerating 2^N enum spellings.
 type AsciiLower<S extends string> = string extends S
   ? string
-  : S extends `${infer H}${infer R}`
-    ? `${H extends AsciiUpper ? Lowercase<H> : H}${AsciiLower<R>}`
-    : S;
+  : S extends object
+    ? string // Opaque branded strings are nonliteral inputs, like ordinary string.
+    : S extends `${infer H}${infer R}`
+      ? `${H extends AsciiUpper ? Lowercase<H> : H}${AsciiLower<R>}`
+      : S;
 type Value<S extends OptionSpec> = S extends { allowed: infer A extends readonly unknown[] }
   ? S extends { caseInsensitive: true }
     ? string | Exclude<A[number], string>
@@ -96,7 +98,9 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
     : true;
 type Normalize<V, D extends OptionSpec> = D extends { caseInsensitive: true }
   ? D extends { preserveCase: true }
-    ? V
+    ? V extends string & object
+      ? string
+      : V
     : V extends string
       ? AsciiLower<V>
       : V
@@ -251,7 +255,7 @@ type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = D exte
     ? V extends undefined
       ? true
       : V extends string
-        ? string extends V
+        ? string extends AsciiLower<V>
           ? true
           : AsciiLower<V> extends A[number]
             ? true

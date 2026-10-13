@@ -163,3 +163,5 @@ enumerate every mixed-case string or prove completeness of upstream discovery.
 Case-insensitive literal arguments are checked by folding the supplied string,
 rather than constructing an exponential union of every possible enum spelling.
 Dynamic strings and argument arrays remain subject to runtime validation.
+
+Case-insensitive callback checks treat opaque branded strings as dynamic text. Known literal spellings retain ASCII validation and duplicate checks; nonliteral text remains subject to the same runtime callback validation as ordinary `string`.
