@@ -98,8 +98,10 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
     : true;
 type Normalize<V, D extends OptionSpec> = D extends { caseInsensitive: true }
   ? D extends { preserveCase: true }
-    ? V extends string & object
-      ? string
+    ? V extends string
+      ? V extends object
+        ? string
+        : V
       : V
     : V extends string
       ? AsciiLower<V>
