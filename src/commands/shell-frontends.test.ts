@@ -49,6 +49,27 @@ describe('native shell frontends', () => {
       input: '',
       timeout: 10000,
     });
+  const frontendMissing = (command: 'shell' | 'instaweb'): boolean => {
+    const probe = direct([command, command === 'shell' ? '-c' : '-h']);
+    expect(probe.error).toBeUndefined();
+    expect(probe.signal).toBeNull();
+    const diagnostic = probe.stdout + probe.stderr;
+    if (diagnostic.includes(`git: '${command}' is not a git command`)) {
+      expect(probe.status).toBe(1);
+      console.warn(
+        `Skipping native ${command} comparisons: selected Git does not install this frontend.`,
+      );
+      return true;
+    }
+    if (command === 'shell') {
+      expect(probe.status, diagnostic).toBe(128);
+      expect(diagnostic).toContain('Run with no arguments or with -c cmd');
+    } else {
+      expect([0, 129]).toContain(probe.status);
+      expect(diagnostic).toContain('usage: git instaweb');
+    }
+    return false;
+  };
   const compare = (
     command: GitCommandName,
     args: readonly unknown[],
@@ -81,7 +102,13 @@ describe('native shell frontends', () => {
     }
     return actual;
   };
-  it('runs git-shell custom commands without restricting them to built-in service names', () => {
+  it('runs git-shell custom commands without restricting them to built-in service names', ({
+    skip,
+  }) => {
+    if (frontendMissing('shell')) {
+      skip();
+      return;
+    }
     compare('shell', [['-c', 'fixture hello']], ['-c', 'fixture hello'], true);
     compare(
       'shell',
@@ -128,7 +155,11 @@ describe('native shell frontends', () => {
     );
     compare('quiltimport', [['--no-dry-run']], ['--no-dry-run'], false);
   });
-  it('validates every instaweb action without starting a web server', () => {
+  it('validates every instaweb action without starting a web server', ({ skip }) => {
+    if (frontendMissing('instaweb')) {
+      skip();
+      return;
+    }
     compare('instaweb', [['--stop'], { operand: 'unknown' }], ['--stop', 'unknown'], false);
     compare('instaweb', [{ operand: 'stop' }, { operand: 'unknown' }], ['stop', 'unknown'], false);
     compare('instaweb', [['--start'], ['--stop']], ['--start', '--stop'], true);
