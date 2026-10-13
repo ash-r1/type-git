@@ -6552,5 +6552,666 @@
         "to-ref"
       ]
     }
+  ],
+  "config list": [
+    {
+      "id": "config-list-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0
+    },
+    {
+      "id": "config-list-location",
+      "kind": "exclusive",
+      "origin": "git",
+      "reason": "Only one config source can be selected.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "keys": [
+        "global",
+        "system",
+        "local",
+        "worktree",
+        "file",
+        "blob"
+      ]
+    }
+  ],
+  "config get": [
+    {
+      "id": "config-get-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "key": "operands",
+      "min": 1,
+      "max": 1
+    },
+    {
+      "id": "config-get-location",
+      "kind": "exclusive",
+      "origin": "git",
+      "reason": "Only one config source can be selected.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "keys": [
+        "global",
+        "system",
+        "local",
+        "worktree",
+        "file",
+        "blob"
+      ]
+    },
+    {
+      "id": "config-get-fixed-value",
+      "kind": "requires",
+      "origin": "git",
+      "reason": "Fixed-value matching needs an explicit pattern, including an empty pattern.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "value",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-get-default",
+      "kind": "conflicts",
+      "origin": "git",
+      "reason": "A default cannot accompany multi-value or URL matching.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": {
+        "key": "default",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "url",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-get-url",
+      "kind": "conflicts",
+      "origin": "git",
+      "reason": "URL matching excludes all, regexp and value filters.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": {
+        "key": "url",
+        "test": "present"
+      },
+      "others": [
+        {
+          "key": "all",
+          "test": "active"
+        },
+        {
+          "key": "regexp",
+          "test": "active"
+        },
+        {
+          "key": "value",
+          "test": "present"
+        }
+      ]
+    }
+  ],
+  "config set": [
+    {
+      "id": "config-set-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "key": "operands",
+      "min": 2,
+      "max": 2
+    },
+    {
+      "id": "config-set-location",
+      "kind": "exclusive",
+      "origin": "git",
+      "reason": "Only one config source can be selected.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "keys": [
+        "global",
+        "system",
+        "local",
+        "worktree",
+        "file",
+        "blob"
+      ]
+    },
+    {
+      "id": "config-set-fixed-value",
+      "kind": "requires",
+      "origin": "git",
+      "reason": "Fixed-value matching needs an explicit pattern, including an empty pattern.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "value",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-set-append-value",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Appending cannot filter existing values.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "append",
+          "test": "active"
+        },
+        {
+          "key": "value",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-set-write-blob",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Config blobs cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-set-write-stdin",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Standard input cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ]
+    }
+  ],
+  "config unset": [
+    {
+      "id": "config-unset-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "key": "operands",
+      "min": 1,
+      "max": 1
+    },
+    {
+      "id": "config-unset-location",
+      "kind": "exclusive",
+      "origin": "git",
+      "reason": "Only one config source can be selected.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "keys": [
+        "global",
+        "system",
+        "local",
+        "worktree",
+        "file",
+        "blob"
+      ]
+    },
+    {
+      "id": "config-unset-fixed-value",
+      "kind": "requires",
+      "origin": "git",
+      "reason": "Fixed-value matching needs an explicit pattern, including an empty pattern.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": {
+        "key": "fixed-value",
+        "test": "active"
+      },
+      "required": [
+        {
+          "key": "value",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-unset-write-blob",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Config blobs cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-unset-write-stdin",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Standard input cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ]
+    }
+  ],
+  "config rename-section": [
+    {
+      "id": "config-rename-section-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "key": "operands",
+      "min": 2,
+      "max": 2
+    },
+    {
+      "id": "config-rename-section-location",
+      "kind": "exclusive",
+      "origin": "git",
+      "reason": "Only one config source can be selected.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "keys": [
+        "global",
+        "system",
+        "local",
+        "worktree",
+        "file",
+        "blob"
+      ]
+    },
+    {
+      "id": "config-rename-section-write-blob",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Config blobs cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-rename-section-write-stdin",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Standard input cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ]
+    }
+  ],
+  "config remove-section": [
+    {
+      "id": "config-remove-section-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "key": "operands",
+      "min": 1,
+      "max": 1
+    },
+    {
+      "id": "config-remove-section-location",
+      "kind": "exclusive",
+      "origin": "git",
+      "reason": "Only one config source can be selected.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "keys": [
+        "global",
+        "system",
+        "local",
+        "worktree",
+        "file",
+        "blob"
+      ]
+    },
+    {
+      "id": "config-remove-section-write-blob",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Config blobs cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-remove-section-write-stdin",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Standard input cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ]
+    }
+  ],
+  "config edit": [
+    {
+      "id": "config-edit-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0
+    },
+    {
+      "id": "config-edit-location",
+      "kind": "exclusive",
+      "origin": "git",
+      "reason": "Only one config source can be selected.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "keys": [
+        "global",
+        "system",
+        "local",
+        "worktree",
+        "file",
+        "blob"
+      ]
+    },
+    {
+      "id": "config-edit-write-blob",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Config blobs cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "blob",
+          "test": "present"
+        }
+      ]
+    },
+    {
+      "id": "config-edit-write-stdin",
+      "kind": "forbid",
+      "origin": "git",
+      "reason": "Standard input cannot be written or edited.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/config.c",
+      "when": [
+        {
+          "key": "file",
+          "test": "equals",
+          "value": "-"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "id": "notes-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0
+    }
+  ],
+  "notes list": [
+    {
+      "id": "notes-list-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 1
+    }
+  ],
+  "notes add": [
+    {
+      "id": "notes-add-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 1
+    }
+  ],
+  "notes append": [
+    {
+      "id": "notes-append-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 1
+    }
+  ],
+  "notes edit": [
+    {
+      "id": "notes-edit-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 1
+    }
+  ],
+  "notes show": [
+    {
+      "id": "notes-show-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 1
+    }
+  ],
+  "notes copy": [
+    {
+      "id": "notes-copy-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 1,
+      "max": 2,
+      "guard": [
+        {
+          "key": "stdin",
+          "test": "inactive"
+        },
+        {
+          "key": "for-rewrite",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "notes-copy-arity1",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "stdin",
+        "test": "active"
+      }
+    },
+    {
+      "id": "notes-copy-arity2",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "for-rewrite",
+        "test": "present"
+      }
+    }
+  ],
+  "notes merge": [
+    {
+      "id": "notes-merge-mode",
+      "kind": "exclusive",
+      "origin": "git",
+      "reason": "Notes merge cannot combine commit, abort or an explicit strategy.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "keys": [
+        "commit",
+        "abort",
+        "strategy"
+      ]
+    },
+    {
+      "id": "notes-merge-arity1",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 1,
+      "max": 1,
+      "guard": [
+        {
+          "key": "commit",
+          "test": "inactive"
+        },
+        {
+          "key": "abort",
+          "test": "inactive"
+        }
+      ]
+    },
+    {
+      "id": "notes-merge-arity2",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "commit",
+        "test": "active"
+      }
+    },
+    {
+      "id": "notes-merge-arity3",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0,
+      "when": {
+        "key": "abort",
+        "test": "active"
+      }
+    },
+    {
+      "id": "notes-merge-strategy",
+      "kind": "value",
+      "origin": "git",
+      "reason": "Notes merge supports five built-in strategies.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "strategy",
+      "allowed": [
+        "manual",
+        "ours",
+        "theirs",
+        "union",
+        "cat_sort_uniq"
+      ]
+    }
+  ],
+  "notes prune": [
+    {
+      "id": "notes-prune-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0
+    }
+  ],
+  "notes get-ref": [
+    {
+      "id": "notes-get-ref-arity0",
+      "kind": "arity",
+      "origin": "git",
+      "reason": "The selected operation restricts the number of positional arguments.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/notes.c",
+      "key": "operands",
+      "min": 0,
+      "max": 0
+    }
   ]
 }

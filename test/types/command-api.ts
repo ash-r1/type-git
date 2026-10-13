@@ -214,3 +214,31 @@ git.command('stash push', [['--no-include-untracked'], ['--all'], ['--staged']])
 git.command('stash store', []);
 // @ts-expect-error Import requires exactly one commit.
 git.command('stash import', [{ operand: 'a' }, { operand: 'b' }]);
+
+git.command('config set', [{ operand: 'test.value' }, { operand: '--literal' }]);
+git.command('config get', [['--type', 'int'], ['--int'], { operand: 'test.value' }]);
+git.command('config get', [['--int'], ['--no-type'], ['--bool'], { operand: 'test.value' }]);
+// @ts-expect-error Type callbacks reject an immediate change between nonempty types.
+git.command('config get', [['--int'], ['--bool'], ['--int'], { operand: 'test.value' }]);
+// @ts-expect-error Options are not parsed after the first config operand.
+git.command('config get', [{ operand: 'test.value' }, ['--all']]);
+// @ts-expect-error A separator after an operand would be another config value.
+git.command('config set', [{ operand: 'test.value' }, ['--'], { operand: 'text' }]);
+// @ts-expect-error Explicit sources are mutually exclusive.
+git.command('config list', [['--global'], ['--local']]);
+// @ts-expect-error Empty patterns are still specified patterns.
+git.command('config set', [['--append'], ['--value', ''], { operand: 'test.value' }, { operand: 'x' }]);
+// @ts-expect-error Fixed-value matching requires a pattern.
+git.command('config unset', [['--fixed-value'], { operand: 'test.value' }]);
+git.command('notes add', [['--ref', 'custom'], ['-m', 'one'], ['-F', 'file']]);
+git.command('notes copy', [{ operand: 'HEAD~1' }]);
+git.command('notes remove', [['--stdin'], { operand: 'HEAD' }], { stdin: 'HEAD~1\n' });
+// @ts-expect-error Copy reads all objects from stdin when selected.
+git.command('notes copy', [['--stdin'], { operand: 'HEAD' }]);
+// @ts-expect-error Explicit strategy selects merge, not continuation.
+git.command('notes merge', [['--commit'], ['--strategy', 'ours']]);
+// @ts-expect-error Merge needs one ref in normal mode.
+git.command('notes merge', []);
+git.command('stash create', [{ operand: '--help' }, { operand: '--' }]);
+// @ts-expect-error Stash create does not parse options or a separator.
+git.command('stash create', [['--']]);
