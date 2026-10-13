@@ -137,3 +137,5 @@ The catalogue includes `ls-files`, `ls-remote`, `ls-tree`, `for-each-ref`, `show
 - `check-ref-format` stops at its first operand and has no `--` separator. Its special branch form accepts exactly the flag and branch operand. Reference syntax and repository expansion remain delegated to Git.
 
 The scopes are partial: signatures and object identities, path/ref/format languages, stream contents, binary transport, configuration, abbreviations and historical-version differences still need evidence. In particular, exposing `show-index` does not make the current string-based stdin API a general binary protocol API.
+
+Abbreviation callbacks also narrow `strtol` to a signed int before applying the minimum length. Runtime validation uses the host C-long width for the pre-narrowing saturation, so Windows/32-bit Unix and LP64 Unix can differ at large safe-integer boundaries. Native describe/long comparisons retain that distinction.

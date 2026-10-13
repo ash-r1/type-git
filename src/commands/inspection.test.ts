@@ -26,6 +26,7 @@ describe('file, ref and object inspection grammars', () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-inspection-'));
     env = {
       ...process.env,
+      LC_ALL: 'C',
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
@@ -236,6 +237,13 @@ describe('file, ref and object inspection grammars', () => {
       [['--always'], ['--long'], ['--abbrev', -1]],
       ['--always', '--long', '--abbrev=-1'],
     );
+    for (const value of [2147483648, 4294967295, 4294967296, -4294967295]) {
+      compare(
+        'describe',
+        [['--always'], ['--long'], ['--abbrev', value]],
+        ['--always', '--long', `--abbrev=${value}`],
+      );
+    }
     compare(
       'describe',
       [['--always'], ['--dirty'], { operand: 'HEAD' }],

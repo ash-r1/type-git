@@ -66,7 +66,8 @@ export function parseGitScalar(
     if (typeof value !== 'number' || !Number.isSafeInteger(value)) {
       return { valid: false };
     }
-    const converted = value | 0;
+    const converted =
+      (cLongBits === 32 ? Math.min(2147483647, Math.max(-2147483648, value)) : value) | 0;
     return { valid: true, value: converted !== 0 && converted < 4 ? 4 : converted };
   }
   if (parser === 'mainline') {
