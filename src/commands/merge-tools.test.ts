@@ -95,7 +95,7 @@ describe('merge strategies and tool frontends', () => {
         const help = direct([command, flag]);
         expect(help.error).toBeUndefined();
         expect(help.signal).toBe(null);
-        expect(help.status, help.stderr).toBe(129);
+        expect([0, 129], help.stderr).toContain(help.status);
         expect(help.stdout + help.stderr).toContain('usage:');
         expect(commandArguments(command, [[flag]], true)).toEqual([command, flag]);
         compare(command, [[flag], ['--']], [flag, '--'], false);
@@ -240,7 +240,7 @@ describe('merge strategies and tool frontends', () => {
     const help = direct(['diff', '--no-index', '-h']);
     expect(help.error).toBeUndefined();
     expect(help.signal).toBe(null);
-    expect(help.status).toBe(129);
+    expect([0, 129]).toContain(help.status);
     const left = join(root, 'left');
     const right = join(root, 'right');
     await mkdir(left);

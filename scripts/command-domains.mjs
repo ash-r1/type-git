@@ -28,8 +28,10 @@ export function commandDomains(spec, referencedKeys) {
     }
   }
   domains.operands = [[], ['value'], ['value', 'value'], ['value', 'value', 'value'], ['value', 'value', 'value', 'value']];
-  domains.operand0 = [undefined, 'value'];
-  if (spec.rules.some(rule => referencedKeys(rule).includes('operand1'))) domains.operand1 = [undefined, '', 'value'];
+  domains.operand0 = spec.rules.some(rule => referencedKeys(rule).includes('operand0'))
+    ? ['', undefined, 'value']
+    : [undefined, 'value'];
+  if (spec.rules.some(rule => referencedKeys(rule).includes('operand1'))) domains.operand1 = ['', undefined, 'value'];
   domains.inRepository = [undefined, false, true];
   const equalKeys = [];
   function visit(value) {

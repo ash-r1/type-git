@@ -23572,6 +23572,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"HEAD\""
@@ -23582,13 +23583,13 @@
           "true"
         ]
       },
-      "total": "48600",
-      "accepted": "12096",
+      "total": "64800",
+      "accepted": "16416",
       "nodes": 40,
       "isolatedRuleWitnesses": {
-        "cli.symbolic-ref.operands": "{\"operands\":[]}",
-        "cli.symbolic-ref.delete": "{\"delete\":true,\"operands\":[\"value\",\"value\"]}",
-        "cli.symbolic-ref.message": "{\"m\":\"\",\"operands\":[\"value\"]}",
+        "cli.symbolic-ref.operands": "{\"operand0\":\"\",\"operands\":[]}",
+        "cli.symbolic-ref.delete": "{\"delete\":true,\"operand0\":\"\",\"operands\":[\"value\",\"value\"]}",
+        "cli.symbolic-ref.message": "{\"m\":\"\",\"operand0\":\"\",\"operands\":[\"value\"]}",
         "cli.symbolic-ref.delete-head": "{\"delete\":true,\"operand0\":\"HEAD\",\"operands\":[\"value\"]}"
       }
     },
@@ -28087,6 +28088,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"clear\"",
@@ -28102,11 +28104,11 @@
           "true"
         ]
       },
-      "total": "720",
+      "total": "810",
       "accepted": "630",
       "nodes": 2,
       "isolatedRuleWitnesses": {
-        "cli.rerere.operation": "{\"operand0\":\"value\",\"operands\":[]}"
+        "cli.rerere.operation": "{\"operand0\":\"\",\"operands\":[]}"
       }
     },
     {
@@ -28672,6 +28674,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"GIT_COMMITTER_IDENT\"",
@@ -28698,14 +28701,14 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "1560",
+      "total": "1680",
       "accepted": "72",
       "nodes": 36,
       "isolatedRuleWitnesses": {
         "cli.var.tokens": "{\"operands\":[\"value\"]}",
         "cli.var.listing": "{\"argumentTokens\":[\"value\"],\"list\":true,\"operands\":[\"value\"]}",
         "cli.var.query": "{\"argumentTokens\":[\"value\"],\"operands\":[]}",
-        "cli.var.variable": "{\"argumentTokens\":[\"value\"],\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.var.variable": "{\"argumentTokens\":[\"value\"],\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -28860,6 +28863,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"-\""
@@ -28874,11 +28878,11 @@
           "true"
         ]
       },
-      "total": "403200",
-      "accepted": "295680",
+      "total": "537600",
+      "accepted": "413952",
       "nodes": 17,
       "isolatedRuleWitnesses": {
-        "cli.mailsplit.implicit-output": "{\"operands\":[]}",
+        "cli.mailsplit.implicit-output": "{\"operand0\":\"\",\"operands\":[]}",
         "cli.mailsplit.stdin-marker": "{\"operand0\":\"-\",\"operands\":[],\"output\":\"\"}"
       }
     },
@@ -29068,6 +29072,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"applypatch-msg\"",
@@ -29115,11 +29120,11 @@
           "true"
         ]
       },
-      "total": "1944000",
-      "accepted": "356400",
+      "total": "2008800",
+      "accepted": "360450",
       "nodes": 64,
       "isolatedRuleWitnesses": {
-        "cli.hook-run.hook-name": "{\"operand0\":\"value\",\"operands\":[\"value\"]}",
+        "cli.hook-run.hook-name": "{\"operand0\":\"\",\"operands\":[\"value\"]}",
         "cli.hook-run.hook-only": "{\"operands\":[]}",
         "cli.hook-run.hook-before-args": "{\"hasSeparator\":true,\"operands\":[]}",
         "cli.hook-run.jobs": "{\"jobs\":-2,\"operands\":[\"value\"]}"
@@ -29155,6 +29160,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"applypatch-msg\"",
@@ -29192,11 +29198,11 @@
           "true"
         ]
       },
-      "total": "16200",
-      "accepted": "3168",
+      "total": "16740",
+      "accepted": "3204",
       "nodes": 14,
       "isolatedRuleWitnesses": {
-        "cli.hook-list.hook-name": "{\"operand0\":\"value\",\"operands\":[\"value\"]}",
+        "cli.hook-list.hook-name": "{\"operand0\":\"\",\"operands\":[\"value\"]}",
         "cli.hook-list.hook": "{\"operands\":[]}"
       }
     },
@@ -29216,6 +29222,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"fill\"",
@@ -29229,12 +29236,12 @@
           "true"
         ]
       },
-      "total": "180",
+      "total": "210",
       "accepted": "30",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.credential.operands": "{\"operands\":[]}",
-        "cli.credential.operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.credential.operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -49043,6 +49050,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"get-default-remote\"",
@@ -49069,12 +49077,12 @@
           "true"
         ]
       },
-      "total": "570",
+      "total": "600",
       "accepted": "432",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.submodule--helper.operation": "{\"operands\":[]}",
-        "cli.submodule--helper.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.submodule--helper.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -49093,6 +49101,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"list\"",
@@ -49110,12 +49119,12 @@
           "true"
         ]
       },
-      "total": "300",
+      "total": "330",
       "accepted": "216",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.sparse-checkout.operation": "{\"operands\":[]}",
-        "cli.sparse-checkout.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.sparse-checkout.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -49462,6 +49471,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"add\"",
@@ -49482,11 +49492,11 @@
           "true"
         ]
       },
-      "total": "1560",
+      "total": "1680",
       "accepted": "900",
       "nodes": 12,
       "isolatedRuleWitnesses": {
-        "cli.submodule.known-operation": "{\"operand0\":\"value\",\"operands\":[]}",
+        "cli.submodule.known-operation": "{\"operand0\":\"\",\"operands\":[]}",
         "cli.submodule.cached-operation": "{\"cached\":true,\"operand0\":\"add\",\"operands\":[]}"
       }
     },
@@ -50019,6 +50029,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"create\"",
@@ -50032,12 +50043,12 @@
           "true"
         ]
       },
-      "total": "180",
+      "total": "210",
       "accepted": "120",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.bundle.operation": "{\"operands\":[]}",
-        "cli.bundle.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.bundle.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -50063,6 +50074,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"verify\"",
@@ -50074,12 +50086,12 @@
           "true"
         ]
       },
-      "total": "600",
+      "total": "750",
       "accepted": "360",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.commit-graph.operation": "{\"operands\":[]}",
-        "cli.commit-graph.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.commit-graph.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -50098,6 +50110,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"fixup\"",
@@ -50110,12 +50123,12 @@
           "true"
         ]
       },
-      "total": "150",
+      "total": "180",
       "accepted": "96",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.history.operation": "{\"operands\":[]}",
-        "cli.history.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.history.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -50134,6 +50147,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"run\"",
@@ -50145,12 +50159,12 @@
           "true"
         ]
       },
-      "total": "120",
+      "total": "150",
       "accepted": "72",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.hook.operation": "{\"operands\":[]}",
-        "cli.hook.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.hook.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -50169,6 +50183,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"run\"",
@@ -50184,12 +50199,12 @@
           "true"
         ]
       },
-      "total": "240",
+      "total": "270",
       "accepted": "168",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.maintenance.operation": "{\"operands\":[]}",
-        "cli.maintenance.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.maintenance.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -50220,6 +50235,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"repack\"",
@@ -50234,12 +50250,12 @@
           "true"
         ]
       },
-      "total": "3150",
+      "total": "3600",
       "accepted": "2160",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.multi-pack-index.operation": "{\"operands\":[]}",
-        "cli.multi-pack-index.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.multi-pack-index.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -50258,6 +50274,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"migrate\"",
@@ -50272,12 +50289,12 @@
           "true"
         ]
       },
-      "total": "210",
+      "total": "240",
       "accepted": "144",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.refs.operation": "{\"operands\":[]}",
-        "cli.refs.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.refs.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -50296,6 +50313,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"info\"",
@@ -50307,12 +50325,12 @@
           "true"
         ]
       },
-      "total": "120",
+      "total": "150",
       "accepted": "72",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.repo.operation": "{\"operands\":[]}",
-        "cli.repo.known-operation": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.repo.known-operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {
@@ -54535,12 +54553,13 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\""
         ],
         "operand1": [
-          "undefined",
           "\"\"",
+          "undefined",
           "\"value\""
         ],
         "inRepository": [
@@ -54549,13 +54568,13 @@
           "true"
         ]
       },
-      "total": "360",
+      "total": "540",
       "accepted": "36",
       "nodes": 15,
       "isolatedRuleWitnesses": {
         "cli.request-pull.arguments": "{\"operand0\":\"value\",\"operand1\":\"value\",\"operands\":[]}",
-        "cli.request-pull.start": "{\"operand1\":\"value\",\"operands\":[\"value\",\"value\"]}",
-        "cli.request-pull.url": "{\"operand0\":\"value\",\"operands\":[\"value\",\"value\"]}"
+        "cli.request-pull.start": "{\"operand0\":\"\",\"operand1\":\"value\",\"operands\":[\"value\",\"value\"]}",
+        "cli.request-pull.url": "{\"operand0\":\"value\",\"operand1\":\"\",\"operands\":[\"value\",\"value\"]}"
       }
     },
     {
@@ -54929,6 +54948,7 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ],
         "operand0": [
+          "\"\"",
           "undefined",
           "\"value\"",
           "\"bash\"",
@@ -54941,12 +54961,12 @@
           "true"
         ]
       },
-      "total": "225",
+      "total": "270",
       "accepted": "36",
       "nodes": 7,
       "isolatedRuleWitnesses": {
         "cli.lfs.completion.operands-0": "{\"operands\":[]}",
-        "cli.lfs.completion.shell": "{\"operand0\":\"value\",\"operands\":[\"value\"]}"
+        "cli.lfs.completion.shell": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
       }
     },
     {

@@ -432,6 +432,6 @@ are not imposed on that path. Complete delegated diff phase validation remains
 pending. Request-pull accepts interleaved patch selection and ignores words after
 the optional end ref; tests resolve only local fixture refs.
 
-Recursive merge aliases recognize `-h` and `--help-all` only as the sole command argument; native usage exits with status 129, which is tested separately from successful command execution. First-position `--help` delegates to the global help dispatcher and can retain trailing arguments. `request-pull` requires nonempty start and URL strings; dynamic URL strings defer their value check to runtime.
+Recursive merge aliases recognize `-h` and `--help-all` only as the sole command argument; native usage exits with status 129 on Git 2.25/2.47/2.55 and status 0 on Git 2.56, and is tested by its usage output separately from ordinary command execution. First-position `--help` delegates to the global help dispatcher and can retain trailing arguments. `request-pull` requires nonempty start and URL strings; dynamic URL strings defer their value check to runtime.
 
 Difftool pickaxe `-S` and `-G` values are emitted in the same argv word to preserve option-looking search strings through the frontend. No-index requires at least two paths; additional directory pathspecs are supported by newer Git and depend on filesystem state, so native Git checks that condition. Older Git rejecting the directory pathspec fixture is recorded as an explicit unsupported-feature skip.
