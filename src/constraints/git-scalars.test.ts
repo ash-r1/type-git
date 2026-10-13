@@ -150,4 +150,13 @@ describe('Git scalar grammars', () => {
       ).toBe(false);
     }
   });
+  it('preserves unsigned-long negation in shortlog wrap parsing', () => {
+    for (const bits of [32, 64] as const) {
+      const modulus = 1n << BigInt(bits);
+      const wrapped = `-${modulus - 1n},0,0`;
+      expect(parseGitScalar('shortlog-wrap', wrapped, undefined, bits).valid).toBe(true);
+      expect(parseGitScalar('shortlog-wrap', `-${modulus},0,0`, undefined, bits).valid).toBe(false);
+      expect(parseGitScalar('shortlog-wrap', '-1,0,0', undefined, bits).valid).toBe(false);
+    }
+  });
 });

@@ -282,7 +282,7 @@ type CheckedCallbackState<S, D extends OptionSpec, T extends readonly unknown[]>
     : never
   : ParsedState<S, D, T>;
 type ScalarLiteral<D extends OptionSpec, V> = V extends string
-  ? string extends V
+  ? string extends AsciiLower<V>
     ? true
     : D extends { parser: 'shortlog-group' }
       ? AsciiLower<V> extends 'author' | 'committer'

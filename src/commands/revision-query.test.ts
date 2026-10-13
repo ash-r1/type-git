@@ -9,11 +9,21 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
-const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
+const installedGit = spawnSync('git', ['--version'], { encoding: 'utf8', timeout: 10000 });
+const gitVersion = /^git version (\d+)\.(\d+)(?:\.|$)/.exec(installedGit.stdout ?? '');
+if (installedGit.error || installedGit.status !== 0 || !gitVersion) {
+  throw new Error('Cannot determine the installed Git version for revision-query tests');
+}
+const supportsPinnedGit =
+  Number(gitVersion[1]) > 2 || (Number(gitVersion[1]) === 2 && Number(gitVersion[2]) >= 55);
+const supportsModernComparisons =
+  Number(gitVersion[1]) > 2 || (Number(gitVersion[1]) === 2 && Number(gitVersion[2]) >= 47);
+const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true' || !supportsModernComparisons;
 describe('revision queries and pull grammars', () => {
   let root: string;
   let repo: WorktreeRepo;
   let env: NodeJS.ProcessEnv;
+  let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 };
   const direct = (args: string[], input = '') =>
     spawnSync('git', ['-C', repo.workdir, ...args], {
       env,
@@ -25,6 +35,7 @@ describe('revision queries and pull grammars', () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-revision-query-'));
     env = {
       ...process.env,
+      LC_ALL: 'C',
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
@@ -41,6 +52,15 @@ describe('revision queries and pull grammars', () => {
     await writeFile(join(repo.workdir, 'second'), 'two\n');
     await repo.add('.');
     await repo.commit({ message: 'initial' });
+    const buildOptions = direct(['version', '--build-options']);
+    expect(buildOptions.status, buildOptions.stderr).toBe(0);
+    const longBytes = /^sizeof-long: ([48])\r?$/m.exec(buildOptions.stdout)?.[1];
+    const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(buildOptions.stdout)?.[1];
+    if (!longBytes || !sizeBytes) {
+      throw new Error('Missing native Git ABI widths in revision-query fixture');
+    }
+    abi = { longBits: longBytes === '4' ? 32 : 64, sizeTBits: sizeBytes === '4' ? 32 : 64 };
+
     await writeFile(join(repo.workdir, 'tracked'), 'changed\n');
     await repo.add('.');
     await repo.commit({ message: 'second' });
@@ -60,7 +80,7 @@ describe('revision queries and pull grammars', () => {
     expect(actual.signal, label).toBe(null);
     expect(actual.error, label).toBeUndefined();
     expect(actual.status === 0, label).toBe(valid);
-    const build = () => commandArguments(command, args, true);
+    const build = () => commandArguments(command, args, true, abi);
     if (valid) {
       expect(build()).toEqual([...command.split(' '), ...argv]);
     } else {
@@ -73,6 +93,15 @@ describe('revision queries and pull grammars', () => {
     for (const width of ['', '76', '0,99,99', '12,0,0', ',,', ' +76,6,9']) {
       compare('shortlog', [['-w', width], { operand: 'HEAD' }], [`-w${width}`, 'HEAD'], true);
     }
+    compare(
+      'shortlog',
+      [
+        ['-w', abi.longBits === 64 ? '-18446744073709551615,0,0' : '-4294967295,0,0'],
+        { operand: 'HEAD' },
+      ],
+      [`-w${abi.longBits === 64 ? '-18446744073709551615,0,0' : '-4294967295,0,0'}`, 'HEAD'],
+      true,
+    );
     for (const width of ['9', '10,10,0', '-1', '0,0,0,0', ' ']) {
       compare('shortlog', [['-w', width], { operand: 'HEAD' }], [`-w${width}`, 'HEAD'], false);
     }
@@ -243,7 +272,7 @@ describe('revision queries and pull grammars', () => {
       ['--progress', '--porcelain', 'tracked'],
       false,
     );
-    if (!legacy) {
+    if (!legacy && supportsPinnedGit) {
       compare('whatchanged', [['--i-still-use-this']], ['--i-still-use-this'], true);
       compare('whatchanged', [], [], false);
     }

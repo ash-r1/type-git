@@ -99,10 +99,17 @@ export function parseGitScalar(
         return { valid: false };
       }
       const number = BigInt(part.trimStart());
-      if (number < 0n || number > 2147483647n) {
+      const modulus = 1n << BigInt(cLongBits);
+      // strtoul applies unsigned negation only within ULONG_MAX. Overflow
+      // saturates to ULONG_MAX, which exceeds parse_uint's INT_MAX limit.
+      if (number > modulus - 1n || number < -(modulus - 1n)) {
         return { valid: false };
       }
-      parsed.push(Number(number));
+      const converted = number < 0n ? modulus + number : number;
+      if (converted > 2147483647n) {
+        return { valid: false };
+      }
+      parsed.push(Number(converted));
     }
     const [width, first, rest] = parsed as [number, number, number];
     return { valid: width === 0 || (width > first && width > rest), value };

@@ -31,3 +31,8 @@ git.command('whatchanged', []);
 git.command('shortlog', [['--group', 'TRAILER:Reviewed-by']]);
 // @ts-expect-error Mode names are case-sensitive even though booleans are not.
 git.command('pull', [['--rebase', 'MERGES']]);
+
+declare const opaqueGroup: string & { readonly groupBrand: unique symbol };
+declare const opaqueRebase: string & { readonly rebaseBrand: unique symbol };
+git.command('shortlog', [['--group', opaqueGroup], { operand: 'HEAD' }]);
+git.command('pull', [['--rebase', opaqueRebase]]);

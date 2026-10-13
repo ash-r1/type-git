@@ -242,7 +242,8 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
     return (
       option?.parser === 'abbrev' ||
       option?.parser === 'mainline' ||
-      option?.parser === 'unsigned-size'
+      option?.parser === 'unsigned-size' ||
+      option?.parser === 'shortlog-wrap'
     );
   });
 }
