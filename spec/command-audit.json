@@ -3750,7 +3750,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+      "remaining": "Shell filter languages and quoting, revision selection, index/tree/commit/message/parent filters, tag/ref rewriting, repository/configuration conditions and historical parser differences remain pending. Native tests verify direct conflicts and a no-op rewrite with unchanged HEAD, not arbitrary history rewriting."
     },
     "quiltimport": {
       "state": "partial",
@@ -3760,7 +3760,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+      "remaining": "Author-name/email parsing, patch-series syntax and file contents, patch application/commit creation, directory/configuration conditions and historical option handling remain pending. Native tests use an empty series to verify trailing operands and empty-author handling; patch import execution is unverified."
     },
     "instaweb": {
       "state": "partial",
@@ -3770,7 +3770,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+      "remaining": "Selected executable availability, further option parsing and negation, HTTP daemon and browser selection, port/configuration interpretation, generated gitweb configuration, PID handling and real server/browser lifecycle remain pending. Native tests exercise action validation and final stop selection without starting a server."
     },
     "instaweb start": {
       "state": "partial",
@@ -3780,7 +3780,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+      "remaining": "Native start execution, HTTP daemon availability/configuration, port binding, generated gitweb configuration, PID creation, browser invocation and startup failures remain pending. This scope has argv/type/model checks; native start lifecycle is unverified."
     },
     "instaweb stop": {
       "state": "partial",
@@ -3790,7 +3790,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+      "remaining": "Live daemon/PID discovery, shutdown and stale-PID behavior, path/permission/configuration failures and historical stop semantics remain pending. Native checks cover stop with no running server and ignored port text, not shutdown of a live daemon."
     },
     "instaweb restart": {
       "state": "partial",
@@ -3800,7 +3800,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+      "remaining": "Live stop/start sequencing, daemon/PID state, HTTP daemon and browser dependencies, configuration regeneration, port binding and restart failures remain pending. This scope has argv/type/model checks; native restart lifecycle is unverified."
     },
     "shell": {
       "state": "partial",
@@ -3810,7 +3810,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Shell argument phases and directly checked conflicts are modeled. Environment-injected parseopt specifications, filter/revision evaluation, author language, patch contents, server/browser lifecycle and git-shell custom command language/permissions remain pending. Tests use isolated repositories, empty patch series, no-op filters and stop-only server actions."
+      "remaining": "Custom-command tokenization/quoting/path permissions, built-in Git service and CVS protocols, interactive sessions and environment/packaging differences remain pending. Global help-tail grammar and its historical helper-option behavior also require contextual modeling. Native tests verify controlled custom commands, EOF, argc errors and primary help dispatch when the selected frontend is available; missing-command checks are explicit skips."
     },
     "sh-i18n": {
       "state": "partial",
@@ -3820,7 +3820,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Git installs this as a non-executable shell library sourced by shell frontends, not a git subcommand. Standalone command API is inapplicable. Audit its environment-driven setup and shell functions through their callers.",
+      "remaining": "Standalone command API is inapplicable to this sourced library. Gettext/eval_gettext shell-function behavior, locale/catalog selection, translation escaping and environment-driven fallbacks remain pending through callers. Native tests verify successful sourcing only; tested Linux modes do not establish other platform permissions.",
       "apiApplicability": "sourced-library"
     },
     "sh-setup": {
@@ -3831,7 +3831,7 @@
         "src/commands/shell-frontends.test.ts",
         "test/types/shell-frontend-command-api.ts"
       ],
-      "remaining": "Git installs this as a non-executable shell library sourced by shell frontends, not a git subcommand. Standalone command API is inapplicable. Audit its environment-driven setup and shell functions through their callers.",
+      "remaining": "Standalone command API is inapplicable to this sourced library. Repository discovery, worktree/bare/prefix requirements, OPTIONS_SPEC-driven parsing, identity/setup helpers, directory/error behavior and environment interactions remain pending through callers. Native tests verify successful sourcing only; tested Linux modes do not establish other platform permissions.",
       "apiApplicability": "sourced-library"
     }
   }
