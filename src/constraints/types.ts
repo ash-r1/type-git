@@ -1,10 +1,16 @@
+import type { GitEnabledLiteral } from './git-enabled-types.js';
 import type { Constraint, Predicate } from './model.js';
 
-type MaybeGitDisabled<V> = V extends string
-  ? Lowercase<V> extends 'true' | 'yes' | 'on' | 'on-demand' | '1'
+type MaybeGitDisabled<V> = V extends unknown
+  ? GitEnabledLiteral<V> extends true
     ? never
     : V
-  : Extract<V, false | undefined>;
+  : never;
+type MaybeGitEnabled<V> = V extends unknown
+  ? GitEnabledLiteral<V> extends false
+    ? never
+    : V
+  : never;
 type Inactive<T, K extends keyof T> = { [P in K]?: Extract<T[P], false | undefined> };
 type Active<T, K extends keyof T> = { [P in K]-?: Exclude<T[P], false | undefined> };
 type Nonempty<V> = V extends readonly unknown[]
@@ -23,13 +29,15 @@ type Satisfy<T, P extends Predicate> = P['key'] extends keyof T
       ? { [K in P['key']]-?: Extract<`${V}${string}`, T[K]> | Extract<T[K], `${V}${string}`> }
       : P extends { test: 'notEquals'; value: infer V }
         ? { [K in P['key']]?: Exclude<T[K], V> }
-        : P['test'] extends 'inactive'
-          ? Inactive<T, P['key']>
-          : P['test'] extends 'nonempty'
-            ? { [K in P['key']]-?: Nonempty<T[K]> }
-            : P['test'] extends 'present'
-              ? { [K in P['key']]-?: Exclude<T[K], undefined> }
-              : Active<T, P['key']>
+        : P['test'] extends 'gitEnabled'
+          ? { [K in P['key']]-?: MaybeGitEnabled<T[K]> }
+          : P['test'] extends 'inactive'
+            ? Inactive<T, P['key']>
+            : P['test'] extends 'nonempty'
+              ? { [K in P['key']]-?: Nonempty<T[K]> }
+              : P['test'] extends 'present'
+                ? { [K in P['key']]-?: Exclude<T[K], undefined> }
+                : Active<T, P['key']>
   : never;
 type Reject<T, P extends Predicate> = P['key'] extends keyof T
   ? P extends { test: 'equals'; value: infer V }

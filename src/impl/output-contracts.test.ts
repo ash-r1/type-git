@@ -244,6 +244,13 @@ describe('0.4 typed output contracts (real Git)', () => {
     await writeFile(join(repo.workdir, 'asset.bin'), 'contents');
     await repo.add('.');
     expect((await repo.lfs.status()).files).toContainEqual({ name: 'asset.bin', status: 'A' });
+  });
+
+  it.runIf(HAS_LFS)('returns committed LFS file metadata from validated JSON', async () => {
+    await repo.lfs.install();
+    await repo.lfs.track('*.bin');
+    await writeFile(join(repo.workdir, 'asset.bin'), 'contents');
+    await repo.add('.');
     await repo.remote.add('origin', repo.workdir);
     await repo.commit({ message: 'LFS file' });
     await repo.lfs.fetch({ remote: 'origin', dryRun: true, onLfsProgress: vi.fn() });
