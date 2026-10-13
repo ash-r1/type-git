@@ -456,3 +456,22 @@ platforms are explicit skips. These checks do not claim complete native lifecycl
 validation.
 
 Daemon timeout/init-timeout use checked unsigned 32-bit integers, and max-connections uses checked signed 32-bit integers before later overwrite; negative max-connections remains unlimited. Native Git 2.25 and 2.47 accept overwritten out-of-range controls, which are explicitly recorded as unsupported rejection-profile skips. Fsmonitor supported-branch integer callbacks use signed 32-bit integers, while its thread minimum is checked after parsing and can be satisfied by a later overwrite. Capability probes inspect both stdout and stderr and validate process completion; unsupported platforms and missing executables are explicit skips. A supported native status command returning exit code 1 with `not watching` represents a valid non-running state, not parser rejection.
+
+### Import, HTTP and IMAP entrypoints
+
+Fast-import validates callback ranges immediately, including depth <= 8191 and
+cat-blob-fd <= INT_MAX. Declarative numeric ranges now support upper bounds, and
+exploration includes representatives around both ends. Arbitrary numeric range
+checks remain runtime checks. CLI import-marks options can repeat; the stream's
+single-import restriction is not incorrectly applied to the command line.
+Import signature modes include the conditional signing modes absent from export.
+
+HTTP fetch distinguishes object/URL input from stdin or pack URL input and
+requires index-pack arguments for pack fetches. HTTP push deletion takes one
+branch. HTTP backend ignores argv and reads CGI environment. IMAP list and folder
+can coexist. Tests use empty/local data and an isolated CGI HEAD request; IMAP
+validation stops with missing server configuration, without sending messages.
+Full stream protocols, numeric/URL/object-ID grammars, manual option prefixes and
+server/configuration-dependent semantics remain pending.
+
+Fast-import depth uses its native immediate upper bound of 8191, and signing callbacks preserve their case-sensitive mode language, including an empty `sign-if-invalid=` key suffix. Compiler checks mirror those boundaries for all literal alternatives; dynamic, opaque and template strings defer to runtime. The installed Git 2.56 accepts a fast-import separator while Git 2.25/2.47/2.55 reject it: the typed API preserves the marker and native Git determines availability. Unsupported native comparisons are explicit skips. HTTP index-pack options may be absent from help text, so capability checks use a controlled parser response with no target objects or network access.

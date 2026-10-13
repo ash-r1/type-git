@@ -159,6 +159,12 @@ export type NumberAtLeast<V, M extends number> = V extends number
     ? never
     : V
   : V;
+/** Preserve runtime-unknown values while excluding known numbers above a range maximum. */
+export type NumberAtMost<V, M extends number> = V extends number
+  ? NumberLiteralOrder<V, M> extends 1
+    ? never
+    : V
+  : V;
 /** Mirrors Number.isSafeInteger, preserving absent values and optional booleans. */
 export type SafeIntegerAtLeast<
   V,
