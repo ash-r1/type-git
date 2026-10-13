@@ -46,3 +46,18 @@ declare const opaqueOperation: string & { readonly __operation: unique symbol };
 git.command('config', [{ operand: opaqueOperation }, ['--all'], { operand: 'test.value' }]);
 declare const templateOperation: `g${string}`;
 git.command('config', [{ operand: templateOperation }, ['--all'], { operand: 'test.value' }]);
+
+import type { CheckedCommandArguments } from '../../src/commands/types.js';
+type MixedDispatchArguments = readonly [
+  { readonly operand: 'get' | 'edit' },
+  { readonly operand: 'test.value' },
+];
+type AssertNever<T extends never> = T;
+export type MixedDispatchMustRejectEveryAlternative = AssertNever<
+  CheckedCommandArguments<'config', MixedDispatchArguments>
+>;
+declare const validOperation: 'get' | 'unset';
+git.command('config', [{ operand: validOperation }, { operand: 'test.value' }]);
+declare const mixedUnknownOperation: 'get' | 'invalid-operation';
+// @ts-expect-error Both child dispatch and fallback alternatives must accept the arguments.
+git.command('config', [{ operand: mixedUnknownOperation }, ['--all'], { operand: 'test.value' }]);

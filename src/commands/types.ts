@@ -549,6 +549,29 @@ type CheckedLocalArguments<
           : never
   : never;
 
+/** Collect invalid finite dispatch alternatives before accepting the complete tuple. */
+type InvalidDispatchAlternative<
+  C extends GitCommandName,
+  W extends string,
+  Rest extends readonly unknown[],
+> = W extends unknown
+  ? string extends W
+    ? never
+    : W extends object
+      ? never
+      : {} extends Record<W, unknown>
+        ? never
+        : W extends keyof Dispatch<C>
+          ? Dispatch<C>[W] extends infer Target extends GitCommandName
+            ? [CheckedLocalArguments<Target, Rest>] extends [never]
+              ? true
+              : never
+            : true
+          : [CheckedLocalArguments<C, readonly [{ readonly operand: W }, ...Rest]>] extends [never]
+            ? true
+            : never
+  : never;
+
 /** Dispatch precedes option callbacks, so fallback rules cannot reject a child command. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
@@ -558,19 +581,9 @@ export type CheckedCommandArguments<
   : A extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
     ? [Dispatch<C>] extends [never]
       ? CheckedLocalArguments<C, A>
-      : string extends W
+      : [InvalidDispatchAlternative<C, W, Rest>] extends [never]
         ? A
-        : W extends object
-          ? A
-          : {} extends Record<W, unknown>
-            ? A
-            : W extends keyof Dispatch<C>
-              ? Dispatch<C>[W] extends infer Target extends GitCommandName
-                ? [CheckedLocalArguments<Target, Rest>] extends [never]
-                  ? never
-                  : A
-                : never
-              : CheckedLocalArguments<C, A>
+        : never
     : CheckedLocalArguments<C, A>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
