@@ -146,36 +146,62 @@ type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
           D['key'],
           D extends { parser: 'mainline' } ? MainlineValue<TokenValue<T, D>> : TokenValue<T, D>
         >;
-type RevisionCountValid<V> = V extends number
-  ? [SafeIntegerAtLeast<V, -2147483648, false>] extends [never]
+type IntegerRangeValid<V, Min extends number, Max extends number> = V extends number
+  ? [SafeIntegerAtLeast<V, Min, false>] extends [never]
     ? false
-    : NumberLiteralOrder<V, 2147483647> extends 1
+    : NumberLiteralOrder<V, Max> extends 1
       ? false
       : true
+  : false;
+type ModeValue<D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  modeFromValue: true;
+}
+  ? TokenValue<T, D>
+  : D extends { modeValue: infer M }
+    ? M
+    : D['key'];
+// Every possible accumulated/incoming pair must select the same single mode.
+type IsUnion<T, Whole = T> = T extends unknown ? ([Whole] extends [T] ? false : true) : never;
+type SameMode<A, B> = [A] extends [B]
+  ? [B] extends [A]
+    ? [A] extends [never]
+      ? false
+      : string extends A
+        ? false
+        : number extends A
+          ? false
+          : IsUnion<A> extends false
+            ? true
+            : false
+    : false
   : false;
 type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: 'revision-count';
 }
-  ? RevisionCountValid<TokenValue<T, D>> extends false
+  ? false extends IntegerRangeValid<TokenValue<T, D>, -2147483648, 2147483647>
     ? never
     : UncheckedModeState<S, D, T>
-  : D extends { parser: 'mainline' }
-    ? MainlineLiteral<TokenValue<T, D>> extends false
+  : D extends { parser: 'unsigned-int' }
+    ? false extends IntegerRangeValid<TokenValue<T, D>, 0, 4294967295>
       ? never
       : UncheckedModeState<S, D, T>
-    : UncheckedModeState<S, D, T>;
+    : D extends { parser: 'mainline' }
+      ? MainlineLiteral<TokenValue<T, D>> extends false
+        ? never
+        : UncheckedModeState<S, D, T>
+      : UncheckedModeState<S, D, T>;
 type UncheckedModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeGroup: infer G extends string;
 }
   ? `mode:${G}` extends keyof S
     ? TokenValue<T, D> extends false | undefined
       ? never
-      : S[`mode:${G}`] extends D['key']
+      : SameMode<S[`mode:${G}`], ModeValue<D, T>> extends true
         ? OptionState<S, D, T>
         : never
     : TokenValue<T, D> extends false | undefined
       ? OptionState<S, D, T>
-      : Put<OptionState<S, D, T>, `mode:${G}`, D['key']>
+      : Put<OptionState<S, D, T>, `mode:${G}`, ModeValue<D, T>>
   : OptionState<S, D, T>;
 type ParsedState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: 'config-type';

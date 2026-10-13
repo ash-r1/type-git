@@ -46,6 +46,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 export type GitScalarParser =
   | 'mainline'
   | 'revision-count'
+  | 'unsigned-int'
   | 'git-bool'
   | 'fetch-recurse'
   | 'push-recurse'
@@ -69,13 +70,13 @@ export function parseGitScalar(
     const mainline = converted | 0;
     return { valid: mainline > 0, value: mainline };
   }
-  if (parser === 'revision-count') {
+  if (parser === 'revision-count' || parser === 'unsigned-int') {
     return {
       valid:
         typeof value === 'number' &&
         Number.isInteger(value) &&
-        value >= -2147483648 &&
-        value <= 2147483647,
+        value >= (parser === 'unsigned-int' ? 0 : -2147483648) &&
+        value <= (parser === 'unsigned-int' ? 4294967295 : 2147483647),
       value,
     };
   }

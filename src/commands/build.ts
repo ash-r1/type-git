@@ -98,15 +98,6 @@ export function commandArguments(
         );
       }
     }
-    if (option.modeGroup) {
-      const mode = value === false || value === undefined ? false : option.key;
-      if (modes.has(option.modeGroup) && modes.get(option.modeGroup) !== mode) {
-        throw new GitArgumentError(`${flag}: incompatible command mode`);
-      }
-      if (mode !== false) {
-        modes.set(option.modeGroup, mode);
-      }
-    }
     if (
       supplied &&
       option.allowed &&
@@ -118,6 +109,20 @@ export function commandArguments(
       )
     ) {
       throw new GitArgumentError(`${flag}: unsupported option value ${String(value)}`);
+    }
+    if (option.modeGroup) {
+      const mode =
+        value === false || value === undefined
+          ? false
+          : option.modeFromValue
+            ? value
+            : (option.modeValue ?? option.key);
+      if (modes.has(option.modeGroup) && modes.get(option.modeGroup) !== mode) {
+        throw new GitArgumentError(`${flag}: incompatible command mode`);
+      }
+      if (mode !== false) {
+        modes.set(option.modeGroup, mode);
+      }
     }
     const start = argv.length;
     if (option.value === 'flag') {

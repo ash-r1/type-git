@@ -426,3 +426,65 @@ git.command('tag', [['--contains', 'HEAD'], ['--no-trailer']]);
 git.command('tag', [['--list'], ['--no-trailer'], ['--trailer', 'Reviewed-by: Test']]);
 // @ts-expect-error An empty rebase-merges value still requests the merge backend.
 git.command('rebase', [['--apply'], ['--rebase-merges', ''], { operand: 'HEAD' }]);
+
+git.command('apply', [['--3way'], ['--ours'], ['--theirs']]);
+git.command('apply', [['--reject'], ['--3way'], ['--no-reject']]);
+git.command('apply', [['--cached'], ['--intent-to-add']]);
+// @ts-expect-error Three-way application cannot produce rejects.
+git.command('apply', [['--reject'], ['--3way']]);
+// @ts-expect-error A resolution variant requires three-way application.
+git.command('apply', [['--ours']]);
+// @ts-expect-error Callback rejects invalid values even if later overwritten.
+git.command('apply', [['--whitespace', 'BAD'], ['--whitespace', 'warn']]);
+// @ts-expect-error Negated native callback aborts Git 2.55 and is omitted.
+git.command('apply', [['--no-directory']]);
+git.command('am', [['--continue'], ['--resolved'], ['-r']]);
+git.command('am', [['--show-current-patch'], ['--show-current-patch', 'raw']]);
+git.command('am', [['--show-current-patch', 'diff'], ['--show-current-patch', 'diff']]);
+git.command('am', [['--quit'], ['--whitespace', 'invalid'], { operand: 'ignored-in-stray-state' }]);
+// @ts-expect-error Changing the native callback's enum value changes the mode.
+git.command('am', [['--show-current-patch', 'raw'], ['--show-current-patch', 'diff']]);
+// @ts-expect-error Native mode conflict survives later repetition.
+git.command('am', [['--continue'], ['--skip'], ['--continue']]);
+// @ts-expect-error Callback and fixed modes share the same native variable.
+git.command('am', [['--continue'], ['--show-current-patch']]);
+// @ts-expect-error Case-sensitive enum callback.
+git.command('am', [['--empty', 'KEEP']]);
+
+// OPTION_UNSIGNED is a checked uint32 in Git 2.55, including before later replacement.
+git.command('apply', [['-C', 0]]);
+git.command('apply', [['-C', 4294967295]]);
+// @ts-expect-error Negative context counts fail immediately in the unsigned parser.
+git.command('apply', [['-C', -1], ['-C', 1]]);
+// @ts-expect-error Context count overflow is rejected before a later valid value.
+git.command('apply', [['-C', 4294967296], ['-C', 1]]);
+declare const unsignedContextUnion: 0 | -1;
+// @ts-expect-error Every possible literal must be accepted by the unsigned parser.
+git.command('apply', [['-C', unsignedContextUnion]]);
+
+declare const patchMode: 'raw' | 'diff';
+git.command('am', [['--show-current-patch', patchMode]]);
+// @ts-expect-error The incoming union can switch from raw to diff.
+git.command('am', [['--show-current-patch', 'raw'], ['--show-current-patch', patchMode]]);
+// @ts-expect-error The accumulated union can differ from the incoming raw mode.
+git.command('am', [['--show-current-patch', patchMode], ['--show-current-patch', 'raw']]);
+// @ts-expect-error Equal unions do not prove that both runtime selections are identical.
+git.command('am', [['--show-current-patch', patchMode], ['--show-current-patch', patchMode]]);
+
+declare const signedCountUnion: 1 | 2147483648;
+declare const validCountUnion: 1 | 2;
+git.command('apply', [['-p', validCountUnion]]);
+// @ts-expect-error Every signed parser union member must fit the int32 range.
+git.command('apply', [['-p', signedCountUnion], ['-p', 1]]);
+// @ts-expect-error The shared revision-count path also rejects overflow union members.
+git.command('rev-list', [['--max-count', signedCountUnion], { operand: 'HEAD' }]);
+
+git.command('am', [['--quit'], ['--no-whitespace']]);
+git.command('am', [['--no-directory'], ['--abort']]);
+git.command('am', [['--show-current-patch', 'diff'], ['--no-directory']]);
+// @ts-expect-error Normal patch application would reach Git's aborting negated callback.
+git.command('am', [['--no-whitespace']]);
+// @ts-expect-error A later positive setting does not remove the queued negation.
+git.command('am', [['--no-directory'], ['--directory', 'safe']]);
+// @ts-expect-error Continue may apply later patches and is not a pre-apply exit.
+git.command('am', [['--continue'], ['--no-whitespace']]);

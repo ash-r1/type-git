@@ -2291,5 +2291,165 @@
     "tables": [
       "builtin/merge-base.c:cmd_merge_base:options"
     ]
+  },
+  "apply": {
+    "source": "apply.c:apply_parse_options/check_apply_state",
+    "tables": [
+      "apply.c:apply_parse_options:builtin_apply_options"
+    ],
+    "omitOptions": [
+      "--no-whitespace",
+      "--no-directory"
+    ],
+    "options": {
+      "-p": {
+        "key": "p",
+        "value": "integer",
+        "parser": "revision-count",
+        "checks": [
+          {
+            "id": "cli.apply.strip-count",
+            "kind": "integer",
+            "key": "$value",
+            "min": 0,
+            "origin": "git",
+            "reason": "The strip count is a nonnegative signed int.",
+            "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
+          }
+        ]
+      },
+      "--whitespace": {
+        "key": "whitespace",
+        "value": "string",
+        "allowed": [
+          "warn",
+          "nowarn",
+          "error",
+          "error-all",
+          "strip",
+          "fix"
+        ]
+      },
+      "--ours": {
+        "key": "merge-variant",
+        "value": "flag",
+        "set": "ours"
+      },
+      "--theirs": {
+        "key": "merge-variant",
+        "value": "flag",
+        "set": "theirs"
+      },
+      "--union": {
+        "key": "merge-variant",
+        "value": "flag",
+        "set": "union"
+      },
+      "-C": {
+        "key": "C",
+        "value": "integer",
+        "parser": "unsigned-int"
+      }
+    }
+  },
+  "am": {
+    "source": "builtin/am.c:cmd_am",
+    "tables": [
+      "builtin/am.c:cmd_am:options"
+    ],
+    "options": {
+      "--patch-format": {
+        "key": "patch-format",
+        "value": "string",
+        "allowed": [
+          "mbox",
+          "stgit",
+          "stgit-series",
+          "hg",
+          "mboxrd"
+        ]
+      },
+      "--quoted-cr": {
+        "key": "quoted-cr",
+        "value": "string",
+        "allowed": [
+          "nowarn",
+          "warn",
+          "strip"
+        ]
+      },
+      "--empty": {
+        "key": "empty",
+        "value": "string",
+        "allowed": [
+          "stop",
+          "drop",
+          "keep"
+        ]
+      },
+      "--show-current-patch": {
+        "key": "show-current-patch",
+        "value": "optional-string",
+        "set": "raw",
+        "allowed": [
+          "raw",
+          "diff"
+        ],
+        "modeGroup": "&resume_mode",
+        "modeFromValue": true,
+        "effects": [
+          {
+            "key": "preapply-exit",
+            "set": true
+          }
+        ]
+      },
+      "--no-whitespace": {
+        "key": "whitespace",
+        "value": "flag",
+        "clear": true,
+        "effects": [
+          {
+            "key": "unsafe-apply-negation",
+            "set": true
+          }
+        ]
+      },
+      "--no-directory": {
+        "key": "directory",
+        "value": "flag",
+        "clear": true,
+        "effects": [
+          {
+            "key": "unsafe-apply-negation",
+            "set": true
+          }
+        ]
+      },
+      "--quit": {
+        "key": "quit",
+        "value": "flag",
+        "modeGroup": "&resume_mode",
+        "modeValue": "RESUME_QUIT",
+        "effects": [
+          {
+            "key": "preapply-exit",
+            "set": true
+          }
+        ]
+      },
+      "--abort": {
+        "key": "abort",
+        "value": "flag",
+        "modeGroup": "&resume_mode",
+        "modeValue": "RESUME_ABORT",
+        "effects": [
+          {
+            "key": "preapply-exit",
+            "set": true
+          }
+        ]
+      }
+    }
   }
 }
