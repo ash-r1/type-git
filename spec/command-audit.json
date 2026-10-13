@@ -422,16 +422,24 @@
       "models": [
         "configGet"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit.",
+      "typedCommandAPI": true
     },
     "config list": {
       "state": "partial",
       "models": [
         "configList"
       ],
-      "tests": [],
-      "remaining": "Complete CLI surface, operand rules and independent per-command conformance fixtures."
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "remaining": "Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit.",
+      "typedCommandAPI": true
     },
     "hash-object": {
       "state": "partial",
@@ -1062,6 +1070,176 @@
       ],
       "typedCommandAPI": true,
       "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
+    },
+    "config set": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit."
+    },
+    "config unset": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit."
+    },
+    "config rename-section": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit."
+    },
+    "config remove-section": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit."
+    },
+    "config edit": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Config key/regexp/URL/comment grammars; value normalization; environment-provided sources; repository/file state; abbreviations. Legacy root dispatch is a separate audit."
+    },
+    "notes": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes list": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes add": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes append": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes edit": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes show": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes copy": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes merge": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes remove": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes prune": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "notes get-ref": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
+    },
+    "stash create": {
+      "state": "partial",
+      "models": [],
+      "tests": [
+        "src/commands/config-notes.test.ts",
+        "test/types/command-api.ts"
+      ],
+      "typedCommandAPI": true,
+      "remaining": "Stash topology and working/index state; message behavior with non-ASCII and arbitrary control characters; independent cross-platform witnesses."
     }
   }
 }
