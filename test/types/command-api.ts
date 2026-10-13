@@ -187,8 +187,10 @@ git.command('reset', [['--hard'], ['--mixed'], ['--intent-to-add'], ['--'], { op
 git.command('reset', [['--mixed'], ['--hard'], ['--'], { operand: 'file' }]);
 // @ts-expect-error Even mixed is an explicit mode, forbidden with patch.
 git.command('reset', [['--mixed'], ['--patch']]);
-// @ts-expect-error Only one revision precedes --.
+// Reset recognizes -- only at retained index 0 or 1; this later marker is a path.
 git.command('reset', [{ operand: 'HEAD' }, { operand: 'HEAD~1' }, ['--'], { operand: 'file' }]);
+// @ts-expect-error A late marker cannot remove paths from a hard reset.
+git.command('reset', [['--hard'], { operand: 'HEAD' }, { operand: 'HEAD~1' }, ['--'], { operand: 'file' }]);
 // @ts-expect-error Explicit path mode cannot create a branch.
 git.command('checkout', [['-b', 'new'], ['--'], { operand: 'file' }]);
 git.command('tag', [['--list'], ['--list']]);

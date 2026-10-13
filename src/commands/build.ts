@@ -77,8 +77,15 @@ function buildArguments(
         spec.parserExit.remainingOperands === 'drop-leading-dashdash' &&
         partition.words[0] === '--';
       const words = operandBoundary ? partition.words.slice(1) : partition.words;
+      const separatorIndex = spec.parserExit.remainingSeparator ? words.indexOf('--') : -1;
+      const recognizedSeparator =
+        separatorIndex >= 0 &&
+        (spec.parserExit.remainingSeparator?.maxIndex === undefined ||
+          separatorIndex <= spec.parserExit.remainingSeparator.maxIndex);
       const remaining = operandsOnly
-        ? words.map((operand) => ({ operand }))
+        ? words.map((operand, index) =>
+            recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
+          )
         : revisionParserPass(spec, words);
       buildArguments(command, [...pass.tokens, ...remaining], inRepository, 'pipeline', {
         firstCount: pass.tokens.length,

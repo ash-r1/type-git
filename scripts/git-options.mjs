@@ -55,6 +55,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     let parserExit = scope.parserExit;
     if (parserExit?.firstPassTables) {
       const { firstPassTables, remainingTables, remainingGroups, wrappers, longOptionResolution, ...exit } = parserExit;
+      if (exit.remainingSeparator && (exit.remainingOperands !== 'all' || !exit.remainingSeparator.source || !exit.remainingSeparator.reason || exit.remainingSeparator.origin !== 'git' || (exit.remainingSeparator.maxIndex !== undefined && (!Number.isSafeInteger(exit.remainingSeparator.maxIndex) || exit.remainingSeparator.maxIndex < 0)))) throw new Error(`${command}: invalid native operand separator policy`);
       const longForms = longOptionResolution ? parseOptionLongForms(definitionsFor(firstPassTables, command), longOptionResolution === 'abbreviated') : undefined;
       if (longForms) for (const canonical of [...Object.values(longForms.plain), ...Object.values(longForms.attached)]) if (canonical !== null && !options[canonical]) throw new Error(`${command}: unresolved native long form ${canonical}`);
       if (scope.conditionalCommand && (definitionsFor(firstPassTables, command).length || wrappers?.length || remainingTables?.length || remainingGroups?.length)) throw new Error(`${command}: conditional invocation currently requires an empty first parser without intermediate phases`);

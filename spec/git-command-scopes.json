@@ -931,11 +931,27 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The ordinary option pass retains -- for native ref/path disambiguation and consumes --end-of-options; long prefixes, clusters, callbacks and help precede operand parsing.",
+      "source": "Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/checkout.c:cmd_checkout:checkout_options",
+        "builtin/checkout.c:add_common_options:options",
+        "builtin/checkout.c:add_common_switch_branch_options:options",
+        "builtin/checkout.c:add_checkout_path_options:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": true,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "remainingSeparator": {
+        "origin": "git",
+        "reason": "The native operand phase recognizes -- separately from the initial option pass.",
+        "source": "Git 2.55.0 builtin/checkout.c:parse_branchname_arg"
+      }
     }
   },
   "switch": {
@@ -1031,11 +1047,21 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The ordinary option pass resolves native prefixes and clusters before help or final reference/path checks; both end markers are consumed, with remaining words passed as literal operands.",
+      "source": "Git 2.55.0 builtin/checkout.c:cmd_switch/checkout_main (accept_ref/accept_pathspec selects parse_options flags 0); parse-options.c:parse_options_step; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/checkout.c:cmd_switch:switch_options",
+        "builtin/checkout.c:add_common_options:options",
+        "builtin/checkout.c:add_common_switch_branch_options:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "restore": {
@@ -1115,11 +1141,21 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/checkout.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The ordinary option pass resolves native prefixes and clusters before help or final reference/path checks; both end markers are consumed, with remaining words passed as literal operands.",
+      "source": "Git 2.55.0 builtin/checkout.c:cmd_restore/checkout_main (accept_ref/accept_pathspec selects parse_options flags 0); parse-options.c:parse_options_step; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/checkout.c:cmd_restore:restore_options",
+        "builtin/checkout.c:add_common_options:options",
+        "builtin/checkout.c:add_checkout_path_options:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": false,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all"
     }
   },
   "reset": {
@@ -1170,11 +1206,25 @@
         "--help"
       ],
       "origin": "git",
-      "reason": "This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.",
-      "source": "Git 2.55.0 builtin/reset.c; parse-options.c:parse_options_step/parse_options; Git 2.55.0 git.c:handle_builtin",
+      "reason": "The ordinary option pass retains -- for native ref/path disambiguation and consumes --end-of-options; long prefixes, clusters, callbacks and help precede operand parsing.",
+      "source": "Git 2.55.0 builtin/reset.c; parse-options.c:parse_options_step; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
-      ]
+      ],
+      "firstPassTables": [
+        "builtin/reset.c:cmd_reset:options"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepDashDash": true,
+      "keepEndOfOptions": false,
+      "remainingOperands": "all",
+      "remainingSeparator": {
+        "origin": "git",
+        "reason": "The native operand phase recognizes -- separately from the initial option pass.",
+        "source": "Git 2.55.0 builtin/reset.c:parse_args",
+        "maxIndex": 1
+      }
     }
   },
   "tag": {
