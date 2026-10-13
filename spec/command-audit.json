@@ -162,7 +162,9 @@
     },
     "ls-remote": {
       "state": "partial",
-      "models": [],
+      "models": [
+        "lsRemote"
+      ],
       "tests": [
         "src/commands/inspection.test.ts",
         "test/types/command-api.ts"
@@ -172,7 +174,9 @@
     },
     "ls-tree": {
       "state": "partial",
-      "models": [],
+      "models": [
+        "lsTree"
+      ],
       "tests": [
         "src/commands/inspection.test.ts",
         "test/types/command-api.ts"
