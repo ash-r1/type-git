@@ -53879,7 +53879,7 @@
     },
     {
       "command": "difftool",
-      "rules": 6,
+      "rules": 8,
       "domains": {
         "patch": [
           "undefined",
@@ -54456,18 +54456,30 @@
           "undefined",
           "false",
           "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[[\"-S\",\"\"]]",
+          "[[\"-S\",\"value\"]]",
+          "[[\"-S\",\"\"],[\"-S\",\"value\"]]",
+          "[[\"-G\",\"\"]]",
+          "[[\"-G\",\"value\"]]",
+          "[[\"-G\",\"\"],[\"-G\",\"value\"]]"
         ]
       },
-      "total": "151090207009138704289628160000000000000000000000000000",
-      "accepted": "62002944209676179389965926400000000000000000000000000",
-      "nodes": 182,
+      "total": "1208721656073109634317025280000000000000000000000000000",
+      "accepted": "437825844310926378652611379200000000000000000000000000",
+      "nodes": 217,
       "isolatedRuleWitnesses": {
-        "cli.difftool.gui-tool-extcmd": "{\"gui\":true,\"operands\":[],\"tool\":\"value\"}",
-        "cli.difftool.dir-no-index": "{\"dir-diff\":true,\"no-index\":true,\"operands\":[\"value\",\"value\"]}",
-        "cli.difftool.repository": "{\"inRepository\":false,\"operands\":[]}",
-        "cli.difftool.no-index-paths": "{\"no-index\":true,\"operands\":[]}",
-        "cli.difftool.nonempty-tool": "{\"operands\":[],\"tool\":\"\"}",
-        "cli.difftool.nonempty-extcmd": "{\"extcmd\":\"\",\"operands\":[]}"
+        "cli.difftool.gui-tool-extcmd": "{\"argumentTokens\":[],\"gui\":true,\"operands\":[],\"tool\":\"value\"}",
+        "cli.difftool.dir-no-index": "{\"argumentTokens\":[],\"dir-diff\":true,\"no-index\":true,\"operands\":[\"value\",\"value\"]}",
+        "cli.difftool.repository": "{\"argumentTokens\":[],\"inRepository\":false,\"operands\":[]}",
+        "cli.difftool.no-index-paths": "{\"argumentTokens\":[],\"no-index\":true,\"operands\":[]}",
+        "cli.difftool.nonempty-tool": "{\"argumentTokens\":[],\"operands\":[],\"tool\":\"\"}",
+        "cli.difftool.nonempty-extcmd": "{\"argumentTokens\":[],\"extcmd\":\"\",\"operands\":[]}",
+        "cli.difftool.nonempty-S": "{\"argumentTokens\":[[\"-S\",\"\"]],\"operands\":[]}",
+        "cli.difftool.nonempty-G": "{\"argumentTokens\":[[\"-G\",\"\"]],\"operands\":[]}"
       }
     },
     {

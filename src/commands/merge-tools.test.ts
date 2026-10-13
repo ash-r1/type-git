@@ -236,6 +236,66 @@ describe('merge strategies and tool frontends', () => {
       expect(result.stdout).toBe('');
     }
   });
+  it('rejects every empty delegated pickaxe pattern, including overwritten values', (context) => {
+    const version = direct(['version']);
+    expect(version.error).toBeUndefined();
+    expect(version.signal).toBe(null);
+    expect(version.status).toBe(0);
+    const match = /git version (\d+)\.(\d+)/.exec(version.stdout);
+    expect(match).not.toBe(null);
+    const modern = Number(match?.[1]) > 2 || (Number(match?.[1]) === 2 && Number(match?.[2]) >= 55);
+    for (const flag of ['-S', '-G'] as const) {
+      expect(() =>
+        commandArguments('difftool', [[flag, ''], { operand: 'HEAD' }, { operand: 'HEAD' }], true),
+      ).toThrow(GitArgumentError);
+      expect(() =>
+        commandArguments(
+          'difftool',
+          [[flag, ''], [flag, 'one'], { operand: 'HEAD' }, { operand: 'HEAD' }],
+          true,
+        ),
+      ).toThrow(GitArgumentError);
+      const overwritten = direct(['difftool', flag, '', `${flag}one`, 'HEAD', 'HEAD']);
+      expect(overwritten.error).toBeUndefined();
+      expect(overwritten.signal).toBe(null);
+      if (!modern) {
+        expect(overwritten.status, overwritten.stderr).toBe(0);
+        continue;
+      }
+      expect(overwritten.status, overwritten.stderr).toBe(129);
+      expect(overwritten.stderr).toContain(`${flag} requires a non-empty argument`);
+      compare(
+        'difftool',
+        [[flag, ''], { operand: 'HEAD' }, { operand: 'HEAD' }],
+        [flag, '', 'HEAD', 'HEAD'],
+        false,
+      );
+    }
+    if (!modern) {
+      context.skip();
+    }
+  });
+  it('preserves empty pattern boundaries when tool-help bypasses delegated parsing', () => {
+    compare(
+      'difftool',
+      [['-S', ''], ['--tool-help'], { operand: 'HEAD' }],
+      ['-S', '', '--tool-help', 'HEAD'],
+      true,
+      '',
+      30000,
+    );
+    compare(
+      'difftool',
+      [['--tool-help'], ['-G', ''], { operand: 'HEAD' }],
+      ['--tool-help', '-G', '', 'HEAD'],
+      true,
+      '',
+      30000,
+    );
+    expect(() =>
+      commandArguments('difftool', [['--tool-help'], ['--no-tool-help'], ['-S', '']], true),
+    ).toThrow(GitArgumentError);
+  }, 90000);
   it('delegates directory no-index pathspecs to the selected native Git', async (context) => {
     const help = direct(['diff', '--no-index', '-h']);
     expect(help.error).toBeUndefined();

@@ -83366,6 +83366,48 @@ const commandSpec291 = {
       reason: 'A final explicit tool/command string must be nonempty.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/difftool.c',
     },
+    {
+      id: 'cli.difftool.nonempty-S',
+      kind: 'required',
+      required: [
+        {
+          key: 'argumentTokens',
+          test: 'optionValuesNonempty',
+          value: '-S',
+        },
+      ],
+      guard: [
+        {
+          key: 'tool-help',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Every forwarded pickaxe value must be nonempty, including overwritten values; tool-help returns before delegated diff parsing.',
+      source: 'https://github.com/git/git/blob/v2.55.0/diff.c',
+    },
+    {
+      id: 'cli.difftool.nonempty-G',
+      kind: 'required',
+      required: [
+        {
+          key: 'argumentTokens',
+          test: 'optionValuesNonempty',
+          value: '-G',
+        },
+      ],
+      guard: [
+        {
+          key: 'tool-help',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'Every forwarded pickaxe value must be nonempty, including overwritten values; tool-help returns before delegated diff parsing.',
+      source: 'https://github.com/git/git/blob/v2.55.0/diff.c',
+    },
   ],
   source: 'builtin/difftool.c',
   separator: true,

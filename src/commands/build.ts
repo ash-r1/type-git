@@ -166,6 +166,8 @@ export function commandArguments(
           argv.push(flag, String(value));
         } else if (flag.startsWith('--')) {
           argv.push(`${flag}=${value}`);
+        } else if (option.attachedValue && !optional && value === '') {
+          argv.push(flag, '');
         } else if (optional || option.attachedValue) {
           argv.push(`${flag}${value}`);
         } else {
