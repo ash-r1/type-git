@@ -242,3 +242,48 @@ git.command('notes merge', []);
 git.command('stash create', [{ operand: '--help' }, { operand: '--' }]);
 // @ts-expect-error Stash create does not parse options or a separator.
 git.command('stash create', [['--']]);
+
+git.command('log', [['--default', 'HEAD'], ['--format', '%s']]);
+git.command('log', [['--graph'], ['--reverse'], ['--reverse']]);
+git.command('log', [['--max-count', -1], ['--max-count-oldest', 1]]);
+git.command('log', [['--max-count-oldest', 1], ['-n', 2]]);
+git.command('log', [['--cherry-pick'], ['--cherry']]);
+git.command('diff', [['--name-only'], ['-s']]);
+git.command('diff', [['-s'], ['--name-only'], ['-p']]);
+git.command('diff', [['-S', 'needle'], ['--pickaxe-regex']]);
+git.command('show', [['--combined-all-paths'], ['--dd']]);
+git.command('diff-files', []);
+git.command('diff-index', [{ operand: 'HEAD' }]);
+git.command('diff-tree', [['--stdin'], ['--stdin']], { stdin: '' });
+// @ts-expect-error Graph and reverse cannot coexist.
+git.command('log', [['--graph'], ['--reverse']]);
+// @ts-expect-error Reflog filters require reflog traversal.
+git.command('log', [['--grep-reflog', 'pattern']]);
+// @ts-expect-error A later reset cannot undo an immediately rejected transition.
+git.command('log', [['--max-count-oldest', 1], ['--max-count', 1], ['--max-count-oldest', 1]]);
+// @ts-expect-error A preceding finite count rejects entry into oldest mode.
+git.command('log', [['--max-count', 1], ['--max-count-oldest', 1]]);
+// @ts-expect-error --skip rejects oldest mode even for zero.
+git.command('log', [['--max-count-oldest', 1], ['--skip', 0]]);
+// @ts-expect-error --cherry sets the mark bit before --cherry-pick checks it.
+git.command('log', [['--cherry'], ['--cherry-pick']]);
+// @ts-expect-error Revision stdin cannot be requested twice.
+git.command('log', [['--stdin'], ['--stdin']]);
+// @ts-expect-error Final bitmask contains suppressed output and name-only.
+git.command('diff', [['-s'], ['--name-only']]);
+// @ts-expect-error Empty pickaxe patterns fail immediately.
+git.command('diff', [['-S', ''], ['-S', 'nonempty']]);
+// @ts-expect-error Pickaxe kinds conflict.
+git.command('diff', [['-S', 'one'], ['-G', 'two']]);
+// @ts-expect-error A first-parent merge diff is not combined output.
+git.command('show', [['--dd'], ['--combined-all-paths']]);
+// @ts-expect-error Negating a filename preserves its previously parsed value.
+git.command('commit', [['--file', 'message'], ['--no-file'], ['--message', 'text']]);
+
+git.command('diff --no-index', [{ operand: 'left' }, { operand: 'right' }]);
+// @ts-expect-error No-index uses the diff parser without revision traversal flags.
+git.command('diff --no-index', [['--graph'], { operand: 'left' }, { operand: 'right' }]);
+// @ts-expect-error Two comparison paths are required.
+git.command('diff --no-index', [{ operand: 'left' }]);
+// @ts-expect-error A -n count also blocks oldest mode unless it is -1.
+git.command('log', [['-n', 2], ['--max-count-oldest', 1]]);

@@ -1,5 +1,5 @@
 /** Convert pinned Git parse-options tables. Custom parsers require separate scopes. */
-export function gitOptions(upstream, scopes, rules) {
+export function gitOptions(upstream, scopes, rules, groups = {}) {
   const tables = new Map(upstream.files.flatMap((file) => file.tables.map((table) => [`${file.file}:${table.function ?? 'global'}:${table.name}`, table])));
   const result = {};
   for (const [command, scope] of Object.entries(scopes)) {
@@ -9,6 +9,7 @@ export function gitOptions(upstream, scopes, rules) {
     });
     const options = {};
     const aliases = [];
+    const negations = {};
     for (const definition of definitions) {
       const { kind, long, short, fields } = definition;
       const flags = fields.flags ?? '';
@@ -26,29 +27,36 @@ export function gitOptions(upstream, scopes, rules) {
       const parser = { option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
       const base = { ...(parser ? { parser } : {}), key, value, ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || callback === 'recurse_submodules_cb' ? { repeat: true } : {}) };
       if (flags.includes('PARSE_OPT_CMDMODE')) base.modeGroup = fields.value;
-      if (long) options[`--${long}`] = base;
-      if (short) options[`${flags.includes('PARSE_OPT_NODASH') ? '' : '-'}${short}`] = base;
+      if (long) options[`--${long}`] ??= base;
+      if (short) options[`${flags.includes('PARSE_OPT_NODASH') ? '' : '-'}${short}`] ??= base;
       if (long && !flags.includes('PARSE_OPT_NONEG')) {
-        const negated = { ...base, value: 'flag', ...(noarg || parser ? { set: false } : { clear: true }) };
-        options[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] = negated;
-        if (long.startsWith('no-')) options[`--no-${long}`] = negated;
+        const negated = { ...base, value: 'flag', ...(kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || parser ? { set: false } : { clear: true }) };
+        negations[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] ??= negated;
+        if (long.startsWith('no-')) negations[`--no-${long}`] ??= negated;
       }
     }
+    for (const [flag, option] of Object.entries(negations)) options[flag] ??= option;
     for (const alias of aliases) {
       const match = alias.fields.value?.match(/"([^"]+)"/);
       const target = match && options[`--${match[1]}`];
       if (!target) throw new Error(`${command}: unresolved alias ${alias.long}`);
-      options[`--${alias.long}`] = target;
-      if (alias.short) options[`-${alias.short}`] = target;
-      if (options[`--no-${match[1]}`]) options[`--no-${alias.long}`] = options[`--no-${match[1]}`];
+      options[`--${alias.long}`] ??= target;
+      if (alias.short) options[`-${alias.short}`] ??= target;
+      if (options[`--no-${match[1]}`]) options[`--no-${alias.long}`] ??= options[`--no-${match[1]}`];
     }
     // `--help` is intercepted by Git itself; `-h` can have a command-specific meaning.
     if (scope.optionParsing !== 'none') {
       options['--help'] = { key: 'help', value: 'flag' };
       if (!options['-h']) options['-h'] = { key: 'help', value: 'flag' };
     }
+    const inherited = (scope.optionGroups ?? []).map(name => {
+      if (!groups[name]) throw new Error(`${command}: unknown option group ${name}`);
+      return groups[name];
+    });
+    for (const group of inherited) Object.assign(options, group.options);
     Object.assign(options, scope.options ?? {});
-    result[command] = { argv: command.split(' '), options, rules: rules[command] ?? [], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}) };
+    for (const flag of scope.omitOptions ?? []) delete options[flag];
+    result[command] = { argv: command.split(' '), options, rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}) };
   }
   for (const command of Object.keys(rules)) if (!result[command]) throw new Error(`Rules for unknown Git scope: ${command}`);
   return result;
