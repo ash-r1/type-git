@@ -74,3 +74,6 @@ git.command('rev-list', [['--missing', maybePrint], ['--missing', 'unknown'], ['
 // @ts-expect-error An output path alone selects no references for a bundle.
 git.command('bundle create', [{ operand: 'out.bundle' }]);
 git.command('bundle create', [{ operand: 'out.bundle' }, { operand: '--stdin' }], { stdin: 'HEAD\n' });
+
+// The default revision is used when no other revision source was supplied.
+git.command('rev-list', [['--default', 'HEAD']]);

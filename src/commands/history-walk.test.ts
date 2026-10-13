@@ -78,6 +78,7 @@ describe('history walking, bundles and repository inspection grammars', () => {
 
   it('matches revision sources, suppressed diff output and explicit notes state', () => {
     compare('rev-list', [{ operand: 'HEAD' }], ['HEAD'], true);
+    compare('rev-list', [['--default', 'HEAD']], ['--default', 'HEAD'], true);
     compare('rev-list', [['--count'], ['--all']], ['--count', '--all'], true);
     compare('rev-list', [['--objects']], ['--objects'], true);
     compare('rev-list', [['--stdin']], ['--stdin'], true, 'HEAD\n');

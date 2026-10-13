@@ -51719,6 +51719,10 @@ const commandSpec184 = {
           key: 'bisect',
           test: 'active',
         },
+        {
+          key: 'default',
+          test: 'active',
+        },
       ],
       origin: 'git',
       reason: 'A revision, object mode, ref source or stdin input is required.',
