@@ -461,3 +461,12 @@ git.command('apply', [['-C', 4294967296], ['-C', 1]]);
 declare const unsignedContextUnion: 0 | -1;
 // @ts-expect-error Every possible literal must be accepted by the unsigned parser.
 git.command('apply', [['-C', unsignedContextUnion]]);
+
+declare const patchMode: 'raw' | 'diff';
+git.command('am', [['--show-current-patch', patchMode]]);
+// @ts-expect-error The incoming union can switch from raw to diff.
+git.command('am', [['--show-current-patch', 'raw'], ['--show-current-patch', patchMode]]);
+// @ts-expect-error The accumulated union can differ from the incoming raw mode.
+git.command('am', [['--show-current-patch', patchMode], ['--show-current-patch', 'raw']]);
+// @ts-expect-error Equal unions do not prove that both runtime selections are identical.
+git.command('am', [['--show-current-patch', patchMode], ['--show-current-patch', patchMode]]);

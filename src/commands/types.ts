@@ -160,6 +160,21 @@ type ModeValue<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   : D extends { modeValue: infer M }
     ? M
     : D['key'];
+// Every possible accumulated/incoming pair must select the same single mode.
+type IsUnion<T, Whole = T> = T extends unknown ? ([Whole] extends [T] ? false : true) : never;
+type SameMode<A, B> = [A] extends [B]
+  ? [B] extends [A]
+    ? [A] extends [never]
+      ? false
+      : string extends A
+        ? false
+        : number extends A
+          ? false
+          : IsUnion<A> extends false
+            ? true
+            : false
+    : false
+  : false;
 type ModeState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   parser: 'revision-count';
 }
@@ -181,7 +196,7 @@ type UncheckedModeState<S, D extends OptionSpec, T extends readonly unknown[]> =
   ? `mode:${G}` extends keyof S
     ? TokenValue<T, D> extends false | undefined
       ? never
-      : S[`mode:${G}`] extends ModeValue<D, T>
+      : SameMode<S[`mode:${G}`], ModeValue<D, T>> extends true
         ? OptionState<S, D, T>
         : never
     : TokenValue<T, D> extends false | undefined
