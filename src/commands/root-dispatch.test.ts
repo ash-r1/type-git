@@ -97,8 +97,9 @@ describe('required native root dispatch', () => {
   }
   const nativeVersion = spawnSync('git', ['version'], { encoding: 'utf8' });
   const version = /git version (\d+)\.(\d+)/.exec(nativeVersion.stdout);
-  if (nativeVersion.status !== 0 || !version)
+  if (nativeVersion.status !== 0 || !version) {
     throw new Error('Cannot inspect selected Git version');
+  }
   // These rejection cases were verified with the native subcommand parser in Git 2.47 and 2.55.
   // Git 2.25 uses manual dispatch and can accept a separator before the operation.
   const nativeSubcommandParser = Number(version[1]) > 2 || Number(version[2]) >= 47;
