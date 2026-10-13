@@ -98,6 +98,18 @@ export function commandArguments(
         );
       }
     }
+    if (
+      supplied &&
+      option.allowed &&
+      !option.allowed.includes(
+        (option.caseInsensitive && typeof value === 'string' ? asciiLower(value) : value) as
+          | string
+          | number
+          | boolean,
+      )
+    ) {
+      throw new GitArgumentError(`${flag}: unsupported option value ${String(value)}`);
+    }
     if (option.modeGroup) {
       const mode =
         value === false || value === undefined
@@ -111,18 +123,6 @@ export function commandArguments(
       if (mode !== false) {
         modes.set(option.modeGroup, mode);
       }
-    }
-    if (
-      supplied &&
-      option.allowed &&
-      !option.allowed.includes(
-        (option.caseInsensitive && typeof value === 'string' ? asciiLower(value) : value) as
-          | string
-          | number
-          | boolean,
-      )
-    ) {
-      throw new GitArgumentError(`${flag}: unsupported option value ${String(value)}`);
     }
     const start = argv.length;
     if (option.value === 'flag') {

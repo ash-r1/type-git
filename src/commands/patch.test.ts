@@ -20,6 +20,7 @@ describe('patch application parser grammars', () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-patch-'));
     env = {
       ...process.env,
+      LC_ALL: 'C',
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
@@ -155,6 +156,16 @@ describe('patch application parser grammars', () => {
         expect(() => commandArguments('am', args), actual.stderr).toThrow(GitArgumentError);
       }
     }
+  });
+
+  it.skipIf(legacy)('validates callback enums before comparing command modes', () => {
+    const actual = direct(['am', '--continue', '--show-current-patch=invalid']);
+    expect(actual.error).toBeUndefined();
+    expect(actual.status).not.toBe(0);
+    expect(actual.stderr).toContain("invalid value for '--show-current-patch': 'invalid'");
+    expect(() =>
+      commandArguments('am', [['--continue'], ['--show-current-patch', 'invalid']]),
+    ).toThrow('--show-current-patch: unsupported option value invalid');
   });
 
   it.skipIf(legacy)('verifies every generated am mode transition against Git', async () => {
