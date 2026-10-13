@@ -54,8 +54,14 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     for (const flag of scope.omitOptions ?? []) delete options[flag];
     let parserExit = scope.parserExit;
     if (parserExit?.firstPassTables) {
+      for (const word of parserExit.singleWordExits ?? []) {
+        if (!['--git-completion-helper', '--git-completion-helper-all'].includes(word)) throw new Error(`${command}: unaudited single-word parser exit ${word}`);
+        if (options[word]) throw new Error(`${command}: single-word exit collides with an option ${word}`);
+        options[word] = { key: 'help', value: 'flag' };
+      }
       const { firstPassTables, remainingTables, remainingGroups, wrappers, longOptionResolution, ...exit } = parserExit;
       if (exit.remainingSeparator && (exit.remainingOperands !== 'all' || !exit.remainingSeparator.source || !exit.remainingSeparator.reason || exit.remainingSeparator.origin !== 'git' || (exit.remainingSeparator.maxIndex !== undefined && (!Number.isSafeInteger(exit.remainingSeparator.maxIndex) || exit.remainingSeparator.maxIndex < 0)))) throw new Error(`${command}: invalid native operand separator policy`);
+      if (exit.remainingSingleWordExits && (!remainingGroups?.includes('diff') || JSON.stringify(exit.remainingSingleWordExits) !== JSON.stringify(['--git-completion-helper', '--git-completion-helper-all']))) throw new Error(`${command}: remaining completion exits require the audited ONE_SHOT diff parser`);
       const longForms = longOptionResolution ? parseOptionLongForms(definitionsFor(firstPassTables, command), longOptionResolution === 'abbreviated') : undefined;
       if (longForms) for (const canonical of [...Object.values(longForms.plain), ...Object.values(longForms.attached)]) if (canonical !== null && !options[canonical]) throw new Error(`${command}: unresolved native long form ${canonical}`);
       if (scope.conditionalCommand && (definitionsFor(firstPassTables, command).length || wrappers?.length || remainingTables?.length || remainingGroups?.length)) throw new Error(`${command}: conditional invocation currently requires an empty first parser without intermediate phases`);
@@ -84,8 +90,10 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
       for (const name of remainingGroups ?? []) Object.assign(remainingOptions, Object.fromEntries(Object.entries(groups[name].options).map(([flag, option]) => [flag, resolve(option)])));
       const remainingDetachedOptions = Object.entries(remainingOptions).filter(([flag, option]) => option.separateValue || (flag.startsWith('--') && !option.value.startsWith('optional-') && option.value !== 'flag' && (Object.hasOwn(revisionSnapshot?.options ?? {}, flag) ? revisionSnapshot.options[flag].detachedValue : true))).map(([flag]) => flag).sort();
       if (scope.inheritedOptionMarker) for (const [flag, option] of Object.entries(remainingOptions)) remainingOptions[flag] = { ...option, effects: [...(option.effects ?? []), { key: scope.inheritedOptionMarker, set: true }] };
+      const remainingLongForms = remainingGroups?.includes('diff') ? parseOptionLongForms(definitionsFor(remainingTables ?? [], command), false) : undefined;
+      if (remainingLongForms) for (const canonical of [...Object.values(remainingLongForms.plain), ...Object.values(remainingLongForms.attached)]) if (canonical !== null && !remainingOptions[canonical]) throw new Error(`${command}: unresolved retained native long form ${canonical}`);
       remainingOptions['--end-of-options'] = { key: 'revision-end-of-options', value: 'flag', consumesRest: true, ignore: true };
-      parserExit = { ...exit, ...(longForms ? { longForms } : {}), ...(prefix ? { wrappers: prefix } : {}), firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions };
+      parserExit = { ...exit, ...(longForms ? { longForms } : {}), ...(prefix ? { wrappers: prefix } : {}), firstPassOptions, firstPassLongNames, remainingOptions, remainingShortOptions, remainingLongNames, remainingDetachedOptions, ...(remainingLongForms ? { remainingLongForms } : {}) };
     }
     result[command] = { argv: command.split(' '), ...(scope.executable ? { executable: scope.executable } : {}), ...(scope.dispatch ? { dispatch: scope.dispatch } : {}), ...(scope.initial ? { initial: scope.initial } : {}), options, ...(scope.numericOption ? { numericOption: resolve(scope.numericOption) } : {}), rules: [...inherited.flatMap(group => group.rules ?? []), ...(rules[command] ?? [])], source: scope.source, separator: scope.separator ?? true, ...(scope.optionParsing ? { optionParsing: scope.optionParsing } : {}), ...(parserExit ? { parserExit } : {}), ...(scope.conditionalCommand ? { conditionalCommand: scope.conditionalCommand } : {}) };
   }

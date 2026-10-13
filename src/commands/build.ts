@@ -27,6 +27,7 @@ function buildArguments(
     original: readonly unknown[];
     operandsOnly?: boolean;
     operandBoundary?: boolean;
+    parserExited?: true;
     partitionState?: Readonly<Record<string, readonly string[]>>;
   },
 ): string[] {
@@ -95,17 +96,19 @@ function buildArguments(
         separatorIndex >= 0 &&
         (spec.parserExit.remainingSeparator?.maxIndex === undefined ||
           separatorIndex <= spec.parserExit.remainingSeparator.maxIndex);
+      const revision = operandsOnly ? undefined : revisionParserPass(spec, words);
       const remaining = operandsOnly
         ? words.map((operand, index) =>
             recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
           )
-        : revisionParserPass(spec, words);
+        : revision!.tokens;
       buildArguments(command, [...pass.tokens, ...remaining], inRepository, 'pipeline', {
         firstCount: pass.tokens.length,
         options: spec.parserExit.remainingOptions!,
         original: args,
         operandsOnly,
         operandBoundary,
+        parserExited: revision?.exited,
         partitionState: partition.state,
       });
       return serialized;
@@ -385,7 +388,7 @@ function buildArguments(
     state.hasSeparator = true;
   }
   state.operand0 = operands[0];
-  if (!parserExited && state.help !== true) {
+  if (!parserExited && !replay?.parserExited && state.help !== true) {
     const errors = violations(spec.rules, state);
     if (errors.length > 0) {
       throw new GitArgumentError(
