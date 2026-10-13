@@ -1,3 +1,4 @@
+import { joinBytes } from '../../internal/bytes.js';
 /**
  * Node.js ExecAdapter implementation
  */
@@ -65,7 +66,22 @@ export class NodeExecAdapter implements ExecAdapter {
     };
   }
 
-  public spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
+  public async spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult> {
+    return (await this.spawnResult(options, handlers, false)) as SpawnResult;
+  }
+
+  public async spawnBytes(
+    options: SpawnOptions,
+    handlers?: Pick<StreamHandler, 'onStderr'>,
+  ): Promise<SpawnResult<Uint8Array>> {
+    return (await this.spawnResult(options, handlers, true)) as SpawnResult<Uint8Array>;
+  }
+
+  private async spawnResult(
+    options: SpawnOptions,
+    handlers: StreamHandler | undefined,
+    binary: boolean,
+  ): Promise<SpawnResult<string | Uint8Array>> {
     const { argv, env, inheritEnv, cwd, signal } = options;
 
     const command = argv[0];
@@ -74,7 +90,12 @@ export class NodeExecAdapter implements ExecAdapter {
     }
     const args = argv.slice(1);
     if (signal?.aborted) {
-      return Promise.resolve({ stdout: '', stderr: '', exitCode: -1, aborted: true });
+      return Promise.resolve({
+        stdout: binary ? new Uint8Array(0) : '',
+        stderr: '',
+        exitCode: -1,
+        aborted: true,
+      });
     }
 
     return new Promise((resolve, reject) => {
@@ -84,9 +105,12 @@ export class NodeExecAdapter implements ExecAdapter {
         stdio: [options.stdin === undefined ? 'ignore' : 'pipe', 'pipe', 'pipe'],
       });
 
-      child.stdout?.setEncoding('utf8');
+      if (!binary) {
+        child.stdout?.setEncoding('utf8');
+      }
       child.stderr?.setEncoding('utf8');
       let stdout = '';
+      const stdoutChunks: Uint8Array[] = [];
       let stderr = '';
       let aborted = false;
       let exitSignal: string | undefined;
@@ -105,10 +129,13 @@ export class NodeExecAdapter implements ExecAdapter {
         }
       }
 
-      child.stdout?.on('data', (chunk: string) => {
-        const text = chunk;
-        stdout += text;
-        handlers?.onStdout?.(text);
+      child.stdout?.on('data', (chunk: string | Uint8Array) => {
+        if (typeof chunk === 'string') {
+          stdout += chunk;
+          handlers?.onStdout?.(chunk);
+        } else {
+          stdoutChunks.push(chunk);
+        }
       });
 
       child.stderr?.on('data', (chunk: string) => {
@@ -137,7 +164,7 @@ export class NodeExecAdapter implements ExecAdapter {
           exitSignal = sig;
         }
         resolve({
-          stdout,
+          stdout: binary ? joinBytes(stdoutChunks) : stdout,
           stderr,
           exitCode: code ?? -1,
           signal: exitSignal,

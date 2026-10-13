@@ -19,8 +19,8 @@ import type { Capabilities } from './types.js';
 export type SpawnOptions = {
   /** Command and arguments (first element is the command) */
   argv: string[];
-  /** UTF-8 text to write to standard input, then close it. */
-  stdin?: string;
+  /** UTF-8 text or raw bytes to write to standard input, then close it. */
+  stdin?: string | Uint8Array;
   /** Additional environment variables */
   env?: Record<string, string>;
   /**
@@ -44,9 +44,9 @@ export type SpawnOptions = {
 /**
  * Result from spawning a process
  */
-export type SpawnResult = {
+export type SpawnResult<Output = string> = {
   /** Standard output */
-  stdout: string;
+  stdout: Output;
   /** Standard error */
   stderr: string;
   /** Exit code (-1 if unknown) */
@@ -121,6 +121,12 @@ export interface ExecAdapter {
    * @returns Promise resolving to spawn result
    */
   spawn(options: SpawnOptions, handlers?: StreamHandler): Promise<SpawnResult>;
+
+  /** Capture stdout bytes without text decoding; optional for custom adapters. */
+  spawnBytes?(
+    options: SpawnOptions,
+    handlers?: Pick<StreamHandler, 'onStderr'>,
+  ): Promise<SpawnResult<Uint8Array>>;
 
   /**
    * Spawn a process with streaming support

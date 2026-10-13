@@ -60,3 +60,13 @@ git.command('pack-objects', [['--stdout'], ['--threads', -2147483649], ['--threa
 git.command('pack-objects', [['--stdout'], ['--threads', 2147483648], ['--threads', 1]]);
 git.command('pack-objects', [['--stdout'], ['--threads', 2147483647], ['--threads', 1]]);
 git.command('pack-objects', [['--stdout'], ['--threads', -2147483648], ['--threads', 1]]);
+
+const binaryPack = git.command('pack-objects', [['--stdout']], { stdout: 'bytes', stdin: 'object\n' });
+binaryPack.then((result) => { result.stdout satisfies Uint8Array; });
+const textIndex = git.command('index-pack', [['--stdin']], { stdin: new Uint8Array([0, 255]) });
+textIndex.then((result) => { result.stdout satisfies string; });
+declare const outputMode: 'text' | 'bytes';
+git.command('pack-objects', [['--stdout']], { stdout: outputMode }).then((result) => { result.stdout satisfies string | Uint8Array; });
+
+// @ts-expect-error A type parameter cannot select binary output while omitting the runtime option.
+git.command<'pack-objects', readonly [readonly ['--stdout']], 'bytes'>('pack-objects', [['--stdout']]);

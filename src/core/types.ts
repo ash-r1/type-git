@@ -144,9 +144,12 @@ export type ExecOpts = {
 /**
  * Result from raw Git command execution
  */
-export type RawResult = {
+export type GitOutputMode = 'text' | 'bytes';
+export type GitOutput<Mode extends GitOutputMode> = Mode extends 'bytes' ? Uint8Array : string;
+
+export type RawResult<Output = string> = {
   /** Standard output */
-  stdout: string;
+  stdout: Output;
   /** Standard error */
   stderr: string;
   /** Exit code (0 = success) */
@@ -494,8 +497,10 @@ export type AuditEventEnd = {
   argv: string[];
   /** Execution context (same as start event) */
   context: ExecutionContext;
-  /** Standard output from the command */
+  /** Text output; empty when binary stdout is selected. */
   stdout: string;
+  /** Original stdout bytes when binary output is selected. */
+  stdoutBytes?: Uint8Array;
   /** Standard error from the command */
   stderr: string;
   /** Exit code (0 = success) */

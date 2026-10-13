@@ -100,6 +100,51 @@ describe('pack command constraints', () => {
     }
   };
 
+  it('preserves pack bytes through public command output and input', async () => {
+    const object = direct(['rev-parse', 'HEAD:tracked']).stdout.trim();
+    const auditedBytes: Uint8Array[] = [];
+    const audited = await new TypeGit({
+      home: root,
+      inheritEnv: false,
+      env,
+      audit: {
+        onAudit: (event) => {
+          if (event.type === 'end' && event.stdoutBytes) {
+            expect(event.stdout).toBe('');
+            auditedBytes.push(event.stdoutBytes);
+          }
+        },
+      },
+    }).open(repo.workdir);
+    const created = await audited.command('pack-objects', [['--stdout']], {
+      stdin: `${object}\n`,
+      stdout: 'bytes',
+    });
+    expect(created.exitCode).toBe(0);
+    expect(created.aborted).toBe(false);
+    expect(Buffer.from(created.stdout)).toEqual(pack);
+    expect(auditedBytes).toHaveLength(1);
+    expect(auditedBytes[0]).toEqual(created.stdout);
+    const framed = new Uint8Array(created.stdout.length + 16);
+    framed.set(created.stdout, 8);
+    const bytes = framed.subarray(8, -8);
+    const indexed = await repo.command('index-pack', [['--stdin'], ['--fix-thin']], {
+      stdin: bytes,
+    });
+    expect(indexed.exitCode, indexed.stderr).toBe(0);
+    expect(indexed.aborted).toBe(false);
+    const unpacked = await repo.command('unpack-objects', [['-n'], ['--strict']], { stdin: bytes });
+    expect(unpacked.exitCode, unpacked.stderr).toBe(0);
+    expect(unpacked.aborted).toBe(false);
+    const controller = new AbortController();
+    controller.abort();
+    const cancelled = await repo.command('pack-objects', [['--stdout']], {
+      stdout: 'bytes',
+      signal: controller.signal,
+    });
+    expect(cancelled.aborted).toBe(true);
+    expect(cancelled.stdout).toEqual(new Uint8Array(0));
+  });
   it('matches pack destination, compression and transfer restrictions', () => {
     compare('pack-objects', [], [], false);
     compare('pack-objects', [['--stdout']], ['--stdout'], true);

@@ -10,7 +10,13 @@
 import process from 'node:process';
 import { commandArguments, commandUsesNativeABI } from '../commands/build.js';
 import type { GitCommandName } from '../commands/types.js';
-import type { ExecAdapter, RuntimeAdapters } from '../core/adapters.js';
+import type {
+  ExecAdapter,
+  RuntimeAdapters,
+  SpawnOptions,
+  SpawnResult,
+  StreamHandler,
+} from '../core/adapters.js';
 import { type EnvInheritance, resolveInheritedEnv } from '../core/env.js';
 import type {
   AuditConfig,
@@ -20,6 +26,7 @@ import type {
   GitProgress,
   LfsProgress,
   RawResult,
+  GitOutputMode,
 } from '../core/types.js';
 import { GitArgumentError, GitError } from '../core/types.js';
 import { detectErrorCategory, parseGitProgress, parseLfsStderrProgress } from '../parsers/index.js';
@@ -159,7 +166,7 @@ export type CliRunnerOptions = {
  */
 export type RunOptions = ExecOpts & {
   /** UTF-8 text to write to standard input, then close it. */
-  stdin?: string;
+  stdin?: string | Uint8Array;
   /**
    * Extra environment variables merged on top of the resolved environment for
    * this single command. Values here take precedence over the configured
@@ -167,6 +174,22 @@ export type RunOptions = ExecOpts & {
    */
   env?: Record<string, string>;
 };
+
+type CommandRunOptions = RunOptions & { stdout?: GitOutputMode };
+
+function validateIO(opts: CommandRunOptions | undefined): void {
+  if (opts?.stdout !== undefined && opts.stdout !== 'text' && opts.stdout !== 'bytes') {
+    throw new GitArgumentError('stdout must be text or bytes');
+  }
+  const input = opts?.stdin;
+  if (
+    input !== undefined &&
+    typeof input !== 'string' &&
+    !(ArrayBuffer.isView(input) && Object.prototype.toString.call(input) === '[object Uint8Array]')
+  ) {
+    throw new GitArgumentError('stdin must be a string or Uint8Array');
+  }
+}
 
 /**
  * CLI Runner for executing Git commands
@@ -340,13 +363,38 @@ export class CliRunner {
   /**
    * Run a Git command
    */
+  public runCommand(
+    context: ExecutionContext,
+    command: GitCommandName,
+    args: readonly unknown[],
+    inRepository: boolean | undefined,
+    opts: RunOptions & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  public runCommand(
+    context: ExecutionContext,
+    command: GitCommandName,
+    args: readonly unknown[],
+    inRepository: boolean | undefined,
+    opts?: RunOptions & { stdout?: 'text' },
+  ): Promise<RawResult>;
+  public runCommand(
+    context: ExecutionContext,
+    command: GitCommandName,
+    args: readonly unknown[],
+    inRepository: boolean | undefined,
+    opts: CommandRunOptions | undefined,
+  ): Promise<RawResult<string | Uint8Array>>;
   public async runCommand(
     context: ExecutionContext,
     command: GitCommandName,
     args: readonly unknown[],
     inRepository: boolean | undefined,
-    opts?: RunOptions,
-  ): Promise<RawResult> {
+    opts?: CommandRunOptions,
+  ): Promise<RawResult<string | Uint8Array>> {
+    validateIO(opts);
+    const binary = opts?.stdout === 'bytes';
+    const execute = (argv: string[]): Promise<RawResult<string | Uint8Array>> =>
+      binary ? this.runBytes(context, argv, opts) : this.run(context, argv, opts);
     let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 } | undefined;
     if (commandUsesNativeABI(command, args)) {
       let validWidths = 0;
@@ -375,7 +423,7 @@ export class CliRunner {
         throw firstError;
       }
       if (validWidths === 4 && preflightArgv) {
-        return await this.run(context, preflightArgv, opts);
+        return await execute(preflightArgv);
       }
       // Resolve the executable with the same context and per-call environment.
       // A cached host width is wrong when gitBinary/PATH selects another ABI.
@@ -384,7 +432,10 @@ export class CliRunner {
         ...(opts?.signal ? { signal: opts.signal } : {}),
       });
       if (probe.aborted) {
-        return probe;
+        return {
+          ...probe,
+          stdout: binary ? new Uint8Array(0) : probe.stdout,
+        } as RawResult<string | Uint8Array>;
       }
       const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
       const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
@@ -398,19 +449,43 @@ export class CliRunner {
         sizeTBits: sizeBytes === '4' ? 32 : 64,
       };
     }
-    return await this.run(context, commandArguments(command, args, inRepository, abi), opts);
+    return await execute(commandArguments(command, args, inRepository, abi));
   }
 
+  /** Text execution remains independent of extra command output-mode options. */
   public async run(
     context: ExecutionContext,
     args: string[],
     opts?: RunOptions,
   ): Promise<RawResult> {
+    return (await this.execute(context, args, opts, false)) as RawResult;
+  }
+
+  public async runBytes(
+    context: ExecutionContext,
+    args: string[],
+    opts?: RunOptions,
+  ): Promise<RawResult<Uint8Array>> {
+    return (await this.execute(context, args, opts, true)) as RawResult<Uint8Array>;
+  }
+
+  private async execute(
+    context: ExecutionContext,
+    args: string[],
+    opts: RunOptions | undefined,
+    binary: boolean,
+  ): Promise<RawResult<string | Uint8Array>> {
+    validateIO({ stdin: opts?.stdin });
     const argv = this.buildArgv(context, args);
     const { signal, onProgress, onLfsProgress, env: envOverride } = opts ?? {};
 
     if (signal?.aborted) {
-      return { stdout: '', stderr: '', exitCode: -1, aborted: true };
+      return {
+        stdout: binary ? new Uint8Array(0) : '',
+        stderr: '',
+        exitCode: -1,
+        aborted: true,
+      } as RawResult<string | Uint8Array>;
     }
 
     const env = this.buildEnv();
@@ -445,9 +520,24 @@ export class CliRunner {
     // Determine if we need stderr streaming
     const needsStderrStreaming = onProgress || onLfsProgress || this.audit?.onTrace;
 
-    let result: Awaited<ReturnType<ExecAdapter['spawn']>>;
+    let result: Omit<Awaited<ReturnType<ExecAdapter['spawn']>>, 'stdout'> & {
+      stdout: string | Uint8Array;
+    };
     try {
-      result = await this.exec.spawn(
+      const spawnProcess:
+        | ((
+            options: SpawnOptions,
+            handlers?: StreamHandler,
+          ) => Promise<SpawnResult<string | Uint8Array>>)
+        | undefined = binary ? this.exec.spawnBytes : this.exec.spawn;
+      if (!spawnProcess) {
+        throw new GitError(
+          'CapabilityMissing',
+          'The selected execution adapter does not support binary stdout',
+        );
+      }
+      result = await spawnProcess.call(
+        this.exec,
         {
           argv,
           stdin: opts?.stdin,
@@ -522,7 +612,8 @@ export class CliRunner {
         timestamp: endTimestamp,
         argv,
         context,
-        stdout: result.stdout,
+        stdout: typeof result.stdout === 'string' ? result.stdout : '',
+        ...(typeof result.stdout === 'string' ? {} : { stdoutBytes: result.stdout }),
         stderr: result.stderr,
         exitCode: result.exitCode,
         aborted: result.aborted,
@@ -535,7 +626,7 @@ export class CliRunner {
       stderr: result.stderr,
       exitCode: result.exitCode,
       aborted: result.aborted,
-    };
+    } as RawResult<string | Uint8Array>;
   }
 
   /**

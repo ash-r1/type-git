@@ -14,7 +14,19 @@ await repo.command('lfs pointer', [['--check'], ['--stdin']], { stdin: pointer }
 
 Option tuples distinguish flag names and values from positional operands. Argument ordering, repetitions, empty values, aliases, and explicit `['--']` are preserved. An operand beginning with a dash needs the separator. Git's parent-only options, such as `remote -v show`, have an explicit insertion position. Native Git boolean flags take no value; use their negated spelling. LFS flags also accept boolean values, including `false`.
 
-A known option name does not imply that its argument contents are fully validated. Git still evaluates repository state, configuration, object names, protocols, and callback-specific argument languages. Execution returns `RawResult`, including nonzero exit status. `stdin` and output currently use strings; binary protocols require further work. `raw()` remains available for commands not yet in the typed catalogue.
+A known option name does not imply that its argument contents are fully validated. Git still evaluates repository state, configuration, object names, protocols, and callback-specific argument languages. Execution returns `RawResult`, including nonzero exit status. `stdin` accepts UTF-8 strings or unencoded `Uint8Array` views. Output defaults to decoded text; request `{ stdout: 'bytes' }` for binary protocols such as packs. This returns `RawResult<Uint8Array>` without UTF-8 decoding. All three builtin adapters support binary collection, while custom adapters require `spawnBytes` for this mode. Audit events retain binary data in `stdoutBytes` and leave the text `stdout` empty. `raw()` remains available for commands not yet in the typed catalogue.
+
+```ts
+const object = await repo.command('hash-object', [['-w'], ['--stdin']], {
+  stdin: new Uint8Array([0, 128, 255]),
+});
+const pack = await repo.command('pack-objects', [['--stdout']], {
+  stdin: `${object.stdout.trim()}\n`,
+  stdout: 'bytes',
+});
+await repo.command('index-pack', [['--stdin']], { stdin: pack.stdout });
+await repo.command('unpack-objects', [['-n'], ['--strict']], { stdin: pack.stdout });
+```
 
 Literal tuples are folded in order into normalized state. TypeScript tests each declarative rule separately, avoiding a Cartesian union of every allowed combination. Dynamic arrays retain option-name/value-shape checking and receive combination checking at runtime. JavaScript callers receive the same runtime validation. Both layers use the same generated rule declarations. Help bypasses semantic constraints, while argument syntax remains checked.
 
