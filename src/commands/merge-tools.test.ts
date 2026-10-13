@@ -22,11 +22,14 @@ describe('merge strategies and tool frontends', () => {
     });
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-merge-tools-'));
+    const viewerScript = join(root, 'man-viewer.cjs');
+    await writeFile(viewerScript, 'process.exit(0);\n');
     env = {
       ...process.env,
       HOME: root,
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
+      NODE_OPTIONS: `--require "${viewerScript.replaceAll('\\', '/')}"`,
       GIT_CONFIG_GLOBAL: join(root, 'global'),
       GIT_AUTHOR_NAME: 'Test',
       GIT_AUTHOR_EMAIL: 'test@example.com',
@@ -47,8 +50,8 @@ describe('merge strategies and tool frontends', () => {
     await repo.commit({ message: 'second' });
     for (const [key, value] of [
       ['help.format', 'man'],
-      ['man.viewer', 'fixture'],
-      ['man.fixture.cmd', `"${process.execPath.replaceAll('\\', '/')}" -e "process.exit(0)"`],
+      ['man.viewer', 'man'],
+      ['man.man.path', process.execPath],
       ['difftool.fixture.cmd', 'true'],
     ]) {
       expect(direct(['config', key, value]).status).toBe(0);
