@@ -103,6 +103,7 @@ export function commandArguments(
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
     compoundNegatedOverflow?: boolean;
+    firstPassEmpty?: boolean;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -128,6 +129,7 @@ function buildArguments(
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
     compoundNegatedOverflow?: boolean;
+    firstPassEmpty?: boolean;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -173,7 +175,11 @@ function buildArguments(
       guiLaunch,
       'shape',
     );
-    const pass = initialParserPass(spec, serialized.slice(spec.argv.length));
+    const pass = initialParserPass(
+      spec,
+      serialized.slice(spec.argv.length),
+      abi?.firstPassEmpty ?? true,
+    );
     if (pass.exited) {
       buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
       return serialized;
@@ -519,10 +525,45 @@ function buildArguments(
   return argv;
 }
 
+/** Serialize only the representation guards; unknown native parser responses retain this original argv. */
+export function commandShapeArguments(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+): string[] {
+  return buildArguments(command, args, inRepository, undefined, undefined, undefined, 'shape');
+}
+
+/** Detect an actually reached modern --empty callback, including a split value that becomes an option. */
+export function commandUsesFirstPassEmpty(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesFirstPassEmpty(dispatched.command, dispatched.args);
+  }
+  if (!spec.parserExit?.firstPassOptions?.includes('--empty')) {
+    return false;
+  }
+  const words = commandShapeArguments(command, args, true);
+  const pass = initialParserPass(spec, words.slice(spec.argv.length));
+  return pass.tokens.some((token) => token[0] === '--empty');
+}
+
 /** Stop trait discovery where an audited parser exits; later words are only serialized. */
 function interpretedArguments(spec: CommandSpec, args: readonly unknown[]): readonly unknown[] {
   if (!spec.parserExit) {
     return args;
+  }
+  if (spec.parserExit.firstPassOptions) {
+    const command = spec.argv.join(' ') as GitCommandName;
+    const words = commandShapeArguments(command, args, true);
+    const pass = initialParserPass(spec, words.slice(spec.argv.length));
+    if (pass.exited) {
+      return pass.tokens;
+    }
   }
   for (const [index, token] of args.entries()) {
     if (token && typeof token === 'object' && !Array.isArray(token) && 'operand' in token) {

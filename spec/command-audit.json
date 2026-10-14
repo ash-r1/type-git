@@ -325,7 +325,9 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/phased-parser-exits.test.ts",
         "test/types/phased-parser-exit-corpus.ts",
-        "test/types/phased-parser-exits.ts"
+        "test/types/phased-parser-exits.ts",
+        "src/runner/first-pass-profiles.test.ts",
+        "test/types/first-pass-source-profiles.ts"
       ],
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. Residual argv parsing when the initial pass does not exit (including values consumed across API token boundaries), completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations.",
       "typedCommandAPI": true
@@ -587,7 +589,9 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/phased-parser-exits.test.ts",
         "test/types/phased-parser-exit-corpus.ts",
-        "test/types/phased-parser-exits.ts"
+        "test/types/phased-parser-exits.ts",
+        "src/runner/first-pass-profiles.test.ts",
+        "test/types/first-pass-source-profiles.ts"
       ],
       "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. Residual argv parsing when the initial pass does not exit (including values consumed across API token boundaries), completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations.",
       "typedCommandAPI": true
@@ -684,7 +688,9 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/phased-parser-exits.test.ts",
         "test/types/phased-parser-exit-corpus.ts",
-        "test/types/phased-parser-exits.ts"
+        "test/types/phased-parser-exits.ts",
+        "src/runner/first-pass-profiles.test.ts",
+        "test/types/first-pass-source-profiles.ts"
       ],
       "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. Residual argv parsing when the initial pass does not exit (including values consumed across API token boundaries), completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations.",
       "typedCommandAPI": true
@@ -1955,7 +1961,9 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/phased-parser-exits.test.ts",
         "test/types/phased-parser-exit-corpus.ts",
-        "test/types/phased-parser-exits.ts"
+        "test/types/phased-parser-exits.ts",
+        "src/runner/first-pass-profiles.test.ts",
+        "test/types/first-pass-source-profiles.ts"
       ],
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. Residual argv parsing when the initial pass does not exit (including values consumed across API token boundaries), completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations."
     },
@@ -4063,7 +4071,9 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/phased-parser-exits.test.ts",
         "test/types/phased-parser-exit-corpus.ts",
-        "test/types/phased-parser-exits.ts"
+        "test/types/phased-parser-exits.ts",
+        "src/runner/first-pass-profiles.test.ts",
+        "test/types/first-pass-source-profiles.ts"
       ],
       "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. Residual argv parsing when the initial pass does not exit (including values consumed across API token boundaries), completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations.",
       "typedCommandAPI": true
@@ -5086,7 +5096,9 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/phased-parser-exits.test.ts",
         "test/types/phased-parser-exit-corpus.ts",
-        "test/types/phased-parser-exits.ts"
+        "test/types/phased-parser-exits.ts",
+        "src/runner/first-pass-profiles.test.ts",
+        "test/types/first-pass-source-profiles.ts"
       ],
       "remaining": "Revision traversal and path filtering, object selection and refspec grammar, marks file contents and I/O, signature/tag rewrite effects, commit message encoding and reencoding, anonymization substitutions and collisions, repository state, parser abbreviations and independent witnesses for every rule remain pending. Numeric boolean literal grammar is checked at runtime; selected Git versions have different option support. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. Residual argv parsing when the initial pass does not exit (including values consumed across API token boundaries), completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations."
     },

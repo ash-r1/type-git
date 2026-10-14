@@ -957,7 +957,22 @@ registry. Decoration additionally accepts case-sensitive `short`, `full` and
 `auto`; reencoding accepts ASCII case-insensitive `abort`. Decoration's `auto`
 value remains symbolic because its resolved style depends on the environment.
 The six scopes also use the shared color grammar for callbacks reached in the
-later diff pass.
+later diff pass. Boolean numeric parsing retains the independently observed
+source family: Git 2.25.1 accepts bare unit values in decoration/reencoding,
+while the recorded newer parsers reject them; INT_MIN differs separately.
+
+Cherry-pick's initial `--empty` behavior is observed separately using readonly
+`cherry-pick --empty=type-git-invalid -h`. An older initial option set preserves
+that word until help, while the newer callback validates its value before help.
+This does not infer option availability from the boolean integer grammar or a
+version string. Unrecognized/localized responses retain native execution;
+aborted observations stop, preserving context, environment, signal, and binary
+result shape without consuming command stdin. Trait discovery uses reached
+initial-pass tokens, so a split value that becomes help suppresses later probes.
+Compiler alternatives replay a whole initial option set and scalar profile.
+An explicit `firstPassEmpty: true` context pins the modern initial option set;
+the independent 2.55.0 corpus explicitly pins that and the modern boolean family.
+Original argument tokens remain available to every existing constraint check.
 
 `node scripts/phased-parser-exit-corpus.mjs --check` reproduces 669 independent
 native outcomes and their compiler fixtures. It enumerates permutations of

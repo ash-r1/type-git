@@ -174,6 +174,27 @@ type Parsed<S extends CommandSpec, A extends readonly unknown[]> = Serialize<
     : Deferred
   : never;
 
-export type InitialParserPass<S, A extends readonly unknown[]> = S extends CommandSpec
-  ? Parsed<S, A>
-  : Invalid;
+/** Old initial passes retain --empty for later parsing rather than interpreting it as a callback. */
+type PassSpec<
+  S extends CommandSpec,
+  EmptyRegistered extends boolean,
+> = EmptyRegistered extends false
+  ? S extends {
+      parserExit: infer E extends {
+        firstPassOptions: readonly string[];
+        firstPassLongNames: readonly string[];
+      };
+    }
+    ? Omit<S, 'parserExit'> & {
+        parserExit: Omit<E, 'firstPassOptions' | 'firstPassLongNames'> & {
+          firstPassOptions: readonly Exclude<E['firstPassOptions'][number], '--empty'>[];
+          firstPassLongNames: readonly Exclude<E['firstPassLongNames'][number], 'empty'>[];
+        };
+      }
+    : S
+  : S;
+export type InitialParserPass<
+  S,
+  A extends readonly unknown[],
+  EmptyRegistered extends boolean = true,
+> = S extends CommandSpec ? Parsed<PassSpec<S, EmptyRegistered>, A> : Invalid;

@@ -5,9 +5,15 @@ import type { CommandSpec } from './spec.js';
 export function initialParserPass(
   spec: CommandSpec,
   argv: readonly string[],
+  emptyRegistered = true,
 ): { exited: boolean; tokens: readonly (readonly string[])[] } {
   const exit = spec.parserExit!;
-  const recognized = new Set(exit.firstPassOptions?.filter((flag) => !exit.flags.includes(flag)));
+  const recognized = new Set(
+    exit.firstPassOptions?.filter(
+      (flag) => !exit.flags.includes(flag) && (emptyRegistered || flag !== '--empty'),
+    ),
+  );
+  const longNames = exit.firstPassLongNames?.filter((name) => emptyRegistered || name !== 'empty');
   const tokens: string[][] = [];
   // Git's top-level dispatcher owns this position, before the command parser runs.
   if (exit.exceptFirst?.includes(argv[0] ?? '')) {
@@ -17,7 +23,7 @@ export function initialParserPass(
   const typo = (word: string) => {
     if (
       word.length >= 3 &&
-      (word.startsWith('no-') || exit.firstPassLongNames?.some((name) => name.startsWith(word)))
+      (word.startsWith('no-') || longNames?.some((name) => name.startsWith(word)))
     ) {
       throw new GitArgumentError(`-${word}: Git requires two dashes for this option`);
     }

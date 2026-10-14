@@ -9,6 +9,7 @@ import {
   type GitDecimalCallbacks,
 } from '../constraints/git-decimal.js';
 import { validateOptions as checkOptions } from '../core/option-rules.js';
+import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 /**
  * CLI Runner - Core execution engine for Git commands
@@ -22,6 +23,8 @@ import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import process from 'node:process';
 import {
   commandArguments,
+  commandShapeArguments,
+  commandUsesFirstPassEmpty,
   validateArgvStrings,
   commandDecimalCallbacks,
   commandUsesConflictStyle,
@@ -663,8 +666,41 @@ export class CliRunner {
       booleanBinaryIntegers?: boolean;
       booleanCapabilities?: GitBooleanCapabilities;
       compoundNegatedOverflow?: boolean;
+      firstPassEmpty?: boolean;
     };
-    let abi: NativeAbi | undefined;
+    let firstPassEmpty: boolean | undefined;
+    if (commandUsesFirstPassEmpty(command, args)) {
+      const probeOptions = {
+        ...(opts?.env ? { env: opts.env } : {}),
+        ...(opts?.signal ? { signal: opts.signal } : {}),
+      };
+      const probe = await this.run(
+        context,
+        ['cherry-pick', '--empty=type-git-invalid', '-h'],
+        probeOptions,
+      );
+      if (probe.aborted) {
+        return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      }
+      if ([0, 129].includes(probe.exitCode) && (probe.stderr + probe.stdout).startsWith('usage:')) {
+        firstPassEmpty = false;
+      } else if (
+        [128, 129].includes(probe.exitCode) &&
+        /^error: .*empty.*(?:stop|drop|keep|invalid|bad)/im.test(probe.stderr)
+      ) {
+        firstPassEmpty = true;
+      } else {
+        return await execute(commandShapeArguments(command, args, inRepository));
+      }
+    }
+    let abi: NativeAbi | undefined =
+      firstPassEmpty === undefined
+        ? undefined
+        : {
+            longBits: nativeCLongBits(process.platform, process.arch),
+            sizeTBits: nativeSizeTBits(process.arch),
+            firstPassEmpty,
+          };
     if (commandUsesNativeABI(command, args)) {
       const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(command, args)
         ? ['bounded', 'decimal-cast']
@@ -720,6 +756,7 @@ export class CliRunner {
                               booleanBinaryIntegers,
                               booleanCapabilities,
                               compoundNegatedOverflow,
+                              firstPassEmpty,
                             };
                             try {
                               valid.push({

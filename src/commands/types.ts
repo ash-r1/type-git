@@ -862,9 +862,14 @@ type ParsedPassState<
 type CommandState<
   C extends GitCommandName,
   A extends readonly unknown[],
-  InitialState = Initial<C>,
+  InitialState = Put<Initial<C>, 'argumentTokens', A>,
 > = Spec<C> extends { parserExit: { firstPassOptions: readonly string[] } }
-  ? ParsedPassState<C, A, InitialParserPass<Spec<C>, A>, InitialState> extends infer S
+  ? ParsedPassState<
+      C,
+      A,
+      InitialParserPass<Spec<C>, A, InitialState extends { firstPassEmpty: false } ? false : true>,
+      InitialState
+    > extends infer S
     ? [Extract<S, InvalidPass>] extends [never]
       ? S
       : never
@@ -900,6 +905,7 @@ type CheckedLegacyIntegerArguments<
   LongBits extends 32 | 64 = 64,
   Callbacks extends GitDecimalCallbacks = {},
   CompoundOverflow extends boolean = false,
+  EmptyRegistered extends boolean = true,
   S = CommandState<
     C,
     A,
@@ -915,7 +921,7 @@ type CheckedLegacyIntegerArguments<
       >,
       'decimalCallbacks',
       Callbacks
-    > & { compoundNegatedOverflow: CompoundOverflow }
+    > & { compoundNegatedOverflow: CompoundOverflow; firstPassEmpty: EmptyRegistered }
   >,
 > = [S] extends [never]
   ? never
@@ -1213,6 +1219,59 @@ type ExistingLocalProfiles<
   : [CheckedLocalParserArguments<C, A>] extends [never]
     ? CombinedArgumentsFallback<C, A, Ctx>
     : A;
+/** Preserve one numeric implementation while projecting the older initial option set. */
+type OldEmptyAxes<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  I extends 'bounded' | 'decimal-cast',
+  N extends boolean,
+  B extends 32 | 64,
+  F extends GitDecimalCallbacks,
+> = I extends unknown
+  ? N extends unknown
+    ? B extends unknown
+      ? F extends unknown
+        ? CheckedLegacyIntegerArguments<C, A, I, N, B, F, false, false>
+        : never
+      : never
+    : never
+  : never;
+/** Only a concrete cherry-pick tuple with an actual early exit gains an older option-set alternative. */
+type CheckedOldEmptyPass<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = C extends 'cherry-pick'
+  ? A extends readonly [unknown, ...unknown[]]
+    ? InitialParserPass<Spec<C>, A, false> extends { exited: true }
+      ? OldEmptyAxes<
+          C,
+          A,
+          TupleIntegerTraits<C, A> extends true ? 'bounded' | 'decimal-cast' : 'bounded',
+          TupleIntegerTraits<C, A> extends true ? false | true : false,
+          TupleIntegerTraits<C, A> extends true
+            ? 32 | 64
+            : [TupleCallbacks<C, A>] extends [never]
+              ? 64
+              : 32 | 64,
+          CallbackChoices<TupleCallbacks<C, A>>
+        >
+      : never
+    : never
+  : never;
+/** Explicitly pinned modern contexts cannot borrow the old --empty initial-pass behavior. */
+type InitialLocalProfiles<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = Ctx extends { firstPassEmpty: false }
+  ? [CheckedOldEmptyPass<C, A>] extends [never]
+    ? ExistingLocalProfiles<C, A, Ctx>
+    : A
+  : [ExistingLocalProfiles<C, A, Ctx>] extends [never]
+    ? Ctx extends { firstPassEmpty: true }
+      ? never
+      : CheckedOldEmptyPass<C, A>
+    : A;
 /** Literal option combinations are checked against the same schema as runtime calls. */
 type CheckedLocalArguments<
   C extends GitCommandName,
@@ -1225,11 +1284,11 @@ type CheckedLocalArguments<
   : A extends readonly LocalCommandArgument<C>[]
     ? Ctx extends { booleanSource: infer Source extends GitBooleanSource }
       ? Source extends 'modern'
-        ? ExistingLocalProfiles<C, A, Ctx>
+        ? InitialLocalProfiles<C, A, Ctx>
         : TupleUsesBoolean<C, A> extends true
           ? BooleanTupleFamilies<C, A, Source, Ctx>
-          : ExistingLocalProfiles<C, A, Ctx>
-      : ExistingLocalProfiles<C, A, Ctx>
+          : InitialLocalProfiles<C, A, Ctx>
+      : InitialLocalProfiles<C, A, Ctx>
     : never;
 
 /** Precompute the small command set instead of comparing every command's option union during inference. */
