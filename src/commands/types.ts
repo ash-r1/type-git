@@ -943,10 +943,11 @@ type CheckedIntegerAlternativesAtWidth<
 type TraitArguments<
   C extends GitCommandName,
   A extends readonly unknown[],
+  EmptyRegistered extends boolean = boolean,
 > = number extends A['length']
   ? A
   : Spec<C> extends { parserExit: { remainingOptions: unknown } }
-    ? InitialParserPass<Spec<C>, A> extends infer P
+    ? InitialParserPass<Spec<C>, A, EmptyRegistered> extends infer P
       ? P extends { delegated: true }
         ? A
         : P extends { exited: true; tokens: infer T extends readonly unknown[] }
@@ -1021,10 +1022,11 @@ type CheckedIntegerAlternatives<
   : DecimalWidthChanges<C, A> extends true
     ? CheckedLegacyIntegerArguments<C, A, 'bounded', false, 32>
     : never;
-type TupleCallbacks<C extends GitCommandName, A extends readonly unknown[]> = TupleCallbacksRaw<
-  C,
-  TraitArguments<C, A>
->;
+type TupleCallbacks<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  EmptyRegistered extends boolean = boolean,
+> = TupleCallbacksRaw<C, TraitArguments<C, A, EmptyRegistered>>;
 type TupleCallbacksRaw<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -1055,7 +1057,8 @@ type CallbackChoices<K extends GitDecimalCallback> = ('unified-context' extends 
 type TupleIntegerTraits<
   C extends GitCommandName,
   A extends readonly unknown[],
-> = TupleIntegerTraitsRaw<C, TraitArguments<C, A>>;
+  EmptyRegistered extends boolean = boolean,
+> = TupleIntegerTraitsRaw<C, TraitArguments<C, A, EmptyRegistered>>;
 type TupleIntegerTraitsRaw<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -1285,14 +1288,14 @@ type CheckedOldEmptyPass<
       ? OldEmptyAxes<
           C,
           A,
-          TupleIntegerTraits<C, A> extends true ? 'bounded' | 'decimal-cast' : 'bounded',
-          TupleIntegerTraits<C, A> extends true ? false | true : false,
-          TupleIntegerTraits<C, A> extends true
+          TupleIntegerTraits<C, A, false> extends true ? 'bounded' | 'decimal-cast' : 'bounded',
+          TupleIntegerTraits<C, A, false> extends true ? false | true : false,
+          TupleIntegerTraits<C, A, false> extends true
             ? 32 | 64
-            : [TupleCallbacks<C, A>] extends [never]
+            : [TupleCallbacks<C, A, false>] extends [never]
               ? 64
               : 32 | 64,
-          CallbackChoices<TupleCallbacks<C, A>>
+          CallbackChoices<TupleCallbacks<C, A, false>>
         >
       : never
     : never
@@ -1327,6 +1330,85 @@ type PinnedCallbackArguments<
       : CheckRules<S, Spec<C>['rules']> extends true
         ? A
         : never;
+/** Explore unpinned axes while keeping every explicit decimal callback family fixed. */
+type PinnedCallbackAlternatives<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  F extends GitDecimalCallbacks,
+  Ctx extends CommandGrammarContext,
+  Source extends GitBooleanSource = Ctx extends { booleanSource: infer X extends GitBooleanSource }
+    ? X
+    : TupleUsesBoolean<C, A> extends true
+      ? GitBooleanSource
+      : 'modern',
+  I extends 'bounded' | 'decimal-cast' = TupleIntegerTraits<C, A> extends true
+    ? 'bounded' | 'decimal-cast'
+    : 'bounded',
+  N extends boolean = TupleIntegerTraits<C, A> extends true ? boolean : false,
+  B extends 32 | 64 = TupleIntegerTraits<C, A> extends true
+    ? 32 | 64
+    : [TupleCallbacks<C, A>] extends [never]
+      ? 64
+      : 32 | 64,
+  Conflict extends 'immediate' | 'deferred' = Ctx extends {
+    conflictStyle: infer X extends 'immediate' | 'deferred';
+  }
+    ? X
+    : TupleUsesConflict<C, A> extends true
+      ? 'immediate' | 'deferred'
+      : 'immediate',
+  EmptyRegistered extends boolean = Ctx extends { firstPassEmpty: infer X extends boolean }
+    ? X
+    : C extends 'cherry-pick'
+      ? boolean
+      : true,
+  Overflow extends boolean = TupleUsesCompound<C, A> extends true ? boolean : false,
+  OtherCallbacks extends GitDecimalCallbacks = CallbackChoices<
+    Exclude<TupleCallbacks<C, A>, keyof F>
+  >,
+> = OtherCallbacks extends unknown
+  ? Source extends unknown
+    ? I extends unknown
+      ? N extends unknown
+        ? B extends unknown
+          ? Conflict extends unknown
+            ? EmptyRegistered extends unknown
+              ? Overflow extends unknown
+                ? BooleanTupleResult<
+                    C,
+                    A,
+                    CommandState<
+                      C,
+                      A,
+                      Put<Initial<C>, 'argumentTokens', A> & {
+                        decimalCallbacks: F & OtherCallbacks;
+                        booleanSource: Source;
+                        integerProfile: I;
+                        negativeMagnitudes: N;
+                        decimalLongBits: B;
+                        conflictStyle: Conflict;
+                        firstPassEmpty: EmptyRegistered;
+                        compoundNegatedOverflow: Overflow;
+                      }
+                    >
+                  >
+                : never
+              : never
+            : never
+          : never
+        : never
+      : never
+    : never
+  : never;
+/** A decimal pin does not silently pin unrelated parser implementations. */
+type IndependentlyPinnedCallbacks<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  F extends GitDecimalCallbacks,
+  Ctx extends CommandGrammarContext,
+> = [PinnedCallbackArguments<C, A, F, Ctx>] extends [never]
+  ? PinnedCallbackAlternatives<C, A, F, Ctx>
+  : A;
 type CheckedLocalParserProfiles<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -1337,7 +1419,7 @@ type CheckedLocalParserProfiles<
     : never
   : A extends readonly LocalCommandArgument<C>[]
     ? Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
-      ? PinnedCallbackArguments<C, A, F, Ctx>
+      ? IndependentlyPinnedCallbacks<C, A, F, Ctx>
       : Ctx extends { booleanSource: infer Source extends GitBooleanSource }
         ? Source extends 'modern'
           ? InitialLocalProfiles<C, A, Ctx>

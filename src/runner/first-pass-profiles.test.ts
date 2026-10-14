@@ -142,6 +142,16 @@ describe('observed initial parser profiles', () => {
         GIT_COMMITTER_NAME: 'Fixture',
         GIT_COMMITTER_EMAIL: 'fixture@example.invalid',
       };
+      for (const name of [
+        'GIT_DIR',
+        'GIT_WORK_TREE',
+        'GIT_COMMON_DIR',
+        'GIT_INDEX_FILE',
+        'GIT_OBJECT_DIRECTORY',
+        'GIT_ALTERNATE_OBJECT_DIRECTORIES',
+      ]) {
+        delete (env as NodeJS.ProcessEnv)[name];
+      }
       for (const args of [
         ['init', '-q'],
         ['commit', '--allow-empty', '-qm', 'one'],

@@ -43,3 +43,15 @@ export type PinnedResidualNumericProfiles = readonly [
   ProfileCheck<[CheckedCommandArguments<'log', [['-n', '--decorate'], {operand: 'bad'}], {decimalCallbacks: {'revision-count': 'modern'}}>] extends [never] ? true : false>,
   ProfileCheck<[CheckedCommandArguments<'log', [['-n', '--decorate'], {operand: 'bad'}], {decimalCallbacks: {'revision-count': 'legacy'}}>] extends [never] ? false : true>,
 ];
+
+// Pinning decimal callbacks must leave an unpinned boolean source available.
+export type IndependentlyPinnedResidualProfiles = readonly [
+  ProfileCheck<[CheckedCommandArguments<'log', [['-n', '--decorate=m'], ['--all']], {decimalCallbacks: {'revision-count': 'legacy'}}>] extends [never] ? false : true>,
+  ProfileCheck<[CheckedCommandArguments<'log', [['-n', '--decorate=m'], ['--all']], {decimalCallbacks: {'revision-count': 'legacy'}, booleanSource: 'modern'}>] extends [never] ? true : false>,
+  ProfileCheck<[CheckedCommandArguments<'log', [['-n', '--decorate'], {operand: 'bad'}], {decimalCallbacks: {'revision-count': 'modern'}}>] extends [never] ? true : false>,
+];
+
+export type OtherUnpinnedDecimalCallbacks = readonly [
+  ProfileCheck<[CheckedCommandArguments<'log', [['--unified', '-1']], {decimalCallbacks: {'revision-count': 'modern'}}>] extends [never] ? false : true>,
+  ProfileCheck<[CheckedCommandArguments<'log', [['--unified', '-1']], {decimalCallbacks: {'unified-context': 'modern'}}>] extends [never] ? true : false>,
+];

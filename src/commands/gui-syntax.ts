@@ -12,7 +12,7 @@ export type CommandGrammarContext = {
   conflictStyle?: 'immediate' | 'deferred';
   booleanSource?: GitBooleanSource;
   firstPassEmpty?: boolean;
-  /** Pin independently observed native decimal callback source families. */
+  /** Pin named decimal callback families while leaving unspecified parser axes selectable. */
   decimalCallbacks?: GitDecimalCallbacks;
   submoduleInitAlias?: boolean;
 };
