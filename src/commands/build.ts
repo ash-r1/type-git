@@ -51,6 +51,30 @@ function dispatchArguments(
   return undefined;
 }
 
+/** Validate supplied argv words before interpreting commands or selecting native parser traits. */
+export function validateArgvStrings(args: readonly unknown[]): void {
+  if (!Array.isArray(args)) {
+    throw new GitArgumentError('Command arguments must be an array');
+  }
+  for (const token of args) {
+    if (Array.isArray(token)) {
+      for (const word of token) {
+        if (typeof word === 'string' && word.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)) {
+          throw new GitArgumentError('NUL is not a valid CLI argument');
+        }
+      }
+    } else if (
+      token &&
+      typeof token === 'object' &&
+      'operand' in token &&
+      typeof token.operand === 'string' &&
+      token.operand.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)
+    ) {
+      throw new GitArgumentError('Expected a string operand without NUL');
+    }
+  }
+}
+
 /**
  * Validate argv representation before parser selection, then emit ordered words without a shell.
  * NUL in a supplied word is rejected before GUI, dispatch or native-profile lookup; stdin is separate.
@@ -78,26 +102,7 @@ export function commandArguments(
   if (!spec) {
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
-  if (!Array.isArray(args)) {
-    throw new GitArgumentError('Command arguments must be an array');
-  }
-  for (const token of args) {
-    if (Array.isArray(token)) {
-      for (const word of token) {
-        if (typeof word === 'string' && word.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)) {
-          throw new GitArgumentError('NUL is not a valid CLI argument');
-        }
-      }
-    } else if (
-      token &&
-      typeof token === 'object' &&
-      'operand' in token &&
-      typeof token.operand === 'string' &&
-      token.operand.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)
-    ) {
-      throw new GitArgumentError('Expected a string operand without NUL');
-    }
-  }
+  validateArgvStrings(args);
   if (spec.guiScript) {
     const rootOptions = Object.assign(
       {},

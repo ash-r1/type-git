@@ -21,6 +21,7 @@ import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import process from 'node:process';
 import {
   commandArguments,
+  validateArgvStrings,
   commandDecimalCallbacks,
   commandUsesDecimalCallback,
   commandUsesNativeABI,
@@ -579,6 +580,7 @@ export class CliRunner {
     opts?: CommandRunOptions,
   ): Promise<RawResult<string | Uint8Array>> {
     validateIO(opts);
+    validateArgvStrings(args);
     const binary = opts?.stdout === 'bytes';
     const spec: CommandSpec = COMMAND_SPECS[command];
     const execute = (argv: string[]): Promise<RawResult<string | Uint8Array>> => {
