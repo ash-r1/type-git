@@ -2,7 +2,14 @@
 type White = ' ' | '\t' | '\r' | '\n' | '\v' | '\f';
 type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type Hex = Digit | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
-type Trim<S extends string> = S extends `${White}${infer R}` ? Trim<R> : S;
+type Trim<
+  S extends string,
+  Seen extends readonly unknown[] = readonly [],
+> = Seen['length'] extends 192
+  ? string
+  : S extends `${White}${infer R}`
+    ? Trim<R, readonly [...Seen, unknown]>
+    : S;
 type Digits<
   S extends string,
   D extends string,
