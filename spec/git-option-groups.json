@@ -878,7 +878,8 @@
       },
       "--filter": {
         "key": "filter",
-        "value": "string"
+        "value": "string",
+        "parser": "object-filter"
       },
       "--no-filter": {
         "key": "filter",
@@ -1494,5 +1495,127 @@
         ]
       }
     ]
+  },
+  "object-filter-auto": {
+    "source": "Git 2.55.0 list-objects-filter-options.c; builtin/clone.c and builtin/fetch.c enable auto",
+    "options": {
+      "--filter": {
+        "key": "filter",
+        "value": "string",
+        "parser": "object-filter-auto",
+        "checks": [
+          {
+            "id": "filter.after-auto",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type",
+            "reason": "No positive filter can follow an auto filter without clearing it.",
+            "when": [
+              {
+                "key": "filter",
+                "test": "equals",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "id": "filter.auto-after-filter",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type",
+            "reason": "Auto cannot be combined with a preceding filter.",
+            "when": [
+              {
+                "key": "filter",
+                "test": "present"
+              },
+              {
+                "key": "$value",
+                "test": "equals",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "id": "filter.auto-after-transform",
+            "kind": "forbid",
+            "origin": "git",
+            "source": "Git 2.55.0 list-objects-filter-options.c:parse_list_objects_filter/transform_to_combine_type",
+            "reason": "Transforming a simple filter into a combined filter clears allow_auto_filter, even across --no-filter.",
+            "when": [
+              {
+                "key": "filter-history",
+                "test": "equals",
+                "value": "disabled"
+              },
+              {
+                "key": "$value",
+                "test": "equals",
+                "value": "auto"
+              }
+            ]
+          }
+        ],
+        "effects": [
+          {
+            "key": "filter-history",
+            "when": {
+              "equals": "single"
+            },
+            "set": "disabled"
+          },
+          {
+            "key": "filter-history",
+            "when": {
+              "all": [
+                {
+                  "key": "filter-history",
+                  "test": "inactive"
+                },
+                {
+                  "key": "filter",
+                  "test": "startsWith",
+                  "value": "combine:"
+                }
+              ]
+            },
+            "set": "combined"
+          },
+          {
+            "key": "filter-history",
+            "when": {
+              "all": [
+                {
+                  "key": "filter-history",
+                  "test": "inactive"
+                }
+              ]
+            },
+            "set": "single"
+          }
+        ]
+      },
+      "--no-filter": {
+        "key": "filter",
+        "value": "flag",
+        "clear": true,
+        "effects": [
+          {
+            "key": "filter-history",
+            "when": {
+              "equals": "single"
+            },
+            "set": false
+          },
+          {
+            "key": "filter-history",
+            "when": {
+              "equals": "combined"
+            },
+            "set": false
+          }
+        ]
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 import process from 'node:process';
 import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
+import { validObjectFilter } from './object-filter.js';
 
 const ASCII_UPPERCASE = /[A-Z]/g;
 /** Unicode integer tables belong to the selected Python interpreter. */
@@ -48,6 +49,7 @@ export function pythonInteger(value: unknown): bigint | typeof PYTHON_INTEGER_DE
   );
   return negative ? -parsed : parsed;
 }
+/** Fold only ASCII uppercase letters, matching Git's case-insensitive option languages. */
 export function asciiLower(value: string): string {
   return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
 }
@@ -93,6 +95,8 @@ export type GitScalarParser =
   | 'python-int'
   | 'perl-int'
   | 'perl-int-gnu'
+  | 'object-filter'
+  | 'object-filter-auto'
   | 'fast-import-sign'
   | 'fast-export-reencode'
   | 'anonymize-map'
@@ -134,6 +138,15 @@ export function parseGitScalar(
   if (parser === 'python-int') {
     const parsed = pythonInteger(value);
     return { valid: parsed !== undefined, value: parsed };
+  }
+  if (parser === 'object-filter' || parser === 'object-filter-auto') {
+    return {
+      valid:
+        value === undefined ||
+        (typeof value === 'string' &&
+          validObjectFilter(value, parser === 'object-filter-auto', cLongBits)),
+      value,
+    };
   }
   if (parser === 'fast-import-sign') {
     const text = String(value);

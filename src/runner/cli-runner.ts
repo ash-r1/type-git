@@ -527,7 +527,7 @@ export class CliRunner {
       }
       const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
       const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
-      if (!(longBytes && sizeBytes)) {
+      if (probe.exitCode !== 0 || !(longBytes && sizeBytes)) {
         throw new GitArgumentError(
           'Cannot determine integer widths of the selected Git executable',
         );

@@ -1038,6 +1038,48 @@ describe('ABI-independent command preflight', () => {
   });
 });
 
+describe('selected Git ABI for object-filter bounds', () => {
+  it('rejects width text from a failed object-filter ABI probe', async () => {
+    const adapters = createMockAdapters({
+      exitCode: 1,
+      stdout: 'sizeof-long: 8\nsizeof-size_t: 8\n',
+    });
+    await expect(
+      new CliRunner(adapters).runCommand(
+        { type: 'global' },
+        'clone',
+        [['--filter', 'blob:limit=4294967296'], ['-h']],
+        false,
+      ),
+    ).rejects.toThrow('Cannot determine integer widths');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+  it.each([
+    4, 8,
+  ])('validates the reported C long width (%i bytes) before executing', async (bytes) => {
+    const adapters = createMockAdapters({ stdout: `sizeof-long: ${bytes}\nsizeof-size_t: 8\n` });
+    const runner = new CliRunner(adapters, { gitBinary: 'selected-filter-git' });
+    const result = runner.runCommand(
+      { type: 'global' },
+      'clone',
+      [['--filter', 'blob:limit=4294967296'], ['-h']],
+      false,
+    );
+    if (bytes === 4) {
+      await expect(result).rejects.toThrow('invalid object-filter');
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    } else {
+      await expect(result).resolves.toMatchObject({ exitCode: 0 });
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    }
+    expect(adapters.exec.spawn).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({ argv: ['selected-filter-git', 'version', '--build-options'] }),
+      undefined,
+    );
+  });
+});
+
 describe('selected Git ABI for shortlog wrapping', () => {
   it('probes and accepts unsigned-long32 wrap negation from the selected Git', async () => {
     const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 8\n' });

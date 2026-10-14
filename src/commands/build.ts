@@ -1,5 +1,5 @@
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
-import { violations } from '../constraints/model.js';
+import { matches, violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
 import {
@@ -11,6 +11,7 @@ import {
 import type { CommandSpec, OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
+/** Select a registered child grammar after the dispatcher's permitted global options. */
 function dispatchArguments(
   spec: CommandSpec,
   args: readonly unknown[],
@@ -285,9 +286,11 @@ export function commandArguments(
       const previous = state[effect.key];
       if (
         !effect.when ||
-        ('equals' in effect.when
-          ? previous === effect.when.equals
-          : previous !== effect.when.notEquals)
+        ('all' in effect.when
+          ? effect.when.all.every((predicate) => matches(predicate, state))
+          : 'equals' in effect.when
+            ? previous === effect.when.equals
+            : previous !== effect.when.notEquals)
       ) {
         state[effect.key] = effect.set;
       }
@@ -324,6 +327,8 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
     return (
       option?.parser === 'abbrev' ||
       option?.parser === 'mainline' ||
+      option?.parser === 'object-filter' ||
+      option?.parser === 'object-filter-auto' ||
       option?.parser === 'unsigned-size' ||
       option?.parser === 'shortlog-wrap'
     );
