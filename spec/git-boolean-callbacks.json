@@ -1,0 +1,78 @@
+{
+  "version": "2.55.0",
+  "scope": "Boolean callback lexical and normalized-state grammar; signed 32-bit configuration integers on the pinned native integer profile.",
+  "sources": {
+    "parse.c": "efe38c1cb553aab2a697747d9742d55e61fe135e37b17022952715405bccfe91",
+    "submodule-config.c": "6c7b3c752d9db8e176ad9a5738d957a5b60f17b4d52c26a878f9e14dc7ee9cf1",
+    "submodule.c": "c7ead3d1c40e73cf58d5ba752feb798541d2ded194e1587473ae0b6ea5cca9c7",
+    "send-pack.c": "2840dec4d1887ac2f8470fa57a9eae56b8948d6e493ea5e0ee96cef4e6c38cbb",
+    "rebase.c": "a3dbc80daffeb797e56dca56677b498e681852fa72862280b16f6445edd80206",
+    "builtin/push.c": "80b564b62e0eed0657973c1325e5f7dc7da73480aa3640398e0ba603525eb3f7",
+    "builtin/pull.c": "92fa45da7b63e7e91dea45829d4772c26970458cee8fe8622ba65b1f491b3cc3"
+  },
+  "boolean": {
+    "true": [
+      "true",
+      "yes",
+      "on"
+    ],
+    "false": [
+      "",
+      "false",
+      "no",
+      "off"
+    ],
+    "integer": {
+      "kind": "integer",
+      "signed": true,
+      "bits": 32
+    }
+  },
+  "profiles": {
+    "git-bool": {
+      "allowTrue": true,
+      "names": {},
+      "source": "submodule-config.c:parse_update_recurse; submodule.c:option_parse_recurse_submodules_worktree_updater"
+    },
+    "fetch-recurse": {
+      "allowTrue": true,
+      "names": {
+        "on-demand": "on-demand"
+      },
+      "source": "submodule-config.c:parse_fetch_recurse/option_fetch_parse_recurse_submodules"
+    },
+    "push-recurse": {
+      "allowTrue": false,
+      "names": {
+        "on-demand": "on-demand",
+        "check": "check",
+        "only": "only"
+      },
+      "source": "submodule-config.c:parse_push_recurse; builtin/push.c:option_parse_recurse_submodules",
+      "transitions": {
+        "only-is-on-demand": {
+          "from": "only",
+          "to": "on-demand"
+        }
+      }
+    },
+    "push-signed": {
+      "allowTrue": true,
+      "names": {
+        "if-asked": "if-asked"
+      },
+      "source": "send-pack.c:option_parse_push_signed",
+      "caseInsensitive": true
+    },
+    "pull-rebase": {
+      "allowTrue": true,
+      "names": {
+        "merges": "merges",
+        "m": "merges",
+        "interactive": "interactive",
+        "i": "interactive"
+      },
+      "source": "rebase.c:rebase_parse_value; builtin/pull.c:parse_opt_rebase"
+    }
+  }
+}
