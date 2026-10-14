@@ -62,18 +62,26 @@ type Clamp<M extends string, Negative extends boolean, Bits extends 32 | 64> = A
       ? '2147483647'
       : '9223372036854775807';
 /** Selected C unsigned long conversion, including overflow saturation before negation. */
-type UnsignedLong<M extends string, Negative extends boolean, Bits extends 32 | 64> = AtMost<
-  M,
-  Bits extends 32 ? '4294967295' : '18446744073709551615'
-> extends true
+type UnsignedLong<
+  M extends string,
+  Negative extends boolean,
+  Bits extends 32 | 64,
+  NegateOverflow extends boolean,
+> = AtMost<M, Bits extends 32 ? '4294967295' : '18446744073709551615'> extends true
   ? Negative extends true
     ? M extends '0'
       ? '0'
       : Subtract<Bits extends 32 ? '4294967296' : '18446744073709551616', M>
     : M
-  : Bits extends 32
-    ? '4294967295'
-    : '18446744073709551615';
+  : Negative extends true
+    ? NegateOverflow extends true
+      ? '1'
+      : Bits extends 32
+        ? '4294967295'
+        : '18446744073709551615'
+    : Bits extends 32
+      ? '4294967295'
+      : '18446744073709551615';
 type Decimal<S extends string, Steps extends unknown[] = []> = string extends S
   ? 'dynamic'
   : Steps['length'] extends 128
@@ -105,7 +113,12 @@ type After<S extends string, P extends GitDecimalParser> = P extends { clampNega
 type Convert<M extends string, Negative extends boolean, P extends GitDecimalParser> = P extends {
   unsignedLong: true;
 }
-  ? UnsignedLong<M, Negative, P['longBits']> extends infer U extends string
+  ? UnsignedLong<
+      M,
+      Negative,
+      P['longBits'],
+      P extends { negateUnsignedOverflow: true } ? true : false
+    > extends infer U extends string
     ? P['conversion'] extends 'checked'
       ? AtMost<U, P['signed'] extends true ? '2147483647' : '4294967295'> extends true
         ? After<U, P>

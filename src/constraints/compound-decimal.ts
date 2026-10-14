@@ -20,6 +20,7 @@ export function validCompoundDecimal(
   parser: CompoundDecimalParser,
   value: unknown,
   longBits: 32 | 64 = 64,
+  compoundNegatedOverflow = false,
 ): boolean {
   if (value === true) {
     return true;
@@ -35,6 +36,7 @@ export function validCompoundDecimal(
       profile.decimal,
       undefined,
       longBits,
+      compoundNegatedOverflow,
     ).valid;
   }
   const parts = value.split(profile.separator);
@@ -48,7 +50,13 @@ export function validCompoundDecimal(
       values.push(fallback);
       continue;
     }
-    const parsed = parseGitDecimal(part, profile.decimal, undefined, longBits);
+    const parsed = parseGitDecimal(
+      part,
+      profile.decimal,
+      undefined,
+      longBits,
+      compoundNegatedOverflow,
+    );
     if (!parsed.valid || typeof parsed.value !== 'number') {
       return false;
     }

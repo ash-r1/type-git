@@ -498,7 +498,8 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
         : CompoundDecimalLiteral<
             V,
             D['parser'],
-            D extends { compoundLongBits: infer B extends 32 | 64 } ? B : 64
+            D extends { compoundLongBits: infer B extends 32 | 64 } ? B : 64,
+            D extends { compoundNegatedOverflow: true } ? true : false
           >
       : D extends {
             parser: 'object-filter' | 'object-filter-auto';
@@ -729,7 +730,10 @@ type DecimalProfiledOption<S, D extends OptionSpec> = S extends {
   ? D extends { parser: infer P extends GitDecimalParser }
     ? Omit<D, 'parser'> & { parser: Omit<P, 'longBits'> & { longBits: Bits } }
     : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
-      ? D & { compoundLongBits: Bits }
+      ? D & {
+          compoundLongBits: Bits;
+          compoundNegatedOverflow: S extends { compoundNegatedOverflow: true } ? true : false;
+        }
       : D
   : D;
 type CallbackProfiledOption<S, D extends OptionSpec> = D extends {
@@ -866,6 +870,7 @@ type CheckedLegacyIntegerArguments<
   Negative extends boolean = false,
   LongBits extends 32 | 64 = 64,
   Callbacks extends GitDecimalCallbacks = {},
+  CompoundOverflow extends boolean = false,
   S = State<
     C,
     A,
@@ -881,7 +886,7 @@ type CheckedLegacyIntegerArguments<
       >,
       'decimalCallbacks',
       Callbacks
-    >
+    > & { compoundNegatedOverflow: CompoundOverflow }
   >,
 > = [S] extends [never]
   ? never
@@ -1020,12 +1025,58 @@ type CheckedCallbackChoice<
         : never
       : A
   : never;
+/** Detect compound callbacks without replaying unrelated numeric families. */
+type TupleUsesCompound<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = A extends readonly [infer T, ...infer Rest]
+  ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
+    ? Options<C>[K] extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+      ? true
+      : TupleUsesCompound<C, Rest>
+    : TupleUsesCompound<C, Rest>
+  : false;
+/** One consistent overflow and long-width implementation governs the complete tuple. */
+type CompoundOverflowAxes<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  I extends 'bounded' | 'decimal-cast',
+  N extends boolean,
+  B extends 32 | 64,
+  F extends GitDecimalCallbacks,
+> = I extends unknown
+  ? N extends unknown
+    ? B extends unknown
+      ? F extends unknown
+        ? CheckedLegacyIntegerArguments<C, A, I, N, B, F, true>
+        : never
+      : never
+    : never
+  : never;
+/** Keep generic arrays lazy; only concrete compound tuples add the observed overflow alternative. */
+type CheckedCompoundOverflow<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = A extends readonly [unknown, ...unknown[]]
+  ? TupleUsesCompound<C, A> extends true
+    ? CompoundOverflowAxes<
+        C,
+        A,
+        TupleIntegerTraits<C, A> extends true ? 'bounded' | 'decimal-cast' : 'bounded',
+        TupleIntegerTraits<C, A> extends true ? false | true : false,
+        32 | 64,
+        CallbackChoices<TupleCallbacks<C, A>>
+      >
+    : never
+  : never;
 type CheckedNumericAlternatives<C extends GitCommandName, A extends readonly unknown[]> = [
   CheckedIntegerAlternatives<C, A>,
 ] extends [never]
   ? [TupleCallbacks<C, A>] extends [never]
-    ? never
-    : CheckedCallbackChoice<C, A, CallbackChoices<TupleCallbacks<C, A>>>
+    ? CheckedCompoundOverflow<C, A>
+    : [CheckedCallbackChoice<C, A, CallbackChoices<TupleCallbacks<C, A>>>] extends [never]
+      ? CheckedCompoundOverflow<C, A>
+      : A
   : A;
 /** The old string callback validates only the last stored value after parsing. */
 type DeferredConflictValid<S> = S extends { conflict: infer V }

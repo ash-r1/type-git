@@ -892,8 +892,10 @@ its later date/object resolution is outside this lexical model.
 Both profiles use the selected executable’s C unsigned long width through the
 shared decimal parser. The pinned corpus explicitly records LP64; builder/scalar
 comparisons against that corpus supply its 64-bit width even on another host.
-Negation occurs in unsigned long, while magnitude overflow saturates at
-`ULONG_MAX`. Shortlog then checks `INT_MAX`; show-branch stores an int before its
+Negation occurs in unsigned long. The ordinary profile saturates magnitude
+overflow at `ULONG_MAX`; an independently observed profile negates negative
+overflow to 1. Windows CI demonstrated that the latter difference affects actual
+Git acceptance, so host platform names and long widths alone do not select it. Shortlog then checks `INT_MAX`; show-branch stores an int before its
 later fallback logic. Thus `-18446744073709551540` becomes width 76, but
 `-18446744073709551616` saturates and fails shortlog's range check. A trailing
 newline is an unconsumed character in a numeric field; a newline after reflog's
@@ -903,8 +905,12 @@ Compiler checks consume the same profiles and numeric conversion rules, includin
 field defaults and width/indent comparisons. Width-sensitive tuples replay one
 consistent 32- or 64-bit long profile across every field and repeated option.
 For example, `-4294967220` becomes width 76 only for 32-bit unsigned long; a
-command combining it with a 64-bit-only spelling has no valid whole-tuple profile.
-Readonly width observations retain the original context, environment and signal
+command combining it with a 64-bit-only width spelling has no valid whole-tuple
+profile. A mixed field list can, however, be valid when overflowing negative
+indentation converts to 1; compiler alternatives retain that observed case.
+A readonly `shortlog -w2,-18446744073709551616,0 -h` observation distinguishes
+negative overflow acceptance independently of long width. Readonly trait and
+width observations retain the original context, environment and signal
 without consuming command stdin. Unrecognized metadata delegates to the original
 native command; aborted observations stop execution. Values after audited help
 do not trigger observations, and argument representation guards remain earlier. Symbolic values and bounded numeric

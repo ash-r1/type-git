@@ -121,6 +121,83 @@ describe('complete compound long profiles', () => {
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
   });
+  it('observes negative overflow independently of width and executes the native mixed tuple', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi
+      .fn()
+      .mockResolvedValueOnce(response(129, '', 'usage: git shortlog\n'))
+      .mockResolvedValueOnce(response(0, 'sizeof-long: 4\nsizeof-size_t: 8\n'))
+      .mockResolvedValueOnce(response(129, '', 'usage: git shortlog\n'));
+    const value = '-4294967220,-18446744073709551610,9';
+    const actual = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'shortlog',
+      [['-w', value], ['-h']],
+      true,
+      { stdin: 'original' },
+    );
+    expect(actual.exitCode).toBe(129);
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(3);
+    expect(adapters.exec.spawn.mock.calls[0]![0].argv).toEqual([
+      'git',
+      'shortlog',
+      '-w2,-18446744073709551616,0',
+      '-h',
+    ]);
+    expect(adapters.exec.spawn.mock.calls[0]![0].stdin).toBeUndefined();
+    expect(adapters.exec.spawn.mock.calls[2]![0].stdin).toBe('original');
+  });
+  it('keeps standard negative overflow invalid rather than selecting a successful hypothetical profile', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi
+      .fn()
+      .mockResolvedValue(response(129, '', 'error: -w[<width>[,<indent1>[,<indent2>]]]'));
+    await expect(
+      new CliRunner(adapters).runCommand(
+        { type: 'global' },
+        'shortlog',
+        [['-w', '-4294967220,-18446744073709551610,9'], ['-h']],
+        true,
+      ),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+  it('delegates an unrecognized overflow observation to original native argv', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi
+      .fn()
+      .mockResolvedValueOnce(response(129, '', 'erreur : valeur inconnue'))
+      .mockResolvedValueOnce(response(129, '', 'native original failure'));
+    const value = '-4294967220,-18446744073709551610,9';
+    const actual = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'shortlog',
+      [['-w', value], ['-h']],
+      true,
+      { stdin: 'original' },
+    );
+    expect(actual.stderr).toBe('native original failure');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    expect(adapters.exec.spawn.mock.calls[1]![0]).toEqual(
+      expect.objectContaining({ argv: ['git', 'shortlog', `-w${value}`, '-h'], stdin: 'original' }),
+    );
+  });
+  it('stops after an aborted overflow observation before querying widths or running the command', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi.fn().mockResolvedValue({ ...response(143), aborted: true });
+    adapters.exec.spawnBytes = vi.fn();
+    const actual = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'shortlog',
+      [['-w', '-4294967220,-18446744073709551610,9'], ['-h']],
+      true,
+      { stdout: 'bytes' },
+    );
+    expect(actual.aborted).toBe(true);
+    expect(actual.stdout).toEqual(new Uint8Array(0));
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(adapters.exec.spawnBytes).not.toHaveBeenCalled();
+  });
   it('rejects representation errors before querying widths', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn();
@@ -173,6 +250,9 @@ describe('selected native compound callback results', () => {
     '-18446744073709551540',
     '-4294967220,-18446744073709551610,9',
     '76\n',
+    '1,-18446744073709551616,0',
+    '2,-18446744073709551616,0',
+    '2,18446744073709551616,0',
   ]) {
     it(`matches selected native -w ${JSON.stringify(value)} before help`, async () => {
       const native = spawnSync('git', ['shortlog', `-w${value}`, '-h'], {
@@ -183,6 +263,16 @@ describe('selected native compound callback results', () => {
       });
       expect(native.error).toBeUndefined();
       expect(native.signal).toBeNull();
+      if (value.includes('18446744073709551616')) {
+        console.info(
+          'Native compound overflow control',
+          JSON.stringify({
+            value,
+            status: native.status,
+            diagnostic: (native.stderr + native.stdout).split('\n')[0],
+          }),
+        );
+      }
       const run = new CliRunner(createNodeAdapters()).runCommand(
         { type: 'worktree', workdir: cwd },
         'shortlog',

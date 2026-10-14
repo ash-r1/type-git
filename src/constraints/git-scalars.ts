@@ -120,6 +120,7 @@ export function parseGitScalar(
   booleanSource: GitBooleanSource = 'modern',
   booleanBinaryIntegers = true,
   booleanCapabilities?: GitBooleanCapabilities,
+  compoundNegatedOverflow = false,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'decimal') {
     return parseGitDecimal(
@@ -248,7 +249,10 @@ export function parseGitScalar(
     };
   }
   if (parser === 'shortlog-wrap' || parser === 'show-branch-reflog') {
-    return { valid: validCompoundDecimal(parser, value, cLongBits), value };
+    return {
+      valid: validCompoundDecimal(parser, value, cLongBits, compoundNegatedOverflow),
+      value,
+    };
   }
   if (parser === 'rev-list-missing') {
     return {

@@ -101,6 +101,7 @@ export function commandArguments(
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
+    compoundNegatedOverflow?: boolean;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -254,6 +255,7 @@ export function commandArguments(
             abi?.booleanSource,
             abi?.booleanBinaryIntegers,
             abi?.booleanCapabilities,
+            abi?.compoundNegatedOverflow,
           )
         : undefined;
     if (integer && !integer.valid) {
@@ -387,6 +389,7 @@ export function commandArguments(
             abi?.booleanSource,
             abi?.booleanBinaryIntegers,
             abi?.booleanCapabilities,
+            abi?.compoundNegatedOverflow,
           )
         : { valid: true, value });
     if (!parsed.valid) {

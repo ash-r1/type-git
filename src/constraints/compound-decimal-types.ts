@@ -5,10 +5,14 @@ import type { GitDecimalLiteral, GitDecimalValue } from './git-decimal-types.js'
 import type { AtMost } from './git-integer-types.js';
 
 type Profile<P extends CompoundDecimalParser> = (typeof COMPOUND_DECIMALS)[P];
-type DecimalProfile<P extends CompoundDecimalParser, Bits extends 32 | 64> = Omit<
-  Profile<P>['decimal'],
-  'longBits'
-> & { longBits: Bits };
+type DecimalProfile<
+  P extends CompoundDecimalParser,
+  Bits extends 32 | 64,
+  NegateOverflow extends boolean,
+> = Omit<Profile<P>['decimal'], 'longBits'> & { longBits: Bits } & (NegateOverflow extends true
+    ? { negateUnsignedOverflow: true }
+    : {}) &
+  GitDecimalParser;
 type Parts<
   S extends string,
   Limit extends number,
@@ -50,6 +54,7 @@ type TupleLiteral<
   S extends string,
   P extends CompoundDecimalParser,
   Bits extends 32 | 64,
+  NegateOverflow extends boolean,
 > = Profile<P> extends {
   defaults: infer D extends readonly number[];
   nonzeroGreaterThan: {
@@ -59,7 +64,7 @@ type TupleLiteral<
 }
   ? Parts<S, D['length']> extends infer Split
     ? Split extends readonly string[]
-      ? Values<Split, D, DecimalProfile<P, Bits>> extends infer V
+      ? Values<Split, D, DecimalProfile<P, Bits, NegateOverflow>> extends infer V
         ? V extends readonly (number | bigint)[]
           ? Greater<V[I], Other, V>
           : false
@@ -67,17 +72,26 @@ type TupleLiteral<
       : false
     : false
   : false;
-type Parsed<V, P extends CompoundDecimalParser, Bits extends 32 | 64> = V extends true
+type Parsed<
+  V,
+  P extends CompoundDecimalParser,
+  Bits extends 32 | 64,
+  NegateOverflow extends boolean,
+> = V extends true
   ? true
   : V extends string
     ? string extends V
       ? true
       : Profile<P> extends { kind: 'prefix' }
-        ? GitDecimalLiteral<V extends `${infer Head},${string}` ? Head : V, DecimalProfile<P, Bits>>
-        : TupleLiteral<V, P, Bits>
+        ? GitDecimalLiteral<
+            V extends `${infer Head},${string}` ? Head : V,
+            DecimalProfile<P, Bits, NegateOverflow>
+          >
+        : TupleLiteral<V, P, Bits, NegateOverflow>
     : false;
 export type CompoundDecimalLiteral<
   V,
   P extends CompoundDecimalParser,
   Bits extends 32 | 64 = 64,
-> = false extends Parsed<V, P, Bits> ? false : true;
+  NegateOverflow extends boolean = false,
+> = false extends Parsed<V, P, Bits, NegateOverflow> ? false : true;
