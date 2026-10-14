@@ -10,6 +10,7 @@ export type CheckedOptions<T, N extends CommandName> = Constrained<
   (typeof COMMAND_CONSTRAINTS)[N]
 >;
 
+/** Validate a convenience option object using the caller’s resolved scalar dimensions. */
 export function validateOptions(
   name: CommandName,
   options: object | undefined,

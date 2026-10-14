@@ -460,7 +460,7 @@ export class CliRunner {
     const selected = valid.filter((e) => e.negativeMagnitudes === negativeMagnitudes);
     if (selected.length === 0) {
       checkOptions(name, options, { longBits: 64, negativeMagnitudes });
-      return;
+      throw firstError;
     }
     let longBits: 32 | 64 = selected[0]!.longBits;
     if (selected.length !== 2) {

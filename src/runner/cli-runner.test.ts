@@ -1379,3 +1379,23 @@ describe('selected unsigned magnitude sign policy', () => {
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
   });
 });
+
+describe('convenience filter validation failure guard', () => {
+  it('fails closed when options change after all selected-profile candidates were rejected', async () => {
+    const adapters = createMockAdapters();
+    const options = { filter: 'blob:limit=-0' };
+    vi.mocked(adapters.exec.spawn).mockImplementation(async () => {
+      options.filter = 'blob:none';
+      return {
+        exitCode: 129,
+        stdout: '',
+        stderr: 'error: expects a non-negative integer value',
+        aborted: false,
+      };
+    });
+    await expect(
+      new CliRunner(adapters).validateFilterOptions({ type: 'global' }, 'clone', options),
+    ).rejects.toThrow('supported Git filter grammar');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+});

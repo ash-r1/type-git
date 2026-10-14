@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 def extract_numeric_tables(path, char_bits):
+    """Extract constant integer option records from evaluated GCC initializer graphs."""
     rows = {}
     for chunk in Path(path).read_text().split(';; Function ')[1:]:
         nodes = {
@@ -19,20 +20,24 @@ def extract_numeric_tables(path, char_bits):
         }
 
         def field(node, key):
+            """Resolve one named graph reference on a GCC node."""
             match = re.search(r'\b' + re.escape(key) + r'\s*:\s*@([0-9]+)', nodes[node][1])
             return match[1] if match else None
 
         def name(node):
+            """Read the compiler-recorded string or identifier spelling."""
             if not node:
                 return None
             match = re.search(r'\bstrg:\s*(.*?)\s+lngt:', nodes[node][1], re.S)
             return match[1] if match else None
 
         def integer(node):
+            """Read one evaluated integer constant without interpreting C source text."""
             match = re.search(r'\bint:\s*(-?[0-9]+)', nodes[node][1])
             return int(match[1]) if match else None
 
         def string(node):
+            """Follow bounded conversion wrappers to a string initializer."""
             if not node:
                 return None
             for _ in range(8):
@@ -44,6 +49,7 @@ def extract_numeric_tables(path, char_bits):
             raise ValueError('Unexpectedly deep string initializer expression')
 
         def constructor(node):
+            """Return indexed initializer references for an array or struct constructor."""
             if not node or nodes[node][0] != 'constructor':
                 return []
             return re.findall(r'idx\s*:\s*@(\d+)\s+val\s*:\s*@(\d+)', nodes[node][1])

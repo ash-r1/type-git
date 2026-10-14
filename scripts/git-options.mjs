@@ -15,21 +15,32 @@ const integerNativeWidths = new Map([
 export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot) {
   const numeric = new Map((numericSnapshot?.options ?? []).map(row => [JSON.stringify([row.file, row.function, row.table, row.flag, row.kind]), row]));
   const candidates = new Map();
+  const usedNativeWidths = new Set();
   for (const file of upstream.files) for (const table of file.tables) {
     const id = `${file.file}:${table.function ?? 'global'}:${table.name}`;
     const options = table.options.map(option => {
       if (!['OPTION_INTEGER', 'OPTION_UNSIGNED'].includes(option.kind)) return option;
       const metadata = numeric.get(JSON.stringify([file.file, table.function ?? null, table.name, option.long ?? option.short, option.kind]));
       if (!metadata) throw new Error(`Missing compiler-evaluated integer metadata: ${id} ${option.long ?? option.short}`);
-      return { ...option, numeric: metadata, nativeWidth: integerNativeWidths.get(`${file.file}:${option.long ?? option.short}`) };
+      const widthKey = `${file.file}:${option.long ?? option.short}`;
+      const nativeWidth = integerNativeWidths.get(widthKey);
+      if (nativeWidth) usedNativeWidths.add(widthKey);
+      else if (option.kind === 'OPTION_UNSIGNED' && metadata.bits === 64) {
+        throw new Error(`Unsigned 64-bit option lacks a source-declared native width: ${id} ${option.long ?? option.short}`);
+      }
+      return { ...option, numeric: metadata, nativeWidth };
     });
     candidates.set(id, [...(candidates.get(id) ?? []), { ...table, options }]);
+  }
+  for (const widthKey of integerNativeWidths.keys()) {
+    if (!usedNativeWidths.has(widthKey)) throw new Error(`Unused source-declared native width: ${widthKey}`);
   }
   const tables = new Map();
   for (const [id, entries] of candidates) {
     if (entries.length === 1) tables.set(id, entries[0]);
     entries.forEach((entry, index) => tables.set(`${id}#${index + 1}`, entry));
   }
+  /** Resolve option arrays, requiring explicit indices for repeated declarations. */
   const definitionsFor = (ids, command) => ids.flatMap(id => {
     if (!tables.has(id)) throw new Error(`${command}: unknown or ambiguous option table ${id}; use #1/#2 for repeated declarations`);
     return tables.get(id).options;
@@ -69,6 +80,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
   return result;
 }
 
+/** Translate one evaluated C option array, retaining aliases, defaults and storage traits. */
 function tableOptions(definitions, command, numericOption) {
     const options = {};
     const aliases = [];
