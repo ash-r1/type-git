@@ -54,6 +54,8 @@ export type OptionSpec = {
 };
 export type CompanionExecutable = 'scalar' | 'gitk' | 'gitweb';
 export type CommandSpec = {
+  /** Git GUI has a raw-word Tcl grammar, independently versioned from Git. */
+  guiScript?: boolean;
   /** Standalone upstream program instead of a git subcommand. */
   executable?: CompanionExecutable;
   argv: readonly string[];

@@ -541,3 +541,17 @@ Tests inspect aliases or use `--dry-run` on locally generated patches. They do n
 The suppression-field regexp uses Perl’s `$` anchor. It accepts an exact field or that field followed by one final newline; CRLF and two final newlines are rejected. The schema preserves the string rather than trimming it: Git stores the newline-bearing key separately, so accepting it does not imply the ordinary field’s suppression semantics. Native dry-run comparisons cover all nine newline-bearing field names and both rejected controls.
 
 The inherited library `integer` option representation currently requires safe JavaScript integers; this is not a native Perl/Getopt limit. Native dry-runs accept `--batch-size=9007199254740992` on the tested 2.25/2.55/2.56 frontends. Further integer lexical/large-number handling and completion’s early return before main-parser error handling remain audit work.
+
+### GUI operation schemas
+
+GUI frontend syntax is independently versioned from the Git executable. The old path-loop parser can ignore trailing words after finding a path, while the newer positional parser bounds browser/blame word counts and requires separators immediately before the final path. The library does not infer that dialect from the Git version.
+
+GUI arguments are serialized in their original order and validated as raw words, rather than treating API operand/option tags as native classifications. Only the first `--trace` word is removed. The final browser/blame word is a path, even when it looks like `--line=2`; negative line-looking words can be revisions rather than line options. Source fingerprints identify the complete pinned operation-parser blocks. Runtime checks use the selected executable’s exec-path, retain the filesystem through `withOptions`, and require its frontend version to match the source prelude. Unknown or inaccessible sources defer dialect-specific checks to native Git.
+
+Ordinary typed calls cannot assume a selected frontend. `CheckedCommandArguments` accepts an optional grammar context for explicit model checks; unknown profiles keep the old path-loop alternatives open. Interpreter-dependent Unicode digit recognition remains deferred. Shared syntax, version preludes, source selection, IO preflight and the observed old/new disagreements have tests; discovery, object/path checks, full UI operations and remaining parser cases are still partial audit work.
+
+Native X11 comparisons use an isolated Xvfb with actual Tcl/Tk and message catalogs. The legacy window experiment demonstrated browser/viewer entry for inputs rejected by the newer frontend; X errors caused by closing those windows are not successful command exits or argument rejections.
+
+Git for Windows installs a separate wrapper that invokes `wish` and sources `git-gui.tcl` directly. That verified launcher does not execute the Unix shell’s version prelude. Source selection identifies the pinned wrapper without launching a potentially modal version query; its `--working-dir` preprocessing is handled separately. Native shell-version comparisons are explicitly skipped for that verified missing prelude, rather than treating a timeout as success or argument rejection.
+
+The legacy browser line-selector check is filesystem-dependent: an existing `--line=2` directory wins path detection before the regexp. Actual native comparisons returned usage/exit 1 without that path and opened the browser with normal Ctrl-Q exit 0 when the tracked directory existed. Unknown path existence cannot justify an unconditional browser line-selector rejection.
