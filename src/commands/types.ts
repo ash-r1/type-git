@@ -5,6 +5,7 @@ import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { OptionSpec } from './spec.js';
+import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
@@ -543,17 +544,22 @@ type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
 type CheckedLocalArguments<
   C extends GitCommandName,
   A extends readonly unknown[],
-> = A extends readonly LocalCommandArgument<C>[]
-  ? number extends A['length']
-    ? A
-    : [State<C, A>] extends [never]
-      ? never
-      : State<C, A> extends { help: true }
-        ? A
-        : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+  Ctx extends CommandGrammarContext = {},
+> = Spec<C> extends { guiScript: true }
+  ? A extends readonly GitCommandArgument<C>[]
+    ? CheckedGuiArguments<Spec<C>, A, Ctx>
+    : never
+  : A extends readonly LocalCommandArgument<C>[]
+    ? number extends A['length']
+      ? A
+      : [State<C, A>] extends [never]
+        ? never
+        : State<C, A> extends { help: true }
           ? A
-          : never
-  : never;
+          : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+            ? A
+            : never
+    : never;
 
 /** Collect invalid finite dispatch alternatives before accepting the complete tuple. */
 type InvalidDispatchAlternative<
@@ -561,6 +567,7 @@ type InvalidDispatchAlternative<
   W extends string,
   Rest extends readonly unknown[],
   Prefix extends readonly unknown[] = readonly [],
+  Ctx extends CommandGrammarContext = {},
 > = W extends unknown
   ? string extends W
     ? never
@@ -570,12 +577,16 @@ type InvalidDispatchAlternative<
         ? never
         : W extends keyof Dispatch<C>
           ? Dispatch<C>[W] extends infer Target extends GitCommandName
-            ? [CheckedLocalArguments<Target, readonly [...Prefix, ...Rest]>] extends [never]
+            ? [CheckedLocalArguments<Target, readonly [...Prefix, ...Rest], Ctx>] extends [never]
               ? true
               : never
             : true
           : [
-                CheckedLocalArguments<C, readonly [...Prefix, { readonly operand: W }, ...Rest]>,
+                CheckedLocalArguments<
+                  C,
+                  readonly [...Prefix, { readonly operand: W }, ...Rest],
+                  Ctx
+                >,
               ] extends [never]
             ? true
             : never
@@ -586,27 +597,31 @@ type CheckedDispatchedArguments<
   A extends readonly unknown[],
   Remaining extends readonly unknown[] = A,
   Prefix extends readonly unknown[] = readonly [],
+  Ctx extends CommandGrammarContext = {},
 > = Remaining extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
-  ? [InvalidDispatchAlternative<C, W, Rest, Prefix>] extends [never]
+  ? [InvalidDispatchAlternative<C, W, Rest, Prefix, Ctx>] extends [never]
     ? A
     : never
   : Remaining extends readonly [infer H, ...infer Rest]
     ? H extends readonly [infer K, ...unknown[]]
       ? K extends DispatchOption<C>
-        ? CheckedDispatchedArguments<C, A, Rest, readonly [...Prefix, H]>
-        : CheckedLocalArguments<C, A>
-      : CheckedLocalArguments<C, A>
-    : CheckedLocalArguments<C, A>;
+        ? CheckedDispatchedArguments<C, A, Rest, readonly [...Prefix, H], Ctx>
+        : CheckedLocalArguments<C, A, Ctx>
+      : CheckedLocalArguments<C, A, Ctx>
+    : CheckedLocalArguments<C, A, Ctx>;
 
 /** Select child grammar after precisely the native dispatcher's global options. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
+  Ctx extends CommandGrammarContext = {},
 > = number extends A['length']
   ? A
-  : [Dispatch<C>] extends [never]
-    ? CheckedLocalArguments<C, A>
-    : CheckedDispatchedArguments<C, A>;
+  : Spec<C> extends { guiScript: true }
+    ? CheckedLocalArguments<C, A, Ctx>
+    : [Dispatch<C>] extends [never]
+      ? CheckedLocalArguments<C, A, Ctx>
+      : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {

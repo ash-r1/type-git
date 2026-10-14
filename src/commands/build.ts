@@ -2,6 +2,7 @@ import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
+import { guiArguments, validateGuiArguments, type GuiGrammar } from './gui-syntax.js';
 import type { CommandSpec, OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
@@ -43,12 +44,24 @@ export function commandArguments(
   args: readonly unknown[],
   inRepository?: boolean,
   abi?: { longBits: 32 | 64; sizeTBits: 32 | 64 },
+  guiGrammar?: GuiGrammar,
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
     : undefined;
   if (!spec) {
     throw new GitArgumentError(`Unknown Git command: ${command}`);
+  }
+  if (spec.guiScript) {
+    const rootOptions = Object.assign(
+      {},
+      ...Object.values(COMMAND_SPECS)
+        .filter((s) => 'guiScript' in s)
+        .map((s) => s.options),
+    );
+    const argv = guiArguments(spec, args, rootOptions);
+    validateGuiArguments(argv, guiGrammar);
+    return argv;
   }
   if (!Array.isArray(args)) {
     throw new GitArgumentError('Command arguments must be an array');

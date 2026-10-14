@@ -10038,5 +10038,173 @@
         "set": false
       }
     }
+  },
+  "citool": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--amend": {
+        "key": "amend",
+        "value": "flag"
+      },
+      "--nocommit": {
+        "key": "nocommit",
+        "value": "flag"
+      },
+      "--commitmsg": {
+        "key": "commitmsg",
+        "value": "flag"
+      },
+      "--version": {
+        "key": "help",
+        "value": "flag"
+      }
+    },
+    "dispatch": {
+      "version": "citool version"
+    },
+    "guiScript": true
+  },
+  "gui citool": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--amend": {
+        "key": "amend",
+        "value": "flag"
+      },
+      "--nocommit": {
+        "key": "nocommit",
+        "value": "flag"
+      },
+      "--commitmsg": {
+        "key": "commitmsg",
+        "value": "flag"
+      }
+    },
+    "guiScript": true
+  },
+  "gui gui": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      }
+    },
+    "guiScript": true
+  },
+  "gui pick": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      }
+    },
+    "guiScript": true
+  },
+  "gui browser": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": true,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--line": {
+        "key": "line",
+        "value": "integer"
+      }
+    },
+    "guiScript": true
+  },
+  "gui blame": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": true,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--line": {
+        "key": "line",
+        "value": "integer"
+      }
+    },
+    "guiScript": true
+  },
+  "gui": {
+    "source": "git-gui/git-gui.sh",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {
+      "--trace": {
+        "key": "trace",
+        "value": "flag"
+      },
+      "--help": {
+        "key": "help",
+        "value": "flag"
+      },
+      "--version": {
+        "key": "help",
+        "value": "flag"
+      }
+    },
+    "dispatch": {
+      "citool": "gui citool",
+      "gui": "gui gui",
+      "pick": "gui pick",
+      "browser": "gui browser",
+      "blame": "gui blame",
+      "version": "gui version"
+    },
+    "guiScript": true
+  },
+  "gui version": {
+    "source": "git-gui/git-gui.sh:shell-prelude",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {},
+    "optionAllowlist": [],
+    "guiScript": true
+  },
+  "citool version": {
+    "source": "git-gui/git-gui.sh:shell-prelude",
+    "tables": [],
+    "optionParsing": "none",
+    "separator": false,
+    "options": {},
+    "optionAllowlist": [],
+    "guiScript": true
   }
 }

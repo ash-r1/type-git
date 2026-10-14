@@ -10,10 +10,12 @@
 import process from 'node:process';
 import { commandArguments, commandUsesNativeABI } from '../commands/build.js';
 import { COMMAND_SPECS } from '../commands/generated.js';
+import { guiGrammarFromSource } from '../commands/gui-syntax.js';
 import type { CommandSpec, CompanionExecutable } from '../commands/spec.js';
 import type { GitCommandName } from '../commands/types.js';
 import type {
   ExecAdapter,
+  FsAdapter,
   RuntimeAdapters,
   SpawnOptions,
   SpawnResult,
@@ -206,6 +208,7 @@ function validateIO(opts: CommandRunOptions | undefined): void {
  */
 export class CliRunner {
   private readonly exec: ExecAdapter;
+  private readonly fs: FsAdapter;
   private readonly gitBinary: string;
   private readonly companionBinaries: Record<CompanionExecutable, string>;
   private readonly baseEnv: Record<string, string>;
@@ -217,6 +220,7 @@ export class CliRunner {
 
   public constructor(adapters: RuntimeAdapters, options?: CliRunnerOptions) {
     this.exec = adapters.exec;
+    this.fs = adapters.fs;
     this.gitBinary = options?.gitBinary ?? 'git';
     this.companionBinaries = {
       scalar: options?.companionBinaries?.scalar ?? 'scalar',
@@ -247,13 +251,7 @@ export class CliRunner {
     return new CliRunner(
       {
         exec: this.exec,
-        fs: {
-          createTempFile: async (): Promise<string> => '',
-          deleteFile: async (): Promise<void> => undefined,
-          deleteDirectory: async (): Promise<void> => undefined,
-          tail: async (): Promise<void> => undefined,
-          exists: async (): Promise<boolean> => false,
-        },
+        fs: this.fs,
       },
       {
         gitBinary: options.gitBinary ?? this.gitBinary,
@@ -429,6 +427,47 @@ export class CliRunner {
       }
       return binary ? this.runBytes(context, argv, opts) : this.run(context, argv, opts);
     };
+    if (spec.guiScript) {
+      const argv = commandArguments(command, args, inRepository);
+      if (
+        (binary && !this.exec.spawnBytes) ||
+        !this.fs.readFile ||
+        argv[1] === '--help' ||
+        (argv.length === 2 && (argv[1] === 'version' || argv[1] === '--version'))
+      ) {
+        return await execute(argv);
+      }
+      const probeOptions = {
+        ...(opts?.env ? { env: opts.env } : {}),
+        ...(opts?.signal ? { signal: opts.signal } : {}),
+      };
+      const path = await this.run(context, ['--exec-path'], probeOptions);
+      if (path.aborted) {
+        return { ...path, stdout: binary ? new Uint8Array(0) : path.stdout };
+      }
+      if (path.exitCode !== 0) {
+        return await execute(argv);
+      }
+      let source: string;
+      try {
+        source = await this.fs.readFile(`${path.stdout.replace(/\r?\n$/, '')}/git-${argv[0]}`);
+      } catch {
+        return await execute(argv);
+      }
+      const grammar = guiGrammarFromSource(source);
+      if (!grammar) {
+        return await execute(argv);
+      }
+      const version = await this.run(context, [argv[0]!, '--version'], probeOptions);
+      if (version.aborted) {
+        return { ...version, stdout: binary ? new Uint8Array(0) : version.stdout };
+      }
+      const reported = /^\s*echo '([^']+)'/m.exec(source)?.[1];
+      if (version.exitCode !== 0 || version.stdout.replace(/\r?\n$/, '') !== reported) {
+        return await execute(argv);
+      }
+      return await execute(commandArguments(command, args, inRepository, undefined, grammar));
+    }
     let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 } | undefined;
     if (commandUsesNativeABI(command, args)) {
       let validWidths = 0;
@@ -473,7 +512,7 @@ export class CliRunner {
       }
       const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
       const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
-      if (!longBytes || !sizeBytes) {
+      if (!(longBytes && sizeBytes)) {
         throw new GitArgumentError(
           'Cannot determine integer widths of the selected Git executable',
         );

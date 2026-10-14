@@ -20519,5 +20519,14 @@
       "reason": "The native confirmation regexp accepts these prefixes, including trailing characters.",
       "source": "https://github.com/git/git/blob/v2.55.0/git-send-email.perl"
     }
-  ]
+  ],
+  "citool": [],
+  "gui citool": [],
+  "gui gui": [],
+  "gui pick": [],
+  "gui browser": [],
+  "gui blame": [],
+  "gui": [],
+  "gui version": [],
+  "citool version": []
 }

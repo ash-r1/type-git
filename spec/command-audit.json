@@ -3903,6 +3903,110 @@
         "test/types/send-email-command-api.ts"
       ],
       "remaining": "Models the three option passes, alias-mode restrictions, final suppression lists and native confirmation prefix grammar. Configuration-derived batch/relogin dependencies, transfer encoding, format-patch delegation, address/message languages and transport/authentication state remain pending. Tests perform dry-runs and alias inspection only, without delivering mail. Perl Getopt integer lexical/large-number behavior, pass-through and completion before main-parser error handling remain pending: native batch-size=9007199254740992 succeeds in dry-run, while the inherited library integer representation gate requires safe JavaScript integers. This gate is not a native Git limit."
+    },
+    "gui": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts",
+        "src/commands/gui-syntax.test.ts",
+        "src/runner/gui-grammar.test.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
+    },
+    "citool": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts",
+        "src/commands/gui-syntax.test.ts",
+        "src/runner/gui-grammar.test.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
+    },
+    "gui citool": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts",
+        "src/commands/gui-syntax.test.ts",
+        "src/runner/gui-grammar.test.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
+    },
+    "gui gui": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts",
+        "src/commands/gui-syntax.test.ts",
+        "src/runner/gui-grammar.test.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
+    },
+    "gui pick": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts",
+        "src/commands/gui-syntax.test.ts",
+        "src/runner/gui-grammar.test.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
+    },
+    "gui browser": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts",
+        "src/commands/gui-syntax.test.ts",
+        "src/runner/gui-grammar.test.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
+    },
+    "gui blame": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts",
+        "src/commands/gui-syntax.test.ts",
+        "src/runner/gui-grammar.test.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
+    },
+    "gui version": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
+    },
+    "citool version": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/gui.test.ts",
+        "test/types/gui-command-api.ts"
+      ],
+      "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit."
     }
   }
 }
