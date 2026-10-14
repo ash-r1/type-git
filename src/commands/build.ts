@@ -1,7 +1,10 @@
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { matches, violations } from '../constraints/model.js';
-import { objectFilterUsesBinary } from '../constraints/object-filter.js';
+import {
+  objectFilterUsesBinary,
+  objectFilterUsesNegativeMagnitude,
+} from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
 import {
@@ -56,6 +59,7 @@ export function commandArguments(
     sizeTBits: 32 | 64;
     binaryIntegers?: boolean;
     integerProfile?: GitIntegerProfile;
+    negativeMagnitudes?: boolean;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -171,6 +175,7 @@ export function commandArguments(
           abi?.sizeTBits,
           abi?.binaryIntegers,
           abi?.integerProfile,
+          abi?.negativeMagnitudes,
         )
       : undefined;
     if (integer && !integer.valid) {
@@ -181,7 +186,7 @@ export function commandArguments(
       const inputState = { ...state };
       inputState.$value = value;
       inputState.$remaining = args.slice(index + 1);
-      const errors = violations(option.checks, inputState);
+      const errors = violations(option.checks, inputState, abi);
       if (errors.length > 0) {
         throw new GitArgumentError(
           `${flag}: ${errors.map((rule) => `[${rule.id}] ${rule.reason}`).join('; ')}`,
@@ -284,6 +289,7 @@ export function commandArguments(
             abi?.sizeTBits,
             abi?.binaryIntegers,
             abi?.integerProfile,
+            abi?.negativeMagnitudes,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -333,7 +339,7 @@ export function commandArguments(
   state.operand0 = operands[0];
   state.operand1 = operands[1];
   if (state.help !== true) {
-    const errors = violations(spec.rules, state);
+    const errors = violations(spec.rules, state, abi);
     if (errors.length > 0) {
       throw new GitArgumentError(
         `${command}: ${errors.map((rule) => `[${rule.id}] ${rule.reason}`).join('; ')}`,
@@ -417,5 +423,32 @@ export function commandUsesIntegerProfile(
     }
     const parser = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]]?.parser : undefined;
     return typeof parser === 'object' && parser.bits === 32 && !parser.nativeWidth;
+  });
+}
+
+/** Whether unsigned numeric input can depend on the selected strtoumax sign policy. */
+export function commandUsesNegativeMagnitude(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+    return false;
+  }
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesNegativeMagnitude(dispatched.command, dispatched.args);
+  }
+  return args.some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
+      return false;
+    }
+    const parser = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]]?.parser : undefined;
+    return (
+      (typeof parser === 'object' && !parser.signed && /^[ \t\r\n\v\f]*-/.test(String(arg[1]))) ||
+      ((parser === 'object-filter' || parser === 'object-filter-auto') &&
+        typeof arg[1] === 'string' &&
+        objectFilterUsesNegativeMagnitude(arg[1]))
+    );
   });
 }

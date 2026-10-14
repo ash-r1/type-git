@@ -644,7 +644,7 @@ initial `atoi` depth check and from bespoke callbacks.
 
 Values may be safe integer numbers, bigint values, or native strings. Strings
 preserve base-0 decimal/octal/hexadecimal notation, ASCII leading
-whitespace, signs, and case-insensitive `k/m/g` units. Binary notation is accepted only when the selected Git/libc supports it; the same readonly clone-filter probe used for object filters observes that support. The finite exploration report explicitly uses the recorded 64-bit compiler/libc profile and separates long and size_t bindings. Unsigned options reject
+whitespace, signs, and case-insensitive `k/m/g` units. Binary notation is accepted only when the selected Git/libc supports it; the same readonly clone-filter probe used for object filters observes that support. The finite exploration report explicitly uses the recorded 64-bit compiler/libc profile and separates long and size_t bindings. The bounded unsigned parser rejects
 spelled negative zero. Strings and bigint retain full 64-bit precision; unsafe
 JavaScript numbers are rejected as an explicit precision-preservation policy.
 Argv retains the input spelling, while combination constraints see the normalized
@@ -685,3 +685,22 @@ languages remain separate audit obligations. Native regression tests compare
 accepted/rejected spellings and an actual local pack's output bytes, not only
 success against help. Saved source profiles and finite evidence do not establish
 complete coverage of any audited command.
+
+
+Unsigned magnitude sign acceptance is an independent native property. Git 2.25
+accepts negative zero and unsigned `strtoumax` sign conversion, whereas the
+observed 2.47/2.55 parsers reject a spelled minus. A readonly
+`pack-objects --max-pack-size=-0 -h` probe selects this property only when it
+changes validation. ERANGE is checked against uintmax before negation, then unit
+multiplication overflow and the destination width are checked. Runtime, literal
+math and final scalar rules share that order. The newer backfill size_t binding
+has no observed older implementation (2.25/2.47 lack the command) and retains its
+strict sign policy instead of inventing an old-command alternative.
+
+Resolved scalar dimensions flow through transition and final-rule checks. Clone
+and submodule convenience filter validation similarly observes the selected
+sign/long profile when needed; an unknown frontend retains native validation.
+The old-profile clone regression uses a nonempty file:// repository and compares
+HEAD and the stored partial-clone filter against native Git. Each parser family
+and sign profile must validate the complete literal tuple, preserving known-bad
+union arms. Explicit fixed-profile helper types retain their own constraints.

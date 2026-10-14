@@ -999,11 +999,11 @@ describe('selected Git executable ABI', () => {
 });
 
 describe('ABI-independent command preflight', () => {
-  it('rejects unsigned negatives without spawning any Git process', async () => {
+  it('rejects unsigned multiplication overflow without spawning any Git process', async () => {
     const adapters = createMockAdapters();
     const runner = new CliRunner(adapters);
     await expect(
-      runner.runCommand({ type: 'global' }, 'backfill', [['--min-batch-size', -1]], true),
+      runner.runCommand({ type: 'global' }, 'backfill', [['--min-batch-size', '-1k']], true),
     ).rejects.toThrow('invalid integer');
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
   });
@@ -1308,6 +1308,74 @@ describe('readonly selected integer-family probe', () => {
         false,
       ),
     ).rejects.toThrow('invalid integer');
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
+});
+
+describe('selected unsigned magnitude sign policy', () => {
+  it.each([
+    'accept',
+    'reject',
+    'unknown',
+  ] as const)('uses the selected executable and per-call environment (%s)', async (policy) => {
+    const adapters = createMockAdapters();
+    vi.mocked(adapters.exec.spawn).mockImplementation(async ({ argv }) =>
+      argv.includes('--max-pack-size=-0')
+        ? {
+            exitCode: policy === 'unknown' ? 1 : 129,
+            stdout: policy === 'accept' ? 'usage: git pack-objects' : '',
+            stderr:
+              policy === 'reject'
+                ? 'error: expects a non-negative integer value'
+                : policy === 'unknown'
+                  ? 'unrecognized frontend'
+                  : '',
+            aborted: false,
+          }
+        : { exitCode: 129, stdout: 'usage: git pack-objects', stderr: '', aborted: false },
+    );
+    const result = new CliRunner(adapters, { gitBinary: 'selected-git' }).runCommand(
+      { type: 'worktree', workdir: '/repo' },
+      'pack-objects',
+      [['--max-pack-size', '-0'], ['-h']],
+      true,
+      { env: { PATH: '/selected' } },
+    );
+    if (policy === 'reject') {
+      await expect(result).rejects.toThrow('invalid integer');
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    } else {
+      await expect(result).resolves.toMatchObject({ exitCode: policy === 'unknown' ? 1 : 129 });
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    }
+    for (const [options] of vi.mocked(adapters.exec.spawn).mock.calls) {
+      expect(options.argv.slice(0, 3)).toEqual(['selected-git', '-C', '/repo']);
+      expect(options.env).toMatchObject({ PATH: '/selected' });
+      expect(options.stdin).toBeUndefined();
+    }
+  });
+  it('returns cancellation from the sign probe without executing the requested command', async () => {
+    const adapters = createMockAdapters({ aborted: true, exitCode: -1 });
+    const result = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'pack-objects',
+      [['--max-pack-size', '-0'], ['-h']],
+      false,
+    );
+    expect(result.aborted).toBe(true);
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+  it('fails missing byte output capability before any sign probes', async () => {
+    const adapters = createMockAdapters();
+    await expect(
+      new CliRunner(adapters).runCommand(
+        { type: 'global' },
+        'pack-objects',
+        [['--max-pack-size', '-0'], ['-h']],
+        false,
+        { stdout: 'bytes' },
+      ),
+    ).rejects.toThrow('binary stdout');
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
   });
 });

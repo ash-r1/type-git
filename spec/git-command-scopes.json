@@ -4189,7 +4189,8 @@
           "kind": "integer",
           "signed": false,
           "bits": 64,
-          "nativeWidth": "size_t"
+          "nativeWidth": "size_t",
+          "negativeMagnitudes": false
         }
       }
     }

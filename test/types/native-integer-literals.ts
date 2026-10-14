@@ -45,3 +45,16 @@ export type ProfileStorageLimits = [
   No<Valid<'4294967296', { kind: 'integer'; signed: false; bits: 32; nativeWidth: 'size_t'; integerProfile: 'decimal-cast' }>>,
   Yes<Valid<'2147483648', I32 & { integerProfile: 'decimal-cast' }>>,
 ];
+
+type OldMagnitude = U64 & { negativeMagnitudes: true };
+export type OldMagnitudeLimits = [
+  Yes<Valid<'-0', OldMagnitude>>,
+  Yes<Valid<'-1', OldMagnitude>>,
+  No<Valid<'-1k', OldMagnitude>>,
+  Yes<Valid<'-18446744073709551615k', OldMagnitude>>,
+  No<Valid<'-18446744073709551616', OldMagnitude>>,
+  No<Valid<'-0' | 'bad', OldMagnitude>>,
+];
+export const negativeZeroMagnitude: Value<'-0', OldMagnitude> = 0;
+export const negativeOneMagnitude: Value<'-1', OldMagnitude> = 18446744073709551615n;
+export const negativeLargeMagnitude: Value<'-18446744073709551615k', OldMagnitude> = 1024;

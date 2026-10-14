@@ -55186,6 +55186,7 @@ const commandSpec194 = {
         signed: false,
         bits: 64,
         nativeWidth: 'size_t',
+        negativeMagnitudes: false,
       },
     },
     '--include-edges': {

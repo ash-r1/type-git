@@ -222,11 +222,94 @@ type LegacyParsed<V, P extends GitIntegerParser> = V extends string | number | b
   : V extends undefined
     ? 'dynamic'
     : 'invalid';
+// uintmax conversion precedes unit multiplication in the older unsigned parser.
+// Decimal subtraction uses only digit-sized tuples, never value-sized tuples.
+type DigitTuple<N extends number, A extends unknown[] = []> = A['length'] extends N
+  ? A
+  : DigitTuple<N, [...A, 0]>;
+type SubDigit<
+  A extends Digit,
+  B extends Digit,
+  Borrow extends 0 | 1,
+  Right extends unknown[] = [...DigitTuple<DigitIndex[B]>, ...DigitTuple<Borrow>],
+> = DigitTuple<DigitIndex[A]> extends [...Right, ...infer Rest]
+  ? [`${Rest['length']}` & Digit, 0]
+  : [...DigitTuple<10>, ...DigitTuple<DigitIndex[A]>] extends [...Right, ...infer Rest]
+    ? [`${Rest['length']}` & Digit, 1]
+    : never;
+type SubDigits<
+  A extends string,
+  B extends string,
+  Borrow extends 0 | 1 = 0,
+  Out extends string = '',
+> = A extends `${infer H extends Digit}${infer Rest}`
+  ? B extends `${infer J extends Digit}${infer Tail}`
+    ? SubDigit<H, J, Borrow> extends [infer D extends Digit, infer Next extends 0 | 1]
+      ? SubDigits<Rest, Tail, Next, `${D}${Out}`>
+      : never
+    : SubDigit<H, '0', Borrow> extends [infer D extends Digit, infer Next extends 0 | 1]
+      ? SubDigits<Rest, '', Next, `${D}${Out}`>
+      : never
+  : Strip<Out>;
+type NegateUintmax<S extends string> = S extends '0'
+  ? '0'
+  : S extends '1'
+    ? '18446744073709551615'
+    : SubDigits<'61615590737044764481', Reverse<S>>;
+type NegativeMagnitude<
+  B extends string,
+  U extends string,
+  P extends GitIntegerParser,
+  M = Magnitude<B>,
+> = M extends 'invalid' | 'dynamic'
+  ? M
+  : M extends string
+    ? AtMost<M, '18446744073709551615'> extends true
+      ? Bounded<Scale<NegateUintmax<M>, U>, false, P>
+      : 'invalid'
+    : 'invalid';
+type SignedMagnitude<S extends string, P extends GitIntegerParser> = Trim<S> extends infer T extends
+  string
+  ? string extends T
+    ? 'dynamic'
+    : T extends `-${infer R}`
+      ? R extends `${infer B}${'k' | 'K'}`
+        ? NegativeMagnitude<B, Unit<'k'>, P>
+        : R extends `${infer B}${'m' | 'M'}`
+          ? NegativeMagnitude<B, Unit<'m'>, P>
+          : R extends `${infer B}${'g' | 'G'}`
+            ? NegativeMagnitude<B, Unit<'g'>, P>
+            : NegativeMagnitude<R, '', P>
+      : ModernParsed<S, P>
+  : 'invalid';
+type MagnitudeParsed<V, P extends GitIntegerParser> = V extends string | number | bigint
+  ? string extends V
+    ? 'dynamic'
+    : number extends V
+      ? 'dynamic'
+      : bigint extends V
+        ? 'dynamic'
+        : V extends object
+          ? 'dynamic'
+          : V extends number
+            ? AtMost<`${V}` extends `-${infer R}` ? R : `${V}`, '9007199254740991'> extends true
+              ? SignedMagnitude<`${V}`, P>
+              : 'invalid'
+            : SignedMagnitude<`${V}`, P>
+  : V extends undefined
+    ? 'dynamic'
+    : 'invalid';
+type NonDecimalParsed<V, P extends GitIntegerParser> = P extends {
+  negativeMagnitudes: true;
+  signed: false;
+}
+  ? MagnitudeParsed<V, P>
+  : ModernParsed<V, P>;
 type Parsed<V, P extends GitIntegerParser> = P extends { integerProfile: 'decimal-cast'; bits: 32 }
   ? P extends { nativeWidth: string }
-    ? ModernParsed<V, P>
+    ? NonDecimalParsed<V, P>
     : LegacyParsed<V, P>
-  : ModernParsed<V, P>;
+  : NonDecimalParsed<V, P>;
 export type GitIntegerLiteral<V, P extends GitIntegerParser> = Extract<
   Parsed<V, P>,
   'invalid'

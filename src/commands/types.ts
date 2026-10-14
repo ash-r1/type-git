@@ -488,7 +488,11 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
         parser: 'object-filter' | 'object-filter-auto';
       }
     ? V extends string
-      ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
+      ? ObjectFilterLiteral<
+          V,
+          D['parser'] extends 'object-filter-auto' ? true : false,
+          D extends { negativeMagnitudes: true } ? true : false
+        >
       : true
     : D extends { parser: 'perl-int' | 'perl-int-gnu' }
       ? PerlIntegerLiteral<D, V>
@@ -664,7 +668,7 @@ type ApplyNumeric<
   : S;
 // Keep parser uncertainty separate from input unions: each source family must
 // validate the whole tuple, and ordinary invalid union arms cannot disappear.
-type ProfiledOption<S, D extends OptionSpec> = S extends { integerProfile: 'decimal-cast' }
+type IntegerProfiledOption<S, D extends OptionSpec> = S extends { integerProfile: 'decimal-cast' }
   ? D extends { parser: infer P extends GitIntegerParser }
     ? P extends { bits: 32 }
       ? P extends { nativeWidth: string }
@@ -673,6 +677,17 @@ type ProfiledOption<S, D extends OptionSpec> = S extends { integerProfile: 'deci
       : D
     : D
   : D;
+type MagnitudeProfiledOption<S, D extends OptionSpec> = S extends { negativeMagnitudes: true }
+  ? D extends { parser: infer P extends GitIntegerParser }
+    ? P extends { negativeMagnitudes: false }
+      ? D
+      : Omit<D, 'parser'> & { parser: P & { negativeMagnitudes: true } }
+    : D & { negativeMagnitudes: true }
+  : D;
+type ProfiledOption<S, D extends OptionSpec> = MagnitudeProfiledOption<
+  S,
+  IntegerProfiledOption<S, D>
+>;
 type ApplyToken<
   C extends GitCommandName,
   S,
@@ -719,19 +734,42 @@ type State<
   : A extends readonly [infer H, ...infer Rest]
     ? State<C, Rest, ApplyToken<C, S, H, Rest, First>, false>
     : S;
+type ProfiledConstraint<S, R extends Constraint> = R extends {
+  kind: 'scalar';
+  key: string;
+  parser: infer P;
+}
+  ? P extends GitIntegerParser
+    ? ProfiledOption<S, { key: R['key']; value: 'string'; parser: P }> extends { parser: infer Q }
+      ? Omit<R, 'parser'> & { parser: Q }
+      : R
+    : S extends { negativeMagnitudes: true }
+      ? R & { negativeMagnitudes: true }
+      : R
+  : R;
 // Evaluate one rule at a time: constructing their Cartesian union can exceed TypeScript's union limit.
 type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
   ...infer Rest extends readonly Constraint[],
 ]
-  ? S extends Constrained<S, readonly [H]>
+  ? S extends Constrained<S, readonly [ProfiledConstraint<S, H>]>
     ? CheckRules<S, Rest>
     : false
   : true;
 type CheckedLegacyIntegerArguments<
   C extends GitCommandName,
   A extends readonly unknown[],
-  S = State<C, A, Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', 'decimal-cast'>>,
+  IntegerProfile extends 'bounded' | 'decimal-cast' = 'decimal-cast',
+  Negative extends boolean = false,
+  S = State<
+    C,
+    A,
+    Put<
+      Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', IntegerProfile>,
+      'negativeMagnitudes',
+      Negative
+    >
+  >,
 > = [S] extends [never]
   ? never
   : S extends { help: true }
@@ -739,6 +777,13 @@ type CheckedLegacyIntegerArguments<
     : CheckRules<S, Spec<C>['rules']> extends true
       ? A
       : never;
+type CheckedIntegerAlternatives<C extends GitCommandName, A extends readonly unknown[]> = [
+  CheckedLegacyIntegerArguments<C, A>,
+] extends [never]
+  ? [CheckedLegacyIntegerArguments<C, A, 'bounded', true>] extends [never]
+    ? CheckedLegacyIntegerArguments<C, A, 'decimal-cast', true>
+    : A
+  : A;
 /** Literal option combinations are checked against the same schema as runtime calls. */
 type CheckedLocalArguments<
   C extends GitCommandName,
@@ -752,12 +797,12 @@ type CheckedLocalArguments<
     ? number extends A['length']
       ? A
       : [State<C, A>] extends [never]
-        ? CheckedLegacyIntegerArguments<C, A>
+        ? CheckedIntegerAlternatives<C, A>
         : State<C, A> extends { help: true }
           ? A
           : CheckRules<State<C, A>, Spec<C>['rules']> extends true
             ? A
-            : CheckedLegacyIntegerArguments<C, A>
+            : CheckedIntegerAlternatives<C, A>
     : never;
 
 /** Collect invalid finite dispatch alternatives before accepting the complete tuple. */

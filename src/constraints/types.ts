@@ -269,7 +269,7 @@ type Unless<T, W> = W extends Predicate
 type Apply<T, R extends Constraint> = R extends { guard: infer G extends readonly Predicate[] }
   ? NotEvery<T, G> | ApplyBody<T, R>
   : ApplyBody<T, R>;
-type ScalarValue<V, P> = P extends GitIntegerParser
+type ScalarValue<V, P, Negative extends boolean = false> = P extends GitIntegerParser
   ? GitIntegerLiteral<V, P> extends true
     ? V
     : never
@@ -281,7 +281,11 @@ type ScalarValue<V, P> = P extends GitIntegerParser
       ? V extends undefined
         ? V
         : V extends string
-          ? ObjectFilterLiteral<V, P extends 'object-filter-auto' ? true : false> extends true
+          ? ObjectFilterLiteral<
+              V,
+              P extends 'object-filter-auto' ? true : false,
+              Negative
+            > extends true
             ? V
             : never
           : never
@@ -291,7 +295,7 @@ type ApplyBody<T, R extends Constraint> = R extends {
   key: infer K extends keyof T;
   parser: infer P;
 }
-  ? { [F in K]?: ScalarValue<T[F], P> }
+  ? { [F in K]?: ScalarValue<T[F], P, R extends { negativeMagnitudes: true } ? true : false> }
   : R extends {
         kind: 'range';
         key: infer K extends keyof T;

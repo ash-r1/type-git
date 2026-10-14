@@ -389,7 +389,9 @@ export class GitImpl implements Git {
     path: string,
     opts?: CloneOpts & ExecOpts,
   ): Promise<WorktreeRepo | BareRepo> {
-    validateOptions('clone', opts);
+    await this.runner.validateFilterOptions({ type: 'global' }, 'clone', opts, {
+      signal: opts?.signal,
+    });
     const args = buildCloneArgs(opts);
 
     // Add progress flag for progress tracking (from ExecOpts).

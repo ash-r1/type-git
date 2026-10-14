@@ -90,7 +90,7 @@ function tableOptions(definitions, command, numericOption) {
       const value = noarg ? 'flag' : `${optional ? 'optional-' : ''}${numeric ? 'integer' : 'string'}`;
       const defaultString = optional && fields.defval?.match(/"(?:\\.|[^"\\])*"/);
       const callback = (fields.callback ?? '').replace(/[&()]/g, '');
-      const parser = numeric ? { kind: 'integer', signed: kind === 'OPTION_INTEGER', bits: definition.numeric.bits, ...(definition.nativeWidth ? { nativeWidth: definition.nativeWidth } : {}) } : { opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
+      const parser = numeric ? { kind: 'integer', signed: kind === 'OPTION_INTEGER', bits: definition.numeric.bits, ...(definition.nativeWidth ? { nativeWidth: definition.nativeWidth } : {}), ...(definition.nativeWidth === 'size_t' ? { negativeMagnitudes: false } : {}) } : { opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
       const base = { ...(parser ? { parser } : {}), key, value, ...(numeric && optional ? { set: definition.numeric.default } : {}), ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
       if (flags.includes('PARSE_OPT_CMDMODE')) {
         base.modeGroup = fields.value.replace(/[()\s]/g, '');

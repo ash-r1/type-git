@@ -9,6 +9,8 @@ export type GitIntegerParser = {
   nativeWidth?: 'long' | 'size_t';
   /** Explicit source family; public command clients consider supported alternatives. */
   integerProfile?: GitIntegerProfile;
+  /** Older strtoumax magnitude parsing permits a minus sign before uintmax conversion. */
+  negativeMagnitudes?: boolean;
 };
 
 /** Git 2.55 parse.c, base 0 and k/m/g units, on the recorded C23 libc profile. */
@@ -16,6 +18,7 @@ export function parseGitInteger(
   value: unknown,
   parser: GitIntegerParser,
   binaryIntegers = true,
+  negativeMagnitudes = false,
 ): bigint | undefined {
   if (typeof value === 'number' && !Number.isSafeInteger(value)) {
     return undefined;
@@ -27,7 +30,7 @@ export function parseGitInteger(
   const match =
     /^[ \t\r\n\v\f]*([+-]?)(0[xX][\da-fA-F]+|0[bB][01]+|0[0-7]*|[1-9]\d*)([kKmMgG]?)$/.exec(text);
   // Require the match to consume the entire numeric value, as Git does.
-  if (!match || match[0] !== text || (!parser.signed && match[1] === '-')) {
+  if (!match || match[0] !== text || (!parser.signed && match[1] === '-' && !negativeMagnitudes)) {
     return undefined;
   }
   const digits = match[2]!;
@@ -40,7 +43,14 @@ export function parseGitInteger(
       ? BigInt(`0o${digits}`)
       : BigInt(digits);
   const power = { '': 0n, k: 10n, m: 20n, g: 30n }[(match[3] ?? '').toLowerCase()]!;
-  const number = (match[1] === '-' ? -magnitude : magnitude) * (1n << power);
+  if (!parser.signed && magnitude > 18446744073709551615n) {
+    return undefined;
+  }
+  const signed = match[1] === '-' ? -magnitude : magnitude;
+  // Git 2.25 config.c: strtoumax checks ERANGE before unsigned conversion;
+  // the unit multiplication and destination maximum are checked afterwards.
+  const base = !parser.signed && negativeMagnitudes ? BigInt.asUintN(64, signed) : signed;
+  const number = base * (1n << power);
   const limit = 1n << BigInt(parser.bits - (parser.signed ? 1 : 0));
   return number >= (parser.signed ? -limit : 0n) && number < limit ? number : undefined;
 }

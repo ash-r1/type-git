@@ -8,7 +8,7 @@ git.command('pack-objects', [['--max-pack-size', 0n], ['--stdout']]);
 git.command('pack-objects', [['--max-pack-size', 1], ['--no-max-pack-size'], ['--stdout']]);
 // Modern Git rejects overflow here; older decimal/int parsers accept it. Unknown source families defer this alternative.
 git.command('column', [['--width', 2147483648], ['--width', 1], ['-h']]);
-// @ts-expect-error Unsigned storage rejects even a spelled negative zero.
+// Older unsigned magnitude parsing accepts negative zero; defer the selected sign policy.
 git.command('pack-objects', [['--max-pack-size', '-0'], ['-h']]);
 // @ts-expect-error A normalized nonzero pack size conflicts with stdout.
 git.command('pack-objects', [['--max-pack-size', '0b1k'], ['--stdout']]);

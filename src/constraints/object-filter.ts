@@ -5,10 +5,19 @@ import { parseGitInteger } from './git-integer.js';
 const RESERVED = /[\x00-\x20~`!@#$^&*()[\]{}\\;'",<>?]/;
 
 /** Match git_parse_ulong's spelling, unit multiplier and unsigned-long maximum. */
-function unsignedLong(text: string, longBits: 32 | 64, binaryIntegers: boolean): boolean {
+function unsignedLong(
+  text: string,
+  longBits: 32 | 64,
+  binaryIntegers: boolean,
+  negativeMagnitudes: boolean,
+): boolean {
   return (
-    parseGitInteger(text, { kind: 'integer', signed: false, bits: longBits }, binaryIntegers) !==
-    undefined
+    parseGitInteger(
+      text,
+      { kind: 'integer', signed: false, bits: longBits },
+      binaryIntegers,
+      negativeMagnitudes,
+    ) !== undefined
   );
 }
 
@@ -27,6 +36,7 @@ export function validObjectFilter(
   allowAuto = false,
   longBits: 32 | 64 = 64,
   binaryIntegers = true,
+  negativeMagnitudes = false,
 ): boolean {
   const pending = [{ text: value, auto: allowAuto }];
   while (pending.length > 0) {
@@ -35,7 +45,14 @@ export function validObjectFilter(
       continue;
     }
     if (text.startsWith('blob:limit=') || text.startsWith('tree:')) {
-      if (!unsignedLong(text.slice(text.startsWith('tree:') ? 5 : 11), longBits, binaryIntegers)) {
+      if (
+        !unsignedLong(
+          text.slice(text.startsWith('tree:') ? 5 : 11),
+          longBits,
+          binaryIntegers,
+          negativeMagnitudes,
+        )
+      ) {
         return false;
       }
     } else if (text.startsWith('object:type=')) {
@@ -69,7 +86,25 @@ export function objectFilterUsesBinary(value: string): boolean {
   while (pending.length > 0) {
     const text = pending.pop()!;
     if (text.startsWith('blob:limit=') || text.startsWith('tree:')) {
-      if (/^[ \t\r\n\v\f]*\+?0[bB]/.test(text.slice(text.startsWith('tree:') ? 5 : 11))) {
+      if (/^[ \t\r\n\v\f]*[+-]?0[bB]/.test(text.slice(text.startsWith('tree:') ? 5 : 11))) {
+        return true;
+      }
+    } else if (text.startsWith('combine:')) {
+      for (const child of text.slice(8).split('+')) {
+        pending.push(decode(child));
+      }
+    }
+  }
+  return false;
+}
+
+/** Detect unsigned numeric minus signs without interpreting sparse object payloads. */
+export function objectFilterUsesNegativeMagnitude(value: string): boolean {
+  const pending = [value];
+  while (pending.length > 0) {
+    const text = pending.pop()!;
+    if (text.startsWith('blob:limit=') || text.startsWith('tree:')) {
+      if (/^[ \t\r\n\v\f]*-/.test(text.slice(text.startsWith('tree:') ? 5 : 11))) {
         return true;
       }
     } else if (text.startsWith('combine:')) {

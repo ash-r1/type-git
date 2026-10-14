@@ -120,6 +120,7 @@ export function parseGitScalar(
   sizeTBits: 32 | 64 = nativeSizeTBits(process.arch),
   binaryIntegers = true,
   integerProfile?: GitIntegerProfile,
+  negativeMagnitudes = false,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object') {
     const bits =
@@ -133,7 +134,14 @@ export function parseGitScalar(
       parser.bits === 32 &&
       !parser.nativeWidth
         ? parseLegacyGitInteger(value, parser, cLongBits)
-        : parseGitInteger(value, { ...parser, bits }, binaryIntegers);
+        : parseGitInteger(
+            value,
+            { ...parser, bits },
+            binaryIntegers,
+            parser.negativeMagnitudes === false
+              ? false
+              : negativeMagnitudes || parser.negativeMagnitudes === true,
+          );
     return parsed === undefined ? { valid: false } : { valid: true, value: integerState(parsed) };
   }
   if (parser === 'perl-int' || parser === 'perl-int-gnu') {
@@ -173,7 +181,13 @@ export function parseGitScalar(
       valid:
         value === undefined ||
         (typeof value === 'string' &&
-          validObjectFilter(value, parser === 'object-filter-auto', cLongBits, binaryIntegers)),
+          validObjectFilter(
+            value,
+            parser === 'object-filter-auto',
+            cLongBits,
+            binaryIntegers,
+            negativeMagnitudes,
+          )),
       value,
     };
   }

@@ -1,7 +1,7 @@
 /** Public option types and runtime validation are derived from the constraint model. */
 import { COMMAND_CONSTRAINTS, type CommandName } from '../constraints/commands.js';
 import { INPUT_CONSTRAINTS } from '../constraints/inputs.js';
-import { violations } from '../constraints/model.js';
+import { violations, type ScalarContext } from '../constraints/model.js';
 import type { Constrained } from '../constraints/types.js';
 import { GitArgumentError } from './types.js';
 
@@ -10,8 +10,16 @@ export type CheckedOptions<T, N extends CommandName> = Constrained<
   (typeof COMMAND_CONSTRAINTS)[N]
 >;
 
-export function validateOptions(name: CommandName, options: object | undefined): void {
-  const errors = violations(COMMAND_CONSTRAINTS[name], (options ?? {}) as Record<string, unknown>);
+export function validateOptions(
+  name: CommandName,
+  options: object | undefined,
+  scalarContext?: ScalarContext,
+): void {
+  const errors = violations(
+    COMMAND_CONSTRAINTS[name],
+    (options ?? {}) as Record<string, unknown>,
+    scalarContext,
+  );
   if (errors.length > 0) {
     throw new GitArgumentError(`${name}: ${errors.map((r) => `[${r.id}] ${r.reason}`).join('; ')}`);
   }
