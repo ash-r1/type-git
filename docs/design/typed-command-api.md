@@ -40,6 +40,7 @@ node scripts/import-lfs-options.mjs /path/to/git-lfs-3.8.0 /path/to/cobra-1.10.2
 make hook-list.h config-list.h command-list.h
 # Back in Type-Git:
 python3 scripts/import-git-options.py /path/to/git-2.55.0
+python3 scripts/import-git-numeric-options.py /path/to/git-2.55.0
 pnpm commands:generate
 pnpm constraints:generate
 ```
@@ -621,3 +622,41 @@ Clone and fetch check their final depth with `atoi`, before transport-specific p
 The clone and submodule-update convenience methods now use the shared object-filter grammar before spawning Git. Their non-generic option objects retain broad string fields, so those value grammars are checked at runtime. The generated compiler fixtures deliberately project out scalar and numeric checks that broad public property types cannot express. Generic literal command arguments retain their existing grammar checking, and exact finite-domain counts still include scalar rules. Representative scalar values are explicitly recorded, including valid forms and overflow boundaries; these are bounded domains, not complete string languages.
 
 The depth literal proof rejects zero decimal prefixes and missing decimal digits before runtime, including known-invalid union arms. Opaque and dynamic inputs, overflow and other atoi profiles remain runtime checks. The scan and leading-whitespace proof are bounded to 192 characters rather than imposing a compiler depth constraint on valid Git input. Clone regression fixtures have three commits and use file:// for both native Git and TypeGit; a depth of 1 must retrieve one commit and produce a shallow repository. Wrapped depth cases use the selected Git build’s reported C long width to model transport.c’s strtol conversion followed by storage in int. LP64 retrieves one shallow commit; LLP64 saturation can retrieve all three commits without shallow state. Both native Git and TypeGit must match those history and shallow-state expectations. This transport conversion is separate from the initial atoi check.
+
+## Compiler-recorded integer constraints
+
+`spec/upstream/git-numeric-options.json` records all 67 `OPTION_INTEGER` and
+`OPTION_UNSIGNED` definitions in the pinned preprocessed tables. The importer
+compiles the 34 translation units without linking or running Git. It follows GCC
+raw-tree initializer references to obtain evaluated storage widths, enum flags,
+and optional defaults, and requires exact identity coverage against the existing
+table snapshot. All 221 Git-local input dependencies are fingerprinted. The
+compiler version, target, flags, and `CHAR_BIT` are recorded; reproduction needs
+that profile. `commands:upstream-check ... --c-tables` reproduces both snapshots.
+
+The recorded definitions contain 54 signed 32-bit, five unsigned 32-bit, and eight
+unsigned 64-bit values. Generated option schemas carry the shared structured
+parser `{ kind: 'integer', signed, bits }`, with source-declared `nativeWidth` on seven unsigned-long bindings and the backfill size_t binding. Runtime uses the selected Git build's reported widths when validity depends on them; the saved aarch64 snapshot remains the source profile, not a claim about every executable. Git 2.55 rejects overflow immediately,
+even before a subsequent overwrite or parse-options `-h` token. Negation assigns zero where
+supported; optional values use the evaluated defaults (for example, merge log
+length 20 and show-branch `--more` 1). This parser is distinct from clone/fetch's
+initial `atoi` depth check and from bespoke callbacks.
+
+Values may be safe integer numbers, bigint values, or native strings. Strings
+preserve base-0 decimal/octal/hexadecimal notation, ASCII leading
+whitespace, signs, and case-insensitive `k/m/g` units. Binary notation is accepted only when the selected Git/libc supports it; the same readonly clone-filter probe used for object filters observes that support. The finite exploration report explicitly uses the recorded 64-bit compiler/libc profile and separates long and size_t bindings. Unsigned options reject
+spelled negative zero. Strings and bigint retain full 64-bit precision; unsafe
+JavaScript numbers are rejected as an explicit precision-preservation policy.
+Argv retains the input spelling, while combination constraints see the normalized
+integer. Literal TypeScript tuples use generated small multiplication tables to
+normalize the same grammar before bounds and combination checks. Scalar validation for dynamic values
+and very long literal strings is deferred to runtime.
+
+`native-integer-exploration.json` lists deterministic boundary representatives,
+their normalized results, and every generated scope using these parsers. This is
+a finite verification report, not exhaustive discovery of Git semantics. The
+native tests compare three storage profiles against independently invoked Git
+and exercise immediate validation across the generated numeric options.
+Command-specific semantic restrictions, callback-defined numeric languages,
+configuration-derived defaults, platform differences, and preemptive help paths
+remain separate audit work. All command audit entries remain partial.

@@ -1,3 +1,5 @@
+import type { GitIntegerParser } from '../constraints/git-integer.js';
+import type { GitIntegerLiteral, GitIntegerValue } from '../constraints/git-integer-types.js';
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
@@ -48,7 +50,9 @@ type AsciiLower<S extends string, Result extends string = ''> = string extends S
     : S extends `${infer H}${infer R}`
       ? AsciiLower<R, `${Result}${H extends AsciiUpper ? Lowercase<H> : H}`>
       : `${Result}${S}`;
-type Value<S extends OptionSpec> = S extends { parser: 'python-int' | 'perl-int' | 'perl-int-gnu' }
+type Value<S extends OptionSpec> = S extends {
+  parser: GitIntegerParser | 'python-int' | 'perl-int' | 'perl-int-gnu';
+}
   ? number | string | bigint
   : S extends { allowed: infer A extends readonly unknown[] }
     ? S extends { caseInsensitive: true }
@@ -123,17 +127,19 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   : D extends { set: infer V }
     ? V
     : true;
-type Normalize<V, D extends OptionSpec> = D extends { caseInsensitive: true }
-  ? D extends { preserveCase: true }
-    ? V extends string
-      ? V extends object
-        ? string
+type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitIntegerParser }
+  ? GitIntegerValue<V, P>
+  : D extends { caseInsensitive: true }
+    ? D extends { preserveCase: true }
+      ? V extends string
+        ? V extends object
+          ? string
+          : V
         : V
-      : V
-    : V extends string
-      ? AsciiLower<V>
-      : V
-  : V;
+      : V extends string
+        ? AsciiLower<V>
+        : V
+    : V;
 type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
   T extends readonly [unknown, infer V]
     ? V extends undefined
@@ -476,35 +482,37 @@ type PerlIntegerLiteral<D extends OptionSpec, V> = V extends string
   : V extends number | bigint
     ? PerlIntegerText<`${V}`, false>
     : false;
-type ScalarLiteral<D extends OptionSpec, V> = D extends {
-  parser: 'object-filter' | 'object-filter-auto';
-}
-  ? V extends string
-    ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
-    : true
-  : D extends { parser: 'perl-int' | 'perl-int-gnu' }
-    ? PerlIntegerLiteral<D, V>
-    : D extends { parser: 'fast-import-sign' }
-      ? ImportSignLiteral<V>
-      : D extends { parser: 'anonymize-map' }
-        ? V extends string
-          ? string extends V
-            ? true
-            : V extends object
+type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitIntegerParser }
+  ? GitIntegerLiteral<V, P>
+  : D extends {
+        parser: 'object-filter' | 'object-filter-auto';
+      }
+    ? V extends string
+      ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
+      : true
+    : D extends { parser: 'perl-int' | 'perl-int-gnu' }
+      ? PerlIntegerLiteral<D, V>
+      : D extends { parser: 'fast-import-sign' }
+        ? ImportSignLiteral<V>
+        : D extends { parser: 'anonymize-map' }
+          ? V extends string
+            ? string extends V
               ? true
-              : V extends ''
-                ? false
-                : V extends `${infer Key}:${infer Replacement}`
-                  ? Key extends ''
-                    ? false
-                    : Replacement extends ''
+              : V extends object
+                ? true
+                : V extends ''
+                  ? false
+                  : V extends `${infer Key}:${infer Replacement}`
+                    ? Key extends ''
                       ? false
-                      : true
-                  : true
-          : true
-        : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-          ? ParsedScalarLiteral<D, V>
-          : true;
+                      : Replacement extends ''
+                        ? false
+                        : true
+                    : true
+            : true
+          : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+            ? ParsedScalarLiteral<D, V>
+            : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true
@@ -532,23 +540,36 @@ type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
           : true
   : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
-  caseInsensitive: true;
+  parser: GitIntegerParser;
   allowed: infer A extends readonly unknown[];
 }
   ? T extends readonly [unknown, infer V]
     ? V extends undefined
       ? true
-      : V extends string
-        ? string extends AsciiLower<V>
-          ? true
-          : AsciiLower<V> extends A[number]
-            ? true
-            : false
-        : V extends A[number]
+      : number extends TokenValue<T, D>
+        ? true
+        : TokenValue<T, D> extends A[number]
           ? true
           : false
     : true
-  : true;
+  : D extends {
+        caseInsensitive: true;
+        allowed: infer A extends readonly unknown[];
+      }
+    ? T extends readonly [unknown, infer V]
+      ? V extends undefined
+        ? true
+        : V extends string
+          ? string extends AsciiLower<V>
+            ? true
+            : AsciiLower<V> extends A[number]
+              ? true
+              : false
+          : V extends A[number]
+            ? true
+            : false
+      : true
+    : true;
 type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = T extends readonly [
   unknown,
   infer V,

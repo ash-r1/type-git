@@ -959,7 +959,12 @@
       "-n": {
         "key": "n",
         "value": "optional-integer",
-        "set": 1
+        "set": 1,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -1787,7 +1792,12 @@
       "-l": {
         "key": "l",
         "value": "integer",
-        "attachedValue": true
+        "attachedValue": true,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "-I": {
         "key": "ignore-matching-lines",
@@ -2354,7 +2364,11 @@
       "-C": {
         "key": "C",
         "value": "integer",
-        "parser": "unsigned-int"
+        "parser": {
+          "kind": "integer",
+          "signed": false,
+          "bits": 32
+        }
       }
     }
   },
@@ -3889,7 +3903,12 @@
       "--no-version": {
         "key": "version",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -4166,7 +4185,12 @@
       "--min-batch-size": {
         "key": "min-batch-size",
         "value": "integer",
-        "parser": "unsigned-size"
+        "parser": {
+          "kind": "integer",
+          "signed": false,
+          "bits": 64,
+          "nativeWidth": "size_t"
+        }
       }
     }
   },
@@ -4422,27 +4446,49 @@
       "--no-threads": {
         "key": "threads",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-max-count": {
         "key": "max-count",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--threads": {
         "key": "threads",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--max-count": {
         "key": "max-count",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "-m": {
         "key": "max-count",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -4678,12 +4724,22 @@
       "--more": {
         "key": "more",
         "value": "optional-integer",
-        "set": 1
+        "set": 1,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-more": {
         "key": "more",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-list": {
         "key": "more",
@@ -5001,7 +5057,12 @@
       "--no-summary-limit": {
         "key": "summary-limit",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -5324,7 +5385,12 @@
       "--no-summary-limit": {
         "key": "summary-limit",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "-q": {
         "key": "quiet",
@@ -5772,12 +5838,21 @@
       "--no-index-version": {
         "key": "index-version",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--index-version": {
         "key": "index-version",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -5863,7 +5938,11 @@
       "--progress": {
         "key": "progress",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     },
     "initial": {
@@ -5925,37 +6004,69 @@
       "--no-compression": {
         "key": "compression",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-name-hash-version": {
         "key": "name-hash-version",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-max-pack-size": {
         "key": "max-pack-size",
         "value": "flag",
-        "set": 0
+        "set": 0,
+        "parser": {
+          "kind": "integer",
+          "signed": false,
+          "bits": 64,
+          "nativeWidth": "long"
+        }
       },
       "--compression": {
         "key": "compression",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--depth": {
         "key": "depth",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--window": {
         "key": "window",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--threads": {
         "key": "threads",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },
@@ -6154,7 +6265,11 @@
       "--timeout": {
         "key": "timeout",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       }
     }
   },

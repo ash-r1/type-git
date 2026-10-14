@@ -931,7 +931,7 @@ describe('selected Git executable ABI', () => {
     const runner = new CliRunner(adapters, { gitBinary: 'git32' });
     await expect(
       runner.runCommand({ type: 'global' }, 'backfill', [['--min-batch-size', 4294967296]], true),
-    ).rejects.toThrow('invalid unsigned-size');
+    ).rejects.toThrow('invalid integer');
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
     expect(adapters.exec.spawn).toHaveBeenCalledWith(
       expect.objectContaining({ argv: ['git32', 'version', '--build-options'] }),
@@ -1004,7 +1004,7 @@ describe('ABI-independent command preflight', () => {
     const runner = new CliRunner(adapters);
     await expect(
       runner.runCommand({ type: 'global' }, 'backfill', [['--min-batch-size', -1]], true),
-    ).rejects.toThrow('invalid unsigned-size');
+    ).rejects.toThrow('invalid integer');
     expect(adapters.exec.spawn).not.toHaveBeenCalled();
   });
   it('rejects malformed tokens alongside an ABI-dependent value without probing', async () => {
@@ -1181,5 +1181,57 @@ describe('selected Git ABI for shortlog wrapping', () => {
       expect.objectContaining({ argv: ['selected-git64-long', 'version', '--build-options'] }),
       undefined,
     );
+  });
+});
+
+describe('selected native structured integer parsers', () => {
+  it('uses selected C long for unsigned pack storage, independently of size_t', async () => {
+    const adapters = createMockAdapters({ stdout: 'sizeof-long: 4\nsizeof-size_t: 8\n' });
+    await expect(
+      new CliRunner(adapters, { gitBinary: 'selected-git' }).runCommand(
+        { type: 'worktree', workdir: '/repo' },
+        'pack-objects',
+        [['--max-pack-size', '4294967296'], ['-h']],
+        true,
+        { env: { PATH: '/selected' } },
+      ),
+    ).rejects.toThrow('invalid integer');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        argv: ['selected-git', '-C', '/repo', 'version', '--build-options'],
+        env: expect.objectContaining({ PATH: '/selected' }),
+      }),
+      undefined,
+    );
+  });
+  it.each([
+    true,
+    false,
+  ])('observes selected libc binary support for fixed-width integers (%s)', async (supported) => {
+    const adapters = createMockAdapters();
+    vi.mocked(adapters.exec.spawn).mockImplementation(async ({ argv }) => ({
+      exitCode: argv.includes('--filter=blob:limit=0b1') ? (supported ? 129 : 128) : 0,
+      stdout: '',
+      stderr: argv.includes('--filter=blob:limit=0b1')
+        ? supported
+          ? 'usage: git clone'
+          : 'fatal: invalid filter-spec'
+        : '',
+      aborted: false,
+    }));
+    const result = new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'column',
+      [['--width', '0b10'], ['-h']],
+      false,
+    );
+    if (supported) {
+      await expect(result).resolves.toMatchObject({ exitCode: 0 });
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    } else {
+      await expect(result).rejects.toThrow('invalid integer');
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    }
   });
 });

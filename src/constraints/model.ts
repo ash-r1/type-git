@@ -83,7 +83,7 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
     case 'active':
       return value !== undefined && value !== false;
     case 'nonzero':
-      return value !== undefined && value !== false && value !== 0;
+      return value !== undefined && value !== false && value !== 0 && value !== 0n;
     case 'nonblank':
       return (
         (typeof value === 'string' ? value : Array.isArray(value) ? value.join(',') : '').trim()
@@ -94,7 +94,7 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
     case 'bytesPositive':
       return (lfsBytes(value) ?? 0) > 0;
     case 'positive':
-      return typeof value === 'number' && value > 0;
+      return (typeof value === 'number' || typeof value === 'bigint') && value > 0;
     case 'present':
       return value !== undefined;
     case 'equals':
