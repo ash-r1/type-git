@@ -1,3 +1,4 @@
+import type { NumberLiteralOrder } from './number-types.js';
 import type { GitDecimalParser } from './git-decimal.js';
 import type { AddDigit, AtMost, Digit, Reverse, State, Strip, Trim } from './git-integer-types.js';
 import type { IntegerDifferences } from './integer-type-tables.js';
@@ -71,15 +72,19 @@ type Decimal<S extends string, Steps extends unknown[] = []> = string extends S
           ? Decimal<R, [...Steps, 0]>
           : false
         : 'dynamic';
-type After<S extends string, P extends GitDecimalParser> = P extends { positive: true }
-  ? S extends '0' | `-${string}`
-    ? 'invalid'
+type After<S extends string, P extends GitDecimalParser> = P extends { clampNegativeToZero: true }
+  ? S extends `-${string}`
+    ? '0'
     : S
-  : P extends { nonzeroMinimum: 4 }
-    ? S extends '1' | '2' | '3' | `-${string}`
-      ? '4'
+  : P extends { positive: true }
+    ? S extends '0' | `-${string}`
+      ? 'invalid'
       : S
-    : S;
+    : P extends { nonzeroMinimum: 4 }
+      ? S extends '1' | '2' | '3' | `-${string}`
+        ? '4'
+        : S
+      : S;
 type Convert<M extends string, Negative extends boolean, P extends GitDecimalParser> = P extends {
   beforeNonnegative: true;
 }
@@ -122,11 +127,42 @@ type Magnitude<
     : Decimal<S> extends false
       ? 'invalid'
       : 'dynamic';
+/** atoi accepts a decimal prefix and returns zero when there is no conversion. */
+type DecimalPrefix<
+  S extends string,
+  Result extends string = '',
+  Steps extends unknown[] = [],
+> = string extends S
+  ? 'dynamic'
+  : Steps['length'] extends 128
+    ? 'dynamic'
+    : S extends `${infer H}${infer R}`
+      ? H extends Digit
+        ? DecimalPrefix<R, `${Result}${H}`, [...Steps, 0]>
+        : Result extends ''
+          ? '0'
+          : Result
+      : Result extends ''
+        ? '0'
+        : Result;
+type SignedDigits<
+  S extends string,
+  Negative extends boolean,
+  P extends GitDecimalParser,
+> = P['conversion'] extends 'atoi'
+  ? DecimalPrefix<S> extends infer M extends string
+    ? M extends 'dynamic'
+      ? 'dynamic'
+      : Converted<Strip<M>, Negative, P>
+    : never
+  : Magnitude<S, Negative, P>;
 type Signed<S extends string, P extends GitDecimalParser> = string extends S
   ? 'dynamic'
   : S extends `-${infer R}`
-    ? Magnitude<R, true, P>
-    : Magnitude<S extends `+${infer R}` ? R : S, false, P>;
+    ? P extends { rejectMinus: true }
+      ? 'invalid'
+      : SignedDigits<R, true, P>
+    : SignedDigits<S extends `+${infer R}` ? R : S, false, P>;
 type Parsed<V, P extends GitDecimalParser> = V extends true
   ? P extends { default: string }
     ? 'default'
@@ -134,28 +170,31 @@ type Parsed<V, P extends GitDecimalParser> = V extends true
   : V extends undefined
     ? 'dynamic'
     : V extends string | number | bigint
-      ? string extends V
-        ? 'dynamic'
-        : `${number}` extends V
+      ? V extends `${string}\0${string}`
+        ? 'invalid'
+        : V extends object
           ? 'dynamic'
-          : `${bigint}` extends V
+          : string extends V
             ? 'dynamic'
-            : number extends V
+            : `${number}` extends V
               ? 'dynamic'
-              : bigint extends V
+              : `${bigint}` extends V
                 ? 'dynamic'
-                : V extends ''
-                  ? P extends { empty: true }
-                    ? After<'0', P>
-                    : 'invalid'
-                  : V extends number
-                    ? AtMost<
-                        `${V}` extends `-${infer R}` ? R : `${V}`,
-                        '9007199254740991'
-                      > extends true
-                      ? Signed<Trim<`${V}`>, P>
-                      : 'invalid'
-                    : Signed<Trim<`${V}`>, P>
+                : number extends V
+                  ? 'dynamic'
+                  : bigint extends V
+                    ? 'dynamic'
+                    : V extends ''
+                      ? P extends { empty: true }
+                        ? After<'0', P>
+                        : 'invalid'
+                      : V extends number
+                        ? NumberLiteralOrder<V, 9007199254740991> extends 1
+                          ? 'invalid'
+                          : NumberLiteralOrder<V, -9007199254740991> extends -1
+                            ? 'invalid'
+                            : Signed<Trim<`${V}`>, P>
+                        : Signed<Trim<`${V}`>, P>
       : 'invalid';
 export type GitDecimalLiteral<V, P extends GitDecimalParser> = Extract<
   Parsed<V, P>,

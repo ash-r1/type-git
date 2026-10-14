@@ -251,7 +251,7 @@ export type BrandedChecks = readonly [
   Check<NumberLiteralOrder<1e308, 1e100> extends 1 ? true : false>,
   Check<NumberLiteralOrder<5e-324, 1e-200> extends -1 ? true : false>,
 ];
-// @ts-expect-error Revision count callbacks reject values outside signed 32-bit integers.
+// Older atoi narrows overflow instead of rejecting it.
 git.command('log', [['--skip', 2147483648]]);
-// @ts-expect-error Fractional revision counts fail the runtime scalar parser.
+// Older atoi consumes the decimal prefix of a fractional spelling.
 git.command('log', [['--skip', 0.5]]);

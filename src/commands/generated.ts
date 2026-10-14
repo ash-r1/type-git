@@ -14802,6 +14802,7 @@ const commandSpec68 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -14822,6 +14823,7 @@ const commandSpec68 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -15832,6 +15834,7 @@ const commandSpec68 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -15906,6 +15909,7 @@ const commandSpec68 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -15943,6 +15947,7 @@ const commandSpec68 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -16003,6 +16008,7 @@ const commandSpec68 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -16030,6 +16036,7 @@ const commandSpec68 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -16278,6 +16285,7 @@ const commandSpec68 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -16398,6 +16406,7 @@ const commandSpec68 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -16827,6 +16836,7 @@ const commandSpec69 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -16847,6 +16857,7 @@ const commandSpec69 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -17857,6 +17868,7 @@ const commandSpec69 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -17931,6 +17943,7 @@ const commandSpec69 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -17968,6 +17981,7 @@ const commandSpec69 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -18028,6 +18042,7 @@ const commandSpec69 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -18055,6 +18070,7 @@ const commandSpec69 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -18303,6 +18319,7 @@ const commandSpec69 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -18423,6 +18440,7 @@ const commandSpec69 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -18808,6 +18826,7 @@ const commandSpec70 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -18828,6 +18847,7 @@ const commandSpec70 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -19800,6 +19820,7 @@ const commandSpec70 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -19874,6 +19895,7 @@ const commandSpec70 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -19911,6 +19933,7 @@ const commandSpec70 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -19971,6 +19994,7 @@ const commandSpec70 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -19998,6 +20022,7 @@ const commandSpec70 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -20246,6 +20271,7 @@ const commandSpec70 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -20366,6 +20392,7 @@ const commandSpec70 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -20751,6 +20778,7 @@ const commandSpec71 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -20771,6 +20799,7 @@ const commandSpec71 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -21743,6 +21772,7 @@ const commandSpec71 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -21817,6 +21847,7 @@ const commandSpec71 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -21854,6 +21885,7 @@ const commandSpec71 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -21914,6 +21946,7 @@ const commandSpec71 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -21941,6 +21974,7 @@ const commandSpec71 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -22189,6 +22223,7 @@ const commandSpec71 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -22309,6 +22344,7 @@ const commandSpec71 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -22682,6 +22718,7 @@ const commandSpec72 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -22702,6 +22739,7 @@ const commandSpec72 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -23674,6 +23712,7 @@ const commandSpec72 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -23748,6 +23787,7 @@ const commandSpec72 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -23785,6 +23825,7 @@ const commandSpec72 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -23845,6 +23886,7 @@ const commandSpec72 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -23872,6 +23914,7 @@ const commandSpec72 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -24120,6 +24163,7 @@ const commandSpec72 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -24233,6 +24277,7 @@ const commandSpec72 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -24595,6 +24640,7 @@ const commandSpec73 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -24615,6 +24661,7 @@ const commandSpec73 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -25587,6 +25634,7 @@ const commandSpec73 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -25661,6 +25709,7 @@ const commandSpec73 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -25698,6 +25747,7 @@ const commandSpec73 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -25758,6 +25808,7 @@ const commandSpec73 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -25785,6 +25836,7 @@ const commandSpec73 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -26033,6 +26085,7 @@ const commandSpec73 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -26138,6 +26191,7 @@ const commandSpec73 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -26508,6 +26562,7 @@ const commandSpec74 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -26528,6 +26583,7 @@ const commandSpec74 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -27681,6 +27737,7 @@ const commandSpec81 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -27701,6 +27758,7 @@ const commandSpec81 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -28711,6 +28769,7 @@ const commandSpec81 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -28785,6 +28844,7 @@ const commandSpec81 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -28822,6 +28882,7 @@ const commandSpec81 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -28882,6 +28943,7 @@ const commandSpec81 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -28909,6 +28971,7 @@ const commandSpec81 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -29157,6 +29220,7 @@ const commandSpec81 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -29277,6 +29341,7 @@ const commandSpec81 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -29667,6 +29732,7 @@ const commandSpec82 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -29688,6 +29754,7 @@ const commandSpec82 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -30720,6 +30787,7 @@ const commandSpec82 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -30794,6 +30862,7 @@ const commandSpec82 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -30831,6 +30900,7 @@ const commandSpec82 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -30891,6 +30961,7 @@ const commandSpec82 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -30918,6 +30989,7 @@ const commandSpec82 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -31166,6 +31238,7 @@ const commandSpec82 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -31286,6 +31359,7 @@ const commandSpec82 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -33023,6 +33097,7 @@ const commandSpec85 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -33047,6 +33122,7 @@ const commandSpec85 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -34875,6 +34951,7 @@ const commandSpec85 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -35013,6 +35090,7 @@ const commandSpec85 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -35054,6 +35132,7 @@ const commandSpec85 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -35118,6 +35197,7 @@ const commandSpec85 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -35175,6 +35255,7 @@ const commandSpec85 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -36745,6 +36826,7 @@ const commandSpec86 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -36769,6 +36851,7 @@ const commandSpec86 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -38597,6 +38680,7 @@ const commandSpec86 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -38735,6 +38819,7 @@ const commandSpec86 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -38776,6 +38861,7 @@ const commandSpec86 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -38840,6 +38926,7 @@ const commandSpec86 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -38897,6 +38984,7 @@ const commandSpec86 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -40447,18 +40535,8 @@ const commandSpec89 = {
         signed: true,
         conversion: 'checked',
         beforeNonnegative: true,
+        nativeCallback: 'strip-count',
       },
-      checks: [
-        {
-          id: 'cli.apply.strip-count',
-          kind: 'integer',
-          key: '$value',
-          min: 0,
-          origin: 'git',
-          reason: 'The strip count is a nonnegative signed int.',
-          source: 'https://github.com/git/git/blob/v2.55.0/apply.c',
-        },
-      ],
     },
     '--no-add': {
       key: 'no-add',
@@ -51217,6 +51295,7 @@ const commandSpec184 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -51237,6 +51316,7 @@ const commandSpec184 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -52215,6 +52295,7 @@ const commandSpec184 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -52289,6 +52370,7 @@ const commandSpec184 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -52326,6 +52408,7 @@ const commandSpec184 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -52386,6 +52469,7 @@ const commandSpec184 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -52413,6 +52497,7 @@ const commandSpec184 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -52700,6 +52785,7 @@ const commandSpec184 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -52826,6 +52912,7 @@ const commandSpec184 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -54652,6 +54739,7 @@ const commandSpec194 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -54672,6 +54760,7 @@ const commandSpec194 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -55664,6 +55753,7 @@ const commandSpec194 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -55738,6 +55828,7 @@ const commandSpec194 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -55775,6 +55866,7 @@ const commandSpec194 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -55835,6 +55927,7 @@ const commandSpec194 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -55862,6 +55955,7 @@ const commandSpec194 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -56118,6 +56212,7 @@ const commandSpec194 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -56246,6 +56341,7 @@ const commandSpec194 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -56694,6 +56790,7 @@ const commandSpec195 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -56714,6 +56811,7 @@ const commandSpec195 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -57686,6 +57784,7 @@ const commandSpec195 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -57760,6 +57859,7 @@ const commandSpec195 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -57797,6 +57897,7 @@ const commandSpec195 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -57857,6 +57958,7 @@ const commandSpec195 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -57884,6 +57986,7 @@ const commandSpec195 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -58132,6 +58235,7 @@ const commandSpec195 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -58252,6 +58356,7 @@ const commandSpec195 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -58626,6 +58731,7 @@ const commandSpec196 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -58646,6 +58752,7 @@ const commandSpec196 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -59479,6 +59586,7 @@ const commandSpec197 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -59499,6 +59607,7 @@ const commandSpec197 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -60427,6 +60536,7 @@ const commandSpec198 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -60447,6 +60557,7 @@ const commandSpec198 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -61419,6 +61530,7 @@ const commandSpec198 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -61493,6 +61605,7 @@ const commandSpec198 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -61530,6 +61643,7 @@ const commandSpec198 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -61590,6 +61704,7 @@ const commandSpec198 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -61617,6 +61732,7 @@ const commandSpec198 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -61865,6 +61981,7 @@ const commandSpec198 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -61985,6 +62102,7 @@ const commandSpec198 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -62497,6 +62615,7 @@ const commandSpec199 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -62517,6 +62636,7 @@ const commandSpec199 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -63486,6 +63606,7 @@ const commandSpec199 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -63560,6 +63681,7 @@ const commandSpec199 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -63597,6 +63719,7 @@ const commandSpec199 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -63657,6 +63780,7 @@ const commandSpec199 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -63684,6 +63808,7 @@ const commandSpec199 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -63937,6 +64062,7 @@ const commandSpec199 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -64628,6 +64754,7 @@ const commandSpec200 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -64648,6 +64775,7 @@ const commandSpec200 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -65617,6 +65745,7 @@ const commandSpec200 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -65691,6 +65820,7 @@ const commandSpec200 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -65728,6 +65858,7 @@ const commandSpec200 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -65788,6 +65919,7 @@ const commandSpec200 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -65815,6 +65947,7 @@ const commandSpec200 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -66068,6 +66201,7 @@ const commandSpec200 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -67477,6 +67611,7 @@ const commandSpec202 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -67497,6 +67632,7 @@ const commandSpec202 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -68460,6 +68596,7 @@ const commandSpec202 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -68534,6 +68671,7 @@ const commandSpec202 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -68571,6 +68709,7 @@ const commandSpec202 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -68631,6 +68770,7 @@ const commandSpec202 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -68658,6 +68798,7 @@ const commandSpec202 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -68906,6 +69047,7 @@ const commandSpec202 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -70058,6 +70200,7 @@ const commandSpec204 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -70078,6 +70221,7 @@ const commandSpec204 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -71047,6 +71191,7 @@ const commandSpec204 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -71121,6 +71266,7 @@ const commandSpec204 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -71158,6 +71304,7 @@ const commandSpec204 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -71218,6 +71365,7 @@ const commandSpec204 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -71245,6 +71393,7 @@ const commandSpec204 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -71498,6 +71647,7 @@ const commandSpec204 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -72250,6 +72400,7 @@ const commandSpec205 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -72270,6 +72421,7 @@ const commandSpec205 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -73280,6 +73432,7 @@ const commandSpec205 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -73354,6 +73507,7 @@ const commandSpec205 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -73391,6 +73545,7 @@ const commandSpec205 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -73451,6 +73606,7 @@ const commandSpec205 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -73478,6 +73634,7 @@ const commandSpec205 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -73726,6 +73883,7 @@ const commandSpec205 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -73846,6 +74004,7 @@ const commandSpec205 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -74229,6 +74388,7 @@ const commandSpec206 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -74249,6 +74409,7 @@ const commandSpec206 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -75215,6 +75376,7 @@ const commandSpec206 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -75289,6 +75451,7 @@ const commandSpec206 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -75326,6 +75489,7 @@ const commandSpec206 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -75386,6 +75550,7 @@ const commandSpec206 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -75413,6 +75578,7 @@ const commandSpec206 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -75661,6 +75827,7 @@ const commandSpec206 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -81108,6 +81275,7 @@ const commandSpec275 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -81128,6 +81296,7 @@ const commandSpec275 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -82100,6 +82269,7 @@ const commandSpec275 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -82174,6 +82344,7 @@ const commandSpec275 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -82211,6 +82382,7 @@ const commandSpec275 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -82271,6 +82443,7 @@ const commandSpec275 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -82298,6 +82471,7 @@ const commandSpec275 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -82546,6 +82720,7 @@ const commandSpec275 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -82666,6 +82841,7 @@ const commandSpec275 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -85741,6 +85917,7 @@ const commandSpec291 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       key: 'unified',
       value: 'optional-integer',
@@ -85755,6 +85932,7 @@ const commandSpec291 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       key: 'unified',
       value: 'optional-integer',
@@ -87287,7 +87465,15 @@ const commandSpec295 = {
           source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
         },
       ],
-      parser: 'unsigned-int',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'checked',
+        nativeCallback: 'daemon-timeout',
+        rejectMinus: true,
+      },
     },
     '--init-timeout': {
       key: 'init-timeout',
@@ -87303,7 +87489,15 @@ const commandSpec295 = {
           source: 'https://github.com/git/git/blob/v2.55.0/daemon.c',
         },
       ],
-      parser: 'unsigned-int',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: false,
+        conversion: 'checked',
+        nativeCallback: 'daemon-init-timeout',
+        rejectMinus: true,
+      },
     },
     '--max-connections': {
       key: 'max-connections',
@@ -87314,6 +87508,8 @@ const commandSpec295 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'daemon-count',
+        clampNegativeToZero: true,
       },
     },
   },
@@ -87445,11 +87641,9 @@ const commandSpec296 = {
       key: 'ipc-threads',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-ipc-threads': {
@@ -87461,11 +87655,9 @@ const commandSpec296 = {
       key: 'start-timeout',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-start-timeout': {
@@ -87531,11 +87723,9 @@ const commandSpec297 = {
       key: 'ipc-threads',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-ipc-threads': {
@@ -87547,11 +87737,9 @@ const commandSpec297 = {
       key: 'start-timeout',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-start-timeout': {
@@ -87608,11 +87796,9 @@ const commandSpec298 = {
       key: 'ipc-threads',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-ipc-threads': {
@@ -87624,11 +87810,9 @@ const commandSpec298 = {
       key: 'start-timeout',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-start-timeout': {
@@ -87685,11 +87869,9 @@ const commandSpec299 = {
       key: 'ipc-threads',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-ipc-threads': {
@@ -87701,11 +87883,9 @@ const commandSpec299 = {
       key: 'start-timeout',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-start-timeout': {
@@ -87762,11 +87942,9 @@ const commandSpec300 = {
       key: 'ipc-threads',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-ipc-threads': {
@@ -87778,11 +87956,9 @@ const commandSpec300 = {
       key: 'start-timeout',
       value: 'integer',
       parser: {
-        kind: 'decimal',
-        longBits: 64,
-        bits: 32,
+        kind: 'integer',
         signed: true,
-        conversion: 'checked',
+        bits: 32,
       },
     },
     '--no-start-timeout': {
@@ -88455,6 +88631,7 @@ const commandSpec306 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
     },
     '-U': {
@@ -88475,6 +88652,7 @@ const commandSpec306 = {
         empty: true,
         beforeNonnegative: true,
         default: 'previous',
+        nativeCallback: 'unified-context',
       },
       emptyValueFlag: '--unified',
     },
@@ -89485,6 +89663,7 @@ const commandSpec306 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--grep': {
@@ -89559,6 +89738,7 @@ const commandSpec306 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -89596,6 +89776,7 @@ const commandSpec306 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {
@@ -89656,6 +89837,7 @@ const commandSpec306 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--maximal-only': {
@@ -89683,6 +89865,7 @@ const commandSpec306 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
     },
     '--no-abbrev-commit': {
@@ -89931,6 +90114,7 @@ const commandSpec306 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       checks: [
         {
@@ -90051,6 +90235,7 @@ const commandSpec306 = {
         bits: 32,
         signed: true,
         conversion: 'checked',
+        nativeCallback: 'revision-count',
       },
       effects: [
         {

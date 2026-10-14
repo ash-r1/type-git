@@ -720,9 +720,10 @@ both narrow to one, while `--mainline=2147483648` becomes negative and fails.
 On C long 32, the last value saturates to positive `INT_MAX`, and the negative
 value saturates to `INT_MIN` and fails. Native parse-options
 integer handlers instead reject overflow and accept base-0/unit spellings.
-Revision counts use strict decimal checked integers; tab widths and apply strip
-counts add a nonnegative check. Diff context checks negativity before narrowing to unsigned
-storage, whereas grep context can narrow a negative int into unsigned context.
+In the pinned Git 2.55.0 source profile, revision counts use strict decimal
+checked integers; tab widths and apply strip counts add a nonnegative check.
+Diff context checks negativity before narrowing to unsigned storage, whereas
+grep context can narrow a negative int into unsigned context.
 The abbreviation callback clamps nonzero results below four after conversion.
 The separate revision parser's permissive `--abbrev` handling remains distinct.
 
@@ -743,4 +744,17 @@ through convenience methods. Nongeneric convenience numeric fields still rely
 on runtime scalar checks. These additions do not establish whole-command
 semantic completeness; all audit scopes remain partial.
 
-Resume audit: Git 2.25.1 and 2.47.3 accept negative unified context; 2.55.0 rejects it before narrowing. Revision count changed to checked parsing before 2.47.3, while apply strip count still uses atoi in 2.47.3. These are independent callback traits. Skipping modern fixtures on older Git does not validate the wrapper on those implementations. Native observations are recorded separately; selected callback traits must be implemented before this resumed change is published. Manual fsmonitor schemas also require native OPTION_INTEGER parsing rather than the revision-count callback.
+Callback implementations are selected independently using readonly parser probes,
+in the same execution context and environment as the requested command. Git
+2.25.1 and 2.47.3 accept negative unified context and store signed int; 2.55.0
+checks negativity before storing unsigned context. Revision count is checked in
+2.47.3 but apply strip count and daemon connection count still use atoi there.
+The older atoi callbacks consume an initial decimal prefix and accept empty or
+non-numeric strings as zero. Unknown probe output delegates validation to the
+original native argv. Modern daemon timeout helpers reject every minus sign, including negative zero, before unsigned conversion. Finite JavaScript numbers within the safe magnitude range retain their emitted spellings; older atoi can consume a prefix from a fractional or scientific spelling. NUL cannot occur in an argv word. Build metadata determines C long width when validity
+changes with that width; decimal callbacks retain native validation if those
+metadata are unavailable. Types evaluate whole-tuple callback alternatives and
+retain precise helpers for an explicitly declared source profile. Manual
+fsmonitor options use native OPTION_INTEGER semantics, including radix and unit
+suffixes, rather than revision count parsing. These observations do not prove
+whole-command completeness.

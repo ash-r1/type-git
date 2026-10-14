@@ -1,4 +1,9 @@
-import { type GitDecimalParser, parseGitDecimal } from './git-decimal.js';
+import {
+  type GitDecimalParser,
+  type GitDecimalCallbacks,
+  parseGitDecimal,
+  selectedGitDecimal,
+} from './git-decimal.js';
 import {
   type GitIntegerParser,
   integerState,
@@ -123,9 +128,15 @@ export function parseGitScalar(
   binaryIntegers = true,
   integerProfile?: GitIntegerProfile,
   negativeMagnitudes = false,
+  decimalCallbacks?: GitDecimalCallbacks,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'decimal') {
-    return parseGitDecimal(value, parser, previous, cLongBits);
+    return parseGitDecimal(
+      value,
+      selectedGitDecimal(parser, decimalCallbacks),
+      previous,
+      cLongBits,
+    );
   }
   if (typeof parser === 'object') {
     const bits =

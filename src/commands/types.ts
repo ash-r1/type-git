@@ -3,7 +3,12 @@ import type {
   GitNumericParser,
   GitNumericValue,
 } from '../constraints/git-numeric-types.js';
-import type { GitDecimalParser } from '../constraints/git-decimal.js';
+import type {
+  GitDecimalParser,
+  GitDecimalCallback,
+  GitDecimalCallbacks,
+  LegacyGitDecimal,
+} from '../constraints/git-decimal.js';
 import type { GitIntegerParser } from '../constraints/git-integer.js';
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
@@ -713,9 +718,18 @@ type DecimalProfiledOption<S, D extends OptionSpec> = S extends {
     ? Omit<D, 'parser'> & { parser: Omit<P, 'longBits'> & { longBits: Bits } }
     : D
   : D;
+type CallbackProfiledOption<S, D extends OptionSpec> = D extends {
+  parser: infer P extends GitDecimalParser & { nativeCallback: GitDecimalCallback };
+}
+  ? S extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+    ? F[P['nativeCallback']] extends 'legacy'
+      ? Omit<D, 'parser'> & { parser: LegacyGitDecimal<P> }
+      : D
+    : D
+  : D;
 type ProfiledOption<S, D extends OptionSpec> = DecimalProfiledOption<
   S,
-  MagnitudeProfiledOption<S, IntegerProfiledOption<S, D>>
+  CallbackProfiledOption<S, MagnitudeProfiledOption<S, IntegerProfiledOption<S, D>>>
 >;
 type ApplyToken<
   C extends GitCommandName,
@@ -791,17 +805,22 @@ type CheckedLegacyIntegerArguments<
   IntegerProfile extends 'bounded' | 'decimal-cast' = 'decimal-cast',
   Negative extends boolean = false,
   LongBits extends 32 | 64 = 64,
+  Callbacks extends GitDecimalCallbacks = {},
   S = State<
     C,
     A,
     Put<
       Put<
-        Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', IntegerProfile>,
-        'negativeMagnitudes',
-        Negative
+        Put<
+          Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', IntegerProfile>,
+          'negativeMagnitudes',
+          Negative
+        >,
+        'decimalLongBits',
+        LongBits
       >,
-      'decimalLongBits',
-      LongBits
+      'decimalCallbacks',
+      Callbacks
     >
   >,
 > = [S] extends [never]
@@ -820,10 +839,121 @@ type CheckedIntegerAlternativesAtWidth<
     ? CheckedLegacyIntegerArguments<C, A, 'decimal-cast', true, Bits>
     : A
   : A;
-type CheckedIntegerAlternatives<C extends GitCommandName, A extends readonly unknown[]> = [
-  CheckedIntegerAlternativesAtWidth<C, A, 64>,
+/** Avoid replaying a whole tuple for a width that cannot change any callback state. */
+type DecimalWidthChanges<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  F extends GitDecimalCallbacks = {},
+> = A extends readonly [infer T, ...infer Rest]
+  ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
+    ? CallbackProfiledOption<
+        { decimalCallbacks: F },
+        Extract<Options<C>[K], OptionSpec>
+      > extends infer D extends OptionSpec
+      ? D extends { parser: infer P extends GitDecimalParser & { conversion: 'cast' | 'atoi' } }
+        ? GitNumericValue<
+            T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
+            P
+          > extends infer Wide
+          ? GitNumericValue<
+              T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
+              Omit<P, 'longBits'> & { longBits: 32 }
+            > extends infer Narrow
+            ? [Wide] extends [Narrow]
+              ? [Narrow] extends [Wide]
+                ? DecimalWidthChanges<C, Rest, F>
+                : true
+              : true
+            : never
+          : never
+        : DecimalWidthChanges<C, Rest, F>
+      : false
+    : DecimalWidthChanges<C, Rest, F>
+  : false;
+type CheckedIntegerAlternatives<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = TupleIntegerTraits<C, A> extends true
+  ? [CheckedIntegerAlternativesAtWidth<C, A, 64>] extends [never]
+    ? DecimalWidthChanges<C, A> extends true
+      ? CheckedIntegerAlternativesAtWidth<C, A, 32>
+      : never
+    : A
+  : DecimalWidthChanges<C, A> extends true
+    ? CheckedLegacyIntegerArguments<C, A, 'bounded', false, 32>
+    : never;
+type TupleCallbacks<C extends GitCommandName, A extends readonly unknown[]> = A extends readonly [
+  infer T,
+  ...infer Rest,
+]
+  ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
+    ? Options<C>[K] extends {
+        parser: { kind: 'decimal'; nativeCallback: infer F extends GitDecimalCallback };
+      }
+      ? F | TupleCallbacks<C, Rest>
+      : TupleCallbacks<C, Rest>
+    : TupleCallbacks<C, Rest>
+  : never;
+type CallbackChoices<K extends GitDecimalCallback> = ('unified-context' extends K
+  ? { 'unified-context': 'modern' } | { 'unified-context': 'legacy' }
+  : {}) &
+  ('revision-count' extends K
+    ? { 'revision-count': 'modern' } | { 'revision-count': 'legacy' }
+    : {}) &
+  ('strip-count' extends K ? { 'strip-count': 'modern' } | { 'strip-count': 'legacy' } : {}) &
+  ('daemon-count' extends K ? { 'daemon-count': 'modern' } | { 'daemon-count': 'legacy' } : {}) &
+  ('daemon-timeout' extends K
+    ? { 'daemon-timeout': 'modern' } | { 'daemon-timeout': 'legacy' }
+    : {}) &
+  ('daemon-init-timeout' extends K
+    ? { 'daemon-init-timeout': 'modern' } | { 'daemon-init-timeout': 'legacy' }
+    : {});
+/** Source-family alternatives are relevant only to schema integers and object filters. */
+type TupleIntegerTraits<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = A extends readonly [infer T, ...infer Rest]
+  ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
+    ? Options<C>[K] extends { parser: infer P }
+      ? P extends { kind: 'integer' } | 'object-filter' | 'object-filter-auto'
+        ? true
+        : TupleIntegerTraits<C, Rest>
+      : TupleIntegerTraits<C, Rest>
+    : TupleIntegerTraits<C, Rest>
+  : false;
+type CheckedCallbackWidth<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  F extends GitDecimalCallbacks,
+  Bits extends 32 | 64,
+> = [CheckedLegacyIntegerArguments<C, A, 'bounded', false, Bits, F>] extends [never]
+  ? TupleIntegerTraits<C, A> extends true
+    ? [CheckedLegacyIntegerArguments<C, A, 'decimal-cast', false, Bits, F>] extends [never]
+      ? [CheckedLegacyIntegerArguments<C, A, 'bounded', true, Bits, F>] extends [never]
+        ? CheckedLegacyIntegerArguments<C, A, 'decimal-cast', true, Bits, F>
+        : A
+      : A
+    : never
+  : A;
+type CheckedCallbackChoice<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  F extends GitDecimalCallbacks,
+> = F extends unknown
+  ? Extract<F[keyof F], 'legacy'> extends never
+    ? never
+    : [CheckedCallbackWidth<C, A, F, 64>] extends [never]
+      ? DecimalWidthChanges<C, A, F> extends true
+        ? CheckedCallbackWidth<C, A, F, 32>
+        : never
+      : A
+  : never;
+type CheckedNumericAlternatives<C extends GitCommandName, A extends readonly unknown[]> = [
+  CheckedIntegerAlternatives<C, A>,
 ] extends [never]
-  ? CheckedIntegerAlternativesAtWidth<C, A, 32>
+  ? [TupleCallbacks<C, A>] extends [never]
+    ? never
+    : CheckedCallbackChoice<C, A, CallbackChoices<TupleCallbacks<C, A>>>
   : A;
 /** Literal option combinations are checked against the same schema as runtime calls. */
 type CheckedLocalArguments<
@@ -838,12 +968,12 @@ type CheckedLocalArguments<
     ? number extends A['length']
       ? A
       : [State<C, A>] extends [never]
-        ? CheckedIntegerAlternatives<C, A>
+        ? CheckedNumericAlternatives<C, A>
         : State<C, A> extends { help: true }
           ? A
           : CheckRules<State<C, A>, Spec<C>['rules']> extends true
             ? A
-            : CheckedIntegerAlternatives<C, A>
+            : CheckedNumericAlternatives<C, A>
     : never;
 
 /** Collect invalid finite dispatch alternatives before accepting the complete tuple. */

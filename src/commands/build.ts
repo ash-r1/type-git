@@ -1,3 +1,4 @@
+import type { GitDecimalCallback, GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { matches, violations } from '../constraints/model.js';
@@ -60,6 +61,7 @@ export function commandArguments(
     binaryIntegers?: boolean;
     integerProfile?: GitIntegerProfile;
     negativeMagnitudes?: boolean;
+    decimalCallbacks?: GitDecimalCallbacks;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -173,6 +175,9 @@ export function commandArguments(
     }
     const supplied = arg.length === 2 && arg[1] !== undefined;
     const rawValue = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);
+    if (typeof rawValue === 'string' && rawValue.includes('\0')) {
+      throw new GitArgumentError(`${flag}: NUL is not a valid CLI argument`);
+    }
     const integerParser = typeof option.parser === 'object';
     if (integerParser && supplied && !['string', 'number', 'bigint'].includes(typeof rawValue)) {
       throw new GitArgumentError(`${flag}: expected a number, bigint or numeric string`);
@@ -187,6 +192,7 @@ export function commandArguments(
           abi?.binaryIntegers,
           abi?.integerProfile,
           abi?.negativeMagnitudes,
+          abi?.decimalCallbacks,
         )
       : undefined;
     if (integer && !integer.valid) {
@@ -303,6 +309,7 @@ export function commandArguments(
             abi?.binaryIntegers,
             abi?.integerProfile,
             abi?.negativeMagnitudes,
+            abi?.decimalCallbacks,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -489,5 +496,55 @@ export function commandUsesNegativeMagnitude(
         typeof arg[1] === 'string' &&
         objectFilterUsesNegativeMagnitude(arg[1]))
     );
+  });
+}
+
+/** Numeric callback traits used by this emitted tuple, following child dispatch. */
+export function commandDecimalCallbacks(
+  command: GitCommandName,
+  args: readonly unknown[],
+): GitDecimalCallback[] {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandDecimalCallbacks(dispatched.command, dispatched.args);
+  }
+  const callbacks = new Set<GitDecimalCallback>();
+  for (const arg of args) {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
+      continue;
+    }
+    const option = Object.hasOwn(spec.options, arg[0])
+      ? spec.options[arg[0]]
+      : spec.numericOption && /^-\d+$/.exec(arg[0])?.[0] === arg[0]
+        ? spec.numericOption
+        : undefined;
+    if (
+      typeof option?.parser === 'object' &&
+      option.parser.kind === 'decimal' &&
+      option.parser.nativeCallback
+    ) {
+      callbacks.add(option.parser.nativeCallback);
+    }
+  }
+  return [...callbacks];
+}
+
+/** Decimal callback width can be delegated to native validation if build metadata is unavailable. */
+export function commandUsesDecimalCallback(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesDecimalCallback(dispatched.command, dispatched.args);
+  }
+  return args.some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
+      return false;
+    }
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : spec.numericOption;
+    return typeof option?.parser === 'object' && option.parser.kind === 'decimal';
   });
 }

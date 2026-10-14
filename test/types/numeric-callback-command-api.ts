@@ -14,13 +14,13 @@ git.command('describe', [['--abbrev', '4294967296'], ['--long']]);
 git.command('describe', [['--abbrev', '-9223372036854775809'], ['--long']]);
 // C long 32 saturation remains positive; C long 64 narrowing is negative.
 git.command('cherry-pick', [['--mainline', '2147483648'], ['-h']]);
-// @ts-expect-error Decimal callbacks do not accept k/m/g suffixes.
+// Older revision-count atoi accepts a decimal prefix.
 git.command('rev-list', [['--max-count', '1k'], ['--all']]);
 // @ts-expect-error Tab width rejects negatives in addition to checked 32-bit bounds.
 git.command('log', [['--expand-tabs', '-1']]);
-// @ts-expect-error Diff rejects the negative long before converting to unsigned context.
+// Older unified context accepts negative signed int values.
 git.command('diff-files', [['-U', '-4294967295']]);
-// @ts-expect-error Checked revision counts reject overflow instead of narrowing.
+// Older revision counts narrow atoi results rather than rejecting overflow.
 git.command('rev-list', [['--max-count', 2147483648], ['--all']]);
 // @ts-expect-error Explicit booleans cannot supply a numeric callback argument.
 git.command('describe', [['--abbrev', true]]);
@@ -31,7 +31,7 @@ git.command('grep', [[`-${dynamicCount}`], { operand: 'needle' }]);
 git.command('grep', [[`-${dynamicBigCount}`], { operand: 'needle' }]);
 
 git.command('apply', [['-p', '+001'], ['-h']]);
-// @ts-expect-error Strip count is checked before later options, including help.
+// Older strip count uses atoi before help and accepts negative results.
 git.command('apply', [['-p', '-1'], ['-h']]);
 
 // @ts-expect-error Mainline zero is invalid for both C long widths.

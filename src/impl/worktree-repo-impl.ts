@@ -3498,7 +3498,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     commits: string | string[],
     opts?: CherryPickOpts & ExecOpts,
   ): Promise<void> {
-    validateOptions('cherryPick', opts);
+    await this.runner.validateMainlineOptions(this.context, 'cherryPick', opts, {
+      signal: opts?.signal,
+    });
     const args = ['cherry-pick'];
     const control = opts?.abort || opts?.continue || opts?.skip;
     if (opts?.abort) {
@@ -3935,7 +3937,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   // ==========================================================================
 
   public async revert(commits: string | string[], opts?: RevertOpts & ExecOpts): Promise<void> {
-    validateOptions('revert', opts);
+    await this.runner.validateMainlineOptions(this.context, 'revert', opts, {
+      signal: opts?.signal,
+    });
     const args = ['revert'];
     const control = opts?.abort || opts?.continue || opts?.skip;
     if (opts?.abort) {

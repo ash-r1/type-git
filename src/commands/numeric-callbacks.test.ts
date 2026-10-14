@@ -53,6 +53,7 @@ const samples = [
 describe('source-audited numeric callback stages', () => {
   let root: string;
   let env: NodeJS.ProcessEnv;
+  let cLongBits: 32 | 64;
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-numeric-cb-'));
     env = {
@@ -68,6 +69,23 @@ describe('source-audited numeric callback stages', () => {
       GIT_COMMITTER_EMAIL: 'fixture@example.invalid',
     };
     expect(spawnSync('git', ['init', root], { env }).status).toBe(0);
+    const build = spawnSync('git', ['version', '--build-options'], { env, encoding: 'utf8' });
+    const width = /^sizeof-long: ([48])\r?$/m.exec(build.stdout)?.[1];
+    if (build.status === 0 && width) {
+      cLongBits = width === '4' ? 32 : 64;
+    } else {
+      const probe = spawnSync('git', ['-C', root, 'cherry-pick', '--mainline=2147483648', '-h'], {
+        env,
+        encoding: 'utf8',
+      });
+      expect(probe.status).toBe(129);
+      if (probe.stderr.includes('expects a number greater than zero')) {
+        cLongBits = 64;
+      } else {
+        expect(probe.stdout + probe.stderr).toContain('usage:');
+        cLongBits = 32;
+      }
+    }
   });
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
@@ -113,7 +131,7 @@ describe('source-audited numeric callback stages', () => {
           }
           const parser = registry.profiles[profile.profile]!.parser;
           expect(
-            parseGitScalar(parser, value).valid,
+            parseGitScalar(parser, value, undefined, cLongBits).valid,
             `${profile.command} ${JSON.stringify(value)}: ${native.stderr}`,
           ).toBe(!invalid);
           const args = [
@@ -123,9 +141,13 @@ describe('source-audited numeric callback stages', () => {
               : profile.tail.map((flag) => [flag])),
           ];
           if (invalid) {
-            expect(() => commandArguments(profile.command, args, true)).toThrow(GitArgumentError);
+            expect(() =>
+              commandArguments(profile.command, args, true, { longBits: cLongBits, sizeTBits: 64 }),
+            ).toThrow(GitArgumentError);
           } else {
-            expect(() => commandArguments(profile.command, args, true)).not.toThrow();
+            expect(() =>
+              commandArguments(profile.command, args, true, { longBits: cLongBits, sizeTBits: 64 }),
+            ).not.toThrow();
           }
         }
       },
@@ -134,7 +156,10 @@ describe('source-audited numeric callback stages', () => {
   }
 
   it('normalizes values before final combination checks and serializes empty optional short values', () => {
-    for (const value of ['0', '4294967296', '-9223372036854775809']) {
+    for (const value of [
+      '0',
+      ...(cLongBits === 64 ? ['4294967296', '-9223372036854775809'] : []),
+    ]) {
       const native = spawnSync('git', ['-C', root, 'describe', '--long', `--abbrev=${value}`], {
         env,
         encoding: 'utf8',
@@ -143,9 +168,12 @@ describe('source-audited numeric callback stages', () => {
       expect(native.stderr).toMatch(
         /--long.*--abbrev=0.*cannot be used together|--long is incompatible with --abbrev=0/,
       );
-      expect(() => commandArguments('describe', [['--long'], ['--abbrev', value]], true)).toThrow(
-        GitArgumentError,
-      );
+      expect(() =>
+        commandArguments('describe', [['--long'], ['--abbrev', value]], true, {
+          longBits: cLongBits,
+          sizeTBits: 64,
+        }),
+      ).toThrow(GitArgumentError);
     }
     expect(commandArguments('diff-files', [['-U', '']], true)).toEqual([
       'diff-files',
@@ -170,8 +198,13 @@ describe('source-audited numeric callback stages', () => {
     expect(() => commandArguments('grep', [['-1\n'], ['-h']], true)).toThrow(GitArgumentError);
     expect(parseGitScalar(registry.profiles['unified-context']!.parser, true, 17).value).toBe(17);
     expect(parseGitScalar(registry.profiles['grep-context']!.parser, '-1').value).toBe(4294967295);
-    expect(parseGitScalar(registry.profiles.mainline!.parser, '-4294967295').value).toBe(1);
-    expect(parseGitScalar(registry.profiles.abbrev!.parser, '9223372036854775808').value).toBe(4);
+    expect(
+      parseGitScalar(registry.profiles.mainline!.parser, '-4294967295', undefined, cLongBits),
+    ).toEqual(cLongBits === 64 ? { valid: true, value: 1 } : { valid: false });
+    expect(
+      parseGitScalar(registry.profiles.abbrev!.parser, '9223372036854775808', undefined, cLongBits)
+        .value,
+    ).toBe(cLongBits === 64 ? 4 : 2147483647);
   });
 
   it('checks numeric callback values immediately in every generated scope', () => {
@@ -218,16 +251,12 @@ describe('source-audited numeric callback stages', () => {
     run('reset', '--hard', 'HEAD^');
     const git = new TypeGit({ home: root, inheritEnv: false, env });
     const repo = await git.open(directory);
-    await repo.cherryPick(delta, { noCommit: true, mainline: -4294967295 });
+    await repo.cherryPick(delta, { noCommit: true, mainline: cLongBits === 64 ? -4294967295 : 1 });
     expect(run('diff', '--cached', '--name-only')).toBe('file');
     run('reset', '--hard', delta);
-    await repo.revert('HEAD', { noCommit: true, mainline: -4294967295 });
+    await repo.revert('HEAD', { noCommit: true, mainline: cLongBits === 64 ? -4294967295 : 1 });
     expect(run('diff', '--cached', '--name-only')).toBe('file');
-    await expect(repo.cherryPick(delta, { mainline: 2147483648 })).rejects.toBeInstanceOf(
-      GitArgumentError,
-    );
-    await expect(repo.revert('HEAD', { mainline: 2147483648 })).rejects.toBeInstanceOf(
-      GitArgumentError,
-    );
+    await expect(repo.cherryPick(delta, { mainline: 0 })).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(repo.revert('HEAD', { mainline: 0 })).rejects.toBeInstanceOf(GitArgumentError);
   });
 });

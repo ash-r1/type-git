@@ -22328,29 +22328,6 @@
     },
     {
       "command": "apply",
-      "transitions": [
-        {
-          "flag": "-p",
-          "rules": [
-            "cli.apply.strip-count"
-          ],
-          "domains": {
-            "$value": [
-              "undefined",
-              "-2",
-              "-1",
-              "0",
-              "1",
-              "2"
-            ]
-          },
-          "total": "6",
-          "accepted": "4",
-          "isolatedRuleWitnesses": {
-            "cli.apply.strip-count": "{\"$value\":-2}"
-          }
-        }
-      ],
       "rules": 5,
       "domains": {
         "exclude": [

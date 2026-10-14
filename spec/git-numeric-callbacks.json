@@ -1,6 +1,6 @@
 {
   "version": "2.55.0",
-  "scope": "Source-audited numeric callback stages; LP64 strtol saturation and 32-bit storage, not all callbacks or platforms.",
+  "scope": "Source-audited numeric callbacks; selected C long widths and independent native callback families. Not all callbacks or platforms.",
   "sources": {
     "parse-options-cb.c": "7ddab655e2c3442b86c297d570e7114e28a31d472fb7f0baaece18e4725d75f4",
     "git-compat-util.h": "af6c2cca3c61ea752fd747879105737abf99ec01b8879da53dbe79c1bac54d71",
@@ -14,7 +14,9 @@
     "object-name.h": "b28f2e711eb7deca2c4e1a750b8a3a7b314c928f8c913cd716cd7e540239ef64",
     "sequencer.h": "bf24c81ddd8049faa006c0a75fe80ae1fb7ccbfb9a0a79032266ee8d9f110eac",
     "parse.c": "efe38c1cb553aab2a697747d9742d55e61fe135e37b17022952715405bccfe91",
-    "apply.c": "7c154909bb277318711ff8e67cc73f2e7c875e48b1de7ce2effa2597020c4057"
+    "apply.c": "7c154909bb277318711ff8e67cc73f2e7c875e48b1de7ce2effa2597020c4057",
+    "daemon.c": "eda693a63869a9f4ee6ed3ad055767d51ca06875c8f4b4df7c04f043a2db8772",
+    "builtin/fsmonitor--daemon.c": "23e37e82260c5b49511a344756565aa7fa273a080b67bf122aeb22bd7f7599fb"
   },
   "profiles": {
     "abbrev": {
@@ -57,7 +59,8 @@
         "longBits": 64,
         "bits": 32,
         "signed": true,
-        "conversion": "checked"
+        "conversion": "checked",
+        "nativeCallback": "revision-count"
       },
       "callbacks": [],
       "source": "revision.c:parse_count; git-compat-util.h:strtol_i"
@@ -88,7 +91,8 @@
         "conversion": "cast",
         "empty": true,
         "beforeNonnegative": true,
-        "default": "previous"
+        "default": "previous",
+        "nativeCallback": "unified-context"
       },
       "callbacks": [
         {
@@ -131,7 +135,8 @@
         "bits": 32,
         "signed": true,
         "conversion": "checked",
-        "beforeNonnegative": true
+        "beforeNonnegative": true,
+        "nativeCallback": "strip-count"
       },
       "callbacks": [
         {
@@ -140,6 +145,45 @@
         }
       ],
       "source": "apply.c:apply_option_parse_p; git-compat-util.h:strtol_i"
+    },
+    "daemon-count": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked",
+        "nativeCallback": "daemon-count",
+        "clampNegativeToZero": true
+      },
+      "callbacks": [],
+      "source": "daemon.c:max-connections; git-compat-util.h:strtol_i"
+    },
+    "daemon-timeout": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": false,
+        "conversion": "checked",
+        "nativeCallback": "daemon-timeout",
+        "rejectMinus": true
+      },
+      "callbacks": [],
+      "source": "daemon.c:daemon-timeout; git-compat-util.h:strtoul_ui"
+    },
+    "daemon-init-timeout": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": false,
+        "conversion": "checked",
+        "nativeCallback": "daemon-init-timeout",
+        "rejectMinus": true
+      },
+      "callbacks": [],
+      "source": "daemon.c:daemon-init-timeout; git-compat-util.h:strtoul_ui"
     }
   }
 }
