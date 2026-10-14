@@ -15,7 +15,7 @@ import {
   type GuiGrammar,
   type GuiLaunch,
 } from './gui-syntax.js';
-import type { CommandSpec, OptionSpec } from './spec.js';
+import { ARGV_STRING_CONSTRAINT, type CommandSpec, type OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
 /** Select a registered child grammar after the dispatcher's permitted global options. */
@@ -51,7 +51,35 @@ function dispatchArguments(
   return undefined;
 }
 
-/** Build argv without a shell, preserving repeated options and interleaved operands. */
+/** Validate supplied argv words before interpreting commands or selecting native parser traits. */
+export function validateArgvStrings(args: readonly unknown[]): void {
+  if (!Array.isArray(args)) {
+    throw new GitArgumentError('Command arguments must be an array');
+  }
+  for (const token of args) {
+    if (Array.isArray(token)) {
+      for (const word of token) {
+        if (typeof word === 'string' && word.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)) {
+          throw new GitArgumentError('NUL is not a valid CLI argument');
+        }
+      }
+    } else if (
+      token &&
+      typeof token === 'object' &&
+      'operand' in token &&
+      typeof token.operand === 'string' &&
+      token.operand.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)
+    ) {
+      throw new GitArgumentError('Expected a string operand without NUL');
+    }
+  }
+}
+
+/**
+ * Validate argv representation before parser selection, then emit ordered words without a shell.
+ * NUL in a supplied word is rejected before GUI, dispatch or native-profile lookup; stdin is separate.
+ * Selected ABI and parser traits affect semantic checks while original numeric spellings are retained.
+ */
 export function commandArguments(
   command: GitCommandName,
   args: readonly unknown[],
@@ -74,6 +102,7 @@ export function commandArguments(
   if (!spec) {
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
+  validateArgvStrings(args);
   if (spec.guiScript) {
     const rootOptions = Object.assign(
       {},
@@ -84,9 +113,6 @@ export function commandArguments(
     const argv = guiArguments(spec, args, rootOptions);
     validateGuiArguments(argv, guiGrammar, guiLaunch);
     return argv;
-  }
-  if (!Array.isArray(args)) {
-    throw new GitArgumentError('Command arguments must be an array');
   }
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
@@ -112,7 +138,10 @@ export function commandArguments(
     if (!Array.isArray(arg)) {
       const operand =
         arg !== null && typeof arg === 'object' && 'operand' in arg ? arg.operand : undefined;
-      if (typeof operand !== 'string' || operand.includes('\0')) {
+      if (
+        typeof operand !== 'string' ||
+        operand.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)
+      ) {
         throw new GitArgumentError('Expected a string operand without NUL');
       }
       if (
@@ -177,7 +206,10 @@ export function commandArguments(
     }
     const supplied = arg.length === 2 && arg[1] !== undefined;
     const rawValue = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);
-    if (typeof rawValue === 'string' && rawValue.includes('\0')) {
+    if (
+      typeof rawValue === 'string' &&
+      rawValue.includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)
+    ) {
       throw new GitArgumentError(`${flag}: NUL is not a valid CLI argument`);
     }
     const integerParser = typeof option.parser === 'object';
@@ -273,7 +305,7 @@ export function commandArguments(
         if (option.value.endsWith('string') && typeof value !== 'string') {
           throw new GitArgumentError(`${flag}: expected a string`);
         }
-        if (String(value).includes('\0')) {
+        if (String(value).includes(ARGV_STRING_CONSTRAINT.forbiddenCharacter)) {
           throw new GitArgumentError(`${flag}: NUL is not a valid CLI argument`);
         }
         // Long equals forms preserve empty values; short values are separate tokens.

@@ -762,3 +762,17 @@ whole-command completeness.
 ## Object-filter byte and literal constraints
 
 Combined literals follow native split, reserved-byte validation, nonzero percent decoding and recursive parsing. Malformed escapes and `%00` are preserved. Numeric bounds use the shared integer literal parser, with the selected negative-magnitude policy retained. Symbolic numeric slots and bounded compiler walks defer to runtime. The checked-in 1,331-case corpus records Git 2.55 LP64 with unsigned char; it is reproduced using a separately built unsigned-char executable and is not portable evidence for signed-char Git. Runtime validation resolves the selected executable's C char behavior for raw and nested decoded high bytes with a readonly clone callback, without a URL. The same context, environment and cancellation signal are used; original stdin is reserved for the requested command. Unknown probe results preserve native validation. An additional signed-char corpus records the same 1,331 cases and supplies explicit signed-char compiler assertions. `ObjectFilterLiteral` retains its negative-magnitude third argument and accepts an unsigned-char fourth argument; the default represents the permissive unsigned-char alternative for an unknown target. Finite invalid unions remain rejected. Run `node scripts/object-filter-corpus.mjs --signed-char --check` on signed-char LP64 Git 2.55, and the default `--check` on unsigned-char LP64 Git 2.55. All audit scopes remain partial.
+
+## CLI string representation
+
+NUL cannot be represented inside an OS argument string. This is a transport
+restriction, independent of Git's command-specific parsing and help behavior.
+`ARGV_STRING_CONSTRAINT` records this wrapper representation rule once in the
+command schema, with its reason and provenance. Runtime and literal checks use
+its forbidden character. The typed command API checks literal tuples before
+dispatch and rejects known NUL bytes in option values or operand objects,
+including literal unions and templates with a known NUL. Each tuple position is
+checked independently so another dynamic string cannot hide a known NUL. The runtime builder checks the same representation boundary for dynamic inputs before GUI grammar lookup, child dispatch, and ABI or parser-profile probes. Metadata fields that are not emitted as argv words are ignored. Broad strings and arrays with unknown elements retain runtime validation. Known NUL values are rejected even in variadic tuples or arrays whose length is not known. Stdin is a data stream and continues to
+accept NUL; it is not an argv string. Convenience option objects and
+execution-environment fields require separate auditing; this rule does not claim
+whole-command or whole-wrapper completeness.

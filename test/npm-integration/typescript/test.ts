@@ -190,6 +190,7 @@ export function testUniversalCallbackFailures(git: Git): void {
   git.command('rev-list', [['--max-count', 9007199254740992], ['--all']]);
 }
 
+/** Verify packed declarations apply decoded filter grammar and native numeric bounds. */
 export function testObjectFilterByteTypes(git: Git, dynamicCount: number): void {
   git.command('fetch', [['--filter', `tree:${dynamicCount}`]]);
   git.command('fetch', [['--filter', 'tree:18446744073709551615']]);
@@ -200,4 +201,15 @@ export function testObjectFilterByteTypes(git: Git, dynamicCount: number): void 
   git.command('fetch', [['--filter', 'combine:tree:%ff']]);
   // @ts-expect-error Escaped separators are applied in the next nested combine stage.
   git.command('fetch', [['--filter', 'combine:combine:tree:1%2Bauto']]);
+}
+
+/** Verify packed declarations reject known argv NUL while preserving unrelated dynamic words. */
+export function testArgvStringTypes(git: Git, dynamic: string): void {
+  // @ts-expect-error Other dynamic tokens cannot erase a known NUL value.
+  git.command('log', [['--format', 'a\0b'], { operand: dynamic }, ['-h']]);
+  git.command('log', [['--format', 'text'], ['-h']]);
+  // @ts-expect-error NUL cannot be serialized even when help suppresses Git semantic rules.
+  git.command('log', [['--format', 'a\0b'], ['-h']]);
+  // @ts-expect-error The same representation rule applies through command dispatch.
+  git.command('config', [{ operand: 'get' }, { operand: 'a\0b' }]);
 }
