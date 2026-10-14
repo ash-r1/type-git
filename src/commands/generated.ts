@@ -93640,6 +93640,7 @@ const commandSpec354 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
       parser: 'perl-int-gnu',
     },
     '--log-window-size': {
@@ -93875,6 +93876,7 @@ const commandSpec355 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
       parser: 'perl-int-gnu',
     },
     '--log-window-size': {
@@ -93953,6 +93955,7 @@ const commandSpec355 = {
     '--shared': {
       key: 'shared',
       value: 'optional-string',
+      set: '',
     },
     '--trunk': {
       key: 'trunk',
@@ -94225,6 +94228,7 @@ const commandSpec356 = {
     '--shared': {
       key: 'shared',
       value: 'optional-string',
+      set: '',
     },
     '--trunk': {
       key: 'trunk',
@@ -94494,6 +94498,7 @@ const commandSpec357 = {
     '--shared': {
       key: 'shared',
       value: 'optional-string',
+      set: '',
     },
     '--trunk': {
       key: 'trunk',
@@ -94955,6 +94960,7 @@ const commandSpec358 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
       parser: 'perl-int-gnu',
     },
     '--log-window-size': {
@@ -95508,6 +95514,7 @@ const commandSpec361 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
       parser: 'perl-int-gnu',
     },
     '--log-window-size': {
@@ -96436,6 +96443,7 @@ const commandSpec369 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
       parser: 'perl-int-gnu',
     },
     '--log-window-size': {
@@ -97132,6 +97140,7 @@ const commandSpec373 = {
     '--repack': {
       key: 'repack',
       value: 'optional-integer',
+      set: 0,
       parser: 'perl-int-gnu',
     },
     '--log-window-size': {

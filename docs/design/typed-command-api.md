@@ -577,3 +577,20 @@ Native SVN tests cover every operation help grammar and isolated file:// reposit
 SVN integer options follow Getopt::Long rather than Python optparse: decimal ASCII digits permit underscores and one final LF, and GNU long-equals empty values become zero. Raw strings and bigint values preserve width without a JavaScript safe-integer gate. Known finite integer literals are checked up to 192 characters; dynamic/opaque and longer values defer to runtime instead of introducing a compiler-size Git restriction. Perl numeric coercion and interpreter-specific behavior remain native; further template proofs and callback phases remain audit work.
 
 Known forbidden ASCII characters in integer templates are rejected even when other sections are dynamic: letter, punctuation and whitespace templates such as `x${string}`, `${number}x`, `.${string}` and `${number} ${string}` cannot match Getopt::Long PAT_INT. The character set is the complement of its admitted ASCII characters; sign placement and the final LF retain their separate checks. Opaque input remains a runtime input, and a union containing a known invalid literal remains rejected. The native regex and corresponding Git comparisons are the evidence for these type checks; other template proofs remain audit work.
+
+### Inventory coverage and reproducibility gates
+
+The pinned inventory now has a typed CLI scope for every executable entry. `sh-i18n` and `sh-setup` are explicitly excluded as sourced shell libraries. The coverage check fails for missing inventory/audit/schema records and rejects other sourced-library exclusions. `command-coverage.json` separates inventory/API counts from completed constraint audits: zero scopes currently claim full constraint completeness.
+
+To verify the upstream evidence without modifying tracked snapshots:
+
+```sh
+pnpm commands:upstream-check /path/to/git-2.55.0 /path/to/git-lfs-3.8.0
+# Also reproduce expanded C tables on their recorded compiler/target profile:
+pnpm commands:upstream-check /path/to/git-2.55.0 /path/to/git-lfs-3.8.0 --c-tables
+pnpm typecheck
+```
+
+The verifier checks all recorded source fingerprints and reruns extractors in an isolated temporary directory, comparing artifacts byte for byte. C preprocessing is conditional on its recorded compiler version, flags and target; identical Git versions alone do not promise identical platform-specific option tables. Source extraction discovers declarations/candidates, reviewed schemas express semantic rules, and the solver exhaustively traverses their finite normalized domains. None of those counts proves coverage of every argument sequence or repository/configuration state.
+
+For the optional native frontends on Debian, install `python3 subversion libsvn-perl libdbi-perl libcgi-pm-perl tcl tk xvfb xauth`; run `xvfb-run -a pnpm test:ci` to include X11 parser checks. Tests use disposable local repositories and skip unavailable native capabilities explicitly.
