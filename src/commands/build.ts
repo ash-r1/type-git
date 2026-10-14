@@ -421,6 +421,36 @@ export function commandArguments(
   return argv;
 }
 
+/** Stop trait discovery where an audited parser exits; later words are only serialized. */
+function interpretedArguments(spec: CommandSpec, args: readonly unknown[]): readonly unknown[] {
+  if (!spec.parserExit) {
+    return args;
+  }
+  for (const [index, token] of args.entries()) {
+    if (token && typeof token === 'object' && !Array.isArray(token) && 'operand' in token) {
+      if (spec.optionParsing === 'stop-at-operand' || spec.optionParsing === 'none') {
+        return args;
+      }
+      continue;
+    }
+    if (!Array.isArray(token) || typeof token[0] !== 'string') {
+      continue;
+    }
+    const flag = token[0];
+    if ((flag === '--' && token.length === 1) || spec.options[flag]?.consumesRest) {
+      return args;
+    }
+    if (
+      token.length === 1 &&
+      spec.parserExit.flags.includes(flag) &&
+      !(index === 0 && spec.parserExit.exceptFirst?.includes(flag))
+    ) {
+      return args.slice(0, index);
+    }
+  }
+  return args;
+}
+
 /** Whether emitted options need the selected executable's native integer widths. */
 export function commandUsesNativeABI(command: GitCommandName, args: readonly unknown[]): boolean {
   if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
@@ -431,7 +461,7 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
   if (dispatched) {
     return commandUsesNativeABI(dispatched.command, dispatched.args);
   }
-  return args.some((arg) => {
+  return interpretedArguments(spec, args).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
@@ -467,7 +497,7 @@ export function commandUsesObjectFilterBinary(
   if (dispatched) {
     return commandUsesObjectFilterBinary(dispatched.command, dispatched.args);
   }
-  return args.some((arg) => {
+  return interpretedArguments(spec, args).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
       return false;
     }
@@ -499,7 +529,7 @@ export function commandUsesIntegerProfile(
   if (dispatched) {
     return commandUsesIntegerProfile(dispatched.command, dispatched.args);
   }
-  return args.some((arg) => {
+  return interpretedArguments(spec, args).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
@@ -530,7 +560,7 @@ export function commandUsesNegativeMagnitude(
   if (dispatched) {
     return commandUsesNegativeMagnitude(dispatched.command, dispatched.args);
   }
-  return args.some((arg) => {
+  return interpretedArguments(spec, args).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
@@ -562,7 +592,7 @@ export function commandDecimalCallbacks(
     return commandDecimalCallbacks(dispatched.command, dispatched.args);
   }
   const callbacks = new Set<GitDecimalCallback>();
-  for (const arg of args) {
+  for (const arg of interpretedArguments(spec, args)) {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       continue;
     }
@@ -592,7 +622,7 @@ export function commandUsesDecimalCallback(
   if (dispatched) {
     return commandUsesDecimalCallback(dispatched.command, dispatched.args);
   }
-  return args.some((arg) => {
+  return interpretedArguments(spec, args).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
@@ -611,7 +641,7 @@ export function commandUsesObjectFilterCharProfile(
   if (dispatched) {
     return commandUsesObjectFilterCharProfile(dispatched.command, dispatched.args);
   }
-  return args.some((arg) => {
+  return interpretedArguments(spec, args).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
       return false;
     }

@@ -1,4 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+import { createNodeAdapters } from '../adapters/node/index.js';
+import { CliRunner } from '../runner/cli-runner.js';
 import corpus from '../../test/fixtures/parser-exit-corpus.json';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
@@ -79,6 +81,33 @@ describe('ordered exits in audited single-pass parsers', () => {
     for (const name of ['grep', 'diff-files', 'log'] as const) {
       expect((COMMAND_SPECS[name] as { parserExit?: unknown }).parserExit).toBeUndefined();
     }
+  });
+
+  it('does not probe parser traits used only after an audited help exit', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi.fn().mockResolvedValue({
+      exitCode: 129,
+      stderr: 'usage: git clone',
+      stdout: '',
+      aborted: false,
+    });
+    const args = [['-h'], ['--filter', 'blob:limit=0b1']] as const;
+    const result = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'clone',
+      args,
+      false,
+      { stdin: 'original input' },
+    );
+    expect(result.exitCode).toBe(129);
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(adapters.exec.spawn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        argv: ['git', 'clone', '-h', '--filter=blob:limit=0b1'],
+        stdin: 'original input',
+      }),
+      undefined,
+    );
   });
 
   it('records color defaults and only the audited help spellings in the schema', () => {
