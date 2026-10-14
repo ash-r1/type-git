@@ -1,0 +1,6965 @@
+{
+  "profile": "Git 2.55.0; seeded repository; ordered reflog wrappers, log and revision parsers; no user repository access",
+  "cases": [
+    {
+      "command": "reflog",
+      "tokens": [],
+      "argv": [
+        "reflog"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--graph"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--reverse"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--reverse"
+        ],
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--reverse",
+        "--reverse"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--max-count=0",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--decorate=bad"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--decorate=bad",
+        "HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--decorate"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--decorate",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "--end-of-options",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-h",
+        "--decorate=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=bad",
+        "--help"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--decorate=bad",
+        "--help"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=bad",
+        "--help-all"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--help-all",
+        "--decorate=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--decorate=bad",
+        "--help-all"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--color=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-h",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--color=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--color=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--color=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "--color=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--help-all",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--color=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--graph"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--graph",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-h",
+        "--graph"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--graph",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--graph"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--graph",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--graph",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--graph"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "--graph",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--help-all",
+        "--graph"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--graph",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--max-count=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-h",
+        "--max-count=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--max-count=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--max-count=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--max-count=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--max-count",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "--max-count=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--help-all",
+        "--max-count=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "HEAD",
+        "--max-count=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: -n requires an argument"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: -n requires an argument"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-G",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-G",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: unrecognized argument: -h"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--default",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: your current branch appears to be broken"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "-n",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "-n",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--end-of-options': not an integer"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate="
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "true"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=true"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "true"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=true",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "TRUE"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=TRUE"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "TRUE"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=TRUE",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "false"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=false"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "false"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=false",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "0"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "0"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=0",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "-1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=-1",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=2147483648"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: 2147483648"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=2147483648",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: 2147483648"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=short"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "short"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=short",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "full"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=full"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "full"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=full",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=auto"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=auto",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git log [<options>] [<revision-range>] [[--] <path>...]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [],
+      "argv": [
+        "reflog",
+        "show"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--graph"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--graph"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: cannot combine --walk-reflogs with history-limiting options"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--reverse"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--reverse"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: options '--reverse' and '--walk-reflogs' cannot be used together"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--reverse"
+        ],
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--reverse",
+        "--reverse"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--reverse"
+        ],
+        [
+          "--reverse"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--reverse",
+        "--reverse"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=0",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=0",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--decorate=bad"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--decorate=bad",
+        "HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--decorate=bad"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--decorate=bad",
+        "HEAD"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--decorate"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--decorate",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--decorate"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--decorate",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--end-of-options",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--end-of-options",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-h",
+        "--decorate=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-h",
+        "--decorate=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help",
+        "--decorate=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help",
+        "--decorate=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--decorate=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--decorate=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help-all",
+        "--decorate=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help-all",
+        "--decorate=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--decorate=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--decorate=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--color=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--color=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-h",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-h",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--color=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--color=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--color=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--color=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--color=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--color=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--color=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--color=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help-all",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help-all",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--color=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--color",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--color=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--graph"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--graph",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--graph"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--graph",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-h",
+        "--graph"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-h",
+        "--graph"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--graph",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--graph",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--graph"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--graph",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--graph"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--graph",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help",
+        "--graph"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help",
+        "--graph"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--graph",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--graph",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--graph"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--graph",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--graph"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--graph",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help-all",
+        "--graph"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--graph"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help-all",
+        "--graph"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--graph",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--graph"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--graph",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-h",
+        "--max-count=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-h",
+        "--max-count=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--max-count=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--max-count=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--help"
+        ],
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help",
+        "--max-count=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--help"
+        ],
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help",
+        "--max-count=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--max-count=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--max-count=bad",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--max-count",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--max-count=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help-all",
+        "--max-count=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "--help-all"
+        },
+        [
+          "--max-count",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--help-all",
+        "--max-count=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--max-count=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "bad"
+        ],
+        {
+          "operand": "--help-all"
+        }
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "HEAD",
+        "--max-count=bad",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-h",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "--help"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--help",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "--help-all"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--help-all",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "--decorate=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "--decorate"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--decorate",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-L",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "-qh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-qh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "-xqh"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-xqh",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "-no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "-no-color",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: did you mean `--no-color` (with two dashes)?"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "--help=bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--help=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: -n requires an argument"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: -n requires an argument"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-G",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: unrecognized argument: -h"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-G",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-G",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: unrecognized argument: -h"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: your current branch appears to be broken"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--default",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: your current branch appears to be broken"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "-n",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--end-of-options': not an integer"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "-n",
+          "--end-of-options"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "-n",
+        "--end-of-options",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: '--end-of-options': not an integer"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate="
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          ""
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate="
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "true"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=true"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "true"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=true"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "true"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=true",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "true"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=true",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "TRUE"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=TRUE"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "TRUE"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=TRUE"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "TRUE"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=TRUE",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "TRUE"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=TRUE",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "false"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=false"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "false"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=false"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "false"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=false",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "false"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=false",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "0"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "0"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "0"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=0",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "0"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=0",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "-1"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "-1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=-1",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "-1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=-1",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=2147483648"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: 2147483648"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "2147483648"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=2147483648"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: 2147483648"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=2147483648",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "2147483648"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=2147483648",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=short"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "short"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=short"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "short"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=short",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "short"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=short",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "full"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=full"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "full"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=full"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "full"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=full",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "full"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=full",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=auto"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=auto"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=auto",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=auto",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "reflog show",
+      "tokens": [
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    },
+    {
+      "command": "reflog",
+      "tokens": [
+        {
+          "operand": "show"
+        },
+        [
+          "--decorate",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reflog",
+        "show",
+        "--decorate=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reflog [show] [<log-options>] [<ref>]"
+    }
+  ]
+}

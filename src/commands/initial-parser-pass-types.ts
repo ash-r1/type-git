@@ -71,6 +71,16 @@ type Option<S extends CommandSpec, F> = F extends Flags<S>
     : never
   : never;
 type Tick<N extends readonly unknown[]> = readonly [...N, 0];
+type Unknown<
+  S extends CommandSpec,
+  W extends string,
+  R extends readonly string[],
+  T extends Tokens,
+  N extends readonly unknown[],
+  Out extends readonly string[],
+> = S extends { parserExit: { stopAtUnknown: true } }
+  ? Done<T, readonly [...Out, W, ...R]>
+  : Walk<S, R, T, N, readonly [...Out, W]>;
 type Long<
   S extends CommandSpec,
   W extends string,
@@ -80,14 +90,14 @@ type Long<
   Out extends readonly string[],
 > = W extends `${infer F}=${infer V}`
   ? F extends '--help'
-    ? Walk<S, R, T, N, readonly [...Out, W]>
+    ? Unknown<S, W, R, T, N, Out>
     : [Option<S, F>] extends [never]
-      ? Walk<S, R, T, N, readonly [...Out, W]>
+      ? Unknown<S, W, R, T, N, Out>
       : Option<S, F>['value'] extends 'flag'
         ? Invalid
         : Walk<S, R, readonly [...T, readonly [F, V]], N, Out>
   : [Option<S, W>] extends [never]
-    ? Walk<S, R, T, N, readonly [...Out, W]>
+    ? Unknown<S, W, R, T, N, Out>
     : Option<S, W>['value'] extends 'flag' | `optional-${string}`
       ? Walk<S, R, readonly [...T, readonly [W]], N, Out>
       : R extends readonly [infer V extends string, ...infer Rest extends string[]]
@@ -117,8 +127,8 @@ type Short<
           ? First extends true
             ? Typo<S, Original> extends true
               ? Invalid
-              : Walk<S, R, T, N, readonly [...Out, `-${W}`]>
-            : Walk<S, R, T, N, readonly [...Out, `-${W}`]>
+              : Unknown<S, `-${W}`, R, T, N, Out>
+            : Unknown<S, `-${W}`, R, T, N, Out>
           : Option<S, `-${C}`>['value'] extends 'flag'
             ? First extends true
               ? Rest extends ''
@@ -189,12 +199,40 @@ type Walk<
           : W extends `--${string}`
             ? Long<S, W, R, T, Tick<N>, Out>
             : W extends '-'
-              ? Walk<S, R, T, Tick<N>, readonly [...Out, W]>
+              ? Unknown<S, W, R, T, Tick<N>, Out>
               : W extends `-${infer Cluster}`
                 ? Short<S, Cluster, Cluster, R, T, Tick<N>, true, Out>
-                : Walk<S, R, T, Tick<N>, readonly [...Out, W]>
+                : Unknown<S, W, R, T, Tick<N>, Out>
     : Done<T, Out>;
-/** Bounded literal execution of the source-recorded KEEP_UNKNOWN_OPT pass. */
+type Wrapper = NonNullable<NonNullable<CommandSpec['parserExit']>['wrappers']>[number];
+type WrapperWalk<
+  S extends CommandSpec,
+  Words extends readonly string[],
+  Wrappers,
+> = Wrappers extends readonly [infer H, ...infer R]
+  ? H extends Wrapper
+    ? Walk<
+        Omit<S, 'parserExit'> & {
+          parserExit: H & {
+            flags: readonly ['-h', '--help'];
+            firstPassOptions: readonly [];
+            firstPassLongNames: readonly [];
+          };
+        },
+        Words
+      > extends infer P
+      ? P extends { exited: false; remaining: infer Next extends readonly string[] }
+        ? WrapperWalk<S, Next, R>
+        : P
+      : never
+    : Invalid
+  : Walk<S, Words>;
+type WithWrappers<S extends CommandSpec, Words extends readonly string[]> = S extends {
+  parserExit: { wrappers: infer W };
+}
+  ? WrapperWalk<S, Words, W>
+  : Walk<S, Words>;
+/** Bounded literal execution of the source-recorded KEEP_UNKNOWN_OPT passes. */
 type Parsed<S extends CommandSpec, A extends readonly unknown[]> = Serialize<
   S,
   A
@@ -203,8 +241,8 @@ type Parsed<S extends CommandSpec, A extends readonly unknown[]> = Serialize<
     ? S extends { parserExit: { exceptFirst: readonly (infer Excluded)[] } }
       ? [Words[0]] extends [Excluded]
         ? Done<[], Words> & { delegated: true }
-        : Walk<S, Words>
-      : Walk<S, Words>
+        : WithWrappers<S, Words>
+      : WithWrappers<S, Words>
     : Deferred
   : never;
 

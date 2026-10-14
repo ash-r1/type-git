@@ -2195,9 +2195,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/wrapper-parser.test.ts",
+        "test/types/wrapper-parser-corpus.ts",
+        "test/types/wrapper-parser-api.ts"
       ],
-      "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
+      "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 320 independent native cases across direct and dispatched calls. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
     },
     "stash show": {
       "state": "partial",
@@ -5648,9 +5651,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/wrapper-parser.test.ts",
+        "test/types/wrapper-parser-corpus.ts",
+        "test/types/wrapper-parser-api.ts"
       ],
-      "remaining": "Exact child dispatch and implicit show fallback are modeled. Ref/reflog contents, expiry/deletion/configuration state, delegated revision/numeric/parser phases, aliases/help and selected-version differences remain pending. Finite normalized states do not prove all native reflog behavior. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
+      "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 320 independent native cases across direct and dispatched calls. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
     },
     "stash list": {
       "state": "partial",
