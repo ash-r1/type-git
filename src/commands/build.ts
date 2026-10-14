@@ -1,3 +1,4 @@
+import { initialParserPass } from './initial-parser-pass.js';
 import {
   isBooleanCallback,
   type GitBooleanSource,
@@ -106,6 +107,32 @@ export function commandArguments(
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
 ): string[] {
+  return buildArguments(command, args, inRepository, abi, guiGrammar, guiLaunch);
+}
+
+/** Serialize shape or validate only the callbacks reached by one parser pass. */
+function buildArguments(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+  abi?: {
+    longBits: 32 | 64;
+    sizeTBits: 32 | 64;
+    binaryIntegers?: boolean;
+    integerProfile?: GitIntegerProfile;
+    negativeMagnitudes?: boolean;
+    decimalCallbacks?: GitDecimalCallbacks;
+    unsignedChar?: boolean;
+    conflictStyle?: 'immediate' | 'deferred';
+    booleanSource?: GitBooleanSource;
+    booleanBinaryIntegers?: boolean;
+    booleanCapabilities?: GitBooleanCapabilities;
+    compoundNegatedOverflow?: boolean;
+  },
+  guiGrammar?: GuiGrammar,
+  guiLaunch?: GuiLaunch,
+  evaluationMode: 'full' | 'shape' | 'first-pass' = 'full',
+): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
     : undefined;
@@ -126,7 +153,31 @@ export function commandArguments(
   }
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandArguments(dispatched.command, dispatched.args, inRepository, abi);
+    return buildArguments(
+      dispatched.command,
+      dispatched.args,
+      inRepository,
+      abi,
+      guiGrammar,
+      guiLaunch,
+      evaluationMode,
+    );
+  }
+  if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
+    const serialized = buildArguments(
+      command,
+      args,
+      inRepository,
+      abi,
+      guiGrammar,
+      guiLaunch,
+      'shape',
+    );
+    const pass = initialParserPass(spec, serialized.slice(spec.argv.length));
+    if (pass.exited) {
+      buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
+      return serialized;
+    }
   }
   const argv = [...spec.argv];
   const operands: string[] = [];
@@ -142,7 +193,7 @@ export function commandArguments(
   };
   let ended = false;
   let literalOperands = false;
-  let parserExited = false;
+  let parserExited = evaluationMode === 'shape';
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {

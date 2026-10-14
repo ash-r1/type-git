@@ -153,7 +153,7 @@ describe('compiler-recorded native integer parsers', () => {
     30000,
   );
 
-  it('validates each numeric schema before a later overwrite or help', () => {
+  it('validates each numeric schema before a later overwrite when parsing completes', () => {
     let count = 0;
     for (const [command, spec] of Object.entries(COMMAND_SPECS) as [
       GitCommandName,
@@ -170,7 +170,15 @@ describe('compiler-recorded native integer parsers', () => {
         count++;
         for (const value of ['', 'invalid', '18446744073709551616', Number.MAX_SAFE_INTEGER + 1]) {
           expect(
-            () => commandArguments(command, [[flag, value], [flag, 1], ['-h']], true),
+            () =>
+              commandArguments(
+                command,
+                [
+                  [flag, value],
+                  [flag, 1],
+                ],
+                true,
+              ),
             `${command} ${flag}`,
           ).toThrow('invalid integer');
         }

@@ -25,6 +25,7 @@ import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js'
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
+import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { OptionSpec } from './spec.js';
 import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 
@@ -841,6 +842,34 @@ type State<
           : Put<S, 'parserExited', true>
         : State<C, Rest, ApplyToken<C, S, H, Rest, First>, false>
       : S;
+/** A bad reached callback stays invalid even when another input-union arm exits. */
+type InvalidPass = { invalidParserPass: true };
+type ParsedPassState<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Pass,
+  InitialState,
+> = Pass extends { exited: true; tokens: infer T extends readonly unknown[] }
+  ? [State<C, T, InitialState>] extends [never]
+    ? InvalidPass
+    : State<C, T, InitialState>
+  : Pass extends { exited: 'invalid' }
+    ? InvalidPass
+    : Pass extends { exited: 'dynamic' }
+      ? { parserExited: true }
+      : State<C, A, InitialState>;
+/** Initial-pass projection preserves every independently selected scalar and ABI trait. */
+type CommandState<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  InitialState = Initial<C>,
+> = Spec<C> extends { parserExit: { firstPassOptions: readonly string[] } }
+  ? ParsedPassState<C, A, InitialParserPass<Spec<C>, A>, InitialState> extends infer S
+    ? [Extract<S, InvalidPass>] extends [never]
+      ? S
+      : never
+    : never
+  : State<C, A, InitialState>;
 type ProfiledConstraint<S, R extends Constraint> = R extends {
   kind: 'scalar';
   key: string;
@@ -871,7 +900,7 @@ type CheckedLegacyIntegerArguments<
   LongBits extends 32 | 64 = 64,
   Callbacks extends GitDecimalCallbacks = {},
   CompoundOverflow extends boolean = false,
-  S = State<
+  S = CommandState<
     C,
     A,
     Put<
@@ -1121,7 +1150,7 @@ type DeferredConflictAlternatives<
         ? DeferredConflictResult<
             C,
             A,
-            State<
+            CommandState<
               C,
               A,
               Put<
@@ -1163,11 +1192,11 @@ type CheckedLocalParserArguments<
   A extends readonly unknown[],
 > = number extends A['length']
   ? A
-  : [State<C, A>] extends [never]
+  : [CommandState<C, A>] extends [never]
     ? CheckedNumericAlternatives<C, A>
-    : State<C, A> extends { help: true } | { parserExited: true }
+    : CommandState<C, A> extends { help: true } | { parserExited: true }
       ? A
-      : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+      : CheckRules<CommandState<C, A>, Spec<C>['rules']> extends true
         ? A
         : CheckedNumericAlternatives<C, A>;
 /** Keep the established numeric/conflict validation path for all unaffected tuples. */
@@ -1251,7 +1280,7 @@ type BooleanTupleAxes<
             ? BooleanTupleResult<
                 C,
                 A,
-                State<
+                CommandState<
                   C,
                   A,
                   Put<
