@@ -1,0 +1,5329 @@
+{
+  "profile": "Git 2.55.0, LP64, unsigned char; cat-file filter callback before help",
+  "cases": [
+    {
+      "filter": "combine:tree:%00",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%00",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%00",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%01",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%01",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%01",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%02",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%02",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%02",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%03",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%03",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%03",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%04",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%04",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%04",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%05",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%05",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%05",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%06",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%06",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%06",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%07",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%07",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%07",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%08",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%08",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%08",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%09",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%09",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%09",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0a",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0A",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0b",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0B",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0c",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0C",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0d",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0D",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0e",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0E",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0f",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%0F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%0F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%0F",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%10",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%10",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%10",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%11",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%11",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%11",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%12",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%12",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%12",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%13",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%13",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%13",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%14",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%14",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%14",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%15",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%15",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%15",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%16",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%16",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%16",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%17",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%17",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%17",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%18",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%18",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%18",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%19",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%19",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%19",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1a",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1A",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1b",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1B",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1c",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1C",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1d",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1D",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1e",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1E",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1f",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%1F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%1F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%1F",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%20",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%20",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%20",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%21",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%21",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%21",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%22",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%22",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%22",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%23",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%23",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%23",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%24",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%24",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%24",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%25",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%25",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%25",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%26",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%26",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%26",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%27",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%27",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%27",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%28",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%28",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%28",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%29",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%29",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%29",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%2a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2a",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%2A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2A",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%2b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2b",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%2B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2B",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%2c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2c",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%2C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2C",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%2d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2d",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%2D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2D",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%2e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2e",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%2E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2E",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%2f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2f",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%2F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%2F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2F",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%30",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%30",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%30",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%31",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%31",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%31",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%32",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%32",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%32",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%33",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%33",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%33",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%34",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%34",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%34",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%35",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%35",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%35",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%36",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%36",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%36",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%37",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%37",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%37",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%38",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%38",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%38",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%39",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%39",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%39",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%3a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3a",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%3A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3A",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%3b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3b",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%3B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3B",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%3c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3c",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%3C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3C",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%3d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3d",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%3D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3D",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%3e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3e",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%3E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3E",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%3f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3f",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%3F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%3F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%3F",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%40",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%40",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%40",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%41",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%41",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%41",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%42",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%42",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%42",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%43",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%43",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%43",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%44",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%44",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%44",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%45",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%45",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%45",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%46",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%46",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%46",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%47",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%47",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%47",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%48",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%48",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%48",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%49",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%49",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%49",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4a",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4A",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4b",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4B",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4c",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4C",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4d",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4D",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4e",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4E",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4f",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%4F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%4F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%4F",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%50",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%50",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%50",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%51",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%51",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%51",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%52",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%52",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%52",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%53",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%53",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%53",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%54",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%54",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%54",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%55",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%55",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%55",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%56",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%56",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%56",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%57",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%57",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%57",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%58",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%58",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%58",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%59",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%59",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%59",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%5a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5a",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%5A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5A",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%5b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5b",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%5B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5B",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%5c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5c",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%5C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5C",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%5d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5d",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%5D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5D",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%5e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5e",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%5E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5E",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%5f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5f",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%5F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%5F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%5F",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%60",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%60",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%60",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%61",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%61",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%61",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%62",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%62",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%62",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%63",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%63",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%63",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%64",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%64",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%64",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%65",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%65",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%65",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%66",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%66",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%66",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%67",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%67",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%67",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%68",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%68",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%68",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%69",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%69",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%69",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6a",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6A",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6b",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6B",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6c",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6C",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6d",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6D",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6e",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6E",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6f",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%6F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%6F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%6F",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%70",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%70",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%70",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%71",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%71",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%71",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%72",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%72",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%72",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%73",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%73",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%73",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%74",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%74",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%74",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%75",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%75",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%75",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%76",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%76",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%76",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%77",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%77",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%77",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%78",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%78",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%78",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%79",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%79",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%79",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%7a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7a",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%7A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7A",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%7b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7b",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%7B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7B",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%7c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7c",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%7C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7C",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%7d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7d",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%7D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7D",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%7e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7e",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%7E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7E",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%7f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7f",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%7F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%7F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%7F",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%80",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%80",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%80",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%81",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%81",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%81",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%82",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%82",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%82",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%83",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%83",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%83",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%84",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%84",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%84",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%85",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%85",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%85",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%86",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%86",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%86",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%87",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%87",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%87",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%88",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%88",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%88",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%89",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%89",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%89",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8a",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8A",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8b",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8B",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8c",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8C",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8d",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8D",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8e",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8E",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8f",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%8F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%8F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%8F",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%90",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%90",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%90",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%91",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%91",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%91",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%92",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%92",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%92",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%93",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%93",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%93",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%94",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%94",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%94",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%95",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%95",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%95",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%96",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%96",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%96",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%97",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%97",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%97",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%98",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%98",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%98",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%99",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%99",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%99",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9a",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9a",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9A",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9A",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9A",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9b",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9b",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9B",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9B",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9B",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9c",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9c",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9C",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9C",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9C",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9d",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9d",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9D",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9D",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9D",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9e",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9e",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9E",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9E",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9E",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9f",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9f",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%9F",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%9F",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%9F",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%a9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%a9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%a9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%A9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%A9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%A9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%aa",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%aa",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%aa",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%AA",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%AA",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%AA",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ab",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ab",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ab",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%AB",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%AB",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%AB",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ac",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ac",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ac",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%AC",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%AC",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%AC",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ad",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ad",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ad",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%AD",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%AD",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%AD",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ae",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ae",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ae",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%AE",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%AE",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%AE",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%af",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%af",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%af",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%AF",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%AF",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%AF",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%b9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%b9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%b9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%B9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%B9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%B9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ba",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ba",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ba",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%BA",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%BA",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%BA",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%bb",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%bb",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%bb",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%BB",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%BB",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%BB",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%bc",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%bc",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%bc",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%BC",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%BC",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%BC",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%bd",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%bd",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%bd",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%BD",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%BD",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%BD",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%be",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%be",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%be",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%BE",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%BE",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%BE",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%bf",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%bf",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%bf",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%BF",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%BF",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%BF",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%c9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%c9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%c9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%C9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%C9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%C9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ca",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ca",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ca",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%CA",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%CA",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%CA",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%cb",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%cb",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%cb",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%CB",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%CB",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%CB",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%cc",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%cc",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%cc",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%CC",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%CC",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%CC",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%cd",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%cd",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%cd",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%CD",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%CD",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%CD",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ce",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ce",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ce",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%CE",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%CE",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%CE",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%cf",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%cf",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%cf",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%CF",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%CF",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%CF",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%d9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%d9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%d9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%D9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%D9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%D9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%da",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%da",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%da",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%DA",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%DA",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%DA",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%db",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%db",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%db",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%DB",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%DB",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%DB",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%dc",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%dc",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%dc",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%DC",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%DC",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%DC",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%dd",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%dd",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%dd",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%DD",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%DD",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%DD",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%de",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%de",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%de",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%DE",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%DE",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%DE",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%df",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%df",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%df",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%DF",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%DF",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%DF",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%e9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%e9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%e9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%E9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%E9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%E9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ea",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ea",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ea",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%EA",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%EA",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%EA",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%eb",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%eb",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%eb",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%EB",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%EB",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%EB",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ec",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ec",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ec",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%EC",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%EC",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%EC",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ed",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ed",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ed",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ED",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ED",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ED",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ee",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ee",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ee",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%EE",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%EE",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%EE",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ef",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ef",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ef",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%EF",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%EF",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%EF",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F0",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F0",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F0",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F1",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F1",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F2",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F2",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F2",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F3",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F3",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F3",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F4",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F4",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F4",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F5",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F5",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F5",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F6",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F6",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F6",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F7",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F7",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F7",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F8",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F8",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F8",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%f9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%f9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%f9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%F9",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%F9",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%F9",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%fa",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%fa",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%fa",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%FA",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%FA",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%FA",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%fb",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%fb",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%fb",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%FB",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%FB",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%FB",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%fc",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%fc",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%fc",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%FC",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%FC",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%FC",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%fd",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%fd",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%fd",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%FD",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%FD",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%FD",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%fe",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%fe",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%fe",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%FE",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%FE",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%FE",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%ff",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%ff",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%ff",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%FF",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%FF",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%FF",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=\u0001",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0002",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0003",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0004",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0005",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0006",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0007",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\t",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\n",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u000b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\r",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u000e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u000f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0010",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0011",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0012",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0013",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0014",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0015",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0016",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0017",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0018",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u0019",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u001a",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u001b",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u001c",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u001d",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u001e",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=\u001f",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid= ",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=18446744073709551615",
+      "valid": true
+    },
+    {
+      "filter": "tree:18446744073709551615",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:18446744073709551615",
+      "valid": true
+    },
+    {
+      "filter": "blob:limit=18446744073709551616",
+      "valid": false
+    },
+    {
+      "filter": "tree:18446744073709551616",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:18446744073709551616",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=0xffffffffffffffff",
+      "valid": true
+    },
+    {
+      "filter": "tree:0xffffffffffffffff",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:0xffffffffffffffff",
+      "valid": true
+    },
+    {
+      "filter": "blob:limit=0x10000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "tree:0x10000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:0x10000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=01777777777777777777777",
+      "valid": true
+    },
+    {
+      "filter": "tree:01777777777777777777777",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:01777777777777777777777",
+      "valid": true
+    },
+    {
+      "filter": "blob:limit=02000000000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "tree:02000000000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:02000000000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=0b1111111111111111111111111111111111111111111111111111111111111111",
+      "valid": true
+    },
+    {
+      "filter": "tree:0b1111111111111111111111111111111111111111111111111111111111111111",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:0b1111111111111111111111111111111111111111111111111111111111111111",
+      "valid": true
+    },
+    {
+      "filter": "blob:limit=0b10000000000000000000000000000000000000000000000000000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "tree:0b10000000000000000000000000000000000000000000000000000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:0b10000000000000000000000000000000000000000000000000000000000000000",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=18014398509481983k",
+      "valid": true
+    },
+    {
+      "filter": "tree:18014398509481983k",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:18014398509481983k",
+      "valid": true
+    },
+    {
+      "filter": "blob:limit=18014398509481984k",
+      "valid": false
+    },
+    {
+      "filter": "tree:18014398509481984k",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:18014398509481984k",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=17592186044415m",
+      "valid": true
+    },
+    {
+      "filter": "tree:17592186044415m",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:17592186044415m",
+      "valid": true
+    },
+    {
+      "filter": "blob:limit=17592186044416m",
+      "valid": false
+    },
+    {
+      "filter": "tree:17592186044416m",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:17592186044416m",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=17179869183g",
+      "valid": true
+    },
+    {
+      "filter": "tree:17179869183g",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:17179869183g",
+      "valid": true
+    },
+    {
+      "filter": "blob:limit=17179869184g",
+      "valid": false
+    },
+    {
+      "filter": "tree:17179869184g",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:17179869184g",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=+001",
+      "valid": true
+    },
+    {
+      "filter": "tree:+001",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:+001",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=-0",
+      "valid": false
+    },
+    {
+      "filter": "tree:-0",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:-0",
+      "valid": false
+    },
+    {
+      "filter": "blob:limit=1\n",
+      "valid": false
+    },
+    {
+      "filter": "tree:1\n",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:1\n",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%2b1",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:%201",
+      "valid": true
+    },
+    {
+      "filter": "combine:tree:1844674407370955161%36",
+      "valid": false
+    },
+    {
+      "filter": "combine:combine:tree:1%2Bauto",
+      "valid": false
+    },
+    {
+      "filter": "combine:combine:tree:1%252Bauto",
+      "valid": false
+    },
+    {
+      "filter": "combine:sparse:oid=%",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%0",
+      "valid": true
+    },
+    {
+      "filter": "combine:sparse:oid=%xx",
+      "valid": true
+    },
+    {
+      "filter": "combine:unknown%xx",
+      "valid": false
+    },
+    {
+      "filter": "combine:tree:%2%31",
+      "valid": false
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%2520",
+      "valid": true
+    },
+    {
+      "filter": "combine:combine:sparse:oid=%252520",
+      "valid": true
+    }
+  ]
+}

@@ -3,6 +3,8 @@ import { parseGitInteger } from './git-integer.js';
 /** Git 2.55 list-objects-filter-options.c, parse.c and url.c; caller supplies the selected C long width. */
 // biome-ignore lint/suspicious/noControlCharactersInRegex: Git reserves every ASCII control byte.
 const RESERVED = /[\x00-\x20~`!@#$^&*()[\]{}\\;'",<>?]/;
+// biome-ignore lint/suspicious/noControlCharactersInRegex: The complement of ASCII identifies UTF-8 high bytes and decoded byte escapes.
+const HIGH_BYTE = /[^\x00-\x7f]/;
 
 /** Match git_parse_ulong's spelling, unit multiplier and unsigned-long maximum. */
 function unsignedLong(
@@ -37,6 +39,7 @@ export function validObjectFilter(
   longBits: 32 | 64 = 64,
   binaryIntegers = true,
   negativeMagnitudes = false,
+  unsignedChar = true,
 ): boolean {
   const pending = [{ text: value, auto: allowAuto }];
   while (pending.length > 0) {
@@ -68,7 +71,7 @@ export function validObjectFilter(
         if (!child) {
           continue;
         }
-        if (RESERVED.test(child)) {
+        if (RESERVED.test(child) || (!unsignedChar && HIGH_BYTE.test(child))) {
           return false;
         }
         pending.push({ text: decode(child), auto: false });
@@ -114,4 +117,44 @@ export function objectFilterUsesNegativeMagnitude(value: string): boolean {
     }
   }
   return false;
+}
+
+/** Observe whether raw combined components can expose high bytes to C char validation. */
+export function objectFilterUsesHighBytes(value: string): boolean {
+  const pending = [value];
+  while (pending.length > 0) {
+    const text = pending.pop()!;
+    if (!text.startsWith('combine:')) {
+      continue;
+    }
+    for (const child of text.slice(8).split('+')) {
+      if (HIGH_BYTE.test(child)) {
+        return true;
+      }
+      pending.push(decode(child));
+    }
+  }
+  return false;
+}
+
+/** Readonly clone parser probe, without a URL or transport operation. */
+export const OBJECT_FILTER_CHAR_PROBE = ['clone', '--filter=combine:sparse:oid=é', '-h'] as const;
+
+/** Return only recognized native C char outcomes; unknown frontends retain native validation. */
+export function objectFilterUnsignedChar(result: {
+  exitCode: number;
+  stdout: string;
+  stderr: string;
+}): boolean | undefined {
+  if (result.exitCode === 128 && result.stderr.includes('must escape char in sub-filter-spec')) {
+    return false;
+  }
+  if (
+    result.exitCode === 129 &&
+    (result.stdout + result.stderr).includes('usage:') &&
+    !/error:|fatal:/.test(result.stderr)
+  ) {
+    return true;
+  }
+  return undefined;
 }

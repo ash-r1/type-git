@@ -129,6 +129,7 @@ export function parseGitScalar(
   integerProfile?: GitIntegerProfile,
   negativeMagnitudes = false,
   decimalCallbacks?: GitDecimalCallbacks,
+  unsignedChar = true,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'decimal') {
     return parseGitDecimal(
@@ -203,6 +204,7 @@ export function parseGitScalar(
             cLongBits,
             binaryIntegers,
             negativeMagnitudes,
+            unsignedChar,
           )),
       value,
     };
