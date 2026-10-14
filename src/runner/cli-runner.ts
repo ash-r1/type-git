@@ -25,6 +25,7 @@ import {
   commandArguments,
   commandShapeArguments,
   commandUsesFirstPassEmpty,
+  commandUsesDepthAtoi,
   validateArgvStrings,
   commandDecimalCallbacks,
   commandUsesConflictStyle,
@@ -667,7 +668,40 @@ export class CliRunner {
       booleanCapabilities?: GitBooleanCapabilities;
       compoundNegatedOverflow?: boolean;
       firstPassEmpty?: boolean;
+      depthAtoiBits?: 32 | 64;
     };
+    let depthAtoiBits: 32 | 64 | undefined;
+    if (commandUsesDepthAtoi(command, args)) {
+      // The existing file forces clone to stop after depth validation and before transport.
+      const destination = await this.fs.createTempFile('type-git-depth-profile-');
+      try {
+        const probe = await this.run(
+          context,
+          ['clone', '--depth=2147483648', 'type-git-depth-profile:invalid', destination],
+          {
+            ...(opts?.env ? { env: opts.env } : {}),
+            ...(opts?.signal ? { signal: opts.signal } : {}),
+          },
+        );
+        if (probe.aborted) return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+        if (
+          probe.exitCode === 128 &&
+          probe.stderr.trim() === 'fatal: depth 2147483648 is not a positive number'
+        ) {
+          depthAtoiBits = 64;
+        } else if (
+          probe.exitCode === 128 &&
+          probe.stderr.trim() ===
+            `fatal: destination path '${destination}' already exists and is not an empty directory.`
+        ) {
+          depthAtoiBits = 32;
+        } else {
+          return await execute(commandShapeArguments(command, args, inRepository));
+        }
+      } finally {
+        await this.fs.deleteFile(destination);
+      }
+    }
     let firstPassEmpty: boolean | undefined;
     if (commandUsesFirstPassEmpty(command, args)) {
       const probeOptions = {
@@ -694,12 +728,13 @@ export class CliRunner {
       }
     }
     let abi: NativeAbi | undefined =
-      firstPassEmpty === undefined
+      firstPassEmpty === undefined && depthAtoiBits === undefined
         ? undefined
         : {
             longBits: nativeCLongBits(process.platform, process.arch),
             sizeTBits: nativeSizeTBits(process.arch),
             firstPassEmpty,
+            depthAtoiBits,
           };
     if (commandUsesNativeABI(command, args)) {
       const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(command, args)
@@ -757,6 +792,7 @@ export class CliRunner {
                               booleanCapabilities,
                               compoundNegatedOverflow,
                               firstPassEmpty,
+                              depthAtoiBits,
                             };
                             try {
                               valid.push({

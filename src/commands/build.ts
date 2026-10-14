@@ -103,6 +103,7 @@ export function commandArguments(
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
     compoundNegatedOverflow?: boolean;
+    depthAtoiBits?: 32 | 64;
     firstPassEmpty?: boolean;
   },
   guiGrammar?: GuiGrammar,
@@ -129,6 +130,7 @@ function buildArguments(
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
     compoundNegatedOverflow?: boolean;
+    depthAtoiBits?: 32 | 64;
     firstPassEmpty?: boolean;
   },
   guiGrammar?: GuiGrammar,
@@ -313,6 +315,7 @@ function buildArguments(
             abi?.booleanBinaryIntegers,
             abi?.booleanCapabilities,
             abi?.compoundNegatedOverflow,
+            abi?.depthAtoiBits,
           )
         : undefined;
     if (integer && !integer.valid) {
@@ -447,6 +450,7 @@ function buildArguments(
             abi?.booleanBinaryIntegers,
             abi?.booleanCapabilities,
             abi?.compoundNegatedOverflow,
+            abi?.depthAtoiBits,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -589,6 +593,24 @@ function interpretedArguments(spec: CommandSpec, args: readonly unknown[]): read
     }
   }
   return args;
+}
+
+/** Detect a final depth conversion without a help exit or a subsequent reset. */
+export function commandUsesDepthAtoi(command: GitCommandName, args: readonly unknown[]): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) return commandUsesDepthAtoi(dispatched.command, dispatched.args);
+  if (!spec.rules.some((rule) => rule.kind === 'scalar' && rule.parser === 'depth-initial'))
+    return false;
+  let depth = false;
+  for (const token of args) {
+    if (!Array.isArray(token)) continue;
+    if (token.length === 1 && token[0] === '--') break;
+    if (token.length === 1 && spec.parserExit?.flags.includes(token[0])) return false;
+    const option = spec.options[token[0]];
+    if (option?.key === 'depth') depth = token[0] !== '--no-depth';
+  }
+  return depth;
 }
 
 /** Whether emitted options need the selected executable's native integer widths. */

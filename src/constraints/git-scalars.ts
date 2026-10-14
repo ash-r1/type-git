@@ -120,6 +120,7 @@ export function parseGitScalar(
   booleanBinaryIntegers = true,
   booleanCapabilities?: GitBooleanCapabilities,
   compoundNegatedOverflow = false,
+  depthAtoiBits: 32 | 64 = 64,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'decimal') {
     return parseGitDecimal(
@@ -179,18 +180,15 @@ export function parseGitScalar(
   }
   if (parser === 'depth-initial') {
     // Git clone/fetch call atoi before transport-specific validation. The pinned
-    // 64-bit libc clamps strtol overflow, then atoi converts to a signed int.
+    // observed libc clamps at its selected conversion width, then stores a signed int.
     const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
     if (!match) {
       return { valid: false };
     }
     const parsed = BigInt(match[1]!);
-    const clamped =
-      parsed < -9223372036854775808n
-        ? -9223372036854775808n
-        : parsed > 9223372036854775807n
-          ? 9223372036854775807n
-          : parsed;
+    const minimum = -(1n << BigInt(depthAtoiBits - 1));
+    const maximum = (1n << BigInt(depthAtoiBits - 1)) - 1n;
+    const clamped = parsed < minimum ? minimum : parsed > maximum ? maximum : parsed;
     return { valid: BigInt.asIntN(32, clamped) > 0n, value };
   }
   if (parser === 'object-filter' || parser === 'object-filter-auto') {
