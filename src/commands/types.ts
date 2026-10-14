@@ -852,7 +852,9 @@ type ParsedPassState<
           tokens: infer E extends readonly unknown[];
           remaining: infer R extends readonly string[];
         }
-      ? RemainingState<C, E, R, InitialState>
+      ? Spec<C> extends { conditionalCommand: unknown }
+        ? InitialState & { repositoryDependent: true }
+        : RemainingState<C, E, R, InitialState>
       : Pass extends { exited: 'invalid' }
         ? InvalidPass
         : Pass extends { exited: 'dynamic' }
@@ -925,7 +927,7 @@ type CheckedLegacyIntegerArguments<
   >,
 > = [S] extends [never]
   ? never
-  : S extends { help: true } | { parserExited: true }
+  : S extends { help: true } | { parserExited: true } | { repositoryDependent: true }
     ? A
     : CheckRules<S, Spec<C>['rules']> extends true
       ? A
@@ -955,22 +957,26 @@ type TraitArguments<
   EmptyRegistered extends boolean = boolean,
 > = number extends A['length']
   ? A
-  : Spec<C> extends { parserExit: { remainingOptions: unknown } }
-    ? InitialParserPass<Spec<C>, A, RelevantEmptyProfile<C, EmptyRegistered>> extends infer P
-      ? P extends { delegated: true }
-        ? A
-        : P extends { exited: true; tokens: infer T extends readonly unknown[] }
-          ? T
-          : P extends {
-                tokens: infer E extends readonly unknown[];
-                remaining: infer R extends readonly string[];
-              }
-            ? RevisionParserPass<Spec<C>, R> extends { tokens: infer T extends readonly unknown[] }
-              ? readonly [...E, ...T]
-              : E
-            : A
-      : A
-    : A;
+  : Spec<C> extends { conditionalCommand: unknown }
+    ? readonly []
+    : Spec<C> extends { parserExit: { remainingOptions: unknown } }
+      ? InitialParserPass<Spec<C>, A, RelevantEmptyProfile<C, EmptyRegistered>> extends infer P
+        ? P extends { delegated: true }
+          ? A
+          : P extends { exited: true; tokens: infer T extends readonly unknown[] }
+            ? T
+            : P extends {
+                  tokens: infer E extends readonly unknown[];
+                  remaining: infer R extends readonly string[];
+                }
+              ? RevisionParserPass<Spec<C>, R> extends {
+                  tokens: infer T extends readonly unknown[];
+                }
+                ? readonly [...E, ...T]
+                : E
+              : A
+        : A
+      : A;
 /** Avoid replaying a whole tuple for a width that cannot change callback state. */
 type DecimalWidthChanges<
   C extends GitCommandName,
@@ -1185,7 +1191,7 @@ type DeferredConflictResult<C extends GitCommandName, A extends readonly unknown
   S,
 ] extends [never]
   ? never
-  : S extends { help: true } | { parserExited: true }
+  : S extends { help: true } | { parserExited: true } | { repositoryDependent: true }
     ? A
     : DeferredConflictValid<S> extends true
       ? CheckRules<DeferredConflictFinalState<S>, Spec<C>['rules']> extends true
@@ -1251,7 +1257,10 @@ type CheckedLocalParserArguments<
   ? A
   : [CommandState<C, A>] extends [never]
     ? CheckedNumericAlternatives<C, A>
-    : CommandState<C, A> extends { help: true } | { parserExited: true }
+    : CommandState<C, A> extends
+          | { help: true }
+          | { parserExited: true }
+          | { repositoryDependent: true }
       ? A
       : CheckRules<CommandState<C, A>, Spec<C>['rules']> extends true
         ? A
@@ -1334,7 +1343,7 @@ type PinnedCallbackArguments<
   ? A
   : [S] extends [never]
     ? never
-    : S extends { help: true } | { parserExited: true }
+    : S extends { help: true } | { parserExited: true } | { repositoryDependent: true }
       ? A
       : CheckRules<S, Spec<C>['rules']> extends true
         ? A
@@ -1510,7 +1519,7 @@ type BooleanTupleResult<C extends GitCommandName, A extends readonly unknown[], 
   never,
 ]
   ? never
-  : S extends { help: true } | { parserExited: true }
+  : S extends { help: true } | { parserExited: true } | { repositoryDependent: true }
     ? A
     : S extends { conflictStyle: 'deferred' }
       ? DeferredConflictResult<C, A, S>
