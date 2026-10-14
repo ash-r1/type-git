@@ -4,6 +4,7 @@ import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { matches, violations } from '../constraints/model.js';
 import {
   objectFilterUsesBinary,
+  objectFilterUsesHighBytes,
   objectFilterUsesNegativeMagnitude,
 } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
@@ -62,6 +63,7 @@ export function commandArguments(
     integerProfile?: GitIntegerProfile;
     negativeMagnitudes?: boolean;
     decimalCallbacks?: GitDecimalCallbacks;
+    unsignedChar?: boolean;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -193,6 +195,7 @@ export function commandArguments(
           abi?.integerProfile,
           abi?.negativeMagnitudes,
           abi?.decimalCallbacks,
+          abi?.unsignedChar,
         )
       : undefined;
     if (integer && !integer.valid) {
@@ -310,6 +313,7 @@ export function commandArguments(
             abi?.integerProfile,
             abi?.negativeMagnitudes,
             abi?.decimalCallbacks,
+            abi?.unsignedChar,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -546,5 +550,27 @@ export function commandUsesDecimalCallback(
     }
     const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : spec.numericOption;
     return typeof option?.parser === 'object' && option.parser.kind === 'decimal';
+  });
+}
+
+/** Detect C char dependent combined-filter words after dispatcher selection. */
+export function commandUsesObjectFilterCharProfile(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesObjectFilterCharProfile(dispatched.command, dispatched.args);
+  }
+  return args.some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
+      return false;
+    }
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    return (
+      (option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
+      objectFilterUsesHighBytes(arg[1])
+    );
   });
 }

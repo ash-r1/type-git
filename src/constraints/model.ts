@@ -116,6 +116,7 @@ export type ScalarContext = {
   integerProfile?: GitIntegerProfile;
   negativeMagnitudes?: boolean;
   decimalCallbacks?: GitDecimalCallbacks;
+  unsignedChar?: boolean;
 };
 /** All violations, in declaration order, retain their evidence and stable identifiers. */
 export function violations(
@@ -194,6 +195,7 @@ function violates(
           scalarContext?.integerProfile,
           scalarContext?.negativeMagnitudes,
           scalarContext?.decimalCallbacks,
+          scalarContext?.unsignedChar,
         ).valid
       );
     case 'value':

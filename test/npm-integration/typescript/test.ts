@@ -189,3 +189,15 @@ export function testUniversalCallbackFailures(git: Git): void {
   // @ts-expect-error Unsafe JavaScript numbers cannot preserve the original Git argument.
   git.command('rev-list', [['--max-count', 9007199254740992], ['--all']]);
 }
+
+export function testObjectFilterByteTypes(git: Git, dynamicCount: number): void {
+  git.command('fetch', [['--filter', `tree:${dynamicCount}`]]);
+  git.command('fetch', [['--filter', 'tree:18446744073709551615']]);
+  git.command('fetch', [['--filter', 'combine:tree:%2b1']]);
+  // @ts-expect-error Numeric unit multiplication overflows unsigned long.
+  git.command('fetch', [['--filter', 'blob:limit=17179869184g']]);
+  // @ts-expect-error Percent-encoded children must still satisfy their grammar.
+  git.command('fetch', [['--filter', 'combine:tree:%ff']]);
+  // @ts-expect-error Escaped separators are applied in the next nested combine stage.
+  git.command('fetch', [['--filter', 'combine:combine:tree:1%2Bauto']]);
+}

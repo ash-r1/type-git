@@ -1,4 +1,8 @@
 import {
+  OBJECT_FILTER_CHAR_PROBE,
+  objectFilterUnsignedChar,
+} from '../constraints/object-filter.js';
+import {
   DECIMAL_CALLBACK_PROBES,
   decimalCallbackFamily,
   type GitDecimalCallbacks,
@@ -23,6 +27,7 @@ import {
   commandUsesIntegerProfile,
   commandUsesNegativeMagnitude,
   commandUsesObjectFilterBinary,
+  commandUsesObjectFilterCharProfile,
 } from '../commands/build.js';
 import { COMMAND_SPECS } from '../commands/generated.js';
 import {
@@ -435,36 +440,71 @@ export class CliRunner {
     opts?: RunOptions,
   ): Promise<void> {
     validateIO(opts);
-    const valid: { longBits: 32 | 64; negativeMagnitudes: boolean }[] = [];
+    const valid: { longBits: 32 | 64; negativeMagnitudes: boolean; unsignedChar: boolean }[] = [];
     let firstError: GitArgumentError | undefined;
     for (const longBits of [32, 64] as const) {
       for (const negativeMagnitudes of [false, true]) {
-        try {
-          checkOptions(name, options, { longBits, negativeMagnitudes });
-          valid.push({ longBits, negativeMagnitudes });
-        } catch (error) {
-          if (!(error instanceof GitArgumentError)) {
-            throw error;
+        for (const unsignedChar of [false, true]) {
+          try {
+            checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar });
+            valid.push({ longBits, negativeMagnitudes, unsignedChar });
+          } catch (error) {
+            if (!(error instanceof GitArgumentError)) {
+              throw error;
+            }
+            firstError ??= error;
           }
-          firstError ??= error;
         }
       }
     }
     if (valid.length === 0) {
       throw firstError;
     }
-    if (valid.length === 4) {
+    if (valid.length === 8) {
       return;
     }
     const probeOptions = {
       ...(opts?.env ? { env: opts.env } : {}),
       ...(opts?.signal ? { signal: opts.signal } : {}),
     };
+    let unsignedChar = true;
+    const charDependent = [32, 64].some((candidateLongBits) =>
+      [false, true].some(
+        (negative) =>
+          valid.some(
+            (e) =>
+              e.longBits === candidateLongBits &&
+              e.negativeMagnitudes === negative &&
+              e.unsignedChar === false,
+          ) !==
+          valid.some(
+            (e) =>
+              e.longBits === candidateLongBits &&
+              e.negativeMagnitudes === negative &&
+              e.unsignedChar === true,
+          ),
+      ),
+    );
+    if (charDependent) {
+      const args = [...OBJECT_FILTER_CHAR_PROBE];
+      const probe = await this.run(context, args, probeOptions);
+      if (probe.aborted) {
+        throw this.mapError(probe, context, this.buildArgv(context, args));
+      }
+      const observed = objectFilterUnsignedChar(probe);
+      if (observed === undefined) {
+        return;
+      }
+      unsignedChar = observed;
+    }
+    const charValid = valid.filter((e) => e.unsignedChar === unsignedChar);
     let negativeMagnitudes = false;
     const signDependent = [32, 64].some(
       (candidateLongBits) =>
-        valid.some((e) => e.longBits === candidateLongBits && e.negativeMagnitudes === false) !==
-        valid.some((e) => e.longBits === candidateLongBits && e.negativeMagnitudes === true),
+        charValid.some(
+          (e) => e.longBits === candidateLongBits && e.negativeMagnitudes === false,
+        ) !==
+        charValid.some((e) => e.longBits === candidateLongBits && e.negativeMagnitudes === true),
     );
     if (signDependent) {
       const args = ['pack-objects', '--max-pack-size=-0', '-h'];
@@ -482,14 +522,14 @@ export class CliRunner {
         negativeMagnitudes = true;
       } else {
         return;
-      } // Unrecognized frontends retain native validation.
+      }
     }
-    const selected = valid.filter((e) => e.negativeMagnitudes === negativeMagnitudes);
+    const selected = charValid.filter((e) => e.negativeMagnitudes === negativeMagnitudes);
     if (selected.length === 0) {
-      checkOptions(name, options, { longBits: 64, negativeMagnitudes });
+      checkOptions(name, options, { longBits: 64, negativeMagnitudes, unsignedChar });
       throw firstError;
     }
-    let longBits: 32 | 64 = selected[0]!.longBits;
+    let longBits = selected[0]!.longBits;
     if (selected.length !== 2) {
       const args = ['version', '--build-options'];
       const widths = await this.run(context, args, probeOptions);
@@ -507,7 +547,7 @@ export class CliRunner {
       }
       longBits = bytes === '4' ? 32 : 64;
     }
-    checkOptions(name, options, { longBits, negativeMagnitudes });
+    checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar });
   }
 
   public runCommand(
@@ -608,6 +648,7 @@ export class CliRunner {
       integerProfile?: GitIntegerProfile;
       negativeMagnitudes?: boolean;
       decimalCallbacks?: GitDecimalCallbacks;
+      unsignedChar?: boolean;
     };
     let abi: NativeAbi | undefined;
     if (commandUsesNativeABI(command, args)) {
@@ -616,6 +657,7 @@ export class CliRunner {
         : ['bounded'];
       const signs = commandUsesNegativeMagnitude(command, args) ? [false, true] : [false];
       const callbacks = commandDecimalCallbacks(command, args);
+      const chars = commandUsesObjectFilterCharProfile(command, args) ? [false, true] : [true];
       let callbackVariants: GitDecimalCallbacks[] = [{}];
       for (const callback of callbacks) {
         callbackVariants = callbackVariants.flatMap((variant) => [
@@ -627,27 +669,30 @@ export class CliRunner {
       let firstError: GitArgumentError | undefined;
       for (const integerProfile of profiles) {
         for (const negativeMagnitudes of signs) {
-          for (const decimalCallbacks of callbackVariants) {
-            for (const longBits of [32, 64] as const) {
-              for (const sizeTBits of [32, 64] as const) {
-                const candidateAbi = {
-                  longBits,
-                  sizeTBits,
-                  integerProfile,
-                  negativeMagnitudes,
-                  decimalCallbacks,
-                };
-                try {
-                  valid.push({
-                    profile: integerProfile,
-                    abi: candidateAbi,
-                    argv: commandArguments(command, args, inRepository, candidateAbi),
-                  });
-                } catch (error) {
-                  if (!(error instanceof GitArgumentError)) {
-                    throw error;
+          for (const unsignedChar of chars) {
+            for (const decimalCallbacks of callbackVariants) {
+              for (const longBits of [32, 64] as const) {
+                for (const sizeTBits of [32, 64] as const) {
+                  const candidateAbi = {
+                    longBits,
+                    sizeTBits,
+                    integerProfile,
+                    negativeMagnitudes,
+                    decimalCallbacks,
+                    unsignedChar,
+                  };
+                  try {
+                    valid.push({
+                      profile: integerProfile,
+                      abi: candidateAbi,
+                      argv: commandArguments(command, args, inRepository, candidateAbi),
+                    });
+                  } catch (error) {
+                    if (!(error instanceof GitArgumentError)) {
+                      throw error;
+                    }
+                    firstError ??= error;
                   }
-                  firstError ??= error;
                 }
               }
             }
@@ -659,7 +704,8 @@ export class CliRunner {
       }
       const needsBinaryProfile = commandUsesObjectFilterBinary(command, args);
       if (
-        (valid.length === profiles.length * signs.length * callbackVariants.length * 4 &&
+        (valid.length ===
+          profiles.length * signs.length * callbackVariants.length * chars.length * 4 &&
           !needsBinaryProfile) ||
         (binary && !this.exec.spawnBytes)
       ) {
@@ -669,10 +715,42 @@ export class CliRunner {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       };
+      let unsignedChar = true;
+      if (chars.length > 1) {
+        const groups = new Map<string, Set<boolean>>();
+        for (const entry of valid) {
+          const { unsignedChar: char, ...other } = entry.abi;
+          const key = JSON.stringify(other);
+          if (!groups.has(key)) {
+            groups.set(key, new Set());
+          }
+          groups.get(key)!.add(char!);
+        }
+        if ([...groups.values()].some((group) => group.size !== 2)) {
+          const probe = await this.run(context, [...OBJECT_FILTER_CHAR_PROBE], probeOptions);
+          if (probe.aborted) {
+            return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+          }
+          const observed = objectFilterUnsignedChar(probe);
+          if (observed === undefined) {
+            return await execute(valid[0]!.argv);
+          }
+          unsignedChar = observed;
+        }
+      }
+      const charValid = valid.filter((entry) => entry.abi.unsignedChar === unsignedChar);
+      if (charValid.length === 0) {
+        commandArguments(command, args, inRepository, {
+          longBits: 64,
+          sizeTBits: 64,
+          unsignedChar,
+        });
+        throw firstError;
+      }
       const selectedCallbacks: GitDecimalCallbacks = {};
       for (const callback of callbacks) {
         const groups = new Map<string, Set<string>>();
-        for (const entry of valid) {
+        for (const entry of charValid) {
           const otherCallbacks = { ...entry.abi.decimalCallbacks };
           const family = otherCallbacks[callback]!;
           delete otherCallbacks[callback];
@@ -692,11 +770,11 @@ export class CliRunner {
         }
         const family = decimalCallbackFamily(callback, probe);
         if (!family) {
-          return await execute(valid[0]!.argv);
+          return await execute(charValid[0]!.argv);
         }
         selectedCallbacks[callback] = family;
       }
-      const callbackValid = valid.filter((entry) =>
+      const callbackValid = charValid.filter((entry) =>
         callbacks.every(
           (callback) => entry.abi.decimalCallbacks?.[callback] === selectedCallbacks[callback],
         ),
@@ -706,6 +784,7 @@ export class CliRunner {
           longBits: 64,
           sizeTBits: 64,
           decimalCallbacks: selectedCallbacks,
+          unsignedChar,
         });
         throw firstError;
       }
@@ -815,6 +894,7 @@ export class CliRunner {
           integerProfile: selected,
           negativeMagnitudes,
           decimalCallbacks: selectedCallbacks,
+          unsignedChar,
         });
         throw firstError;
       }
@@ -840,6 +920,7 @@ export class CliRunner {
           integerProfile: selected,
           negativeMagnitudes,
           decimalCallbacks: selectedCallbacks,
+          unsignedChar,
         };
       }
       if (needsBinaryProfile) {
