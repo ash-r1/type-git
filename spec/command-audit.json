@@ -3833,6 +3833,66 @@
       ],
       "remaining": "Standalone command API is inapplicable to this sourced library. Repository discovery, worktree/bare/prefix requirements, OPTIONS_SPEC-driven parsing, identity/setup helpers, directory/error behavior and environment interactions remain pending through callers. Native tests verify successful sourcing only; tested Linux modes do not establish other platform permissions.",
       "apiApplicability": "sourced-library"
+    },
+    "archimport": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Arch/TLA client and repository availability, branch/archive mapping, import ordering, authors/commits/files, depth behavior outside early help and regex/configuration languages remain pending. Native tests verify missing roots and unsupported advertised -o; numeric-looking -D is checked only with help, not through an Arch import."
+    },
+    "cvsexportcommit": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "CVS checkout discovery, selected parent/commit semantics, patch generation/application, author/message conversion, CVS commands/configuration and export side effects remain pending. Tests with one/two/three operands reach local checkout rejection; this establishes parser phase reachability, not successful export."
+    },
+    "cvsimport": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "CVS/cvsps client compatibility, module/root/branch resolution, author-conversion and regex languages, history reconstruction, configuration and transport operations remain pending. Native tests verify one-module arity and repeat/string option serialization at help; no CVS import is performed."
+    },
+    "cvsserver": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Selected frontend/Perl dependencies and version identity, further Getopt/require_order behavior, root/path/configuration authorization, database access and CVS protocol handling remain pending. Version and export-root checks run natively with DBI when available; explicit missing-command/module diagnostics are skips. Empty input does not prove service protocol coverage."
+    },
+    "cvsserver server": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Method-specific root/path authorization, repository/configuration/database behavior, CVS requests/responses and persistent server state remain pending. Prefix argv is checked; available native server execution with explicit export root uses stdin EOF only and does not exercise CVS requests or database operations."
+    },
+    "cvsserver pserver": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/foreign-vcs.test.ts",
+        "test/types/foreign-vcs-command-api.ts"
+      ],
+      "remaining": "Authentication/password/configuration behavior, request parsing, root/database authorization and pserver protocol exchange remain pending. Prefix argv and method-only export-root rejection are checked; no authenticated session or protocol execution is claimed."
     }
   }
 }

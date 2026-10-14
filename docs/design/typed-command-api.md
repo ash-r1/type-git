@@ -523,3 +523,11 @@ Git-shell accepts the first `--help` through Git’s global documentation dispat
 The tested Git for Windows installation also rejects `shell --help` because the shell command is not installed. Its native documentation comparison is skipped on the same verified missing-command diagnostic; successful documentation dispatch is established on the available Linux profiles, not inferred for Windows.
 
 Filter-branch’s leading `-h` is handled by its sourced git-sh-setup library and prints usage with status 0 on all four tested profiles. Leading `--help` uses Git’s documentation dispatcher. Both help forms are limited to the first argument; a late help flag is rejected by the native filter-branch parser and cannot suppress conflict checks.
+
+### Arch and CVS frontends
+
+Archimport's implemented Getopt string omits `-o` despite its usage text advertising it. CVS import takes at most one module and accumulates `-M` values; its numeric-looking values remain strings. CVS export consumes the final two operands without rejecting earlier words. CVS server requires explicit export roots before environment fallback, while version exits before that check. These rules follow the source parser, not a reconstruction from usage text.
+
+Native tests stop at parser or local checkout validation boundaries without contacting Arch/CVS services. CVS server is explicitly skipped when its DBI dependency is unavailable. Service protocols, configuration-derived requirements and remaining parser languages are still pending.
+
+Foreign-frontend comparisons require a terminal, non-signalled probe. Only explicit missing-command or missing-Perl-module diagnostics trigger skips; other failures remain test errors. An isolated local DBI installation enables actual CVS server version/export-root validation without changing the library’s default environment policy. Program-reported identity is recorded separately: the tested Git 2.47 executable finds a CVS server frontend reporting 2.56, so it is not evidence for a 2.47 frontend parser. Local checkout rejection and server stdin EOF do not establish export or service-protocol success.
