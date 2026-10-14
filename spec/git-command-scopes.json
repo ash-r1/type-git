@@ -5486,7 +5486,14 @@
     "tables": [
       "builtin/submodule--helper.c:module_update:module_update_options"
     ],
-    "source": "builtin/submodule--helper.c"
+    "source": "builtin/submodule--helper.c",
+    "options": {
+      "-i": {
+        "key": "init",
+        "value": "flag",
+        "nativeCapability": "submodule-init-alias"
+      }
+    }
   },
   "submodule--helper absorbgitdirs": {
     "tables": [

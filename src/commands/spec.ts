@@ -46,6 +46,8 @@ export type OptionSpec = {
   parser?: GitScalarParser;
   /** Selected Git may validate conflict style immediately or after parsing all options. */
   nativeEnumCallback?: 'conflict-style';
+  /** A source-audited helper alias whose availability is observed on the selected executable. */
+  nativeCapability?: 'submodule-init-alias';
   /** Finite supplied values accepted by both literal types and runtime validation. */
   allowed?: readonly (string | number | boolean)[];
   /** Git callbacks using ASCII case-insensitive enum matching. */

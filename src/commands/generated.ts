@@ -78617,6 +78617,11 @@ const commandSpec220 = {
       key: 'help',
       value: 'flag',
     },
+    '-i': {
+      key: 'init',
+      value: 'flag',
+      nativeCapability: 'submodule-init-alias',
+    },
   },
   rules: [
     {

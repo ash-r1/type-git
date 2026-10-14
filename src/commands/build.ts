@@ -104,6 +104,7 @@ export function commandArguments(
     booleanCapabilities?: GitBooleanCapabilities;
     compoundNegatedOverflow?: boolean;
     depthAtoiBits?: 32 | 64;
+    submoduleInitAlias?: boolean;
     firstPassEmpty?: boolean;
   },
   guiGrammar?: GuiGrammar,
@@ -131,6 +132,7 @@ function buildArguments(
     booleanCapabilities?: GitBooleanCapabilities;
     compoundNegatedOverflow?: boolean;
     depthAtoiBits?: 32 | 64;
+    submoduleInitAlias?: boolean;
     firstPassEmpty?: boolean;
   },
   guiGrammar?: GuiGrammar,
@@ -270,6 +272,14 @@ function buildArguments(
         : undefined;
     if (!option) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
+    }
+    if (
+      evaluationMode !== 'shape' &&
+      !parserExited &&
+      option.nativeCapability === 'submodule-init-alias' &&
+      abi?.submoduleInitAlias !== true
+    ) {
+      throw new GitArgumentError(`${command}: ${flag} is unavailable in the selected helper`);
     }
     if (option.firstOnly && index !== 0) {
       throw new GitArgumentError(`${command}: ${flag} must be the first argument`);
@@ -519,6 +529,9 @@ function buildArguments(
         }
       }
     }
+    if (abi?.submoduleInitAlias && spec.argv.join(' ') === 'submodule update') {
+      state['short-init'] = false;
+    }
     const errors = violations(spec.rules, state, abi);
     if (errors.length > 0) {
       throw new GitArgumentError(
@@ -593,6 +606,27 @@ function interpretedArguments(spec: CommandSpec, args: readonly unknown[]): read
     }
   }
   return args;
+}
+
+/** Detect the alias actually forwarded before a boundary or helper help exit. */
+export function commandUsesSubmoduleInitAlias(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) return commandUsesSubmoduleInitAlias(dispatched.command, dispatched.args);
+  if (command !== 'submodule update' && command !== 'submodule--helper update') return false;
+  let short = false;
+  for (const token of args) {
+    if (!Array.isArray(token) || token[0] === '--') break;
+    if (token[0] === '-h' || token[0] === '--help') {
+      return command === 'submodule update' ? false : short;
+    }
+    if (token[0] === '-i') short = true;
+    if (command === 'submodule update' && token[0] === '--init') short = false;
+  }
+  return short;
 }
 
 /** Detect a final depth conversion without a help exit or a subsequent reset. */

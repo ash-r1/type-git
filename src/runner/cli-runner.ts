@@ -26,6 +26,7 @@ import {
   commandArguments,
   commandShapeArguments,
   commandUsesFirstPassEmpty,
+  commandUsesSubmoduleInitAlias,
   commandUsesDepthAtoi,
   validateArgvStrings,
   commandDecimalCallbacks,
@@ -741,7 +742,27 @@ export class CliRunner {
       compoundNegatedOverflow?: boolean;
       firstPassEmpty?: boolean;
       depthAtoiBits?: 32 | 64;
+      submoduleInitAlias?: boolean;
     };
+    let submoduleInitAlias: boolean | undefined;
+    if (commandUsesSubmoduleInitAlias(command, args)) {
+      const probe = await this.run(context, ['submodule--helper', 'update', '-i', '-h'], {
+        ...(opts?.env ? { env: opts.env } : {}),
+        ...(opts?.signal ? { signal: opts.signal } : {}),
+      });
+      if (probe.aborted) return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      if (
+        [0, 129].includes(probe.exitCode) &&
+        (probe.stdout + probe.stderr).startsWith('usage:') &&
+        !/^error:/m.test(probe.stderr)
+      ) {
+        submoduleInitAlias = true;
+      } else if (probe.exitCode === 129 && /^error: unknown switch `i'\r?$/m.test(probe.stderr)) {
+        submoduleInitAlias = false;
+      } else {
+        return await execute(commandShapeArguments(command, args, inRepository));
+      }
+    }
     let depthAtoiBits: 32 | 64 | undefined;
     if (commandUsesDepthAtoi(command, args)) {
       const observed = await this.observeDepthAtoi(context, opts);
@@ -780,13 +801,16 @@ export class CliRunner {
       }
     }
     let abi: NativeAbi | undefined =
-      firstPassEmpty === undefined && depthAtoiBits === undefined
+      firstPassEmpty === undefined &&
+      depthAtoiBits === undefined &&
+      submoduleInitAlias === undefined
         ? undefined
         : {
             longBits: nativeCLongBits(process.platform, process.arch),
             sizeTBits: nativeSizeTBits(process.arch),
             firstPassEmpty,
             depthAtoiBits,
+            submoduleInitAlias,
           };
     if (commandUsesNativeABI(command, args)) {
       const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(command, args)
@@ -845,6 +869,7 @@ export class CliRunner {
                               compoundNegatedOverflow,
                               firstPassEmpty,
                               depthAtoiBits,
+                              submoduleInitAlias,
                             };
                             try {
                               valid.push({

@@ -1273,7 +1273,7 @@ type InitialLocalProfiles<
       : CheckedOldEmptyPass<C, A>
     : A;
 /** Literal option combinations are checked against the same schema as runtime calls. */
-type CheckedLocalArguments<
+type CheckedLocalParserProfiles<
   C extends GitCommandName,
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
@@ -1290,6 +1290,45 @@ type CheckedLocalArguments<
           : InitialLocalProfiles<C, A, Ctx>
       : InitialLocalProfiles<C, A, Ctx>
     : never;
+
+/** Replace only recognized aliases for type evaluation; emitted words are never rewritten. */
+type SubmoduleInitTokens<A extends readonly unknown[]> = A extends readonly [infer H, ...infer Rest]
+  ? H extends { operand: string } | readonly ['--'] | readonly ['-h'] | readonly ['--help']
+    ? A
+    : readonly [H extends readonly ['-i'] ? readonly ['--init'] : H, ...SubmoduleInitTokens<Rest>]
+  : A;
+type ReachedSubmoduleAlias<A extends readonly unknown[]> = A extends readonly [
+  infer H,
+  ...infer Rest,
+]
+  ? H extends { operand: string } | readonly ['--'] | readonly ['-h'] | readonly ['--help']
+    ? false
+    : H extends readonly ['-i']
+      ? true
+      : ReachedSubmoduleAlias<Rest>
+  : false;
+/** Preserve the complete command checker while selecting one helper alias capability. */
+type CheckedLocalArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext = {},
+> = [C] extends ['submodule update' | 'submodule--helper update']
+  ? Ctx extends { submoduleInitAlias: false }
+    ? [C] extends ['submodule--helper update']
+      ? true extends ReachedSubmoduleAlias<A>
+        ? never
+        : CheckedLocalParserProfiles<C, A, Ctx>
+      : CheckedLocalParserProfiles<C, A, Ctx>
+    : Ctx extends { submoduleInitAlias: true }
+      ? [CheckedLocalParserProfiles<C, SubmoduleInitTokens<A>, Ctx>] extends [never]
+        ? never
+        : A
+      : [CheckedLocalParserProfiles<C, A, Ctx>] extends [never]
+        ? [CheckedLocalParserProfiles<C, SubmoduleInitTokens<A>, Ctx>] extends [never]
+          ? never
+          : A
+        : A
+  : CheckedLocalParserProfiles<C, A, Ctx>;
 
 /** Precompute the small command set instead of comparing every command's option union during inference. */
 type BooleanCommandName = {
