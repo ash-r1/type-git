@@ -257,6 +257,7 @@ export function testCompoundDecimalTypes(git: Git, dynamic: string): void {
   git.command('shortlog', [['-w', '-18446744073709551616'], ['-h']]);
 }
 
+/** Verify packaged initial-pass declarations for reached callbacks, help, and dynamic inputs. */
 export function testPhasedParserExitTypes(git: Git, dynamic: string): void {
   git.command('log', [['--color', 'invalid'], ['-h']]);
   git.command('log', [['-n', '-h']]);
