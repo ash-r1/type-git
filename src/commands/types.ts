@@ -1,3 +1,4 @@
+import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type {
   GitNumericLiteral,
   GitNumericParser,
@@ -1030,13 +1031,15 @@ export type CheckedCommandArguments<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
   Ctx extends CommandGrammarContext = {},
-> = number extends A['length']
-  ? A
-  : Spec<C> extends { guiScript: true }
-    ? CheckedLocalArguments<C, A, Ctx>
-    : [Dispatch<C>] extends [never]
+> = ArgumentsHaveLiteralNul<A> extends true
+  ? never
+  : number extends A['length']
+    ? A
+    : Spec<C> extends { guiScript: true }
       ? CheckedLocalArguments<C, A, Ctx>
-      : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
+      : [Dispatch<C>] extends [never]
+        ? CheckedLocalArguments<C, A, Ctx>
+        : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {
