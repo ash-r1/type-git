@@ -28,7 +28,7 @@ for (const [path, digest] of Object.entries((await load('lfs-options')).sources)
 const tables = await load('git-option-tables');
 if (flags.includes('--c-tables')) {
   // C preprocessing is reproducible only on the snapshot's recorded compiler/target.
-  const compiler = tables.profile.compiler;
+  const compiler = process.env.TYPE_GIT_SPEC_CC ?? 'cc';
   const version = spawnSync(compiler, ['--version'], { encoding: 'utf8' });
   const target = spawnSync(compiler, ['-dumpmachine'], { encoding: 'utf8' });
   for (const result of [version, target]) {
