@@ -56,6 +56,7 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
     | { kind: 'integer'; key: string; min: number; allowBoolean?: boolean }
   );
 
+/** Evaluate one normalized-state predicate without invoking Git. */
 export function matches(predicate: Predicate, options: Readonly<Record<string, unknown>>): boolean {
   const value = options[predicate.key];
   switch (predicate.test) {
@@ -113,6 +114,7 @@ export function violations(
   return rules.filter((rule) => violates(rule, options));
 }
 
+/** Check a guarded rule body and preserve its declared evaluation order. */
 function violates(rule: Constraint, options: Readonly<Record<string, unknown>>): boolean {
   if (rule.guard && !rule.guard.every((p) => matches(p, options))) {
     return false;
@@ -194,10 +196,12 @@ export function predicateKeys(predicate: Predicate): string[] {
     : [predicate.key];
 }
 
+/** Collect all state fields used by a rule guard and body. */
 export function referencedKeys(rule: Constraint): string[] {
   return [...(rule.guard ?? []).flatMap(predicateKeys), ...bodyKeys(rule)];
 }
 
+/** Collect fields referenced by each concrete rule kind. */
 function bodyKeys(rule: Constraint): string[] {
   switch (rule.kind) {
     case 'arity':
@@ -228,6 +232,7 @@ function bodyKeys(rule: Constraint): string[] {
   }
 }
 
+/** Normalize an optional single condition to the shared condition-list form. */
 export function conditions(
   when: Predicate | readonly Predicate[] | undefined,
 ): readonly Predicate[] {

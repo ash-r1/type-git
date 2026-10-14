@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 import { GitArgumentError } from '../core/types.js';
@@ -20,8 +21,23 @@ describe('final scalar constraints', () => {
       XDG_CONFIG_HOME: root,
       GIT_CONFIG_NOSYSTEM: '1',
       GIT_CONFIG_GLOBAL: join(root, 'config'),
+      GIT_AUTHOR_NAME: 'Fixture',
+      GIT_AUTHOR_EMAIL: 'fixture@example.invalid',
+      GIT_COMMITTER_NAME: 'Fixture',
+      GIT_COMMITTER_EMAIL: 'fixture@example.invalid',
+      GIT_ALLOW_PROTOCOL: 'file',
     };
     expect(spawnSync('git', ['init', root], { env }).status).toBe(0);
+    for (let index = 0; index < 3; index++) {
+      const commit = spawnSync(
+        'git',
+        ['-C', root, 'commit', '--allow-empty', '-m', `fixture ${index}`],
+        { env },
+      );
+      expect(commit.error).toBeUndefined();
+      expect(commit.signal).toBeNull();
+      expect(commit.status).toBe(0);
+    }
   });
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
@@ -112,18 +128,40 @@ describe('final scalar constraints', () => {
     },
   );
 
-  it('accepts depth values that Git converts to positive signed integers in convenience clone', async () => {
+  it.each([
+    4294967297, -4294967295,
+  ])('fetches one shallow commit for wrapped depth %s via file://', async (depth) => {
     const git = new TypeGit({ home: root, inheritEnv: false, env });
-    for (const depth of [4294967297, -4294967295]) {
-      const destination = join(root, `clone-${depth}`);
-      const native = spawnSync(
-        'git',
-        ['clone', `--depth=${depth}`, root, `${destination}-native`],
-        { env, encoding: 'utf8', timeout: 5000 },
-      );
-      expect(native.status, native.stderr).toBe(0);
-      await git.clone(root, destination, { depth });
+    const destination = join(root, `clone-${depth}`);
+    const source = pathToFileURL(root).href;
+    const native = spawnSync(
+      'git',
+      ['clone', `--depth=${depth}`, source, `${destination}-native`],
+      { env, encoding: 'utf8', timeout: 5000 },
+    );
+    expect(native.error).toBeUndefined();
+    expect(native.signal).toBeNull();
+    expect(native.status, native.stderr).toBe(0);
+    await git.clone(source, destination, { depth });
+    for (const path of [`${destination}-native`, destination]) {
+      for (const [words, expected] of [
+        [['rev-list', '--count', 'HEAD'], '1'],
+        [['rev-parse', '--is-shallow-repository'], 'true'],
+      ] as const) {
+        const result = spawnSync('git', ['-C', path, ...words], {
+          env,
+          encoding: 'utf8',
+          timeout: 5000,
+        });
+        expect(result.error).toBeUndefined();
+        expect(result.signal).toBeNull();
+        expect(result.status, result.stderr).toBe(0);
+        expect(result.stdout.trim()).toBe(expected);
+      }
     }
+  });
+  it('rejects an invalid converted depth before cloning', async () => {
+    const git = new TypeGit({ home: root, inheritEnv: false, env });
     await expect(
       git.clone(root, join(root, 'bad-depth'), { depth: 2147483648 }),
     ).rejects.toBeInstanceOf(GitArgumentError);

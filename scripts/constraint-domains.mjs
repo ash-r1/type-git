@@ -41,6 +41,7 @@ export function representatives(type, aliases, seen = new Set()) {
   throw new Error(`Option type needs an explicit domain: ${type.getText()}`);
 }
 
+/** Combine public option representatives with scalar rule boundaries of matching types. */
 export function optionDomains(options, aliases, rules = []) {
   return Object.fromEntries(options.members.map((member) => {
     if (!ts.isPropertySignature(member)) throw new Error(`Unsupported option declaration: ${member.getText()}`);
@@ -52,6 +53,7 @@ export function optionDomains(options, aliases, rules = []) {
   }));
 }
 
+/** Serialize a representative as a reproducible TypeScript fixture expression. */
 export function literal(value) {
   if (typeof value === 'function') return '() => undefined';
   if (value === undefined) return 'undefined';
