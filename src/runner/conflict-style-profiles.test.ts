@@ -125,6 +125,34 @@ describe('selected conflict callback timing', () => {
     expect(actual.stderr).toBe('native original error');
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
   });
+  for (const diagnostic of ['usage : git switch\n', "erreur : style de conflit inconnu 'bad'\n"]) {
+    it(`preserves translated native diagnostics through the cached valid argv: ${diagnostic.trim()}`, async () => {
+      const adapters = createNodeAdapters();
+      adapters.exec.spawn = vi.fn().mockResolvedValue(result(129, diagnostic));
+      const env = { LC_ALL: 'fr_FR.UTF-8', LANGUAGE: 'fr' };
+      const actual = await new CliRunner(adapters).runCommand(
+        { type: 'global' },
+        'switch',
+        [['--conflict', 'bad'], ['-h']],
+        true,
+        { env, stdin: 'original input' },
+      );
+      expect(actual.exitCode).toBe(129);
+      expect(actual.stderr).toBe(diagnostic);
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+      for (const call of adapters.exec.spawn.mock.calls) {
+        expect(call[0]).toEqual(
+          expect.objectContaining({
+            argv: ['git', 'switch', '--conflict=bad', '-h'],
+            env: expect.objectContaining(env),
+          }),
+        );
+      }
+      expect(adapters.exec.spawn.mock.calls[0]![0].stdin).toBeUndefined();
+      expect(adapters.exec.spawn.mock.calls[1]![0].stdin).toBe('original input');
+    });
+  }
+
   it('does not execute after a cancelled probe, including binary output', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...result(143), aborted: true });
