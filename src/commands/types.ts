@@ -1104,7 +1104,7 @@ type ExistingLocalProfiles<
 > = Ctx extends { conflictStyle: 'deferred' }
   ? Extract<Options<C>[keyof Options<C>], { nativeEnumCallback: 'conflict-style' }> extends never
     ? CheckedLocalParserArguments<C, A>
-    : ConflictArgumentsFallback<C, A, Ctx>
+    : CombinedArgumentsFallback<C, A, Ctx>
   : [CheckedLocalParserArguments<C, A>] extends [never]
     ? CombinedArgumentsFallback<C, A, Ctx>
     : A;

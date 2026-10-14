@@ -20,3 +20,16 @@ export type BooleanSourceTupleCases = readonly [
   Check<Equal<Accepted<'checkout', [['--recurse-submodules', 'm' | 'bad'], ['-h']]>, false>>,
   Check<Equal<Accepted<'checkout', [['--recurse-submodules', 'm'], ['-h'], { operand: 'bad\0word' }]>, false>>
 ];
+
+// A conflict context must retain independently selected boolean-source alternatives.
+type DeferredAccepted<C extends GitCommandName, A extends readonly GitCommandArgument<C>[]> =
+  [CheckedCommandArguments<C, A, { conflictStyle: 'deferred' }>] extends [never] ? false : true;
+export type DeferredBooleanSourceCases = readonly [
+  Check<DeferredAccepted<'checkout', [['--recurse-submodules', 'm'], ['-h']]>>,
+  Check<DeferredAccepted<'switch', [['--recurse-submodules', 'm'], ['-h']]>>,
+  Check<DeferredAccepted<'restore', [['--recurse-submodules', 'm'], ['-h']]>>,
+  Check<DeferredAccepted<'checkout', [['--recurse-submodules', 'm'], ['--conflict', 'bad'], ['-h']]>>,
+  Check<Equal<DeferredAccepted<'checkout', [['--recurse-submodules', 'm'], ['--conflict', 'bad']]>, false>>,
+  Check<Equal<DeferredAccepted<'checkout', [['--recurse-submodules', 'm' | 'bad'], ['-h']]>, false>>,
+  Check<Equal<[CheckedCommandArguments<'checkout', [['--recurse-submodules', 'm'], ['-h']], { conflictStyle: 'deferred'; booleanSource: 'modern' }>] extends [never] ? false : true, false>>
+];
