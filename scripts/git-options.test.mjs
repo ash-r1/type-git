@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { gitOptions } from './git-options.mjs';
+/** Load the pinned source metadata used to exercise catalogue generation. */
 const load = name => JSON.parse(readFileSync(new URL(`../spec/${name}.json`, import.meta.url), 'utf8'));
 const upstream = load('upstream/git-option-tables');
 const numeric = load('upstream/git-numeric-options');
@@ -28,5 +29,13 @@ describe('source-declared integer width coverage', () => {
       for (const table of file.tables) table.options = table.options.filter(o => o.long !== 'max-pack-size');
     }
     expect(() => gitOptions(changed, scopes, rules, groups, numeric)).toThrow('Unused source-declared native width: builtin/pack-objects.c:max-pack-size');
+  });
+});
+
+describe('ordered parser wrapper source metadata', () => {
+  it('rejects wrappers without a first-pass table before emitting raw source metadata', () => {
+    const changed = structuredClone(scopes);
+    delete changed['reflog show'].parserExit.firstPassTables;
+    expect(() => gitOptions(upstream, changed, rules, groups, numeric)).toThrow('parser wrappers require firstPassTables');
   });
 });
