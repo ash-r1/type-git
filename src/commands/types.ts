@@ -939,6 +939,15 @@ type CheckedIntegerAlternativesAtWidth<
     ? CheckedLegacyIntegerArguments<C, A, 'decimal-cast', true, Bits>
     : A
   : A;
+/** Only an initial table containing --empty can differ between these source profiles. */
+type RelevantEmptyProfile<
+  C extends GitCommandName,
+  EmptyRegistered extends boolean,
+> = Spec<C> extends { parserExit: { firstPassOptions: readonly (infer Flag)[] } }
+  ? '--empty' extends Flag
+    ? EmptyRegistered
+    : true
+  : true;
 /** Discover candidate traits from the words consumed by the two parser passes. */
 type TraitArguments<
   C extends GitCommandName,
@@ -947,7 +956,7 @@ type TraitArguments<
 > = number extends A['length']
   ? A
   : Spec<C> extends { parserExit: { remainingOptions: unknown } }
-    ? InitialParserPass<Spec<C>, A, EmptyRegistered> extends infer P
+    ? InitialParserPass<Spec<C>, A, RelevantEmptyProfile<C, EmptyRegistered>> extends infer P
       ? P extends { delegated: true }
         ? A
         : P extends { exited: true; tokens: infer T extends readonly unknown[] }
@@ -1341,9 +1350,13 @@ type PinnedCallbackAlternatives<
     : TupleUsesBoolean<C, A> extends true
       ? GitBooleanSource
       : 'modern',
-  I extends 'bounded' | 'decimal-cast' = TupleIntegerTraits<C, A> extends true
-    ? 'bounded' | 'decimal-cast'
-    : 'bounded',
+  I extends 'bounded' | 'decimal-cast' = Ctx extends {
+    integerProfile: infer P extends 'bounded' | 'decimal-cast';
+  }
+    ? P
+    : TupleIntegerTraits<C, A> extends true
+      ? 'bounded' | 'decimal-cast'
+      : 'bounded',
   N extends boolean = TupleIntegerTraits<C, A> extends true ? boolean : false,
   B extends 32 | 64 = TupleIntegerTraits<C, A> extends true
     ? 32 | 64
@@ -1420,13 +1433,15 @@ type CheckedLocalParserProfiles<
   : A extends readonly LocalCommandArgument<C>[]
     ? Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
       ? IndependentlyPinnedCallbacks<C, A, F, Ctx>
-      : Ctx extends { booleanSource: infer Source extends GitBooleanSource }
-        ? Source extends 'modern'
-          ? InitialLocalProfiles<C, A, Ctx>
-          : TupleUsesBoolean<C, A> extends true
-            ? BooleanTupleFamilies<C, A, Source, Ctx>
-            : InitialLocalProfiles<C, A, Ctx>
-        : InitialLocalProfiles<C, A, Ctx>
+      : Ctx extends { integerProfile: 'bounded' | 'decimal-cast' }
+        ? IndependentlyPinnedCallbacks<C, A, {}, Ctx>
+        : Ctx extends { booleanSource: infer Source extends GitBooleanSource }
+          ? Source extends 'modern'
+            ? InitialLocalProfiles<C, A, Ctx>
+            : TupleUsesBoolean<C, A> extends true
+              ? BooleanTupleFamilies<C, A, Source, Ctx>
+              : InitialLocalProfiles<C, A, Ctx>
+          : InitialLocalProfiles<C, A, Ctx>
     : never;
 
 /** Replace only recognized aliases for type evaluation; emitted words are never rewritten. */

@@ -1,3 +1,4 @@
+import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import type { GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitBooleanSource } from '../constraints/git-boolean.js';
 import { createHash } from 'node:crypto';
@@ -14,6 +15,8 @@ export type CommandGrammarContext = {
   firstPassEmpty?: boolean;
   /** Pin named decimal callback families while leaving unspecified parser axes selectable. */
   decimalCallbacks?: GitDecimalCallbacks;
+  /** Pin observed native integer storage/range handling independently of decimal callbacks. */
+  integerProfile?: GitIntegerProfile;
   submoduleInitAlias?: boolean;
 };
 export function guiLaunchFromSource(source: string): GuiLaunch | undefined {
