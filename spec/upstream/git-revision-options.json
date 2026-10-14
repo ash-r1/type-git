@@ -43,7 +43,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--all": {
       "forms": [
@@ -94,7 +95,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--author-date-order": {
       "forms": [
@@ -118,7 +120,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--bisect": {
       "forms": [
@@ -201,7 +204,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--count": {
       "forms": [
@@ -217,7 +221,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--date-order": {
       "forms": [
@@ -257,7 +262,8 @@
       ],
       "sources": [
         "diff-merges.c:diff_merges_parse_opts"
-      ]
+      ],
+      "detachedValue": true
     },
     "--do-walk": {
       "forms": [
@@ -282,7 +288,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--end-of-options": {
       "forms": [
@@ -299,7 +306,8 @@
       "sources": [
         "revision.c:handle_revision_opt",
         "revision.c:handle_revision_pseudo_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--exclude-first-parent-only": {
       "forms": [
@@ -316,7 +324,8 @@
       "sources": [
         "revision.c:handle_revision_opt",
         "revision.c:handle_revision_pseudo_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--exclude-promisor-objects": {
       "forms": [
@@ -398,7 +407,8 @@
       "sources": [
         "revision.c:handle_revision_opt",
         "revision.c:handle_revision_pseudo_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--graph": {
       "forms": [
@@ -422,7 +432,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--grep-reflog": {
       "forms": [
@@ -430,7 +441,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--ignore-missing": {
       "forms": [
@@ -495,7 +507,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--max-count": {
       "forms": [
@@ -503,7 +516,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--max-count-oldest": {
       "forms": [
@@ -511,7 +525,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--max-parents": {
       "forms": [
@@ -551,7 +566,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--min-parents": {
       "forms": [
@@ -906,7 +922,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--since-as-filter": {
       "forms": [
@@ -914,7 +931,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--single-worktree": {
       "forms": [
@@ -930,7 +948,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--sparse": {
       "forms": [
@@ -989,7 +1008,8 @@
       ],
       "sources": [
         "revision.c:handle_revision_opt"
-      ]
+      ],
+      "detachedValue": true
     },
     "--verify-objects": {
       "forms": [

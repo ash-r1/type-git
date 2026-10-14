@@ -3,7 +3,11 @@ import type { CommandSpec, OptionSpec } from './spec.js';
 type Tokens = readonly (readonly string[])[];
 type Deferred = { exited: 'dynamic' };
 type Invalid = { exited: 'invalid' };
-type Done<T extends Tokens> = { exited: false; tokens: T };
+type Done<T extends Tokens, R extends readonly string[]> = {
+  exited: false;
+  tokens: T;
+  remaining: R;
+};
 type Help<T extends Tokens> = { exited: true; tokens: readonly [...T, readonly ['-h']] };
 type Text<V> = V extends string | number | bigint | boolean ? `${V}` : never;
 type Emit<K extends string, D extends OptionSpec, V> = [V] extends [undefined]
@@ -73,20 +77,21 @@ type Long<
   R extends readonly string[],
   T extends Tokens,
   N extends readonly unknown[],
+  Out extends readonly string[],
 > = W extends `${infer F}=${infer V}`
   ? F extends '--help'
-    ? Walk<S, R, T, N>
+    ? Walk<S, R, T, N, readonly [...Out, W]>
     : [Option<S, F>] extends [never]
-      ? Walk<S, R, T, N>
+      ? Walk<S, R, T, N, readonly [...Out, W]>
       : Option<S, F>['value'] extends 'flag'
         ? Invalid
-        : Walk<S, R, readonly [...T, readonly [F, V]], N>
+        : Walk<S, R, readonly [...T, readonly [F, V]], N, Out>
   : [Option<S, W>] extends [never]
-    ? Walk<S, R, T, N>
+    ? Walk<S, R, T, N, readonly [...Out, W]>
     : Option<S, W>['value'] extends 'flag' | `optional-${string}`
-      ? Walk<S, R, readonly [...T, readonly [W]], N>
+      ? Walk<S, R, readonly [...T, readonly [W]], N, Out>
       : R extends readonly [infer V extends string, ...infer Rest extends string[]]
-        ? Walk<S, Rest, readonly [...T, readonly [W, V]], N>
+        ? Walk<S, Rest, readonly [...T, readonly [W, V]], N, Out>
         : Invalid;
 type Short<
   S extends CommandSpec,
@@ -95,7 +100,8 @@ type Short<
   R extends readonly string[],
   T extends Tokens,
   N extends readonly unknown[],
-  First extends boolean = true,
+  First extends boolean,
+  Out extends readonly string[],
 > = N['length'] extends 128
   ? Deferred
   : string extends W
@@ -111,24 +117,42 @@ type Short<
           ? First extends true
             ? Typo<S, Original> extends true
               ? Invalid
-              : Walk<S, R, T, N>
-            : Walk<S, R, T, N>
+              : Walk<S, R, T, N, readonly [...Out, `-${W}`]>
+            : Walk<S, R, T, N, readonly [...Out, `-${W}`]>
           : Option<S, `-${C}`>['value'] extends 'flag'
             ? First extends true
               ? Rest extends ''
-                ? Walk<S, R, readonly [...T, readonly [`-${C}`]], N>
+                ? Walk<S, R, readonly [...T, readonly [`-${C}`]], N, Out>
                 : Typo<S, Original> extends true
                   ? Invalid
-                  : Short<S, Rest, Original, R, readonly [...T, readonly [`-${C}`]], Tick<N>, false>
-              : Short<S, Rest, Original, R, readonly [...T, readonly [`-${C}`]], Tick<N>, false>
+                  : Short<
+                      S,
+                      Rest,
+                      Original,
+                      R,
+                      readonly [...T, readonly [`-${C}`]],
+                      Tick<N>,
+                      false,
+                      Out
+                    >
+              : Short<
+                  S,
+                  Rest,
+                  Original,
+                  R,
+                  readonly [...T, readonly [`-${C}`]],
+                  Tick<N>,
+                  false,
+                  Out
+                >
             : Rest extends ''
               ? Option<S, `-${C}`>['value'] extends `optional-${string}`
-                ? Walk<S, R, readonly [...T, readonly [`-${C}`]], N>
+                ? Walk<S, R, readonly [...T, readonly [`-${C}`]], N, Out>
                 : R extends readonly [infer V extends string, ...infer Tail extends string[]]
-                  ? Walk<S, Tail, readonly [...T, readonly [`-${C}`, V]], N>
+                  ? Walk<S, Tail, readonly [...T, readonly [`-${C}`, V]], N, Out>
                   : Invalid
-              : Walk<S, R, readonly [...T, readonly [`-${C}`, Rest]], N>
-      : Walk<S, R, T, N>;
+              : Walk<S, R, readonly [...T, readonly [`-${C}`, Rest]], N, Out>
+      : Walk<S, R, T, N, Out>;
 type DynamicWord<W extends string, N extends readonly unknown[] = []> = string extends W
   ? true
   : `${number}` extends W
@@ -145,21 +169,31 @@ type Walk<
   A extends readonly string[],
   T extends Tokens = [],
   N extends readonly unknown[] = [],
+  Out extends readonly string[] = [],
 > = N['length'] extends 128
   ? Deferred
   : A extends readonly [infer W extends string, ...infer R extends string[]]
     ? DynamicWord<W> extends true
       ? Deferred
       : W extends '--' | '--end-of-options'
-        ? Done<T>
+        ? Done<
+            T,
+            W extends '--end-of-options'
+              ? readonly [...Out, W, ...R]
+              : S extends { parserExit: { keepDashDash: true } }
+                ? readonly [...Out, W, ...R]
+                : readonly [...Out, ...R]
+          >
         : W extends '--help' | '--help-all'
           ? Help<T>
           : W extends `--${string}`
-            ? Long<S, W, R, T, Tick<N>>
-            : W extends `-${infer Cluster}`
-              ? Short<S, Cluster, Cluster, R, T, Tick<N>>
-              : Walk<S, R, T, Tick<N>>
-    : Done<T>;
+            ? Long<S, W, R, T, Tick<N>, Out>
+            : W extends '-'
+              ? Walk<S, R, T, Tick<N>, readonly [...Out, W]>
+              : W extends `-${infer Cluster}`
+                ? Short<S, Cluster, Cluster, R, T, Tick<N>, true, Out>
+                : Walk<S, R, T, Tick<N>, readonly [...Out, W]>
+    : Done<T, Out>;
 /** Bounded literal execution of the source-recorded KEEP_UNKNOWN_OPT pass. */
 type Parsed<S extends CommandSpec, A extends readonly unknown[]> = Serialize<
   S,
@@ -168,7 +202,7 @@ type Parsed<S extends CommandSpec, A extends readonly unknown[]> = Serialize<
   ? Words extends readonly string[]
     ? S extends { parserExit: { exceptFirst: readonly (infer Excluded)[] } }
       ? [Words[0]] extends [Excluded]
-        ? Done<[]>
+        ? Done<[], Words> & { delegated: true }
         : Walk<S, Words>
       : Walk<S, Words>
     : Deferred

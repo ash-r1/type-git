@@ -1754,7 +1754,17 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+      "keepDashDash": true,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": true
     },
     "options": {
       "--decorate": {
@@ -1794,7 +1804,17 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+      "keepDashDash": true,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": true
     },
     "options": {
       "--decorate": {
@@ -2556,7 +2576,18 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/revert.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/revert.c",
+      "keepDashDash": false,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": false,
+      "leadingDashReplacement": "@{-1}"
     }
   },
   "revert": {
@@ -2616,7 +2647,18 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/revert.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/revert.c",
+      "keepDashDash": false,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": false,
+      "leadingDashReplacement": "@{-1}"
     }
   },
   "commit-tree": {
@@ -5024,7 +5066,17 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/log.c",
+      "keepDashDash": true,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": true
     },
     "options": {
       "--decorate": {
@@ -6367,7 +6419,17 @@
       ],
       "origin": "git",
       "reason": "The initial parse_options pass retains unknown options for setup_revisions. Help exits this pass before deferred revision/diff callbacks, while earlier recognized callbacks still run. A -- boundary ends this pass.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/fast-export.c",
+      "keepDashDash": false,
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "color-flag"
+      ],
+      "splitRemainingPaths": true
     }
   },
   "pack-objects": {

@@ -123,6 +123,56 @@ describe('observed initial parser profiles', () => {
     expect(actual.stdout).toEqual(new Uint8Array(0));
     expect(adapters.exec.spawnBytes).not.toHaveBeenCalled();
   });
+  it('discovers a boolean callback consumed from a numeric API value without help', () => {
+    expect(commandUsesBooleanSource('log', [['-n', '--decorate=m'], ['--all']])).toBe(true);
+  });
+  it('matches selected Git when an initial callback consumes a numeric API value', async () => {
+    const cwd = await mkdtemp(join(tmpdir(), 'type-git-hidden-traits-'));
+    try {
+      const env = {
+        ...process.env,
+        HOME: cwd,
+        XDG_CONFIG_HOME: cwd,
+        GIT_CONFIG_NOSYSTEM: '1',
+        GIT_CONFIG_GLOBAL: join(cwd, 'config'),
+        GIT_CONFIG_COUNT: '0',
+        LC_ALL: 'C',
+        GIT_AUTHOR_NAME: 'Fixture',
+        GIT_AUTHOR_EMAIL: 'fixture@example.invalid',
+        GIT_COMMITTER_NAME: 'Fixture',
+        GIT_COMMITTER_EMAIL: 'fixture@example.invalid',
+      };
+      for (const args of [
+        ['init', '-q'],
+        ['commit', '--allow-empty', '-qm', 'one'],
+      ]) {
+        const init = spawnSync('git', args, { cwd, env, encoding: 'utf8' });
+        expect(init.status, init.stderr).toBe(0);
+      }
+      const native = spawnSync('git', ['log', '-n', '--decorate=m', '--all'], {
+        cwd,
+        env,
+        encoding: 'utf8',
+      });
+      const run = new CliRunner(createNodeAdapters()).runCommand(
+        { type: 'worktree', workdir: cwd },
+        'log',
+        [['-n', '--decorate=m'], ['--all']],
+        true,
+        { env },
+      );
+      if (native.status === 0) {
+        const actual = await run;
+        expect(actual.exitCode).toBe(0);
+        expect(actual.stdout).toBe(native.stdout);
+      } else {
+        expect(native.stderr).toContain('invalid --decorate');
+        await expect(run).rejects.toBeInstanceOf(GitArgumentError);
+      }
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
   it('discovers only callbacks reached before a split value becomes initial help', () => {
     const args = [
       ['-G', '-h'],

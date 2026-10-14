@@ -101,5 +101,19 @@ export type CommandSpec = {
     firstPassOptions?: readonly string[];
     /** Native long names used by the initial parser's single-dash typo check. */
     firstPassLongNames?: readonly string[];
+    /** PARSE_OPT_KEEP_DASHDASH; --end-of-options is always retained. */
+    keepDashDash?: boolean;
+    /** Separate option definitions for the subsequent revision/diff parser. */
+    remainingOptions?: Readonly<Record<string, OptionSpec>>;
+    /** setup_revisions searches for -- before consuming values, unless assume_dashdash. */
+    splitRemainingPaths?: boolean;
+    /** Sequencer translates a leading retained - into the previous checkout. */
+    leadingDashReplacement?: string;
+    /** Single-letter diff options recognized while decoding retained clusters. */
+    remainingShortOptions?: readonly string[];
+    /** Native long names used by the later parser's single-dash typo check. */
+    remainingLongNames?: readonly string[];
+    /** Later-phase options whose values may occupy the next argv word. */
+    remainingDetachedOptions?: readonly string[];
   };
 };

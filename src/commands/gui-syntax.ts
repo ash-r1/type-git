@@ -1,3 +1,4 @@
+import type { GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitBooleanSource } from '../constraints/git-boolean.js';
 import { createHash } from 'node:crypto';
 import { GitArgumentError } from '../core/types.js';
@@ -11,6 +12,8 @@ export type CommandGrammarContext = {
   conflictStyle?: 'immediate' | 'deferred';
   booleanSource?: GitBooleanSource;
   firstPassEmpty?: boolean;
+  /** Pin independently observed native decimal callback source families. */
+  decimalCallbacks?: GitDecimalCallbacks;
   submoduleInitAlias?: boolean;
 };
 export function guiLaunchFromSource(source: string): GuiLaunch | undefined {

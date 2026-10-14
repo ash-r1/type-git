@@ -819,20 +819,34 @@ export class CliRunner {
             depthAtoiBits,
             submoduleInitAlias,
           };
-    if (commandUsesNativeABI(command, args)) {
-      const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(command, args)
+    if (commandUsesNativeABI(command, args, firstPassEmpty)) {
+      const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(command, args, firstPassEmpty)
         ? ['bounded', 'decimal-cast']
         : ['bounded'];
-      const signs = commandUsesNegativeMagnitude(command, args) ? [false, true] : [false];
-      const conflictStyles: ('immediate' | 'deferred')[] = commandUsesConflictStyle(command, args)
+      const signs = commandUsesNegativeMagnitude(command, args, firstPassEmpty)
+        ? [false, true]
+        : [false];
+      const conflictStyles: ('immediate' | 'deferred')[] = commandUsesConflictStyle(
+        command,
+        args,
+        firstPassEmpty,
+      )
         ? ['immediate', 'deferred']
         : ['immediate'];
-      const booleanSources: GitBooleanSource[] = commandUsesBooleanSource(command, args)
+      const booleanSources: GitBooleanSource[] = commandUsesBooleanSource(
+        command,
+        args,
+        firstPassEmpty,
+      )
         ? ['modern', 'symmetric', 'legacy-units']
         : ['modern'];
-      const booleanBinaries = commandUsesBooleanBinary(command, args) ? [true, false] : [true];
-      const compoundOverflows = commandUsesCompoundDecimal(command, args) ? [false, true] : [false];
-      const booleanFeatures = commandBooleanFeatures(command, args);
+      const booleanBinaries = commandUsesBooleanBinary(command, args, firstPassEmpty)
+        ? [true, false]
+        : [true];
+      const compoundOverflows = commandUsesCompoundDecimal(command, args, firstPassEmpty)
+        ? [false, true]
+        : [false];
+      const booleanFeatures = commandBooleanFeatures(command, args, firstPassEmpty);
       let capabilityVariants: GitBooleanCapabilities[] = [{}];
       for (const feature of booleanFeatures) {
         capabilityVariants = capabilityVariants.flatMap((variant) => [
@@ -840,8 +854,10 @@ export class CliRunner {
           { ...variant, [feature]: false },
         ]);
       }
-      const callbacks = commandDecimalCallbacks(command, args);
-      const chars = commandUsesObjectFilterCharProfile(command, args) ? [false, true] : [true];
+      const callbacks = commandDecimalCallbacks(command, args, firstPassEmpty);
+      const chars = commandUsesObjectFilterCharProfile(command, args, firstPassEmpty)
+        ? [false, true]
+        : [true];
       let callbackVariants: GitDecimalCallbacks[] = [{}];
       for (const callback of callbacks) {
         callbackVariants = callbackVariants.flatMap((variant) => [
@@ -904,7 +920,7 @@ export class CliRunner {
       if (valid.length === 0) {
         throw firstError;
       }
-      const needsBinaryProfile = commandUsesObjectFilterBinary(command, args);
+      const needsBinaryProfile = commandUsesObjectFilterBinary(command, args, firstPassEmpty);
       if (
         (valid.length ===
           profiles.length *
@@ -1366,8 +1382,8 @@ export class CliRunner {
         const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
         if (probe.exitCode !== 0 || !(longBytes && sizeBytes)) {
           if (
-            commandUsesDecimalCallback(command, args) ||
-            commandUsesCompoundDecimal(command, args)
+            commandUsesDecimalCallback(command, args, firstPassEmpty) ||
+            commandUsesCompoundDecimal(command, args, firstPassEmpty)
           ) {
             return await execute(selectedValid[0]!.argv);
           }

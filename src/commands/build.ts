@@ -1,3 +1,4 @@
+import { revisionParserPass } from './revision-parser-pass.js';
 import { initialParserPass } from './initial-parser-pass.js';
 import {
   isBooleanCallback,
@@ -137,7 +138,12 @@ function buildArguments(
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
-  evaluationMode: 'full' | 'shape' | 'first-pass' = 'full',
+  evaluationMode: 'full' | 'shape' | 'first-pass' | 'pipeline' = 'full',
+  replay?: {
+    firstCount: number;
+    options: Readonly<Record<string, OptionSpec>>;
+    original: readonly unknown[];
+  },
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
@@ -167,6 +173,7 @@ function buildArguments(
       guiGrammar,
       guiLaunch,
       evaluationMode,
+      replay,
     );
   }
   if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
@@ -188,6 +195,24 @@ function buildArguments(
       buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
       return serialized;
     }
+    if (!pass.delegated) {
+      const remaining = revisionParserPass(spec, pass.remaining);
+      buildArguments(
+        command,
+        [...pass.tokens, ...remaining],
+        inRepository,
+        abi,
+        guiGrammar,
+        guiLaunch,
+        'pipeline',
+        {
+          firstCount: pass.tokens.length,
+          options: spec.parserExit.remainingOptions!,
+          original: args,
+        },
+      );
+      return serialized;
+    }
   }
   const argv = [...spec.argv];
   const operands: string[] = [];
@@ -195,7 +220,7 @@ function buildArguments(
   const pathsAfterSeparator: string[] = [];
   const state: Record<string, unknown> = {
     ...spec.initial,
-    argumentTokens: args,
+    argumentTokens: replay?.original ?? args,
     operands,
     inRepository,
     operandsBeforeSeparator,
@@ -233,7 +258,10 @@ function buildArguments(
       continue;
     }
     if (
-      !parserExited &&
+      !(
+        parserExited ||
+        (replay && index >= replay.firstCount && arg[0] === '--' && arg.length === 1)
+      ) &&
       (literalOperands || (spec.optionParsing === 'stop-at-operand' && operands.length > 0))
     ) {
       throw new GitArgumentError(
@@ -256,10 +284,13 @@ function buildArguments(
     if (typeof flag !== 'string') {
       throw new GitArgumentError(`${command}: option names must be strings`);
     }
+    const activeOptions = replay && index >= replay.firstCount ? replay.options : spec.options;
     const numeric =
-      !Object.hasOwn(spec.options, flag) && spec.numericOption && /^-\d+$/.exec(flag)?.[0] === flag;
-    const option: OptionSpec | undefined = Object.hasOwn(spec.options, flag)
-      ? spec.options[flag]
+      !Object.hasOwn(activeOptions, flag) &&
+      spec.numericOption &&
+      /^-\d+$/.exec(flag)?.[0] === flag;
+    const option: OptionSpec | undefined = Object.hasOwn(activeOptions, flag)
+      ? activeOptions[flag]
       : numeric
         ? {
             ...spec.numericOption!,
@@ -436,6 +467,7 @@ function buildArguments(
       continue;
     }
     if (
+      evaluationMode !== 'pipeline' &&
       spec.parserExit?.flags.includes(flag) &&
       !(index === 0 && spec.parserExit.exceptFirst?.includes(flag))
     ) {
@@ -571,16 +603,23 @@ export function commandUsesFirstPassEmpty(
 }
 
 /** Stop trait discovery where an audited parser exits; later words are only serialized. */
-function interpretedArguments(spec: CommandSpec, args: readonly unknown[]): readonly unknown[] {
+function interpretedArguments(
+  spec: CommandSpec,
+  args: readonly unknown[],
+  emptyRegistered = true,
+): readonly unknown[] {
   if (!spec.parserExit) {
     return args;
   }
   if (spec.parserExit.firstPassOptions) {
     const command = spec.argv.join(' ') as GitCommandName;
     const words = commandShapeArguments(command, args, true);
-    const pass = initialParserPass(spec, words.slice(spec.argv.length));
+    const pass = initialParserPass(spec, words.slice(spec.argv.length), emptyRegistered);
     if (pass.exited) {
       return pass.tokens;
+    }
+    if (!pass.delegated) {
+      return [...pass.tokens, ...revisionParserPass(spec, pass.remaining)];
     }
   }
   for (const [index, token] of args.entries()) {
@@ -673,16 +712,20 @@ export function commandUsesDepthAtoi(command: GitCommandName, args: readonly unk
 }
 
 /** Whether emitted options need the selected executable's native integer widths. */
-export function commandUsesNativeABI(command: GitCommandName, args: readonly unknown[]): boolean {
+export function commandUsesNativeABI(
+  command: GitCommandName,
+  args: readonly unknown[],
+  emptyRegistered = true,
+): boolean {
   if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesNativeABI(dispatched.command, dispatched.args);
+    return commandUsesNativeABI(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some((arg) => {
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
@@ -710,6 +753,7 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
 export function commandUsesObjectFilterBinary(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
@@ -719,9 +763,9 @@ export function commandUsesObjectFilterBinary(
   }
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesObjectFilterBinary(dispatched.command, dispatched.args);
+    return commandUsesObjectFilterBinary(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some((arg) => {
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
       return false;
     }
@@ -744,6 +788,7 @@ export function commandUsesObjectFilterBinary(
 export function commandUsesIntegerProfile(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
     return false;
@@ -751,9 +796,9 @@ export function commandUsesIntegerProfile(
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesIntegerProfile(dispatched.command, dispatched.args);
+    return commandUsesIntegerProfile(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some((arg) => {
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
@@ -775,6 +820,7 @@ export function commandUsesIntegerProfile(
 export function commandUsesNegativeMagnitude(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
     return false;
@@ -782,9 +828,9 @@ export function commandUsesNegativeMagnitude(
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesNegativeMagnitude(dispatched.command, dispatched.args);
+    return commandUsesNegativeMagnitude(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some((arg) => {
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
@@ -809,14 +855,15 @@ export function commandUsesNegativeMagnitude(
 export function commandDecimalCallbacks(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): GitDecimalCallback[] {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandDecimalCallbacks(dispatched.command, dispatched.args);
+    return commandDecimalCallbacks(dispatched.command, dispatched.args, emptyRegistered);
   }
   const callbacks = new Set<GitDecimalCallback>();
-  for (const arg of interpretedArguments(spec, args)) {
+  for (const arg of interpretedArguments(spec, args, emptyRegistered)) {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       continue;
     }
@@ -840,13 +887,14 @@ export function commandDecimalCallbacks(
 export function commandUsesDecimalCallback(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesDecimalCallback(dispatched.command, dispatched.args);
+    return commandUsesDecimalCallback(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some((arg) => {
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
@@ -859,13 +907,14 @@ export function commandUsesDecimalCallback(
 export function commandUsesObjectFilterCharProfile(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesObjectFilterCharProfile(dispatched.command, dispatched.args);
+    return commandUsesObjectFilterCharProfile(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some((arg) => {
+  return interpretedArguments(spec, args, emptyRegistered).some((arg) => {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
       return false;
     }
@@ -881,13 +930,14 @@ export function commandUsesObjectFilterCharProfile(
 export function commandUsesCompoundDecimal(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesCompoundDecimal(dispatched.command, dispatched.args);
+    return commandUsesCompoundDecimal(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some(
+  return interpretedArguments(spec, args, emptyRegistered).some(
     (arg) =>
       Array.isArray(arg) &&
       typeof arg[0] === 'string' &&
@@ -901,13 +951,14 @@ export function commandUsesCompoundDecimal(
 export function commandUsesConflictStyle(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesConflictStyle(dispatched.command, dispatched.args);
+    return commandUsesConflictStyle(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some(
+  return interpretedArguments(spec, args, emptyRegistered).some(
     (arg) =>
       Array.isArray(arg) &&
       typeof arg[0] === 'string' &&
@@ -920,13 +971,14 @@ export function commandUsesConflictStyle(
 export function commandUsesBooleanSource(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesBooleanSource(dispatched.command, dispatched.args);
+    return commandUsesBooleanSource(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some(
+  return interpretedArguments(spec, args, emptyRegistered).some(
     (arg) =>
       Array.isArray(arg) &&
       typeof arg[0] === 'string' &&
@@ -939,13 +991,14 @@ export function commandUsesBooleanSource(
 export function commandUsesBooleanBinary(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandUsesBooleanBinary(dispatched.command, dispatched.args);
+    return commandUsesBooleanBinary(dispatched.command, dispatched.args, emptyRegistered);
   }
-  return interpretedArguments(spec, args).some(
+  return interpretedArguments(spec, args, emptyRegistered).some(
     (arg) =>
       Array.isArray(arg) &&
       typeof arg[0] === 'string' &&
@@ -961,14 +1014,15 @@ export function commandUsesBooleanBinary(
 export function commandBooleanFeatures(
   command: GitCommandName,
   args: readonly unknown[],
+  emptyRegistered = true,
 ): (keyof GitBooleanCapabilities)[] {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandBooleanFeatures(dispatched.command, dispatched.args);
+    return commandBooleanFeatures(dispatched.command, dispatched.args, emptyRegistered);
   }
   const features = new Set<keyof GitBooleanCapabilities>();
-  for (const arg of interpretedArguments(spec, args)) {
+  for (const arg of interpretedArguments(spec, args, emptyRegistered)) {
     if (!Array.isArray(arg) || typeof arg[0] !== 'string' || !Object.hasOwn(spec.options, arg[0])) {
       continue;
     }

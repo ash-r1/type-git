@@ -1,0 +1,3119 @@
+{
+  "profile": "Git 2.55.0; seeded repository; non-exiting initial pass; no signing, remote or user repository access",
+  "cases": [
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "log",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "log",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "-L"
+        ],
+        {
+          "operand": "1,1:file"
+        },
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "-L",
+        "1,1:file",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "-L"
+        ],
+        {
+          "operand": "1,1:file"
+        },
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "-L",
+        "1,1:file",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-G",
+          "--decorate"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "log",
+        "-G",
+        "--decorate",
+        "x",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--default",
+          "--decorate"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "log",
+        "--default",
+        "--decorate",
+        "HEAD",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-G",
+          "--decorate=bad"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "log",
+        "-G",
+        "--decorate=bad",
+        "--max-count=0"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "log",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "log",
+        "--max-count=0",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "log",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "log",
+        "--default",
+        "--end-of-options",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "log",
+        "--default",
+        "--end-of-options",
+        "--color=always",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "--color=bad"
+        }
+      ],
+      "argv": [
+        "log",
+        "--end-of-options",
+        "HEAD",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--default",
+          "--quiet"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "log",
+        "--default",
+        "--quiet",
+        "HEAD",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-G",
+          "-qSx"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "log",
+        "-G",
+        "-qSx",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-G",
+          "-q"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "log",
+        "-G",
+        "-q",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-G",
+          "-q"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "log",
+        "-G",
+        "-q",
+        "x",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "log",
+        "--max-count=0",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "--default",
+          "--format=oneline"
+        ],
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "log",
+        "--default",
+        "--format=oneline",
+        "--max-count=0",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--decorate",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--decorate",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--decorate",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--decorate",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--no-decorate",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--no-decorate",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--no-decorate",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--no-decorate",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--quiet",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--quiet",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--quiet",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "--quiet",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "-q",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "-q",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "-q",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "log",
+      "tokens": [
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "log",
+        "-n",
+        "-q",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "-L"
+        ],
+        {
+          "operand": "1,1:file"
+        },
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "-L",
+        "1,1:file",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "-L"
+        ],
+        {
+          "operand": "1,1:file"
+        },
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "-L",
+        "1,1:file",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-G",
+          "--decorate"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "show",
+        "-G",
+        "--decorate",
+        "x",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--default",
+          "--decorate"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "show",
+        "--default",
+        "--decorate",
+        "HEAD",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-G",
+          "--decorate=bad"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "show",
+        "-G",
+        "--decorate=bad",
+        "--max-count=0"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "show",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "show",
+        "--max-count=0",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "show",
+        "--default",
+        "--end-of-options",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "show",
+        "--default",
+        "--end-of-options",
+        "--color=always",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "--color=bad"
+        }
+      ],
+      "argv": [
+        "show",
+        "--end-of-options",
+        "HEAD",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--default",
+          "--quiet"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "show",
+        "--default",
+        "--quiet",
+        "HEAD",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-G",
+          "-qSx"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "show",
+        "-G",
+        "-qSx",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-G",
+          "-q"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "show",
+        "-G",
+        "-q",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-G",
+          "-q"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "show",
+        "-G",
+        "-q",
+        "x",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "show",
+        "--max-count=0",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "--default",
+          "--format=oneline"
+        ],
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "show",
+        "--default",
+        "--format=oneline",
+        "--max-count=0",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--decorate",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--decorate",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--decorate",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--decorate",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--no-decorate",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--no-decorate",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--no-decorate",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--no-decorate",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--quiet",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--quiet",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--quiet",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "--quiet",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "-q",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "-q",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "-q",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "show",
+      "tokens": [
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "show",
+        "-n",
+        "-q",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-G",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-G",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--default",
+          "-L"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--default",
+        "-L",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "-L"
+        ],
+        {
+          "operand": "1,1:file"
+        },
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "-L",
+        "1,1:file",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "-L"
+        ],
+        {
+          "operand": "1,1:file"
+        },
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "-L",
+        "1,1:file",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-G",
+          "--decorate"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-G",
+        "--decorate",
+        "x",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--default",
+          "--decorate"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--default",
+        "--decorate",
+        "HEAD",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-G",
+          "--decorate=bad"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-G",
+        "--decorate=bad",
+        "--max-count=0"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid --decorate option: bad"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--max-count=0",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `G' requires a value"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--default",
+        "--end-of-options",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--default",
+        "--end-of-options",
+        "--color=always",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        {
+          "operand": "--end-of-options"
+        },
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--"
+        ],
+        {
+          "operand": "--color=bad"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--end-of-options",
+        "HEAD",
+        "--",
+        "--color=bad"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--default",
+          "--quiet"
+        ],
+        {
+          "operand": "HEAD"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--default",
+        "--quiet",
+        "HEAD",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-G",
+          "-qSx"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-G",
+        "-qSx",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-G",
+          "-q"
+        ],
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-G",
+        "-q",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-G",
+          "-q"
+        ],
+        {
+          "operand": "x"
+        },
+        [
+          "--max-count",
+          "0"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-G",
+        "-q",
+        "x",
+        "--max-count=0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--max-count=0",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "--default",
+          "--format=oneline"
+        ],
+        [
+          "--max-count",
+          "0"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "--default",
+        "--format=oneline",
+        "--max-count=0",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--decorate",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--decorate",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--decorate",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--decorate"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--decorate",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--no-decorate",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--no-decorate",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--no-decorate",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--no-decorate"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--no-decorate",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--quiet",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--quiet",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--quiet",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "--quiet"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "--quiet",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "-q",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "-q",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "-q",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "whatchanged",
+      "tokens": [
+        [
+          "--i-still-use-this"
+        ],
+        [
+          "-n",
+          "-q"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "whatchanged",
+        "--i-still-use-this",
+        "-n",
+        "-q",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "fast-export",
+        "--",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "fast-export",
+        "--",
+        "--color=always",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "-G",
+          "--"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "fast-export",
+        "-G",
+        "--",
+        "-h"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "-G",
+          "-qh"
+        ]
+      ],
+      "argv": [
+        "fast-export",
+        "-G",
+        "-qh"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "fast-export",
+        "--max-count=0",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--max-count",
+          "0"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "fast-export",
+        "--max-count=0",
+        "--",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--default",
+          "--progress=1"
+        ]
+      ],
+      "argv": [
+        "fast-export",
+        "--default",
+        "--progress=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "error: bad --default argument"
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--default",
+          "--progress=1"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "fast-export",
+        "--default",
+        "--progress=1",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--default",
+          "--progress"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "fast-export",
+        "--default",
+        "--progress",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `progress' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "fast-export",
+        "--default",
+        "--end-of-options",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "--default",
+          "--end-of-options"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        {
+          "operand": "HEAD"
+        }
+      ],
+      "argv": [
+        "fast-export",
+        "--default",
+        "--end-of-options",
+        "--color=always",
+        "HEAD"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "-n",
+          "--no-data"
+        ],
+        {
+          "operand": "0"
+        }
+      ],
+      "argv": [
+        "fast-export",
+        "-n",
+        "--no-data",
+        "0"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "-n",
+          "--no-data"
+        ],
+        {
+          "operand": "1"
+        }
+      ],
+      "argv": [
+        "fast-export",
+        "-n",
+        "--no-data",
+        "1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "-n",
+          "--no-data"
+        ],
+        {
+          "operand": "bad"
+        }
+      ],
+      "argv": [
+        "fast-export",
+        "-n",
+        "--no-data",
+        "bad"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: 'bad': not an integer"
+    },
+    {
+      "command": "fast-export",
+      "tokens": [
+        [
+          "-n",
+          "--no-data"
+        ],
+        {
+          "operand": "-1"
+        }
+      ],
+      "argv": [
+        "fast-export",
+        "-n",
+        "--no-data",
+        "-1"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "cherry-pick",
+      "tokens": [
+        [
+          "--quit"
+        ]
+      ],
+      "argv": [
+        "cherry-pick",
+        "--quit"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "cherry-pick",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "cherry-pick",
+        "--quit",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "cherry-pick",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "cherry-pick",
+        "--quit",
+        "--",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "usage: git cherry-pick [--edit] [-n] [-m <parent-number>] [-s] [-x] [--ff]"
+    },
+    {
+      "command": "cherry-pick",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "-G",
+          "-m"
+        ]
+      ],
+      "argv": [
+        "cherry-pick",
+        "--quit",
+        "-G",
+        "-m"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `m' requires a value"
+    },
+    {
+      "command": "cherry-pick",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "-G",
+          "--mainline=1"
+        ]
+      ],
+      "argv": [
+        "cherry-pick",
+        "--quit",
+        "-G",
+        "--mainline=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: cherry-pick: --mainline cannot be used with --quit"
+    },
+    {
+      "command": "cherry-pick",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "cherry-pick",
+        "--quit",
+        "--",
+        "--"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "usage: git cherry-pick [--edit] [-n] [-m <parent-number>] [-s] [-x] [--ff]"
+    },
+    {
+      "command": "revert",
+      "tokens": [
+        [
+          "--quit"
+        ]
+      ],
+      "argv": [
+        "revert",
+        "--quit"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "revert",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "revert",
+        "--quit",
+        "--"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "revert",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "revert",
+        "--quit",
+        "--",
+        "--color=bad"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "usage: git revert [--[no-]edit] [-n] [-m <parent-number>] [-s] [-S[<keyid>]] <commit>..."
+    },
+    {
+      "command": "revert",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "-G",
+          "-m"
+        ]
+      ],
+      "argv": [
+        "revert",
+        "--quit",
+        "-G",
+        "-m"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: switch `m' requires a value"
+    },
+    {
+      "command": "revert",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "-G",
+          "--mainline=1"
+        ]
+      ],
+      "argv": [
+        "revert",
+        "--quit",
+        "-G",
+        "--mainline=1"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: revert: --mainline cannot be used with --quit"
+    },
+    {
+      "command": "revert",
+      "tokens": [
+        [
+          "--quit"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "revert",
+        "--quit",
+        "--",
+        "--"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "usage: git revert [--[no-]edit] [-n] [-m <parent-number>] [-s] [-S[<keyid>]] <commit>..."
+    },
+    {
+      "command": "cherry-pick",
+      "tokens": [
+        [
+          "--no-commit"
+        ],
+        {
+          "operand": "-"
+        }
+      ],
+      "argv": [
+        "cherry-pick",
+        "--no-commit",
+        "-"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "revert",
+      "tokens": [
+        [
+          "--no-commit"
+        ],
+        {
+          "operand": "-"
+        }
+      ],
+      "argv": [
+        "revert",
+        "--no-commit",
+        "-"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    }
+  ]
+}
