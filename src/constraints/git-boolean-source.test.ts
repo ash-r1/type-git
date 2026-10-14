@@ -35,6 +35,28 @@ describe('native-derived boolean source families', () => {
       }
     });
   }
+  it('keeps enum support independent of integer grammar when explicitly observed', () => {
+    expect(
+      parseBooleanCallback('pull-rebase', 'preserve', undefined, 'modern', true, {
+        preserve: true,
+      }),
+    ).toEqual({ valid: true, value: 'preserve' });
+    expect(
+      parseBooleanCallback('pull-rebase', 'p', undefined, 'legacy-units', true, {
+        preserve: false,
+      }),
+    ).toEqual({ valid: false });
+    expect(
+      parseBooleanCallback('push-recurse', 'only-is-on-demand', 'only', 'legacy-units', true, {
+        onlyIsOnDemand: true,
+      }),
+    ).toEqual({ valid: true, value: 'on-demand' });
+    expect(
+      parseBooleanCallback('push-recurse', 'only-is-on-demand', 'only', 'symmetric', true, {
+        onlyIsOnDemand: false,
+      }),
+    ).toEqual({ valid: false });
+  });
   it('preserves the source-specific normalized meaning of rebase m and transition state', () => {
     expect(parseBooleanCallback('pull-rebase', 'm', undefined, 'legacy-units')).toEqual({
       valid: true,

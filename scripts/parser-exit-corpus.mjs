@@ -31,7 +31,7 @@ try {
   const other = {
     add: [['--chmod', 'bad']], rm: [['--force']], mv: [['--force']],
     commit: [['--cleanup', 'bad']], fetch: [['--filter', 'bad']],
-    push: [['--force']], clone: [['--filter', 'bad']], merge: [['--log', 'bad']],
+    push: [['--force']], pull: [['--rebase', 'invalid']], clone: [['--filter', 'bad']], merge: [['--log', 'bad']],
     reset: [['--soft'], ['--hard']], clean: [['--exclude', 'foo']],
     rebase: [['--empty', 'bad']], checkout: [['--unified', 'bad']],
     switch: [['--conflict', 'bad']], restore: [['--unified', 'bad']],

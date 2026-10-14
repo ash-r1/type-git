@@ -5,6 +5,9 @@ import { parseGitInteger } from './git-integer.js';
 /** Recorded parser families: 2.25 permits bare units; 2.47 rejects INT_MIN; 2.55 supports it. */
 export type GitBooleanSource = 'legacy-units' | 'symmetric' | 'modern';
 
+/** Enum callback support is observed separately from configuration integer grammar. */
+export type GitBooleanCapabilities = { preserve?: boolean; onlyIsOnDemand?: boolean };
+
 export type GitBooleanProfile = {
   allowTrue: boolean;
   names: Readonly<Record<string, string>>;
@@ -43,16 +46,19 @@ export function gitBoolean(
   return integer === undefined ? undefined : integer !== 0n;
 }
 
+/** Identify callback parsers registered in the pinned upstream schema. */
 export function isBooleanCallback(parser: string): parser is GitBooleanCallback {
   return Object.hasOwn(BOOLEAN_CALLBACKS, parser);
 }
 
+/** Apply config boolean grammar before callback names and ordered transition effects. */
 export function parseBooleanCallback(
   parser: GitBooleanCallback,
   value: unknown,
   previous?: unknown,
   source: GitBooleanSource = 'modern',
   binaryIntegers = true,
+  capabilities: GitBooleanCapabilities = {},
 ): { valid: boolean; value?: unknown } {
   const profile: GitBooleanProfile = BOOLEAN_CALLBACKS[parser];
   if (
@@ -60,7 +66,7 @@ export function parseBooleanCallback(
     profile.transitions &&
     Object.hasOwn(profile.transitions, value)
   ) {
-    if (source === 'legacy-units') {
+    if (!(capabilities.onlyIsOnDemand ?? source !== 'legacy-units')) {
       return { valid: false };
     }
     const transition = profile.transitions[value]!;
@@ -74,7 +80,7 @@ export function parseBooleanCallback(
     return { valid: false };
   }
   if (
-    source === 'legacy-units' &&
+    (capabilities.preserve ?? source === 'legacy-units') &&
     parser === 'pull-rebase' &&
     (value === 'preserve' || value === 'p')
   ) {

@@ -850,6 +850,25 @@ retain an unknown string state and are checked at runtime. Known invalid members
 of literal unions are rejected. Optional values explicitly passed as `undefined`
 continue to use their schema defaults.
 
+Additional native transcripts cover Git 2.25.1 and 2.47.3. Their config
+integer parsers reject INT_MIN; 2.25.1 also treats a bare `k`, `m` or `g` as
+zero. This makes pull `--rebase=m` normalize to false on the recorded old
+parser, rather than the newer named `merges` mode. Compiler alternatives replay
+a complete argument tuple for each recorded source family, preserving callback
+order and rejecting invalid literal-union members.
+
+At runtime, readonly `git -c … config --type=bool --get …` observations select
+the config grammar and libc binary-prefix support independently. Availability
+of pull `preserve`/`p` and push `only-is-on-demand` is observed separately through
+the original callback followed by `-h`: intermediate upstream sources show that
+these features cannot be inferred from the config integer grammar. Observations
+use the selected command context, environment and cancellation signal without
+consuming command stdin. Unrecognized responses retain native execution and its
+diagnostics; aborted observations stop execution. Audited help exits, including
+pull, prevent observations and semantic checks for later words while retaining
+argument representation checks. The three compiler source alternatives are
+recorded families, not a claim to model every intermediate or customized Git.
+
 The independent oracle `node scripts/boolean-callback-corpus.mjs --check`
 reproduces 59 native boolean values (including their normalized output) and 649
 callback outcomes at 11 option sites in eight commands. It requires the pinned

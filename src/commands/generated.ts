@@ -77224,6 +77224,15 @@ const commandSpec208 = {
   ],
   source: 'builtin/pull.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.25.1/2.55.0 builtin/pull.c:parse_options; parse-options.c:parse_options_step/parse_options; git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec209 = {
   argv: ['rev-parse'],

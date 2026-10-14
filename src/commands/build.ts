@@ -1,4 +1,8 @@
-import { isBooleanCallback, type GitBooleanSource } from '../constraints/git-boolean.js';
+import {
+  isBooleanCallback,
+  type GitBooleanSource,
+  type GitBooleanCapabilities,
+} from '../constraints/git-boolean.js';
 import type { GitDecimalCallback, GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
@@ -96,6 +100,7 @@ export function commandArguments(
     conflictStyle?: 'immediate' | 'deferred';
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
+    booleanCapabilities?: GitBooleanCapabilities;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -248,6 +253,7 @@ export function commandArguments(
             abi?.unsignedChar,
             abi?.booleanSource,
             abi?.booleanBinaryIntegers,
+            abi?.booleanCapabilities,
           )
         : undefined;
     if (integer && !integer.valid) {
@@ -380,6 +386,7 @@ export function commandArguments(
             abi?.unsignedChar,
             abi?.booleanSource,
             abi?.booleanBinaryIntegers,
+            abi?.booleanCapabilities,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -718,7 +725,9 @@ export function commandUsesBooleanSource(
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
-  if (dispatched) { return commandUsesBooleanSource(dispatched.command, dispatched.args); }
+  if (dispatched) {
+    return commandUsesBooleanSource(dispatched.command, dispatched.args);
+  }
   return interpretedArguments(spec, args).some(
     (arg) =>
       Array.isArray(arg) &&
@@ -735,7 +744,9 @@ export function commandUsesBooleanBinary(
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
-  if (dispatched) { return commandUsesBooleanBinary(dispatched.command, dispatched.args); }
+  if (dispatched) {
+    return commandUsesBooleanBinary(dispatched.command, dispatched.args);
+  }
   return interpretedArguments(spec, args).some(
     (arg) =>
       Array.isArray(arg) &&
@@ -746,4 +757,30 @@ export function commandUsesBooleanBinary(
       typeof arg[1] === 'string' &&
       /^[ \t\r\n\v\f]*[+-]?0[bB]/.test(arg[1]),
   );
+}
+
+/** Only named callback features before an audited exit require availability observation. */
+export function commandBooleanFeatures(
+  command: GitCommandName,
+  args: readonly unknown[],
+): (keyof GitBooleanCapabilities)[] {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandBooleanFeatures(dispatched.command, dispatched.args);
+  }
+  const features = new Set<keyof GitBooleanCapabilities>();
+  for (const arg of interpretedArguments(spec, args)) {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string' || !Object.hasOwn(spec.options, arg[0])) {
+      continue;
+    }
+    const parser = spec.options[arg[0]]?.parser;
+    if (parser === 'pull-rebase' && (arg[1] === 'preserve' || arg[1] === 'p')) {
+      features.add('preserve');
+    }
+    if (parser === 'push-recurse' && arg[1] === 'only-is-on-demand') {
+      features.add('onlyIsOnDemand');
+    }
+  }
+  return [...features];
 }
