@@ -1,4 +1,5 @@
 import ts from 'typescript';
+import { scalarRepresentatives } from './scalar-domains.mjs';
 
 /** Deterministic structural representatives, with explicit boundaries for model predicates.
  * These are NOT a grammar for every possible string, nor an upstream constraint extractor.
@@ -40,10 +41,12 @@ export function representatives(type, aliases, seen = new Set()) {
   throw new Error(`Option type needs an explicit domain: ${type.getText()}`);
 }
 
-export function optionDomains(options, aliases) {
+export function optionDomains(options, aliases, rules = []) {
   return Object.fromEntries(options.members.map((member) => {
     if (!ts.isPropertySignature(member)) throw new Error(`Unsupported option declaration: ${member.getText()}`);
     const values = [...(member.questionToken ? [undefined] : []), ...representatives(member.type, aliases)];
+    const kinds = new Set(values.filter(value => value !== undefined).map(value => typeof value));
+    for (const rule of rules) if (rule.kind === 'scalar' && rule.key === member.name.getText()) values.push(...scalarRepresentatives(rule.parser).filter(value => kinds.has(typeof value)));
     const unique = [...new Map(values.map((value) => [literal(value), value])).values()];
     return [member.name.getText(), unique];
   }));
@@ -58,10 +61,10 @@ export function literal(value) {
   return JSON.stringify(value);
 }
 
-/** Exactly the representable projection used by Constrained<T, Rules>. */
+/** Representable projection for non-generic public option objects (broad string/number fields). */
 export function compilerRules(rules) {
   return rules.flatMap((rule) => {
-    if (rule.kind === 'integer' || rule.kind === 'range') return [];
+    if (rule.kind === 'integer' || rule.kind === 'range' || rule.kind === 'scalar') return [];
     // Excluding positive numbers cannot be expressed as a complement of TS number.
     if (rule.kind === 'forbid' && rule.when.some((p) => p.test === 'bytesPositive')) return [];
     if (rule.kind === 'conflicts') return [{ ...rule, others: rule.others.filter((p) => p.test !== 'positive') }];

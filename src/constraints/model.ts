@@ -1,4 +1,9 @@
-import { gitBoolean, PYTHON_INTEGER_DEFERRED } from './git-scalars.js';
+import {
+  type GitScalarParser,
+  gitBoolean,
+  parseGitScalar,
+  PYTHON_INTEGER_DEFERRED,
+} from './git-scalars.js';
 import { lfsBytes } from './scalars.js';
 /** Declarative constraints: no Git processes, TypeScript compiler, or repository state. */
 export type Evidence = {
@@ -45,6 +50,7 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
     | { kind: 'unsupported'; keys: readonly string[] }
     | { kind: 'value'; key: string; allowed: readonly (string | number | boolean)[] }
     | { kind: 'elements'; key: string; allowed: readonly (string | number | boolean)[] }
+    | { kind: 'scalar'; key: string; parser: GitScalarParser }
     | { kind: 'range'; key: string; min: number; max?: number; when?: Predicate }
     | { kind: 'eachInteger'; key: string; min: number }
     | { kind: 'integer'; key: string; min: number; allowBoolean?: boolean }
@@ -157,6 +163,10 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
         (!Array.isArray(items) || items.some((item) => !rule.allowed.includes(item)))
       );
     }
+    case 'scalar':
+      return (
+        options[rule.key] !== undefined && !parseGitScalar(rule.parser, options[rule.key]).valid
+      );
     case 'value':
       return options[rule.key] !== undefined && !rule.allowed.some((v) => v === options[rule.key]);
     case 'range':
@@ -209,6 +219,7 @@ function bodyKeys(rule: Constraint): string[] {
       return rule.when.flatMap(predicateKeys);
     case 'range':
       return rule.when ? [rule.key, ...predicateKeys(rule.when)] : [rule.key];
+    case 'scalar':
     case 'value':
     case 'elements':
     case 'eachInteger':
