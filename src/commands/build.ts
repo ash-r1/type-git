@@ -51,7 +51,11 @@ function dispatchArguments(
   return undefined;
 }
 
-/** Build argv without a shell, preserving repeated options and interleaved operands. */
+/**
+ * Validate argv representation before parser selection, then emit ordered words without a shell.
+ * NUL in a supplied word is rejected before GUI, dispatch or native-profile lookup; stdin is separate.
+ * Selected ABI and parser traits affect semantic checks while original numeric spellings are retained.
+ */
 export function commandArguments(
   command: GitCommandName,
   args: readonly unknown[],
