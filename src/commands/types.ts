@@ -356,13 +356,18 @@ type PerlIntegerStart<
         ? PerlIntegerDigits<R, readonly [...Budget, unknown]>
         : false
       : false;
-type PerlIntegerText<S extends string, AllowEmpty extends boolean> = {} extends Record<S, unknown>
-  ? true // Nonliteral templates and dynamic strings remain runtime inputs.
-  : S extends ''
-    ? AllowEmpty
-    : S extends `${'+' | '-'}${infer R}`
-      ? PerlIntegerStart<R>
-      : PerlIntegerStart<S>;
+type PerlIntegerText<
+  S extends string,
+  AllowEmpty extends boolean,
+> = S extends `${string}${AsciiUpper | Lowercase<AsciiUpper>}${string}`
+  ? false // A known letter cannot be repaired by dynamic text elsewhere.
+  : {} extends Record<S, unknown>
+    ? true // Nonliteral templates and dynamic strings remain runtime inputs.
+    : S extends ''
+      ? AllowEmpty
+      : S extends `${'+' | '-'}${infer R}`
+        ? PerlIntegerStart<R>
+        : PerlIntegerStart<S>;
 type PerlIntegerLiteral<D extends OptionSpec, V> = V extends string
   ? V extends object
     ? true

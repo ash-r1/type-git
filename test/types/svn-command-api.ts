@@ -6,6 +6,11 @@ git.command('svn clone', [['--log-window-size', '1_000'], ['-h']]);
 git.command('svn clone', [['--log-window-size', '1\n'], ['-h']]);
 declare const integerText: `${number}`;
 git.command('svn clone', [['--log-window-size', integerText], ['-h']]);
+declare const opaqueIntegerText: string & { readonly integerInput: unique symbol };
+git.command('svn clone', [['--log-window-size', opaqueIntegerText], ['-h']]);
+declare const invalidOrOpaqueInteger: '1x' | typeof opaqueIntegerText;
+// @ts-expect-error An opaque alternative does not repair a known invalid alternative.
+git.command('svn clone', [['--log-window-size', invalidOrOpaqueInteger], ['-h']]);
 // @ts-expect-error Getopt::Long rejects invalid integer literals before help.
 git.command('svn clone', [['--log-window-size', '1x'], ['-h']]);
 // @ts-expect-error The integer parser is decimal, not hexadecimal.
@@ -45,3 +50,11 @@ git.command('svn clone', [['--version']]);
 
 // Long valid integer literals defer to runtime rather than imposing a compiler-size Git limit.
 git.command('svn clone', [['--log-window-size', '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'], ['-h']]);
+
+// Every expansion of these templates is rejected by native Getopt::Long.
+declare const invalidIntegerPrefix: `x${string}`;
+declare const invalidIntegerSuffix: `${number}x`;
+// @ts-expect-error An unknown tail cannot repair a known invalid integer prefix.
+git.command('svn clone', [['--log-window-size', invalidIntegerPrefix], ['-h']]);
+// @ts-expect-error A known invalid suffix remains invalid with a dynamic numeric prefix.
+git.command('svn clone', [['--log-window-size', invalidIntegerSuffix], ['-h']]);
