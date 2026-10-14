@@ -1,0 +1,494 @@
+{
+  "scope": "Native differential outcomes against the independent Git2.55 corpus; not generated from Type-Git validators. All runs LC_ALL=C and recorded binary-prefix support.",
+  "profiles": [
+    {
+      "version": "git version 2.25.1",
+      "source": "legacy-units",
+      "booleanOverrides": [
+        {
+          "input": "-2147483648",
+          "valid": false
+        },
+        {
+          "input": "-2097152k",
+          "valid": false
+        },
+        {
+          "input": "-2g",
+          "valid": false
+        },
+        {
+          "input": "m",
+          "valid": true,
+          "normalized": false
+        }
+      ],
+      "callbackOverrides": [
+        {
+          "command": "checkout",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "checkout",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "checkout",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "checkout",
+          "flag": "--recurse-submodules",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "switch",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "switch",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "switch",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "switch",
+          "flag": "--recurse-submodules",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "restore",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "restore",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "restore",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "restore",
+          "flag": "--recurse-submodules",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "reset",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "reset",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "reset",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "reset",
+          "flag": "--recurse-submodules",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules-default",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules-default",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules-default",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules-default",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "pull",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--recurse-submodules",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "pull",
+          "flag": "--rebase",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--rebase",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--rebase",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--rebase",
+          "value": "preserve",
+          "valid": true
+        },
+        {
+          "command": "pull",
+          "flag": "--rebase",
+          "value": "p",
+          "valid": true
+        },
+        {
+          "command": "push",
+          "flag": "--recurse-submodules",
+          "value": "only-is-on-demand",
+          "valid": false
+        },
+        {
+          "command": "push",
+          "flag": "--recurse-submodules",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "push",
+          "flag": "--signed",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "push",
+          "flag": "--signed",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "push",
+          "flag": "--signed",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "push",
+          "flag": "--signed",
+          "value": "m",
+          "valid": true
+        },
+        {
+          "command": "send-pack",
+          "flag": "--signed",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "send-pack",
+          "flag": "--signed",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "send-pack",
+          "flag": "--signed",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "send-pack",
+          "flag": "--signed",
+          "value": "m",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "version": "git version 2.47.3",
+      "source": "symmetric",
+      "booleanOverrides": [
+        {
+          "input": "-2147483648",
+          "valid": false
+        },
+        {
+          "input": "-2097152k",
+          "valid": false
+        },
+        {
+          "input": "-2g",
+          "valid": false
+        }
+      ],
+      "callbackOverrides": [
+        {
+          "command": "checkout",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "checkout",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "checkout",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "switch",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "switch",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "switch",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "restore",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "restore",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "restore",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "reset",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "reset",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "reset",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules-default",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules-default",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "fetch",
+          "flag": "--recurse-submodules-default",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--recurse-submodules",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--recurse-submodules",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--recurse-submodules",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--rebase",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--rebase",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "pull",
+          "flag": "--rebase",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "push",
+          "flag": "--signed",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "push",
+          "flag": "--signed",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "push",
+          "flag": "--signed",
+          "value": "-2g",
+          "valid": false
+        },
+        {
+          "command": "send-pack",
+          "flag": "--signed",
+          "value": "-2147483648",
+          "valid": false
+        },
+        {
+          "command": "send-pack",
+          "flag": "--signed",
+          "value": "-2097152k",
+          "valid": false
+        },
+        {
+          "command": "send-pack",
+          "flag": "--signed",
+          "value": "-2g",
+          "valid": false
+        }
+      ]
+    },
+    {
+      "version": "git version 2.55.0",
+      "source": "modern",
+      "booleanOverrides": [],
+      "callbackOverrides": []
+    }
+  ]
+}

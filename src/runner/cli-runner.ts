@@ -1,3 +1,4 @@
+import type { GitBooleanSource } from '../constraints/git-boolean.js';
 import {
   OBJECT_FILTER_CHAR_PROBE,
   objectFilterUnsignedChar,
@@ -24,6 +25,8 @@ import {
   validateArgvStrings,
   commandDecimalCallbacks,
   commandUsesConflictStyle,
+  commandUsesBooleanSource,
+  commandUsesBooleanBinary,
   commandUsesDecimalCallback,
   commandUsesNativeABI,
   commandUsesIntegerProfile,
@@ -654,6 +657,8 @@ export class CliRunner {
       decimalCallbacks?: GitDecimalCallbacks;
       unsignedChar?: boolean;
       conflictStyle?: 'immediate' | 'deferred';
+      booleanSource?: GitBooleanSource;
+      booleanBinaryIntegers?: boolean;
     };
     let abi: NativeAbi | undefined;
     if (commandUsesNativeABI(command, args)) {
@@ -664,6 +669,10 @@ export class CliRunner {
       const conflictStyles: ('immediate' | 'deferred')[] = commandUsesConflictStyle(command, args)
         ? ['immediate', 'deferred']
         : ['immediate'];
+      const booleanSources: GitBooleanSource[] = commandUsesBooleanSource(command, args)
+        ? ['modern', 'symmetric', 'legacy-units']
+        : ['modern'];
+      const booleanBinaries = commandUsesBooleanBinary(command, args) ? [true, false] : [true];
       const callbacks = commandDecimalCallbacks(command, args);
       const chars = commandUsesObjectFilterCharProfile(command, args) ? [false, true] : [true];
       let callbackVariants: GitDecimalCallbacks[] = [{}];
@@ -679,29 +688,35 @@ export class CliRunner {
         for (const negativeMagnitudes of signs) {
           for (const unsignedChar of chars) {
             for (const conflictStyle of conflictStyles) {
-              for (const decimalCallbacks of callbackVariants) {
-                for (const longBits of [32, 64] as const) {
-                  for (const sizeTBits of [32, 64] as const) {
-                    const candidateAbi = {
-                      longBits,
-                      sizeTBits,
-                      integerProfile,
-                      negativeMagnitudes,
-                      decimalCallbacks,
-                      unsignedChar,
-                      conflictStyle,
-                    };
-                    try {
-                      valid.push({
-                        profile: integerProfile,
-                        abi: candidateAbi,
-                        argv: commandArguments(command, args, inRepository, candidateAbi),
-                      });
-                    } catch (error) {
-                      if (!(error instanceof GitArgumentError)) {
-                        throw error;
+              for (const booleanSource of booleanSources) {
+                for (const booleanBinaryIntegers of booleanBinaries) {
+                  for (const decimalCallbacks of callbackVariants) {
+                    for (const longBits of [32, 64] as const) {
+                      for (const sizeTBits of [32, 64] as const) {
+                        const candidateAbi = {
+                          longBits,
+                          sizeTBits,
+                          integerProfile,
+                          negativeMagnitudes,
+                          decimalCallbacks,
+                          unsignedChar,
+                          conflictStyle,
+                          booleanSource,
+                          booleanBinaryIntegers,
+                        };
+                        try {
+                          valid.push({
+                            profile: integerProfile,
+                            abi: candidateAbi,
+                            argv: commandArguments(command, args, inRepository, candidateAbi),
+                          });
+                        } catch (error) {
+                          if (!(error instanceof GitArgumentError)) {
+                            throw error;
+                          }
+                          firstError ??= error;
+                        }
                       }
-                      firstError ??= error;
                     }
                   }
                 }
@@ -721,6 +736,8 @@ export class CliRunner {
             callbackVariants.length *
             chars.length *
             conflictStyles.length *
+            booleanSources.length *
+            booleanBinaries.length *
             4 &&
           !needsBinaryProfile) ||
         (binary && !this.exec.spawnBytes)
@@ -767,6 +784,101 @@ export class CliRunner {
           }
           valid = selected;
         }
+      }
+      const booleanDependent = (
+        key: 'booleanSource' | 'booleanBinaryIntegers',
+        variants: number,
+      ) => {
+        const groups = new Map<string, Set<unknown>>();
+        for (const entry of valid) {
+          const other = { ...entry.abi };
+          delete other[key];
+          const id = JSON.stringify(other);
+          if (!groups.has(id)) { groups.set(id, new Set()); }
+          groups.get(id)!.add(entry.abi[key]);
+        }
+        return [...groups.values()].some((group) => group.size !== variants);
+      };
+      if (booleanSources.length > 1 && booleanDependent('booleanSource', booleanSources.length)) {
+        const observe = (value: string) =>
+          this.run(
+            context,
+            [
+              '-c',
+              `typegitprofile.boolean=${value}`,
+              'config',
+              '--type=bool',
+              '--get',
+              'typegitprofile.boolean',
+            ],
+            probeOptions,
+          );
+        const units = await observe('m');
+        if (units.aborted) { return { ...units, stdout: binary ? new Uint8Array(0) : units.stdout }; }
+        let booleanSource: GitBooleanSource;
+        if (units.exitCode === 0 && units.stdout.trim() === 'false') {
+          booleanSource = 'legacy-units';
+        } else if (
+          units.exitCode === 128 &&
+          /bad (?:boolean|numeric) config value/.test(units.stderr)
+        ) {
+          const minimum = await observe('-2147483648');
+          if (minimum.aborted) {
+            return { ...minimum, stdout: binary ? new Uint8Array(0) : minimum.stdout };
+          }
+          if (minimum.exitCode === 0 && minimum.stdout.trim() === 'true') { booleanSource = 'modern'; }
+          else if (
+            minimum.exitCode === 128 &&
+            /bad (?:boolean|numeric) config value/.test(minimum.stderr)
+          ) {
+            booleanSource = 'symmetric';
+          }
+          else { return await execute(valid[0]!.argv); }
+        } else { return await execute(valid[0]!.argv); }
+        const selected = valid.filter((entry) => entry.abi.booleanSource === booleanSource);
+        if (selected.length === 0) {
+          commandArguments(command, args, inRepository, { ...valid[0]!.abi, booleanSource });
+          throw firstError;
+        }
+        valid = selected;
+      }
+      if (
+        booleanBinaries.length > 1 &&
+        booleanDependent('booleanBinaryIntegers', booleanBinaries.length)
+      ) {
+        const probe = await this.run(
+          context,
+          [
+            '-c',
+            'typegitprofile.boolean=0b1',
+            'config',
+            '--type=bool',
+            '--get',
+            'typegitprofile.boolean',
+          ],
+          probeOptions,
+        );
+        if (probe.aborted) { return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout }; }
+        let booleanBinaryIntegers: boolean;
+        if (probe.exitCode === 0 && probe.stdout.trim() === 'true') { booleanBinaryIntegers = true; }
+        else if (
+          probe.exitCode === 128 &&
+          /bad (?:boolean|numeric) config value/.test(probe.stderr)
+        ) {
+          booleanBinaryIntegers = false;
+        }
+        else { return await execute(valid[0]!.argv); }
+        const selected = valid.filter(
+          (entry) => entry.abi.booleanBinaryIntegers === booleanBinaryIntegers,
+        );
+        if (selected.length === 0) {
+          commandArguments(command, args, inRepository, {
+            ...valid[0]!.abi,
+            booleanBinaryIntegers,
+          });
+          throw firstError;
+        }
+        valid = selected;
       }
       let unsignedChar = true;
       if (chars.length > 1) {

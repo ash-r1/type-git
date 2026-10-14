@@ -1,3 +1,4 @@
+import type { GitBooleanSource } from './git-boolean.js';
 import type { GitDecimalCallbacks } from './git-decimal.js';
 import type { GitIntegerProfile } from './git-integer.js';
 import {
@@ -117,6 +118,8 @@ export type ScalarContext = {
   negativeMagnitudes?: boolean;
   decimalCallbacks?: GitDecimalCallbacks;
   unsignedChar?: boolean;
+  booleanSource?: GitBooleanSource;
+  booleanBinaryIntegers?: boolean;
 };
 /** All violations, in declaration order, retain their evidence and stable identifiers. */
 export function violations(
@@ -196,6 +199,8 @@ function violates(
           scalarContext?.negativeMagnitudes,
           scalarContext?.decimalCallbacks,
           scalarContext?.unsignedChar,
+          scalarContext?.booleanSource,
+          scalarContext?.booleanBinaryIntegers,
         ).valid
       );
     case 'value':

@@ -1,6 +1,7 @@
 import { asciiLower } from './ascii.js';
 import {
   type GitBooleanCallback,
+  type GitBooleanSource,
   gitBoolean,
   isBooleanCallback,
   parseBooleanCallback,
@@ -114,6 +115,8 @@ export function parseGitScalar(
   negativeMagnitudes = false,
   decimalCallbacks?: GitDecimalCallbacks,
   unsignedChar = true,
+  booleanSource: GitBooleanSource = 'modern',
+  booleanBinaryIntegers = true,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'decimal') {
     return parseGitDecimal(
@@ -146,7 +149,7 @@ export function parseGitScalar(
     return parsed === undefined ? { valid: false } : { valid: true, value: integerState(parsed) };
   }
   if (isBooleanCallback(parser)) {
-    return parseBooleanCallback(parser, value, previous);
+    return parseBooleanCallback(parser, value, previous, booleanSource, booleanBinaryIntegers);
   }
   if (parser === 'perl-int' || parser === 'perl-int-gnu') {
     if (value === true || (parser === 'perl-int-gnu' && value === '')) {
