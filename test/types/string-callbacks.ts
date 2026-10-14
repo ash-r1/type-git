@@ -35,3 +35,15 @@ export type StringTemplateCases = readonly [
   Check<StringCallbackLiteral<`sign-if-invalid=${string}`, 'fast-import-sign'>>,
   Check<StringCallbackLiteral<'x:' | 'x:y:', 'anonymize-map'> extends false ? true : false>,
 ];
+
+declare const opaqueCallback: string & { readonly callbackValue: unique symbol };
+declare const opaqueWithInvalid: typeof opaqueCallback | 'bogus';
+git.command('fast-import', [['--signed-tags', opaqueCallback]]);
+git.command('fast-export', [['--anonymize-map', opaqueCallback], ['-h']]);
+// @ts-expect-error An opaque arm cannot erase a known invalid mode.
+git.command('fast-import', [['--signed-tags', opaqueWithInvalid]]);
+export type OpaqueCallbackCases = readonly [
+  Check<StringCallbackLiteral<typeof opaqueCallback, 'fast-import-sign'>>,
+  Check<StringCallbackLiteral<typeof opaqueCallback, 'anonymize-map'>>,
+  Check<StringCallbackLiteral<typeof opaqueWithInvalid, 'fast-import-sign'> extends false ? true : false>,
+];

@@ -41,21 +41,23 @@ type Pair<
             : Pair<Rest, Sep, Optional, true, readonly [...N, 0]>
           : true;
 type Parsed<V, P extends StringCallbackParser> = V extends string
-  ? Profile<P> extends {
-      kind: 'choice';
-      exact: readonly (infer E)[];
-      prefixes: readonly (infer Prefix extends string)[];
-    }
-    ? V extends E | `${Prefix}${string}`
-      ? true
-      : Dynamic<V>
+  ? V extends object
+    ? true
     : Profile<P> extends {
-          kind: 'first-separator';
-          separator: infer Sep extends string;
-          allowUnseparated: infer Optional extends boolean;
+          kind: 'choice';
+          exact: readonly (infer E)[];
+          prefixes: readonly (infer Prefix extends string)[];
         }
-      ? Pair<V, Sep, Optional>
-      : false
+      ? V extends E | `${Prefix}${string}`
+        ? true
+        : Dynamic<V>
+      : Profile<P> extends {
+            kind: 'first-separator';
+            separator: infer Sep extends string;
+            allowUnseparated: infer Optional extends boolean;
+          }
+        ? Pair<V, Sep, Optional>
+        : false
   : false;
 export type StringCallbackLiteral<V, P extends StringCallbackParser> = false extends Parsed<V, P>
   ? false
