@@ -8,7 +8,11 @@
  */
 
 import process from 'node:process';
-import { commandArguments, commandUsesNativeABI } from '../commands/build.js';
+import {
+  commandArguments,
+  commandUsesNativeABI,
+  commandUsesObjectFilterBinary,
+} from '../commands/build.js';
 import { COMMAND_SPECS } from '../commands/generated.js';
 import {
   type GuiGrammar,
@@ -483,7 +487,7 @@ export class CliRunner {
         commandArguments(command, args, inRepository, undefined, grammar, launch),
       );
     }
-    let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 } | undefined;
+    let abi: { longBits: 32 | 64; sizeTBits: 32 | 64; binaryIntegers?: boolean } | undefined;
     if (commandUsesNativeABI(command, args)) {
       let validWidths = 0;
       let preflightArgv: string[] | undefined;
@@ -510,32 +514,56 @@ export class CliRunner {
       if (validWidths === 0) {
         throw firstError;
       }
-      if (validWidths === 4 && preflightArgv) {
+      const needsBinaryProfile = commandUsesObjectFilterBinary(command, args);
+      if (
+        preflightArgv &&
+        ((validWidths === 4 && !needsBinaryProfile) || (binary && !this.exec.spawnBytes))
+      ) {
         return await execute(preflightArgv);
       }
-      // Resolve the executable with the same context and per-call environment.
-      // A cached host width is wrong when gitBinary/PATH selects another ABI.
-      const probe = await this.run(context, ['version', '--build-options'], {
-        ...(opts?.env ? { env: opts.env } : {}),
-        ...(opts?.signal ? { signal: opts.signal } : {}),
-      });
-      if (probe.aborted) {
-        return {
-          ...probe,
-          stdout: binary ? new Uint8Array(0) : probe.stdout,
-        } as RawResult<string | Uint8Array>;
+      if (validWidths !== 4) {
+        // Resolve the executable with the same context and per-call environment.
+        // A cached host width is wrong when gitBinary/PATH selects another ABI.
+        const probe = await this.run(context, ['version', '--build-options'], {
+          ...(opts?.env ? { env: opts.env } : {}),
+          ...(opts?.signal ? { signal: opts.signal } : {}),
+        });
+        if (probe.aborted) {
+          return {
+            ...probe,
+            stdout: binary ? new Uint8Array(0) : probe.stdout,
+          } as RawResult<string | Uint8Array>;
+        }
+        const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
+        const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
+        if (probe.exitCode !== 0 || !(longBytes && sizeBytes)) {
+          throw new GitArgumentError(
+            'Cannot determine integer widths of the selected Git executable',
+          );
+        }
+        abi = {
+          longBits: longBytes === '4' ? 32 : 64,
+          sizeTBits: sizeBytes === '4' ? 32 : 64,
+        };
       }
-      const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
-      const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
-      if (!(longBytes && sizeBytes)) {
-        throw new GitArgumentError(
-          'Cannot determine integer widths of the selected Git executable',
-        );
+      if (needsBinaryProfile) {
+        // Clone's callback runs before -h. No URL is supplied or contacted.
+        const profile = await this.run(context, ['clone', '--filter=blob:limit=0b1', '-h'], {
+          ...(opts?.env ? { env: opts.env } : {}),
+          ...(opts?.signal ? { signal: opts.signal } : {}),
+        });
+        if (profile.aborted) {
+          return { ...profile, stdout: binary ? new Uint8Array(0) : profile.stdout };
+        }
+        const diagnostic = profile.stdout + profile.stderr;
+        const supported = profile.exitCode === 129 && diagnostic.includes('usage:');
+        const unsupported = profile.exitCode === 128 && diagnostic.includes('invalid filter-spec');
+        if (!supported && !unsupported) {
+          // Unrecognized/localized frontends keep their own native validation.
+          return await execute(commandArguments(command, args, inRepository, abi));
+        }
+        abi = { ...(abi ?? { longBits: 32, sizeTBits: 32 }), binaryIntegers: supported };
       }
-      abi = {
-        longBits: longBytes === '4' ? 32 : 64,
-        sizeTBits: sizeBytes === '4' ? 32 : 64,
-      };
     }
     return await execute(commandArguments(command, args, inRepository, abi));
   }

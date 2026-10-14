@@ -1,6 +1,7 @@
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
-import type { Constraint } from '../constraints/model.js';
+import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
+import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
@@ -164,6 +165,34 @@ type Accumulate<S, D extends OptionSpec, V> = readonly [
     : readonly []),
   V,
 ];
+// Distinguish impossible conditions from unknown runtime values before updating parser state.
+type EffectCondition<
+  S,
+  P extends readonly Predicate[],
+  C = Constrained<
+    S,
+    readonly [
+      {
+        id: 'effect';
+        kind: 'required';
+        required: P;
+        origin: 'git';
+        source: '';
+        reason: '';
+      },
+    ]
+  >,
+> = S extends C
+  ? true
+  : {
+        [K in Extract<P[number]['key'], keyof S>]: K extends keyof C
+          ? [C[K]] extends [never]
+            ? K
+            : never
+          : K;
+      }[Extract<P[number]['key'], keyof S>] extends never
+    ? 'unknown'
+    : false;
 type Effects<S, E extends NonNullable<OptionSpec['effects']>> = [S] extends [never]
   ? never
   : E extends readonly [
@@ -171,19 +200,25 @@ type Effects<S, E extends NonNullable<OptionSpec['effects']>> = [S] extends [nev
         ...infer R extends NonNullable<OptionSpec['effects']>,
       ]
     ? Effects<
-        H extends { when: { equals: infer V } }
-          ? H['key'] extends keyof S
-            ? S[H['key']] extends V
-              ? Put<S, H['key'], H['set']>
-              : S
-            : S
-          : H extends { when: { notEquals: infer V } }
+        H extends { when: { all: infer P extends readonly Predicate[] } }
+          ? EffectCondition<S, P> extends true
+            ? Put<S, H['key'], H['set']>
+            : EffectCondition<S, P> extends false
+              ? S
+              : Put<S, H['key'], string | number | boolean | undefined>
+          : H extends { when: { equals: infer V } }
             ? H['key'] extends keyof S
               ? S[H['key']] extends V
-                ? S
+                ? Put<S, H['key'], H['set']>
+                : S
+              : S
+            : H extends { when: { notEquals: infer V } }
+              ? H['key'] extends keyof S
+                ? S[H['key']] extends V
+                  ? S
+                  : Put<S, H['key'], H['set']>
                 : Put<S, H['key'], H['set']>
-              : Put<S, H['key'], H['set']>
-            : Put<S, H['key'], H['set']>,
+              : Put<S, H['key'], H['set']>,
         R
       >
     : S;
@@ -441,29 +476,35 @@ type PerlIntegerLiteral<D extends OptionSpec, V> = V extends string
   : V extends number | bigint
     ? PerlIntegerText<`${V}`, false>
     : false;
-type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: 'perl-int' | 'perl-int-gnu' }
-  ? PerlIntegerLiteral<D, V>
-  : D extends { parser: 'fast-import-sign' }
-    ? ImportSignLiteral<V>
-    : D extends { parser: 'anonymize-map' }
-      ? V extends string
-        ? string extends V
-          ? true
-          : V extends object
+type ScalarLiteral<D extends OptionSpec, V> = D extends {
+  parser: 'object-filter' | 'object-filter-auto';
+}
+  ? V extends string
+    ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
+    : true
+  : D extends { parser: 'perl-int' | 'perl-int-gnu' }
+    ? PerlIntegerLiteral<D, V>
+    : D extends { parser: 'fast-import-sign' }
+      ? ImportSignLiteral<V>
+      : D extends { parser: 'anonymize-map' }
+        ? V extends string
+          ? string extends V
             ? true
-            : V extends ''
-              ? false
-              : V extends `${infer Key}:${infer Replacement}`
-                ? Key extends ''
-                  ? false
-                  : Replacement extends ''
+            : V extends object
+              ? true
+              : V extends ''
+                ? false
+                : V extends `${infer Key}:${infer Replacement}`
+                  ? Key extends ''
                     ? false
-                    : true
-                : true
-        : true
-      : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-        ? ParsedScalarLiteral<D, V>
-        : true;
+                    : Replacement extends ''
+                      ? false
+                      : true
+                  : true
+          : true
+        : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+          ? ParsedScalarLiteral<D, V>
+          : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true

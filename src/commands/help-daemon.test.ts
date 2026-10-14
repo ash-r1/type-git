@@ -263,7 +263,11 @@ describe('help and daemon entrypoint grammars', () => {
         expect(old.status, old.stderr).toBe(0);
         continue;
       }
-      compare('daemon', args, argv, false, packet);
+      // These modern callbacks fail before a service request is consumed. Send
+      // EOF so a racing stdin write cannot replace that diagnostic with EPIPE.
+      const rejected = compare('daemon', args, argv, false);
+      expect(rejected.status, rejected.stderr).toBe(128);
+      expect(rejected.stderr).toContain('fatal:');
     }
     if (!native255) {
       context.skip();

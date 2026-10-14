@@ -1,5 +1,6 @@
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
-import { violations } from '../constraints/model.js';
+import { matches, violations } from '../constraints/model.js';
+import { objectFilterUsesBinary } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
 import {
@@ -11,6 +12,7 @@ import {
 import type { CommandSpec, OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
+/** Select a registered child grammar after the dispatcher's permitted global options. */
 function dispatchArguments(
   spec: CommandSpec,
   args: readonly unknown[],
@@ -48,7 +50,7 @@ export function commandArguments(
   command: GitCommandName,
   args: readonly unknown[],
   inRepository?: boolean,
-  abi?: { longBits: 32 | 64; sizeTBits: 32 | 64 },
+  abi?: { longBits: 32 | 64; sizeTBits: 32 | 64; binaryIntegers?: boolean },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
 ): string[] {
@@ -249,7 +251,14 @@ export function commandArguments(
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
     const parsed = option.parser
-      ? parseGitScalar(option.parser, value, state[option.key], abi?.longBits, abi?.sizeTBits)
+      ? parseGitScalar(
+          option.parser,
+          value,
+          state[option.key],
+          abi?.longBits,
+          abi?.sizeTBits,
+          abi?.binaryIntegers,
+        )
       : { valid: true, value };
     if (!parsed.valid) {
       throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
@@ -285,9 +294,11 @@ export function commandArguments(
       const previous = state[effect.key];
       if (
         !effect.when ||
-        ('equals' in effect.when
-          ? previous === effect.when.equals
-          : previous !== effect.when.notEquals)
+        ('all' in effect.when
+          ? effect.when.all.every((predicate) => matches(predicate, state))
+          : 'equals' in effect.when
+            ? previous === effect.when.equals
+            : previous !== effect.when.notEquals)
       ) {
         state[effect.key] = effect.set;
       }
@@ -324,8 +335,37 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
     return (
       option?.parser === 'abbrev' ||
       option?.parser === 'mainline' ||
+      option?.parser === 'object-filter' ||
+      option?.parser === 'object-filter-auto' ||
       option?.parser === 'unsigned-size' ||
       option?.parser === 'shortlog-wrap'
+    );
+  });
+}
+
+/** Whether a filter uses a binary integer whose libc support must be observed. */
+export function commandUsesObjectFilterBinary(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
+    ? COMMAND_SPECS[command]
+    : undefined;
+  if (!spec || !Array.isArray(args)) {
+    return false;
+  }
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesObjectFilterBinary(dispatched.command, dispatched.args);
+  }
+  return args.some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
+      return false;
+    }
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    return (
+      (option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
+      objectFilterUsesBinary(arg[1])
     );
   });
 }
