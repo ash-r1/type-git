@@ -531,3 +531,13 @@ Archimport's implemented Getopt string omits `-o` despite its usage text adverti
 Native tests stop at parser or local checkout validation boundaries without contacting Arch/CVS services. CVS server is explicitly skipped when its DBI dependency is unavailable. Service protocols, configuration-derived requirements and remaining parser languages are still pending.
 
 Foreign-frontend comparisons require a terminal, non-signalled probe. Only explicit missing-command or missing-Perl-module diagnostics trigger skips; other failures remain test errors. An isolated local DBI installation enables actual CVS server version/export-root validation without changing the library’s default environment policy. Program-reported identity is recorded separately: the tested Git 2.47 executable finds a CVS server frontend reporting 2.56, so it is not evidence for a 2.47 frontend parser. Local checkout rejection and server stdin EOF do not establish export or service-protocol success.
+
+### Send-email phases
+
+The identity pass precedes alias inspection, which rejects ordinary send options and remaining words. Main options are then parsed before final suppression and confirmation checks. Confirmation accepts native prefixes such as `never-trailing`; an earlier invalid value can be replaced before that check. Completion output returns before final suppression validation. The schemas preserve those phases and keep configuration-supplied dependencies open: a CLI relogin delay can obtain its batch size from config.
+
+Tests inspect aliases or use `--dry-run` on locally generated patches. They do not deliver messages. Address/message validation, encoding, transport state and format-patch delegation remain pending.
+
+The suppression-field regexp uses Perl’s `$` anchor. It accepts an exact field or that field followed by one final newline; CRLF and two final newlines are rejected. The schema preserves the string rather than trimming it: Git stores the newline-bearing key separately, so accepting it does not imply the ordinary field’s suppression semantics. Native dry-run comparisons cover all nine newline-bearing field names and both rejected controls.
+
+The inherited library `integer` option representation currently requires safe JavaScript integers; this is not a native Perl/Getopt limit. Native dry-runs accept `--batch-size=9007199254740992` on the tested 2.25/2.55/2.56 frontends. Further integer lexical/large-number handling and completion’s early return before main-parser error handling remain audit work.
