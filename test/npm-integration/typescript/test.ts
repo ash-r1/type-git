@@ -214,6 +214,7 @@ export function testArgvStringTypes(git: Git, dynamic: string): void {
   git.command('config', [{ operand: 'get' }, { operand: 'a\0b' }]);
 }
 
+/** Verify packed declarations check callbacks before help and preserve ignored words after help. */
 export function testParserExitTypes(git: Git, dynamic: string): void {
   git.command('branch', [['--color', 'AuTo'], ['-h']]);
   git.command('branch', [['-h'], ['--color', 'invalid'], ['--track', 'invalid']]);

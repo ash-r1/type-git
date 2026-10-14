@@ -41,6 +41,7 @@ console.log('   ✓ Deno adapter entry point works');
 
 // Test 5: Runtime test - actually use the library
 console.log('5. Testing runtime functionality...');
+/** Compare packed CommonJS argv execution with native Git, including help status and output. */
 async function testRuntime() {
   const git = new node.TypeGit();
   const version = await git.version();

@@ -573,6 +573,7 @@ export class CliRunner {
     inRepository: boolean | undefined,
     opts: CommandRunOptions | undefined,
   ): Promise<RawResult<string | Uint8Array>>;
+  /** Validate argv, observe only relevant native parser traits, and execute the original ordered words. */
   public async runCommand(
     context: ExecutionContext,
     command: GitCommandName,
