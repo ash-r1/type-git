@@ -1,3 +1,10 @@
+import {
+  type GitIntegerParser,
+  integerState,
+  parseGitInteger,
+  parseLegacyGitInteger,
+  type GitIntegerProfile,
+} from './git-integer.js';
 import process from 'node:process';
 import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 import { validObjectFilter } from './object-filter.js';
@@ -54,22 +61,9 @@ export function asciiLower(value: string): string {
   return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
 }
 
-/** Git 2.55 parse.c: signed 32-bit configuration integers with base-0 (including C23 binary literals) and k/m/g units. */
+/** Signed configuration integers use the same parser with an int storage width. */
 export function gitInteger(value: string): bigint | undefined {
-  const match =
-    /^[ \t\r\n\v\f]*([+-]?)(0[xX][\da-fA-F]+|0[bB][01]+|0[0-7]*|[1-9]\d*)([kKmMgG]?)$/.exec(value);
-  if (!match) {
-    return undefined;
-  }
-  const digits = match[2]!;
-  const magnitude = /^0[xXbB]/.test(digits)
-    ? BigInt(digits)
-    : digits.startsWith('0')
-      ? BigInt(`0o${digits}`)
-      : BigInt(digits);
-  const power = { '': 0n, k: 10n, m: 20n, g: 30n }[asciiLower(match[3] ?? '')]!;
-  const number = (match[1] === '-' ? -magnitude : magnitude) * (1n << power);
-  return number >= -2147483648n && number <= 2147483647n ? number : undefined;
+  return parseGitInteger(value, { kind: 'integer', signed: true, bits: 32 });
 }
 
 /** Undefined means an invalid spelling, not false. An absent option value is handled by its schema. */
@@ -92,6 +86,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | GitIntegerParser
   | 'python-int'
   | 'perl-int'
   | 'perl-int-gnu'
@@ -124,7 +119,31 @@ export function parseGitScalar(
   cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
   sizeTBits: 32 | 64 = nativeSizeTBits(process.arch),
   binaryIntegers = true,
+  integerProfile?: GitIntegerProfile,
+  negativeMagnitudes = false,
 ): { valid: boolean; value?: unknown } {
+  if (typeof parser === 'object') {
+    const bits =
+      parser.nativeWidth === 'long'
+        ? cLongBits
+        : parser.nativeWidth === 'size_t'
+          ? sizeTBits
+          : parser.bits;
+    const parsed =
+      (integerProfile ?? parser.integerProfile) === 'decimal-cast' &&
+      parser.bits === 32 &&
+      !parser.nativeWidth
+        ? parseLegacyGitInteger(value, parser, cLongBits)
+        : parseGitInteger(
+            value,
+            { ...parser, bits },
+            binaryIntegers,
+            parser.negativeMagnitudes === false
+              ? false
+              : negativeMagnitudes || parser.negativeMagnitudes === true,
+          );
+    return parsed === undefined ? { valid: false } : { valid: true, value: integerState(parsed) };
+  }
   if (parser === 'perl-int' || parser === 'perl-int-gnu') {
     if (value === true || (parser === 'perl-int-gnu' && value === '')) {
       return { valid: true, value: 0 };
@@ -162,7 +181,13 @@ export function parseGitScalar(
       valid:
         value === undefined ||
         (typeof value === 'string' &&
-          validObjectFilter(value, parser === 'object-filter-auto', cLongBits, binaryIntegers)),
+          validObjectFilter(
+            value,
+            parser === 'object-filter-auto',
+            cLongBits,
+            binaryIntegers,
+            negativeMagnitudes,
+          )),
       value,
     };
   }

@@ -22,7 +22,7 @@ git.command('fetch', [['--filter', 'blob:none'], ['--no-filter'], ['--filter', '
 git.command('fetch', [['--filter', 'blob:None']]);
 // @ts-expect-error invalid octal number
 git.command('fetch', [['--filter', 'tree:08']]);
-// @ts-expect-error negative unsigned limit
+// Older strtoumax sign policies accept this; defer selection to runtime.
 git.command('fetch', [['--filter', 'blob:limit=-1']]);
 // @ts-expect-error dropped filter syntax
 git.command('fetch', [['--filter', 'sparse:path=file']]);

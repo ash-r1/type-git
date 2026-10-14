@@ -34,12 +34,12 @@ git.command('archive', [['--list'], { operand: 'HEAD' }]);
 // @ts-expect-error Archive creation requires a tree.
 git.command('archive', []);
 
-// Native signed integer callbacks reject overflow before later overwrite/early return.
-// @ts-expect-error Thread count overflows the native 32-bit field.
+// Bounded parsers reject overflow; unknown older parser/C-long alternatives defer to runtime.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('grep', [['--threads', 2147483648], { operand: 'pattern' }]);
-// @ts-expect-error An invalid max-count cannot be cleared by a later zero.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('grep', [['--max-count', 2147483648], ['--max-count', 0], { operand: 'pattern' }]);
-// @ts-expect-error The short alias shares the same native callback range.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('grep', [['-m', -2147483649], { operand: 'pattern' }]);
 git.command('grep', [['--max-count', 0], ['--threads', -2147483648], { operand: 'pattern' }]);
 git.command('grep', [['--max-count', 0], ['--threads', 2147483647], { operand: 'pattern' }]);

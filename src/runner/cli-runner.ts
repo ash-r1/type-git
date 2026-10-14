@@ -1,3 +1,5 @@
+import { validateOptions as checkOptions } from '../core/option-rules.js';
+import type { GitIntegerProfile } from '../constraints/git-integer.js';
 /**
  * CLI Runner - Core execution engine for Git commands
  *
@@ -11,6 +13,8 @@ import process from 'node:process';
 import {
   commandArguments,
   commandUsesNativeABI,
+  commandUsesIntegerProfile,
+  commandUsesNegativeMagnitude,
   commandUsesObjectFilterBinary,
 } from '../commands/build.js';
 import { COMMAND_SPECS } from '../commands/generated.js';
@@ -396,6 +400,86 @@ export class CliRunner {
   /**
    * Run a Git command
    */
+  /** Resolve environment-dependent filter constraints before convenience execution. */
+  public async validateFilterOptions(
+    context: ExecutionContext,
+    name: 'clone' | 'submoduleUpdate',
+    options: object | undefined,
+    opts?: RunOptions,
+  ): Promise<void> {
+    validateIO(opts);
+    const valid: { longBits: 32 | 64; negativeMagnitudes: boolean }[] = [];
+    let firstError: GitArgumentError | undefined;
+    for (const longBits of [32, 64] as const) {
+      for (const negativeMagnitudes of [false, true]) {
+        try {
+          checkOptions(name, options, { longBits, negativeMagnitudes });
+          valid.push({ longBits, negativeMagnitudes });
+        } catch (error) {
+          if (!(error instanceof GitArgumentError)) {
+            throw error;
+          }
+          firstError ??= error;
+        }
+      }
+    }
+    if (valid.length === 0) {
+      throw firstError;
+    }
+    if (valid.length === 4) {
+      return;
+    }
+    const probeOptions = {
+      ...(opts?.env ? { env: opts.env } : {}),
+      ...(opts?.signal ? { signal: opts.signal } : {}),
+    };
+    let negativeMagnitudes = false;
+    const signDependent = [32, 64].some(
+      (candidateLongBits) =>
+        valid.some((e) => e.longBits === candidateLongBits && e.negativeMagnitudes === false) !==
+        valid.some((e) => e.longBits === candidateLongBits && e.negativeMagnitudes === true),
+    );
+    if (signDependent) {
+      const args = ['pack-objects', '--max-pack-size=-0', '-h'];
+      const sign = await this.run(context, args, probeOptions);
+      if (sign.aborted) {
+        throw this.mapError(sign, context, this.buildArgv(context, args));
+      }
+      if (sign.exitCode === 129 && /expects .*non-negative|not in range/.test(sign.stderr)) {
+        negativeMagnitudes = false;
+      } else if (
+        sign.exitCode === 129 &&
+        (sign.stdout + sign.stderr).includes('usage:') &&
+        !/error:|fatal:/.test(sign.stderr)
+      ) {
+        negativeMagnitudes = true;
+      } else {
+        return;
+      } // Unrecognized frontends retain native validation.
+    }
+    const selected = valid.filter((e) => e.negativeMagnitudes === negativeMagnitudes);
+    if (selected.length === 0) {
+      checkOptions(name, options, { longBits: 64, negativeMagnitudes });
+      throw firstError;
+    }
+    let longBits: 32 | 64 = selected[0]!.longBits;
+    if (selected.length !== 2) {
+      const args = ['version', '--build-options'];
+      const widths = await this.run(context, args, probeOptions);
+      if (widths.aborted) {
+        throw this.mapError(widths, context, this.buildArgv(context, args));
+      }
+      const bytes = /^sizeof-long: ([48])\r?$/m.exec(widths.stdout)?.[1];
+      if (widths.exitCode !== 0 || !bytes) {
+        throw new GitArgumentError(
+          'Cannot determine integer widths of the selected Git executable',
+        );
+      }
+      longBits = bytes === '4' ? 32 : 64;
+    }
+    checkOptions(name, options, { longBits, negativeMagnitudes });
+  }
+
   public runCommand(
     context: ExecutionContext,
     command: GitCommandName,
@@ -487,52 +571,165 @@ export class CliRunner {
         commandArguments(command, args, inRepository, undefined, grammar, launch),
       );
     }
-    let abi: { longBits: 32 | 64; sizeTBits: 32 | 64; binaryIntegers?: boolean } | undefined;
+    type NativeAbi = {
+      longBits: 32 | 64;
+      sizeTBits: 32 | 64;
+      binaryIntegers?: boolean;
+      integerProfile?: GitIntegerProfile;
+      negativeMagnitudes?: boolean;
+    };
+    let abi: NativeAbi | undefined;
     if (commandUsesNativeABI(command, args)) {
-      let validWidths = 0;
-      let preflightArgv: string[] | undefined;
+      const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(command, args)
+        ? ['bounded', 'decimal-cast']
+        : ['bounded'];
+      const signs = commandUsesNegativeMagnitude(command, args) ? [false, true] : [false];
+      const valid: { profile: GitIntegerProfile; abi: NativeAbi; argv: string[] }[] = [];
       let firstError: GitArgumentError | undefined;
-      for (const longBits of [32, 64] as const) {
-        for (const sizeTBits of [32, 64] as const) {
-          try {
-            const candidate = commandArguments(command, args, inRepository, {
-              longBits,
-              sizeTBits,
-            });
-            validWidths++;
-            preflightArgv ??= candidate;
-          } catch (error) {
-            if (!(error instanceof GitArgumentError)) {
-              throw error;
+      for (const integerProfile of profiles) {
+        for (const negativeMagnitudes of signs) {
+          for (const longBits of [32, 64] as const) {
+            for (const sizeTBits of [32, 64] as const) {
+              const candidateAbi = { longBits, sizeTBits, integerProfile, negativeMagnitudes };
+              try {
+                valid.push({
+                  profile: integerProfile,
+                  abi: candidateAbi,
+                  argv: commandArguments(command, args, inRepository, candidateAbi),
+                });
+              } catch (error) {
+                if (!(error instanceof GitArgumentError)) {
+                  throw error;
+                }
+                firstError ??= error;
+              }
             }
-            firstError ??= error;
           }
         }
       }
-      // Universally invalid input never reaches the process adapter. Conversely,
-      // input valid on every supported ABI needs no build-options probe.
-      if (validWidths === 0) {
+      if (valid.length === 0) {
         throw firstError;
       }
       const needsBinaryProfile = commandUsesObjectFilterBinary(command, args);
       if (
-        preflightArgv &&
-        ((validWidths === 4 && !needsBinaryProfile) || (binary && !this.exec.spawnBytes))
+        (valid.length === profiles.length * signs.length * 4 && !needsBinaryProfile) ||
+        (binary && !this.exec.spawnBytes)
       ) {
-        return await execute(preflightArgv);
+        return await execute(valid[0]!.argv);
       }
-      if (validWidths !== 4) {
-        // Resolve the executable with the same context and per-call environment.
-        // A cached host width is wrong when gitBinary/PATH selects another ABI.
-        const probe = await this.run(context, ['version', '--build-options'], {
-          ...(opts?.env ? { env: opts.env } : {}),
-          ...(opts?.signal ? { signal: opts.signal } : {}),
+      const probeOptions = {
+        ...(opts?.env ? { env: opts.env } : {}),
+        ...(opts?.signal ? { signal: opts.signal } : {}),
+      };
+      let selected: GitIntegerProfile = 'bounded';
+      const familyDependent =
+        profiles.length > 1 &&
+        signs.some((candidateSign) =>
+          [32, 64].some((longBits) =>
+            [32, 64].some(
+              (sizeTBits) =>
+                valid.some(
+                  (e) =>
+                    e.profile === 'bounded' &&
+                    e.abi.negativeMagnitudes === candidateSign &&
+                    e.abi.longBits === longBits &&
+                    e.abi.sizeTBits === sizeTBits,
+                ) !==
+                valid.some(
+                  (e) =>
+                    e.profile === 'decimal-cast' &&
+                    e.abi.negativeMagnitudes === candidateSign &&
+                    e.abi.longBits === longBits &&
+                    e.abi.sizeTBits === sizeTBits,
+                ),
+            ),
+          ),
+        );
+      if (familyDependent) {
+        // Both branches read help only: no input, repository mutation or network.
+        const family = await this.run(
+          context,
+          ['column', '--width=2147483648', '-h'],
+          probeOptions,
+        );
+        if (family.aborted) {
+          return { ...family, stdout: binary ? new Uint8Array(0) : family.stdout };
+        }
+        const usage = (family.stdout + family.stderr).includes('usage:');
+        if (family.exitCode === 129 && /not in range/.test(family.stderr)) {
+          selected = 'bounded';
+        } else if (
+          (family.exitCode === 0 || family.exitCode === 129) &&
+          usage &&
+          !/error:|fatal:/.test(family.stderr)
+        ) {
+          selected = 'decimal-cast';
+        } else {
+          return await execute(valid[0]!.argv);
+        }
+      }
+      let negativeMagnitudes = false;
+      const signDependent =
+        signs.length > 1 &&
+        [32, 64].some((longBits) =>
+          [32, 64].some(
+            (sizeTBits) =>
+              valid.some(
+                (e) =>
+                  e.profile === selected &&
+                  e.abi.negativeMagnitudes === false &&
+                  e.abi.longBits === longBits &&
+                  e.abi.sizeTBits === sizeTBits,
+              ) !==
+              valid.some(
+                (e) =>
+                  e.profile === selected &&
+                  e.abi.negativeMagnitudes === true &&
+                  e.abi.longBits === longBits &&
+                  e.abi.sizeTBits === sizeTBits,
+              ),
+          ),
+        );
+      if (signDependent) {
+        const sign = await this.run(
+          context,
+          ['pack-objects', '--max-pack-size=-0', '-h'],
+          probeOptions,
+        );
+        if (sign.aborted) {
+          return { ...sign, stdout: binary ? new Uint8Array(0) : sign.stdout };
+        }
+        const diagnostic = sign.stdout + sign.stderr;
+        if (sign.exitCode === 129 && /expects .*non-negative|not in range/.test(sign.stderr)) {
+          negativeMagnitudes = false;
+        } else if (
+          sign.exitCode === 129 &&
+          diagnostic.includes('usage:') &&
+          !/error:|fatal:/.test(sign.stderr)
+        ) {
+          negativeMagnitudes = true;
+        } else {
+          return await execute(valid[0]!.argv);
+        }
+      }
+      const selectedValid = valid.filter(
+        (entry) =>
+          entry.profile === selected && entry.abi.negativeMagnitudes === negativeMagnitudes,
+      );
+      if (selectedValid.length === 0) {
+        commandArguments(command, args, inRepository, {
+          longBits: 64,
+          sizeTBits: 64,
+          integerProfile: selected,
+          negativeMagnitudes,
         });
+        throw firstError;
+      }
+      abi = selectedValid[0]!.abi;
+      if (selectedValid.length !== 4) {
+        const probe = await this.run(context, ['version', '--build-options'], probeOptions);
         if (probe.aborted) {
-          return {
-            ...probe,
-            stdout: binary ? new Uint8Array(0) : probe.stdout,
-          } as RawResult<string | Uint8Array>;
+          return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
         }
         const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
         const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
@@ -544,6 +741,8 @@ export class CliRunner {
         abi = {
           longBits: longBytes === '4' ? 32 : 64,
           sizeTBits: sizeBytes === '4' ? 32 : 64,
+          integerProfile: selected,
+          negativeMagnitudes,
         };
       }
       if (needsBinaryProfile) {

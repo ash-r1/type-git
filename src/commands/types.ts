@@ -1,3 +1,5 @@
+import type { GitIntegerParser } from '../constraints/git-integer.js';
+import type { GitIntegerLiteral, GitIntegerValue } from '../constraints/git-integer-types.js';
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
@@ -48,7 +50,9 @@ type AsciiLower<S extends string, Result extends string = ''> = string extends S
     : S extends `${infer H}${infer R}`
       ? AsciiLower<R, `${Result}${H extends AsciiUpper ? Lowercase<H> : H}`>
       : `${Result}${S}`;
-type Value<S extends OptionSpec> = S extends { parser: 'python-int' | 'perl-int' | 'perl-int-gnu' }
+type Value<S extends OptionSpec> = S extends {
+  parser: GitIntegerParser | 'python-int' | 'perl-int' | 'perl-int-gnu';
+}
   ? number | string | bigint
   : S extends { allowed: infer A extends readonly unknown[] }
     ? S extends { caseInsensitive: true }
@@ -123,17 +127,19 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   : D extends { set: infer V }
     ? V
     : true;
-type Normalize<V, D extends OptionSpec> = D extends { caseInsensitive: true }
-  ? D extends { preserveCase: true }
-    ? V extends string
-      ? V extends object
-        ? string
+type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitIntegerParser }
+  ? GitIntegerValue<V, P>
+  : D extends { caseInsensitive: true }
+    ? D extends { preserveCase: true }
+      ? V extends string
+        ? V extends object
+          ? string
+          : V
         : V
-      : V
-    : V extends string
-      ? AsciiLower<V>
-      : V
-  : V;
+      : V extends string
+        ? AsciiLower<V>
+        : V
+    : V;
 type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
   T extends readonly [unknown, infer V]
     ? V extends undefined
@@ -476,35 +482,41 @@ type PerlIntegerLiteral<D extends OptionSpec, V> = V extends string
   : V extends number | bigint
     ? PerlIntegerText<`${V}`, false>
     : false;
-type ScalarLiteral<D extends OptionSpec, V> = D extends {
-  parser: 'object-filter' | 'object-filter-auto';
-}
-  ? V extends string
-    ? ObjectFilterLiteral<V, D['parser'] extends 'object-filter-auto' ? true : false>
-    : true
-  : D extends { parser: 'perl-int' | 'perl-int-gnu' }
-    ? PerlIntegerLiteral<D, V>
-    : D extends { parser: 'fast-import-sign' }
-      ? ImportSignLiteral<V>
-      : D extends { parser: 'anonymize-map' }
-        ? V extends string
-          ? string extends V
-            ? true
-            : V extends object
+type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitIntegerParser }
+  ? GitIntegerLiteral<V, P>
+  : D extends {
+        parser: 'object-filter' | 'object-filter-auto';
+      }
+    ? V extends string
+      ? ObjectFilterLiteral<
+          V,
+          D['parser'] extends 'object-filter-auto' ? true : false,
+          D extends { negativeMagnitudes: true } ? true : false
+        >
+      : true
+    : D extends { parser: 'perl-int' | 'perl-int-gnu' }
+      ? PerlIntegerLiteral<D, V>
+      : D extends { parser: 'fast-import-sign' }
+        ? ImportSignLiteral<V>
+        : D extends { parser: 'anonymize-map' }
+          ? V extends string
+            ? string extends V
               ? true
-              : V extends ''
-                ? false
-                : V extends `${infer Key}:${infer Replacement}`
-                  ? Key extends ''
-                    ? false
-                    : Replacement extends ''
+              : V extends object
+                ? true
+                : V extends ''
+                  ? false
+                  : V extends `${infer Key}:${infer Replacement}`
+                    ? Key extends ''
                       ? false
-                      : true
-                  : true
-          : true
-        : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-          ? ParsedScalarLiteral<D, V>
-          : true;
+                      : Replacement extends ''
+                        ? false
+                        : true
+                    : true
+            : true
+          : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+            ? ParsedScalarLiteral<D, V>
+            : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true
@@ -532,23 +544,36 @@ type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
           : true
   : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
-  caseInsensitive: true;
+  parser: GitIntegerParser;
   allowed: infer A extends readonly unknown[];
 }
   ? T extends readonly [unknown, infer V]
     ? V extends undefined
       ? true
-      : V extends string
-        ? string extends AsciiLower<V>
-          ? true
-          : AsciiLower<V> extends A[number]
-            ? true
-            : false
-        : V extends A[number]
+      : number extends TokenValue<T, D>
+        ? true
+        : TokenValue<T, D> extends A[number]
           ? true
           : false
     : true
-  : true;
+  : D extends {
+        caseInsensitive: true;
+        allowed: infer A extends readonly unknown[];
+      }
+    ? T extends readonly [unknown, infer V]
+      ? V extends undefined
+        ? true
+        : V extends string
+          ? string extends AsciiLower<V>
+            ? true
+            : AsciiLower<V> extends A[number]
+              ? true
+              : false
+          : V extends A[number]
+            ? true
+            : false
+      : true
+    : true;
 type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = T extends readonly [
   unknown,
   infer V,
@@ -641,6 +666,28 @@ type ApplyNumeric<
       : never
     : never
   : S;
+// Keep parser uncertainty separate from input unions: each source family must
+// validate the whole tuple, and ordinary invalid union arms cannot disappear.
+type IntegerProfiledOption<S, D extends OptionSpec> = S extends { integerProfile: 'decimal-cast' }
+  ? D extends { parser: infer P extends GitIntegerParser }
+    ? P extends { bits: 32 }
+      ? P extends { nativeWidth: string }
+        ? D
+        : Omit<D, 'parser'> & { parser: P & { integerProfile: 'decimal-cast' } }
+      : D
+    : D
+  : D;
+type MagnitudeProfiledOption<S, D extends OptionSpec> = S extends { negativeMagnitudes: true }
+  ? D extends { parser: infer P extends GitIntegerParser }
+    ? P extends { negativeMagnitudes: false }
+      ? D
+      : Omit<D, 'parser'> & { parser: P & { negativeMagnitudes: true } }
+    : D & { negativeMagnitudes: true }
+  : D;
+type ProfiledOption<S, D extends OptionSpec> = MagnitudeProfiledOption<
+  S,
+  IntegerProfiledOption<S, D>
+>;
 type ApplyToken<
   C extends GitCommandName,
   S,
@@ -674,7 +721,7 @@ type ApplyToken<
       ? never
       : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
         ? Options<C>[K] extends infer D extends OptionSpec
-          ? ApplyOption<S, D, T, Remaining, First>
+          ? ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : ApplyNumeric<C, S, T, Remaining, First>;
 type State<
@@ -687,15 +734,56 @@ type State<
   : A extends readonly [infer H, ...infer Rest]
     ? State<C, Rest, ApplyToken<C, S, H, Rest, First>, false>
     : S;
+type ProfiledConstraint<S, R extends Constraint> = R extends {
+  kind: 'scalar';
+  key: string;
+  parser: infer P;
+}
+  ? P extends GitIntegerParser
+    ? ProfiledOption<S, { key: R['key']; value: 'string'; parser: P }> extends { parser: infer Q }
+      ? Omit<R, 'parser'> & { parser: Q }
+      : R
+    : S extends { negativeMagnitudes: true }
+      ? R & { negativeMagnitudes: true }
+      : R
+  : R;
 // Evaluate one rule at a time: constructing their Cartesian union can exceed TypeScript's union limit.
 type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
   ...infer Rest extends readonly Constraint[],
 ]
-  ? S extends Constrained<S, readonly [H]>
+  ? S extends Constrained<S, readonly [ProfiledConstraint<S, H>]>
     ? CheckRules<S, Rest>
     : false
   : true;
+type CheckedLegacyIntegerArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  IntegerProfile extends 'bounded' | 'decimal-cast' = 'decimal-cast',
+  Negative extends boolean = false,
+  S = State<
+    C,
+    A,
+    Put<
+      Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', IntegerProfile>,
+      'negativeMagnitudes',
+      Negative
+    >
+  >,
+> = [S] extends [never]
+  ? never
+  : S extends { help: true }
+    ? A
+    : CheckRules<S, Spec<C>['rules']> extends true
+      ? A
+      : never;
+type CheckedIntegerAlternatives<C extends GitCommandName, A extends readonly unknown[]> = [
+  CheckedLegacyIntegerArguments<C, A>,
+] extends [never]
+  ? [CheckedLegacyIntegerArguments<C, A, 'bounded', true>] extends [never]
+    ? CheckedLegacyIntegerArguments<C, A, 'decimal-cast', true>
+    : A
+  : A;
 /** Literal option combinations are checked against the same schema as runtime calls. */
 type CheckedLocalArguments<
   C extends GitCommandName,
@@ -709,12 +797,12 @@ type CheckedLocalArguments<
     ? number extends A['length']
       ? A
       : [State<C, A>] extends [never]
-        ? never
+        ? CheckedIntegerAlternatives<C, A>
         : State<C, A> extends { help: true }
           ? A
           : CheckRules<State<C, A>, Spec<C>['rules']> extends true
             ? A
-            : never
+            : CheckedIntegerAlternatives<C, A>
     : never;
 
 /** Collect invalid finite dispatch alternatives before accepting the complete tuple. */

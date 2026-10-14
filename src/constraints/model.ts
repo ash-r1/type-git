@@ -1,3 +1,4 @@
+import type { GitIntegerProfile } from './git-integer.js';
 import {
   type GitScalarParser,
   gitBoolean,
@@ -83,7 +84,7 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
     case 'active':
       return value !== undefined && value !== false;
     case 'nonzero':
-      return value !== undefined && value !== false && value !== 0;
+      return value !== undefined && value !== false && value !== 0 && value !== 0n;
     case 'nonblank':
       return (
         (typeof value === 'string' ? value : Array.isArray(value) ? value.join(',') : '').trim()
@@ -94,7 +95,7 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
     case 'bytesPositive':
       return (lfsBytes(value) ?? 0) > 0;
     case 'positive':
-      return typeof value === 'number' && value > 0;
+      return (typeof value === 'number' || typeof value === 'bigint') && value > 0;
     case 'present':
       return value !== undefined;
     case 'equals':
@@ -106,16 +107,29 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
   }
 }
 
+/** Selected scalar parser dimensions; absent dimensions use the recorded defaults. */
+export type ScalarContext = {
+  longBits?: 32 | 64;
+  sizeTBits?: 32 | 64;
+  binaryIntegers?: boolean;
+  integerProfile?: GitIntegerProfile;
+  negativeMagnitudes?: boolean;
+};
 /** All violations, in declaration order, retain their evidence and stable identifiers. */
 export function violations(
   rules: readonly Constraint[],
   options: Readonly<Record<string, unknown>>,
+  scalarContext?: ScalarContext,
 ): Constraint[] {
-  return rules.filter((rule) => violates(rule, options));
+  return rules.filter((rule) => violates(rule, options, scalarContext));
 }
 
 /** Check a guarded rule body and preserve its declared evaluation order. */
-function violates(rule: Constraint, options: Readonly<Record<string, unknown>>): boolean {
+function violates(
+  rule: Constraint,
+  options: Readonly<Record<string, unknown>>,
+  scalarContext?: ScalarContext,
+): boolean {
   if (rule.guard && !rule.guard.every((p) => matches(p, options))) {
     return false;
   }
@@ -167,7 +181,17 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
     }
     case 'scalar':
       return (
-        options[rule.key] !== undefined && !parseGitScalar(rule.parser, options[rule.key]).valid
+        options[rule.key] !== undefined &&
+        !parseGitScalar(
+          rule.parser,
+          options[rule.key],
+          undefined,
+          scalarContext?.longBits,
+          scalarContext?.sizeTBits,
+          scalarContext?.binaryIntegers,
+          scalarContext?.integerProfile,
+          scalarContext?.negativeMagnitudes,
+        ).valid
       );
     case 'value':
       return options[rule.key] !== undefined && !rule.allowed.some((v) => v === options[rule.key]);

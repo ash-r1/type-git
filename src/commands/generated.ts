@@ -173,14 +173,29 @@ const commandSpec1 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -2288,14 +2303,29 @@ const commandSpec19 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -3875,10 +3905,20 @@ const commandSpec30 = {
       repeat: true,
     },
     '--jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
@@ -4181,9 +4221,14 @@ const commandSpec30 = {
       clear: true,
     },
     '--no-jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-template': {
       key: 'template',
@@ -4553,10 +4598,20 @@ const commandSpec31 = {
       set: false,
     },
     '--jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
@@ -4631,6 +4686,11 @@ const commandSpec31 = {
       repeat: true,
     },
     '--deepen': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'deepen',
       value: 'integer',
     },
@@ -4871,9 +4931,14 @@ const commandSpec31 = {
       set: false,
     },
     '--no-jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-prefetch': {
       key: 'prefetch',
@@ -4943,9 +5008,14 @@ const commandSpec31 = {
       clear: true,
     },
     '--no-deepen': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'deepen',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-submodule-prefix': {
       key: 'submodule-prefix',
@@ -6955,14 +7025,29 @@ const commandSpec34 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -8159,14 +8244,29 @@ const commandSpec36 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -8673,14 +8773,29 @@ const commandSpec37 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -9002,6 +9117,11 @@ const commandSpec38 = {
       key: 'n',
       value: 'optional-integer',
       set: 1,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--delete': {
       key: 'delete',
@@ -11663,14 +11783,29 @@ const commandSpec45 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -12008,14 +12143,29 @@ const commandSpec46 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -14866,6 +15016,11 @@ const commandSpec68 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -14930,6 +15085,11 @@ const commandSpec68 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -16803,6 +16963,11 @@ const commandSpec69 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -16867,6 +17032,11 @@ const commandSpec69 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -18696,6 +18866,11 @@ const commandSpec70 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -18760,6 +18935,11 @@ const commandSpec70 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -20551,6 +20731,11 @@ const commandSpec71 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -20615,6 +20800,11 @@ const commandSpec71 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -22394,6 +22584,11 @@ const commandSpec72 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -22458,6 +22653,11 @@ const commandSpec72 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -24219,6 +24419,11 @@ const commandSpec73 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -24283,6 +24488,11 @@ const commandSpec73 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -26044,6 +26254,11 @@ const commandSpec74 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -26108,6 +26323,11 @@ const commandSpec74 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -27160,6 +27380,11 @@ const commandSpec81 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -27224,6 +27449,11 @@ const commandSpec81 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -29060,6 +29290,11 @@ const commandSpec82 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -29130,6 +29365,11 @@ const commandSpec82 = {
       key: 'l',
       value: 'integer',
       attachedValue: true,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--minimal': {
       key: 'minimal',
@@ -30654,8 +30894,14 @@ const commandSpec83 = {
       value: 'flag',
     },
     '--log': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'log',
       value: 'optional-integer',
+      set: 20,
     },
     '--squash': {
       key: 'squash',
@@ -30813,9 +31059,14 @@ const commandSpec83 = {
       set: false,
     },
     '--no-log': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'log',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-squash': {
       key: 'squash',
@@ -32469,6 +32720,11 @@ const commandSpec85 = {
       ],
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
       effects: [
@@ -32629,6 +32885,11 @@ const commandSpec85 = {
       ],
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
       effects: [
@@ -36100,6 +36361,11 @@ const commandSpec86 = {
       ],
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
       effects: [
@@ -36260,6 +36526,11 @@ const commandSpec86 = {
       ],
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
       effects: [
@@ -39416,7 +39687,11 @@ const commandSpec89 = {
     '-C': {
       key: 'C',
       value: 'integer',
-      parser: 'unsigned-int',
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
     },
     '--whitespace': {
       key: 'whitespace',
@@ -40883,6 +41158,11 @@ const commandSpec94 = {
       value: 'flag',
     },
     '--count': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'count',
       value: 'integer',
     },
@@ -40971,9 +41251,14 @@ const commandSpec94 = {
       set: false,
     },
     '--no-count': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'count',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-format': {
       key: 'format',
@@ -42349,6 +42634,11 @@ const commandSpec110 = {
       value: 'flag',
     },
     '--candidates': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'candidates',
       value: 'integer',
     },
@@ -42417,9 +42707,14 @@ const commandSpec110 = {
       set: false,
     },
     '--no-candidates': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'candidates',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-match': {
       key: 'match',
@@ -42921,6 +43216,12 @@ const commandSpec116 = {
       value: 'flag',
     },
     '--max-cruft-size': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+      },
       key: 'max-cruft-size',
       value: 'integer',
     },
@@ -43453,10 +43754,20 @@ const commandSpec124 = {
       allowed: ['no-merge', 'replace'],
     },
     '--max-commits': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-commits',
       value: 'integer',
     },
     '--size-multiple': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'size-multiple',
       value: 'integer',
     },
@@ -43503,14 +43814,24 @@ const commandSpec124 = {
       set: false,
     },
     '--no-max-commits': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-commits',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-size-multiple': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'size-multiple',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-expire-time': {
       key: 'expire-time',
@@ -43906,6 +44227,12 @@ const commandSpec129 = {
       value: 'flag',
     },
     '--batch-size': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+      },
       key: 'batch-size',
       value: 'integer',
     },
@@ -44126,6 +44453,11 @@ const commandSpec133 = {
       value: 'flag',
     },
     '--count': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'count',
       value: 'integer',
     },
@@ -44214,9 +44546,14 @@ const commandSpec133 = {
       set: false,
     },
     '--no-count': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'count',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-format': {
       key: 'format',
@@ -45033,14 +45370,29 @@ const commandSpec141 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -46349,6 +46701,11 @@ const commandSpec145 = {
       allowed: ['myers', 'default', 'minimal', 'patience', 'histogram'],
     },
     '--marker-size': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'marker-size',
       value: 'integer',
     },
@@ -46415,9 +46772,14 @@ const commandSpec145 = {
       set: false,
     },
     '--no-marker-size': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'marker-size',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-quiet': {
       key: 'quiet',
@@ -47277,10 +47639,22 @@ const commandSpec148 = {
       value: 'string',
     },
     '--combine-cruft-below-size': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+      },
       key: 'combine-cruft-below-size',
       value: 'integer',
     },
     '--max-cruft-size': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+      },
       key: 'max-cruft-size',
       value: 'integer',
     },
@@ -47297,6 +47671,11 @@ const commandSpec148 = {
       value: 'flag',
     },
     '--name-hash-version': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'name-hash-version',
       value: 'integer',
     },
@@ -47371,6 +47750,12 @@ const commandSpec148 = {
       value: 'string',
     },
     '--max-pack-size': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+      },
       key: 'max-pack-size',
       value: 'integer',
     },
@@ -47389,10 +47774,20 @@ const commandSpec148 = {
       repeat: true,
     },
     '--geometric': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'geometric',
       value: 'integer',
     },
     '-g': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'geometric',
       value: 'integer',
     },
@@ -47424,9 +47819,14 @@ const commandSpec148 = {
       clear: true,
     },
     '--no-name-hash-version': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'name-hash-version',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-path-walk': {
       key: 'path-walk',
@@ -47502,9 +47902,14 @@ const commandSpec148 = {
       clear: true,
     },
     '--no-geometric': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'geometric',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-write-midx': {
       key: 'write-midx',
@@ -48270,10 +48675,20 @@ const commandSpec158 = {
       value: 'optional-string',
     },
     '--raw-mode': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'raw-mode',
       value: 'integer',
     },
     '--width': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'width',
       value: 'integer',
     },
@@ -48286,6 +48701,11 @@ const commandSpec158 = {
       value: 'string',
     },
     '--padding': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'padding',
       value: 'integer',
     },
@@ -48300,9 +48720,14 @@ const commandSpec158 = {
       clear: true,
     },
     '--no-width': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'width',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-indent': {
       key: 'indent',
@@ -48315,9 +48740,14 @@ const commandSpec158 = {
       clear: true,
     },
     '--no-padding': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'padding',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--help': {
       key: 'help',
@@ -48356,12 +48786,24 @@ const commandSpec159 = {
   argv: ['fmt-merge-msg'],
   options: {
     '--log': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'log',
       value: 'optional-integer',
+      set: 20,
     },
     '--summary': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'summary',
       value: 'optional-integer',
+      set: 20,
     },
     '--message': {
       key: 'message',
@@ -48386,14 +48828,24 @@ const commandSpec159 = {
       emptyIsUnset: true,
     },
     '--no-log': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'log',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-summary': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'summary',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-message': {
       key: 'message',
@@ -49052,10 +49504,20 @@ const commandSpec168 = {
       value: 'string',
     },
     '--jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
@@ -49075,9 +49537,14 @@ const commandSpec168 = {
       clear: true,
     },
     '--no-jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--help': {
       key: 'help',
@@ -49456,6 +49923,11 @@ const commandSpec176 = {
   argv: ['credential-cache'],
   options: {
     '--timeout': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'timeout',
       value: 'integer',
     },
@@ -49464,9 +49936,14 @@ const commandSpec176 = {
       value: 'string',
     },
     '--no-timeout': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'timeout',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-socket': {
       key: 'socket',
@@ -50032,6 +50509,11 @@ const commandSpec184 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -50096,6 +50578,11 @@ const commandSpec184 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -52597,6 +53084,11 @@ const commandSpec185 = {
       value: 'flag',
     },
     '--version': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'version',
       value: 'integer',
     },
@@ -52624,6 +53116,11 @@ const commandSpec185 = {
       key: 'version',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--help': {
       key: 'help',
@@ -53369,6 +53866,11 @@ const commandSpec194 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -53433,6 +53935,11 @@ const commandSpec194 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -54674,7 +55181,13 @@ const commandSpec194 = {
     '--min-batch-size': {
       key: 'min-batch-size',
       value: 'integer',
-      parser: 'unsigned-size',
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'size_t',
+        negativeMagnitudes: false,
+      },
     },
     '--include-edges': {
       key: 'include-edges',
@@ -55317,6 +55830,11 @@ const commandSpec195 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -55381,6 +55899,11 @@ const commandSpec195 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -55585,6 +56108,11 @@ const commandSpec195 = {
       value: 'string',
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
       value: 'integer',
     },
@@ -57161,6 +57689,11 @@ const commandSpec196 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -57225,6 +57758,11 @@ const commandSpec196 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -57957,6 +58495,11 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -58021,6 +58564,11 @@ const commandSpec197 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -58351,6 +58899,11 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--creation-factor': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'creation-factor',
       value: 'integer',
     },
@@ -58383,9 +58936,14 @@ const commandSpec197 = {
       value: 'flag',
     },
     '--no-creation-factor': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'creation-factor',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--dual-color': {
       key: 'no-dual-color',
@@ -58838,6 +59396,11 @@ const commandSpec198 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -58902,6 +59465,11 @@ const commandSpec198 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -60820,6 +61388,11 @@ const commandSpec199 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -62858,6 +63431,11 @@ const commandSpec200 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -64667,6 +65245,11 @@ const commandSpec201 = {
       set: -1,
     },
     '--max-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'max-depth',
       value: 'integer',
     },
@@ -64792,25 +65375,49 @@ const commandSpec201 = {
       value: 'string',
     },
     '--before-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'before-context',
       value: 'integer',
     },
     '-B': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'before-context',
       value: 'integer',
     },
     '--after-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'after-context',
       value: 'integer',
     },
     '-A': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'after-context',
       value: 'integer',
     },
     '--threads': {
       key: 'threads',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--show-function': {
       key: 'show-function',
@@ -64887,12 +65494,20 @@ const commandSpec201 = {
     '--max-count': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '-m': {
       key: 'max-count',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--no-cached': {
       key: 'cached',
@@ -65044,6 +65659,11 @@ const commandSpec201 = {
       key: 'threads',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--no-show-function': {
       key: 'show-function',
@@ -65080,6 +65700,11 @@ const commandSpec201 = {
       key: 'max-count',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--help': {
       key: 'help',
@@ -65529,6 +66154,11 @@ const commandSpec202 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -65593,6 +66223,11 @@ const commandSpec202 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -66823,6 +67458,11 @@ const commandSpec202 = {
       value: 'string',
     },
     '--start-number': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'start-number',
       value: 'integer',
     },
@@ -66831,6 +67471,11 @@ const commandSpec202 = {
       value: 'string',
     },
     '--filename-max-length': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'filename-max-length',
       value: 'integer',
     },
@@ -66977,6 +67622,11 @@ const commandSpec202 = {
       value: 'string',
     },
     '--creation-factor': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'creation-factor',
       value: 'integer',
     },
@@ -67015,9 +67665,14 @@ const commandSpec202 = {
       clear: true,
     },
     '--no-start-number': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'start-number',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-reroll-count': {
       key: 'reroll-count',
@@ -67025,9 +67680,14 @@ const commandSpec202 = {
       clear: true,
     },
     '--no-filename-max-length': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'filename-max-length',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-rfc': {
       key: 'rfc',
@@ -67129,9 +67789,14 @@ const commandSpec202 = {
       clear: true,
     },
     '--no-creation-factor': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'creation-factor',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-force-in-body-from': {
       key: 'force-in-body-from',
@@ -68003,6 +68668,11 @@ const commandSpec204 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -70102,6 +70772,11 @@ const commandSpec205 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -70166,6 +70841,11 @@ const commandSpec205 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -71987,6 +72667,11 @@ const commandSpec206 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -72051,6 +72736,11 @@ const commandSpec206 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -73561,6 +74251,11 @@ const commandSpec207 = {
       key: 'more',
       value: 'optional-integer',
       set: 1,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--list': {
       key: 'more',
@@ -73633,6 +74328,11 @@ const commandSpec207 = {
       key: 'more',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--no-list': {
       key: 'more',
@@ -74792,10 +75492,20 @@ const commandSpec216 = {
       value: 'flag',
     },
     '--summary-limit': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'summary-limit',
       value: 'integer',
     },
     '-n': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'summary-limit',
       value: 'integer',
     },
@@ -74818,6 +75528,11 @@ const commandSpec216 = {
       key: 'summary-limit',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--help': {
       key: 'help',
@@ -75016,6 +75731,11 @@ const commandSpec219 = {
       value: 'flag',
     },
     '--depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'integer',
     },
@@ -75083,9 +75803,14 @@ const commandSpec219 = {
       set: false,
     },
     '--no-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-quiet': {
       key: 'quiet',
@@ -75235,14 +75960,29 @@ const commandSpec220 = {
       value: 'flag',
     },
     '--depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'integer',
     },
     '--jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
@@ -75345,14 +76085,24 @@ const commandSpec220 = {
       set: false,
     },
     '--no-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-recommend-shallow': {
       key: 'recommend-shallow',
@@ -75751,6 +76501,11 @@ const commandSpec225 = {
       value: 'string',
     },
     '--depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'integer',
     },
@@ -75797,9 +76552,14 @@ const commandSpec225 = {
       clear: true,
     },
     '--no-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--help': {
       key: 'help',
@@ -75946,6 +76706,11 @@ const commandSpec229 = {
       value: 'string',
     },
     '--depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'integer',
     },
@@ -76182,14 +76947,29 @@ const commandSpec233 = {
       value: 'flag',
     },
     '--depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'integer',
     },
     '--jobs': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
     '-j': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'jobs',
       value: 'integer',
     },
@@ -76473,10 +77253,20 @@ const commandSpec236 = {
       value: 'flag',
     },
     '--summary-limit': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'summary-limit',
       value: 'integer',
     },
     '-n': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'summary-limit',
       value: 'integer',
     },
@@ -78194,7 +78984,11 @@ const commandSpec274 = {
     '--index-version': {
       key: 'index-version',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--show-index-version': {
       key: 'index-version',
@@ -78287,6 +79081,11 @@ const commandSpec274 = {
       key: 'index-version',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--no-show-index-version': {
       key: 'index-version',
@@ -78679,6 +79478,11 @@ const commandSpec275 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -78743,6 +79547,11 @@ const commandSpec275 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -79948,7 +80757,11 @@ const commandSpec275 = {
     '--progress': {
       key: 'progress',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--signed-tags': {
       key: 'signed-tags',
@@ -80026,9 +80839,14 @@ const commandSpec275 = {
       value: 'flag',
     },
     '--no-progress': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'progress',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-signed-tags': {
       key: 'signed-tags',
@@ -80423,6 +81241,12 @@ const commandSpec276 = {
       value: 'string',
     },
     '--max-pack-size': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+      },
       key: 'max-pack-size',
       value: 'integer',
     },
@@ -80437,16 +81261,30 @@ const commandSpec276 = {
     '--window': {
       key: 'window',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--window-memory': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+      },
       key: 'window-memory',
       value: 'integer',
     },
     '--depth': {
       key: 'depth',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--reuse-delta': {
       key: 'reuse-delta',
@@ -80463,7 +81301,11 @@ const commandSpec276 = {
     '--threads': {
       key: 'threads',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--non-empty': {
       key: 'non-empty',
@@ -80556,7 +81398,11 @@ const commandSpec276 = {
     '--compression': {
       key: 'compression',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--keep-true-parents': {
       key: 'keep-true-parents',
@@ -80602,6 +81448,11 @@ const commandSpec276 = {
       repeat: true,
     },
     '--name-hash-version': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'name-hash-version',
       value: 'integer',
     },
@@ -80636,14 +81487,24 @@ const commandSpec276 = {
       set: false,
     },
     '--no-window': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'window',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-depth': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'depth',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-reuse-delta': {
       key: 'reuse-delta',
@@ -80661,9 +81522,14 @@ const commandSpec276 = {
       set: false,
     },
     '--no-threads': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'threads',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--no-non-empty': {
       key: 'non-empty',
@@ -80750,6 +81616,11 @@ const commandSpec276 = {
       key: 'compression',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--no-keep-true-parents': {
       key: 'keep-true-parents',
@@ -80802,6 +81673,11 @@ const commandSpec276 = {
       key: 'name-hash-version',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--help': {
       key: 'help',
@@ -80815,6 +81691,12 @@ const commandSpec276 = {
       key: 'max-pack-size',
       value: 'flag',
       set: 0,
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+      },
     },
   },
   rules: [
@@ -81731,7 +82613,11 @@ const commandSpec280 = {
     '--timeout': {
       key: 'timeout',
       value: 'integer',
-      parser: 'revision-count',
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
     },
     '--no-stateless-rpc': {
       key: 'stateless-rpc',
@@ -81749,9 +82635,14 @@ const commandSpec280 = {
       set: false,
     },
     '--no-timeout': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'timeout',
       value: 'flag',
-      clear: true,
+      set: 0,
     },
     '--advertise-refs': {
       key: 'http-backend-info-refs',
@@ -83036,6 +83927,11 @@ const commandSpec291 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -83100,6 +83996,11 @@ const commandSpec291 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -85732,6 +86633,11 @@ const commandSpec306 = {
       value: 'flag',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },
@@ -85796,6 +86702,11 @@ const commandSpec306 = {
       value: 'flag',
     },
     '-l': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'l',
       value: 'integer',
     },
@@ -87349,14 +88260,29 @@ const commandSpec307 = {
       value: 'flag',
     },
     '--unified': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '-U': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'unified',
       value: 'integer',
     },
     '--inter-hunk-context': {
+      parser: {
+        kind: 'integer',
+        signed: true,
+        bits: 32,
+      },
       key: 'inter-hunk-context',
       value: 'integer',
     },

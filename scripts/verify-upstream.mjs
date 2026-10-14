@@ -29,6 +29,7 @@ for (const [path, digest] of Object.entries(inventory.sources)) {
   add(base, rest.join('/'), digest);
 }
 for (const [path, digest] of Object.entries((await load('lfs-options')).sources)) add(lfs, path, digest);
+for (const [path, digest] of Object.entries((await load('git-numeric-options')).sources)) add(git, path, digest);
 const tables = await load('git-option-tables');
 if (flags.includes('--c-tables')) {
   // C preprocessing is reproducible only on the snapshot's recorded compiler/target.
@@ -38,6 +39,10 @@ if (flags.includes('--c-tables')) {
   for (const result of [version, target]) {
     if (result.error) throw result.error;
     if (result.status !== 0 || result.signal) throw new Error('Cannot inspect C table compiler profile');
+  }
+  const numeric = await load('git-numeric-options');
+  if (version.stdout.split(/\r?\n/)[0] !== numeric.profile.version || target.stdout.trim() !== numeric.profile.target) {
+    throw new Error('Numeric extraction compiler/target differs from its recorded snapshot');
   }
   if (version.stdout.split(/\r?\n/)[0] !== tables.profile.compilerVersion ||
       target.stdout.trim() !== tables.profile.target) {
@@ -70,7 +75,11 @@ try {
     ['python3', 'extract-p4-options.py', [git], 'p4-options'],
     ['python3', 'extract-svn-options.py', [git], 'svn-options'],
   ];
-  if (flags.includes('--c-tables')) jobs.push(['python3', 'import-git-options.py', [git], 'git-option-tables']);
+  if (flags.includes('--c-tables')) {
+    await copyFile(new URL('scripts/git_numeric_dump.py', root), join(temp, 'scripts/git_numeric_dump.py'));
+    jobs.push(['python3', 'import-git-options.py', [git], 'git-option-tables']);
+    jobs.push(['python3', 'import-git-numeric-options.py', [git], 'git-numeric-options']);
+  }
   for (const [executable, script, args, snapshot] of jobs) {
     const destination = join(temp, 'scripts', script);
     await copyFile(new URL(`scripts/${script}`, root), destination);

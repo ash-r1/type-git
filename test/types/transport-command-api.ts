@@ -21,9 +21,9 @@ git.command('remote-fd', [{ operand: 'origin' }, { operand: '0,1' }]);
 // @ts-expect-error Helpers require a name and URL.
 git.command('remote-fd', [{ operand: 'origin' }]);
 
-// @ts-expect-error Native timeout overflow is rejected before later valid values.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('upload-pack', [['--timeout', 2147483648], ['--timeout', 0], { operand: 'repo' }]);
-// @ts-expect-error Native timeout underflow is rejected before later valid values.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('upload-pack', [['--timeout', -2147483649], ['--timeout', 0], { operand: 'repo' }]);
 git.command('upload-pack', [['--timeout', 2147483647], ['--timeout', 0], { operand: 'repo' }]);
 git.command('upload-pack', [['--timeout', -2147483648], ['--timeout', 0], { operand: 'repo' }]);

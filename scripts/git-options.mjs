@@ -1,15 +1,46 @@
+// Pinned declarations: backfill_ctx.min_batch_size is size_t; the other seven
+// bindings are unsigned long (builtin/{gc,multi-pack-index,pack-objects,repack}.c
+// and repack.h). Preserve these data-model dimensions across executables.
+const integerNativeWidths = new Map([
+  ['builtin/backfill.c:min-batch-size', 'size_t'],
+  ['builtin/gc.c:max-cruft-size', 'long'],
+  ['builtin/multi-pack-index.c:batch-size', 'long'],
+  ['builtin/pack-objects.c:max-pack-size', 'long'],
+  ['builtin/pack-objects.c:window-memory', 'long'],
+  ['builtin/repack.c:combine-cruft-below-size', 'long'],
+  ['builtin/repack.c:max-cruft-size', 'long'],
+  ['builtin/repack.c:max-pack-size', 'long'],
+]);
 /** Convert pinned Git parse-options tables. Custom parsers require separate scopes. */
-export function gitOptions(upstream, scopes, rules, groups = {}) {
+export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot) {
+  const numeric = new Map((numericSnapshot?.options ?? []).map(row => [JSON.stringify([row.file, row.function, row.table, row.flag, row.kind]), row]));
   const candidates = new Map();
+  const usedNativeWidths = new Set();
   for (const file of upstream.files) for (const table of file.tables) {
     const id = `${file.file}:${table.function ?? 'global'}:${table.name}`;
-    candidates.set(id, [...(candidates.get(id) ?? []), table]);
+    const options = table.options.map(option => {
+      if (!['OPTION_INTEGER', 'OPTION_UNSIGNED'].includes(option.kind)) return option;
+      const metadata = numeric.get(JSON.stringify([file.file, table.function ?? null, table.name, option.long ?? option.short, option.kind]));
+      if (!metadata) throw new Error(`Missing compiler-evaluated integer metadata: ${id} ${option.long ?? option.short}`);
+      const widthKey = `${file.file}:${option.long ?? option.short}`;
+      const nativeWidth = integerNativeWidths.get(widthKey);
+      if (nativeWidth) usedNativeWidths.add(widthKey);
+      else if (option.kind === 'OPTION_UNSIGNED' && metadata.bits === 64) {
+        throw new Error(`Unsigned 64-bit option lacks a source-declared native width: ${id} ${option.long ?? option.short}`);
+      }
+      return { ...option, numeric: metadata, nativeWidth };
+    });
+    candidates.set(id, [...(candidates.get(id) ?? []), { ...table, options }]);
+  }
+  for (const widthKey of integerNativeWidths.keys()) {
+    if (!usedNativeWidths.has(widthKey)) throw new Error(`Unused source-declared native width: ${widthKey}`);
   }
   const tables = new Map();
   for (const [id, entries] of candidates) {
     if (entries.length === 1) tables.set(id, entries[0]);
     entries.forEach((entry, index) => tables.set(`${id}#${index + 1}`, entry));
   }
+  /** Resolve option arrays, requiring explicit indices for repeated declarations. */
   const definitionsFor = (ids, command) => ids.flatMap(id => {
     if (!tables.has(id)) throw new Error(`${command}: unknown or ambiguous option table ${id}; use #1/#2 for repeated declarations`);
     return tables.get(id).options;
@@ -32,6 +63,12 @@ export function gitOptions(upstream, scopes, rules, groups = {}) {
       options[flag] = { ...option, effects: [...(option.effects ?? []), { key: scope.inheritedOptionMarker, set: true }] };
     }
     Object.assign(options, tableOptions(definitionsFor(scope.finalTables ?? [], command), command, scope.numericOption));
+    for (const [flag, override] of Object.entries(scope.options ?? {})) {
+      if (scope.omitOptions?.includes(flag) || (scope.optionAllowlist && !scope.optionAllowlist.includes(flag))) continue;
+      if (typeof options[flag]?.parser === 'object' && JSON.stringify(override.parser) !== JSON.stringify(options[flag].parser)) {
+        throw new Error(`${command} ${flag}: scope override drops or changes compiler-recorded integer metadata`);
+      }
+    }
     Object.assign(options, scope.options ?? {});
     if (scope.optionAllowlist) for (const flag of Object.keys(options)) {
       if (!scope.optionAllowlist.includes(flag)) delete options[flag];
@@ -43,6 +80,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}) {
   return result;
 }
 
+/** Translate one evaluated C option array, retaining aliases, defaults and storage traits. */
 function tableOptions(definitions, command, numericOption) {
     const options = {};
     const aliases = [];
@@ -64,8 +102,8 @@ function tableOptions(definitions, command, numericOption) {
       const value = noarg ? 'flag' : `${optional ? 'optional-' : ''}${numeric ? 'integer' : 'string'}`;
       const defaultString = optional && fields.defval?.match(/"(?:\\.|[^"\\])*"/);
       const callback = (fields.callback ?? '').replace(/[&()]/g, '');
-      const parser = { opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
-      const base = { ...(parser ? { parser } : {}), key, value, ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
+      const parser = numeric ? { kind: 'integer', signed: kind === 'OPTION_INTEGER', bits: definition.numeric.bits, ...(definition.nativeWidth ? { nativeWidth: definition.nativeWidth } : {}), ...(definition.nativeWidth === 'size_t' ? { negativeMagnitudes: false } : {}) } : { opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
+      const base = { ...(parser ? { parser } : {}), key, value, ...(numeric && optional ? { set: definition.numeric.default } : {}), ...(defaultString ? { set: JSON.parse(defaultString[0]) } : {}), ...(kind === 'OPTION_FILENAME' ? { emptyIsUnset: true } : {}), ...(kind === 'OPTION_COUNTUP' || fields.callback?.includes('parse_opt_string_list') || ['recurse_submodules_cb', 'parse_opt_strvec'].includes(callback) ? { repeat: true } : {}) };
       if (flags.includes('PARSE_OPT_CMDMODE')) {
         base.modeGroup = fields.value.replace(/[()\s]/g, '');
         if (kind === 'OPTION_SET_INT' && fields.defval) base.modeValue = fields.defval.replace(/[()\s]/g, '');
@@ -73,7 +111,7 @@ function tableOptions(definitions, command, numericOption) {
       if (long) options[`--${long}`] ??= base;
       if (short) options[`${flags.includes('PARSE_OPT_NODASH') ? '' : '-'}${short}`] ??= base;
       if (long && !flags.includes('PARSE_OPT_NONEG')) {
-        const negated = { ...base, value: 'flag', ...(kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || (parser && parser !== 'object-filter') ? { set: false } : { clear: true }) };
+        const negated = { ...base, value: 'flag', ...(numeric ? { set: 0 } : kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || (parser && parser !== 'object-filter') ? { set: false } : { clear: true }) };
         negations[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] ??= negated;
         if (long.startsWith('no-')) negations[`--no-${long}`] ??= negated;
       }

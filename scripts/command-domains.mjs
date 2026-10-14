@@ -1,3 +1,4 @@
+import { literal } from './constraint-domains.mjs';
 import { scalarRepresentatives } from './scalar-domains.mjs';
 
 /** Fixed structural representatives of normalized CLI state; not all possible CLI strings. */
@@ -5,7 +6,7 @@ export function commandDomains(spec, referencedKeys) {
   const domains = {};
   const add = (key, value) => {
     domains[key] ??= [undefined];
-    if (!domains[key].some((old) => JSON.stringify(old) === JSON.stringify(value))) domains[key].push(value);
+    if (!domains[key].some((old) => literal(old) === literal(value))) domains[key].push(value);
   };
   for (const [key, value] of Object.entries(spec.initial ?? {})) add(key, value);
   for (const option of [...Object.values(spec.options), ...(spec.numericOption ? [spec.numericOption] : [])]) {

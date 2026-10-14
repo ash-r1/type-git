@@ -29,34 +29,34 @@ git.command('unpack-objects', [{ operand: 'file.pack' }]);
 git.command('pack-redundant', [['--all']]);
 git.command('pack-redundant', [['--all'], ['--i-still-use-this'], { operand: 'ignored' }]);
 
-// @ts-expect-error Native signed int overflow is rejected before a later valid overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('pack-objects', [['--stdout'], ['--compression', -2147483649], ['--compression', 1]]);
 
-// @ts-expect-error Native signed int overflow is rejected before a later valid overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('pack-objects', [['--stdout'], ['--compression', 2147483648], ['--compression', 1]]);
 git.command('pack-objects', [['--stdout'], ['--compression', 2147483647], ['--compression', 1]]);
 git.command('pack-objects', [['--stdout'], ['--compression', -2147483648], ['--compression', 1]]);
 
-// @ts-expect-error Native signed int overflow is rejected before a later valid overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('pack-objects', [['--stdout'], ['--depth', -2147483649], ['--depth', 1]]);
 
-// @ts-expect-error Native signed int overflow is rejected before a later valid overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('pack-objects', [['--stdout'], ['--depth', 2147483648], ['--depth', 1]]);
 git.command('pack-objects', [['--stdout'], ['--depth', 2147483647], ['--depth', 1]]);
 git.command('pack-objects', [['--stdout'], ['--depth', -2147483648], ['--depth', 1]]);
 
-// @ts-expect-error Native signed int overflow is rejected before a later valid overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('pack-objects', [['--stdout'], ['--window', -2147483649], ['--window', 1]]);
 
-// @ts-expect-error Native signed int overflow is rejected before a later valid overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('pack-objects', [['--stdout'], ['--window', 2147483648], ['--window', 1]]);
 git.command('pack-objects', [['--stdout'], ['--window', 2147483647], ['--window', 1]]);
 git.command('pack-objects', [['--stdout'], ['--window', -2147483648], ['--window', 1]]);
 
-// @ts-expect-error Native signed int overflow is rejected before a later valid overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('pack-objects', [['--stdout'], ['--threads', -2147483649], ['--threads', 1]]);
 
-// @ts-expect-error Native signed int overflow is rejected before a later valid overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('pack-objects', [['--stdout'], ['--threads', 2147483648], ['--threads', 1]]);
 git.command('pack-objects', [['--stdout'], ['--threads', 2147483647], ['--threads', 1]]);
 git.command('pack-objects', [['--stdout'], ['--threads', -2147483648], ['--threads', 1]]);

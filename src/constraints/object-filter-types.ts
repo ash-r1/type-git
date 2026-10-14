@@ -1,3 +1,4 @@
+import type { GitIntegerLiteral } from './git-integer-types.js';
 /** Literal grammar; unsigned-long bounds and percent-decoded components are checked at runtime. */
 type White = ' ' | '\t' | '\r' | '\n' | '\v' | '\f';
 type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
@@ -40,7 +41,14 @@ type Unsigned<S extends string> = string extends S
 type Unit<S extends string> = S extends `${infer R}${'k' | 'K' | 'm' | 'M' | 'g' | 'G'}`
   ? Unsigned<R>
   : Unsigned<S>;
-type Positive<S extends string> = Trim<S> extends `+${infer R}` ? Unit<R> : Unit<Trim<S>>;
+type Positive<S extends string, Negative extends boolean> = Negative extends true
+  ? GitIntegerLiteral<
+      Trim<S>,
+      { kind: 'integer'; signed: false; bits: 64; negativeMagnitudes: true }
+    >
+  : Trim<S> extends `+${infer R}`
+    ? Unit<R>
+    : Unit<Trim<S>>;
 type Reserved =
   | White
   | '~'
@@ -66,19 +74,23 @@ type Reserved =
   | '<'
   | '>'
   | '?';
-type Child<S extends string> = S extends ''
+type Child<S extends string, Negative extends boolean> = S extends ''
   ? true
   : S extends `${string}${Reserved}${string}`
     ? false
     : S extends `${string}%${string}`
       ? true
-      : ObjectFilterLiteral<S, false>;
-type Combined<S extends string> = S extends `${infer L}+${infer R}`
-  ? Child<L> extends true
-    ? Combined<R>
+      : ObjectFilterLiteral<S, false, Negative>;
+type Combined<S extends string, Negative extends boolean> = S extends `${infer L}+${infer R}`
+  ? Child<L, Negative> extends true
+    ? Combined<R, Negative>
     : false
-  : Child<S>;
-export type ObjectFilterLiteral<S extends string, Auto extends boolean = false> = S extends object
+  : Child<S, Negative>;
+export type ObjectFilterLiteral<
+  S extends string,
+  Auto extends boolean = false,
+  Negative extends boolean = false,
+> = S extends object
   ? true
   : string extends S
     ? true
@@ -90,9 +102,9 @@ export type ObjectFilterLiteral<S extends string, Auto extends boolean = false> 
       : S extends 'auto'
         ? Auto
         : S extends `blob:limit=${infer N}` | `tree:${infer N}`
-          ? Positive<N>
+          ? Positive<N, Negative>
           : S extends `combine:${infer R}`
             ? R extends ''
               ? false
-              : Combined<R>
+              : Combined<R, Negative>
             : false;

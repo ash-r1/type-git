@@ -4393,7 +4393,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   }
 
   private async submoduleUpdate(opts?: SubmoduleOpts & ExecOpts): Promise<void> {
-    validateOptions('submoduleUpdate', opts);
+    await this.runner.validateFilterOptions(this.context, 'submoduleUpdate', opts, {
+      signal: opts?.signal,
+    });
     const args = ['submodule', 'update'];
 
     if (opts?.init) {
