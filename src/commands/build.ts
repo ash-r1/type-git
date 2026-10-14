@@ -207,7 +207,11 @@ export function commandArguments(
         throw new GitArgumentError(`${flag}: missing option value`);
       }
       if (supplied) {
-        if (option.value.endsWith('integer') && !Number.isSafeInteger(value)) {
+        if (
+          option.value.endsWith('integer') &&
+          option.parser !== 'python-int' &&
+          !Number.isSafeInteger(value)
+        ) {
           throw new GitArgumentError(`${flag}: expected a safe integer`);
         }
         if (option.value.endsWith('string') && typeof value !== 'string') {
@@ -259,7 +263,9 @@ export function commandArguments(
           ? []
           : [
               ...(Array.isArray(previous) ? previous : []),
-              ...(option.skipEmpty && value === '' ? [] : [value]),
+              ...(option.skipEmpty && value === ''
+                ? []
+                : [option.parser === 'python-int' ? parsed.value : value]),
             ];
     } else {
       state[option.key] =

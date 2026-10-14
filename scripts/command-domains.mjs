@@ -46,6 +46,7 @@ export function commandDomains(spec, referencedKeys) {
       add(value.key, [[value.value, 'value']]);
       add(value.key, [[value.value, ''], [value.value, 'value']]);
     }
+    if (value.kind === 'eachInteger') for (const item of [value.min - 1, value.min, value.min + 1]) { add(value.key, []); add(value.key, [item]); add(value.key, [value.min, item]); }
     if (value.kind === 'elements') {
       add(value.key, []);
       let rejected = 'invalid';

@@ -47,15 +47,17 @@ type AsciiLower<S extends string, Result extends string = ''> = string extends S
     : S extends `${infer H}${infer R}`
       ? AsciiLower<R, `${Result}${H extends AsciiUpper ? Lowercase<H> : H}`>
       : `${Result}${S}`;
-type Value<S extends OptionSpec> = S extends { allowed: infer A extends readonly unknown[] }
-  ? S extends { caseInsensitive: true }
-    ? string | Exclude<A[number], string>
-    : A[number]
-  : S['value'] extends 'flag' | 'boolean'
-    ? boolean
-    : S['value'] extends 'integer' | 'optional-integer'
-      ? number
-      : string;
+type Value<S extends OptionSpec> = S extends { parser: 'python-int' }
+  ? number | string | bigint
+  : S extends { allowed: infer A extends readonly unknown[] }
+    ? S extends { caseInsensitive: true }
+      ? string | Exclude<A[number], string>
+      : A[number]
+    : S['value'] extends 'flag' | 'boolean'
+      ? boolean
+      : S['value'] extends 'integer' | 'optional-integer'
+        ? number
+        : string;
 type Token<K, S extends OptionSpec> = S['value'] extends 'flag'
   ? readonly [flag: K]
   : S['value'] extends 'boolean' | 'optional-string' | 'optional-integer'
