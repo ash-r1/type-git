@@ -58,3 +58,10 @@ declare const invalidIntegerSuffix: `${number}x`;
 git.command('svn clone', [['--log-window-size', invalidIntegerPrefix], ['-h']]);
 // @ts-expect-error A known invalid suffix remains invalid with a dynamic numeric prefix.
 git.command('svn clone', [['--log-window-size', invalidIntegerSuffix], ['-h']]);
+
+declare const invalidIntegerDot: `.${string}`;
+declare const invalidIntegerSpace: `${number} ${string}`;
+// @ts-expect-error A known dot cannot occur in the native integer grammar.
+git.command('svn clone', [['--log-window-size', invalidIntegerDot], ['-h']]);
+// @ts-expect-error An unknown part cannot repair a known space.
+git.command('svn clone', [['--log-window-size', invalidIntegerSpace], ['-h']]);

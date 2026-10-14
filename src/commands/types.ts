@@ -331,6 +331,72 @@ type ImportSignLiteral<V> = V extends string
           : false
   : true;
 type PerlDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+// Complement of the ASCII characters admitted by Getopt::Long PAT_INT.
+type PerlIntegerForbiddenAscii =
+  | AsciiUpper
+  | Lowercase<AsciiUpper>
+  | '\u0000'
+  | '\u0001'
+  | '\u0002'
+  | '\u0003'
+  | '\u0004'
+  | '\u0005'
+  | '\u0006'
+  | '\u0007'
+  | '\b'
+  | '\t'
+  | '\u000b'
+  | '\f'
+  | '\r'
+  | '\u000e'
+  | '\u000f'
+  | '\u0010'
+  | '\u0011'
+  | '\u0012'
+  | '\u0013'
+  | '\u0014'
+  | '\u0015'
+  | '\u0016'
+  | '\u0017'
+  | '\u0018'
+  | '\u0019'
+  | '\u001a'
+  | '\u001b'
+  | '\u001c'
+  | '\u001d'
+  | '\u001e'
+  | '\u001f'
+  | ' '
+  | '!'
+  | '"'
+  | '#'
+  | '$'
+  | '%'
+  | '&'
+  | "'"
+  | '('
+  | ')'
+  | '*'
+  | ','
+  | '.'
+  | '/'
+  | ':'
+  | ';'
+  | '<'
+  | '='
+  | '>'
+  | '?'
+  | '@'
+  | '['
+  | '\\'
+  | ']'
+  | '^'
+  | '`'
+  | '{'
+  | '|'
+  | '}'
+  | '~'
+  | '\u007f';
 // Long literals defer to runtime before TypeScript's instantiation limit.
 type PerlIntegerDigits<
   S extends string,
@@ -359,8 +425,8 @@ type PerlIntegerStart<
 type PerlIntegerText<
   S extends string,
   AllowEmpty extends boolean,
-> = S extends `${string}${AsciiUpper | Lowercase<AsciiUpper>}${string}`
-  ? false // A known letter cannot be repaired by dynamic text elsewhere.
+> = S extends `${string}${PerlIntegerForbiddenAscii}${string}`
+  ? false // A known forbidden character cannot be repaired by dynamic text elsewhere.
   : {} extends Record<S, unknown>
     ? true // Nonliteral templates and dynamic strings remain runtime inputs.
     : S extends ''
