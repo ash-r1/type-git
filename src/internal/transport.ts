@@ -7,7 +7,7 @@ export async function fetch(
   context: ExecutionContext,
   opts?: FetchOpts & ExecOpts,
 ): Promise<void> {
-  validateOptions('fetch', opts);
+  await runner.validateFetchOptions(context, opts, { signal: opts?.signal });
   const args = ['fetch'];
 
   // Progress tracking

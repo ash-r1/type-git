@@ -11,6 +11,7 @@ import {
 import { validateOptions as checkOptions } from '../core/option-rules.js';
 import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
+import { validInitialDepth } from '../constraints/git-scalars.js';
 /**
  * CLI Runner - Core execution engine for Git commands
  *
@@ -443,22 +444,78 @@ export class CliRunner {
     await this.validateNativeOptions(context, name, options, opts);
   }
 
+  /** Observe atoi using an existing file so clone stops before transport or destination creation. */
+  private async observeDepthAtoi(context: ExecutionContext, opts?: RunOptions) {
+    const destination = await this.fs.createTempFile('type-git-depth-profile-');
+    try {
+      const result = await this.run(
+        context,
+        ['clone', '--depth=2147483648', 'type-git-depth-profile:invalid', destination],
+        {
+          ...(opts?.env ? { env: opts.env } : {}),
+          ...(opts?.signal ? { signal: opts.signal } : {}),
+        },
+      );
+      let bits: 32 | 64 | undefined;
+      if (!result.aborted && result.exitCode === 128) {
+        if (result.stderr.trim() === 'fatal: depth 2147483648 is not a positive number') {
+          bits = 64;
+        } else if (
+          result.stderr.trim() ===
+          `fatal: destination path '${destination}' already exists and is not an empty directory.`
+        ) {
+          bits = 32;
+        }
+      }
+      return { bits, result };
+    } finally {
+      await this.fs.deleteFile(destination);
+    }
+  }
+
+  /** Resolve depth and other native constraints for a convenience fetch call. */
+  public async validateFetchOptions(
+    context: ExecutionContext,
+    options: object | undefined,
+    opts?: RunOptions,
+  ): Promise<void> {
+    await this.validateNativeOptions(context, 'fetch', options, opts);
+  }
+
   /** Check universally invalid input first, then only the native dimensions that affect validity. */
   private async validateNativeOptions(
     context: ExecutionContext,
-    name: 'clone' | 'submoduleUpdate' | 'cherryPick' | 'revert',
+    name: 'clone' | 'submoduleUpdate' | 'cherryPick' | 'revert' | 'fetch',
     options: object | undefined,
     opts?: RunOptions,
   ): Promise<void> {
     validateIO(opts);
-    const valid: { longBits: 32 | 64; negativeMagnitudes: boolean; unsignedChar: boolean }[] = [];
+    const depth =
+      name === 'clone' || name === 'fetch'
+        ? (options as { depth?: unknown } | undefined)?.depth
+        : undefined;
+    const depthValid = ([32, 64] as const).filter(
+      (bits) => depth === undefined || validInitialDepth(depth, bits),
+    );
+    let depthAtoiBits: 32 | 64 = depthValid[0] ?? 64;
+    const valid: {
+      longBits: 32 | 64;
+      negativeMagnitudes: boolean;
+      unsignedChar: boolean;
+      depthAtoiBits: 32 | 64;
+    }[] = [];
     let firstError: GitArgumentError | undefined;
     for (const longBits of [32, 64] as const) {
       for (const negativeMagnitudes of [false, true]) {
         for (const unsignedChar of [false, true]) {
           try {
-            checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar });
-            valid.push({ longBits, negativeMagnitudes, unsignedChar });
+            checkOptions(name, options, {
+              longBits,
+              negativeMagnitudes,
+              unsignedChar,
+              depthAtoiBits,
+            });
+            valid.push({ longBits, negativeMagnitudes, unsignedChar, depthAtoiBits });
           } catch (error) {
             if (!(error instanceof GitArgumentError)) {
               throw error;
@@ -470,6 +527,16 @@ export class CliRunner {
     }
     if (valid.length === 0) {
       throw firstError;
+    }
+    if (depth !== undefined && depthValid.length === 1) {
+      const observed = await this.observeDepthAtoi(context, opts);
+      if (observed.result.aborted)
+        throw this.mapError(observed.result, context, this.buildArgv(context, ['clone']));
+      if (observed.bits !== undefined) {
+        depthAtoiBits = observed.bits;
+        // Reject native-invalid depth while retaining all relational option checks.
+        checkOptions(name, options, { ...valid[0]!, depthAtoiBits });
+      }
     }
     if (valid.length === 8) {
       return;
@@ -537,7 +604,12 @@ export class CliRunner {
     }
     const selected = charValid.filter((e) => e.negativeMagnitudes === negativeMagnitudes);
     if (selected.length === 0) {
-      checkOptions(name, options, { longBits: 64, negativeMagnitudes, unsignedChar });
+      checkOptions(name, options, {
+        longBits: 64,
+        negativeMagnitudes,
+        unsignedChar,
+        depthAtoiBits,
+      });
       throw firstError;
     }
     let longBits = selected[0]!.longBits;
@@ -558,7 +630,7 @@ export class CliRunner {
       }
       longBits = bytes === '4' ? 32 : 64;
     }
-    checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar });
+    checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar, depthAtoiBits });
   }
 
   public runCommand(
@@ -672,35 +744,15 @@ export class CliRunner {
     };
     let depthAtoiBits: 32 | 64 | undefined;
     if (commandUsesDepthAtoi(command, args)) {
-      // The existing file forces clone to stop after depth validation and before transport.
-      const destination = await this.fs.createTempFile('type-git-depth-profile-');
-      try {
-        const probe = await this.run(
-          context,
-          ['clone', '--depth=2147483648', 'type-git-depth-profile:invalid', destination],
-          {
-            ...(opts?.env ? { env: opts.env } : {}),
-            ...(opts?.signal ? { signal: opts.signal } : {}),
-          },
-        );
-        if (probe.aborted) return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
-        if (
-          probe.exitCode === 128 &&
-          probe.stderr.trim() === 'fatal: depth 2147483648 is not a positive number'
-        ) {
-          depthAtoiBits = 64;
-        } else if (
-          probe.exitCode === 128 &&
-          probe.stderr.trim() ===
-            `fatal: destination path '${destination}' already exists and is not an empty directory.`
-        ) {
-          depthAtoiBits = 32;
-        } else {
-          return await execute(commandShapeArguments(command, args, inRepository));
-        }
-      } finally {
-        await this.fs.deleteFile(destination);
+      const observed = await this.observeDepthAtoi(context, opts);
+      if (observed.result.aborted) {
+        const probe = observed.result;
+        return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
       }
+      if (observed.bits === undefined) {
+        return await execute(commandShapeArguments(command, args, inRepository));
+      }
+      depthAtoiBits = observed.bits;
     }
     let firstPassEmpty: boolean | undefined;
     if (commandUsesFirstPassEmpty(command, args)) {

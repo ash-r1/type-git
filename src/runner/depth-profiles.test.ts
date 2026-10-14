@@ -80,6 +80,71 @@ describe('independent initial depth atoi profile', () => {
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
     expect(adapters.fs.deleteFile).toHaveBeenCalledTimes(1);
   });
+  it('validates convenience depth against the observed saturation profile', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
+    adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.exec.spawn = vi
+      .fn()
+      .mockResolvedValue(
+        result(
+          128,
+          "fatal: destination path '/fixture/depth-profile' already exists and is not an empty directory.\n",
+        ),
+      );
+    await expect(
+      new CliRunner(adapters).validateFilterOptions({ type: 'global' }, 'clone', {
+        depth: 2147483648,
+      }),
+    ).resolves.toBeUndefined();
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+  it('preserves native fallback for unknown output and cleans up the observation file', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
+    adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.exec.spawn = vi
+      .fn()
+      .mockResolvedValueOnce(result(128, 'erreur : profondeur invalide'))
+      .mockResolvedValueOnce(result(128, 'native original'));
+    const actual = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'fetch',
+      [['--all'], ['--depth', '2147483648']],
+      true,
+    );
+    expect(actual.stderr).toBe('native original');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    expect(adapters.fs.deleteFile).toHaveBeenCalledTimes(1);
+  });
+  it('stops after an aborted observation and retains byte output shape', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
+    adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.exec.spawn = vi.fn().mockResolvedValue({ ...result(143), aborted: true });
+    adapters.exec.spawnBytes = vi.fn();
+    const actual = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'fetch',
+      [['--depth', '2147483648']],
+      true,
+      { stdout: 'bytes' },
+    );
+    expect(actual.aborted).toBe(true);
+    expect(actual.stdout).toEqual(new Uint8Array(0));
+    expect(adapters.exec.spawnBytes).not.toHaveBeenCalled();
+    expect(adapters.fs.deleteFile).toHaveBeenCalledTimes(1);
+  });
+  it('rejects NUL before creating an observation file', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.createTempFile = vi.fn();
+    adapters.exec.spawn = vi.fn();
+    await expect(
+      new CliRunner(adapters).runCommand({ type: 'global' }, 'fetch', [['--depth', '1\0']], true),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    expect(adapters.fs.createTempFile).not.toHaveBeenCalled();
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
   it('skips observation when help preempts final depth validation', async () => {
     const adapters = createNodeAdapters();
     adapters.fs.createTempFile = vi.fn();
