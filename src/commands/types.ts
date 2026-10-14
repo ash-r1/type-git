@@ -61,30 +61,33 @@ type AsciiLower<S extends string, Result extends string = ''> = string extends S
     : S extends `${infer H}${infer R}`
       ? AsciiLower<R, `${Result}${H extends AsciiUpper ? Lowercase<H> : H}`>
       : `${Result}${S}`;
-type Value<S extends OptionSpec> = S extends {
+type PrimitiveValue<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean'
+  ? boolean
+  : S['value'] extends 'integer' | 'optional-integer'
+    ? number
+    : string;
+type Value<S extends OptionSpec, MayBeIgnored extends boolean> = S extends {
   parser: GitNumericParser | 'python-int' | 'perl-int' | 'perl-int-gnu';
 }
   ? number | string | bigint
-  : S extends { allowed: infer A extends readonly unknown[] }
-    ? S extends { caseInsensitive: true }
-      ? string | Exclude<A[number], string>
-      : A[number]
-    : S['value'] extends 'flag' | 'boolean'
-      ? boolean
-      : S['value'] extends 'integer' | 'optional-integer'
-        ? number
-        : string;
-type Token<K, S extends OptionSpec> = S['value'] extends 'flag'
+  : MayBeIgnored extends true
+    ? PrimitiveValue<S>
+    : S extends { allowed: infer A extends readonly unknown[] }
+      ? S extends { caseInsensitive: true }
+        ? string | Exclude<A[number], string>
+        : A[number]
+      : PrimitiveValue<S>;
+type Token<K, S extends OptionSpec, MayBeIgnored extends boolean> = S['value'] extends 'flag'
   ? readonly [flag: K]
   : S['value'] extends 'boolean' | 'optional-string' | 'optional-integer'
-    ? readonly [flag: K, value?: Value<S>]
-    : readonly [flag: K, value: Value<S>];
+    ? readonly [flag: K, value?: Value<S, MayBeIgnored>]
+    : readonly [flag: K, value: Value<S, MayBeIgnored>];
 /** Tuples identify options; objects identify positional operands. Their order is preserved. */
 type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
   ?
       | {
           [K in keyof Options<C>]: Options<C>[K] extends OptionSpec
-            ? Token<K, Options<C>[K]>
+            ? Token<K, Options<C>[K], Spec<C> extends { parserExit: unknown } ? true : false>
             : never;
         }[keyof Options<C>]
       | { readonly operand: string }
@@ -588,7 +591,17 @@ type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D 
             ? true
             : false
       : true
-    : true;
+    : D extends { allowed: infer A extends readonly unknown[] }
+      ? T extends readonly [unknown, infer V]
+        ? V extends undefined
+          ? true
+          : string extends V
+            ? true
+            : [V] extends [A[number]]
+              ? true
+              : false
+        : true
+      : true;
 type AllowedLiteral<D extends OptionSpec, T extends readonly unknown[]> = T extends readonly [
   unknown,
   infer V,
@@ -768,6 +781,15 @@ type ApplyToken<
           ? ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : ApplyNumeric<C, S, T, Remaining, First>;
+type ExitFlag<C extends GitCommandName, First extends boolean> = Spec<C> extends {
+  parserExit: { flags: readonly (infer Flag)[] };
+}
+  ? First extends true
+    ? Spec<C> extends { parserExit: { exceptFirst: readonly (infer Excluded)[] } }
+      ? Exclude<Flag, Excluded>
+      : Flag
+    : Flag
+  : never;
 type State<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -775,9 +797,15 @@ type State<
   First extends boolean = true,
 > = [S] extends [never]
   ? never
-  : A extends readonly [infer H, ...infer Rest]
-    ? State<C, Rest, ApplyToken<C, S, H, Rest, First>, false>
-    : S;
+  : S extends { parserExited: true }
+    ? S
+    : A extends readonly [infer H, ...infer Rest]
+      ? H extends readonly [ExitFlag<C, First>]
+        ? ParsingEnded<C, S> extends true
+          ? never
+          : Put<S, 'parserExited', true>
+        : State<C, Rest, ApplyToken<C, S, H, Rest, First>, false>
+      : S;
 type ProfiledConstraint<S, R extends Constraint> = R extends {
   kind: 'scalar';
   key: string;
@@ -826,7 +854,7 @@ type CheckedLegacyIntegerArguments<
   >,
 > = [S] extends [never]
   ? never
-  : S extends { help: true }
+  : S extends { help: true } | { parserExited: true }
     ? A
     : CheckRules<S, Spec<C>['rules']> extends true
       ? A
@@ -970,7 +998,7 @@ type CheckedLocalArguments<
       ? A
       : [State<C, A>] extends [never]
         ? CheckedNumericAlternatives<C, A>
-        : State<C, A> extends { help: true }
+        : State<C, A> extends { help: true } | { parserExited: true }
           ? A
           : CheckRules<State<C, A>, Spec<C>['rules']> extends true
             ? A
