@@ -1,3 +1,4 @@
+import { initialParserPass } from './initial-parser-pass.js';
 import {
   isBooleanCallback,
   type GitBooleanSource,
@@ -102,9 +103,41 @@ export function commandArguments(
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
     compoundNegatedOverflow?: boolean;
+    depthAtoiBits?: 32 | 64;
+    submoduleInitAlias?: boolean;
+    firstPassEmpty?: boolean;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
+): string[] {
+  return buildArguments(command, args, inRepository, abi, guiGrammar, guiLaunch);
+}
+
+/** Serialize shape or validate only the callbacks reached by one parser pass. */
+function buildArguments(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+  abi?: {
+    longBits: 32 | 64;
+    sizeTBits: 32 | 64;
+    binaryIntegers?: boolean;
+    integerProfile?: GitIntegerProfile;
+    negativeMagnitudes?: boolean;
+    decimalCallbacks?: GitDecimalCallbacks;
+    unsignedChar?: boolean;
+    conflictStyle?: 'immediate' | 'deferred';
+    booleanSource?: GitBooleanSource;
+    booleanBinaryIntegers?: boolean;
+    booleanCapabilities?: GitBooleanCapabilities;
+    compoundNegatedOverflow?: boolean;
+    depthAtoiBits?: 32 | 64;
+    submoduleInitAlias?: boolean;
+    firstPassEmpty?: boolean;
+  },
+  guiGrammar?: GuiGrammar,
+  guiLaunch?: GuiLaunch,
+  evaluationMode: 'full' | 'shape' | 'first-pass' = 'full',
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
@@ -126,7 +159,35 @@ export function commandArguments(
   }
   const dispatched = dispatchArguments(spec, args);
   if (dispatched) {
-    return commandArguments(dispatched.command, dispatched.args, inRepository, abi);
+    return buildArguments(
+      dispatched.command,
+      dispatched.args,
+      inRepository,
+      abi,
+      guiGrammar,
+      guiLaunch,
+      evaluationMode,
+    );
+  }
+  if (evaluationMode === 'full' && spec.parserExit?.firstPassOptions) {
+    const serialized = buildArguments(
+      command,
+      args,
+      inRepository,
+      abi,
+      guiGrammar,
+      guiLaunch,
+      'shape',
+    );
+    const pass = initialParserPass(
+      spec,
+      serialized.slice(spec.argv.length),
+      abi?.firstPassEmpty ?? true,
+    );
+    if (pass.exited) {
+      buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
+      return serialized;
+    }
   }
   const argv = [...spec.argv];
   const operands: string[] = [];
@@ -142,7 +203,7 @@ export function commandArguments(
   };
   let ended = false;
   let literalOperands = false;
-  let parserExited = false;
+  let parserExited = evaluationMode === 'shape';
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
@@ -212,6 +273,14 @@ export function commandArguments(
     if (!option) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
     }
+    if (
+      evaluationMode !== 'shape' &&
+      !parserExited &&
+      option.nativeCapability === 'submodule-init-alias' &&
+      abi?.submoduleInitAlias !== true
+    ) {
+      throw new GitArgumentError(`${command}: ${flag} is unavailable in the selected helper`);
+    }
     if (option.firstOnly && index !== 0) {
       throw new GitArgumentError(`${command}: ${flag} must be the first argument`);
     }
@@ -256,6 +325,7 @@ export function commandArguments(
             abi?.booleanBinaryIntegers,
             abi?.booleanCapabilities,
             abi?.compoundNegatedOverflow,
+            abi?.depthAtoiBits,
           )
         : undefined;
     if (integer && !integer.valid) {
@@ -390,6 +460,7 @@ export function commandArguments(
             abi?.booleanBinaryIntegers,
             abi?.booleanCapabilities,
             abi?.compoundNegatedOverflow,
+            abi?.depthAtoiBits,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -458,6 +529,9 @@ export function commandArguments(
         }
       }
     }
+    if (abi?.submoduleInitAlias && spec.argv.join(' ') === 'submodule update') {
+      state['short-init'] = false;
+    }
     const errors = violations(spec.rules, state, abi);
     if (errors.length > 0) {
       throw new GitArgumentError(
@@ -468,10 +542,46 @@ export function commandArguments(
   return argv;
 }
 
+/** Serialize only the representation guards; unknown native parser responses retain this original argv. */
+export function commandShapeArguments(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+): string[] {
+  return buildArguments(command, args, inRepository, undefined, undefined, undefined, 'shape');
+}
+
+/** Detect an actually reached modern --empty callback, including a split value that becomes an option. */
+export function commandUsesFirstPassEmpty(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesFirstPassEmpty(dispatched.command, dispatched.args);
+  }
+  if (!spec.parserExit?.firstPassOptions?.includes('--empty')) {
+    return false;
+  }
+  const words = commandShapeArguments(command, args, true).slice(spec.argv.length);
+  const modern = initialParserPass(spec, words, true);
+  const legacy = initialParserPass(spec, words, false);
+  return (modern.exited || legacy.exited) && modern.tokens.some((token) => token[0] === '--empty');
+}
+
 /** Stop trait discovery where an audited parser exits; later words are only serialized. */
 function interpretedArguments(spec: CommandSpec, args: readonly unknown[]): readonly unknown[] {
   if (!spec.parserExit) {
     return args;
+  }
+  if (spec.parserExit.firstPassOptions) {
+    const command = spec.argv.join(' ') as GitCommandName;
+    const words = commandShapeArguments(command, args, true);
+    const pass = initialParserPass(spec, words.slice(spec.argv.length));
+    if (pass.exited) {
+      return pass.tokens;
+    }
   }
   for (const [index, token] of args.entries()) {
     if (token && typeof token === 'object' && !Array.isArray(token) && 'operand' in token) {
@@ -496,6 +606,70 @@ function interpretedArguments(spec: CommandSpec, args: readonly unknown[]): read
     }
   }
   return args;
+}
+
+/** Detect the alias actually forwarded before a boundary or helper help exit. */
+export function commandUsesSubmoduleInitAlias(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesSubmoduleInitAlias(dispatched.command, dispatched.args);
+  }
+  if (command !== 'submodule update' && command !== 'submodule--helper update') {
+    return false;
+  }
+  let short = false;
+  for (const token of args) {
+    if (!Array.isArray(token) || token[0] === '--') {
+      break;
+    }
+    if (token[0] === '-h' || token[0] === '--help') {
+      return command === 'submodule update' ? false : short;
+    }
+    if (token[0] === '-i') {
+      short = true;
+    }
+    if (command === 'submodule update' && token[0] === '--init') {
+      short = false;
+    }
+  }
+  return short;
+}
+
+/** Detect a final depth conversion without a help exit or a subsequent reset. */
+export function commandUsesDepthAtoi(command: GitCommandName, args: readonly unknown[]): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesDepthAtoi(dispatched.command, dispatched.args);
+  }
+  if (!spec.rules.some((rule) => rule.kind === 'scalar' && rule.parser === 'depth-initial')) {
+    return false;
+  }
+  let depth = false;
+  for (const [index, token] of args.entries()) {
+    if (!Array.isArray(token)) {
+      continue;
+    }
+    if (token.length === 1 && token[0] === '--') {
+      break;
+    }
+    if (
+      token.length === 1 &&
+      spec.parserExit?.flags.includes(token[0]) &&
+      !(index === 0 && spec.parserExit.exceptFirst?.includes(token[0]))
+    ) {
+      return false;
+    }
+    const option = spec.options[token[0]];
+    if (option?.key === 'depth') {
+      depth = token[0] !== '--no-depth';
+    }
+  }
+  return depth;
 }
 
 /** Whether emitted options need the selected executable's native integer widths. */

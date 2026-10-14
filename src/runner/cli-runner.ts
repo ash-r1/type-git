@@ -9,7 +9,9 @@ import {
   type GitDecimalCallbacks,
 } from '../constraints/git-decimal.js';
 import { validateOptions as checkOptions } from '../core/option-rules.js';
+import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
+import { validInitialDepth } from '../constraints/git-scalars.js';
 /**
  * CLI Runner - Core execution engine for Git commands
  *
@@ -22,6 +24,10 @@ import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import process from 'node:process';
 import {
   commandArguments,
+  commandShapeArguments,
+  commandUsesFirstPassEmpty,
+  commandUsesSubmoduleInitAlias,
+  commandUsesDepthAtoi,
   validateArgvStrings,
   commandDecimalCallbacks,
   commandUsesConflictStyle,
@@ -439,22 +445,82 @@ export class CliRunner {
     await this.validateNativeOptions(context, name, options, opts);
   }
 
+  /** Observe atoi using an existing file so clone stops before transport or destination creation. */
+  private async observeDepthAtoi(context: ExecutionContext, opts?: RunOptions) {
+    if (!this.fs.writeFile) {
+      return { bits: undefined, result: undefined };
+    }
+    const destination = await this.fs.createTempFile('type-git-depth-profile-');
+    try {
+      await this.fs.writeFile(destination, '');
+      const result = await this.run(
+        context,
+        ['clone', '--depth=2147483648', 'type-git-depth-profile:invalid', destination],
+        {
+          ...(opts?.env ? { env: opts.env } : {}),
+          ...(opts?.signal ? { signal: opts.signal } : {}),
+        },
+      );
+      let bits: 32 | 64 | undefined;
+      if (!result.aborted && result.exitCode === 128) {
+        if (result.stderr.trim() === 'fatal: depth 2147483648 is not a positive number') {
+          bits = 64;
+        } else if (
+          result.stderr.trim() ===
+          `fatal: destination path '${destination}' already exists and is not an empty directory.`
+        ) {
+          bits = 32;
+        }
+      }
+      return { bits, result };
+    } finally {
+      await this.fs.deleteFile(destination);
+    }
+  }
+
+  /** Resolve depth and other native constraints for a convenience fetch call. */
+  public async validateFetchOptions(
+    context: ExecutionContext,
+    options: object | undefined,
+    opts?: RunOptions,
+  ): Promise<void> {
+    await this.validateNativeOptions(context, 'fetch', options, opts);
+  }
+
   /** Check universally invalid input first, then only the native dimensions that affect validity. */
   private async validateNativeOptions(
     context: ExecutionContext,
-    name: 'clone' | 'submoduleUpdate' | 'cherryPick' | 'revert',
+    name: 'clone' | 'submoduleUpdate' | 'cherryPick' | 'revert' | 'fetch',
     options: object | undefined,
     opts?: RunOptions,
   ): Promise<void> {
     validateIO(opts);
-    const valid: { longBits: 32 | 64; negativeMagnitudes: boolean; unsignedChar: boolean }[] = [];
+    const depth =
+      name === 'clone' || name === 'fetch'
+        ? (options as { depth?: unknown } | undefined)?.depth
+        : undefined;
+    const depthValid = ([32, 64] as const).filter(
+      (bits) => depth === undefined || validInitialDepth(depth, bits),
+    );
+    let depthAtoiBits: 32 | 64 = depthValid[0] ?? 64;
+    const valid: {
+      longBits: 32 | 64;
+      negativeMagnitudes: boolean;
+      unsignedChar: boolean;
+      depthAtoiBits: 32 | 64;
+    }[] = [];
     let firstError: GitArgumentError | undefined;
     for (const longBits of [32, 64] as const) {
       for (const negativeMagnitudes of [false, true]) {
         for (const unsignedChar of [false, true]) {
           try {
-            checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar });
-            valid.push({ longBits, negativeMagnitudes, unsignedChar });
+            checkOptions(name, options, {
+              longBits,
+              negativeMagnitudes,
+              unsignedChar,
+              depthAtoiBits,
+            });
+            valid.push({ longBits, negativeMagnitudes, unsignedChar, depthAtoiBits });
           } catch (error) {
             if (!(error instanceof GitArgumentError)) {
               throw error;
@@ -466,6 +532,17 @@ export class CliRunner {
     }
     if (valid.length === 0) {
       throw firstError;
+    }
+    if (depth !== undefined && depthValid.length === 1) {
+      const observed = await this.observeDepthAtoi(context, opts);
+      if (observed.result?.aborted) {
+        throw this.mapError(observed.result, context, this.buildArgv(context, ['clone']));
+      }
+      if (observed.bits !== undefined) {
+        depthAtoiBits = observed.bits;
+        // Reject native-invalid depth while retaining all relational option checks.
+        checkOptions(name, options, { ...valid[0]!, depthAtoiBits });
+      }
     }
     if (valid.length === 8) {
       return;
@@ -533,7 +610,12 @@ export class CliRunner {
     }
     const selected = charValid.filter((e) => e.negativeMagnitudes === negativeMagnitudes);
     if (selected.length === 0) {
-      checkOptions(name, options, { longBits: 64, negativeMagnitudes, unsignedChar });
+      checkOptions(name, options, {
+        longBits: 64,
+        negativeMagnitudes,
+        unsignedChar,
+        depthAtoiBits,
+      });
       throw firstError;
     }
     let longBits = selected[0]!.longBits;
@@ -554,7 +636,7 @@ export class CliRunner {
       }
       longBits = bytes === '4' ? 32 : 64;
     }
-    checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar });
+    checkOptions(name, options, { longBits, negativeMagnitudes, unsignedChar, depthAtoiBits });
   }
 
   public runCommand(
@@ -663,8 +745,80 @@ export class CliRunner {
       booleanBinaryIntegers?: boolean;
       booleanCapabilities?: GitBooleanCapabilities;
       compoundNegatedOverflow?: boolean;
+      firstPassEmpty?: boolean;
+      depthAtoiBits?: 32 | 64;
+      submoduleInitAlias?: boolean;
     };
-    let abi: NativeAbi | undefined;
+    let submoduleInitAlias: boolean | undefined;
+    if (commandUsesSubmoduleInitAlias(command, args)) {
+      const probe = await this.run(context, ['submodule--helper', 'update', '-i', '-h'], {
+        ...(opts?.env ? { env: opts.env } : {}),
+        ...(opts?.signal ? { signal: opts.signal } : {}),
+      });
+      if (probe.aborted) {
+        return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      }
+      if (
+        [0, 129].includes(probe.exitCode) &&
+        (probe.stdout + probe.stderr).startsWith('usage:') &&
+        !/^(?:error|fatal):/m.test(probe.stderr)
+      ) {
+        submoduleInitAlias = true;
+      } else if (probe.exitCode === 129 && /^error: unknown switch `i'\r?$/m.test(probe.stderr)) {
+        submoduleInitAlias = false;
+      } else {
+        return await execute(commandShapeArguments(command, args, inRepository));
+      }
+    }
+    let depthAtoiBits: 32 | 64 | undefined;
+    if (commandUsesDepthAtoi(command, args)) {
+      const observed = await this.observeDepthAtoi(context, opts);
+      if (observed.result?.aborted) {
+        const probe = observed.result;
+        return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      }
+      if (observed.bits === undefined) {
+        return await execute(commandShapeArguments(command, args, inRepository));
+      }
+      depthAtoiBits = observed.bits;
+    }
+    let firstPassEmpty: boolean | undefined;
+    if (commandUsesFirstPassEmpty(command, args)) {
+      const probeOptions = {
+        ...(opts?.env ? { env: opts.env } : {}),
+        ...(opts?.signal ? { signal: opts.signal } : {}),
+      };
+      const probe = await this.run(
+        context,
+        ['cherry-pick', '--empty=type-git-invalid', '-h'],
+        probeOptions,
+      );
+      if (probe.aborted) {
+        return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      }
+      if ([0, 129].includes(probe.exitCode) && (probe.stderr + probe.stdout).startsWith('usage:')) {
+        firstPassEmpty = false;
+      } else if (
+        [128, 129].includes(probe.exitCode) &&
+        /^error: invalid value for '--empty': 'type-git-invalid'\r?$/m.test(probe.stderr)
+      ) {
+        firstPassEmpty = true;
+      } else {
+        return await execute(commandShapeArguments(command, args, inRepository));
+      }
+    }
+    let abi: NativeAbi | undefined =
+      firstPassEmpty === undefined &&
+      depthAtoiBits === undefined &&
+      submoduleInitAlias === undefined
+        ? undefined
+        : {
+            longBits: nativeCLongBits(process.platform, process.arch),
+            sizeTBits: nativeSizeTBits(process.arch),
+            firstPassEmpty,
+            depthAtoiBits,
+            submoduleInitAlias,
+          };
     if (commandUsesNativeABI(command, args)) {
       const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(command, args)
         ? ['bounded', 'decimal-cast']
@@ -720,6 +874,9 @@ export class CliRunner {
                               booleanBinaryIntegers,
                               booleanCapabilities,
                               compoundNegatedOverflow,
+                              firstPassEmpty,
+                              depthAtoiBits,
+                              submoduleInitAlias,
                             };
                             try {
                               valid.push({

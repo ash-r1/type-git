@@ -89,7 +89,6 @@ export type GitScalarParser =
   | 'object-filter'
   | 'object-filter-auto'
   | 'fast-import-sign'
-  | 'fast-export-reencode'
   | 'anonymize-map'
   | 'shortlog-group'
   | 'shortlog-wrap'
@@ -105,6 +104,19 @@ export type GitScalarParser =
   | 'push-recurse'
   | 'push-signed'
   | 'config-type';
+/** Decimal-prefix atoi saturation precedes signed-int storage and the final positivity check. */
+export function validInitialDepth(value: unknown, conversionBits: 32 | 64 = 64): boolean {
+  const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
+  if (!match) {
+    return false;
+  }
+  const parsed = BigInt(match[1]!);
+  const minimum = -(1n << BigInt(conversionBits - 1));
+  const maximum = (1n << BigInt(conversionBits - 1)) - 1n;
+  const clamped = parsed < minimum ? minimum : parsed > maximum ? maximum : parsed;
+  return BigInt.asIntN(32, clamped) > 0n;
+}
+
 /** Validate a schema-selected scalar using native widths; leave foreign integer text uncoerced. */
 export function parseGitScalar(
   parser: GitScalarParser,
@@ -121,6 +133,7 @@ export function parseGitScalar(
   booleanBinaryIntegers = true,
   booleanCapabilities?: GitBooleanCapabilities,
   compoundNegatedOverflow = false,
+  depthAtoiBits: 32 | 64 = 64,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'decimal') {
     return parseGitDecimal(
@@ -179,20 +192,7 @@ export function parseGitScalar(
     return { valid: parsed !== undefined, value: parsed };
   }
   if (parser === 'depth-initial') {
-    // Git clone/fetch call atoi before transport-specific validation. The pinned
-    // 64-bit libc clamps strtol overflow, then atoi converts to a signed int.
-    const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
-    if (!match) {
-      return { valid: false };
-    }
-    const parsed = BigInt(match[1]!);
-    const clamped =
-      parsed < -9223372036854775808n
-        ? -9223372036854775808n
-        : parsed > 9223372036854775807n
-          ? 9223372036854775807n
-          : parsed;
-    return { valid: BigInt.asIntN(32, clamped) > 0n, value };
+    return { valid: validInitialDepth(value, depthAtoiBits), value };
   }
   if (parser === 'object-filter' || parser === 'object-filter-auto') {
     return {
@@ -233,9 +233,6 @@ export function parseGitScalar(
     const text = String(value);
     const colon = text.indexOf(':');
     return { valid: text.length > 0 && colon !== 0 && colon !== text.length - 1, value };
-  }
-  if (parser === 'fast-export-reencode' && asciiLower(String(value)) === 'abort') {
-    return { valid: true, value: 'abort' };
   }
   if (parser === 'shortlog-group') {
     return {

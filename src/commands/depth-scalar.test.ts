@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -14,6 +14,7 @@ describe('final scalar constraints', () => {
   let root: string;
   let env: NodeJS.ProcessEnv;
   let transportLongBits: 32 | 64;
+  let depthAtoiBits: 32 | 64;
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-depth-'));
     env = {
@@ -36,6 +37,22 @@ describe('final scalar constraints', () => {
     const longBytes = /^sizeof-long: ([48])\r?$/m.exec(widths.stdout)?.[1];
     expect(longBytes).toBeDefined();
     transportLongBits = longBytes === '4' ? 32 : 64;
+    const blocker = join(root, 'depth-profile-blocker');
+    await writeFile(blocker, 'block transport');
+    const depthProbe = spawnSync(
+      'git',
+      ['clone', '--depth=2147483648', 'type-git-depth-profile:invalid', blocker],
+      { env, encoding: 'utf8', timeout: 5000 },
+    );
+    expect(depthProbe.error).toBeUndefined();
+    expect(depthProbe.status).toBe(128);
+    if (depthProbe.stderr.includes('depth 2147483648 is not a positive number')) {
+      depthAtoiBits = 64;
+    } else {
+      expect(depthProbe.stderr).toContain('already exists and is not an empty directory');
+      depthAtoiBits = 32;
+    }
+
     for (let index = 0; index < 3; index++) {
       const commit = spawnSync(
         'git',
@@ -89,7 +106,12 @@ describe('final scalar constraints', () => {
         timeout: 5000,
       });
       expect(native.error).toBeUndefined();
-      const build = () => commandArguments('fetch', [['--all'], ['--depth', value]], true);
+      const build = () =>
+        commandArguments('fetch', [['--all'], ['--depth', value]], true, {
+          longBits: transportLongBits,
+          sizeTBits: 64,
+          depthAtoiBits,
+        });
       if (native.status === 0) {
         expect(build, value).not.toThrow();
       } else {
@@ -149,6 +171,14 @@ describe('final scalar constraints', () => {
     );
     expect(native.error).toBeUndefined();
     expect(native.signal).toBeNull();
+    if (native.status !== 0) {
+      expect(native.status).toBe(128);
+      expect(native.stderr).toContain(`depth ${depth} is not a positive number`);
+      await expect(git.clone(source, destination, { depth })).rejects.toBeInstanceOf(
+        GitArgumentError,
+      );
+      return;
+    }
     expect(native.status, native.stderr).toBe(0);
     expect(native.stderr).not.toContain('--depth is ignored');
     await git.clone(source, destination, { depth });
@@ -178,10 +208,10 @@ describe('final scalar constraints', () => {
       }
     }
   });
-  it('rejects an invalid converted depth before cloning', async () => {
+  it('rejects a universally invalid converted depth before cloning', async () => {
     const git = new TypeGit({ home: root, inheritEnv: false, env });
-    await expect(
-      git.clone(root, join(root, 'bad-depth'), { depth: 2147483648 }),
-    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(git.clone(root, join(root, 'bad-depth'), { depth: -1 })).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
   });
 });

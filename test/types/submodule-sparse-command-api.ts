@@ -33,8 +33,27 @@ git.command('sparse-checkout clean', []);
 git.command('sparse-checkout', []);
 // @ts-expect-error Leading cached is limited to status and summary.
 git.command('submodule', [['--cached'], { operand: 'update' }]);
-// @ts-expect-error The shell forwards -i, which the native helper rejects.
+// The selected helper may accept the short alias.
 git.command('submodule update', [['-i']]);
 git.command('submodule update', [['-i'], ['--init']]);
-// @ts-expect-error A later short spelling replaces the valid long spelling.
+// The newer helper accepts either spelling; the older profile is asserted below.
 git.command('submodule update', [['--init'], ['-i']]);
+
+import type { CheckedCommandArguments } from '../../src/commands/types.js';
+type Check<T extends true> = T;
+type Accepted<A extends readonly import('../../src/commands/types.js').GitCommandArgument<'submodule update'>[], P extends import('../../src/commands/gui-syntax.js').CommandGrammarContext> = [CheckedCommandArguments<'submodule update', A, P>] extends [never] ? false : true;
+export type SubmoduleInitSourceCases = readonly [
+  Check<Accepted<[['-i']], {submoduleInitAlias: true}>>,
+  Check<Accepted<[['-i']], {submoduleInitAlias: false}> extends false ? true : false>,
+  Check<Accepted<[['-i'], ['--init']], {submoduleInitAlias: false}>>,
+  Check<Accepted<[['--init'], ['-i']], {submoduleInitAlias: false}> extends false ? true : false>,
+  Check<Accepted<[['--init'], ['-i']], {submoduleInitAlias: true}>>,
+  Check<[CheckedCommandArguments<'submodule--helper update', [['-i'], ['--no-init'], ['--filter', 'blob:none']], {submoduleInitAlias: true}>] extends [never] ? true : false>,
+  Check<[CheckedCommandArguments<'submodule--helper update', [['-i'], ['--init']], {submoduleInitAlias: false}>] extends [never] ? true : false>,
+  Check<[CheckedCommandArguments<'submodule--helper update', [['-h'], ['-i']], {submoduleInitAlias: false}>] extends [never] ? false : true>,
+];
+
+export type SubmoduleAliasUnionControls = readonly [
+  Check<[CheckedCommandArguments<'submodule update' | 'submodule--helper update', [['-i'], ['--init']], {submoduleInitAlias: false}>] extends [never] ? true : false>,
+  Check<[CheckedCommandArguments<'submodule--helper update', [readonly ['-i'] | readonly ['-h']], {submoduleInitAlias: false}>] extends [never] ? true : false>,
+];

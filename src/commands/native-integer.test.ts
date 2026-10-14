@@ -48,7 +48,9 @@ describe('compiler-recorded native integer parsers', () => {
     });
     expect(binary.error).toBeUndefined();
     expect(binary.signal).toBeNull();
-    binaryIntegers = binary.status === 129 && (binary.stdout + binary.stderr).includes('usage:');
+    binaryIntegers =
+      (binary.status === 0 || binary.status === 129) &&
+      (binary.stdout + binary.stderr).includes('usage:');
     if (!legacy && !binaryIntegers) {
       expect(binary.status).toBe(128);
       expect(binary.stderr).toContain('invalid filter-spec');
@@ -127,7 +129,7 @@ describe('compiler-recorded native integer parsers', () => {
             { env, encoding: 'utf8', timeout: 5000 },
           );
           expect(native.error, `${profile.command} ${value}`).toBeUndefined();
-          expect(native.status, native.stderr).toBe(129);
+          expect([0, 129], native.stderr).toContain(native.status);
           const accepted = !integerError.test(native.stderr);
           if (accepted) {
             expect(native.stdout + native.stderr).toContain('usage:');
@@ -153,7 +155,7 @@ describe('compiler-recorded native integer parsers', () => {
     30000,
   );
 
-  it('validates each numeric schema before a later overwrite or help', () => {
+  it('validates each numeric schema before a later overwrite when parsing completes', () => {
     let count = 0;
     for (const [command, spec] of Object.entries(COMMAND_SPECS) as [
       GitCommandName,
@@ -170,7 +172,15 @@ describe('compiler-recorded native integer parsers', () => {
         count++;
         for (const value of ['', 'invalid', '18446744073709551616', Number.MAX_SAFE_INTEGER + 1]) {
           expect(
-            () => commandArguments(command, [[flag, value], [flag, 1], ['-h']], true),
+            () =>
+              commandArguments(
+                command,
+                [
+                  [flag, value],
+                  [flag, 1],
+                ],
+                true,
+              ),
             `${command} ${flag}`,
           ).toThrow('invalid integer');
         }

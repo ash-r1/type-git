@@ -636,8 +636,7 @@ that profile. `commands:upstream-check ... --c-tables` reproduces both snapshots
 
 The recorded definitions contain 54 signed 32-bit, five unsigned 32-bit, and eight
 unsigned 64-bit values. Generated option schemas carry the shared structured
-parser `{ kind: 'integer', signed, bits }`, with source-declared `nativeWidth` on seven unsigned-long bindings and the backfill size_t binding. Runtime uses the selected Git build's reported widths when validity depends on them; the saved aarch64 snapshot remains the source profile, not a claim about every executable. Git 2.55 rejects overflow immediately,
-even before a subsequent overwrite or parse-options `-h` token. Negation assigns zero where
+parser `{ kind: 'integer', signed, bits }`, with source-declared `nativeWidth` on seven unsigned-long bindings and the backfill size_t binding. Runtime uses the selected Git build's reported widths when validity depends on them; the saved aarch64 snapshot remains the source profile, not a claim about every executable. When its handler is reached, Git 2.55 rejects overflow before a subsequent overwrite. Help in an earlier parser pass can skip that handler; a later `-h` in the same pass cannot undo a handler error. Negation assigns zero where
 supported; optional values use the evaluated defaults (for example, merge log
 length 20 and show-branch `--more` 1). This parser is distinct from clone/fetch's
 initial `atoi` depth check and from bespoke callbacks.
@@ -656,7 +655,7 @@ and very long literal strings is deferred to runtime.
 their normalized results, and every generated scope using these parsers. This is
 a finite verification report, not exhaustive discovery of Git semantics. The
 native tests compare three storage profiles against independently invoked Git
-and exercise immediate validation across the generated numeric options.
+and exercise validation before overwrites across the generated numeric options when parsing completes.
 Command-specific semantic restrictions, callback-defined numeric languages,
 configuration-derived defaults, platform differences, and preemptive help paths
 remain separate audit work. All command audit entries remain partial.
@@ -804,9 +803,8 @@ even for words ignored by Git.
 `node scripts/parser-exit-corpus.mjs --check` replays a deterministic independent
 Git 2.55.0 corpus, classifies native diagnostics, and reproduces the runtime and
 compiler fixtures. This finite corpus is not an exhaustive command proof.
-The annotation is deliberately per scope: `grep -h` is an ordinary option, `log`
-has an earlier parsing pass than its diff options, and `diff-files` processes
-those options before handling help. Their exit phases, completion helpers,
+The annotation is deliberately per scope: `grep -h` is an ordinary option and
+`diff-files` processes those options before handling help. Other exit phases, completion helpers,
 abbreviations, repository/configuration failures and other parse exits remain
 separate audit obligations. All command audit entries remain partial.
 
@@ -834,7 +832,7 @@ option interpretation.
 ## Boolean callback profiles
 
 `spec/git-boolean-callbacks.json` records Git's textual boolean names, signed
-32-bit integer parser and five callback profiles. Generated constants are shared
+32-bit integer parser and seven callback profiles. Generated constants are shared
 by runtime validation and compiler literal checks. Callback profiles distinguish
 fetch recursion (`on-demand`), push recursion (`on-demand`, `check`, `only`, but
 no true value), signed push (ASCII case-insensitive `if-asked`), pull rebase
@@ -923,3 +921,113 @@ also uses the shared color callback grammar.
 numeric outcomes and seven ordered help/color cases across finite tuple
 combinations, numeric boundaries, whitespace and comma tails. This does not prove every platform, repository condition
 or unbounded input language complete. All command audit entries remain partial.
+
+## Initial parser exits before deferred options
+
+Six additional scopes (`log`, `show`, `whatchanged`, `fast-export`, `cherry-pick`
+and `revert`) use an initial `parse_options` pass with `KEEP_UNKNOWN_OPT` before
+revision/diff parsing. `parserExit.firstPassTables` in the source scopes names
+that pass's pinned upstream tables. Generation resolves aliases and negations
+into `firstPassOptions`, with original long names for Git's single-dash typo
+check. These declarations appear in the deterministic exploration report.
+
+Runtime and compiler interpreters walk serialized argv words. Recognized options
+consume their values, including words originating in another API tuple. Unknown
+words are deferred; long abbreviations are disabled by `KEEP_UNKNOWN_OPT`.
+Short clusters follow the native lookup and typo-check order. `--` and
+`--end-of-options` stop this pass. If help exits the pass, only the callbacks and
+mode transitions reached before that exit are validated; later phases and final
+combination rules do not execute. Output argv retains its original order.
+
+For example, `log --color=invalid -h` reaches help, but
+`log --decorate=invalid -h` fails its initial callback. `log -n -h` also reaches
+help: the initial pass does not know `-n`, so the next word is an independent
+help flag. Conversely, `log -n --decorate=invalid -h` reaches the invalid
+decoration callback. A recognized `-L` consumes the next word, even `-h`.
+
+For both the decimal `--unified` callback and native integer
+`--inter-hunk-context` handler, help in the initial pass skips both occurrences.
+For example, `log --unified=invalid --unified=1 -h` exits before conversion; the
+same sequence with `--inter-hunk-context` behaves identically. Removing `-h`
+reaches and rejects the first invalid value before its overwrite. Dedicated tests execute both sequences
+against Git and retain all-scope conversion checks without a help exit.
+
+The decoration and fast-export reencoding callbacks use the shared boolean
+registry. Decoration additionally accepts case-sensitive `short`, `full` and
+`auto`; reencoding accepts ASCII case-insensitive `abort`. Decoration's `auto`
+value remains symbolic because its resolved style depends on the environment.
+The six scopes also use the shared color grammar for callbacks reached in the
+later diff pass. Boolean numeric parsing retains the independently observed
+source family: Git 2.25.1 accepts bare unit values in decoration/reencoding,
+while the recorded newer parsers reject them; INT_MIN differs separately.
+
+Cherry-pick's initial `--empty` behavior is observed separately using readonly
+`cherry-pick --empty=type-git-invalid -h`. An older initial option set preserves
+that word until help, while the newer callback validates its value before help.
+This does not infer option availability from the boolean integer grammar or a
+version string. Unrecognized/localized responses retain native execution;
+aborted observations stop, preserving context, environment, signal, and binary
+result shape without consuming command stdin. Trait discovery uses reached
+initial-pass tokens, so a split value that becomes help suppresses later probes.
+Compiler alternatives replay a whole initial option set and scalar profile.
+An explicit `firstPassEmpty: true` context pins the modern initial option set;
+the independent 2.55.0 corpus explicitly pins that and the modern boolean family.
+Original argument tokens remain available to every existing constraint check.
+
+`node scripts/phased-parser-exit-corpus.mjs --check` reproduces 669 independent
+native outcomes and their compiler fixtures. It enumerates permutations of
+initial/deferred callbacks, help and operands, then exercises value bounds,
+split values, short clusters and separators. Separate interpreter assertions
+cover consumed help and both stop markers without claiming to validate the
+remaining revision stream. Literal parser walks stop after 128 steps; dynamic
+words and budget-exceeding cases defer to runtime. Known invalid union branches
+are retained as errors. Structured value-shape and OS NUL checks always apply.
+
+This models exits from the initial pass. When it does not exit, the existing
+command validator remains responsible for later checks; re-parsing the residual
+argv after cross-tuple consumption remains an explicit audit obligation.
+Completion helpers, other callbacks, global help dispatch and repository state
+are also unfinished. All 430 audit scopes remain partial.
+
+### Independently observed depth conversion and submodule helper aliases
+
+The final clone/fetch depth check still uses `atoi` in the audited Git sources.
+The recorded conversion profiles saturate at 32 or 64 bits before signed-int
+storage. This dimension is independent of the selected executable's C long
+width and its other numeric callbacks. The CLI and convenience methods share
+an observation that invokes `clone --depth=2147483648` with a synthetic remote
+and an existing temporary file as destination. Depth rejection or the existing
+file check stops execution before transport and destination creation. The file
+is removed even when observation aborts. Original context, environment and
+signal are retained; command stdin is not consumed. Unrecognized diagnostics
+retain native handling rather than inventing an observed profile.
+
+`DepthInitialLiteral<V, Bits>` models these conversion stages using the shared
+decimal type interpreter. Its default accepts an input only when one complete
+recorded profile accepts every known union member. For example, `-1` and a
+negative overflow below INT64_MIN are invalid in both profiles, while
+`2147483648` and `-4294967295` distinguish the profiles. Symbolic numeric prefixes
+and compiler-budget cases still defer to runtime, and a known invalid union
+member or literal NUL cannot be erased by deferral. A pinned 64-bit contract
+records 25 independent Git 2.55.0 final-depth outcomes. Other CRT behavior and
+transport-specific conversion remain separate audit obligations.
+
+The [Git 2.56.0 helper option table](https://github.com/git/git/blob/v2.56.0/builtin/submodule--helper.c)
+registers short `-i` for update initialization; the pinned 2.55.0 table does not.
+The shell frontend forwards its final init spelling, so the helper capability
+changes whether `submodule update -i` is valid. Readonly
+`submodule--helper update -i -h` observation selects that capability without
+performing an update. An older Git that has no update helper, or an unknown
+response, retains the original native execution. The serialized words are
+preserved. Explicit `submoduleInitAlias` type contexts pin either capability;
+unpinned contexts retain the applicable complete-command alternatives. Type
+normalization to `--init` is used only for semantic checking of the accepting
+profile and does not rewrite executed argv. Reset/filter prerequisites,
+repository guards and other scalar checks remain in that command check.
+
+The filesystem adapter may allocate a temporary path without creating its file.
+The depth observation explicitly writes the blocking file before invoking Git;
+an adapter without file-writing support skips that observation and keeps native
+handling. A regression checks real file existence at the spawn boundary and
+cleanup afterward. Merely allocating a pathname does not establish a safe
+transport-stopping probe.

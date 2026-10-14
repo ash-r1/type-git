@@ -3,6 +3,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { nativeCLongBits, nativeSizeTBits } from '../constraints/c-abi.js';
 import { TypeGit } from '../adapters/node/index.js';
 import type { WorktreeRepo } from '../core/repo.js';
 import { GitArgumentError } from '../core/types.js';
@@ -23,6 +24,7 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
   let root: string;
   let repo: WorktreeRepo;
   let env: NodeJS.ProcessEnv;
+  let submoduleInitAlias: boolean;
   const direct = (args: string[], input = '') =>
     spawnSync('git', ['-C', repo.workdir, ...args], {
       env,
@@ -55,6 +57,13 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
     await writeFile(join(repo.workdir, 'tracked'), 'changed\n');
     await repo.add('.');
     await repo.commit({ message: 'second' });
+    const alias = direct(['submodule--helper', 'update', '-i', '-h']);
+    expect(alias.error).toBeUndefined();
+    submoduleInitAlias =
+      [0, 129].includes(alias.status!) && (alias.stdout + alias.stderr).startsWith('usage:');
+    if (!submoduleInitAlias && !legacy) {
+      expect(alias.stderr).toContain("unknown switch `i'");
+    }
   });
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
@@ -71,7 +80,12 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
     expect(actual.signal, label).toBe(null);
     expect(actual.error, label).toBeUndefined();
     expect(actual.status === 0, label).toBe(valid);
-    const build = () => commandArguments(command, args, true);
+    const build = () =>
+      commandArguments(command, args, true, {
+        longBits: nativeCLongBits(process.platform, process.arch),
+        sizeTBits: nativeSizeTBits(process.arch),
+        submoduleInitAlias,
+      });
     if (valid) {
       expect(build()).toEqual([...command.split(' '), ...argv]);
     } else {
@@ -205,9 +219,9 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
         ['--init', '--quiet', '--verbose'],
         true,
       );
-      compare('submodule update', [['-i']], ['-i'], false);
+      compare('submodule update', [['-i']], ['-i'], submoduleInitAlias);
       compare('submodule update', [['-i'], ['--init']], ['-i', '--init'], true);
-      compare('submodule update', [['--init'], ['-i']], ['--init', '-i'], false);
+      compare('submodule update', [['--init'], ['-i']], ['--init', '-i'], submoduleInitAlias);
       compare('submodule foreach', [['--'], { operand: 'true' }], ['--', 'true'], false);
       compare('submodule--helper foreach', [['--'], { operand: 'true' }], ['--', 'true'], true);
     },

@@ -22,7 +22,12 @@ const packHelpResult = spawnSync('git', ['pack-objects', '-h'], {
   encoding: 'utf8',
   env: { ...process.env, LC_ALL: 'C' },
 });
-if (packHelpResult.error || packHelpResult.signal || packHelpResult.status !== 129) {
+if (
+  packHelpResult.error ||
+  packHelpResult.signal ||
+  !(packHelpResult.status === 0 || packHelpResult.status === 129) ||
+  !(packHelpResult.stdout + packHelpResult.stderr).includes('usage:')
+) {
   throw new Error('Cannot inspect selected pack-objects options');
 }
 const packHelp = (packHelpResult.stdout + packHelpResult.stderr).replaceAll('--[no-]', '--');

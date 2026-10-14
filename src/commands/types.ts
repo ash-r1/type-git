@@ -25,6 +25,7 @@ import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js'
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
+import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { OptionSpec } from './spec.js';
 import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 
@@ -841,6 +842,39 @@ type State<
           : Put<S, 'parserExited', true>
         : State<C, Rest, ApplyToken<C, S, H, Rest, First>, false>
       : S;
+/** A bad reached callback stays invalid even when another input-union arm exits. */
+type InvalidPass = { invalidParserPass: true };
+type ParsedPassState<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Pass,
+  InitialState,
+> = Pass extends { exited: true; tokens: infer T extends readonly unknown[] }
+  ? [State<C, T, InitialState>] extends [never]
+    ? InvalidPass
+    : State<C, T, InitialState>
+  : Pass extends { exited: 'invalid' }
+    ? InvalidPass
+    : Pass extends { exited: 'dynamic' }
+      ? { parserExited: true }
+      : State<C, A, InitialState>;
+/** Initial-pass projection preserves every independently selected scalar and ABI trait. */
+type CommandState<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  InitialState = Put<Initial<C>, 'argumentTokens', A>,
+> = Spec<C> extends { parserExit: { firstPassOptions: readonly string[] } }
+  ? ParsedPassState<
+      C,
+      A,
+      InitialParserPass<Spec<C>, A, InitialState extends { firstPassEmpty: false } ? false : true>,
+      InitialState
+    > extends infer S
+    ? [Extract<S, InvalidPass>] extends [never]
+      ? S
+      : never
+    : never
+  : State<C, A, InitialState>;
 type ProfiledConstraint<S, R extends Constraint> = R extends {
   kind: 'scalar';
   key: string;
@@ -871,7 +905,8 @@ type CheckedLegacyIntegerArguments<
   LongBits extends 32 | 64 = 64,
   Callbacks extends GitDecimalCallbacks = {},
   CompoundOverflow extends boolean = false,
-  S = State<
+  EmptyRegistered extends boolean = true,
+  S = CommandState<
     C,
     A,
     Put<
@@ -886,7 +921,7 @@ type CheckedLegacyIntegerArguments<
       >,
       'decimalCallbacks',
       Callbacks
-    > & { compoundNegatedOverflow: CompoundOverflow }
+    > & { compoundNegatedOverflow: CompoundOverflow; firstPassEmpty: EmptyRegistered }
   >,
 > = [S] extends [never]
   ? never
@@ -1121,7 +1156,7 @@ type DeferredConflictAlternatives<
         ? DeferredConflictResult<
             C,
             A,
-            State<
+            CommandState<
               C,
               A,
               Put<
@@ -1163,11 +1198,11 @@ type CheckedLocalParserArguments<
   A extends readonly unknown[],
 > = number extends A['length']
   ? A
-  : [State<C, A>] extends [never]
+  : [CommandState<C, A>] extends [never]
     ? CheckedNumericAlternatives<C, A>
-    : State<C, A> extends { help: true } | { parserExited: true }
+    : CommandState<C, A> extends { help: true } | { parserExited: true }
       ? A
-      : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+      : CheckRules<CommandState<C, A>, Spec<C>['rules']> extends true
         ? A
         : CheckedNumericAlternatives<C, A>;
 /** Keep the established numeric/conflict validation path for all unaffected tuples. */
@@ -1184,8 +1219,61 @@ type ExistingLocalProfiles<
   : [CheckedLocalParserArguments<C, A>] extends [never]
     ? CombinedArgumentsFallback<C, A, Ctx>
     : A;
+/** Preserve one numeric implementation while projecting the older initial option set. */
+type OldEmptyAxes<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  I extends 'bounded' | 'decimal-cast',
+  N extends boolean,
+  B extends 32 | 64,
+  F extends GitDecimalCallbacks,
+> = I extends unknown
+  ? N extends unknown
+    ? B extends unknown
+      ? F extends unknown
+        ? CheckedLegacyIntegerArguments<C, A, I, N, B, F, false, false>
+        : never
+      : never
+    : never
+  : never;
+/** Only a concrete cherry-pick tuple with an actual early exit gains an older option-set alternative. */
+type CheckedOldEmptyPass<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = C extends 'cherry-pick'
+  ? A extends readonly [unknown, ...unknown[]]
+    ? InitialParserPass<Spec<C>, A, false> extends { exited: true }
+      ? OldEmptyAxes<
+          C,
+          A,
+          TupleIntegerTraits<C, A> extends true ? 'bounded' | 'decimal-cast' : 'bounded',
+          TupleIntegerTraits<C, A> extends true ? false | true : false,
+          TupleIntegerTraits<C, A> extends true
+            ? 32 | 64
+            : [TupleCallbacks<C, A>] extends [never]
+              ? 64
+              : 32 | 64,
+          CallbackChoices<TupleCallbacks<C, A>>
+        >
+      : never
+    : never
+  : never;
+/** Explicitly pinned modern contexts cannot borrow the old --empty initial-pass behavior. */
+type InitialLocalProfiles<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = Ctx extends { firstPassEmpty: false }
+  ? [CheckedOldEmptyPass<C, A>] extends [never]
+    ? ExistingLocalProfiles<C, A, Ctx>
+    : A
+  : [ExistingLocalProfiles<C, A, Ctx>] extends [never]
+    ? Ctx extends { firstPassEmpty: true }
+      ? never
+      : CheckedOldEmptyPass<C, A>
+    : A;
 /** Literal option combinations are checked against the same schema as runtime calls. */
-type CheckedLocalArguments<
+type CheckedLocalParserProfiles<
   C extends GitCommandName,
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
@@ -1196,12 +1284,51 @@ type CheckedLocalArguments<
   : A extends readonly LocalCommandArgument<C>[]
     ? Ctx extends { booleanSource: infer Source extends GitBooleanSource }
       ? Source extends 'modern'
-        ? ExistingLocalProfiles<C, A, Ctx>
+        ? InitialLocalProfiles<C, A, Ctx>
         : TupleUsesBoolean<C, A> extends true
           ? BooleanTupleFamilies<C, A, Source, Ctx>
-          : ExistingLocalProfiles<C, A, Ctx>
-      : ExistingLocalProfiles<C, A, Ctx>
+          : InitialLocalProfiles<C, A, Ctx>
+      : InitialLocalProfiles<C, A, Ctx>
     : never;
+
+/** Replace only recognized aliases for type evaluation; emitted words are never rewritten. */
+type SubmoduleInitTokens<A extends readonly unknown[]> = A extends readonly [infer H, ...infer Rest]
+  ? H extends { operand: string } | readonly ['--'] | readonly ['-h'] | readonly ['--help']
+    ? A
+    : readonly [H extends readonly ['-i'] ? readonly ['--init'] : H, ...SubmoduleInitTokens<Rest>]
+  : A;
+type ReachedSubmoduleAlias<A extends readonly unknown[]> = A extends readonly [
+  infer H,
+  ...infer Rest,
+]
+  ? H extends { operand: string } | readonly ['--'] | readonly ['-h'] | readonly ['--help']
+    ? false
+    : H extends readonly ['-i']
+      ? true
+      : ReachedSubmoduleAlias<Rest>
+  : false;
+/** Preserve the complete command checker while selecting one helper alias capability. */
+type CheckedLocalArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext = {},
+> = [C] extends ['submodule update' | 'submodule--helper update']
+  ? Ctx extends { submoduleInitAlias: false }
+    ? ['submodule--helper update'] extends [C]
+      ? true extends ReachedSubmoduleAlias<A>
+        ? never
+        : CheckedLocalParserProfiles<C, A, Ctx>
+      : CheckedLocalParserProfiles<C, A, Ctx>
+    : Ctx extends { submoduleInitAlias: true }
+      ? [CheckedLocalParserProfiles<C, SubmoduleInitTokens<A>, Ctx>] extends [never]
+        ? never
+        : A
+      : [CheckedLocalParserProfiles<C, A, Ctx>] extends [never]
+        ? [CheckedLocalParserProfiles<C, SubmoduleInitTokens<A>, Ctx>] extends [never]
+          ? never
+          : A
+        : A
+  : CheckedLocalParserProfiles<C, A, Ctx>;
 
 /** Precompute the small command set instead of comparing every command's option union during inference. */
 type BooleanCommandName = {
@@ -1251,7 +1378,7 @@ type BooleanTupleAxes<
             ? BooleanTupleResult<
                 C,
                 A,
-                State<
+                CommandState<
                   C,
                   A,
                   Put<

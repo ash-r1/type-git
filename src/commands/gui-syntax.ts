@@ -10,6 +10,8 @@ export type CommandGrammarContext = {
   guiLaunch?: GuiLaunch;
   conflictStyle?: 'immediate' | 'deferred';
   booleanSource?: GitBooleanSource;
+  firstPassEmpty?: boolean;
+  submoduleInitAlias?: boolean;
 };
 export function guiLaunchFromSource(source: string): GuiLaunch | undefined {
   const normalized = source.replaceAll('\r\n', '\n');

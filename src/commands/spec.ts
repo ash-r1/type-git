@@ -46,6 +46,8 @@ export type OptionSpec = {
   parser?: GitScalarParser;
   /** Selected Git may validate conflict style immediately or after parsing all options. */
   nativeEnumCallback?: 'conflict-style';
+  /** A source-audited helper alias whose availability is observed on the selected executable. */
+  nativeCapability?: 'submodule-init-alias';
   /** Finite supplied values accepted by both literal types and runtime validation. */
   allowed?: readonly (string | number | boolean)[];
   /** Git callbacks using ASCII case-insensitive enum matching. */
@@ -90,10 +92,14 @@ export type CommandSpec = {
   separator: boolean;
   /** Native parser dispatch can stop at the first operand or treat all words as operands. */
   optionParsing?: 'stop-at-operand' | 'none';
-  /** Audited single-pass parser exits; subsequent words are serialized but not interpreted. */
+  /** Audited parser exits; ignored words are serialized but not interpreted. */
   parserExit?: Evidence & {
     flags: readonly string[];
     /** A first --help is rewritten by Git's dispatcher before this parser runs. */
     exceptFirst?: readonly string[];
+    /** KEEP_UNKNOWN_OPT pass: only these options execute before an exit in this pass. */
+    firstPassOptions?: readonly string[];
+    /** Native long names used by the initial parser's single-dash typo check. */
+    firstPassLongNames?: readonly string[];
   };
 };
