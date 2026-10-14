@@ -41,7 +41,8 @@ describe('selected native numeric callback implementations', () => {
       encoding: 'utf8',
     });
     fsmonitorAvailable =
-      fsmonitor.status === 129 && (fsmonitor.stdout + fsmonitor.stderr).includes('usage:');
+      (fsmonitor.status === 0 || fsmonitor.status === 129) &&
+      (fsmonitor.stdout + fsmonitor.stderr).includes('usage:');
     if (!fsmonitorAvailable) {
       expect(fsmonitor.stderr).toMatch(/not a git command|not supported|not built/i);
     }
@@ -138,9 +139,12 @@ describe('selected native numeric callback implementations', () => {
       encoding: 'utf8',
     });
     const repo = await git.open(root);
-    if (native.status === 129 && (native.stdout + native.stderr).includes('usage:')) {
+    if (
+      (native.status === 0 || native.status === 129) &&
+      (native.stdout + native.stderr).includes('usage:')
+    ) {
       const actual = await repo.command('daemon', [['--max-connections', '1k'], ['-h']] as never);
-      expect(actual.exitCode).toBe(129);
+      expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
       expect(actual.stderr).toBe(native.stderr);
     } else {
@@ -160,9 +164,12 @@ describe('selected native numeric callback implementations', () => {
           env,
           encoding: 'utf8',
         });
-        if (native.status === 129 && (native.stdout + native.stderr).includes('usage:')) {
+        if (
+          (native.status === 0 || native.status === 129) &&
+          (native.stdout + native.stderr).includes('usage:')
+        ) {
           const actual = await repo.command('daemon', [[flag, value], ['-h']] as never);
-          expect(actual.exitCode).toBe(129);
+          expect(actual.exitCode).toBe(native.status);
           expect(actual.stdout).toBe(native.stdout);
           expect(actual.stderr).toBe(native.stderr);
         } else {
@@ -187,7 +194,7 @@ describe('selected native numeric callback implementations', () => {
         ['-C', root, 'fsmonitor--daemon', `--ipc-threads=${value}`, '-h'],
         { env, encoding: 'utf8' },
       );
-      expect(native.status, native.stderr).toBe(129);
+      expect([0, 129], native.stderr).toContain(native.status);
       expect(native.stdout + native.stderr).toContain('usage:');
       if (/error:/.test(native.stderr)) {
         expect(native.stderr).toMatch(/numerical value|integer|range/);
@@ -200,7 +207,7 @@ describe('selected native numeric callback implementations', () => {
         ['--ipc-threads', value],
         ['-h'],
       ] as never);
-      expect(actual.exitCode).toBe(129);
+      expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
       expect(actual.stderr).toBe(native.stderr);
     }

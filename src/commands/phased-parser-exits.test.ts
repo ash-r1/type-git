@@ -50,7 +50,7 @@ describe('initial parser exits before deferred revision/diff callbacks', () => {
         ];
         const argv = ['log', `${flag}=invalid`, `${flag}=1`];
         const help = run([...argv, '-h']);
-        expect(help.status, help.stderr).toBe(129);
+        expect([0, 129], help.stderr).toContain(help.status);
         expect(help.stderr + help.stdout).toMatch(/^usage:/);
         expect(commandArguments('log', [...tokens, ['-h']], true)).toEqual([...argv, '-h']);
         const reached = run(argv);

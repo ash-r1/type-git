@@ -547,9 +547,10 @@ export function commandUsesFirstPassEmpty(
   if (!spec.parserExit?.firstPassOptions?.includes('--empty')) {
     return false;
   }
-  const words = commandShapeArguments(command, args, true);
-  const pass = initialParserPass(spec, words.slice(spec.argv.length));
-  return pass.tokens.some((token) => token[0] === '--empty');
+  const words = commandShapeArguments(command, args, true).slice(spec.argv.length);
+  const modern = initialParserPass(spec, words, true);
+  const legacy = initialParserPass(spec, words, false);
+  return (modern.exited || legacy.exited) && modern.tokens.some((token) => token[0] === '--empty');
 }
 
 /** Stop trait discovery where an audited parser exits; later words are only serialized. */

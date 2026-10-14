@@ -686,7 +686,7 @@ export class CliRunner {
         firstPassEmpty = false;
       } else if (
         [128, 129].includes(probe.exitCode) &&
-        /^error: .*empty.*(?:stop|drop|keep|invalid|bad)/im.test(probe.stderr)
+        /^error: invalid value for '--empty': 'type-git-invalid'\r?$/m.test(probe.stderr)
       ) {
         firstPassEmpty = true;
       } else {

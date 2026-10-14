@@ -37,6 +37,38 @@ describe('observed initial parser profiles', () => {
       }),
     ).toThrow(GitArgumentError);
   });
+  it('executes ordinary empty handling once without a parser observation', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi.fn().mockResolvedValue(response(0));
+    await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'cherry-pick',
+      [['--empty', 'drop'], { operand: 'HEAD' }],
+      true,
+    );
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(adapters.exec.spawn.mock.calls[0]![0].argv).toEqual([
+      'git',
+      'cherry-pick',
+      '--empty=drop',
+      'HEAD',
+    ]);
+  });
+  it('falls back for an unrelated empty diagnostic instead of selecting an option set', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi
+      .fn()
+      .mockResolvedValueOnce(response(129, '', 'error: empty object directory is invalid\n'))
+      .mockResolvedValueOnce(response(128, '', 'native original'));
+    const actual = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'cherry-pick',
+      [['--empty', 'bad'], ['-h']],
+      true,
+    );
+    expect(actual.stderr).toBe('native original');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+  });
   it('observes empty behavior without consuming command stdin', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi.fn().mockResolvedValue(response(129, '', 'usage: git cherry-pick\n'));

@@ -116,7 +116,8 @@ describe.skipIf(legacy)('Git 2.55 object-filter callbacks', () => {
     expect(binary.error).toBeUndefined();
     expect(binary.signal).toBeNull();
     const diagnostic = binary.stdout + binary.stderr;
-    const supported = binary.status === 129 && diagnostic.includes('usage:');
+    const supported =
+      (binary.status === 0 || binary.status === 129) && diagnostic.includes('usage:');
     expect(supported || (binary.status === 128 && diagnostic.includes('invalid filter-spec'))).toBe(
       true,
     );
@@ -152,7 +153,7 @@ describe.skipIf(legacy)('Git 2.55 object-filter callbacks', () => {
     expect(native.signal, JSON.stringify(args)).toBeNull();
     expect(native.status).not.toBeNull();
     const diagnostic = native.stderr + native.stdout;
-    const actual = native.status === 129 && diagnostic.includes('usage:');
+    const actual = (native.status === 0 || native.status === 129) && diagnostic.includes('usage:');
     if (accepted !== undefined) {
       expect(actual, `${args.join(' ')}\n${diagnostic}`).toBe(accepted);
     }
