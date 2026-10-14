@@ -61,7 +61,9 @@ describe('submodule frontends, helpers and sparse checkout grammars', () => {
     expect(alias.error).toBeUndefined();
     submoduleInitAlias =
       [0, 129].includes(alias.status!) && (alias.stdout + alias.stderr).startsWith('usage:');
-    if (!submoduleInitAlias && !legacy) expect(alias.stderr).toContain("unknown switch `i'");
+    if (!submoduleInitAlias && !legacy) {
+      expect(alias.stderr).toContain("unknown switch `i'");
+    }
   });
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });

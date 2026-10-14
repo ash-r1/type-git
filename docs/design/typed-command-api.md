@@ -988,3 +988,39 @@ command validator remains responsible for later checks; re-parsing the residual
 argv after cross-tuple consumption remains an explicit audit obligation.
 Completion helpers, other callbacks, global help dispatch and repository state
 are also unfinished. All 430 audit scopes remain partial.
+
+### Independently observed depth conversion and submodule helper aliases
+
+The final clone/fetch depth check still uses `atoi` in the audited Git sources.
+The recorded conversion profiles saturate at 32 or 64 bits before signed-int
+storage. This dimension is independent of the selected executable's C long
+width and its other numeric callbacks. The CLI and convenience methods share
+an observation that invokes `clone --depth=2147483648` with a synthetic remote
+and an existing temporary file as destination. Depth rejection or the existing
+file check stops execution before transport and destination creation. The file
+is removed even when observation aborts. Original context, environment and
+signal are retained; command stdin is not consumed. Unrecognized diagnostics
+retain native handling rather than inventing an observed profile.
+
+`DepthInitialLiteral<V, Bits>` models these conversion stages using the shared
+decimal type interpreter. Its default accepts an input only when one complete
+recorded profile accepts every known union member. For example, `-1` and a
+negative overflow below INT64_MIN are invalid in both profiles, while
+`2147483648` and `-4294967295` distinguish the profiles. Symbolic numeric prefixes
+and compiler-budget cases still defer to runtime, and a known invalid union
+member or literal NUL cannot be erased by deferral. A pinned 64-bit contract
+records 25 independent Git 2.55.0 final-depth outcomes. Other CRT behavior and
+transport-specific conversion remain separate audit obligations.
+
+The [Git 2.56.0 helper option table](https://github.com/git/git/blob/v2.56.0/builtin/submodule--helper.c)
+registers short `-i` for update initialization; the pinned 2.55.0 table does not.
+The shell frontend forwards its final init spelling, so the helper capability
+changes whether `submodule update -i` is valid. Readonly
+`submodule--helper update -i -h` observation selects that capability without
+performing an update. An older Git that has no update helper, or an unknown
+response, retains the original native execution. The serialized words are
+preserved. Explicit `submoduleInitAlias` type contexts pin either capability;
+unpinned contexts retain the applicable complete-command alternatives. Type
+normalization to `--init` is used only for semantic checking of the accepting
+profile and does not rewrite executed argv. Reset/filter prerequisites,
+repository guards and other scalar checks remain in that command check.

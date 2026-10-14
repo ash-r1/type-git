@@ -85,6 +85,60 @@ describe('observed submodule helper init alias', () => {
     ).rejects.toBeInstanceOf(GitArgumentError);
     expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
   });
+  it('keeps unknown usage/fatal output in native execution', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi
+      .fn()
+      .mockResolvedValueOnce(response(129, 'usage: patched helper\n', 'fatal: unrelated failure\n'))
+      .mockResolvedValueOnce(response(128, '', 'native original'));
+    const actual = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'submodule update',
+      [['-i']],
+      true,
+    );
+    expect(actual.stderr).toBe('native original');
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+  });
+  it('stops after an aborted observation and preserves byte output', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi.fn().mockResolvedValue({ ...response(143), aborted: true });
+    adapters.exec.spawnBytes = vi.fn();
+    const actual = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'submodule update',
+      [['-i']],
+      true,
+      { stdout: 'bytes' },
+    );
+    expect(actual.aborted).toBe(true);
+    expect(actual.stdout).toEqual(new Uint8Array(0));
+    expect(adapters.exec.spawnBytes).not.toHaveBeenCalled();
+  });
+  it('rejects NUL before alias observations', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi.fn();
+    await expect(
+      new CliRunner(adapters).runCommand(
+        { type: 'global' },
+        'submodule update',
+        [['-i'], { operand: 'bad\0word' }],
+        true,
+      ),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
+  it('does not probe a frontend alias replaced by a later long spelling', async () => {
+    const adapters = createNodeAdapters();
+    adapters.exec.spawn = vi.fn().mockResolvedValue(response(0));
+    await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'submodule update',
+      [['-i'], ['--init']],
+      true,
+    );
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
   it('delegates to the original frontend when this older Git has no update helper', async () => {
     const adapters = createNodeAdapters();
     adapters.exec.spawn = vi

@@ -531,8 +531,9 @@ export class CliRunner {
     }
     if (depth !== undefined && depthValid.length === 1) {
       const observed = await this.observeDepthAtoi(context, opts);
-      if (observed.result.aborted)
+      if (observed.result.aborted) {
         throw this.mapError(observed.result, context, this.buildArgv(context, ['clone']));
+      }
       if (observed.bits !== undefined) {
         depthAtoiBits = observed.bits;
         // Reject native-invalid depth while retaining all relational option checks.
@@ -750,11 +751,13 @@ export class CliRunner {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       });
-      if (probe.aborted) return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      if (probe.aborted) {
+        return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      }
       if (
         [0, 129].includes(probe.exitCode) &&
         (probe.stdout + probe.stderr).startsWith('usage:') &&
-        !/^error:/m.test(probe.stderr)
+        !/^(?:error|fatal):/m.test(probe.stderr)
       ) {
         submoduleInitAlias = true;
       } else if (probe.exitCode === 129 && /^error: unknown switch `i'\r?$/m.test(probe.stderr)) {

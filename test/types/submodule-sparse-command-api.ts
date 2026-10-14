@@ -48,7 +48,12 @@ export type SubmoduleInitSourceCases = readonly [
   Check<Accepted<[['-i'], ['--init']], {submoduleInitAlias: false}>>,
   Check<Accepted<[['--init'], ['-i']], {submoduleInitAlias: false}> extends false ? true : false>,
   Check<Accepted<[['--init'], ['-i']], {submoduleInitAlias: true}>>,
-  Check<Accepted<[['-i'], ['--no-init'], ['--filter', 'blob:none']], {}> extends false ? true : false>,
+  Check<[CheckedCommandArguments<'submodule--helper update', [['-i'], ['--no-init'], ['--filter', 'blob:none']], {submoduleInitAlias: true}>] extends [never] ? true : false>,
   Check<[CheckedCommandArguments<'submodule--helper update', [['-i'], ['--init']], {submoduleInitAlias: false}>] extends [never] ? true : false>,
   Check<[CheckedCommandArguments<'submodule--helper update', [['-h'], ['-i']], {submoduleInitAlias: false}>] extends [never] ? false : true>,
+];
+
+export type SubmoduleAliasUnionControls = readonly [
+  Check<[CheckedCommandArguments<'submodule update' | 'submodule--helper update', [['-i'], ['--init']], {submoduleInitAlias: false}>] extends [never] ? true : false>,
+  Check<[CheckedCommandArguments<'submodule--helper update', [readonly ['-i'] | readonly ['-h']], {submoduleInitAlias: false}>] extends [never] ? true : false>,
 ];

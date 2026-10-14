@@ -107,7 +107,9 @@ export type GitScalarParser =
 /** Decimal-prefix atoi saturation precedes signed-int storage and the final positivity check. */
 export function validInitialDepth(value: unknown, conversionBits: 32 | 64 = 64): boolean {
   const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
-  if (!match) return false;
+  if (!match) {
+    return false;
+  }
   const parsed = BigInt(match[1]!);
   const minimum = -(1n << BigInt(conversionBits - 1));
   const maximum = (1n << BigInt(conversionBits - 1)) - 1n;

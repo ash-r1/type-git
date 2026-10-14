@@ -615,16 +615,26 @@ export function commandUsesSubmoduleInitAlias(
 ): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
-  if (dispatched) return commandUsesSubmoduleInitAlias(dispatched.command, dispatched.args);
-  if (command !== 'submodule update' && command !== 'submodule--helper update') return false;
+  if (dispatched) {
+    return commandUsesSubmoduleInitAlias(dispatched.command, dispatched.args);
+  }
+  if (command !== 'submodule update' && command !== 'submodule--helper update') {
+    return false;
+  }
   let short = false;
   for (const token of args) {
-    if (!Array.isArray(token) || token[0] === '--') break;
+    if (!Array.isArray(token) || token[0] === '--') {
+      break;
+    }
     if (token[0] === '-h' || token[0] === '--help') {
       return command === 'submodule update' ? false : short;
     }
-    if (token[0] === '-i') short = true;
-    if (command === 'submodule update' && token[0] === '--init') short = false;
+    if (token[0] === '-i') {
+      short = true;
+    }
+    if (command === 'submodule update' && token[0] === '--init') {
+      short = false;
+    }
   }
   return short;
 }
@@ -633,16 +643,27 @@ export function commandUsesSubmoduleInitAlias(
 export function commandUsesDepthAtoi(command: GitCommandName, args: readonly unknown[]): boolean {
   const spec: CommandSpec = COMMAND_SPECS[command];
   const dispatched = dispatchArguments(spec, args);
-  if (dispatched) return commandUsesDepthAtoi(dispatched.command, dispatched.args);
-  if (!spec.rules.some((rule) => rule.kind === 'scalar' && rule.parser === 'depth-initial'))
+  if (dispatched) {
+    return commandUsesDepthAtoi(dispatched.command, dispatched.args);
+  }
+  if (!spec.rules.some((rule) => rule.kind === 'scalar' && rule.parser === 'depth-initial')) {
     return false;
+  }
   let depth = false;
   for (const token of args) {
-    if (!Array.isArray(token)) continue;
-    if (token.length === 1 && token[0] === '--') break;
-    if (token.length === 1 && spec.parserExit?.flags.includes(token[0])) return false;
+    if (!Array.isArray(token)) {
+      continue;
+    }
+    if (token.length === 1 && token[0] === '--') {
+      break;
+    }
+    if (token.length === 1 && spec.parserExit?.flags.includes(token[0])) {
+      return false;
+    }
     const option = spec.options[token[0]];
-    if (option?.key === 'depth') depth = token[0] !== '--no-depth';
+    if (option?.key === 'depth') {
+      depth = token[0] !== '--no-depth';
+    }
   }
   return depth;
 }

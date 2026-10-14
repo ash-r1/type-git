@@ -1314,7 +1314,7 @@ type CheckedLocalArguments<
   Ctx extends CommandGrammarContext = {},
 > = [C] extends ['submodule update' | 'submodule--helper update']
   ? Ctx extends { submoduleInitAlias: false }
-    ? [C] extends ['submodule--helper update']
+    ? ['submodule--helper update'] extends [C]
       ? true extends ReachedSubmoduleAlias<A>
         ? never
         : CheckedLocalParserProfiles<C, A, Ctx>
