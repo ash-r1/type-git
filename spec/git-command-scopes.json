@@ -786,7 +786,8 @@
             },
             "set": -1
           }
-        ]
+        ],
+        "nativeEnumCallback": "conflict-style"
       },
       "--no-conflict": {
         "key": "conflict",
@@ -906,7 +907,8 @@
             },
             "set": -1
           }
-        ]
+        ],
+        "nativeEnumCallback": "conflict-style"
       },
       "--no-conflict": {
         "key": "conflict",
@@ -1006,7 +1008,8 @@
             },
             "set": -1
           }
-        ]
+        ],
+        "nativeEnumCallback": "conflict-style"
       },
       "--no-conflict": {
         "key": "conflict",

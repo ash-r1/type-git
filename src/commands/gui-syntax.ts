@@ -4,7 +4,11 @@ import type { CommandSpec } from './spec.js';
 
 export type GuiGrammar = 'path-loop' | 'positional';
 export type GuiLaunch = 'shell-prelude' | 'direct-tcl';
-export type CommandGrammarContext = { guiGrammar?: GuiGrammar; guiLaunch?: GuiLaunch };
+export type CommandGrammarContext = {
+  guiGrammar?: GuiGrammar;
+  guiLaunch?: GuiLaunch;
+  conflictStyle?: 'immediate' | 'deferred';
+};
 export function guiLaunchFromSource(source: string): GuiLaunch | undefined {
   const normalized = source.replaceAll('\r\n', '\n');
   if (

@@ -92,6 +92,7 @@ export function commandArguments(
     negativeMagnitudes?: boolean;
     decimalCallbacks?: GitDecimalCallbacks;
     unsignedChar?: boolean;
+    conflictStyle?: 'immediate' | 'deferred';
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -216,6 +217,15 @@ export function commandArguments(
     ) {
       throw new GitArgumentError(`${flag}: NUL is not a valid CLI argument`);
     }
+    if (
+      !parserExited &&
+      option.nativeEnumCallback === 'conflict-style' &&
+      Array.isArray(args[0]) &&
+      args[0].length === 1 &&
+      spec.parserExit?.exceptFirst?.includes(args[0][0])
+    ) {
+      throw new GitArgumentError(`${flag}: not an option of Git's help dispatcher`);
+    }
     const integerParser = typeof option.parser === 'object';
     if (integerParser && supplied && !['string', 'number', 'bigint'].includes(typeof rawValue)) {
       throw new GitArgumentError(`${flag}: expected a number, bigint or numeric string`);
@@ -253,6 +263,7 @@ export function commandArguments(
     if (
       !parserExited &&
       (supplied || numeric) &&
+      !(option.nativeEnumCallback === 'conflict-style' && abi?.conflictStyle === 'deferred') &&
       option.allowed &&
       !option.allowed.includes(
         (option.caseInsensitive && typeof value === 'string' ? asciiLower(value) : value) as
@@ -394,7 +405,10 @@ export function commandArguments(
             ? asciiLower(parsed.value)
             : parsed.value;
     }
-    for (const effect of option.effects ?? []) {
+    for (const effect of option.nativeEnumCallback === 'conflict-style' &&
+    abi?.conflictStyle === 'deferred'
+      ? []
+      : (option.effects ?? [])) {
       const previous = state[effect.key];
       if (
         !effect.when ||
@@ -411,6 +425,22 @@ export function commandArguments(
   state.operand0 = operands[0];
   state.operand1 = operands[1];
   if (!parserExited && state.help !== true) {
+    if (abi?.conflictStyle === 'deferred') {
+      if (state.conflict !== undefined) {
+        state.merge = true;
+      }
+      for (const option of Object.values(spec.options)) {
+        if (
+          option.nativeEnumCallback === 'conflict-style' &&
+          state[option.key] !== undefined &&
+          !option.allowed?.includes(state[option.key] as string)
+        ) {
+          throw new GitArgumentError(
+            `--conflict: unsupported final option value ${String(state[option.key])}`,
+          );
+        }
+      }
+    }
     const errors = violations(spec.rules, state, abi);
     if (errors.length > 0) {
       throw new GitArgumentError(
@@ -471,6 +501,7 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
         ? spec.numericOption
         : undefined;
     return (
+      option?.nativeEnumCallback === 'conflict-style' ||
       typeof option?.parser === 'object' ||
       option?.parser === 'abbrev' ||
       option?.parser === 'mainline' ||
@@ -651,4 +682,23 @@ export function commandUsesObjectFilterCharProfile(
       objectFilterUsesHighBytes(arg[1])
     );
   });
+}
+
+/** Whether a conflict-style callback before help needs a selected-executable timing profile. */
+export function commandUsesConflictStyle(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesConflictStyle(dispatched.command, dispatched.args);
+  }
+  return interpretedArguments(spec, args).some(
+    (arg) =>
+      Array.isArray(arg) &&
+      typeof arg[0] === 'string' &&
+      Object.hasOwn(spec.options, arg[0]) &&
+      spec.options[arg[0]]?.nativeEnumCallback === 'conflict-style',
+  );
 }

@@ -7066,6 +7066,7 @@ const commandSpec34 = {
           set: -1,
         },
       ],
+      nativeEnumCallback: 'conflict-style',
     },
     '--detach': {
       key: 'detach',
@@ -7935,6 +7936,7 @@ const commandSpec35 = {
           set: -1,
         },
       ],
+      nativeEnumCallback: 'conflict-style',
     },
     '--detach': {
       key: 'detach',
@@ -8343,6 +8345,7 @@ const commandSpec36 = {
           set: -1,
         },
       ],
+      nativeEnumCallback: 'conflict-style',
     },
     '--ours': {
       key: 'stage',

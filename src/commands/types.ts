@@ -741,9 +741,29 @@ type CallbackProfiledOption<S, D extends OptionSpec> = D extends {
       : D
     : D
   : D;
-type ProfiledOption<S, D extends OptionSpec> = DecimalProfiledOption<
+/** Defer old string-option validation and effects until parsing ends. */
+type ConflictProfiledOption<S, D extends OptionSpec> = S extends { conflictStyle: 'deferred' }
+  ? D extends { nativeEnumCallback: 'conflict-style' }
+    ? Omit<D, 'allowed' | 'effects'>
+    : D
+  : D;
+/** A first --help selects git-help; command-specific conflict options are unknown there. */
+type DispatcherProfiledOption<S, D extends OptionSpec> = S extends {
+  argumentTokens: readonly [readonly ['--help'], ...unknown[]];
+}
+  ? D extends { nativeEnumCallback: 'conflict-style' }
+    ? never
+    : D
+  : D;
+type ProfiledOption<S, D extends OptionSpec> = DispatcherProfiledOption<
   S,
-  CallbackProfiledOption<S, MagnitudeProfiledOption<S, IntegerProfiledOption<S, D>>>
+  ConflictProfiledOption<
+    S,
+    DecimalProfiledOption<
+      S,
+      CallbackProfiledOption<S, MagnitudeProfiledOption<S, IntegerProfiledOption<S, D>>>
+    >
+  >
 >;
 type ApplyToken<
   C extends GitCommandName,
@@ -984,6 +1004,98 @@ type CheckedNumericAlternatives<C extends GitCommandName, A extends readonly unk
     ? never
     : CheckedCallbackChoice<C, A, CallbackChoices<TupleCallbacks<C, A>>>
   : A;
+/** The old string callback validates only the last stored value after parsing. */
+type DeferredConflictValid<S> = S extends { conflict: infer V }
+  ? string extends V
+    ? true
+    : V extends object
+      ? true
+      : [V] extends ['merge' | 'diff3' | 'zdiff3' | undefined]
+        ? true
+        : false
+  : true;
+/** The old parser applies the implied merge after consuming all options. */
+type DeferredConflictFinalState<S> = S extends { conflict: infer V }
+  ? [V] extends [undefined]
+    ? S
+    : Put<S, 'merge', true>
+  : S;
+/** Help stops before final value validation; ordinary tuples keep all final rules. */
+type DeferredConflictResult<C extends GitCommandName, A extends readonly unknown[], S> = [
+  S,
+] extends [never]
+  ? never
+  : S extends { help: true } | { parserExited: true }
+    ? A
+    : DeferredConflictValid<S> extends true
+      ? CheckRules<DeferredConflictFinalState<S>, Spec<C>['rules']> extends true
+        ? A
+        : never
+      : never;
+// Each parser family is applied to the entire tuple, preserving invalid union arms.
+type DeferredConflictAlternatives<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  I extends 'bounded' | 'decimal-cast' = 'bounded' | 'decimal-cast',
+  N extends boolean = false | true,
+  B extends 32 | 64 = 32 | 64,
+  F extends GitDecimalCallbacks = CallbackChoices<TupleCallbacks<C, A>>,
+> = I extends unknown
+  ? N extends unknown
+    ? B extends unknown
+      ? F extends unknown
+        ? DeferredConflictResult<
+            C,
+            A,
+            State<
+              C,
+              A,
+              Put<
+                Put<
+                  Put<
+                    Put<
+                      Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', I>,
+                      'negativeMagnitudes',
+                      N
+                    >,
+                    'decimalLongBits',
+                    B
+                  >,
+                  'decimalCallbacks',
+                  F
+                >,
+                'conflictStyle',
+                'deferred'
+              >
+            >
+          >
+        : never
+      : never
+    : never
+  : never;
+/** An explicit immediate profile cannot accept a tuple only valid under deferred timing. */
+type ConflictArgumentsFallback<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx,
+> = Ctx extends { conflictStyle: 'immediate' }
+  ? never
+  : Extract<Options<C>[keyof Options<C>], { nativeEnumCallback: 'conflict-style' }> extends never
+    ? never
+    : DeferredConflictAlternatives<C, A>;
+/** Check the normal parser family and existing numeric whole-tuple alternatives. */
+type CheckedLocalParserArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = number extends A['length']
+  ? A
+  : [State<C, A>] extends [never]
+    ? CheckedNumericAlternatives<C, A>
+    : State<C, A> extends { help: true } | { parserExited: true }
+      ? A
+      : CheckRules<State<C, A>, Spec<C>['rules']> extends true
+        ? A
+        : CheckedNumericAlternatives<C, A>;
 /** Literal option combinations are checked against the same schema as runtime calls. */
 type CheckedLocalArguments<
   C extends GitCommandName,
@@ -994,15 +1106,16 @@ type CheckedLocalArguments<
     ? CheckedGuiArguments<Spec<C>, A, Ctx>
     : never
   : A extends readonly LocalCommandArgument<C>[]
-    ? number extends A['length']
-      ? A
-      : [State<C, A>] extends [never]
-        ? CheckedNumericAlternatives<C, A>
-        : State<C, A> extends { help: true } | { parserExited: true }
-          ? A
-          : CheckRules<State<C, A>, Spec<C>['rules']> extends true
-            ? A
-            : CheckedNumericAlternatives<C, A>
+    ? Ctx extends { conflictStyle: 'deferred' }
+      ? Extract<
+          Options<C>[keyof Options<C>],
+          { nativeEnumCallback: 'conflict-style' }
+        > extends never
+        ? CheckedLocalParserArguments<C, A>
+        : ConflictArgumentsFallback<C, A, Ctx>
+      : [CheckedLocalParserArguments<C, A>] extends [never]
+        ? ConflictArgumentsFallback<C, A, Ctx>
+        : A
     : never;
 
 /** Collect invalid finite dispatch alternatives before accepting the complete tuple. */

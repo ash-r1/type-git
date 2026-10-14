@@ -404,9 +404,11 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/runner/conflict-style-profiles.test.ts",
+        "test/types/conflict-style-profiles.ts"
       ],
-      "remaining": "Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Conflict-style callback timing is selected by a readonly help probe: earlier OPT_STRING profiles defer validation until parsing ends, newer OPT_CALLBACK profiles validate each occurrence. Native object/repository/configuration behavior and additional source profiles remain open.",
       "typedCommandAPI": true
     },
     "commit": {
@@ -510,9 +512,11 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/runner/conflict-style-profiles.test.ts",
+        "test/types/conflict-style-profiles.ts"
       ],
-      "remaining": "Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Conflict-style callback timing is selected by a readonly help probe: earlier OPT_STRING profiles defer validation until parsing ends, newer OPT_CALLBACK profiles validate each occurrence. Native object/repository/configuration behavior and additional source profiles remain open.",
       "typedCommandAPI": true
     },
     "cherry-pick": {
@@ -596,9 +600,11 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/parser-exits.test.ts",
         "test/types/parser-exit-corpus.ts",
-        "test/types/parser-exits.ts"
+        "test/types/parser-exits.ts",
+        "src/runner/conflict-style-profiles.test.ts",
+        "test/types/conflict-style-profiles.ts"
       ],
-      "remaining": "Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
+      "remaining": "Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Conflict-style callback timing is selected by a readonly help probe: earlier OPT_STRING profiles defer validation until parsing ends, newer OPT_CALLBACK profiles validate each occurrence. Native object/repository/configuration behavior and additional source profiles remain open.",
       "typedCommandAPI": true
     },
     "revert": {

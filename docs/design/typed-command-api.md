@@ -809,3 +809,24 @@ has an earlier parsing pass than its diff options, and `diff-files` processes
 those options before handling help. Their exit phases, completion helpers,
 abbreviations, repository/configuration failures and other parse exits remain
 separate audit obligations. All command audit entries remain partial.
+
+
+### Conflict-style parser timing
+
+Git 2.25.1 stores `--conflict` in `checkout`, `switch` and `restore` as an
+`OPT_STRING` and validates its last value after parsing. Git 2.47.3 and 2.55.0
+validate each occurrence immediately. Thus `--conflict=bad -h` reaches help on
+2.25.1 and fails before help on the newer profiles. Runtime observes the selected
+executable through a readonly help probe in the original context and environment.
+Unknown probe outcomes leave validation to the original native command. Probes
+preserve command stdin and cancellation prevents the requested execution.
+
+Literal types apply each parser family to the whole tuple. The optional
+`CommandGrammarContext.conflictStyle` selects `immediate` or `deferred` timing;
+the independent Git 2.55 compiler corpus selects `immediate`. Unknown timing
+accepts tuples valid under a supported family, while known NUL words and final
+invalid conflict styles remain rejected. This timing choice does not establish
+that every deferred version supports every style: `zdiff3` support and repository
+conditions remain native obligations. A first `--help` selects `git-help` and does
+not make its unknown conflict option valid; a preceding internal `-h` still stops
+option interpretation.
