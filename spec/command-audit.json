@@ -4347,6 +4347,26 @@
         "test/types/svn-command-api.ts"
       ],
       "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
+    },
+    "lfs __complete": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/lfs-completion.test.ts",
+        "test/types/lfs-completion-command-api.ts"
+      ],
+      "remaining": "Pinned Cobra registration and MinimumNArgs grammar, aliases and literal flag handling are verified against native Git LFS. Completion callbacks and repository/config-dependent suggestions remain under audit."
+    },
+    "lfs __completeNoDesc": {
+      "state": "partial",
+      "models": [],
+      "typedCommandAPI": true,
+      "tests": [
+        "src/commands/lfs-completion.test.ts",
+        "test/types/lfs-completion-command-api.ts"
+      ],
+      "remaining": "Pinned Cobra registration and MinimumNArgs grammar, aliases and literal flag handling are verified against native Git LFS. Completion callbacks and repository/config-dependent suggestions remain under audit."
     }
   }
 }

@@ -53,7 +53,7 @@ if (process.argv.includes('--check')) {
   if (await readFile(summaryTarget, 'utf8').catch(() => '') !== summaryText) throw new Error('Command coverage summary is stale; run pnpm constraints:generate');
 } else await writeFile(summaryTarget, summaryText);
 const lines = ['# Upstream command coverage', '',
-  `Baseline: Git ${inventory.baselines.git}; Git LFS ${inventory.baselines.lfs}.`, '',
+  `Baseline: Git ${inventory.baselines.git}; Git LFS ${inventory.baselines.lfs}; Cobra ${inventory.baselines.cobra}.`, '',
   inventory.scope, '',
   '**Inventory is not implementation coverage.** Entries without an audit record are pending. A finite model count is not proof that upstream constraints were fully discovered.', '',
   `Inventory contains ${inventory.commands.length} entries; the table also includes individually reviewed operation scopes. Candidate nested dispatch names are retained in the JSON inventory, not counted as audited operations.`, '',
