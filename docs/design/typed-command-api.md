@@ -704,3 +704,43 @@ The old-profile clone regression uses a nonempty file:// repository and compares
 HEAD and the stored partial-clone filter against native Git. Each parser family
 and sign profile must validate the complete literal tuple, preserving known-bad
 union arms. Explicit fixed-profile helper types retain their own constraints.
+
+## Numeric callback conversion stages
+
+`spec/git-numeric-callbacks.json` separates callback semantics from the native
+integer table handlers. Its source-audited profiles record strict decimal syntax,
+`strtol` overflow saturation at the selected executable's C long width, checked or cast 32-bit storage, signedness,
+empty values, and checks before/after conversion. Source fingerprints include the
+implementations and storage/default declarations. This is an explicit source
+audit, not automatic discovery of every C callback. The generated profile module
+also supplies the `cherryPick` and `revert` convenience-method mainline rules.
+
+For example, on C long 64, `--mainline=4294967297` and `--mainline=-4294967295`
+both narrow to one, while `--mainline=2147483648` becomes negative and fails.
+On C long 32, the last value saturates to positive `INT_MAX`, and the negative
+value saturates to `INT_MIN` and fails. Native parse-options
+integer handlers instead reject overflow and accept base-0/unit spellings.
+Revision counts use strict decimal checked integers; tab widths and apply strip
+counts add a nonnegative check. Diff context checks negativity before narrowing to unsigned
+storage, whereas grep context can narrow a negative int into unsigned context.
+The abbreviation callback clamps nonzero results below four after conversion.
+The separate revision parser's permissive `--abbrev` handling remains distinct.
+
+Numbers, bigint values, and strings use the same declared profiles. Literal
+TypeScript normalization uses deterministic decimal subtraction/modulo tables;
+invalid literal unions are rejected, while dynamic inputs and very long strings
+receive runtime scalar validation. Numeric shorthand preserves digit strings
+rather than rounding them through JavaScript numbers. Absent optional diff
+context preserves prior state. Where an optional short option has an equivalent
+long spelling, an explicitly empty value uses that long equals form: `['-U', '']`
+becomes `--unified=`, preserving zero context instead of accidentally requesting
+the omitted-value behavior. Other argument spellings stay unchanged.
+
+The finite numeric exploration report includes these profiles and their boundary
+representatives. Tests compare parser rejection with independent Git, verify
+normalization-dependent combination errors, and execute wrapped mainline values
+through convenience methods. Nongeneric convenience numeric fields still rely
+on runtime scalar checks. These additions do not establish whole-command
+semantic completeness; all audit scopes remain partial.
+
+Resume audit: Git 2.25.1 and 2.47.3 accept negative unified context; 2.55.0 rejects it before narrowing. Revision count changed to checked parsing before 2.47.3, while apply strip count still uses atoi in 2.47.3. These are independent callback traits. Skipping modern fixtures on older Git does not validate the wrapper on those implementations. Native observations are recorded separately; selected callback traits must be implemented before this resumed change is published. Manual fsmonitor schemas also require native OPTION_INTEGER parsing rather than the revision-count callback.

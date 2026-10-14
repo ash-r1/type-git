@@ -1,3 +1,4 @@
+import { type GitDecimalParser, parseGitDecimal } from './git-decimal.js';
 import {
   type GitIntegerParser,
   integerState,
@@ -86,6 +87,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | GitDecimalParser
   | GitIntegerParser
   | 'python-int'
   | 'perl-int'
@@ -122,6 +124,9 @@ export function parseGitScalar(
   integerProfile?: GitIntegerProfile,
   negativeMagnitudes = false,
 ): { valid: boolean; value?: unknown } {
+  if (typeof parser === 'object' && parser.kind === 'decimal') {
+    return parseGitDecimal(value, parser, previous, cLongBits);
+  }
   if (typeof parser === 'object') {
     const bits =
       parser.nativeWidth === 'long'

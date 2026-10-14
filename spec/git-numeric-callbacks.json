@@ -1,0 +1,145 @@
+{
+  "version": "2.55.0",
+  "scope": "Source-audited numeric callback stages; LP64 strtol saturation and 32-bit storage, not all callbacks or platforms.",
+  "sources": {
+    "parse-options-cb.c": "7ddab655e2c3442b86c297d570e7114e28a31d472fb7f0baaece18e4725d75f4",
+    "git-compat-util.h": "af6c2cca3c61ea752fd747879105737abf99ec01b8879da53dbe79c1bac54d71",
+    "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b",
+    "diff.h": "6a8b692aa594ba6e2b60729cf212f70e763a74b4e70439ee298a023232501097",
+    "builtin/grep.c": "17125baa29b36f38cda19395a753f0527778bcaad0a20be6cdac3c8c63f34a89",
+    "grep.h": "cd60c8d4adbfc965edb3edcb223ed2002ba7e48d030fb4a056e6854a19a00ba7",
+    "builtin/revert.c": "85cb66e32c147b0f3526dbf0350484058f91688c765461c9b1eb5c78e47dfde9",
+    "revision.c": "55cc4e71cbcda1806c3e2ccfe2da2d4e1b391abca486511d666a111af6e1ab76",
+    "environment.c": "893cb3e60192dfbf98afeba2642ad6e2286581c98405be6355badf529bc24ec7",
+    "object-name.h": "b28f2e711eb7deca2c4e1a750b8a3a7b314c928f8c913cd716cd7e540239ef64",
+    "sequencer.h": "bf24c81ddd8049faa006c0a75fe80ae1fb7ccbfb9a0a79032266ee8d9f110eac",
+    "parse.c": "efe38c1cb553aab2a697747d9742d55e61fe135e37b17022952715405bccfe91",
+    "apply.c": "7c154909bb277318711ff8e67cc73f2e7c875e48b1de7ce2effa2597020c4057"
+  },
+  "profiles": {
+    "abbrev": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "cast",
+        "nonzeroMinimum": 4,
+        "default": "unknown"
+      },
+      "callbacks": [
+        {
+          "name": "parse_opt_abbrev_cb"
+        }
+      ],
+      "source": "parse-options-cb.c:parse_opt_abbrev_cb"
+    },
+    "mainline": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "cast",
+        "positive": true
+      },
+      "callbacks": [
+        {
+          "name": "option_parse_m",
+          "file": "builtin/revert.c"
+        }
+      ],
+      "source": "builtin/revert.c:option_parse_m"
+    },
+    "revision-count": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "callbacks": [],
+      "source": "revision.c:parse_count; git-compat-util.h:strtol_i"
+    },
+    "grep-context": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": false,
+        "conversion": "cast",
+        "empty": true
+      },
+      "callbacks": [
+        {
+          "name": "context_callback",
+          "file": "builtin/grep.c"
+        }
+      ],
+      "source": "builtin/grep.c:context_callback; grep.h:grep_opt"
+    },
+    "unified-context": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": false,
+        "conversion": "cast",
+        "empty": true,
+        "beforeNonnegative": true,
+        "default": "previous"
+      },
+      "callbacks": [
+        {
+          "name": "diff_opt_unified",
+          "file": "diff.c"
+        }
+      ],
+      "source": "diff.c:diff_opt_unified; diff.h:diff_options"
+    },
+    "diff-max-depth": {
+      "parser": {
+        "kind": "integer",
+        "signed": true,
+        "bits": 32
+      },
+      "callbacks": [
+        {
+          "name": "diff_opt_max_depth",
+          "file": "diff.c"
+        }
+      ],
+      "source": "diff.c:diff_opt_max_depth; parse.c:git_parse_int"
+    },
+    "tab-width": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked",
+        "beforeNonnegative": true
+      },
+      "callbacks": [],
+      "source": "revision.c:handle_revision_opt --expand-tabs; git-compat-util.h:strtol_i"
+    },
+    "strip-count": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked",
+        "beforeNonnegative": true
+      },
+      "callbacks": [
+        {
+          "name": "apply_option_parse_p",
+          "file": "apply.c"
+        }
+      ],
+      "source": "apply.c:apply_option_parse_p; git-compat-util.h:strtol_i"
+    }
+  }
+}

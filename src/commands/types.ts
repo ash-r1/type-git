@@ -1,5 +1,10 @@
+import type {
+  GitNumericLiteral,
+  GitNumericParser,
+  GitNumericValue,
+} from '../constraints/git-numeric-types.js';
+import type { GitDecimalParser } from '../constraints/git-decimal.js';
 import type { GitIntegerParser } from '../constraints/git-integer.js';
-import type { GitIntegerLiteral, GitIntegerValue } from '../constraints/git-integer-types.js';
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
@@ -51,7 +56,7 @@ type AsciiLower<S extends string, Result extends string = ''> = string extends S
       ? AsciiLower<R, `${Result}${H extends AsciiUpper ? Lowercase<H> : H}`>
       : `${Result}${S}`;
 type Value<S extends OptionSpec> = S extends {
-  parser: GitIntegerParser | 'python-int' | 'perl-int' | 'perl-int-gnu';
+  parser: GitNumericParser | 'python-int' | 'perl-int' | 'perl-int-gnu';
 }
   ? number | string | bigint
   : S extends { allowed: infer A extends readonly unknown[] }
@@ -78,7 +83,7 @@ type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
         }[keyof Options<C>]
       | { readonly operand: string }
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
-      | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}`])
+      | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}` | `-${bigint}`])
   : never;
 type Dispatch<C extends GitCommandName> = Spec<C> extends { dispatch: infer D } ? D : never;
 type DispatchOption<C extends GitCommandName> =
@@ -127,8 +132,8 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   : D extends { set: infer V }
     ? V
     : true;
-type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitIntegerParser }
-  ? GitIntegerValue<V, P>
+type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitNumericParser }
+  ? GitNumericValue<V, P>
   : D extends { caseInsensitive: true }
     ? D extends { preserveCase: true }
       ? V extends string
@@ -266,7 +271,11 @@ type OptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D exte
   parser: 'rev-list-missing';
 }
   ? MissingOptionState<S, D, TokenValue<T, D>>
-  : UnparsedOptionState<S, D, T>;
+  : D extends { parser: { kind: 'decimal'; default: 'previous' } }
+    ? T extends readonly [unknown] | readonly [unknown, undefined]
+      ? S
+      : UnparsedOptionState<S, D, T>
+    : UnparsedOptionState<S, D, T>;
 type ModeValue<D extends OptionSpec, T extends readonly unknown[]> = D extends {
   modeFromValue: true;
 }
@@ -482,8 +491,8 @@ type PerlIntegerLiteral<D extends OptionSpec, V> = V extends string
   : V extends number | bigint
     ? PerlIntegerText<`${V}`, false>
     : false;
-type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitIntegerParser }
-  ? GitIntegerLiteral<V, P>
+type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitNumericParser }
+  ? GitNumericLiteral<V, P>
   : D extends {
         parser: 'object-filter' | 'object-filter-auto';
       }
@@ -544,7 +553,7 @@ type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
           : true
   : true;
 type AllowedEnumLiteral<D extends OptionSpec, T extends readonly unknown[]> = D extends {
-  parser: GitIntegerParser;
+  parser: GitNumericParser;
   allowed: infer A extends readonly unknown[];
 }
   ? T extends readonly [unknown, infer V]
@@ -649,21 +658,34 @@ type ApplyOption<
     ? PositionedOption<S, D, T, Remaining>
     : never
   : PositionedOption<S, D, T, Remaining>;
+type NumericValue<D extends OptionSpec, Text extends string> = D extends {
+  parser: GitNumericParser;
+}
+  ? Text
+  : Text extends `${infer N extends number}`
+    ? N
+    : number;
 type ApplyNumeric<
   C extends GitCommandName,
   S,
   T,
   Remaining extends readonly unknown[],
   First extends boolean,
-> = T extends readonly [`-${infer N extends number}`]
-  ? T[0] extends `-${infer Text}`
-    ? (`${number}` extends Text ? true : Digits<Text>) extends true
-      ? NumericOption<C> extends { allowed: infer A extends readonly unknown[] }
+> = T extends readonly [`-${infer Text}`]
+  ? (`${number}` extends Text ? true : `${bigint}` extends Text ? true : Digits<Text>) extends true
+    ? NumericOption<C> extends { allowed: infer A extends readonly unknown[] }
+      ? NumericValue<NumericOption<C>, Text> extends infer N
         ? (number extends N ? true : N extends A[number] ? true : false) extends true
           ? ApplyOption<S, NumericOption<C>, readonly [T[0], N], Remaining, First>
           : never
-        : ApplyOption<S, NumericOption<C>, readonly [T[0], N], Remaining, First>
-      : never
+        : never
+      : ApplyOption<
+          S,
+          NumericOption<C>,
+          readonly [T[0], NumericValue<NumericOption<C>, Text>],
+          Remaining,
+          First
+        >
     : never
   : S;
 // Keep parser uncertainty separate from input unions: each source family must
@@ -684,9 +706,16 @@ type MagnitudeProfiledOption<S, D extends OptionSpec> = S extends { negativeMagn
       : Omit<D, 'parser'> & { parser: P & { negativeMagnitudes: true } }
     : D & { negativeMagnitudes: true }
   : D;
-type ProfiledOption<S, D extends OptionSpec> = MagnitudeProfiledOption<
+type DecimalProfiledOption<S, D extends OptionSpec> = S extends {
+  decimalLongBits: infer Bits extends 32 | 64;
+}
+  ? D extends { parser: infer P extends GitDecimalParser }
+    ? Omit<D, 'parser'> & { parser: Omit<P, 'longBits'> & { longBits: Bits } }
+    : D
+  : D;
+type ProfiledOption<S, D extends OptionSpec> = DecimalProfiledOption<
   S,
-  IntegerProfiledOption<S, D>
+  MagnitudeProfiledOption<S, IntegerProfiledOption<S, D>>
 >;
 type ApplyToken<
   C extends GitCommandName,
@@ -739,7 +768,7 @@ type ProfiledConstraint<S, R extends Constraint> = R extends {
   key: string;
   parser: infer P;
 }
-  ? P extends GitIntegerParser
+  ? P extends GitNumericParser
     ? ProfiledOption<S, { key: R['key']; value: 'string'; parser: P }> extends { parser: infer Q }
       ? Omit<R, 'parser'> & { parser: Q }
       : R
@@ -761,13 +790,18 @@ type CheckedLegacyIntegerArguments<
   A extends readonly unknown[],
   IntegerProfile extends 'bounded' | 'decimal-cast' = 'decimal-cast',
   Negative extends boolean = false,
+  LongBits extends 32 | 64 = 64,
   S = State<
     C,
     A,
     Put<
-      Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', IntegerProfile>,
-      'negativeMagnitudes',
-      Negative
+      Put<
+        Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', IntegerProfile>,
+        'negativeMagnitudes',
+        Negative
+      >,
+      'decimalLongBits',
+      LongBits
     >
   >,
 > = [S] extends [never]
@@ -777,12 +811,19 @@ type CheckedLegacyIntegerArguments<
     : CheckRules<S, Spec<C>['rules']> extends true
       ? A
       : never;
-type CheckedIntegerAlternatives<C extends GitCommandName, A extends readonly unknown[]> = [
-  CheckedLegacyIntegerArguments<C, A>,
-] extends [never]
-  ? [CheckedLegacyIntegerArguments<C, A, 'bounded', true>] extends [never]
-    ? CheckedLegacyIntegerArguments<C, A, 'decimal-cast', true>
+type CheckedIntegerAlternativesAtWidth<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Bits extends 32 | 64,
+> = [CheckedLegacyIntegerArguments<C, A, 'decimal-cast', false, Bits>] extends [never]
+  ? [CheckedLegacyIntegerArguments<C, A, 'bounded', true, Bits>] extends [never]
+    ? CheckedLegacyIntegerArguments<C, A, 'decimal-cast', true, Bits>
     : A
+  : A;
+type CheckedIntegerAlternatives<C extends GitCommandName, A extends readonly unknown[]> = [
+  CheckedIntegerAlternativesAtWidth<C, A, 64>,
+] extends [never]
+  ? CheckedIntegerAlternativesAtWidth<C, A, 32>
   : A;
 /** Literal option combinations are checked against the same schema as runtime calls. */
 type CheckedLocalArguments<

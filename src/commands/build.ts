@@ -148,11 +148,19 @@ export function commandArguments(
     if (typeof flag !== 'string') {
       throw new GitArgumentError(`${command}: option names must be strings`);
     }
-    const numeric = !Object.hasOwn(spec.options, flag) && spec.numericOption && /^-\d+$/.test(flag);
+    const numeric =
+      !Object.hasOwn(spec.options, flag) && spec.numericOption && /^-\d+$/.exec(flag)?.[0] === flag;
     const option: OptionSpec | undefined = Object.hasOwn(spec.options, flag)
       ? spec.options[flag]
       : numeric
-        ? { ...spec.numericOption!, value: 'flag', set: Number(flag.slice(1)) }
+        ? {
+            ...spec.numericOption!,
+            value: 'flag',
+            set:
+              typeof spec.numericOption!.parser === 'object'
+                ? flag.slice(1)
+                : Number(flag.slice(1)),
+          }
         : undefined;
     if (!option) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
@@ -166,11 +174,14 @@ export function commandArguments(
     const supplied = arg.length === 2 && arg[1] !== undefined;
     const rawValue = option.clear ? undefined : supplied ? arg[1] : (option.set ?? true);
     const integerParser = typeof option.parser === 'object';
+    if (integerParser && supplied && !['string', 'number', 'bigint'].includes(typeof rawValue)) {
+      throw new GitArgumentError(`${flag}: expected a number, bigint or numeric string`);
+    }
     const integer = integerParser
       ? parseGitScalar(
           option.parser!,
           rawValue,
-          undefined,
+          state[option.key],
           abi?.longBits,
           abi?.sizeTBits,
           abi?.binaryIntegers,
@@ -257,7 +268,9 @@ export function commandArguments(
           throw new GitArgumentError(`${flag}: NUL is not a valid CLI argument`);
         }
         // Long equals forms preserve empty values; short values are separate tokens.
-        if (option.separateValue) {
+        if (optional && !flag.startsWith('--') && rawValue === '' && option.emptyValueFlag) {
+          argv.push(`${option.emptyValueFlag}=`);
+        } else if (option.separateValue) {
           argv.push(flag, String(rawValue));
         } else if (flag.startsWith('--')) {
           argv.push(`${flag}=${rawValue}`);
@@ -363,7 +376,11 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
-    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    const option = Object.hasOwn(spec.options, arg[0])
+      ? spec.options[arg[0]]
+      : spec.numericOption && /^-\d+$/.exec(arg[0])?.[0] === arg[0]
+        ? spec.numericOption
+        : undefined;
     return (
       typeof option?.parser === 'object' ||
       option?.parser === 'abbrev' ||
@@ -395,9 +412,15 @@ export function commandUsesObjectFilterBinary(
     if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
       return false;
     }
-    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    const option = Object.hasOwn(spec.options, arg[0])
+      ? spec.options[arg[0]]
+      : spec.numericOption && /^-\d+$/.exec(arg[0])?.[0] === arg[0]
+        ? spec.numericOption
+        : undefined;
     return (
-      (typeof option?.parser === 'object' && /^[ \t\r\n\v\f]*[+-]?0[bB]/.test(arg[1])) ||
+      (typeof option?.parser === 'object' &&
+        option.parser.kind === 'integer' &&
+        /^[ \t\r\n\v\f]*[+-]?0[bB]/.test(arg[1])) ||
       ((option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
         objectFilterUsesBinary(arg[1]))
     );
@@ -421,8 +444,17 @@ export function commandUsesIntegerProfile(
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
-    const parser = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]]?.parser : undefined;
-    return typeof parser === 'object' && parser.bits === 32 && !parser.nativeWidth;
+    const parser = Object.hasOwn(spec.options, arg[0])
+      ? spec.options[arg[0]]?.parser
+      : spec.numericOption && /^-\d+$/.exec(arg[0])?.[0] === arg[0]
+        ? spec.numericOption.parser
+        : undefined;
+    return (
+      typeof parser === 'object' &&
+      parser.kind === 'integer' &&
+      parser.bits === 32 &&
+      !parser.nativeWidth
+    );
   });
 }
 
@@ -443,9 +475,16 @@ export function commandUsesNegativeMagnitude(
     if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
       return false;
     }
-    const parser = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]]?.parser : undefined;
+    const parser = Object.hasOwn(spec.options, arg[0])
+      ? spec.options[arg[0]]?.parser
+      : spec.numericOption && /^-\d+$/.exec(arg[0])?.[0] === arg[0]
+        ? spec.numericOption.parser
+        : undefined;
     return (
-      (typeof parser === 'object' && !parser.signed && /^[ \t\r\n\v\f]*-/.test(String(arg[1]))) ||
+      (typeof parser === 'object' &&
+        parser.kind === 'integer' &&
+        !parser.signed &&
+        /^[ \t\r\n\v\f]*-/.test(String(arg[1]))) ||
       ((parser === 'object-filter' || parser === 'object-filter-auto') &&
         typeof arg[1] === 'string' &&
         objectFilterUsesNegativeMagnitude(arg[1]))

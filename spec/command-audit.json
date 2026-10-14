@@ -195,9 +195,12 @@
       ],
       "tests": [
         "src/commands/inspection.test.ts",
-        "test/types/command-api.ts"
+        "test/types/command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit.",
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "status": {
@@ -221,9 +224,12 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "fetch": {
@@ -306,9 +312,12 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "merge": {
@@ -358,9 +367,12 @@
         "src/commands/sequencer.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "clean": {
@@ -409,9 +421,12 @@
         "src/commands/sequencer.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "lfs pull": {
@@ -1051,10 +1066,13 @@
       "models": [],
       "tests": [
         "src/commands/native.test.ts",
-        "test/types/command-api.ts"
+        "test/types/command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering."
+      "remaining": "Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "stash clear": {
       "state": "partial",
@@ -1326,9 +1344,12 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "diff-files": {
       "state": "partial",
@@ -1338,9 +1359,12 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "diff-index": {
       "state": "partial",
@@ -1350,9 +1374,12 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "diff-tree": {
       "state": "partial",
@@ -1362,9 +1389,12 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "diff --no-index": {
       "state": "partial",
@@ -1374,9 +1404,12 @@
         "src/commands/revision-diff.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Filesystem-dependent file/directory operand rules, pathspec grammar, callback argument languages and binary output. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Filesystem-dependent file/directory operand rules, pathspec grammar, callback argument languages and binary output. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "reflog list": {
       "state": "partial",
@@ -1446,9 +1479,12 @@
         "src/commands/reflog-stash.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "stash show": {
       "state": "partial",
@@ -1458,9 +1494,12 @@
         "src/commands/reflog-stash.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Inherited multi-pass revision/diff callback grammars, repository/configuration conditions, end markers, shorthand and binary output; stash list conditional delegation remains separate. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "merge-base": {
       "models": [],
@@ -1490,9 +1529,12 @@
         "src/commands/patch.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Patch content/index/repository conditions, path normalization, numeric lexical spellings, abbreviations and binary I/O. Git 2.55 negated whitespace/directory callbacks abort the process; these two spellings are deliberately omitted (documented wrapper exception). Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Patch content/index/repository conditions, path normalization, numeric lexical spellings, abbreviations and binary I/O. Git 2.55 negated whitespace/directory callbacks abort the process; these two spellings are deliberately omitted (documented wrapper exception). Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "am": {
       "state": "partial",
@@ -1510,9 +1552,12 @@
       "typedCommandAPI": true,
       "tests": [
         "src/commands/inspection.test.ts",
-        "test/types/command-api.ts"
+        "test/types/command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "for-each-ref": {
       "state": "partial",
@@ -1554,9 +1599,12 @@
         "src/commands/inspection.test.ts",
         "test/types/command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "unpack-file": {
       "state": "partial",
@@ -1594,9 +1642,12 @@
       "typedCommandAPI": true,
       "tests": [
         "src/commands/inspection.test.ts",
-        "test/types/command-api.ts"
+        "test/types/command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "stripspace": {
       "state": "partial",
@@ -1694,9 +1745,12 @@
       "typedCommandAPI": true,
       "tests": [
         "src/commands/inspection.test.ts",
-        "test/types/command-api.ts"
+        "test/types/command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "symbolic-ref": {
       "state": "partial",
@@ -2453,9 +2507,12 @@
         "src/commands/object-filter.test.ts",
         "test/types/object-filter.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Raw pre-scan of option-looking operands and bitmap early-return parsing need phase-aware modeling; finite state counts do not prove argv reachability. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Raw pre-scan of option-looking operands and bitmap early-return parsing need phase-aware modeling; finite state counts do not prove argv reachability. Object-filter grammar now checked against Git 2.55; unsigned-long/libc/char-signedness profiles, percent-decoded compiler literals, object resolution and command-specific help timing remain open. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "bundle create": {
@@ -2557,9 +2614,12 @@
         "src/commands/delegated-walk.test.ts",
         "test/types/delegated-walk-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "last-modified": {
@@ -2569,9 +2629,12 @@
         "src/commands/delegated-walk.test.ts",
         "test/types/delegated-walk-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Its single positive commit requirement depends on revision resolution, not raw operand count. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Its single positive commit requirement depends on revision resolution, not raw operand count. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "diff-pairs": {
@@ -2581,9 +2644,12 @@
         "src/commands/delegated-walk.test.ts",
         "test/types/delegated-walk-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "range-diff": {
@@ -2593,9 +2659,12 @@
         "src/commands/delegated-walk.test.ts",
         "test/types/delegated-walk-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. One symmetric range, two ranges or three commits are resolved before optional paths; no raw maximum operand count is imposed without a separator. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. One symmetric range, two ranges or three commits are resolved before optional paths; no raw maximum operand count is imposed without a separator. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "replay": {
@@ -2605,9 +2674,12 @@
         "src/commands/delegated-walk.test.ts",
         "test/types/delegated-walk-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Initial reverse traversal depends on mode before revision parsing; subsequent native warning overrides need phase-aware modeling. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Initial reverse traversal depends on mode before revision parsing; subsequent native warning overrides need phase-aware modeling. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "blame": {
@@ -2617,9 +2689,12 @@
         "src/commands/search-patch.test.ts",
         "test/types/search-patch-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "annotate": {
@@ -2629,9 +2704,12 @@
         "src/commands/search-patch.test.ts",
         "test/types/search-patch-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "grep": {
@@ -2641,9 +2719,12 @@
         "src/commands/search-patch.test.ts",
         "test/types/search-patch-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Pattern expression trees, file-supplied patterns, ref/path partitioning, configured no-index fallback and early return on max-count zero remain state-dependent. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Pattern expression trees, file-supplied patterns, ref/path partitioning, configured no-index fallback and early return on max-count zero remain state-dependent. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "format-patch": {
@@ -2653,9 +2734,12 @@
         "src/commands/search-patch.test.ts",
         "test/types/search-patch-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Creation-factor/range-diff checks depend on the resolved nonempty series; config defaults and output files are not inferred from argument count. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Creation-factor/range-diff checks depend on the resolved nonempty series; config defaults and output files are not inferred from argument count. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "archive": {
@@ -2675,9 +2759,12 @@
         "src/commands/revision-query.test.ts",
         "test/types/revision-query-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "whatchanged": {
@@ -2687,9 +2774,12 @@
         "src/commands/revision-query.test.ts",
         "test/types/revision-query-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "shortlog": {
@@ -2699,9 +2789,12 @@
         "src/commands/revision-query.test.ts",
         "test/types/revision-query-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Group accumulation/clearing and stdin-vs-revision behavior depend on resolved input and terminal state. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Group accumulation/clearing and stdin-vs-revision behavior depend on resolved input and terminal state. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
     },
     "show-branch": {
@@ -3392,9 +3485,12 @@
         "src/commands/index-export.test.ts",
         "test/types/index-export-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Revision traversal and path filtering, object selection and refspec grammar, marks file contents and I/O, signature/tag rewrite effects, commit message encoding and reencoding, anonymization substitutions and collisions, repository state, parser abbreviations and independent witnesses for every rule remain pending. Numeric boolean literal grammar is checked at runtime; selected Git versions have different option support. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Revision traversal and path filtering, object selection and refspec grammar, marks file contents and I/O, signature/tag rewrite effects, commit message encoding and reencoding, anonymization substitutions and collisions, repository state, parser abbreviations and independent witnesses for every rule remain pending. Numeric boolean literal grammar is checked at runtime; selected Git versions have different option support. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "pack-objects": {
       "state": "partial",
@@ -3562,9 +3658,12 @@
         "src/commands/merge-tools.test.ts",
         "test/types/merge-tools-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Delegated diff phase/callback validation, configured GUI/tool/extcmd selection, shell wildcard spellings, path/repository effects, viewer execution and independent rule witnesses remain pending. Tool-help early return is modeled separately from normal validation. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Delegated diff phase/callback validation, configured GUI/tool/extcmd selection, shell wildcard spellings, path/repository effects, viewer execution and independent rule witnesses remain pending. Tool-help early return is modeled separately from normal validation. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "mergetool": {
       "state": "partial",
@@ -3736,9 +3835,12 @@
         "src/commands/fallback-dispatch.test.ts",
         "test/types/fallback-dispatch-command-api.ts",
         "src/commands/native-integer.test.ts",
-        "test/types/native-integer-command-api.ts"
+        "test/types/native-integer-command-api.ts",
+        "src/commands/numeric-callbacks.test.ts",
+        "test/types/numeric-callback-command-api.ts",
+        "test/types/decimal-literals.ts"
       ],
-      "remaining": "Exact child dispatch and implicit show fallback are modeled. Ref/reflog contents, expiry/deletion/configuration state, delegated revision/numeric/parser phases, aliases/help and selected-version differences remain pending. Finite normalized states do not prove all native reflog behavior. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Exact child dispatch and implicit show fallback are modeled. Ref/reflog contents, expiry/deletion/configuration state, delegated revision/numeric/parser phases, aliases/help and selected-version differences remain pending. Finite normalized states do not prove all native reflog behavior. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
     "stash list": {
       "state": "partial",
