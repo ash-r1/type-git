@@ -1,0 +1,5093 @@
+{
+  "profile": "Git 2.55.0, LC_ALL=C; ordinary single-pass parse-options help exits",
+  "cases": [
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=always",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "always"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=always"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "aLwAyS"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=aLwAyS",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "aLwAyS"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=aLwAyS"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=auto",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=auto"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "AUTO"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=AUTO",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "AUTO"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=AUTO"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "never"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=never",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "never"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=never"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "NeVeR"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=NeVeR",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "NeVeR"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=NeVeR"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "true"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=true",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "true"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=true"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "yes"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=yes",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "yes"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=yes"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "on"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=on",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "on"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=on"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "false"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=false",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "false"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=false"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "no"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=no",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "no"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=no"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "off"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=off",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "off"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=off"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color="
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "0"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=0",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "0"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=0"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=1",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "1"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=1"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "automatic"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=automatic",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "automatic"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=automatic"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "always "
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=always ",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "always "
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=always "
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          " never"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color= never",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          " never"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color= never"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "ALWＡYS"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=ALWＡYS",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "ALWＡYS"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=ALWＡYS"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=-h",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--no-color",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=invalid",
+        "--color=always",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=always",
+        "--color=invalid",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--color",
+          "always"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--color=invalid",
+        "--color=always"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--no-color",
+        "--help",
+        "--color=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=invalid",
+        "--help"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--color=auto",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--",
+        "--",
+        "--color=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "--track",
+          "invalid"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "--track=invalid",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `--track' expects \"direct\" or \"inherit\""
+    },
+    {
+      "command": "branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--track",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "branch",
+        "-h",
+        "--track=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git branch [<options>] [-r | -a] [--merged] [--no-merged]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=always",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "always"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=always"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "aLwAyS"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=aLwAyS",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "aLwAyS"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=aLwAyS"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=auto",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=auto"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "AUTO"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=AUTO",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "AUTO"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=AUTO"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "never"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=never",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "never"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=never"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "NeVeR"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=NeVeR",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "NeVeR"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=NeVeR"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "true"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=true",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "true"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=true"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "yes"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=yes",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "yes"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=yes"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "on"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=on",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "on"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=on"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "false"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=false",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "false"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=false"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "no"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=no",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "no"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=no"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "off"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=off",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "off"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=off"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color="
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "0"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=0",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "0"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=0"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=1",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "1"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=1"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "automatic"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=automatic",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "automatic"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=automatic"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "always "
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=always ",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "always "
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=always "
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          " never"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color= never",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          " never"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color= never"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "ALWＡYS"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=ALWＡYS",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "ALWＡYS"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=ALWＡYS"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=-h",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--no-color",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=invalid",
+        "--color=always",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=always",
+        "--color=invalid",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--color",
+          "always"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--color=invalid",
+        "--color=always"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--no-color",
+        "--help",
+        "--color=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=invalid",
+        "--help"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--color=auto",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--",
+        "--",
+        "--color=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "--count",
+          "garbage"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "--count=garbage",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `count' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "for-each-ref",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--count",
+          "garbage"
+        ]
+      ],
+      "argv": [
+        "for-each-ref",
+        "-h",
+        "--count=garbage"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git for-each-ref [--count=<count>] [--shell|--perl|--python|--tcl]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=always",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "always"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=always"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "aLwAyS"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=aLwAyS",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "aLwAyS"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=aLwAyS"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=auto",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=auto"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "AUTO"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=AUTO",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "AUTO"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=AUTO"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "never"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=never",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "never"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=never"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "NeVeR"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=NeVeR",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "NeVeR"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=NeVeR"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "true"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=true",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "true"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=true"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "yes"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=yes",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "yes"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=yes"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "on"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=on",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "on"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=on"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "false"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=false",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "false"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=false"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "no"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=no",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "no"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=no"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "off"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=off",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "off"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=off"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color="
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "0"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=0",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "0"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=0"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=1",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "1"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=1"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "automatic"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=automatic",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "automatic"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=automatic"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "always "
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=always ",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "always "
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=always "
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          " never"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color= never",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          " never"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color= never"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "ALWＡYS"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=ALWＡYS",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "ALWＡYS"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=ALWＡYS"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=-h",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--no-color",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=invalid",
+        "--color=always",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=always",
+        "--color=invalid",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--color",
+          "always"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--color=invalid",
+        "--color=always"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--no-color",
+        "--help",
+        "--color=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=invalid",
+        "--help"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "--color=auto",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--",
+        "--",
+        "--color=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "tag",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--delete"
+        ],
+        [
+          "--verify"
+        ]
+      ],
+      "argv": [
+        "tag",
+        "-h",
+        "--delete",
+        "--verify"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git tag [-a | -s | -u <key-id>] [-f] [-m <msg> | -F <file>] [-e]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=always",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "always"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=always"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "aLwAyS"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=aLwAyS",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "aLwAyS"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=aLwAyS"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=auto",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "auto"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=auto"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "AUTO"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=AUTO",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "AUTO"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=AUTO"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "never"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=never",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "never"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=never"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "NeVeR"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=NeVeR",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "NeVeR"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=NeVeR"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "true"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=true",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "true"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=true"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "yes"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=yes",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "yes"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=yes"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "on"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=on",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "on"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=on"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "false"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=false",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "false"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=false"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "no"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=no",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "no"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=no"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "off"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=off",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "off"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=off"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          ""
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          ""
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color="
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "0"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=0",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "0"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=0"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=1",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "1"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=1"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "automatic"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=automatic",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "automatic"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=automatic"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "always "
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=always ",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "always "
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=always "
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          " never"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color= never",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          " never"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color= never"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "ALWＡYS"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=ALWＡYS",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "ALWＡYS"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=ALWＡYS"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "-h"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=-h",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--no-color",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=invalid",
+        "--color=always",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "always"
+        ],
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=always",
+        "--color=invalid",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--color",
+          "always"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--color=invalid",
+        "--color=always"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--no-color"
+        ],
+        [
+          "--help"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--no-color",
+        "--help",
+        "--color=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "invalid"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=invalid",
+        "--help"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `color' expects \"always\", \"auto\", or \"never\""
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "--color",
+          "auto"
+        ],
+        [
+          "--help"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "--color=auto",
+        "--help"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--color",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--",
+        "--",
+        "--color=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "show-branch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--more",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "show-branch",
+        "-h",
+        "--more=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git show-branch [-a | --all] [-r | --remotes] [--topo-order | --date-order]"
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "--chmod",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "add",
+        "--chmod=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git add [<options>] [--] <pathspec>..."
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--chmod",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-h",
+        "--chmod=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git add [<options>] [--] <pathspec>..."
+    },
+    {
+      "command": "add",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "add",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git add [<options>] [--] <pathspec>..."
+    },
+    {
+      "command": "rm",
+      "tokens": [
+        [
+          "--force"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "rm",
+        "--force",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git rm [-f | --force] [-n] [-r] [--cached] [--ignore-unmatch]"
+    },
+    {
+      "command": "rm",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--force"
+        ]
+      ],
+      "argv": [
+        "rm",
+        "-h",
+        "--force"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git rm [-f | --force] [-n] [-r] [--cached] [--ignore-unmatch]"
+    },
+    {
+      "command": "rm",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "rm",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git rm [-f | --force] [-n] [-r] [--cached] [--ignore-unmatch]"
+    },
+    {
+      "command": "mv",
+      "tokens": [
+        [
+          "--force"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "mv",
+        "--force",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git mv [-v] [-f] [-n] [-k] <source> <destination>"
+    },
+    {
+      "command": "mv",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--force"
+        ]
+      ],
+      "argv": [
+        "mv",
+        "-h",
+        "--force"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git mv [-v] [-f] [-n] [-k] <source> <destination>"
+    },
+    {
+      "command": "mv",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "mv",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git mv [-v] [-f] [-n] [-k] <source> <destination>"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--cleanup",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--cleanup=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git commit [-a | --interactive | --patch] [-s] [-v] [-u[<mode>]] [--amend]"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--cleanup",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "-h",
+        "--cleanup=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git commit [-a | --interactive | --patch] [-s] [-v] [-u[<mode>]] [--amend]"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git commit [-a | --interactive | --patch] [-s] [-v] [-u[<mode>]] [--amend]"
+    },
+    {
+      "command": "fetch",
+      "tokens": [
+        [
+          "--filter",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "fetch",
+        "--filter=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid filter-spec 'bad'"
+    },
+    {
+      "command": "fetch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--filter",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "fetch",
+        "-h",
+        "--filter=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git fetch [<options>] [<repository> [<refspec>...]]"
+    },
+    {
+      "command": "fetch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "fetch",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git fetch [<options>] [<repository> [<refspec>...]]"
+    },
+    {
+      "command": "push",
+      "tokens": [
+        [
+          "--force"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "push",
+        "--force",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git push [<options>] [<repository> [<refspec>...]]"
+    },
+    {
+      "command": "push",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--force"
+        ]
+      ],
+      "argv": [
+        "push",
+        "-h",
+        "--force"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git push [<options>] [<repository> [<refspec>...]]"
+    },
+    {
+      "command": "push",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "push",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git push [<options>] [<repository> [<refspec>...]]"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "--filter",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "clone",
+        "--filter=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: invalid filter-spec 'bad'"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--filter",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "clone",
+        "-h",
+        "--filter=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git clone [<options>] [--] <repo> [<dir>]"
+    },
+    {
+      "command": "clone",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "clone",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git clone [<options>] [--] <repo> [<dir>]"
+    },
+    {
+      "command": "merge",
+      "tokens": [
+        [
+          "--log",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "merge",
+        "--log=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `log' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "merge",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--log",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "merge",
+        "-h",
+        "--log=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git merge [<options>] [<commit>...]"
+    },
+    {
+      "command": "merge",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "merge",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git merge [<options>] [<commit>...]"
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "--soft"
+        ],
+        [
+          "--hard"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "--soft",
+        "--hard",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reset [--mixed | --soft | --hard | --merge | --keep] [-q] [<commit>]"
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--soft"
+        ],
+        [
+          "--hard"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "-h",
+        "--soft",
+        "--hard"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reset [--mixed | --soft | --hard | --merge | --keep] [-q] [<commit>]"
+    },
+    {
+      "command": "reset",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "reset",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git reset [--mixed | --soft | --hard | --merge | --keep] [-q] [<commit>]"
+    },
+    {
+      "command": "clean",
+      "tokens": [
+        [
+          "--exclude",
+          "foo"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "clean",
+        "--exclude=foo",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git clean [-d] [-f] [-i] [-n] [-q] [-e <pattern>] [-x | -X] [--] [<pathspec>...]"
+    },
+    {
+      "command": "clean",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--exclude",
+          "foo"
+        ]
+      ],
+      "argv": [
+        "clean",
+        "-h",
+        "--exclude=foo"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git clean [-d] [-f] [-i] [-n] [-q] [-e <pattern>] [-x | -X] [--] [<pathspec>...]"
+    },
+    {
+      "command": "clean",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "clean",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git clean [-d] [-f] [-i] [-n] [-q] [-e <pattern>] [-x | -X] [--] [<pathspec>...]"
+    },
+    {
+      "command": "rebase",
+      "tokens": [
+        [
+          "--empty",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "rebase",
+        "--empty=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: unrecognized empty type 'bad'; valid values are \"drop\", \"keep\", and \"stop\"."
+    },
+    {
+      "command": "rebase",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--empty",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "rebase",
+        "-h",
+        "--empty=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git rebase [-i] [options] [--exec <cmd>] [--onto <newbase> | --keep-base] [<upstream> [<branch>]]"
+    },
+    {
+      "command": "rebase",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "rebase",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git rebase [-i] [options] [--exec <cmd>] [--onto <newbase> | --keep-base] [<upstream> [<branch>]]"
+    },
+    {
+      "command": "checkout",
+      "tokens": [
+        [
+          "--unified",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "checkout",
+        "--unified=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `unified' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "checkout",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--unified",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "checkout",
+        "-h",
+        "--unified=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git checkout [<options>] <branch>"
+    },
+    {
+      "command": "checkout",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "checkout",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git checkout [<options>] <branch>"
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "--conflict",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "switch",
+        "--conflict=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: unknown conflict style 'bad'"
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--conflict",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "switch",
+        "-h",
+        "--conflict=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git switch [<options>] [<branch>]"
+    },
+    {
+      "command": "switch",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "switch",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git switch [<options>] [<branch>]"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "--unified",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "--unified=bad",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: option `unified' expects an integer value with an optional k/m/g suffix"
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--unified",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "-h",
+        "--unified=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git restore [<options>] [--source=<branch>] <file>..."
+    },
+    {
+      "command": "restore",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "restore",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git restore [<options>] [--source=<branch>] <file>..."
+    },
+    {
+      "command": "status",
+      "tokens": [
+        [
+          "--untracked-files",
+          "bad"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "status",
+        "--untracked-files=bad",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git status [<options>] [--] [<pathspec>...]"
+    },
+    {
+      "command": "status",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--untracked-files",
+          "bad"
+        ]
+      ],
+      "argv": [
+        "status",
+        "-h",
+        "--untracked-files=bad"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git status [<options>] [--] [<pathspec>...]"
+    },
+    {
+      "command": "status",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "status",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git status [<options>] [--] [<pathspec>...]"
+    }
+  ]
+}

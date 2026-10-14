@@ -23,6 +23,7 @@ import {
   commandArguments,
   validateArgvStrings,
   commandDecimalCallbacks,
+  commandUsesConflictStyle,
   commandUsesDecimalCallback,
   commandUsesNativeABI,
   commandUsesIntegerProfile,
@@ -572,6 +573,7 @@ export class CliRunner {
     inRepository: boolean | undefined,
     opts: CommandRunOptions | undefined,
   ): Promise<RawResult<string | Uint8Array>>;
+  /** Validate argv, observe only relevant native parser traits, and execute the original ordered words. */
   public async runCommand(
     context: ExecutionContext,
     command: GitCommandName,
@@ -651,6 +653,7 @@ export class CliRunner {
       negativeMagnitudes?: boolean;
       decimalCallbacks?: GitDecimalCallbacks;
       unsignedChar?: boolean;
+      conflictStyle?: 'immediate' | 'deferred';
     };
     let abi: NativeAbi | undefined;
     if (commandUsesNativeABI(command, args)) {
@@ -658,6 +661,9 @@ export class CliRunner {
         ? ['bounded', 'decimal-cast']
         : ['bounded'];
       const signs = commandUsesNegativeMagnitude(command, args) ? [false, true] : [false];
+      const conflictStyles: ('immediate' | 'deferred')[] = commandUsesConflictStyle(command, args)
+        ? ['immediate', 'deferred']
+        : ['immediate'];
       const callbacks = commandDecimalCallbacks(command, args);
       const chars = commandUsesObjectFilterCharProfile(command, args) ? [false, true] : [true];
       let callbackVariants: GitDecimalCallbacks[] = [{}];
@@ -667,33 +673,36 @@ export class CliRunner {
           { ...variant, [callback]: 'legacy' },
         ]);
       }
-      const valid: { profile: GitIntegerProfile; abi: NativeAbi; argv: string[] }[] = [];
+      let valid: { profile: GitIntegerProfile; abi: NativeAbi; argv: string[] }[] = [];
       let firstError: GitArgumentError | undefined;
       for (const integerProfile of profiles) {
         for (const negativeMagnitudes of signs) {
           for (const unsignedChar of chars) {
-            for (const decimalCallbacks of callbackVariants) {
-              for (const longBits of [32, 64] as const) {
-                for (const sizeTBits of [32, 64] as const) {
-                  const candidateAbi = {
-                    longBits,
-                    sizeTBits,
-                    integerProfile,
-                    negativeMagnitudes,
-                    decimalCallbacks,
-                    unsignedChar,
-                  };
-                  try {
-                    valid.push({
-                      profile: integerProfile,
-                      abi: candidateAbi,
-                      argv: commandArguments(command, args, inRepository, candidateAbi),
-                    });
-                  } catch (error) {
-                    if (!(error instanceof GitArgumentError)) {
-                      throw error;
+            for (const conflictStyle of conflictStyles) {
+              for (const decimalCallbacks of callbackVariants) {
+                for (const longBits of [32, 64] as const) {
+                  for (const sizeTBits of [32, 64] as const) {
+                    const candidateAbi = {
+                      longBits,
+                      sizeTBits,
+                      integerProfile,
+                      negativeMagnitudes,
+                      decimalCallbacks,
+                      unsignedChar,
+                      conflictStyle,
+                    };
+                    try {
+                      valid.push({
+                        profile: integerProfile,
+                        abi: candidateAbi,
+                        argv: commandArguments(command, args, inRepository, candidateAbi),
+                      });
+                    } catch (error) {
+                      if (!(error instanceof GitArgumentError)) {
+                        throw error;
+                      }
+                      firstError ??= error;
                     }
-                    firstError ??= error;
                   }
                 }
               }
@@ -707,7 +716,12 @@ export class CliRunner {
       const needsBinaryProfile = commandUsesObjectFilterBinary(command, args);
       if (
         (valid.length ===
-          profiles.length * signs.length * callbackVariants.length * chars.length * 4 &&
+          profiles.length *
+            signs.length *
+            callbackVariants.length *
+            chars.length *
+            conflictStyles.length *
+            4 &&
           !needsBinaryProfile) ||
         (binary && !this.exec.spawnBytes)
       ) {
@@ -717,6 +731,43 @@ export class CliRunner {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       };
+      if (conflictStyles.length > 1) {
+        const groups = new Map<string, Set<string>>();
+        for (const entry of valid) {
+          const { conflictStyle, ...other } = entry.abi;
+          const key = JSON.stringify(other);
+          if (!groups.has(key)) {
+            groups.set(key, new Set());
+          }
+          groups.get(key)!.add(conflictStyle!);
+        }
+        if ([...groups.values()].some((group) => group.size !== 2)) {
+          const probe = await this.run(context, [command, '--conflict=bad', '-h'], probeOptions);
+          if (probe.aborted) {
+            return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+          }
+          let conflictStyle: 'immediate' | 'deferred';
+          if (
+            probe.exitCode === 129 &&
+            /^error: unknown conflict style 'bad'/m.test(probe.stderr)
+          ) {
+            conflictStyle = 'immediate';
+          } else if (
+            (probe.exitCode === 0 || probe.exitCode === 129) &&
+            (probe.stderr + probe.stdout).startsWith('usage:')
+          ) {
+            conflictStyle = 'deferred';
+          } else {
+            return await execute(valid[0]!.argv);
+          }
+          const selected = valid.filter((entry) => entry.abi.conflictStyle === conflictStyle);
+          if (selected.length === 0) {
+            commandArguments(command, args, inRepository, { ...valid[0]!.abi, conflictStyle });
+            throw firstError;
+          }
+          valid = selected;
+        }
+      }
       let unsignedChar = true;
       if (chars.length > 1) {
         const groups = new Map<string, Set<boolean>>();
@@ -917,6 +968,7 @@ export class CliRunner {
           );
         }
         abi = {
+          ...abi,
           longBits: longBytes === '4' ? 32 : 64,
           sizeTBits: sizeBytes === '4' ? 32 : 64,
           integerProfile: selected,

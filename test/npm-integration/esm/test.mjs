@@ -5,6 +5,7 @@
  */
 
 import assert from 'node:assert';
+import { spawnSync } from 'node:child_process';
 
 console.log('Testing ESM imports...\n');
 
@@ -44,8 +45,20 @@ const git = new node.TypeGit();
 const version = await git.version();
 assert(version, 'version() should return a string');
 assert(version.match(/^\d+\.\d+/), 'version should be in semver format');
-assert.strictEqual((await git.command('column', [['--width', '0x10'], ['-h']])).exitCode, 129);
-assert.strictEqual((await git.command('column', [['--width', 16n], ['-h']])).exitCode, 129);
+
+for (const value of ['0x10', 16n]) {
+  const native = spawnSync('git', ['column', `--width=${value}`, '-h'], {
+    encoding: 'utf8', input: '', timeout: 10000,
+  });
+  assert.strictEqual(native.error, undefined);
+  assert.strictEqual(native.signal, null);
+  assert([0, 129].includes(native.status), 'Git help must finish normally');
+  assert.match(native.stdout + native.stderr, /usage: git column/);
+  const actual = await git.command('column', [['--width', value], ['-h']]);
+  assert.strictEqual(actual.exitCode, native.status);
+  assert.strictEqual(actual.stdout, native.stdout);
+  assert.strictEqual(actual.stderr, native.stderr);
+}
 await assert.rejects(git.command('column', [['--width', 2147483648], ['-h']]), { name: 'GitArgumentError', message: /invalid integer/ });
 console.log(`   ✓ Runtime works (Git version: ${version})`);
 

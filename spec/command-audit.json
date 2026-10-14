@@ -31,9 +31,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open.",
+      "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "reset": {
@@ -50,9 +53,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Revision/path disambiguation before --, pathspec file contents, repository state, numeric lexical forms and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Revision/path disambiguation before --, pathspec file contents, repository state, numeric lexical forms and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "stash push": {
@@ -88,9 +94,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Column and formatting callback grammars, implicit listing with -n=-1, signing configuration, object names and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Column and formatting callback grammars, implicit listing with -n=-1, signing configuration, object names and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "remote add": {
@@ -275,9 +284,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Callback grammars, configuration-dependent defaults, abbreviations and independent coverage of all output values.",
+      "remaining": "Callback grammars, configuration-dependent defaults, abbreviations and independent coverage of all output values. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "log": {
@@ -329,9 +341,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open.",
+      "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "push": {
@@ -345,9 +360,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations.",
+      "remaining": "Remote/refspec resolution, protocol negotiation, push-option value grammar, callback grammars and abbreviations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "add": {
@@ -361,9 +379,12 @@
         "test/types/native-integer-command-api.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "checkout": {
@@ -380,9 +401,14 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts",
+        "src/runner/conflict-style-profiles.test.ts",
+        "test/types/conflict-style-profiles.ts"
       ],
-      "remaining": "Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository-dependent revision/path disambiguation and DWIM tracking; remaining path/branch-mode guards; callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Conflict-style callback timing is selected by a readonly help probe: earlier OPT_STRING profiles defer validation until parsing ends, newer OPT_CALLBACK profiles validate each occurrence. Native object/repository/configuration behavior and additional source profiles remain open.",
       "typedCommandAPI": true
     },
     "commit": {
@@ -398,9 +424,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Cleanup/fixup value grammars, repository-dependent author/content modes, callbacks and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Cleanup/fixup value grammars, repository-dependent author/content modes, callbacks and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "diff": {
@@ -445,9 +474,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "pull": {
@@ -477,9 +509,14 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts",
+        "src/runner/conflict-style-profiles.test.ts",
+        "test/types/conflict-style-profiles.ts"
       ],
-      "remaining": "Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars.",
+      "remaining": "Repository-dependent tracking/DWIM, in-progress operations, object names, abbreviations and scalar callback grammars. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Conflict-style callback timing is selected by a readonly help probe: earlier OPT_STRING profiles defer validation until parsing ends, newer OPT_CALLBACK profiles validate each occurrence. Native object/repository/configuration behavior and additional source profiles remain open.",
       "typedCommandAPI": true
     },
     "cherry-pick": {
@@ -520,9 +557,12 @@
         "src/commands/build.test.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "rebase": {
@@ -536,9 +576,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions.",
+      "remaining": "Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "restore": {
@@ -554,9 +597,14 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts",
+        "src/runner/conflict-style-profiles.test.ts",
+        "test/types/conflict-style-profiles.ts"
       ],
-      "remaining": "Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Pathspec file contents, repository/index state, sparse checkout, callback grammars and abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Conflict-style callback timing is selected by a readonly help probe: earlier OPT_STRING profiles defer validation until parsing ends, newer OPT_CALLBACK profiles validate each occurrence. Native object/repository/configuration behavior and additional source profiles remain open.",
       "typedCommandAPI": true
     },
     "revert": {
@@ -739,10 +787,13 @@
         "src/commands/build.test.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations."
     },
     "mv": {
       "state": "partial",
@@ -751,10 +802,13 @@
         "src/commands/build.test.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
+      "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations."
     },
     "remote": {
       "state": "partial",
@@ -1448,10 +1502,13 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
+      "remaining": "Column callback grammar; object/filter value grammars; repository-dependent tracking and recursion; abbreviations and option clustering. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations."
     },
     "stash clear": {
       "state": "partial",
@@ -2186,9 +2243,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations."
     },
     "check-attr": {
       "state": "partial",
@@ -3987,9 +4047,12 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/parser-exits.test.ts",
+        "test/types/parser-exit-corpus.ts",
+        "test/types/parser-exits.ts"
       ],
-      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Reflog count conversion/MAX_REVS and resolved branch expansion limits remain pending. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Reflog count conversion/MAX_REVS and resolved branch expansion limits remain pending. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.",
       "typedCommandAPI": true
     },
     "rev-parse": {
