@@ -36,3 +36,11 @@ type ModernMaybeSeparator = CheckedCommandArguments<'gui blame', readonly [{read
 export const modernMaybeSeparator: ModernMaybeSeparator = [{operand:'HEAD'}, {operand:possibleSeparator}, {operand:'file'}];
 
 export type BadKnownSeparatorAlongsideOpaque = Reject<CheckedCommandArguments<'gui browser', readonly [{readonly operand:typeof possibleSeparator}, {readonly operand:'HEAD'}, {readonly operand:'file'}], {guiGrammar:'positional'}>>;
+
+declare const unrelatedGuiString: string;
+// @ts-expect-error An opaque later operand does not repair an invalid operation.
+git.command('gui', [{operand:'not-a-gui-operation'}, {operand:unrelatedGuiString}]);
+export type NoDirectTclVersion = Reject<CheckedCommandArguments<'gui', readonly [readonly ['--version']], {guiLaunch:'direct-tcl'}>>;
+
+// @ts-expect-error The UI cannot consume two remaining words; one trace removal cannot repair them.
+git.command('gui gui', [{operand:unrelatedGuiString}, {operand:unrelatedGuiString}]);

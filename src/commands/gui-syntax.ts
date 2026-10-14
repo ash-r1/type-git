@@ -3,7 +3,21 @@ import { GitArgumentError } from '../core/types.js';
 import type { CommandSpec } from './spec.js';
 
 export type GuiGrammar = 'path-loop' | 'positional';
-export type CommandGrammarContext = { guiGrammar?: GuiGrammar };
+export type GuiLaunch = 'shell-prelude' | 'direct-tcl';
+export type CommandGrammarContext = { guiGrammar?: GuiGrammar; guiLaunch?: GuiLaunch };
+export function guiLaunchFromSource(source: string): GuiLaunch | undefined {
+  const normalized = source.replaceAll('\r\n', '\n');
+  if (
+    createHash('sha256').update(normalized).digest('hex') ===
+    '39d3370e10041566b2c99af47626999effcdb6056fc55a1075dfb53bd7764721'
+  ) {
+    return 'direct-tcl';
+  }
+  if (guiGrammarFromSource(source) !== undefined) {
+    return 'shell-prelude';
+  }
+  return undefined;
+}
 
 // Fingerprints cover the complete operation-parser block of the pinned sources,
 // excluding install paths and the independently reported application version.
@@ -79,13 +93,27 @@ const hasNonAscii = (word: string): boolean => [...word].some((char) => char.cha
 const commitOptions = new Set(['--amend', '--nocommit', '--commitmsg']);
 
 /** Validate syntax; object/path existence and GUI operations remain native. */
-export function validateGuiArguments(argv: readonly string[], grammar?: GuiGrammar): void {
+export function validateGuiArguments(
+  argv: readonly string[],
+  grammar?: GuiGrammar,
+  launch?: GuiLaunch,
+): void {
   const words = argv.slice(1);
   if (
     words[0] === '--help' ||
-    (words.length === 1 && (words[0] === 'version' || words[0] === '--version'))
+    (launch !== 'direct-tcl' &&
+      words.length === 1 &&
+      (words[0] === 'version' || words[0] === '--version'))
   ) {
     return;
+  }
+  if (words[0] === '--working-dir' && words.length >= 2) {
+    if (launch === undefined) {
+      return;
+    }
+    if (launch === 'direct-tcl') {
+      words.splice(0, 2);
+    }
   }
   const trace = words.indexOf('--trace');
   if (trace >= 0) {
@@ -270,19 +298,105 @@ type OperationChoice<W extends readonly string[], Op extends string, P> = Opaque
             : false
           : true
       : false;
-type Script<W extends readonly string[], Program extends string, P> = W extends readonly [
-  'version' | '--version',
+type Script<W extends readonly string[], Program extends string, P, L> = W extends readonly [
+  '--help',
+  ...unknown[],
 ]
   ? true
-  : W extends readonly ['--help', ...unknown[]]
-    ? true
-    : RemoveTrace<W> extends infer T extends readonly string[]
-      ? Program extends 'citool'
-        ? Operation<T, 'citool', P>
-        : T extends readonly [infer Op extends string, ...infer Rest extends readonly string[]]
-          ? Operation<Rest, Op, P>
-          : true
-      : true;
+  : W extends readonly ['version' | '--version']
+    ? L extends 'direct-tcl'
+      ? ScriptBody<W, Program, P, L>
+      : true
+    : ScriptBody<W, Program, P, L>;
+type ScriptBody<W extends readonly string[], Program extends string, P, L> = W extends readonly [
+  '--working-dir',
+  string,
+  ...infer Rest extends readonly string[],
+]
+  ? L extends 'direct-tcl'
+    ? ScriptOperation<Rest, Program, P>
+    : L extends 'shell-prelude'
+      ? false
+      : true
+  : ScriptOperation<W, Program, P>;
+type ScriptOperation<
+  W extends readonly string[],
+  Program extends string,
+  P,
+> = RemoveTrace<W> extends infer T extends readonly string[]
+  ? Program extends 'citool'
+    ? Operation<T, 'citool', P>
+    : T extends readonly [infer Op extends string, ...infer Rest extends readonly string[]]
+      ? Operation<Rest, Op, P>
+      : true
+  : true;
+type BadKnownOperation<
+  W extends readonly string[],
+  Program extends string,
+  P,
+  L,
+> = W extends readonly ['--help', ...unknown[]]
+  ? never
+  : W extends readonly ['version' | '--version']
+    ? L extends 'direct-tcl'
+      ? BadMode<W, Program, P>
+      : never
+    : W extends readonly ['--working-dir', string, ...infer Rest extends readonly string[]]
+      ? L extends 'direct-tcl'
+        ? BadMode<Rest, Program, P>
+        : L extends 'shell-prelude'
+          ? true
+          : never
+      : BadMode<W, Program, P>;
+type BadMode<W extends readonly string[], Program extends string, P> = Program extends 'citool'
+  ? never
+  : W extends readonly [infer H extends string, ...infer Rest extends readonly string[]]
+    ? H extends unknown
+      ? Opaque<H> extends true
+        ? never
+        : H extends '--trace'
+          ? BadSelectedMode<Rest, P>
+          : BadModeWord<H, P>
+      : never
+    : never;
+type BadSelectedMode<W extends readonly string[], P> = W extends readonly [
+  infer H extends string,
+  ...(readonly string[]),
+]
+  ? BadModeWord<H, P>
+  : never;
+type BadModeWord<H extends string, P> = H extends unknown
+  ? Opaque<H> extends true
+    ? never
+    : H extends 'gui' | 'citool' | 'browser' | 'blame'
+      ? never
+      : H extends 'pick'
+        ? P extends 'path-loop'
+          ? true
+          : never
+        : true
+  : never;
+type BadKnownCount<W extends readonly string[], Program extends string, P> = Program extends 'gui'
+  ? W extends readonly [infer Op extends string, ...infer Rest extends readonly string[]]
+    ? Op extends 'gui' | 'pick'
+      ? Rest['length'] extends 0 | 1
+        ? never
+        : true
+      : Op extends 'browser'
+        ? P extends 'positional'
+          ? Rest['length'] extends 0 | 1 | 2 | 3 | 4
+            ? never
+            : true
+          : never
+        : Op extends 'blame'
+          ? P extends 'positional'
+            ? Rest['length'] extends 0 | 1 | 2 | 3 | 4 | 5
+              ? never
+              : true
+            : never
+          : never
+    : never
+  : never;
 /** Unknown frontend/interpreter or opaque words are not inferred from Git's version. */
 export type CheckedGuiArguments<
   S extends { argv: readonly string[] },
@@ -294,11 +408,16 @@ export type CheckedGuiArguments<
       ...infer Prefix extends readonly string[],
     ]
     ? readonly [...Prefix, ...W] extends infer All extends readonly string[]
-      ? HasOpaque<All> extends true
-        ? A
-        : Script<All, Program, Ctx['guiGrammar']> extends true
+      ? [
+          | BadKnownOperation<All, Program, Ctx['guiGrammar'], Ctx['guiLaunch']>
+          | BadKnownCount<All, Program, Ctx['guiGrammar']>,
+        ] extends [never]
+        ? HasOpaque<All> extends true
           ? A
-          : never
+          : Script<All, Program, Ctx['guiGrammar'], Ctx['guiLaunch']> extends true
+            ? A
+            : never
+        : never
       : never
     : never
   : never;

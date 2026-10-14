@@ -15,6 +15,17 @@ describe('GUI raw-word grammar', () => {
     }
   });
 
+  it('does not claim a legacy browser line-looking word is unconditionally an option', () => {
+    // Native probes: a tracked --line=2 directory wins file-exists detection and
+    // opens the browser with exit 0; without that path, jump_spec leads to usage 1.
+    expect(() =>
+      validateGuiArguments(['gui', 'browser', '--line=2', 'path'], 'path-loop'),
+    ).not.toThrow();
+    expect(() =>
+      validateGuiArguments(['gui', 'browser', '--line=2', 'path'], 'positional'),
+    ).toThrow();
+  });
+
   it('uses the final word as a path before recognizing line syntax', () => {
     expect(commandArguments('gui blame', [['--line', 2]], true, undefined, 'positional')).toEqual([
       'gui',
@@ -54,6 +65,25 @@ describe('GUI raw-word grammar', () => {
       ),
     ).toEqual(['gui', 'browser', '--trace', 'tracked']);
     expect(() => commandArguments('gui browser', [{ operand: '--trace' }], true)).toThrow();
+  });
+
+  it('separates direct-Tcl launch from shell-only shortcuts and workdir preprocessing', () => {
+    expect(() => validateGuiArguments(['gui', '--version'], 'positional', 'direct-tcl')).toThrow();
+    expect(() => validateGuiArguments(['citool', 'version'], 'positional', 'direct-tcl')).toThrow();
+    expect(() =>
+      validateGuiArguments(
+        ['gui', '--working-dir', '/fixture', 'browser', '.'],
+        'positional',
+        'direct-tcl',
+      ),
+    ).not.toThrow();
+    expect(() =>
+      validateGuiArguments(
+        ['gui', '--working-dir', '/fixture', 'browser', '.'],
+        'positional',
+        'shell-prelude',
+      ),
+    ).toThrow();
   });
 
   it('does not guess a frontend profile from a version string or partial source', () => {

@@ -2,7 +2,12 @@ import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { violations } from '../constraints/model.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
-import { guiArguments, validateGuiArguments, type GuiGrammar } from './gui-syntax.js';
+import {
+  guiArguments,
+  validateGuiArguments,
+  type GuiGrammar,
+  type GuiLaunch,
+} from './gui-syntax.js';
 import type { CommandSpec, OptionSpec } from './spec.js';
 import type { GitCommandName } from './types.js';
 
@@ -45,6 +50,7 @@ export function commandArguments(
   inRepository?: boolean,
   abi?: { longBits: 32 | 64; sizeTBits: 32 | 64 },
   guiGrammar?: GuiGrammar,
+  guiLaunch?: GuiLaunch,
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
@@ -60,7 +66,7 @@ export function commandArguments(
         .map((s) => s.options),
     );
     const argv = guiArguments(spec, args, rootOptions);
-    validateGuiArguments(argv, guiGrammar);
+    validateGuiArguments(argv, guiGrammar, guiLaunch);
     return argv;
   }
   if (!Array.isArray(args)) {

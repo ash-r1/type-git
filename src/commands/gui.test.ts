@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -5,10 +6,37 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
-import { guiGrammarFromSource } from './gui-syntax.js';
+import { guiGrammarFromSource, guiLaunchFromSource } from './gui-syntax.js';
 
 const nativeEnv: NodeJS.ProcessEnv = { ...process.env, LC_ALL: 'C' };
+const shellPrelude: Record<'gui' | 'citool', boolean> = { gui: true, citool: true };
 const versionAvailable = (command: 'gui' | 'citool'): boolean => {
+  const location = spawnSync('git', ['--exec-path'], {
+    env: nativeEnv,
+    input: '',
+    encoding: 'utf8',
+    timeout: 10000,
+  });
+  expect(location.error).toBeUndefined();
+  expect(location.signal).toBeNull();
+  expect(location.status).toBe(0);
+  try {
+    const script = readFileSync(
+      join(location.stdout.replace(/\r?\n$/, ''), `git-${command}`),
+      'utf8',
+    );
+    if (guiLaunchFromSource(script) === 'direct-tcl') {
+      shellPrelude[command] = false;
+      console.warn(
+        `Skipping ${command} shell-version comparisons: verified direct-Tcl launcher has no shell prelude.`,
+      );
+      return true;
+    }
+  } catch (error) {
+    if (!(error && typeof error === 'object' && 'code' in error && error.code === 'ENOENT')) {
+      throw error;
+    }
+  }
   const result = spawnSync('git', [command, '--version'], {
     env: nativeEnv,
     input: '',
@@ -86,6 +114,12 @@ describe('GUI operation grammar', () => {
         return;
       }
       throw error;
+    }
+    if (guiLaunchFromSource(source) === 'direct-tcl') {
+      console.warn(
+        'Verified direct-Tcl launcher; version execution is not a shell-prelude comparison.',
+      );
+      return;
     }
     const profile = guiGrammarFromSource(source);
     const version = spawnSync('git', ['gui', '--version'], {
@@ -174,7 +208,7 @@ describe('GUI operation grammar', () => {
   });
   for (const command of ['gui', 'citool'] as const) {
     it(`matches the ${command} version shell prelude without a display`, ({ skip }) => {
-      if (!available[command]) {
+      if (!(available[command] && shellPrelude[command])) {
         skip();
         return;
       }

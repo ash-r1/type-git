@@ -114,6 +114,16 @@ describe('selected GUI frontend', () => {
     expect(runtime.exec.spawn).toHaveBeenCalledTimes(3);
   });
 
+  it('does not launch a modal version probe for a verified direct-Tcl wrapper', async () => {
+    vi.spyOn(syntax, 'guiLaunchFromSource').mockReturnValue('direct-tcl');
+    const runtime = adapters();
+    await expect(
+      new CliRunner(runtime).runCommand({ type: 'global' }, 'gui', [['--version']], undefined),
+    ).rejects.toThrow('argument syntax');
+    expect(runtime.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(runtime.exec.spawn).mock.calls[0]?.[0].argv).toEqual(['git', '--exec-path']);
+  });
+
   it('rejects malformed IO before any source lookup or process probe', async () => {
     const runtime = adapters();
     await expect(

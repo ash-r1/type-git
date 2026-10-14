@@ -10,7 +10,11 @@
 import process from 'node:process';
 import { commandArguments, commandUsesNativeABI } from '../commands/build.js';
 import { COMMAND_SPECS } from '../commands/generated.js';
-import { guiGrammarFromSource } from '../commands/gui-syntax.js';
+import {
+  type GuiGrammar,
+  guiGrammarFromSource,
+  guiLaunchFromSource,
+} from '../commands/gui-syntax.js';
 import type { CommandSpec, CompanionExecutable } from '../commands/spec.js';
 import type { GitCommandName } from '../commands/types.js';
 import type {
@@ -429,12 +433,7 @@ export class CliRunner {
     };
     if (spec.guiScript) {
       const argv = commandArguments(command, args, inRepository);
-      if (
-        (binary && !this.exec.spawnBytes) ||
-        !this.fs.readFile ||
-        argv[1] === '--help' ||
-        (argv.length === 2 && (argv[1] === 'version' || argv[1] === '--version'))
-      ) {
+      if ((binary && !this.exec.spawnBytes) || !this.fs.readFile || argv[1] === '--help') {
         return await execute(argv);
       }
       const probeOptions = {
@@ -453,6 +452,20 @@ export class CliRunner {
         source = await this.fs.readFile(`${path.stdout.replace(/\r?\n$/, '')}/git-${argv[0]}`);
       } catch {
         return await execute(argv);
+      }
+      const launch = guiLaunchFromSource(source);
+      if (launch === 'direct-tcl') {
+        // Windows invokes Tcl directly: querying --version can open a modal GUI.
+        const tclPath = `${path.stdout.replace(/\r?\n$/, '')}/git-gui.tcl`;
+        let grammar: GuiGrammar | undefined;
+        try {
+          grammar = guiGrammarFromSource(await this.fs.readFile(tclPath));
+        } catch {
+          /* Unknown source keeps native validation. */
+        }
+        return await execute(
+          commandArguments(command, args, inRepository, undefined, grammar, launch),
+        );
       }
       const grammar = guiGrammarFromSource(source);
       if (!grammar) {
