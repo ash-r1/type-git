@@ -1,14 +1,14 @@
 # Upstream command coverage
 
-Baseline: Git 2.55.0; Git LFS 3.8.0.
+Baseline: Git 2.55.0; Git LFS 3.8.0; Cobra 1.10.2.
 
 Version-pinned upstream commands, registered aliases/helpers, and companion programs. Site-installed git-* extensions cannot be enumerated globally.
 
 **Inventory is not implementation coverage.** Entries without an audit record are pending. A finite model count is not proof that upstream constraints were fully discovered.
 
-Inventory contains 221 entries; the table also includes individually reviewed operation scopes. Candidate nested dispatch names are retained in the JSON inventory, not counted as audited operations.
+Inventory contains 223 entries; the table also includes individually reviewed operation scopes. Candidate nested dispatch names are retained in the JSON inventory, not counted as audited operations.
 
-Typed inventory entries: 219/221; sourced-library exclusions: 2. Total typed operation scopes: 426. Completed constraint audits: 0.
+Typed inventory entries: 221/223; sourced-library exclusions: 2. Total typed operation scopes: 428. Completed constraint audits: 0.
 
 | Command / operation | Classification | Audit | Typed CLI | Models | Remaining work |
 | --- | --- | --- | --- | --- | --- |
@@ -146,6 +146,8 @@ Typed inventory entries: 219/221; sourced-library exclusions: 2. Total typed ope
 | `interpret-trailers` | documented | partial | yes |  | Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. |
 | `last-modified` | documented | partial | yes |  | Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Its single positive commit requirement depends on revision resolution, not raw operand count. |
 | `lfs` | reviewed-scope | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
+| `lfs __complete` | lfs-framework-helper | partial | yes |  | Pinned Cobra registration and MinimumNArgs grammar, aliases and literal flag handling are verified against native Git LFS. Completion callbacks and repository/config-dependent suggestions remain under audit. |
+| `lfs __completeNoDesc` | lfs-framework-helper | partial | yes |  | Pinned Cobra registration and MinimumNArgs grammar, aliases and literal flag handling are verified against native Git LFS. Completion callbacks and repository/config-dependent suggestions remain under audit. |
 | `lfs checkout` | lfs-registered | partial | yes | lfsCheckout | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `lfs clean` | lfs-registered | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |
 | `lfs clone` | lfs-registered | partial | yes |  | Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses. |

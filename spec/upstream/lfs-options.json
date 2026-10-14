@@ -1,5 +1,14 @@
 {
   "baseline": "3.8.0",
+  "dependencies": {
+    "cobra": {
+      "version": "1.10.2",
+      "sources": {
+        "lfs/go.mod": "bc153e03fb894d14ece3a3eed5a34c49419c03461f2ad5c9cc11bd5df73d2077",
+        "cobra/completions.go": "7d94de34c9ebf37da817a1dec576e672c41c4bf7d1e42140f39e7ad36bee9eee"
+      }
+    }
+  },
   "extraction": "Cobra/pflag registrations, including short aliases and inherited persistent flags. This inventory does not infer semantic constraints.",
   "sources": {
     "commands/command_checkout.go": "ff9db8611e349d00eac2e7257e1a7610db26b6eb4d952e5388f80d697977bd14",
@@ -62,6 +71,28 @@
       },
       "source": "https://github.com/git-lfs/git-lfs/blob/v3.8.0/commands/run.go",
       "separator": true
+    },
+    "lfs __complete": {
+      "argv": [
+        "lfs",
+        "__complete"
+      ],
+      "options": {},
+      "source": "https://github.com/spf13/cobra/blob/v1.10.2/completions.go",
+      "separator": false,
+      "optionParsing": "none",
+      "minimumOperands": 1
+    },
+    "lfs __completeNoDesc": {
+      "argv": [
+        "lfs",
+        "__completeNoDesc"
+      ],
+      "options": {},
+      "source": "https://github.com/spf13/cobra/blob/v1.10.2/completions.go",
+      "separator": false,
+      "optionParsing": "none",
+      "minimumOperands": 1
     },
     "lfs checkout": {
       "argv": [
