@@ -13,6 +13,7 @@ const legacy = process.env.TYPE_GIT_USE_LEGACY_VERSION === 'true';
 describe('final scalar constraints', () => {
   let root: string;
   let env: NodeJS.ProcessEnv;
+  let transportLongBits: 32 | 64;
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-depth-'));
     env = {
@@ -28,6 +29,13 @@ describe('final scalar constraints', () => {
       GIT_ALLOW_PROTOCOL: 'file',
     };
     expect(spawnSync('git', ['init', root], { env }).status).toBe(0);
+    const widths = spawnSync('git', ['version', '--build-options'], { env, encoding: 'utf8' });
+    expect(widths.error).toBeUndefined();
+    expect(widths.signal).toBeNull();
+    expect(widths.status).toBe(0);
+    const longBytes = /^sizeof-long: ([48])\r?$/m.exec(widths.stdout)?.[1];
+    expect(longBytes).toBeDefined();
+    transportLongBits = longBytes === '4' ? 32 : 64;
     for (let index = 0; index < 3; index++) {
       const commit = spawnSync(
         'git',
@@ -129,8 +137,8 @@ describe('final scalar constraints', () => {
   );
 
   it.each([
-    4294967297, -4294967295,
-  ])('fetches one shallow commit for wrapped depth %s via file://', async (depth) => {
+    1, 4294967297, -4294967295,
+  ])('matches the selected Git transport depth for %s via file://', async (depth) => {
     const git = new TypeGit({ home: root, inheritEnv: false, env });
     const destination = join(root, `clone-${depth}`);
     const source = pathToFileURL(root).href;
@@ -142,11 +150,21 @@ describe('final scalar constraints', () => {
     expect(native.error).toBeUndefined();
     expect(native.signal).toBeNull();
     expect(native.status, native.stderr).toBe(0);
+    expect(native.stderr).not.toContain('--depth is ignored');
     await git.clone(source, destination, { depth });
+    // transport.c uses strtol (not atoi), then stores the value in an int.
+    // LLP64 can therefore fetch a different history after the initial check.
+    const minimum = -(1n << BigInt(transportLongBits - 1));
+    const maximum = (1n << BigInt(transportLongBits - 1)) - 1n;
+    const number = BigInt(depth);
+    const clamped = number < minimum ? minimum : number > maximum ? maximum : number;
+    const converted = Number(BigInt.asIntN(32, clamped));
+    const expectedCount = converted > 0 ? String(Math.min(3, converted)) : '3';
+    const expectedShallow = converted > 0 && converted < 3 ? 'true' : 'false';
     for (const path of [`${destination}-native`, destination]) {
       for (const [words, expected] of [
-        [['rev-list', '--count', 'HEAD'], '1'],
-        [['rev-parse', '--is-shallow-repository'], 'true'],
+        [['rev-list', '--count', 'HEAD'], expectedCount],
+        [['rev-parse', '--is-shallow-repository'], expectedShallow],
       ] as const) {
         const result = spawnSync('git', ['-C', path, ...words], {
           env,
