@@ -95,6 +95,7 @@ export type GitScalarParser =
   | 'python-int'
   | 'perl-int'
   | 'perl-int-gnu'
+  | 'depth-initial'
   | 'object-filter'
   | 'object-filter-auto'
   | 'fast-import-sign'
@@ -139,6 +140,22 @@ export function parseGitScalar(
   if (parser === 'python-int') {
     const parsed = pythonInteger(value);
     return { valid: parsed !== undefined, value: parsed };
+  }
+  if (parser === 'depth-initial') {
+    // Git clone/fetch call atoi before transport-specific validation. The pinned
+    // 64-bit libc clamps strtol overflow, then atoi converts to a signed int.
+    const match = /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(String(value));
+    if (!match) {
+      return { valid: false };
+    }
+    const parsed = BigInt(match[1]!);
+    const clamped =
+      parsed < -9223372036854775808n
+        ? -9223372036854775808n
+        : parsed > 9223372036854775807n
+          ? 9223372036854775807n
+          : parsed;
+    return { valid: BigInt.asIntN(32, clamped) > 0n, value };
   }
   if (parser === 'object-filter' || parser === 'object-filter-auto') {
     return {

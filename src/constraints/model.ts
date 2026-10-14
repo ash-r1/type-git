@@ -1,4 +1,9 @@
-import { gitBoolean, PYTHON_INTEGER_DEFERRED } from './git-scalars.js';
+import {
+  type GitScalarParser,
+  gitBoolean,
+  parseGitScalar,
+  PYTHON_INTEGER_DEFERRED,
+} from './git-scalars.js';
 import { lfsBytes } from './scalars.js';
 /** Declarative constraints: no Git processes, TypeScript compiler, or repository state. */
 export type Evidence = {
@@ -45,11 +50,13 @@ export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] }
     | { kind: 'unsupported'; keys: readonly string[] }
     | { kind: 'value'; key: string; allowed: readonly (string | number | boolean)[] }
     | { kind: 'elements'; key: string; allowed: readonly (string | number | boolean)[] }
+    | { kind: 'scalar'; key: string; parser: GitScalarParser }
     | { kind: 'range'; key: string; min: number; max?: number; when?: Predicate }
     | { kind: 'eachInteger'; key: string; min: number }
     | { kind: 'integer'; key: string; min: number; allowBoolean?: boolean }
   );
 
+/** Evaluate one normalized-state predicate without invoking Git. */
 export function matches(predicate: Predicate, options: Readonly<Record<string, unknown>>): boolean {
   const value = options[predicate.key];
   switch (predicate.test) {
@@ -107,6 +114,7 @@ export function violations(
   return rules.filter((rule) => violates(rule, options));
 }
 
+/** Check a guarded rule body and preserve its declared evaluation order. */
 function violates(rule: Constraint, options: Readonly<Record<string, unknown>>): boolean {
   if (rule.guard && !rule.guard.every((p) => matches(p, options))) {
     return false;
@@ -157,6 +165,10 @@ function violates(rule: Constraint, options: Readonly<Record<string, unknown>>):
         (!Array.isArray(items) || items.some((item) => !rule.allowed.includes(item)))
       );
     }
+    case 'scalar':
+      return (
+        options[rule.key] !== undefined && !parseGitScalar(rule.parser, options[rule.key]).valid
+      );
     case 'value':
       return options[rule.key] !== undefined && !rule.allowed.some((v) => v === options[rule.key]);
     case 'range':
@@ -184,10 +196,12 @@ export function predicateKeys(predicate: Predicate): string[] {
     : [predicate.key];
 }
 
+/** Collect all state fields used by a rule guard and body. */
 export function referencedKeys(rule: Constraint): string[] {
   return [...(rule.guard ?? []).flatMap(predicateKeys), ...bodyKeys(rule)];
 }
 
+/** Collect fields referenced by each concrete rule kind. */
 function bodyKeys(rule: Constraint): string[] {
   switch (rule.kind) {
     case 'arity':
@@ -209,6 +223,7 @@ function bodyKeys(rule: Constraint): string[] {
       return rule.when.flatMap(predicateKeys);
     case 'range':
       return rule.when ? [rule.key, ...predicateKeys(rule.when)] : [rule.key];
+    case 'scalar':
     case 'value':
     case 'elements':
     case 'eachInteger':
@@ -217,6 +232,7 @@ function bodyKeys(rule: Constraint): string[] {
   }
 }
 
+/** Normalize an optional single condition to the shared condition-list form. */
 export function conditions(
   when: Predicate | readonly Predicate[] | undefined,
 ): readonly Predicate[] {

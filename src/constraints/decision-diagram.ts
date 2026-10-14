@@ -56,6 +56,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
     [0, 1],
     [1, 0],
   ]);
+  /** Intern a reduced node, merging identical residual branches. */
   function node(key: string, edges: number[]): number {
     if (edges.every((edge) => edge === edges[0])) {
       return edges[0]!;
@@ -69,6 +70,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
     unique.set(signature, id);
     return id;
   }
+  /** Complement a diagram and memoize both directions. */
   function not(id: number): number {
     const old = negated.get(id);
     if (old !== undefined) {
@@ -80,6 +82,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
     negated.set(result, id);
     return result;
   }
+  /** Intersect diagrams by their ordered variable levels. */
   function and(a: number, b: number): number {
     if (a === 0 || b === 0) {
       return 0;
@@ -114,8 +117,10 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
   const or = (a: number, b: number) => not(and(not(a), not(b)));
   const all = (items: readonly number[]) => items.reduce(and, 1);
   const any = (items: readonly number[]) => items.reduce(or, 0);
+  /** Enumerate only the finite fields read by one predicate. */
   function atom(p: Predicate): number {
     const inputs = [...new Set(predicateKeys(p))].sort();
+    /** Expand predicate inputs until a concrete assignment can be evaluated. */
     function branch(index: number, state: Assignment): number {
       const key = inputs[index];
       return key === undefined
@@ -127,6 +132,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
     }
     return branch(0, {});
   }
+  /** Compile one guarded rule using the same concrete violation semantics. */
   function compile(rule: Constraint): number {
     if (rule.guard) {
       return or(not(all(rule.guard.map(atom))), compile({ ...rule, guard: undefined }));
@@ -169,6 +175,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
       }
       case 'unsupported':
         return not(any(rule.keys.map((key) => atom({ key, test: 'present' }))));
+      case 'scalar':
       case 'value':
       case 'elements':
       case 'eachInteger':
@@ -196,6 +203,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
     products[i] = products[i + 1]! * BigInt(domains[keys[i]!]!.length);
   }
   const counts = new Map<number, bigint>();
+  /** Count accepted assignments, including variables skipped by reduction. */
   function count(id: number, level: number): bigint {
     if (id < 2) {
       return id === 0 ? 0n : products[level]!;
@@ -209,6 +217,7 @@ export function solve(rules: readonly Constraint[], domains: Domains): Explorati
     }
     return (products[level]! / products[ownLevel]!) * own;
   }
+  /** Choose a deterministic accepted assignment, or report no witness. */
   function witness(id: number): Assignment | undefined {
     if (id === 0) {
       return undefined;
