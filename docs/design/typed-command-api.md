@@ -1024,3 +1024,10 @@ unpinned contexts retain the applicable complete-command alternatives. Type
 normalization to `--init` is used only for semantic checking of the accepting
 profile and does not rewrite executed argv. Reset/filter prerequisites,
 repository guards and other scalar checks remain in that command check.
+
+The filesystem adapter may allocate a temporary path without creating its file.
+The depth observation explicitly writes the blocking file before invoking Git;
+an adapter without file-writing support skips that observation and keeps native
+handling. A regression checks real file existence at the spawn boundary and
+cleanup afterward. Merely allocating a pathname does not establish a safe
+transport-stopping probe.

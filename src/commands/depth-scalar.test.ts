@@ -208,10 +208,10 @@ describe('final scalar constraints', () => {
       }
     }
   });
-  it('rejects an invalid converted depth before cloning', async () => {
+  it('rejects a universally invalid converted depth before cloning', async () => {
     const git = new TypeGit({ home: root, inheritEnv: false, env });
-    await expect(
-      git.clone(root, join(root, 'bad-depth'), { depth: 2147483648 }),
-    ).rejects.toBeInstanceOf(GitArgumentError);
+    await expect(git.clone(root, join(root, 'bad-depth'), { depth: -1 })).rejects.toBeInstanceOf(
+      GitArgumentError,
+    );
   });
 });

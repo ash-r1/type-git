@@ -12,6 +12,51 @@ const result = (exitCode: number, stderr = '') => ({
   aborted: false,
 });
 describe('independent initial depth atoi profile', () => {
+  it('creates a real blocking file before invoking the clone observation', async () => {
+    const adapters = createNodeAdapters();
+    const exists = adapters.fs.exists.bind(adapters.fs);
+    let blocker: string | undefined;
+    adapters.exec.spawn = vi.fn().mockImplementation(async (options) => {
+      if (options.argv.includes('type-git-depth-profile:invalid')) {
+        blocker = options.argv.at(-1)!;
+        expect(await exists(blocker!)).toBe(true);
+        return result(
+          128,
+          `fatal: destination path '${blocker}' already exists and is not an empty directory.\n`,
+        );
+      }
+      return result(0);
+    });
+    await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'fetch',
+      [['--all'], ['--depth', '2147483648']],
+      true,
+    );
+    expect(blocker).toBeDefined();
+    expect(await exists(blocker!)).toBe(false);
+  });
+
+  it('delegates to native execution when a blocking file cannot be created', async () => {
+    const adapters = createNodeAdapters();
+    adapters.fs.writeFile = undefined;
+    adapters.fs.createTempFile = vi.fn();
+    adapters.exec.spawn = vi.fn().mockResolvedValue(result(0));
+    await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'fetch',
+      [['--all'], ['--depth', '2147483648']],
+      true,
+    );
+    expect(adapters.fs.createTempFile).not.toHaveBeenCalled();
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    expect(adapters.exec.spawn.mock.calls[0]![0].argv).toEqual([
+      'git',
+      'fetch',
+      '--all',
+      '--depth=2147483648',
+    ]);
+  });
   it('matches the parser exit exception for the first help-dispatch word', () => {
     expect(commandUsesDepthAtoi('fetch', [['--help'], ['--depth', '2147483648']])).toBe(true);
     expect(commandUsesDepthAtoi('fetch', [['--depth', '2147483648'], ['--help']])).toBe(false);
@@ -32,6 +77,7 @@ describe('independent initial depth atoi profile', () => {
     const adapters = createNodeAdapters();
     adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
     adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
     adapters.exec.spawn = vi
       .fn()
       .mockResolvedValueOnce(
@@ -73,6 +119,7 @@ describe('independent initial depth atoi profile', () => {
     const adapters = createNodeAdapters();
     adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
     adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
     adapters.exec.spawn = vi
       .fn()
       .mockResolvedValue(result(128, 'fatal: depth 2147483648 is not a positive number\n'));
@@ -91,6 +138,7 @@ describe('independent initial depth atoi profile', () => {
     const adapters = createNodeAdapters();
     adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
     adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
     adapters.exec.spawn = vi
       .fn()
       .mockResolvedValue(
@@ -110,6 +158,7 @@ describe('independent initial depth atoi profile', () => {
     const adapters = createNodeAdapters();
     adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
     adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
     adapters.exec.spawn = vi
       .fn()
       .mockResolvedValueOnce(result(128, 'erreur : profondeur invalide'))
@@ -128,6 +177,7 @@ describe('independent initial depth atoi profile', () => {
     const adapters = createNodeAdapters();
     adapters.fs.createTempFile = vi.fn().mockResolvedValue('/fixture/depth-profile');
     adapters.fs.deleteFile = vi.fn().mockResolvedValue(undefined);
+    adapters.fs.writeFile = vi.fn().mockResolvedValue(undefined);
     adapters.exec.spawn = vi.fn().mockResolvedValue({ ...result(143), aborted: true });
     adapters.exec.spawnBytes = vi.fn();
     const actual = await new CliRunner(adapters).runCommand(

@@ -447,8 +447,12 @@ export class CliRunner {
 
   /** Observe atoi using an existing file so clone stops before transport or destination creation. */
   private async observeDepthAtoi(context: ExecutionContext, opts?: RunOptions) {
+    if (!this.fs.writeFile) {
+      return { bits: undefined, result: undefined };
+    }
     const destination = await this.fs.createTempFile('type-git-depth-profile-');
     try {
+      await this.fs.writeFile(destination, '');
       const result = await this.run(
         context,
         ['clone', '--depth=2147483648', 'type-git-depth-profile:invalid', destination],
@@ -531,7 +535,7 @@ export class CliRunner {
     }
     if (depth !== undefined && depthValid.length === 1) {
       const observed = await this.observeDepthAtoi(context, opts);
-      if (observed.result.aborted) {
+      if (observed.result?.aborted) {
         throw this.mapError(observed.result, context, this.buildArgv(context, ['clone']));
       }
       if (observed.bits !== undefined) {
@@ -769,7 +773,7 @@ export class CliRunner {
     let depthAtoiBits: 32 | 64 | undefined;
     if (commandUsesDepthAtoi(command, args)) {
       const observed = await this.observeDepthAtoi(context, opts);
-      if (observed.result.aborted) {
+      if (observed.result?.aborted) {
         const probe = observed.result;
         return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
       }
