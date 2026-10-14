@@ -3,7 +3,7 @@ import type { CheckedCommandArguments, GitCommandArgument, GitCommandName } from
 import type { GitBooleanLiteral, GitBooleanValue } from '../../src/constraints/git-boolean-types.js';
 type Check<T extends true> = T;
 type Equal<A, B> = [A] extends [B] ? [B] extends [A] ? true : false : false;
-type Accepted<C extends GitCommandName, A extends readonly GitCommandArgument<C>[]> = [CheckedCommandArguments<C, A>] extends [never] ? false : true;
+type Accepted<C extends GitCommandName, A extends readonly GitCommandArgument<C>[]> = [CheckedCommandArguments<C, A, { booleanSource: 'modern' }>] extends [never] ? false : true;
 export type NativeBooleanCases = readonly [
   Check<Equal<GitBooleanLiteral<"">, true>>, Check<Equal<GitBooleanValue<"">, false>>,
   Check<Equal<GitBooleanLiteral<"true">, true>>, Check<Equal<GitBooleanValue<"true">, true>>,
