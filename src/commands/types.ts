@@ -22,6 +22,8 @@ import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-typ
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
 import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
+import type { StringCallbackParser } from '../constraints/string-callback.js';
+import type { StringCallbackLiteral } from '../constraints/string-callback-types.js';
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
@@ -354,28 +356,6 @@ type CheckedCallbackState<
     ? ParsedState<S, D, T>
     : never
   : ParsedState<S, D, T>;
-type ImportSignLiteral<V> = V extends string
-  ? string extends V
-    ? true
-    : V extends object
-      ? true
-      : {} extends Record<V, unknown>
-        ? true
-        : V extends
-              | 'abort'
-              | 'verbatim'
-              | 'ignore'
-              | 'warn-verbatim'
-              | 'warn'
-              | 'warn-strip'
-              | 'strip'
-              | 'abort-if-invalid'
-              | 'strip-if-invalid'
-              | 'sign-if-invalid'
-              | `sign-if-invalid=${string}`
-          ? true
-          : false
-  : true;
 type PerlDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 // Complement of the ASCII characters admitted by Getopt::Long PAT_INT.
 type PerlIntegerForbiddenAscii =
@@ -514,27 +494,11 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
           : true
         : D extends { parser: 'perl-int' | 'perl-int-gnu' }
           ? PerlIntegerLiteral<D, V>
-          : D extends { parser: 'fast-import-sign' }
-            ? ImportSignLiteral<V>
-            : D extends { parser: 'anonymize-map' }
-              ? V extends string
-                ? string extends V
-                  ? true
-                  : V extends object
-                    ? true
-                    : V extends ''
-                      ? false
-                      : V extends `${infer Key}:${infer Replacement}`
-                        ? Key extends ''
-                          ? false
-                          : Replacement extends ''
-                            ? false
-                            : true
-                        : true
-                : true
-              : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-                ? ParsedScalarLiteral<D, V>
-                : true;
+          : D extends { parser: infer P extends StringCallbackParser }
+            ? StringCallbackLiteral<V, P>
+            : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+              ? ParsedScalarLiteral<D, V>
+              : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true

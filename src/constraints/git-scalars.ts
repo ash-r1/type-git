@@ -1,3 +1,8 @@
+import {
+  isStringCallback,
+  type StringCallbackParser,
+  validStringCallback,
+} from './string-callback.js';
 import { asciiLower } from './ascii.js';
 import { validCompoundDecimal } from './compound-decimal.js';
 import {
@@ -88,8 +93,7 @@ export type GitScalarParser =
   | 'depth-initial'
   | 'object-filter'
   | 'object-filter-auto'
-  | 'fast-import-sign'
-  | 'anonymize-map'
+  | StringCallbackParser
   | 'shortlog-group'
   | 'shortlog-wrap'
   | 'show-branch-reflog'
@@ -210,29 +214,8 @@ export function parseGitScalar(
       value,
     };
   }
-  if (parser === 'fast-import-sign') {
-    const text = String(value);
-    return {
-      valid:
-        [
-          'abort',
-          'verbatim',
-          'ignore',
-          'warn-verbatim',
-          'warn',
-          'warn-strip',
-          'strip',
-          'abort-if-invalid',
-          'strip-if-invalid',
-          'sign-if-invalid',
-        ].includes(text) || text.startsWith('sign-if-invalid='),
-      value,
-    };
-  }
-  if (parser === 'anonymize-map') {
-    const text = String(value);
-    const colon = text.indexOf(':');
-    return { valid: text.length > 0 && colon !== 0 && colon !== text.length - 1, value };
+  if (isStringCallback(parser)) {
+    return { valid: validStringCallback(parser, value), value };
   }
   if (parser === 'shortlog-group') {
     return {
