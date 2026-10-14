@@ -29,6 +29,7 @@ import {
   commandUsesBooleanBinary,
   commandBooleanFeatures,
   commandUsesDecimalCallback,
+  commandUsesCompoundDecimal,
   commandUsesNativeABI,
   commandUsesIntegerProfile,
   commandUsesNegativeMagnitude,
@@ -1157,7 +1158,10 @@ export class CliRunner {
         const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
         const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
         if (probe.exitCode !== 0 || !(longBytes && sizeBytes)) {
-          if (commandUsesDecimalCallback(command, args)) {
+          if (
+            commandUsesDecimalCallback(command, args) ||
+            commandUsesCompoundDecimal(command, args)
+          ) {
             return await execute(selectedValid[0]!.argv);
           }
           throw new GitArgumentError(

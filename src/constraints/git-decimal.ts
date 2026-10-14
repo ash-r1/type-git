@@ -49,7 +49,7 @@ export function decimalCallbackFamily(
   return undefined;
 }
 
-/** Ordered strtol conversion stages using the selected executable’s C long width. */
+/** Ordered strtol/strtoul conversion stages using the selected executable’s C long width. */
 export type GitDecimalParser = {
   kind: 'decimal';
   longBits: 32 | 64;

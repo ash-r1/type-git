@@ -10,11 +10,14 @@ describe('compound decimal callback grammar', () => {
   it('agrees with the independent native corpus in scalar and command validation', () => {
     for (const row of corpus.cases) {
       expect(
-        parseGitScalar(row.parser as CompoundDecimalParser, row.value).valid,
+        parseGitScalar(row.parser as CompoundDecimalParser, row.value, undefined, 64, 64).valid,
         JSON.stringify(row),
       ).toBe(row.valid);
       const build = (): string[] =>
-        commandArguments(row.command as GitCommandName, [[row.flag, row.value], ['-h']], true);
+        commandArguments(row.command as GitCommandName, [[row.flag, row.value], ['-h']], true, {
+          longBits: 64,
+          sizeTBits: 64,
+        });
       if (row.valid) {
         expect(build()).toEqual([
           row.command,
@@ -26,7 +29,8 @@ describe('compound decimal callback grammar', () => {
       }
     }
     for (const row of corpus.exits) {
-      const build = (): string[] => commandArguments('shortlog', row.tokens, true);
+      const build = (): string[] =>
+        commandArguments('shortlog', row.tokens, true, { longBits: 64, sizeTBits: 64 });
       if (row.valid) {
         expect(build()).toEqual(row.argv);
       } else {

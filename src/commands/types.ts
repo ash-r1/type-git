@@ -926,7 +926,19 @@ type DecimalWidthChanges<
               : true
             : never
           : never
-        : DecimalWidthChanges<C, Rest, F>
+        : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+          ? CompoundDecimalLiteral<
+              T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
+              D['parser'],
+              64
+            > extends CompoundDecimalLiteral<
+              T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
+              D['parser'],
+              32
+            >
+            ? DecimalWidthChanges<C, Rest, F>
+            : true
+          : DecimalWidthChanges<C, Rest, F>
       : false
     : DecimalWidthChanges<C, Rest, F>
   : false;
