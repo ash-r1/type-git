@@ -25,6 +25,8 @@ export type BooleanSourceTupleCases = readonly [
 type DeferredAccepted<C extends GitCommandName, A extends readonly GitCommandArgument<C>[]> =
   [CheckedCommandArguments<C, A, { conflictStyle: 'deferred' }>] extends [never] ? false : true;
 export type DeferredBooleanSourceCases = readonly [
+  Check<DeferredAccepted<'fetch', [['--recurse-submodules', 'm'], ['-h']]>>,
+  Check<DeferredAccepted<'push', [['--recurse-submodules', 'm'], ['-h']]>>,
   Check<DeferredAccepted<'checkout', [['--recurse-submodules', 'm'], ['-h']]>>,
   Check<DeferredAccepted<'switch', [['--recurse-submodules', 'm'], ['-h']]>>,
   Check<DeferredAccepted<'restore', [['--recurse-submodules', 'm'], ['-h']]>>,
