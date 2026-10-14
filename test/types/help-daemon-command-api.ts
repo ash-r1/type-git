@@ -25,30 +25,30 @@ git.command('fsmonitor--daemon', []);
 git.command('fsmonitor--daemon status', [{ operand: 'extra' }]);
 
 git.command('daemon', [['--serve'], ['--timeout', 4294967295]]);
-// @ts-expect-error Unsigned32 callbacks reject overflow before later replacement.
+// Older daemon atoi assigns the narrowed value into unsigned32 storage.
 git.command('daemon', [['--serve'], ['--timeout', 4294967296], ['--timeout', 1]]);
 git.command('daemon', [['--serve'], ['--init-timeout', 4294967295]]);
-// @ts-expect-error Unsigned32 callbacks reject overflow before later replacement.
+// Older daemon atoi assigns the narrowed value into unsigned32 storage.
 git.command('daemon', [['--serve'], ['--init-timeout', 4294967296], ['--init-timeout', 1]]);
 git.command('daemon', [['--serve'], ['--max-connections', -2147483648]]);
-// @ts-expect-error Signed32 max-connections callback rejects overflowing incoming values.
+// Older daemon atoi accepts overflowing incoming values before replacement.
 git.command('daemon', [['--serve'], ['--max-connections', 2147483648], ['--max-connections', 1]]);
-// @ts-expect-error Signed32 lower bound also applies immediately.
+// Older daemon atoi accepts this lower-bound overflow before replacement.
 git.command('daemon', [['--serve'], ['--max-connections', -2147483649], ['--max-connections', 1]]);
-// @ts-expect-error Supported-platform integer callbacks are signed32 before overwrite.
+// Older supported-platform OPTION_INTEGER handlers narrow before overwrite.
 git.command('fsmonitor--daemon start', [['--ipc-threads', 2147483648], ['--ipc-threads', 2]]);
-// @ts-expect-error Supported-platform integer callbacks are signed32 before overwrite.
+// Older supported-platform OPTION_INTEGER handlers narrow before overwrite.
 git.command('fsmonitor--daemon start', [['--start-timeout', 2147483648], ['--start-timeout', 2]]);
-// @ts-expect-error Supported-platform integer callbacks are signed32 before overwrite.
+// Older supported-platform OPTION_INTEGER handlers narrow before overwrite.
 git.command('fsmonitor--daemon run', [['--ipc-threads', 2147483648], ['--ipc-threads', 2]]);
-// @ts-expect-error Supported-platform integer callbacks are signed32 before overwrite.
+// Older supported-platform OPTION_INTEGER handlers narrow before overwrite.
 git.command('fsmonitor--daemon run', [['--start-timeout', 2147483648], ['--start-timeout', 2]]);
-// @ts-expect-error Supported-platform integer callbacks are signed32 before overwrite.
+// Older supported-platform OPTION_INTEGER handlers narrow before overwrite.
 git.command('fsmonitor--daemon stop', [['--ipc-threads', 2147483648], ['--ipc-threads', 2]]);
-// @ts-expect-error Supported-platform integer callbacks are signed32 before overwrite.
+// Older supported-platform OPTION_INTEGER handlers narrow before overwrite.
 git.command('fsmonitor--daemon stop', [['--start-timeout', 2147483648], ['--start-timeout', 2]]);
-// @ts-expect-error Supported-platform integer callbacks are signed32 before overwrite.
+// Older supported-platform OPTION_INTEGER handlers narrow before overwrite.
 git.command('fsmonitor--daemon status', [['--ipc-threads', 2147483648], ['--ipc-threads', 2]]);
-// @ts-expect-error Supported-platform integer callbacks are signed32 before overwrite.
+// Older supported-platform OPTION_INTEGER handlers narrow before overwrite.
 git.command('fsmonitor--daemon status', [['--start-timeout', 2147483648], ['--start-timeout', 2]]);
 git.command('fsmonitor--daemon status', [['--ipc-threads', 0], ['--ipc-threads', 2]]);

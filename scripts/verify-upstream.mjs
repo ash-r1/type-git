@@ -30,6 +30,7 @@ for (const [path, digest] of Object.entries(inventory.sources)) {
 }
 for (const [path, digest] of Object.entries((await load('lfs-options')).sources)) add(lfs, path, digest);
 for (const [path, digest] of Object.entries((await load('git-numeric-options')).sources)) add(git, path, digest);
+for (const [path, digest] of Object.entries(JSON.parse(await readFile(new URL('spec/git-numeric-callbacks.json', root), 'utf8')).sources)) add(git, path, digest);
 const tables = await load('git-option-tables');
 if (flags.includes('--c-tables')) {
   // C preprocessing is reproducible only on the snapshot's recorded compiler/target.

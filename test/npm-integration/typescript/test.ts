@@ -167,3 +167,25 @@ export function testNativeIntegerTypes(git: Git, mixed: 1 | 2147483648, bad: 1 |
   // @ts-expect-error A nonzero normalized value conflicts with stdout.
   git.command('pack-objects', [['--max-pack-size', '0b1k'], ['--stdout']]);
 }
+
+export function testNumericCallbackTypes(git: Git): void {
+  git.command('describe', [['--abbrev', '2147483648'], ['--long']]);
+  git.command('cherry-pick', [['--mainline', '-4294967295'], ['-h']]);
+  git.command('grep', [['-9223372036854775808'], { operand: 'needle' }]);
+  git.command('diff-files', [['-U', '']]);
+  // C long 32 saturation can retain a nonzero abbreviation.
+  git.command('describe', [['--abbrev', '4294967296'], ['--long']]);
+  // C long 32 saturation can leave this mainline positive.
+  git.command('cherry-pick', [['--mainline', '2147483648'], ['-h']]);
+  // Older revision-count callbacks consume the initial decimal prefix.
+  git.command('rev-list', [['--max-count', '1k'], ['--all']]);
+}
+
+export function testUniversalCallbackFailures(git: Git): void {
+  // @ts-expect-error Zero mainline fails for every observed ABI.
+  git.command('cherry-pick', [['--mainline', '0'], ['-h']]);
+  // @ts-expect-error Zero abbreviation conflicts with long on every observed ABI.
+  git.command('describe', [['--abbrev', '0'], ['--long']]);
+  // @ts-expect-error Unsafe JavaScript numbers cannot preserve the original Git argument.
+  git.command('rev-list', [['--max-count', 9007199254740992], ['--all']]);
+}

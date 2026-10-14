@@ -474,9 +474,9 @@ git.command('am', [['--show-current-patch', patchMode], ['--show-current-patch',
 declare const signedCountUnion: 1 | 2147483648;
 declare const validCountUnion: 1 | 2;
 git.command('apply', [['-p', validCountUnion]]);
-// @ts-expect-error Every signed parser union member must fit the int32 range.
+// Older atoi accepts both signedCountUnion members before a later replacement.
 git.command('apply', [['-p', signedCountUnion], ['-p', 1]]);
-// @ts-expect-error The shared revision-count path also rejects overflow union members.
+// Older revision count also accepts every member of this union.
 git.command('rev-list', [['--max-count', signedCountUnion], { operand: 'HEAD' }]);
 
 git.command('am', [['--quit'], ['--no-whitespace']]);

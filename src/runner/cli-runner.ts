@@ -1,3 +1,8 @@
+import {
+  DECIMAL_CALLBACK_PROBES,
+  decimalCallbackFamily,
+  type GitDecimalCallbacks,
+} from '../constraints/git-decimal.js';
 import { validateOptions as checkOptions } from '../core/option-rules.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 /**
@@ -12,6 +17,8 @@ import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import process from 'node:process';
 import {
   commandArguments,
+  commandDecimalCallbacks,
+  commandUsesDecimalCallback,
   commandUsesNativeABI,
   commandUsesIntegerProfile,
   commandUsesNegativeMagnitude,
@@ -407,6 +414,26 @@ export class CliRunner {
     options: object | undefined,
     opts?: RunOptions,
   ): Promise<void> {
+    await this.validateNativeOptions(context, name, options, opts);
+  }
+
+  /** Resolve mainline narrowing against the executable used by the convenience call. */
+  public async validateMainlineOptions(
+    context: ExecutionContext,
+    name: 'cherryPick' | 'revert',
+    options: object | undefined,
+    opts?: RunOptions,
+  ): Promise<void> {
+    await this.validateNativeOptions(context, name, options, opts);
+  }
+
+  /** Check universally invalid input first, then only the native dimensions that affect validity. */
+  private async validateNativeOptions(
+    context: ExecutionContext,
+    name: 'clone' | 'submoduleUpdate' | 'cherryPick' | 'revert',
+    options: object | undefined,
+    opts?: RunOptions,
+  ): Promise<void> {
     validateIO(opts);
     const valid: { longBits: 32 | 64; negativeMagnitudes: boolean }[] = [];
     let firstError: GitArgumentError | undefined;
@@ -471,6 +498,9 @@ export class CliRunner {
       }
       const bytes = /^sizeof-long: ([48])\r?$/m.exec(widths.stdout)?.[1];
       if (widths.exitCode !== 0 || !bytes) {
+        if (name === 'cherryPick' || name === 'revert') {
+          return;
+        }
         throw new GitArgumentError(
           'Cannot determine integer widths of the selected Git executable',
         );
@@ -577,6 +607,7 @@ export class CliRunner {
       binaryIntegers?: boolean;
       integerProfile?: GitIntegerProfile;
       negativeMagnitudes?: boolean;
+      decimalCallbacks?: GitDecimalCallbacks;
     };
     let abi: NativeAbi | undefined;
     if (commandUsesNativeABI(command, args)) {
@@ -584,24 +615,40 @@ export class CliRunner {
         ? ['bounded', 'decimal-cast']
         : ['bounded'];
       const signs = commandUsesNegativeMagnitude(command, args) ? [false, true] : [false];
+      const callbacks = commandDecimalCallbacks(command, args);
+      let callbackVariants: GitDecimalCallbacks[] = [{}];
+      for (const callback of callbacks) {
+        callbackVariants = callbackVariants.flatMap((variant) => [
+          { ...variant, [callback]: 'modern' },
+          { ...variant, [callback]: 'legacy' },
+        ]);
+      }
       const valid: { profile: GitIntegerProfile; abi: NativeAbi; argv: string[] }[] = [];
       let firstError: GitArgumentError | undefined;
       for (const integerProfile of profiles) {
         for (const negativeMagnitudes of signs) {
-          for (const longBits of [32, 64] as const) {
-            for (const sizeTBits of [32, 64] as const) {
-              const candidateAbi = { longBits, sizeTBits, integerProfile, negativeMagnitudes };
-              try {
-                valid.push({
-                  profile: integerProfile,
-                  abi: candidateAbi,
-                  argv: commandArguments(command, args, inRepository, candidateAbi),
-                });
-              } catch (error) {
-                if (!(error instanceof GitArgumentError)) {
-                  throw error;
+          for (const decimalCallbacks of callbackVariants) {
+            for (const longBits of [32, 64] as const) {
+              for (const sizeTBits of [32, 64] as const) {
+                const candidateAbi = {
+                  longBits,
+                  sizeTBits,
+                  integerProfile,
+                  negativeMagnitudes,
+                  decimalCallbacks,
+                };
+                try {
+                  valid.push({
+                    profile: integerProfile,
+                    abi: candidateAbi,
+                    argv: commandArguments(command, args, inRepository, candidateAbi),
+                  });
+                } catch (error) {
+                  if (!(error instanceof GitArgumentError)) {
+                    throw error;
+                  }
+                  firstError ??= error;
                 }
-                firstError ??= error;
               }
             }
           }
@@ -612,7 +659,8 @@ export class CliRunner {
       }
       const needsBinaryProfile = commandUsesObjectFilterBinary(command, args);
       if (
-        (valid.length === profiles.length * signs.length * 4 && !needsBinaryProfile) ||
+        (valid.length === profiles.length * signs.length * callbackVariants.length * 4 &&
+          !needsBinaryProfile) ||
         (binary && !this.exec.spawnBytes)
       ) {
         return await execute(valid[0]!.argv);
@@ -621,6 +669,46 @@ export class CliRunner {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       };
+      const selectedCallbacks: GitDecimalCallbacks = {};
+      for (const callback of callbacks) {
+        const groups = new Map<string, Set<string>>();
+        for (const entry of valid) {
+          const otherCallbacks = { ...entry.abi.decimalCallbacks };
+          const family = otherCallbacks[callback]!;
+          delete otherCallbacks[callback];
+          const key = JSON.stringify({ ...entry.abi, decimalCallbacks: otherCallbacks });
+          if (!groups.has(key)) {
+            groups.set(key, new Set());
+          }
+          groups.get(key)!.add(family);
+        }
+        if ([...groups.values()].every((families) => families.size === 2)) {
+          selectedCallbacks[callback] = 'modern';
+          continue;
+        }
+        const probe = await this.run(context, [...DECIMAL_CALLBACK_PROBES[callback]], probeOptions);
+        if (probe.aborted) {
+          return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+        }
+        const family = decimalCallbackFamily(callback, probe);
+        if (!family) {
+          return await execute(valid[0]!.argv);
+        }
+        selectedCallbacks[callback] = family;
+      }
+      const callbackValid = valid.filter((entry) =>
+        callbacks.every(
+          (callback) => entry.abi.decimalCallbacks?.[callback] === selectedCallbacks[callback],
+        ),
+      );
+      if (callbackValid.length === 0) {
+        commandArguments(command, args, inRepository, {
+          longBits: 64,
+          sizeTBits: 64,
+          decimalCallbacks: selectedCallbacks,
+        });
+        throw firstError;
+      }
       let selected: GitIntegerProfile = 'bounded';
       const familyDependent =
         profiles.length > 1 &&
@@ -628,14 +716,14 @@ export class CliRunner {
           [32, 64].some((longBits) =>
             [32, 64].some(
               (sizeTBits) =>
-                valid.some(
+                callbackValid.some(
                   (e) =>
                     e.profile === 'bounded' &&
                     e.abi.negativeMagnitudes === candidateSign &&
                     e.abi.longBits === longBits &&
                     e.abi.sizeTBits === sizeTBits,
                 ) !==
-                valid.some(
+                callbackValid.some(
                   (e) =>
                     e.profile === 'decimal-cast' &&
                     e.abi.negativeMagnitudes === candidateSign &&
@@ -665,7 +753,7 @@ export class CliRunner {
         ) {
           selected = 'decimal-cast';
         } else {
-          return await execute(valid[0]!.argv);
+          return await execute(callbackValid[0]!.argv);
         }
       }
       let negativeMagnitudes = false;
@@ -674,14 +762,14 @@ export class CliRunner {
         [32, 64].some((longBits) =>
           [32, 64].some(
             (sizeTBits) =>
-              valid.some(
+              callbackValid.some(
                 (e) =>
                   e.profile === selected &&
                   e.abi.negativeMagnitudes === false &&
                   e.abi.longBits === longBits &&
                   e.abi.sizeTBits === sizeTBits,
               ) !==
-              valid.some(
+              callbackValid.some(
                 (e) =>
                   e.profile === selected &&
                   e.abi.negativeMagnitudes === true &&
@@ -709,12 +797,16 @@ export class CliRunner {
         ) {
           negativeMagnitudes = true;
         } else {
-          return await execute(valid[0]!.argv);
+          return await execute(callbackValid[0]!.argv);
         }
       }
-      const selectedValid = valid.filter(
+      const selectedValid = callbackValid.filter(
         (entry) =>
-          entry.profile === selected && entry.abi.negativeMagnitudes === negativeMagnitudes,
+          entry.profile === selected &&
+          entry.abi.negativeMagnitudes === negativeMagnitudes &&
+          callbacks.every(
+            (callback) => entry.abi.decimalCallbacks?.[callback] === selectedCallbacks[callback],
+          ),
       );
       if (selectedValid.length === 0) {
         commandArguments(command, args, inRepository, {
@@ -722,6 +814,7 @@ export class CliRunner {
           sizeTBits: 64,
           integerProfile: selected,
           negativeMagnitudes,
+          decimalCallbacks: selectedCallbacks,
         });
         throw firstError;
       }
@@ -734,6 +827,9 @@ export class CliRunner {
         const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
         const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
         if (probe.exitCode !== 0 || !(longBytes && sizeBytes)) {
+          if (commandUsesDecimalCallback(command, args)) {
+            return await execute(selectedValid[0]!.argv);
+          }
           throw new GitArgumentError(
             'Cannot determine integer widths of the selected Git executable',
           );
@@ -743,6 +839,7 @@ export class CliRunner {
           sizeTBits: sizeBytes === '4' ? 32 : 64,
           integerProfile: selected,
           negativeMagnitudes,
+          decimalCallbacks: selectedCallbacks,
         };
       }
       if (needsBinaryProfile) {

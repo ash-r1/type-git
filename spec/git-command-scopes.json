@@ -1754,14 +1754,16 @@
     "options": {
       "-U": {
         "key": "unified",
-        "value": "optional-string",
+        "value": "optional-integer",
         "effects": [
           {
             "key": "no-output",
             "set": false
           }
         ],
-        "attachedValue": true
+        "attachedValue": true,
+        "parser": "unified-context",
+        "emptyValueFlag": "--unified"
       },
       "-X": {
         "key": "dirstat",
@@ -2321,18 +2323,7 @@
       "-p": {
         "key": "p",
         "value": "integer",
-        "parser": "revision-count",
-        "checks": [
-          {
-            "id": "cli.apply.strip-count",
-            "kind": "integer",
-            "key": "$value",
-            "min": 0,
-            "origin": "git",
-            "reason": "The strip count is a nonnegative signed int.",
-            "source": "https://github.com/git/git/blob/v2.55.0/apply.c"
-          }
-        ]
+        "parser": "strip-count"
       },
       "--whitespace": {
         "key": "whitespace",
@@ -4413,7 +4404,8 @@
     "optionParsing": "stop-at-operand",
     "numericOption": {
       "key": "context",
-      "value": "integer"
+      "value": "integer",
+      "parser": "grep-context"
     },
     "initial": {
       "max-count": -1
@@ -7177,7 +7169,7 @@
             "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
           }
         ],
-        "parser": "unsigned-int"
+        "parser": "daemon-timeout"
       },
       "--init-timeout": {
         "key": "init-timeout",
@@ -7193,12 +7185,12 @@
             "source": "https://github.com/git/git/blob/v2.55.0/daemon.c"
           }
         ],
-        "parser": "unsigned-int"
+        "parser": "daemon-init-timeout"
       },
       "--max-connections": {
         "key": "max-connections",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": "daemon-count"
       }
     }
   },
@@ -7218,7 +7210,11 @@
       "--ipc-threads": {
         "key": "ipc-threads",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-ipc-threads": {
         "key": "ipc-threads",
@@ -7228,7 +7224,11 @@
       "--start-timeout": {
         "key": "start-timeout",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-start-timeout": {
         "key": "start-timeout",
@@ -7253,7 +7253,11 @@
       "--ipc-threads": {
         "key": "ipc-threads",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-ipc-threads": {
         "key": "ipc-threads",
@@ -7263,7 +7267,11 @@
       "--start-timeout": {
         "key": "start-timeout",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-start-timeout": {
         "key": "start-timeout",
@@ -7288,7 +7296,11 @@
       "--ipc-threads": {
         "key": "ipc-threads",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-ipc-threads": {
         "key": "ipc-threads",
@@ -7298,7 +7310,11 @@
       "--start-timeout": {
         "key": "start-timeout",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-start-timeout": {
         "key": "start-timeout",
@@ -7323,7 +7339,11 @@
       "--ipc-threads": {
         "key": "ipc-threads",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-ipc-threads": {
         "key": "ipc-threads",
@@ -7333,7 +7353,11 @@
       "--start-timeout": {
         "key": "start-timeout",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-start-timeout": {
         "key": "start-timeout",
@@ -7358,7 +7382,11 @@
       "--ipc-threads": {
         "key": "ipc-threads",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-ipc-threads": {
         "key": "ipc-threads",
@@ -7368,7 +7396,11 @@
       "--start-timeout": {
         "key": "start-timeout",
         "value": "integer",
-        "parser": "revision-count"
+        "parser": {
+          "kind": "integer",
+          "signed": true,
+          "bits": 32
+        }
       },
       "--no-start-timeout": {
         "key": "start-timeout",

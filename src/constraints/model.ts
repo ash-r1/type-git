@@ -1,3 +1,4 @@
+import type { GitDecimalCallbacks } from './git-decimal.js';
 import type { GitIntegerProfile } from './git-integer.js';
 import {
   type GitScalarParser,
@@ -114,6 +115,7 @@ export type ScalarContext = {
   binaryIntegers?: boolean;
   integerProfile?: GitIntegerProfile;
   negativeMagnitudes?: boolean;
+  decimalCallbacks?: GitDecimalCallbacks;
 };
 /** All violations, in declaration order, retain their evidence and stable identifiers. */
 export function violations(
@@ -191,6 +193,7 @@ function violates(
           scalarContext?.binaryIntegers,
           scalarContext?.integerProfile,
           scalarContext?.negativeMagnitudes,
+          scalarContext?.decimalCallbacks,
         ).valid
       );
     case 'value':
