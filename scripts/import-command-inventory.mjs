@@ -8,14 +8,17 @@ import { createHash } from 'node:crypto';
 const [gitRoot, lfsRoot, cobraRoot] = process.argv.slice(2);
 if (!gitRoot || !lfsRoot || !cobraRoot) throw new Error('Usage: node scripts/import-command-inventory.mjs <git-2.55.0> <git-lfs-3.8.0> <cobra-1.10.2>');
 const sources = {};
+/** Read an upstream file and record the fingerprint used by the inventory. */
 async function source(project, file) {
   const text = await readFile(join(project === 'git' ? gitRoot : lfsRoot, file), 'utf8');
   sources[`${project}/${file}`] = createHash('sha256').update(text).digest('hex');
   return text;
 }
-if (!(await source('git', 'GIT-VERSION-GEN')).includes('DEF_VER=v2.55.0')) throw new Error('Expected Git 2.55.0 sources');
+const gitVersions = (await source('git', 'GIT-VERSION-GEN')).split(/\r?\n/).filter(line => line.startsWith('DEF_VER='));
+if (gitVersions.length !== 1 || gitVersions[0] !== 'DEF_VER=v2.55.0') throw new Error('Expected Git 2.55.0 sources');
 if (!/Version = \"3\.8\.0\"/.test(await source('lfs', 'config/version.go'))) throw new Error('Expected Git LFS 3.8.0 sources');
 const entries = new Map();
+/** Add a command classification and combine source evidence for duplicate registrations. */
 function add(command, classification, evidence) {
   const old = entries.get(command);
   if (old) {

@@ -12,6 +12,7 @@ const git = resolve(gitInput);
 const lfs = resolve(lfsInput);
 const cobra = resolve(cobraInput);
 const root = new URL('../', import.meta.url);
+/** Load one repository snapshot for fingerprint and extraction comparison. */
 const load = async name => JSON.parse(await readFile(new URL(`spec/upstream/${name}.json`, root), 'utf8'));
 const expected = new Map();
 /** Collect a source fingerprint, rejecting conflicting records for the same file. */

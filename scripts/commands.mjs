@@ -26,6 +26,7 @@ try {
   const { referencedKeys } = await import(pathToFileURL(join(temp, 'model.js')));
   const mappings = { 'lfs checkout': 'lfsCheckout', 'lfs locks': 'lfsLocks', 'lfs migrate info': 'lfsMigrateInfo', 'lfs migrate import': 'lfsMigrateImport', 'lfs migrate export': 'lfsMigrateExport' };
   const renameKey = (key) => ['patterns', 'refs', 'files'].includes(key) ? 'operands' : key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`);
+  /** Translate nested wrapper constraint keys into CLI option and operand names. */
   function rename(value) {
     if (Array.isArray(value)) return value.map(rename);
     if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key, child]) => [key,

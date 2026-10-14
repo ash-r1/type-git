@@ -7,6 +7,7 @@ if (!sourceRoot || !cobraRoot) throw new Error('Usage: node scripts/import-lfs-o
 if (!(await readFile(join(sourceRoot, 'config/version.go'), 'utf8')).includes('Version = "3.8.0"')) throw new Error('Expected Git LFS 3.8.0 sources');
 const commands = {};
 const hashes = {};
+/** Keep option ordering deterministic without locale-dependent collation. */
 const sort = (a, b) => a < b ? -1 : a > b ? 1 : 0;
 for (const file of (await readdir(join(sourceRoot, 'commands'))).filter((f) => f.startsWith('command_') && f.endsWith('.go') && !f.endsWith('_test.go')).sort()) {
   const text = await readFile(join(sourceRoot, 'commands', file), 'utf8');
