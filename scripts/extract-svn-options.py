@@ -18,6 +18,7 @@ for name in ['remote_opts', 'fc_opts', 'init_opts', 'cmt_opts']:
 
 
 def declarations(text):
+    """Read option declarations in order, expanding the pinned shared tables."""
     result = []
     for match in re.finditer(r"'([A-Za-z][A-Za-z0-9|:=!@+_-]*)'\s*=>|%(\w+_opts)", text):
         if match[1]:
@@ -28,6 +29,7 @@ def declarations(text):
 
 
 def options(decls):
+    """Map ordered Perl declarations to aliases and scalar parsers; later aliases win."""
     result = {}
     for decl in decls:
         # read_git_config removes these mixedCase config-only names before GetOptions.

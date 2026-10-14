@@ -111,6 +111,7 @@ export type GitScalarParser =
   | 'push-recurse'
   | 'push-signed'
   | 'config-type';
+/** Validate a schema-selected scalar using native widths; leave foreign integer text uncoerced. */
 export function parseGitScalar(
   parser: GitScalarParser,
   value: unknown,

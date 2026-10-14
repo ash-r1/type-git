@@ -10,6 +10,7 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import { COMMAND_SPECS } from './generated.js';
 
+/** Skip only missing clients or Perl bindings; fail unexpected native probe errors. */
 function nativeAvailable(command: string, args: string[]): boolean {
   const result = spawnSync(command, args, { encoding: 'utf8', timeout: 10000 });
   if (result.error && 'code' in result.error && result.error.code === 'ENOENT') {
@@ -40,6 +41,7 @@ const operations = Object.keys(COMMAND_SPECS)
   .filter((name) => name.startsWith('svn '))
   .map((name) => name.slice(4));
 
+/** Run a check in an isolated file:// SVN fixture and remove it even when the check fails. */
 async function withLocalSvn(
   check: (fixture: {
     root: string;
