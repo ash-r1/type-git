@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createNodeAdapters } from '../adapters/node/index.js';
-import { commandArguments } from '../commands/build.js';
+import { commandArguments, commandUsesDepthAtoi } from '../commands/build.js';
 import { GitArgumentError } from '../core/types.js';
 import { CliRunner } from './cli-runner.js';
 
@@ -12,6 +12,13 @@ const result = (exitCode: number, stderr = '') => ({
   aborted: false,
 });
 describe('independent initial depth atoi profile', () => {
+  it('matches the parser exit exception for the first help-dispatch word', () => {
+    expect(commandUsesDepthAtoi('fetch', [['--help'], ['--depth', '2147483648']])).toBe(true);
+    expect(commandUsesDepthAtoi('fetch', [['--depth', '2147483648'], ['--help']])).toBe(false);
+    expect(commandUsesDepthAtoi('clone', [['--help'], ['--depth', '2147483648']])).toBe(true);
+    expect(commandUsesDepthAtoi('clone', [['-h'], ['--depth', '2147483648']])).toBe(false);
+  });
+
   it('retains either recorded conversion independently of C long width', () => {
     const args = [['--all'], ['--depth', '2147483648']];
     expect(

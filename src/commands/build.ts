@@ -650,14 +650,18 @@ export function commandUsesDepthAtoi(command: GitCommandName, args: readonly unk
     return false;
   }
   let depth = false;
-  for (const token of args) {
+  for (const [index, token] of args.entries()) {
     if (!Array.isArray(token)) {
       continue;
     }
     if (token.length === 1 && token[0] === '--') {
       break;
     }
-    if (token.length === 1 && spec.parserExit?.flags.includes(token[0])) {
+    if (
+      token.length === 1 &&
+      spec.parserExit?.flags.includes(token[0]) &&
+      !(index === 0 && spec.parserExit.exceptFirst?.includes(token[0]))
+    ) {
       return false;
     }
     const option = spec.options[token[0]];
