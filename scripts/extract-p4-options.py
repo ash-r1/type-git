@@ -9,7 +9,8 @@ import json
 import sys
 from pathlib import Path
 
-if 'DEF_VER=v2.55.0' not in (Path(sys.argv[1]) / 'GIT-VERSION-GEN').read_text():
+versions = [line for line in (Path(sys.argv[1]) / 'GIT-VERSION-GEN').read_text().splitlines() if line.startswith('DEF_VER=')]
+if versions != ['DEF_VER=v2.55.0']:
     raise ValueError('Expected Git 2.55.0 source tree')
 
 source_path = Path(sys.argv[1]) / 'git-p4.py'
