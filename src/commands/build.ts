@@ -1,5 +1,6 @@
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { matches, violations } from '../constraints/model.js';
+import { objectFilterUsesBinary } from '../constraints/object-filter.js';
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
 import {
@@ -49,7 +50,7 @@ export function commandArguments(
   command: GitCommandName,
   args: readonly unknown[],
   inRepository?: boolean,
-  abi?: { longBits: 32 | 64; sizeTBits: 32 | 64 },
+  abi?: { longBits: 32 | 64; sizeTBits: 32 | 64; binaryIntegers?: boolean },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
 ): string[] {
@@ -250,7 +251,14 @@ export function commandArguments(
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
     }
     const parsed = option.parser
-      ? parseGitScalar(option.parser, value, state[option.key], abi?.longBits, abi?.sizeTBits)
+      ? parseGitScalar(
+          option.parser,
+          value,
+          state[option.key],
+          abi?.longBits,
+          abi?.sizeTBits,
+          abi?.binaryIntegers,
+        )
       : { valid: true, value };
     if (!parsed.valid) {
       throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
@@ -331,6 +339,33 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
       option?.parser === 'object-filter-auto' ||
       option?.parser === 'unsigned-size' ||
       option?.parser === 'shortlog-wrap'
+    );
+  });
+}
+
+/** Whether a filter uses a binary integer whose libc support must be observed. */
+export function commandUsesObjectFilterBinary(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
+    ? COMMAND_SPECS[command]
+    : undefined;
+  if (!spec || !Array.isArray(args)) {
+    return false;
+  }
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesObjectFilterBinary(dispatched.command, dispatched.args);
+  }
+  return args.some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string' || typeof arg[1] !== 'string') {
+      return false;
+    }
+    const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : undefined;
+    return (
+      (option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
+      objectFilterUsesBinary(arg[1])
     );
   });
 }

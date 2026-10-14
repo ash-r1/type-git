@@ -122,6 +122,7 @@ export function parseGitScalar(
   previous?: unknown,
   cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
   sizeTBits: 32 | 64 = nativeSizeTBits(process.arch),
+  binaryIntegers = true,
 ): { valid: boolean; value?: unknown } {
   if (parser === 'perl-int' || parser === 'perl-int-gnu') {
     if (value === true || (parser === 'perl-int-gnu' && value === '')) {
@@ -144,7 +145,7 @@ export function parseGitScalar(
       valid:
         value === undefined ||
         (typeof value === 'string' &&
-          validObjectFilter(value, parser === 'object-filter-auto', cLongBits)),
+          validObjectFilter(value, parser === 'object-filter-auto', cLongBits, binaryIntegers)),
       value,
     };
   }

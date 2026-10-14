@@ -1,8 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { commandArguments, commandUsesNativeABI } from '../commands/build.js';
 import { parseGitScalar } from './git-scalars.js';
+import { objectFilterUsesBinary, validObjectFilter } from './object-filter.js';
 
 describe('source-defined object-filter unsigned-long bounds', () => {
+  it('uses the observed binary-integer profile through nested percent decoding', () => {
+    for (const value of ['blob:limit=0b10', 'tree:+0B10k', 'combine:tree:0%621']) {
+      expect(objectFilterUsesBinary(value)).toBe(true);
+      expect(validObjectFilter(value, false, 64, true)).toBe(true);
+      expect(validObjectFilter(value, false, 64, false)).toBe(false);
+    }
+    expect(objectFilterUsesBinary('combine:sparse:oid=0b10')).toBe(false);
+  });
   it('uses the supplied C long width independently of size_t', () => {
     for (const parser of ['object-filter', 'object-filter-auto'] as const) {
       for (const value of ['blob:limit=4294967296', 'tree:4g', 'combine:tree:4g']) {

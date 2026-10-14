@@ -1039,6 +1039,65 @@ describe('ABI-independent command preflight', () => {
 });
 
 describe('selected Git ABI for object-filter bounds', () => {
+  it('returns binary-profile cancellation without executing the command', async () => {
+    const adapters = createMockAdapters({ exitCode: -1, aborted: true });
+    const result = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'clone',
+      [['--filter', 'blob:limit=0b10'], ['-h']],
+      false,
+    );
+    expect(result.aborted).toBe(true);
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+  it('fails missing byte output capability before probing the binary profile', async () => {
+    const adapters = createMockAdapters();
+    await expect(
+      new CliRunner(adapters).runCommand(
+        { type: 'global' },
+        'clone',
+        [['--filter', 'blob:limit=0b10'], ['-h']],
+        false,
+        { stdout: 'bytes' },
+      ),
+    ).rejects.toThrow('binary stdout');
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
+  });
+  it.each([
+    true,
+    false,
+    undefined,
+  ])('observes binary syntax instead of guessing from the OS (%s)', async (supported) => {
+    const adapters = createMockAdapters({ stdout: 'executed' });
+    vi.mocked(adapters.exec.spawn).mockImplementation(async ({ argv }) =>
+      argv.includes('--filter=blob:limit=0b1')
+        ? {
+            exitCode: supported === true ? 129 : 128,
+            stdout: '',
+            stderr:
+              supported === true
+                ? 'usage: git clone'
+                : supported === false
+                  ? 'fatal: invalid filter-spec'
+                  : 'unrecognized frontend',
+            aborted: false,
+          }
+        : { exitCode: 0, stdout: 'executed', stderr: '', aborted: false },
+    );
+    const result = new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'clone',
+      [['--filter', 'blob:limit=0b10'], ['-h']],
+      false,
+    );
+    if (supported === false) {
+      await expect(result).rejects.toThrow('invalid object-filter');
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    } else {
+      await expect(result).resolves.toMatchObject({ exitCode: 0 });
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    }
+  });
   it('rejects width text from a failed object-filter ABI probe', async () => {
     const adapters = createMockAdapters({
       exitCode: 1,

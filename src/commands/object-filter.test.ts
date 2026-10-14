@@ -82,7 +82,7 @@ const scopes: GitCommandName[] = [
 describe.skipIf(legacy)('Git 2.55 object-filter callbacks', () => {
   let root: string;
   let env: NodeJS.ProcessEnv;
-  let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 };
+  let abi: { longBits: 32 | 64; sizeTBits: 32 | 64; binaryIntegers: boolean };
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-filters-'));
     env = {
@@ -102,7 +102,22 @@ describe.skipIf(legacy)('Git 2.55 object-filter callbacks', () => {
     const size = /^sizeof-size_t: ([48])\r?$/m.exec(widths.stdout)?.[1];
     expect(long).toBeDefined();
     expect(size).toBeDefined();
-    abi = { longBits: long === '4' ? 32 : 64, sizeTBits: size === '4' ? 32 : 64 };
+    const binary = spawnSync('git', ['clone', '--filter=blob:limit=0b1', '-h'], {
+      env,
+      encoding: 'utf8',
+    });
+    expect(binary.error).toBeUndefined();
+    expect(binary.signal).toBeNull();
+    const diagnostic = binary.stdout + binary.stderr;
+    const supported = binary.status === 129 && diagnostic.includes('usage:');
+    expect(supported || (binary.status === 128 && diagnostic.includes('invalid filter-spec'))).toBe(
+      true,
+    );
+    abi = {
+      longBits: long === '4' ? 32 : 64,
+      sizeTBits: size === '4' ? 32 : 64,
+      binaryIntegers: supported,
+    };
   });
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
@@ -157,7 +172,7 @@ describe.skipIf(legacy)('Git 2.55 object-filter callbacks', () => {
     compare(command, [`blob:limit=${maximum}`], true);
     compare(command, [`blob:limit=${maximum + 1n}`], false);
     for (const value of valid) {
-      compare(command, [value], true);
+      compare(command, [value], value === 'blob:limit=0b10' ? abi.binaryIntegers : true);
     }
     for (const value of invalid) {
       compare(command, [value], false);

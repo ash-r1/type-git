@@ -3,7 +3,7 @@
 const RESERVED = /[\x00-\x20~`!@#$^&*()[\]{}\\;'",<>?]/;
 
 /** Match git_parse_ulong's spelling, unit multiplier and unsigned-long maximum. */
-function unsignedLong(text: string, longBits: 32 | 64): boolean {
+function unsignedLong(text: string, longBits: 32 | 64, binaryIntegers: boolean): boolean {
   const match = /^[ \t\r\n\v\f]*\+?(0[xX][\da-fA-F]+|0[bB][01]+|0[0-7]*|[1-9]\d*)([kKmMgG]?)$/.exec(
     text,
   );
@@ -11,6 +11,9 @@ function unsignedLong(text: string, longBits: 32 | 64): boolean {
     return false;
   }
   const digits = match[1]!;
+  if (!binaryIntegers && /^0[bB]/.test(digits)) {
+    return false;
+  }
   const value = /^0[xXbB]/.test(digits)
     ? BigInt(digits)
     : digits.startsWith('0')
@@ -34,6 +37,7 @@ export function validObjectFilter(
   value: string,
   allowAuto = false,
   longBits: 32 | 64 = 64,
+  binaryIntegers = true,
 ): boolean {
   const pending = [{ text: value, auto: allowAuto }];
   while (pending.length > 0) {
@@ -42,7 +46,7 @@ export function validObjectFilter(
       continue;
     }
     if (text.startsWith('blob:limit=') || text.startsWith('tree:')) {
-      if (!unsignedLong(text.slice(text.startsWith('tree:') ? 5 : 11), longBits)) {
+      if (!unsignedLong(text.slice(text.startsWith('tree:') ? 5 : 11), longBits, binaryIntegers)) {
         return false;
       }
     } else if (text.startsWith('object:type=')) {
@@ -68,4 +72,22 @@ export function validObjectFilter(
     }
   }
   return true;
+}
+
+/** Detect numeric binary prefixes, including decoded nested filter components. */
+export function objectFilterUsesBinary(value: string): boolean {
+  const pending = [value];
+  while (pending.length > 0) {
+    const text = pending.pop()!;
+    if (text.startsWith('blob:limit=') || text.startsWith('tree:')) {
+      if (/^[ \t\r\n\v\f]*\+?0[bB]/.test(text.slice(text.startsWith('tree:') ? 5 : 11))) {
+        return true;
+      }
+    } else if (text.startsWith('combine:')) {
+      for (const child of text.slice(8).split('+')) {
+        pending.push(decode(child));
+      }
+    }
+  }
+  return false;
 }
