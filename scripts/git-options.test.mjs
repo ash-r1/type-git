@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { gitOptions } from './git-options.mjs';
+/** Load the pinned source metadata used to exercise catalogue generation. */
 const load = name => JSON.parse(readFileSync(new URL(`../spec/${name}.json`, import.meta.url), 'utf8'));
 const upstream = load('upstream/git-option-tables');
 const numeric = load('upstream/git-numeric-options');

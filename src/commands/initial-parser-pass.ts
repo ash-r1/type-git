@@ -37,7 +37,9 @@ export function initialParserPass(
     }
     argv = pass.remaining;
   }
+  /** Stop the active parser with its consumed callbacks and retained argv intact. */
   const help = () => ({ exited: true, tokens: [...tokens, ['-h']], remaining });
+  /** Reject a single-dash long spelling only after the native short-option prefix check. */
   const typo = (word: string) => {
     if (
       word.length >= 3 &&

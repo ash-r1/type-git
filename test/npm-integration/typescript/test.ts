@@ -304,6 +304,7 @@ export function testResidualArgvTypes(git: Git): void {
   git.command('fast-export', [['--'], ['--color', 'invalid']]);
 }
 
+/** Check installed declaration types for ordered reflog help and callback execution. */
 export function testReflogWrapperTypes(git: Git): void {
   git.command('reflog show', [['--decorate', 'invalid'], ['-h']]);
   git.command('reflog', [{ operand: 'show' }, ['-G', '-L'], ['-h']]);
