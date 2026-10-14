@@ -124,6 +124,21 @@ describe('selected GUI frontend', () => {
     expect(vi.mocked(runtime.exec.spawn).mock.calls[0]?.[0].argv).toEqual(['git', '--exec-path']);
   });
 
+  it('rejects Windows working-directory words for an identified shell frontend', async () => {
+    vi.spyOn(syntax, 'guiLaunchFromSource').mockReturnValue('shell-prelude');
+    vi.spyOn(syntax, 'guiGrammarFromSource').mockReturnValue('positional');
+    const runtime = adapters();
+    await expect(
+      new CliRunner(runtime).runCommand(
+        { type: 'global' },
+        'gui',
+        [{ operand: '--working-dir' }, { operand: '/repository' }],
+        undefined,
+      ),
+    ).rejects.toThrow('argument syntax');
+    expect(runtime.exec.spawn).toHaveBeenCalledTimes(2);
+  });
+
   it('rejects malformed IO before any source lookup or process probe', async () => {
     const runtime = adapters();
     await expect(

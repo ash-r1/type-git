@@ -479,7 +479,9 @@ export class CliRunner {
       if (version.exitCode !== 0 || version.stdout.replace(/\r?\n$/, '') !== reported) {
         return await execute(argv);
       }
-      return await execute(commandArguments(command, args, inRepository, undefined, grammar));
+      return await execute(
+        commandArguments(command, args, inRepository, undefined, grammar, launch),
+      );
     }
     let abi: { longBits: 32 | 64; sizeTBits: 32 | 64 } | undefined;
     if (commandUsesNativeABI(command, args)) {
