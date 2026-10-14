@@ -114,6 +114,7 @@
         "--repack": {
           "key": "repack",
           "value": "optional-integer",
+          "set": 0,
           "parser": "perl-int-gnu"
         },
         "--log-window-size": {
@@ -383,6 +384,7 @@
         "--repack": {
           "key": "repack",
           "value": "optional-integer",
+          "set": 0,
           "parser": "perl-int-gnu"
         },
         "--log-window-size": {
@@ -460,7 +462,8 @@
         },
         "--shared": {
           "key": "shared",
-          "value": "optional-string"
+          "value": "optional-string",
+          "set": ""
         },
         "--trunk": {
           "key": "trunk",
@@ -686,7 +689,8 @@
         },
         "--shared": {
           "key": "shared",
-          "value": "optional-string"
+          "value": "optional-string",
+          "set": ""
         },
         "--trunk": {
           "key": "trunk",
@@ -936,7 +940,8 @@
         },
         "--shared": {
           "key": "shared",
-          "value": "optional-string"
+          "value": "optional-string",
+          "set": ""
         },
         "--trunk": {
           "key": "trunk",
@@ -1396,6 +1401,7 @@
         "--repack": {
           "key": "repack",
           "value": "optional-integer",
+          "set": 0,
           "parser": "perl-int-gnu"
         },
         "--log-window-size": {
@@ -1969,6 +1975,7 @@
         "--repack": {
           "key": "repack",
           "value": "optional-integer",
+          "set": 0,
           "parser": "perl-int-gnu"
         },
         "--log-window-size": {
@@ -2928,6 +2935,7 @@
         "--repack": {
           "key": "repack",
           "value": "optional-integer",
+          "set": 0,
           "parser": "perl-int-gnu"
         },
         "--log-window-size": {
@@ -3653,6 +3661,7 @@
         "--repack": {
           "key": "repack",
           "value": "optional-integer",
+          "set": 0,
           "parser": "perl-int-gnu"
         },
         "--log-window-size": {

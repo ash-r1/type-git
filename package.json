@@ -58,7 +58,8 @@
     "constraints:generate": "node scripts/constraints.mjs && node scripts/command-coverage.mjs",
     "constraints:check": "node scripts/constraints.mjs --check && node scripts/command-coverage.mjs --check",
     "commands:generate": "node scripts/commands.mjs",
-    "commands:check": "node scripts/commands.mjs --check"
+    "commands:check": "node scripts/commands.mjs --check",
+    "commands:upstream-check": "node scripts/verify-upstream.mjs"
   },
   "keywords": [
     "git",
