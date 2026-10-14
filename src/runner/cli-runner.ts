@@ -29,6 +29,7 @@ import {
   commandUsesBooleanBinary,
   commandBooleanFeatures,
   commandUsesDecimalCallback,
+  commandUsesCompoundDecimal,
   commandUsesNativeABI,
   commandUsesIntegerProfile,
   commandUsesNegativeMagnitude,
@@ -661,6 +662,7 @@ export class CliRunner {
       booleanSource?: GitBooleanSource;
       booleanBinaryIntegers?: boolean;
       booleanCapabilities?: GitBooleanCapabilities;
+      compoundNegatedOverflow?: boolean;
     };
     let abi: NativeAbi | undefined;
     if (commandUsesNativeABI(command, args)) {
@@ -675,6 +677,7 @@ export class CliRunner {
         ? ['modern', 'symmetric', 'legacy-units']
         : ['modern'];
       const booleanBinaries = commandUsesBooleanBinary(command, args) ? [true, false] : [true];
+      const compoundOverflows = commandUsesCompoundDecimal(command, args) ? [false, true] : [false];
       const booleanFeatures = commandBooleanFeatures(command, args);
       let capabilityVariants: GitBooleanCapabilities[] = [{}];
       for (const feature of booleanFeatures) {
@@ -701,32 +704,35 @@ export class CliRunner {
               for (const booleanSource of booleanSources) {
                 for (const booleanBinaryIntegers of booleanBinaries) {
                   for (const booleanCapabilities of capabilityVariants) {
-                    for (const decimalCallbacks of callbackVariants) {
-                      for (const longBits of [32, 64] as const) {
-                        for (const sizeTBits of [32, 64] as const) {
-                          const candidateAbi = {
-                            longBits,
-                            sizeTBits,
-                            integerProfile,
-                            negativeMagnitudes,
-                            decimalCallbacks,
-                            unsignedChar,
-                            conflictStyle,
-                            booleanSource,
-                            booleanBinaryIntegers,
-                            booleanCapabilities,
-                          };
-                          try {
-                            valid.push({
-                              profile: integerProfile,
-                              abi: candidateAbi,
-                              argv: commandArguments(command, args, inRepository, candidateAbi),
-                            });
-                          } catch (error) {
-                            if (!(error instanceof GitArgumentError)) {
-                              throw error;
+                    for (const compoundNegatedOverflow of compoundOverflows) {
+                      for (const decimalCallbacks of callbackVariants) {
+                        for (const longBits of [32, 64] as const) {
+                          for (const sizeTBits of [32, 64] as const) {
+                            const candidateAbi = {
+                              longBits,
+                              sizeTBits,
+                              integerProfile,
+                              negativeMagnitudes,
+                              decimalCallbacks,
+                              unsignedChar,
+                              conflictStyle,
+                              booleanSource,
+                              booleanBinaryIntegers,
+                              booleanCapabilities,
+                              compoundNegatedOverflow,
+                            };
+                            try {
+                              valid.push({
+                                profile: integerProfile,
+                                abi: candidateAbi,
+                                argv: commandArguments(command, args, inRepository, candidateAbi),
+                              });
+                            } catch (error) {
+                              if (!(error instanceof GitArgumentError)) {
+                                throw error;
+                              }
+                              firstError ??= error;
                             }
-                            firstError ??= error;
                           }
                         }
                       }
@@ -752,6 +758,7 @@ export class CliRunner {
             booleanSources.length *
             booleanBinaries.length *
             capabilityVariants.length *
+            compoundOverflows.length *
             4 &&
           !needsBinaryProfile) ||
         (binary && !this.exec.spawnBytes)
@@ -762,6 +769,50 @@ export class CliRunner {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
       };
+      if (compoundOverflows.length > 1) {
+        const groups = new Map<string, Set<boolean | undefined>>();
+        for (const entry of valid) {
+          const { compoundNegatedOverflow, ...other } = entry.abi;
+          const key = JSON.stringify(other);
+          if (!groups.has(key)) {
+            groups.set(key, new Set());
+          }
+          groups.get(key)!.add(compoundNegatedOverflow);
+        }
+        if ([...groups.values()].some((group) => group.size !== 2)) {
+          // A negative magnitude beyond either ULONG_MAX distinguishes saturation from negation.
+          const probe = await this.run(
+            context,
+            ['shortlog', '-w2,-18446744073709551616,0', '-h'],
+            probeOptions,
+          );
+          if (probe.aborted) {
+            return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+          }
+          let compoundNegatedOverflow: boolean;
+          if (
+            [0, 129].includes(probe.exitCode) &&
+            (probe.stderr + probe.stdout).startsWith('usage:')
+          ) {
+            compoundNegatedOverflow = true;
+          } else if (probe.exitCode === 129 && /^error: -w\[/m.test(probe.stderr)) {
+            compoundNegatedOverflow = false;
+          } else {
+            return await execute(valid[0]!.argv);
+          }
+          const selected = valid.filter(
+            (entry) => entry.abi.compoundNegatedOverflow === compoundNegatedOverflow,
+          );
+          if (selected.length === 0) {
+            commandArguments(command, args, inRepository, {
+              ...valid[0]!.abi,
+              compoundNegatedOverflow,
+            });
+            throw firstError;
+          }
+          valid = selected;
+        }
+      }
       if (conflictStyles.length > 1) {
         const groups = new Map<string, Set<string>>();
         for (const entry of valid) {
@@ -1157,7 +1208,10 @@ export class CliRunner {
         const longBytes = /^sizeof-long: ([48])\r?$/m.exec(probe.stdout)?.[1];
         const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
         if (probe.exitCode !== 0 || !(longBytes && sizeBytes)) {
-          if (commandUsesDecimalCallback(command, args)) {
+          if (
+            commandUsesDecimalCallback(command, args) ||
+            commandUsesCompoundDecimal(command, args)
+          ) {
             return await execute(selectedValid[0]!.argv);
           }
           throw new GitArgumentError(

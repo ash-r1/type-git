@@ -49,13 +49,17 @@ export function decimalCallbackFamily(
   return undefined;
 }
 
-/** Ordered strtol conversion stages using the selected executable’s C long width. */
+/** Ordered strtol/strtoul conversion stages using the selected executable’s C long width. */
 export type GitDecimalParser = {
   kind: 'decimal';
   longBits: 32 | 64;
   bits: 32;
   signed: boolean;
   conversion: 'checked' | 'cast' | 'atoi';
+  /** strtoul saturates ULONG_MAX before unsigned negation and int storage. */
+  unsignedLong?: true;
+  /** Some C runtimes negate a saturated unsigned result for negative overflow. */
+  negateUnsignedOverflow?: true;
   nativeCallback?: GitDecimalCallback;
   clampNegativeToZero?: true;
   rejectMinus?: true;
@@ -105,6 +109,7 @@ export function parseGitDecimal(
   parser: GitDecimalParser,
   previous?: unknown,
   selectedLongBits: 32 | 64 = parser.longBits,
+  compoundNegatedOverflow = false,
 ): { valid: boolean; value?: unknown } {
   if (value === true && parser.default) {
     return { valid: true, value: parser.default === 'previous' ? previous : true };
@@ -139,6 +144,16 @@ export function parseGitDecimal(
     return { valid: false };
   }
   let parsed = match ? BigInt(match[1]!) : 0n;
+  if (parser.unsignedLong) {
+    const maximum = (1n << BigInt(selectedLongBits)) - 1n;
+    const magnitude = parsed < 0n ? -parsed : parsed;
+    parsed =
+      magnitude > maximum
+        ? parsed < 0n && (compoundNegatedOverflow || parser.negateUnsignedOverflow)
+          ? 1n
+          : maximum
+        : BigInt.asUintN(selectedLongBits, parsed);
+  }
   if (parser.beforeNonnegative && parsed < 0n) {
     return { valid: false };
   }
@@ -148,8 +163,10 @@ export function parseGitDecimal(
       return { valid: false };
     }
   } else {
-    const longLimit = 1n << BigInt(selectedLongBits - 1);
-    parsed = parsed < -longLimit ? -longLimit : parsed >= longLimit ? longLimit - 1n : parsed;
+    if (!parser.unsignedLong) {
+      const longLimit = 1n << BigInt(selectedLongBits - 1);
+      parsed = parsed < -longLimit ? -longLimit : parsed >= longLimit ? longLimit - 1n : parsed;
+    }
     parsed = parser.signed
       ? BigInt.asIntN(parser.bits, parsed)
       : BigInt.asUintN(parser.bits, parsed);

@@ -1,3 +1,4 @@
+import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
 import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
 import type { GitBooleanCallback, GitBooleanSource } from '../constraints/git-boolean.js';
 import type {
@@ -491,39 +492,48 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
     ? V extends undefined
       ? true
       : GitBooleanCallbackLiteral<V, P, BooleanSourceOf<D>>
-    : D extends {
-          parser: 'object-filter' | 'object-filter-auto';
-        }
-      ? V extends string
-        ? ObjectFilterLiteral<
+    : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+      ? V extends undefined
+        ? true
+        : CompoundDecimalLiteral<
             V,
-            D['parser'] extends 'object-filter-auto' ? true : false,
-            D extends { negativeMagnitudes: true } ? true : false
+            D['parser'],
+            D extends { compoundLongBits: infer B extends 32 | 64 } ? B : 64,
+            D extends { compoundNegatedOverflow: true } ? true : false
           >
-        : true
-      : D extends { parser: 'perl-int' | 'perl-int-gnu' }
-        ? PerlIntegerLiteral<D, V>
-        : D extends { parser: 'fast-import-sign' }
-          ? ImportSignLiteral<V>
-          : D extends { parser: 'anonymize-map' }
-            ? V extends string
-              ? string extends V
-                ? true
-                : V extends object
+      : D extends {
+            parser: 'object-filter' | 'object-filter-auto';
+          }
+        ? V extends string
+          ? ObjectFilterLiteral<
+              V,
+              D['parser'] extends 'object-filter-auto' ? true : false,
+              D extends { negativeMagnitudes: true } ? true : false
+            >
+          : true
+        : D extends { parser: 'perl-int' | 'perl-int-gnu' }
+          ? PerlIntegerLiteral<D, V>
+          : D extends { parser: 'fast-import-sign' }
+            ? ImportSignLiteral<V>
+            : D extends { parser: 'anonymize-map' }
+              ? V extends string
+                ? string extends V
                   ? true
-                  : V extends ''
-                    ? false
-                    : V extends `${infer Key}:${infer Replacement}`
-                      ? Key extends ''
-                        ? false
-                        : Replacement extends ''
+                  : V extends object
+                    ? true
+                    : V extends ''
+                      ? false
+                      : V extends `${infer Key}:${infer Replacement}`
+                        ? Key extends ''
                           ? false
-                          : true
-                      : true
-              : true
-            : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-              ? ParsedScalarLiteral<D, V>
-              : true;
+                          : Replacement extends ''
+                            ? false
+                            : true
+                        : true
+                : true
+              : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+                ? ParsedScalarLiteral<D, V>
+                : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true
@@ -719,7 +729,12 @@ type DecimalProfiledOption<S, D extends OptionSpec> = S extends {
 }
   ? D extends { parser: infer P extends GitDecimalParser }
     ? Omit<D, 'parser'> & { parser: Omit<P, 'longBits'> & { longBits: Bits } }
-    : D
+    : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+      ? D & {
+          compoundLongBits: Bits;
+          compoundNegatedOverflow: S extends { compoundNegatedOverflow: true } ? true : false;
+        }
+      : D
   : D;
 type CallbackProfiledOption<S, D extends OptionSpec> = D extends {
   parser: infer P extends GitDecimalParser & { nativeCallback: GitDecimalCallback };
@@ -855,6 +870,7 @@ type CheckedLegacyIntegerArguments<
   Negative extends boolean = false,
   LongBits extends 32 | 64 = 64,
   Callbacks extends GitDecimalCallbacks = {},
+  CompoundOverflow extends boolean = false,
   S = State<
     C,
     A,
@@ -870,7 +886,7 @@ type CheckedLegacyIntegerArguments<
       >,
       'decimalCallbacks',
       Callbacks
-    >
+    > & { compoundNegatedOverflow: CompoundOverflow }
   >,
 > = [S] extends [never]
   ? never
@@ -915,7 +931,19 @@ type DecimalWidthChanges<
               : true
             : never
           : never
-        : DecimalWidthChanges<C, Rest, F>
+        : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+          ? CompoundDecimalLiteral<
+              T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
+              D['parser'],
+              64
+            > extends CompoundDecimalLiteral<
+              T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
+              D['parser'],
+              32
+            >
+            ? DecimalWidthChanges<C, Rest, F>
+            : true
+          : DecimalWidthChanges<C, Rest, F>
       : false
     : DecimalWidthChanges<C, Rest, F>
   : false;
@@ -997,12 +1025,58 @@ type CheckedCallbackChoice<
         : never
       : A
   : never;
+/** Detect compound callbacks without replaying unrelated numeric families. */
+type TupleUsesCompound<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = A extends readonly [infer T, ...infer Rest]
+  ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
+    ? Options<C>[K] extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+      ? true
+      : TupleUsesCompound<C, Rest>
+    : TupleUsesCompound<C, Rest>
+  : false;
+/** One consistent overflow and long-width implementation governs the complete tuple. */
+type CompoundOverflowAxes<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  I extends 'bounded' | 'decimal-cast',
+  N extends boolean,
+  B extends 32 | 64,
+  F extends GitDecimalCallbacks,
+> = I extends unknown
+  ? N extends unknown
+    ? B extends unknown
+      ? F extends unknown
+        ? CheckedLegacyIntegerArguments<C, A, I, N, B, F, true>
+        : never
+      : never
+    : never
+  : never;
+/** Keep generic arrays lazy; only concrete compound tuples add the observed overflow alternative. */
+type CheckedCompoundOverflow<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = A extends readonly [unknown, ...unknown[]]
+  ? TupleUsesCompound<C, A> extends true
+    ? CompoundOverflowAxes<
+        C,
+        A,
+        TupleIntegerTraits<C, A> extends true ? 'bounded' | 'decimal-cast' : 'bounded',
+        TupleIntegerTraits<C, A> extends true ? false | true : false,
+        32 | 64,
+        CallbackChoices<TupleCallbacks<C, A>>
+      >
+    : never
+  : never;
 type CheckedNumericAlternatives<C extends GitCommandName, A extends readonly unknown[]> = [
   CheckedIntegerAlternatives<C, A>,
 ] extends [never]
   ? [TupleCallbacks<C, A>] extends [never]
-    ? never
-    : CheckedCallbackChoice<C, A, CallbackChoices<TupleCallbacks<C, A>>>
+    ? CheckedCompoundOverflow<C, A>
+    : [CheckedCallbackChoice<C, A, CallbackChoices<TupleCallbacks<C, A>>>] extends [never]
+      ? CheckedCompoundOverflow<C, A>
+      : A
   : A;
 /** The old string callback validates only the last stored value after parsing. */
 type DeferredConflictValid<S> = S extends { conflict: infer V }

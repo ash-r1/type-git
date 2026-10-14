@@ -101,6 +101,7 @@ export function commandArguments(
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
+    compoundNegatedOverflow?: boolean;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -254,6 +255,7 @@ export function commandArguments(
             abi?.booleanSource,
             abi?.booleanBinaryIntegers,
             abi?.booleanCapabilities,
+            abi?.compoundNegatedOverflow,
           )
         : undefined;
     if (integer && !integer.valid) {
@@ -387,6 +389,7 @@ export function commandArguments(
             abi?.booleanSource,
             abi?.booleanBinaryIntegers,
             abi?.booleanCapabilities,
+            abi?.compoundNegatedOverflow,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -523,7 +526,8 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
       option?.parser === 'object-filter' ||
       option?.parser === 'object-filter-auto' ||
       option?.parser === 'unsigned-size' ||
-      option?.parser === 'shortlog-wrap'
+      option?.parser === 'shortlog-wrap' ||
+      option?.parser === 'show-branch-reflog'
     );
   });
 }
@@ -697,6 +701,26 @@ export function commandUsesObjectFilterCharProfile(
       objectFilterUsesHighBytes(arg[1])
     );
   });
+}
+
+/** Compound callbacks use selected C long widths; unknown metadata retains native execution. */
+export function commandUsesCompoundDecimal(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesCompoundDecimal(dispatched.command, dispatched.args);
+  }
+  return interpretedArguments(spec, args).some(
+    (arg) =>
+      Array.isArray(arg) &&
+      typeof arg[0] === 'string' &&
+      Object.hasOwn(spec.options, arg[0]) &&
+      (spec.options[arg[0]]?.parser === 'shortlog-wrap' ||
+        spec.options[arg[0]]?.parser === 'show-branch-reflog'),
+  );
 }
 
 /** Whether a conflict-style callback before help needs a selected-executable timing profile. */

@@ -16,6 +16,7 @@ const root = new URL('../', import.meta.url);
 const load = async name => JSON.parse(await readFile(new URL(`spec/upstream/${name}.json`, root), 'utf8'));
 const expected = new Map();
 /** Collect a source fingerprint, rejecting conflicting records for the same file. */
+/** Register a pinned upstream file and reject conflicting fingerprints for that source. */
 function add(base, file, digest) {
   const path = join(base, file);
   if (expected.has(path) && expected.get(path) !== digest) throw new Error(`Inconsistent snapshot fingerprints: ${file}`);
@@ -31,6 +32,7 @@ for (const [path, digest] of Object.entries(inventory.sources)) {
 for (const [path, digest] of Object.entries((await load('lfs-options')).sources)) add(lfs, path, digest);
 for (const [path, digest] of Object.entries((await load('git-numeric-options')).sources)) add(git, path, digest);
 for (const [path, digest] of Object.entries(JSON.parse(await readFile(new URL('spec/git-numeric-callbacks.json', root), 'utf8')).sources)) add(git, path, digest);
+for (const [path, digest] of Object.entries(JSON.parse(await readFile(new URL('spec/git-compound-decimals.json', root), 'utf8')).sources)) add(git, path, digest);
 for (const [path, digest] of Object.entries(JSON.parse(await readFile(new URL('spec/git-boolean-callbacks.json', root), 'utf8')).sources)) add(git, path, digest);
 const tables = await load('git-option-tables');
 if (flags.includes('--c-tables')) {

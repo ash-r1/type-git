@@ -789,10 +789,10 @@ The builder still serializes all supplied words; the compiler stops its state
 walk at the same point. A value spelling `-h` is not an exit token, and a help
 spelling after `--` or after a stop-at-operand boundary is not an active option.
 
-The 19 audited scopes are `add`, `rm`, `mv`, `commit`, `fetch`, `push`, `clone`,
+The 20 audited scopes are `add`, `rm`, `mv`, `commit`, `fetch`, `push`, `clone`,
 `merge`, `reset`, `clean`, `rebase`, `checkout`, `switch`, `restore`, `status`,
-`branch`, `for-each-ref`, `tag` and `show-branch`.
-The four latter scopes also share audited `--color` callbacks that accept only
+`branch`, `for-each-ref`, `tag`, `show-branch` and `shortlog`.
+The five latter scopes also share audited `--color` callbacks that accept only
 ASCII case-insensitive `always`, `auto` and `never`, default to `always` without a value, and assign `never` when negated.
 Config boolean synonyms such as `true` are not accepted. Consequently
 `--color=invalid -h` is rejected and `-h --color=invalid` reaches help. Enum-valued
@@ -880,3 +880,46 @@ with arbitrary string samples. This is a per-field domain, not a proof that ever
 combined command state is reachable. Source fingerprints are checked by the upstream verifier. The finite corpus
 and bounded literal evaluator do not claim completeness for every platform or
 command; help phases, repository state and dynamic values remain audit work.
+
+## Compound decimal callbacks
+
+`spec/git-compound-decimals.json` describes a comma-separated numeric tuple
+with defaults and an optional numeric prefix followed by an opaque tail. The
+shortlog tuple uses defaults 76/6/9 and requires a nonzero width to exceed both
+indentations. The reflog callback parses only the prefix before the first comma;
+its later date/object resolution is outside this lexical model.
+
+Both profiles use the selected executable’s C unsigned long width through the
+shared decimal parser. The pinned corpus explicitly records LP64; builder/scalar
+comparisons against that corpus supply its 64-bit width even on another host.
+Negation occurs in unsigned long. The ordinary profile saturates magnitude
+overflow at `ULONG_MAX`; an independently observed profile negates negative
+overflow to 1. Windows CI demonstrated that the latter difference affects actual
+Git acceptance, so host platform names and long widths alone do not select it. Shortlog then checks `INT_MAX`; show-branch stores an int before its
+later fallback logic. Thus `-18446744073709551540` becomes width 76, but
+`-18446744073709551616` saturates and fails shortlog's range check. A trailing
+newline is an unconsumed character in a numeric field; a newline after reflog's
+comma belongs to its opaque tail and is accepted by this callback.
+
+Compiler checks consume the same profiles and numeric conversion rules, including
+field defaults and width/indent comparisons. Width-sensitive tuples replay one
+consistent 32- or 64-bit long profile across every field and repeated option.
+For example, `-4294967220` becomes width 76 only for 32-bit unsigned long; a
+command combining it with a 64-bit-only width spelling has no valid whole-tuple
+profile. A mixed field list can, however, be valid when overflowing negative
+indentation converts to 1; compiler alternatives retain that observed case.
+A readonly `shortlog -w2,-18446744073709551616,0 -h` observation distinguishes
+negative overflow acceptance independently of long width. Readonly trait and
+width observations retain the original context, environment and signal
+without consuming command stdin. Unrecognized metadata delegates to the original
+native command; aborted observations stop execution. Values after audited help
+do not trigger observations, and argument representation guards remain earlier. Symbolic values and bounded numeric
+walks retain runtime checks without hiding another field's known violation.
+Shortlog's parse-options/revision-option loop processes unknown options inline,
+so its help exit is ordered, unlike log's separate early parsing pass. Shortlog
+also uses the shared color callback grammar.
+
+`node scripts/compound-decimal-corpus.mjs --check` reproduces 873 independent
+numeric outcomes and seven ordered help/color cases across finite tuple
+combinations, numeric boundaries, whitespace and comma tails. This does not prove every platform, repository condition
+or unbounded input language complete. All command audit entries remain partial.

@@ -121,6 +121,7 @@ export type ScalarContext = {
   booleanSource?: GitBooleanSource;
   booleanBinaryIntegers?: boolean;
   booleanCapabilities?: GitBooleanCapabilities;
+  compoundNegatedOverflow?: boolean;
 };
 /** All violations, in declaration order, retain their evidence and stable identifiers. */
 export function violations(
@@ -203,6 +204,7 @@ function violates(
           scalarContext?.booleanSource,
           scalarContext?.booleanBinaryIntegers,
           scalarContext?.booleanCapabilities,
+          scalarContext?.compoundNegatedOverflow,
         ).valid
       );
     case 'value':

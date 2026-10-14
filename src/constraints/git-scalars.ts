@@ -1,4 +1,5 @@
 import { asciiLower } from './ascii.js';
+import { validCompoundDecimal } from './compound-decimal.js';
 import {
   type GitBooleanCallback,
   type GitBooleanSource,
@@ -119,6 +120,7 @@ export function parseGitScalar(
   booleanSource: GitBooleanSource = 'modern',
   booleanBinaryIntegers = true,
   booleanCapabilities?: GitBooleanCapabilities,
+  compoundNegatedOverflow = false,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'decimal') {
     return parseGitDecimal(
@@ -246,48 +248,9 @@ export function parseGitScalar(
       value,
     };
   }
-  if (parser === 'shortlog-wrap') {
-    if (value === true) {
-      return { valid: true, value };
-    }
-    if (typeof value !== 'string') {
-      return { valid: false };
-    }
-    const parts = value.split(',');
-    if (parts.length > 3) {
-      return { valid: false };
-    }
-    const parsed: number[] = [];
-    for (let index = 0; index < 3; index++) {
-      const part = parts[index] ?? '';
-      if (part === '') {
-        parsed.push([76, 6, 9][index]!);
-        continue;
-      }
-      if (!/^[ \t\r\n\v\f]*[+-]?\d+$/.test(part)) {
-        return { valid: false };
-      }
-      const number = BigInt(part.trimStart());
-      const modulus = 1n << BigInt(cLongBits);
-      // strtoul applies unsigned negation only within ULONG_MAX. Overflow
-      // saturates to ULONG_MAX, which exceeds parse_uint's INT_MAX limit.
-      if (number > modulus - 1n || number < -(modulus - 1n)) {
-        return { valid: false };
-      }
-      const converted = number < 0n ? modulus + number : number;
-      if (converted > 2147483647n) {
-        return { valid: false };
-      }
-      parsed.push(Number(converted));
-    }
-    const [width, first, rest] = parsed as [number, number, number];
-    return { valid: width === 0 || (width > first && width > rest), value };
-  }
-  if (parser === 'show-branch-reflog') {
+  if (parser === 'shortlog-wrap' || parser === 'show-branch-reflog') {
     return {
-      valid:
-        value === true ||
-        (typeof value === 'string' && /^(?:[ \t\r\n\v\f]*[+-]?\d+)?(?:,[\s\S]*)?$/.test(value)),
+      valid: validCompoundDecimal(parser, value, cLongBits, compoundNegatedOverflow),
       value,
     };
   }
