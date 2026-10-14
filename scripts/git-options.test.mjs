@@ -30,3 +30,11 @@ describe('source-declared integer width coverage', () => {
     expect(() => gitOptions(changed, scopes, rules, groups, numeric)).toThrow('Unused source-declared native width: builtin/pack-objects.c:max-pack-size');
   });
 });
+
+describe('ordered parser wrapper source metadata', () => {
+  it('rejects wrappers without a first-pass table before emitting raw source metadata', () => {
+    const changed = structuredClone(scopes);
+    delete changed['reflog show'].parserExit.firstPassTables;
+    expect(() => gitOptions(upstream, changed, rules, groups, numeric)).toThrow('parser wrappers require firstPassTables');
+  });
+});

@@ -77,6 +77,7 @@ export function gitOptions(upstream, scopes, rules, groups = {}, numericSnapshot
     }
     for (const flag of scope.omitOptions ?? []) delete options[flag];
     let parserExit = scope.parserExit;
+    if (parserExit?.wrappers && !parserExit.firstPassTables) throw new Error(`${command}: parser wrappers require firstPassTables`);
     if (parserExit?.firstPassTables) {
       const { firstPassTables, remainingTables, remainingGroups, wrappers, ...exit } = parserExit;
       const prefix = wrappers?.map(({ tables: wrapperTables, ...wrapper }) => {

@@ -7,11 +7,13 @@ const root = new URL('../', import.meta.url);
 const directory = await mkdtemp(join(tmpdir(), 'type-git-wrapper-oracle-'));
 const env = { ...process.env, HOME: directory, XDG_CONFIG_HOME: directory, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_COUNT: '0', LC_ALL: 'C', GIT_PAGER: 'cat', GIT_AUTHOR_NAME: 'Test', GIT_AUTHOR_EMAIL: 'test@example.test', GIT_COMMITTER_NAME: 'Test', GIT_COMMITTER_EMAIL: 'test@example.test' };
 for (const name of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES']) delete env[name];
+/** Execute the selected Git only inside the isolated oracle repository. */
 function git(args) {
   const result = spawnSync('git', args, { cwd: directory, env, input: '', encoding: 'utf8', timeout: 60000 });
   if (result.error || result.signal) throw result.error ?? new Error(`Git terminated: ${result.signal}`);
   return result;
 }
+/** Keep a literal word distinct from option tuples in the public API fixture. */
 const operand = value => ({ operand: value });
 const count = ['--max-count', '0'];
 try {
@@ -20,6 +22,7 @@ try {
   await writeFile(join(directory, 'file'), 'x\ny\n');
   if (git(['add', 'file']).status !== 0 || git(['commit', '-qm', 'seed']).status !== 0) throw new Error('Cannot seed oracle repository');
   const cases = [];
+  /** Classify a native result independently of the runtime and compiler interpreters. */
   const record = (command, tokens) => {
     const argv = [...command.split(' '), ...tokens.flatMap(token => !Array.isArray(token) ? [token.operand] : token.length === 1 ? token : token[0].startsWith('--') && token[0] !== '--default' ? [`${token[0]}=${token[1]}`] : token)];
     const result = git(argv);
