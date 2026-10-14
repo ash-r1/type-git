@@ -246,19 +246,24 @@ describe('0.4 typed output contracts (real Git)', () => {
     expect((await repo.lfs.status()).files).toContainEqual({ name: 'asset.bin', status: 'A' });
   });
 
-  it.runIf(HAS_LFS)('returns committed LFS file metadata from validated JSON', async () => {
-    await repo.lfs.install();
-    await repo.lfs.track('*.bin');
-    await writeFile(join(repo.workdir, 'asset.bin'), 'contents');
-    await repo.add('.');
-    await repo.remote.add('origin', repo.workdir);
-    await repo.commit({ message: 'LFS file' });
-    await repo.lfs.fetch({ remote: 'origin', dryRun: true, onLfsProgress: vi.fn() });
-    const files = await repo.lfs.lsFiles();
-    expect(files).toHaveLength(1);
-    expect(files[0]).toMatchObject({ path: 'asset.bin', size: 8, status: 'checked-out' });
-    expect(files[0]?.oid).toHaveLength(64);
-  });
+  // Several native Git/LFS processes must finish before fixture cleanup begins.
+  it.runIf(HAS_LFS)(
+    'returns committed LFS file metadata from validated JSON',
+    async () => {
+      await repo.lfs.install();
+      await repo.lfs.track('*.bin');
+      await writeFile(join(repo.workdir, 'asset.bin'), 'contents');
+      await repo.add('.');
+      await repo.remote.add('origin', repo.workdir);
+      await repo.commit({ message: 'LFS file' });
+      await repo.lfs.fetch({ remote: 'origin', dryRun: true, onLfsProgress: vi.fn() });
+      const files = await repo.lfs.lsFiles();
+      expect(files).toHaveLength(1);
+      expect(files[0]).toMatchObject({ path: 'asset.bin', size: 8, status: 'checked-out' });
+      expect(files[0]?.oid).toHaveLength(64);
+    },
+    30000,
+  );
 });
 
 describe('malformed machine output', () => {
@@ -276,6 +281,7 @@ describe('malformed machine output', () => {
 import { checkRepositoryContract } from '../../test/contracts/repository.js';
 import { TypeGit } from '../adapters/node/index.js';
 
+// The shared contract exercises a sequence of real Git commands on hosted workers.
 it('shared repository contracts through the Node TypeGit entrypoint', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'type-git-node-contracts-'));
   try {
@@ -288,7 +294,7 @@ it('shared repository contracts through the Node TypeGit entrypoint', async () =
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
-});
+}, 30000);
 
 it('commit stats are independent of human-readable quiet output', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'type-git-commit-stats-'));
