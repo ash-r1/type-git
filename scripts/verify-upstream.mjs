@@ -16,6 +16,7 @@ const root = new URL('../', import.meta.url);
 const load = async name => JSON.parse(await readFile(new URL(`spec/upstream/${name}.json`, root), 'utf8'));
 const expected = new Map();
 /** Collect a source fingerprint, rejecting conflicting records for the same file. */
+/** Register a pinned upstream file and reject conflicting fingerprints for that source. */
 function add(base, file, digest) {
   const path = join(base, file);
   if (expected.has(path) && expected.get(path) !== digest) throw new Error(`Inconsistent snapshot fingerprints: ${file}`);

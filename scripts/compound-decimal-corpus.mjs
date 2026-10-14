@@ -7,6 +7,7 @@ const root = new URL('../', import.meta.url);
 const directory = await mkdtemp(join(tmpdir(), 'type-git-compound-corpus-'));
 const env = { ...process.env, HOME: directory, XDG_CONFIG_HOME: directory, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_COUNT: '0', LC_ALL: 'C', GIT_PAGER: 'cat' };
 for (const name of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES']) delete env[name];
+/** Run the isolated native oracle and reject process errors, signals, or timeouts. */
 function git(args) {
   const result = spawnSync('git', args, { cwd: directory, env, encoding: 'utf8', timeout: 60000 });
   if (result.error || result.signal) throw result.error ?? new Error(`Git terminated: ${result.signal}`);

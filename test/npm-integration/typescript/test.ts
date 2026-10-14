@@ -243,6 +243,7 @@ export function testBooleanCallbackTypes(git: Git, dynamic: string): void {
   git.command('fetch', [['--porcelain'], ['--recurse-submodules', '1k']]);
 }
 
+/** Check packaged compound numeric declarations, dynamic inputs, and reached callback failures. */
 export function testCompoundDecimalTypes(git: Git, dynamic: string): void {
   git.command('shortlog', [['-w', '-18446744073709551540'], ['-h']]);
   git.command('shortlog', [['-w', dynamic], ['-h']]);
