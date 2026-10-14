@@ -207,12 +207,18 @@ export function commandArguments(
         throw new GitArgumentError(`${flag}: missing option value`);
       }
       if (supplied) {
+        const interpretedInteger = ['python-int', 'perl-int', 'perl-int-gnu'].includes(
+          option.parser ?? '',
+        );
         if (
           option.value.endsWith('integer') &&
-          option.parser !== 'python-int' &&
-          !Number.isSafeInteger(value)
+          (interpretedInteger
+            ? !['number', 'string', 'bigint'].includes(typeof value)
+            : !Number.isSafeInteger(value))
         ) {
-          throw new GitArgumentError(`${flag}: expected a safe integer`);
+          throw new GitArgumentError(
+            `${flag}: expected ${interpretedInteger ? 'integer text, number or bigint' : 'a safe integer'}`,
+          );
         }
         if (option.value.endsWith('string') && typeof value !== 'string') {
           throw new GitArgumentError(`${flag}: expected a string`);

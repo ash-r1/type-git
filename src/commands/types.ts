@@ -47,7 +47,7 @@ type AsciiLower<S extends string, Result extends string = ''> = string extends S
     : S extends `${infer H}${infer R}`
       ? AsciiLower<R, `${Result}${H extends AsciiUpper ? Lowercase<H> : H}`>
       : `${Result}${S}`;
-type Value<S extends OptionSpec> = S extends { parser: 'python-int' }
+type Value<S extends OptionSpec> = S extends { parser: 'python-int' | 'perl-int' | 'perl-int-gnu' }
   ? number | string | bigint
   : S extends { allowed: infer A extends readonly unknown[] }
     ? S extends { caseInsensitive: true }
@@ -330,27 +330,69 @@ type ImportSignLiteral<V> = V extends string
           ? true
           : false
   : true;
-type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: 'fast-import-sign' }
-  ? ImportSignLiteral<V>
-  : D extends { parser: 'anonymize-map' }
-    ? V extends string
-      ? string extends V
-        ? true
-        : V extends object
+type PerlDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+// Long literals defer to runtime before TypeScript's instantiation limit.
+type PerlIntegerDigits<
+  S extends string,
+  Budget extends readonly unknown[] = readonly [],
+> = Budget['length'] extends 192
+  ? true
+  : S extends '' | '\n'
+    ? true
+    : S extends `${infer H}${infer R}`
+      ? H extends PerlDigit | '_'
+        ? PerlIntegerDigits<R, readonly [...Budget, unknown]>
+        : false
+      : false;
+type PerlIntegerStart<
+  S extends string,
+  Budget extends readonly unknown[] = readonly [],
+> = Budget['length'] extends 192
+  ? true
+  : S extends `_${infer R}`
+    ? PerlIntegerStart<R, readonly [...Budget, unknown]>
+    : S extends `${infer H}${infer R}`
+      ? H extends PerlDigit
+        ? PerlIntegerDigits<R, readonly [...Budget, unknown]>
+        : false
+      : false;
+type PerlIntegerText<S extends string, AllowEmpty extends boolean> = {} extends Record<S, unknown>
+  ? true // Nonliteral templates and dynamic strings remain runtime inputs.
+  : S extends ''
+    ? AllowEmpty
+    : S extends `${'+' | '-'}${infer R}`
+      ? PerlIntegerStart<R>
+      : PerlIntegerStart<S>;
+type PerlIntegerLiteral<D extends OptionSpec, V> = V extends string
+  ? V extends object
+    ? true
+    : PerlIntegerText<V, D extends { parser: 'perl-int-gnu' } ? true : false>
+  : V extends number | bigint
+    ? PerlIntegerText<`${V}`, false>
+    : false;
+type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: 'perl-int' | 'perl-int-gnu' }
+  ? PerlIntegerLiteral<D, V>
+  : D extends { parser: 'fast-import-sign' }
+    ? ImportSignLiteral<V>
+    : D extends { parser: 'anonymize-map' }
+      ? V extends string
+        ? string extends V
           ? true
-          : V extends ''
-            ? false
-            : V extends `${infer Key}:${infer Replacement}`
-              ? Key extends ''
-                ? false
-                : Replacement extends ''
+          : V extends object
+            ? true
+            : V extends ''
+              ? false
+              : V extends `${infer Key}:${infer Replacement}`
+                ? Key extends ''
                   ? false
-                  : true
-              : true
-      : true
-    : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-      ? ParsedScalarLiteral<D, V>
-      : true;
+                  : Replacement extends ''
+                    ? false
+                    : true
+                : true
+        : true
+      : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+        ? ParsedScalarLiteral<D, V>
+        : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true

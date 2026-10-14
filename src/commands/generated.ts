@@ -93555,6 +93555,4429 @@ const commandSpec353 = {
   optionParsing: 'stop-at-operand',
 } as const satisfies CommandSpec;
 const commandSpec354 = {
+  argv: ['svn', 'fetch'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--fetch-all': {
+      key: 'fetch-all',
+      value: 'flag',
+    },
+    '--all': {
+      key: 'fetch-all',
+      value: 'flag',
+    },
+    '--parent': {
+      key: 'parent',
+      value: 'flag',
+    },
+    '--p': {
+      key: 'parent',
+      value: 'flag',
+    },
+    '-p': {
+      key: 'parent',
+      value: 'flag',
+    },
+    '--follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--follow': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--authors-file': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '-A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--authors-prog': {
+      key: 'authors-prog',
+      value: 'string',
+    },
+    '--repack': {
+      key: 'repack',
+      value: 'optional-integer',
+      parser: 'perl-int-gnu',
+    },
+    '--log-window-size': {
+      key: 'log-window-size',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--no-checkout': {
+      key: 'no-checkout',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--repack-flags': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-args': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-opts': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--use-log-author': {
+      key: 'use-log-author',
+      value: 'flag',
+    },
+    '--add-author-from': {
+      key: 'add-author-from',
+      value: 'flag',
+    },
+    '--localtime': {
+      key: 'localtime',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.fetch.remote',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'Fetch accepts at most one remote name.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec355 = {
+  argv: ['svn', 'clone'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--preserve-empty-dirs': {
+      key: 'preserve-empty-dirs',
+      value: 'flag',
+    },
+    '--placeholder-filename': {
+      key: 'placeholder-filename',
+      value: 'string',
+    },
+    '--follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--follow': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--authors-file': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '-A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--authors-prog': {
+      key: 'authors-prog',
+      value: 'string',
+    },
+    '--repack': {
+      key: 'repack',
+      value: 'optional-integer',
+      parser: 'perl-int-gnu',
+    },
+    '--log-window-size': {
+      key: 'log-window-size',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--no-checkout': {
+      key: 'no-checkout',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--repack-flags': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-args': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-opts': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--use-log-author': {
+      key: 'use-log-author',
+      value: 'flag',
+    },
+    '--add-author-from': {
+      key: 'add-author-from',
+      value: 'flag',
+    },
+    '--localtime': {
+      key: 'localtime',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--template': {
+      key: 'template',
+      value: 'string',
+    },
+    '--shared': {
+      key: 'shared',
+      value: 'optional-string',
+    },
+    '--trunk': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '--T': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '-T': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '--tags': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '--t': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '-t': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '--branches': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '--b': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '-b': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '--prefix': {
+      key: 'prefix',
+      value: 'string',
+    },
+    '--stdlayout': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '--s': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '-s': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '--minimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '--no-minimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--nominimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--m': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '-m': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '--no-m': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--nom': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--no-metadata': {
+      key: 'no-metadata',
+      value: 'flag',
+    },
+    '--use-svm-props': {
+      key: 'use-svm-props',
+      value: 'flag',
+    },
+    '--use-svnsync-props': {
+      key: 'use-svnsync-props',
+      value: 'flag',
+    },
+    '--rewrite-root': {
+      key: 'rewrite-root',
+      value: 'string',
+    },
+    '--rewrite-uuid': {
+      key: 'rewrite-uuid',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.clone.required-name',
+      kind: 'required',
+      required: [
+        {
+          key: 'operand0',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The operation requires a nonempty first operand.',
+    },
+    {
+      id: 'cli.svn.clone.perl-zero',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'operand0',
+          test: 'equals',
+          value: '0',
+        },
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The first operand uses Perl truthiness and therefore cannot be the string zero.',
+    },
+    {
+      id: 'cli.svn.clone.metadata-options',
+      kind: 'exclusiveGroups',
+      groups: [
+        [
+          {
+            key: 'no-metadata',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'use-svm-props',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'use-svnsync-props',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'rewrite-root',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'rewrite-uuid',
+            test: 'present',
+          },
+        ],
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason:
+        'do_git_init_db permits only one entry in its metadata initialization map, including rewrite fields.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec356 = {
+  argv: ['svn', 'init'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--template': {
+      key: 'template',
+      value: 'string',
+    },
+    '--shared': {
+      key: 'shared',
+      value: 'optional-string',
+    },
+    '--trunk': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '--T': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '-T': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '--tags': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '--t': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '-t': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '--branches': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '--b': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '-b': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '--prefix': {
+      key: 'prefix',
+      value: 'string',
+    },
+    '--stdlayout': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '--s': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '-s': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '--minimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '--no-minimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--nominimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--m': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '-m': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '--no-m': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--nom': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--no-metadata': {
+      key: 'no-metadata',
+      value: 'flag',
+    },
+    '--use-svm-props': {
+      key: 'use-svm-props',
+      value: 'flag',
+    },
+    '--use-svnsync-props': {
+      key: 'use-svnsync-props',
+      value: 'flag',
+    },
+    '--rewrite-root': {
+      key: 'rewrite-root',
+      value: 'string',
+    },
+    '--rewrite-uuid': {
+      key: 'rewrite-uuid',
+      value: 'string',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.init.metadata-options',
+      kind: 'exclusiveGroups',
+      groups: [
+        [
+          {
+            key: 'no-metadata',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'use-svm-props',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'use-svnsync-props',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'rewrite-root',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'rewrite-uuid',
+            test: 'present',
+          },
+        ],
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason:
+        'do_git_init_db permits only one entry in its metadata initialization map, including rewrite fields.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec357 = {
+  argv: ['svn', 'multi-init'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--template': {
+      key: 'template',
+      value: 'string',
+    },
+    '--shared': {
+      key: 'shared',
+      value: 'optional-string',
+    },
+    '--trunk': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '--T': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '-T': {
+      key: 'trunk',
+      value: 'string',
+    },
+    '--tags': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '--t': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '-t': {
+      key: 'tags',
+      value: 'string',
+      repeat: true,
+    },
+    '--branches': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '--b': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '-b': {
+      key: 'branches',
+      value: 'string',
+      repeat: true,
+    },
+    '--prefix': {
+      key: 'prefix',
+      value: 'string',
+    },
+    '--stdlayout': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '--s': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '-s': {
+      key: 'stdlayout',
+      value: 'flag',
+    },
+    '--minimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '--no-minimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--nominimize-url': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--m': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '-m': {
+      key: 'minimize-url',
+      value: 'flag',
+    },
+    '--no-m': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--nom': {
+      key: 'minimize-url',
+      value: 'flag',
+      set: false,
+    },
+    '--no-metadata': {
+      key: 'no-metadata',
+      value: 'flag',
+    },
+    '--use-svm-props': {
+      key: 'use-svm-props',
+      value: 'flag',
+    },
+    '--use-svnsync-props': {
+      key: 'use-svnsync-props',
+      value: 'flag',
+    },
+    '--rewrite-root': {
+      key: 'rewrite-root',
+      value: 'string',
+    },
+    '--rewrite-uuid': {
+      key: 'rewrite-uuid',
+      value: 'string',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.multi-init.metadata-options',
+      kind: 'exclusiveGroups',
+      groups: [
+        [
+          {
+            key: 'no-metadata',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'use-svm-props',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'use-svnsync-props',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'rewrite-root',
+            test: 'present',
+          },
+        ],
+        [
+          {
+            key: 'rewrite-uuid',
+            test: 'present',
+          },
+        ],
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason:
+        'do_git_init_db permits only one entry in its metadata initialization map, including rewrite fields.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec358 = {
+  argv: ['svn', 'dcommit'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--merge': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--m': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '-m': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--M': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '-M': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--strategy': {
+      key: 'strategy',
+      value: 'string',
+    },
+    '--s': {
+      key: 'strategy',
+      value: 'string',
+    },
+    '-s': {
+      key: 'strategy',
+      value: 'string',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--fetch-all': {
+      key: 'fetch-all',
+      value: 'flag',
+    },
+    '--all': {
+      key: 'fetch-all',
+      value: 'flag',
+    },
+    '--commit-url': {
+      key: 'commit-url',
+      value: 'string',
+    },
+    '--set-svn-props': {
+      key: 'set-svn-props',
+      value: 'string',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--no-rebase': {
+      key: 'no-rebase',
+      value: 'flag',
+    },
+    '--mergeinfo': {
+      key: 'mergeinfo',
+      value: 'string',
+    },
+    '--interactive': {
+      key: 'interactive',
+      value: 'flag',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--edit': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '--e': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '-e': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '--rmdir': {
+      key: 'rmdir',
+      value: 'flag',
+    },
+    '--find-copies-harder': {
+      key: 'find-copies-harder',
+      value: 'flag',
+    },
+    '--l': {
+      key: 'l',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-l': {
+      key: 'l',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--copy-similarity': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--C': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-C': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--follow': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--authors-file': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '-A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--authors-prog': {
+      key: 'authors-prog',
+      value: 'string',
+    },
+    '--repack': {
+      key: 'repack',
+      value: 'optional-integer',
+      parser: 'perl-int-gnu',
+    },
+    '--log-window-size': {
+      key: 'log-window-size',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--no-checkout': {
+      key: 'no-checkout',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--repack-flags': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-args': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-opts': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--use-log-author': {
+      key: 'use-log-author',
+      value: 'flag',
+    },
+    '--add-author-from': {
+      key: 'add-author-from',
+      value: 'flag',
+    },
+    '--localtime': {
+      key: 'localtime',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec359 = {
+  argv: ['svn', 'branch'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--message': {
+      key: 'message',
+      value: 'string',
+    },
+    '--m': {
+      key: 'message',
+      value: 'string',
+    },
+    '-m': {
+      key: 'message',
+      value: 'string',
+    },
+    '--destination': {
+      key: 'destination',
+      value: 'string',
+    },
+    '--d': {
+      key: 'destination',
+      value: 'string',
+    },
+    '-d': {
+      key: 'destination',
+      value: 'string',
+    },
+    '--dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--parents': {
+      key: 'parents',
+      value: 'flag',
+    },
+    '--tag': {
+      key: 'tag',
+      value: 'flag',
+    },
+    '--t': {
+      key: 'tag',
+      value: 'flag',
+    },
+    '-t': {
+      key: 'tag',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--commit-url': {
+      key: 'commit-url',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.branch.required-name',
+      kind: 'required',
+      required: [
+        {
+          key: 'operand0',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The operation requires a nonempty first operand.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec360 = {
+  argv: ['svn', 'tag'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--message': {
+      key: 'message',
+      value: 'string',
+    },
+    '--m': {
+      key: 'message',
+      value: 'string',
+    },
+    '-m': {
+      key: 'message',
+      value: 'string',
+    },
+    '--destination': {
+      key: 'destination',
+      value: 'string',
+    },
+    '--d': {
+      key: 'destination',
+      value: 'string',
+    },
+    '-d': {
+      key: 'destination',
+      value: 'string',
+    },
+    '--dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--parents': {
+      key: 'parents',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--commit-url': {
+      key: 'commit-url',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.tag.required-name',
+      kind: 'required',
+      required: [
+        {
+          key: 'operand0',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The operation requires a nonempty first operand.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec361 = {
+  argv: ['svn', 'set-tree'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--stdin': {
+      key: 'stdin',
+      value: 'flag',
+    },
+    '--edit': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '--e': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '-e': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '--rmdir': {
+      key: 'rmdir',
+      value: 'flag',
+    },
+    '--find-copies-harder': {
+      key: 'find-copies-harder',
+      value: 'flag',
+    },
+    '--l': {
+      key: 'l',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-l': {
+      key: 'l',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--copy-similarity': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--C': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-C': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--follow': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--authors-file': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '-A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--authors-prog': {
+      key: 'authors-prog',
+      value: 'string',
+    },
+    '--repack': {
+      key: 'repack',
+      value: 'optional-integer',
+      parser: 'perl-int-gnu',
+    },
+    '--log-window-size': {
+      key: 'log-window-size',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--no-checkout': {
+      key: 'no-checkout',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--repack-flags': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-args': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-opts': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--use-log-author': {
+      key: 'use-log-author',
+      value: 'flag',
+    },
+    '--add-author-from': {
+      key: 'add-author-from',
+      value: 'flag',
+    },
+    '--localtime': {
+      key: 'localtime',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec362 = {
+  argv: ['svn', 'create-ignore'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec363 = {
+  argv: ['svn', 'mkdirs'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec364 = {
+  argv: ['svn', 'propget'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.propget.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The operation requires its initial operands but ignores surplus words.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec365 = {
+  argv: ['svn', 'propset'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.propset.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The operation requires its initial operands but ignores surplus words.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec366 = {
+  argv: ['svn', 'proplist'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec367 = {
+  argv: ['svn', 'show-ignore'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec368 = {
+  argv: ['svn', 'show-externals'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec369 = {
+  argv: ['svn', 'multi-fetch'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--follow': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--authors-file': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '-A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--authors-prog': {
+      key: 'authors-prog',
+      value: 'string',
+    },
+    '--repack': {
+      key: 'repack',
+      value: 'optional-integer',
+      parser: 'perl-int-gnu',
+    },
+    '--log-window-size': {
+      key: 'log-window-size',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--no-checkout': {
+      key: 'no-checkout',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--repack-flags': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-args': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-opts': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--use-log-author': {
+      key: 'use-log-author',
+      value: 'flag',
+    },
+    '--add-author-from': {
+      key: 'add-author-from',
+      value: 'flag',
+    },
+    '--localtime': {
+      key: 'localtime',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec370 = {
+  argv: ['svn', 'migrate'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--minimize': {
+      key: 'minimize',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec371 = {
+  argv: ['svn', 'log'],
+  options: {
+    '--limit': {
+      key: 'limit',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--incremental': {
+      key: 'incremental',
+      value: 'flag',
+    },
+    '--oneline': {
+      key: 'oneline',
+      value: 'flag',
+    },
+    '--show-commit': {
+      key: 'show-commit',
+      value: 'flag',
+    },
+    '--non-recursive': {
+      key: 'non-recursive',
+      value: 'flag',
+    },
+    '--authors-file': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '-A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--color': {
+      key: 'color',
+      value: 'flag',
+    },
+    '--pager': {
+      key: 'pager',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec372 = {
+  argv: ['svn', 'find-rev'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--B': {
+      key: 'B',
+      value: 'flag',
+    },
+    '-B': {
+      key: 'B',
+      value: 'flag',
+    },
+    '--before': {
+      key: 'B',
+      value: 'flag',
+    },
+    '--A': {
+      key: 'A',
+      value: 'flag',
+    },
+    '-A': {
+      key: 'A',
+      value: 'flag',
+    },
+    '--after': {
+      key: 'A',
+      value: 'flag',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.find-rev.required-name',
+      kind: 'required',
+      required: [
+        {
+          key: 'operand0',
+          test: 'nonempty',
+        },
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The operation requires a nonempty first operand.',
+    },
+    {
+      id: 'cli.svn.find-rev.perl-zero',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'operand0',
+          test: 'equals',
+          value: '0',
+        },
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The first operand uses Perl truthiness and therefore cannot be the string zero.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec373 = {
+  argv: ['svn', 'rebase'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--merge': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--m': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '-m': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--M': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '-M': {
+      key: 'merge',
+      value: 'flag',
+    },
+    '--verbose': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '-v': {
+      key: 'verbose',
+      value: 'flag',
+    },
+    '--strategy': {
+      key: 'strategy',
+      value: 'string',
+    },
+    '--s': {
+      key: 'strategy',
+      value: 'string',
+    },
+    '-s': {
+      key: 'strategy',
+      value: 'string',
+    },
+    '--local': {
+      key: 'local',
+      value: 'flag',
+    },
+    '--l': {
+      key: 'local',
+      value: 'flag',
+    },
+    '-l': {
+      key: 'local',
+      value: 'flag',
+    },
+    '--fetch-all': {
+      key: 'fetch-all',
+      value: 'flag',
+    },
+    '--all': {
+      key: 'fetch-all',
+      value: 'flag',
+    },
+    '--dry-run': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '-n': {
+      key: 'dry-run',
+      value: 'flag',
+    },
+    '--rebase-merges': {
+      key: 'rebase-merges',
+      value: 'flag',
+    },
+    '--p': {
+      key: 'rebase-merges',
+      value: 'flag',
+    },
+    '-p': {
+      key: 'rebase-merges',
+      value: 'flag',
+    },
+    '--follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow-parent': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--follow': {
+      key: 'follow-parent',
+      value: 'flag',
+    },
+    '--no-follow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--nofollow': {
+      key: 'follow-parent',
+      value: 'flag',
+      set: false,
+    },
+    '--authors-file': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '-A': {
+      key: 'authors-file',
+      value: 'string',
+    },
+    '--authors-prog': {
+      key: 'authors-prog',
+      value: 'string',
+    },
+    '--repack': {
+      key: 'repack',
+      value: 'optional-integer',
+      parser: 'perl-int-gnu',
+    },
+    '--log-window-size': {
+      key: 'log-window-size',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--no-checkout': {
+      key: 'no-checkout',
+      value: 'flag',
+    },
+    '--quiet': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '-q': {
+      key: 'quiet',
+      value: 'flag',
+    },
+    '--repack-flags': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-args': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--repack-opts': {
+      key: 'repack-flags',
+      value: 'string',
+    },
+    '--use-log-author': {
+      key: 'use-log-author',
+      value: 'flag',
+    },
+    '--add-author-from': {
+      key: 'add-author-from',
+      value: 'flag',
+    },
+    '--localtime': {
+      key: 'localtime',
+      value: 'flag',
+    },
+    '--username': {
+      key: 'username',
+      value: 'string',
+    },
+    '--config-dir': {
+      key: 'config-dir',
+      value: 'string',
+    },
+    '--no-auth-cache': {
+      key: 'no-auth-cache',
+      value: 'flag',
+    },
+    '--ignore-paths': {
+      key: 'ignore-paths',
+      value: 'string',
+    },
+    '--include-paths': {
+      key: 'include-paths',
+      value: 'string',
+    },
+    '--ignore-refs': {
+      key: 'ignore-refs',
+      value: 'string',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec374 = {
+  argv: ['svn', 'commit-diff'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--message': {
+      key: 'message',
+      value: 'string',
+    },
+    '--m': {
+      key: 'message',
+      value: 'string',
+    },
+    '-m': {
+      key: 'message',
+      value: 'string',
+    },
+    '--file': {
+      key: 'file',
+      value: 'string',
+    },
+    '--F': {
+      key: 'file',
+      value: 'string',
+    },
+    '-F': {
+      key: 'file',
+      value: 'string',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--edit': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '--e': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '-e': {
+      key: 'edit',
+      value: 'flag',
+    },
+    '--rmdir': {
+      key: 'rmdir',
+      value: 'flag',
+    },
+    '--find-copies-harder': {
+      key: 'find-copies-harder',
+      value: 'flag',
+    },
+    '--l': {
+      key: 'l',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-l': {
+      key: 'l',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--copy-similarity': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '--C': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int-gnu',
+    },
+    '-C': {
+      key: 'copy-similarity',
+      value: 'integer',
+      parser: 'perl-int',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.commit-diff.operands',
+      kind: 'arity',
+      key: 'operands',
+      min: 2,
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'The operation requires its initial operands but ignores surplus words.',
+    },
+    {
+      id: 'cli.svn.commit-diff.message-file',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'message',
+          test: 'present',
+        },
+        {
+          key: 'file',
+          test: 'present',
+        },
+      ],
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'Explicit message and file options cannot both be defined, even when empty.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec375 = {
+  argv: ['svn', 'info'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--url': {
+      key: 'url',
+      value: 'flag',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [
+    {
+      id: 'cli.svn.info.path',
+      kind: 'arity',
+      key: 'operands',
+      min: 0,
+      max: 1,
+      origin: 'git',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-svn.perl',
+      reason: 'Info accepts at most one path.',
+    },
+  ],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec376 = {
+  argv: ['svn', 'blame'],
+  options: {
+    '--git-format': {
+      key: 'git-format',
+      value: 'flag',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+  optionParsing: 'none',
+} as const satisfies CommandSpec;
+const commandSpec377 = {
+  argv: ['svn', 'reset'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--revision': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '-r': {
+      key: 'revision',
+      value: 'string',
+    },
+    '--parent': {
+      key: 'parent',
+      value: 'flag',
+    },
+    '--p': {
+      key: 'parent',
+      value: 'flag',
+    },
+    '-p': {
+      key: 'parent',
+      value: 'flag',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec378 = {
+  argv: ['svn', 'gc'],
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec379 = {
+  argv: ['svn'],
+  dispatch: {
+    fetch: 'svn fetch',
+    clone: 'svn clone',
+    init: 'svn init',
+    'multi-init': 'svn multi-init',
+    dcommit: 'svn dcommit',
+    branch: 'svn branch',
+    tag: 'svn tag',
+    'set-tree': 'svn set-tree',
+    'create-ignore': 'svn create-ignore',
+    mkdirs: 'svn mkdirs',
+    propget: 'svn propget',
+    propset: 'svn propset',
+    proplist: 'svn proplist',
+    'show-ignore': 'svn show-ignore',
+    'show-externals': 'svn show-externals',
+    'multi-fetch': 'svn multi-fetch',
+    migrate: 'svn migrate',
+    log: 'svn log',
+    'find-rev': 'svn find-rev',
+    rebase: 'svn rebase',
+    'commit-diff': 'svn commit-diff',
+    info: 'svn info',
+    blame: 'svn blame',
+    reset: 'svn reset',
+    gc: 'svn gc',
+  },
+  options: {
+    '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '-H': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--version': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '-V': {
+      key: 'version',
+      value: 'flag',
+      effects: [
+        {
+          key: 'help',
+          set: true,
+        },
+      ],
+    },
+    '--minimize-connections': {
+      key: 'minimize-connections',
+      value: 'flag',
+    },
+    '--id': {
+      key: 'id',
+      value: 'string',
+    },
+    '--i': {
+      key: 'id',
+      value: 'string',
+    },
+    '-i': {
+      key: 'id',
+      value: 'string',
+    },
+    '--svn-remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--remote': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '--R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+    '-R': {
+      key: 'svn-remote',
+      value: 'string',
+    },
+  },
+  rules: [],
+  source: 'git-svn.perl:%cmd/GetOptions',
+  separator: true,
+} as const satisfies CommandSpec;
+const commandSpec380 = {
   argv: ['lfs'],
   options: {
     '--help': {
@@ -93578,7 +98001,7 @@ const commandSpec354 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec355 = {
+const commandSpec381 = {
   argv: ['lfs', 'checkout'],
   options: {
     '--base': {
@@ -93709,7 +98132,7 @@ const commandSpec355 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec356 = {
+const commandSpec382 = {
   argv: ['lfs', 'clean'],
   options: {
     '--help': {
@@ -93725,7 +98148,7 @@ const commandSpec356 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec357 = {
+const commandSpec383 = {
   argv: ['lfs', 'clone'],
   options: {
     '--bare': {
@@ -93932,7 +98355,7 @@ const commandSpec357 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec358 = {
+const commandSpec384 = {
   argv: ['lfs', 'completion'],
   options: {
     '--help': {
@@ -93968,7 +98391,7 @@ const commandSpec358 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec359 = {
+const commandSpec385 = {
   argv: ['lfs', 'dedup'],
   options: {
     '--help': {
@@ -93992,7 +98415,7 @@ const commandSpec359 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec360 = {
+const commandSpec386 = {
   argv: ['lfs', 'env'],
   options: {
     '--help': {
@@ -94008,7 +98431,7 @@ const commandSpec360 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec361 = {
+const commandSpec387 = {
   argv: ['lfs', 'ext'],
   options: {
     '--help': {
@@ -94024,7 +98447,7 @@ const commandSpec361 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec362 = {
+const commandSpec388 = {
   argv: ['lfs', 'ext', 'list'],
   options: {
     '--help': {
@@ -94040,7 +98463,7 @@ const commandSpec362 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec363 = {
+const commandSpec389 = {
   argv: ['lfs', 'fetch'],
   options: {
     '--all': {
@@ -94168,7 +98591,7 @@ const commandSpec363 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec364 = {
+const commandSpec390 = {
   argv: ['lfs', 'filter-process'],
   options: {
     '--help': {
@@ -94192,7 +98615,7 @@ const commandSpec364 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec365 = {
+const commandSpec391 = {
   argv: ['lfs', 'fsck'],
   options: {
     '--dry-run': {
@@ -94224,7 +98647,7 @@ const commandSpec365 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec366 = {
+const commandSpec392 = {
   argv: ['lfs', 'help'],
   options: {
     '--help': {
@@ -94240,7 +98663,7 @@ const commandSpec366 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec367 = {
+const commandSpec393 = {
   argv: ['lfs', 'install'],
   options: {
     '--file': {
@@ -94446,7 +98869,7 @@ const commandSpec367 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec368 = {
+const commandSpec394 = {
   argv: ['lfs', 'install', 'hooks'],
   options: {
     '--help': {
@@ -94462,7 +98885,7 @@ const commandSpec368 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec369 = {
+const commandSpec395 = {
   argv: ['lfs', 'lock'],
   options: {
     '--help': {
@@ -94494,7 +98917,7 @@ const commandSpec369 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec370 = {
+const commandSpec396 = {
   argv: ['lfs', 'locks'],
   options: {
     '--cached': {
@@ -94631,7 +99054,7 @@ const commandSpec370 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec371 = {
+const commandSpec397 = {
   argv: ['lfs', 'logs'],
   options: {
     '--help': {
@@ -94647,7 +99070,7 @@ const commandSpec371 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec372 = {
+const commandSpec398 = {
   argv: ['lfs', 'logs', 'boomtown'],
   options: {
     '--help': {
@@ -94663,7 +99086,7 @@ const commandSpec372 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec373 = {
+const commandSpec399 = {
   argv: ['lfs', 'logs', 'clear'],
   options: {
     '--help': {
@@ -94679,7 +99102,7 @@ const commandSpec373 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec374 = {
+const commandSpec400 = {
   argv: ['lfs', 'logs', 'last'],
   options: {
     '--help': {
@@ -94695,7 +99118,7 @@ const commandSpec374 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec375 = {
+const commandSpec401 = {
   argv: ['lfs', 'logs', 'show'],
   options: {
     '--help': {
@@ -94711,7 +99134,7 @@ const commandSpec375 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec376 = {
+const commandSpec402 = {
   argv: ['lfs', 'ls-files'],
   options: {
     '--all': {
@@ -94824,7 +99247,7 @@ const commandSpec376 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec377 = {
+const commandSpec403 = {
   argv: ['lfs', 'merge-driver'],
   options: {
     '--ancestor': {
@@ -94890,7 +99313,7 @@ const commandSpec377 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec378 = {
+const commandSpec404 = {
   argv: ['lfs', 'migrate'],
   options: {
     '--everything': {
@@ -94950,7 +99373,7 @@ const commandSpec378 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec379 = {
+const commandSpec405 = {
   argv: ['lfs', 'migrate', 'export'],
   options: {
     '--everything': {
@@ -95087,7 +99510,7 @@ const commandSpec379 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec380 = {
+const commandSpec406 = {
   argv: ['lfs', 'migrate', 'import'],
   options: {
     '--above': {
@@ -95351,7 +99774,7 @@ const commandSpec380 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec381 = {
+const commandSpec407 = {
   argv: ['lfs', 'migrate', 'info'],
   options: {
     '--above': {
@@ -95536,7 +99959,7 @@ const commandSpec381 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec382 = {
+const commandSpec408 = {
   argv: ['lfs', 'pointer'],
   options: {
     '--check': {
@@ -95690,7 +100113,7 @@ const commandSpec382 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec383 = {
+const commandSpec409 = {
   argv: ['lfs', 'post-checkout'],
   options: {
     '--help': {
@@ -95717,7 +100140,7 @@ const commandSpec383 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec384 = {
+const commandSpec410 = {
   argv: ['lfs', 'post-commit'],
   options: {
     '--help': {
@@ -95733,7 +100156,7 @@ const commandSpec384 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec385 = {
+const commandSpec411 = {
   argv: ['lfs', 'post-merge'],
   options: {
     '--help': {
@@ -95760,7 +100183,7 @@ const commandSpec385 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec386 = {
+const commandSpec412 = {
   argv: ['lfs', 'pre-push'],
   options: {
     '--dry-run': {
@@ -95794,7 +100217,7 @@ const commandSpec386 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec387 = {
+const commandSpec413 = {
   argv: ['lfs', 'prune'],
   options: {
     '--dry-run': {
@@ -95880,7 +100303,7 @@ const commandSpec387 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec388 = {
+const commandSpec414 = {
   argv: ['lfs', 'pull'],
   options: {
     '--exclude': {
@@ -95912,7 +100335,7 @@ const commandSpec388 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec389 = {
+const commandSpec415 = {
   argv: ['lfs', 'push'],
   options: {
     '--all': {
@@ -96018,7 +100441,7 @@ const commandSpec389 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec390 = {
+const commandSpec416 = {
   argv: ['lfs', 'smudge'],
   options: {
     '--help': {
@@ -96042,7 +100465,7 @@ const commandSpec390 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec391 = {
+const commandSpec417 = {
   argv: ['lfs', 'standalone-file'],
   options: {
     '--help': {
@@ -96058,7 +100481,7 @@ const commandSpec391 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec392 = {
+const commandSpec418 = {
   argv: ['lfs', 'status'],
   options: {
     '--help': {
@@ -96090,7 +100513,7 @@ const commandSpec392 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec393 = {
+const commandSpec419 = {
   argv: ['lfs', 'track'],
   options: {
     '--dry-run': {
@@ -96169,7 +100592,7 @@ const commandSpec393 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec394 = {
+const commandSpec420 = {
   argv: ['lfs', 'uninstall'],
   options: {
     '--file': {
@@ -96273,7 +100696,7 @@ const commandSpec394 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec395 = {
+const commandSpec421 = {
   argv: ['lfs', 'uninstall', 'hooks'],
   options: {
     '--help': {
@@ -96289,7 +100712,7 @@ const commandSpec395 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec396 = {
+const commandSpec422 = {
   argv: ['lfs', 'unlock'],
   options: {
     '--force': {
@@ -96376,7 +100799,7 @@ const commandSpec396 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec397 = {
+const commandSpec423 = {
   argv: ['lfs', 'untrack'],
   options: {
     '--help': {
@@ -96392,7 +100815,7 @@ const commandSpec397 = {
   separator: true,
   rules: [],
 } as const satisfies CommandSpec;
-const commandSpec398 = {
+const commandSpec424 = {
   argv: ['lfs', 'update'],
   options: {
     '--force': {
@@ -96433,7 +100856,7 @@ const commandSpec398 = {
     },
   ],
 } as const satisfies CommandSpec;
-const commandSpec399 = {
+const commandSpec425 = {
   argv: ['lfs', 'version'],
   options: {
     '--comics': {
@@ -96812,52 +101235,78 @@ export const COMMAND_SPECS: {
   readonly 'p4 branches': typeof commandSpec351;
   readonly 'p4 unshelve': typeof commandSpec352;
   readonly p4: typeof commandSpec353;
-  readonly lfs: typeof commandSpec354;
-  readonly 'lfs checkout': typeof commandSpec355;
-  readonly 'lfs clean': typeof commandSpec356;
-  readonly 'lfs clone': typeof commandSpec357;
-  readonly 'lfs completion': typeof commandSpec358;
-  readonly 'lfs dedup': typeof commandSpec359;
-  readonly 'lfs env': typeof commandSpec360;
-  readonly 'lfs ext': typeof commandSpec361;
-  readonly 'lfs ext list': typeof commandSpec362;
-  readonly 'lfs fetch': typeof commandSpec363;
-  readonly 'lfs filter-process': typeof commandSpec364;
-  readonly 'lfs fsck': typeof commandSpec365;
-  readonly 'lfs help': typeof commandSpec366;
-  readonly 'lfs install': typeof commandSpec367;
-  readonly 'lfs install hooks': typeof commandSpec368;
-  readonly 'lfs lock': typeof commandSpec369;
-  readonly 'lfs locks': typeof commandSpec370;
-  readonly 'lfs logs': typeof commandSpec371;
-  readonly 'lfs logs boomtown': typeof commandSpec372;
-  readonly 'lfs logs clear': typeof commandSpec373;
-  readonly 'lfs logs last': typeof commandSpec374;
-  readonly 'lfs logs show': typeof commandSpec375;
-  readonly 'lfs ls-files': typeof commandSpec376;
-  readonly 'lfs merge-driver': typeof commandSpec377;
-  readonly 'lfs migrate': typeof commandSpec378;
-  readonly 'lfs migrate export': typeof commandSpec379;
-  readonly 'lfs migrate import': typeof commandSpec380;
-  readonly 'lfs migrate info': typeof commandSpec381;
-  readonly 'lfs pointer': typeof commandSpec382;
-  readonly 'lfs post-checkout': typeof commandSpec383;
-  readonly 'lfs post-commit': typeof commandSpec384;
-  readonly 'lfs post-merge': typeof commandSpec385;
-  readonly 'lfs pre-push': typeof commandSpec386;
-  readonly 'lfs prune': typeof commandSpec387;
-  readonly 'lfs pull': typeof commandSpec388;
-  readonly 'lfs push': typeof commandSpec389;
-  readonly 'lfs smudge': typeof commandSpec390;
-  readonly 'lfs standalone-file': typeof commandSpec391;
-  readonly 'lfs status': typeof commandSpec392;
-  readonly 'lfs track': typeof commandSpec393;
-  readonly 'lfs uninstall': typeof commandSpec394;
-  readonly 'lfs uninstall hooks': typeof commandSpec395;
-  readonly 'lfs unlock': typeof commandSpec396;
-  readonly 'lfs untrack': typeof commandSpec397;
-  readonly 'lfs update': typeof commandSpec398;
-  readonly 'lfs version': typeof commandSpec399;
+  readonly 'svn fetch': typeof commandSpec354;
+  readonly 'svn clone': typeof commandSpec355;
+  readonly 'svn init': typeof commandSpec356;
+  readonly 'svn multi-init': typeof commandSpec357;
+  readonly 'svn dcommit': typeof commandSpec358;
+  readonly 'svn branch': typeof commandSpec359;
+  readonly 'svn tag': typeof commandSpec360;
+  readonly 'svn set-tree': typeof commandSpec361;
+  readonly 'svn create-ignore': typeof commandSpec362;
+  readonly 'svn mkdirs': typeof commandSpec363;
+  readonly 'svn propget': typeof commandSpec364;
+  readonly 'svn propset': typeof commandSpec365;
+  readonly 'svn proplist': typeof commandSpec366;
+  readonly 'svn show-ignore': typeof commandSpec367;
+  readonly 'svn show-externals': typeof commandSpec368;
+  readonly 'svn multi-fetch': typeof commandSpec369;
+  readonly 'svn migrate': typeof commandSpec370;
+  readonly 'svn log': typeof commandSpec371;
+  readonly 'svn find-rev': typeof commandSpec372;
+  readonly 'svn rebase': typeof commandSpec373;
+  readonly 'svn commit-diff': typeof commandSpec374;
+  readonly 'svn info': typeof commandSpec375;
+  readonly 'svn blame': typeof commandSpec376;
+  readonly 'svn reset': typeof commandSpec377;
+  readonly 'svn gc': typeof commandSpec378;
+  readonly svn: typeof commandSpec379;
+  readonly lfs: typeof commandSpec380;
+  readonly 'lfs checkout': typeof commandSpec381;
+  readonly 'lfs clean': typeof commandSpec382;
+  readonly 'lfs clone': typeof commandSpec383;
+  readonly 'lfs completion': typeof commandSpec384;
+  readonly 'lfs dedup': typeof commandSpec385;
+  readonly 'lfs env': typeof commandSpec386;
+  readonly 'lfs ext': typeof commandSpec387;
+  readonly 'lfs ext list': typeof commandSpec388;
+  readonly 'lfs fetch': typeof commandSpec389;
+  readonly 'lfs filter-process': typeof commandSpec390;
+  readonly 'lfs fsck': typeof commandSpec391;
+  readonly 'lfs help': typeof commandSpec392;
+  readonly 'lfs install': typeof commandSpec393;
+  readonly 'lfs install hooks': typeof commandSpec394;
+  readonly 'lfs lock': typeof commandSpec395;
+  readonly 'lfs locks': typeof commandSpec396;
+  readonly 'lfs logs': typeof commandSpec397;
+  readonly 'lfs logs boomtown': typeof commandSpec398;
+  readonly 'lfs logs clear': typeof commandSpec399;
+  readonly 'lfs logs last': typeof commandSpec400;
+  readonly 'lfs logs show': typeof commandSpec401;
+  readonly 'lfs ls-files': typeof commandSpec402;
+  readonly 'lfs merge-driver': typeof commandSpec403;
+  readonly 'lfs migrate': typeof commandSpec404;
+  readonly 'lfs migrate export': typeof commandSpec405;
+  readonly 'lfs migrate import': typeof commandSpec406;
+  readonly 'lfs migrate info': typeof commandSpec407;
+  readonly 'lfs pointer': typeof commandSpec408;
+  readonly 'lfs post-checkout': typeof commandSpec409;
+  readonly 'lfs post-commit': typeof commandSpec410;
+  readonly 'lfs post-merge': typeof commandSpec411;
+  readonly 'lfs pre-push': typeof commandSpec412;
+  readonly 'lfs prune': typeof commandSpec413;
+  readonly 'lfs pull': typeof commandSpec414;
+  readonly 'lfs push': typeof commandSpec415;
+  readonly 'lfs smudge': typeof commandSpec416;
+  readonly 'lfs standalone-file': typeof commandSpec417;
+  readonly 'lfs status': typeof commandSpec418;
+  readonly 'lfs track': typeof commandSpec419;
+  readonly 'lfs uninstall': typeof commandSpec420;
+  readonly 'lfs uninstall hooks': typeof commandSpec421;
+  readonly 'lfs unlock': typeof commandSpec422;
+  readonly 'lfs untrack': typeof commandSpec423;
+  readonly 'lfs update': typeof commandSpec424;
+  readonly 'lfs version': typeof commandSpec425;
 } = {
   'hash-object': commandSpec0,
   add: commandSpec1,
@@ -97213,50 +101662,76 @@ export const COMMAND_SPECS: {
   'p4 branches': commandSpec351,
   'p4 unshelve': commandSpec352,
   p4: commandSpec353,
-  lfs: commandSpec354,
-  'lfs checkout': commandSpec355,
-  'lfs clean': commandSpec356,
-  'lfs clone': commandSpec357,
-  'lfs completion': commandSpec358,
-  'lfs dedup': commandSpec359,
-  'lfs env': commandSpec360,
-  'lfs ext': commandSpec361,
-  'lfs ext list': commandSpec362,
-  'lfs fetch': commandSpec363,
-  'lfs filter-process': commandSpec364,
-  'lfs fsck': commandSpec365,
-  'lfs help': commandSpec366,
-  'lfs install': commandSpec367,
-  'lfs install hooks': commandSpec368,
-  'lfs lock': commandSpec369,
-  'lfs locks': commandSpec370,
-  'lfs logs': commandSpec371,
-  'lfs logs boomtown': commandSpec372,
-  'lfs logs clear': commandSpec373,
-  'lfs logs last': commandSpec374,
-  'lfs logs show': commandSpec375,
-  'lfs ls-files': commandSpec376,
-  'lfs merge-driver': commandSpec377,
-  'lfs migrate': commandSpec378,
-  'lfs migrate export': commandSpec379,
-  'lfs migrate import': commandSpec380,
-  'lfs migrate info': commandSpec381,
-  'lfs pointer': commandSpec382,
-  'lfs post-checkout': commandSpec383,
-  'lfs post-commit': commandSpec384,
-  'lfs post-merge': commandSpec385,
-  'lfs pre-push': commandSpec386,
-  'lfs prune': commandSpec387,
-  'lfs pull': commandSpec388,
-  'lfs push': commandSpec389,
-  'lfs smudge': commandSpec390,
-  'lfs standalone-file': commandSpec391,
-  'lfs status': commandSpec392,
-  'lfs track': commandSpec393,
-  'lfs uninstall': commandSpec394,
-  'lfs uninstall hooks': commandSpec395,
-  'lfs unlock': commandSpec396,
-  'lfs untrack': commandSpec397,
-  'lfs update': commandSpec398,
-  'lfs version': commandSpec399,
+  'svn fetch': commandSpec354,
+  'svn clone': commandSpec355,
+  'svn init': commandSpec356,
+  'svn multi-init': commandSpec357,
+  'svn dcommit': commandSpec358,
+  'svn branch': commandSpec359,
+  'svn tag': commandSpec360,
+  'svn set-tree': commandSpec361,
+  'svn create-ignore': commandSpec362,
+  'svn mkdirs': commandSpec363,
+  'svn propget': commandSpec364,
+  'svn propset': commandSpec365,
+  'svn proplist': commandSpec366,
+  'svn show-ignore': commandSpec367,
+  'svn show-externals': commandSpec368,
+  'svn multi-fetch': commandSpec369,
+  'svn migrate': commandSpec370,
+  'svn log': commandSpec371,
+  'svn find-rev': commandSpec372,
+  'svn rebase': commandSpec373,
+  'svn commit-diff': commandSpec374,
+  'svn info': commandSpec375,
+  'svn blame': commandSpec376,
+  'svn reset': commandSpec377,
+  'svn gc': commandSpec378,
+  svn: commandSpec379,
+  lfs: commandSpec380,
+  'lfs checkout': commandSpec381,
+  'lfs clean': commandSpec382,
+  'lfs clone': commandSpec383,
+  'lfs completion': commandSpec384,
+  'lfs dedup': commandSpec385,
+  'lfs env': commandSpec386,
+  'lfs ext': commandSpec387,
+  'lfs ext list': commandSpec388,
+  'lfs fetch': commandSpec389,
+  'lfs filter-process': commandSpec390,
+  'lfs fsck': commandSpec391,
+  'lfs help': commandSpec392,
+  'lfs install': commandSpec393,
+  'lfs install hooks': commandSpec394,
+  'lfs lock': commandSpec395,
+  'lfs locks': commandSpec396,
+  'lfs logs': commandSpec397,
+  'lfs logs boomtown': commandSpec398,
+  'lfs logs clear': commandSpec399,
+  'lfs logs last': commandSpec400,
+  'lfs logs show': commandSpec401,
+  'lfs ls-files': commandSpec402,
+  'lfs merge-driver': commandSpec403,
+  'lfs migrate': commandSpec404,
+  'lfs migrate export': commandSpec405,
+  'lfs migrate import': commandSpec406,
+  'lfs migrate info': commandSpec407,
+  'lfs pointer': commandSpec408,
+  'lfs post-checkout': commandSpec409,
+  'lfs post-commit': commandSpec410,
+  'lfs post-merge': commandSpec411,
+  'lfs pre-push': commandSpec412,
+  'lfs prune': commandSpec413,
+  'lfs pull': commandSpec414,
+  'lfs push': commandSpec415,
+  'lfs smudge': commandSpec416,
+  'lfs standalone-file': commandSpec417,
+  'lfs status': commandSpec418,
+  'lfs track': commandSpec419,
+  'lfs uninstall': commandSpec420,
+  'lfs uninstall hooks': commandSpec421,
+  'lfs unlock': commandSpec422,
+  'lfs untrack': commandSpec423,
+  'lfs update': commandSpec424,
+  'lfs version': commandSpec425,
 };

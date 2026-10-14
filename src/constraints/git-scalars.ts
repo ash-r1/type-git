@@ -91,6 +91,8 @@ export function gitBoolean(value: unknown): boolean | undefined {
 
 export type GitScalarParser =
   | 'python-int'
+  | 'perl-int'
+  | 'perl-int-gnu'
   | 'fast-import-sign'
   | 'fast-export-reencode'
   | 'anonymize-map'
@@ -116,6 +118,18 @@ export function parseGitScalar(
   cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
   sizeTBits: 32 | 64 = nativeSizeTBits(process.arch),
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'perl-int' || parser === 'perl-int-gnu') {
+    if (value === true || (parser === 'perl-int-gnu' && value === '')) {
+      return { valid: true, value: 0 };
+    }
+    // Getopt::Long PAT_INT; Perl's dollar anchor accepts one final LF.
+    return {
+      valid:
+        ['number', 'string', 'bigint'].includes(typeof value) &&
+        /^[-+]?_*[0-9][0-9_]*\n?(?![\s\S])/.test(String(value)),
+      value,
+    };
+  }
   if (parser === 'python-int') {
     const parsed = pythonInteger(value);
     return { valid: parsed !== undefined, value: parsed };
