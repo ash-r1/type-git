@@ -662,6 +662,17 @@ type ApplyNumeric<
       : never
     : never
   : S;
+// Keep parser uncertainty separate from input unions: each source family must
+// validate the whole tuple, and ordinary invalid union arms cannot disappear.
+type ProfiledOption<S, D extends OptionSpec> = S extends { integerProfile: 'decimal-cast' }
+  ? D extends { parser: infer P extends GitIntegerParser }
+    ? P extends { bits: 32 }
+      ? P extends { nativeWidth: string }
+        ? D
+        : Omit<D, 'parser'> & { parser: P & { integerProfile: 'decimal-cast' } }
+      : D
+    : D
+  : D;
 type ApplyToken<
   C extends GitCommandName,
   S,
@@ -695,7 +706,7 @@ type ApplyToken<
       ? never
       : T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
         ? Options<C>[K] extends infer D extends OptionSpec
-          ? ApplyOption<S, D, T, Remaining, First>
+          ? ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : ApplyNumeric<C, S, T, Remaining, First>;
 type State<
@@ -717,6 +728,17 @@ type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
     ? CheckRules<S, Rest>
     : false
   : true;
+type CheckedLegacyIntegerArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  S = State<C, A, Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', 'decimal-cast'>>,
+> = [S] extends [never]
+  ? never
+  : S extends { help: true }
+    ? A
+    : CheckRules<S, Spec<C>['rules']> extends true
+      ? A
+      : never;
 /** Literal option combinations are checked against the same schema as runtime calls. */
 type CheckedLocalArguments<
   C extends GitCommandName,
@@ -730,12 +752,12 @@ type CheckedLocalArguments<
     ? number extends A['length']
       ? A
       : [State<C, A>] extends [never]
-        ? never
+        ? CheckedLegacyIntegerArguments<C, A>
         : State<C, A> extends { help: true }
           ? A
           : CheckRules<State<C, A>, Spec<C>['rules']> extends true
             ? A
-            : never
+            : CheckedLegacyIntegerArguments<C, A>
     : never;
 
 /** Collect invalid finite dispatch alternatives before accepting the complete tuple. */

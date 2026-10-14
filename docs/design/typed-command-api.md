@@ -660,3 +660,28 @@ and exercise immediate validation across the generated numeric options.
 Command-specific semantic restrictions, callback-defined numeric languages,
 configuration-derived defaults, platform differences, and preemptive help paths
 remain separate audit work. All command audit entries remain partial.
+
+
+Runtime also preserves the older decimal/int parser family observed in Git 2.25
+and 2.47. A readonly `column --width=2147483648 -h` probe distinguishes that
+family from the bounded parser when their accepted inputs differ. The older
+family uses decimal `strtol`, ignores range errno, and assigns the result to an
+int; saturation depends on the selected Git's C long width. Fixed unsigned
+32-bit fields retain the resulting unsigned bit pattern. Source-declared long
+and size_t bindings keep their distinct magnitude parser. No Git version or OS
+name selects the family. Unknown or localized frontends retain native validation;
+malformed arguments, universally invalid values, missing byte capabilities and
+cancellation retain their early handling. Probes use the requested context and
+per-call environment and never use caller stdin or contact a remote.
+
+Public literal command tuples consider each observed parser family against the
+whole input tuple. Guaranteed-invalid lexical or unsafe-number union arms remain
+invalid; a union requiring incompatible parser families is rejected. Explicit
+compiler-profile integer helper types remain precise. Older decimal literals
+with overflow defer their normalized state to runtime rather than claiming that
+every supported C long profile wraps identically. Repository-specific semantics,
+other parser families, exact overflow literal normalization and larger value
+languages remain separate audit obligations. Native regression tests compare
+accepted/rejected spellings and an actual local pack's output bytes, not only
+success against help. Saved source profiles and finite evidence do not establish
+complete coverage of any audited command.

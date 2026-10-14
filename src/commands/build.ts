@@ -1,3 +1,4 @@
+import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
 import { matches, violations } from '../constraints/model.js';
 import { objectFilterUsesBinary } from '../constraints/object-filter.js';
@@ -50,7 +51,12 @@ export function commandArguments(
   command: GitCommandName,
   args: readonly unknown[],
   inRepository?: boolean,
-  abi?: { longBits: 32 | 64; sizeTBits: 32 | 64; binaryIntegers?: boolean },
+  abi?: {
+    longBits: 32 | 64;
+    sizeTBits: 32 | 64;
+    binaryIntegers?: boolean;
+    integerProfile?: GitIntegerProfile;
+  },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
 ): string[] {
@@ -164,6 +170,7 @@ export function commandArguments(
           abi?.longBits,
           abi?.sizeTBits,
           abi?.binaryIntegers,
+          abi?.integerProfile,
         )
       : undefined;
     if (integer && !integer.valid) {
@@ -276,6 +283,7 @@ export function commandArguments(
             abi?.longBits,
             abi?.sizeTBits,
             abi?.binaryIntegers,
+            abi?.integerProfile,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -387,5 +395,27 @@ export function commandUsesObjectFilterBinary(
       ((option?.parser === 'object-filter' || option?.parser === 'object-filter-auto') &&
         objectFilterUsesBinary(arg[1]))
     );
+  });
+}
+
+/** Whether a schema integer used decimal int assignment in the older parser family. */
+export function commandUsesIntegerProfile(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+    return false;
+  }
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesIntegerProfile(dispatched.command, dispatched.args);
+  }
+  return args.some((arg) => {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string') {
+      return false;
+    }
+    const parser = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]]?.parser : undefined;
+    return typeof parser === 'object' && parser.bits === 32 && !parser.nativeWidth;
   });
 }

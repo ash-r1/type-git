@@ -1,3 +1,5 @@
+export type GitIntegerProfile = 'bounded' | 'decimal-cast';
+
 /** Compiler-recorded storage width used by Git's parse-options integer handlers. */
 export type GitIntegerParser = {
   kind: 'integer';
@@ -5,6 +7,8 @@ export type GitIntegerParser = {
   bits: 8 | 16 | 32 | 64;
   /** Source-declared width resolved from the selected Git build. */
   nativeWidth?: 'long' | 'size_t';
+  /** Explicit source family; public command clients consider supported alternatives. */
+  integerProfile?: GitIntegerProfile;
 };
 
 /** Git 2.55 parse.c, base 0 and k/m/g units, on the recorded C23 libc profile. */
@@ -39,6 +43,30 @@ export function parseGitInteger(
   const number = (match[1] === '-' ? -magnitude : magnitude) * (1n << power);
   const limit = 1n << BigInt(parser.bits - (parser.signed ? 1 : 0));
   return number >= (parser.signed ? -limit : 0n) && number < limit ? number : undefined;
+}
+
+/** Git 2.25 parse-options: decimal strtol with ignored errno, then int assignment. */
+export function parseLegacyGitInteger(
+  value: unknown,
+  parser: GitIntegerParser,
+  longBits: 32 | 64,
+): bigint | undefined {
+  if (typeof value === 'number' && !Number.isSafeInteger(value)) {
+    return undefined;
+  }
+  if (!['number', 'string', 'bigint'].includes(typeof value)) {
+    return undefined;
+  }
+  const text = String(value);
+  const match = /^[ \t\r\n\v\f]*[+-]?[0-9]+$/.exec(text);
+  if (!match || match[0] !== text) {
+    return undefined;
+  }
+  const number = BigInt(text.trim());
+  const minimum = -(1n << BigInt(longBits - 1));
+  const maximum = (1n << BigInt(longBits - 1)) - 1n;
+  const clamped = number < minimum ? minimum : number > maximum ? maximum : number;
+  return parser.signed ? BigInt.asIntN(32, clamped) : BigInt.asUintN(32, clamped);
 }
 
 /** Keep small states comparable to schema literals without losing large unsigned integers. */

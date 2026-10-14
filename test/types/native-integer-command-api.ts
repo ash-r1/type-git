@@ -6,7 +6,7 @@ git.command('pack-objects', [['--max-pack-size', 18446744073709551615n], ['-h']]
 git.command('pack-objects', [['--max-pack-size', '0x0'], ['--stdout']]);
 git.command('pack-objects', [['--max-pack-size', 0n], ['--stdout']]);
 git.command('pack-objects', [['--max-pack-size', 1], ['--no-max-pack-size'], ['--stdout']]);
-// @ts-expect-error The native parser rejects overflow before a subsequent overwrite or help.
+// Modern Git rejects overflow here; older decimal/int parsers accept it. Unknown source families defer this alternative.
 git.command('column', [['--width', 2147483648], ['--width', 1], ['-h']]);
 // @ts-expect-error Unsigned storage rejects even a spelled negative zero.
 git.command('pack-objects', [['--max-pack-size', '-0'], ['-h']]);

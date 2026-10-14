@@ -27,9 +27,9 @@ git.command('fast-export', [['--import-marks', ''], ['--import-marks-if-exists',
 git.command('fast-export', [['--signed-tags', 'STRIP']]);
 git.command('fast-export', [['--reencode', 'ABORT'], { operand: 'HEAD' }]);
 
-// @ts-expect-error Signed int overflow is rejected immediately, before a later overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('update-index', [['--index-version', 2147483648], ['--index-version', 2]]);
-// @ts-expect-error Underflow is rejected immediately, before a later overwrite.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('update-index', [['--index-version', -2147483649], ['--index-version', 2]]);
 git.command('update-index', [['--index-version', -2147483648]]);
 git.command('update-index', [['--index-version', 2147483647], ['--index-version', 2]]);
@@ -53,9 +53,9 @@ git.command('fast-export', [['--reencode', 'NO']]);
 // @ts-expect-error Fast-export rewrites parents by default, conflicting with children output.
 git.command('fast-export', [['--children'], ['--no-data']]);
 git.command('fast-export', [['--parents'], ['--no-data']]);
-// @ts-expect-error Progress overflow is rejected before a later valid value.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('fast-export', [['--progress', 2147483648], ['--progress', 1], ['--no-data']]);
-// @ts-expect-error Progress underflow is rejected before a later valid value.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('fast-export', [['--progress', -2147483649], ['--progress', 1], ['--no-data']]);
 git.command('fast-export', [['--progress', 2147483647], ['--progress', 1], ['--no-data']]);
 git.command('fast-export', [['--progress', -2147483648], ['--progress', 1], ['--no-data']]);

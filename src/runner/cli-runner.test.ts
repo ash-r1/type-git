@@ -1210,16 +1210,25 @@ describe('selected native structured integer parsers', () => {
     false,
   ])('observes selected libc binary support for fixed-width integers (%s)', async (supported) => {
     const adapters = createMockAdapters();
-    vi.mocked(adapters.exec.spawn).mockImplementation(async ({ argv }) => ({
-      exitCode: argv.includes('--filter=blob:limit=0b1') ? (supported ? 129 : 128) : 0,
-      stdout: '',
-      stderr: argv.includes('--filter=blob:limit=0b1')
-        ? supported
-          ? 'usage: git clone'
-          : 'fatal: invalid filter-spec'
-        : '',
-      aborted: false,
-    }));
+    vi.mocked(adapters.exec.spawn).mockImplementation(async ({ argv }) =>
+      argv.includes('--width=2147483648')
+        ? {
+            exitCode: 129,
+            stdout: 'usage: git column',
+            stderr: 'error: value not in range',
+            aborted: false,
+          }
+        : {
+            exitCode: argv.includes('--filter=blob:limit=0b1') ? (supported ? 129 : 128) : 0,
+            stdout: '',
+            stderr: argv.includes('--filter=blob:limit=0b1')
+              ? supported
+                ? 'usage: git clone'
+                : 'fatal: invalid filter-spec'
+              : '',
+            aborted: false,
+          },
+    );
     const result = new CliRunner(adapters).runCommand(
       { type: 'global' },
       'column',
@@ -1228,10 +1237,77 @@ describe('selected native structured integer parsers', () => {
     );
     if (supported) {
       await expect(result).resolves.toMatchObject({ exitCode: 0 });
-      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(3);
     } else {
       await expect(result).rejects.toThrow('invalid integer');
-      expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
     }
+  });
+});
+
+describe('readonly selected integer-family probe', () => {
+  it.each([
+    'legacy',
+    'bounded',
+    'unknown',
+  ] as const)('preserves selected context and profile outcome (%s)', async (profile) => {
+    const adapters = createMockAdapters();
+    vi.mocked(adapters.exec.spawn).mockImplementation(async ({ argv }) =>
+      argv.includes('--width=2147483648')
+        ? {
+            exitCode: profile === 'unknown' ? 1 : 129,
+            stdout: profile === 'legacy' ? 'usage: git column' : '',
+            stderr:
+              profile === 'bounded'
+                ? 'error: value not in range'
+                : profile === 'unknown'
+                  ? 'frontend unavailable'
+                  : '',
+            aborted: false,
+          }
+        : { exitCode: 129, stdout: 'usage: git column', stderr: '', aborted: false },
+    );
+    const result = new CliRunner(adapters, { gitBinary: 'selected-git' }).runCommand(
+      { type: 'worktree', workdir: '/repo' },
+      'column',
+      [['--width', '4294967297'], ['-h']],
+      true,
+      { env: { PATH: '/selected' } },
+    );
+    if (profile === 'bounded') {
+      await expect(result).rejects.toThrow('invalid integer');
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+    } else {
+      await expect(result).resolves.toMatchObject({ exitCode: 129 });
+      expect(adapters.exec.spawn).toHaveBeenCalledTimes(2);
+    }
+    for (const [options] of vi.mocked(adapters.exec.spawn).mock.calls) {
+      expect(options.argv.slice(0, 3)).toEqual(['selected-git', '-C', '/repo']);
+      expect(options.env).toMatchObject({ PATH: '/selected' });
+      expect(options.stdin).toBeUndefined();
+    }
+  });
+  it('returns cancellation from the family probe without executing the requested command', async () => {
+    const adapters = createMockAdapters({ aborted: true, exitCode: -1 });
+    const result = await new CliRunner(adapters).runCommand(
+      { type: 'global' },
+      'column',
+      [['--width', '2147483648'], ['-h']],
+      false,
+    );
+    expect(result.aborted).toBe(true);
+    expect(adapters.exec.spawn).toHaveBeenCalledTimes(1);
+  });
+  it('rejects a universally invalid spelling before family probes', async () => {
+    const adapters = createMockAdapters();
+    await expect(
+      new CliRunner(adapters).runCommand(
+        { type: 'global' },
+        'column',
+        [['--width', 'bad'], ['-h']],
+        false,
+      ),
+    ).rejects.toThrow('invalid integer');
+    expect(adapters.exec.spawn).not.toHaveBeenCalled();
   });
 });

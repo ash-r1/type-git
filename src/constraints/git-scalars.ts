@@ -1,4 +1,10 @@
-import { type GitIntegerParser, integerState, parseGitInteger } from './git-integer.js';
+import {
+  type GitIntegerParser,
+  integerState,
+  parseGitInteger,
+  parseLegacyGitInteger,
+  type GitIntegerProfile,
+} from './git-integer.js';
 import process from 'node:process';
 import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 import { validObjectFilter } from './object-filter.js';
@@ -113,6 +119,7 @@ export function parseGitScalar(
   cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
   sizeTBits: 32 | 64 = nativeSizeTBits(process.arch),
   binaryIntegers = true,
+  integerProfile?: GitIntegerProfile,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object') {
     const bits =
@@ -121,7 +128,12 @@ export function parseGitScalar(
         : parser.nativeWidth === 'size_t'
           ? sizeTBits
           : parser.bits;
-    const parsed = parseGitInteger(value, { ...parser, bits }, binaryIntegers);
+    const parsed =
+      (integerProfile ?? parser.integerProfile) === 'decimal-cast' &&
+      parser.bits === 32 &&
+      !parser.nativeWidth
+        ? parseLegacyGitInteger(value, parser, cLongBits)
+        : parseGitInteger(value, { ...parser, bits }, binaryIntegers);
     return parsed === undefined ? { valid: false } : { valid: true, value: integerState(parsed) };
   }
   if (parser === 'perl-int' || parser === 'perl-int-gnu') {

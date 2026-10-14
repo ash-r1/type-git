@@ -143,7 +143,7 @@ type Signed<S extends string, P extends GitIntegerParser> = string extends S
       ? 'invalid'
       : Bounded<Magnitude<R>, true, P>
     : Bounded<Magnitude<S extends `+${infer R}` ? R : S>, false, P>;
-type Parsed<V, P extends GitIntegerParser> = V extends string | number | bigint
+type ModernParsed<V, P extends GitIntegerParser> = V extends string | number | bigint
   ? string extends V
     ? 'dynamic'
     : number extends V
@@ -158,6 +158,75 @@ type Parsed<V, P extends GitIntegerParser> = V extends string | number | bigint
   : V extends undefined
     ? 'dynamic'
     : 'invalid';
+// Decimal legacy input can wrap or saturate before int assignment. Prove its
+// lexical language and exact small values; defer overflow normalization.
+type LegacyDigits<
+  S extends string,
+  A extends string = '',
+  Steps extends unknown[] = [],
+> = string extends S
+  ? 'dynamic'
+  : S extends object
+    ? 'dynamic'
+    : {} extends Record<S, unknown>
+      ? 'dynamic'
+      : Steps['length'] extends 128
+        ? 'dynamic'
+        : S extends ''
+          ? A extends ''
+            ? 'invalid'
+            : Strip<A>
+          : S extends `${infer H extends Digit}${infer Rest}`
+            ? LegacyDigits<Rest, `${A}${H}`, [...Steps, 0]>
+            : 'invalid';
+type LegacyNormalized<
+  S extends string,
+  Negative extends boolean,
+  P extends GitIntegerParser,
+> = S extends 'invalid' | 'dynamic'
+  ? S
+  : Negative extends true
+    ? S extends '0'
+      ? '0'
+      : P['signed'] extends false
+        ? 'dynamic'
+        : Bounded<S, true, P> extends infer V
+          ? V extends 'invalid'
+            ? 'dynamic'
+            : V
+          : never
+    : Bounded<S, false, P> extends infer V
+      ? V extends 'invalid'
+        ? 'dynamic'
+        : V
+      : never;
+type LegacySigned<S extends string, P extends GitIntegerParser> = string extends S
+  ? 'dynamic'
+  : S extends `-${infer R}`
+    ? LegacyNormalized<LegacyDigits<R>, true, P>
+    : LegacyNormalized<LegacyDigits<S extends `+${infer R}` ? R : S>, false, P>;
+type LegacyParsed<V, P extends GitIntegerParser> = V extends string | number | bigint
+  ? string extends V
+    ? 'dynamic'
+    : number extends V
+      ? 'dynamic'
+      : bigint extends V
+        ? 'dynamic'
+        : V extends object
+          ? 'dynamic'
+          : V extends number
+            ? AtMost<`${V}` extends `-${infer R}` ? R : `${V}`, '9007199254740991'> extends true
+              ? LegacySigned<Trim<`${V}`>, P>
+              : 'invalid'
+            : LegacySigned<Trim<`${V}`>, P>
+  : V extends undefined
+    ? 'dynamic'
+    : 'invalid';
+type Parsed<V, P extends GitIntegerParser> = P extends { integerProfile: 'decimal-cast'; bits: 32 }
+  ? P extends { nativeWidth: string }
+    ? ModernParsed<V, P>
+    : LegacyParsed<V, P>
+  : ModernParsed<V, P>;
 export type GitIntegerLiteral<V, P extends GitIntegerParser> = Extract<
   Parsed<V, P>,
   'invalid'

@@ -454,12 +454,12 @@ git.command('am', [['--empty', 'KEEP']]);
 // OPTION_UNSIGNED is a checked uint32 in Git 2.55, including before later replacement.
 git.command('apply', [['-C', 0]]);
 git.command('apply', [['-C', 4294967295]]);
-// @ts-expect-error Negative context counts fail immediately in the unsigned parser.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('apply', [['-C', -1], ['-C', 1]]);
-// @ts-expect-error Context count overflow is rejected before a later valid value.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('apply', [['-C', 4294967296], ['-C', 1]]);
 declare const unsignedContextUnion: 0 | -1;
-// @ts-expect-error Every possible literal must be accepted by the unsigned parser.
+// Parser-family and C-long uncertainty defer this old-Git alternative to runtime.
 git.command('apply', [['-C', unsignedContextUnion]]);
 
 declare const patchMode: 'raw' | 'diff';

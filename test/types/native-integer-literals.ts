@@ -36,3 +36,12 @@ type IntegerRule = { id: 'integer'; kind: 'scalar'; key: 'value'; parser: U64; o
 export const accepted: Constrained<{ value: '0xffffffffffffffff' }, readonly [IntegerRule]> = { value: '0xffffffffffffffff' };
 // @ts-expect-error Shared scalar rules reject values outside the recorded width too.
 export const rejected: Constrained<{ value: '18446744073709551616' }, readonly [IntegerRule]> = { value: '18446744073709551616' };
+
+// The decimal/int family applies only to fixed 32-bit storage; other widths and
+// source-declared magnitude bindings retain their compiler profile.
+export type ProfileStorageLimits = [
+  No<Valid<'256', { kind: 'integer'; signed: false; bits: 8; integerProfile: 'decimal-cast' }>>,
+  No<Valid<'18446744073709551616', { kind: 'integer'; signed: false; bits: 64; integerProfile: 'decimal-cast' }>>,
+  No<Valid<'4294967296', { kind: 'integer'; signed: false; bits: 32; nativeWidth: 'size_t'; integerProfile: 'decimal-cast' }>>,
+  Yes<Valid<'2147483648', I32 & { integerProfile: 'decimal-cast' }>>,
+];

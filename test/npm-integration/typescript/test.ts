@@ -152,14 +152,16 @@ export function testFallbackCommandTypes(git: Git): void {
   git.command('stash', [{ operand: 'path' }]);
 }
 
-export function testNativeIntegerTypes(git: Git, mixed: 1 | 2147483648): void {
+export function testNativeIntegerTypes(git: Git, mixed: 1 | 2147483648, bad: 1 | 'bad'): void {
   git.command('column', [['--width', '  +010k'], ['-h']]);
   git.command('pack-objects', [['--max-pack-size', 18446744073709551615n], ['-h']]);
   git.command('pack-objects', [['--max-pack-size', '0x0'], ['--stdout']]);
-  // @ts-expect-error Native signed storage overflows before help.
+  // Older decimal/int source families accept this before help; selection is checked at runtime.
   git.command('column', [['--width', 2147483648], ['-h']]);
-  // @ts-expect-error An invalid member of a literal union is not a valid numeric argument.
+  // Every member is accepted by the older decimal/int family.
   git.command('column', [['--width', mixed], ['-h']]);
+  // @ts-expect-error Neither source family accepts the bad literal union arm.
+  git.command('column', [['--width', bad], ['-h']]);
   // @ts-expect-error Unicode Kelvin sign is not Git's ASCII k unit.
   git.command('column', [['--width', '1K'], ['-h']]);
   // @ts-expect-error A nonzero normalized value conflicts with stdout.
