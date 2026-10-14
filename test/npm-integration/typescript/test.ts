@@ -281,3 +281,15 @@ export function testObservedDepthAndInitTypes(git: Git, dynamic: string): void {
   // @ts-expect-error Both observed depth profiles reject this negative overflow.
   git.command('fetch', [['--all'], ['--depth', '-9223372036854775809']]);
 }
+
+/** Verify packaged case-sensitive callback languages and first-separator semantics. */
+export function testStringCallbackTypes(git: Git, dynamic: string): void {
+  git.command('fast-export', [['--anonymize-map', 'one:two:'], ['-h']]);
+  git.command('fast-export', [['-h'], ['--anonymize-map', ':']]);
+  git.command('fast-import', [['--signed-tags', 'sign-if-invalid=']]);
+  git.command('fast-import', [['--signed-commits', dynamic]]);
+  // @ts-expect-error The first separator leaves an empty key.
+  git.command('fast-export', [['--anonymize-map', ':value'], ['-h']]);
+  // @ts-expect-error Only sign-if-invalid accepts a key suffix.
+  git.command('fast-import', [['--signed-tags', 'strip=key']]);
+}
