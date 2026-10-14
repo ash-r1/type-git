@@ -2,6 +2,51 @@ import process from 'node:process';
 import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 
 const ASCII_UPPERCASE = /[A-Z]/g;
+/** Unicode integer tables belong to the selected Python interpreter. */
+export const PYTHON_INTEGER_DEFERRED = Symbol('python-integer-deferred');
+
+/** Python optparse._parse_num selects its radix before int trims whitespace/signs. */
+export function pythonInteger(value: unknown): bigint | typeof PYTHON_INTEGER_DEFERRED | undefined {
+  if (!['string', 'number', 'bigint'].includes(typeof value)) {
+    return undefined;
+  }
+  const original = String(value);
+  if (original.includes('\0')) {
+    return undefined;
+  }
+  if ([...original].some((character) => character.charCodeAt(0) > 127)) {
+    return PYTHON_INTEGER_DEFERRED;
+  }
+  let radix = 10;
+  let text = original;
+  if (/^0x/i.test(text)) {
+    radix = 16;
+  } else if (/^0b/i.test(text)) {
+    radix = 2;
+    text = text.slice(2) || '0';
+  } else if (text.startsWith('0')) {
+    radix = 8;
+  }
+  text = text.replace(/^[ \t\r\n\v\f]+|[ \t\r\n\v\f]+$/g, '');
+  const negative = text.startsWith('-');
+  if (/^[+-]/.test(text)) {
+    text = text.slice(1);
+  }
+  const prefix = radix === 16 ? /^0x/i : radix === 8 ? /^0o/i : /^0b/i;
+  if (radix !== 10 && prefix.test(text)) {
+    text = text.slice(2).replace(/^_/, '');
+  }
+  const digit =
+    radix === 16 ? '[0-9a-fA-F]' : radix === 8 ? '[0-7]' : radix === 2 ? '[01]' : '[0-9]';
+  if (!new RegExp(`^${digit}(?:_?${digit})*$`).test(text)) {
+    return undefined;
+  }
+  const digits = text.replaceAll('_', '');
+  const parsed = BigInt(
+    (radix === 16 ? '0x' : radix === 8 ? '0o' : radix === 2 ? '0b' : '') + digits,
+  );
+  return negative ? -parsed : parsed;
+}
 export function asciiLower(value: string): string {
   return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
 }
@@ -44,6 +89,7 @@ export function gitBoolean(value: unknown): boolean | undefined {
 }
 
 export type GitScalarParser =
+  | 'python-int'
   | 'fast-import-sign'
   | 'fast-export-reencode'
   | 'anonymize-map'
@@ -69,6 +115,10 @@ export function parseGitScalar(
   cLongBits: 32 | 64 = nativeCLongBits(process.platform, process.arch),
   sizeTBits: 32 | 64 = nativeSizeTBits(process.arch),
 ): { valid: boolean; value?: unknown } {
+  if (parser === 'python-int') {
+    const parsed = pythonInteger(value);
+    return { valid: parsed !== undefined, value: parsed };
+  }
   if (parser === 'fast-import-sign') {
     const text = String(value);
     return {
