@@ -1,3 +1,14 @@
+import { asciiLower } from './ascii.js';
+import {
+  type GitBooleanCallback,
+  type GitBooleanSource,
+  type GitBooleanCapabilities,
+  gitBoolean,
+  isBooleanCallback,
+  parseBooleanCallback,
+} from './git-boolean.js';
+export { asciiLower } from './ascii.js';
+export { gitBoolean } from './git-boolean.js';
 import {
   type GitDecimalParser,
   type GitDecimalCallbacks,
@@ -15,7 +26,6 @@ import process from 'node:process';
 import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 import { validObjectFilter } from './object-filter.js';
 
-const ASCII_UPPERCASE = /[A-Z]/g;
 /** Unicode integer tables belong to the selected Python interpreter. */
 export const PYTHON_INTEGER_DEFERRED = Symbol('python-integer-deferred');
 
@@ -62,36 +72,13 @@ export function pythonInteger(value: unknown): bigint | typeof PYTHON_INTEGER_DE
   );
   return negative ? -parsed : parsed;
 }
-/** Fold only ASCII uppercase letters, matching Git's case-insensitive option languages. */
-export function asciiLower(value: string): string {
-  return value.replace(ASCII_UPPERCASE, (character) => character.toLowerCase());
-}
-
 /** Signed configuration integers use the same parser with an int storage width. */
 export function gitInteger(value: string): bigint | undefined {
   return parseGitInteger(value, { kind: 'integer', signed: true, bits: 32 });
 }
 
-/** Undefined means an invalid spelling, not false. An absent option value is handled by its schema. */
-export function gitBoolean(value: unknown): boolean | undefined {
-  if (typeof value === 'boolean') {
-    return value;
-  }
-  if (typeof value !== 'string') {
-    return undefined;
-  }
-  const text = value.toLowerCase();
-  if (['true', 'yes', 'on'].includes(text)) {
-    return true;
-  }
-  if (['', 'false', 'no', 'off'].includes(text)) {
-    return false;
-  }
-  const integer = gitInteger(value);
-  return integer === undefined ? undefined : integer !== 0n;
-}
-
 export type GitScalarParser =
+  | GitBooleanCallback
   | GitDecimalParser
   | GitIntegerParser
   | 'python-int'
@@ -103,7 +90,6 @@ export type GitScalarParser =
   | 'fast-import-sign'
   | 'fast-export-reencode'
   | 'anonymize-map'
-  | 'pull-rebase'
   | 'shortlog-group'
   | 'shortlog-wrap'
   | 'show-branch-reflog'
@@ -130,6 +116,9 @@ export function parseGitScalar(
   negativeMagnitudes = false,
   decimalCallbacks?: GitDecimalCallbacks,
   unsignedChar = true,
+  booleanSource: GitBooleanSource = 'modern',
+  booleanBinaryIntegers = true,
+  booleanCapabilities?: GitBooleanCapabilities,
 ): { valid: boolean; value?: unknown } {
   if (typeof parser === 'object' && parser.kind === 'decimal') {
     return parseGitDecimal(
@@ -160,6 +149,16 @@ export function parseGitScalar(
               : negativeMagnitudes || parser.negativeMagnitudes === true,
           );
     return parsed === undefined ? { valid: false } : { valid: true, value: integerState(parsed) };
+  }
+  if (isBooleanCallback(parser)) {
+    return parseBooleanCallback(
+      parser,
+      value,
+      previous,
+      booleanSource,
+      booleanBinaryIntegers,
+      booleanCapabilities,
+    );
   }
   if (parser === 'perl-int' || parser === 'perl-int-gnu') {
     if (value === true || (parser === 'perl-int-gnu' && value === '')) {
@@ -356,24 +355,6 @@ export function parseGitScalar(
       value,
     };
   }
-  if (parser === 'push-recurse' && value === 'only-is-on-demand') {
-    return { valid: true, value: previous === 'only' ? 'on-demand' : previous };
-  }
   const boolean = gitBoolean(value);
-  if (boolean !== undefined) {
-    return { valid: parser !== 'push-recurse' || !boolean, value: boolean };
-  }
-  if (parser === 'fetch-recurse' && value === 'on-demand') {
-    return { valid: true, value };
-  }
-  if (parser === 'pull-rebase' && ['merges', 'm', 'interactive', 'i'].includes(String(value))) {
-    return { valid: true, value: value === 'm' ? 'merges' : value === 'i' ? 'interactive' : value };
-  }
-  if (parser === 'push-recurse' && ['on-demand', 'check', 'only'].includes(String(value))) {
-    return { valid: true, value };
-  }
-  if (parser === 'push-signed' && typeof value === 'string' && value.toLowerCase() === 'if-asked') {
-    return { valid: true, value: 'if-asked' };
-  }
-  return { valid: false };
+  return boolean === undefined ? { valid: false } : { valid: true, value: boolean };
 }

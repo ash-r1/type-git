@@ -830,3 +830,53 @@ that every deferred version supports every style: `zdiff3` support and repositor
 conditions remain native obligations. A first `--help` selects `git-help` and does
 not make its unknown conflict option valid; a preceding internal `-h` still stops
 option interpretation.
+
+## Boolean callback profiles
+
+`spec/git-boolean-callbacks.json` records Git's textual boolean names, signed
+32-bit integer parser and five callback profiles. Generated constants are shared
+by runtime validation and compiler literal checks. Callback profiles distinguish
+fetch recursion (`on-demand`), push recursion (`on-demand`, `check`, `only`, but
+no true value), signed push (ASCII case-insensitive `if-asked`), pull rebase
+(`merges`/`m` and `interactive`/`i`) and ordinary boolean worktree recursion.
+The push-only `only-is-on-demand` transition rewrites a previous `only` value;
+otherwise it preserves the previous value.
+
+Numeric literals use the same radix/unit/bounds model as Git configuration
+integers. Known values are normalized before combination checks: `0k` disables
+recursion, while `1k` enables it and conflicts with fetch porcelain mode. Broad
+strings, symbolic string templates and compiler walks beyond 128 characters
+retain an unknown string state and are checked at runtime. Known invalid members
+of literal unions are rejected. Optional values explicitly passed as `undefined`
+continue to use their schema defaults.
+
+Additional native transcripts cover Git 2.25.1 and 2.47.3. Their config
+integer parsers reject INT_MIN; 2.25.1 also treats a bare `k`, `m` or `g` as
+zero. This makes pull `--rebase=m` normalize to false on the recorded old
+parser, rather than the newer named `merges` mode. Compiler alternatives replay
+a complete argument tuple for each recorded source family, preserving callback
+order and rejecting invalid literal-union members.
+
+At runtime, readonly `git -c … config --type=bool --get …` observations select
+the config grammar and libc binary-prefix support independently. Availability
+of pull `preserve`/`p` and push `only-is-on-demand` is observed separately through
+the original callback followed by `-h`: intermediate upstream sources show that
+these features cannot be inferred from the config integer grammar. Observations
+use the selected command context, environment and cancellation signal without
+consuming command stdin. Unrecognized responses retain native execution and its
+diagnostics; aborted observations stop execution. Audited help exits, including
+pull, prevent observations and semantic checks for later words while retaining
+argument representation checks. The three compiler source alternatives are
+recorded families, not a claim to model every intermediate or customized Git.
+
+The independent oracle `node scripts/boolean-callback-corpus.mjs --check`
+reproduces 59 native boolean values (including their normalized output) and 649
+callback outcomes at 11 option sites in eight commands. It requires the pinned
+Git 2.55.0 signed-integer/libc profile. Native ASCII matching also rejects
+`if-asKed`, which JavaScript Unicode lowercasing would incorrectly accept.
+The command explorer derives the complete finite set of normalized boolean and
+callback-name values directly from these profiles; it does not approximate them
+with arbitrary string samples. This is a per-field domain, not a proof that every
+combined command state is reachable. Source fingerprints are checked by the upstream verifier. The finite corpus
+and bounded literal evaluator do not claim completeness for every platform or
+command; help phases, repository state and dynamic values remain audit work.

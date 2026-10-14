@@ -1,3 +1,4 @@
+import type { GitBooleanSource } from '../constraints/git-boolean.js';
 import { createHash } from 'node:crypto';
 import { GitArgumentError } from '../core/types.js';
 import type { CommandSpec } from './spec.js';
@@ -8,6 +9,7 @@ export type CommandGrammarContext = {
   guiGrammar?: GuiGrammar;
   guiLaunch?: GuiLaunch;
   conflictStyle?: 'immediate' | 'deferred';
+  booleanSource?: GitBooleanSource;
 };
 export function guiLaunchFromSource(source: string): GuiLaunch | undefined {
   const normalized = source.replaceAll('\r\n', '\n');

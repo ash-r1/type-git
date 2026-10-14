@@ -1,3 +1,9 @@
+import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
+import type { GitBooleanCallback, GitBooleanSource } from '../constraints/git-boolean.js';
+import type {
+  GitBooleanCallbackLiteral,
+  GitBooleanCallbackValue,
+} from '../constraints/git-boolean-types.js';
 import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type {
   GitNumericLiteral,
@@ -26,41 +32,6 @@ type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
 type NumericOption<C extends GitCommandName> =
   Spec<C> extends { numericOption: infer D extends OptionSpec } ? D : never;
-type AsciiUpper =
-  | 'A'
-  | 'B'
-  | 'C'
-  | 'D'
-  | 'E'
-  | 'F'
-  | 'G'
-  | 'H'
-  | 'I'
-  | 'J'
-  | 'K'
-  | 'L'
-  | 'M'
-  | 'N'
-  | 'O'
-  | 'P'
-  | 'Q'
-  | 'R'
-  | 'S'
-  | 'T'
-  | 'U'
-  | 'V'
-  | 'W'
-  | 'X'
-  | 'Y'
-  | 'Z';
-// Validate the supplied literal instead of enumerating 2^N enum spellings.
-type AsciiLower<S extends string, Result extends string = ''> = string extends S
-  ? string
-  : S extends object
-    ? string // Opaque branded strings are nonliteral inputs, like ordinary string.
-    : S extends `${infer H}${infer R}`
-      ? AsciiLower<R, `${Result}${H extends AsciiUpper ? Lowercase<H> : H}`>
-      : `${Result}${S}`;
 type PrimitiveValue<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean'
   ? boolean
   : S['value'] extends 'integer' | 'optional-integer'
@@ -141,20 +112,31 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
   : D extends { set: infer V }
     ? V
     : true;
-type Normalize<V, D extends OptionSpec> = D extends { parser: infer P extends GitNumericParser }
+type BooleanSourceOf<D> = D extends { booleanSource: infer P extends GitBooleanSource }
+  ? P
+  : 'modern';
+type Normalize<V, D extends OptionSpec, Previous> = D extends {
+  parser: infer P extends GitNumericParser;
+}
   ? GitNumericValue<V, P>
-  : D extends { caseInsensitive: true }
-    ? D extends { preserveCase: true }
-      ? V extends string
-        ? V extends object
-          ? string
+  : D extends { parser: infer P extends GitBooleanCallback }
+    ? GitBooleanCallbackValue<V, P, Previous, BooleanSourceOf<D>>
+    : D extends { caseInsensitive: true }
+      ? D extends { preserveCase: true }
+        ? V extends string
+          ? V extends object
+            ? string
+            : V
           : V
-        : V
-      : V extends string
-        ? AsciiLower<V>
-        : V
-    : V;
-type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
+        : V extends string
+          ? AsciiLower<V>
+          : V
+      : V;
+type TokenValue<
+  T extends readonly unknown[],
+  D extends OptionSpec,
+  Previous = undefined,
+> = Normalize<
   T extends readonly [unknown, infer V]
     ? V extends undefined
       ? DefaultValue<D>
@@ -164,7 +146,8 @@ type TokenValue<T extends readonly unknown[], D extends OptionSpec> = Normalize<
           : V
         : V
     : DefaultValue<D>,
-  D
+  D,
+  Previous
 >;
 type Append<S, D extends OptionSpec, V> = D extends { clear: true }
   ? readonly []
@@ -253,7 +236,9 @@ type UnparsedOptionState<S, D extends OptionSpec, T extends readonly unknown[]> 
       : Put<
           S,
           D['key'],
-          D extends { parser: 'mainline' } ? MainlineValue<TokenValue<T, D>> : TokenValue<T, D>
+          D extends { parser: 'mainline' }
+            ? MainlineValue<TokenValue<T, D>>
+            : TokenValue<T, D, D['key'] extends keyof S ? S[D['key']] : undefined>
         >;
 type IntegerRangeValid<V, Min extends number, Max extends number> = V extends number
   ? [SafeIntegerAtLeast<V, Min, false>] extends [never]
@@ -502,39 +487,43 @@ type PerlIntegerLiteral<D extends OptionSpec, V> = V extends string
     : false;
 type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitNumericParser }
   ? GitNumericLiteral<V, P>
-  : D extends {
-        parser: 'object-filter' | 'object-filter-auto';
-      }
-    ? V extends string
-      ? ObjectFilterLiteral<
-          V,
-          D['parser'] extends 'object-filter-auto' ? true : false,
-          D extends { negativeMagnitudes: true } ? true : false
-        >
-      : true
-    : D extends { parser: 'perl-int' | 'perl-int-gnu' }
-      ? PerlIntegerLiteral<D, V>
-      : D extends { parser: 'fast-import-sign' }
-        ? ImportSignLiteral<V>
-        : D extends { parser: 'anonymize-map' }
-          ? V extends string
-            ? string extends V
-              ? true
-              : V extends object
+  : D extends { parser: infer P extends GitBooleanCallback }
+    ? V extends undefined
+      ? true
+      : GitBooleanCallbackLiteral<V, P, BooleanSourceOf<D>>
+    : D extends {
+          parser: 'object-filter' | 'object-filter-auto';
+        }
+      ? V extends string
+        ? ObjectFilterLiteral<
+            V,
+            D['parser'] extends 'object-filter-auto' ? true : false,
+            D extends { negativeMagnitudes: true } ? true : false
+          >
+        : true
+      : D extends { parser: 'perl-int' | 'perl-int-gnu' }
+        ? PerlIntegerLiteral<D, V>
+        : D extends { parser: 'fast-import-sign' }
+          ? ImportSignLiteral<V>
+          : D extends { parser: 'anonymize-map' }
+            ? V extends string
+              ? string extends V
                 ? true
-                : V extends ''
-                  ? false
-                  : V extends `${infer Key}:${infer Replacement}`
-                    ? Key extends ''
-                      ? false
-                      : Replacement extends ''
+                : V extends object
+                  ? true
+                  : V extends ''
+                    ? false
+                    : V extends `${infer Key}:${infer Replacement}`
+                      ? Key extends ''
                         ? false
-                        : true
-                    : true
-            : true
-          : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-            ? ParsedScalarLiteral<D, V>
-            : true;
+                        : Replacement extends ''
+                          ? false
+                          : true
+                      : true
+              : true
+            : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+              ? ParsedScalarLiteral<D, V>
+              : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true
@@ -755,13 +744,24 @@ type DispatcherProfiledOption<S, D extends OptionSpec> = S extends {
     ? never
     : D
   : D;
+/** Apply one recorded boolean family to every callback in the same state walk. */
+type BooleanProfiledOption<S, D extends OptionSpec> = S extends {
+  booleanSource: infer P extends GitBooleanSource;
+}
+  ? D extends { parser: GitBooleanCallback }
+    ? D & { booleanSource: P }
+    : D
+  : D;
 type ProfiledOption<S, D extends OptionSpec> = DispatcherProfiledOption<
   S,
-  ConflictProfiledOption<
+  BooleanProfiledOption<
     S,
-    DecimalProfiledOption<
+    ConflictProfiledOption<
       S,
-      CallbackProfiledOption<S, MagnitudeProfiledOption<S, IntegerProfiledOption<S, D>>>
+      DecimalProfiledOption<
+        S,
+        CallbackProfiledOption<S, MagnitudeProfiledOption<S, IntegerProfiledOption<S, D>>>
+      >
     >
   >
 >;
@@ -1096,6 +1096,20 @@ type CheckedLocalParserArguments<
       : CheckRules<State<C, A>, Spec<C>['rules']> extends true
         ? A
         : CheckedNumericAlternatives<C, A>;
+/** Keep the established numeric/conflict validation path for all unaffected tuples. */
+type ExistingLocalProfiles<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = Ctx extends { conflictStyle: 'deferred' }
+  ? Extract<Options<C>[keyof Options<C>], { nativeEnumCallback: 'conflict-style' }> extends never
+    ? [CheckedLocalParserArguments<C, A>] extends [never]
+      ? CombinedArgumentsFallback<C, A, Ctx>
+      : A
+    : CombinedArgumentsFallback<C, A, Ctx>
+  : [CheckedLocalParserArguments<C, A>] extends [never]
+    ? CombinedArgumentsFallback<C, A, Ctx>
+    : A;
 /** Literal option combinations are checked against the same schema as runtime calls. */
 type CheckedLocalArguments<
   C extends GitCommandName,
@@ -1106,17 +1120,159 @@ type CheckedLocalArguments<
     ? CheckedGuiArguments<Spec<C>, A, Ctx>
     : never
   : A extends readonly LocalCommandArgument<C>[]
-    ? Ctx extends { conflictStyle: 'deferred' }
-      ? Extract<
-          Options<C>[keyof Options<C>],
-          { nativeEnumCallback: 'conflict-style' }
-        > extends never
-        ? CheckedLocalParserArguments<C, A>
-        : ConflictArgumentsFallback<C, A, Ctx>
-      : [CheckedLocalParserArguments<C, A>] extends [never]
-        ? ConflictArgumentsFallback<C, A, Ctx>
-        : A
+    ? Ctx extends { booleanSource: infer Source extends GitBooleanSource }
+      ? Source extends 'modern'
+        ? ExistingLocalProfiles<C, A, Ctx>
+        : TupleUsesBoolean<C, A> extends true
+          ? BooleanTupleFamilies<C, A, Source, Ctx>
+          : ExistingLocalProfiles<C, A, Ctx>
+      : ExistingLocalProfiles<C, A, Ctx>
     : never;
+
+/** Precompute the small command set instead of comparing every command's option union during inference. */
+type BooleanCommandName = {
+  [C in GitCommandName]: [
+    Extract<Options<C>[keyof Options<C>], { parser: GitBooleanCallback }>,
+  ] extends [never]
+    ? never
+    : C;
+}[GitCommandName];
+type TupleUsesConflict<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = A extends readonly [infer T, ...infer Rest]
+  ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
+    ? Options<C>[K] extends { nativeEnumCallback: 'conflict-style' }
+      ? true
+      : TupleUsesConflict<C, Rest>
+    : TupleUsesConflict<C, Rest>
+  : false;
+/** Source uncertainty is evaluated per complete tuple; invalid input unions remain invalid. */
+type BooleanTupleResult<C extends GitCommandName, A extends readonly unknown[], S> = [S] extends [
+  never,
+]
+  ? never
+  : S extends { help: true } | { parserExited: true }
+    ? A
+    : S extends { conflictStyle: 'deferred' }
+      ? DeferredConflictResult<C, A, S>
+      : CheckRules<S, Spec<C>['rules']> extends true
+        ? A
+        : never;
+type BooleanTupleAxes<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Source extends GitBooleanSource,
+  I extends 'bounded' | 'decimal-cast',
+  N extends boolean,
+  B extends 32 | 64,
+  F extends GitDecimalCallbacks,
+  Conflict extends 'immediate' | 'deferred',
+> = Source extends unknown
+  ? I extends unknown
+    ? N extends unknown
+      ? B extends unknown
+        ? F extends unknown
+          ? Conflict extends unknown
+            ? BooleanTupleResult<
+                C,
+                A,
+                State<
+                  C,
+                  A,
+                  Put<
+                    Put<
+                      Put<
+                        Put<
+                          Put<
+                            Put<Put<Initial<C>, 'argumentTokens', A>, 'integerProfile', I>,
+                            'negativeMagnitudes',
+                            N
+                          >,
+                          'decimalLongBits',
+                          B
+                        >,
+                        'decimalCallbacks',
+                        F
+                      >,
+                      'conflictStyle',
+                      Conflict
+                    >,
+                    'booleanSource',
+                    Source
+                  >
+                >
+              >
+            : never
+          : never
+        : never
+      : never
+    : never
+  : never;
+/** Delay numeric callback combinations until the argument list is a concrete nonempty tuple. */
+type BooleanTupleFamilies<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Source extends GitBooleanSource,
+  Ctx extends CommandGrammarContext,
+> = A extends readonly [unknown, ...unknown[]]
+  ? BooleanTupleAxes<
+      C,
+      A,
+      Source,
+      TupleIntegerTraits<C, A> extends true ? 'bounded' | 'decimal-cast' : 'bounded',
+      TupleIntegerTraits<C, A> extends true ? false | true : false,
+      TupleIntegerTraits<C, A> extends true
+        ? 32 | 64
+        : [TupleCallbacks<C, A>] extends [never]
+          ? 64
+          : 32 | 64,
+      CallbackChoices<TupleCallbacks<C, A>>,
+      Ctx extends { conflictStyle: infer P extends 'immediate' | 'deferred' }
+        ? P
+        : TupleUsesConflict<C, A> extends true
+          ? 'immediate' | 'deferred'
+          : 'immediate'
+    >
+  : A;
+type TupleUsesBoolean<C extends GitCommandName, A extends readonly unknown[]> = A extends readonly [
+  infer T,
+  ...infer Rest,
+]
+  ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
+    ? Options<C>[K] extends { parser: GitBooleanCallback }
+      ? true
+      : TupleUsesBoolean<C, Rest>
+    : TupleUsesBoolean<C, Rest>
+  : false;
+/** Invoke source alternatives only after the existing tuple checker has rejected the tuple. */
+type BooleanArgumentsFallback<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = number extends A['length']
+  ? A
+  : TupleUsesBoolean<C, A> extends true
+    ? Ctx extends { booleanSource: 'modern' }
+      ? never
+      : BooleanTupleFamilies<
+          C,
+          A,
+          Ctx extends { booleanSource: infer P extends GitBooleanSource }
+            ? P
+            : 'legacy-units' | 'symmetric',
+          Ctx
+        >
+    : never;
+type CombinedArgumentsFallback<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = C extends BooleanCommandName
+  ? [ConflictArgumentsFallback<C, A, Ctx>] extends [never]
+    ? BooleanArgumentsFallback<C, A, Ctx>
+    : A
+  : ConflictArgumentsFallback<C, A, Ctx>;
 
 /** Collect invalid finite dispatch alternatives before accepting the complete tuple. */
 type InvalidDispatchAlternative<

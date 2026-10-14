@@ -1,3 +1,4 @@
+import type { GitBooleanSource, GitBooleanCapabilities } from '../constraints/git-boolean.js';
 import {
   OBJECT_FILTER_CHAR_PROBE,
   objectFilterUnsignedChar,
@@ -24,6 +25,9 @@ import {
   validateArgvStrings,
   commandDecimalCallbacks,
   commandUsesConflictStyle,
+  commandUsesBooleanSource,
+  commandUsesBooleanBinary,
+  commandBooleanFeatures,
   commandUsesDecimalCallback,
   commandUsesNativeABI,
   commandUsesIntegerProfile,
@@ -654,6 +658,9 @@ export class CliRunner {
       decimalCallbacks?: GitDecimalCallbacks;
       unsignedChar?: boolean;
       conflictStyle?: 'immediate' | 'deferred';
+      booleanSource?: GitBooleanSource;
+      booleanBinaryIntegers?: boolean;
+      booleanCapabilities?: GitBooleanCapabilities;
     };
     let abi: NativeAbi | undefined;
     if (commandUsesNativeABI(command, args)) {
@@ -664,6 +671,18 @@ export class CliRunner {
       const conflictStyles: ('immediate' | 'deferred')[] = commandUsesConflictStyle(command, args)
         ? ['immediate', 'deferred']
         : ['immediate'];
+      const booleanSources: GitBooleanSource[] = commandUsesBooleanSource(command, args)
+        ? ['modern', 'symmetric', 'legacy-units']
+        : ['modern'];
+      const booleanBinaries = commandUsesBooleanBinary(command, args) ? [true, false] : [true];
+      const booleanFeatures = commandBooleanFeatures(command, args);
+      let capabilityVariants: GitBooleanCapabilities[] = [{}];
+      for (const feature of booleanFeatures) {
+        capabilityVariants = capabilityVariants.flatMap((variant) => [
+          { ...variant, [feature]: true },
+          { ...variant, [feature]: false },
+        ]);
+      }
       const callbacks = commandDecimalCallbacks(command, args);
       const chars = commandUsesObjectFilterCharProfile(command, args) ? [false, true] : [true];
       let callbackVariants: GitDecimalCallbacks[] = [{}];
@@ -679,29 +698,38 @@ export class CliRunner {
         for (const negativeMagnitudes of signs) {
           for (const unsignedChar of chars) {
             for (const conflictStyle of conflictStyles) {
-              for (const decimalCallbacks of callbackVariants) {
-                for (const longBits of [32, 64] as const) {
-                  for (const sizeTBits of [32, 64] as const) {
-                    const candidateAbi = {
-                      longBits,
-                      sizeTBits,
-                      integerProfile,
-                      negativeMagnitudes,
-                      decimalCallbacks,
-                      unsignedChar,
-                      conflictStyle,
-                    };
-                    try {
-                      valid.push({
-                        profile: integerProfile,
-                        abi: candidateAbi,
-                        argv: commandArguments(command, args, inRepository, candidateAbi),
-                      });
-                    } catch (error) {
-                      if (!(error instanceof GitArgumentError)) {
-                        throw error;
+              for (const booleanSource of booleanSources) {
+                for (const booleanBinaryIntegers of booleanBinaries) {
+                  for (const booleanCapabilities of capabilityVariants) {
+                    for (const decimalCallbacks of callbackVariants) {
+                      for (const longBits of [32, 64] as const) {
+                        for (const sizeTBits of [32, 64] as const) {
+                          const candidateAbi = {
+                            longBits,
+                            sizeTBits,
+                            integerProfile,
+                            negativeMagnitudes,
+                            decimalCallbacks,
+                            unsignedChar,
+                            conflictStyle,
+                            booleanSource,
+                            booleanBinaryIntegers,
+                            booleanCapabilities,
+                          };
+                          try {
+                            valid.push({
+                              profile: integerProfile,
+                              abi: candidateAbi,
+                              argv: commandArguments(command, args, inRepository, candidateAbi),
+                            });
+                          } catch (error) {
+                            if (!(error instanceof GitArgumentError)) {
+                              throw error;
+                            }
+                            firstError ??= error;
+                          }
+                        }
                       }
-                      firstError ??= error;
                     }
                   }
                 }
@@ -721,6 +749,9 @@ export class CliRunner {
             callbackVariants.length *
             chars.length *
             conflictStyles.length *
+            booleanSources.length *
+            booleanBinaries.length *
+            capabilityVariants.length *
             4 &&
           !needsBinaryProfile) ||
         (binary && !this.exec.spawnBytes)
@@ -767,6 +798,169 @@ export class CliRunner {
           }
           valid = selected;
         }
+      }
+      for (const feature of booleanFeatures) {
+        const groups = new Map<string, Set<boolean | undefined>>();
+        for (const entry of valid) {
+          const { booleanCapabilities, ...other } = entry.abi;
+          const remainingCapabilities = { ...booleanCapabilities };
+          delete remainingCapabilities[feature];
+          const key = JSON.stringify({ ...other, booleanCapabilities: remainingCapabilities });
+          if (!groups.has(key)) {
+            groups.set(key, new Set());
+          }
+          groups.get(key)!.add(booleanCapabilities?.[feature]);
+        }
+        if (![...groups.values()].some((group) => group.size !== 2)) {
+          continue;
+        }
+        const argv =
+          feature === 'preserve'
+            ? ['pull', '--rebase=preserve', '-h']
+            : ['push', '--recurse-submodules=only-is-on-demand', '-h'];
+        const probe = await this.run(context, argv, probeOptions);
+        if (probe.aborted) {
+          return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+        }
+        const diagnostic = probe.stderr + probe.stdout;
+        let supported: boolean;
+        if ((probe.exitCode === 0 || probe.exitCode === 129) && diagnostic.startsWith('usage:')) {
+          supported = true;
+        } else if (
+          feature === 'preserve' &&
+          probe.exitCode === 129 &&
+          /preserve.*(?:superseded|invalid|removed)|(?:Invalid|invalid) value.*(?:rebase|preserve)/.test(
+            diagnostic,
+          )
+        ) {
+          supported = false;
+        } else if (
+          feature === 'onlyIsOnDemand' &&
+          probe.exitCode === 128 &&
+          /bad recurse-submodules argument: only-is-on-demand/.test(diagnostic)
+        ) {
+          supported = false;
+        } else {
+          return await execute(valid[0]!.argv);
+        }
+        const selected = valid.filter(
+          (entry) => entry.abi.booleanCapabilities?.[feature] === supported,
+        );
+        if (selected.length === 0) {
+          commandArguments(command, args, inRepository, {
+            ...valid[0]!.abi,
+            booleanCapabilities: { ...valid[0]!.abi.booleanCapabilities, [feature]: supported },
+          });
+          throw firstError;
+        }
+        valid = selected;
+      }
+      const booleanDependent = (
+        key: 'booleanSource' | 'booleanBinaryIntegers',
+        variants: number,
+      ) => {
+        const groups = new Map<string, Set<unknown>>();
+        for (const entry of valid) {
+          const other = { ...entry.abi };
+          delete other[key];
+          const id = JSON.stringify(other);
+          if (!groups.has(id)) {
+            groups.set(id, new Set());
+          }
+          groups.get(id)!.add(entry.abi[key]);
+        }
+        return [...groups.values()].some((group) => group.size !== variants);
+      };
+      if (booleanSources.length > 1 && booleanDependent('booleanSource', booleanSources.length)) {
+        const observe = (value: string) =>
+          this.run(
+            context,
+            [
+              '-c',
+              `typegitprofile.boolean=${value}`,
+              'config',
+              '--type=bool',
+              '--get',
+              'typegitprofile.boolean',
+            ],
+            probeOptions,
+          );
+        const units = await observe('m');
+        if (units.aborted) {
+          return { ...units, stdout: binary ? new Uint8Array(0) : units.stdout };
+        }
+        let booleanSource: GitBooleanSource;
+        if (units.exitCode === 0 && units.stdout.trim() === 'false') {
+          booleanSource = 'legacy-units';
+        } else if (
+          units.exitCode === 128 &&
+          /bad (?:boolean|numeric) config value/.test(units.stderr)
+        ) {
+          const minimum = await observe('-2147483648');
+          if (minimum.aborted) {
+            return { ...minimum, stdout: binary ? new Uint8Array(0) : minimum.stdout };
+          }
+          if (minimum.exitCode === 0 && minimum.stdout.trim() === 'true') {
+            booleanSource = 'modern';
+          } else if (
+            minimum.exitCode === 128 &&
+            /bad (?:boolean|numeric) config value/.test(minimum.stderr)
+          ) {
+            booleanSource = 'symmetric';
+          } else {
+            return await execute(valid[0]!.argv);
+          }
+        } else {
+          return await execute(valid[0]!.argv);
+        }
+        const selected = valid.filter((entry) => entry.abi.booleanSource === booleanSource);
+        if (selected.length === 0) {
+          commandArguments(command, args, inRepository, { ...valid[0]!.abi, booleanSource });
+          throw firstError;
+        }
+        valid = selected;
+      }
+      if (
+        booleanBinaries.length > 1 &&
+        booleanDependent('booleanBinaryIntegers', booleanBinaries.length)
+      ) {
+        const probe = await this.run(
+          context,
+          [
+            '-c',
+            'typegitprofile.boolean=0b1',
+            'config',
+            '--type=bool',
+            '--get',
+            'typegitprofile.boolean',
+          ],
+          probeOptions,
+        );
+        if (probe.aborted) {
+          return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+        }
+        let booleanBinaryIntegers: boolean;
+        if (probe.exitCode === 0 && probe.stdout.trim() === 'true') {
+          booleanBinaryIntegers = true;
+        } else if (
+          probe.exitCode === 128 &&
+          /bad (?:boolean|numeric) config value/.test(probe.stderr)
+        ) {
+          booleanBinaryIntegers = false;
+        } else {
+          return await execute(valid[0]!.argv);
+        }
+        const selected = valid.filter(
+          (entry) => entry.abi.booleanBinaryIntegers === booleanBinaryIntegers,
+        );
+        if (selected.length === 0) {
+          commandArguments(command, args, inRepository, {
+            ...valid[0]!.abi,
+            booleanBinaryIntegers,
+          });
+          throw firstError;
+        }
+        valid = selected;
       }
       let unsignedChar = true;
       if (chars.length > 1) {
@@ -952,7 +1146,10 @@ export class CliRunner {
         throw firstError;
       }
       abi = selectedValid[0]!.abi;
-      if (selectedValid.length !== 4) {
+      if (
+        new Set(selectedValid.map((entry) => `${entry.abi.longBits}:${entry.abi.sizeTBits}`))
+          .size !== 4
+      ) {
         const probe = await this.run(context, ['version', '--build-options'], probeOptions);
         if (probe.aborted) {
           return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };

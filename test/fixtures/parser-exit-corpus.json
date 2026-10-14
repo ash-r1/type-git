@@ -4517,6 +4517,69 @@
       "diagnostic": "usage: git push [<options>] [<repository> [<refspec>...]]"
     },
     {
+      "command": "pull",
+      "tokens": [
+        [
+          "--rebase",
+          "invalid"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "--rebase=invalid",
+        "-h"
+      ],
+      "valid": false,
+      "status": 129,
+      "diagnostic": "error: invalid value for '--rebase': 'invalid'"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--rebase",
+          "invalid"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-h",
+        "--rebase=invalid"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git pull [<options>] [<repository> [<refspec>...]]"
+    },
+    {
+      "command": "pull",
+      "tokens": [
+        [
+          "-h"
+        ],
+        [
+          "--"
+        ],
+        [
+          "--"
+        ]
+      ],
+      "argv": [
+        "pull",
+        "-h",
+        "--",
+        "--"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": "usage: git pull [<options>] [<repository> [<refspec>...]]"
+    },
+    {
       "command": "clone",
       "tokens": [
         [

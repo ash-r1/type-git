@@ -1,3 +1,8 @@
+import {
+  isBooleanCallback,
+  type GitBooleanSource,
+  type GitBooleanCapabilities,
+} from '../constraints/git-boolean.js';
 import type { GitDecimalCallback, GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { asciiLower, parseGitScalar } from '../constraints/git-scalars.js';
@@ -93,6 +98,9 @@ export function commandArguments(
     decimalCallbacks?: GitDecimalCallbacks;
     unsignedChar?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
+    booleanSource?: GitBooleanSource;
+    booleanBinaryIntegers?: boolean;
+    booleanCapabilities?: GitBooleanCapabilities;
   },
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
@@ -243,6 +251,9 @@ export function commandArguments(
             abi?.negativeMagnitudes,
             abi?.decimalCallbacks,
             abi?.unsignedChar,
+            abi?.booleanSource,
+            abi?.booleanBinaryIntegers,
+            abi?.booleanCapabilities,
           )
         : undefined;
     if (integer && !integer.valid) {
@@ -373,6 +384,9 @@ export function commandArguments(
             abi?.negativeMagnitudes,
             abi?.decimalCallbacks,
             abi?.unsignedChar,
+            abi?.booleanSource,
+            abi?.booleanBinaryIntegers,
+            abi?.booleanCapabilities,
           )
         : { valid: true, value });
     if (!parsed.valid) {
@@ -501,6 +515,7 @@ export function commandUsesNativeABI(command: GitCommandName, args: readonly unk
         ? spec.numericOption
         : undefined;
     return (
+      (typeof option?.parser === 'string' && isBooleanCallback(option.parser)) ||
       option?.nativeEnumCallback === 'conflict-style' ||
       typeof option?.parser === 'object' ||
       option?.parser === 'abbrev' ||
@@ -701,4 +716,71 @@ export function commandUsesConflictStyle(
       Object.hasOwn(spec.options, arg[0]) &&
       spec.options[arg[0]]?.nativeEnumCallback === 'conflict-style',
   );
+}
+
+/** Boolean source traits used before an audited parser exit. */
+export function commandUsesBooleanSource(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesBooleanSource(dispatched.command, dispatched.args);
+  }
+  return interpretedArguments(spec, args).some(
+    (arg) =>
+      Array.isArray(arg) &&
+      typeof arg[0] === 'string' &&
+      Object.hasOwn(spec.options, arg[0]) &&
+      typeof spec.options[arg[0]]?.parser === 'string' &&
+      isBooleanCallback(spec.options[arg[0]]!.parser as string),
+  );
+}
+/** Binary-prefix configuration integers depend on the selected libc, separately from filter parsing. */
+export function commandUsesBooleanBinary(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesBooleanBinary(dispatched.command, dispatched.args);
+  }
+  return interpretedArguments(spec, args).some(
+    (arg) =>
+      Array.isArray(arg) &&
+      typeof arg[0] === 'string' &&
+      Object.hasOwn(spec.options, arg[0]) &&
+      typeof spec.options[arg[0]]?.parser === 'string' &&
+      isBooleanCallback(spec.options[arg[0]]!.parser as string) &&
+      typeof arg[1] === 'string' &&
+      /^[ \t\r\n\v\f]*[+-]?0[bB]/.test(arg[1]),
+  );
+}
+
+/** Only named callback features before an audited exit require availability observation. */
+export function commandBooleanFeatures(
+  command: GitCommandName,
+  args: readonly unknown[],
+): (keyof GitBooleanCapabilities)[] {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandBooleanFeatures(dispatched.command, dispatched.args);
+  }
+  const features = new Set<keyof GitBooleanCapabilities>();
+  for (const arg of interpretedArguments(spec, args)) {
+    if (!Array.isArray(arg) || typeof arg[0] !== 'string' || !Object.hasOwn(spec.options, arg[0])) {
+      continue;
+    }
+    const parser = spec.options[arg[0]]?.parser;
+    if (parser === 'pull-rebase' && (arg[1] === 'preserve' || arg[1] === 'p')) {
+      features.add('preserve');
+    }
+    if (parser === 'push-recurse' && arg[1] === 'only-is-on-demand') {
+      features.add('onlyIsOnDemand');
+    }
+  }
+  return [...features];
 }

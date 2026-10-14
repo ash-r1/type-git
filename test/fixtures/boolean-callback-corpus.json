@@ -1,0 +1,4815 @@
+{
+  "profile": "Git 2.55.0; signed 32-bit configuration integers; native 0b prefix support; LC_ALL=C",
+  "booleans": [
+    {
+      "input": "",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "true",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "TRUE",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "yes",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "On",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "false",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "FALSE",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "no",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "off",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "0",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "-0",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "+0",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "0k",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": " 0",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "1",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "-1",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "2147483647",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "2147483648",
+      "valid": false
+    },
+    {
+      "input": "-2147483648",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "-2147483649",
+      "valid": false
+    },
+    {
+      "input": "0x7fffffff",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "0x80000000",
+      "valid": false
+    },
+    {
+      "input": "0x0",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "010",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "08",
+      "valid": false
+    },
+    {
+      "input": "0b1",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "0b0",
+      "valid": true,
+      "normalized": false
+    },
+    {
+      "input": "1k",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "2097151k",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "2097152k",
+      "valid": false
+    },
+    {
+      "input": "-2097152k",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "1m",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "1g",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "2g",
+      "valid": false
+    },
+    {
+      "input": "-2g",
+      "valid": true,
+      "normalized": true
+    },
+    {
+      "input": "3g",
+      "valid": false
+    },
+    {
+      "input": "1kb",
+      "valid": false
+    },
+    {
+      "input": "1b",
+      "valid": false
+    },
+    {
+      "input": "1junk",
+      "valid": false
+    },
+    {
+      "input": " ",
+      "valid": false
+    },
+    {
+      "input": "true ",
+      "valid": false
+    },
+    {
+      "input": " true",
+      "valid": false
+    },
+    {
+      "input": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "input": "on-demand",
+      "valid": false
+    },
+    {
+      "input": "only",
+      "valid": false
+    },
+    {
+      "input": "ONLY",
+      "valid": false
+    },
+    {
+      "input": "check",
+      "valid": false
+    },
+    {
+      "input": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "input": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "input": "if-asked",
+      "valid": false
+    },
+    {
+      "input": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "input": "if-asKed",
+      "valid": false
+    },
+    {
+      "input": "merges",
+      "valid": false
+    },
+    {
+      "input": "m",
+      "valid": false
+    },
+    {
+      "input": "MERGES",
+      "valid": false
+    },
+    {
+      "input": "interactive",
+      "valid": false
+    },
+    {
+      "input": "i",
+      "valid": false
+    },
+    {
+      "input": "preserve",
+      "valid": false
+    },
+    {
+      "input": "p",
+      "valid": false
+    }
+  ],
+  "cases": [
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "on-demand",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "checkout",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "on-demand",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "switch",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "on-demand",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "restore",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "on-demand",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "reset",
+      "flag": "--recurse-submodules",
+      "parser": "git-bool",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "on-demand",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "on-demand",
+      "valid": true
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "fetch",
+      "flag": "--recurse-submodules-default",
+      "parser": "fetch-recurse",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "on-demand",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--recurse-submodules",
+      "parser": "fetch-recurse",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "on-demand",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "merges",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "m",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "interactive",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "i",
+      "valid": true
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "pull",
+      "flag": "--rebase",
+      "parser": "pull-rebase",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "true",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "TRUE",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "yes",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "On",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "1",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "-1",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "2147483647",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "-2147483648",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "0x7fffffff",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "010",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "0b1",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "1k",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "2097151k",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "-2097152k",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "1m",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "1g",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "-2g",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "on-demand",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "only",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "check",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "only-is-on-demand",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "if-asked",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "IF-ASKED",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--recurse-submodules",
+      "parser": "push-recurse",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "on-demand",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "if-asked",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "IF-ASKED",
+      "valid": true
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "push",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "p",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "true",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "TRUE",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "yes",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "On",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "false",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "FALSE",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "no",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "off",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-0",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "+0",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0k",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": " 0",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-1",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2147483647",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2147483648",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-2147483648",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-2147483649",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0x7fffffff",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0x80000000",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0x0",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "010",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "08",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0b1",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "0b0",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1k",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2097151k",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2097152k",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-2097152k",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1m",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1g",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "2g",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "-2g",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "3g",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1kb",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1b",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "1junk",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": " ",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "true ",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": " true",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "on-demand",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "only",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "ONLY",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "check",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "only-is-on-demand",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "ONLY-IS-ON-DEMAND",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "if-asked",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "IF-ASKED",
+      "valid": true
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "if-asKed",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "merges",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "m",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "MERGES",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "interactive",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "i",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "preserve",
+      "valid": false
+    },
+    {
+      "command": "send-pack",
+      "flag": "--signed",
+      "parser": "push-signed",
+      "value": "p",
+      "valid": false
+    }
+  ]
+}
