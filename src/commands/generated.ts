@@ -74773,6 +74773,8 @@ const commandSpec206 = {
       key: 'color',
       value: 'optional-string',
       set: 'always',
+      allowed: ['always', 'auto', 'never'],
+      caseInsensitive: true,
     },
     '--ws-error-highlight': {
       key: 'ws-error-highlight',
@@ -75138,8 +75140,7 @@ const commandSpec206 = {
     '--no-color': {
       key: 'color',
       value: 'flag',
-      set: 'always',
-      clear: true,
+      set: 'never',
     },
     '--no-abbrev': {
       key: 'no-abbrev',
@@ -76419,6 +76420,15 @@ const commandSpec206 = {
   ],
   source: 'builtin/shortlog.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    origin: 'git',
+    reason:
+      'This single parse-options pass exits immediately at an internal help token, before subsequent callbacks or final semantic checks.',
+    source:
+      'Git 2.55.0 builtin/shortlog.c:cmd_shortlog parse_options_step/parse_revision_opt loop; parse-options.c; git.c:handle_builtin',
+    exceptFirst: ['--help'],
+  },
 } as const satisfies CommandSpec;
 const commandSpec207 = {
   argv: ['show-branch'],

@@ -1,0 +1,49 @@
+{
+  "version": "2.55.0",
+  "scope": "Compound decimal callbacks on the pinned LP64 strtoul and 32-bit int profile.",
+  "sources": {
+    "builtin/shortlog.c": "ff2972d3b5f9fcc9a9c583eab7e60126a27630b1d494d2dd5b01c44ecd351375",
+    "builtin/show-branch.c": "efb56979219739c571df41d98e07d88ee90f3b9e3c704d03a8cc5bed4cddf187"
+  },
+  "profiles": {
+    "shortlog-wrap": {
+      "kind": "tuple",
+      "separator": ",",
+      "decimal": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "unsignedLong": true,
+        "conversion": "checked"
+      },
+      "defaults": [
+        76,
+        6,
+        9
+      ],
+      "nonzeroGreaterThan": {
+        "index": 0,
+        "others": [
+          1,
+          2
+        ]
+      },
+      "source": "builtin/shortlog.c:parse_uint/parse_wrap_args"
+    },
+    "show-branch-reflog": {
+      "kind": "prefix",
+      "separator": ",",
+      "decimal": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "unsignedLong": true,
+        "conversion": "cast",
+        "empty": true
+      },
+      "source": "builtin/show-branch.c:parse_reflog_param"
+    }
+  }
+}

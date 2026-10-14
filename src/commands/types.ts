@@ -1,3 +1,4 @@
+import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
 import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
 import type { GitBooleanCallback, GitBooleanSource } from '../constraints/git-boolean.js';
 import type {
@@ -491,39 +492,47 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
     ? V extends undefined
       ? true
       : GitBooleanCallbackLiteral<V, P, BooleanSourceOf<D>>
-    : D extends {
-          parser: 'object-filter' | 'object-filter-auto';
-        }
-      ? V extends string
-        ? ObjectFilterLiteral<
+    : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+      ? V extends undefined
+        ? true
+        : CompoundDecimalLiteral<
             V,
-            D['parser'] extends 'object-filter-auto' ? true : false,
-            D extends { negativeMagnitudes: true } ? true : false
+            D['parser'],
+            D extends { compoundLongBits: infer B extends 32 | 64 } ? B : 64
           >
-        : true
-      : D extends { parser: 'perl-int' | 'perl-int-gnu' }
-        ? PerlIntegerLiteral<D, V>
-        : D extends { parser: 'fast-import-sign' }
-          ? ImportSignLiteral<V>
-          : D extends { parser: 'anonymize-map' }
-            ? V extends string
-              ? string extends V
-                ? true
-                : V extends object
+      : D extends {
+            parser: 'object-filter' | 'object-filter-auto';
+          }
+        ? V extends string
+          ? ObjectFilterLiteral<
+              V,
+              D['parser'] extends 'object-filter-auto' ? true : false,
+              D extends { negativeMagnitudes: true } ? true : false
+            >
+          : true
+        : D extends { parser: 'perl-int' | 'perl-int-gnu' }
+          ? PerlIntegerLiteral<D, V>
+          : D extends { parser: 'fast-import-sign' }
+            ? ImportSignLiteral<V>
+            : D extends { parser: 'anonymize-map' }
+              ? V extends string
+                ? string extends V
                   ? true
-                  : V extends ''
-                    ? false
-                    : V extends `${infer Key}:${infer Replacement}`
-                      ? Key extends ''
-                        ? false
-                        : Replacement extends ''
+                  : V extends object
+                    ? true
+                    : V extends ''
+                      ? false
+                      : V extends `${infer Key}:${infer Replacement}`
+                        ? Key extends ''
                           ? false
-                          : true
-                      : true
-              : true
-            : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-              ? ParsedScalarLiteral<D, V>
-              : true;
+                          : Replacement extends ''
+                            ? false
+                            : true
+                        : true
+                : true
+              : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+                ? ParsedScalarLiteral<D, V>
+                : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true
@@ -719,7 +728,9 @@ type DecimalProfiledOption<S, D extends OptionSpec> = S extends {
 }
   ? D extends { parser: infer P extends GitDecimalParser }
     ? Omit<D, 'parser'> & { parser: Omit<P, 'longBits'> & { longBits: Bits } }
-    : D
+    : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+      ? D & { compoundLongBits: Bits }
+      : D
   : D;
 type CallbackProfiledOption<S, D extends OptionSpec> = D extends {
   parser: infer P extends GitDecimalParser & { nativeCallback: GitDecimalCallback };
