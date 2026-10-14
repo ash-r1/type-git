@@ -1143,3 +1143,46 @@ This finite corpus does not establish complete coverage: configuration, object
 resolution, remaining callback grammars and completion exits stay open. Stash
 list's repository-dependent delegation requires a separate conditional phase.
 All 430 audit scopes remain partial.
+
+## Format-patch parser phases
+
+`format-patch` records its own first option table followed directly by
+`setup_revisions`; it does not run the log option table between these phases.
+The first pass preserves `--` and unknown words, consumes values and short
+clusters, and invokes its reached callbacks before local help. Subject/cover
+combination checks and revision/diff callbacks are skipped when help exits.
+
+For example, `format-patch -n -k -h` displays help before checking the conflicting
+subject modes. `format-patch --thread=bad -h` fails in the thread callback first.
+Repeated output directories also fail before help. A deferred invalid color is
+ignored when the first pass reaches help. The first-pass `-n` means numbered
+patches, while retained revision words use the revision dictionary. Consequently
+`-G -n x` leaves `-G x` after applying the numbering flag.
+
+`node scripts/format-patch-parser-corpus.mjs --check` reproduces 187 native
+outcomes, including permutations of early callbacks, final checks, revision
+callbacks, help and operands. Probes run in an isolated seeded repository with
+stdout selected and an empty revision range. Git's invalid thread callback can
+return status 129 with no diagnostic; the oracle distinguishes this from help
+by the actual usage output. Runtime and compiler tests consume the same native
+outcomes, and npm integration checks published declaration behavior.
+
+Repository/configuration state, identity parsing, object-name callbacks, files,
+resolved-series constraints and completion/global-help behavior remain partial.
+The existing subject/cover constraints are checked after replaying both phases;
+their keys cannot be overwritten by the later revision option dictionary. This
+preserves rejection but does not promise Git's ordering between two diagnostics.
+All audit scopes remain partial.
+
+The corpus fixes the observed integer profile as well as the decimal callback
+families. Git 2.25 accepts `--start-number=2147483648` through narrowing, while
+Git 2.55 and 2.56 reject it before help. Unpinned public literal checks retain
+that older supported behavior. `CheckedCommandArguments` contexts can pin
+`integerProfile` independently to `bounded` or `decimal-cast`; a decimal callback
+pin does not silently fix the integer profile.
+
+The growing native-oracle contract suite is checked as one complete TypeScript
+project. `pnpm test:types` sets a 6 GiB Node old-space limit so every source and
+contract root can remain in the same program. This changes the compiler's
+memory allowance; it does not skip diagnostics, remove fixtures or split the
+full contract check into independent compiler runs.

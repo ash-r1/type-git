@@ -314,3 +314,14 @@ export function testReflogWrapperTypes(git: Git): void {
   // @ts-expect-error No wrapper help exit suppresses this invalid callback.
   git.command('reflog show', [['--decorate', 'invalid']]);
 }
+
+/** Validate installed format-patch declarations across native parser phases. */
+export function testFormatPatchParserTypes(git: Git): void {
+  git.command('format-patch', [['-n'], ['-k'], ['-h']]);
+  git.command('format-patch', [['--cover-from-description', 'invalid'], ['-h']]);
+  git.command('format-patch', [['-h'], ['--thread', 'invalid']]);
+  // @ts-expect-error The thread callback executes before help.
+  git.command('format-patch', [['--thread', 'invalid'], ['-h']]);
+  // @ts-expect-error Repeated directory callbacks execute before help.
+  git.command('format-patch', [['-o', 'out'], ['-o', 'out'], ['-h']]);
+}
