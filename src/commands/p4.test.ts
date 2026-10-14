@@ -171,6 +171,9 @@ sys.exit('Unexpected P4 command: ' + repr(args))
         '١٢',
         '+2',
         '1\n',
+        '0b',
+        '0b 1',
+        '0b+1',
       ]) {
         const native = direct(['p4', 'clone', `--changes-block-size=${value}`, '--help']);
         expect(native.error).toBeUndefined();
@@ -180,7 +183,7 @@ sys.exit('Unexpected P4 command: ' + repr(args))
           commandArguments('p4 clone', [['--changes-block-size', value], ['--help']], true),
         ).toEqual(['p4', 'clone', `--changes-block-size=${value}`, '--help']);
       }
-      for (const value of ['', '1x', '08', '1__0', '-0x10']) {
+      for (const value of ['', '1x', '08', '1__0', '-0x10', '0b_1']) {
         const native = direct(['p4', 'clone', `--changes-block-size=${value}`, '--help']);
         expect(native.error).toBeUndefined();
         expect(native.signal).toBeNull();

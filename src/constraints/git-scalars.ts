@@ -23,6 +23,7 @@ export function pythonInteger(value: unknown): bigint | typeof PYTHON_INTEGER_DE
     radix = 16;
   } else if (/^0b/i.test(text)) {
     radix = 2;
+    // optparse removes this prefix and maps a bare 0b to 0 before calling int.
     text = text.slice(2) || '0';
   } else if (text.startsWith('0')) {
     radix = 8;
