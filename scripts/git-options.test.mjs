@@ -39,3 +39,11 @@ describe('ordered parser wrapper source metadata', () => {
     expect(() => gitOptions(upstream, changed, rules, groups, numeric)).toThrow('parser wrappers require firstPassTables');
   });
 });
+
+describe('retained argument partition state namespace', () => {
+  it('rejects a partition that would overwrite the second normalized operand', () => {
+    const changed = structuredClone(scopes);
+    changed['stash show'].parserExit.remainingPartition.operandKey = 'operand1';
+    expect(() => gitOptions(upstream, changed, rules, groups, numeric)).toThrow('invalid or colliding retained-word partition');
+  });
+});

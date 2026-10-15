@@ -340,9 +340,9 @@ git.command('log', [['--filter', 'blob:none'], ['--no-filter']]);
 git.command('log', [['--filter', 'blob:none']]);
 git.command('diff', [['-s'], ['--name-only'], ['--dirstat']]);
 
-// @ts-expect-error A required attached short value cannot preserve an empty regex in stash show.
+// @ts-expect-error The explicit empty word becomes an invalid empty stash reference.
 git.command('stash show', [['-I', ''], ['-p']]);
-// @ts-expect-error A required attached short value cannot preserve an empty order-file name.
+// @ts-expect-error The explicit empty order-file value becomes an invalid empty stash reference.
 git.command('stash show', [['-O', ''], ['-p']]);
 git.command('stash show', [['--ignore-matching-lines', ''], ['-p']]);
 
