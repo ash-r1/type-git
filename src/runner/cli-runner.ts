@@ -26,6 +26,7 @@ import {
   commandArguments,
   commandShapeArguments,
   commandUsesFirstPassEmpty,
+  commandHasLegacyStashHelp,
   commandUsesSubmoduleInitAlias,
   commandUsesDepthAtoi,
   validateArgvStrings,
@@ -680,6 +681,11 @@ export class CliRunner {
       }
       return binary ? this.runBytes(context, argv, opts) : this.run(context, argv, opts);
     };
+    // Old stash scans the parent argv for help before dispatch; newer Git stops
+    // at a subcommand. Let the selected Git decide this source-dependent exit.
+    if (commandHasLegacyStashHelp(command, args, inRepository)) {
+      return await execute(commandShapeArguments(command, args, inRepository));
+    }
     if (spec.guiScript) {
       const argv = commandArguments(command, args, inRepository);
       if ((binary && !this.exec.spawnBytes) || !this.fs.readFile || argv[1] === '--help') {

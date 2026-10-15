@@ -336,3 +336,29 @@ export function testConditionalStashTypes(git: Git): void {
   // @ts-expect-error A help exit cannot serialize a NUL byte.
   git.command('stash list', [['-h'], ['--format', '\0']]);
 }
+
+export function testNativeStashParserTypes(git: Git): void {
+  git.command('stash push', [['--unified', '-2'], ['-h']]);
+  git.command('stash pop', [{ operand: '-qh' }]);
+  git.command('stash apply', [{ operand: '--label-o=ours' }, ['-h']]);
+  git.command('stash store', [{ operand: '--unknown' }, ['-h']]);
+  git.command('stash save', [['--'], ['--unified', 'bad']]);
+  // Legacy parent help precedes the modern clear arity check.
+  git.command('stash clear', [{ operand: 'file' }, ['-h']]);
+  // Legacy parent help precedes the modern child integer callback.
+  git.command('stash push', [['--unified', 'bad'], ['-h']]);
+  // Legacy parent help precedes modern child abbreviation resolution.
+  git.command('stash apply', [{ operand: '--label=ours' }, ['-h']]);
+}
+
+/** Keep universal child failures distinct from source-dependent parent help. */
+export function testNativeStashWithoutHelp(git: Git): void {
+  // @ts-expect-error Without parent help, clear rejects positional operands.
+  git.command('stash clear', [{ operand: 'file' }]);
+  // @ts-expect-error A reached integer callback rejects malformed syntax.
+  git.command('stash push', [['--unified', 'bad']]);
+  // @ts-expect-error This child prefix does not select an unambiguous native option.
+  git.command('stash apply', [{ operand: '--label=ours' }]);
+  // @ts-expect-error Representation validation still runs before parent help.
+  git.command('stash clear', [['-h'], { operand: '\0' }]);
+}

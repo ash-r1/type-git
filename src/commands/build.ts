@@ -143,6 +143,7 @@ function buildArguments(
     firstCount: number;
     options: Readonly<Record<string, OptionSpec>>;
     original: readonly unknown[];
+    operandsOnly?: boolean;
   },
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
@@ -202,7 +203,14 @@ function buildArguments(
         // without an additional, potentially stale preflight in this builder.
         return serialized;
       }
-      const remaining = revisionParserPass(spec, pass.remaining);
+      const operandsOnly = spec.parserExit.remainingOperands !== undefined;
+      const words =
+        spec.parserExit.remainingOperands === 'drop-leading-dashdash' && pass.remaining[0] === '--'
+          ? pass.remaining.slice(1)
+          : pass.remaining;
+      const remaining = operandsOnly
+        ? words.map((operand) => ({ operand }))
+        : revisionParserPass(spec, words);
       buildArguments(
         command,
         [...pass.tokens, ...remaining],
@@ -215,6 +223,7 @@ function buildArguments(
           firstCount: pass.tokens.length,
           options: spec.parserExit.remainingOptions!,
           original: args,
+          operandsOnly,
         },
       );
       return serialized;
@@ -238,6 +247,9 @@ function buildArguments(
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
+    if (replay?.operandsOnly && index >= replay.firstCount) {
+      literalOperands = true;
+    }
     if (!Array.isArray(arg)) {
       const operand =
         arg !== null && typeof arg === 'object' && 'operand' in arg ? arg.operand : undefined;
@@ -589,6 +601,28 @@ export function commandShapeArguments(
   return buildArguments(command, args, inRepository, undefined, undefined, undefined, 'shape');
 }
 
+/** Observe the legacy stash parent's help exit without executing any child semantics. */
+export function commandHasLegacyStashHelp(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+): boolean {
+  if (command !== 'stash' && !command.startsWith('stash ')) {
+    return false;
+  }
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const words = commandShapeArguments(command, args, inRepository).slice(1);
+  return initialParserPass(spec, words, true, {
+    origin: 'git',
+    reason: 'Legacy stash parses help in an empty parent pass before child dispatch.',
+    source: 'Git 2.25.1 builtin/stash.c:cmd_stash',
+    flags: ['-h', '--help'],
+    firstPassOptions: [],
+    firstPassLongNames: [],
+    keepDashDash: true,
+  }).exited;
+}
+
 /** Detect an actually reached modern --empty callback, including a split value that becomes an option. */
 export function commandUsesFirstPassEmpty(
   command: GitCommandName,
@@ -628,6 +662,10 @@ function interpretedArguments(
       return pass.tokens;
     }
     if (!pass.delegated) {
+      // Terminal operands are never candidates for child option capability probes.
+      if (spec.parserExit.remainingOperands !== undefined) {
+        return pass.tokens;
+      }
       return [...pass.tokens, ...revisionParserPass(spec, pass.remaining)];
     }
   }
