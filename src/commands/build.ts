@@ -196,6 +196,12 @@ function buildArguments(
       return serialized;
     }
     if (!pass.delegated) {
+      if (spec.conditionalCommand) {
+        // A missing ref returns success before the child parses any values.
+        // Ref existence is unknown here; native Git evaluates its own gate
+        // without an additional, potentially stale preflight in this builder.
+        return serialized;
+      }
       const remaining = revisionParserPass(spec, pass.remaining);
       buildArguments(
         command,
@@ -615,6 +621,9 @@ function interpretedArguments(
     const command = spec.argv.join(' ') as GitCommandName;
     const words = commandShapeArguments(command, args, true);
     const pass = initialParserPass(spec, words.slice(spec.argv.length), emptyRegistered);
+    if (spec.conditionalCommand) {
+      return pass.tokens;
+    }
     if (pass.exited) {
       return pass.tokens;
     }

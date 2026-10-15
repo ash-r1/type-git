@@ -71,6 +71,16 @@ export type OptionSpec = {
   }[];
 };
 export type CompanionExecutable = 'scalar' | 'gitk' | 'gitweb';
+export type ConditionalCommand = Evidence & {
+  when: { refExists: string };
+  invoke: {
+    command: string;
+    prepend: readonly string[];
+    append: readonly string[];
+    exitStatus: 'boolean' | 'preserve';
+  };
+  otherwise: { exitCode: 0 };
+};
 export type CommandSpec = {
   /** Git GUI has a raw-word Tcl grammar, independently versioned from Git. */
   guiScript?: boolean;
@@ -92,6 +102,8 @@ export type CommandSpec = {
   separator: boolean;
   /** Native parser dispatch can stop at the first operand or treat all words as operands. */
   optionParsing?: 'stop-at-operand' | 'none';
+  /** After the empty first parser, repository state selects a child command or success. */
+  conditionalCommand?: ConditionalCommand;
   /** Audited parser exits; ignored words are serialized but not interpreted. */
   parserExit?: Evidence & {
     flags: readonly string[];
