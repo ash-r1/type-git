@@ -21,7 +21,7 @@ git.command('branch', [['--color', '-h'], ['--color', 'auto']]);
 git.command('branch', [['--list'], ['--'], ['-h'], ['--color', 'invalid']]);
 // @ts-expect-error A literal -h cannot suppress the final creation arity check.
 git.command('branch', [['--'], ['-h'], { operand: 'two' }, { operand: 'three' }]);
-// @ts-expect-error show-branch stops option interpretation at its first operand.
+// Show-branch stops option interpretation: Git resolves this literal ref.
 git.command('show-branch', [{ operand: 'HEAD' }, ['-h']]);
 // @ts-expect-error OS argv cannot represent NUL even after the parser exits.
 git.command('branch', [['-h'], ['--color', 'a\0b']]);
