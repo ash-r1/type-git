@@ -832,6 +832,37 @@ type OperandInitial<C extends GitCommandName, R extends readonly string[], S> = 
     ? Put<Put<Put<S, 'literalOperands', true>, 'ended', true>, 'hasSeparator', true>
     : Put<S, 'literalOperands', true>
   : Put<S, 'literalOperands', true>;
+// The operand consumer can recognize a boundary independently of parse-options.
+// Reset only examines argv[0..1]; checkout scans for the first retained --.
+type SplitOperandWords<
+  R extends readonly string[],
+  Max,
+  Before extends readonly string[] = readonly [],
+> = R extends readonly [infer H extends string, ...infer Rest extends readonly string[]]
+  ? H extends '--'
+    ? { before: Before; after: Rest }
+    : Before['length'] extends Max
+      ? { before: readonly [...Before, H, ...Rest] }
+      : SplitOperandWords<Rest, Max, readonly [...Before, H]>
+  : { before: Before };
+type OperandWordState<C extends GitCommandName, R extends readonly string[], S> = Spec<C> extends {
+  parserExit: { remainingSeparator: infer Separator };
+}
+  ? SplitOperandWords<R, Separator extends { maxIndex: infer Max } ? Max : never> extends infer P
+    ? P extends {
+        before: infer Before extends readonly string[];
+        after: infer After extends readonly string[];
+      }
+      ? State<
+          C,
+          OperandTokens<After>,
+          Put<Put<State<C, OperandTokens<Before>, S>, 'ended', true>, 'hasSeparator', true>
+        >
+      : P extends { before: infer Before extends readonly string[] }
+        ? State<C, OperandTokens<Before>, S>
+        : InvalidPass
+    : InvalidPass
+  : State<C, OperandTokens<R>, S>;
 /** Preserve the original tuple and selected profiles while replaying terminal operands. */
 type OperandPassState<
   C extends GitCommandName,
@@ -841,15 +872,13 @@ type OperandPassState<
 > = State<C, E, InitialState> extends infer S
   ? [S] extends [never]
     ? InvalidPass
-    : State<
+    : OperandWordState<
         C,
-        OperandTokens<
-          Spec<C> extends { parserExit: { remainingOperands: 'drop-leading-dashdash' } }
-            ? R extends readonly ['--', ...infer Rest extends string[]]
-              ? Rest
-              : R
+        Spec<C> extends { parserExit: { remainingOperands: 'drop-leading-dashdash' } }
+          ? R extends readonly ['--', ...infer Rest extends string[]]
+            ? Rest
             : R
-        >,
+          : R,
         OperandInitial<C, R, S>
       >
   : InvalidPass;
@@ -1488,6 +1517,34 @@ type PinnedCallbackAlternatives<
       : never
     : never
   : never;
+/** Skip a duplicate retry only when all remaining scalar axes equal the checked defaults. */
+type PinnedScalarAxesComplete<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = Ctx extends { integerProfile: 'bounded'; booleanSource: 'modern'; firstPassEmpty: true }
+  ? [
+      Extract<
+        Spec<C>['rules'][number],
+        {
+          kind: 'scalar';
+          parser: GitNumericParser | 'depth-initial' | 'object-filter' | 'object-filter-auto';
+        }
+      >,
+    ] extends [never]
+    ? [TupleCallbacks<C, A>] extends [never]
+      ? TupleIntegerTraits<C, A> extends true
+        ? false
+        : TupleUsesCompound<C, A> extends true
+          ? false
+          : Ctx extends { conflictStyle: 'immediate' }
+            ? true
+            : TupleUsesConflict<C, A> extends true
+              ? false
+              : true
+      : false
+    : false
+  : false;
 /** A decimal pin does not silently pin unrelated parser implementations. */
 type IndependentlyPinnedCallbacks<
   C extends GitCommandName,
@@ -1495,7 +1552,9 @@ type IndependentlyPinnedCallbacks<
   F extends GitDecimalCallbacks,
   Ctx extends CommandGrammarContext,
 > = [PinnedCallbackArguments<C, A, F, Ctx>] extends [never]
-  ? PinnedCallbackAlternatives<C, A, F, Ctx>
+  ? PinnedScalarAxesComplete<C, A, Ctx> extends true
+    ? never
+    : PinnedCallbackAlternatives<C, A, F, Ctx>
   : A;
 type CheckedLocalParserProfiles<
   C extends GitCommandName,
