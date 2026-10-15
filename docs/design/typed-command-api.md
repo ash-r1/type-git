@@ -1182,7 +1182,7 @@ that older supported behavior. `CheckedCommandArguments` contexts can pin
 pin does not silently fix the integer profile.
 
 The growing native-oracle contract suite is checked as one complete TypeScript
-project. `pnpm test:types` sets a 10 GiB Node old-space limit so every source and
+project. `pnpm test:types` sets an 11 GiB Node old-space limit so every source and
 contract root can remain in the same program. This changes the compiler's
 memory allowance; it does not skip diagnostics, remove fixtures or split the
 full contract check into independent compiler runs.
@@ -1395,7 +1395,7 @@ Both scoped and root-dispatched calls are checked. A valid `-h` ref matters afte
 invalid. Runtime and compiler fixtures consume the same native outcomes. The
 compiler corpus is divided deterministically into files of at most 400 cases,
 all included together with every source and other fixture in the existing
-10 GiB contract project. No isolated compiler batches are used.
+11 GiB contract project. No isolated compiler batches are used.
 
 Repository/configuration state, stash/revision object resolution, pathspec
 languages, remaining revision callbacks, completion and other native parser
@@ -1422,7 +1422,7 @@ is rejected after initial help timing, consistently with all four native version
 The full contract project exhausted the earlier 6 GiB heap after this corpus
 was added. A 10 GiB diagnostic run completed and exposed two real empty-reference
 regressions; those assertions remain and the corresponding rule is fixed.
-The standard command now uses 10 GiB without splitting the project or removing
+At that stage the standard command used 10 GiB without splitting the project or removing
 assertions. This increases the memory requirement; fresh CI must validate the
 complete project on the configured runner.
 
@@ -1451,7 +1451,7 @@ help words, and final path/rule probes use dry-run in an isolated repository
 with tracked dash-prefixed files. File-backed LF/NUL stdin supplies the selected
 pathspec input mode without a broken-pipe race on early help exits. Runtime and
 four compiler fixture files check all outcomes together with every other source
-and contract root in the standard 10 GiB project; none are omitted or isolated
+and contract root in the standard whole-contract project; none are omitted or isolated
 in separate compiler runs. Source-specific fixtures pin the recorded modern
 callback profiles; public checks retain independently selectable alternatives.
 
@@ -1494,7 +1494,7 @@ and valid object names `bad`, `1`, `-h`, `--`, and `file`, so consuming those
 words is not mistaken for a universal syntax error. Runtime and compiler checks
 cover every row. Compiler fixtures are deterministic shards of at most 400
 cases, all compiled together with every source and other contract root in the
-standard 10 GiB project. No isolated compiler batches are used.
+standard whole-contract project. No isolated compiler batches are used.
 
 These checks do not establish completeness: repository/configuration effects,
 nonempty object/ref resolution, tty-dependent columns, pathspecs, other callbacks,
@@ -1556,7 +1556,7 @@ native outcomes with tracked dash-prefixed files, valid dash-prefixed refs and
 file-backed LF/NUL stdin. Author/committer dates are fixed so diagnostic commit
 hashes also reproduce byte for byte. Deterministic compiler shards of at most 400 cases
 retain every outcome; all fixture files compile together with all source and
-other contract roots in the existing 10 GiB project. No isolated compiler batches
+other contract roots in the whole contract project. No isolated compiler batches
 or per-run incremental batch cache are used. Repository
 and configuration state, ref/path ambiguity, pathspec languages and files,
 interactive modes, remaining callbacks and parser modes remain audit obligations.
@@ -1601,7 +1601,7 @@ nontransitive relationships, parsed flags, sticky ambiguity, exact precedence,
 inherited flags and native rejection of nested/missing aliases.
 `node scripts/alias-parser-corpus.mjs --check` reproduces 9,997 independent native
 outcomes and compiler assertions, with fixture files of at most 400 cases, all checked together with every other
-source and contract root under the existing 10 GiB project limit.
+source and contract root under the whole contract project limit.
 The oracle uses fixed dates, a local remote with a configured upstream, and a
 dash-named remote. Clone destinations are fresh; final push/fetch probes use
 dry-run. No external network transfer is required.
@@ -1621,7 +1621,7 @@ it with the entire state again. A state is already assignable to itself, so
 this removes a redundant comparison without changing which rule outcomes pass.
 The existing universal check across finite union alternatives, help exits,
 independent parser profiles, original argv and all contract assertions remain.
-The whole project continues using the same 10 GiB limit.
+The whole project continues using one compilation; see the current heap setting below.
 
 
 ### Ordinary history and reference inspection passes
@@ -1646,9 +1646,53 @@ Fixed commit dates, valid dash-prefixed refs, readable message files and custom
 strategy executables distinguish syntax from unknown repository/filesystem
 state. Every row has a type assertion in files of no more than 400 outcomes; all files
 compile together with the complete source and contract project under the existing
-10 GiB limit.
+whole-project limit.
 The corpus is finite. Branch merge configuration, rebase state/configuration
 and trailers, show-branch configured default arguments, ref/format/path/file
 resolution, completion, other platforms and other parser modes remain open.
 All command audit scopes remain partial.
 
+
+
+### Reference subcommands and signature parser passes
+
+All five refs subcommands (migrate, verify, list, exists and optimize), show-ref,
+symbolic-ref, verify-tag and verify-commit now use their recorded ordinary option
+passes. Both end markers are consumed; remaining words are literal operands.
+KEEP_ARGV0 in verification commands is internal bookkeeping and does not count
+as a public operand. Refs list reuses the for-each-ref table and color grammar.
+
+The native table owns short-option lookup before internal help. Show-ref's -h
+is its HEAD display flag, including inside clusters; it cannot suppress later
+errors or final arity/mode checks. Its parser exits use a separately declared
+internal help spelling. The deterministic compiler selects the first declared
+exit spelling outside Git's excluded first-argument dispatcher position. The
+generator rejects a pass that has no such spelling. Explicit show-ref hash
+lengths reuse the source-audited abbrev callback grammar via hash_callback.
+
+`node scripts/ref-subcommand-corpus.mjs --check` reproduces 3,920 independent
+Git outcomes, each with a compiler assertion in files of at most 400 cases; all
+files compile together with the complete source and contract project under the
+existing whole-project limit.
+The oracle supplies valid dash-prefixed refs, including --help-all when a
+required callback consumes that word as its value. It classifies only grammar
+and selected final constraints: repository/keyring signature results, storage
+configuration, ref/format/stdin languages, parent refs dispatcher paths,
+completion and other modes remain separate obligations. All scopes are partial.
+
+### Whole-project heap for the reference subcommand corpus
+
+The complete project, including every native assertion, exceeded the former
+10 GiB V8 heap and aborted. Diagnostic execution with an 11 GiB heap completed
+with zero type errors: 226,279 TypeScript lines, 95,764,483 instantiations and
+11,193,647 KiB reported compiler memory, in about 17 minutes. Three measured
+implementation optimizations did not improve the focused baseline and were
+removed. No contract cases or source roots were removed.
+
+The standard command now uses `--max-old-space-size=11264`. It still checks all
+source and contract roots in one project, without a batch runner or incremental
+contract cache. This repository is public and its typecheck job uses
+`ubuntu-latest`, for which GitHub documents 16 GB RAM:
+https://docs.github.com/en/actions/reference/runners/github-hosted-runners .
+The diagnostic pass is evidence of local compilation; the new standard command
+also requires actual success on the PR's CI head before merge.
