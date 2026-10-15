@@ -601,6 +601,28 @@ export function commandShapeArguments(
   return buildArguments(command, args, inRepository, undefined, undefined, undefined, 'shape');
 }
 
+/** Observe the legacy stash parent's help exit without executing any child semantics. */
+export function commandHasLegacyStashHelp(
+  command: GitCommandName,
+  args: readonly unknown[],
+  inRepository?: boolean,
+): boolean {
+  if (command !== 'stash' && !command.startsWith('stash ')) {
+    return false;
+  }
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const words = commandShapeArguments(command, args, inRepository).slice(1);
+  return initialParserPass(spec, words, true, {
+    origin: 'git',
+    reason: 'Legacy stash parses help in an empty parent pass before child dispatch.',
+    source: 'Git 2.25.1 builtin/stash.c:cmd_stash',
+    flags: ['-h', '--help'],
+    firstPassOptions: [],
+    firstPassLongNames: [],
+    keepDashDash: true,
+  }).exited;
+}
+
 /** Detect an actually reached modern --empty callback, including a split value that becomes an option. */
 export function commandUsesFirstPassEmpty(
   command: GitCommandName,

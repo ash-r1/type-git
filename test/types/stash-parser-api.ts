@@ -13,17 +13,17 @@ git.command('stash clear', [['-h'], { operand: '-unknown' }]);
 git.command('stash push', [{ operand: dynamic }]);
 git.command('stash save', [['--'], ['--unified', 'bad']]);
 git.command('stash', [{ operand: 'push' }, ['--unified', '-2'], ['-h']]);
-// @ts-expect-error Integer syntax is checked by the reached callback before help.
+// Older parent parsing reaches help before the newer child integer callback.
 git.command('stash push', [['--unified', 'bad'], ['-h']]);
-// @ts-expect-error This prefix matches more than one native option.
+// The older parent help exit precedes child abbreviation resolution.
 git.command('stash apply', [{ operand: '--label=ours' }, ['-h']]);
-// @ts-expect-error A very short negation with attached data is not the bare --n spelling.
+// The older parent help exit also precedes child flag-value errors.
 git.command('stash drop', [{ operand: '--n=1' }, ['-h']]);
-// @ts-expect-error The raw literal union includes a forbidden value on a flag.
+// Both raw alternatives reach the older parent help exit.
 git.command('stash pop', [{ operand: branch }, ['-h']]);
-// @ts-expect-error Clear stops before -h, then rejects its remaining operands.
+// Older parent help precedes clear arity checks.
 git.command('stash clear', [{ operand: 'file' }, ['-h']]);
-// @ts-expect-error Unknown options fail in ordinary parsers before help.
+// Older parent help also precedes unknown child options.
 git.command('stash apply', [{ operand: '--unknown' }, ['-h']]);
 // @ts-expect-error Known NUL bytes remain unrepresentable even after help.
 git.command('stash drop', [['-h'], { operand: 'x\0y' }]);
@@ -31,3 +31,12 @@ git.command('stash drop', [['-h'], { operand: 'x\0y' }]);
 // Unpinned source context preserves the older native help outcome.
 git.command('stash push', [['--unified', '2147483648'], ['-h']]);
 git.command('stash save', [['--inter-hunk-context', '2147483648'], ['-h']]);
+
+import type { CheckedCommandArguments } from '../../src/commands/types.js';
+type Assert<T extends true> = T;
+type ClearHelp = readonly [{ readonly operand: 'file' }, readonly ['-h']];
+export type LegacyParentClearHelp = Assert<[CheckedCommandArguments<'stash clear', ClearHelp>] extends [never] ? false : true>;
+export type ModernParentClearError = Assert<[CheckedCommandArguments<'stash clear', ClearHelp, { stashParent: 'modern' }>] extends [never] ? true : false>;
+type BadIntegerHelp = readonly [readonly ['--unified', 'bad'], readonly ['-h']];
+export type LegacyParentIntegerHelp = Assert<[CheckedCommandArguments<'stash push', BadIntegerHelp>] extends [never] ? false : true>;
+export type ModernParentIntegerError = Assert<[CheckedCommandArguments<'stash push', BadIntegerHelp, { stashParent: 'modern' }>] extends [never] ? true : false>;

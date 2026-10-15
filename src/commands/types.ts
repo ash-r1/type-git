@@ -1720,6 +1720,36 @@ type CheckedDispatchedArguments<
       : CheckedLocalArguments<C, A, Ctx>
     : CheckedLocalArguments<C, A, Ctx>;
 
+/** The legacy empty parent pass can exit before any explicit stash child is parsed. */
+type LegacyStashHelp<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = C extends 'stash' | `stash ${string}`
+  ? Ctx extends { stashParent: 'modern' }
+    ? false
+    : InitialParserPass<
+          Omit<Spec<C>, 'parserExit'> & {
+            parserExit: {
+              origin: 'git';
+              reason: 'Legacy parent help precedes child dispatch';
+              source: 'Git 2.25.1 builtin/stash.c:cmd_stash';
+              flags: readonly ['-h', '--help'];
+              firstPassOptions: readonly [];
+              firstPassLongNames: readonly [];
+              keepDashDash: true;
+            };
+          },
+          A
+        > extends infer P
+      ? [P] extends [never]
+        ? false
+        : [P] extends [{ exited: true }]
+          ? true
+          : false
+      : false
+  : false;
+
 /** Select child grammar after precisely the native dispatcher's global options. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
@@ -1729,11 +1759,13 @@ export type CheckedCommandArguments<
   ? never
   : number extends A['length']
     ? A
-    : Spec<C> extends { guiScript: true }
-      ? CheckedLocalArguments<C, A, Ctx>
-      : [Dispatch<C>] extends [never]
+    : LegacyStashHelp<C, A, Ctx> extends true
+      ? A
+      : Spec<C> extends { guiScript: true }
         ? CheckedLocalArguments<C, A, Ctx>
-        : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
+        : [Dispatch<C>] extends [never]
+          ? CheckedLocalArguments<C, A, Ctx>
+          : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {

@@ -1288,3 +1288,20 @@ Git 2.25 displays help for the tested overflowing context-option sequences,
 whereas Git 2.55 and 2.56 report the reached integer range error before help.
 The public unpinned type retains that source-dependent acceptance; the pinned
 corpus does not narrow all supported Git versions to the recorded one.
+
+### Stash parent help across source profiles
+
+Git 2.25.1 parses an empty parent option table with KEEP_UNKNOWN and
+KEEP_DASHDASH before dispatching a stash child. Git 2.55 stops the parent pass
+at the selected subcommand instead. Thus `stash clear file -h` and
+`stash push --unified=bad -h` display parent help in the older Git but reach
+child errors in the newer Git. This is separate from integer lexical profiles.
+
+The unpinned compiler accepts a literal tuple when the older parent pass
+unconditionally reaches help. A Git 2.55 corpus pins `stashParent: 'modern'`
+independently of its integer profile. Runtime execution sends source-dependent
+parent-help cases unchanged to the selected Git, retaining its exact status and
+diagnostics without performing child capability probes first. Representation
+and NUL checks still run first. A retained `--` or an unknown `-xh` cluster does
+not invent a parent help exit. Other source-dependent stash behavior remains
+partial, including old option availability and non-help dispatch semantics.

@@ -13,6 +13,8 @@ export type CommandGrammarContext = {
   conflictStyle?: 'immediate' | 'deferred';
   booleanSource?: GitBooleanSource;
   firstPassEmpty?: boolean;
+  /** Pin the parent stash dispatch pass when validating a source-specific corpus. */
+  stashParent?: 'legacy' | 'modern';
   /** Pin named decimal callback families while leaving unspecified parser axes selectable. */
   decimalCallbacks?: GitDecimalCallbacks;
   /** Pin observed native integer storage/range handling independently of decimal callbacks. */
