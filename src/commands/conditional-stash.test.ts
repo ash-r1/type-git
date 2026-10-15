@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process';
 import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -77,22 +78,34 @@ describe('conditional stash-list delegation', () => {
   it('lets Git select the actual branch at invocation time through the public API', async () => {
     const root = await mkdtemp(join(tmpdir(), 'type-git-stash-api-'));
     try {
-      const git = new TypeGit({
-        inheritEnv: false,
-        env: {
-          PATH: process.env.PATH ?? '',
-          HOME: root,
-          XDG_CONFIG_HOME: root,
-          GIT_CONFIG_NOSYSTEM: '1',
-          GIT_CONFIG_GLOBAL: '/dev/null',
-          GIT_AUTHOR_NAME: 'Test',
-          GIT_AUTHOR_EMAIL: 'test@example.test',
-          GIT_COMMITTER_NAME: 'Test',
-          GIT_COMMITTER_EMAIL: 'test@example.test',
-          LC_ALL: 'C',
-        },
-      });
+      const env = {
+        PATH: process.env.PATH ?? '',
+        HOME: root,
+        XDG_CONFIG_HOME: root,
+        GIT_CONFIG_NOSYSTEM: '1',
+        GIT_CONFIG_GLOBAL: '/dev/null',
+        GIT_AUTHOR_NAME: 'Test',
+        GIT_AUTHOR_EMAIL: 'test@example.test',
+        GIT_COMMITTER_NAME: 'Test',
+        GIT_COMMITTER_EMAIL: 'test@example.test',
+        LC_ALL: 'C',
+        GIT_CONFIG_COUNT: '0',
+      };
+      const git = new TypeGit({ inheritEnv: false, env });
       const repo = await git.init(join(root, 'repo'));
+      /** Observe the selected native parent's status without assuming its normalization profile. */
+      const direct = (argv: readonly string[]) => {
+        const native = spawnSync('git', ['-C', repo.workdir, ...argv], {
+          env,
+          input: '',
+          encoding: 'utf8',
+          timeout: 10000,
+        });
+        expect(native.error).toBeUndefined();
+        expect(native.signal).toBe(null);
+        expect(native.status).not.toBe(null);
+        return native;
+      };
       await writeFile(join(repo.workdir, 'file'), 'one\n');
       await repo.add('file');
       await repo.commit({ message: 'seed' });
@@ -101,13 +114,24 @@ describe('conditional stash-list delegation', () => {
       await writeFile(join(repo.workdir, 'file'), 'two\n');
       expect((await repo.command('stash push', [['--message', 'saved']])).exitCode).toBe(0);
       const invalid = await repo.command('stash list', [['--color', 'bad']]);
-      expect(invalid.exitCode).toBe(1);
+      const nativeInvalid = direct(['stash', 'list', '--color=bad']);
+      expect(nativeInvalid.status).not.toBe(0);
+      expect(invalid.exitCode).toBe(nativeInvalid.status);
+      expect(invalid.stderr).toBe(nativeInvalid.stderr);
       expect(invalid.stderr).toContain('color');
       expect((await repo.command('stash list', [['--format', '%gs']])).stdout).toContain('saved');
-      expect((await repo.command('stash list', [['--decorate', 'bad'], ['-h']])).exitCode).toBe(
-        129,
-      );
-      expect((await repo.command('stash', [{ operand: 'list' }, ['--graph']])).exitCode).toBe(1);
+      const nativeHelp = direct(['stash', 'list', '--decorate=bad', '-h']);
+      expect([0, 129]).toContain(nativeHelp.status);
+      expect(nativeHelp.stdout + nativeHelp.stderr).toContain('usage:');
+      const help = await repo.command('stash list', [['--decorate', 'bad'], ['-h']]);
+      expect(help.exitCode).toBe(nativeHelp.status);
+      expect(help.stdout).toBe(nativeHelp.stdout);
+      expect(help.stderr).toBe(nativeHelp.stderr);
+      const nativeGraph = direct(['stash', 'list', '--graph']);
+      expect(nativeGraph.status).not.toBe(0);
+      const graph = await repo.command('stash', [{ operand: 'list' }, ['--graph']]);
+      expect(graph.exitCode).toBe(nativeGraph.status);
+      expect(graph.stderr).toBe(nativeGraph.stderr);
     } finally {
       await rm(root, { recursive: true, force: true });
     }

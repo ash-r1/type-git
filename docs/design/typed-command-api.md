@@ -1232,3 +1232,9 @@ artifacts. Child grammar/semantic validation remains delegated when repository
 state is unknown. Configuration, object/path resolution, completion exits and
 other conditional command pipelines remain audit obligations; all scopes remain
 partial.
+
+The conditional child plan and traced corpus pin Git 2.55's Boolean parent-status
+mapping. Newer Git can retain a positive child exit status; Git 2.56 also returns
+zero for successful local help. Public execution delegates to the selected Git,
+and live tests compare its exact status and diagnostics with an independent
+native invocation instead of assuming the pinned corpus's status mapping.

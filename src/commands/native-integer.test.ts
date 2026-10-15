@@ -238,7 +238,21 @@ describe('compiler-recorded native integer parsers', () => {
         { env, encoding: 'utf8', timeout: 5000 },
       );
       expect(native.error).toBeUndefined();
-      expect(native.status).toBe(129);
+      expect(native.signal).toBe(null);
+      if (reached) {
+        expect(native.status).toBe(129);
+      } else {
+        const help = spawnSync('git', ['-C', root, ...command.split(' '), '-h'], {
+          env,
+          encoding: 'utf8',
+          timeout: 5000,
+        });
+        expect(help.error).toBeUndefined();
+        expect(help.signal).toBe(null);
+        expect([0, 129]).toContain(help.status);
+        expect(help.stdout + help.stderr).toContain('usage:');
+        expect(native.status).toBe(help.status);
+      }
       expect(native.stderr.startsWith('error:'), `${command}: ${native.stderr}`).toBe(reached);
       const build = (): string[] => commandArguments(command, [[flag, 'invalid'], ['-h']], true);
       if (reached) {
