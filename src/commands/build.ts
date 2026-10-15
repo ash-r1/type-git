@@ -526,10 +526,12 @@ function buildArguments(
           !integerParser &&
           (interpretedInteger
             ? !['number', 'string', 'bigint'].includes(typeof value)
-            : !Number.isSafeInteger(value))
+            : parserExited
+              ? typeof value !== 'number'
+              : !Number.isSafeInteger(value))
         ) {
           throw new GitArgumentError(
-            `${flag}: expected ${interpretedInteger ? 'integer text, number or bigint' : 'a safe integer'}`,
+            `${flag}: expected ${interpretedInteger ? 'integer text, number or bigint' : parserExited ? 'a number' : 'a safe integer'}`,
           );
         }
         if (option.value.endsWith('string') && typeof value !== 'string') {

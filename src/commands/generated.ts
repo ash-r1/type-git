@@ -115527,6 +115527,10 @@ const commandSpec301 = {
         },
       ],
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -115542,6 +115546,14 @@ const commandSpec301 = {
   ],
   source: 'builtin/fast-import.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    origin: 'git',
+    reason:
+      'Git 2.56 parse-options exits at help before later callbacks. Earlier manual parsers terminate on a non-singleton help word as an unknown option; preserve original argv and let the selected executable return its actual exit status. A leading --help belongs to the global dispatcher.',
+    source: 'https://github.com/git/git/blob/v2.56.0/builtin/fast-import.c',
+  },
 } as const satisfies CommandSpec;
 const commandSpec302 = {
   argv: ['http-fetch'],
