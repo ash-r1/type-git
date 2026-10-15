@@ -35,6 +35,18 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
       });
       expect(native.error).toBeUndefined();
       expect(native.signal).toBeNull();
+      if (process.platform === 'win32') {
+        expect(native.status).toBe(129);
+        expect(native.stderr).toContain('color');
+        await expect(
+          repo.command('tag', [
+            ['--list'],
+            ['--file', ':(optional)message/child'],
+            ['--color', 'invalid'],
+          ] as never),
+        ).rejects.toBeInstanceOf(GitArgumentError);
+        return;
+      }
       expect(native.status).toBe(128);
       expect(native.stderr).toContain('could not stat message/child');
       const result = await repo.command('tag', [
@@ -145,6 +157,17 @@ describe.skipIf(!supportsOptionalStat)('selected native optional stat and callba
         timeout: 10000,
       });
       expect(native.error).toBeUndefined();
+      if (process.platform === 'win32') {
+        expect(native.status).toBe(129);
+        await expect(
+          repo.command('tag', [
+            ['--list'],
+            ['--file', ':(optional)file/child'],
+            { operand: tail },
+          ] as never),
+        ).rejects.toBeInstanceOf(GitArgumentError);
+        return;
+      }
       expect(native.status).toBe(128);
       const result = await repo.command('tag', [
         ['--list'],

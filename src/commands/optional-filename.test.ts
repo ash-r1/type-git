@@ -176,12 +176,12 @@ describe.skipIf(!modern && !older)('native filename state through the public API
     'defers ENOTDIR optional stat failure to the requested native command',
     async () => {
       const words = ['--list', '--file=:(optional)message/child'];
-      const expected = native(words, 128);
+      const expected = native(words, process.platform === 'win32' ? 0 : 128);
       const result = await repo.command('tag', [
         ['--list'],
         ['--file', ':(optional)message/child'],
       ]);
-      expect(result.exitCode).toBe(128);
+      expect(result.exitCode).toBe(expected.status);
       expect(result.stderr).toBe(expected.stderr);
     },
   );
@@ -206,6 +206,18 @@ describe.skipIf(!modern && !older)('native filename state through the public API
       });
       expect(expected.error).toBeUndefined();
       expect(expected.status).toBe(128);
+      if (process.platform === 'win32') {
+        expect(expected.stderr).toContain("options '-m' and '-F' cannot be used together");
+        await expect(
+          repo.command('commit', [
+            ['--dry-run'],
+            ['-m', 'inline'],
+            ['-F', 'message'],
+            ['-F', ':(optional)message/child'],
+          ] as never),
+        ).rejects.toBeInstanceOf(GitArgumentError);
+        return;
+      }
       expect(expected.stderr).toContain('could not stat message/child');
       const result = await repo.command('commit', [
         ['--dry-run'],
@@ -218,7 +230,21 @@ describe.skipIf(!modern && !older)('native filename state through the public API
     },
   );
   it.skipIf(!modern)('preserves optional stat failure before a later color callback', async () => {
-    const expected = native(['--list', '--file=:(optional)message/child', '--color=invalid'], 128);
+    const expected = native(
+      ['--list', '--file=:(optional)message/child', '--color=invalid'],
+      process.platform === 'win32' ? 129 : 128,
+    );
+    if (process.platform === 'win32') {
+      expect(expected.stderr).toContain('color');
+      await expect(
+        repo.command('tag', [
+          ['--list'],
+          ['--file', ':(optional)message/child'],
+          ['--color', 'invalid'],
+        ] as never),
+      ).rejects.toBeInstanceOf(GitArgumentError);
+      return;
+    }
     expect(expected.stderr).toContain('could not stat message/child');
     const result = await repo.command('tag', [
       ['--list'],

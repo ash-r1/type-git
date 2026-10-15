@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type { RuntimeAdapters } from '../core/adapters.js';
 import { CliRunner } from './cli-runner.js';
 
+/** Model distinct observed filename parser results without a Git version guess. */
 function runtime(negate: number, empty: number): RuntimeAdapters {
   return {
     exec: {

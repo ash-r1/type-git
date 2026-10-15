@@ -1821,3 +1821,11 @@ The fresh standard 12 GiB check succeeded with all 558 files and 231,693
 TypeScript lines: 108,089,458 instantiations, 12,134,386 KiB reported compiler
 memory and 1,238.48 seconds total. This is local compiler evidence; exact-head
 CI and review remain separate merge gates.
+
+
+Pinning `filenameProfile: 'optional'` selects the parser generation, not path
+existence. Unless `filenameIgnoredValues` is supplied explicitly, optional path
+states remain unknown and are explored independently. Windows Git can report
+`file/child` beneath an ordinary file as missing rather than ENOTDIR; native
+comparison tests retain its later callback/syntax errors instead of assuming the
+Unix stat diagnostic. The path is not read from command stdin.

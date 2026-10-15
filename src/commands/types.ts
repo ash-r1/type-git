@@ -1693,37 +1693,69 @@ type HasFilenameUpdate<
       : HasFilenameUpdate<C, R>
     : HasFilenameUpdate<C, R>
   : false;
+/** Project optional filename values without replaying unaffected whole tuples. */
+type OptionalFilenameValues<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  T = A[number],
+> = T extends readonly [infer K extends keyof Options<C>, infer V]
+  ? Options<C>[K] extends { emptyIsUnset: true }
+    ? Extract<V, `:(optional)${string}`>
+    : never
+  : never;
 /** Keep existing parser alternatives and add only observed filename profiles. */
 type CheckedLocalArguments<
   C extends GitCommandName,
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
-> = Ctx extends { filenameProfile: unknown }
-  ? CheckedLocalWithoutFilename<
-      C,
-      A,
-      Ctx & {
-        decimalCallbacks: Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
-          ? F
-          : {};
-      }
-    >
-  : HasFilenameUpdate<C, A> extends true
-    ? [CheckedLocalWithoutFilename<C, A, Ctx>] extends [never]
-      ?
-          | CheckedLocalWithoutFilename<
-              C,
-              A,
-              Ctx & { filenameProfile: 'legacy'; decimalCallbacks: {} }
-            >
-          | CheckedLocalWithoutFilename<
-              C,
-              A,
-              Ctx & { filenameProfile: 'intermediate'; decimalCallbacks: {} }
-            >
-          | FilenameFields<C, A, Ctx>
-      : A
-    : CheckedLocalWithoutFilename<C, A, Ctx>;
+> = Ctx extends { filenameProfile: 'optional' }
+  ? Ctx extends { filenameIgnoredValues: string }
+    ? CheckedLocalWithoutFilename<
+        C,
+        A,
+        Ctx & {
+          decimalCallbacks: Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+            ? F
+            : {};
+        }
+      >
+    : [OptionalFilenameValues<C, A>] extends [never]
+      ? CheckedLocalWithoutFilename<
+          C,
+          A,
+          Ctx & {
+            decimalCallbacks: Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+              ? F
+              : {};
+          }
+        >
+      : FilenameFields<C, A, Ctx>
+  : Ctx extends { filenameProfile: unknown }
+    ? CheckedLocalWithoutFilename<
+        C,
+        A,
+        Ctx & {
+          decimalCallbacks: Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+            ? F
+            : {};
+        }
+      >
+    : HasFilenameUpdate<C, A> extends true
+      ? [CheckedLocalWithoutFilename<C, A, Ctx>] extends [never]
+        ?
+            | CheckedLocalWithoutFilename<
+                C,
+                A,
+                Ctx & { filenameProfile: 'legacy'; decimalCallbacks: {} }
+              >
+            | CheckedLocalWithoutFilename<
+                C,
+                A,
+                Ctx & { filenameProfile: 'intermediate'; decimalCallbacks: {} }
+              >
+            | FilenameFields<C, A, Ctx>
+        : A
+      : CheckedLocalWithoutFilename<C, A, Ctx>;
 
 /** Replace only recognized aliases for type evaluation; emitted words are never rewritten. */
 type SubmoduleInitTokens<A extends readonly unknown[]> = A extends readonly [infer H, ...infer Rest]

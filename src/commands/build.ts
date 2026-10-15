@@ -1201,6 +1201,7 @@ export function commandFilenameTokens(
     return commandFilenameTokens(dispatched.command, dispatched.args, firstPassEmpty);
   }
   const updates: { key: string; value: unknown; ignore: boolean }[] = [];
+  /** Observe each filename token before a later native parse error can preempt it. */
   const collect = (token: readonly unknown[]): false => {
     const flag = token[0];
     const option =

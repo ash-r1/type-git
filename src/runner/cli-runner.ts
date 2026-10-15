@@ -689,6 +689,7 @@ export class CliRunner {
     validateIO(opts);
     validateArgvStrings(args);
     const binary = opts?.stdout === 'bytes';
+    /** Preserve filename observations while each existing ABI candidate is checked. */
     const build: typeof commandArguments = (
       name,
       tokens,
@@ -722,6 +723,7 @@ export class CliRunner {
       });
       traitArgs = prefix.tokens;
     }
+    /** Execute the original argv, or finish a read-only prefix validation without spawning it. */
     const execute = (argv: string[]): Promise<RawResult<string | Uint8Array>> => {
       if (validateOnly) {
         return Promise.resolve({
@@ -855,6 +857,7 @@ export class CliRunner {
         if (empty.aborted) {
           return { ...empty, stdout: binary ? new Uint8Array(0) : empty.stdout };
         }
+        /** Distinguish a retained filename from an ignored optional path using tag usage. */
         const usage = (result: RawResult): boolean =>
           result.exitCode === 129 && /usage: git tag/.test(result.stderr);
         const profile: FilenameProfile | undefined =

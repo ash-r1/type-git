@@ -1,4 +1,4 @@
-import type { GitCommandClient } from '../../src/commands/types.js';
+import type { CheckedCommandArguments, GitCommandClient } from '../../src/commands/types.js';
 declare const git: GitCommandClient;
 
 // Native Git 2.25/2.47 clears the supplied filename on negation. An unknown
@@ -62,3 +62,9 @@ git.command('commit', [['--pathspec-from-file', ':(optional)paths'], ['--file', 
 
 // Distinct optional paths can be absent and present in the same field's update sequence.
 git.command('tag', [['--list'], ['--file',':(optional)first'], ['--file','']]);
+
+// Pinning parser generation leaves the filesystem unknown.
+type Check<T extends true> = T;
+export type PinnedOptionalMissing = Check<[CheckedCommandArguments<'tag',readonly[readonly['--list'],readonly['--file',':(optional)missing']],{filenameProfile:'optional'}>] extends [never] ? false : true>;
+export type PinnedOptionalPresent = Check<[CheckedCommandArguments<'tag',readonly[readonly['--list'],readonly['--file',':(optional)missing']],{filenameProfile:'optional';filenameIgnoredValues:never}>] extends [never] ? true : false>;
+export type PinnedOptionalInvalidUnion = Check<[CheckedCommandArguments<'tag',readonly[readonly['--list'],readonly['--file','message'|':(optional)missing']],{filenameProfile:'optional'}>] extends [never] ? true : false>;
