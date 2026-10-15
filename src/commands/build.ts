@@ -595,7 +595,11 @@ function buildArguments(
           )
         : { valid: true, value });
     if (!parsed.valid) {
-      throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
+      if (option.parserErrorKey) {
+        state[option.parserErrorKey] = true;
+      } else {
+        throw new GitArgumentError(`${flag}: invalid ${option.parser} value ${String(value)}`);
+      }
     }
     if (option.consumesRest) {
       literalOperands = true;
@@ -615,7 +619,9 @@ function buildArguments(
         abi.stopBeforeFilename--;
       }
     }
-    if (option.toggle) {
+    if (!parsed.valid && option.parserErrorKey) {
+      // Getopt leaves the destination unchanged on an invalid value; its rc remains false.
+    } else if (option.toggle) {
       state[option.key] = state[option.key] !== true;
     } else if (option.repeat) {
       const previous = state[option.key];

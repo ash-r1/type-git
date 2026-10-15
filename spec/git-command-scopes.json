@@ -11115,7 +11115,9 @@
             "key": "ordinary-options",
             "set": true
           }
-        ]
+        ],
+        "parser": "perl-int-gnu",
+        "parserErrorKey": "invalid-integer"
       },
       "--smtp-domain": {
         "key": "smtp-domain",
@@ -11714,7 +11716,9 @@
             "key": "ordinary-options",
             "set": true
           }
-        ]
+        ],
+        "parser": "perl-int",
+        "parserErrorKey": "invalid-integer"
       },
       "--relogin-delay": {
         "key": "relogin-delay",
@@ -11724,7 +11728,9 @@
             "key": "ordinary-options",
             "set": true
           }
-        ]
+        ],
+        "parser": "perl-int",
+        "parserErrorKey": "invalid-integer"
       },
       "--git-completion-helper": {
         "key": "git-completion-helper",
@@ -11788,6 +11794,9 @@
         ],
         "set": false
       }
+    },
+    "initial": {
+      "invalid-integer": false
     }
   },
   "citool": {

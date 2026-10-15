@@ -50,3 +50,21 @@ it('keeps an invalid element witness even when placeholder words are allowed', (
     expect(violations([rule], witness).map(r => r.id)).toEqual([rule.id]);
   }
 });
+
+
+it('finds a deferred parser-error witness and preserves the completion guard', () => {
+  const rule = { id: 'deferred-integer', kind: 'forbid',
+    when: [{ key: 'invalid-integer', test: 'active' }],
+    guard: [{ key: 'completion', test: 'inactive' }],
+    origin: 'git', reason: 'Main GetOptions error follows completion', source: 'fixture' };
+  const spec = { initial: { 'invalid-integer': false }, rules: [rule], options: {
+    '--integer': { key: 'integer', value: 'integer', parser: 'perl-int', parserErrorKey: 'invalid-integer' },
+    '--completion': { key: 'completion', value: 'flag' },
+  } };
+  const domains = commandDomains(spec, r => [...r.when, ...r.guard].map(p => p.key));
+  const result = solve([rule], { 'invalid-integer': domains['invalid-integer'], completion: domains.completion });
+  const witness = result.counterexamples[rule.id];
+  expect(witness).toBeDefined();
+  expect(violations([rule], witness).map(r => r.id)).toEqual([rule.id]);
+  expect(violations([rule], { ...witness, completion: true })).toEqual([]);
+});

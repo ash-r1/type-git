@@ -125302,6 +125302,9 @@ const commandSpec335 = {
 } as const satisfies CommandSpec;
 const commandSpec336 = {
   argv: ['send-email'],
+  initial: {
+    'invalid-integer': false,
+  },
   options: {
     '--identity': {
       key: 'identity',
@@ -125605,6 +125608,8 @@ const commandSpec336 = {
           set: true,
         },
       ],
+      parser: 'perl-int-gnu',
+      parserErrorKey: 'invalid-integer',
     },
     '--smtp-domain': {
       key: 'smtp-domain',
@@ -126204,6 +126209,8 @@ const commandSpec336 = {
           set: true,
         },
       ],
+      parser: 'perl-int',
+      parserErrorKey: 'invalid-integer',
     },
     '--relogin-delay': {
       key: 'relogin-delay',
@@ -126214,6 +126221,8 @@ const commandSpec336 = {
           set: true,
         },
       ],
+      parser: 'perl-int',
+      parserErrorKey: 'invalid-integer',
     },
     '--git-completion-helper': {
       key: 'git-completion-helper',
@@ -126427,6 +126436,26 @@ const commandSpec336 = {
       origin: 'git',
       reason:
         'The native confirmation regexp accepts these prefixes, including trailing characters.',
+      source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
+    },
+    {
+      id: 'cli.send-email.integer-parser',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'invalid-integer',
+          test: 'active',
+        },
+      ],
+      guard: [
+        {
+          key: 'git-completion-helper',
+          test: 'inactive',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'The main GetOptions return code is checked after help and completion; any invalid integer keeps it false even if a later value is valid.',
       source: 'https://github.com/git/git/blob/v2.55.0/git-send-email.perl',
     },
   ],

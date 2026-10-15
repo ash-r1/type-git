@@ -46,6 +46,8 @@ export type OptionSpec = {
   before?: number;
   /** Values rejected immediately by the upstream option parser, even if later overwritten. */
   parser?: GitScalarParser;
+  /** Record a failed scalar parse for a later source-ordered rule instead of throwing immediately. */
+  parserErrorKey?: string;
   /** Selected Git may validate conflict style immediately or after parsing all options. */
   nativeEnumCallback?: 'conflict-style';
   /** A source-audited helper alias whose availability is observed on the selected executable. */

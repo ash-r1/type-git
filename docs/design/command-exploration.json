@@ -104935,8 +104935,13 @@
     },
     {
       "command": "send-email",
-      "rules": 7,
+      "rules": 8,
       "domains": {
+        "invalid-integer": [
+          "undefined",
+          "false",
+          "true"
+        ],
         "identity": [
           "undefined",
           "\"\"",
@@ -105408,9 +105413,9 @@
           "true"
         ]
       },
-      "total": "708253081453125000000000000000000000000",
-      "accepted": "151784083456031250000000000000000000000",
-      "nodes": 164,
+      "total": "2124759244359375000000000000000000000000",
+      "accepted": "409806129130031250000000000000000000000",
+      "nodes": 201,
       "isolatedRuleWitnesses": {
         "cli.send-email.alias-modes": "{\"dump-aliases\":true,\"operands\":[],\"translate-aliases\":true}",
         "cli.send-email.dump-aliases-options": "{\"dump-aliases\":true,\"operands\":[],\"ordinary-options\":true}",
@@ -105418,7 +105423,8 @@
         "cli.send-email.translate-aliases-options": "{\"operands\":[],\"ordinary-options\":true,\"translate-aliases\":true}",
         "cli.send-email.translate-aliases-operands": "{\"operands\":[\"value\"],\"translate-aliases\":true}",
         "cli.send-email.suppress-fields": "{\"operands\":[],\"suppress-cc\":[\"\"]}",
-        "cli.send-email.confirm-prefix": "{\"confirm\":\"\",\"operands\":[]}"
+        "cli.send-email.confirm-prefix": "{\"confirm\":\"\",\"operands\":[]}",
+        "cli.send-email.integer-parser": "{\"invalid-integer\":true,\"operands\":[]}"
       }
     },
     {

@@ -644,7 +644,11 @@ type CheckedTokenState<
   D extends OptionSpec,
   T extends readonly unknown[],
   Remaining extends readonly unknown[],
-> = AllowedLiteral<D, T> extends true ? CheckedCallbackState<S, D, T, Remaining> : never;
+> = AllowedLiteral<D, T> extends true
+  ? CheckedCallbackState<S, D, T, Remaining>
+  : D extends { parserErrorKey: infer K extends string }
+    ? Put<S, K, true>
+    : never;
 type ParsingEnded<C extends GitCommandName, S> = S extends
   | { ended: true }
   | { literalOperands: true }
