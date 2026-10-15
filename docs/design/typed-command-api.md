@@ -1487,7 +1487,7 @@ negations retain native last-assignment behavior. Commit cleanup is likewise a
 final rule, allowing `default`, `strip`, `whitespace`, `verbatim` and `scissors`,
 including under `--dry-run`.
 
-`node scripts/reference-parser-corpus.mjs --check` reproduces 9,796 independent
+`node scripts/reference-parser-corpus.mjs --check` reproduces 9,805 independent
 Git 2.55.0 outcomes. Native names supply deterministic prefix/negation candidates;
 Git supplies every expected outcome. A seeded repository has staged changes
 and valid object names `bad`, `1`, `-h`, `--`, and `file`, so consuming those
@@ -1514,3 +1514,7 @@ is invalid. An actual early help exit exempts only that state from final rules;
 a later `--no-column` can make all alternatives valid. Opaque strings and
 non-singleton template keys defer to runtime, while a known NUL word anywhere
 in the original tuple remains rejected before that deferral.
+
+The reference corpus includes both an actual trailing LF and literal backslash/n
+text as distinct untracked-mode inputs. The original escaped-text controls are
+retained alongside the nine added LF cases.

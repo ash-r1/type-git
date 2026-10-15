@@ -118,7 +118,7 @@
         "test/types/reference-parser-tag-corpus-4.ts",
         "test/types/reference-parser-tag-corpus-5.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,796 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "remote add": {
@@ -316,7 +316,7 @@
         "test/types/reference-parser-status-corpus-4.ts",
         "test/types/reference-parser-status-corpus-5.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,796 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "log": {
@@ -497,7 +497,7 @@
         "test/types/reference-parser-commit-corpus-8.ts",
         "test/types/reference-parser-commit-corpus-9.ts"
       ],
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,796 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
+      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
     },
     "diff": {
@@ -1627,7 +1627,7 @@
         "test/types/reference-parser-branch-corpus-7.ts"
       ],
       "typedCommandAPI": true,
-      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,796 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial."
+      "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial."
     },
     "stash clear": {
       "state": "partial",

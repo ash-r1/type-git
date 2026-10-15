@@ -140418,6 +140418,104 @@
       "tokens": [
         [
           "--untracked-files",
+          "1\n"
+        ]
+      ],
+      "argv": [
+        "status",
+        "--untracked-files=1\n"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Invalid untracked files mode '1"
+    },
+    {
+      "command": "status",
+      "tokens": [
+        [
+          "--untracked-files",
+          "1\n"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "status",
+        "--untracked-files=1\n",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "status",
+      "tokens": [
+        [
+          "--untracked-files",
+          "1\n"
+        ],
+        [
+          "--untracked-files",
+          "normal"
+        ]
+      ],
+      "argv": [
+        "status",
+        "--untracked-files=1\n",
+        "--untracked-files=normal"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "status",
+      "tokens": [
+        [
+          "--untracked-files",
+          "1\n"
+        ],
+        [
+          "--no-untracked-files"
+        ]
+      ],
+      "argv": [
+        "status",
+        "--untracked-files=1\n",
+        "--no-untracked-files"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "status",
+      "tokens": [
+        [
+          "--ignored",
+          "matching"
+        ],
+        [
+          "--untracked-files",
+          "1\n"
+        ]
+      ],
+      "argv": [
+        "status",
+        "--ignored=matching",
+        "--untracked-files=1\n"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Invalid untracked files mode '1"
+    },
+    {
+      "command": "status",
+      "tokens": [
+        [
+          "--untracked-files",
           "bad"
         ]
       ],
@@ -222308,6 +222406,95 @@
       "argv": [
         "commit",
         "--untracked-files=1\\n",
+        "--no-untracked-files",
+        "--dry-run"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--untracked-files",
+          "1\n"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--dry-run",
+        "--untracked-files=1\n"
+      ],
+      "valid": false,
+      "status": 128,
+      "diagnostic": "fatal: Invalid untracked files mode '1"
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--untracked-files",
+          "1\n"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--untracked-files=1\n",
+        "-h"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--dry-run"
+        ],
+        [
+          "--untracked-files",
+          "1\n"
+        ],
+        [
+          "--untracked-files",
+          "normal"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--dry-run",
+        "--untracked-files=1\n",
+        "--untracked-files=normal"
+      ],
+      "valid": true,
+      "status": 0,
+      "diagnostic": ""
+    },
+    {
+      "command": "commit",
+      "tokens": [
+        [
+          "--untracked-files",
+          "1\n"
+        ],
+        [
+          "--no-untracked-files"
+        ],
+        [
+          "--dry-run"
+        ]
+      ],
+      "argv": [
+        "commit",
+        "--untracked-files=1\n",
         "--no-untracked-files",
         "--dry-run"
       ],

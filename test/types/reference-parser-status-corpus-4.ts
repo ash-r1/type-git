@@ -402,5 +402,5 @@ export type NativeReferenceParserCases = readonly [
   Check<Accepted<[["--untracked-files","1\\n"],["--untracked-files","normal"]]> extends true ? true : false>,
   Check<Accepted<[["--untracked-files","1\\n"],["--no-untracked-files"]]> extends true ? true : false>,
   Check<Accepted<[["--ignored","matching"],["--untracked-files","1\\n"]]> extends false ? true : false>,
-  Check<Accepted<[["--untracked-files","bad"]]> extends false ? true : false>,
+  Check<Accepted<[["--untracked-files","1\n"]]> extends false ? true : false>,
 ];

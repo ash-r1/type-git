@@ -74,7 +74,7 @@ try {
     }
     if (command === 'status' || command === 'commit') {
       const prefix = command === 'commit' ? [['--dry-run']] : [];
-      for (const value of ['', 'no', 'NO', 'false', 'OFF', 'true', 'Yes', 'ON', 'normal', 'NORMAL', 'all', 'ALL', '0', '-0', '-1', '2147483647', '2147483648', '-2147483648', '-2147483649', '0x10', '0b10', '010', '08', '1k', '2g', '  +1', '1 ', '1\\n', 'bad']) {
+      for (const value of ['', 'no', 'NO', 'false', 'OFF', 'true', 'Yes', 'ON', 'normal', 'NORMAL', 'all', 'ALL', '0', '-0', '-1', '2147483647', '2147483648', '-2147483648', '-2147483649', '0x10', '0b10', '010', '08', '1k', '2g', '  +1', '1 ', '1\\n', '1\n', 'bad']) {
         sequences.push([...prefix, ['--untracked-files', value]], [['--untracked-files', value], ['-h']], [...prefix, ['--untracked-files', value], ['--untracked-files', 'normal']], [['--untracked-files', value], ['--no-untracked-files'], ...prefix]);
         if (command === 'status') sequences.push([['--ignored', 'matching'], ['--untracked-files', value]]);
       }

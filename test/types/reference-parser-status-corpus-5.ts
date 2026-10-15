@@ -3,6 +3,11 @@ import type { CheckedCommandArguments, GitCommandArgument } from '../../src/comm
 type Check<T extends true> = T;
 type Accepted<A extends readonly GitCommandArgument<"status">[]> = [CheckedCommandArguments<"status", A, { integerProfile: 'bounded'; firstPassEmpty: true; booleanSource: 'modern'; decimalCallbacks: { 'unified-context': 'modern'; 'revision-count': 'modern'; 'strip-count': 'modern'; 'daemon-count': 'modern'; 'daemon-timeout': 'modern'; 'daemon-init-timeout': 'modern' } }>] extends [never] ? false : true;
 export type NativeReferenceParserCases = readonly [
+  Check<Accepted<[["--untracked-files","1\n"],["-h"]]> extends true ? true : false>,
+  Check<Accepted<[["--untracked-files","1\n"],["--untracked-files","normal"]]> extends true ? true : false>,
+  Check<Accepted<[["--untracked-files","1\n"],["--no-untracked-files"]]> extends true ? true : false>,
+  Check<Accepted<[["--ignored","matching"],["--untracked-files","1\n"]]> extends false ? true : false>,
+  Check<Accepted<[["--untracked-files","bad"]]> extends false ? true : false>,
   Check<Accepted<[["--untracked-files","bad"],["-h"]]> extends true ? true : false>,
   Check<Accepted<[["--untracked-files","bad"],["--untracked-files","normal"]]> extends true ? true : false>,
   Check<Accepted<[["--untracked-files","bad"],["--no-untracked-files"]]> extends true ? true : false>,
