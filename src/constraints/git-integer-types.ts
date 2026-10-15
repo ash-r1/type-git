@@ -1,4 +1,5 @@
 import type { GitIntegerParser } from './git-integer.js';
+import type { UrlBytes } from './url-byte-types.js';
 import type { IntegerLimits, IntegerProducts } from './integer-type-tables.js';
 
 export type Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
@@ -62,7 +63,50 @@ type Scale<S extends string, U extends string> = U extends `0${infer R}`
   ? Scale<AddDigit<S, 2, '0'>, R>
   : S;
 // Extremely long or non-literal strings are deferred to runtime, not rejected by a compiler recursion limit.
+type Ascii = UrlBytes[Extract<
+  keyof UrlBytes,
+  `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'}${HexDigit}`
+>];
+// Any 65 significant base digits overflow even the widest supported destination.
+type SignificantOverflow<S extends string, Steps extends unknown[] = []> = S extends `0${infer R}`
+  ? Steps['length'] extends 128
+    ? false
+    : SignificantOverflow<R, [...Steps, 0]>
+  : SignificantTailOverflow<S, []>;
+type SignificantTailOverflow<
+  S extends string,
+  Steps extends unknown[],
+> = S extends `${infer H}${infer R}`
+  ? H extends HexDigit | Uppercase<HexDigit>
+    ? Steps['length'] extends 64
+      ? true
+      : SignificantTailOverflow<R, [...Steps, 0]>
+    : false
+  : false;
 type Digits<
+  S extends string,
+  B extends Base,
+> = S extends `${infer R}${'k' | 'K' | 'm' | 'M' | 'g' | 'G'}`
+  ? CheckedDigits<R, B> extends 'invalid'
+    ? 'invalid'
+    : ConvertDigits<S, B>
+  : CheckedDigits<S, B> extends 'invalid'
+    ? 'invalid'
+    : ConvertDigits<S, B>;
+type CheckedDigits<S extends string, B extends Base> = S extends `${infer H}${string}`
+  ? {} extends Record<H, unknown>
+    ? 'valid'
+    : KnownDigits<S, B>
+  : KnownDigits<S, B>;
+type KnownDigits<
+  S extends string,
+  B extends Base,
+> = S extends `${string}${Exclude<Ascii, Permitted<B> | Uppercase<Permitted<B>>>}${string}`
+  ? 'invalid'
+  : SignificantOverflow<S> extends true
+    ? 'invalid'
+    : 'valid';
+type ConvertDigits<
   S extends string,
   B extends Base,
   A extends string = '0',
@@ -82,7 +126,7 @@ type Digits<
           : 'invalid'
         : S extends `${infer H}${infer R}`
           ? Lowercase<H> extends Permitted<B>
-            ? Digits<R, B, AddDigit<A, B, Lowercase<H>>, true, [...Steps, 0]>
+            ? ConvertDigits<R, B, AddDigit<A, B, Lowercase<H>>, true, [...Steps, 0]>
             : `${number}` extends H
               ? 'dynamic'
               : `${bigint}` extends H
@@ -155,9 +199,11 @@ type ModernParsed<V, P extends GitIntegerParser> = V extends string | number | b
       : bigint extends V
         ? 'dynamic'
         : V extends number
-          ? AtMost<`${V}` extends `-${infer R}` ? R : `${V}`, '9007199254740991'> extends true
+          ? P extends { numberRepresentation: 'argv' }
             ? Signed<Trim<`${V}`>, P>
-            : 'invalid'
+            : AtMost<`${V}` extends `-${infer R}` ? R : `${V}`, '9007199254740991'> extends true
+              ? Signed<Trim<`${V}`>, P>
+              : 'invalid'
           : Signed<Trim<`${V}`>, P>
   : V extends undefined
     ? 'dynamic'
@@ -296,9 +342,11 @@ type MagnitudeParsed<V, P extends GitIntegerParser> = V extends string | number 
         : V extends object
           ? 'dynamic'
           : V extends number
-            ? AtMost<`${V}` extends `-${infer R}` ? R : `${V}`, '9007199254740991'> extends true
+            ? P extends { numberRepresentation: 'argv' }
               ? SignedMagnitude<`${V}`, P>
-              : 'invalid'
+              : AtMost<`${V}` extends `-${infer R}` ? R : `${V}`, '9007199254740991'> extends true
+                ? SignedMagnitude<`${V}`, P>
+                : 'invalid'
             : SignedMagnitude<`${V}`, P>
   : V extends undefined
     ? 'dynamic'

@@ -176,6 +176,14 @@ describe('compiler-recorded native integer parsers', () => {
           (!firstPass.includes(flag) ||
             spec.parserExit?.wrappers?.some((wrapper) => !wrapper.stopAtUnknown));
         for (const value of ['', 'invalid', '18446744073709551616', Number.MAX_SAFE_INTEGER + 1]) {
+          if (option.parser.numberRepresentation === 'argv' && typeof value === 'number') {
+            // These callbacks parse the emitted decimal text, including values beyond 2^53.
+            expect(parseGitScalar(option.parser, value, undefined, 64).valid).toBe(true);
+            expect(() =>
+              commandArguments(command, [[flag, value]], true, { longBits: 64, sizeTBits: 64 }),
+            ).not.toThrow();
+            continue;
+          }
           expect(parseGitScalar(option.parser, value).valid, `${command} ${flag}`).toBe(false);
           const build = (): string[] =>
             commandArguments(command, [[flag, value], [flag, 1], ['-h']], true);
@@ -226,6 +234,14 @@ describe('compiler-recorded native integer parsers', () => {
           continue;
         }
         for (const value of ['', 'invalid', '18446744073709551616', Number.MAX_SAFE_INTEGER + 1]) {
+          if (option.parser.numberRepresentation === 'argv' && typeof value === 'number') {
+            // These callbacks parse the emitted decimal text, including values beyond 2^53.
+            expect(parseGitScalar(option.parser, value, undefined, 64).valid).toBe(true);
+            expect(() =>
+              commandArguments(command, [[flag, value]], true, { longBits: 64, sizeTBits: 64 }),
+            ).not.toThrow();
+            continue;
+          }
           const build = (): string[] =>
             commandArguments(
               command,

@@ -7,6 +7,8 @@ export type GitIntegerParser = {
   bits: 8 | 16 | 32 | 64;
   /** Source-declared width resolved from the selected Git build. */
   nativeWidth?: 'long' | 'size_t';
+  /** Validate String(number) as emitted argv instead of imposing JavaScript safe-integer bounds. */
+  numberRepresentation?: 'argv';
   /** Explicit source family; public command clients consider supported alternatives. */
   integerProfile?: GitIntegerProfile;
   /** Older strtoumax magnitude parsing permits a minus sign before uintmax conversion. */
@@ -20,7 +22,11 @@ export function parseGitInteger(
   binaryIntegers = true,
   negativeMagnitudes = false,
 ): bigint | undefined {
-  if (typeof value === 'number' && !Number.isSafeInteger(value)) {
+  if (
+    parser.numberRepresentation !== 'argv' &&
+    typeof value === 'number' &&
+    !Number.isSafeInteger(value)
+  ) {
     return undefined;
   }
   if (typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'bigint') {
@@ -61,7 +67,11 @@ export function parseLegacyGitInteger(
   parser: GitIntegerParser,
   longBits: 32 | 64,
 ): bigint | undefined {
-  if (typeof value === 'number' && !Number.isSafeInteger(value)) {
+  if (
+    parser.numberRepresentation !== 'argv' &&
+    typeof value === 'number' &&
+    !Number.isSafeInteger(value)
+  ) {
     return undefined;
   }
   if (!['number', 'string', 'bigint'].includes(typeof value)) {

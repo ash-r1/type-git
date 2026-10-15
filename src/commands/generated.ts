@@ -115409,13 +115409,27 @@ const commandSpec301 = {
     },
     '--max-pack-size': {
       key: 'max-pack-size',
-      value: 'string',
+      value: 'integer',
       repeat: true,
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+        numberRepresentation: 'argv',
+      },
     },
     '--big-file-threshold': {
       key: 'big-file-threshold',
-      value: 'string',
+      value: 'integer',
       repeat: true,
+      parser: {
+        kind: 'integer',
+        signed: false,
+        bits: 64,
+        nativeWidth: 'long',
+        numberRepresentation: 'argv',
+      },
     },
     '--export-pack-edges': {
       key: 'export-pack-edges',
