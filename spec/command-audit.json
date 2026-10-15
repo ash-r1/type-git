@@ -5777,9 +5777,12 @@
         "test/types/string-callbacks.ts",
         "test/types/string-callback-corpus.ts",
         "src/commands/fast-import.test.ts",
-        "test/types/fast-import-parser-exits-command-api.ts"
+        "test/types/fast-import-parser-exits-command-api.ts",
+        "src/commands/fast-import-ulong.test.ts",
+        "test/types/fast-import-ulong-command-api.ts",
+        "test/fixtures/fast-import-ulong-native.json"
       ],
-      "remaining": "Complete data-stream/feature/object-ID/marks/path/submodule-map handling, unsigned-long scalar lexical and ABI boundaries, packing and signing execution/configuration remain pending. Depth upper bound and signing callback literals are modeled; separator availability is selected-native-dependent and is not claimed universal. Anonymization-map and signature-mode callback string languages now share declarative runtime/compiler profiles with a finite native oracle. Compiler-budget and symbolic values defer to runtime; stream commands, key resolution, non-exiting parser phases, other callbacks and environment conditions remain open. Ordered help termination is modeled across the observed manual and parse-options families: later callbacks are ignored, reached callbacks remain constrained, and the selected native executable retains its actual help/error status. A leading --help still uses the shared dispatcher policy; its tail grammar remains under audit. Ignored numeric tail words require number representation rather than JavaScript safe-integer semantics; this does not resolve ordinary unsigned-long lexical/ABI gaps or unsupported-option availability."
+      "remaining": "Models source-audited ulong_arg acceptance for depth, active-branches and cat-blob-fd: base-zero text/number/bigint inputs, no minus, complete consumption, overflow acceptance for branch counts and fixed callback bounds. Binary prefixes are a portable C23 arm whose availability remains the selected executable's responsibility; actual native failure is retained on runtimes without that arm. Native source fixtures and live comparisons cover radix, signs, whitespace, bounds, saturation and large literals. Runtime execution still consumes the original argv. Compiler-budget/opaque values retain runtime checks; certainly overflowing bounded prefixes are rejected before conversion budget exhaustion. Git configuration numeric callbacks for max-pack-size/big-file-threshold, full stdin/feature/object-ID/marks/path/submodule-map handling, packing/signing/key resolution and leading global --help tail grammar remain pending. Earlier manual parsers retain actual unknown-help errors. Separator availability remains native dependent. Unsupported signing-option availability remains under audit."
     },
     "http-fetch": {
       "state": "partial",

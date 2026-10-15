@@ -1,0 +1,1013 @@
+{
+  "source": "Git 2.55.0, Linux LP64, LC_ALL=C; empty stream done; direct native observations, not model-generated. Binary prefixes depend on the selected C runtime; live tests retain native rejection where unsupported.",
+  "cases": [
+    {
+      "flag": "--active-branches",
+      "valueText": "",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": " ",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "00",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "010",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "08",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0x10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0X10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0x",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0b10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0B10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0b2",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "1k",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "1_2",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "1.0",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "1e3",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "+1",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "-0",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "-1",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": " 12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "\t12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "12 ",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "12\n",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "\n12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "8191",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "8192",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0x1fff",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0x2000",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "2147483647",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "2147483648",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0x7fffffff",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0x80000000",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "4294967295",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "4294967296",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "18446744073709551615",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "18446744073709551616",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "-18446744073709551616",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0xffffffffffffffff",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0x10000000000000000",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "+",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "++1",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "0",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "1",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "8191",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "8192",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "2147483647",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "2147483648",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "9007199254740992",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "18446744073709551616",
+      "valueKind": "bigint",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "1.5",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "NaN",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "Infinity",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": " ",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "00",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "010",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "08",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0x10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0X10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0x",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0b10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0B10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0b2",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "1k",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "1_2",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "1.0",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "1e3",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "+1",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "-0",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "-1",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": " 12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "\t12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "12 ",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "12\n",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "\n12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "8191",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "8192",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0x1fff",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0x2000",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "2147483647",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "2147483648",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0x7fffffff",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0x80000000",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "4294967295",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "4294967296",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "18446744073709551615",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "18446744073709551616",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "-18446744073709551616",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0xffffffffffffffff",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0x10000000000000000",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "+",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "++1",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "0",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "1",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "8191",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "8192",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "2147483647",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "2147483648",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "9007199254740992",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "18446744073709551616",
+      "valueKind": "bigint",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "1.5",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "NaN",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--depth",
+      "valueText": "Infinity",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": " ",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "00",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "010",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "08",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0x10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0X10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0x",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0b10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0B10",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0b2",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "1k",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "1_2",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "1.0",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "1e3",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "+1",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "-0",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "-1",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": " 12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "\t12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "12 ",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "12\n",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "\n12",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "8191",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "8192",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0x1fff",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0x2000",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "2147483647",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "2147483648",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0x7fffffff",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0x80000000",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "4294967295",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "4294967296",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "18446744073709551615",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "18446744073709551616",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "-18446744073709551616",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0xffffffffffffffff",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0x10000000000000000",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "+",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "++1",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "0",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "1",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "8191",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "8192",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "2147483647",
+      "valueKind": "number",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "2147483648",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "9007199254740992",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "18446744073709551616",
+      "valueKind": "bigint",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "1.5",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "NaN",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "Infinity",
+      "valueKind": "number",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "valueKind": "string",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--active-branches",
+      "valueText": "                                                                                                                                                                1",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--depth",
+      "valueText": "                                                                                                                                                                1",
+      "valueKind": "string",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--cat-blob-fd",
+      "valueText": "                                                                                                                                                                1",
+      "valueKind": "string",
+      "nativeExit": 0
+    }
+  ]
+}
