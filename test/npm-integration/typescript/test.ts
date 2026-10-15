@@ -386,3 +386,14 @@ export function testStashTransferTypes(git: Git): void {
   // Legacy parent help exits before the newer child command-mode flag check.
   git.command('stash export', [{ operand: '--no-print' }, ['-h']]);
 }
+
+/** Check partition declarations without narrowing away legacy parent help. */
+export function testStashShowPartitionTypes(git: Git): void {
+  git.command('stash show', [['--color', 'bad'], ['-h']]);
+  git.command('stash show', [['--'], ['--default', 'foo']]);
+  git.command('stash show', [['--'], ['-h'], { operand: '-unknown' }]);
+  // @ts-expect-error Plain words after -- still count as stash references.
+  git.command('stash show', [['--'], { operand: 'foo' }, { operand: 'one' }]);
+  // Legacy parent help may exit before the modern own-table flag check.
+  git.command('stash show', [{ operand: '--include-untracked=1' }, ['-h']]);
+}

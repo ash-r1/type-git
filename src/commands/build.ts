@@ -1,4 +1,4 @@
-import { revisionParserPass } from './revision-parser-pass.js';
+import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
 import { initialParserPass } from './initial-parser-pass.js';
 import {
   isBooleanCallback,
@@ -145,6 +145,7 @@ function buildArguments(
     original: readonly unknown[];
     operandsOnly?: boolean;
     operandBoundary?: boolean;
+    partitionState?: Readonly<Record<string, readonly string[]>>;
   },
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
@@ -204,10 +205,12 @@ function buildArguments(
         // without an additional, potentially stale preflight in this builder.
         return serialized;
       }
+      const partition = partitionRemainingArguments(spec, pass.remaining);
       const operandsOnly = spec.parserExit.remainingOperands !== undefined;
       const operandBoundary =
-        spec.parserExit.remainingOperands === 'drop-leading-dashdash' && pass.remaining[0] === '--';
-      const words = operandBoundary ? pass.remaining.slice(1) : pass.remaining;
+        spec.parserExit.remainingOperands === 'drop-leading-dashdash' &&
+        partition.words[0] === '--';
+      const words = operandBoundary ? partition.words.slice(1) : partition.words;
       const remaining = operandsOnly
         ? words.map((operand) => ({ operand }))
         : revisionParserPass(spec, words);
@@ -225,6 +228,7 @@ function buildArguments(
           original: args,
           operandsOnly,
           operandBoundary,
+          partitionState: partition.state,
         },
       );
       return serialized;
@@ -236,6 +240,7 @@ function buildArguments(
   const pathsAfterSeparator: string[] = [];
   const state: Record<string, unknown> = {
     ...spec.initial,
+    ...replay?.partitionState,
     argumentTokens: replay?.original ?? args,
     operands,
     inRepository,
@@ -674,7 +679,8 @@ function interpretedArguments(
       if (spec.parserExit.remainingOperands !== undefined) {
         return pass.tokens;
       }
-      return [...pass.tokens, ...revisionParserPass(spec, pass.remaining)];
+      const partition = partitionRemainingArguments(spec, pass.remaining);
+      return [...pass.tokens, ...revisionParserPass(spec, partition.words)];
     }
   }
   for (const [index, token] of args.entries()) {

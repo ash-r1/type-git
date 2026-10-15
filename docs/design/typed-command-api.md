@@ -102,7 +102,7 @@ All seven explicit reflog operations now have typed scopes. `reflog show` initia
 
 Operation grammars follow the implementation: `reflog exists` requires at least one operand and ignores extras; `write` requires four; `list` requires none; `delete` requires at least one. `drop --all` rejects explicit refs, whereas `expire --all` also processes explicit refs. A lone `--single-worktree` and an empty `drop` are accepted rather than prohibited based on usage text.
 
-`stash show` first separates non-dash words from revision/diff arguments. Its short value options therefore use `attachedValue`, emitting `-Sneedle` instead of `-S needle`; `-u` remains the stash parent option. Git's manually parsed `--default` only accepts a detached value, which must itself start with a dash to stay in that command's revision argument stream. Required attached short values cannot be empty: a detached empty word becomes a stash reference, while attaching it would lose the value boundary. Valid empty long values such as `--ignore-matching-lines=` remain supported. Stash revision operands are limited to one. `stash list` still needs a conditional delegation model: it returns before invoking log if no stash ref exists, and its outer parser consumes separators. It must not simply inherit unconditional log validation.
+`stash show` first separates non-dash words from revision/diff arguments. Its short value options therefore use `attachedValue`, emitting `-Sneedle` instead of `-S needle`; `-u` remains the stash parent option. Git's manually parsed `--default` only accepts a detached value, which must itself start with a dash to stay in that command's revision argument stream. Required attached short values preserve a separate empty word. Without initial help, that word becomes an invalid empty stash reference; with initial help, Git exits before resolving it. Valid empty long values such as `--ignore-matching-lines=` remain supported. Stash revision operands are limited to one. `stash list` still needs a conditional delegation model: it returns before invoking log if no stash ref exists, and its outer parser consumes separators. It must not simply inherit unconditional log validation.
 
 The manual candidate extractor now recognizes parenthesized string literals, including `--filter` and `--no-filter` (131 candidates). Active object filters require object enumeration; clearing a filter removes that requirement. The shared diff model also records that dirstat callbacks clear the suppressed-output bit.
 
@@ -1182,7 +1182,7 @@ that older supported behavior. `CheckedCommandArguments` contexts can pin
 pin does not silently fix the integer profile.
 
 The growing native-oracle contract suite is checked as one complete TypeScript
-project. `pnpm test:types` sets a 6 GiB Node old-space limit so every source and
+project. `pnpm test:types` sets a 10 GiB Node old-space limit so every source and
 contract root can remain in the same program. This changes the compiler's
 memory allowance; it does not skip diagnostics, remove fixtures or split the
 full contract check into independent compiler runs.
@@ -1359,3 +1359,69 @@ display parent help before recognizing an unsupported transfer child or its
 command-mode flags. The public unpinned type retains that help alternative;
 actual execution preserves the selected native status and diagnostics. This
 does not claim import/export support on Git 2.25.
+
+## Stash show retained-argument partition
+
+`parserExit.remainingPartition` records an ordered prefix partition before the
+revision parser. Words beginning with `optionPrefix` remain in the option stream;
+all other words populate the separate `operandKey` array. The runtime and bounded
+literal interpreters use the same declaration. The generator checks the state
+key for collisions, and deterministic state exploration includes its operand
+cardinality domain. These normalized states are not a proof of argv reachability.
+
+For `stash show`, the initial KEEP_UNKNOWN_OPT pass handles its own untracked
+flags and help. It then partitions every retained word by a leading `-`, even
+words after `--`. Plain words are stash references; dash-prefixed words enter
+setup_revisions, which performs its own end-marker processing. For example,
+`stash show -- --default foo` uses `foo` as the stash reference and `--default`
+as a path. `stash show -- -h -unknown` has no explicit stash reference and two
+paths. In contrast, `stash show -- foo one` supplies two stash references and
+fails arity validation. Path arguments never increase the stash-reference count.
+
+The modern initial pass rejects `--include-untracked=1 -h` before help;
+Git 2.25 parent help can exit before that child-table check. Unknown diff
+words are deferred: `--color=bad -h` displays help without running the color
+callback. Long abbreviations are disabled in that initial KEEP_UNKNOWN_OPT pass.
+Detached values are partitioned too: without help, `--default foo` leaves the
+revision parser with a missing value. Existing native revision/diff dictionaries
+and the shared color grammar apply only to the resulting revision stream.
+Dynamic words, symbolic numeric templates and compiler-budget-exceeding literals
+are deferred; known literal NUL remains rejected before parsing.
+
+`node scripts/stash-show-corpus.mjs --check` reproduces all 1,150 independent
+Git 2.56.0 outcomes against the pinned Git 2.55 option vocabulary in a repository with a real stash and valid plain/dash-prefixed refs.
+Both scoped and root-dispatched calls are checked. A valid `-h` ref matters after
+`--end-of-options`: a missing ref failure does not make that spelling universally
+invalid. Runtime and compiler fixtures consume the same native outcomes. The
+compiler corpus is divided deterministically into files of at most 400 cases,
+all included together with every source and other fixture in the existing
+10 GiB contract project. No isolated compiler batches are used.
+
+Repository/configuration state, stash/revision object resolution, pathspec
+languages, remaining revision callbacks, completion and other native parser
+modes remain open. Every audit scope remains partial.
+
+The stable execution corpus uses unmodified Git 2.56.0 because the local
+unmodified Git 2.55.0 aborts on `stash show -G -L`. The full 2.55 observation
+mode (`--observe --output=...`) retains every candidate, ordinary status and
+signal; it does not infer argument validity from abnormal termination. The
+2.56 release notes describe deferred revision-argument freeing to prevent
+use-after-free, consistent with the cross-version native controls. All 1,150
+cases remain in the stable corpus and compile together; no case is removed
+to hide a native failure, and valid arguments on other Git profiles are not
+rejected merely because one Git implementation crashes.
+
+Required attached short options keep an explicit empty value as a separate
+argv word, including before an early help exit. The type-level serializer
+preserves the same boundary. Two empty values can therefore contribute two
+stash references before a deferred callback; removing those words would
+change the native argument partition. Eighteen additional scoped/root controls
+cover these empty-value and help boundaries. An explicit empty stash reference
+is rejected after initial help timing, consistently with all four native versions.
+
+The full contract project exhausted the earlier 6 GiB heap after this corpus
+was added. A 10 GiB diagnostic run completed and exposed two real empty-reference
+regressions; those assertions remain and the corresponding rule is fixed.
+The standard command now uses 10 GiB without splitting the project or removing
+assertions. This increases the memory requirement; fresh CI must validate the
+complete project on the configured runner.

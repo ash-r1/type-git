@@ -32,6 +32,7 @@ export function commandDomains(spec, referencedKeys) {
     }
   }
   domains.operands = [[], ['value'], ['value', 'value'], ['value', 'value', 'value'], ['value', 'value', 'value', 'value']];
+  if (spec.parserExit?.remainingPartition) domains[spec.parserExit.remainingPartition.operandKey] = [...domains.operands, [''], ['', 'value']];
   domains.operand0 = spec.rules.some(rule => referencedKeys(rule).includes('operand0'))
     ? ['', undefined, 'value']
     : [undefined, 'value'];

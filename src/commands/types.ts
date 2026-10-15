@@ -28,7 +28,7 @@ import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
-import type { RevisionParserPass } from './revision-parser-pass-types.js';
+import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
 import type { OptionSpec } from './spec.js';
 import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 
@@ -848,6 +848,23 @@ type OperandPassState<
         OperandInitial<C, R, S>
       >
   : InvalidPass;
+/** Carry the original arguments and selected source/ABI traits through partition replay. */
+type RevisionPassState<
+  C extends GitCommandName,
+  E extends readonly unknown[],
+  R extends readonly string[],
+  InitialState,
+> = RevisionParserPass<Spec<C>, R> extends infer P
+  ? P extends { tokens: infer T extends readonly unknown[] }
+    ? State<C, T, State<C, E, InitialState>, true, RemainingOptions<C>> extends infer S
+      ? [S] extends [never]
+        ? InvalidPass
+        : S
+      : InvalidPass
+    : P extends { dynamic: true }
+      ? { parserExited: true }
+      : InvalidPass
+  : InvalidPass;
 type RemainingState<
   C extends GitCommandName,
   E extends readonly unknown[],
@@ -855,17 +872,15 @@ type RemainingState<
   InitialState,
 > = Spec<C> extends { parserExit: { remainingOperands: string } }
   ? OperandPassState<C, E, R, InitialState>
-  : RevisionParserPass<Spec<C>, R> extends infer P
-    ? P extends { tokens: infer T extends readonly unknown[] }
-      ? State<C, T, State<C, E, InitialState>, true, RemainingOptions<C>> extends infer S
-        ? [S] extends [never]
-          ? InvalidPass
-          : S
-        : InvalidPass
-      : P extends { dynamic: true }
-        ? { parserExited: true }
-        : InvalidPass
-    : InvalidPass;
+  : Spec<C> extends { parserExit: { remainingPartition: unknown } }
+    ? PartitionRemaining<Spec<C>, R> extends infer P
+      ? P extends { words: infer W extends readonly string[]; state: infer X }
+        ? RevisionPassState<C, E, W, InitialState & X>
+        : P extends { dynamic: true }
+          ? { parserExited: true }
+          : InvalidPass
+      : InvalidPass
+    : RevisionPassState<C, E, R, InitialState>;
 /** Both parser passes carry the same original inputs and independently selected traits. */
 type ParsedPassState<
   C extends GitCommandName,
@@ -1002,10 +1017,14 @@ type TraitArguments<
                 }
               ? Spec<C> extends { parserExit: { remainingOperands: string } }
                 ? E
-                : RevisionParserPass<Spec<C>, R> extends {
+                : PartitionRemaining<Spec<C>, R> extends {
+                      words: infer W extends readonly string[];
+                    }
+                  ? RevisionParserPass<Spec<C>, W> extends {
                       tokens: infer T extends readonly unknown[];
                     }
-                  ? readonly [...E, ...T]
+                    ? readonly [...E, ...T]
+                    : E
                   : E
               : A
         : A
