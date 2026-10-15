@@ -177,13 +177,16 @@ describe('native CLI scopes', () => {
       expect(direct(['commit', ...argv]).status).not.toBe(0);
       expect(() => commandArguments('commit', args)).toThrow(GitArgumentError);
     }
-    const emptyFileCommit = await repo.command('commit', [
-      ['--file', ''],
-      ['-m', 'empty filename'],
-      ['--allow-empty'],
-    ]);
-    // Git 2.25 treats an empty filename as a message source; 2.55 clears it.
-    expect(emptyFileCommit.exitCode === 0).toBe(!legacy);
+    const emptyFileArgs = [['--file', ''], ['-m', 'empty filename'], ['--allow-empty']] as const;
+    const nativeEmpty = direct(['commit', '--file=', '-m', 'empty filename', '--allow-empty']);
+    // An observed legacy empty filename remains a conflicting message source.
+    if (legacy) {
+      expect(nativeEmpty.status).not.toBe(0);
+      await expect(repo.command('commit', emptyFileArgs)).rejects.toBeInstanceOf(GitArgumentError);
+    } else {
+      expect(nativeEmpty.status).toBe(0);
+      expect((await repo.command('commit', emptyFileArgs)).exitCode).toBe(0);
+    }
     for (const mode of ['--dry-run', '--short', '-z']) {
       const argv = ['--fixup=amend:HEAD', '-m', 'extra', mode];
       const args = [['--fixup', 'amend:HEAD'], ['-m', 'extra'], [mode]];

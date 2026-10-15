@@ -24,6 +24,9 @@ import { validInitialDepth } from '../constraints/git-scalars.js';
 import process from 'node:process';
 import {
   commandArguments,
+  commandFilenameTokens,
+  type FilenameContext,
+  type FilenameProfile,
   commandShapeArguments,
   commandUsesFirstPassEmpty,
   commandHasLegacyStashHelp,
@@ -44,6 +47,7 @@ import {
   commandUsesObjectFilterCharProfile,
 } from '../commands/build.js';
 import { COMMAND_SPECS } from '../commands/generated.js';
+import { initialParserPass } from '../commands/initial-parser-pass.js';
 import {
   type GuiGrammar,
   guiGrammarFromSource,
@@ -669,11 +673,64 @@ export class CliRunner {
     inRepository: boolean | undefined,
     opts?: CommandRunOptions,
   ): Promise<RawResult<string | Uint8Array>> {
+    return this.runCommandWithFilename(context, command, args, inRepository, opts);
+  }
+
+  /** Preserve the existing native ABI pipeline while selecting filename state independently. */
+  private async runCommandWithFilename(
+    context: ExecutionContext,
+    command: GitCommandName,
+    args: readonly unknown[],
+    inRepository: boolean | undefined,
+    opts?: CommandRunOptions,
+    filename?: FilenameContext,
+    validateOnly = false,
+  ): Promise<RawResult<string | Uint8Array>> {
     validateIO(opts);
     validateArgvStrings(args);
     const binary = opts?.stdout === 'bytes';
+    const build: typeof commandArguments = (
+      name,
+      tokens,
+      repository,
+      selectedAbi,
+      grammar,
+      launch,
+    ) =>
+      commandArguments(
+        name,
+        tokens,
+        repository,
+        filename ? { longBits: 64, sizeTBits: 64, ...selectedAbi, ...filename } : selectedAbi,
+        grammar,
+        launch,
+      );
+
     const spec: CommandSpec = COMMAND_SPECS[command];
+    let traitArgs = args;
+    if (filename?.stopBeforeFilename !== undefined && spec.parserExit?.firstPassOptions) {
+      let reached = 0;
+      const words = commandShapeArguments(command, args, inRepository).slice(spec.argv.length);
+      const prefix = initialParserPass(spec, words, true, spec.parserExit, (token) => {
+        const option = spec.options[token[0]!];
+        return (
+          option?.emptyIsUnset === true &&
+          typeof token[1] === 'string' &&
+          token[1].startsWith(':(optional)') &&
+          reached++ === filename.stopBeforeFilename
+        );
+      });
+      traitArgs = prefix.tokens;
+    }
     const execute = (argv: string[]): Promise<RawResult<string | Uint8Array>> => {
+      if (validateOnly) {
+        return Promise.resolve({
+          exitCode: 0,
+          stdout: binary ? new Uint8Array(0) : '',
+          stderr: '',
+          aborted: false,
+        });
+      }
       if (spec.executable) {
         return binary
           ? this.runCompanionBytes(context, spec.executable, argv.slice(1), opts)
@@ -687,7 +744,7 @@ export class CliRunner {
       return await execute(commandShapeArguments(command, args, inRepository));
     }
     if (spec.guiScript) {
-      const argv = commandArguments(command, args, inRepository);
+      const argv = build(command, args, inRepository);
       if ((binary && !this.exec.spawnBytes) || !this.fs.readFile || argv[1] === '--help') {
         return await execute(argv);
       }
@@ -718,9 +775,7 @@ export class CliRunner {
         } catch {
           /* Unknown source keeps native validation. */
         }
-        return await execute(
-          commandArguments(command, args, inRepository, undefined, grammar, launch),
-        );
+        return await execute(build(command, args, inRepository, undefined, grammar, launch));
       }
       const grammar = guiGrammarFromSource(source);
       if (!grammar) {
@@ -734,9 +789,131 @@ export class CliRunner {
       if (version.exitCode !== 0 || version.stdout.replace(/\r?\n$/, '') !== reported) {
         return await execute(argv);
       }
-      return await execute(
-        commandArguments(command, args, inRepository, undefined, grammar, launch),
+      return await execute(build(command, args, inRepository, undefined, grammar, launch));
+    }
+    if (!filename) {
+      const updates = commandFilenameTokens(command, args);
+      const sensitive = updates.some(
+        (update) =>
+          update.ignore ||
+          update.value === '' ||
+          (typeof update.value === 'string' && update.value.startsWith(':(optional)')),
       );
+      if (sensitive) {
+        const allProfilesAccept = (['legacy', 'intermediate', 'optional'] as const).every(
+          (candidateProfile) => {
+            try {
+              commandArguments(command, args, inRepository, {
+                longBits: 64,
+                sizeTBits: 64,
+                filenameProfile: candidateProfile,
+              });
+              return true;
+            } catch (error) {
+              if (!(error instanceof GitArgumentError)) {
+                throw error;
+              }
+              return false;
+            }
+          },
+        );
+        if (allProfilesAccept) {
+          return this.runCommandWithFilename(context, command, args, inRepository, opts, {});
+        }
+        const optional = updates.filter(
+          (update) =>
+            !update.ignore &&
+            typeof update.value === 'string' &&
+            update.value.startsWith(':(optional)'),
+        );
+        if (optional.length === 0) {
+          commandShapeArguments(command, args, inRepository);
+        }
+        const probeOptions = {
+          ...(opts?.env ? { env: opts.env } : {}),
+          ...(opts?.signal ? { signal: opts.signal } : {}),
+        };
+        const negate = await this.run(
+          context,
+          [
+            'tag',
+            '--list',
+            'type-git-profile-readonly',
+            '--file=type-git-profile-readonly',
+            '--no-file',
+          ],
+          probeOptions,
+        );
+        if (negate.aborted) {
+          return { ...negate, stdout: binary ? new Uint8Array(0) : negate.stdout };
+        }
+        const empty = await this.run(
+          context,
+          ['tag', '--list', 'type-git-profile-readonly', '--file='],
+          probeOptions,
+        );
+        if (empty.aborted) {
+          return { ...empty, stdout: binary ? new Uint8Array(0) : empty.stdout };
+        }
+        const usage = (result: RawResult): boolean =>
+          result.exitCode === 129 && /usage: git tag/.test(result.stderr);
+        const profile: FilenameProfile | undefined =
+          negate.exitCode === 0
+            ? empty.exitCode === 0
+              ? 'intermediate'
+              : usage(empty)
+                ? 'legacy'
+                : undefined
+            : usage(negate) && empty.exitCode === 0
+              ? 'optional'
+              : undefined;
+        if (!profile) {
+          return await execute(commandShapeArguments(command, args, inRepository));
+        }
+        const ignored = new Set<string>();
+        if (profile === 'optional') {
+          for (const [optionalIndex, update] of optional.entries()) {
+            const validation = await this.runCommandWithFilename(
+              context,
+              command,
+              args,
+              inRepository,
+              opts,
+              {
+                filenameProfile: profile,
+                ignoreOptionalFilename: (_key, candidateValue) => ignored.has(candidateValue),
+                deferFinalRules: true,
+                stopBeforeFilename: optionalIndex,
+              },
+              true,
+            );
+            if (validation.aborted) {
+              return validation;
+            }
+            const value = update.value as string;
+            if (ignored.has(value)) {
+              continue;
+            }
+            const result = await this.run(
+              context,
+              ['tag', '--list', 'type-git-profile-readonly', `--file=${value}`],
+              probeOptions,
+            );
+            if (result.aborted) {
+              return { ...result, stdout: binary ? new Uint8Array(0) : result.stdout };
+            }
+            if (result.exitCode === 0) {
+              ignored.add(value);
+            } else if (!usage(result)) {
+              return await execute(commandShapeArguments(command, args, inRepository));
+            }
+          }
+        }
+        return this.runCommandWithFilename(context, command, args, inRepository, opts, {
+          filenameProfile: profile,
+          ignoreOptionalFilename: (_key, candidateValue) => ignored.has(candidateValue),
+        });
+      }
     }
     type NativeAbi = {
       longBits: 32 | 64;
@@ -756,7 +933,7 @@ export class CliRunner {
       submoduleInitAlias?: boolean;
     };
     let submoduleInitAlias: boolean | undefined;
-    if (commandUsesSubmoduleInitAlias(command, args)) {
+    if (commandUsesSubmoduleInitAlias(command, traitArgs)) {
       const probe = await this.run(context, ['submodule--helper', 'update', '-i', '-h'], {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
@@ -777,7 +954,7 @@ export class CliRunner {
       }
     }
     let depthAtoiBits: 32 | 64 | undefined;
-    if (commandUsesDepthAtoi(command, args)) {
+    if (commandUsesDepthAtoi(command, traitArgs)) {
       const observed = await this.observeDepthAtoi(context, opts);
       if (observed.result?.aborted) {
         const probe = observed.result;
@@ -789,7 +966,7 @@ export class CliRunner {
       depthAtoiBits = observed.bits;
     }
     let firstPassEmpty: boolean | undefined;
-    if (commandUsesFirstPassEmpty(command, args)) {
+    if (commandUsesFirstPassEmpty(command, traitArgs)) {
       const probeOptions = {
         ...(opts?.env ? { env: opts.env } : {}),
         ...(opts?.signal ? { signal: opts.signal } : {}),
@@ -825,34 +1002,38 @@ export class CliRunner {
             depthAtoiBits,
             submoduleInitAlias,
           };
-    if (commandUsesNativeABI(command, args, firstPassEmpty)) {
-      const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(command, args, firstPassEmpty)
+    if (commandUsesNativeABI(command, traitArgs, firstPassEmpty)) {
+      const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(
+        command,
+        traitArgs,
+        firstPassEmpty,
+      )
         ? ['bounded', 'decimal-cast']
         : ['bounded'];
-      const signs = commandUsesNegativeMagnitude(command, args, firstPassEmpty)
+      const signs = commandUsesNegativeMagnitude(command, traitArgs, firstPassEmpty)
         ? [false, true]
         : [false];
       const conflictStyles: ('immediate' | 'deferred')[] = commandUsesConflictStyle(
         command,
-        args,
+        traitArgs,
         firstPassEmpty,
       )
         ? ['immediate', 'deferred']
         : ['immediate'];
       const booleanSources: GitBooleanSource[] = commandUsesBooleanSource(
         command,
-        args,
+        traitArgs,
         firstPassEmpty,
       )
         ? ['modern', 'symmetric', 'legacy-units']
         : ['modern'];
-      const booleanBinaries = commandUsesBooleanBinary(command, args, firstPassEmpty)
+      const booleanBinaries = commandUsesBooleanBinary(command, traitArgs, firstPassEmpty)
         ? [true, false]
         : [true];
-      const compoundOverflows = commandUsesCompoundDecimal(command, args, firstPassEmpty)
+      const compoundOverflows = commandUsesCompoundDecimal(command, traitArgs, firstPassEmpty)
         ? [false, true]
         : [false];
-      const booleanFeatures = commandBooleanFeatures(command, args, firstPassEmpty);
+      const booleanFeatures = commandBooleanFeatures(command, traitArgs, firstPassEmpty);
       let capabilityVariants: GitBooleanCapabilities[] = [{}];
       for (const feature of booleanFeatures) {
         capabilityVariants = capabilityVariants.flatMap((variant) => [
@@ -860,8 +1041,8 @@ export class CliRunner {
           { ...variant, [feature]: false },
         ]);
       }
-      const callbacks = commandDecimalCallbacks(command, args, firstPassEmpty);
-      const chars = commandUsesObjectFilterCharProfile(command, args, firstPassEmpty)
+      const callbacks = commandDecimalCallbacks(command, traitArgs, firstPassEmpty);
+      const chars = commandUsesObjectFilterCharProfile(command, traitArgs, firstPassEmpty)
         ? [false, true]
         : [true];
       let callbackVariants: GitDecimalCallbacks[] = [{}];
@@ -904,7 +1085,7 @@ export class CliRunner {
                               valid.push({
                                 profile: integerProfile,
                                 abi: candidateAbi,
-                                argv: commandArguments(command, args, inRepository, candidateAbi),
+                                argv: build(command, args, inRepository, candidateAbi),
                               });
                             } catch (error) {
                               if (!(error instanceof GitArgumentError)) {
@@ -926,7 +1107,7 @@ export class CliRunner {
       if (valid.length === 0) {
         throw firstError;
       }
-      const needsBinaryProfile = commandUsesObjectFilterBinary(command, args, firstPassEmpty);
+      const needsBinaryProfile = commandUsesObjectFilterBinary(command, traitArgs, firstPassEmpty);
       if (
         (valid.length ===
           profiles.length *
@@ -983,7 +1164,7 @@ export class CliRunner {
             (entry) => entry.abi.compoundNegatedOverflow === compoundNegatedOverflow,
           );
           if (selected.length === 0) {
-            commandArguments(command, args, inRepository, {
+            build(command, args, inRepository, {
               ...valid[0]!.abi,
               compoundNegatedOverflow,
             });
@@ -1023,7 +1204,7 @@ export class CliRunner {
           }
           const selected = valid.filter((entry) => entry.abi.conflictStyle === conflictStyle);
           if (selected.length === 0) {
-            commandArguments(command, args, inRepository, { ...valid[0]!.abi, conflictStyle });
+            build(command, args, inRepository, { ...valid[0]!.abi, conflictStyle });
             throw firstError;
           }
           valid = selected;
@@ -1077,7 +1258,7 @@ export class CliRunner {
           (entry) => entry.abi.booleanCapabilities?.[feature] === supported,
         );
         if (selected.length === 0) {
-          commandArguments(command, args, inRepository, {
+          build(command, args, inRepository, {
             ...valid[0]!.abi,
             booleanCapabilities: { ...valid[0]!.abi.booleanCapabilities, [feature]: supported },
           });
@@ -1145,7 +1326,7 @@ export class CliRunner {
         }
         const selected = valid.filter((entry) => entry.abi.booleanSource === booleanSource);
         if (selected.length === 0) {
-          commandArguments(command, args, inRepository, { ...valid[0]!.abi, booleanSource });
+          build(command, args, inRepository, { ...valid[0]!.abi, booleanSource });
           throw firstError;
         }
         valid = selected;
@@ -1184,7 +1365,7 @@ export class CliRunner {
           (entry) => entry.abi.booleanBinaryIntegers === booleanBinaryIntegers,
         );
         if (selected.length === 0) {
-          commandArguments(command, args, inRepository, {
+          build(command, args, inRepository, {
             ...valid[0]!.abi,
             booleanBinaryIntegers,
           });
@@ -1217,7 +1398,7 @@ export class CliRunner {
       }
       const charValid = valid.filter((entry) => entry.abi.unsignedChar === unsignedChar);
       if (charValid.length === 0) {
-        commandArguments(command, args, inRepository, {
+        build(command, args, inRepository, {
           longBits: 64,
           sizeTBits: 64,
           unsignedChar,
@@ -1257,7 +1438,7 @@ export class CliRunner {
         ),
       );
       if (callbackValid.length === 0) {
-        commandArguments(command, args, inRepository, {
+        build(command, args, inRepository, {
           longBits: 64,
           sizeTBits: 64,
           decimalCallbacks: selectedCallbacks,
@@ -1365,7 +1546,7 @@ export class CliRunner {
           ),
       );
       if (selectedValid.length === 0) {
-        commandArguments(command, args, inRepository, {
+        build(command, args, inRepository, {
           longBits: 64,
           sizeTBits: 64,
           integerProfile: selected,
@@ -1388,8 +1569,8 @@ export class CliRunner {
         const sizeBytes = /^sizeof-size_t: ([48])\r?$/m.exec(probe.stdout)?.[1];
         if (probe.exitCode !== 0 || !(longBytes && sizeBytes)) {
           if (
-            commandUsesDecimalCallback(command, args, firstPassEmpty) ||
-            commandUsesCompoundDecimal(command, args, firstPassEmpty)
+            commandUsesDecimalCallback(command, traitArgs, firstPassEmpty) ||
+            commandUsesCompoundDecimal(command, traitArgs, firstPassEmpty)
           ) {
             return await execute(selectedValid[0]!.argv);
           }
@@ -1421,12 +1602,12 @@ export class CliRunner {
         const unsupported = profile.exitCode === 128 && diagnostic.includes('invalid filter-spec');
         if (!supported && !unsupported) {
           // Unrecognized/localized frontends keep their own native validation.
-          return await execute(commandArguments(command, args, inRepository, abi));
+          return await execute(build(command, args, inRepository, abi));
         }
         abi = { ...(abi ?? { longBits: 32, sizeTBits: 32 }), binaryIntegers: supported };
       }
     }
-    return await execute(commandArguments(command, args, inRepository, abi));
+    return await execute(build(command, args, inRepository, abi));
   }
 
   /** Text execution remains independent of extra command output-mode options. */

@@ -64,7 +64,7 @@ Parser order is part of the specification, before final combination constraints:
 - `PARSE_OPT_CMDMODE` options reject a conflicting mode immediately, even if a later token would restore the original mode. These checks cannot be reduced to a final-state exclusive constraint.
 - Checkout's `--conflict` callback can enable implicit merge. `--no-conflict` cancels that implicit merge but preserves explicit `--merge`. Declarative, ordered callback effects retain this distinction.
 - Explicit operands before and after `--` are tracked separately. Revision/path ambiguities without a separator still require repository resolution by Git.
-- Callback enums can reject values immediately; other value constraints apply to final state. Empty native filenames clear their option; empty string-list entries remain entries.
+- Callback enums can reject values immediately; other value constraints apply to final state. Native filename empty/negated updates follow the selected parser profile; empty string-list entries remain entries.
 
 `src/commands/native.test.ts` compares these cases with independently invoked Git in temporary repositories. Compiler fixtures cover accepted and rejected literals. The decision-diagram tests compare every subset of a small mixed rule system, including action groups, with complete enumeration.
 
@@ -1182,7 +1182,7 @@ that older supported behavior. `CheckedCommandArguments` contexts can pin
 pin does not silently fix the integer profile.
 
 The growing native-oracle contract suite is checked as one complete TypeScript
-project. `pnpm test:types` sets an 11 GiB Node old-space limit so every source and
+project. `pnpm test:types` sets a 12 GiB Node old-space limit so every source and
 contract root can remain in the same program. This changes the compiler's
 memory allowance; it does not skip diagnostics, remove fixtures or split the
 full contract check into independent compiler runs.
@@ -1395,7 +1395,7 @@ Both scoped and root-dispatched calls are checked. A valid `-h` ref matters afte
 invalid. Runtime and compiler fixtures consume the same native outcomes. The
 compiler corpus is divided deterministically into files of at most 400 cases,
 all included together with every source and other fixture in the existing
-11 GiB contract project. No isolated compiler batches are used.
+12 GiB contract project. No isolated compiler batches are used.
 
 Repository/configuration state, stash/revision object resolution, pathspec
 languages, remaining revision callbacks, completion and other native parser
@@ -1689,7 +1689,7 @@ with zero type errors: 226,279 TypeScript lines, 95,764,483 instantiations and
 implementation optimizations did not improve the focused baseline and were
 removed. No contract cases or source roots were removed.
 
-The standard command now uses `--max-old-space-size=11264`. It still checks all
+At that stage the standard command changed to `--max-old-space-size=11264`. It still checks all
 source and contract roots in one project, without a batch runner or incremental
 contract cache. This repository is public and its typecheck job uses
 `ubuntu-latest`, for which GitHub documents 16 GB RAM:
@@ -1771,3 +1771,53 @@ including valid stash/ref context, tuple and operand spellings, help ordering,
 mandatory refs children and retained revision options. Its compiler assertions
 pin the observed modern parser profiles. This finite evidence does not establish
 all argv, repository, platform or interactive behavior; all scopes remain partial.
+
+
+### Native filename parser profiles
+
+`OPTION_FILENAME` updates differ across the observed Git sources. Git 2.25.1
+keeps an empty filename as a nonnull pointer and clears it on negation; Git
+2.47.3 clears empty and negated values. Git 2.55.0/2.56.0 clears empty values,
+retains the earlier pointer on negation, and recognizes `:(optional)` filenames.
+A missing optional path retains the earlier value rather than clearing it.
+Other stat failures, including ENOTDIR and EACCES, retain native diagnostics.
+
+The runtime observes the selected executable with read-only `tag --list`
+controls and checks optional paths without reading command stdin. Each lookup
+is preceded by the existing ABI/callback validation up to that filename update.
+Callbacks reached before an optional stat still validate; a stat failure before
+a later callback remains a native error. Unknown frontends retain native parsing.
+The original command environment and serialized argv are preserved.
+
+Literal checking retains observed parser alternatives and independently unknown
+optional path states. It checks the complete input in each alternative so a
+valid optional arm cannot hide a guaranteed-invalid ordinary filename arm.
+Repository/filesystem state remains a runtime obligation. These finite source
+and native controls do not establish complete command coverage.
+
+
+### Whole-project heap for filename profile alternatives
+
+Three actual whole-project runs exhausted the 11 GiB heap. The retained type
+refinements avoid filename retries for ordinary updates and preserve the existing
+state calculation for other options. A precomputed command-union experiment
+produced TS2590 and was reverted. No fixtures or source roots were removed.
+A 12 GiB diagnostic run completed all 558 files, reporting 108,464,256
+instantiations and 11,721,552 KiB compiler memory in 1,307.01 seconds. It failed
+two stash assertions, so it was not a successful typecheck. Those assertions
+used Git 2.55.0 outcomes without pinning its filename profile and could borrow
+legacy empty-filename semantics. The generator now pins that source profile;
+all 4,978 regenerated native outcomes remain unchanged, and the focused compiler
+check including every stash assertion succeeds.
+
+The standard command uses `--max-old-space-size=12288` to retain the complete
+source/contract project. The repository is public and the typecheck job uses the
+16 GB `ubuntu-latest` runner documented above. Fresh success of the standard
+command locally and on the exact PR head is required before merge. A diagnostic
+run or a failed standard run is not counted as that success.
+
+
+The fresh standard 12 GiB check succeeded with all 558 files and 231,693
+TypeScript lines: 108,089,458 instantiations, 12,134,386 KiB reported compiler
+memory and 1,238.48 seconds total. This is local compiler evidence; exact-head
+CI and review remain separate merge gates.

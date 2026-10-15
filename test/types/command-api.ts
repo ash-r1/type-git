@@ -279,8 +279,10 @@ git.command('diff', [['-S', ''], ['-S', 'nonempty']]);
 git.command('diff', [['-S', 'one'], ['-G', 'two']]);
 // @ts-expect-error A first-parent merge diff is not combined output.
 git.command('show', [['--dd'], ['--combined-all-paths']]);
-// @ts-expect-error Negating a filename preserves its previously parsed value.
+// Older native profiles clear the filename; selected-profile validation occurs at runtime.
 git.command('commit', [['--file', 'message'], ['--no-file'], ['--message', 'text']]);
+// @ts-expect-error A retained ordinary filename conflicts with a message in every profile.
+git.command('commit', [['--file', 'message'], ['--message', 'text']]);
 
 git.command('diff --no-index', [{ operand: 'left' }, { operand: 'right' }]);
 // @ts-expect-error No-index uses the diff parser without revision traversal flags.
