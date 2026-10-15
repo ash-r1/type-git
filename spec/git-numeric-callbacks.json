@@ -16,7 +16,8 @@
     "parse.c": "efe38c1cb553aab2a697747d9742d55e61fe135e37b17022952715405bccfe91",
     "apply.c": "7c154909bb277318711ff8e67cc73f2e7c875e48b1de7ce2effa2597020c4057",
     "daemon.c": "eda693a63869a9f4ee6ed3ad055767d51ca06875c8f4b4df7c04f043a2db8772",
-    "builtin/fsmonitor--daemon.c": "23e37e82260c5b49511a344756565aa7fa273a080b67bf122aeb22bd7f7599fb"
+    "builtin/fsmonitor--daemon.c": "23e37e82260c5b49511a344756565aa7fa273a080b67bf122aeb22bd7f7599fb",
+    "builtin/show-ref.c": "a972a01a04d6b3b25cf50b3f99e42d9e8ee5dc166c946f11aff1dce0a8eac702"
   },
   "profiles": {
     "abbrev": {
@@ -32,9 +33,13 @@
       "callbacks": [
         {
           "name": "parse_opt_abbrev_cb"
+        },
+        {
+          "name": "hash_callback",
+          "file": "builtin/show-ref.c"
         }
       ],
-      "source": "parse-options-cb.c:parse_opt_abbrev_cb"
+      "source": "parse-options-cb.c:parse_opt_abbrev_cb; builtin/show-ref.c:hash_callback delegates explicit values; omitted values remain context-dependent"
     },
     "mainline": {
       "parser": {
