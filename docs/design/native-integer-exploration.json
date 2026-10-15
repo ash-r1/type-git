@@ -4591,6 +4591,21 @@
       ]
     },
     {
+      "command": "fast-import",
+      "options": [
+        {
+          "flag": "--max-pack-size",
+          "key": "max-pack-size",
+          "profile": "unsigned-64-long"
+        },
+        {
+          "flag": "--big-file-threshold",
+          "key": "big-file-threshold",
+          "profile": "unsigned-64-long"
+        }
+      ]
+    },
+    {
       "command": "reflog",
       "options": [
         {

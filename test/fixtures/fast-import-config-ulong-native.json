@@ -1,0 +1,437 @@
+{
+  "scope": "72 empty-stream native Git2.55 LP64/C23 observations; older sign behavior and selected ABI remain runtime-dependent, not pack-layout proof.",
+  "cases": [
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "0",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1k",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1K",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1m",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1M",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1g",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1G",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1KiB",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1t",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": " 1k",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "+1k",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "-0",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "-1",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "-1k",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "010",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "0x10",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "0b10",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "08",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1.5",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1e3",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "1_2",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "12\n",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "12 ",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "18446744073709551615",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "18446744073709551616",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "4294967295",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "4294967296",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "9007199254740992",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "0xffffffffffffffff",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "number",
+      "valueText": "1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "number",
+      "valueText": "9007199254740992",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "bigint",
+      "valueText": "1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "bigint",
+      "valueText": "18446744073709551615",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "0",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1k",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1K",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1m",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1M",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1g",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1G",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1KiB",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1t",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": " 1k",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "+1k",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "-0",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "-1",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "-1k",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "010",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "0x10",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "0b10",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "08",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1.5",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1e3",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "1_2",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "12\n",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "12 ",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "18446744073709551615",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "18446744073709551616",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "4294967295",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "4294967296",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "9007199254740992",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "0xffffffffffffffff",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "number",
+      "valueText": "1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "number",
+      "valueText": "9007199254740992",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "bigint",
+      "valueText": "1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "bigint",
+      "valueText": "18446744073709551615",
+      "nativeExit": 0
+    }
+  ]
+}
