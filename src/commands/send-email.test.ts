@@ -246,4 +246,176 @@ describe('send-email option phases without delivery', () => {
     ];
     compare(args, words, true);
   });
+
+  it('keeps main integer errors sticky and preserves earlier alias failures', ({ skip }) => {
+    if (unavailable) {
+      skip();
+      return;
+    }
+    const cases: {
+      tokens: readonly unknown[];
+      words: string[];
+      accepted: boolean;
+      status: number | 'alias-error';
+    }[] = [
+      {
+        tokens: [
+          ['--batch-size', 'bad'],
+          ['--batch-size', 1],
+        ],
+        words: ['--batch-size=bad', '--batch-size=1'],
+        accepted: false,
+        status: 128,
+      },
+      {
+        tokens: [['--batch-size', 'bad'], ['--git-completion-helper']],
+        words: ['--batch-size=bad', '--git-completion-helper'],
+        accepted: true,
+        status: 0,
+      },
+      {
+        tokens: [['--git-completion-helper'], ['--relogin-delay', 'bad']],
+        words: ['--git-completion-helper', '--relogin-delay=bad'],
+        accepted: true,
+        status: 0,
+      },
+      {
+        tokens: [['--dump-aliases'], ['--batch-size', 'bad'], ['--git-completion-helper']],
+        words: ['--dump-aliases', '--batch-size=bad', '--git-completion-helper'],
+        accepted: false,
+        status: 'alias-error',
+      },
+      {
+        tokens: [['--dump-aliases'], ['-h'], ['--batch-size', 'bad']],
+        words: ['--dump-aliases', '-h', '--batch-size=bad'],
+        accepted: true,
+        status: 1,
+      },
+      {
+        tokens: [['--smtp-debug'], ['--git-completion-helper']],
+        words: ['--smtp-debug', '--git-completion-helper'],
+        accepted: true,
+        status: 0,
+      },
+    ];
+    for (const row of cases) {
+      const native = spawnSync('git', ['-C', repo.workdir, 'send-email', ...row.words], {
+        env,
+        input: '',
+        encoding: 'utf8',
+        timeout: 10000,
+      });
+      expect(native.error).toBeUndefined();
+      expect(native.signal).toBeNull();
+      if (row.status === 'alias-error') {
+        expect(native.status).not.toBeNull();
+        expect(native.status).not.toBe(0);
+        expect(native.stderr).toContain('--dump-aliases incompatible');
+      } else {
+        expect(native.status, native.stderr).toBe(row.status);
+      }
+      const build = () => commandArguments('send-email', row.tokens, true);
+      if (row.accepted) {
+        expect(build()).toEqual(['send-email', ...row.words]);
+      } else {
+        expect(build).toThrow(GitArgumentError);
+      }
+    }
+    expect(() =>
+      commandArguments(
+        'send-email',
+        [['--batch-size', 'bad\0'], ['--git-completion-helper']],
+        true,
+      ),
+    ).toThrow(GitArgumentError);
+  });
+  const integerSpellings = [
+    { value: 1, valid: true },
+    { value: 9007199254740992, valid: true },
+    { value: 18446744073709551616n, valid: true },
+    { value: '9007199254740992', valid: true },
+    { value: '18446744073709551616', valid: true },
+    { value: '1_2', valid: true },
+    { value: '__12', valid: true },
+    { value: '12_', valid: true },
+    { value: '12\n', valid: true },
+    { value: '1x', valid: false },
+    { value: '1.0', valid: false },
+    { value: '1e3', valid: false },
+    { value: ' 12', valid: false },
+    { value: '', valid: false },
+  ];
+  it.for(
+    (['--batch-size', '--relogin-delay', '--smtp-debug'] as const).flatMap((flag) =>
+      integerSpellings.flatMap((row) =>
+        (['dry-run', 'help', 'completion'] as const).map((mode) => ({
+          ...row,
+          flag,
+          mode,
+          valid: row.valid || (flag === '--smtp-debug' && row.value === ''),
+        })),
+      ),
+    ),
+  )('preserves Getopt integer spelling and phase ($flag, $mode, $value)', async ({
+    flag,
+    value,
+    valid,
+    mode,
+  }, { skip }) => {
+    if (unavailable) {
+      skip();
+      return;
+    }
+    // Avoid the native batch-boundary sleep when checking relogin-delay with one patch.
+    const tokens: readonly unknown[] = [
+      ['--batch-size', 2],
+      [flag, value],
+      ...(mode === 'completion'
+        ? [['--git-completion-helper']]
+        : mode === 'help'
+          ? [['-h']]
+          : [
+              ['--dry-run'],
+              ['--from', 'author@example.com'],
+              ['--to', 'recipient@example.com'],
+              ['--confirm', 'never'],
+              ['--no-validate'],
+              { operand: patch },
+            ]),
+    ];
+    const words = [
+      'send-email',
+      '--batch-size=2',
+      `${flag}=${value}`,
+      ...(mode === 'completion'
+        ? ['--git-completion-helper']
+        : mode === 'help'
+          ? ['-h']
+          : [
+              '--dry-run',
+              '--from=author@example.com',
+              '--to=recipient@example.com',
+              '--confirm=never',
+              '--no-validate',
+              patch,
+            ]),
+    ];
+    const native = spawnSync('git', ['-C', repo.workdir, ...words], {
+      env,
+      input: '',
+      encoding: 'utf8',
+      timeout: 10000,
+    });
+    expect(native.error).toBeUndefined();
+    expect(native.signal).toBeNull();
+    expect(native.status).toBe(mode === 'help' ? 1 : mode === 'completion' || valid ? 0 : 128);
+    if (mode === 'dry-run' && !valid) {
+      await expect(
+        repo.command('send-email', tokens as never, { stdin: '' }),
+      ).rejects.toBeInstanceOf(GitArgumentError);
+    } else {
+      const result = await repo.command('send-email', tokens as never, { stdin: '' });
+      expect(result.exitCode).toBe(native.status);
+    }
+  });
 });

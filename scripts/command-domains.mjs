@@ -11,6 +11,7 @@ export function commandDomains(spec, referencedKeys) {
   };
   for (const [key, value] of Object.entries(spec.initial ?? {})) add(key, value);
   for (const option of [...Object.values(spec.options), ...(spec.numericOption ? [spec.numericOption] : [])]) {
+    if (option.parserErrorKey) add(option.parserErrorKey, true);
     if (option.ignore) continue;
     if (option.toggle) add(option.key, false);
     for (const effect of option.effects ?? []) add(effect.key, effect.set);
