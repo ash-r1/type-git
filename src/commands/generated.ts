@@ -64828,6 +64828,10 @@ const commandSpec96 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -64890,7 +64894,7 @@ const commandSpec96 = {
   source: 'builtin/symbolic-ref.c:cmd_symbolic_ref',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -65006,6 +65010,7 @@ const commandSpec96 = {
     firstPassOptions: [
       '--delete',
       '--help',
+      '--help-all',
       '--no-delete',
       '--no-quiet',
       '--no-recurse',
@@ -65070,6 +65075,10 @@ const commandSpec97 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -65085,7 +65094,7 @@ const commandSpec97 = {
   source: 'builtin/verify-tag.c:cmd_verify_tag',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -65173,6 +65182,7 @@ const commandSpec97 = {
     firstPassOptions: [
       '--format',
       '--help',
+      '--help-all',
       '--no-format',
       '--no-raw',
       '--no-verbose',
@@ -65224,6 +65234,10 @@ const commandSpec98 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -65239,7 +65253,7 @@ const commandSpec98 = {
   source: 'builtin/verify-commit.c:cmd_verify_commit',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -65300,7 +65314,16 @@ const commandSpec98 = {
         '--verbose': '--verbose',
       },
     },
-    firstPassOptions: ['--help', '--no-raw', '--no-verbose', '--raw', '--verbose', '-h', '-v'],
+    firstPassOptions: [
+      '--help',
+      '--help-all',
+      '--no-raw',
+      '--no-verbose',
+      '--raw',
+      '--verbose',
+      '-h',
+      '-v',
+    ],
     firstPassLongNames: ['raw', 'verbose'],
     remainingOptions: remainingOptions0 as RemainingOptions0Type,
     remainingShortOptions: [],
@@ -67831,6 +67854,10 @@ const commandSpec130 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -67869,7 +67896,7 @@ const commandSpec130 = {
   source: 'builtin/refs.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -67973,6 +68000,7 @@ const commandSpec130 = {
     firstPassOptions: [
       '--dry-run',
       '--help',
+      '--help-all',
       '--no-dry-run',
       '--no-no-reflog',
       '--no-reflog',
@@ -68016,6 +68044,10 @@ const commandSpec131 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -68032,7 +68064,7 @@ const commandSpec131 = {
   source: 'builtin/refs.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -68105,7 +68137,15 @@ const commandSpec131 = {
         '--verbose': '--verbose',
       },
     },
-    firstPassOptions: ['--help', '--no-strict', '--no-verbose', '--strict', '--verbose', '-h'],
+    firstPassOptions: [
+      '--help',
+      '--help-all',
+      '--no-strict',
+      '--no-verbose',
+      '--strict',
+      '--verbose',
+      '-h',
+    ],
     firstPassLongNames: ['strict', 'verbose'],
     remainingOptions: remainingOptions0 as RemainingOptions0Type,
     remainingShortOptions: [],
@@ -68121,6 +68161,10 @@ const commandSpec132 = {
       value: 'flag',
     },
     '-h': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--help-all': {
       key: 'help',
       value: 'flag',
     },
@@ -68140,7 +68184,7 @@ const commandSpec132 = {
   source: 'builtin/refs.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -68155,7 +68199,7 @@ const commandSpec132 = {
       plain: {},
       attached: {},
     },
-    firstPassOptions: ['--help', '-h'],
+    firstPassOptions: ['--help', '--help-all', '-h'],
     firstPassLongNames: [],
     remainingOptions: remainingOptions0 as RemainingOptions0Type,
     remainingShortOptions: [],
@@ -68452,6 +68496,10 @@ const commandSpec133 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -68545,7 +68593,7 @@ const commandSpec133 = {
   source: 'builtin/for-each-ref.c:for_each_ref_core',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -69017,6 +69065,7 @@ const commandSpec133 = {
       '--exclude',
       '--format',
       '--help',
+      '--help-all',
       '--ignore-case',
       '--include-root-refs',
       '--merged',
@@ -69213,6 +69262,10 @@ const commandSpec135 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -69229,7 +69282,7 @@ const commandSpec135 = {
   source: 'pack-refs.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
@@ -69355,6 +69408,7 @@ const commandSpec135 = {
       '--auto',
       '--exclude',
       '--help',
+      '--help-all',
       '--include',
       '--no-all',
       '--no-auto',

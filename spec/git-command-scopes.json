@@ -3370,7 +3370,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3386,6 +3387,12 @@
       "keepDashDash": false,
       "keepEndOfOptions": false,
       "remainingOperands": "all"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
     }
   },
   "verify-tag": {
@@ -3396,7 +3403,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3412,6 +3420,12 @@
       "keepDashDash": false,
       "keepEndOfOptions": false,
       "remainingOperands": "all"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
     }
   },
   "verify-commit": {
@@ -3422,7 +3436,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3438,6 +3453,12 @@
       "keepDashDash": false,
       "keepEndOfOptions": false,
       "remainingOperands": "all"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
     }
   },
   "count-objects": {
@@ -3823,7 +3844,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3839,6 +3861,12 @@
       "keepDashDash": false,
       "keepEndOfOptions": false,
       "remainingOperands": "all"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
     }
   },
   "refs verify": {
@@ -3849,7 +3877,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3865,6 +3894,12 @@
       "keepDashDash": false,
       "keepEndOfOptions": false,
       "remainingOperands": "all"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
     }
   },
   "refs exists": {
@@ -3875,7 +3910,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3891,6 +3927,12 @@
       "keepDashDash": false,
       "keepEndOfOptions": false,
       "remainingOperands": "all"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
     }
   },
   "refs list": {
@@ -3913,12 +3955,17 @@
             "set": false
           }
         ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3953,7 +4000,8 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "exceptFirst": [
         "--help"
@@ -3969,6 +4017,12 @@
       "keepDashDash": false,
       "keepEndOfOptions": false,
       "remainingOperands": "all"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
     }
   },
   "fsck": {

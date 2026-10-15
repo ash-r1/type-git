@@ -4,6 +4,42 @@
     {
       "command": "refs migrate",
       "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "refs",
+        "migrate",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "refs migrate",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "refs",
+        "migrate",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "refs migrate",
+      "tokens": [
         {
           "operand": "--d"
         },
@@ -7320,6 +7356,42 @@
     {
       "command": "refs verify",
       "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "refs",
+        "verify",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "refs verify",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "refs",
+        "verify",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "refs verify",
+      "tokens": [
         {
           "operand": "--n"
         },
@@ -12032,6 +12104,42 @@
       "valid": false,
       "status": 129,
       "diagnostic": "usage: 'git refs verify' takes no arguments"
+    },
+    {
+      "command": "refs list",
+      "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "refs",
+        "list",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "refs list",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "refs",
+        "list",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
     },
     {
       "command": "refs list",
@@ -46726,6 +46834,42 @@
     {
       "command": "refs exists",
       "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "refs",
+        "exists",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "refs exists",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "refs",
+        "exists",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "refs exists",
+      "tokens": [
         {
           "operand": "--n"
         },
@@ -47437,6 +47581,42 @@
       "valid": false,
       "status": 128,
       "diagnostic": "fatal: 'git refs exists' requires a reference"
+    },
+    {
+      "command": "refs optimize",
+      "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "refs",
+        "optimize",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "refs optimize",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "refs",
+        "optimize",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
     },
     {
       "command": "refs optimize",
@@ -55609,6 +55789,40 @@
       "valid": false,
       "status": 129,
       "diagnostic": "usage: git refs optimize [--all] [--no-prune] [--auto] [--include <pattern>] [--exclude <pattern>]"
+    },
+    {
+      "command": "show-ref",
+      "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "show-ref",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "show-ref",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "show-ref",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
     },
     {
       "command": "show-ref",
@@ -75459,6 +75673,40 @@
     {
       "command": "symbolic-ref",
       "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "symbolic-ref",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "symbolic-ref",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "symbolic-ref",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "symbolic-ref",
+      "tokens": [
         {
           "operand": "--d"
         },
@@ -82815,6 +83063,40 @@
     {
       "command": "verify-tag",
       "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "verify-tag",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "verify-tag",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "verify-tag",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "verify-tag",
+      "tokens": [
         {
           "operand": "--f"
         },
@@ -88158,6 +88440,40 @@
       "valid": false,
       "status": 129,
       "diagnostic": "usage: git verify-tag [-v | --verbose] [--format=<format>] [--raw] <tag>..."
+    },
+    {
+      "command": "verify-commit",
+      "tokens": [
+        [
+          "--help-all"
+        ]
+      ],
+      "argv": [
+        "verify-commit",
+        "--help-all"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
+    },
+    {
+      "command": "verify-commit",
+      "tokens": [
+        [
+          "--help-all"
+        ],
+        {
+          "operand": "--unknown"
+        }
+      ],
+      "argv": [
+        "verify-commit",
+        "--help-all",
+        "--unknown"
+      ],
+      "valid": true,
+      "status": 129,
+      "diagnostic": ""
     },
     {
       "command": "verify-commit",

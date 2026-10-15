@@ -47,3 +47,13 @@ git.command('verify-commit', [['--']]);
 
 git.command('show-ref', [{ operand: dynamic }, ['--help-all']]);
 git.command('refs list', [{ operand: dynamic }, ['-h']]);
+
+// Internal help-all is a declared API flag, including before later unknown words.
+git.command('refs exists', [['--help-all'], { operand: '--unknown' }]);
+git.command('refs list', [['--help-all'], { operand: '--unknown' }]);
+git.command('refs migrate', [['--help-all'], { operand: '--unknown' }]);
+git.command('refs optimize', [['--help-all'], { operand: '--unknown' }]);
+git.command('refs verify', [['--help-all'], { operand: '--unknown' }]);
+git.command('symbolic-ref', [['--help-all'], { operand: '--unknown' }]);
+git.command('verify-commit', [['--help-all'], { operand: '--unknown' }]);
+git.command('verify-tag', [['--help-all'], { operand: '--unknown' }]);

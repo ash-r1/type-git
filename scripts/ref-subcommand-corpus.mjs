@@ -41,7 +41,7 @@ try {
     if (definitions.some(option => option.kind === 'OPTION_ALIAS')) throw new Error('Audit aliases before extending this corpus');
     const words = new Set(['--n', '--no', '--no-', '--unknown']);
     for (const option of definitions) if (option.long) for (const name of [option.long, `no-${option.long}`, `no-no-${option.long}`]) for (let size = 1; size <= name.length; size++) words.add(`--${name.slice(0, size)}`);
-    const sequences = [];
+    const sequences = [[['--help-all']], [['--help-all'], operand('--unknown')]];
     for (const word of [...words].sort()) for (const suffix of ['', '=', '=1', '=bad']) sequences.push([operand(word + suffix), operand('--help-all'), operand('--help-all')]);
     for (const word of ['-h', '-hh', '-hx', '-hv', '-vqh', '-qxh', '-xqh', '-no-verbose', '-verbose', '-sh', '-sbad']) sequences.push([operand(word), operand('--help-all')]);
     sequences.push([operand('refs/heads/main'), operand('--help-all')], [operand('--help-all'), operand('-unknown')]);

@@ -3,6 +3,8 @@ import type { CheckedCommandArguments, GitCommandArgument } from '../../src/comm
 type Check<T extends true> = T;
 type Accepted<A extends readonly GitCommandArgument<"refs list">[]> = [CheckedCommandArguments<"refs list", A, { integerProfile: 'bounded'; booleanSource: 'modern'; firstPassEmpty: true; conflictStyle: 'immediate'; decimalCallbacks: { 'unified-context': 'modern'; 'revision-count': 'modern'; 'strip-count': 'modern'; 'daemon-count': 'modern'; 'daemon-timeout': 'modern'; 'daemon-init-timeout': 'modern' } }>] extends [never] ? false : true;
 export type NativeRefSubcommandCases = readonly [
+  Check<Accepted<[{"operand":"--no-std=1"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,
+  Check<Accepted<[{"operand":"--no-std=bad"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,
   Check<Accepted<[{"operand":"--no-stdi"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends true ? true : false>,
   Check<Accepted<[{"operand":"--no-stdi="},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,
   Check<Accepted<[{"operand":"--no-stdi=1"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,

@@ -54391,7 +54391,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
@@ -54508,6 +54509,7 @@
         "firstPassOptions": [
           "--delete",
           "--help",
+          "--help-all",
           "--no-delete",
           "--no-quiet",
           "--no-recurse",
@@ -54606,7 +54608,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
@@ -54695,6 +54698,7 @@
         "firstPassOptions": [
           "--format",
           "--help",
+          "--help-all",
           "--no-format",
           "--no-raw",
           "--no-verbose",
@@ -54773,7 +54777,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
@@ -54837,6 +54842,7 @@
         },
         "firstPassOptions": [
           "--help",
+          "--help-all",
           "--no-raw",
           "--no-verbose",
           "--raw",
@@ -57024,7 +57030,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
@@ -57129,6 +57136,7 @@
         "firstPassOptions": [
           "--dry-run",
           "--help",
+          "--help-all",
           "--no-dry-run",
           "--no-no-reflog",
           "--no-reflog",
@@ -57209,7 +57217,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
@@ -57285,6 +57294,7 @@
         },
         "firstPassOptions": [
           "--help",
+          "--help-all",
           "--no-strict",
           "--no-verbose",
           "--strict",
@@ -57352,7 +57362,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
@@ -57370,6 +57381,7 @@
         },
         "firstPassOptions": [
           "--help",
+          "--help-all",
           "-h"
         ],
         "firstPassLongNames": [],
@@ -57420,7 +57432,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
@@ -57893,6 +57906,7 @@
           "--exclude",
           "--format",
           "--help",
+          "--help-all",
           "--ignore-case",
           "--include-root-refs",
           "--merged",
@@ -58312,7 +58326,8 @@
       "parserExit": {
         "flags": [
           "-h",
-          "--help"
+          "--help",
+          "--help-all"
         ],
         "exceptFirst": [
           "--help"
@@ -58439,6 +58454,7 @@
           "--auto",
           "--exclude",
           "--help",
+          "--help-all",
           "--include",
           "--no-all",
           "--no-auto",

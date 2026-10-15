@@ -1670,7 +1670,7 @@ exit spelling outside Git's excluded first-argument dispatcher position. The
 generator rejects a pass that has no such spelling. Explicit show-ref hash
 lengths reuse the source-audited abbrev callback grammar via hash_callback.
 
-`node scripts/ref-subcommand-corpus.mjs --check` reproduces 3,920 independent
+`node scripts/ref-subcommand-corpus.mjs --check` reproduces 3,938 independent
 Git outcomes, each with a compiler assertion in files of at most 400 cases; all
 files compile together with the complete source and contract project under the
 existing whole-project limit.
@@ -1696,3 +1696,10 @@ contract cache. This repository is public and its typecheck job uses
 https://docs.github.com/en/actions/reference/runners/github-hosted-runners .
 The diagnostic pass is evidence of local compilation; the new standard command
 also requires actual success on the PR's CI head before merge.
+
+The reference-command parser exit metadata also lists `--help-all` explicitly.
+The existing first internal spelling and dispatcher exceptions are unchanged.
+Eighteen structured-token controls supplement the original unchanged 3,920
+native outcomes, and all eight additional public `--help-all` declarations have
+positive compiler checks. Show-ref's HEAD/hash-specific audit note appears only
+in its own audit row.

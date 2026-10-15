@@ -3,6 +3,8 @@ import type { CheckedCommandArguments, GitCommandArgument } from '../../src/comm
 type Check<T extends true> = T;
 type Accepted<A extends readonly GitCommandArgument<"show-ref">[]> = [CheckedCommandArguments<"show-ref", A, { integerProfile: 'bounded'; booleanSource: 'modern'; firstPassEmpty: true; conflictStyle: 'immediate'; decimalCallbacks: { 'unified-context': 'modern'; 'revision-count': 'modern'; 'strip-count': 'modern'; 'daemon-count': 'modern'; 'daemon-timeout': 'modern'; 'daemon-init-timeout': 'modern' } }>] extends [never] ? false : true;
 export type NativeRefSubcommandCases = readonly [
+  Check<Accepted<[["--help-all"]]> extends true ? true : false>,
+  Check<Accepted<[["--help-all"],{"operand":"--unknown"}]> extends true ? true : false>,
   Check<Accepted<[{"operand":"--a"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends true ? true : false>,
   Check<Accepted<[{"operand":"--a="},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,
   Check<Accepted<[{"operand":"--a=1"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends true ? true : false>,
@@ -401,6 +403,4 @@ export type NativeRefSubcommandCases = readonly [
   Check<Accepted<[{"operand":"--no-exis=bad"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,
   Check<Accepted<[{"operand":"--no-exist"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends true ? true : false>,
   Check<Accepted<[{"operand":"--no-exist="},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,
-  Check<Accepted<[{"operand":"--no-exist=1"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,
-  Check<Accepted<[{"operand":"--no-exist=bad"},{"operand":"--help-all"},{"operand":"--help-all"}]> extends false ? true : false>,
 ];
