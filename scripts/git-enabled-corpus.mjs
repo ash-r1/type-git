@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { nativeOracleBaseEnv } from './native-oracle-env.mjs';
 import { readFileSync, writeFileSync } from 'node:fs';
 const root = new URL('../', import.meta.url);
 const values = new Set(['', 'true', 'TRUE', 'Yes', 'on', 'false', 'NO', 'Off', 'on-demand', 'ON-DEMAND', 'invalid', ' ', '1 ', '1\n', 'false\n', '\u00a01', '08', '0x', '0b', '1.5', '1e3', '1K', '+', '-']);
@@ -15,7 +16,7 @@ const version = spawnSync('git', ['--version'], { encoding: 'utf8' });
 if (version.status !== 0 || version.stdout.trim() !== 'git version 2.55.0') throw new Error('The oracle requires the pinned Git 2.55.0/C23 profile');
 const rows=[];
 for (const value of values) {
-  const result=spawnSync('git',['-c',`typegit.value=${value}`,'config','--type=bool','--get','typegit.value'],{encoding:'utf8',env:{...process.env,GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:'/dev/null',GIT_CONFIG_COUNT:'0'}});
+  const result=spawnSync('git',['-c',`typegit.value=${value}`,'config','--type=bool','--get','typegit.value'],{encoding:'utf8',env:{...nativeOracleBaseEnv(),GIT_CONFIG_NOSYSTEM:'1',GIT_CONFIG_GLOBAL:'/dev/null',GIT_CONFIG_COUNT:'0'}});
   if(result.error||result.signal) throw result.error??new Error(result.signal);
   if(![0,128].includes(result.status))throw new Error(`Unclassified native result: ${result.status}`);
   rows.push({value,enabled:value==='on-demand'||result.status===0&&result.stdout.trim()==='true',valid:value==='on-demand'||result.status===0});

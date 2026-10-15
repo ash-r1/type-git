@@ -23,6 +23,8 @@ jobs:
         run: pnpm lint
       - name: Format check
         run: pnpm format:check
+      - name: Native oracle environment regression
+        run: node --test scripts/native-oracle-env.node-test.mjs
 
   typecheck:
     name: Type Check

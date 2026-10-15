@@ -1,17 +1,18 @@
 // Independent Git oracle for byte decoding and unsigned-long literal boundaries.
 // Run with Git 2.55.0 on LP64; --signed-char selects the separately recorded signed-char corpus.
 import { spawnSync } from 'node:child_process';
+import { nativeOracleBaseEnv } from './native-oracle-env.mjs';
 import { mkdtemp, readFile, rm, writeFile, mkdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 const signedChar = process.argv.includes('--signed-char');
 if (process.argv.slice(2).some(flag => !['--check', '--signed-char'].includes(flag))) throw new Error('Expected --check and/or --signed-char');
-const version = spawnSync('git', ['--version'], { encoding: 'utf8' }).stdout.trim();
+const version = spawnSync('git', ['--version'], { encoding: 'utf8', env: nativeOracleBaseEnv() }).stdout.trim();
 if (version !== 'git version 2.55.0') throw new Error(`Expected pinned Git 2.55.0, got ${version}`);
 const root = new URL('../', import.meta.url);
 const temp = await mkdtemp(join(tmpdir(), 'type-git-filter-corpus-'));
 try {
-  const env = { ...process.env, HOME: temp, XDG_CONFIG_HOME: temp, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: join(temp, 'config'), LC_ALL: 'C' };
+  const env = { ...nativeOracleBaseEnv(), HOME: temp, XDG_CONFIG_HOME: temp, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: join(temp, 'config'), LC_ALL: 'C' };
   if (spawnSync('git', ['init', temp], { env }).status !== 0) throw new Error('Fixture init failed');
   const samples = new Set();
   for (let byte = 0; byte < 256; byte++) {
