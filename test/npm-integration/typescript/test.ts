@@ -374,3 +374,15 @@ export function testAssumedStashTypes(git: Git): void {
   // @ts-expect-error The initial wrapper catches the subcommand-name typo before help.
   git.command('reflog', [{ operand: '-sho' }, ['-h']]);
 }
+
+/** Check transfer declarations while retaining source-dependent parent help. */
+export function testStashTransferTypes(git: Git): void {
+  git.command('stash import', [{ operand: 'one' }, { operand: 'two' }, ['-h']]);
+  git.command('stash import', [['--']]);
+  git.command('stash export', [['--print'], ['--to-ref', 'refs/exported'], ['-h']]);
+  git.command('stash export', [{ operand: '--pri' }, ['-h']]);
+  // @ts-expect-error -- is retained, so this has two operands.
+  git.command('stash import', [['--'], ['-h']]);
+  // Legacy parent help exits before the newer child command-mode flag check.
+  git.command('stash export', [{ operand: '--no-print' }, ['-h']]);
+}
