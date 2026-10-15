@@ -425,3 +425,17 @@ export function testReferenceParserTypes(git: Git): void {
   // @ts-expect-error Invalid cleanup is rejected even in dry-run mode.
   git.command('commit', [['--dry-run'], ['--cleanup', 'bad']]);
 }
+
+/** Check checkout-family declarations from the freshly packed public API. */
+export function testCheckoutParserTypes(git: Git): void {
+  git.command('switch', [{ operand: '--det' }, ['-h']]);
+  git.command('restore', [['--'], ['-h']]);
+  git.command('reset', [{ operand: 'file' }, { operand: 'other' }, ['--'], ['-h']]);
+  git.command('checkout', [['--'], ['--'], ['-h']]);
+  // @ts-expect-error Checkout scans the retained stream and allows only one reference before --.
+  git.command('checkout', [{ operand: 'file' }, { operand: 'other' }, ['--'], ['-h']]);
+  // @ts-expect-error Hard reset cannot update explicitly separated paths.
+  git.command('reset', [['--hard'], ['--'], ['-h']]);
+  // @ts-expect-error Detached checkout cannot update explicitly separated paths.
+  git.command('checkout', [['--detach'], ['--'], ['-h']]);
+}
