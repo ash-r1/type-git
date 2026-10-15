@@ -1,11 +1,12 @@
 // Independent Git oracle: expected outcomes never call the Type-Git validator.
 import { spawnSync } from 'node:child_process';
+import { nativeOracleBaseEnv } from './native-oracle-env.mjs';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 const root = new URL('../', import.meta.url);
 const directory = await mkdtemp(join(tmpdir(), 'type-git-parser-exits-'));
-const env = { ...process.env, HOME: directory, XDG_CONFIG_HOME: directory, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null', LC_ALL: 'C', GIT_PAGER: 'cat', GIT_CONFIG_COUNT: '0' };
+const env = { ...nativeOracleBaseEnv(), HOME: directory, XDG_CONFIG_HOME: directory, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null', LC_ALL: 'C', GIT_PAGER: 'cat', GIT_CONFIG_COUNT: '0' };
 for (const name of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES']) delete env[name];
 /** Run the independent native oracle in an isolated repository, failing on timeout or signal. */
 function git(args) {

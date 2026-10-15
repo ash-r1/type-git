@@ -1,11 +1,12 @@
 // Independent Git oracle for callback languages; expected values never use Type-Git.
 import { spawnSync } from 'node:child_process';
+import { nativeOracleBaseEnv } from './native-oracle-env.mjs';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 const root = new URL('../', import.meta.url);
 const directory = await mkdtemp(join(tmpdir(), 'type-git-string-callbacks-'));
-const env = { ...process.env, HOME: directory, XDG_CONFIG_HOME: directory, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_COUNT: '0', LC_ALL: 'C', GIT_PAGER: 'cat' };
+const env = { ...nativeOracleBaseEnv(), HOME: directory, XDG_CONFIG_HOME: directory, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_COUNT: '0', LC_ALL: 'C', GIT_PAGER: 'cat' };
 for (const name of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES']) delete env[name];
 /** Execute the independent native oracle and reject transport/process observation failures. */
 function git(args) {
