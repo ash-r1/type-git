@@ -147,21 +147,33 @@ describe('typed commands against Git LFS', () => {
     await rm(root, { recursive: true, force: true });
   });
 
-  it('matches independent help output for every LFS scope that parses help', async () => {
-    for (const name of Object.keys(COMMAND_SPECS) as GitCommandName[]) {
-      if (!(name.startsWith('lfs') && Object.hasOwn(COMMAND_SPECS[name].options, '--help'))) {
-        continue;
-      }
-      const direct = spawnSync('git', ['-C', repo.workdir, ...name.split(' '), '--help'], {
-        env,
-        encoding: 'utf8',
-        timeout: 10000,
-      });
-      expect(direct.error, name).toBeUndefined();
-      const actual = await repo.command(name, [['--help']]);
-      expect(actual.exitCode, name).toBe(direct.status);
-      expect(actual.stdout, name).toBe(direct.stdout);
+  const helpScopes = (Object.keys(COMMAND_SPECS) as GitCommandName[]).filter(
+    (name) => name.startsWith('lfs') && Object.hasOwn(COMMAND_SPECS[name].options, '--help'),
+  );
+  it.each(helpScopes)('matches independent help output for %s', async (name) => {
+    const started = performance.now();
+    const direct = spawnSync('git', ['-C', repo.workdir, ...name.split(' '), '--help'], {
+      env,
+      encoding: 'utf8',
+      // The native Windows LFS help oracle exceeded 10s in CI.
+      // Each comparison has its own 30s deadline; other oracle limits stay unchanged.
+      timeout: process.platform === 'win32' ? 20000 : 10000,
+    });
+    if (process.platform === 'win32') {
+      console.info(
+        'Native LFS help timing',
+        JSON.stringify({
+          command: name,
+          elapsedMs: Math.round(performance.now() - started),
+          status: direct.status,
+          signal: direct.signal,
+        }),
+      );
     }
+    expect(direct.error, name).toBeUndefined();
+    const actual = await repo.command(name, [['--help']]);
+    expect(actual.exitCode, name).toBe(direct.status);
+    expect(actual.stdout, name).toBe(direct.stdout);
   }, 30000);
 
   it('matches native hash-object for every finite combination of its independent constraints', async () => {
