@@ -893,7 +893,9 @@ type RevisionPassState<
     ? State<C, T, State<C, E, InitialState>, true, RemainingOptions<C>> extends infer S
       ? [S] extends [never]
         ? InvalidPass
-        : S
+        : P extends { exited: true }
+          ? S & { parserExited: true }
+          : S
       : InvalidPass
     : P extends { dynamic: true }
       ? { parserExited: true }

@@ -20,7 +20,10 @@ export function partitionRemainingArguments(
 
 type Token = readonly string[] | { operand: string };
 /** Decode the retained stream in setup_revisions order, before applying callbacks. */
-export function revisionParserPass(spec: CommandSpec, argv: readonly string[]): Token[] {
+export function revisionParserPass(
+  spec: CommandSpec,
+  argv: readonly string[],
+): { tokens: Token[]; exited?: true } {
   const phase = spec.parserExit!;
   if (argv[0] === '-' && phase.leadingDashReplacement) {
     argv = [phase.leadingDashReplacement, ...argv.slice(1)];
@@ -29,8 +32,11 @@ export function revisionParserPass(spec: CommandSpec, argv: readonly string[]): 
   const boundary = phase.splitRemainingPaths ? argv.indexOf('--') : -1;
   const words = boundary < 0 ? argv : argv.slice(0, boundary);
   const tokens: Token[] = [];
+  let unknown: string | undefined;
+  /** Resolve only registered own keys in the retained parser table. */
   const lookup = (flag: string): OptionSpec | undefined =>
     Object.hasOwn(options, flag) ? options[flag] : undefined;
+  /** Reject native single-dash long-option typos before deferred usage checks. */
   const typo = (word: string): void => {
     if (
       word.length >= 3 &&
@@ -52,8 +58,25 @@ export function revisionParserPass(spec: CommandSpec, argv: readonly string[]): 
       ended = true;
       continue;
     }
+    if (index === words.length && phase.remainingSingleWordExits?.includes(word)) {
+      return { tokens, exited: true };
+    }
     const equal = word.indexOf('=');
-    const flag = word.startsWith('--') && equal >= 0 ? word.slice(0, equal) : word;
+    const incoming = word.startsWith('--') && equal >= 0 ? word.slice(0, equal) : word;
+    let flag = incoming;
+    const direct = lookup(incoming);
+    if (
+      word.startsWith('--') &&
+      phase.remainingLongForms &&
+      (!direct || (equal >= 0 && (direct.value === 'flag' || direct.separateValue)))
+    ) {
+      const forms = equal < 0 ? phase.remainingLongForms.plain : phase.remainingLongForms.attached;
+      const canonical = Object.hasOwn(forms, incoming) ? forms[incoming] : undefined;
+      if (canonical === null) {
+        throw new GitArgumentError(`${incoming}: ambiguous diff option`);
+      }
+      flag = canonical ?? '';
+    }
     const option = lookup(flag);
     if (option) {
       if (word.startsWith('--') && equal >= 0) {
@@ -80,7 +103,10 @@ export function revisionParserPass(spec: CommandSpec, argv: readonly string[]): 
       continue;
     }
     if (word.startsWith('--') || word === '-') {
-      throw new GitArgumentError(`Unrecognized revision option: ${word}`);
+      // setup_revisions retains unknown words until its final usage check.
+      // A later ONE_SHOT completion exit can precede that check.
+      unknown ??= `Unrecognized revision option: ${word}`;
+      continue;
     }
     let cluster = word.slice(1);
     let first = true;
@@ -91,7 +117,8 @@ export function revisionParserPass(spec: CommandSpec, argv: readonly string[]): 
         if (first) {
           typo(word.slice(1));
         }
-        throw new GitArgumentError(`Unrecognized diff option: -${cluster}`);
+        unknown ??= `Unrecognized diff option: -${cluster}`;
+        break;
       }
       cluster = cluster.slice(1);
       if (shortOption.value === 'flag') {
@@ -119,5 +146,8 @@ export function revisionParserPass(spec: CommandSpec, argv: readonly string[]): 
   if (boundary >= 0) {
     tokens.push(['--'], ...argv.slice(boundary + 1).map((operand) => ({ operand })));
   }
-  return tokens;
+  if (unknown) {
+    throw new GitArgumentError(unknown);
+  }
+  return { tokens };
 }

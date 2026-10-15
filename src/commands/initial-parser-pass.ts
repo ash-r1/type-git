@@ -30,6 +30,7 @@ export function initialParserPass(
     const pass = initialParserPass(spec, argv, emptyRegistered, {
       ...wrapper,
       flags: exit.flags,
+      singleWordExits: exit.singleWordExits,
       firstPassOptions: [],
       firstPassLongNames: wrapper.firstPassLongNames ?? [],
     });
@@ -46,6 +47,9 @@ export function initialParserPass(
     }
     return { exited: true, tokens: [...tokens, [flag]], remaining };
   };
+  if (argv.length === 1 && exit.singleWordExits?.includes(argv[0]!)) {
+    return help();
+  }
   /** Reject a single-dash long spelling after the native short-option lookup. */
   const typo = (word: string) => {
     if (
