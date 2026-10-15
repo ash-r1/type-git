@@ -7,6 +7,7 @@ export function initialParserPass(
   argv: readonly string[],
   emptyRegistered = true,
   exit: NonNullable<CommandSpec['parserExit']> = spec.parserExit!,
+  onToken?: (token: readonly string[]) => boolean,
 ): {
   exited: boolean;
   tokens: readonly (readonly string[])[];
@@ -118,19 +119,31 @@ export function initialParserPass(
           throw new GitArgumentError(`${flag}: this flag takes no value`);
         }
         tokens.push([flag]);
+        if (onToken?.(tokens[tokens.length - 1]!)) {
+          return { exited: false, tokens, remaining: [] };
+        }
       } else if (equal >= 0) {
         tokens.push([flag, word.slice(equal + 1)]);
+        if (onToken?.(tokens[tokens.length - 1]!)) {
+          return { exited: false, tokens, remaining: [] };
+        }
       } else if (
         option.value.startsWith('optional-') &&
         (!option.lastArgDefault || index >= argv.length)
       ) {
         tokens.push([flag]);
+        if (onToken?.(tokens[tokens.length - 1]!)) {
+          return { exited: false, tokens, remaining: [] };
+        }
       } else {
         const value = argv[index++];
         if (value === undefined) {
           throw new GitArgumentError(`${flag}: missing option value`);
         }
         tokens.push([flag, value]);
+        if (onToken?.(tokens[tokens.length - 1]!)) {
+          return { exited: false, tokens, remaining: [] };
+        }
       }
       continue;
     }
@@ -160,20 +173,32 @@ export function initialParserPass(
       cluster = cluster.slice(1);
       if (option.value === 'flag') {
         tokens.push([flag]);
+        if (onToken?.(tokens[tokens.length - 1]!)) {
+          return { exited: false, tokens, remaining: [] };
+        }
       } else {
         if (cluster) {
           tokens.push([flag, cluster]);
+          if (onToken?.(tokens[tokens.length - 1]!)) {
+            return { exited: false, tokens, remaining: [] };
+          }
         } else if (
           option.value.startsWith('optional-') &&
           (!option.lastArgDefault || index >= argv.length)
         ) {
           tokens.push([flag]);
+          if (onToken?.(tokens[tokens.length - 1]!)) {
+            return { exited: false, tokens, remaining: [] };
+          }
         } else {
           const value = argv[index++];
           if (value === undefined) {
             throw new GitArgumentError(`${flag}: missing option value`);
           }
           tokens.push([flag, value]);
+          if (onToken?.(tokens[tokens.length - 1]!)) {
+            return { exited: false, tokens, remaining: [] };
+          }
         }
         cluster = '';
       }

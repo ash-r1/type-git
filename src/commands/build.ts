@@ -82,6 +82,16 @@ export function validateArgvStrings(args: readonly unknown[]): void {
   }
 }
 
+/** Observed native OPTION_FILENAME pointer-update families. */
+export type FilenameProfile = 'legacy' | 'intermediate' | 'optional';
+/** Carry filename observations through every existing parser and ABI pass. */
+export type FilenameContext = {
+  filenameProfile?: FilenameProfile;
+  ignoreOptionalFilename?: (key: string, value: string) => boolean;
+  stopBeforeFilename?: number;
+  deferFinalRules?: boolean;
+};
+
 /**
  * Validate argv representation before parser selection, then emit ordered words without a shell.
  * NUL in a supplied word is rejected before GUI, dispatch or native-profile lookup; stdin is separate.
@@ -107,11 +117,25 @@ export function commandArguments(
     depthAtoiBits?: 32 | 64;
     submoduleInitAlias?: boolean;
     firstPassEmpty?: boolean;
-  },
+  } & FilenameContext,
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
+  filenameProfile?: FilenameProfile,
+  ignoreOptionalFilename?: (key: string, value: string) => boolean,
+  deferFinalRules?: boolean,
 ): string[] {
-  return buildArguments(command, args, inRepository, abi, guiGrammar, guiLaunch);
+  const selected =
+    filenameProfile === undefined && !ignoreOptionalFilename && !deferFinalRules
+      ? abi
+      : {
+          longBits: 64 as const,
+          sizeTBits: 64 as const,
+          ...abi,
+          ...(filenameProfile === undefined ? {} : { filenameProfile }),
+          ...(ignoreOptionalFilename ? { ignoreOptionalFilename } : {}),
+          ...(deferFinalRules ? { deferFinalRules } : {}),
+        };
+  return buildArguments(command, args, inRepository, selected, guiGrammar, guiLaunch);
 }
 
 /** Serialize shape or validate only the callbacks reached by one parser pass. */
@@ -135,7 +159,7 @@ function buildArguments(
     depthAtoiBits?: 32 | 64;
     submoduleInitAlias?: boolean;
     firstPassEmpty?: boolean;
-  },
+  } & FilenameContext,
   guiGrammar?: GuiGrammar,
   guiLaunch?: GuiLaunch,
   evaluationMode: 'full' | 'shape' | 'first-pass' | 'pipeline' = 'full',
@@ -196,6 +220,21 @@ function buildArguments(
       spec,
       serialized.slice(spec.argv.length),
       abi?.firstPassEmpty ?? true,
+      spec.parserExit,
+      abi?.stopBeforeFilename === undefined
+        ? undefined
+        : (() => {
+            let reached = 0;
+            return (token: readonly string[]) => {
+              const option = spec.options[token[0]!];
+              return (
+                option?.emptyIsUnset === true &&
+                typeof token[1] === 'string' &&
+                token[1].startsWith(':(optional)') &&
+                reached++ === abi.stopBeforeFilename
+              );
+            };
+          })(),
     );
     if (pass.exited) {
       buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
@@ -562,7 +601,19 @@ function buildArguments(
       literalOperands = true;
     }
     if (option.ignore) {
+      if (option.emptyIsUnset && abi?.filenameProfile && abi.filenameProfile !== 'optional') {
+        state[option.key] = undefined;
+      }
       continue;
+    }
+    if (option.emptyIsUnset && typeof value === 'string') {
+      if (value.startsWith(':(optional)') && abi?.stopBeforeFilename !== undefined) {
+        // The runner supplies one counter across parser replay passes.
+        if (abi.stopBeforeFilename === 0) {
+          return argv;
+        }
+        abi.stopBeforeFilename--;
+      }
     }
     if (option.toggle) {
       state[option.key] = state[option.key] !== true;
@@ -577,9 +628,17 @@ function buildArguments(
                 ? []
                 : [option.parser === 'python-int' ? parsed.value : value]),
             ];
+    } else if (
+      option.emptyIsUnset &&
+      abi?.filenameProfile === 'optional' &&
+      typeof value === 'string' &&
+      value.startsWith(':(optional)') &&
+      abi.ignoreOptionalFilename?.(option.key, value)
+    ) {
+      // A missing optional file retains the prior pointer, including an earlier assignment.
     } else {
       state[option.key] =
-        option.emptyIsUnset && value === ''
+        option.emptyIsUnset && value === '' && abi?.filenameProfile !== 'legacy'
           ? undefined
           : option.caseInsensitive && !option.preserveCase && typeof parsed.value === 'string'
             ? asciiLower(parsed.value)
@@ -607,7 +666,7 @@ function buildArguments(
   }
   state.operand0 = operands[0];
   state.operand1 = operands[1];
-  if (!parserExited && !replay?.parserExited && state.help !== true) {
+  if (!abi?.deferFinalRules && !parserExited && !replay?.parserExited && state.help !== true) {
     if (abi?.conflictStyle === 'deferred') {
       if (state.conflict !== undefined) {
         state.merge = true;
@@ -1128,4 +1187,53 @@ export function commandBooleanFeatures(
     }
   }
   return [...features];
+}
+
+/** Collect only filename updates reached by the selected native parser passes. */
+export function commandFilenameTokens(
+  command: GitCommandName,
+  args: readonly unknown[],
+  firstPassEmpty = true,
+): { key: string; value: unknown; ignore: boolean }[] {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandFilenameTokens(dispatched.command, dispatched.args, firstPassEmpty);
+  }
+  const updates: { key: string; value: unknown; ignore: boolean }[] = [];
+  /** Observe each filename token before a later native parse error can preempt it. */
+  const collect = (token: readonly unknown[]): false => {
+    const flag = token[0];
+    const option =
+      typeof flag === 'string' && Object.hasOwn(spec.options, flag)
+        ? spec.options[flag]
+        : undefined;
+    if (option?.emptyIsUnset) {
+      updates.push({ key: option.key, value: token[1], ignore: option.ignore === true });
+    }
+    return false;
+  };
+  if (spec.parserExit?.firstPassOptions) {
+    try {
+      const words = commandShapeArguments(command, args, true).slice(spec.argv.length);
+      initialParserPass(spec, words, firstPassEmpty, spec.parserExit, collect);
+    } catch (error) {
+      // A reached optional stat may terminate before the later syntax error.
+      if (
+        !(error instanceof GitArgumentError) ||
+        !updates.some(
+          (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+        )
+      ) {
+        throw error;
+      }
+    }
+    return updates;
+  }
+  for (const token of interpretedArguments(spec, args, firstPassEmpty)) {
+    if (Array.isArray(token)) {
+      collect(token);
+    }
+  }
+  return updates;
 }

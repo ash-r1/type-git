@@ -8,6 +8,8 @@ import type { CommandSpec } from './spec.js';
 export type GuiGrammar = 'path-loop' | 'positional';
 export type GuiLaunch = 'shell-prelude' | 'direct-tcl';
 export type CommandGrammarContext = {
+  filenameProfile?: 'legacy' | 'intermediate' | 'optional';
+  filenameIgnoredValues?: string;
   guiGrammar?: GuiGrammar;
   guiLaunch?: GuiLaunch;
   conflictStyle?: 'immediate' | 'deferred';

@@ -10,6 +10,7 @@ import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
 import type { GitCommandName } from './types.js';
 
+/** Observe native command availability; failed processes are errors, never missing commands. */
 const unavailable = (command: string) => {
   if (command === 'http-backend') {
     const listing = spawnSync('git', ['--list-cmds=main'], { encoding: 'utf8', timeout: 10000 });
@@ -18,13 +19,17 @@ const unavailable = (command: string) => {
     }
     return !listing.stdout.split(/\s+/).includes(command);
   }
+  const probeStarted = performance.now();
   const result = spawnSync('git', [command, '-h'], {
     encoding: 'utf8',
-    timeout: 10000,
+    // Match the bounded Windows native help allowance used by send-email.
+    timeout: process.platform === 'win32' ? 20000 : 10000,
     env: { ...process.env, LC_ALL: 'C' },
   });
   if (result.error || result.signal || result.status === null) {
-    throw new Error(`Cannot inspect ${command} availability`);
+    throw new Error(
+      `Cannot inspect ${command} availability: ${JSON.stringify({ elapsedMs: Math.round(performance.now() - probeStarted), error: result.error?.message, status: result.status, signal: result.signal, stderr: result.stderr })}`,
+    );
   }
   const text = result.stdout + result.stderr;
   if (text.includes('is not a git command')) {

@@ -235,7 +235,33 @@ type Effects<S, E extends NonNullable<OptionSpec['effects']>> = [S] extends [nev
         R
       >
     : S;
+/** Preserve each value arm while selecting observed filename pointer semantics. */
+type FilenameTokenValue<S, D extends OptionSpec, T extends readonly unknown[]> = S extends {
+  filenameProfile: 'legacy';
+}
+  ? D extends { emptyIsUnset: true }
+    ? T extends readonly [unknown, infer V]
+      ? Normalize<V extends undefined ? DefaultValue<D> : V, D, undefined>
+      : TokenValue<T, D>
+    : TokenValue<T, D>
+  : TokenValue<T, D, D['key'] extends keyof S ? S[D['key']] : undefined>;
+type MissingOptionalFilenameValue<S, D extends OptionSpec, V> = V extends string
+  ? V extends `:(optional)${infer Path}`
+    ? Path extends ''
+      ? TokenValue<readonly [unknown, V], D>
+      : D['key'] extends keyof S
+        ? S[D['key']]
+        : undefined
+    : TokenValue<readonly [unknown, V], D>
+  : TokenValue<readonly [unknown, V], D>;
 type UnparsedOptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  emptyIsUnset: true;
+}
+  ? S extends { filenameProfile: unknown }
+    ? FilenameOptionState<S, D, T>
+    : OrdinaryOptionState<S, D, T>
+  : OrdinaryOptionState<S, D, T>;
+type OrdinaryOptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
   ignore: true;
 }
   ? S
@@ -249,6 +275,39 @@ type UnparsedOptionState<S, D extends OptionSpec, T extends readonly unknown[]> 
           D extends { parser: 'mainline' }
             ? MainlineValue<TokenValue<T, D>>
             : TokenValue<T, D, D['key'] extends keyof S ? S[D['key']] : undefined>
+        >;
+type FilenameOptionState<S, D extends OptionSpec, T extends readonly unknown[]> = S extends {
+  filenameProfile: 'optional';
+  filenameIgnoredValues: infer Values;
+}
+  ? D extends { emptyIsUnset: true; ignore?: false }
+    ? T extends readonly [unknown, infer V]
+      ? Put<
+          S,
+          D['key'],
+          V extends Values ? MissingOptionalFilenameValue<S, D, V> : FilenameTokenValue<S, D, T>
+        >
+      : AssignedOptionState<S, D, T>
+    : AssignedOptionState<S, D, T>
+  : AssignedOptionState<S, D, T>;
+type AssignedOptionState<S, D extends OptionSpec, T extends readonly unknown[]> = D extends {
+  ignore: true;
+}
+  ? D extends { emptyIsUnset: true }
+    ? S extends { filenameProfile: 'legacy' | 'intermediate' }
+      ? Put<S, D['key'], undefined>
+      : S
+    : S
+  : D extends { toggle: true }
+    ? Put<S, D['key'], D['key'] extends keyof S ? (S[D['key']] extends true ? false : true) : true>
+    : D extends { repeat: true }
+      ? Put<S, D['key'], Append<S, D, FilenameTokenValue<S, D, T>>>
+      : Put<
+          S,
+          D['key'],
+          D extends { parser: 'mainline' }
+            ? MainlineValue<TokenValue<T, D>>
+            : FilenameTokenValue<S, D, T>
         >;
 type IntegerRangeValid<V, Min extends number, Max extends number> = V extends number
   ? [SafeIntegerAtLeast<V, Min, false>] extends [never]
@@ -1499,16 +1558,20 @@ type PinnedCallbackAlternatives<
                     CommandState<
                       C,
                       A,
-                      Put<Initial<C>, 'argumentTokens', A> & {
-                        decimalCallbacks: F & OtherCallbacks;
-                        booleanSource: Source;
-                        integerProfile: I;
-                        negativeMagnitudes: N;
-                        decimalLongBits: B;
-                        conflictStyle: Conflict;
-                        firstPassEmpty: EmptyRegistered;
-                        compoundNegatedOverflow: Overflow;
-                      }
+                      Put<Initial<C>, 'argumentTokens', A> &
+                        Pick<
+                          Ctx,
+                          Extract<keyof Ctx, 'filenameProfile' | 'filenameIgnoredValues'>
+                        > & {
+                          decimalCallbacks: F & OtherCallbacks;
+                          booleanSource: Source;
+                          integerProfile: I;
+                          negativeMagnitudes: N;
+                          decimalLongBits: B;
+                          conflictStyle: Conflict;
+                          firstPassEmpty: EmptyRegistered;
+                          compoundNegatedOverflow: Overflow;
+                        }
                     >
                   >
                 : never
@@ -1581,6 +1644,119 @@ type CheckedLocalParserProfiles<
           : InitialLocalProfiles<C, A, Ctx>
     : never;
 
+/** Explore filename fields independently, checking the complete input in each state. */
+type FilenameFields<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+  R extends readonly unknown[] = A,
+  Ignored extends string = never,
+  Assigned extends string = never,
+> = R extends readonly [infer H, ...infer Rest]
+  ? H extends readonly [infer K extends keyof Options<C>, infer V]
+    ? Options<C>[K] extends { emptyIsUnset: true }
+      ? Extract<V, `:(optional)${string}`> extends infer Paths extends string
+        ? [Paths] extends [never]
+          ? FilenameFields<C, A, Ctx, Rest, Ignored, Assigned>
+          : [Exclude<Paths, Ignored | Assigned>] extends [never]
+            ? FilenameFields<C, A, Ctx, Rest, Ignored, Assigned>
+            :
+                | FilenameFields<C, A, Ctx, Rest, Ignored | Paths, Assigned>
+                | FilenameFields<C, A, Ctx, Rest, Ignored, Assigned | Paths>
+        : never
+      : FilenameFields<C, A, Ctx, Rest, Ignored, Assigned>
+    : FilenameFields<C, A, Ctx, Rest, Ignored, Assigned>
+  : CheckedLocalWithoutFilename<
+      C,
+      A,
+      Ctx & {
+        filenameProfile: 'optional';
+        filenameIgnoredValues: Ignored;
+        decimalCallbacks: Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+          ? F
+          : {};
+      }
+    >;
+type HasFilenameUpdate<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+> = A extends readonly [infer H, ...infer R]
+  ? H extends readonly [infer K extends keyof Options<C>, ...infer V]
+    ? Options<C>[K] extends { emptyIsUnset: true }
+      ? Options<C>[K] extends { ignore: true }
+        ? true
+        : V extends readonly [infer FilenameInput]
+          ? [Extract<FilenameInput, '' | `:(optional)${string}`>] extends [never]
+            ? HasFilenameUpdate<C, R>
+            : true
+          : HasFilenameUpdate<C, R>
+      : HasFilenameUpdate<C, R>
+    : HasFilenameUpdate<C, R>
+  : false;
+/** Project optional filename values without replaying unaffected whole tuples. */
+type OptionalFilenameValues<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  T = A[number],
+> = T extends readonly [infer K extends keyof Options<C>, infer V]
+  ? Options<C>[K] extends { emptyIsUnset: true }
+    ? Extract<V, `:(optional)${string}`>
+    : never
+  : never;
+/** Keep existing parser alternatives and add only observed filename profiles. */
+type CheckedLocalArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext = {},
+> = Ctx extends { filenameProfile: 'optional' }
+  ? Ctx extends { filenameIgnoredValues: string }
+    ? CheckedLocalWithoutFilename<
+        C,
+        A,
+        Ctx & {
+          decimalCallbacks: Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+            ? F
+            : {};
+        }
+      >
+    : [OptionalFilenameValues<C, A>] extends [never]
+      ? CheckedLocalWithoutFilename<
+          C,
+          A,
+          Ctx & {
+            decimalCallbacks: Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+              ? F
+              : {};
+          }
+        >
+      : FilenameFields<C, A, Ctx>
+  : Ctx extends { filenameProfile: unknown }
+    ? CheckedLocalWithoutFilename<
+        C,
+        A,
+        Ctx & {
+          decimalCallbacks: Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+            ? F
+            : {};
+        }
+      >
+    : HasFilenameUpdate<C, A> extends true
+      ? [CheckedLocalWithoutFilename<C, A, Ctx>] extends [never]
+        ?
+            | CheckedLocalWithoutFilename<
+                C,
+                A,
+                Ctx & { filenameProfile: 'legacy'; decimalCallbacks: {} }
+              >
+            | CheckedLocalWithoutFilename<
+                C,
+                A,
+                Ctx & { filenameProfile: 'intermediate'; decimalCallbacks: {} }
+              >
+            | FilenameFields<C, A, Ctx>
+        : A
+      : CheckedLocalWithoutFilename<C, A, Ctx>;
+
 /** Replace only recognized aliases for type evaluation; emitted words are never rewritten. */
 type SubmoduleInitTokens<A extends readonly unknown[]> = A extends readonly [infer H, ...infer Rest]
   ? H extends { operand: string } | readonly ['--'] | readonly ['-h'] | readonly ['--help']
@@ -1598,7 +1774,7 @@ type ReachedSubmoduleAlias<A extends readonly unknown[]> = A extends readonly [
       : ReachedSubmoduleAlias<Rest>
   : false;
 /** Preserve the complete command checker while selecting one helper alias capability. */
-type CheckedLocalArguments<
+type CheckedLocalWithoutFilename<
   C extends GitCommandName,
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
