@@ -1,9 +1,20 @@
 // Finite spelling resolution for Git 2.55 parse-options.c:parse_long_opt/register_abbrev.
 // Values map to an existing canonical option; null records an ambiguous spelling.
-/** Compile finite native long spellings, rejecting unsupported alias families. */
+/** Compile finite native long spellings, preserving native alias-pair ambiguity. */
 export function parseOptionLongForms(definitions, abbreviate) {
-  if (definitions.some(option => option.kind === 'OPTION_ALIAS')) throw new Error('Long-form compilation requires explicit alias-family support for this table');
-  const options = definitions.filter(option => option.long && option.kind !== 'OPTION_SUBCOMMAND');
+  // preprocess_options copies the target's semantics but keeps the alias name
+  // and its table position. Native alias_groups are PAIRS, not equivalence classes.
+  const aliasPairs = [];
+  const options = definitions.map(option => {
+    if (option.kind !== 'OPTION_ALIAS') return option;
+    const source = option.fields.value?.match(/"(?:\\.|[^"\\])*"/)?.[0];
+    const name = source && JSON.parse(source);
+    const target = definitions.find(candidate => candidate.long === name);
+    if (!option.long || !name || !target) throw new Error(`Invalid native alias: ${option.long}`);
+    if (target.kind === 'OPTION_ALIAS') throw new Error(`Nested native alias: ${option.long}`);
+    aliasPairs.push([option.long, name]);
+    return { ...target, long: option.long, short: option.short };
+  }).filter(option => option.long && option.kind !== 'OPTION_SUBCOMMAND');
   const candidates = new Set(['n', 'no', 'no-']);
   for (const option of options) {
     const name = option.long.replace(/^no-/, '');
@@ -27,13 +38,12 @@ export function parseOptionLongForms(definitions, abbreviate) {
     }
     let abbreviation;
     let ambiguous = false;
-    /** Track every native abbreviation registration, including duplicate ambiguity. */
-    const register = value => {
+    /** Track alias pairs with equal parsed flags while preserving earlier ambiguity. */
+    const register = (value, option, flags) => {
       if (!abbreviate) return;
-      // No alias families in the audited input tables. Even a second registration
-      // of the same option is ambiguous in native register_abbrev.
-      if (abbreviation !== undefined) ambiguous = true;
-      abbreviation = value;
+      const alias = abbreviation && aliasPairs.some(pair => pair.includes(abbreviation.name) && pair.includes(option.long));
+      if (abbreviation && !(abbreviation.flags === flags && alias)) ambiguous = true;
+      abbreviation = { value, name: option.long, flags };
     };
     for (const option of options) {
       const negatedName = option.long.startsWith('no-');
@@ -45,11 +55,13 @@ export function parseOptionLongForms(definitions, abbreviate) {
       /** Map the native unset state back to the declared canonical option. */
       const canonical = isUnset => `--${isUnset ? negatedName ? option.long.slice(3) : `no-${option.long}` : option.long}`;
       if (base === name) return canonical(negated);
-      if (name.startsWith(base)) register(canonical(negated));
+      if (name.startsWith(base)) register(canonical(negated), option, Number(negated));
       // Git compares the full raw word here: an attached '=' changes --n/--no.
-      if (allowUnset && 'no-'.startsWith(raw)) register(canonical(!negatedName));
+      // The very-short negation registration retains OPT_LONG; ordinary XOR
+      // registration cancels it. Native alias comparison uses both flag bits.
+      if (allowUnset && 'no-'.startsWith(raw)) register(canonical(!negatedName), option, 2 + Number(!negatedName));
     }
-    return ambiguous ? null : abbreviation;
+    return ambiguous ? null : abbreviation?.value;
   }
   const plain = {};
   const attached = {};

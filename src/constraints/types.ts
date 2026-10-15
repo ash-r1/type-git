@@ -414,3 +414,6 @@ type Rules<T, R extends readonly Constraint[]> = R extends readonly [
   ? Apply<T, H> & Rules<T, Rest>
   : unknown;
 export type Constrained<T, R extends readonly Constraint[]> = T & Rules<T, R>;
+
+/** The requirement of one rule, without intersecting the entire input state again. */
+export type ConstraintRequirement<T, R extends Constraint> = Apply<T, R>;

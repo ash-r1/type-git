@@ -27,7 +27,7 @@ import type {
   StringCallbackLiteral,
   StringCallbackValue,
 } from '../constraints/string-callback-types.js';
-import type { Constrained } from '../constraints/types.js';
+import type { Constrained, ConstraintRequirement } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
@@ -976,7 +976,7 @@ type RuleStateValid<S, H extends Constraint> = S extends
   | { parserExited: true }
   | { repositoryDependent: true }
   ? true
-  : S extends Constrained<S, readonly [ProfiledConstraint<S, H>]>
+  : S extends ConstraintRequirement<S, ProfiledConstraint<S, H>>
     ? true
     : false;
 // Evaluate one rule at a time without forming a Cartesian union of all rules.
@@ -1556,6 +1556,7 @@ type IndependentlyPinnedCallbacks<
     ? never
     : PinnedCallbackAlternatives<C, A, F, Ctx>
   : A;
+
 type CheckedLocalParserProfiles<
   C extends GitCommandName,
   A extends readonly unknown[],

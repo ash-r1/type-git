@@ -1573,3 +1573,52 @@ all remaining scalar axes equal the already checked defaults; independently
 selectable numeric/ABI/callback alternatives remain in place. All fixture files
 and source roots stay in the same project, without restoring the old batch
 runner or its incremental cache.
+
+
+## Native aliases in clone, fetch and push
+
+The long-spelling compiler models `parse-options.c:preprocess_options`,
+`is_alias` and `register_abbrev`. An alias inherits its target's flags while
+retaining its name and position in the option table. Native alias groups are
+pairs of names: an alias and its target. Two aliases of the same target are
+not automatically interchangeable for abbreviation ambiguity. Full parsed flags
+must also match; the very-short negation path keeps OPT_LONG while the ordinary
+path cancels it. Earlier unrelated ambiguity remains recorded, and an exact
+match takes precedence. Missing targets and nested aliases are rejected as in
+native preprocessing.
+
+`clone`, `fetch` and `push` use their ordinary source tables before remaining
+operands. `clone --recur -h` reaches help even though both `--recursive` and
+`--recurse-submodules` match. `fetch --negotiation-t=HEAD -h` reaches help
+through the `--negotiation-tip` alias of `--negotiation-restrict`. The shorter
+`--negotiation-=HEAD` is still ambiguous because `--negotiation-include` also matches. `push --bra -h`
+resolves the `--branches` alias, while an attached value such as
+`--branches=1` still fails before help. Both end markers are consumed, and
+following words become literal operands instead of callbacks or help tokens.
+
+`node --test scripts/parse-option-long-forms.node-test.mjs` checks alias pair identity,
+nontransitive relationships, parsed flags, sticky ambiguity, exact precedence,
+inherited flags and native rejection of nested/missing aliases.
+`node scripts/alias-parser-corpus.mjs --check` reproduces 9,997 independent native
+outcomes and compiler assertions, with fixture files of at most 400 cases, all checked together with every other
+source and contract root under the existing 10 GiB project limit.
+The oracle uses fixed dates, a local remote with a configured upstream, and a
+dash-named remote. Clone destinations are fresh; final push/fetch probes use
+dry-run. No external network transfer is required.
+
+Ref/refspec grammars and resolution, repository/configuration and transport state,
+other callback languages, completion, platform profiles and other parser modes
+remain open. Every scope remains partial.
+
+
+
+### Checking rule requirements without repeating input state
+
+Each non-exiting state is checked against the requirement of each rule. The
+requirement is the same predicate shape used by `Constrained`; the validity
+check compares the state with that shape directly instead of first intersecting
+it with the entire state again. A state is already assignable to itself, so
+this removes a redundant comparison without changing which rule outcomes pass.
+The existing universal check across finite union alternatives, help exits,
+independent parser profiles, original argv and all contract assertions remain.
+The whole project continues using the same 10 GiB limit.
