@@ -3847,9 +3847,6 @@
         "--help",
         "--help-all"
       ],
-      "exceptFirst": [
-        "--help"
-      ],
       "origin": "git",
       "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
       "source": "Git 2.55.0 builtin/refs.c; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
@@ -3880,9 +3877,6 @@
         "--help",
         "--help-all"
       ],
-      "exceptFirst": [
-        "--help"
-      ],
       "origin": "git",
       "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
       "source": "Git 2.55.0 builtin/refs.c; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
@@ -3912,9 +3906,6 @@
         "-h",
         "--help",
         "--help-all"
-      ],
-      "exceptFirst": [
-        "--help"
       ],
       "origin": "git",
       "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
@@ -3967,9 +3958,6 @@
         "--help",
         "--help-all"
       ],
-      "exceptFirst": [
-        "--help"
-      ],
       "origin": "git",
       "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
       "source": "Git 2.55.0 builtin/for-each-ref.c:for_each_ref_core; parse-options.c:parse_options/parse_long_opt/parse_short_opt; git.c:handle_builtin",
@@ -4002,9 +3990,6 @@
         "-h",
         "--help",
         "--help-all"
-      ],
-      "exceptFirst": [
-        "--help"
       ],
       "origin": "git",
       "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help, then consumes end markers and retains literal operands. KEEP_ARGV0 bookkeeping is outside the public argument list.",
@@ -6929,8 +6914,40 @@
       "builtin/refs.c:cmd_refs:opts"
     ],
     "source": "builtin/refs.c",
-    "optionParsing": "stop-at-operand",
-    "separator": false
+    "separator": false,
+    "dispatch": {
+      "migrate": "refs migrate",
+      "verify": "refs verify",
+      "list": "refs list",
+      "exists": "refs exists",
+      "optimize": "refs optimize"
+    },
+    "options": {
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
+      }
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help-all",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/refs.c:cmd_refs:opts"
+      ],
+      "longOptionResolution": "abbreviated",
+      "unknownOptions": "error",
+      "keepEndOfOptions": false,
+      "mandatorySubcommand": true,
+      "origin": "git",
+      "reason": "parse_options with mandatory OPTION_SUBCOMMAND stops at the first exact registered operation. Unknown operands fail before later help; either boundary or argv exhaustion without selection requires a subcommand. Child parsing follows selection.",
+      "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c"
+    }
   },
   "repo": {
     "tables": [

@@ -1820,6 +1820,59 @@ type CheckedDispatchedArguments<
       : CheckedLocalArguments<C, A, Ctx>
     : CheckedLocalArguments<C, A, Ctx>;
 
+/** Reinterpret only the actual child argv retained by native parent parsing. */
+type MandatoryWordOperands<W extends readonly string[]> = {
+  readonly [K in keyof W]: { readonly operand: W[K] };
+};
+type InvalidMandatoryPass = { invalidMandatoryPass: true };
+type MandatoryParentState<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  T extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = State<C, T, Put<Initial<C>, 'argumentTokens', A> & Ctx>;
+type CheckedSubcommandPass<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  P,
+  Ctx extends CommandGrammarContext,
+> = P extends {
+  subcommand: infer W extends keyof Dispatch<C>;
+  tokens: infer T extends readonly unknown[];
+  remaining: infer R extends readonly string[];
+}
+  ? [MandatoryParentState<C, A, T, Ctx>] extends [never]
+    ? InvalidMandatoryPass
+    : Dispatch<C>[W] extends infer Target extends GitCommandName
+      ? [CheckedLocalArguments<Target, MandatoryWordOperands<R>, Ctx>] extends [never]
+        ? InvalidMandatoryPass
+        : A
+      : InvalidMandatoryPass
+  : P extends { exited: true; tokens: infer T extends readonly unknown[] }
+    ? [MandatoryParentState<C, A, T, Ctx>] extends [never]
+      ? InvalidMandatoryPass
+      : A
+    : P extends { exited: 'dynamic' } | { delegated: true }
+      ? A
+      : InvalidMandatoryPass;
+/** Every finite parser alternative must pass under the same selected source context. */
+type CheckedMandatoryArguments<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = CheckedSubcommandPass<
+  C,
+  A,
+  InitialParserPass<Spec<C>, A, Ctx extends { firstPassEmpty: false } ? false : true>,
+  Ctx
+> extends infer P
+  ? [P] extends [never]
+    ? never
+    : [Extract<P, InvalidMandatoryPass>] extends [never]
+      ? A
+      : never
+  : never;
+
 /** The legacy empty parent pass can exit before any explicit stash child is parsed. */
 type LegacyStashHelp<
   C extends GitCommandName,
@@ -1861,11 +1914,13 @@ export type CheckedCommandArguments<
     ? A
     : LegacyStashHelp<C, A, Ctx> extends true
       ? A
-      : Spec<C> extends { guiScript: true }
-        ? CheckedLocalArguments<C, A, Ctx>
-        : [Dispatch<C>] extends [never]
+      : Spec<C> extends { parserExit: { mandatorySubcommand: true } }
+        ? CheckedMandatoryArguments<C, A, Ctx>
+        : Spec<C> extends { guiScript: true }
           ? CheckedLocalArguments<C, A, Ctx>
-          : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
+          : [Dispatch<C>] extends [never]
+            ? CheckedLocalArguments<C, A, Ctx>
+            : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {

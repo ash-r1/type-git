@@ -166,7 +166,9 @@ function buildArguments(
     validateGuiArguments(argv, guiGrammar, guiLaunch);
     return argv;
   }
-  const dispatched = dispatchArguments(spec, args);
+  const dispatched = spec.parserExit?.mandatorySubcommand
+    ? undefined
+    : dispatchArguments(spec, args);
   if (dispatched) {
     return buildArguments(
       dispatched.command,
@@ -196,6 +198,21 @@ function buildArguments(
     );
     if (pass.exited) {
       buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
+      return serialized;
+    }
+    if (pass.subcommand !== undefined) {
+      buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
+      buildArguments(
+        spec.dispatch![pass.subcommand] as GitCommandName,
+        pass.remaining.map((operand) => ({ operand })),
+        inRepository,
+        abi,
+        guiGrammar,
+        guiLaunch,
+      );
+      return serialized;
+    }
+    if (pass.delegated && spec.parserExit.mandatorySubcommand) {
       return serialized;
     }
     if (!pass.delegated) {
@@ -319,7 +336,12 @@ function buildArguments(
     if (typeof flag !== 'string') {
       throw new GitArgumentError(`${command}: option names must be strings`);
     }
-    const activeOptions = replay && index >= replay.firstCount ? replay.options : spec.options;
+    const activeOptions =
+      evaluationMode === 'shape' && spec.parserExit?.argumentOptions
+        ? spec.parserExit.argumentOptions
+        : replay && index >= replay.firstCount
+          ? replay.options
+          : spec.options;
     const numeric =
       !Object.hasOwn(activeOptions, flag) &&
       spec.numericOption &&

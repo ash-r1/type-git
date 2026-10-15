@@ -12,6 +12,7 @@ export function initialParserPass(
   tokens: readonly (readonly string[])[];
   remaining: readonly string[];
   delegated?: true;
+  subcommand?: string;
 } {
   const recognized = new Set(
     exit.firstPassOptions?.filter(
@@ -58,6 +59,9 @@ export function initialParserPass(
   while (index < argv.length) {
     const word = argv[index++]!;
     if (word === '--' || word === '--end-of-options') {
+      if (exit.mandatorySubcommand) {
+        throw new GitArgumentError('Git requires a subcommand before the option boundary');
+      }
       if (word === '--end-of-options' ? exit.keepEndOfOptions !== false : exit.keepDashDash) {
         remaining.push(word);
       }
@@ -68,6 +72,12 @@ export function initialParserPass(
       return help();
     }
     if (!word.startsWith('-') || word === '-') {
+      if (exit.mandatorySubcommand) {
+        if (!spec.dispatch || !Object.hasOwn(spec.dispatch, word)) {
+          throw new GitArgumentError(`Unknown Git subcommand: ${word}`);
+        }
+        return { exited: false, tokens, remaining: argv.slice(index), subcommand: word };
+      }
       remaining.push(word);
       if (exit.stopAtUnknown || exit.stopAtOperand) {
         remaining.push(...argv.slice(index));
@@ -168,6 +178,9 @@ export function initialParserPass(
       }
       first = false;
     }
+  }
+  if (exit.mandatorySubcommand) {
+    throw new GitArgumentError('Git requires a subcommand');
   }
   return { exited: false, tokens, remaining };
 }
