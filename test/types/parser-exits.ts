@@ -17,8 +17,10 @@ git.command('branch', [['--track', 'invalid'], ['-h']]);
 git.command('for-each-ref', [['--count', 'bad'], ['-h']]);
 // @ts-expect-error A color value containing -h is not an exit token.
 git.command('branch', [['--color', '-h'], ['--color', 'auto']]);
-// @ts-expect-error -- ends option interpretation before the help token.
-git.command('branch', [['--'], ['-h']]);
+// After --, help and color spellings are literal list patterns.
+git.command('branch', [['--list'], ['--'], ['-h'], ['--color', 'invalid']]);
+// @ts-expect-error A literal -h cannot suppress the final creation arity check.
+git.command('branch', [['--'], ['-h'], { operand: 'two' }, { operand: 'three' }]);
 // @ts-expect-error show-branch stops option interpretation at its first operand.
 git.command('show-branch', [{ operand: 'HEAD' }, ['-h']]);
 // @ts-expect-error OS argv cannot represent NUL even after the parser exits.

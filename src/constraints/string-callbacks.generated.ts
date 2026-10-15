@@ -26,4 +26,19 @@ export const STRING_CALLBACKS = {
     source:
       'gpg-interface.c:parse_sign_mode; builtin/fast-import.c:parse_one_option; a key suffix may be empty',
   },
+  'column-mode': {
+    kind: 'token-list',
+    separators: [' ', ','],
+    exact: ['always', 'never', 'auto', 'plain', 'column', 'row', 'dense', 'nodense'],
+    projection: {
+      initial: 'always',
+      values: {
+        always: 'always',
+        never: 'never',
+        auto: 'auto',
+      },
+    },
+    source:
+      'column.c:parse_config/parse_option/parseopt_column_callback; enable projection only; auto depends on tty/pager during finalization',
+  },
 } as const satisfies Record<string, StringCallbackProfile>;

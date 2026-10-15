@@ -179,7 +179,13 @@ describe('compiler-recorded native integer parsers', () => {
           expect(parseGitScalar(option.parser, value).valid, `${command} ${flag}`).toBe(false);
           const build = (): string[] =>
             commandArguments(command, [[flag, value], [flag, 1], ['-h']], true);
-          if (deferred) {
+          const bareOptional =
+            firstPass?.includes(flag) &&
+            option.value === 'optional-integer' &&
+            value === '' &&
+            !flag.startsWith('--') &&
+            !option.emptyValueFlag;
+          if (deferred || bareOptional) {
             expect(build, `${command} ${flag}`).not.toThrow();
           } else {
             expect(build, `${command} ${flag}`).toThrow('invalid integer');
@@ -188,6 +194,22 @@ describe('compiler-recorded native integer parsers', () => {
       }
     }
     expect(count).toBeGreaterThan(80);
+  });
+
+  it('keeps an empty optional short integer as a native bare flag', () => {
+    for (const tail of [[], ['-h']]) {
+      const args = [['-n', ''], ['-n', 1], ...tail.map((flag) => [flag])];
+      const argv = commandArguments('tag', args, true);
+      expect(argv).toEqual(['tag', '-n', '-n1', ...tail]);
+      const native = spawnSync('git', argv, { cwd: root, env, encoding: 'utf8', timeout: 10000 });
+      expect(native.error).toBeUndefined();
+      expect(native.signal).toBeNull();
+      expect(native.stderr).toBe('');
+      expect(tail.length > 0 ? [0, 129] : [0]).toContain(native.status);
+      if (tail.length > 0) {
+        expect(native.stdout).toContain('usage:');
+      }
+    }
   });
 
   it('rejects an earlier invalid numeric value when unconditional parsing completes', () => {
@@ -213,7 +235,16 @@ describe('compiler-recorded native integer parsers', () => {
               ],
               true,
             );
-          if (spec.conditionalCommand) {
+          const bareOptional =
+            spec.parserExit?.firstPassOptions?.includes(flag) &&
+            option.value === 'optional-integer' &&
+            value === '' &&
+            !flag.startsWith('--') &&
+            !option.emptyValueFlag;
+          if (bareOptional) {
+            // An omitted optional short value selects the native default, not an empty integer.
+            expect(build, `${command} ${flag}`).not.toThrow();
+          } else if (spec.conditionalCommand) {
             // A missing ref returns before the child reaches this callback.
             expect(build, `${command} ${flag}`).not.toThrow();
           } else {

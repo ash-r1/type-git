@@ -10,7 +10,8 @@
     "builtin/push.c": "80b564b62e0eed0657973c1325e5f7dc7da73480aa3640398e0ba603525eb3f7",
     "builtin/pull.c": "92fa45da7b63e7e91dea45829d4772c26970458cee8fe8622ba65b1f491b3cc3",
     "builtin/log.c": "fcd109d84314e40de11a186ebae6d58c5955e26bcc61425433bd4c45be35df80",
-    "builtin/fast-export.c": "538ecd9d6f583081dad7954b2441015cbd0e9e1cec344ff0dc104387929974cf"
+    "builtin/fast-export.c": "538ecd9d6f583081dad7954b2441015cbd0e9e1cec344ff0dc104387929974cf",
+    "builtin/commit.c": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121"
   },
   "boolean": {
     "true": [
@@ -92,6 +93,14 @@
       },
       "caseInsensitive": true,
       "source": "builtin/fast-export.c:parse_opt_reencode_mode"
+    },
+    "untracked-files": {
+      "allowTrue": true,
+      "names": {
+        "normal": "normal",
+        "all": "all"
+      },
+      "source": "builtin/commit.c:parse_untracked_setting_name; evaluated after parse_options by handle_untracked_files_arg; false means no, true means normal"
     }
   }
 }

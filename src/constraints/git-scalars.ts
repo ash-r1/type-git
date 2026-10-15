@@ -1,7 +1,7 @@
 import {
   isStringCallback,
   type StringCallbackParser,
-  validStringCallback,
+  parseStringCallback,
 } from './string-callback.js';
 import { asciiLower } from './ascii.js';
 import { validCompoundDecimal } from './compound-decimal.js';
@@ -215,7 +215,7 @@ export function parseGitScalar(
     };
   }
   if (isStringCallback(parser)) {
-    return { valid: validStringCallback(parser, value), value };
+    return parseStringCallback(parser, value);
   }
   if (parser === 'shortlog-group') {
     return {
