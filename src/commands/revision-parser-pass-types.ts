@@ -6,6 +6,32 @@ type Tokens = readonly Token[];
 type Invalid = { invalid: true };
 type Deferred = { dynamic: true };
 type Done<T extends Tokens> = { tokens: T };
+type UnknownToken<W extends string> = { operand: W; unparsedRevisionOption: true };
+type WithoutUnknown<T extends Tokens> = T extends readonly [infer H, ...infer R extends Tokens]
+  ? H extends { unparsedRevisionOption: true }
+    ? WithoutUnknown<R>
+    : readonly [H, ...WithoutUnknown<R>]
+  : readonly [];
+type Complete<T extends Tokens> = { tokens: WithoutUnknown<T>; exited: true };
+type Finish<T extends Tokens> = [Extract<T[number], { unparsedRevisionOption: true }>] extends [
+  never,
+]
+  ? Done<T>
+  : Invalid;
+type DeferredUnknown<
+  S extends CommandSpec,
+  W extends string,
+  R extends readonly string[],
+  T extends Tokens,
+  N extends readonly unknown[],
+> = Walk<S, R, readonly [...T, UnknownToken<W>], N>;
+type RemainingExit<S extends CommandSpec, W extends string> = Phase<S> extends {
+  remainingSingleWordExits: readonly (infer F)[];
+}
+  ? W extends F
+    ? true
+    : false
+  : false;
 type Phase<S extends CommandSpec> = NonNullable<S['parserExit']>;
 type Options<S extends CommandSpec> = NonNullable<Phase<S>['remainingOptions']>;
 type Tick<N extends readonly unknown[]> = readonly [...N, 0];
@@ -74,9 +100,63 @@ type Cluster<
               ? Walk<S, R, readonly [...T, readonly [`-${C}`]], N>
               : Take<S, `-${C}`, R, T, N>
             : Walk<S, R, readonly [...T, readonly [`-${C}`, Tail]], N>
-        : Invalid
-      : Invalid
+        : DeferredUnknown<S, `-${W}`, R, T, N>
+      : DeferredUnknown<S, `-${W}`, R, T, N>
     : Walk<S, R, T, N>;
+type NativeLong<
+  S extends CommandSpec,
+  F extends string,
+  Attached extends boolean,
+> = Phase<S> extends {
+  remainingLongForms: { plain: infer Plain; attached: infer Values };
+}
+  ? (Attached extends true ? Values : Plain) extends infer Forms
+    ? F extends keyof Forms
+      ? Forms[F]
+      : undefined
+    : undefined
+  : undefined;
+type LongFlag<
+  S extends CommandSpec,
+  F extends string,
+  Attached extends boolean,
+> = F extends keyof Options<S>
+  ? Attached extends true
+    ? Options<S>[F] extends { value: 'flag' } | { separateValue: true }
+      ? Phase<S> extends { remainingLongForms: unknown }
+        ? NativeLong<S, F, true>
+        : F
+      : F
+    : F
+  : NativeLong<S, F, Attached>;
+type AttachedLong<
+  S extends CommandSpec,
+  W extends string,
+  F extends string,
+  V extends string,
+  R extends readonly string[],
+  T extends Tokens,
+  N extends readonly unknown[],
+  Flag = LongFlag<S, F, true>,
+> = Flag extends null
+  ? Invalid
+  : Flag extends keyof Options<S> & string
+    ? Options<S>[Flag] extends { value: 'flag' } | { separateValue: true }
+      ? Invalid
+      : Walk<S, R, readonly [...T, readonly [Flag, V]], N>
+    : DeferredUnknown<S, W, R, T, N>;
+type BareLong<
+  S extends CommandSpec,
+  W extends string,
+  R extends readonly string[],
+  T extends Tokens,
+  N extends readonly unknown[],
+  Flag = LongFlag<S, W, false>,
+> = Flag extends null
+  ? Invalid
+  : Flag extends keyof Options<S> & string
+    ? Bare<S, Flag, R, T, N>
+    : DeferredUnknown<S, W, R, T, N>;
 type Word<
   S extends CommandSpec,
   W extends string,
@@ -89,12 +169,8 @@ type Word<
     ? Bare<S, W, R, T, N>
     : W extends `--${string}`
       ? W extends `${infer F}=${infer V}`
-        ? F extends keyof Options<S>
-          ? Options<S>[F] extends { value: 'flag' } | { separateValue: true }
-            ? Invalid
-            : Walk<S, R, readonly [...T, readonly [F, V]], N>
-          : Invalid
-        : Invalid
+        ? AttachedLong<S, W, F, V, R, T, N>
+        : BareLong<S, W, R, T, N>
       : W extends `-n${infer V}`
         ? Walk<S, R, readonly [...T, readonly ['-n', V]], N>
         : W extends `-${infer V}`
@@ -112,8 +188,12 @@ type Walk<
 > = N['length'] extends 128
   ? Deferred
   : A extends readonly [infer W extends string, ...infer R extends string[]]
-    ? Word<S, W, R, T, Tick<N>>
-    : Done<T>;
+    ? R extends readonly []
+      ? RemainingExit<S, W> extends true
+        ? Complete<T>
+        : Word<S, W, R, T, Tick<N>>
+      : Word<S, W, R, T, Tick<N>>
+    : Finish<T>;
 type Split<
   S extends CommandSpec,
   A extends readonly string[],
@@ -124,9 +204,11 @@ type Split<
   : A extends readonly [infer W extends string, ...infer R extends string[]]
     ? W extends '--'
       ? Walk<S, Before> extends infer P
-        ? P extends { tokens: infer T extends Tokens }
-          ? Done<readonly [...T, readonly ['--'], ...Operands<R>]>
-          : P
+        ? P extends { exited: true }
+          ? P
+          : P extends { tokens: infer T extends Tokens }
+            ? Done<readonly [...T, readonly ['--'], ...Operands<R>]>
+            : P
         : Invalid
       : Split<S, R, readonly [...Before, W], Tick<N>>
     : Walk<S, Before>;

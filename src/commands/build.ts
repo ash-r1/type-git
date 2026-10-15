@@ -145,6 +145,7 @@ function buildArguments(
     original: readonly unknown[];
     operandsOnly?: boolean;
     operandBoundary?: boolean;
+    parserExited?: true;
     partitionState?: Readonly<Record<string, readonly string[]>>;
   },
 ): string[] {
@@ -233,11 +234,12 @@ function buildArguments(
         separatorIndex >= 0 &&
         (spec.parserExit.remainingSeparator?.maxIndex === undefined ||
           separatorIndex <= spec.parserExit.remainingSeparator.maxIndex);
+      const revision = operandsOnly ? undefined : revisionParserPass(spec, words);
       const remaining = operandsOnly
         ? words.map((operand, index) =>
             recognizedSeparator && index === separatorIndex ? ['--'] : { operand },
           )
-        : revisionParserPass(spec, words);
+        : revision!.tokens;
       buildArguments(
         command,
         [...pass.tokens, ...remaining],
@@ -252,6 +254,7 @@ function buildArguments(
           original: args,
           operandsOnly,
           operandBoundary,
+          parserExited: revision?.exited,
           partitionState: partition.state,
         },
       );
@@ -604,7 +607,7 @@ function buildArguments(
   }
   state.operand0 = operands[0];
   state.operand1 = operands[1];
-  if (!parserExited && state.help !== true) {
+  if (!parserExited && !replay?.parserExited && state.help !== true) {
     if (abi?.conflictStyle === 'deferred') {
       if (state.conflict !== undefined) {
         state.merge = true;
@@ -709,7 +712,7 @@ function interpretedArguments(
         return pass.tokens;
       }
       const partition = partitionRemainingArguments(spec, pass.remaining);
-      return [...pass.tokens, ...revisionParserPass(spec, partition.words)];
+      return [...pass.tokens, ...revisionParserPass(spec, partition.words).tokens];
     }
   }
   for (const [index, token] of args.entries()) {

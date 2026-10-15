@@ -111,6 +111,10 @@ export type CommandSpec = {
     flags: readonly string[];
     /** A first --help is rewritten by Git's dispatcher before this parser runs. */
     exceptFirst?: readonly string[];
+    /** Native completion exits only when this parser invocation has exactly one word. */
+    singleWordExits?: readonly string[];
+    /** ONE_SHOT diff parsing can exit on the final retained option word. */
+    remainingSingleWordExits?: readonly string[];
     /** KEEP_UNKNOWN_OPT pass: only these options execute before an exit in this pass. */
     firstPassOptions?: readonly string[];
     /** Native long names used by the initial parser's single-dash typo check. */
@@ -127,6 +131,11 @@ export type CommandSpec = {
     stopAtOperand?: boolean;
     /** Compiled native long spellings; null denotes ambiguity. */
     longForms?: {
+      plain: Readonly<Record<string, string | null>>;
+      attached: Readonly<Record<string, string | null>>;
+    };
+    /** Native diff long-name resolution before the final unknown-word check. */
+    remainingLongForms?: {
       plain: Readonly<Record<string, string | null>>;
       attached: Readonly<Record<string, string | null>>;
     };

@@ -1750,3 +1750,24 @@ A count-before-help regression checks that explicit bounded integer parsing
 rejects a reached overflow while the narrowing profile preserves its supported
 help path through both direct child and parent APIs. Native controls distinguish
 older integer implementations and older binaries without the refs operation.
+
+
+### Native parse-options completion exits
+
+The source-audited initial parser scopes recognize `--git-completion-helper` and
+`--git-completion-helper-all` only as a single remaining word at that parser's
+entry, including audited intermediate wrappers. These spellings retain their
+original serialized argv. Attached values, repetitions and option boundaries do
+not acquire a general help exemption.
+
+For the audited retained ONE_SHOT diff parser, a final completion word can exit
+before the final unknown-revision-option usage check. Callbacks reached before
+that exit still validate their values; an earlier invalid callback remains an
+error. Parent and child passes retain the selected ABI and grammar context, and
+trait discovery reads the same pre-exit tokens.
+
+The independent Git 2.55.0 corpus records 990 finite outcomes across 51 scopes,
+including valid stash/ref context, tuple and operand spellings, help ordering,
+mandatory refs children and retained revision options. Its compiler assertions
+pin the observed modern parser profiles. This finite evidence does not establish
+all argv, repository, platform or interactive behavior; all scopes remain partial.
