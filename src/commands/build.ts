@@ -144,6 +144,7 @@ function buildArguments(
     options: Readonly<Record<string, OptionSpec>>;
     original: readonly unknown[];
     operandsOnly?: boolean;
+    operandBoundary?: boolean;
   },
 ): string[] {
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
@@ -204,10 +205,9 @@ function buildArguments(
         return serialized;
       }
       const operandsOnly = spec.parserExit.remainingOperands !== undefined;
-      const words =
-        spec.parserExit.remainingOperands === 'drop-leading-dashdash' && pass.remaining[0] === '--'
-          ? pass.remaining.slice(1)
-          : pass.remaining;
+      const operandBoundary =
+        spec.parserExit.remainingOperands === 'drop-leading-dashdash' && pass.remaining[0] === '--';
+      const words = operandBoundary ? pass.remaining.slice(1) : pass.remaining;
       const remaining = operandsOnly
         ? words.map((operand) => ({ operand }))
         : revisionParserPass(spec, words);
@@ -224,6 +224,7 @@ function buildArguments(
           options: spec.parserExit.remainingOptions!,
           original: args,
           operandsOnly,
+          operandBoundary,
         },
       );
       return serialized;
@@ -249,6 +250,10 @@ function buildArguments(
   for (const [index, arg] of args.entries()) {
     if (replay?.operandsOnly && index >= replay.firstCount) {
       literalOperands = true;
+      if (replay.operandBoundary) {
+        ended = true;
+        state.hasSeparator = true;
+      }
     }
     if (!Array.isArray(arg)) {
       const operand =
@@ -559,6 +564,9 @@ function buildArguments(
         state[effect.key] = effect.set;
       }
     }
+  }
+  if (replay?.operandBoundary) {
+    state.hasSeparator = true;
   }
   state.operand0 = operands[0];
   state.operand1 = operands[1];

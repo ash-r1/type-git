@@ -30,7 +30,7 @@ export function initialParserPass(
       ...wrapper,
       flags: exit.flags,
       firstPassOptions: [],
-      firstPassLongNames: [],
+      firstPassLongNames: wrapper.firstPassLongNames ?? [],
     });
     if (pass.exited) {
       return pass;

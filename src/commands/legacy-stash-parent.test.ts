@@ -23,6 +23,8 @@ describe('source-dependent stash parent help', () => {
       const git = new TypeGit({ inheritEnv: false, env });
       const repo = await git.init(join(root, 'repo'));
       const cases = [
+        { command: 'stash', args: [{ operand: '-push' }, ['-h']], words: ['-push', '-h'] },
+        { command: 'stash', args: [{ operand: 'file' }, ['-h']], words: ['file', '-h'] },
         {
           command: 'stash clear',
           args: [{ operand: 'file' }, ['-h']],
