@@ -397,3 +397,15 @@ export function testStashShowPartitionTypes(git: Git): void {
   // Legacy parent help may exit before the modern own-table flag check.
   git.command('stash show', [{ operand: '--include-untracked=1' }, ['-h']]);
 }
+
+/** Check ordinary worktree parser declarations from the freshly packed public API. */
+export function testWorktreeParserTypes(git: Git): void {
+  git.command('add', [{ operand: '--dry-r' }, ['-h']]);
+  git.command('rm', [{ operand: '-nh' }]);
+  git.command('mv', [['--'], { operand: 'file' }, ['-h']]);
+  git.command('clean', [{ operand: '-nq' }]);
+  // @ts-expect-error A consumed marker leaves one path, not help.
+  git.command('mv', [['--'], ['-h']]);
+  // @ts-expect-error Flags reject attached data before later help.
+  git.command('rm', [{ operand: '--quiet=1' }, ['-h']]);
+}
