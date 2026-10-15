@@ -23,7 +23,10 @@ import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
 import type { ObjectFilterLiteral } from '../constraints/object-filter-types.js';
 import type { StringCallbackParser } from '../constraints/string-callback.js';
-import type { StringCallbackLiteral } from '../constraints/string-callback-types.js';
+import type {
+  StringCallbackLiteral,
+  StringCallbackValue,
+} from '../constraints/string-callback-types.js';
 import type { Constrained } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
@@ -126,17 +129,19 @@ type Normalize<V, D extends OptionSpec, Previous> = D extends {
   ? GitNumericValue<V, P>
   : D extends { parser: infer P extends GitBooleanCallback }
     ? GitBooleanCallbackValue<V, P, Previous, BooleanSourceOf<D>>
-    : D extends { caseInsensitive: true }
-      ? D extends { preserveCase: true }
-        ? V extends string
-          ? V extends object
-            ? string
+    : D extends { parser: infer P extends StringCallbackParser }
+      ? StringCallbackValue<V, P>
+      : D extends { caseInsensitive: true }
+        ? D extends { preserveCase: true }
+          ? V extends string
+            ? V extends object
+              ? string
+              : V
             : V
-          : V
-        : V extends string
-          ? AsciiLower<V>
-          : V
-      : V;
+          : V extends string
+            ? AsciiLower<V>
+            : V
+        : V;
 type TokenValue<
   T extends readonly unknown[],
   D extends OptionSpec,
@@ -936,14 +941,23 @@ type ProfiledConstraint<S, R extends Constraint> = R extends {
       ? R & { negativeMagnitudes: true }
       : R
   : R;
-// Evaluate one rule at a time: constructing their Cartesian union can exceed TypeScript's union limit.
+/** An input union is safe only when every non-exiting state satisfies each rule. */
+type RuleStateValid<S, H extends Constraint> = S extends
+  | { help: true }
+  | { parserExited: true }
+  | { repositoryDependent: true }
+  ? true
+  : S extends Constrained<S, readonly [ProfiledConstraint<S, H>]>
+    ? true
+    : false;
+// Evaluate one rule at a time without forming a Cartesian union of all rules.
 type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
   ...infer Rest extends readonly Constraint[],
 ]
-  ? S extends Constrained<S, readonly [ProfiledConstraint<S, H>]>
-    ? CheckRules<S, Rest>
-    : false
+  ? false extends RuleStateValid<S, H>
+    ? false
+    : CheckRules<S, Rest>
   : true;
 type CheckedLegacyIntegerArguments<
   C extends GitCommandName,
@@ -973,7 +987,7 @@ type CheckedLegacyIntegerArguments<
   >,
 > = [S] extends [never]
   ? never
-  : S extends { help: true } | { parserExited: true } | { repositoryDependent: true }
+  : [S] extends [{ help: true } | { parserExited: true } | { repositoryDependent: true }]
     ? A
     : CheckRules<S, Spec<C>['rules']> extends true
       ? A
@@ -1243,7 +1257,7 @@ type DeferredConflictResult<C extends GitCommandName, A extends readonly unknown
   S,
 ] extends [never]
   ? never
-  : S extends { help: true } | { parserExited: true } | { repositoryDependent: true }
+  : [S] extends [{ help: true } | { parserExited: true } | { repositoryDependent: true }]
     ? A
     : DeferredConflictValid<S> extends true
       ? CheckRules<DeferredConflictFinalState<S>, Spec<C>['rules']> extends true
@@ -1395,7 +1409,7 @@ type PinnedCallbackArguments<
   ? A
   : [S] extends [never]
     ? never
-    : S extends { help: true } | { parserExited: true } | { repositoryDependent: true }
+    : [S] extends [{ help: true } | { parserExited: true } | { repositoryDependent: true }]
       ? A
       : CheckRules<S, Spec<C>['rules']> extends true
         ? A
@@ -1571,9 +1585,9 @@ type BooleanTupleResult<C extends GitCommandName, A extends readonly unknown[], 
   never,
 ]
   ? never
-  : S extends { help: true } | { parserExited: true } | { repositoryDependent: true }
+  : [S] extends [{ help: true } | { parserExited: true } | { repositoryDependent: true }]
     ? A
-    : S extends { conflictStyle: 'deferred' }
+    : [S] extends [{ conflictStyle: 'deferred' }]
       ? DeferredConflictResult<C, A, S>
       : CheckRules<S, Spec<C>['rules']> extends true
         ? A

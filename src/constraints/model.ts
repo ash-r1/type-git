@@ -21,6 +21,7 @@ export type Predicate =
       key: string;
       test:
         | 'gitEnabled'
+        | 'gitDisabled'
         | 'active'
         | 'inactive'
         | 'present'
@@ -79,6 +80,8 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
       return value === options[predicate.valueKey];
     case 'includes':
       return Array.isArray(value) && value.includes(options[predicate.valueKey]);
+    case 'gitDisabled':
+      return gitBoolean(value) === false;
     case 'gitEnabled':
       return gitBoolean(value) === true || value === 'on-demand';
     case 'inactive':

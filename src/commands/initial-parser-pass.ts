@@ -100,7 +100,10 @@ export function initialParserPass(
         tokens.push([flag]);
       } else if (equal >= 0) {
         tokens.push([flag, word.slice(equal + 1)]);
-      } else if (option.value.startsWith('optional-')) {
+      } else if (
+        option.value.startsWith('optional-') &&
+        (!option.lastArgDefault || index >= argv.length)
+      ) {
         tokens.push([flag]);
       } else {
         const value = argv[index++];
@@ -140,7 +143,10 @@ export function initialParserPass(
       } else {
         if (cluster) {
           tokens.push([flag, cluster]);
-        } else if (option.value.startsWith('optional-')) {
+        } else if (
+          option.value.startsWith('optional-') &&
+          (!option.lastArgDefault || index >= argv.length)
+        ) {
           tokens.push([flag]);
         } else {
           const value = argv[index++];

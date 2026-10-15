@@ -1458,3 +1458,59 @@ callback profiles; public checks retain independently selectable alternatives.
 Configuration, interactive/edit execution, index/worktree state, pathspec and
 filesystem resolution, completion and other parser modes remain audit
 obligations. A finite corpus does not establish complete Git coverage.
+
+
+## Reference, status and commit option passes
+
+`branch`, `tag`, `status` and `commit` use their native ordinary option tables:
+long abbreviations enabled, unknown options rejected, both end markers consumed,
+and remaining words retained as operands. LASTARG_DEFAULT is distinct from an
+ordinary optional argument. For example, `branch --contains` defaults to HEAD,
+but `branch --contains -h --color=bad` consumes `-h` as the object argument and
+then rejects the color. `branch --track -h` instead reaches help. Nonempty object
+names are resolved by Git; reached callbacks reject explicitly empty names.
+
+The shared `column-mode` grammar accepts only the source's exact space/comma
+separated tokens, including empty lists. Its projection tracks the last explicit
+enable word (`always`, `never`, `auto`) with a per-occurrence default of `always`.
+`tag --column=never,row -n0` is allowed; `tag --column=row -n0` is rejected;
+`-n-1` retains the native no-lines sentinel. `auto` depends on tty/pager state
+and remains a native decision. Invalid column tokens are rejected before later
+help, as in Git. The native callback grammar also applies to other generated
+options using `parseopt_column_callback`.
+
+Untracked-file modes are checked after option parsing. The shared source-backed
+boolean profile accepts Git's boolean/configuration-integer spellings plus exact
+`normal` and `all`. A false-valued spelling conflicts with status's
+`--ignored=matching`; `--untracked-files=bad -h` reaches help. Repeated values and
+negations retain native last-assignment behavior. Commit cleanup is likewise a
+final rule, allowing `default`, `strip`, `whitespace`, `verbatim` and `scissors`,
+including under `--dry-run`.
+
+`node scripts/reference-parser-corpus.mjs --check` reproduces 9,796 independent
+Git 2.55.0 outcomes. Native names supply deterministic prefix/negation candidates;
+Git supplies every expected outcome. A seeded repository has staged changes
+and valid object names `bad`, `1`, `-h`, `--`, and `file`, so consuming those
+words is not mistaken for a universal syntax error. Runtime and compiler checks
+cover every row. Compiler fixtures are deterministic shards of at most 400
+cases, all compiled together with every source and other contract root in the
+standard 10 GiB project. No isolated compiler batches are used.
+
+These checks do not establish completeness: repository/configuration effects,
+nonempty object/ref resolution, tty-dependent columns, pathspecs, other callbacks,
+completion and other native parser modes remain open. All scopes remain partial.
+
+Cross-version native controls distinguish this final untracked-mode grammar from
+the earlier boolean callback profiles. Git 2.25/2.47 reject configuration-integer
+untracked modes such as `-2147483648`, which Git 2.55/2.56 accept; all four reject
+`k`. The new final rule models the recorded modern grammar. Public argument
+checks permit supported modern spellings while the selected executable retains
+its own option availability, final status and diagnostics. The older generic
+boolean unit grammar is not imported into this final untracked-mode rule.
+
+Literal alternatives are checked universally through final rules: a column mode
+`never | always` cannot be used with tag message lines because its `always` arm
+is invalid. An actual early help exit exempts only that state from final rules;
+a later `--no-column` can make all alternatives valid. Opaque strings and
+non-singleton template keys defer to runtime, while a known NUL word anywhere
+in the original tuple remains rejected before that deferral.
