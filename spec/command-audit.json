@@ -5775,9 +5775,11 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/string-callbacks.test.ts",
         "test/types/string-callbacks.ts",
-        "test/types/string-callback-corpus.ts"
+        "test/types/string-callback-corpus.ts",
+        "src/commands/fast-import.test.ts",
+        "test/types/fast-import-parser-exits-command-api.ts"
       ],
-      "remaining": "Complete data-stream/feature/object-ID/marks/path/submodule-map handling, unsigned-long scalar lexical and ABI boundaries, packing and signing execution/configuration remain pending. Depth upper bound and signing callback literals are modeled; separator availability is selected-native-dependent and is not claimed universal. Anonymization-map and signature-mode callback string languages now share declarative runtime/compiler profiles with a finite native oracle. Compiler-budget and symbolic values defer to runtime; stream commands, key resolution, non-exiting parser phases, other callbacks and environment conditions remain open."
+      "remaining": "Complete data-stream/feature/object-ID/marks/path/submodule-map handling, unsigned-long scalar lexical and ABI boundaries, packing and signing execution/configuration remain pending. Depth upper bound and signing callback literals are modeled; separator availability is selected-native-dependent and is not claimed universal. Anonymization-map and signature-mode callback string languages now share declarative runtime/compiler profiles with a finite native oracle. Compiler-budget and symbolic values defer to runtime; stream commands, key resolution, non-exiting parser phases, other callbacks and environment conditions remain open. Ordered help termination is modeled across the observed manual and parse-options families: later callbacks are ignored, reached callbacks remain constrained, and the selected native executable retains its actual help/error status. A leading --help still uses the shared dispatcher policy; its tail grammar remains under audit. Ignored numeric tail words require number representation rather than JavaScript safe-integer semantics; this does not resolve ordinary unsigned-long lexical/ABI gaps or unsupported-option availability."
     },
     "http-fetch": {
       "state": "partial",
