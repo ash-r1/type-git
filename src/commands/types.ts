@@ -1,3 +1,5 @@
+import type { FastImportUnsignedParser } from '../constraints/fast-import-unsigned.js';
+import type { FastImportUnsignedLiteral } from '../constraints/fast-import-unsigned-types.js';
 import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
 import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
 import type { GitBooleanCallback, GitBooleanSource } from '../constraints/git-boolean.js';
@@ -46,7 +48,7 @@ type PrimitiveValue<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean
     ? number
     : string;
 type Value<S extends OptionSpec, MayBeIgnored extends boolean> = S extends {
-  parser: GitNumericParser | 'python-int' | 'perl-int' | 'perl-int-gnu';
+  parser: GitNumericParser | 'python-int' | 'perl-int' | 'perl-int-gnu' | FastImportUnsignedParser;
 }
   ? number | string | bigint
   : MayBeIgnored extends true
@@ -557,13 +559,15 @@ type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extend
               D extends { negativeMagnitudes: true } ? true : false
             >
           : true
-        : D extends { parser: 'perl-int' | 'perl-int-gnu' }
-          ? PerlIntegerLiteral<D, V>
-          : D extends { parser: infer P extends StringCallbackParser }
-            ? StringCallbackLiteral<V, P>
-            : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-              ? ParsedScalarLiteral<D, V>
-              : true;
+        : D extends { parser: infer F extends FastImportUnsignedParser }
+          ? FastImportUnsignedLiteral<V, F>
+          : D extends { parser: 'perl-int' | 'perl-int-gnu' }
+            ? PerlIntegerLiteral<D, V>
+            : D extends { parser: infer P extends StringCallbackParser }
+              ? StringCallbackLiteral<V, P>
+              : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+                ? ParsedScalarLiteral<D, V>
+                : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true

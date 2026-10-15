@@ -518,9 +518,14 @@ function buildArguments(
         throw new GitArgumentError(`${flag}: missing option value`);
       }
       if (supplied) {
-        const interpretedInteger = ['python-int', 'perl-int', 'perl-int-gnu'].includes(
-          typeof option.parser === 'string' ? option.parser : '',
-        );
+        const interpretedInteger = [
+          'python-int',
+          'perl-int',
+          'perl-int-gnu',
+          'fast-import-active-branches',
+          'fast-import-depth',
+          'fast-import-cat-blob-fd',
+        ].includes(typeof option.parser === 'string' ? option.parser : '');
         if (
           option.value.endsWith('integer') &&
           !integerParser &&

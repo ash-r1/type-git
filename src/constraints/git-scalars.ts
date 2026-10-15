@@ -1,3 +1,4 @@
+import { type FastImportUnsignedParser, validFastImportUnsigned } from './fast-import-unsigned.js';
 import {
   isStringCallback,
   type StringCallbackParser,
@@ -84,6 +85,7 @@ export function gitInteger(value: string): bigint | undefined {
 }
 
 export type GitScalarParser =
+  | FastImportUnsignedParser
   | GitBooleanCallback
   | GitDecimalParser
   | GitIntegerParser
@@ -178,6 +180,13 @@ export function parseGitScalar(
       booleanBinaryIntegers,
       booleanCapabilities,
     );
+  }
+  if (
+    parser === 'fast-import-active-branches' ||
+    parser === 'fast-import-depth' ||
+    parser === 'fast-import-cat-blob-fd'
+  ) {
+    return { valid: validFastImportUnsigned(parser, value), value };
   }
   if (parser === 'perl-int' || parser === 'perl-int-gnu') {
     if (value === true || (parser === 'perl-int-gnu' && value === '')) {
