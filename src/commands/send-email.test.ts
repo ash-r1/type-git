@@ -29,15 +29,24 @@ describe('send-email option phases without delivery', () => {
       GIT_COMMITTER_EMAIL: 'author@example.com',
     };
     await writeFile(join(root, '.gitconfig'), '');
+    const probeStarted = performance.now();
     const probe = spawnSync('git', ['send-email', '-h'], {
       env,
       input: '',
       encoding: 'utf8',
-      timeout: 10000,
+      // Keep the native help deadline inside the 30-second Windows hook budget.
+      timeout: process.platform === 'win32' ? 20000 : 10000,
     });
-    expect(probe.error).toBeUndefined();
-    expect(probe.signal).toBeNull();
-    expect(probe.status).not.toBeNull();
+    const probeDetail = JSON.stringify({
+      elapsedMs: Math.round(performance.now() - probeStarted),
+      error: probe.error?.message,
+      status: probe.status,
+      signal: probe.signal,
+      stderr: probe.stderr,
+    });
+    expect(probe.error, probeDetail).toBeUndefined();
+    expect(probe.signal, probeDetail).toBeNull();
+    expect(probe.status, probeDetail).not.toBeNull();
     const diagnostic = probe.stdout + probe.stderr;
     if (diagnostic.includes("git: 'send-email' is not a git command")) {
       expect(probe.status).toBe(1);
