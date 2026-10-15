@@ -1,26 +1,14 @@
 // Independent Git oracle for the checkout-family and reset option passes.
-import { spawnSync } from 'node:child_process';
-import { openSync, closeSync } from 'node:fs';
+import { oracleEnv, gitRunner, serialize } from './checkout-oracle.mjs';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 const root = new URL('../', import.meta.url);
 const directory = await mkdtemp(join(tmpdir(), 'type-git-checkout-parsers-'));
-const env = { ...Object.fromEntries(Object.entries(process.env).filter(([name]) => !name.toUpperCase().startsWith('GIT_'))), HOME: directory, XDG_CONFIG_HOME: directory, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_COUNT: '0', LC_ALL: 'C', GIT_PAGER: 'cat', GIT_AUTHOR_NAME: 'Test', GIT_AUTHOR_EMAIL: 'test@example.test', GIT_COMMITTER_NAME: 'Test', GIT_COMMITTER_EMAIL: 'test@example.test', GIT_EDITOR: 'true', GIT_AUTHOR_DATE: '2000-01-01T00:00:00Z', GIT_COMMITTER_DATE: '2000-01-01T00:00:00Z' };
-for (const name of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_COMMON_DIR', 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_CONFIG_PARAMETERS', 'GIT_PAGER_IN_USE']) delete env[name];
-/** Execute native Git with file-backed stdin and fail on abnormal termination. */
-function git(args) {
-  const input = openSync(join(directory, args.includes('--pathspec-file-nul') ? 'oracle-input-nul' : 'oracle-input'), 'r');
-  try {
-    const result = spawnSync('git', args, { cwd: directory, env, stdio: [input, 'pipe', 'pipe'], encoding: 'utf8', timeout: 60000 });
-    if (result.error || result.signal) throw result.error ?? new Error(`Git terminated: ${result.signal}`);
-    return result;
-  } finally { closeSync(input); }
-}
+const git = gitRunner(directory, oracleEnv(directory));
 /** Keep literal native words independent of production validation. */
 const operand = value => ({ operand: value });
-/** Spell documented API tokens without importing the parser under test. */
-const serialize = tokens => tokens.flatMap(token => !Array.isArray(token) ? [token.operand] : token.length === 1 ? token : token[0] === '-t' ? [`${token[0]}${token[1]}`] : token[0].startsWith('--') ? [`${token[0]}=${token[1]}`] : token);
+
 try {
   await writeFile(join(directory, 'oracle-input'), 'file\n');
   await writeFile(join(directory, 'oracle-input-nul'), 'file\0');
