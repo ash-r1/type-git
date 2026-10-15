@@ -819,22 +819,46 @@ type State<
 type InvalidPass = { invalidParserPass: true };
 type RemainingOptions<C extends GitCommandName> =
   Spec<C> extends { parserExit: { remainingOptions: infer O } } ? O : never;
+type OperandTokens<R extends readonly string[]> = { [I in keyof R]: { operand: R[I] } };
+/** Preserve the original tuple and selected profiles while replaying terminal operands. */
+type OperandPassState<
+  C extends GitCommandName,
+  E extends readonly unknown[],
+  R extends readonly string[],
+  InitialState,
+> = State<C, E, InitialState> extends infer S
+  ? [S] extends [never]
+    ? InvalidPass
+    : State<
+        C,
+        OperandTokens<
+          Spec<C> extends { parserExit: { remainingOperands: 'drop-leading-dashdash' } }
+            ? R extends readonly ['--', ...infer Rest extends string[]]
+              ? Rest
+              : R
+            : R
+        >,
+        Put<S, 'literalOperands', true>
+      >
+  : InvalidPass;
 type RemainingState<
   C extends GitCommandName,
   E extends readonly unknown[],
   R extends readonly string[],
   InitialState,
-> = RevisionParserPass<Spec<C>, R> extends infer P
-  ? P extends { tokens: infer T extends readonly unknown[] }
-    ? State<C, T, State<C, E, InitialState>, true, RemainingOptions<C>> extends infer S
-      ? [S] extends [never]
-        ? InvalidPass
-        : S
-      : InvalidPass
-    : P extends { dynamic: true }
-      ? { parserExited: true }
-      : InvalidPass
-  : InvalidPass;
+> = Spec<C> extends { parserExit: { remainingOperands: string } }
+  ? OperandPassState<C, E, R, InitialState>
+  : RevisionParserPass<Spec<C>, R> extends infer P
+    ? P extends { tokens: infer T extends readonly unknown[] }
+      ? State<C, T, State<C, E, InitialState>, true, RemainingOptions<C>> extends infer S
+        ? [S] extends [never]
+          ? InvalidPass
+          : S
+        : InvalidPass
+      : P extends { dynamic: true }
+        ? { parserExited: true }
+        : InvalidPass
+    : InvalidPass;
 /** Both parser passes carry the same original inputs and independently selected traits. */
 type ParsedPassState<
   C extends GitCommandName,
@@ -969,11 +993,13 @@ type TraitArguments<
                   tokens: infer E extends readonly unknown[];
                   remaining: infer R extends readonly string[];
                 }
-              ? RevisionParserPass<Spec<C>, R> extends {
-                  tokens: infer T extends readonly unknown[];
-                }
-                ? readonly [...E, ...T]
-                : E
+              ? Spec<C> extends { parserExit: { remainingOperands: string } }
+                ? E
+                : RevisionParserPass<Spec<C>, R> extends {
+                      tokens: infer T extends readonly unknown[];
+                    }
+                  ? readonly [...E, ...T]
+                  : E
               : A
         : A
       : A;
