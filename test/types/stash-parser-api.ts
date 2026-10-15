@@ -40,3 +40,18 @@ export type ModernParentClearError = Assert<[CheckedCommandArguments<'stash clea
 type BadIntegerHelp = readonly [readonly ['--unified', 'bad'], readonly ['-h']];
 export type LegacyParentIntegerHelp = Assert<[CheckedCommandArguments<'stash push', BadIntegerHelp>] extends [never] ? false : true>;
 export type ModernParentIntegerError = Assert<[CheckedCommandArguments<'stash push', BadIntegerHelp, { stashParent: 'modern' }>] extends [never] ? true : false>;
+
+// Assumed push stops on the first path; later option-shaped words are literal paths.
+git.command('stash', [['--patch'], { operand: 'file' }, ['--unified', 'bad']]);
+git.command('stash', [['--'], ['--unified', 'bad']]);
+git.command('stash', [['--']]);
+git.command('stash', [['--unified', '-2'], ['-h']]);
+git.command('stash', [{ operand: '-qh' }]);
+// @ts-expect-error A later separator does not retroactively enable assumed push paths.
+git.command('stash', [{ operand: 'file' }, ['--'], ['-h']]);
+// Older parent scanning reaches help before assumed-push operand processing.
+git.command('stash', [{ operand: 'file' }, ['-h']]);
+// Older parent scanning reaches help before the child integer callback.
+git.command('stash', [['--unified', 'bad'], ['-h']]);
+// Older empty parent parsing reaches help before modern subcommand-name typo checks.
+git.command('stash', [{ operand: '-push' }, ['-h']]);

@@ -362,3 +362,15 @@ export function testNativeStashWithoutHelp(git: Git): void {
   // @ts-expect-error Representation validation still runs before parent help.
   git.command('stash clear', [['-h'], { operand: '\0' }]);
 }
+
+/** Check assumed push while preserving legacy parent help alternatives. */
+export function testAssumedStashTypes(git: Git): void {
+  git.command('stash', [['--patch'], { operand: 'file' }, ['--unified', 'bad']]);
+  git.command('stash', [['--'], ['--unified', 'bad']]);
+  git.command('stash', [['--unified', '-2'], ['-h']]);
+  git.command('reflog show', [{ operand: '-show' }, ['-h']]);
+  // @ts-expect-error A separator after the first operand is a literal path.
+  git.command('stash', [{ operand: 'file' }, ['--'], ['-h']]);
+  // @ts-expect-error The initial wrapper catches the subcommand-name typo before help.
+  git.command('reflog', [{ operand: '-sho' }, ['-h']]);
+}
