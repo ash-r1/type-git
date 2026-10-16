@@ -158,7 +158,7 @@ export type Trim<S extends string, Steps extends unknown[] = []> = Steps['length
   ? string
   : TrimBlock<S> extends infer R extends string
     ? R extends S
-      ? S
+      ? R
       : Trim<R, [...Steps, 0]>
     : S;
 type Shorter<A extends string, B extends string> = A extends `${string}${infer LeftRest}`
