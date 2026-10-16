@@ -152,7 +152,9 @@ export type Trim<
   S extends string,
   Steps extends unknown[] = [],
 > = S extends `                ${infer R}`
-  ? Trim<R, Steps>
+  ? Steps['length'] extends 128
+    ? string
+    : Trim<R, [...Steps, 0]>
   : S extends `${' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${infer R}`
     ? Steps['length'] extends 128
       ? string
