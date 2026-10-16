@@ -68,11 +68,7 @@ type Ascii = UrlBytes[Extract<
   `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'}${HexDigit}`
 >];
 // Any 65 significant base digits overflow even the widest supported destination.
-type SignificantOverflow<S extends string, Steps extends unknown[] = []> = S extends `0${infer R}`
-  ? Steps['length'] extends 128
-    ? false
-    : SignificantOverflow<R, [...Steps, 0]>
-  : SignificantTailOverflow<S, []>;
+type SignificantOverflow<S extends string> = SignificantTailOverflow<ZeroNormalized<S>, []>;
 type SignificantTailOverflow<
   S extends string,
   Steps extends unknown[],
@@ -89,10 +85,21 @@ type Digits<
 > = S extends `${infer R}${'k' | 'K' | 'm' | 'M' | 'g' | 'G'}`
   ? CheckedDigits<R, B> extends 'invalid'
     ? 'invalid'
-    : ConvertDigits<S, B>
+    : ConvertDigits<ZeroNormalized<S>, B>
   : CheckedDigits<S, B> extends 'invalid'
     ? 'invalid'
-    : ConvertDigits<S, B>;
+    : ConvertDigits<ZeroNormalized<S>, B>;
+type ZeroNormalized<S extends string, Steps extends unknown[] = []> = Steps['length'] extends 128
+  ? string
+  : S extends `0000000000000000${infer R}`
+    ? R extends '' | 'k' | 'K' | 'm' | 'M' | 'g' | 'G'
+      ? `0${R}`
+      : ZeroNormalized<R, [...Steps, 0]>
+    : S extends `0${infer R}`
+      ? R extends '' | 'k' | 'K' | 'm' | 'M' | 'g' | 'G'
+        ? S
+        : ZeroNormalized<R, [...Steps, 0]>
+      : S;
 type CheckedDigits<S extends string, B extends Base> = S extends `${infer H}${string}`
   ? {} extends Record<H, unknown>
     ? 'valid'
@@ -140,10 +147,18 @@ type Magnitude<S extends string> = S extends `0${'x' | 'X'}${infer R}`
     : S extends `0${string}`
       ? Digits<S, 8>
       : Digits<S, 10>;
-export type Trim<S extends string, Steps extends unknown[] = []> = Steps['length'] extends 128
-  ? string
+// Consume long known whitespace in blocks while leaving symbolic prefixes for runtime.
+export type Trim<
+  S extends string,
+  Steps extends unknown[] = [],
+> = S extends `                ${infer R}`
+  ? Steps['length'] extends 128
+    ? string
+    : Trim<R, [...Steps, 0]>
   : S extends `${' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${infer R}`
-    ? Trim<R, [...Steps, 0]>
+    ? Steps['length'] extends 128
+      ? string
+      : Trim<R, [...Steps, 0]>
     : S;
 type Shorter<A extends string, B extends string> = A extends `${string}${infer LeftRest}`
   ? B extends `${string}${infer RightRest}`
