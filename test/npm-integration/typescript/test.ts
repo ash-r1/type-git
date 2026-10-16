@@ -77,6 +77,7 @@ async function testTypes(): Promise<void> {
   const _stdout: string = rawResult.stdout;
   const _stderr: string = rawResult.stderr;
   const _exitCode: number = rawResult.exitCode;
+  const _signal: string | undefined = rawResult.signal;
 
   // Test TypeGit class
   const typeGit = new TypeGit();
