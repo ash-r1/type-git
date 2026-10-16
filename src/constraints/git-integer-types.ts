@@ -147,17 +147,18 @@ type Magnitude<S extends string> = S extends `0${'x' | 'X'}${infer R}`
     : S extends `0${string}`
       ? Digits<S, 8>
       : Digits<S, 10>;
-// Consume long known whitespace in blocks while leaving symbolic prefixes for runtime.
-export type Trim<
-  S extends string,
-  Steps extends unknown[] = [],
-> = S extends `                ${infer R}`
-  ? Steps['length'] extends 128
-    ? string
-    : Trim<R, [...Steps, 0]>
-  : S extends `${' ' | '\t' | '\r' | '\n' | '\v' | '\f'}${infer R}`
-    ? Steps['length'] extends 128
-      ? string
+type CWhitespace = ' ' | '\t' | '\r' | '\n' | '\v' | '\f';
+// Consume known C whitespace in short blocks without forming a Cartesian character union.
+type TrimBlock<S extends string, Steps extends unknown[] = []> = Steps['length'] extends 16
+  ? S
+  : S extends `${CWhitespace}${infer R}`
+    ? TrimBlock<R, [...Steps, 0]>
+    : S;
+export type Trim<S extends string, Steps extends unknown[] = []> = Steps['length'] extends 128
+  ? string
+  : TrimBlock<S> extends infer R extends string
+    ? R extends S
+      ? S
       : Trim<R, [...Steps, 0]>
     : S;
 type Shorter<A extends string, B extends string> = A extends `${string}${infer LeftRest}`
