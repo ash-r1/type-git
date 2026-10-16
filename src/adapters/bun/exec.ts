@@ -142,7 +142,6 @@ export class BunExecAdapter implements ExecAdapter {
         stdout: binary ? new Uint8Array(0) : '',
         stderr: '',
         exitCode: -1,
-        signal: 'SIGTERM',
         aborted: true,
       };
     }
