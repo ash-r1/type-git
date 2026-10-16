@@ -116,6 +116,7 @@ export function commandArguments(
     compoundNegatedOverflow?: boolean;
     depthAtoiBits?: 32 | 64;
     submoduleInitAlias?: boolean;
+    emptyPickaxeRejected?: boolean;
     firstPassEmpty?: boolean;
   } & FilenameContext,
   guiGrammar?: GuiGrammar,
@@ -158,6 +159,7 @@ function buildArguments(
     compoundNegatedOverflow?: boolean;
     depthAtoiBits?: 32 | 64;
     submoduleInitAlias?: boolean;
+    emptyPickaxeRejected?: boolean;
     firstPassEmpty?: boolean;
   } & FilenameContext,
   guiGrammar?: GuiGrammar,
@@ -1249,4 +1251,54 @@ export function commandFilenameTokens(
     }
   }
   return updates;
+}
+
+/** Observe only empty pickaxe callbacks reached before a native parser exit. */
+export function commandUsesEmptyPickaxe(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  const spec: CommandSpec = COMMAND_SPECS[command];
+  const dispatched = dispatchArguments(spec, args);
+  if (dispatched) {
+    return commandUsesEmptyPickaxe(dispatched.command, dispatched.args);
+  }
+  if (command === 'difftool') {
+    let toolHelp = false;
+    for (const token of args) {
+      if (!Array.isArray(token)) {
+        continue;
+      }
+      if (token[0] === '--tool-help') {
+        toolHelp = true;
+      }
+      if (token[0] === '--no-tool-help') {
+        toolHelp = false;
+      }
+    }
+    if (toolHelp) {
+      return false;
+    }
+  }
+  for (const arg of interpretedArguments(spec, args)) {
+    if (!Array.isArray(arg)) {
+      continue;
+    }
+    if (
+      arg[1] === '' &&
+      (spec.options[arg[0]]?.nativeEmptyPickaxe ||
+        spec.rules.some(
+          (rule) =>
+            rule.nativeEmptyPickaxe &&
+            rule.kind === 'required' &&
+            rule.required.some(
+              (predicate) =>
+                predicate.test === 'optionValuesNonempty' && predicate.value === arg[0],
+            ),
+        ))
+    ) {
+      return true;
+    }
+  }
+  return false;
 }

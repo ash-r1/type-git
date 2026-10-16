@@ -1053,9 +1053,15 @@ type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
   ...infer Rest extends readonly Constraint[],
 ]
-  ? false extends RuleStateValid<S, H>
-    ? false
-    : CheckRules<S, Rest>
+  ? H extends { nativeEmptyPickaxe: true }
+    ? S extends { emptyPickaxeRejected: true }
+      ? false extends RuleStateValid<S, H>
+        ? false
+        : CheckRules<S, Rest>
+      : CheckRules<S, Rest>
+    : false extends RuleStateValid<S, H>
+      ? false
+      : CheckRules<S, Rest>
   : true;
 type CheckedLegacyIntegerArguments<
   C extends GitCommandName,
@@ -1569,7 +1575,10 @@ type PinnedCallbackAlternatives<
                       Put<Initial<C>, 'argumentTokens', A> &
                         Pick<
                           Ctx,
-                          Extract<keyof Ctx, 'filenameProfile' | 'filenameIgnoredValues'>
+                          Extract<
+                            keyof Ctx,
+                            'filenameProfile' | 'filenameIgnoredValues' | 'emptyPickaxeRejected'
+                          >
                         > & {
                           decimalCallbacks: F & OtherCallbacks;
                           booleanSource: Source;
@@ -1639,17 +1648,24 @@ type CheckedLocalParserProfiles<
     ? CheckedGuiArguments<Spec<C>, A, Ctx>
     : never
   : A extends readonly LocalCommandArgument<C>[]
-    ? Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
-      ? IndependentlyPinnedCallbacks<C, A, F, Ctx>
-      : Ctx extends { integerProfile: 'bounded' | 'decimal-cast' }
-        ? IndependentlyPinnedCallbacks<C, A, {}, Ctx>
-        : Ctx extends { booleanSource: infer Source extends GitBooleanSource }
-          ? Source extends 'modern'
-            ? InitialLocalProfiles<C, A, Ctx>
-            : TupleUsesBoolean<C, A> extends true
-              ? BooleanTupleFamilies<C, A, Source, Ctx>
-              : InitialLocalProfiles<C, A, Ctx>
-          : InitialLocalProfiles<C, A, Ctx>
+    ? Ctx extends { emptyPickaxeRejected: boolean }
+      ? IndependentlyPinnedCallbacks<
+          C,
+          A,
+          Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks } ? F : {},
+          Ctx
+        >
+      : Ctx extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+        ? IndependentlyPinnedCallbacks<C, A, F, Ctx>
+        : Ctx extends { integerProfile: 'bounded' | 'decimal-cast' }
+          ? IndependentlyPinnedCallbacks<C, A, {}, Ctx>
+          : Ctx extends { booleanSource: infer Source extends GitBooleanSource }
+            ? Source extends 'modern'
+              ? InitialLocalProfiles<C, A, Ctx>
+              : TupleUsesBoolean<C, A> extends true
+                ? BooleanTupleFamilies<C, A, Source, Ctx>
+                : InitialLocalProfiles<C, A, Ctx>
+            : InitialLocalProfiles<C, A, Ctx>
     : never;
 
 /** Explore filename fields independently, checking the complete input in each state. */

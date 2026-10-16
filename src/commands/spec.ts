@@ -49,6 +49,8 @@ export type OptionSpec = {
   /** Record a failed scalar parse for a later source-ordered rule instead of throwing immediately. */
   parserErrorKey?: string;
   /** Selected Git may validate conflict style immediately or after parsing all options. */
+  /** Empty patterns are rejected only by the observed modern pickaxe callback. */
+  nativeEmptyPickaxe?: boolean;
   nativeEnumCallback?: 'conflict-style';
   /** A source-audited helper alias whose availability is observed on the selected executable. */
   nativeCapability?: 'submodule-init-alias';

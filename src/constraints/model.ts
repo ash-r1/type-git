@@ -36,7 +36,12 @@ export type Predicate =
   | { key: string; test: 'optionValuesNonempty'; value: string }
   | { key: string; test: 'includes' | 'equalsKey'; valueKey: string }
   | { key: string; test: 'lengthEquals'; value: number };
-export type Constraint = Evidence & { id: string; guard?: readonly Predicate[] } & (
+export type Constraint = Evidence & {
+  id: string;
+  guard?: readonly Predicate[];
+  /** Applies only when the selected diff callback rejects every empty occurrence. */
+  nativeEmptyPickaxe?: boolean;
+} & (
     | {
         kind: 'arity';
         key: string;
@@ -126,6 +131,7 @@ export type ScalarContext = {
   booleanCapabilities?: GitBooleanCapabilities;
   compoundNegatedOverflow?: boolean;
   depthAtoiBits?: 32 | 64;
+  emptyPickaxeRejected?: boolean;
 };
 /** All violations, in declaration order, retain their evidence and stable identifiers. */
 export function violations(
@@ -142,6 +148,9 @@ function violates(
   options: Readonly<Record<string, unknown>>,
   scalarContext?: ScalarContext,
 ): boolean {
+  if (rule.nativeEmptyPickaxe && scalarContext?.emptyPickaxeRejected === false) {
+    return false;
+  }
   if (rule.guard && !rule.guard.every((p) => matches(p, options))) {
     return false;
   }

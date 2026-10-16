@@ -16856,7 +16856,8 @@
       ],
       "origin": "git",
       "reason": "Every forwarded pickaxe value must be nonempty, including overwritten values; tool-help returns before delegated diff parsing.",
-      "source": "https://github.com/git/git/blob/v2.55.0/diff.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/diff.c",
+      "nativeEmptyPickaxe": true
     },
     {
       "id": "cli.difftool.nonempty-G",
@@ -16876,7 +16877,8 @@
       ],
       "origin": "git",
       "reason": "Every forwarded pickaxe value must be nonempty, including overwritten values; tool-help returns before delegated diff parsing.",
-      "source": "https://github.com/git/git/blob/v2.55.0/diff.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/diff.c",
+      "nativeEmptyPickaxe": true
     }
   ],
   "mergetool": [],
