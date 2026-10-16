@@ -158,12 +158,18 @@ describe('DenoExecAdapter', () => {
       const controller = new AbortController();
       controller.abort();
 
-      const result = await adapter.spawn({
-        argv: ['echo', 'should not run'],
-        signal: controller.signal,
-      });
-
-      assertEquals(result.aborted, true);
+      for (const binary of [false, true]) {
+        const options = {
+          argv: ['type-git-must-not-start-this-command'],
+          signal: controller.signal,
+        };
+        const result = binary
+          ? await adapter.spawnBytes(options)
+          : await adapter.spawn(options);
+        assertEquals(result.aborted, true);
+        assertEquals(result.signal, undefined);
+        assertEquals(Object.hasOwn(result, 'signal'), false);
+      }
     });
 
     it('calls stream handlers', async () => {

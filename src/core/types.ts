@@ -154,6 +154,8 @@ export type RawResult<Output = string> = {
   stderr: string;
   /** Exit code (0 = success) */
   exitCode: number;
+  /** Native termination signal, when supplied by the execution adapter. */
+  signal?: string;
   /** Whether the command was aborted via AbortSignal */
   aborted: boolean;
 };
@@ -216,6 +218,8 @@ export class GitError extends Error {
       workdir?: string;
       gitDir?: string;
       exitCode?: number;
+      /** Native termination signal, distinct from AbortSignal cancellation. */
+      signal?: string;
       stdout?: string;
       stderr?: string;
     } = {},
@@ -505,6 +509,8 @@ export type AuditEventEnd = {
   stderr: string;
   /** Exit code (0 = success) */
   exitCode: number;
+  /** Native termination signal, when reported by the execution adapter. */
+  signal?: string;
   /** Whether command was aborted via AbortSignal */
   aborted: boolean;
   /** Duration in milliseconds */

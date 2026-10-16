@@ -147,12 +147,18 @@ describe('BunExecAdapter', () => {
       const controller = new AbortController();
       controller.abort();
 
-      const result = await adapter.spawn({
-        argv: ['echo', 'should not run'],
-        signal: controller.signal,
-      });
-
-      expect(result.aborted).toBe(true);
+      for (const binary of [false, true]) {
+        const options = {
+          argv: ['type-git-must-not-start-this-command'],
+          signal: controller.signal,
+        };
+        const result = binary
+          ? await adapter.spawnBytes(options)
+          : await adapter.spawn(options);
+        expect(result.aborted).toBe(true);
+        expect(result.signal).toBeUndefined();
+        expect(Object.hasOwn(result, 'signal')).toBe(false);
+      }
     });
 
     test('calls stream handlers', async () => {

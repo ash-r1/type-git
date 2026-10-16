@@ -1836,6 +1836,7 @@ export class CliRunner {
           : { stdoutBytes: new Uint8Array(result.stdout) }),
         stderr: result.stderr,
         exitCode: result.exitCode,
+        ...(result.signal ? { signal: result.signal } : {}),
         aborted: result.aborted,
         duration: endTimestamp - startTimestamp,
       });
@@ -1845,6 +1846,7 @@ export class CliRunner {
       stdout: result.stdout,
       stderr: result.stderr,
       exitCode: result.exitCode,
+      ...(result.signal ? { signal: result.signal } : {}),
       aborted: result.aborted,
     } as RawResult<string | Uint8Array>;
   }
@@ -1883,6 +1885,7 @@ export class CliRunner {
       return new GitError('Aborted', 'Command was aborted', {
         argv,
         exitCode: result.exitCode,
+        ...(result.signal ? { signal: result.signal } : {}),
         stdout: result.stdout,
         stderr: result.stderr,
         ...(context.type === 'worktree' && { workdir: context.workdir }),
@@ -1901,6 +1904,7 @@ export class CliRunner {
         {
           argv,
           exitCode: result.exitCode,
+          ...(result.signal ? { signal: result.signal } : {}),
           stdout: result.stdout,
           stderr: result.stderr,
           ...(context.type === 'worktree' && { workdir: context.workdir }),
@@ -1918,6 +1922,9 @@ export class CliRunner {
    */
   private classifyError(result: RawResult): GitErrorKind {
     const stderr = result.stderr.toLowerCase();
+    if (result.signal) {
+      return 'NonZeroExit';
+    }
 
     // Spawn failures (usually exit code -1 or specific patterns)
     if (result.exitCode === -1 || stderr.includes('command not found')) {
