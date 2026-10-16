@@ -1,3 +1,4 @@
+import { PICKAXE_EMPTY_PROBE, pickaxeEmptyRejected } from '../constraints/pickaxe-profile.js';
 import type { GitBooleanSource, GitBooleanCapabilities } from '../constraints/git-boolean.js';
 import {
   OBJECT_FILTER_CHAR_PROBE,
@@ -31,6 +32,7 @@ import {
   commandUsesFirstPassEmpty,
   commandHasLegacyStashHelp,
   commandUsesSubmoduleInitAlias,
+  commandUsesEmptyPickaxe,
   commandUsesDepthAtoi,
   validateArgvStrings,
   commandDecimalCallbacks,
@@ -934,7 +936,22 @@ export class CliRunner {
       firstPassEmpty?: boolean;
       depthAtoiBits?: 32 | 64;
       submoduleInitAlias?: boolean;
+      emptyPickaxeRejected?: boolean;
     };
+    let emptyPickaxeRejected: boolean | undefined;
+    if (commandUsesEmptyPickaxe(command, traitArgs)) {
+      const probe = await this.run(context, [...PICKAXE_EMPTY_PROBE], {
+        ...(opts?.env ? { env: opts.env } : {}),
+        ...(opts?.signal ? { signal: opts.signal } : {}),
+      });
+      if (probe.aborted) {
+        return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      }
+      emptyPickaxeRejected = pickaxeEmptyRejected(probe);
+      if (emptyPickaxeRejected === undefined) {
+        return await execute(commandShapeArguments(command, args, inRepository));
+      }
+    }
     let submoduleInitAlias: boolean | undefined;
     if (commandUsesSubmoduleInitAlias(command, traitArgs)) {
       const probe = await this.run(context, ['submodule--helper', 'update', '-i', '-h'], {
@@ -996,7 +1013,8 @@ export class CliRunner {
     let abi: NativeAbi | undefined =
       firstPassEmpty === undefined &&
       depthAtoiBits === undefined &&
-      submoduleInitAlias === undefined
+      submoduleInitAlias === undefined &&
+      emptyPickaxeRejected === undefined
         ? undefined
         : {
             longBits: nativeCLongBits(process.platform, process.arch),
@@ -1004,6 +1022,7 @@ export class CliRunner {
             firstPassEmpty,
             depthAtoiBits,
             submoduleInitAlias,
+            emptyPickaxeRejected,
           };
     if (commandUsesNativeABI(command, traitArgs, firstPassEmpty)) {
       const profiles: GitIntegerProfile[] = commandUsesIntegerProfile(
@@ -1083,6 +1102,7 @@ export class CliRunner {
                               firstPassEmpty,
                               depthAtoiBits,
                               submoduleInitAlias,
+                              emptyPickaxeRejected,
                             };
                             try {
                               valid.push({

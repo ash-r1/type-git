@@ -22,6 +22,8 @@ export type CommandGrammarContext = {
   /** Pin observed native integer storage/range handling independently of decimal callbacks. */
   integerProfile?: GitIntegerProfile;
   submoduleInitAlias?: boolean;
+  /** Pin whether the selected diff callback rejects every empty pattern. */
+  emptyPickaxeRejected?: boolean;
 };
 export function guiLaunchFromSource(source: string): GuiLaunch | undefined {
   const normalized = source.replaceAll('\r\n', '\n');

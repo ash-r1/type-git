@@ -1332,9 +1332,11 @@
                 "key": "$value",
                 "test": "nonempty"
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           }
-        ]
+        ],
+        "nativeEmptyPickaxe": true
       },
       "-G": {
         "key": "G",
@@ -1351,9 +1353,11 @@
                 "key": "$value",
                 "test": "nonempty"
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           }
-        ]
+        ],
+        "nativeEmptyPickaxe": true
       },
       "--diff-algorithm": {
         "key": "diff-algorithm",

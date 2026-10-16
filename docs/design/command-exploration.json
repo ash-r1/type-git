@@ -19901,9 +19901,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "-G": {
             "key": "G",
@@ -19920,9 +19922,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "--pickaxe-all": {
             "key": "pickaxe-all",
@@ -23470,9 +23474,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "-G": {
             "key": "G",
@@ -23489,9 +23495,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "--pickaxe-all": {
             "key": "pickaxe-all",
@@ -33477,9 +33485,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "-G": {
             "key": "G",
@@ -33496,9 +33506,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "--pickaxe-all": {
             "key": "pickaxe-all",
@@ -37042,9 +37054,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "-G": {
             "key": "G",
@@ -37061,9 +37075,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "--pickaxe-all": {
             "key": "pickaxe-all",
@@ -44380,9 +44396,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
             ],
+            "nativeEmptyPickaxe": true,
             "effects": [
               {
                 "key": "revision-argument",
@@ -44405,9 +44423,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
             ],
+            "nativeEmptyPickaxe": true,
             "effects": [
               {
                 "key": "revision-argument",
@@ -49423,9 +49443,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
             ],
+            "nativeEmptyPickaxe": true,
             "effects": [
               {
                 "key": "revision-argument",
@@ -49448,9 +49470,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
             ],
+            "nativeEmptyPickaxe": true,
             "effects": [
               {
                 "key": "revision-argument",
@@ -74881,9 +74905,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "-G": {
             "key": "G",
@@ -74900,9 +74926,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "--pickaxe-all": {
             "key": "pickaxe-all",
@@ -80328,9 +80356,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "-G": {
             "key": "G",
@@ -80347,9 +80377,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "--pickaxe-all": {
             "key": "pickaxe-all",
@@ -90177,9 +90209,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "-G": {
             "key": "G",
@@ -90196,9 +90230,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "--pickaxe-all": {
             "key": "pickaxe-all",
@@ -97566,9 +97602,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "-G": {
             "key": "G",
@@ -97585,9 +97623,11 @@
                     "key": "$value",
                     "test": "nonempty"
                   }
-                ]
+                ],
+                "nativeEmptyPickaxe": true
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           },
           "--pickaxe-all": {
             "key": "pickaxe-all",

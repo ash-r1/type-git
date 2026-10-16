@@ -2593,10 +2593,12 @@
                 "key": "$value",
                 "test": "nonempty"
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           }
         ],
-        "attachedValue": true
+        "attachedValue": true,
+        "nativeEmptyPickaxe": true
       },
       "-G": {
         "key": "G",
@@ -2613,10 +2615,12 @@
                 "key": "$value",
                 "test": "nonempty"
               }
-            ]
+            ],
+            "nativeEmptyPickaxe": true
           }
         ],
-        "attachedValue": true
+        "attachedValue": true,
+        "nativeEmptyPickaxe": true
       },
       "-O": {
         "key": "O",

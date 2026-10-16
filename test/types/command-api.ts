@@ -273,7 +273,7 @@ git.command('log', [['--cherry'], ['--cherry-pick']]);
 git.command('log', [['--stdin'], ['--stdin']]);
 // @ts-expect-error Final bitmask contains suppressed output and name-only.
 git.command('diff', [['-s'], ['--name-only']]);
-// @ts-expect-error Empty pickaxe patterns fail immediately.
+// Older native callbacks accept this overwritten empty pattern; runtime selects the executable profile.
 git.command('diff', [['-S', ''], ['-S', 'nonempty']]);
 // @ts-expect-error Pickaxe kinds conflict.
 git.command('diff', [['-S', 'one'], ['-G', 'two']]);

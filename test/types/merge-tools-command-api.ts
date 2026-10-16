@@ -92,28 +92,28 @@ git.command('difftool', [['-S', '--tool-help'], { operand: 'HEAD' }, { operand: 
 git.command('difftool', [['--no-index'], { operand: 'left' }, { operand: 'right' }, ['--'], { operand: '*.ts' }]);
 git.command('difftool', [['-G', '--tool-help'], { operand: 'HEAD' }, { operand: 'HEAD' }]);
 
-// @ts-expect-error Empty delegated pickaxe patterns cannot consume the following operand.
+// Older Git accepts an empty callback; the selected runtime may reject it.
 git.command('difftool', [['-S', ''], { operand: 'HEAD' }, { operand: 'HEAD' }]);
-// @ts-expect-error Later patterns cannot replace a prior empty callback value.
+// Older Git accepts an empty callback; the selected runtime may reject it.
 git.command('difftool', [['-S', ''], ['-S', 'one']]);
 git.command('difftool', [['-S', ''], ['--tool-help'], { operand: 'HEAD' }]);
 git.command('difftool', [['--tool-help'], ['-S', '']]);
-// @ts-expect-error Empty delegated pickaxe patterns cannot consume the following operand.
+// Older Git accepts an empty callback; the selected runtime may reject it.
 git.command('difftool', [['-G', ''], { operand: 'HEAD' }, { operand: 'HEAD' }]);
-// @ts-expect-error Later patterns cannot replace a prior empty callback value.
+// Older Git accepts an empty callback; the selected runtime may reject it.
 git.command('difftool', [['-G', ''], ['-G', 'one']]);
 git.command('difftool', [['-G', ''], ['--tool-help'], { operand: 'HEAD' }]);
 git.command('difftool', [['--tool-help'], ['-G', '']]);
-// @ts-expect-error Disabling tool-help restores delegated validation.
+// Older Git accepts an empty callback; the selected runtime may reject it.
 git.command('difftool', [['--tool-help'], ['--no-tool-help'], ['-S', '']]);
 declare const dynamicPattern: string;
 git.command('difftool', [['-S', dynamicPattern]]);
 declare const maybeEmptyPattern: '' | 'one';
-// @ts-expect-error Every literal alternative must have a nonempty pattern.
+// Older Git accepts an empty callback; the selected runtime may reject it.
 git.command('difftool', [['-G', maybeEmptyPattern]]);
 
 const mixedEmptyPatternModes = chooseHelp ? [['-S', ''], ['--tool-help']] as const : [['-S', '']] as const;
-// @ts-expect-error A union must also satisfy the branch that delegates to diff.
+// Older Git accepts an empty callback; the selected runtime may reject it.
 git.command('difftool', mixedEmptyPatternModes);
 const validEmptyPatternHelpModes = chooseHelp ? [['-S', ''], ['--tool-help']] as const : [['--tool-help'], ['-G', '']] as const;
 git.command('difftool', validEmptyPatternHelpModes);
