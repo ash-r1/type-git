@@ -1,0 +1,257 @@
+{
+  "scope": "42 finite native Git2.55LP64C23 empty-stream parser observations; no pack semantics.",
+  "cases": [
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "                                                                                                                                                                1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "                                                                                                                                                                9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "                                                                                                                                                                1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f 1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--max-pack-size",
+      "valueKind": "string",
+      "valueText": "\r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f 1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "                                                                                                                                                                1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "                                                                                                                                                                9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "                                                                                                                                                                1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b\u000b1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f1kb",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f 1",
+      "nativeExit": 0
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+      "nativeExit": 128
+    },
+    {
+      "flag": "--big-file-threshold",
+      "valueKind": "string",
+      "valueText": "\r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f \r\n\t\u000b\f 1kb",
+      "nativeExit": 128
+    }
+  ]
+}
