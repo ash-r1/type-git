@@ -1,6 +1,6 @@
-import { spawnSync, type SpawnSyncReturns } from 'node:child_process';
+import { type SpawnSyncReturns, spawnSync } from 'node:child_process';
 import { closeSync, openSync } from 'node:fs';
-import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { expect, it } from 'vitest';
@@ -38,6 +38,8 @@ const inputs = [
       '+5',
       '05',
       '0x5',
+      '-2',
+      '2147483647',
       '4294967301',
       '-4294967291',
       '5',
@@ -118,18 +120,26 @@ it.for(cases)('matches native mailsplit prefix conversion and output files for $
       [['-b'], [flag, value], ['-o', actualDir]] as never,
       { stdin },
     );
-    if (native.status === 0) {
+    if (native.status === 129) {
+      expect(flag).toBe('-d');
+      expect(native.stderr).toContain('usage: git mailsplit');
+      await expect(operation).rejects.toBeInstanceOf(GitArgumentError);
+      expect(await readdir(nativeDir)).toEqual([]);
+      expect(await readdir(actualDir)).toEqual([]);
+    } else {
+      // An accepted -f can produce a negative split count, including after C int
+      // overflow on a selected ABI. Preserve the native result and written file.
+      expect([0, 1]).toContain(native.status);
+      if (native.status === 1) {
+        expect(flag).toBe('-f');
+        expect(native.stderr).toContain('cannot split patches from stdin');
+      }
       const actual = await operation;
-      expect(actual.exitCode).toBe(0);
+      expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
       expect(actual.stderr).toBe(native.stderr);
       expect(await messages(actualDir)).toEqual(await messages(nativeDir));
       expect(await readdir(nativeDir)).toHaveLength(1);
-    } else {
-      expect(native.status).toBe(129);
-      expect(native.stderr).toContain('usage: git mailsplit');
-      await expect(operation).rejects.toBeInstanceOf(GitArgumentError);
-      expect(await readdir(nativeDir)).toEqual([]);
     }
   } finally {
     await rm(root, { recursive: true, force: true });
