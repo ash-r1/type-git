@@ -62555,8 +62555,7 @@
           "-1",
           "0",
           "1",
-          "2",
-          "true"
+          "2"
         ],
         "output": [
           "undefined",
@@ -62600,8 +62599,8 @@
           "true"
         ]
       },
-      "total": "537600",
-      "accepted": "413952",
+      "total": "460800",
+      "accepted": "354816",
       "nodes": 17,
       "isolatedRuleWitnesses": {
         "cli.mailsplit.implicit-output": "{\"operand0\":\"\",\"operands\":[]}",

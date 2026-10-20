@@ -55,7 +55,8 @@ export type GitDecimalParser = {
   longBits: 32 | 64;
   bits: 32;
   signed: boolean;
-  conversion: 'checked' | 'cast' | 'atoi';
+  /** prefix-cast is strtol(base 10) with ignored end pointer/errno, then int storage. */
+  conversion: 'checked' | 'cast' | 'atoi' | 'prefix-cast';
   /** strtoul saturates ULONG_MAX before unsigned negation and int storage. */
   unsignedLong?: true;
   /** Some C runtimes negate a saturated unsigned result for negative overflow. */
@@ -116,6 +117,7 @@ export function parseGitDecimal(
   }
   if (
     typeof value === 'number' &&
+    parser.conversion !== 'prefix-cast' &&
     (parser.conversion === 'atoi'
       ? !Number.isFinite(value) || Math.abs(value) > Number.MAX_SAFE_INTEGER
       : !Number.isSafeInteger(value))
@@ -133,11 +135,12 @@ export function parseGitDecimal(
     return { valid: false };
   }
   const match =
-    parser.conversion === 'atoi'
+    parser.conversion === 'atoi' || parser.conversion === 'prefix-cast'
       ? /^[ \t\r\n\v\f]*([+-]?\d+)/.exec(text)
       : /^[ \t\r\n\v\f]*([+-]?\d+)$/.exec(text);
   if (
     parser.conversion !== 'atoi' &&
+    parser.conversion !== 'prefix-cast' &&
     !(text === '' && parser.empty) &&
     (!match || match[0] !== text)
   ) {

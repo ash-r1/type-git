@@ -183,17 +183,61 @@ type DecimalPrefix<
       : Result extends ''
         ? '0'
         : Result;
+/** Stop as soon as a decimal prefix certainly saturates strtol; skip long zero runs. */
+type PrefixCast<
+  S extends string,
+  Negative extends boolean,
+  P extends GitDecimalParser,
+  Acc extends string = '0',
+  Steps extends unknown[] = [],
+> = AtMost<
+  Acc,
+  P['longBits'] extends 32
+    ? Negative extends true
+      ? '2147483648'
+      : '2147483647'
+    : Negative extends true
+      ? '9223372036854775808'
+      : '9223372036854775807'
+> extends false
+  ? Converted<Acc, Negative, P>
+  : string extends S
+    ? 'dynamic'
+    : Steps['length'] extends 128
+      ? 'dynamic'
+      : Acc extends '0'
+        ? S extends `0000000000000000${infer Rest}`
+          ? PrefixCast<Rest, Negative, P, Acc, [...Steps, 0]>
+          : PrefixCastDigit<S, Negative, P, Acc, Steps>
+        : PrefixCastDigit<S, Negative, P, Acc, Steps>;
+type PrefixCastDigit<
+  S extends string,
+  Negative extends boolean,
+  P extends GitDecimalParser,
+  Acc extends string,
+  Steps extends unknown[],
+> = S extends `${infer H}${infer R}`
+  ? H extends Digit
+    ? PrefixCast<R, Negative, P, Strip<`${Acc}${H}`>, [...Steps, 0]>
+    : `${number}` extends H
+      ? 'dynamic'
+      : `${bigint}` extends H
+        ? 'dynamic'
+        : Converted<Acc, Negative, P>
+  : Converted<Acc, Negative, P>;
 type SignedDigits<
   S extends string,
   Negative extends boolean,
   P extends GitDecimalParser,
-> = P['conversion'] extends 'atoi'
-  ? DecimalPrefix<S> extends infer M extends string
-    ? M extends 'dynamic'
-      ? 'dynamic'
-      : Converted<Strip<M>, Negative, P>
-    : never
-  : Magnitude<S, Negative, P>;
+> = P['conversion'] extends 'prefix-cast'
+  ? PrefixCast<S, Negative, P>
+  : P['conversion'] extends 'atoi'
+    ? DecimalPrefix<S> extends infer M extends string
+      ? M extends 'dynamic'
+        ? 'dynamic'
+        : Converted<Strip<M>, Negative, P>
+      : never
+    : Magnitude<S, Negative, P>;
 type Signed<S extends string, P extends GitDecimalParser> = string extends S
   ? 'dynamic'
   : S extends `-${infer R}`
@@ -227,11 +271,13 @@ type Parsed<V, P extends GitDecimalParser> = V extends true
                         ? After<'0', P>
                         : 'invalid'
                       : V extends number
-                        ? NumberLiteralOrder<V, 9007199254740991> extends 1
-                          ? 'invalid'
-                          : NumberLiteralOrder<V, -9007199254740991> extends -1
+                        ? P extends { conversion: 'prefix-cast' }
+                          ? Signed<Trim<`${V}`>, P>
+                          : NumberLiteralOrder<V, 9007199254740991> extends 1
                             ? 'invalid'
-                            : Signed<Trim<`${V}`>, P>
+                            : NumberLiteralOrder<V, -9007199254740991> extends -1
+                              ? 'invalid'
+                              : Signed<Trim<`${V}`>, P>
                         : Signed<Trim<`${V}`>, P>
       : 'invalid';
 export type GitDecimalLiteral<V, P extends GitDecimalParser> = Extract<

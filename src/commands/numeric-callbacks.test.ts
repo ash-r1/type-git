@@ -232,6 +232,44 @@ describe('source-audited numeric callback stages', () => {
           continue;
         }
         total++;
+        if (option.parser.conversion === 'prefix-cast') {
+          // These manual callbacks accept a decimal prefix instead of requiring
+          // full consumption. Verify the native acceptance before replacement.
+          const tokens = [[flag, '4k'], [flag, 4], { operand: root }];
+          expect(commandArguments(command, tokens, true)).toEqual([
+            ...spec.argv,
+            `${flag}4k`,
+            `${flag}4`,
+            root,
+          ]);
+          const native = spawnSync('git', [...spec.argv, `${flag}4k`, `${flag}4`, root], {
+            env,
+            input: '',
+            encoding: 'utf8',
+            timeout: 10000,
+          });
+          expect(native.error).toBeUndefined();
+          expect(native.signal).toBeNull();
+          expect(native.status, native.stderr).toBe(0);
+          if (option.allowed) {
+            // Mailsplit's filename width is range-checked after conversion and
+            // cannot be repaired by a later valid width.
+            const rejected = spawnSync('git', [...spec.argv, `${flag}2suffix`, `${flag}4`, root], {
+              env,
+              input: '',
+              encoding: 'utf8',
+              timeout: 10000,
+            });
+            expect(rejected.error).toBeUndefined();
+            expect(rejected.signal).toBeNull();
+            expect(rejected.status).toBe(129);
+            expect(rejected.stderr).toContain('usage: git mailsplit');
+            expect(() =>
+              commandArguments(command, [[flag, '2suffix'], [flag, 4], { operand: root }], true),
+            ).toThrow('unsupported option value 2');
+          }
+          continue;
+        }
         const build = (): string[] =>
           commandArguments(
             command,
