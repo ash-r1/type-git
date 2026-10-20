@@ -1,6 +1,6 @@
 import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
 import { initialParserPass } from './initial-parser-pass.js';
-import { svnDispatch, svnParserTokens } from './svn-dispatch.js';
+import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
 import {
   isBooleanCallback,
   type GitBooleanSource,
@@ -176,6 +176,7 @@ function buildArguments(
     partitionState?: Readonly<Record<string, readonly string[]>>;
   },
   specOverride?: CommandSpec,
+  shapeOptions?: Readonly<Record<string, readonly OptionSpec[]>>,
 ): string[] {
   const spec: CommandSpec | undefined =
     specOverride ?? (Object.hasOwn(COMMAND_SPECS, command) ? COMMAND_SPECS[command] : undefined);
@@ -197,11 +198,14 @@ function buildArguments(
   if (!specOverride && (command === 'svn' || command.startsWith('svn '))) {
     const root: CommandSpec = COMMAND_SPECS.svn;
     const options: Record<string, OptionSpec> = {};
+    const alternatives: Record<string, OptionSpec[]> = {};
     for (const [name, child] of Object.entries(COMMAND_SPECS)) {
       if (name === 'svn' || name.startsWith('svn ')) {
         for (const [flag, option] of Object.entries(child.options)) {
           const { before: _before, ...local } = option;
           options[flag] = local;
+          alternatives[flag] ??= [];
+          alternatives[flag].push(local);
         }
       }
     }
@@ -209,6 +213,7 @@ function buildArguments(
     for (const [flag, option] of Object.entries(root.options)) {
       const { before: _before, ...local } = option;
       options[flag] = local;
+      alternatives[flag] = [local];
     }
     const original = buildArguments(
       command,
@@ -224,6 +229,7 @@ function buildArguments(
         dispatch: undefined,
         options,
       },
+      alternatives,
     );
     if (evaluationMode === 'shape') {
       return original;
@@ -449,7 +455,9 @@ function buildArguments(
       spec.numericOption &&
       /^-\d+$/.exec(flag)?.[0] === flag;
     const option: OptionSpec | undefined = Object.hasOwn(activeOptions, flag)
-      ? activeOptions[flag]
+      ? ((evaluationMode === 'shape' && shapeOptions && Object.hasOwn(shapeOptions, flag)
+          ? svnShapeOption(shapeOptions[flag]!, arg)
+          : undefined) ?? activeOptions[flag])
       : numeric
         ? {
             ...spec.numericOption!,

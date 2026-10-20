@@ -1,3 +1,38 @@
+import type { OptionSpec } from './spec.js';
+
+/** Select a representation accepted by any child before raw argv selects the command. */
+export function svnShapeOption(
+  alternatives: readonly OptionSpec[],
+  argument: readonly unknown[],
+): OptionSpec | undefined {
+  const supplied = argument.length === 2 && argument[1] !== undefined;
+  return alternatives.find((option) => {
+    if (!supplied) {
+      return (
+        option.value === 'flag' ||
+        option.value === 'boolean' ||
+        option.value.startsWith('optional-')
+      );
+    }
+    if (option.value === 'flag') {
+      return false;
+    }
+    if (option.value === 'boolean') {
+      return typeof argument[1] === 'boolean';
+    }
+    if (option.value.endsWith('string')) {
+      return typeof argument[1] === 'string';
+    }
+    return (
+      typeof argument[1] === 'number' ||
+      ((typeof option.parser === 'object' ||
+        option.parser === 'perl-int' ||
+        option.parser === 'perl-int-gnu') &&
+        (typeof argument[1] === 'string' || typeof argument[1] === 'bigint'))
+    );
+  });
+}
+
 /** Result of git-svn.perl's scan of raw words before GetOptions consumes values. */
 export type SvnDispatch =
   | { kind: 'command'; command: string; index: number; remaining: readonly string[] }

@@ -90,6 +90,95 @@ async function withLocalSvn(
 }
 
 describe('Subversion operation tables', () => {
+  const shapes = new Map<string, Map<string, { command: string; flag: string; value: string }>>();
+  for (const [command, spec] of Object.entries(COMMAND_SPECS)) {
+    if (!command.startsWith('svn ')) {
+      continue;
+    }
+    for (const [flag, option] of Object.entries(spec.options)) {
+      const values = shapes.get(flag) ?? new Map();
+      if (!values.has(option.value)) {
+        values.set(option.value, { command, flag, value: option.value });
+      }
+      shapes.set(flag, values);
+    }
+  }
+  const collisions = [...shapes.values()]
+    .filter((values) => values.size > 1)
+    .flatMap((values) => [...values.values()]);
+  for (const entry of collisions) {
+    for (const named of [false, true]) {
+      it.skipIf(!available)(
+        `preserves ${entry.command} ${entry.flag} ${entry.value} through ${named ? 'named' : 'root'} dispatch`,
+        async () => {
+          const root = await mkdtemp(join(tmpdir(), 'type-git-svn-option-shape-'));
+          const env = {
+            ...process.env,
+            HOME: root,
+            XDG_CONFIG_HOME: root,
+            GIT_CONFIG_NOSYSTEM: '1',
+            GIT_CONFIG_GLOBAL: join(root, 'missing'),
+            LC_ALL: 'C',
+            PERL_HASH_SEED: '0',
+            PERL_PERTURB_KEYS: '0',
+          };
+          const token =
+            entry.value === 'flag'
+              ? [entry.flag]
+              : [entry.flag, entry.value === 'integer' ? 1 : '1'];
+          const words =
+            token.length === 1
+              ? [entry.flag]
+              : entry.flag.startsWith('--')
+                ? [`${entry.flag}=${token[1]}`]
+                : [entry.flag, String(token[1])];
+          try {
+            expect(spawnSync('git', ['init', '-q', root], { env }).status).toBe(0);
+            const native = spawnSync('git', ['svn', entry.command.slice(4), ...words, '-h'], {
+              cwd: root,
+              env,
+              encoding: 'utf8',
+              timeout: 10000,
+            });
+            expect(native.error).toBeUndefined();
+            expect(native.signal).toBeNull();
+            expect(native.status, native.stderr).toBe(0);
+            const repo = await new TypeGit({ inheritEnv: false, env }).open(root);
+            const actual = await repo.command(
+              (named ? entry.command : 'svn') as never,
+              [...(named ? [] : [{ operand: entry.command.slice(4) }]), token, ['-h']] as never,
+            );
+            expect(actual.exitCode).toBe(native.status);
+            expect(actual.stdout).toBe(native.stdout);
+            expect(actual.stderr).toBe(native.stderr);
+          } finally {
+            await rm(root, { recursive: true, force: true });
+          }
+        },
+      );
+    }
+  }
+
+  it('keeps selected-child arity checks after accepting all preliminary shapes', () => {
+    expect(() => commandArguments('svn clone', [['--m', 'message'], ['-h']], true)).toThrow(
+      GitArgumentError,
+    );
+    expect(() => commandArguments('svn branch', [['--m'], ['-h']], true)).toThrow(GitArgumentError);
+    expect(() =>
+      commandArguments('svn', [{ operand: 'clone' }, ['--m', 'message'], ['-h']], true),
+    ).toThrow(GitArgumentError);
+    expect(() => commandArguments('svn', [{ operand: 'branch' }, ['--m'], ['-h']], true)).toThrow(
+      GitArgumentError,
+    );
+    expect(
+      commandArguments(
+        'svn',
+        [{ operand: 'help' }, { operand: 'clone' }, ['--m'], ['--m', 'ignored']],
+        true,
+      ),
+    ).toEqual(['svn', 'help', 'clone', '--m', '--m=ignored']);
+  });
+
   for (const [index, entry] of svnDispatchBoundaries.cases.entries()) {
     it.skipIf(!available)(
       `preserves native command-scan boundary ${index}: ${entry.words.join(' ')}`,
