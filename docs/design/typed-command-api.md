@@ -227,6 +227,22 @@ Hook arguments require a separator after the hook name. Unknown hook names need
 the native opt-in flag. Credential-store ignores unknown operations, while the
 root credential command rejects them; credential-cache also ignores extra words.
 
+Mailsplit's `-d` and `-f` use decimal `strtol` with no end-pointer or errno
+check, followed by storage in a C int. The `prefix-cast` numeric profile preserves
+that ordering: `-d4suffix` selects four filename digits, and `-f5suffix` starts
+numbering at six. Text with no converted digits gives zero; `-d` then requires
+the converted value to be between three and nine. Number and bigint inputs are
+serialized in their original JavaScript spelling, including fractional and
+scientific number spellings. Runtime checks use the selected executable's C long
+width; unknown width observations leave the original command to Git. Literal
+checks retain complete width alternatives, stop at a proven overflowing prefix,
+and preserve uncertainty in symbolic numeric prefixes. Long zero/whitespace
+prefixes do not hide the finite rejected cases covered by the contracts. Budget
+exhaustion still defers to runtime. Native tests compare message counts, file
+names and contents from one bare email, using a file descriptor for native stdin
+to avoid an EPIPE race on early option errors. Controlled 32-bit-long expectations
+are model checks; they do not establish native Windows or 32-bit execution.
+
 This adds argument schemas, not typed wire protocols. Tests use synthetic
 credentials, isolated files, harmless fixture hooks, and local protocol input.
 They never start a credential cache daemon. Binary I/O, platform conditions and

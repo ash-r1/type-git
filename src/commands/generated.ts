@@ -75405,12 +75405,29 @@ const commandSpec165 = {
     '-d': {
       key: 'digits',
       value: 'integer',
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'prefix-cast',
+        empty: true,
+      },
       attachedValue: true,
       allowed: [3, 4, 5, 6, 7, 8, 9],
     },
     '-f': {
       key: 'start',
       value: 'optional-integer',
+      set: 0,
+      parser: {
+        kind: 'decimal',
+        longBits: 64,
+        bits: 32,
+        signed: true,
+        conversion: 'prefix-cast',
+        empty: true,
+      },
       attachedValue: true,
     },
     '-o': {

@@ -1164,7 +1164,11 @@ type DecimalWidthChangesRaw<
         { decimalCallbacks: F },
         Extract<Options<C>[K], OptionSpec>
       > extends infer D extends OptionSpec
-      ? D extends { parser: infer P extends GitDecimalParser & { conversion: 'cast' | 'atoi' } }
+      ? D extends {
+          parser: infer P extends GitDecimalParser & {
+            conversion: 'cast' | 'atoi' | 'prefix-cast';
+          };
+        }
         ? GitNumericValue<
             T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
             P
