@@ -1,5 +1,6 @@
 import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
 import { initialParserPass } from './initial-parser-pass.js';
+import { svnDispatch, svnParserTokens } from './svn-dispatch.js';
 import {
   isBooleanCallback,
   type GitBooleanSource,
@@ -174,10 +175,10 @@ function buildArguments(
     parserExited?: true;
     partitionState?: Readonly<Record<string, readonly string[]>>;
   },
+  specOverride?: CommandSpec,
 ): string[] {
-  const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
-    ? COMMAND_SPECS[command]
-    : undefined;
+  const spec: CommandSpec | undefined =
+    specOverride ?? (Object.hasOwn(COMMAND_SPECS, command) ? COMMAND_SPECS[command] : undefined);
   if (!spec) {
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
@@ -192,6 +193,63 @@ function buildArguments(
     const argv = guiArguments(spec, args, rootOptions);
     validateGuiArguments(argv, guiGrammar, guiLaunch);
     return argv;
+  }
+  if (!specOverride && (command === 'svn' || command.startsWith('svn '))) {
+    const root: CommandSpec = COMMAND_SPECS.svn;
+    const options: Record<string, OptionSpec> = {};
+    for (const [name, child] of Object.entries(COMMAND_SPECS)) {
+      if (name === 'svn' || name.startsWith('svn ')) {
+        for (const [flag, option] of Object.entries(child.options)) {
+          const { before: _before, ...local } = option;
+          options[flag] = local;
+        }
+      }
+    }
+    // The source global declarations override local aliases (notably -i).
+    for (const [flag, option] of Object.entries(root.options)) {
+      const { before: _before, ...local } = option;
+      options[flag] = local;
+    }
+    const original = buildArguments(
+      command,
+      args,
+      inRepository,
+      abi,
+      guiGrammar,
+      guiLaunch,
+      'shape',
+      undefined,
+      {
+        ...spec,
+        dispatch: undefined,
+        options,
+      },
+    );
+    if (evaluationMode === 'shape') {
+      return original;
+    }
+    const selected = svnDispatch(original.slice(1), root.dispatch!);
+    if (selected.kind === 'help') {
+      return original;
+    }
+    if (selected.kind === 'command') {
+      const child = COMMAND_SPECS[selected.command as GitCommandName];
+      const tokens = svnParserTokens(selected.remaining, child.options);
+      if (tokens !== undefined) {
+        buildArguments(
+          selected.command as GitCommandName,
+          tokens,
+          inRepository,
+          abi,
+          guiGrammar,
+          guiLaunch,
+          evaluationMode,
+          undefined,
+          child,
+        );
+        return original;
+      }
+    }
   }
   const dispatched = spec.parserExit?.mandatorySubcommand
     ? undefined

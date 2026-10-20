@@ -1,3 +1,4 @@
+import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
 import type { FastImportUnsignedParser } from '../constraints/fast-import-unsigned.js';
 import type { FastImportUnsignedLiteral } from '../constraints/fast-import-unsigned-types.js';
 import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
@@ -2105,6 +2106,76 @@ type LegacyStashHelp<
       : false
   : false;
 
+/** Reject any known selected-command alternative whose reconstructed tuple is invalid. */
+type InvalidSvnSelection<S, Ctx extends CommandGrammarContext> = S extends {
+  kind: 'command';
+  command: infer C extends DispatchTarget<'svn'>;
+  remaining: infer W extends readonly string[];
+}
+  ? SvnTokens<W, Options<C>> extends infer A
+    ? [A] extends [never]
+      ? true
+      : A extends readonly unknown[]
+        ? [CheckedLocalArguments<C, A, Ctx>] extends [never]
+          ? true
+          : never
+        : true
+    : true
+  : S extends { kind: 'none' }
+    ? true
+    : never;
+/** Preserve existing tuple types when dispatch only removes a positional word. */
+type CheckedSvnOperandScan<
+  A extends readonly unknown[],
+  R extends readonly unknown[] = A,
+  Prefix extends readonly unknown[] = readonly [],
+  Ctx extends CommandGrammarContext = {},
+> = R extends readonly [{ readonly operand: infer W extends string }, ...infer Rest]
+  ? string extends W
+    ? CheckedSvnArguments<'svn', A, Ctx>
+    : [W] extends [keyof Dispatch<'svn'>]
+      ? [InvalidDispatchAlternative<'svn', W, Rest, Prefix, Ctx>] extends [never]
+        ? A
+        : never
+      : [Extract<W, keyof Dispatch<'svn'> | 'help'>] extends [never]
+        ? CheckedSvnOperandScan<A, Rest, readonly [...Prefix, { readonly operand: W }], Ctx>
+        : CheckedSvnArguments<'svn', A, Ctx>
+  : CheckedSvnArguments<'svn', A, Ctx>;
+
+type CheckedSvnArguments<
+  C extends 'svn',
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = SvnSelect<SvnWords<A>, Dispatch<'svn'>> extends infer Selected
+  ? [Selected] extends [{ kind: 'none' }]
+    ? CheckedLocalArguments<C, A, Ctx>
+    : [InvalidSvnSelection<Selected, Ctx>] extends [never]
+      ? A
+      : never
+  : never;
+
+/** Keep correlated option-token union arms separate before checking each complete input. */
+type SvnInputAlternatives<
+  A extends readonly unknown[],
+  Prefix extends readonly unknown[] = readonly [],
+> = number extends A['length']
+  ? readonly unknown[]
+  : A extends readonly [infer H, ...infer R]
+    ? H extends unknown
+      ? SvnInputAlternatives<R, readonly [...Prefix, H]>
+      : never
+    : Prefix;
+type InvalidSvnInput<A, Ctx extends CommandGrammarContext> = A extends readonly unknown[]
+  ? [CheckedSvnOperandScan<A, A, readonly [], Ctx>] extends [never]
+    ? true
+    : never
+  : true;
+type CheckedSvnInputs<A extends readonly unknown[], Ctx extends CommandGrammarContext> = [
+  InvalidSvnInput<SvnInputAlternatives<A>, Ctx>,
+] extends [never]
+  ? A
+  : never;
+
 /** Select child grammar after precisely the native dispatcher's global options. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
@@ -2114,31 +2185,35 @@ export type CheckedCommandArguments<
   ? never
   : number extends A['length']
     ? A
-    : LegacyStashHelp<C, A, Ctx> extends true
-      ? A
-      : Spec<C> extends { parserExit: { mandatorySubcommand: true } }
-        ? CheckedMandatoryArguments<C, A, Ctx>
-        : Spec<C> extends { guiScript: true }
-          ? CheckedLocalArguments<C, A, Ctx>
-          : [Dispatch<C>] extends [never]
+    : [C] extends ['svn']
+      ? [A] extends [readonly [unknown, ...unknown[]]]
+        ? NoInfer<CheckedSvnInputs<A, Ctx>>
+        : CheckedLocalArguments<C, A, Ctx>
+      : LegacyStashHelp<C, A, Ctx> extends true
+        ? A
+        : Spec<C> extends { parserExit: { mandatorySubcommand: true } }
+          ? CheckedMandatoryArguments<C, A, Ctx>
+          : Spec<C> extends { guiScript: true }
             ? CheckedLocalArguments<C, A, Ctx>
-            : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
+            : [Dispatch<C>] extends [never]
+              ? CheckedLocalArguments<C, A, Ctx>
+              : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
-    args: A & CheckedCommandArguments<C, A>,
+    args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
   ): Promise<RawResult<Uint8Array>>;
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
-    args: A & CheckedCommandArguments<C, A>,
+    args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts?: GitCommandExecOpts,
   ): Promise<RawResult>;
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
-    args: A & CheckedCommandArguments<C, A>,
+    args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
 }

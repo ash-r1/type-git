@@ -1,0 +1,223 @@
+{
+  "source": "Git 2.55.0 git-svn.perl command scan before GetOptions; outcomes independently observed also on2.25.1/2.56.0",
+  "cases": [
+    {
+      "args": [
+        [
+          "-i",
+          "fetch"
+        ],
+        {
+          "operand": "init"
+        },
+        [
+          "--log-window-size",
+          "1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "nativeAccepts": true,
+      "nativeExitCode": 0,
+      "words": [
+        "-i",
+        "fetch",
+        "init",
+        "--log-window-size=1",
+        "-h"
+      ]
+    },
+    {
+      "args": [
+        [
+          "--id",
+          "fetch"
+        ],
+        {
+          "operand": "init"
+        },
+        [
+          "--log-window-size",
+          "1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "nativeAccepts": false,
+      "nativeExitCode": 1,
+      "words": [
+        "--id=fetch",
+        "init",
+        "--log-window-size=1",
+        "-h"
+      ]
+    },
+    {
+      "args": [
+        [
+          "-i",
+          "fetch"
+        ]
+      ],
+      "nativeAccepts": false,
+      "nativeExitCode": 1,
+      "words": [
+        "-i",
+        "fetch"
+      ]
+    },
+    {
+      "args": [
+        [
+          "--id",
+          "fetch"
+        ]
+      ],
+      "nativeAccepts": false,
+      "nativeExitCode": 1,
+      "words": [
+        "--id=fetch"
+      ]
+    },
+    {
+      "args": [
+        {
+          "operand": "help"
+        },
+        {
+          "operand": "fetch"
+        },
+        [
+          "--log-window-size",
+          "1x"
+        ]
+      ],
+      "nativeAccepts": true,
+      "nativeExitCode": 0,
+      "words": [
+        "help",
+        "fetch",
+        "--log-window-size=1x"
+      ]
+    },
+    {
+      "args": [
+        {
+          "operand": "ignored"
+        },
+        {
+          "operand": "help"
+        },
+        {
+          "operand": "fetch"
+        },
+        [
+          "--log-window-size",
+          "1x"
+        ]
+      ],
+      "nativeAccepts": true,
+      "nativeExitCode": 0,
+      "words": [
+        "ignored",
+        "help",
+        "fetch",
+        "--log-window-size=1x"
+      ]
+    },
+    {
+      "args": [
+        {
+          "operand": "fetch"
+        },
+        [
+          "--log-window-size",
+          "1x"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "nativeAccepts": false,
+      "nativeExitCode": 1,
+      "words": [
+        "fetch",
+        "--log-window-size=1x",
+        "-h"
+      ]
+    },
+    {
+      "args": [
+        {
+          "operand": "fetch"
+        },
+        [
+          "-h"
+        ],
+        [
+          "--log-window-size",
+          "1x"
+        ]
+      ],
+      "nativeAccepts": false,
+      "nativeExitCode": 1,
+      "words": [
+        "fetch",
+        "-h",
+        "--log-window-size=1x"
+      ]
+    },
+    {
+      "args": [
+        {
+          "operand": "ignored"
+        },
+        {
+          "operand": "fetch"
+        },
+        [
+          "--log-window-size",
+          "1x"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "nativeAccepts": false,
+      "nativeExitCode": 1,
+      "words": [
+        "ignored",
+        "fetch",
+        "--log-window-size=1x",
+        "-h"
+      ]
+    },
+    {
+      "args": [
+        [
+          "--"
+        ],
+        {
+          "operand": "fetch"
+        },
+        [
+          "--log-window-size",
+          "1"
+        ],
+        [
+          "-h"
+        ]
+      ],
+      "nativeAccepts": false,
+      "nativeExitCode": 1,
+      "words": [
+        "--",
+        "fetch",
+        "--log-window-size=1",
+        "-h"
+      ]
+    }
+  ]
+}
