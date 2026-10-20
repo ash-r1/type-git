@@ -603,7 +603,7 @@ export class GitImpl implements Git {
     const A extends readonly GitCommandArgument<NoInfer<C>>[],
   >(
     command: C,
-    args: A & CheckedCommandArguments<C, A>,
+    args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
   ): Promise<RawResult<Uint8Array>>;
   public command<
@@ -611,7 +611,7 @@ export class GitImpl implements Git {
     const A extends readonly GitCommandArgument<NoInfer<C>>[],
   >(
     command: C,
-    args: A & CheckedCommandArguments<C, A>,
+    args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts?: GitCommandExecOpts,
   ): Promise<RawResult>;
   public command<
@@ -619,7 +619,7 @@ export class GitImpl implements Git {
     const A extends readonly GitCommandArgument<NoInfer<C>>[],
   >(
     command: C,
-    args: A & CheckedCommandArguments<C, A>,
+    args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
   public async command<
@@ -627,7 +627,7 @@ export class GitImpl implements Git {
     const A extends readonly GitCommandArgument<NoInfer<C>>[],
   >(
     command: C,
-    args: A & CheckedCommandArguments<C, A>,
+    args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts?: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>> {
     return await this.runner.runCommand({ type: 'global' }, command, args, undefined, opts);
