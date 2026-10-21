@@ -99,6 +99,7 @@ describe('fast-import real SSH signatures', () => {
   let signerB: string;
   let unavailable: string | undefined;
   const sources = new Map<string, Source>();
+  const unsupported = new Map<string, string>();
 
   /** Execute an independent native command and reject spawn failures or signals. */
   function run(binary: string, cwd: string, args: string[], input?: string): Result {
@@ -158,10 +159,13 @@ describe('fast-import real SSH signatures', () => {
     for (const flag of ['--signed-commits', '--signed-tags']) {
       const probe = run('git', root, ['fast-import', '--quiet', `${flag}=verbatim`], '');
       if (probe.exitCode === 128 && probe.stderr.includes(`unknown option ${flag}=verbatim`)) {
-        unavailable = `Selected Git does not implement ${flag}`;
-        return;
+        unsupported.set(flag, `Selected Git does not implement ${flag}`);
+        continue;
       }
       expect(probe.exitCode, probe.stderr).toBe(0);
+    }
+    if (unsupported.size === 2) {
+      return;
     }
     // Detect a missing external tool explicitly; signing/verification failures otherwise fail.
     const ssh = spawnSync('ssh-keygen', ['-l', '-f', join(root, 'missing')], {
@@ -196,6 +200,9 @@ describe('fast-import real SSH signatures', () => {
     );
     for (const format of formats) {
       for (const kind of kinds) {
+        if (unsupported.has(kind === 'tag' ? '--signed-tags' : '--signed-commits')) {
+          continue;
+        }
         const dir = join(root, `source-${format}-${kind}`);
         await repository(dir, format, keyA);
         git(dir, [
@@ -235,6 +242,19 @@ describe('fast-import real SSH signatures', () => {
         return;
       }
       const { format, kind, tampered, mode } = item;
+      const flag = kind === 'tag' ? '--signed-tags' : '--signed-commits';
+      const value =
+        mode === 'sign-a'
+          ? `sign-if-invalid=${keyA}`
+          : mode === 'sign-b'
+            ? `sign-if-invalid=${keyB}`
+            : mode;
+      const capability = `${format}:${flag}=${value}`;
+      const reason = unsupported.get(flag) ?? unsupported.get(capability);
+      if (reason) {
+        context.skip(reason);
+        return;
+      }
       const source = sources.get(`${format}-${kind}`);
       expect(source).toBeDefined();
       if (!source) {
@@ -247,15 +267,28 @@ describe('fast-import real SSH signatures', () => {
         for (const dir of [nativeDir, actualDir]) {
           await repository(dir, format, keyB);
         }
-        const flag = kind === 'tag' ? '--signed-tags' : '--signed-commits';
-        const value =
-          mode === 'sign-a'
-            ? `sign-if-invalid=${keyA}`
-            : mode === 'sign-b'
-              ? `sign-if-invalid=${keyB}`
-              : mode;
         const stdin = stream(source, format, kind, tampered);
         const native = run('git', nativeDir, ['fast-import', '--quiet', `${flag}=${value}`], stdin);
+        // Some callbacks parse a mode but reject it only when a signed object is
+        // reached. Probe the complete native stream, not just empty stdin/verbatim.
+        // Match only the source-backed unsupported-mode diagnostics; verification,
+        // signing, spawn and other operational failures must still fail the test.
+        const unknownMode =
+          native.exitCode === 129 &&
+          native.stderr
+            .replaceAll('\r\n', '\n')
+            .startsWith(`usage: unknown ${flag} mode '${value}'\n`);
+        const rejectedSignedObject =
+          native.exitCode === 128 &&
+          native.stderr.includes(
+            `fatal: '${value}' is not a valid mode for git fast-import with ${flag}=<mode>`,
+          );
+        if (unknownMode || rejectedSignedObject) {
+          const detectedReason = `Selected Git does not implement ${capability}`;
+          unsupported.set(capability, detectedReason);
+          context.skip(detectedReason);
+          return;
+        }
         const repo = await new TypeGit({ inheritEnv: false, env }).open(actualDir);
         const actual = await repo.command('fast-import', [['--quiet'], [flag, value]] as never, {
           stdin,
