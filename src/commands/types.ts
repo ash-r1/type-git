@@ -2196,6 +2196,21 @@ type CheckedSvnInputs<A extends readonly unknown[], Ctx extends CommandGrammarCo
   ? A
   : never;
 
+/** Inspect flag unions inside tokens as well as unions of entire tokens. */
+type DocumentationFlags<T> = T extends readonly [infer Flag, ...unknown[]]
+  ? Extract<Flag, DocumentationManualFlag>
+  : never;
+/** Dynamic manual selectors require a statically guaranteed documentation prefix. */
+type CheckedDynamicDocumentation<C extends GitCommandName, A extends readonly unknown[]> = [
+  Extract<C, DocumentationCommand>,
+] extends [never]
+  ? A
+  : [DocumentationFlags<A[number]>] extends [never]
+    ? A
+    : [A] extends [readonly [readonly ['--help'], ...unknown[]]]
+      ? A
+      : never;
+
 /** Select child grammar after precisely the native dispatcher's global options. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
@@ -2204,7 +2219,7 @@ export type CheckedCommandArguments<
 > = ArgumentsHaveLiteralNul<A> extends true
   ? never
   : number extends A['length']
-    ? A
+    ? CheckedDynamicDocumentation<C, A>
     : [C] extends ['svn']
       ? [A] extends [readonly [unknown, ...unknown[]]]
         ? NoInfer<CheckedSvnInputs<A, Ctx>>

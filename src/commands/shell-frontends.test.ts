@@ -213,8 +213,15 @@ describe('native shell frontends', () => {
       const native = direct([command, '--help', selector]);
       expect(native.error).toBeUndefined();
       expect(native.signal).toBeNull();
-      expect(native.status, native.stderr).toBe(0);
-      expect(native.stdout).toContain('native-doc-viewer');
+      if (native.stderr.includes(`git: '${command}' is not a git command`)) {
+        // git-help checks the selected installation's command list before the viewer.
+        // Missing frontends still have their real native failure compared below.
+        expect(native.status, native.stderr).toBe(1);
+        expect(native.stdout).toBe('');
+      } else {
+        expect(native.status, native.stderr).toBe(0);
+        expect(native.stdout).toContain('native-doc-viewer');
+      }
       const actual = await repo.command(command, [['--help'], [selector]]);
       expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);

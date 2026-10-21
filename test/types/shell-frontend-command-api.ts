@@ -103,3 +103,20 @@ git.command('shell', [['--help'], ['--man'], { operand: 'a\0b' }]);
 declare const possibleFirstWord: '--help' | '--man';
 // @ts-expect-error Every possible first word must select documentation dispatch.
 git.command('shell', [[possibleFirstWord], ['--man']]);
+
+// Context-dependent selectors require a provable documentation prefix on dynamic arrays.
+declare const unprefixedManualArray: readonly (readonly ['--man'])[];
+// @ts-expect-error An arbitrary-length array does not establish the documentation prefix.
+git.command('shell', unprefixedManualArray);
+declare const mixedDocumentationArray: readonly (readonly ['--help'] | readonly ['--man'])[];
+// @ts-expect-error This array may start with a manual selector.
+git.command('shell', mixedDocumentationArray);
+declare const mixedDocumentationWord: readonly (readonly ['--help' | '--man'])[];
+// @ts-expect-error A union inside a token must not hide the manual-selector alternative.
+git.command('shell', mixedDocumentationWord);
+declare const prefixedManualArray: readonly [readonly ['--help'], ...(readonly ['--man' | '-m' | '--no-man'])[]];
+git.command('shell', prefixedManualArray);
+declare const ordinaryShellArray: readonly (readonly ['-c', string])[];
+git.command('shell', ordinaryShellArray);
+declare const ordinaryHelpArray: readonly (readonly ['--help'])[];
+git.command('shell', ordinaryHelpArray);
