@@ -10,6 +10,23 @@ export const ARGV_STRING_CONSTRAINT = {
   source: 'docs/design/typed-command-api.md#cli-string-representation',
 } as const satisfies Evidence & { id: string; forbiddenCharacter: string };
 
+/** Audited primary scopes whose first-word --help dispatches to git-help. */
+export const GLOBAL_HELP_MAN_COMMANDS = [
+  'shell',
+  'filter-branch',
+  'merge-recursive',
+  'merge-recursive-ours',
+  'merge-recursive-theirs',
+  'merge-subtree',
+] as const;
+
+/** builtin/help.c format flags, scoped to first-word documentation dispatch. */
+export const GLOBAL_HELP_MAN_OPTIONS = {
+  '--man': { key: 'format', value: 'flag', set: 'man' },
+  '-m': { key: 'format', value: 'flag', set: 'man' },
+  '--no-man': { key: 'format', value: 'flag', set: false },
+} as const satisfies Readonly<Record<string, OptionSpec>>;
+
 /** One CLI spelling; aliases share a normalized key. */
 export type OptionSpec = {
   key: string;

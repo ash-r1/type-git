@@ -80,3 +80,26 @@ git.command('shell', [['--help'], ['--help', 'extra']]);
 git.command('shell', [['--help'], ['--unknown']]);
 // @ts-expect-error OS argument strings cannot contain NUL, even after help.
 git.command('shell', [['--help'], { operand: 'a\0b' }]);
+
+// Manual format selectors are git-help options only after exact first-word --help.
+git.command('shell', [['--help'], ['--man']]);
+git.command('shell', [['--help'], ['-m']]);
+git.command('shell', [['--help'], ['--no-man']]);
+git.command('filter-branch', [['--help'], ['--no-man'], ['--man']]);
+declare const manualSelector: '--man' | '-m' | '--no-man';
+git.command('shell', [['--help'], [manualSelector]]);
+// @ts-expect-error A manual selector is not a local shell option.
+git.command('shell', [['--man']]);
+// @ts-expect-error These selectors are not local filter-branch options.
+git.command('filter-branch', [['--no-man']]);
+// @ts-expect-error A preceding local option does not enter documentation dispatch.
+git.command('shell', [['-c', 'fixture'], ['--help'], ['--man']]);
+// @ts-expect-error Manual selectors are value-less flags.
+git.command('shell', [['--help'], ['--man', true]]);
+// @ts-expect-error Unknown options are still rejected in a documentation tail.
+git.command('shell', [['--help'], ['--unknown']]);
+// @ts-expect-error NUL remains unrepresentable after manual selection.
+git.command('shell', [['--help'], ['--man'], { operand: 'a\0b' }]);
+declare const possibleFirstWord: '--help' | '--man';
+// @ts-expect-error Every possible first word must select documentation dispatch.
+git.command('shell', [[possibleFirstWord], ['--man']]);

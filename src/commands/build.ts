@@ -1,10 +1,7 @@
-import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
-import { initialParserPass } from './initial-parser-pass.js';
-import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
 import {
-  isBooleanCallback,
-  type GitBooleanSource,
   type GitBooleanCapabilities,
+  type GitBooleanSource,
+  isBooleanCallback,
 } from '../constraints/git-boolean.js';
 import type { GitDecimalCallback, GitDecimalCallbacks } from '../constraints/git-decimal.js';
 import type { GitIntegerProfile } from '../constraints/git-integer.js';
@@ -18,12 +15,21 @@ import {
 import { GitArgumentError } from '../core/types.js';
 import { COMMAND_SPECS } from './generated.js';
 import {
-  guiArguments,
-  validateGuiArguments,
   type GuiGrammar,
   type GuiLaunch,
+  guiArguments,
+  validateGuiArguments,
 } from './gui-syntax.js';
-import { ARGV_STRING_CONSTRAINT, type CommandSpec, type OptionSpec } from './spec.js';
+import { initialParserPass } from './initial-parser-pass.js';
+import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
+import {
+  ARGV_STRING_CONSTRAINT,
+  type CommandSpec,
+  GLOBAL_HELP_MAN_COMMANDS,
+  GLOBAL_HELP_MAN_OPTIONS,
+  type OptionSpec,
+} from './spec.js';
+import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
 import type { GitCommandName } from './types.js';
 
 /** Select a registered child grammar after the dispatcher's permitted global options. */
@@ -37,7 +43,7 @@ function dispatchArguments(
   let index = 0;
   while (index < args.length) {
     const token = args[index];
-    if (!Array.isArray(token) || !spec.dispatchOptions?.includes(token[0])) {
+    if (!(Array.isArray(token) && spec.dispatchOptions?.includes(token[0]))) {
       break;
     }
     index++;
@@ -178,12 +184,20 @@ function buildArguments(
   specOverride?: CommandSpec,
   shapeOptions?: Readonly<Record<string, readonly OptionSpec[]>>,
 ): string[] {
-  const spec: CommandSpec | undefined =
+  let spec: CommandSpec | undefined =
     specOverride ?? (Object.hasOwn(COMMAND_SPECS, command) ? COMMAND_SPECS[command] : undefined);
   if (!spec) {
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
   validateArgvStrings(args);
+  if (
+    GLOBAL_HELP_MAN_COMMANDS.some((name) => name === command) &&
+    Array.isArray(args[0]) &&
+    args[0].length === 1 &&
+    args[0][0] === '--help'
+  ) {
+    spec = { ...spec, options: { ...spec.options, ...GLOBAL_HELP_MAN_OPTIONS } };
+  }
   if (spec.guiScript) {
     const rootOptions = Object.assign(
       {},
@@ -756,7 +770,7 @@ function buildArguments(
   }
   state.operand0 = operands[0];
   state.operand1 = operands[1];
-  if (!abi?.deferFinalRules && !parserExited && !replay?.parserExited && state.help !== true) {
+  if (!(abi?.deferFinalRules || parserExited || replay?.parserExited) && state.help !== true) {
     if (abi?.conflictStyle === 'deferred') {
       if (state.conflict !== undefined) {
         state.merge = true;
@@ -959,7 +973,7 @@ export function commandUsesNativeABI(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1000,7 +1014,7 @@ export function commandUsesObjectFilterBinary(
   const spec: CommandSpec | undefined = Object.hasOwn(COMMAND_SPECS, command)
     ? COMMAND_SPECS[command]
     : undefined;
-  if (!spec || !Array.isArray(args)) {
+  if (!(spec && Array.isArray(args))) {
     return false;
   }
   const dispatched = dispatchArguments(spec, args);
@@ -1032,7 +1046,7 @@ export function commandUsesIntegerProfile(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1064,7 +1078,7 @@ export function commandUsesNegativeMagnitude(
   args: readonly unknown[],
   emptyRegistered = true,
 ): boolean {
-  if (!Array.isArray(args) || !Object.hasOwn(COMMAND_SPECS, command)) {
+  if (!(Array.isArray(args) && Object.hasOwn(COMMAND_SPECS, command))) {
     return false;
   }
   const spec: CommandSpec = COMMAND_SPECS[command];
@@ -1310,9 +1324,11 @@ export function commandFilenameTokens(
     } catch (error) {
       // A reached optional stat may terminate before the later syntax error.
       if (
-        !(error instanceof GitArgumentError) ||
-        !updates.some(
-          (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+        !(
+          error instanceof GitArgumentError &&
+          updates.some(
+            (update) => typeof update.value === 'string' && update.value.startsWith(':(optional)'),
+          )
         )
       ) {
         throw error;

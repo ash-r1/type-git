@@ -1,26 +1,24 @@
-import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
+import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
+import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
 import type { FastImportUnsignedParser } from '../constraints/fast-import-unsigned.js';
 import type { FastImportUnsignedLiteral } from '../constraints/fast-import-unsigned-types.js';
-import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
-import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
 import type { GitBooleanCallback, GitBooleanSource } from '../constraints/git-boolean.js';
 import type {
   GitBooleanCallbackLiteral,
   GitBooleanCallbackValue,
 } from '../constraints/git-boolean-types.js';
-import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
+import type {
+  GitDecimalCallback,
+  GitDecimalCallbacks,
+  GitDecimalParser,
+  LegacyGitDecimal,
+} from '../constraints/git-decimal.js';
+import type { GitIntegerParser } from '../constraints/git-integer.js';
 import type {
   GitNumericLiteral,
   GitNumericParser,
   GitNumericValue,
 } from '../constraints/git-numeric-types.js';
-import type {
-  GitDecimalParser,
-  GitDecimalCallback,
-  GitDecimalCallbacks,
-  LegacyGitDecimal,
-} from '../constraints/git-decimal.js';
-import type { GitIntegerParser } from '../constraints/git-integer.js';
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
@@ -32,15 +30,25 @@ import type {
 } from '../constraints/string-callback-types.js';
 import type { Constrained, ConstraintRequirement } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
+import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
+import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
-import type { OptionSpec } from './spec.js';
-import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
+import type { GLOBAL_HELP_MAN_COMMANDS, GLOBAL_HELP_MAN_OPTIONS, OptionSpec } from './spec.js';
+import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
+type DocumentationCommand = (typeof GLOBAL_HELP_MAN_COMMANDS)[number];
+type DocumentationManualFlag = keyof typeof GLOBAL_HELP_MAN_OPTIONS;
+/** Add only the audited manual selectors after an exact documentation-dispatch prefix. */
+type DocumentationOptions<C extends GitCommandName, S, O> = C extends DocumentationCommand
+  ? S extends { argumentTokens: readonly [readonly ['--help'], ...unknown[]] }
+    ? O & typeof GLOBAL_HELP_MAN_OPTIONS
+    : O
+  : O;
 type NumericOption<C extends GitCommandName> =
   Spec<C> extends { numericOption: infer D extends OptionSpec } ? D : never;
 type PrimitiveValue<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean'
@@ -73,6 +81,7 @@ type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
             : never;
         }[keyof Options<C>]
       | { readonly operand: string }
+      | (C extends DocumentationCommand ? readonly [DocumentationManualFlag] : never)
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
       | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}` | `-${bigint}`])
   : never;
@@ -828,6 +837,7 @@ type ApplyToken<
   Remaining extends readonly unknown[],
   First extends boolean,
   O = Options<C>,
+  Effective = DocumentationOptions<C, S, O>,
 > = T extends readonly ['--']
   ? (
       '--end-of-options' extends keyof O
@@ -859,11 +869,15 @@ type ApplyToken<
       : never
     : ParsingEnded<C, S> extends true
       ? never
-      : T extends readonly [infer K extends keyof O, ...unknown[]]
-        ? O[K] extends infer D extends OptionSpec
+      : T extends readonly [infer K extends keyof Effective, ...unknown[]]
+        ? Effective[K] extends infer D extends OptionSpec
           ? ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
-        : ApplyNumeric<C, S, T, Remaining, First>;
+        : T extends readonly [infer K]
+          ? [Extract<K, DocumentationManualFlag>] extends [never]
+            ? ApplyNumeric<C, S, T, Remaining, First>
+            : never
+          : ApplyNumeric<C, S, T, Remaining, First>;
 type ExitFlag<C extends GitCommandName, First extends boolean> = Spec<C> extends {
   parserExit: { flags: readonly (infer Flag)[] };
 }

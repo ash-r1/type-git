@@ -197,6 +197,43 @@ describe('native shell frontends', () => {
       expect(() => commandArguments('shell', args)).toThrow(GitArgumentError);
     }
   });
+  it.each([
+    '--man',
+    '-m',
+    '--no-man',
+  ] as const)('preserves native global documentation selector %s', async (selector) => {
+    for (const command of [
+      'shell',
+      'filter-branch',
+      'merge-recursive',
+      'merge-recursive-ours',
+      'merge-recursive-theirs',
+      'merge-subtree',
+    ] as const) {
+      const native = direct([command, '--help', selector]);
+      expect(native.error).toBeUndefined();
+      expect(native.signal).toBeNull();
+      expect(native.status, native.stderr).toBe(0);
+      expect(native.stdout).toContain('native-doc-viewer');
+      const actual = await repo.command(command, [['--help'], [selector]]);
+      expect(actual.exitCode).toBe(native.status);
+      expect(actual.stdout).toBe(native.stdout);
+      expect(actual.stderr).toBe(native.stderr);
+      expect(commandArguments(command, [['--help'], [selector]])).toEqual([
+        command,
+        '--help',
+        selector,
+      ]);
+      expect(() => commandArguments(command, [[selector]])).toThrow(GitArgumentError);
+    }
+    for (const args of [
+      [['--help'], [selector, 'unexpected']],
+      [['--help'], [selector], { operand: 'a\0b' }],
+      [['-c', 'fixture'], ['--help'], [selector]],
+    ]) {
+      expect(() => commandArguments('shell', args)).toThrow(GitArgumentError);
+    }
+  });
   it('checks filter-branch help position without overriding native short help', () => {
     const documentation = compare('filter-branch', [['--help']], ['--help'], true);
     expect(documentation.stdout).toContain('native-doc-viewer');
