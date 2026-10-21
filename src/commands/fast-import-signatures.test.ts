@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, readFile, realpath, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -271,6 +271,25 @@ describe.each(signatureFormats)('fast-import real %s signatures', (signatureForm
         expect(probe.signal).toBeNull();
         expect(probe.status, probe.stderr).toBe(0);
       }
+      const home = run('gpgconf', root, ['--list-dirs', 'homedir']);
+      expect(home.exitCode, home.stderr).toBe(0);
+      // Named gpgconf directory queries return unescaped paths.
+      let reportedHome = home.stdout.trim();
+      if (process.platform === 'win32' && reportedHome.startsWith('/')) {
+        // MSYS GPG treats a Node Windows path as relative; native Windows GPG
+        // reports a drive path and does not need this conversion.
+        const converted = run('cygpath', root, ['-u', env.GNUPGHOME]);
+        expect(converted.exitCode, converted.stderr).toBe(0);
+        expect(converted.stdout.trim()).not.toBe('');
+        env.GNUPGHOME = converted.stdout.trim();
+        const configured = run('gpgconf', root, ['--list-dirs', 'homedir']);
+        expect(configured.exitCode, configured.stderr).toBe(0);
+        const forNode = run('cygpath', root, ['-w', configured.stdout.trim()]);
+        expect(forNode.exitCode, forNode.stderr).toBe(0);
+        reportedHome = forNode.stdout.trim();
+      }
+      // Confirm isolation before generating keys, including if a tool ignores GNUPGHOME.
+      expect(await realpath(reportedHome)).toBe(await realpath(join(root, 'gnupg')));
       const curves = run('gpg', root, ['--with-colons', '--list-config', 'curve']);
       expect(curves.exitCode, curves.stderr).toBe(0);
       const curveConfig = curves.stdout.split('\n').find((line) => line.startsWith('cfg:curve:'));
@@ -308,6 +327,12 @@ describe.each(signatureFormats)('fast-import real %s signatures', (signatureForm
           keys.push(key);
         }
       }
+      // Confirm the selected GPG wrote keys into the actual isolated Node directory.
+      expect(
+        (await readdir(join(root, 'gnupg', 'private-keys-v1.d'))).some((name) =>
+          name.endsWith('.key'),
+        ),
+      ).toBe(true);
       [keyA, keyB] = keys;
       signerA = keyA;
       signerB = keyB;
