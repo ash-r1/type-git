@@ -35,12 +35,20 @@ import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
-import type { OptionSpec } from './spec.js';
+import type { GLOBAL_HELP_MAN_COMMANDS, GLOBAL_HELP_MAN_OPTIONS, OptionSpec } from './spec.js';
 import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
+type DocumentationCommand = (typeof GLOBAL_HELP_MAN_COMMANDS)[number];
+type DocumentationManualFlag = keyof typeof GLOBAL_HELP_MAN_OPTIONS;
+/** Add only the audited manual selectors after an exact documentation-dispatch prefix. */
+type DocumentationOptions<C extends GitCommandName, S, O> = C extends DocumentationCommand
+  ? S extends { argumentTokens: readonly [readonly ['--help'], ...unknown[]] }
+    ? O & typeof GLOBAL_HELP_MAN_OPTIONS
+    : O
+  : O;
 type NumericOption<C extends GitCommandName> =
   Spec<C> extends { numericOption: infer D extends OptionSpec } ? D : never;
 type PrimitiveValue<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean'
@@ -73,6 +81,7 @@ type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
             : never;
         }[keyof Options<C>]
       | { readonly operand: string }
+      | (C extends DocumentationCommand ? readonly [DocumentationManualFlag] : never)
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
       | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}` | `-${bigint}`])
   : never;
@@ -828,6 +837,7 @@ type ApplyToken<
   Remaining extends readonly unknown[],
   First extends boolean,
   O = Options<C>,
+  Effective = DocumentationOptions<C, S, O>,
 > = T extends readonly ['--']
   ? (
       '--end-of-options' extends keyof O
@@ -859,11 +869,15 @@ type ApplyToken<
       : never
     : ParsingEnded<C, S> extends true
       ? never
-      : T extends readonly [infer K extends keyof O, ...unknown[]]
-        ? O[K] extends infer D extends OptionSpec
+      : T extends readonly [infer K extends keyof Effective, ...unknown[]]
+        ? Effective[K] extends infer D extends OptionSpec
           ? ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
-        : ApplyNumeric<C, S, T, Remaining, First>;
+        : T extends readonly [infer K]
+          ? [Extract<K, DocumentationManualFlag>] extends [never]
+            ? ApplyNumeric<C, S, T, Remaining, First>
+            : never
+          : ApplyNumeric<C, S, T, Remaining, First>;
 type ExitFlag<C extends GitCommandName, First extends boolean> = Spec<C> extends {
   parserExit: { flags: readonly (infer Flag)[] };
 }
@@ -2182,6 +2196,21 @@ type CheckedSvnInputs<A extends readonly unknown[], Ctx extends CommandGrammarCo
   ? A
   : never;
 
+/** Inspect flag unions inside tokens as well as unions of entire tokens. */
+type DocumentationFlags<T> = T extends readonly [infer Flag, ...unknown[]]
+  ? Extract<Flag, DocumentationManualFlag>
+  : never;
+/** Dynamic manual selectors require a statically guaranteed documentation prefix. */
+type CheckedDynamicDocumentation<C extends GitCommandName, A extends readonly unknown[]> = [
+  Extract<C, DocumentationCommand>,
+] extends [never]
+  ? A
+  : [DocumentationFlags<A[number]>] extends [never]
+    ? A
+    : [A] extends [readonly [readonly ['--help'], ...unknown[]]]
+      ? A
+      : never;
+
 /** Select child grammar after precisely the native dispatcher's global options. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
@@ -2190,7 +2219,7 @@ export type CheckedCommandArguments<
 > = ArgumentsHaveLiteralNul<A> extends true
   ? never
   : number extends A['length']
-    ? A
+    ? CheckedDynamicDocumentation<C, A>
     : [C] extends ['svn']
       ? [A] extends [readonly [unknown, ...unknown[]]]
         ? NoInfer<CheckedSvnInputs<A, Ctx>>

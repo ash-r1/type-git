@@ -23,7 +23,13 @@ import {
   type GuiGrammar,
   type GuiLaunch,
 } from './gui-syntax.js';
-import { ARGV_STRING_CONSTRAINT, type CommandSpec, type OptionSpec } from './spec.js';
+import {
+  ARGV_STRING_CONSTRAINT,
+  GLOBAL_HELP_MAN_COMMANDS,
+  GLOBAL_HELP_MAN_OPTIONS,
+  type CommandSpec,
+  type OptionSpec,
+} from './spec.js';
 import type { GitCommandName } from './types.js';
 
 /** Select a registered child grammar after the dispatcher's permitted global options. */
@@ -178,12 +184,20 @@ function buildArguments(
   specOverride?: CommandSpec,
   shapeOptions?: Readonly<Record<string, readonly OptionSpec[]>>,
 ): string[] {
-  const spec: CommandSpec | undefined =
+  let spec: CommandSpec | undefined =
     specOverride ?? (Object.hasOwn(COMMAND_SPECS, command) ? COMMAND_SPECS[command] : undefined);
   if (!spec) {
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
   validateArgvStrings(args);
+  if (
+    GLOBAL_HELP_MAN_COMMANDS.some((name) => name === command) &&
+    Array.isArray(args[0]) &&
+    args[0].length === 1 &&
+    args[0][0] === '--help'
+  ) {
+    spec = { ...spec, options: { ...spec.options, ...GLOBAL_HELP_MAN_OPTIONS } };
+  }
   if (spec.guiScript) {
     const rootOptions = Object.assign(
       {},
