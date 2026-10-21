@@ -1,24 +1,26 @@
-import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
-import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
+import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
 import type { FastImportUnsignedParser } from '../constraints/fast-import-unsigned.js';
 import type { FastImportUnsignedLiteral } from '../constraints/fast-import-unsigned-types.js';
+import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
+import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
 import type { GitBooleanCallback, GitBooleanSource } from '../constraints/git-boolean.js';
 import type {
   GitBooleanCallbackLiteral,
   GitBooleanCallbackValue,
 } from '../constraints/git-boolean-types.js';
-import type {
-  GitDecimalCallback,
-  GitDecimalCallbacks,
-  GitDecimalParser,
-  LegacyGitDecimal,
-} from '../constraints/git-decimal.js';
-import type { GitIntegerParser } from '../constraints/git-integer.js';
+import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type {
   GitNumericLiteral,
   GitNumericParser,
   GitNumericValue,
 } from '../constraints/git-numeric-types.js';
+import type {
+  GitDecimalParser,
+  GitDecimalCallback,
+  GitDecimalCallbacks,
+  LegacyGitDecimal,
+} from '../constraints/git-decimal.js';
+import type { GitIntegerParser } from '../constraints/git-integer.js';
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
@@ -30,13 +32,11 @@ import type {
 } from '../constraints/string-callback-types.js';
 import type { Constrained, ConstraintRequirement } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
-import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
-import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
 import type { GLOBAL_HELP_MAN_COMMANDS, GLOBAL_HELP_MAN_OPTIONS, OptionSpec } from './spec.js';
-import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
+import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
