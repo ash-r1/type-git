@@ -1,11 +1,12 @@
 import { spawnSync } from 'node:child_process';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readdir, readFile, realpath, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TypeGit } from '../adapters/node/index.js';
 
 type Format = 'sha1' | 'sha256';
+type SignatureFormat = 'ssh' | 'openpgp';
 type Kind = 'commit' | 'tag';
 type Mode = 'abort-if-invalid' | 'strip-if-invalid' | 'sign-if-invalid' | 'sign-a' | 'sign-b';
 interface Result {
@@ -17,6 +18,8 @@ interface SignedObject {
   oid: string;
   body: string;
   verify: Result;
+  signer: string | null;
+  payload: string;
 }
 interface Source {
   object: SignedObject;
@@ -55,7 +58,13 @@ function signature(body: string): string {
 }
 
 /** Recreate the original empty-tree objects, then optionally alter only signed text. */
-function stream(source: Source, format: Format, kind: Kind, tampered: boolean): string {
+function stream(
+  source: Source,
+  format: Format,
+  kind: Kind,
+  tampered: boolean,
+  signatureFormat: SignatureFormat,
+): string {
   const headers = source.commitBody.slice(0, source.commitBody.indexOf('\n\n')).split('\n');
   const author = headers.find((line) => line.startsWith('author '));
   const committer = headers.find((line) => line.startsWith('committer '));
@@ -67,7 +76,9 @@ function stream(source: Source, format: Format, kind: Kind, tampered: boolean): 
   }
   const commit =
     `commit refs/heads/audit\nmark :1\n${author}\n${committer}\n` +
-    (kind === 'commit' ? `gpgsig ${format} ssh\n${data(signature(source.object.body))}` : '') +
+    (kind === 'commit'
+      ? `gpgsig ${format} ${signatureFormat}\n${data(signature(source.object.body))}`
+      : '') +
     `${data(message)}\n`;
   if (kind === 'commit') {
     return `${commit}done\n`;
@@ -89,7 +100,38 @@ function fingerprint(text: string): string {
   return match?.[0] ?? '';
 }
 
-describe('fast-import real SSH signatures', () => {
+/** Read the cryptographically verified OpenPGP fingerprint, not a display-name assertion. */
+function openPgpFingerprint(text: string): string {
+  const match = /^\[GNUPG:\] VALIDSIG ([A-F0-9]+) /m.exec(text);
+  expect(match).not.toBeNull();
+  return match?.[1] ?? '';
+}
+
+/** Remove only signature headers/armor so independently timestamped signatures can be compared. */
+function payload(body: string, kind: Kind, signatureFormat: SignatureFormat): string {
+  if (kind === 'tag') {
+    const marker =
+      signatureFormat === 'ssh' ? '-----BEGIN SSH SIGNATURE-----' : '-----BEGIN PGP SIGNATURE-----';
+    const start = body.indexOf(marker);
+    return start < 0 ? body : body.slice(0, start);
+  }
+  const end = body.indexOf('\n\n');
+  const lines = body.slice(0, end).split('\n');
+  const retained: string[] = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (/^gpgsig(?:-sha256)? /.test(lines[i])) {
+      while (i + 1 < lines.length && lines[i + 1].startsWith(' ')) {
+        i++;
+      }
+    } else {
+      retained.push(lines[i]);
+    }
+  }
+  return retained.join('\n') + body.slice(end);
+}
+
+const signatureFormats: SignatureFormat[] = ['ssh', 'openpgp'];
+describe.each(signatureFormats)('fast-import real %s signatures', (signatureFormat) => {
   let root: string;
   let env: NodeJS.ProcessEnv;
   let keyA: string;
@@ -98,6 +140,7 @@ describe('fast-import real SSH signatures', () => {
   let signerA: string;
   let signerB: string;
   let unavailable: string | undefined;
+  let gpgAgentStarted = false;
   const sources = new Map<string, Source>();
   const unsupported = new Map<string, string>();
 
@@ -115,14 +158,16 @@ describe('fast-import real SSH signatures', () => {
     expect(result.exitCode, result.stderr).toBe(0);
     return result.stdout;
   }
-  /** Configure isolated SHA-1/SHA-256 imports with two explicitly trusted SSH keys. */
+  /** Configure isolated imports with selected signature format and the requested signing key. */
   async function repository(dir: string, format: Format, key: string): Promise<void> {
     await mkdir(dir);
     git(dir, ['init', '-q', `--object-format=${format}`]);
     for (const [name, value] of [
-      ['gpg.format', 'ssh'],
+      ['gpg.format', signatureFormat],
       ['user.signingkey', key],
-      ['gpg.ssh.allowedSignersFile', allowed],
+      ...(signatureFormat === 'ssh'
+        ? [['gpg.ssh.allowedSignersFile', allowed]]
+        : [['gpg.program', 'gpg']]),
     ]) {
       git(dir, ['config', name, value]);
     }
@@ -130,15 +175,29 @@ describe('fast-import real SSH signatures', () => {
   /** Read the published object and independently verify its resulting signature. */
   function object(dir: string, kind: Kind): SignedObject {
     const ref = kind === 'tag' ? 'refs/tags/audit-tag' : 'refs/heads/audit';
+    const body = git(dir, ['cat-file', '-p', ref]);
+    const verify = run('git', dir, [
+      kind === 'tag' ? 'verify-tag' : 'verify-commit',
+      ...(signatureFormat === 'openpgp' ? ['--raw'] : []),
+      ref,
+    ]);
+    const signer =
+      verify.exitCode === 0
+        ? signatureFormat === 'ssh'
+          ? fingerprint(verify.stderr)
+          : openPgpFingerprint(verify.stderr)
+        : null;
     return {
       oid: git(dir, ['rev-parse', '--verify', ref]).trim(),
-      body: git(dir, ['cat-file', '-p', ref]),
-      verify: run('git', dir, [kind === 'tag' ? 'verify-tag' : 'verify-commit', ref]),
+      body,
+      verify,
+      signer,
+      payload: payload(body, kind, signatureFormat),
     };
   }
 
   beforeAll(async () => {
-    root = await mkdtemp(join(tmpdir(), 'type-git-real-ssh-'));
+    root = await mkdtemp(join(tmpdir(), `type-git-real-${signatureFormat}-`));
     env = {
       ...Object.fromEntries(
         Object.entries(process.env).filter(([key]) => !key.toUpperCase().startsWith('GIT_')),
@@ -167,37 +226,118 @@ describe('fast-import real SSH signatures', () => {
     if (unsupported.size === 2) {
       return;
     }
-    // Detect a missing external tool explicitly; signing/verification failures otherwise fail.
-    const ssh = spawnSync('ssh-keygen', ['-l', '-f', join(root, 'missing')], {
-      env,
-      encoding: 'utf8',
-      timeout: 15000,
-    });
-    if (ssh.error && 'code' in ssh.error && ssh.error.code === 'ENOENT') {
-      unavailable = 'ssh-keygen is not installed';
-      return;
+    if (signatureFormat === 'ssh') {
+      // Detect a missing external tool explicitly; signing/verification failures otherwise fail.
+      const ssh = spawnSync('ssh-keygen', ['-l', '-f', join(root, 'missing')], {
+        env,
+        encoding: 'utf8',
+        timeout: 15000,
+      });
+      if (ssh.error && 'code' in ssh.error && ssh.error.code === 'ENOENT') {
+        unavailable = 'ssh-keygen is not installed';
+        return;
+      }
+      expect(ssh.error).toBeUndefined();
+      keyA = join(root, 'signer-a');
+      keyB = join(root, 'signer-b');
+      allowed = join(root, 'allowed-signers');
+      for (const key of [keyA, keyB]) {
+        const generated = run('ssh-keygen', root, ['-q', '-t', 'ed25519', '-N', '', '-f', key]);
+        expect(generated.exitCode, generated.stderr).toBe(0);
+      }
+      signerA = fingerprint(
+        run('ssh-keygen', root, ['-l', '-E', 'sha256', '-f', `${keyA}.pub`]).stdout,
+      );
+      signerB = fingerprint(
+        run('ssh-keygen', root, ['-l', '-E', 'sha256', '-f', `${keyB}.pub`]).stdout,
+      );
+      expect(signerA).not.toBe(signerB);
+      await writeFile(
+        allowed,
+        (await Promise.all([keyA, keyB].map((key) => readFile(`${key}.pub`, 'utf8'))))
+          .map((pub) => `audit@example.invalid ${pub}`)
+          .join(''),
+      );
+    } else {
+      env.GNUPGHOME = join(root, 'gnupg');
+      await mkdir(env.GNUPGHOME, { mode: 0o700 });
+      for (const tool of ['gpg', 'gpgconf']) {
+        const probe = spawnSync(tool, ['--version'], { env, encoding: 'utf8', timeout: 15000 });
+        if (probe.error && 'code' in probe.error && probe.error.code === 'ENOENT') {
+          unavailable = `${tool} is not installed`;
+          return;
+        }
+        expect(probe.error).toBeUndefined();
+        expect(probe.signal).toBeNull();
+        expect(probe.status, probe.stderr).toBe(0);
+      }
+      const home = run('gpgconf', root, ['--list-dirs', 'homedir']);
+      expect(home.exitCode, home.stderr).toBe(0);
+      // Named gpgconf directory queries return unescaped paths.
+      let reportedHome = home.stdout.trim();
+      if (process.platform === 'win32' && reportedHome.startsWith('/')) {
+        // MSYS GPG treats a Node Windows path as relative; native Windows GPG
+        // reports a drive path and does not need this conversion.
+        const converted = run('cygpath', root, ['-u', env.GNUPGHOME]);
+        expect(converted.exitCode, converted.stderr).toBe(0);
+        expect(converted.stdout.trim()).not.toBe('');
+        env.GNUPGHOME = converted.stdout.trim();
+        const configured = run('gpgconf', root, ['--list-dirs', 'homedir']);
+        expect(configured.exitCode, configured.stderr).toBe(0);
+        const forNode = run('cygpath', root, ['-w', configured.stdout.trim()]);
+        expect(forNode.exitCode, forNode.stderr).toBe(0);
+        reportedHome = forNode.stdout.trim();
+      }
+      // Confirm isolation before generating keys, including if a tool ignores GNUPGHOME.
+      expect(await realpath(reportedHome)).toBe(await realpath(join(root, 'gnupg')));
+      const curves = run('gpg', root, ['--with-colons', '--list-config', 'curve']);
+      expect(curves.exitCode, curves.stderr).toBe(0);
+      const curveConfig = curves.stdout.split('\n').find((line) => line.startsWith('cfg:curve:'));
+      expect(curveConfig).toBeDefined();
+      const supportedCurves = curveConfig?.trim().split(':')[2]?.split(';') ?? [];
+      if (!supportedCurves.includes('ed25519')) {
+        unavailable = 'Selected GPG does not support Ed25519';
+        return;
+      }
+      const keys: string[] = [];
+      gpgAgentStarted = true;
+      for (const label of ['A', 'B']) {
+        const uid = `Audit ${label} <audit-${label.toLowerCase()}@example.invalid>`;
+        const generated = run('gpg', root, [
+          '--batch',
+          '--pinentry-mode',
+          'loopback',
+          '--passphrase',
+          '',
+          '--quick-generate-key',
+          uid,
+          'ed25519',
+          'sign',
+          '0',
+        ]);
+        expect(generated.exitCode, generated.stderr).toBe(0);
+        const listing = run('gpg', root, ['--batch', '--with-colons', '--list-keys', uid]);
+        expect(listing.exitCode, listing.stderr).toBe(0);
+        const key = listing.stdout
+          .split('\n')
+          .find((line) => line.startsWith('fpr:'))
+          ?.split(':')[9];
+        expect(key).toBeDefined();
+        if (key) {
+          keys.push(key);
+        }
+      }
+      // Confirm the selected GPG wrote keys into the actual isolated Node directory.
+      expect(
+        (await readdir(join(root, 'gnupg', 'private-keys-v1.d'))).some((name) =>
+          name.endsWith('.key'),
+        ),
+      ).toBe(true);
+      [keyA, keyB] = keys;
+      signerA = keyA;
+      signerB = keyB;
+      expect(signerA).not.toBe(signerB);
     }
-    expect(ssh.error).toBeUndefined();
-    keyA = join(root, 'signer-a');
-    keyB = join(root, 'signer-b');
-    allowed = join(root, 'allowed-signers');
-    for (const key of [keyA, keyB]) {
-      const generated = run('ssh-keygen', root, ['-q', '-t', 'ed25519', '-N', '', '-f', key]);
-      expect(generated.exitCode, generated.stderr).toBe(0);
-    }
-    signerA = fingerprint(
-      run('ssh-keygen', root, ['-l', '-E', 'sha256', '-f', `${keyA}.pub`]).stdout,
-    );
-    signerB = fingerprint(
-      run('ssh-keygen', root, ['-l', '-E', 'sha256', '-f', `${keyB}.pub`]).stdout,
-    );
-    expect(signerA).not.toBe(signerB);
-    await writeFile(
-      allowed,
-      (await Promise.all([keyA, keyB].map((key) => readFile(`${key}.pub`, 'utf8'))))
-        .map((pub) => `audit@example.invalid ${pub}`)
-        .join(''),
-    );
     for (const format of formats) {
       for (const kind of kinds) {
         if (unsupported.has(kind === 'tag' ? '--signed-tags' : '--signed-commits')) {
@@ -219,7 +359,7 @@ describe('fast-import real SSH signatures', () => {
         }
         const signed = object(dir, kind);
         expect(signed.verify.exitCode, signed.verify.stderr).toBe(0);
-        expect(fingerprint(signed.verify.stderr)).toBe(signerA);
+        expect(signed.signer).toBe(signerA);
         sources.set(`${format}-${kind}`, {
           object: signed,
           commitBody: git(dir, ['cat-file', '-p', 'HEAD']),
@@ -229,8 +369,15 @@ describe('fast-import real SSH signatures', () => {
   }, 30000);
 
   afterAll(async () => {
-    if (root) {
-      await rm(root, { recursive: true, force: true });
+    try {
+      if (gpgAgentStarted) {
+        const stopped = run('gpgconf', root, ['--kill', 'gpg-agent']);
+        expect(stopped.exitCode, stopped.stderr).toBe(0);
+      }
+    } finally {
+      if (root) {
+        await rm(root, { recursive: true, force: true, maxRetries: 3 });
+      }
     }
   });
 
@@ -267,7 +414,7 @@ describe('fast-import real SSH signatures', () => {
         for (const dir of [nativeDir, actualDir]) {
           await repository(dir, format, keyB);
         }
-        const stdin = stream(source, format, kind, tampered);
+        const stdin = stream(source, format, kind, tampered, signatureFormat);
         const native = run('git', nativeDir, ['fast-import', '--quiet', `${flag}=${value}`], stdin);
         // Some callbacks parse a mode but reject it only when a signed object is
         // reached. Probe the complete native stream, not just empty stdin/verbatim.
@@ -308,15 +455,29 @@ describe('fast-import real SSH signatures', () => {
         }
         expect(native.exitCode, native.stderr).toBe(0);
         const nativeObject = object(nativeDir, kind);
-        expect(object(actualDir, kind)).toEqual(nativeObject);
+        const actualObject = object(actualDir, kind);
+        if (signatureFormat === 'ssh') {
+          expect(actualObject).toEqual(nativeObject);
+        } else {
+          expect(actualObject.payload).toBe(nativeObject.payload);
+          expect(actualObject.verify.exitCode).toBe(nativeObject.verify.exitCode);
+          expect(actualObject.signer).toBe(nativeObject.signer);
+          // GPG creation timestamps can change independently re-signed armor/OIDs.
+          if (!tampered || mode === 'strip-if-invalid') {
+            expect(actualObject.oid).toBe(nativeObject.oid);
+            expect(actualObject.body).toBe(nativeObject.body);
+          }
+        }
         if (tampered && mode === 'strip-if-invalid') {
-          expect(nativeObject.body).not.toContain('-----BEGIN SSH SIGNATURE-----');
+          expect(nativeObject.body).not.toContain(
+            signatureFormat === 'ssh'
+              ? '-----BEGIN SSH SIGNATURE-----'
+              : '-----BEGIN PGP SIGNATURE-----',
+          );
           expect(nativeObject.verify.exitCode).not.toBe(0);
         } else {
           expect(nativeObject.verify.exitCode, nativeObject.verify.stderr).toBe(0);
-          expect(fingerprint(nativeObject.verify.stderr)).toBe(
-            !tampered || mode === 'sign-a' ? signerA : signerB,
-          );
+          expect(nativeObject.signer).toBe(!tampered || mode === 'sign-a' ? signerA : signerB);
           if (!tampered) {
             expect(nativeObject.oid).toBe(source.object.oid);
           }
