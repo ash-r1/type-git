@@ -278,10 +278,12 @@ describe('fast-import real SSH signatures', () => {
           native.stderr
             .replaceAll('\r\n', '\n')
             .startsWith(`usage: unknown ${flag} mode '${value}'\n`);
+        // Object-processing diagnostics name the mode without its optional key ID.
+        const modeName = value.split('=', 1)[0];
         const rejectedSignedObject =
           native.exitCode === 128 &&
           native.stderr.includes(
-            `fatal: '${value}' is not a valid mode for git fast-import with ${flag}=<mode>`,
+            `fatal: '${modeName}' is not a valid mode for git fast-import with ${flag}=<mode>`,
           );
         if (unknownMode || rejectedSignedObject) {
           const detectedReason = `Selected Git does not implement ${capability}`;
