@@ -163,6 +163,40 @@ describe('native shell frontends', () => {
       compare('shell', [['-c', 'fixture'], ['--help']], ['-c', 'fixture', '--help'], false);
     }
   });
+  it('delegates repeated global help to the selected Git without changing its exit code', async () => {
+    for (const command of [
+      'shell',
+      'filter-branch',
+      'merge-recursive',
+      'merge-recursive-ours',
+      'merge-recursive-theirs',
+      'merge-subtree',
+    ] as const) {
+      const native = direct([command, '--help', '--help']);
+      expect(native.error).toBeUndefined();
+      expect(native.signal).toBeNull();
+      // Actual older parsers report usage with 129; others use 0. Neither is rewritten.
+      expect([0, 129]).toContain(native.status);
+      expect(native.stdout + native.stderr).toContain('usage: git help');
+      const actual = await repo.command(command, [['--help'], ['--help']]);
+      expect(actual.exitCode).toBe(native.status);
+      expect(actual.stdout).toBe(native.stdout);
+      expect(actual.stderr).toBe(native.stderr);
+      expect(commandArguments(command, [['--help'], ['--help']])).toEqual([
+        command,
+        '--help',
+        '--help',
+      ]);
+    }
+    for (const args of [
+      [['-c', 'fixture'], ['--help']],
+      [['--help'], ['--help', 'extra']],
+      [['--help'], ['--unknown']],
+      [['--help'], { operand: 'a\0b' }],
+    ]) {
+      expect(() => commandArguments('shell', args)).toThrow(GitArgumentError);
+    }
+  });
   it('checks filter-branch help position without overriding native short help', () => {
     const documentation = compare('filter-branch', [['--help']], ['--help'], true);
     expect(documentation.stdout).toContain('native-doc-viewer');

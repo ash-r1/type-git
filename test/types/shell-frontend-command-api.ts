@@ -71,3 +71,12 @@ git.command('filter-branch', [['--help']]);
 git.command('filter-branch', [['--prune-empty'], ['--commit-filter', ''], ['-h']]);
 // @ts-expect-error Late long help is not Git's global documentation dispatch.
 git.command('filter-branch', [['--prune-empty'], ['--commit-filter', ''], ['--help']]);
+
+// First-word documentation dispatch belongs to git-help, including its usage-exit profile.
+git.command('shell', [['--help'], ['--help']]);
+// @ts-expect-error A help flag still cannot take a value.
+git.command('shell', [['--help'], ['--help', 'extra']]);
+// @ts-expect-error Unknown option shapes remain rejected after documentation dispatch.
+git.command('shell', [['--help'], ['--unknown']]);
+// @ts-expect-error OS argument strings cannot contain NUL, even after help.
+git.command('shell', [['--help'], { operand: 'a\0b' }]);
