@@ -479,7 +479,16 @@ function buildArguments(
     ) {
       throw new GitArgumentError(`${command}: ${flag} is unavailable in the selected helper`);
     }
-    if (option.firstOnly && index !== 0) {
+    // git.c transfers a first-word --help to git-help before the local parser.
+    // Later help spellings belong to that dispatcher, whose usage exit varies
+    // with the selected Git; preserve its result instead of imposing local position rules.
+    const documentationHelp =
+      option.key === 'help' &&
+      spec.argv.length === 1 &&
+      Array.isArray(args[0]) &&
+      args[0].length === 1 &&
+      args[0][0] === '--help';
+    if (option.firstOnly && index !== 0 && !documentationHelp) {
       throw new GitArgumentError(`${command}: ${flag} must be the first argument`);
     }
     if (arg.length > 2) {

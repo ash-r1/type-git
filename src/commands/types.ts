@@ -796,7 +796,9 @@ type DispatcherProfiledOption<S, D extends OptionSpec> = S extends {
 }
   ? D extends { nativeEnumCallback: 'conflict-style' }
     ? never
-    : D
+    : D extends { key: 'help'; firstOnly: true }
+      ? Omit<D, 'firstOnly'>
+      : D
   : D;
 /** Apply one recorded boolean family to every callback in the same state walk. */
 type BooleanProfiledOption<S, D extends OptionSpec> = S extends {
