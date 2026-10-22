@@ -235,6 +235,48 @@ describe('native shell frontends', () => {
     }
   });
   it.each([
+    '--all',
+    '-a',
+    '--guides',
+    '-g',
+    '--no-all',
+    '--no-guides',
+  ] as const)('preserves native global documentation listing selector %s', async (selector) => {
+    for (const command of [
+      'shell',
+      'filter-branch',
+      'merge-recursive',
+      'merge-recursive-ours',
+      'merge-recursive-theirs',
+      'merge-subtree',
+    ] as const) {
+      const native = direct([command, '--help', selector]);
+      expect(native.error).toBeUndefined();
+      expect(native.signal).toBeNull();
+      // Older Git ignores the implicit command for listing; newer Git rejects it.
+      expect([0, 129]).toContain(native.status);
+      if (native.status === 0) expect(native.stdout.length).toBeGreaterThan(0);
+      else expect(native.stdout + native.stderr).toContain('usage: git help');
+      const actual = await repo.command(command, [['--help'], [selector]]);
+      expect(actual.exitCode).toBe(native.status);
+      expect(actual.stdout).toBe(native.stdout);
+      expect(actual.stderr).toBe(native.stderr);
+      expect(commandArguments(command, [['--help'], [selector]])).toEqual([
+        command,
+        '--help',
+        selector,
+      ]);
+    }
+    expect(() => commandArguments('shell', [[selector]])).toThrow(GitArgumentError);
+    for (const args of [
+      [['--help'], [selector, 'unexpected']],
+      [['--help'], [selector], { operand: 'a\0b' }],
+      [['-c', 'fixture'], ['--help'], [selector]],
+    ]) {
+      expect(() => commandArguments('shell', args)).toThrow(GitArgumentError);
+    }
+  });
+  it.each([
     '--man',
     '-m',
     '--no-man',

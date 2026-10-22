@@ -159,3 +159,35 @@ git.command('merge-recursive', localMergeHelp);
 git.command('merge-recursive-ours', localMergeHelp);
 git.command('merge-recursive-theirs', localMergeHelp);
 git.command('merge-subtree', localMergeHelp);
+
+
+// Contextual listing selectors retain native version-dependent success or failure.
+git.command('shell', [['--help'], ['--all']]);
+git.command('shell', [['--help'], ['-a']]);
+git.command('shell', [['--help'], ['--guides']]);
+git.command('shell', [['--help'], ['-g']]);
+git.command('shell', [['--help'], ['--no-all']]);
+git.command('shell', [['--help'], ['--no-guides']]);
+git.command('filter-branch', [['--help'], ['--all']]);
+git.command('merge-recursive', [['--help'], ['--guides']]);
+declare const listingSelector: '--all' | '-a' | '--guides' | '-g' | '--no-all' | '--no-guides';
+git.command('shell', [['--help'], [listingSelector]]);
+// @ts-expect-error Listing is not a local shell operation.
+git.command('shell', [['--all']]);
+// @ts-expect-error A local option before --help does not select documentation dispatch.
+git.command('shell', [['-c', 'fixture'], ['--help'], ['--guides']]);
+// @ts-expect-error Listing flags are value-less.
+git.command('shell', [['--help'], ['-a', true]]);
+// @ts-expect-error Listing never bypasses the OS argv boundary.
+git.command('shell', [['--help'], ['--all'], { operand: 'a\0b' }]);
+declare const unprefixedListingArray: readonly (readonly ['--all' | '--guides'])[];
+// @ts-expect-error Context-only listing arrays need a guaranteed documentation prefix.
+git.command('shell', unprefixedListingArray);
+declare const mixedListingWords: readonly (readonly ['--help' | '--all'])[];
+// @ts-expect-error Unions of words cannot prove a documentation prefix.
+git.command('shell', mixedListingWords);
+declare const mixedListingTokens: readonly (readonly ['--help'] | readonly ['-g'])[];
+// @ts-expect-error Unions of whole tokens cannot prove a documentation prefix either.
+git.command('shell', mixedListingTokens);
+declare const prefixedListingArray: readonly [readonly ['--help'], ...(readonly [typeof listingSelector])[]];
+git.command('shell', prefixedListingArray);

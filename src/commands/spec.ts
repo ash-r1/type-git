@@ -20,8 +20,14 @@ export const GLOBAL_HELP_DISPATCH_COMMANDS = [
   'merge-subtree',
 ] as const;
 
-/** Audited builtin/help.c format and parse-options usage flags after first-word --help. */
+/** Audited builtin/help.c format/listing and parse-options usage flags after first-word --help. */
 export const GLOBAL_HELP_DISPATCH_OPTIONS = {
+  '--all': { key: 'all', value: 'flag' },
+  '-a': { key: 'all', value: 'flag' },
+  '--no-all': { key: 'all', value: 'flag', set: false },
+  '--guides': { key: 'guides', value: 'flag' },
+  '-g': { key: 'guides', value: 'flag' },
+  '--no-guides': { key: 'guides', value: 'flag', set: false },
   '-h': { key: 'help', value: 'flag' },
   '--help-all': { key: 'help', value: 'flag' },
   '--man': { key: 'format', value: 'flag', set: 'man' },
