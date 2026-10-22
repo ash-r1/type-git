@@ -175,7 +175,9 @@ type Word<
         ? Walk<S, R, readonly [...T, readonly ['-n', V]], N>
         : W extends `-${infer V}`
           ? V extends `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'}${string}`
-            ? Walk<S, R, readonly [...T, readonly ['-n', V]], N>
+            ? S extends { numericOption: unknown }
+              ? Walk<S, R, readonly [...T, readonly [W]], N>
+              : Walk<S, R, readonly [...T, readonly ['-n', V]], N>
             : V extends ''
               ? Invalid
               : Cluster<S, V, V, R, T, N>

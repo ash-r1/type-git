@@ -98,6 +98,11 @@ export function revisionParserPass(
       }
       continue;
     }
+    if (/^-\d/.test(word) && spec.numericOption) {
+      // Keep shorthand distinct: old Git checks -<digits> but uses atoi for -n.
+      tokens.push([word]);
+      continue;
+    }
     if (/^-\d/.test(word) || word.startsWith('-n')) {
       tokens.push(['-n', word.slice(word.startsWith('-n') ? 2 : 1)]);
       continue;

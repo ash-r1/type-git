@@ -819,6 +819,123 @@
         }
       ]
     },
+    "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}": {
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "cases": [
+        {
+          "input": "\"\"",
+          "valid": false
+        },
+        {
+          "input": "\" \"",
+          "valid": false
+        },
+        {
+          "input": "\"-0\"",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "\"+001\"",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "\"010\"",
+          "valid": true,
+          "normalized": "10"
+        },
+        {
+          "input": "\"1k\"",
+          "valid": false
+        },
+        {
+          "input": "\"0x10\"",
+          "valid": false
+        },
+        {
+          "input": "\"1\\n\"",
+          "valid": false
+        },
+        {
+          "input": "-4294967295",
+          "valid": false
+        },
+        {
+          "input": "-1",
+          "valid": true,
+          "normalized": "-1"
+        },
+        {
+          "input": "0",
+          "valid": true,
+          "normalized": "0"
+        },
+        {
+          "input": "1",
+          "valid": true,
+          "normalized": "1"
+        },
+        {
+          "input": "2147483648",
+          "valid": false
+        },
+        {
+          "input": "4294967296",
+          "valid": false
+        },
+        {
+          "input": "4294967297",
+          "valid": false
+        },
+        {
+          "input": "\"2147483648\"",
+          "valid": false
+        },
+        {
+          "input": "\"-2147483649\"",
+          "valid": false
+        },
+        {
+          "input": "\"4294967296\"",
+          "valid": false
+        },
+        {
+          "input": "\"4294967297\"",
+          "valid": false
+        },
+        {
+          "input": "\"-4294967295\"",
+          "valid": false
+        },
+        {
+          "input": "\"9223372036854775807\"",
+          "valid": false
+        },
+        {
+          "input": "\"9223372036854775808\"",
+          "valid": false
+        },
+        {
+          "input": "\"-9223372036854775809\"",
+          "valid": false
+        },
+        {
+          "input": "9223372036854775808n",
+          "valid": false
+        },
+        {
+          "input": "true",
+          "valid": false
+        }
+      ]
+    },
     "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"positive\":true}": {
       "parser": {
         "kind": "decimal",
@@ -2249,6 +2366,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -2320,6 +2442,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -2391,6 +2518,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -2462,6 +2594,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -2604,6 +2741,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -2716,6 +2858,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -2787,6 +2934,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -3409,6 +3561,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -3572,6 +3729,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -3808,6 +3970,11 @@
           "flag": "--skip",
           "key": "skip",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -3880,6 +4047,11 @@
           "flag": "--skip",
           "key": "skip",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -4057,6 +4229,11 @@
           "key": "creation-factor",
           "profile": "signed-32",
           "default": 0
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -4129,6 +4306,11 @@
           "flag": "--skip",
           "key": "skip",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -4200,6 +4382,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -4266,6 +4453,11 @@
           "flag": "--skip",
           "key": "skip",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -4511,6 +4703,11 @@
           "key": "progress",
           "profile": "signed-32",
           "default": 0
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -4825,6 +5022,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -4916,6 +5118,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ],
       "conditionalCommand": {

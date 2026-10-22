@@ -2202,6 +2202,23 @@
         "value": "flag",
         "set": false
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "show": {
@@ -2260,6 +2277,23 @@
         "value": "flag",
         "set": false
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "diff": {
@@ -2303,6 +2337,23 @@
         "key": "silent-removed",
         "value": "flag"
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "diff-files": {
@@ -2334,6 +2385,23 @@
         "key": "silent-removed",
         "value": "flag"
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "diff-index": {
@@ -2378,6 +2446,23 @@
         "key": "stdin",
         "value": "flag"
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "diff --no-index": {
@@ -2494,6 +2579,23 @@
       "remainingSingleWordExits": [
         "--git-completion-helper",
         "--git-completion-helper-all"
+      ]
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
       ]
     }
   },
@@ -2723,6 +2825,23 @@
     },
     "initial": {
       "empty-stash-reference": ""
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "merge": {
@@ -5152,6 +5271,23 @@
         "key": "revision-diff",
         "value": "flag"
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "bundle create": {
@@ -5488,6 +5624,23 @@
         "value": "flag",
         "set": 0
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "diff-pairs": {
@@ -5598,6 +5751,23 @@
           }
         ]
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "annotate": {
@@ -5664,6 +5834,23 @@
           }
         ]
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "grep": {
@@ -5863,6 +6050,23 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "archive": {
@@ -5966,6 +6170,23 @@
           }
         ]
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "whatchanged": {
@@ -6024,6 +6245,23 @@
         "value": "flag",
         "set": false
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "shortlog": {
@@ -6068,6 +6306,23 @@
       "source": "Git 2.55.0 builtin/shortlog.c:cmd_shortlog parse_options_step/parse_revision_opt loop; parse-options.c; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
+      ]
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
       ]
     }
   },
@@ -7419,6 +7674,23 @@
       "remainingSingleWordExits": [
         "--git-completion-helper",
         "--git-completion-helper-all"
+      ]
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
       ]
     }
   },
@@ -9224,6 +9496,23 @@
       "remainingSingleWordExits": [
         "--git-completion-helper",
         "--git-completion-helper-all"
+      ]
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
       ]
     }
   },
