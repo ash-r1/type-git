@@ -25,12 +25,58 @@ import {
 } from './gui-syntax.js';
 import {
   ARGV_STRING_CONSTRAINT,
-  GLOBAL_HELP_DISPATCH_COMMANDS,
   GLOBAL_HELP_DISPATCH_OPTIONS,
   type CommandSpec,
   type OptionSpec,
 } from './spec.js';
 import type { GitCommandName } from './types.js';
+
+// git.c rewrites first-word --help before looking up any builtin or external command.
+const documentationOptions = {
+  ...COMMAND_SPECS.help.options,
+  ...GLOBAL_HELP_DISPATCH_OPTIONS,
+};
+
+/** Git dispatches a first --help before any primary command's local parser. */
+export function isDocumentationDispatch(spec: CommandSpec, args: readonly unknown[]): boolean {
+  return (
+    spec.argv.length === 1 &&
+    !spec.executable &&
+    Array.isArray(args[0]) &&
+    args[0].length === 1 &&
+    args[0][0] === '--help'
+  );
+}
+
+/** After documentation exits, retain recognized local shapes without interpreting callbacks. */
+function ignoredDocumentationOption(
+  specs: readonly CommandSpec[],
+  flag: string,
+  argument: readonly unknown[],
+): OptionSpec | undefined {
+  const alternatives = [
+    Object.hasOwn(documentationOptions, flag)
+      ? documentationOptions[flag as keyof typeof documentationOptions]
+      : undefined,
+    ...specs.map((spec) => (Object.hasOwn(spec.options, flag) ? spec.options[flag] : undefined)),
+  ].filter((option): option is OptionSpec => option !== undefined);
+  const selected = svnShapeOption(alternatives, argument) ?? alternatives[0];
+  if (selected) {
+    // A local parent option must not move an ignored word before the help prefix.
+    const { before: _before, ...shape } = selected;
+    return shape;
+  }
+  // Native help ignores these words entirely. Unknown flags have no declared value
+  // type, so their optional raw second word must be an explicit string.
+  if (flag.startsWith('-') && (argument.length === 1 || argument.length === 2)) {
+    return {
+      key: 'ignored-documentation-word',
+      value: argument.length === 1 ? 'flag' : 'string',
+      separateValue: true,
+    };
+  }
+  return undefined;
+}
 
 /** Select a registered child grammar after the dispatcher's permitted global options. */
 function dispatchArguments(
@@ -190,13 +236,29 @@ function buildArguments(
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
   validateArgvStrings(args);
-  if (
-    GLOBAL_HELP_DISPATCH_COMMANDS.some((name) => name === command) &&
-    Array.isArray(args[0]) &&
-    args[0].length === 1 &&
-    args[0][0] === '--help'
-  ) {
-    spec = { ...spec, options: { ...spec.options, ...GLOBAL_HELP_DISPATCH_OPTIONS } };
+  const documentationDispatch = isDocumentationDispatch(spec, args);
+  const documentationLocals: readonly CommandSpec[] = documentationDispatch
+    ? [
+        spec,
+        ...Object.values(spec.dispatch ?? {}).map((name) => COMMAND_SPECS[name as GitCommandName]),
+      ]
+    : [];
+  if (documentationDispatch) {
+    // Switch grammars before local dispatch, GUI parsing, or callback/profile selection.
+    // Native help modes and installation availability stay with the selected Git.
+    spec = {
+      argv: spec.argv,
+      options: documentationOptions,
+      rules: [],
+      separator: true,
+      source: 'git.c:handle_builtin; builtin/help.c',
+      parserExit: {
+        flags: ['--help'],
+        origin: 'git',
+        source: 'git.c:handle_builtin',
+        reason: 'First-word --help delegates the full tail to the native documentation parser.',
+      },
+    };
   }
   if (spec.guiScript) {
     const rootOptions = Object.assign(
@@ -209,7 +271,11 @@ function buildArguments(
     validateGuiArguments(argv, guiGrammar, guiLaunch);
     return argv;
   }
-  if (!specOverride && (command === 'svn' || command.startsWith('svn '))) {
+  if (
+    !documentationDispatch &&
+    !specOverride &&
+    (command === 'svn' || command.startsWith('svn '))
+  ) {
     const root: CommandSpec = COMMAND_SPECS.svn;
     const options: Record<string, OptionSpec> = {};
     const alternatives: Record<string, OptionSpec[]> = {};
@@ -393,12 +459,24 @@ function buildArguments(
     operandsBeforeSeparator,
     pathsAfterSeparator,
   };
+  let documentationTailExited = false;
   let ended = false;
   let literalOperands = false;
   let parserExited = evaluationMode === 'shape';
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
+    if (documentationDispatch && index > 0) {
+      const word =
+        Array.isArray(arg) && arg.length === 1
+          ? arg[0]
+          : arg !== null && typeof arg === 'object' && 'operand' in arg
+            ? arg.operand
+            : undefined;
+      if (word === '-h' || word === '--help' || word === '--help-all' || word === '--') {
+        documentationTailExited = true;
+      }
+    }
     if (replay?.operandsOnly && index >= replay.firstCount) {
       literalOperands = true;
       if (replay.operandBoundary) {
@@ -468,20 +546,23 @@ function buildArguments(
       !Object.hasOwn(activeOptions, flag) &&
       spec.numericOption &&
       /^-\d+$/.exec(flag)?.[0] === flag;
-    const option: OptionSpec | undefined = Object.hasOwn(activeOptions, flag)
-      ? ((evaluationMode === 'shape' && shapeOptions && Object.hasOwn(shapeOptions, flag)
-          ? svnShapeOption(shapeOptions[flag]!, arg)
-          : undefined) ?? activeOptions[flag])
-      : numeric
-        ? {
-            ...spec.numericOption!,
-            value: 'flag',
-            set:
-              typeof spec.numericOption!.parser === 'object'
-                ? flag.slice(1)
-                : Number(flag.slice(1)),
-          }
-        : undefined;
+    const option: OptionSpec | undefined =
+      documentationDispatch && documentationTailExited
+        ? ignoredDocumentationOption(documentationLocals, flag, arg)
+        : Object.hasOwn(activeOptions, flag)
+          ? ((evaluationMode === 'shape' && shapeOptions && Object.hasOwn(shapeOptions, flag)
+              ? svnShapeOption(shapeOptions[flag]!, arg)
+              : undefined) ?? activeOptions[flag])
+          : numeric
+            ? {
+                ...spec.numericOption!,
+                value: 'flag',
+                set:
+                  typeof spec.numericOption!.parser === 'object'
+                    ? flag.slice(1)
+                    : Number(flag.slice(1)),
+              }
+            : undefined;
     if (!option) {
       throw new GitArgumentError(`${command}: unknown option ${flag}`);
     }

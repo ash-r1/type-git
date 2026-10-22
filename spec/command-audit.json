@@ -49,7 +49,9 @@
         "test/types/alias-parser-clone-corpus-6.ts",
         "test/types/alias-parser-clone-corpus-7.ts",
         "test/types/alias-parser-clone-corpus-8.ts",
-        "test/types/alias-parser-clone-corpus-9.ts"
+        "test/types/alias-parser-clone-corpus-9.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Depth and transport value grammars, repository/configuration conditions, abbreviations, transport-specific callbacks. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
@@ -86,7 +88,9 @@
         "test/types/checkout-parser-reset-corpus-4.ts",
         "src/commands/reset-path-arity.test.ts",
         "test/types/reset-path-arity-corpus.ts",
-        "scripts/reset-path-arity-corpus.mjs"
+        "scripts/reset-path-arity-corpus.mjs",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Guaranteed path arity without a recognized separator is now source-modeled: at most one retained word can be a revision, so two or more necessarily include paths. Single-word ref/path ambiguity and pathspec-file content remain native.",
       "typedCommandAPI": true
@@ -138,7 +142,9 @@
         "test/types/reference-parser-tag-corpus-2.ts",
         "test/types/reference-parser-tag-corpus-3.ts",
         "test/types/reference-parser-tag-corpus-4.ts",
-        "test/types/reference-parser-tag-corpus-5.ts"
+        "test/types/reference-parser-tag-corpus-5.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
@@ -271,7 +277,9 @@
         "src/commands/build.test.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses.",
       "typedCommandAPI": true
@@ -287,7 +295,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit.",
       "typedCommandAPI": true
@@ -310,7 +320,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
@@ -336,7 +348,9 @@
         "test/types/reference-parser-status-corpus-2.ts",
         "test/types/reference-parser-status-corpus-3.ts",
         "test/types/reference-parser-status-corpus-4.ts",
-        "test/types/reference-parser-status-corpus-5.ts"
+        "test/types/reference-parser-status-corpus-5.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
@@ -378,7 +392,9 @@
         "src/runner/pickaxe-profiles.test.ts",
         "src/constraints/pickaxe-profile.test.ts",
         "test/types/pickaxe-empty-profiles.ts",
-        "test/fixtures/pickaxe-empty-probe-native.json"
+        "test/fixtures/pickaxe-empty-probe-native.json",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Residual argv parsing is now modeled with a finite native oracle; broader parser/callback/state audits remain open. Empty pickaxe callbacks use a finite native-observed old/modern runtime profile; unpinned compiler inputs retain native old-family acceptance. Native crashes are not argument rejection. Broader callback interactions, other commands and arbitrary executable profiles remain audit obligations.",
       "typedCommandAPI": true
@@ -428,7 +444,9 @@
         "test/types/alias-parser-fetch-corpus-6.ts",
         "test/types/alias-parser-fetch-corpus-7.ts",
         "test/types/alias-parser-fetch-corpus-8.ts",
-        "test/types/alias-parser-fetch-corpus-9.ts"
+        "test/types/alias-parser-fetch-corpus-9.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Remote groups and repository-dependent multiple mode, transport negotiation, callback value grammars and abbreviations. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Final depth atoi validation and convenience filter grammars are now modeled; transport-specific depth parsing and platform integer conversions still require separate auditing. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations. Initial depth conversion now uses independently observed 32/64 saturation profiles in CLI and convenience checks, with pinned native compiler cases. Other CRT profiles and transport-specific conversion remain separate obligations. Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
@@ -462,7 +480,9 @@
         "test/types/alias-parser-push-corpus-3.ts",
         "test/types/alias-parser-push-corpus-4.ts",
         "test/types/alias-parser-push-corpus-5.ts",
-        "test/types/alias-parser-push-corpus-6.ts"
+        "test/types/alias-parser-push-corpus-6.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Native ordinary option tables, pairwise OPTION_ALIAS abbreviation rules, parsed-flag identity, exact-name precedence, negations, short clusters, unknown-option errors, help timing and consumed end markers are modeled. 9,997 independent native outcomes cover clone/fetch/push with local remotes and dry-run transfer probes. Repository/configuration/transport state, ref/refspec and object resolution, additional callback grammars, platform profiles, completion and other native parser modes remain separate obligations. Finite corpus and representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
@@ -483,7 +503,9 @@
         "test/types/parser-exit-corpus.ts",
         "test/types/parser-exits.ts",
         "src/commands/worktree-parser.test.ts",
-        "test/types/worktree-parser-add-corpus.ts"
+        "test/types/worktree-parser-add-corpus.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness.",
       "typedCommandAPI": true
@@ -522,7 +544,9 @@
         "test/types/checkout-parser-checkout-corpus-4.ts",
         "test/types/checkout-parser-checkout-corpus-5.ts",
         "test/types/checkout-parser-checkout-corpus-6.ts",
-        "test/types/checkout-parser-checkout-corpus-7.ts"
+        "test/types/checkout-parser-checkout-corpus-7.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
       "typedCommandAPI": true
@@ -554,7 +578,9 @@
         "test/types/reference-parser-commit-corpus-6.ts",
         "test/types/reference-parser-commit-corpus-7.ts",
         "test/types/reference-parser-commit-corpus-8.ts",
-        "test/types/reference-parser-commit-corpus-9.ts"
+        "test/types/reference-parser-commit-corpus-9.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness.",
       "typedCommandAPI": true
@@ -588,7 +614,9 @@
         "src/runner/pickaxe-profiles.test.ts",
         "src/constraints/pickaxe-profile.test.ts",
         "test/types/pickaxe-empty-profiles.ts",
-        "test/fixtures/pickaxe-empty-probe-native.json"
+        "test/fixtures/pickaxe-empty-probe-native.json",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, implicit no-index dispatch, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Empty pickaxe callbacks use a finite native-observed old/modern runtime profile; unpinned compiler inputs retain native old-family acceptance. Native crashes are not argument rejection. Broader callback interactions, other commands and arbitrary executable profiles remain audit obligations.",
       "typedCommandAPI": true
@@ -619,7 +647,9 @@
         "test/types/history-parser-merge-corpus-4.ts",
         "test/types/history-parser-merge-corpus-5.ts",
         "test/types/history-parser-merge-corpus-6.ts",
-        "test/types/history-parser-merge-corpus-7.ts"
+        "test/types/history-parser-merge-corpus-7.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Configuration defaults, strategy discovery, message-file callbacks, unborn HEAD and merge-in-progress conditions, abbreviations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open.",
       "typedCommandAPI": true
@@ -643,7 +673,9 @@
         "src/runner/boolean-source-profiles.test.ts",
         "test/types/boolean-source-tuples.ts",
         "src/commands/parser-exits.test.ts",
-        "test/types/parser-exit-corpus.ts"
+        "test/types/parser-exit-corpus.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Fetch-to-merge/rebase delegation, repeated passthrough argv, shallow transport rules and fetched revision state need phase-aware modeling. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations.",
       "typedCommandAPI": true
@@ -677,7 +709,9 @@
         "test/types/checkout-parser-switch-corpus-2.ts",
         "test/types/checkout-parser-switch-corpus-3.ts",
         "test/types/checkout-parser-switch-corpus-4.ts",
-        "test/types/checkout-parser-switch-corpus-5.ts"
+        "test/types/checkout-parser-switch-corpus-5.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
       "typedCommandAPI": true
@@ -714,7 +748,9 @@
         "test/types/first-pass-source-profiles.ts",
         "src/commands/residual-argv.test.ts",
         "test/types/residual-argv-corpus.ts",
-        "test/types/residual-argv.ts"
+        "test/types/residual-argv.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Residual argv parsing is now modeled with a finite native oracle; broader parser/callback/state audits remain open.",
       "typedCommandAPI": true
@@ -733,7 +769,9 @@
         "test/types/parser-exit-corpus.ts",
         "test/types/parser-exits.ts",
         "src/commands/worktree-parser.test.ts",
-        "test/types/worktree-parser-clean-corpus.ts"
+        "test/types/worktree-parser-clean-corpus.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness.",
       "typedCommandAPI": true
@@ -766,7 +804,9 @@
         "test/types/history-parser-rebase-corpus-6.ts",
         "test/types/history-parser-rebase-corpus-7.ts",
         "test/types/history-parser-rebase-corpus-8.ts",
-        "test/types/history-parser-rebase-corpus-9.ts"
+        "test/types/history-parser-rebase-corpus-9.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Configuration/in-progress backend state, exec/trailer/whitespace/-C value languages, revision resolution and repository conditions. Single-pass help exits are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open.",
       "typedCommandAPI": true
@@ -803,7 +843,9 @@
         "test/types/checkout-parser-restore-corpus-3.ts",
         "test/types/checkout-parser-restore-corpus-4.ts",
         "test/types/checkout-parser-restore-corpus-5.ts",
-        "test/types/checkout-parser-restore-corpus-6.ts"
+        "test/types/checkout-parser-restore-corpus-6.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Native ordinary option tables, prefixes/negations, short clusters, callback/help timing and retained operand separators are modeled. Checkout scans for the first --; reset recognizes it only at index 0 or 1; switch/restore consume the initial marker. 7,885 independent native outcomes across the four commands cover these distinctions, including literal subsequent markers and dash-prefixed refs/paths. Repository/configuration state, ref/path ambiguity and resolution, pathspec grammar/files, interactive modes, other callbacks, completion and other parser modes remain open. Finite corpus and representative-state exploration are not completeness evidence. Existing independently selected source/ABI/callback profiles, original argument context and literal-union safety remain retained; other parser profiles remain partial.",
       "typedCommandAPI": true
@@ -840,7 +882,9 @@
         "test/types/first-pass-source-profiles.ts",
         "src/commands/residual-argv.test.ts",
         "test/types/residual-argv-corpus.ts",
-        "test/types/residual-argv.ts"
+        "test/types/residual-argv.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision/object resolution, multipass ordering, configuration-driven sequencer state, callback grammars and revision shorthand. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Residual argv parsing is now modeled with a finite native oracle; broader parser/callback/state audits remain open.",
       "typedCommandAPI": true
@@ -984,7 +1028,9 @@
         "src/commands/build.test.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
@@ -1001,7 +1047,9 @@
         "test/types/parser-exit-corpus.ts",
         "test/types/parser-exits.ts",
         "src/commands/worktree-parser.test.ts",
-        "test/types/worktree-parser-rm-corpus.ts"
+        "test/types/worktree-parser-rm-corpus.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness."
@@ -1018,7 +1066,9 @@
         "test/types/parser-exit-corpus.ts",
         "test/types/parser-exits.ts",
         "src/commands/worktree-parser.test.ts",
-        "test/types/worktree-parser-mv-corpus.ts"
+        "test/types/worktree-parser-mv-corpus.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Native ordinary option passes, abbreviated long spellings/negations, short clusters, unknown-option and attached-value errors, callback/help ordering, consumed end markers and literal retained path operands are modeled with 3,935 independent native cases across add/rm/mv/clean. Configuration, interactive/edit execution, index/worktree state, pathspec and filesystem resolution, completion, other parser modes and remaining command semantics require further audit. Finite native outcomes do not establish completeness."
@@ -1030,7 +1080,9 @@
         "src/commands/build.test.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
@@ -1150,7 +1202,9 @@
         "src/commands/build.test.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
@@ -1162,7 +1216,9 @@
         "src/commands/build.test.ts",
         "test/types/argv-strings.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Complete callback value grammars, aliases/abbreviations, repository/configuration-dependent behavior, and per-scope independent/compiler witnesses."
@@ -1596,7 +1652,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Repository/configuration and object-state conditions; callback value grammars, abbreviations, and independent witnesses for every rule. Shared revision/diff parser coverage remains separate."
@@ -1727,7 +1785,9 @@
         "test/types/reference-parser-branch-corpus-4.ts",
         "test/types/reference-parser-branch-corpus-5.ts",
         "test/types/reference-parser-branch-corpus-6.ts",
-        "test/types/reference-parser-branch-corpus-7.ts"
+        "test/types/reference-parser-branch-corpus-7.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Ordinary source-table option parsing, native long prefixes/negations, short clusters, LASTARG_DEFAULT, consumed end markers and help timing are modeled. Column token grammar/enable projection, empty object-name callbacks, untracked-file boolean grammar and selected final cleanup/column conflicts are checked against 9,805 independent Git outcomes across branch/tag/status/commit. Configuration/repository state, nonempty object/ref resolution, tty-dependent auto columns, pathspecs, other callbacks, completion and other parser modes remain separate audit obligations. The finite corpus and deterministic representative-state exploration do not establish completeness. Existing independently selected ABI, numeric/boolean callback profiles, original argument context and early-exit behavior remain retained; other profiles and parser modes remain partial."
@@ -1973,7 +2033,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "typedCommandAPI": true,
       "remaining": "Repository/configuration and object-dependent behavior, callback value grammars, option abbreviations, and independent witnesses for every combination."
@@ -2163,7 +2225,9 @@
         "test/types/first-pass-source-profiles.ts",
         "src/commands/residual-argv.test.ts",
         "test/types/residual-argv-corpus.ts",
-        "test/types/residual-argv.ts"
+        "test/types/residual-argv.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Residual argv parsing is now modeled with a finite native oracle; broader parser/callback/state audits remain open."
     },
@@ -2190,7 +2254,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
     },
@@ -2217,7 +2283,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
     },
@@ -2244,7 +2312,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision/object/path resolution, numeric shorthand, --end-of-options and command-specific multi-pass parsing; configuration-dependent defaults, callback languages, follow/pathspec conditions and binary output. Git 2.55.0 oldest traversal crashes for a negative final count; recorded separately from argument rejection. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
     },
@@ -2425,7 +2495,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "state": "partial",
       "typedCommandAPI": true,
@@ -2439,7 +2511,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "state": "partial",
       "typedCommandAPI": true,
@@ -2464,7 +2538,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Patch content/index/repository conditions, path normalization, numeric lexical spellings, abbreviations and binary I/O. Git 2.55 negated whitespace/directory callbacks abort the process; these two spellings are deliberately omitted (documented wrapper exception). Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
@@ -2478,7 +2554,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Session/configuration-dependent operands and defaults, delegated apply parser (only reached for actual patch application), mail/patch formats, binary I/O and abbreviations. Interactive operand requirements depend on session state; no unconditional rule is imposed. Negated whitespace/directory are permitted only with quit, abort or show-current-patch modes which return before apply; otherwise the typed wrapper rejects them to avoid Git 2.55 aborting callbacks."
     },
@@ -2505,7 +2583,9 @@
         "scripts/ref-subcommand-corpus.mjs",
         "test/types/ref-subcommand-show-ref-corpus-1.ts",
         "test/types/ref-subcommand-show-ref-corpus-2.ts",
-        "test/types/ref-subcommand-show-ref-corpus-3.ts"
+        "test/types/ref-subcommand-show-ref-corpus-3.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, LP64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. Show-ref preserves native -h as the HEAD flag; explicit hash lengths share the abbrev callback grammar. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open."
     },
@@ -2531,7 +2611,9 @@
         "test/types/history-parser-for-each-ref-corpus-1.ts",
         "test/types/history-parser-for-each-ref-corpus-2.ts",
         "test/types/history-parser-for-each-ref-corpus-3.ts",
-        "test/types/history-parser-for-each-ref-corpus-4.ts"
+        "test/types/history-parser-for-each-ref-corpus-4.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open."
     },
@@ -2545,7 +2627,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2559,7 +2643,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2582,7 +2668,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
@@ -2596,7 +2684,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2614,7 +2704,9 @@
         "src/commands/ref-subcommand.test.ts",
         "test/types/ref-subcommand-api.ts",
         "scripts/ref-subcommand-corpus.mjs",
-        "test/types/ref-subcommand-verify-commit-corpus-1.ts"
+        "test/types/ref-subcommand-verify-commit-corpus-1.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open."
     },
@@ -2628,7 +2720,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2649,7 +2743,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
@@ -2663,7 +2759,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2677,7 +2775,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2695,7 +2795,9 @@
         "src/commands/ref-subcommand.test.ts",
         "test/types/ref-subcommand-api.ts",
         "scripts/ref-subcommand-corpus.mjs",
-        "test/types/ref-subcommand-verify-tag-corpus-1.ts"
+        "test/types/ref-subcommand-verify-tag-corpus-1.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open."
     },
@@ -2709,7 +2811,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2723,7 +2827,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2737,7 +2843,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2751,7 +2859,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2765,7 +2875,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2779,7 +2891,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2800,7 +2914,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
     },
@@ -2818,7 +2934,9 @@
         "src/commands/ref-subcommand.test.ts",
         "test/types/ref-subcommand-api.ts",
         "scripts/ref-subcommand-corpus.mjs",
-        "test/types/ref-subcommand-symbolic-ref-corpus-1.ts"
+        "test/types/ref-subcommand-symbolic-ref-corpus-1.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. The ordinary pass now models long prefixes, short clusters, reached callbacks, help and consumed end markers. A finite independent native corpus covers the recorded passes. Parent refs dispatcher/marker paths, repository/configuration/ref/storage/keyring state, signature validity, formats, stdin languages, completion and other modes remain open."
     },
@@ -2832,7 +2950,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2846,7 +2966,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2860,7 +2982,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
     },
@@ -2875,7 +2999,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
       "typedCommandAPI": true
@@ -3152,7 +3278,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
       "typedCommandAPI": true
@@ -3184,7 +3312,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
       "typedCommandAPI": true
@@ -3198,7 +3328,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
       "typedCommandAPI": true
@@ -3212,7 +3344,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
       "typedCommandAPI": true
@@ -3226,7 +3360,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
       "typedCommandAPI": true
@@ -3240,7 +3376,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
       "typedCommandAPI": true
@@ -3256,7 +3394,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
       "typedCommandAPI": true
@@ -3270,7 +3410,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
       "typedCommandAPI": true
@@ -3284,7 +3426,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
       "typedCommandAPI": true
@@ -3298,7 +3442,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
       "typedCommandAPI": true
@@ -3314,7 +3460,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
       "typedCommandAPI": true
@@ -3328,7 +3476,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
       "typedCommandAPI": true
@@ -3348,7 +3498,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open.",
       "typedCommandAPI": true
@@ -3370,7 +3522,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open.",
       "typedCommandAPI": true
@@ -3384,7 +3538,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -3398,7 +3554,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -3496,7 +3654,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -3512,7 +3672,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "First --command spelling versus final command value and column-mode callbacks; configuration, numeric lexical forms, abbreviations and witnesses. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
       "typedCommandAPI": true
@@ -3528,7 +3690,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
       "typedCommandAPI": true
@@ -3542,7 +3706,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Upstream diagnose with --no-suffix requires separate audit; no extra wrapper prohibition is invented.",
       "typedCommandAPI": true
@@ -3556,7 +3722,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -3570,7 +3738,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -3584,7 +3754,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -3598,7 +3770,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3612,7 +3786,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3626,7 +3802,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3640,7 +3818,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3684,7 +3864,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3754,7 +3936,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3770,7 +3954,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
       "typedCommandAPI": true
@@ -3784,7 +3970,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3798,7 +3986,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3812,7 +4002,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3826,7 +4018,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3840,7 +4034,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3854,7 +4050,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3868,7 +4066,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
@@ -3897,7 +4097,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/ref state, delegated revision/filter/format grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. Raw pre-scan of option-looking operands and bitmap early-return parsing need phase-aware modeling; finite state counts do not prove argv reachability. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open.",
       "typedCommandAPI": true
@@ -4052,7 +4254,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.",
       "typedCommandAPI": true
@@ -4079,7 +4283,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Its single positive commit requirement depends on revision resolution, not raw operand count. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.",
       "typedCommandAPI": true
@@ -4102,7 +4308,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
@@ -4125,7 +4333,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. One symmetric range, two ranges or three commits are resolved before optional paths; no raw maximum operand count is imposed without a separator. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
@@ -4152,7 +4362,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Two-phase option parsing, repository/configuration/ref resolution, delegated filter and numeric grammars, abbreviations and independent witnesses for every rule. Initial reverse traversal depends on mode before revision parsing; subsequent native warning overrides need phase-aware modeling. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.",
       "typedCommandAPI": true
@@ -4179,7 +4391,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.",
       "typedCommandAPI": true
@@ -4206,7 +4420,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.",
       "typedCommandAPI": true
@@ -4229,7 +4445,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Pattern expression trees, file-supplied patterns, ref/path partitioning, configured no-index fallback and early return on max-count zero remain state-dependent. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
       "typedCommandAPI": true
@@ -4258,7 +4476,9 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/format-patch-parser.test.ts",
-        "test/types/format-patch-parser-corpus.ts"
+        "test/types/format-patch-parser-corpus.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "The native format-patch option pass, local help timing and retained revision/diff argv are modeled with 187 independent native cases. Subject/cover rules cannot be changed by the later dictionary; rejection is modeled without promising precedence between diagnostics. Repository/configuration/ref resolution, identity/object-name callback grammars, callback side effects, output files, completion/global help and independent witnesses for every rule remain open. Creation-factor/range-diff checks depend on the resolved nonempty series. Other ABI profiles and compiler-budget-exceeding literals remain separate obligations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.",
       "typedCommandAPI": true
@@ -4272,7 +4492,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Compression support depends on the configured format and output filename; remote server version and binary transport remain pending.",
       "typedCommandAPI": true
@@ -4299,7 +4521,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.",
       "typedCommandAPI": true
@@ -4334,7 +4558,9 @@
         "test/types/first-pass-source-profiles.ts",
         "src/commands/residual-argv.test.ts",
         "test/types/residual-argv-corpus.ts",
-        "test/types/residual-argv.ts"
+        "test/types/residual-argv.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Residual argv parsing is now modeled with a finite native oracle; broader parser/callback/state audits remain open.",
       "typedCommandAPI": true
@@ -4366,7 +4592,9 @@
         "test/types/compound-decimals.ts",
         "test/types/compound-decimal-corpus.ts",
         "src/runner/compound-long-profiles.test.ts",
-        "test/types/compound-long-width.ts"
+        "test/types/compound-long-width.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Group accumulation/clearing and stdin-vs-revision behavior depend on resolved input and terminal state. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Compound decimal grammar, LP64 unsigned-long conversion and literal field relations are now modeled against a finite native corpus; other ABI profiles, reflog date/object resolution and other callback/repository semantics remain separate obligations.",
       "typedCommandAPI": true
@@ -4396,7 +4624,9 @@
         "scripts/history-parser-corpus.mjs",
         "test/types/history-parser-show-branch-corpus-1.ts",
         "test/types/history-parser-show-branch-corpus-2.ts",
-        "test/types/history-parser-show-branch-corpus-3.ts"
+        "test/types/history-parser-show-branch-corpus-3.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Reflog count conversion/MAX_REVS and resolved branch expansion limits remain pending. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations.  Compound decimal grammar, LP64 unsigned-long conversion and literal field relations are now modeled against a finite native corpus; other ABI profiles, reflog date/object resolution and other callback/repository semantics remain separate obligations. Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Reflog count conversion/MAX_REVS and resolved branch expansion limits remain pending. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Single-pass help exits and color callback enums are now source-modeled and checked against a finite independent Git corpus; completion exits, abbreviations, other callback grammars and repository/configuration errors remain separate obligations. Compound decimal grammar, LP64 unsigned-long conversion and literal field relations are now modeled against a finite native corpus; other ABI profiles, reflog date/object resolution and other callback/repository semantics remain separate obligations. The ordinary native option pass now models long-prefix resolution, short clusters, consumed end markers and retained operands; show-branch stops at its first operand. A finite independent corpus covers these recorded passes. Merge branch configuration and strategy executable discovery, rebase state/configuration/trailers, show-branch default arguments, ref/format/path/file resolution, completion and other modes remain open.",
       "typedCommandAPI": true
@@ -4410,7 +4640,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration state, ordered manual parsing, delegated value grammars, numeric lexical edge cases, abbreviations and independent witnesses for every rule. Unknown flag passthrough, --end-of-options, deferred hidden-ref state and revision counting depend on argument position and object resolution.",
       "typedCommandAPI": true
@@ -4855,7 +5087,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -4869,7 +5103,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -4995,7 +5231,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository/configuration/submodule state, nested dispatch, callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule.",
       "typedCommandAPI": true
@@ -5010,7 +5248,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Repository bisect state, revision/path disambiguation, full refname grammar for custom terms, delegated visualize/run arguments, abbreviations and independent witnesses for every rule. Root dispatch preserves repository-defined custom terms; it does not enumerate only builtin names."
     },
@@ -5220,7 +5460,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
     },
@@ -5234,7 +5476,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
     },
@@ -5248,7 +5492,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
     },
@@ -5262,7 +5508,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
     },
@@ -5276,7 +5524,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
     },
@@ -5290,7 +5540,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
     },
@@ -5307,7 +5559,9 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/mandatory-subcommand.test.ts",
         "test/types/mandatory-subcommand-api.ts",
-        "test/fixtures/mandatory-subcommand-corpus.json"
+        "test/fixtures/mandatory-subcommand-corpus.json",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Mandatory OPTION_SUBCOMMAND selection, parent unknown/help/boundary ordering and selected child constraints are modeled from the native table. Finite prefix and child-rule oracle cases do not prove all argv: global --help dispatch, completion, ref/format/stdin languages, configuration and repository conditions remain pending."
     },
@@ -5321,7 +5575,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Root option grammar and operation selection are modeled. Nested operation arguments are delegated literal words; select the operation-specific schema for its constraints. Parser abbreviations, configuration and repository conditions remain pending."
     },
@@ -5337,7 +5593,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Streaming inputs, object/ref/index state, cacheinfo legacy value grammar, revision delegation, callback processing phases, numeric lexical forms and abbreviations remain pending. Index options may have effects before subsequent operands; terminal stdin and remainder-consuming callbacks are modeled explicitly. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
     },
@@ -5375,7 +5633,9 @@
         "test/types/string-callback-corpus.ts",
         "src/commands/residual-argv.test.ts",
         "test/types/residual-argv-corpus.ts",
-        "test/types/residual-argv.ts"
+        "test/types/residual-argv.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Revision traversal and path filtering, object selection and refspec grammar, marks file contents and I/O, signature/tag rewrite effects, commit message encoding and reencoding, anonymization substitutions and collisions, repository state, parser abbreviations and independent witnesses for every rule remain pending. Numeric boolean literal grammar is checked at runtime; selected Git versions have different option support. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations.  Initial KEEP_UNKNOWN_OPT help exits are now modeled from serialized argv and checked against a finite native corpus, including split values and short clusters. completion exits, other callback grammars, global help dispatch, repository/configuration failures and compiler-budget cases remain separate obligations. Anonymization-map and signature-mode callback string languages now share declarative runtime/compiler profiles with a finite native oracle. Compiler-budget and symbolic values defer to runtime; stream commands, key resolution, other callbacks and environment conditions remain open. Residual argv parsing is now modeled with a finite native oracle; broader parser/callback/state audits remain open."
     },
@@ -5397,7 +5657,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Object/revision selection and streaming input grammar, filter/path-walk/configuration interactions, bitmap/cruft/reachability effects, full numeric lexical and C-width grammars beyond signed32 compression/depth/window/threads, filesystem destinations, command-specific pack output/content behavior, abbreviations and independent witnesses remain pending. Older Git differs in stdin-packs modes and promisor exclusion. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open."
     },
@@ -5411,7 +5673,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Pack header/index contents, stdin protocols and thin-pack repair effects, fsck message grammar, object-format/repository relationships, thread/size/index-version numeric parsing, output/promisor/keep file effects, abbreviations and independent witnesses remain pending. Older Git allows explicit promisor pack names that Git2.55 rejects."
     },
@@ -5425,7 +5689,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Binary pack/header/object contents, streaming and truncation failures, object resolution/recovery, fsck grammar, maximum input-size lexical and C-width conversion, configuration/repository effects, abbreviations and independent witnesses remain pending. Positional argument rejection and basic flags have isolated native comparisons."
     },
@@ -5439,7 +5705,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Pack and alternate object-database selection, redundancy minimization and output selection, malformed pack/object contents, option/operand ordering, parser spellings and independent witnesses remain pending. Obsolete acknowledgement and all-mode operands have verified newer-Git comparisons; the older Git2.25 parser differs."
     },
@@ -5455,7 +5723,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Upload negotiation, request packet grammar, protocol versions/capabilities, filtering and repository/configuration restrictions, timeout lexical/C-width conversion, server hooks and independent rule witnesses remain pending. Current comparisons advertise isolated local repositories; they do not exercise a complete client/server exchange. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations."
     },
@@ -5469,7 +5739,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Receive request packet grammar, advertised capabilities, update transactions, hooks, permissions, repository/configuration restrictions and independent rule witnesses remain pending. Current comparisons advertise isolated local repositories without changing refs."
     },
@@ -5489,7 +5761,9 @@
         "test/types/boolean-callback-corpus.ts",
         "src/constraints/git-boolean-source.test.ts",
         "src/runner/boolean-source-profiles.test.ts",
-        "test/types/boolean-source-tuples.ts"
+        "test/types/boolean-source-tuples.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Refspec parsing/resolution, negotiation, signing and push options, stdin packet records, remote/configuration restrictions, atomic update effects and independent rule witnesses remain pending. Current comparisons dry-run against an isolated local bare repository and verify unchanged destination refs. Boolean callback literal and normalized-state grammars now share source-backed profiles and a finite independent Git corpus; dynamic/compiler-budget cases, other integer/libc profiles and command-specific parser phases remain separate obligations."
     },
@@ -5509,7 +5783,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Manual depth/numeric lexical conversion, refspec and object selection, request/response packet grammar, shallow/promisor/filter effects, remote/configuration restrictions and independent rule witnesses remain pending. Current comparisons use local repositories and diagnostic-only numeric controls. Object-filter grammar now checked against Git 2.55; other unsigned-long/libc profiles, object resolution and command-specific help timing remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations. Raw and nested decoded high-byte behavior is selected by a readonly Git probe and checked against separate signed/unsigned-char corpora; untested ABI/libc combinations and command-specific behavior remain open."
     },
@@ -5523,7 +5799,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "URL command grammar and percent expansions, helper negotiation/streaming records, command execution environment, repository/configuration restrictions and independent rule witnesses remain pending. Current comparisons request capabilities only from an isolated no-op helper."
     },
@@ -5537,7 +5815,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "File-descriptor URL grammar, descriptor availability and duplex I/O, helper negotiation/streaming records, repository/configuration restrictions and independent rule witnesses remain pending. Current comparisons request capabilities only, without opening the advertised descriptor connection."
     },
@@ -5551,7 +5831,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Merge-base/head/index and rename/content effects, rename score lexical grammar, complete delegated global-help argument/viewer behavior and independent rule witnesses remain pending. First-position --help (including a trailing separator) is modeled; later --help is rejected by the manual parser. Excess bases are not capped where native Git ignores them with a warning."
     },
@@ -5565,7 +5847,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Merge-base/head/index and rename/content effects, rename score lexical grammar, complete delegated global-help argument/viewer behavior and independent rule witnesses remain pending. First-position --help (including a trailing separator) is modeled; later --help is rejected by the manual parser. Excess bases are not capped where native Git ignores them with a warning."
     },
@@ -5579,7 +5863,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Merge-base/head/index and rename/content effects, rename score lexical grammar, complete delegated global-help argument/viewer behavior and independent rule witnesses remain pending. First-position --help (including a trailing separator) is modeled; later --help is rejected by the manual parser. Excess bases are not capped where native Git ignores them with a warning."
     },
@@ -5593,7 +5879,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Merge-base/head/index and rename/content effects, rename score lexical grammar, complete delegated global-help argument/viewer behavior and independent rule witnesses remain pending. First-position --help (including a trailing separator) is modeled; later --help is rejected by the manual parser. Excess bases are not capped where native Git ignores them with a warning."
     },
@@ -5607,7 +5895,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ordered prefix/program/path interpretation, actual conflicted-index program invocations and exit protocols, repository state, global-help delegation and independent rule witnesses remain pending. Native argument-word minimum and no-work -o program invocation have comparisons."
     },
@@ -5635,7 +5925,9 @@
         "src/runner/pickaxe-profiles.test.ts",
         "src/constraints/pickaxe-profile.test.ts",
         "test/types/pickaxe-empty-profiles.ts",
-        "test/fixtures/pickaxe-empty-probe-native.json"
+        "test/fixtures/pickaxe-empty-probe-native.json",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Delegated diff phase/callback validation, configured GUI/tool/extcmd selection, shell wildcard spellings, path/repository effects, viewer execution and independent rule witnesses remain pending. Tool-help early return is modeled separately from normal validation. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Empty pickaxe callbacks use a finite native-observed old/modern runtime profile; unpinned compiler inputs retain native old-family acceptance. Native crashes are not argument rejection. Broader callback interactions, other commands and arbitrary executable profiles remain audit obligations."
     },
@@ -5649,7 +5941,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Configured GUI/tool selection, conflicted-index/path state, shell option spellings, tool execution/exit protocols, prompts and independent rule witnesses remain pending. Native ignored selection combinations have isolated comparisons."
     },
@@ -5663,7 +5957,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Remote/ref/revision resolution, URL and signature output, patch contents, shell option spellings and independent rule witnesses remain pending. Interleaved patch flags and ignored tail operands use isolated local refs."
     },
@@ -5677,7 +5973,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Complete viewer/configuration/alias resolution, listing output, format selection, abbreviation and value spellings across selected Git versions remain pending. Native listing constraints and selector availability differ in older Git."
     },
@@ -5693,7 +5991,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Port conversion, service override/enable callback ordering, packet framing and service protocol, path/credential/hook/configuration state, listener lifecycle and cross-version numeric lexical forms remain pending. Timeout/init-timeout unsigned32 and max-connections signed32 callbacks are modeled for the pinned checked parser; older overwritten numeric acceptance is recorded separately."
     },
@@ -5709,7 +6009,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Operation dispatch, configuration, supported-platform availability and IPC lifecycle remain pending. Supported-branch integer grammar is modeled from source; actual native tests run only when the selected executable advertises IPC options. Unsupported-platform and missing-command outcomes are explicit skips, not successful native lifecycle tests."
     },
@@ -5804,7 +6106,9 @@
         "test/fixtures/integer-long-prefix-native.json",
         "src/commands/integer-c-whitespace.test.ts",
         "test/types/integer-c-whitespace-command-api.ts",
-        "test/fixtures/integer-c-whitespace-native.json"
+        "test/fixtures/integer-c-whitespace-native.json",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Models source-audited ulong_arg acceptance for depth, active-branches and cat-blob-fd: base-zero text/number/bigint inputs, no minus, complete consumption, overflow acceptance for branch counts and fixed callback bounds. Binary prefixes are a portable C23 arm whose availability remains the selected executable's responsibility; actual native failure is retained on runtimes without that arm. Native source fixtures and live comparisons cover radix, signs, whitespace, bounds, saturation and large literals. Runtime execution still consumes the original argv. Compiler-budget/opaque values retain runtime checks; certainly overflowing bounded prefixes are rejected before conversion budget exhaustion. Configuration unsigned-long callbacks for max-pack-size/big-file-threshold now validate base-zero values and k/m/g units, selected native long width, binary-prefix support and legacy negative magnitudes; number inputs use emitted argv text rather than safe-integer restrictions. These finite empty-stream controls do not prove pack layout or blob-threshold behavior. Full stdin/feature/object-ID/marks/path/submodule-map handling, packing/signing/key resolution and leading global --help tail grammar remain pending. Earlier manual parsers retain actual unknown-help errors. Separator availability remains native dependent. Unsupported signing-option availability remains under audit. Long zero prefixes are normalized only for type-level magnitude conversion; emitted argv stays unchanged. Finite long-prefix controls cover selected native parser acceptance and known overflow rejection, with dynamic/compiler-budget inputs retaining runtime validation. All six ASCII C whitespace families and mixed prefixes are processed in bounded blocks for type-level validation; arbitrary prefix lengths beyond the compiler budget remain runtime obligations."
     },
@@ -5818,7 +6122,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Object-ID/URL grammar, real object and pack transfers, index-pack argument order, ignored/prefix options, curl/protocol/server/configuration state and positional modes remain pending. Empty target input and parser prerequisite checks do not establish complete HTTP transfer behavior."
     },
@@ -5832,7 +6138,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Refspec/delete/ref state, WebDAV/authentication/configuration, URL and manual-parser spellings, remote protocol/output remain pending. Current arity failures are checked without contacting a destination."
     },
@@ -5846,7 +6154,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Full CGI method/environment/path/namespace/authentication behavior and upload/receive streaming protocols remain pending. Local HEAD response and ignored argv are tested; full service lifecycle and binary RPC behavior are not claimed."
     },
@@ -5860,7 +6170,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Mailbox/message input, folder/flag selection, credentials/authentication, curl/TLS and server/configuration-dependent behavior remain pending. Current tests distinguish parser rejection from missing configuration and send no mail; list/folder support is probed on the selected executable."
     },
@@ -5874,7 +6186,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Exact first-word child dispatch and legacy fallback actions are modeled. Full key/value/path/configuration languages, callback ordering, action/type/source selectors, abbreviations and help precedence across selected Git versions remain pending. Native old-profile modern selector cases omitted by the fixture are not claimed covered; finite counts do not prove argv reachability."
     },
@@ -5894,7 +6208,9 @@
         "src/commands/legacy-stash-parent.test.ts",
         "test/types/stash-parser-api.ts",
         "src/commands/stash-parser.test.ts",
-        "test/types/stash-parser-corpus.ts"
+        "test/types/stash-parser-corpus.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Exact child dispatch, implicit push/path separator rules and delegated list behavior are modeled. Index/worktree/ref stash state, patch/untracked/file/callback phases, partial delegated revision and output/merge behavior, abbreviations/help and selected-version differences remain pending. Native success for an empty stash does not prove all stash lifecycle behavior. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Legacy parent help can precede child parsing; the public API preserves the source-dependent exit, while pinned modern corpora retain child checks. Other legacy parser and option-availability differences remain open. Additional audit: Exact child dispatch, optional-subcommand wrapper typo checks, assumed-push STOP_AT_NON_OPTION, native long prefix/negation resolution, help timing and retained leading-separator path boundaries are modeled. 4,978 independent native cases cover root and eight explicit stash subcommands. Configuration, repository/path/object resolution, completion/global help, further callback grammars and other parser modes remain open. Finite outcomes do not establish full argv reachability or audit completeness."
     },
@@ -5924,7 +6240,9 @@
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/wrapper-parser.test.ts",
         "test/types/wrapper-parser-corpus.ts",
-        "test/types/wrapper-parser-api.ts"
+        "test/types/wrapper-parser-api.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Ordered empty/optional-subcommand wrappers, log help/callback timing and retained revision/diff argv are modeled with 425 independent native cases across direct and dispatched calls. Subcommand-name typo prefixes are included. Repository/configuration conditions, object/path resolution, unmodeled callbacks, completion/global help and conditional stash-list delegation remain open. Existing pinned numeric/string profiles and bounded compiler semantics apply; other ABIs and compiler-budget-exceeding literals remain separate obligations. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Numeric bounds and percent-decoded compiler literals are checked against a finite independent Git corpus on the pinned LP64/unsigned-char profile; dynamic or compiler-budget-exceeding literals, other ABI profiles, object resolution and command-specific parsing order remain separate obligations."
     },
@@ -6150,7 +6468,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Shell filter languages and quoting, revision selection, index/tree/commit/message/parent filters, tag/ref rewriting, repository/configuration conditions and historical parser differences remain pending. Native tests verify direct conflicts and a no-op rewrite with unchanged HEAD, not arbitrary history rewriting."
     },
@@ -6164,7 +6484,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Author-name/email parsing, patch-series syntax and file contents, patch application/commit creation, directory/configuration conditions and historical option handling remain pending. Native tests use an empty series to verify trailing operands and empty-author handling; patch import execution is unverified."
     },
@@ -6178,7 +6500,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Selected executable availability, further option parsing and negation, HTTP daemon and browser selection, port/configuration interpretation, generated gitweb configuration, PID handling and real server/browser lifecycle remain pending. Native tests exercise action validation and final stop selection without starting a server."
     },
@@ -6234,7 +6558,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Custom-command tokenization/quoting/path permissions, built-in Git service and CVS protocols, interactive sessions and environment/packaging differences remain pending. Global help-tail grammar and its historical helper-option behavior also require contextual modeling. Native tests verify controlled custom commands, EOF, argc errors and primary help dispatch when the selected frontend is available; missing-command checks are explicit skips."
     },
@@ -6270,7 +6596,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Arch/TLA client and repository availability, branch/archive mapping, import ordering, authors/commits/files, depth behavior outside early help and regex/configuration languages remain pending. Native tests verify missing roots and unsupported advertised -o; numeric-looking -D is checked only with help, not through an Arch import."
     },
@@ -6284,7 +6612,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "CVS checkout discovery, selected parent/commit semantics, patch generation/application, author/message conversion, CVS commands/configuration and export side effects remain pending. Tests with one/two/three operands reach local checkout rejection; this establishes parser phase reachability, not successful export."
     },
@@ -6298,7 +6628,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "CVS/cvsps client compatibility, module/root/branch resolution, author-conversion and regex languages, history reconstruction, configuration and transport operations remain pending. Native tests verify one-module arity and repeat/string option serialization at help; no CVS import is performed."
     },
@@ -6312,7 +6644,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Selected frontend/Perl dependencies and version identity, further Getopt/require_order behavior, root/path/configuration authorization, database access and CVS protocol handling remain pending. Version and export-root checks run natively with DBI when available; explicit missing-command/module diagnostics are skips. Empty input does not prove service protocol coverage."
     },
@@ -6354,7 +6688,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Models the three option passes, alias-mode restrictions, final suppression lists, native confirmation prefix grammar, and the three Getopt::Long integer options. Integers retain Perl lexical forms and arbitrary-size text/bigint representations; failed main integer parses remain errors after later valid assignments, but help and completion exit before the main return-code check. Configuration-derived batch/relogin dependencies, pass-through/raw-word and abbreviation grammar, transfer encoding, format-patch delegation, address/message languages and transport/authentication state remain pending. Native tests use one-patch dry-runs, help, completion and alias inspection without delivering mail."
     },
@@ -6370,7 +6706,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
     },
@@ -6386,7 +6724,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "Source grammar plus native version and headless X11 parser failures are covered. GUI interaction, empty-head operand disambiguation, leading-trace dispatch and platform-specific startup remain under audit. Independently versioned frontend source profiles are now identified when available; unrecognized/inaccessible source and interpreter-dependent Unicode grammar defer to native validation. Old path-loop filesystem-dependent classification, further raw-word/opaque type cases and full UI operations remain pending."
     },
@@ -6508,7 +6848,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "All registered command classes and optparse declarations are extracted with Python AST without executing upstream code. Repository/config/Perforce-dependent rules, depot/path/commit languages, exclusion callback normalization and multi-stage synchronization remain pending. Native comparisons use help, local branch listing and failures with constructor capability probes served by a local fail-closed stub."
     },
@@ -6970,7 +7312,9 @@
         "test/types/argv-strings.ts",
         "src/commands/build.test.ts",
         "test/types/argument-string-predicate.ts",
-        "src/commands/argv-string-boundary.test.ts"
+        "src/commands/argv-string-boundary.test.ts",
+        "src/commands/global-help-dispatch.test.ts",
+        "test/types/global-help-dispatch.ts"
       ],
       "remaining": "All 25 operation tables and global options are extracted without running Perl. Native comparisons exercise all operation help grammars and local repository/configuration workflows; missing SVN bindings are an explicit conditional skip. Options can inherit svn.* config values, so CLI-only requirements are not assumed. Whole-argv operation scanning, command words inside option values, pass-through revision grammars, URL/path languages, config/working-copy/remote conditions and protocol behavior remain pending."
     },

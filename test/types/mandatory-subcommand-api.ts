@@ -5,7 +5,9 @@ git.command('refs', [{ operand: 'verify' }, ['--verbose']]);
 git.command('refs', [{ operand: 'list' }, ['--shell'], ['--python'], ['-h']]);
 git.command('refs', [['-h'], { operand: 'list' }, ['--count', 'bad']]);
 git.command('refs', [{ operand: '--help-all' }, { operand: 'list' }, ['--count', 'bad']]);
+// @ts-expect-error First-word --help selects git-help, where the child --count option is unknown.
 git.command('refs', [['--help'], { operand: 'list' }, ['--count', 'bad']]);
+git.command('refs', [['--help'], ['-h'], { operand: 'list' }, ['--count', 'bad']]);
 // @ts-expect-error Mandatory native selection stops at an unknown operand before help.
 git.command('refs', [{ operand: 'unknown' }, ['-h']]);
 // @ts-expect-error The marker ends the mandatory parent pass before selection.

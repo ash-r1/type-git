@@ -25,6 +25,7 @@ import { validInitialDepth } from '../constraints/git-scalars.js';
 import process from 'node:process';
 import {
   commandArguments,
+  isDocumentationDispatch,
   commandFilenameTokens,
   type FilenameContext,
   type FilenameProfile,
@@ -742,6 +743,9 @@ export class CliRunner {
       }
       return binary ? this.runBytes(context, argv, opts) : this.run(context, argv, opts);
     };
+    if (isDocumentationDispatch(spec, args)) {
+      return await execute(build(command, args, inRepository));
+    }
     // Old stash scans the parent argv for help before dispatch; newer Git stops
     // at a subcommand. Let the selected Git decide this source-dependent exit.
     if (commandHasLegacyStashHelp(command, args, inRepository)) {

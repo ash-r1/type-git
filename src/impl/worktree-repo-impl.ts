@@ -1,4 +1,7 @@
 import type {
+  CheckedDocumentationArguments,
+  DocumentationCommand,
+  DocumentationPrefix,
   CheckedCommandArguments,
   GitCommandArgument,
   GitCommandExecOpts,
@@ -337,6 +340,21 @@ export class WorktreeRepoImpl implements WorktreeRepo {
   /**
    * Execute a typed Git command with validated arguments in this repository context
    */
+  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts?: GitCommandExecOpts,
+  ): Promise<RawResult>;
+  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>>;
   public command<
     C extends GitCommandName,
     const A extends readonly GitCommandArgument<NoInfer<C>>[],
@@ -361,12 +379,9 @@ export class WorktreeRepoImpl implements WorktreeRepo {
     args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
-  public async command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & NoInfer<CheckedCommandArguments<C, A>>,
+  public async command(
+    command: GitCommandName,
+    args: readonly unknown[],
     opts?: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>> {
     return await this.runner.runCommand(this.context, command, args, true, opts);
