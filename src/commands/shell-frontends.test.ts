@@ -255,8 +255,11 @@ describe('native shell frontends', () => {
       expect(native.signal).toBeNull();
       // Older Git ignores the implicit command for listing; newer Git rejects it.
       expect([0, 129]).toContain(native.status);
-      if (native.status === 0) expect(native.stdout.length).toBeGreaterThan(0);
-      else expect(native.stdout + native.stderr).toContain('usage: git help');
+      if (native.status === 0) {
+        expect(native.stdout.length).toBeGreaterThan(0);
+      } else {
+        expect(native.stdout + native.stderr).toContain('usage: git help');
+      }
       const actual = await repo.command(command, [['--help'], [selector]]);
       expect(actual.exitCode).toBe(native.status);
       expect(actual.stdout).toBe(native.stdout);
