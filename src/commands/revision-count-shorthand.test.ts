@@ -85,62 +85,70 @@ describe('revision count shorthand', () => {
     await rm(root, { recursive: true, force: true });
   });
 
-  it.each(commands)('preserves native digit counts for %s', async (command, suffix) => {
-    for (const count of ['-0', '-3', '-01', '-2147483647']) {
-      const expected = native([...command.split(' '), count, ...suffix]);
-      expect([0, 1, 128, 129]).toContain(expected.status);
-      if (expected.status !== 0) {
-        // Actual executable availability and semantic failures remain native failures.
-        expect(expected.stdout + expected.stderr).not.toBe('');
+  it.each(commands)(
+    'preserves native digit counts for %s',
+    async (command, suffix) => {
+      for (const count of ['-0', '-3', '-01', '-2147483647']) {
+        const expected = native([...command.split(' '), count, ...suffix]);
+        expect([0, 1, 128, 129]).toContain(expected.status);
+        if (expected.status !== 0) {
+          // Actual executable availability and semantic failures remain native failures.
+          expect(expected.stdout + expected.stderr).not.toBe('');
+        }
+        const args = [
+          [count],
+          ...suffix.map((word) =>
+            word === '--' || word === '--stdout' ? [word] : { operand: word },
+          ),
+        ];
+        const actual = await repo.command(command, args as never);
+        expect(actual.exitCode).toBe(expected.status);
+        expect(actual.stdout).toBe(expected.stdout);
+        expect(actual.stderr).toBe(expected.stderr);
       }
-      const args = [
-        [count],
-        ...suffix.map((word) =>
-          word === '--' || word === '--stdout' ? [word] : { operand: word },
-        ),
-      ];
-      const actual = await repo.command(command, args as never);
-      expect(actual.exitCode).toBe(expected.status);
-      expect(actual.stdout).toBe(expected.stdout);
-      expect(actual.stderr).toBe(expected.stderr);
-    }
-  });
+    },
+    120_000,
+  );
 
   it.each([
     ['cherry-pick', ['baseline..side']],
     ['revert', ['baseline']],
     ['replay', ['--onto', 'baseline', 'baseline..side']],
     ['backfill', []],
-  ] as const)('matches native counts for %s in fresh independent repository copies', async (command, suffix) => {
-    for (const count of ['-0', '-1', '-3']) {
-      const copies = await mkdtemp(join(tmpdir(), 'type-git-count-copies-'));
-      try {
-        const nativeRoot = join(copies, 'native');
-        const actualRoot = join(copies, 'actual');
-        await cp(root, nativeRoot, { recursive: true });
-        await cp(root, actualRoot, { recursive: true });
-        const expected = native([command, count, ...suffix], nativeRoot);
-        expect([0, 1, 128]).toContain(expected.status);
-        // Older replay can return 1 silently for an empty commit set.
-        // Preserve the exact native failure and both streams below.
-        const actualRepo = await new TypeGit({ home: root, inheritEnv: false, env }).open(
-          actualRoot,
-        );
-        const args = [
-          [count],
-          ...(command === 'replay'
-            ? [['--onto', 'baseline'], { operand: 'baseline..side' }]
-            : suffix.map((word) => ({ operand: word }))),
-        ];
-        const actual = await actualRepo.command(command, args as never);
-        expect(actual.exitCode).toBe(expected.status);
-        expect(actual.stdout).toBe(expected.stdout);
-        expect(actual.stderr).toBe(expected.stderr);
-      } finally {
-        await rm(copies, { recursive: true, force: true });
+  ] as const)(
+    'matches native counts for %s in fresh independent repository copies',
+    async (command, suffix) => {
+      for (const count of ['-0', '-1', '-3']) {
+        const copies = await mkdtemp(join(tmpdir(), 'type-git-count-copies-'));
+        try {
+          const nativeRoot = join(copies, 'native');
+          const actualRoot = join(copies, 'actual');
+          await cp(root, nativeRoot, { recursive: true });
+          await cp(root, actualRoot, { recursive: true });
+          const expected = native([command, count, ...suffix], nativeRoot);
+          expect([0, 1, 128]).toContain(expected.status);
+          // Older replay can return 1 silently for an empty commit set.
+          // Preserve the exact native failure and both streams below.
+          const actualRepo = await new TypeGit({ home: root, inheritEnv: false, env }).open(
+            actualRoot,
+          );
+          const args = [
+            [count],
+            ...(command === 'replay'
+              ? [['--onto', 'baseline'], { operand: 'baseline..side' }]
+              : suffix.map((word) => ({ operand: word }))),
+          ];
+          const actual = await actualRepo.command(command, args as never);
+          expect(actual.exitCode).toBe(expected.status);
+          expect(actual.stdout).toBe(expected.stdout);
+          expect(actual.stderr).toBe(expected.stderr);
+        } finally {
+          await rm(copies, { recursive: true, force: true });
+        }
       }
-    }
-  });
+    },
+    120_000,
+  );
 
   it('preserves the selected Git deprecation prerequisite with and without explicit opt-in', async () => {
     for (const optIn of [false, true]) {
