@@ -119,7 +119,10 @@ type IgnoredAllowedArguments<C extends GitCommandName> = C extends GitCommandNam
 type RawIgnoredDocumentationArgument = readonly [`-${string}`] | readonly [`-${string}`, string];
 export type GitCommandArgument<C extends GitCommandName> =
   | LocalCommandArgument<C>
-  | LocalCommandArgument<DispatchTarget<C>>
+  | LocalCommandArgument<DispatchTarget<C>>;
+/** Extra vocabulary is valid only after a guaranteed documentation prefix. */
+type CommandArgumentWithDocumentation<C extends GitCommandName> =
+  | GitCommandArgument<C>
   | (C extends DocumentationCommand
       ?
           | DocumentationArgument
@@ -2226,7 +2229,7 @@ type CheckedSvnInputs<A extends readonly unknown[], Ctx extends CommandGrammarCo
 /** Select child grammar after precisely the native dispatcher's global options. */
 type CheckedCommandGrammar<
   C extends GitCommandName,
-  A extends readonly GitCommandArgument<C>[],
+  A extends readonly CommandArgumentWithDocumentation<C>[],
   Ctx extends CommandGrammarContext = {},
 > = ArgumentsHaveLiteralNul<A> extends true
   ? never
@@ -2325,7 +2328,7 @@ type DirectLocalCommand = {
 /** Retain the original vocabulary gate for arrays and paths that can bypass local checks. */
 type CheckedOriginalCommandGrammar<
   C extends GitCommandName,
-  A extends readonly GitCommandArgument<C>[],
+  A extends readonly CommandArgumentWithDocumentation<C>[],
   Ctx extends CommandGrammarContext,
 > = [Extract<C, DocumentationCommand>] extends [never]
   ? CheckedCommandGrammar<C, A, Ctx>
@@ -2342,7 +2345,7 @@ type CheckedOriginalCommandGrammar<
 /** Select documentation before applying any local parser's option arities or constraints. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
-  A extends readonly GitCommandArgument<C>[],
+  A extends readonly CommandArgumentWithDocumentation<C>[],
   Ctx extends CommandGrammarContext = {},
 > = [C] extends [DocumentationCommand]
   ? [A] extends [readonly [readonly ['--help'], ...infer Tail]]
