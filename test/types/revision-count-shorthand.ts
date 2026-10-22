@@ -5,6 +5,8 @@ git.command('log', [['-3'], { operand: 'HEAD' }]);
 git.command('show', [['-3'], { operand: 'HEAD' }]);
 git.command('rev-list', [['-3'], { operand: 'HEAD' }]);
 git.command('whatchanged', [['-3'], ['--i-still-use-this'], { operand: 'HEAD' }]);
+// Older selected Git does not require a deprecation opt-in.
+git.command('whatchanged', [['-3'], { operand: 'HEAD' }]);
 git.command('shortlog', [['-3'], { operand: 'HEAD' }]);
 git.command('reflog', [['-3'], { operand: 'HEAD' }]);
 git.command('reflog show', [['-3'], { operand: 'HEAD' }]);
@@ -37,3 +39,13 @@ git.command('log', [['-0x10'], { operand: 'HEAD' }]);
 git.command('log', [['-1x'], { operand: 'HEAD' }]);
 // @ts-expect-error Shorthand has no separate value word.
 git.command('log', [['-3', '4'], { operand: 'HEAD' }]);
+
+// The initial log parser exits before validating retained numeric words.
+git.command('log', [['-2147483648'], ['-h']]);
+git.command('log', [['-h'], ['-2147483648']]);
+git.command('shortlog', [['-h'], ['-2147483648']]);
+// @ts-expect-error Shortlog checks a count encountered before its help exit.
+git.command('shortlog', [['-2147483648'], ['-h']]);
+git.command('log', [['-3'], ['--max-count', '0'], { operand: 'HEAD' }]);
+git.command('log', [['--max-count', '0'], ['-3'], { operand: 'HEAD' }]);
+git.command('log', [{ operand: 'HEAD' }, ['--'], { operand: '-2147483648' }]);

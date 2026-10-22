@@ -170,6 +170,7 @@ export function commandArguments(
     depthAtoiBits?: 32 | 64;
     submoduleInitAlias?: boolean;
     emptyPickaxeRejected?: boolean;
+    whatchangedOptInRequired?: boolean;
     firstPassEmpty?: boolean;
   } & FilenameContext,
   guiGrammar?: GuiGrammar,
@@ -213,6 +214,7 @@ function buildArguments(
     depthAtoiBits?: 32 | 64;
     submoduleInitAlias?: boolean;
     emptyPickaxeRejected?: boolean;
+    whatchangedOptInRequired?: boolean;
     firstPassEmpty?: boolean;
   } & FilenameContext,
   guiGrammar?: GuiGrammar,

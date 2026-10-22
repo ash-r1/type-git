@@ -89,20 +89,79 @@ describe('revision count shorthand', () => {
           word === '--' || word === '--stdout' ? [word] : { operand: word },
         ),
       ];
-      if (
-        command === 'whatchanged' &&
-        expected.status === 128 &&
-        expected.stderr.includes('--i-still-use-this')
-      ) {
-        // This schema rejects the actual deprecation prerequisite before execution.
-        await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(GitArgumentError);
-        continue;
-      }
       const actual = await repo.command(command, args as never);
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
       expect(actual.stderr).toBe(expected.stderr);
     }
+  });
+
+  it('preserves the selected Git deprecation prerequisite with and without explicit opt-in', async () => {
+    for (const optIn of [false, true]) {
+      const words = [...(optIn ? ['--i-still-use-this'] : []), 'HEAD'];
+      const expected = native(['whatchanged', ...words]);
+      expect([0, 128]).toContain(expected.status);
+      if (expected.status === 128) {
+        expect(expected.stderr).not.toBe('');
+      }
+      const actual = await repo.command('whatchanged', [
+        ...(optIn ? [['--i-still-use-this']] : []),
+        { operand: 'HEAD' },
+      ] as never);
+      expect(actual.exitCode).toBe(expected.status);
+      expect(actual.stdout).toBe(expected.stdout);
+      expect(actual.stderr).toBe(expected.stderr);
+    }
+  });
+
+  it.each([
+    ['log', ['-2147483648', '-h']],
+    ['log', ['-h', '-2147483648']],
+    ['shortlog', ['-h', '-2147483648']],
+  ] as const)('retains documentation exit ordering for %s', async (command, words) => {
+    const expected = native([command, ...words]);
+    expect([0, 129]).toContain(expected.status);
+    expect(expected.stdout + expected.stderr).toContain('usage:');
+    const actual = await repo.command(command, words.map((word) => [word]) as never);
+    expect(actual.exitCode).toBe(expected.status);
+    expect(actual.stdout).toBe(expected.stdout);
+    expect(actual.stderr).toBe(expected.stderr);
+  });
+
+  it('rejects shortlog overflow that precedes its help exit', async () => {
+    const expected = native(['shortlog', '-2147483648', '-h']);
+    expect(expected.status).toBe(128);
+    await expect(
+      repo.command('shortlog', [['-2147483648'], ['-h']] as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
+  });
+
+  it.each([
+    [['-3'], ['--max-count', '0']],
+    [['--max-count', '0'], ['-3']],
+  ] as const)('retains overwrite order with named counts: %j', async (...tokens) => {
+    const words = tokens.flatMap(([flag, value]) =>
+      value === undefined ? [flag] : [`${flag}=${value}`],
+    );
+    const expected = native(['log', ...words, 'HEAD']);
+    expect(expected.status).toBe(0);
+    const actual = await repo.command('log', [...tokens, { operand: 'HEAD' }] as never);
+    expect(actual.exitCode).toBe(expected.status);
+    expect(actual.stdout).toBe(expected.stdout);
+    expect(actual.stderr).toBe(expected.stderr);
+  });
+
+  it('keeps numeric path operands behind a separator outside the count parser', async () => {
+    const expected = native(['log', 'HEAD', '--', '-2147483648']);
+    expect(expected.status).toBe(0);
+    const actual = await repo.command('log', [
+      { operand: 'HEAD' },
+      ['--'],
+      { operand: '-2147483648' },
+    ] as never);
+    expect(actual.exitCode).toBe(expected.status);
+    expect(actual.stdout).toBe(expected.stdout);
+    expect(actual.stderr).toBe(expected.stderr);
   });
 
   it('checks decimal overflow even when the selected Git uses legacy atoi for named counts', async () => {

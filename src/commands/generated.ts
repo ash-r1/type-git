@@ -100316,8 +100316,10 @@ const commandSpec205 = {
         },
       ],
       origin: 'git',
-      reason: 'Git 2.55 requires its explicit opt-in to run this deprecated command.',
+      reason:
+        'Git 2.55 requires explicit opt-in; earlier selected Git executables permit this command without it.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
+      nativeWhatchangedOptIn: true,
     },
   ],
   source: 'builtin/log.c; revision.c; diff.c; diff-merges.c',

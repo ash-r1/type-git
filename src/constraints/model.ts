@@ -41,6 +41,8 @@ export type Constraint = Evidence & {
   guard?: readonly Predicate[];
   /** Applies only when the selected diff callback rejects every empty occurrence. */
   nativeEmptyPickaxe?: boolean;
+  /** The selected executable owns this version-dependent deprecation prerequisite. */
+  nativeWhatchangedOptIn?: boolean;
 } & (
     | {
         kind: 'arity';
@@ -132,6 +134,7 @@ export type ScalarContext = {
   compoundNegatedOverflow?: boolean;
   depthAtoiBits?: 32 | 64;
   emptyPickaxeRejected?: boolean;
+  whatchangedOptInRequired?: boolean;
 };
 /** All violations, in declaration order, retain their evidence and stable identifiers. */
 export function violations(
@@ -149,6 +152,9 @@ function violates(
   scalarContext?: ScalarContext,
 ): boolean {
   if (rule.nativeEmptyPickaxe && scalarContext?.emptyPickaxeRejected === false) {
+    return false;
+  }
+  if (rule.nativeWhatchangedOptIn && scalarContext?.whatchangedOptInRequired === false) {
     return false;
   }
   if (rule.guard && !rule.guard.every((p) => matches(p, options))) {
