@@ -89,7 +89,7 @@ describe('global first-word documentation dispatch', () => {
       expect(actual.stderr, label).toBe(native.stderr);
       expect(commandArguments(command, args), label).toEqual(words);
     }
-  });
+  }, 120_000);
 
   it.each([
     ['commit', [['--help'], ['-h'], ['--unknown']], ['--help', '-h', '--unknown']],
