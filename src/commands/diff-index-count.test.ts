@@ -10,19 +10,14 @@ import { GitArgumentError } from '../core/types.js';
 describe('diff-index final revision count', () => {
   let root: string;
   let repo: WorktreeRepo;
-  let env: NodeJS.ProcessEnv;
+  let env: Record<string, string>;
   const native = (args: string[]) => {
-    const result = spawnSync(
-      'git',
-      ['-C', root, ...args],
-      {
-        env,
-        input: '',
-        encoding: 'utf8',
-        timeout: 30_000,
-      },
-      120_000,
-    );
+    const result = spawnSync('git', ['-C', root, ...args], {
+      env,
+      input: '',
+      encoding: 'utf8',
+      timeout: 30_000,
+    });
     expect(result.error).toBeUndefined();
     expect(result.signal).toBeNull();
     return result;
@@ -39,7 +34,10 @@ describe('diff-index final revision count', () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-diff-index-count-'));
     env = {
       ...Object.fromEntries(
-        Object.entries(process.env).filter(([key]) => !key.toUpperCase().startsWith('GIT_')),
+        Object.entries(process.env).filter(
+          (entry): entry is [string, string] =>
+            entry[1] !== undefined && !entry[0].toUpperCase().startsWith('GIT_'),
+        ),
       ),
       HOME: root,
       XDG_CONFIG_HOME: root,
