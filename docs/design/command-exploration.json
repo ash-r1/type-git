@@ -29428,7 +29428,7 @@
           }
         }
       ],
-      "rules": 13,
+      "rules": 14,
       "domains": {
         "no-output": [
           "undefined",
@@ -30570,8 +30570,8 @@
         ]
       },
       "total": "222220435360701908630004171420271746274322238963525353472000000000000000000000000000000000000000000000",
-      "accepted": "496237436395601990530804376870354981062955636836079826370560000000000000000000000000000000000000000",
-      "nodes": 7940,
+      "accepted": "165412478798533996843601458956784993687651878945359942123520000000000000000000000000000000000000000",
+      "nodes": 10303,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -30585,7 +30585,8 @@
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
-        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}"
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
+        "cli.diff-index.revision-count": "{\"max-count\":-2,\"operands\":[]}"
       }
     },
     {

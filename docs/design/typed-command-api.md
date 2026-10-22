@@ -340,6 +340,8 @@ The selected Git decides whether whatchanged requires `--i-still-use-this`: Git 
 
 Revision count shorthand such as `log -3` retains its original argv word and uses checked signed-int decimal bounds on both old and new Git. Legacy `-n`/`--max-count` atoi behavior does not widen this shorthand. Later help exits and `--` boundaries still follow each command’s parser order.
 
+`diff-index` requires its final normalized `--max-count`/`-n` value to remain the default `-1`. A later `-1` can replace an earlier parsed count, while an immediate numeric overflow still fails before that replacement. Legacy atoi wrapping and native help exits retain their selected Git behavior.
+
 ### Submodule frontends and sparse checkouts
 
 Public submodule operations and all registered submodule helper operations have
