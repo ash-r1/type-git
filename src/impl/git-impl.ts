@@ -1,4 +1,7 @@
 import type {
+  CheckedDocumentationArguments,
+  DocumentationCommand,
+  DocumentationPrefix,
   CheckedCommandArguments,
   GitCommandArgument,
   GitCommandExecOpts,
@@ -598,6 +601,21 @@ export class GitImpl implements Git {
   /**
    * Execute a typed Git command with validated arguments (repository-agnostic)
    */
+  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts?: GitCommandExecOpts,
+  ): Promise<RawResult>;
+  public command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>>;
   public command<
     C extends GitCommandName,
     const A extends readonly GitCommandArgument<NoInfer<C>>[],

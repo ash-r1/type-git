@@ -1,5 +1,6 @@
 import type { GitCommandArgument } from '../../src/commands/types.js';
 import type { Git } from '../../src/core/git.js';
+import type { GitOutputMode, RawResult } from '../../src/core/types.js';
 declare const git: Git;
 // Primary Git scopes come from COMMAND_SPECS argv/executable metadata, not a handpicked list.
 git.command('hash-object', [['--help'], ['--man']]);
@@ -791,3 +792,15 @@ type RefinedLocalArguments = readonly GitCommandArgument<'add'>[] & {
 };
 declare const refinedLocalArguments: RefinedLocalArguments;
 git.command('add', refinedLocalArguments);
+
+// Documentation dispatch preserves the text/bytes result selected by the caller.
+export const documentationBytes: Promise<RawResult<Uint8Array>> = git.command(
+  'add', [['--help'], ['--help-all']], { stdout: 'bytes' },
+);
+export const documentationText: Promise<RawResult> = git.command(
+  'add', [['--help'], ['--help-all']],
+);
+declare const documentationOutputMode: GitOutputMode;
+export const documentationVariableOutput: Promise<RawResult<string | Uint8Array>> = git.command(
+  'add', [['--help'], ['--help-all']], { stdout: documentationOutputMode },
+);

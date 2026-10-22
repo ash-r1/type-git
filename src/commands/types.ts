@@ -41,7 +41,7 @@ import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
-type DocumentationCommand = {
+export type DocumentationCommand = {
   [C in GitCommandName]: Spec<C> extends { argv: readonly [string] }
     ? Spec<C> extends { executable: unknown }
       ? never
@@ -2297,6 +2297,20 @@ type CheckedDocumentationTail<
     : false
   : DocumentationTokenFits<C, A[number], Exited>;
 /** New ignored-word vocabulary must never escape into an ordinary command invocation. */
+/** A guaranteed prefix selects documentation without first expanding local option vocabularies. */
+export type DocumentationPrefix = readonly [readonly ['--help'], ...unknown[]];
+/** Apply the same documentation tail and NUL checks used by the general command checker. */
+export type CheckedDocumentationArguments<
+  C extends DocumentationCommand,
+  A extends DocumentationPrefix,
+> = ArgumentsHaveLiteralNul<A> extends true
+  ? never
+  : [A] extends [readonly [unknown, ...infer Tail]]
+    ? [CheckedDocumentationTail<C, Tail>] extends [true]
+      ? A
+      : never
+    : never;
+
 /** These finite paths validate original option shapes in CheckedLocalParserProfiles. */
 type DirectLocalCommand = {
   [C in GitCommandName]: C extends 'svn' | 'stash' | `stash ${string}`
@@ -2342,6 +2356,21 @@ export type CheckedCommandArguments<
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {
+  command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts?: GitCommandExecOpts,
+  ): Promise<RawResult>;
+  command<C extends DocumentationCommand, const A extends DocumentationPrefix>(
+    command: C,
+    args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
+    opts: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>>;
   command<C extends GitCommandName, const A extends readonly GitCommandArgument<NoInfer<C>>[]>(
     command: C,
     args: A & NoInfer<CheckedCommandArguments<C, A>>,
