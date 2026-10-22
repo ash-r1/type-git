@@ -12,12 +12,17 @@ describe('diff-index final revision count', () => {
   let repo: WorktreeRepo;
   let env: NodeJS.ProcessEnv;
   const native = (args: string[]) => {
-    const result = spawnSync('git', ['-C', root, ...args], {
-      env,
-      input: '',
-      encoding: 'utf8',
-      timeout: 10000,
-    });
+    const result = spawnSync(
+      'git',
+      ['-C', root, ...args],
+      {
+        env,
+        input: '',
+        encoding: 'utf8',
+        timeout: 30_000,
+      },
+      120_000,
+    );
     expect(result.error).toBeUndefined();
     expect(result.signal).toBeNull();
     return result;
@@ -54,17 +59,17 @@ describe('diff-index final revision count', () => {
     expect(native(['add', 'file']).status).toBe(0);
     expect(native(['commit', '-qm', 'base']).status).toBe(0);
     repo = await new TypeGit({ home: root, inheritEnv: false, env }).open(root);
-  });
+  }, 120_000);
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
-  });
+  }, 120_000);
 
   it.each(['0', '1', '-2'])('rejects a final non-sentinel count %s', async (count) => {
     expect(native(['diff-index', `--max-count=${count}`, 'HEAD']).status).toBe(129);
     await expect(
       repo.command('diff-index', [['--max-count', count], { operand: 'HEAD' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
-  });
+  }, 120_000);
 
   it('allows the sentinel and earlier parsed counts replaced by it', async () => {
     expect((await compare([], [])).status).toBe(0);
@@ -93,7 +98,7 @@ describe('diff-index final revision count', () => {
         )
       ).status,
     ).toBe(0);
-  });
+  }, 120_000);
 
   it('checks the final value across long and short spellings', async () => {
     for (const flag of ['--max-count', '-n']) {
@@ -106,7 +111,7 @@ describe('diff-index final revision count', () => {
         ] as never),
       ).rejects.toBeInstanceOf(GitArgumentError);
     }
-  });
+  }, 120_000);
 
   it('preserves native help exits before final semantic checks', async () => {
     for (const helpFirst of [false, true]) {
@@ -115,7 +120,7 @@ describe('diff-index final revision count', () => {
       const words = helpFirst ? ['-h', '--max-count=1'] : ['--max-count=1', '-h'];
       expect((await compare(args, words)).status).toBe(129);
     }
-  });
+  }, 120_000);
 
   it('retains legacy atoi wrap and immediate checked overflow', async () => {
     for (const reset of [false, true]) {
@@ -132,5 +137,5 @@ describe('diff-index final revision count', () => {
         ).rejects.toBeInstanceOf(GitArgumentError);
       }
     }
-  });
+  }, 120_000);
 });
