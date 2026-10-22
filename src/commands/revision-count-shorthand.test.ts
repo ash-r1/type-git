@@ -121,9 +121,8 @@ describe('revision count shorthand', () => {
         await cp(root, actualRoot, { recursive: true });
         const expected = native([command, count, ...suffix], nativeRoot);
         expect([0, 1, 128]).toContain(expected.status);
-        if (expected.status !== 0) {
-          expect(expected.stdout + expected.stderr).not.toBe('');
-        }
+        // Older replay can return 1 silently for an empty commit set.
+        // Preserve the exact native failure and both streams below.
         const actualRepo = await new TypeGit({ home: root, inheritEnv: false, env }).open(
           actualRoot,
         );
