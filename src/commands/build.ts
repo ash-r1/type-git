@@ -25,12 +25,17 @@ import {
 } from './gui-syntax.js';
 import {
   ARGV_STRING_CONSTRAINT,
-  GLOBAL_HELP_DISPATCH_COMMANDS,
   GLOBAL_HELP_DISPATCH_OPTIONS,
   type CommandSpec,
   type OptionSpec,
 } from './spec.js';
 import type { GitCommandName } from './types.js';
+
+// git.c rewrites first-word --help before looking up any builtin or external command.
+const documentationOptions = {
+  ...COMMAND_SPECS.help.options,
+  ...GLOBAL_HELP_DISPATCH_OPTIONS,
+};
 
 /** Select a registered child grammar after the dispatcher's permitted global options. */
 function dispatchArguments(
@@ -190,13 +195,28 @@ function buildArguments(
     throw new GitArgumentError(`Unknown Git command: ${command}`);
   }
   validateArgvStrings(args);
-  if (
-    GLOBAL_HELP_DISPATCH_COMMANDS.some((name) => name === command) &&
+  const documentationDispatch =
+    spec.argv.length === 1 &&
+    !spec.executable &&
     Array.isArray(args[0]) &&
     args[0].length === 1 &&
-    args[0][0] === '--help'
-  ) {
-    spec = { ...spec, options: { ...spec.options, ...GLOBAL_HELP_DISPATCH_OPTIONS } };
+    args[0][0] === '--help';
+  if (documentationDispatch) {
+    // Switch grammars before local dispatch, GUI parsing, or callback/profile selection.
+    // Native help modes and installation availability stay with the selected Git.
+    spec = {
+      argv: spec.argv,
+      options: documentationOptions,
+      rules: [],
+      separator: true,
+      source: 'git.c:handle_builtin; builtin/help.c',
+      parserExit: {
+        flags: ['--help'],
+        origin: 'git',
+        source: 'git.c:handle_builtin',
+        reason: 'First-word --help delegates the full tail to the native documentation parser.',
+      },
+    };
   }
   if (spec.guiScript) {
     const rootOptions = Object.assign(
@@ -209,7 +229,11 @@ function buildArguments(
     validateGuiArguments(argv, guiGrammar, guiLaunch);
     return argv;
   }
-  if (!specOverride && (command === 'svn' || command.startsWith('svn '))) {
+  if (
+    !documentationDispatch &&
+    !specOverride &&
+    (command === 'svn' || command.startsWith('svn '))
+  ) {
     const root: CommandSpec = COMMAND_SPECS.svn;
     const options: Record<string, OptionSpec> = {};
     const alternatives: Record<string, OptionSpec[]> = {};

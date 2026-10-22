@@ -10,17 +10,7 @@ export const ARGV_STRING_CONSTRAINT = {
   source: 'docs/design/typed-command-api.md#cli-string-representation',
 } as const satisfies Evidence & { id: string; forbiddenCharacter: string };
 
-/** Audited primary scopes whose first-word --help dispatches to git-help. */
-export const GLOBAL_HELP_DISPATCH_COMMANDS = [
-  'shell',
-  'filter-branch',
-  'merge-recursive',
-  'merge-recursive-ours',
-  'merge-recursive-theirs',
-  'merge-subtree',
-] as const;
-
-/** Audited builtin/help.c format/listing and parse-options usage flags after first-word --help. */
+/** Additional audited help spellings, including old listing negations and internal usage flags. */
 export const GLOBAL_HELP_DISPATCH_OPTIONS = {
   '--all': { key: 'all', value: 'flag' },
   '-a': { key: 'all', value: 'flag' },

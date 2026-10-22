@@ -35,24 +35,31 @@ import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
-import type {
-  GLOBAL_HELP_DISPATCH_COMMANDS,
-  GLOBAL_HELP_DISPATCH_OPTIONS,
-  OptionSpec,
-} from './spec.js';
+import type { GLOBAL_HELP_DISPATCH_OPTIONS, OptionSpec } from './spec.js';
 import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
 type Options<C extends GitCommandName> = Spec<C>['options'];
-type DocumentationCommand = (typeof GLOBAL_HELP_DISPATCH_COMMANDS)[number];
-type DocumentationFlag = keyof typeof GLOBAL_HELP_DISPATCH_OPTIONS;
-/** Add only the audited selectors after an exact documentation-dispatch prefix. */
-type DocumentationOptions<C extends GitCommandName, S, O> = C extends DocumentationCommand
-  ? S extends { argumentTokens: readonly [readonly ['--help'], ...unknown[]] }
-    ? O & typeof GLOBAL_HELP_DISPATCH_OPTIONS
-    : O
-  : O;
+type DocumentationCommand = {
+  [C in GitCommandName]: Spec<C> extends { argv: readonly [string] }
+    ? Spec<C> extends { executable: unknown }
+      ? never
+      : C
+    : never;
+}[GitCommandName];
+type DocumentationOptions = Omit<Options<'help'>, keyof typeof GLOBAL_HELP_DISPATCH_OPTIONS> &
+  typeof GLOBAL_HELP_DISPATCH_OPTIONS;
+type DocumentationFlag = keyof DocumentationOptions;
+/** Documentation argv has its own option shapes, independent of the original command. */
+type DocumentationArgument =
+  | {
+      [K in DocumentationFlag]: DocumentationOptions[K] extends OptionSpec
+        ? Token<K, DocumentationOptions[K], false>
+        : never;
+    }[DocumentationFlag]
+  | { readonly operand: string }
+  | readonly ['--'];
 type NumericOption<C extends GitCommandName> =
   Spec<C> extends { numericOption: infer D extends OptionSpec } ? D : never;
 type PrimitiveValue<S extends OptionSpec> = S['value'] extends 'flag' | 'boolean'
@@ -85,7 +92,6 @@ type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
             : never;
         }[keyof Options<C>]
       | { readonly operand: string }
-      | (C extends DocumentationCommand ? readonly [DocumentationFlag] : never)
       | (Spec<C>['separator'] extends false ? never : readonly ['--'])
       | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}` | `-${bigint}`])
   : never;
@@ -102,7 +108,8 @@ type DispatchTarget<C extends GitCommandName> = Extract<
 >;
 export type GitCommandArgument<C extends GitCommandName> =
   | LocalCommandArgument<C>
-  | LocalCommandArgument<DispatchTarget<C>>;
+  | LocalCommandArgument<DispatchTarget<C>>
+  | (C extends DocumentationCommand ? DocumentationArgument : never);
 export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = ExecOpts & {
   stdin?: string | Uint8Array;
   stdout?: Mode;
@@ -841,7 +848,6 @@ type ApplyToken<
   Remaining extends readonly unknown[],
   First extends boolean,
   O = Options<C>,
-  Effective = DocumentationOptions<C, S, O>,
 > = T extends readonly ['--']
   ? (
       '--end-of-options' extends keyof O
@@ -873,8 +879,8 @@ type ApplyToken<
       : never
     : ParsingEnded<C, S> extends true
       ? never
-      : T extends readonly [infer K extends keyof Effective, ...unknown[]]
-        ? Effective[K] extends infer D extends OptionSpec
+      : T extends readonly [infer K extends keyof O, ...unknown[]]
+        ? O[K] extends infer D extends OptionSpec
           ? ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : T extends readonly [infer K]
@@ -2200,26 +2206,17 @@ type CheckedSvnInputs<A extends readonly unknown[], Ctx extends CommandGrammarCo
   ? A
   : never;
 
-/** Inspect flag unions inside tokens as well as unions of entire tokens. */
-type DocumentationContextFlag<C extends GitCommandName> = C extends DocumentationCommand
-  ? Exclude<DocumentationFlag, keyof Options<C>>
-  : never;
-type DocumentationFlags<C extends GitCommandName, T> = T extends readonly [infer Flag, ...unknown[]]
-  ? Extract<Flag, DocumentationContextFlag<C>>
-  : never;
-/** Only context-dependent flags require a guaranteed prefix; local help stays valid. */
+/** Without a guaranteed prefix, dynamic arrays may contain only original local shapes. */
 type CheckedDynamicDocumentation<C extends GitCommandName, A extends readonly unknown[]> = [
-  Extract<C, DocumentationCommand>,
-] extends [never]
-  ? A
-  : [DocumentationFlags<C, A[number]>] extends [never]
+  C,
+] extends [DocumentationCommand]
+  ? [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
     ? A
-    : [A] extends [readonly [readonly ['--help'], ...unknown[]]]
-      ? A
-      : never;
+    : never
+  : A;
 
 /** Select child grammar after precisely the native dispatcher's global options. */
-export type CheckedCommandArguments<
+type CheckedCommandGrammar<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
   Ctx extends CommandGrammarContext = {},
@@ -2240,6 +2237,21 @@ export type CheckedCommandArguments<
             : [Dispatch<C>] extends [never]
               ? CheckedLocalArguments<C, A, Ctx>
               : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
+
+/** Select documentation before applying any local parser's option arities or constraints. */
+export type CheckedCommandArguments<
+  C extends GitCommandName,
+  A extends readonly GitCommandArgument<C>[],
+  Ctx extends CommandGrammarContext = {},
+> = ArgumentsHaveLiteralNul<A> extends true
+  ? never
+  : [C] extends [DocumentationCommand]
+    ? [A] extends [readonly [readonly ['--help'], ...infer Tail]]
+      ? [Tail[number]] extends [DocumentationArgument]
+        ? A
+        : never
+      : CheckedCommandGrammar<C, A, Ctx>
+    : CheckedCommandGrammar<C, A, Ctx>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {
