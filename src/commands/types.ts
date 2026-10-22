@@ -1147,15 +1147,17 @@ type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
   ...infer Rest extends readonly Constraint[],
 ]
-  ? H extends { nativeEmptyPickaxe: true }
-    ? S extends { emptyPickaxeRejected: true }
-      ? false extends RuleStateValid<S, H>
+  ? H extends { nativeWhatchangedOptIn: true }
+    ? CheckRules<S, Rest>
+    : H extends { nativeEmptyPickaxe: true }
+      ? S extends { emptyPickaxeRejected: true }
+        ? false extends RuleStateValid<S, H>
+          ? false
+          : CheckRules<S, Rest>
+        : CheckRules<S, Rest>
+      : false extends RuleStateValid<S, H>
         ? false
         : CheckRules<S, Rest>
-      : CheckRules<S, Rest>
-    : false extends RuleStateValid<S, H>
-      ? false
-      : CheckRules<S, Rest>
   : true;
 type CheckedLegacyIntegerArguments<
   C extends GitCommandName,

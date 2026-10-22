@@ -25,7 +25,7 @@ git.command('rev-parse --parseopt', []);
 git.command('rev-parse --sq-quote', [{ operand: '--help' }]);
 git.command('pickaxe', [{ operand: 'tracked' }]);
 git.command('whatchanged', [['--i-still-use-this']]);
-// @ts-expect-error Git 2.55 requires opt-in to this deprecated command.
+// Older selected Git permits this without opt-in; newer Git returns its deprecation diagnostic.
 git.command('whatchanged', []);
 // @ts-expect-error Group names use case-sensitive trailer/format prefixes.
 git.command('shortlog', [['--group', 'TRAILER:Reviewed-by']]);

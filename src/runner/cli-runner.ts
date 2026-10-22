@@ -705,7 +705,19 @@ export class CliRunner {
         name,
         tokens,
         repository,
-        filename ? { longBits: 64, sizeTBits: 64, ...selectedAbi, ...filename } : selectedAbi,
+        command === 'whatchanged'
+          ? {
+              longBits: nativeCLongBits(process.platform, process.arch),
+              sizeTBits: nativeSizeTBits(process.arch),
+              ...selectedAbi,
+              ...filename,
+              // Older Git permits this spelling; preserve the selected executable's
+              // deprecation/opt-in diagnosis instead of imposing the pinned schema.
+              whatchangedOptInRequired: false,
+            }
+          : filename
+            ? { longBits: 64, sizeTBits: 64, ...selectedAbi, ...filename }
+            : selectedAbi,
         grammar,
         launch,
       );

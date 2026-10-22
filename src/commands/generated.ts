@@ -34210,6 +34210,23 @@ const commandSpec68 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -36657,6 +36674,23 @@ const commandSpec69 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -39042,6 +39076,23 @@ const commandSpec70 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -40985,6 +41036,23 @@ const commandSpec71 = {
       key: 'silent-removed',
       value: 'flag',
     },
+  },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
   },
   rules: [
     {
@@ -44826,6 +44894,23 @@ const commandSpec73 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -47991,6 +48076,23 @@ const commandSpec81 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -50418,6 +50520,23 @@ const commandSpec82 = {
       key: 'help',
       value: 'flag',
     },
+  },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
   },
   rules: [
     {
@@ -58093,6 +58212,23 @@ const commandSpec85 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -62213,6 +62349,23 @@ const commandSpec86 = {
       key: 'help',
       value: 'flag',
     },
+  },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
   },
   rules: [
     {
@@ -78226,6 +78379,23 @@ const commandSpec184 = {
       allowed: ['human'],
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -81616,6 +81786,23 @@ const commandSpec194 = {
       set: false,
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -83629,6 +83816,23 @@ const commandSpec195 = {
       value: 'flag',
       set: false,
     },
+  },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
   },
   rules: [
     {
@@ -87397,6 +87601,23 @@ const commandSpec198 = {
       set: false,
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -89595,6 +89816,23 @@ const commandSpec199 = {
       clear: true,
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -91735,6 +91973,23 @@ const commandSpec200 = {
       value: 'flag',
       clear: true,
     },
+  },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
   },
   rules: [
     {
@@ -94838,6 +95093,23 @@ const commandSpec202 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -97700,6 +97972,23 @@ const commandSpec204 = {
       clear: true,
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -99807,6 +100096,23 @@ const commandSpec205 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -100078,8 +100384,10 @@ const commandSpec205 = {
         },
       ],
       origin: 'git',
-      reason: 'Git 2.55 requires its explicit opt-in to run this deprecated command.',
+      reason:
+        'Git 2.55 requires explicit opt-in; earlier selected Git executables permit this command without it.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/log.c',
+      nativeWhatchangedOptIn: true,
     },
   ],
   source: 'builtin/log.c; revision.c; diff.c; diff-merges.c',
@@ -102176,6 +102484,23 @@ const commandSpec206 = {
       repeat: true,
       clear: true,
     },
+  },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
   },
   rules: [
     {
@@ -110096,6 +110421,23 @@ const commandSpec275 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -117727,6 +118069,23 @@ const commandSpec306 = {
       value: 'flag',
     },
   },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
+  },
   rules: [
     {
       id: 'diff.output-formats',
@@ -123601,6 +123960,23 @@ const commandSpec309 = {
       append: ['refs/stash', '--'],
       exitStatus: 'boolean',
     },
+  },
+  numericOption: {
+    key: 'max-count',
+    value: 'integer',
+    parser: {
+      kind: 'decimal',
+      longBits: 64,
+      bits: 32,
+      signed: true,
+      conversion: 'checked',
+    },
+    effects: [
+      {
+        key: 'no-walk',
+        set: false,
+      },
+    ],
   },
 } as const satisfies CommandSpec;
 const commandSpec310 = {

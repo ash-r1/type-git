@@ -335,8 +335,10 @@ Rev-parse models its native query value enums and separate-value options.
 `rev-parse --parseopt` and `rev-parse --sq-quote` have distinct argument schemas
 because Git dispatches them only as the first command argument. Normal rev-parse
 still needs phase-aware modeling of unknown flags, file detection, hidden refs
-and resolved revision counts. Pickaxe retains blame grammar; Git 2.55's
-whatchanged requires the native `--i-still-use-this` opt-in.
+and resolved revision counts. Pickaxe retains blame grammar.
+The selected Git decides whether whatchanged requires `--i-still-use-this`: Git 2.55 requires it, while older Git permits the command without it. The public runner preserves that executable’s exit code and diagnostic.
+
+Revision count shorthand such as `log -3` retains its original argv word and uses checked signed-int decimal bounds on both old and new Git. Legacy `-n`/`--max-count` atoi behavior does not widen this shorthand. Later help exits and `--` boundaries still follow each command’s parser order.
 
 ### Submodule frontends and sparse checkouts
 
