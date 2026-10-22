@@ -140,14 +140,45 @@ export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = ExecOpts &
 
 type OptionKeys<D> = D extends { key: infer K extends string } ? K : never;
 type EffectKeys<D> = D extends { effects: readonly { key: infer K extends string }[] } ? K : never;
-// Initial state needs only the keys. Expanding every option's value language here
-// constructs unions that are immediately discarded and grows with the catalogue.
+/** Only state keys observed by constraints or conditional effects need an unset entry. */
+type ReferencedStateKeys<T> = T extends readonly unknown[]
+  ? ReferencedStateKeys<T[number]>
+  :
+      | (T extends { key: infer K extends string } ? K : never)
+      | (T extends { valueKey: infer K extends string } ? K : never)
+      | (T extends { keys: readonly (infer K extends string)[] } ? K : never)
+      | {
+          [K in Extract<
+            keyof T,
+            'guard' | 'when' | 'required' | 'choices' | 'others' | 'groups' | 'all'
+          >]: ReferencedStateKeys<T[K]>;
+        }[Extract<
+          keyof T,
+          'guard' | 'when' | 'required' | 'choices' | 'others' | 'groups' | 'all'
+        >];
+type OptionReadKeys<D> = D extends unknown
+  ?
+      | (D extends { effects: infer E } ? ReferencedStateKeys<E> : never)
+      | (D extends { checks: infer R } ? ReferencedStateKeys<R> : never)
+      // An empty repeat occurrence retains undefined before the first value.
+      | (D extends { skipEmpty: true } ? OptionKeys<D> : never)
+  : never;
+type DeclaredStateKeys<C extends GitCommandName> =
+  | OptionKeys<Options<C>[keyof Options<C>]>
+  | EffectKeys<Options<C>[keyof Options<C>]>
+  | OptionKeys<NumericOption<C>>
+  | EffectKeys<NumericOption<C>>;
+/** Include both parser passes when deciding whether an unset or temporary key can be read. */
+type ReadStateKeys<C extends GitCommandName> =
+  | ReferencedStateKeys<Spec<C>['rules']>
+  | OptionReadKeys<
+      | Options<C>[keyof Options<C>]
+      | NumericOption<C>
+      | RemainingOptions<C>[keyof RemainingOptions<C>]
+    >;
 type Empty<C extends GitCommandName> = {
   [K in
-    | OptionKeys<Options<C>[keyof Options<C>]>
-    | EffectKeys<Options<C>[keyof Options<C>]>
-    | OptionKeys<NumericOption<C>>
-    | EffectKeys<NumericOption<C>>
+    | Extract<DeclaredStateKeys<C>, ReadStateKeys<C>>
     | 'argumentTokens'
     | 'hasSeparator'
     | 'operand0'
@@ -935,7 +966,20 @@ type State<
         ? ParsingEnded<C, S> extends true
           ? never
           : Put<S, 'parserExited', true>
-        : State<C, Rest, ApplyToken<C, Put<S, '$remaining', Rest>, H, Rest, First, O>, false, O>
+        : State<
+            C,
+            Rest,
+            ApplyToken<
+              C,
+              '$remaining' extends ReadStateKeys<C> ? Put<S, '$remaining', Rest> : S,
+              H,
+              Rest,
+              First,
+              O
+            >,
+            false,
+            O
+          >
       : S;
 /** A bad reached callback stays invalid even when another input-union arm exits. */
 type InvalidPass = { invalidParserPass: true };

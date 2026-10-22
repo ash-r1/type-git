@@ -1,4 +1,4 @@
-import type { GitCommandArgument } from '../../src/commands/types.js';
+import type { CheckedCommandArguments, GitCommandArgument } from '../../src/commands/types.js';
 import type { Git } from '../../src/core/git.js';
 import type { GitOutputMode, RawResult } from '../../src/core/types.js';
 declare const git: Git;
@@ -814,3 +814,15 @@ export const legacyRecursiveTheirsManualArgument: GitCommandArgument<'merge-recu
 export const legacySubtreeManualArgument: GitCommandArgument<'merge-subtree'> = ['--man'];
 // @ts-expect-error New documentation vocabulary does not widen an ordinary log token array.
 export const ordinaryLogManualArgument: GitCommandArgument<'log'> = ['--man'];
+
+// Ordinary command shape checks must reject every invalid input-union arm.
+type RequireLocalShape<T extends true> = T;
+export type InvalidLocalTupleUnion = RequireLocalShape<
+  [CheckedCommandArguments<'status', readonly [readonly ['--short']] | readonly [readonly ['--short', true]]>] extends [never] ? true : false
+>;
+export type InvalidLocalFlagUnion = RequireLocalShape<
+  [CheckedCommandArguments<'status', readonly [readonly ['--short' | '--not-a-status-option']]>] extends [never] ? true : false
+>;
+export type ValidLocalTupleUnion = RequireLocalShape<
+  [CheckedCommandArguments<'status', readonly [readonly ['--short']] | readonly [readonly ['--branch']]>] extends [never] ? false : true
+>;
