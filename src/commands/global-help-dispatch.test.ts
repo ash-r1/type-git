@@ -91,6 +91,23 @@ describe('global first-word documentation dispatch', () => {
     }
   }, 120_000);
 
+  it('rejects refs child options before the documentation parser exits', async () => {
+    const native = spawnSync('git', ['-C', repo.workdir, 'refs', '--help', 'list', '--count=bad'], {
+      env,
+      encoding: 'utf8',
+      input: '',
+      timeout: 10000,
+    });
+    expect(native.error).toBeUndefined();
+    expect(native.signal).toBeNull();
+    expect(native.status).toBe(129);
+    expect(native.stderr).toContain('unknown option');
+    expect(native.stderr).toContain('count=bad');
+    const args = [['--help'], { operand: 'list' }, ['--count', 'bad']];
+    expect(() => commandArguments('refs', args)).toThrow('unknown option --count');
+    await expect(repo.command('refs', args as never)).rejects.toThrow(GitArgumentError);
+  });
+
   it.each([
     ['commit', [['--help'], ['-h'], ['--unknown']], ['--help', '-h', '--unknown']],
     [
@@ -100,6 +117,11 @@ describe('global first-word documentation dispatch', () => {
     ],
     ['remote', [['--help'], ['-h'], ['--track', 'topic']], ['--help', '-h', '--track', 'topic']],
     ['log', [['--help'], ['-h'], ['-3']], ['--help', '-h', '-3']],
+    [
+      'refs',
+      [['--help'], ['-h'], { operand: 'list' }, ['--count', 'bad']],
+      ['--help', '-h', 'list', '--count=bad'],
+    ],
     ['switch', [['--help'], ['-h'], ['--conflict', 'bad']], ['--help', '-h', '--conflict=bad']],
     [
       'switch',
