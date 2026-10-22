@@ -25,8 +25,8 @@ import {
 } from './gui-syntax.js';
 import {
   ARGV_STRING_CONSTRAINT,
-  GLOBAL_HELP_MAN_COMMANDS,
-  GLOBAL_HELP_MAN_OPTIONS,
+  GLOBAL_HELP_DISPATCH_COMMANDS,
+  GLOBAL_HELP_DISPATCH_OPTIONS,
   type CommandSpec,
   type OptionSpec,
 } from './spec.js';
@@ -191,12 +191,12 @@ function buildArguments(
   }
   validateArgvStrings(args);
   if (
-    GLOBAL_HELP_MAN_COMMANDS.some((name) => name === command) &&
+    GLOBAL_HELP_DISPATCH_COMMANDS.some((name) => name === command) &&
     Array.isArray(args[0]) &&
     args[0].length === 1 &&
     args[0][0] === '--help'
   ) {
-    spec = { ...spec, options: { ...spec.options, ...GLOBAL_HELP_MAN_OPTIONS } };
+    spec = { ...spec, options: { ...spec.options, ...GLOBAL_HELP_DISPATCH_OPTIONS } };
   }
   if (spec.guiScript) {
     const rootOptions = Object.assign(

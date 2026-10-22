@@ -120,3 +120,42 @@ declare const ordinaryShellArray: readonly (readonly ['-c', string])[];
 git.command('shell', ordinaryShellArray);
 declare const ordinaryHelpArray: readonly (readonly ['--help'])[];
 git.command('shell', ordinaryHelpArray);
+
+
+// Usage selectors belong to git-help after its exact first-word dispatcher.
+git.command('shell', [['--help'], ['-h']]);
+git.command('shell', [['--help'], ['--help-all']]);
+git.command('filter-branch', [['--help'], ['--help-all']]);
+git.command('merge-recursive', [['--help'], ['-h']]);
+declare const usageSelector: '-h' | '--help-all';
+git.command('shell', [['--help'], [usageSelector]]);
+// @ts-expect-error This help spelling is not a local shell option.
+git.command('shell', [['--help-all']]);
+// @ts-expect-error It is not a local filter-branch option either.
+git.command('filter-branch', [['--help-all']]);
+// @ts-expect-error Usage selectors cannot carry values.
+git.command('shell', [['--help'], ['-h', true]]);
+// @ts-expect-error Usage selectors cannot bypass the argv string boundary.
+git.command('shell', [['--help'], ['--help-all'], { operand: 'a\0b' }]);
+declare const unprefixedUsageArray: readonly (readonly ['-h' | '--help-all'])[];
+// @ts-expect-error Neither new shell flag establishes the documentation prefix.
+git.command('shell', unprefixedUsageArray);
+declare const unprefixedFilterBranchHelpAll: readonly (readonly ['--help-all'])[];
+// @ts-expect-error Unlike -h, --help-all needs documentation dispatch here.
+git.command('filter-branch', unprefixedFilterBranchHelpAll);
+declare const mixedUsageArray: readonly (readonly ['--help'] | readonly ['-h'])[];
+// @ts-expect-error An array of possible help flags does not guarantee first-word --help.
+git.command('shell', mixedUsageArray);
+declare const mixedUsageWord: readonly (readonly ['--help' | '--help-all'])[];
+// @ts-expect-error A union inside one token must not hide a context-only flag.
+git.command('shell', mixedUsageWord);
+declare const prefixedUsageArray: readonly [readonly ['--help'], ...(readonly ['-h' | '--help-all' | '--man' | '-m' | '--no-man'])[]];
+git.command('shell', prefixedUsageArray);
+// Existing local help arrays must remain accepted without documentation dispatch.
+declare const localFilterBranchHelp: readonly (readonly ['-h'])[];
+git.command('filter-branch', localFilterBranchHelp);
+declare const localMergeHelp: readonly (readonly ['-h' | '--help-all'])[];
+git.command('merge-recursive', localMergeHelp);
+git.command('merge-recursive-ours', localMergeHelp);
+git.command('merge-recursive-theirs', localMergeHelp);
+git.command('merge-subtree', localMergeHelp);

@@ -11,7 +11,7 @@ export const ARGV_STRING_CONSTRAINT = {
 } as const satisfies Evidence & { id: string; forbiddenCharacter: string };
 
 /** Audited primary scopes whose first-word --help dispatches to git-help. */
-export const GLOBAL_HELP_MAN_COMMANDS = [
+export const GLOBAL_HELP_DISPATCH_COMMANDS = [
   'shell',
   'filter-branch',
   'merge-recursive',
@@ -20,8 +20,10 @@ export const GLOBAL_HELP_MAN_COMMANDS = [
   'merge-subtree',
 ] as const;
 
-/** builtin/help.c format flags, scoped to first-word documentation dispatch. */
-export const GLOBAL_HELP_MAN_OPTIONS = {
+/** Audited builtin/help.c format and parse-options usage flags after first-word --help. */
+export const GLOBAL_HELP_DISPATCH_OPTIONS = {
+  '-h': { key: 'help', value: 'flag' },
+  '--help-all': { key: 'help', value: 'flag' },
   '--man': { key: 'format', value: 'flag', set: 'man' },
   '-m': { key: 'format', value: 'flag', set: 'man' },
   '--no-man': { key: 'format', value: 'flag', set: false },
