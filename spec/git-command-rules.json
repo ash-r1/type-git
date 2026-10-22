@@ -7374,7 +7374,19 @@
   ],
   "diff": [],
   "diff-files": [],
-  "diff-index": [],
+  "diff-index": [
+    {
+      "id": "cli.diff-index.revision-count",
+      "kind": "value",
+      "key": "max-count",
+      "allowed": [
+        -1
+      ],
+      "origin": "git",
+      "reason": "diff-index permits only the default final revision count sentinel; earlier parsed counts may be replaced by a later -1.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/diff-index.c#L69-L71"
+    }
+  ],
   "diff-tree": [
     {
       "id": "revision.tree-stdin-base",
