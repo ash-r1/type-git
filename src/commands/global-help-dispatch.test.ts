@@ -91,6 +91,54 @@ describe('global first-word documentation dispatch', () => {
     }
   });
 
+  it.each([
+    ['commit', [['--help'], ['-h'], ['--unknown']], ['--help', '-h', '--unknown']],
+    [
+      'commit',
+      [['--help'], ['--help-all'], ['--unknown', 'value']],
+      ['--help', '--help-all', '--unknown', 'value'],
+    ],
+    ['remote', [['--help'], ['-h'], ['--track', 'topic']], ['--help', '-h', '--track', 'topic']],
+    ['log', [['--help'], ['-h'], ['-3']], ['--help', '-h', '-3']],
+    ['switch', [['--help'], ['-h'], ['--conflict', 'bad']], ['--help', '-h', '--conflict=bad']],
+    [
+      'switch',
+      [['--help'], ['--help'], ['--conflict', 'bad']],
+      ['--help', '--help', '--conflict=bad'],
+    ],
+    ['commit', [['--help'], ['-h'], ['-m', 'message']], ['--help', '-h', '-m', 'message']],
+    [
+      'commit',
+      [['--help'], ['--help-all'], ['-m', 'message']],
+      ['--help', '--help-all', '-m', 'message'],
+    ],
+    ['branch', [['--help'], ['-h'], ['--color', 'invalid']], ['--help', '-h', '--color=invalid']],
+    ['commit', [['--help'], ['--'], ['-m', 'message']], ['--help', '--', '-m', 'message']],
+    [
+      'commit',
+      [['--help'], { operand: '-h' }, ['-m', 'message']],
+      ['--help', '-h', '-m', 'message'],
+    ],
+  ] as const)('preserves ignored local shapes after documentation parsing ends for %s', async (command, args, words) => {
+    const native = spawnSync('git', ['-C', repo.workdir, command, ...words], {
+      env,
+      encoding: 'utf8',
+      input: '',
+      timeout: 10000,
+    });
+    expect(native.error).toBeUndefined();
+    expect(native.signal).toBeNull();
+    expect([0, 129]).toContain(native.status);
+    expect(native.stdout + native.stderr).toContain(
+      words.some((word) => word === '--') ? 'native-doc-viewer' : 'usage: git help',
+    );
+    const actual = await repo.command(command, args as never);
+    expect(actual.exitCode).toBe(native.status);
+    expect(actual.stdout).toBe(native.stdout);
+    expect(actual.stderr).toBe(native.stderr);
+    expect(commandArguments(command, args)).toEqual([command, ...words]);
+  });
+
   it('keeps local value shapes, child grammars and companion programs separate', () => {
     expect(commandArguments('commit', [['-m', 'message']])).toEqual(['commit', '-m', 'message']);
     for (const [command, args] of [

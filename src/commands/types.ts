@@ -106,10 +106,27 @@ type DispatchTarget<C extends GitCommandName> = Extract<
   Dispatch<C>[keyof Dispatch<C>],
   GitCommandName
 >;
+/** Only finite allowed-value vocabularies need widening when a native exit ignores values. */
+type IgnoredAllowedArguments<C extends GitCommandName> = C extends GitCommandName
+  ? Spec<C> extends { parserExit: unknown }
+    ? never
+    : {
+        [K in keyof Options<C>]: Options<C>[K] extends OptionSpec & { allowed: readonly unknown[] }
+          ? Token<K, Options<C>[K], true>
+          : never;
+      }[keyof Options<C>]
+  : never;
+type RawIgnoredDocumentationArgument = readonly [`-${string}`] | readonly [`-${string}`, string];
 export type GitCommandArgument<C extends GitCommandName> =
   | LocalCommandArgument<C>
   | LocalCommandArgument<DispatchTarget<C>>
-  | (C extends DocumentationCommand ? DocumentationArgument : never);
+  | (C extends DocumentationCommand
+      ?
+          | DocumentationArgument
+          | RawIgnoredDocumentationArgument
+          | IgnoredAllowedArguments<C>
+          | IgnoredAllowedArguments<DispatchTarget<C>>
+      : never);
 export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = ExecOpts & {
   stdin?: string | Uint8Array;
   stdout?: Mode;
@@ -2238,6 +2255,65 @@ type CheckedCommandGrammar<
               ? CheckedLocalArguments<C, A, Ctx>
               : CheckedDispatchedArguments<C, A, A, readonly [], Ctx>;
 
+/** Native help exits before later words; a union must guarantee the exit in every arm. */
+type DocumentationExitToken =
+  | readonly ['-h' | '--help' | '--help-all' | '--']
+  | { readonly operand: '-h' | '--help' | '--help-all' | '--' };
+type DocumentationIgnoredArgument<C extends GitCommandName> =
+  | DocumentationArgument
+  | LocalCommandArgument<C>
+  | LocalCommandArgument<DispatchTarget<C>>
+  | IgnoredAllowedArguments<C>
+  | IgnoredAllowedArguments<DispatchTarget<C>>;
+type LocalOptionFlag<C extends GitCommandName> = C extends GitCommandName
+  ? keyof Options<C>
+  : never;
+/** Distribute flag unions but require every resulting shape to be valid. */
+type CheckedIgnoredDocumentationToken<C extends GitCommandName, T> = T extends readonly [
+  infer Flag extends string,
+  ...infer Values,
+]
+  ? Flag extends DocumentationFlag | LocalOptionFlag<C> | LocalOptionFlag<DispatchTarget<C>>
+    ? [readonly [Flag, ...Values]] extends [DocumentationIgnoredArgument<C>]
+      ? true
+      : false
+    : [readonly [Flag, ...Values]] extends [RawIgnoredDocumentationArgument]
+      ? true
+      : false
+  : [T] extends [{ readonly operand: string }]
+    ? true
+    : false;
+type DocumentationTokenFits<
+  C extends GitCommandName,
+  T,
+  Exited extends boolean,
+> = Exited extends true
+  ? CheckedIgnoredDocumentationToken<C, T>
+  : [T] extends [DocumentationArgument]
+    ? true
+    : false;
+type CheckedDocumentationTail<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Exited extends boolean = false,
+> = A extends readonly [infer H, ...infer R]
+  ? [DocumentationTokenFits<C, H, Exited>] extends [true]
+    ? CheckedDocumentationTail<
+        C,
+        R,
+        Exited extends true ? true : [H] extends [DocumentationExitToken] ? true : false
+      >
+    : false
+  : DocumentationTokenFits<C, A[number], Exited>;
+/** New ignored-word vocabulary must never escape into an ordinary command invocation. */
+type CheckedOriginalCommandGrammar<
+  C extends GitCommandName,
+  A extends readonly GitCommandArgument<C>[],
+  Ctx extends CommandGrammarContext,
+> = [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
+  ? CheckedCommandGrammar<C, A, Ctx>
+  : never;
+
 /** Select documentation before applying any local parser's option arities or constraints. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
@@ -2247,11 +2323,11 @@ export type CheckedCommandArguments<
   ? never
   : [C] extends [DocumentationCommand]
     ? [A] extends [readonly [readonly ['--help'], ...infer Tail]]
-      ? [Tail[number]] extends [DocumentationArgument]
+      ? [CheckedDocumentationTail<C, Tail>] extends [true]
         ? A
         : never
-      : CheckedCommandGrammar<C, A, Ctx>
-    : CheckedCommandGrammar<C, A, Ctx>;
+      : CheckedOriginalCommandGrammar<C, A, Ctx>
+    : CheckedOriginalCommandGrammar<C, A, Ctx>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {

@@ -730,3 +730,43 @@ declare const mixedDocumentationWords: readonly (readonly ['--help' | '--man'])[
 // @ts-expect-error A flag union inside a token does not prove the prefix either.
 git.command('add', mixedDocumentationWords);
 
+
+// A terminal usage flag or end marker makes subsequent recognized local shapes inert.
+git.command('switch', [['--help'], ['-h'], ['--conflict', 'bad']]);
+git.command('switch', [['--help'], ['--help'], ['--conflict', 'bad']]);
+git.command('commit', [['--help'], ['-h'], ['-m', 'message']]);
+git.command('commit', [['--help'], ['--help-all'], ['-m', 'message']]);
+git.command('branch', [['--help'], ['-h'], ['--color', 'invalid']]);
+git.command('commit', [['--help'], ['--'], ['-m', 'message']]);
+git.command('commit', [['--help'], { operand: '-h' }, ['-m', 'message']]);
+declare const ignoredCommitMessages: readonly [readonly ['--help'], readonly ['-h'], ...(readonly ['-m', string])[]];
+git.command('commit', ignoredCommitMessages);
+declare const ignoredConflictValues: readonly [readonly ['--help'], readonly ['--help-all'], ...(readonly ['--conflict', string])[]];
+git.command('switch', ignoredConflictValues);
+declare const uncertainExit: '-h' | '--man';
+// @ts-expect-error A possible --man does not exit before a local message-shaped -m.
+git.command('commit', [['--help'], [uncertainExit], ['-m', 'message']]);
+git.command('commit', [['--help'], ['-h'], ['--unknown']]);
+// @ts-expect-error Ignored words still cannot contain NUL.
+git.command('commit', [['--help'], ['-h'], ['-m', 'a\0b']]);
+// @ts-expect-error A string option still cannot carry a numeric value after usage exit.
+git.command('commit', [['--help'], ['-h'], ['-m', 7]]);
+
+git.command('remote', [['--help'], ['-h'], ['--track', 'topic']]);
+git.command('log', [['--help'], ['-h'], ['-3']]);
+// @ts-expect-error Numeric local options are not known to an active documentation parser.
+git.command('log', [['--help'], ['-3']]);
+
+git.command('commit', [['--help'], ['--help-all'], ['--unknown', 'value']]);
+// @ts-expect-error Raw unknown options stay outside the active documentation grammar.
+git.command('commit', [['--help'], ['--unknown', 'value']]);
+// @ts-expect-error Raw ignored words cannot leak into ordinary command calls.
+git.command('commit', [['--unknown', 'value']]);
+// @ts-expect-error An unknown option has no declared numeric value shorthand.
+git.command('commit', [['--help'], ['-h'], ['--unknown', 7]]);
+declare const ignoredColorOrUnknown: '--color' | '--unknown';
+git.command('branch', [['--help'], ['-h'], [ignoredColorOrUnknown, 'invalid']]);
+// @ts-expect-error Neither the known string option nor a raw unknown word takes a number.
+git.command('branch', [['--help'], ['-h'], [ignoredColorOrUnknown, 7]]);
+
+git.command('clone', [['--help'], ['--help-all'], ['--depth', 'bad']]);
