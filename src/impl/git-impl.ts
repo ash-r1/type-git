@@ -622,12 +622,9 @@ export class GitImpl implements Git {
     args: A & NoInfer<CheckedCommandArguments<C, A>>,
     opts: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
-  public async command<
-    C extends GitCommandName,
-    const A extends readonly GitCommandArgument<NoInfer<C>>[],
-  >(
-    command: C,
-    args: A & NoInfer<CheckedCommandArguments<C, A>>,
+  public async command(
+    command: GitCommandName,
+    args: readonly unknown[],
     opts?: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>> {
     return await this.runner.runCommand({ type: 'global' }, command, args, undefined, opts);
