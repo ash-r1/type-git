@@ -4,6 +4,7 @@ import { integerState } from './git-integer.js';
 /** Revision age uses uintmax seconds; old Git first converts an atoi signed int. */
 export type GitTimestampParser = {
   kind: 'timestamp';
+  nativeCallback?: 'revision-age';
   conversion: 'checked' | 'atoi';
   longBits: 32 | 64;
 };

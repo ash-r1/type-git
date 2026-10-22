@@ -4,6 +4,7 @@ import { integerState } from './git-integer.js';
 export type GitDecimalCallback =
   | 'unified-context'
   | 'revision-count'
+  | 'revision-age'
   | 'strip-count'
   | 'daemon-count'
   | 'daemon-timeout'
@@ -14,6 +15,7 @@ export type GitDecimalCallbacks = Partial<Record<GitDecimalCallback, 'modern' | 
 export const DECIMAL_CALLBACK_PROBES: Record<GitDecimalCallback, readonly string[]> = {
   'unified-context': ['diff', '--no-index', '--unified=-1', '-h'],
   'revision-count': ['rev-list', '--max-count=1k', '-h'],
+  'revision-age': ['rev-list', '--max-age=invalid', '-h'],
   'strip-count': ['apply', '-p', '1k', '-h'],
   'daemon-count': ['daemon', '--max-connections=1k', '-h'],
   'daemon-timeout': ['daemon', '--timeout=1k', '-h'],
@@ -27,6 +29,7 @@ export function decimalCallbackFamily(
 ): 'modern' | 'legacy' | undefined {
   const strict = {
     'unified-context': /expects a non-negative integer/,
+    'revision-age': /not a number of seconds since epoch/,
     'revision-count': /not an integer/,
     'strip-count': /option -p expects a non-negative integer/,
     'daemon-count': /invalid max-connections .*expecting an integer/,
@@ -61,7 +64,7 @@ export type GitDecimalParser = {
   unsignedLong?: true;
   /** Some C runtimes negate a saturated unsigned result for negative overflow. */
   negateUnsignedOverflow?: true;
-  nativeCallback?: GitDecimalCallback;
+  nativeCallback?: Exclude<GitDecimalCallback, 'revision-age'>;
   clampNegativeToZero?: true;
   rejectMinus?: true;
   empty?: true;

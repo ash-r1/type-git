@@ -1213,7 +1213,7 @@ export function commandDecimalCallbacks(
         : undefined;
     if (
       typeof option?.parser === 'object' &&
-      option.parser.kind === 'decimal' &&
+      (option.parser.kind === 'decimal' || option.parser.kind === 'timestamp') &&
       option.parser.nativeCallback
     ) {
       callbacks.add(option.parser.nativeCallback);
@@ -1238,7 +1238,10 @@ export function commandUsesDecimalCallback(
       return false;
     }
     const option = Object.hasOwn(spec.options, arg[0]) ? spec.options[arg[0]] : spec.numericOption;
-    return typeof option?.parser === 'object' && option.parser.kind === 'decimal';
+    return (
+      typeof option?.parser === 'object' &&
+      (option.parser.kind === 'decimal' || option.parser.kind === 'timestamp')
+    );
   });
 }
 

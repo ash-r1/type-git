@@ -1,36 +1,39 @@
-import { type FastImportUnsignedParser, validFastImportUnsigned } from './fast-import-unsigned.js';
-import {
-  isStringCallback,
-  type StringCallbackParser,
-  parseStringCallback,
-} from './string-callback.js';
 import { asciiLower } from './ascii.js';
 import { validCompoundDecimal } from './compound-decimal.js';
+import { type FastImportUnsignedParser, validFastImportUnsigned } from './fast-import-unsigned.js';
 import {
   type GitBooleanCallback,
-  type GitBooleanSource,
   type GitBooleanCapabilities,
+  type GitBooleanSource,
   gitBoolean,
   isBooleanCallback,
   parseBooleanCallback,
 } from './git-boolean.js';
+import {
+  isStringCallback,
+  parseStringCallback,
+  type StringCallbackParser,
+} from './string-callback.js';
+
 export { asciiLower } from './ascii.js';
 export { gitBoolean } from './git-boolean.js';
+
+import process from 'node:process';
+import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
 import {
-  type GitDecimalParser,
   type GitDecimalCallbacks,
+  type GitDecimalParser,
   parseGitDecimal,
   selectedGitDecimal,
 } from './git-decimal.js';
 import {
   type GitIntegerParser,
+  type GitIntegerProfile,
   integerState,
   parseGitInteger,
   parseLegacyGitInteger,
-  type GitIntegerProfile,
 } from './git-integer.js';
-import process from 'node:process';
-import { nativeCLongBits, nativeSizeTBits } from './c-abi.js';
+import { type GitTimestampParser, parseGitTimestamp } from './git-timestamp.js';
 import { validObjectFilter } from './object-filter.js';
 
 /** Unicode integer tables belong to the selected Python interpreter. */
@@ -88,6 +91,7 @@ export type GitScalarParser =
   | FastImportUnsignedParser
   | GitBooleanCallback
   | GitDecimalParser
+  | GitTimestampParser
   | GitIntegerParser
   | 'python-int'
   | 'perl-int'
@@ -141,6 +145,13 @@ export function parseGitScalar(
   compoundNegatedOverflow = false,
   depthAtoiBits: 32 | 64 = 64,
 ): { valid: boolean; value?: unknown } {
+  if (typeof parser === 'object' && parser.kind === 'timestamp') {
+    return parseGitTimestamp(value, {
+      ...parser,
+      longBits: cLongBits,
+      conversion: decimalCallbacks?.['revision-age'] === 'legacy' ? 'atoi' : parser.conversion,
+    });
+  }
   if (typeof parser === 'object' && parser.kind === 'decimal') {
     return parseGitDecimal(
       value,

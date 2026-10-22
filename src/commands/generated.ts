@@ -1152,7 +1152,13 @@ const remainingOptions1 = {
   },
   '--max-age': {
     key: 'max-age',
-    value: 'string',
+    value: 'integer',
+    parser: {
+      kind: 'timestamp',
+      conversion: 'checked',
+      longBits: 64,
+      nativeCallback: 'revision-age',
+    },
   },
   '--max-count': {
     key: 'max-count',
@@ -1279,7 +1285,13 @@ const remainingOptions1 = {
   },
   '--min-age': {
     key: 'min-age',
-    value: 'string',
+    value: 'integer',
+    parser: {
+      kind: 'timestamp',
+      conversion: 'checked',
+      longBits: 64,
+      nativeCallback: 'revision-age',
+    },
   },
   '--min-parents': {
     key: 'min-parents',
@@ -3799,7 +3811,13 @@ const remainingOptions2 = {
   },
   '--max-age': {
     key: 'max-age',
-    value: 'string',
+    value: 'integer',
+    parser: {
+      kind: 'timestamp',
+      conversion: 'checked',
+      longBits: 64,
+      nativeCallback: 'revision-age',
+    },
     effects: [
       {
         key: 'revision-argument',
@@ -3964,7 +3982,13 @@ const remainingOptions2 = {
   },
   '--min-age': {
     key: 'min-age',
-    value: 'string',
+    value: 'integer',
+    parser: {
+      kind: 'timestamp',
+      conversion: 'checked',
+      longBits: 64,
+      nativeCallback: 'revision-age',
+    },
     effects: [
       {
         key: 'revision-argument',
@@ -33662,7 +33686,13 @@ const commandSpec68 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -33789,7 +33819,13 @@ const commandSpec68 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -36126,7 +36162,13 @@ const commandSpec69 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -36253,7 +36295,13 @@ const commandSpec69 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -38505,7 +38553,13 @@ const commandSpec70 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -38632,7 +38686,13 @@ const commandSpec70 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -40478,7 +40538,13 @@ const commandSpec71 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -40605,7 +40671,13 @@ const commandSpec71 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -42439,7 +42511,13 @@ const commandSpec72 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -42566,7 +42644,13 @@ const commandSpec72 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -44375,7 +44459,13 @@ const commandSpec73 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -44502,7 +44592,13 @@ const commandSpec73 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -47538,7 +47634,13 @@ const commandSpec81 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -47665,7 +47767,13 @@ const commandSpec81 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -49982,7 +50090,13 @@ const commandSpec82 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -50109,7 +50223,13 @@ const commandSpec82 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -57142,7 +57262,13 @@ const commandSpec85 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -57307,7 +57433,13 @@ const commandSpec85 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -61316,7 +61448,13 @@ const commandSpec86 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -61481,7 +61619,13 @@ const commandSpec86 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
       effects: [
         {
           key: 'revision-argument',
@@ -77736,7 +77880,13 @@ const commandSpec184 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -77863,7 +78013,13 @@ const commandSpec184 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -81215,7 +81371,13 @@ const commandSpec194 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -81342,7 +81504,13 @@ const commandSpec194 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -83267,7 +83435,13 @@ const commandSpec195 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -83394,7 +83568,13 @@ const commandSpec195 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -87042,7 +87222,13 @@ const commandSpec198 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -87169,7 +87355,13 @@ const commandSpec198 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -89137,7 +89329,13 @@ const commandSpec199 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -89264,7 +89462,13 @@ const commandSpec199 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -91295,7 +91499,13 @@ const commandSpec200 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -91422,7 +91632,13 @@ const commandSpec200 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -94168,7 +94384,13 @@ const commandSpec202 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -94295,7 +94517,13 @@ const commandSpec202 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -97293,7 +97521,13 @@ const commandSpec204 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -97420,7 +97654,13 @@ const commandSpec204 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -99558,7 +99798,13 @@ const commandSpec205 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -99685,7 +99931,13 @@ const commandSpec205 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -101932,7 +102184,13 @@ const commandSpec206 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -102059,7 +102317,13 @@ const commandSpec206 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -109703,7 +109967,13 @@ const commandSpec275 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -109830,7 +110100,13 @@ const commandSpec275 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -117531,7 +117807,13 @@ const commandSpec306 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -117658,7 +117940,13 @@ const commandSpec306 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',
@@ -123387,7 +123675,13 @@ const commandSpec309 = {
     },
     '--max-age': {
       key: 'max-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--max-count': {
       key: 'max-count',
@@ -123514,7 +123808,13 @@ const commandSpec309 = {
     },
     '--min-age': {
       key: 'min-age',
-      value: 'string',
+      value: 'integer',
+      parser: {
+        kind: 'timestamp',
+        conversion: 'checked',
+        longBits: 64,
+        nativeCallback: 'revision-age',
+      },
     },
     '--min-parents': {
       key: 'min-parents',

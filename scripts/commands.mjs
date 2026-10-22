@@ -17,7 +17,7 @@ const additional = JSON.parse(await readFile(new URL('spec/lfs-command-rules.jso
 const temp = await mkdtemp(join(tmpdir(), 'type-git-cli-spec-'));
 try {
   await writeFile(join(temp, 'package.json'), '{"type":"module"}');
-  for (const name of ['fast-import-unsigned', 'commands', 'inputs', 'model', 'scalars', 'git-scalars', 'string-callback', 'string-callbacks.generated', 'ascii', 'git-boolean', 'boolean-callbacks.generated', 'git-integer', 'git-decimal', 'compound-decimal', 'compound-decimals.generated', 'numeric-callbacks.generated', 'c-abi', 'object-filter', 'decision-diagram']) {
+  for (const name of ['fast-import-unsigned', 'commands', 'inputs', 'model', 'scalars', 'git-scalars', 'string-callback', 'string-callbacks.generated', 'ascii', 'git-boolean', 'boolean-callbacks.generated', 'git-integer', 'git-decimal', 'git-timestamp', 'compound-decimal', 'compound-decimals.generated', 'numeric-callbacks.generated', 'c-abi', 'object-filter', 'decision-diagram']) {
     const source = await readFile(new URL(`src/constraints/${name}.ts`, root), 'utf8');
     await writeFile(join(temp, `${name}.js`), ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText);
   }
@@ -135,7 +135,7 @@ try {
     const options = [];
     for (const [flag, option] of [...Object.entries(spec.options), ...(spec.numericOption ? [['-<digits>', spec.numericOption]] : [])]) {
       if (typeof option.parser !== 'object') continue;
-      const id = option.parser.kind === 'decimal' ? `decimal:${JSON.stringify(option.parser)}` : `${option.parser.signed ? 'signed' : 'unsigned'}-${option.parser.bits}${option.parser.nativeWidth ? `-${option.parser.nativeWidth}` : ''}`;
+      const id = option.parser.kind === 'decimal' || option.parser.kind === 'timestamp' ? `${option.parser.kind}:${JSON.stringify(option.parser)}` : `${option.parser.signed ? 'signed' : 'unsigned'}-${option.parser.bits}${option.parser.nativeWidth ? `-${option.parser.nativeWidth}` : ''}`;
       if (!numericProfiles.has(id)) numericProfiles.set(id, {
         parser: option.parser,
         cases: scalarRepresentatives(option.parser).map(value => {

@@ -342,6 +342,8 @@ Revision count shorthand such as `log -3` retains its original argv word and use
 
 `diff-index` requires its final normalized `--max-count`/`-n` value to remain the default `-1`. A later `-1` can replace an earlier parsed count, while an immediate numeric overflow still fails before that replacement. Legacy atoi wrapping and native help exits retain their selected Git behavior.
 
+Revision timestamp callbacks (`--min-age` and `--max-age`) have their own decimal uintmax grammar. Current Git checks the full decimal magnitude before unsigned negation; old Git consumes an atoi prefix, narrows to signed int, then promotes to timestamp storage. The selected runner observes this callback independently of revision-count and other numeric callbacks. Unpinned public literals preserve old-family acceptance; explicitly pinned modern compiler checks reject malformed or overflowing literals. This callback work does not yet model approxidate aliases or the final diff-index age sentinels; those remain separate audit obligations.
+
 ### Submodule frontends and sparse checkouts
 
 Public submodule operations and all registered submodule helper operations have
