@@ -804,3 +804,13 @@ declare const documentationOutputMode: GitOutputMode;
 export const documentationVariableOutput: Promise<RawResult<string | Uint8Array>> = git.command(
   'add', [['--help'], ['--help-all']], { stdout: documentationOutputMode },
 );
+
+// Keep the earlier frontend token vocabulary while requiring a dispatch prefix at calls.
+export const legacyShellManualArgument: GitCommandArgument<'shell'> = ['--man'];
+export const legacyFilterManualArgument: GitCommandArgument<'filter-branch'> = ['--man'];
+export const legacyRecursiveManualArgument: GitCommandArgument<'merge-recursive'> = ['--man'];
+export const legacyRecursiveOursManualArgument: GitCommandArgument<'merge-recursive-ours'> = ['--man'];
+export const legacyRecursiveTheirsManualArgument: GitCommandArgument<'merge-recursive-theirs'> = ['--man'];
+export const legacySubtreeManualArgument: GitCommandArgument<'merge-subtree'> = ['--man'];
+// @ts-expect-error New documentation vocabulary does not widen an ordinary log token array.
+export const ordinaryLogManualArgument: GitCommandArgument<'log'> = ['--man'];

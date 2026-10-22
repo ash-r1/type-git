@@ -117,19 +117,22 @@ type IgnoredAllowedArguments<C extends GitCommandName> = C extends GitCommandNam
       }[keyof Options<C>]
   : never;
 type RawIgnoredDocumentationArgument = readonly [`-${string}`] | readonly [`-${string}`, string];
+/** Earlier frontend argument vocabularies remain available independently of dispatch eligibility. */
+type LegacyDocumentationCommand =
+  | 'shell'
+  | 'filter-branch'
+  | 'merge-recursive'
+  | 'merge-recursive-ours'
+  | 'merge-recursive-theirs'
+  | 'merge-subtree';
+type LegacyDocumentationArgument<C extends GitCommandName> = C extends LegacyDocumentationCommand
+  ? readonly [keyof typeof GLOBAL_HELP_DISPATCH_OPTIONS]
+  : never;
 export type GitCommandArgument<C extends GitCommandName> =
   | LocalCommandArgument<C>
-  | LocalCommandArgument<DispatchTarget<C>>;
-/** Extra vocabulary is valid only after a guaranteed documentation prefix. */
-type CommandArgumentWithDocumentation<C extends GitCommandName> =
-  | GitCommandArgument<C>
-  | (C extends DocumentationCommand
-      ?
-          | DocumentationArgument
-          | RawIgnoredDocumentationArgument
-          | IgnoredAllowedArguments<C>
-          | IgnoredAllowedArguments<DispatchTarget<C>>
-      : never);
+  | LocalCommandArgument<DispatchTarget<C>>
+  | LegacyDocumentationArgument<C>
+  | LegacyDocumentationArgument<DispatchTarget<C>>;
 export type GitCommandExecOpts<Mode extends GitOutputMode = 'text'> = ExecOpts & {
   stdin?: string | Uint8Array;
   stdout?: Mode;
@@ -2229,7 +2232,7 @@ type CheckedSvnInputs<A extends readonly unknown[], Ctx extends CommandGrammarCo
 /** Select child grammar after precisely the native dispatcher's global options. */
 type CheckedCommandGrammar<
   C extends GitCommandName,
-  A extends readonly CommandArgumentWithDocumentation<C>[],
+  A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
 > = ArgumentsHaveLiteralNul<A> extends true
   ? never
@@ -2314,38 +2317,19 @@ export type CheckedDocumentationArguments<
       : never
     : never;
 
-/** These finite paths validate original option shapes in CheckedLocalParserProfiles. */
-type DirectLocalCommand = {
-  [C in GitCommandName]: C extends 'svn' | 'stash' | `stash ${string}`
-    ? never
-    : Spec<C> extends
-          | { dispatch: unknown }
-          | { guiScript: true }
-          | { parserExit: { mandatorySubcommand: true } }
-      ? never
-      : C;
-}[GitCommandName];
-/** Retain the original vocabulary gate for arrays and paths that can bypass local checks. */
+/** Reject every non-documentation input outside the original local argument vocabulary. */
 type CheckedOriginalCommandGrammar<
   C extends GitCommandName,
-  A extends readonly CommandArgumentWithDocumentation<C>[],
+  A extends readonly unknown[],
   Ctx extends CommandGrammarContext,
-> = [Extract<C, DocumentationCommand>] extends [never]
+> = [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
   ? CheckedCommandGrammar<C, A, Ctx>
-  : number extends A['length']
-    ? [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
-      ? CheckedCommandGrammar<C, A, Ctx>
-      : never
-    : [C] extends [DirectLocalCommand]
-      ? CheckedCommandGrammar<C, A, Ctx>
-      : [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
-        ? CheckedCommandGrammar<C, A, Ctx>
-        : never;
+  : never;
 
 /** Select documentation before applying any local parser's option arities or constraints. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
-  A extends readonly CommandArgumentWithDocumentation<C>[],
+  A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
 > = [C] extends [DocumentationCommand]
   ? [A] extends [readonly [readonly ['--help'], ...infer Tail]]
