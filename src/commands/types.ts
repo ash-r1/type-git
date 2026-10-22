@@ -2223,15 +2223,6 @@ type CheckedSvnInputs<A extends readonly unknown[], Ctx extends CommandGrammarCo
   ? A
   : never;
 
-/** Without a guaranteed prefix, dynamic arrays may contain only original local shapes. */
-type CheckedDynamicDocumentation<C extends GitCommandName, A extends readonly unknown[]> = [
-  C,
-] extends [DocumentationCommand]
-  ? [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
-    ? A
-    : never
-  : A;
-
 /** Select child grammar after precisely the native dispatcher's global options. */
 type CheckedCommandGrammar<
   C extends GitCommandName,
@@ -2240,7 +2231,7 @@ type CheckedCommandGrammar<
 > = ArgumentsHaveLiteralNul<A> extends true
   ? never
   : number extends A['length']
-    ? CheckedDynamicDocumentation<C, A>
+    ? A
     : [C] extends ['svn']
       ? [A] extends [readonly [unknown, ...unknown[]]]
         ? NoInfer<CheckedSvnInputs<A, Ctx>>
@@ -2306,30 +2297,48 @@ type CheckedDocumentationTail<
     : false
   : DocumentationTokenFits<C, A[number], Exited>;
 /** New ignored-word vocabulary must never escape into an ordinary command invocation. */
+/** These finite paths validate original option shapes in CheckedLocalParserProfiles. */
+type DirectLocalCommand = {
+  [C in GitCommandName]: C extends 'svn' | 'stash' | `stash ${string}`
+    ? never
+    : Spec<C> extends
+          | { dispatch: unknown }
+          | { guiScript: true }
+          | { parserExit: { mandatorySubcommand: true } }
+      ? never
+      : C;
+}[GitCommandName];
+/** Retain the original vocabulary gate for arrays and paths that can bypass local checks. */
 type CheckedOriginalCommandGrammar<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
   Ctx extends CommandGrammarContext,
 > = [Extract<C, DocumentationCommand>] extends [never]
   ? CheckedCommandGrammar<C, A, Ctx>
-  : [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
-    ? CheckedCommandGrammar<C, A, Ctx>
-    : never;
+  : number extends A['length']
+    ? [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
+      ? CheckedCommandGrammar<C, A, Ctx>
+      : never
+    : [C] extends [DirectLocalCommand]
+      ? CheckedCommandGrammar<C, A, Ctx>
+      : [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
+        ? CheckedCommandGrammar<C, A, Ctx>
+        : never;
 
 /** Select documentation before applying any local parser's option arities or constraints. */
 export type CheckedCommandArguments<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
   Ctx extends CommandGrammarContext = {},
-> = ArgumentsHaveLiteralNul<A> extends true
-  ? never
-  : [C] extends [DocumentationCommand]
-    ? [A] extends [readonly [readonly ['--help'], ...infer Tail]]
-      ? [CheckedDocumentationTail<C, Tail>] extends [true]
+> = [C] extends [DocumentationCommand]
+  ? [A] extends [readonly [readonly ['--help'], ...infer Tail]]
+    ? ArgumentsHaveLiteralNul<A> extends true
+      ? never
+      : [CheckedDocumentationTail<C, Tail>] extends [true]
         ? A
         : never
-      : CheckedOriginalCommandGrammar<C, A, Ctx>
-    : CheckedOriginalCommandGrammar<C, A, Ctx>;
+    : CheckedOriginalCommandGrammar<C, A, Ctx>
+  : CheckedOriginalCommandGrammar<C, A, Ctx>;
 
 /** Typed CLI access for commands without a parsed convenience API. */
 export interface GitCommandClient {

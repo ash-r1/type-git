@@ -1,3 +1,4 @@
+import type { GitCommandArgument } from '../../src/commands/types.js';
 import type { Git } from '../../src/core/git.js';
 declare const git: Git;
 // Primary Git scopes come from COMMAND_SPECS argv/executable metadata, not a handpicked list.
@@ -782,3 +783,11 @@ declare const childOnly: 'remote add' | 'remote remove';
 git.command(childOnly, [['--help'], ['--man']]);
 declare const primaryOnly: 'add' | 'commit';
 git.command(primaryOnly, [['--help'], ['--man']]);
+
+// Array methods may retain broad vocabulary while numeric indexing is refined.
+// Preserve this existing input shape when using an ordinary-array fast path.
+type RefinedLocalArguments = readonly GitCommandArgument<'add'>[] & {
+  readonly [index: number]: readonly ['--dry-run'];
+};
+declare const refinedLocalArguments: RefinedLocalArguments;
+git.command('add', refinedLocalArguments);
