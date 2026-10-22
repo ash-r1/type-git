@@ -2310,9 +2310,11 @@ type CheckedOriginalCommandGrammar<
   C extends GitCommandName,
   A extends readonly GitCommandArgument<C>[],
   Ctx extends CommandGrammarContext,
-> = [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
+> = [Extract<C, DocumentationCommand>] extends [never]
   ? CheckedCommandGrammar<C, A, Ctx>
-  : never;
+  : [A[number]] extends [LocalCommandArgument<C> | LocalCommandArgument<DispatchTarget<C>>]
+    ? CheckedCommandGrammar<C, A, Ctx>
+    : never;
 
 /** Select documentation before applying any local parser's option arities or constraints. */
 export type CheckedCommandArguments<

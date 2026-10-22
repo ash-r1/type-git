@@ -770,3 +770,15 @@ git.command('branch', [['--help'], ['-h'], [ignoredColorOrUnknown, 'invalid']]);
 git.command('branch', [['--help'], ['-h'], [ignoredColorOrUnknown, 7]]);
 
 git.command('clone', [['--help'], ['--help-all'], ['--depth', 'bad']]);
+
+// The ordinary-grammar shape gate is redundant only when every command is a child/companion.
+declare const primaryOrChild: 'commit' | 'remote add';
+// @ts-expect-error Documentation dispatch is not guaranteed for a possible child scope.
+git.command(primaryOrChild, [['--help'], ['--man']]);
+// @ts-expect-error Mixed scopes must not inherit ignored raw-word vocabulary.
+git.command(primaryOrChild, [['-h'], ['--unknown-word']]);
+declare const childOnly: 'remote add' | 'remote remove';
+// @ts-expect-error Neither child command acquires the primary documentation grammar.
+git.command(childOnly, [['--help'], ['--man']]);
+declare const primaryOnly: 'add' | 'commit';
+git.command(primaryOnly, [['--help'], ['--man']]);
