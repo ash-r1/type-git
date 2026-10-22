@@ -49,3 +49,8 @@ git.command('shortlog', [['-2147483648'], ['-h']]);
 git.command('log', [['-3'], ['--max-count', '0'], { operand: 'HEAD' }]);
 git.command('log', [['--max-count', '0'], ['-3'], { operand: 'HEAD' }]);
 git.command('log', [{ operand: 'HEAD' }, ['--'], { operand: '-2147483648' }]);
+
+git.command('cherry-pick', [['-3'], { operand: 'baseline..side' }]);
+git.command('revert', [['-3'], { operand: 'baseline' }]);
+git.command('replay', [['-3'], ['--onto', 'baseline'], { operand: 'baseline..side' }]);
+git.command('backfill', [['-3']]);

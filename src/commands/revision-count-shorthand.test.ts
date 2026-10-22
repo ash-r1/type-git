@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -32,8 +32,8 @@ describe('revision count shorthand', () => {
   let root: string;
   let repo: WorktreeRepo;
   let env: NodeJS.ProcessEnv;
-  const native = (args: readonly string[]) => {
-    const result = spawnSync('git', ['-C', root, ...args], {
+  const native = (args: readonly string[], workdir = root) => {
+    const result = spawnSync('git', ['-C', workdir, ...args], {
       env,
       input: '',
       encoding: 'utf8',
@@ -56,6 +56,10 @@ describe('revision count shorthand', () => {
       GIT_PAGER: 'cat',
       PAGER: 'cat',
       GIT_TERMINAL_PROMPT: '0',
+      GIT_AUTHOR_DATE: '2020-01-01T00:00:00Z',
+      GIT_COMMITTER_DATE: '2020-01-01T00:00:00Z',
+      GIT_EDITOR: 'true',
+      GIT_SEQUENCE_EDITOR: 'true',
     };
     for (const args of [
       ['init'],
@@ -69,6 +73,12 @@ describe('revision count shorthand', () => {
     expect(native(['commit', '-m', 'fixture']).status).toBe(0);
     await writeFile(join(root, 'file'), 'two\n');
     expect(native(['stash', 'push', '-m', 'fixture stash']).status).toBe(0);
+    expect(native(['branch', 'baseline']).status).toBe(0);
+    expect(native(['checkout', '-qb', 'side']).status).toBe(0);
+    await writeFile(join(root, 'sidefile'), 'side\n');
+    expect(native(['add', 'sidefile']).status).toBe(0);
+    expect(native(['commit', '-m', 'side']).status).toBe(0);
+    expect(native(['checkout', '-q', 'baseline']).status).toBe(0);
     repo = await new TypeGit({ home: root, inheritEnv: false, env }).open(root);
   });
   afterAll(async () => {
@@ -93,6 +103,43 @@ describe('revision count shorthand', () => {
       expect(actual.exitCode).toBe(expected.status);
       expect(actual.stdout).toBe(expected.stdout);
       expect(actual.stderr).toBe(expected.stderr);
+    }
+  });
+
+  it.each([
+    ['cherry-pick', ['baseline..side']],
+    ['revert', ['baseline']],
+    ['replay', ['--onto', 'baseline', 'baseline..side']],
+    ['backfill', []],
+  ] as const)('matches native counts for %s in fresh independent repository copies', async (command, suffix) => {
+    for (const count of ['-0', '-1', '-3']) {
+      const copies = await mkdtemp(join(tmpdir(), 'type-git-count-copies-'));
+      try {
+        const nativeRoot = join(copies, 'native');
+        const actualRoot = join(copies, 'actual');
+        await cp(root, nativeRoot, { recursive: true });
+        await cp(root, actualRoot, { recursive: true });
+        const expected = native([command, count, ...suffix], nativeRoot);
+        expect([0, 1, 128]).toContain(expected.status);
+        if (expected.status !== 0) {
+          expect(expected.stdout + expected.stderr).not.toBe('');
+        }
+        const actualRepo = await new TypeGit({ home: root, inheritEnv: false, env }).open(
+          actualRoot,
+        );
+        const args = [
+          [count],
+          ...(command === 'replay'
+            ? [['--onto', 'baseline'], { operand: 'baseline..side' }]
+            : suffix.map((word) => ({ operand: word }))),
+        ];
+        const actual = await actualRepo.command(command, args as never);
+        expect(actual.exitCode).toBe(expected.status);
+        expect(actual.stdout).toBe(expected.stdout);
+        expect(actual.stderr).toBe(expected.stderr);
+      } finally {
+        await rm(copies, { recursive: true, force: true });
+      }
     }
   });
 

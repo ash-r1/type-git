@@ -3298,6 +3298,23 @@
         "--git-completion-helper",
         "--git-completion-helper-all"
       ]
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "revert": {
@@ -3376,6 +3393,23 @@
       "remainingSingleWordExits": [
         "--git-completion-helper",
         "--git-completion-helper-all"
+      ]
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
       ]
     }
   },
@@ -5590,6 +5624,23 @@
           "negativeMagnitudes": false
         }
       }
+    },
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
     }
   },
   "last-modified": {
@@ -5685,7 +5736,24 @@
     "optionGroups": [
       "diff",
       "revision"
-    ]
+    ],
+    "numericOption": {
+      "key": "max-count",
+      "value": "integer",
+      "parser": {
+        "kind": "decimal",
+        "longBits": 64,
+        "bits": 32,
+        "signed": true,
+        "conversion": "checked"
+      },
+      "effects": [
+        {
+          "key": "no-walk",
+          "set": false
+        }
+      ]
+    }
   },
   "blame": {
     "tables": [

@@ -3027,6 +3027,11 @@
           "flag": "--mainline",
           "key": "mainline",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"positive\":true}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -3098,6 +3103,11 @@
           "flag": "--mainline",
           "key": "mainline",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"cast\",\"positive\":true}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -3658,6 +3668,11 @@
           "flag": "--min-batch-size",
           "key": "min-batch-size",
           "profile": "unsigned-64-size_t"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
@@ -3898,6 +3913,11 @@
           "flag": "-n",
           "key": "max-count",
           "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\",\"nativeCallback\":\"revision-count\"}"
+        },
+        {
+          "flag": "-<digits>",
+          "key": "max-count",
+          "profile": "decimal:{\"kind\":\"decimal\",\"longBits\":64,\"bits\":32,\"signed\":true,\"conversion\":\"checked\"}"
         }
       ]
     },
