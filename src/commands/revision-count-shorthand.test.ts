@@ -37,7 +37,8 @@ describe('revision count shorthand', () => {
       env,
       input: '',
       encoding: 'utf8',
-      timeout: 10000,
+      // Bound one native invocation within the 120-second multi-process case budget.
+      timeout: 30_000,
     });
     expect(result.error).toBeUndefined();
     expect(result.signal).toBeNull();
@@ -80,7 +81,7 @@ describe('revision count shorthand', () => {
     expect(native(['commit', '-m', 'side']).status).toBe(0);
     expect(native(['checkout', '-q', 'baseline']).status).toBe(0);
     repo = await new TypeGit({ home: root, inheritEnv: false, env }).open(root);
-  });
+  }, 120_000);
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
   });
