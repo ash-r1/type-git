@@ -5493,144 +5493,10 @@
     "source": "builtin/backfill.c",
     "optionGroups": [
       "diff",
-      "revision"
+      "revision",
+      "backfill-revision"
     ],
     "options": {
-      "--cc": {
-        "key": "diff-merges",
-        "value": "flag",
-        "set": "dense-combined",
-        "effects": [
-          {
-            "key": "combined-all-paths",
-            "set": false
-          },
-          {
-            "key": "explicit-diff-merges",
-            "set": true
-          }
-        ]
-      },
-      "--combined-all-paths": {
-        "key": "combined-all-paths",
-        "value": "flag",
-        "effects": [
-          {
-            "key": "explicit-diff-merges",
-            "set": true
-          }
-        ]
-      },
-      "--dd": {
-        "key": "diff-merges",
-        "value": "flag",
-        "set": "first-parent",
-        "effects": [
-          {
-            "key": "combined-all-paths",
-            "set": false
-          },
-          {
-            "key": "explicit-diff-merges",
-            "set": true
-          }
-        ]
-      },
-      "--diff-merges": {
-        "key": "diff-merges",
-        "value": "string",
-        "allowed": [
-          "off",
-          "none",
-          "1",
-          "first-parent",
-          "separate",
-          "c",
-          "combined",
-          "cc",
-          "dense-combined",
-          "r",
-          "remerge",
-          "m",
-          "on"
-        ],
-        "effects": [
-          {
-            "key": "combined-all-paths",
-            "set": false
-          },
-          {
-            "key": "explicit-diff-merges",
-            "set": true
-          }
-        ]
-      },
-      "--no-diff-merges": {
-        "key": "diff-merges",
-        "value": "flag",
-        "set": "none",
-        "effects": [
-          {
-            "key": "combined-all-paths",
-            "set": false
-          },
-          {
-            "key": "explicit-diff-merges",
-            "set": true
-          }
-        ]
-      },
-      "--remerge-diff": {
-        "key": "diff-merges",
-        "value": "flag",
-        "set": "remerge",
-        "effects": [
-          {
-            "key": "combined-all-paths",
-            "set": false
-          },
-          {
-            "key": "explicit-diff-merges",
-            "set": true
-          }
-        ]
-      },
-      "-c": {
-        "key": "diff-merges",
-        "value": "flag",
-        "set": "combined",
-        "effects": [
-          {
-            "key": "combined-all-paths",
-            "set": false
-          },
-          {
-            "key": "explicit-diff-merges",
-            "set": true
-          }
-        ]
-      },
-      "-m": {
-        "key": "diff-merges",
-        "value": "flag",
-        "set": "on",
-        "effects": [
-          {
-            "key": "combined-all-paths",
-            "set": false
-          },
-          {
-            "key": "explicit-diff-merges",
-            "set": true
-          }
-        ]
-      },
-      "--diff-filter": {
-        "key": "diff-filter",
-        "value": "string",
-        "repeat": true,
-        "skipEmpty": true
-      },
       "--min-batch-size": {
         "key": "min-batch-size",
         "value": "integer",
@@ -5641,10 +5507,6 @@
           "nativeWidth": "size_t",
           "negativeMagnitudes": false
         }
-      },
-      "--date": {
-        "key": "date",
-        "value": "string"
       }
     },
     "numericOption": {
@@ -5663,6 +5525,39 @@
           "set": false
         }
       ]
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/backfill.c:cmd_backfill:options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/backfill.c",
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision",
+        "backfill-revision"
+      ],
+      "splitRemainingPaths": true,
+      "singleWordExits": [
+        "--git-completion-helper",
+        "--git-completion-helper-all"
+      ],
+      "remainingSingleWordExits": [
+        "--git-completion-helper",
+        "--git-completion-helper-all"
+      ],
+      "keepDashDash": true
     }
   },
   "last-modified": {
@@ -5696,10 +5591,6 @@
         "key": "max-depth",
         "value": "flag",
         "set": 0
-      },
-      "--date": {
-        "key": "date",
-        "value": "string"
       }
     },
     "numericOption": {
@@ -5718,6 +5609,38 @@
           "set": false
         }
       ]
+    },
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/last-modified.c:cmd_last_modified:last_modified_options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/last-modified.c",
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision"
+      ],
+      "splitRemainingPaths": true,
+      "singleWordExits": [
+        "--git-completion-helper",
+        "--git-completion-helper-all"
+      ],
+      "remainingSingleWordExits": [
+        "--git-completion-helper",
+        "--git-completion-helper-all"
+      ],
+      "keepDashDash": true
     }
   },
   "diff-pairs": {
@@ -5780,11 +5703,37 @@
         }
       ]
     },
-    "options": {
-      "--date": {
-        "key": "date",
-        "value": "string"
-      }
+    "options": {},
+    "parserExit": {
+      "flags": [
+        "-h",
+        "--help"
+      ],
+      "exceptFirst": [
+        "--help"
+      ],
+      "firstPassTables": [
+        "builtin/replay.c:cmd_replay:replay_options"
+      ],
+      "origin": "git",
+      "reason": "The initial parse_options pass retains unknown revision/diff options. Help exits before the retained callbacks; earlier native initial callbacks still run.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/replay.c",
+      "remainingTables": [
+        "diff.c:add_diff_options:parseopts"
+      ],
+      "remainingGroups": [
+        "diff",
+        "revision"
+      ],
+      "splitRemainingPaths": true,
+      "singleWordExits": [
+        "--git-completion-helper",
+        "--git-completion-helper-all"
+      ],
+      "remainingSingleWordExits": [
+        "--git-completion-helper",
+        "--git-completion-helper-all"
+      ]
     }
   },
   "blame": {

@@ -350,7 +350,9 @@ Revision `--date` validates the case-sensitive mode names, one optional `-local`
 
 `stash list` retains its repository-ref gate: without a stash it succeeds before parsing log date options; otherwise native child errors and the parent exit mapping are preserved. Its date grammar therefore stays deferred in public types.
 
-Date-format validation remains native-owned for `backfill`, `last-modified`, `replay`, `blame`, `annotate`, and `pickaxe`: their initial or interleaved option passes can reach help before revision callbacks. Their baseline behavior is preserved while that parser timing remains an audit obligation.
+`backfill`, `last-modified`, and `replay` retain revision/diff words through an initial parse-options pass. Help exits that pass before the retained date callback, regardless of date/help order; earlier recognized initial callbacks still run. Replay mode conflicts follow this pass. Backfill-specific revision effects are shared with the retained parser. Named integer tuples retain their original numeric representation across tokenization: unsafe JavaScript numbers remain rejected when the callback is reached, while precise numeric strings and bigint values retain their selected native grammar. Earlier help still preempts later scalar checks. `--` is retained by backfill and last-modified and consumed by replay, matching their source flags.
+
+Date-format validation remains native-owned for `blame`, `annotate`, and `pickaxe`: their interleaved option/revision parsing still requires a separate audit.
 
 ### Submodule frontends and sparse checkouts
 

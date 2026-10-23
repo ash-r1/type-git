@@ -35,6 +35,7 @@ import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
 import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
+import type { InitialParserInputs } from './initial-parser-inputs.js';
 import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
 import type { GLOBAL_HELP_DISPATCH_OPTIONS, OptionSpec } from './spec.js';
 import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
@@ -1102,9 +1103,9 @@ type ParsedPassState<
 > = Pass extends { delegated: true }
   ? State<C, A, InitialState>
   : Pass extends { exited: true; tokens: infer T extends readonly unknown[] }
-    ? [State<C, T, InitialState>] extends [never]
+    ? [State<C, InitialParserInputs<Spec<C>, A, T>, InitialState>] extends [never]
       ? InvalidPass
-      : State<C, T, InitialState>
+      : State<C, InitialParserInputs<Spec<C>, A, T>, InitialState>
     : Pass extends {
           exited: false;
           tokens: infer E extends readonly unknown[];
@@ -1112,7 +1113,7 @@ type ParsedPassState<
         }
       ? Spec<C> extends { conditionalCommand: unknown }
         ? InitialState & { repositoryDependent: true }
-        : RemainingState<C, E, R, InitialState>
+        : RemainingState<C, InitialParserInputs<Spec<C>, A, E>, R, InitialState>
       : Pass extends { exited: 'invalid' }
         ? InvalidPass
         : Pass extends { exited: 'dynamic' }
