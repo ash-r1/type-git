@@ -1658,5 +1658,146 @@
         "set": "never"
       }
     }
+  },
+  "backfill-revision": {
+    "source": "Git 2.55.0 builtin/backfill.c:reject_unsupported_rev_list_options; command-specific effects shared by option catalogue and retained revision pass",
+    "options": {
+      "--cc": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "dense-combined",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--combined-all-paths": {
+        "key": "combined-all-paths",
+        "value": "flag",
+        "effects": [
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--dd": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "first-parent",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--diff-merges": {
+        "key": "diff-merges",
+        "value": "string",
+        "allowed": [
+          "off",
+          "none",
+          "1",
+          "first-parent",
+          "separate",
+          "c",
+          "combined",
+          "cc",
+          "dense-combined",
+          "r",
+          "remerge",
+          "m",
+          "on"
+        ],
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--no-diff-merges": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "none",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--remerge-diff": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "remerge",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "-c": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "combined",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "-m": {
+        "key": "diff-merges",
+        "value": "flag",
+        "set": "on",
+        "effects": [
+          {
+            "key": "combined-all-paths",
+            "set": false
+          },
+          {
+            "key": "explicit-diff-merges",
+            "set": true
+          }
+        ]
+      },
+      "--diff-filter": {
+        "key": "diff-filter",
+        "value": "string",
+        "repeat": true,
+        "skipEmpty": true
+      }
+    },
+    "rules": []
   }
 }
