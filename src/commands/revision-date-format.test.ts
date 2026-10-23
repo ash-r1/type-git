@@ -182,6 +182,7 @@ describe('revision date format callback', () => {
       } catch (error) {
         expect(error).toBeInstanceOf(GitArgumentError);
         expect(expected.status).not.toBe(0);
+        expect(expected.stdout + expected.stderr).not.toContain('usage:');
       }
     }
   }, 120_000);

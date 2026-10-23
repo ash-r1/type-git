@@ -31,3 +31,8 @@ git.command('log', [['--date', mode]]);
 
 // No stash ref returns success before invoking the log date callback.
 git.command('stash list', [['--date', 'invalid']]);
+
+// Native-owned until these initial/interleaved parser phases are modeled.
+git.command('backfill', [['--date', 'invalid'], ['-h']]);
+git.command('blame', [['-h'], ['--date', 'invalid']]);
+git.command('annotate', [['--date', 'invalid'], { operand: 'file' }]);

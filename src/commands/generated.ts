@@ -81261,7 +81261,6 @@ const commandSpec194 = {
     '--date': {
       key: 'date',
       value: 'string',
-      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',
@@ -83334,7 +83333,6 @@ const commandSpec195 = {
     '--date': {
       key: 'date',
       value: 'string',
-      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',
@@ -87122,7 +87120,6 @@ const commandSpec198 = {
     '--date': {
       key: 'date',
       value: 'string',
-      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',
@@ -89230,7 +89227,6 @@ const commandSpec199 = {
     '--date': {
       key: 'date',
       value: 'string',
-      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',
@@ -91401,7 +91397,6 @@ const commandSpec200 = {
     '--date': {
       key: 'date',
       value: 'string',
-      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',
@@ -97425,7 +97420,6 @@ const commandSpec204 = {
     '--date': {
       key: 'date',
       value: 'string',
-      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',

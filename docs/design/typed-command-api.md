@@ -1863,3 +1863,5 @@ Unix stat diagnostic. The path is not read from command stdin.
 Revision `--date` validates the case-sensitive mode names, one optional `-local` suffix, the historical `local` alias, and `format:`/`format-local:` prefixes. Arbitrary strftime payloads remain native-owned. `auto:` suffix interpretation also remains native-owned because the same value can succeed with stdout pipes and fail with a terminal or pager. Callback errors precede later valid date values; command first-pass help can preempt revision parsing regardless of argv order. Native help exit codes are retained rather than normalized.
 
 `stash list` retains its repository-ref gate: without a stash it succeeds before parsing log date options; otherwise native child errors and the parent exit mapping are preserved. Its date grammar therefore stays deferred in public types.
+
+Date-format validation remains native-owned for `backfill`, `last-modified`, `replay`, `blame`, `annotate`, and `pickaxe`: their initial or interleaved option passes can reach help before revision callbacks. Their baseline behavior is preserved while that parser timing remains an audit obligation.
