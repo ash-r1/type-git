@@ -22,7 +22,8 @@ export function timestampCallbackFamily(result: {
 }
 
 const DECIMAL_TIMESTAMP = /^[ \t\r\n\v\f]*([+-]?)(\d+)$/;
-const UINTMAX_MAX = 18446744073709551615n;
+/** Git initializes revision age filters to the timestamp_t all-ones sentinel. */
+export const TIMESTAMP_DEFAULT = 18446744073709551615n;
 
 /** Preserve decimal strtoumax sign/overflow order and legacy int-to-uintmax promotion. */
 export function parseGitTimestamp(
@@ -55,7 +56,7 @@ export function parseGitTimestamp(
   }
   const magnitude = BigInt(match[2]!);
   // strtoumax diagnoses magnitude overflow before applying unsigned negation.
-  if (magnitude > UINTMAX_MAX) {
+  if (magnitude > TIMESTAMP_DEFAULT) {
     return { valid: false };
   }
   const parsed = match[1] === '-' ? BigInt.asUintN(64, -magnitude) : magnitude;

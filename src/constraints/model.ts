@@ -1,3 +1,4 @@
+import { TIMESTAMP_DEFAULT } from './git-timestamp.js';
 import type { GitBooleanSource, GitBooleanCapabilities } from './git-boolean.js';
 import type { GitDecimalCallbacks } from './git-decimal.js';
 import type { GitIntegerProfile } from './git-integer.js';
@@ -29,7 +30,8 @@ export type Predicate =
         | 'nonblank'
         | 'nonempty'
         | 'positive'
-        | 'bytesPositive';
+        | 'bytesPositive'
+        | 'timestampNotDefault';
     }
   | { key: string; test: 'equals' | 'notEquals'; value: string | number | boolean }
   | { key: string; test: 'startsWith'; value: string }
@@ -106,6 +108,10 @@ export function matches(predicate: Predicate, options: Readonly<Record<string, u
       return (typeof value === 'string' || Array.isArray(value)) && value.length > 0;
     case 'bytesPositive':
       return (lfsBytes(value) ?? 0) > 0;
+    case 'timestampNotDefault':
+      return (
+        (typeof value === 'number' || typeof value === 'bigint') && value !== TIMESTAMP_DEFAULT
+      );
     case 'positive':
       return (typeof value === 'number' || typeof value === 'bigint') && value > 0;
     case 'present':

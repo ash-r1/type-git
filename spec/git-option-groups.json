@@ -11,7 +11,7 @@
         "value": "flag"
       },
       "--after": {
-        "key": "after",
+        "key": "max-age",
         "value": "string"
       },
       "--all": {
@@ -54,7 +54,7 @@
         "value": "flag"
       },
       "--before": {
-        "key": "before",
+        "key": "min-age",
         "value": "string"
       },
       "--bisect": {
@@ -740,7 +740,7 @@
         ]
       },
       "--since": {
-        "key": "since",
+        "key": "max-age",
         "value": "string"
       },
       "--since-as-filter": {
@@ -812,7 +812,7 @@
         "value": "flag"
       },
       "--until": {
-        "key": "until",
+        "key": "min-age",
         "value": "string"
       },
       "--verify-objects": {

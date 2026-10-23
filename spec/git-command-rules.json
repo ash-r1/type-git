@@ -7385,6 +7385,32 @@
       "origin": "git",
       "reason": "diff-index permits only the default final revision count sentinel; earlier parsed counts may be replaced by a later -1.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/diff-index.c#L69-L71"
+    },
+    {
+      "id": "cli.diff-index.min-age",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "min-age",
+          "test": "timestampNotDefault"
+        }
+      ],
+      "origin": "git",
+      "reason": "diff-index rejects a final numeric revision age filter other than the timestamp default sentinel. Later numeric values overwrite date aliases and earlier age values. Arbitrary approxidate text remains native-owned.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/diff-index.c#L69-L71"
+    },
+    {
+      "id": "cli.diff-index.max-age",
+      "kind": "forbid",
+      "when": [
+        {
+          "key": "max-age",
+          "test": "timestampNotDefault"
+        }
+      ],
+      "origin": "git",
+      "reason": "diff-index rejects a final numeric revision age filter other than the timestamp default sentinel. Later numeric values overwrite date aliases and earlier age values. Arbitrary approxidate text remains native-owned.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/diff-index.c#L69-L71"
     }
   ],
   "diff-tree": [

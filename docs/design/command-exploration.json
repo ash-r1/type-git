@@ -20083,7 +20083,7 @@
             "value": "flag"
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string"
           },
           "--all": {
@@ -20126,7 +20126,7 @@
             "value": "flag"
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string"
           },
           "--bisect": {
@@ -20850,7 +20850,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string"
           },
           "--since-as-filter": {
@@ -20929,7 +20929,7 @@
             "value": "flag"
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string"
           },
           "--verify-objects": {
@@ -22196,12 +22196,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -22251,12 +22256,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -22506,14 +22516,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -22538,14 +22540,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -22706,13 +22700,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -22755,13 +22742,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -22812,8 +22792,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "17279861053648180415069124369640330990291297301803731485982720000000000000000000000000000000000000000000000",
-      "accepted": "18007464091923605032381829227871441552812534149507664739334881280000000000000000000000000000000000000000",
+      "total": "76799382460658579622529441642845915512405765785794362159923200000000000000000000000000000000000000000000",
+      "accepted": "80033173741882689032808129901650851345833485108922954397043916800000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -23670,7 +23650,7 @@
             "value": "flag"
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string"
           },
           "--all": {
@@ -23713,7 +23693,7 @@
             "value": "flag"
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string"
           },
           "--bisect": {
@@ -24437,7 +24417,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string"
           },
           "--since-as-filter": {
@@ -24516,7 +24496,7 @@
             "value": "flag"
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string"
           },
           "--verify-objects": {
@@ -25783,12 +25763,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -25838,12 +25823,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -26093,14 +26083,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -26125,14 +26107,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -26293,13 +26267,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -26342,13 +26309,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -26399,8 +26359,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "17279861053648180415069124369640330990291297301803731485982720000000000000000000000000000000000000000000000",
-      "accepted": "18007464091923605032381829227871441552812534149507664739334881280000000000000000000000000000000000000000",
+      "total": "76799382460658579622529441642845915512405765785794362159923200000000000000000000000000000000000000000000",
+      "accepted": "80033173741882689032808129901650851345833485108922954397043916800000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -27181,12 +27141,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -27236,12 +27201,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -27491,14 +27461,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -27524,14 +27486,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -27692,13 +27646,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -27741,13 +27688,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -27805,8 +27745,8 @@
           "true"
         ]
       },
-      "total": "373330331405979206498407007986056533740861361458722593832960000000000000000000000000000000000000000000",
-      "accepted": "833678893144611344091751353142196368185765469884614108302540800000000000000000000000000000000000000",
+      "total": "1659245917359907584437364479938029038848272717594322639257600000000000000000000000000000000000000000",
+      "accepted": "3705239525087161529296672680631983858603402088376062703566848000000000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -28585,12 +28525,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -28640,12 +28585,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -28895,14 +28845,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -28928,14 +28870,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -29096,13 +29030,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -29145,13 +29072,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -29201,8 +29121,8 @@
           "true"
         ]
       },
-      "total": "93332582851494801624601751996514133435215340364680648458240000000000000000000000000000000000000000000",
-      "accepted": "208419723286152836022937838285549092046441367471153527075635200000000000000000000000000000000000000",
+      "total": "414811479339976896109341119984507259712068179398580659814400000000000000000000000000000000000000000",
+      "accepted": "926309881271790382324168170157995964650850522094015675891712000000000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -29460,7 +29380,7 @@
           }
         }
       ],
-      "rules": 14,
+      "rules": 16,
       "domains": {
         "no-output": [
           "undefined",
@@ -29980,12 +29900,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -30035,12 +29960,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -30290,14 +30220,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -30322,14 +30244,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -30490,13 +30404,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -30539,13 +30446,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -30603,9 +30503,9 @@
           "true"
         ]
       },
-      "total": "319997426919410748427206006845191314635024024107476508999680000000000000000000000000000000000000000000",
-      "accepted": "238193969469888955454786100897770390910218705681318316657868800000000000000000000000000000000000000",
-      "nodes": 10303,
+      "total": "1422210786308492215232026697089739176155662329366562262220800000000000000000000000000000000000000000",
+      "accepted": "264659966077654394949762334330855989900243006312575907397632000000000000000000000000000000000000",
+      "nodes": 15943,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -30620,7 +30520,9 @@
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
         "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
-        "cli.diff-index.revision-count": "{\"max-count\":-2,\"operands\":[]}"
+        "cli.diff-index.revision-count": "{\"max-count\":-2,\"operands\":[]}",
+        "cli.diff-index.min-age": "{\"min-age\":-2,\"operands\":[]}",
+        "cli.diff-index.max-age": "{\"max-age\":-2,\"operands\":[]}"
       }
     },
     {
@@ -31366,12 +31268,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -31421,12 +31328,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -31676,14 +31588,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -31708,14 +31612,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -31876,13 +31772,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -31925,13 +31814,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -31981,8 +31863,8 @@
           "true"
         ]
       },
-      "total": "79999356729852687106801501711297828658756006026869127249920000000000000000000000000000000000000000000",
-      "accepted": "133984107826812537443317181754995844886998021945741553120051200000000000000000000000000000000000000",
+      "total": "355552696577123053808006674272434794038915582341640565555200000000000000000000000000000000000000000",
+      "accepted": "595484923674722388636965252244425977275546764203295791644672000000000000000000000000000000000000",
       "nodes": 11842,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -33704,7 +33586,7 @@
             "value": "flag"
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string"
           },
           "--all": {
@@ -33747,7 +33629,7 @@
             "value": "flag"
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string"
           },
           "--bisect": {
@@ -34471,7 +34353,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string"
           },
           "--since-as-filter": {
@@ -34550,7 +34432,7 @@
             "value": "flag"
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string"
           },
           "--verify-objects": {
@@ -35821,12 +35703,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -35876,12 +35763,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -36131,14 +36023,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -36163,14 +36047,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -36331,13 +36207,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -36380,13 +36249,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -36433,8 +36295,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "17279861053648180415069124369640330990291297301803731485982720000000000000000000000000000000000000000000000",
-      "accepted": "18007464091923605032381829227871441552812534149507664739334881280000000000000000000000000000000000000000",
+      "total": "76799382460658579622529441642845915512405765785794362159923200000000000000000000000000000000000000000000",
+      "accepted": "80033173741882689032808129901650851345833485108922954397043916800000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -37287,7 +37149,7 @@
             "value": "flag"
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string"
           },
           "--all": {
@@ -37330,7 +37192,7 @@
             "value": "flag"
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string"
           },
           "--bisect": {
@@ -38054,7 +37916,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string"
           },
           "--since-as-filter": {
@@ -38133,7 +37995,7 @@
             "value": "flag"
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string"
           },
           "--verify-objects": {
@@ -39387,12 +39249,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -39442,12 +39309,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -39697,14 +39569,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -39729,14 +39593,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -39897,13 +39753,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -39946,13 +39795,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -40007,8 +39849,8 @@
           "true"
         ]
       },
-      "total": "746660662811958412996814015972113067481722722917445187665920000000000000000000000000000000000000000000",
-      "accepted": "595484923674722388636965252244425977275546764203295791644672000000000000000000000000000000000000000",
+      "total": "3318491834719815168874728959876058077696545435188645278515200000000000000000000000000000000000000000",
+      "accepted": "2646599660776543949497623343308559899002430063125759073976320000000000000000000000000000000000000",
       "nodes": 18958,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[],\"stash-operands\":[]}",
@@ -44827,7 +44669,7 @@
             ]
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string",
             "effects": [
               {
@@ -44922,7 +44764,7 @@
             ]
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string",
             "effects": [
               {
@@ -46160,7 +46002,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string",
             "effects": [
               {
@@ -46299,7 +46141,7 @@
             ]
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string",
             "effects": [
               {
@@ -47640,12 +47482,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -47695,12 +47542,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -47950,14 +47802,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -47982,14 +47826,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -48150,13 +47986,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -48195,13 +48024,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -48338,8 +48160,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "223946999255280418179295851830538689634175213031376360058336051200000000000000000000000000000000000000000000000",
-      "accepted": "33613932971590729393779414558693357565250063745747640846758445056000000000000000000000000000000000000000000",
+      "total": "995319996690135191907981563691283065040778724583894933592604672000000000000000000000000000000000000000000000",
+      "accepted": "149395257651514352861241842483081589178889172203322848207815311360000000000000000000000000000000000000000",
       "nodes": 77274,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
@@ -49888,7 +49710,7 @@
             ]
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string",
             "effects": [
               {
@@ -49983,7 +49805,7 @@
             ]
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string",
             "effects": [
               {
@@ -51221,7 +51043,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string",
             "effects": [
               {
@@ -51360,7 +51182,7 @@
             ]
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string",
             "effects": [
               {
@@ -52701,12 +52523,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -52756,12 +52583,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -53011,14 +52843,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -53043,14 +52867,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -53211,13 +53027,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -53256,13 +53065,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -53374,8 +53176,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "1036791663218890824904147462178419859417477838108223889158963200000000000000000000000000000000000000000000000",
-      "accepted": "220627164221484644989995625956559824580590076137321090804350976000000000000000000000000000000000000000000",
+      "total": "4607962947639514777351766498570754930744345947147661729595392000000000000000000000000000000000000000000000",
+      "accepted": "980565174317709533288869448695821442580400338388093736908226560000000000000000000000000000000000000000",
       "nodes": 48871,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"skip\":true}",
@@ -64279,12 +64081,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -64334,12 +64141,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -64593,14 +64405,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -64625,14 +64429,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -64798,13 +64594,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -64847,13 +64636,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -64963,8 +64745,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "622074997931334494942488477307051915650486702864934333495377920000000000000000000000000000000000000000000000",
-      "accepted": "406349810330052326141122848623613939423639973452012498015059753671065600000000000000000000000000000000000",
+      "total": "2764777768583708866411059899142452958446607568288597037757235200000000000000000000000000000000000000000000",
+      "accepted": "1805999157022454782849434882771617508549510993120055546733598905204736000000000000000000000000000000000",
       "nodes": 597924,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
@@ -66179,12 +65961,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -66234,12 +66021,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -66493,14 +66285,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -66525,14 +66309,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -66693,13 +66469,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -66743,13 +66512,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -66808,8 +66570,8 @@
           "true"
         ]
       },
-      "total": "3455972210729636083013824873928066198058259460360746297196544000000000000000000000000000000000000000000",
-      "accepted": "214374572522900059909307490807993351819196835113186484992081920000000000000000000000000000000000000",
+      "total": "15359876492131715924505888328569183102481153157158872431984640000000000000000000000000000000000000000",
+      "accepted": "952775877879555821819144403591081563640874822725273266631475200000000000000000000000000000000000",
       "nodes": 6289,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -67612,12 +67374,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -67667,12 +67434,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -67902,14 +67674,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -67934,14 +67698,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -68102,13 +67858,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -68152,13 +67901,6 @@
           "undefined",
           "true"
         ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "verify-objects": [
           "undefined",
           "true"
@@ -68200,8 +67942,8 @@
           "true"
         ]
       },
-      "total": "29999758773694757665050563141736685747033502260075922718720000000000000000000000000000000000000000000",
-      "accepted": "66992053913406268721658590877497922443499010972870776560025600000000000000000000000000000000000000",
+      "total": "133332261216421145178002502852163047764593343378115212083200000000000000000000000000000000000000000",
+      "accepted": "297742461837361194318482626122212988637773382101647895822336000000000000000000000000000000000000",
       "nodes": 7940,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -70211,12 +69953,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -70266,12 +70013,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -70521,14 +70273,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -70553,14 +70297,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -70721,13 +70457,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -70770,13 +70499,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -70878,8 +70600,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "13124894463491456478459621374509800014327157238783216189440000000000000000000000000000000000000000000000000",
-      "accepted": "830691853925907567359999992546172375171629641298133930297681510400000000000000000000000000000000000000",
+      "total": "58332864282184251015376094997821333397009587727925405286400000000000000000000000000000000000000000000000",
+      "accepted": "3691963795226255854933333300205210556318353961325039690211917824000000000000000000000000000000000000",
       "nodes": 87176,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"revert\":\"\",\"tags\":\"\"}",
@@ -71678,12 +71400,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -71733,12 +71460,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -71988,14 +71720,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -72020,14 +71744,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -72188,13 +71904,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -72237,13 +71946,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -72402,8 +72104,8 @@
           "true"
         ]
       },
-      "total": "714250960749809983730591707432024333251997570061945978361055543296000000000000000000000000000000000000000000000000",
-      "accepted": "722303970428030281301420197766155043120859380625213699281886608621568000000000000000000000000000000000000000000",
+      "total": "3174448714443599927691518699697885925564433644719759903826913525760000000000000000000000000000000000000000000000",
+      "accepted": "3210239868569023472450756434516244636092708358334283107919496038318080000000000000000000000000000000000000000",
       "nodes": 45526,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
@@ -73202,12 +72904,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -73257,12 +72964,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -73512,14 +73224,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -73544,14 +73248,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -73712,13 +73408,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -73761,13 +73450,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -73926,8 +73608,8 @@
           "true"
         ]
       },
-      "total": "714250960749809983730591707432024333251997570061945978361055543296000000000000000000000000000000000000000000000000",
-      "accepted": "722303970428030281301420197766155043120859380625213699281886608621568000000000000000000000000000000000000000000",
+      "total": "3174448714443599927691518699697885925564433644719759903826913525760000000000000000000000000000000000000000000000",
+      "accepted": "3210239868569023472450756434516244636092708358334283107919496038318080000000000000000000000000000000000000000",
       "nodes": 45526,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
@@ -75191,7 +74873,7 @@
             "value": "flag"
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string"
           },
           "--all": {
@@ -75234,7 +74916,7 @@
             "value": "flag"
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string"
           },
           "--bisect": {
@@ -75958,7 +75640,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string"
           },
           "--since-as-filter": {
@@ -76037,7 +75719,7 @@
             "value": "flag"
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string"
           },
           "--verify-objects": {
@@ -77316,12 +76998,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -77371,12 +77058,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -77638,14 +77330,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -77670,14 +77354,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -77838,13 +77514,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -77887,13 +77556,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -78156,8 +77818,8 @@
           "true"
         ]
       },
-      "total": "2869758324441200827488984538789383481816061665427461520200669593600000000000000000000000000000000000000000000000000000000000",
-      "accepted": "224420297241518999888091657407391793746048940208167359534296840798208000000000000000000000000000000000000000000000000000",
+      "total": "12754481441960892566617709061286148808071385179677606756447420416000000000000000000000000000000000000000000000000000000000",
+      "accepted": "997423543295639999502629588477296861093550845369632709041319292436480000000000000000000000000000000000000000000000000",
       "nodes": 21726,
       "isolatedRuleWitnesses": {
         "diff.output-formats": null,
@@ -79072,12 +78734,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -79127,12 +78794,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -79382,14 +79054,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -79414,14 +79078,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -79582,13 +79238,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -79631,13 +79280,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -79796,8 +79438,8 @@
           "true"
         ]
       },
-      "total": "714250960749809983730591707432024333251997570061945978361055543296000000000000000000000000000000000000000000000000",
-      "accepted": "722303970428030281301420197766155043120859380625213699281886608621568000000000000000000000000000000000000000000",
+      "total": "3174448714443599927691518699697885925564433644719759903826913525760000000000000000000000000000000000000000000000",
+      "accepted": "3210239868569023472450756434516244636092708358334283107919496038318080000000000000000000000000000000000000000",
       "nodes": 45526,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
@@ -80658,7 +80300,7 @@
             "value": "flag"
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string"
           },
           "--all": {
@@ -80701,7 +80343,7 @@
             "value": "flag"
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string"
           },
           "--bisect": {
@@ -81425,7 +81067,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string"
           },
           "--since-as-filter": {
@@ -81504,7 +81146,7 @@
             "value": "flag"
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string"
           },
           "--verify-objects": {
@@ -82771,12 +82413,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -82826,12 +82473,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -83081,14 +82733,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -83113,14 +82757,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -83281,13 +82917,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -83330,13 +82959,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -83387,8 +83009,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "17279861053648180415069124369640330990291297301803731485982720000000000000000000000000000000000000000000000",
-      "accepted": "6002488030641201677460609742623813850937511383169221579778293760000000000000000000000000000000000000000",
+      "total": "76799382460658579622529441642845915512405765785794362159923200000000000000000000000000000000000000000000",
+      "accepted": "26677724580627563010936043300550283781944495036307651465681305600000000000000000000000000000000000000",
       "nodes": 21883,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"i-still-use-this\":true,\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -84188,12 +83810,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -84243,12 +83870,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -84491,14 +84123,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -84523,14 +84147,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -84691,13 +84307,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -84740,13 +84349,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -84814,8 +84416,8 @@
           "true"
         ]
       },
-      "total": "6479947895118067655650921638615124121359236488176399307243520000000000000000000000000000000000000000000",
-      "accepted": "10611541339883552965510720794995670915050243338102731007108055040000000000000000000000000000000000000",
+      "total": "28799768422746967358448540616067218317152162169672885809971200000000000000000000000000000000000000000",
+      "accepted": "47162405955038013180047647977758537400223303724901026698258022400000000000000000000000000000000000",
       "nodes": 13627,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -90527,7 +90129,7 @@
             "value": "flag"
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string"
           },
           "--all": {
@@ -90570,7 +90172,7 @@
             "value": "flag"
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string"
           },
           "--bisect": {
@@ -91294,7 +90896,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string"
           },
           "--since-as-filter": {
@@ -91373,7 +90975,7 @@
             "value": "flag"
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string"
           },
           "--verify-objects": {
@@ -92585,12 +92187,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -92640,12 +92247,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -92895,14 +92507,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -92927,14 +92531,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -93091,13 +92687,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -93140,13 +92729,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -93323,8 +92905,8 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "53747279821267300363031004439329285512202051127530326414000652288000000000000000000000000000000000000000000000000",
-      "accepted": "10081874936073452596689679493466839725056259119353155272940898651996160000000000000000000000000000000000000000",
+      "total": "238876799205632446057915575285907935609786893900134784062225121280000000000000000000000000000000000000000000000",
+      "accepted": "44808333049215344874176353304297065444694484974902912324181771786649600000000000000000000000000000000000000",
       "nodes": 11475,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[\"value\"],\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -97934,7 +97516,7 @@
             "value": "flag"
           },
           "--after": {
-            "key": "after",
+            "key": "max-age",
             "value": "string"
           },
           "--all": {
@@ -97977,7 +97559,7 @@
             "value": "flag"
           },
           "--before": {
-            "key": "before",
+            "key": "min-age",
             "value": "string"
           },
           "--bisect": {
@@ -98701,7 +98283,7 @@
             ]
           },
           "--since": {
-            "key": "since",
+            "key": "max-age",
             "value": "string"
           },
           "--since-as-filter": {
@@ -98780,7 +98362,7 @@
             "value": "flag"
           },
           "--until": {
-            "key": "until",
+            "key": "min-age",
             "value": "string"
           },
           "--verify-objects": {
@@ -100060,12 +99642,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -100115,12 +99702,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -100370,14 +99962,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -100402,14 +99986,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -100570,13 +100146,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -100619,13 +100188,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -100672,8 +100234,8 @@
           "[\"value\"]"
         ]
       },
-      "total": "17279861053648180415069124369640330990291297301803731485982720000000000000000000000000000000000000000000000",
-      "accepted": "18007464091923605032381829227871441552812534149507664739334881280000000000000000000000000000000000000000",
+      "total": "76799382460658579622529441642845915512405765785794362159923200000000000000000000000000000000000000000000",
+      "accepted": "80033173741882689032808129901650851345833485108922954397043916800000000000000000000000000000000000000",
       "nodes": 17668,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
@@ -102638,12 +102200,17 @@
           "true",
           "false"
         ],
-        "after": [
+        "max-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "all": [
           "undefined",
@@ -102693,12 +102260,17 @@
           "undefined",
           "true"
         ],
-        "before": [
+        "min-age": [
           "undefined",
           "\"\"",
           "\"value\"",
           "\"0b\"",
-          "\"1kb\""
+          "\"1kb\"",
+          "-2",
+          "-1",
+          "0",
+          "1",
+          "2"
         ],
         "bisect": [
           "undefined",
@@ -102948,14 +102520,6 @@
           "undefined",
           "true"
         ],
-        "max-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
-        ],
         "max-count-mode": [
           "undefined",
           "\"newest\"",
@@ -102980,14 +102544,6 @@
         "merges": [
           "undefined",
           "true"
-        ],
-        "min-age": [
-          "undefined",
-          "-2",
-          "-1",
-          "0",
-          "1",
-          "2"
         ],
         "min-parents": [
           "undefined",
@@ -103148,13 +102704,6 @@
           "undefined",
           "true"
         ],
-        "since": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
-        ],
         "since-as-filter": [
           "undefined",
           "\"\"",
@@ -103197,13 +102746,6 @@
         "unpacked": [
           "undefined",
           "true"
-        ],
-        "until": [
-          "undefined",
-          "\"\"",
-          "\"value\"",
-          "\"0b\"",
-          "\"1kb\""
         ],
         "verify-objects": [
           "undefined",
@@ -103249,8 +102791,8 @@
           "true"
         ]
       },
-      "total": "5759953684549393471689708123213443663430432433934577161994240000000000000000000000000000000000000000000000",
-      "accepted": "5759953684549393471689708123213443663430432433934577161994240000000000000000000000000000000000000000000000",
+      "total": "25599794153552859874176480547615305170801921928598120719974400000000000000000000000000000000000000000000",
+      "accepted": "25599794153552859874176480547615305170801921928598120719974400000000000000000000000000000000000000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
