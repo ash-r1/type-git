@@ -1,3 +1,4 @@
+import { validBlameLineRange } from './blame-line-range.js';
 import { asciiLower } from './ascii.js';
 import { validCompoundDecimal } from './compound-decimal.js';
 import { type FastImportUnsignedParser, validFastImportUnsigned } from './fast-import-unsigned.js';
@@ -93,6 +94,7 @@ export type GitScalarParser =
   | GitDecimalParser
   | GitTimestampParser
   | GitIntegerParser
+  | 'blame-line-range'
   | 'python-int'
   | 'perl-int'
   | 'perl-int-gnu'
@@ -236,6 +238,9 @@ export function parseGitScalar(
           )),
       value,
     };
+  }
+  if (parser === 'blame-line-range') {
+    return { valid: validBlameLineRange(value), value };
   }
   if (isStringCallback(parser)) {
     return parseStringCallback(parser, value);

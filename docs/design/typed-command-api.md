@@ -354,6 +354,8 @@ Revision `--date` validates the case-sensitive mode names, one optional `-local`
 
 `blame`, `annotate`, and `pickaxe` interleave their own option parser with revision callbacks. A reached invalid date fails before later help or a replacement date, including after a revision operand. Help exits before later date or command-owned callback checks. After `--`, date/help spellings are literal paths. This models the audited streaming callback order; repository resolution, other callbacks, configuration, and broader parser interactions remain audit obligations.
 
+For these three blame frontends, numeric `-L` boundaries are checked after option parsing: absolute numeric locations must be positive, and relative lengths must be nonzero. Every repeated range is checked. Earlier or later parser help exits before this deferred validation. Empty and reversed ranges remain accepted; clipping to the file length, regular expressions, function names, and other repository-dependent range behavior remain native-owned. This finite numeric check does not claim the full line-range grammar.
+
 ### Submodule frontends and sparse checkouts
 
 Public submodule operations and all registered submodule helper operations have

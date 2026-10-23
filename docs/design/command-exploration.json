@@ -77244,7 +77244,7 @@
           }
         }
       ],
-      "rules": 19,
+      "rules": 20,
       "domains": {
         "S": [
           "undefined",
@@ -78468,7 +78468,28 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"1\",\"\"]",
+          "[\",\"]",
+          "[\"1\",\",\"]",
+          "[\"1\"]",
+          "[\"1\",\"1\"]",
+          "[\"0\"]",
+          "[\"1\",\"0\"]",
+          "[\"-1\"]",
+          "[\"1\",\"-1\"]",
+          "[\"1,+0\"]",
+          "[\"1\",\"1,+0\"]",
+          "[\"1,-0\"]",
+          "[\"1\",\"1,-0\"]",
+          "[\"3,1\"]",
+          "[\"1\",\"3,1\"]",
+          "[\"1,999\"]",
+          "[\"1\",\"1,999\"]",
+          "[\"/pattern/\"]",
+          "[\"1\",\"/pattern/\"]",
+          "[\":function\"]",
+          "[\"1\",\":function\"]"
         ],
         "operands": [
           "[]",
@@ -78503,9 +78524,9 @@
           "true"
         ]
       },
-      "total": "3174448714443599927691518699697885925564433644719759903826913525760000000000000000000000000000000000000000000000",
-      "accepted": "3210239868569023472450756434516244636092708358334283107919496038318080000000000000000000000000000000000000000",
-      "nodes": 45526,
+      "total": "9840791014775159775843707969063446369249744298631255701863431929856000000000000000000000000000000000000000000000",
+      "accepted": "6741503723994949292146588512484113735794687552501994526630941680467968000000000000000000000000000000000000000",
+      "nodes": 45621,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
         "diff.pickaxe-kinds": "{\"G\":\"\",\"find-object\":\"\",\"operands\":[\"value\"]}",
@@ -78525,7 +78546,8 @@
         "cli.blame.stdin": "{\"operands\":[\"value\"],\"stdin\":true}",
         "cli.blame.path": "{\"operands\":[]}",
         "cli.blame.separator-path": "{\"hasSeparator\":true,\"operands\":[\"value\"]}",
-        "cli.blame.old-path-rev": "{\"operands\":[\"value\"],\"operandsBeforeSeparator\":[\"value\"],\"pathsAfterSeparator\":[\"value\",\"value\"]}"
+        "cli.blame.old-path-rev": "{\"operands\":[\"value\"],\"operandsBeforeSeparator\":[\"value\"],\"pathsAfterSeparator\":[\"value\",\"value\"]}",
+        "cli.blame.line-range-numbers": "{\"L\":[\"0b\"],\"operands\":[\"value\"]}"
       }
     },
     {
@@ -78760,7 +78782,7 @@
           }
         }
       ],
-      "rules": 19,
+      "rules": 20,
       "domains": {
         "S": [
           "undefined",
@@ -79984,7 +80006,28 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"1\",\"\"]",
+          "[\",\"]",
+          "[\"1\",\",\"]",
+          "[\"1\"]",
+          "[\"1\",\"1\"]",
+          "[\"0\"]",
+          "[\"1\",\"0\"]",
+          "[\"-1\"]",
+          "[\"1\",\"-1\"]",
+          "[\"1,+0\"]",
+          "[\"1\",\"1,+0\"]",
+          "[\"1,-0\"]",
+          "[\"1\",\"1,-0\"]",
+          "[\"3,1\"]",
+          "[\"1\",\"3,1\"]",
+          "[\"1,999\"]",
+          "[\"1\",\"1,999\"]",
+          "[\"/pattern/\"]",
+          "[\"1\",\"/pattern/\"]",
+          "[\":function\"]",
+          "[\"1\",\":function\"]"
         ],
         "operands": [
           "[]",
@@ -80019,9 +80062,9 @@
           "true"
         ]
       },
-      "total": "3174448714443599927691518699697885925564433644719759903826913525760000000000000000000000000000000000000000000000",
-      "accepted": "3210239868569023472450756434516244636092708358334283107919496038318080000000000000000000000000000000000000000",
-      "nodes": 45526,
+      "total": "9840791014775159775843707969063446369249744298631255701863431929856000000000000000000000000000000000000000000000",
+      "accepted": "6741503723994949292146588512484113735794687552501994526630941680467968000000000000000000000000000000000000000",
+      "nodes": 45621,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
         "diff.pickaxe-kinds": "{\"G\":\"\",\"find-object\":\"\",\"operands\":[\"value\"]}",
@@ -80041,7 +80084,8 @@
         "cli.annotate.stdin": "{\"operands\":[\"value\"],\"stdin\":true}",
         "cli.annotate.path": "{\"operands\":[]}",
         "cli.annotate.separator-path": "{\"hasSeparator\":true,\"operands\":[\"value\"]}",
-        "cli.annotate.old-path-rev": "{\"operands\":[\"value\"],\"operandsBeforeSeparator\":[\"value\"],\"pathsAfterSeparator\":[\"value\",\"value\"]}"
+        "cli.annotate.old-path-rev": "{\"operands\":[\"value\"],\"operandsBeforeSeparator\":[\"value\"],\"pathsAfterSeparator\":[\"value\",\"value\"]}",
+        "cli.annotate.line-range-numbers": "{\"L\":[\"0b\"],\"operands\":[\"value\"]}"
       }
     },
     {
@@ -84603,7 +84647,7 @@
           }
         }
       ],
-      "rules": 19,
+      "rules": 20,
       "domains": {
         "S": [
           "undefined",
@@ -85827,7 +85871,28 @@
           "[\"0b\"]",
           "[\"0b\",\"0b\"]",
           "[\"1kb\"]",
-          "[\"1kb\",\"1kb\"]"
+          "[\"1kb\",\"1kb\"]",
+          "[\"1\",\"\"]",
+          "[\",\"]",
+          "[\"1\",\",\"]",
+          "[\"1\"]",
+          "[\"1\",\"1\"]",
+          "[\"0\"]",
+          "[\"1\",\"0\"]",
+          "[\"-1\"]",
+          "[\"1\",\"-1\"]",
+          "[\"1,+0\"]",
+          "[\"1\",\"1,+0\"]",
+          "[\"1,-0\"]",
+          "[\"1\",\"1,-0\"]",
+          "[\"3,1\"]",
+          "[\"1\",\"3,1\"]",
+          "[\"1,999\"]",
+          "[\"1\",\"1,999\"]",
+          "[\"/pattern/\"]",
+          "[\"1\",\"/pattern/\"]",
+          "[\":function\"]",
+          "[\"1\",\":function\"]"
         ],
         "operands": [
           "[]",
@@ -85862,9 +85927,9 @@
           "true"
         ]
       },
-      "total": "3174448714443599927691518699697885925564433644719759903826913525760000000000000000000000000000000000000000000000",
-      "accepted": "3210239868569023472450756434516244636092708358334283107919496038318080000000000000000000000000000000000000000",
-      "nodes": 45526,
+      "total": "9840791014775159775843707969063446369249744298631255701863431929856000000000000000000000000000000000000000000000",
+      "accepted": "6741503723994949292146588512484113735794687552501994526630941680467968000000000000000000000000000000000000000",
+      "nodes": 45621,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[\"value\"]}",
         "diff.pickaxe-kinds": "{\"G\":\"\",\"find-object\":\"\",\"operands\":[\"value\"]}",
@@ -85884,7 +85949,8 @@
         "cli.pickaxe.stdin": "{\"operands\":[\"value\"],\"stdin\":true}",
         "cli.pickaxe.path": "{\"operands\":[]}",
         "cli.pickaxe.separator-path": "{\"hasSeparator\":true,\"operands\":[\"value\"]}",
-        "cli.pickaxe.old-path-rev": "{\"operands\":[\"value\"],\"operandsBeforeSeparator\":[\"value\"],\"pathsAfterSeparator\":[\"value\",\"value\"]}"
+        "cli.pickaxe.old-path-rev": "{\"operands\":[\"value\"],\"operandsBeforeSeparator\":[\"value\"],\"pathsAfterSeparator\":[\"value\",\"value\"]}",
+        "cli.pickaxe.line-range-numbers": "{\"L\":[\"0b\"],\"operands\":[\"value\"]}"
       }
     },
     {

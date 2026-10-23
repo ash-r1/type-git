@@ -1,3 +1,4 @@
+import type { BlameLineRangeLiteral } from './blame-line-range.js';
 import type { TIMESTAMP_DEFAULT } from './git-timestamp.js';
 import type { GitBooleanCallback } from './git-boolean.js';
 import type {
@@ -324,116 +325,136 @@ type Apply<T, R extends Constraint> = R extends { guard: infer G extends readonl
   : ApplyBody<T, R>;
 type ScalarValue<V, P, Negative extends boolean = false> = V extends undefined
   ? V
-  : P extends GitBooleanCallback
-    ? GitBooleanCallbackLiteral<V, P> extends true
+  : P extends 'blame-line-range'
+    ? BlameLineRangeLiteral<V> extends true
       ? V
       : never
-    : P extends GitNumericParser
-      ? GitNumericLiteral<V, P> extends true
+    : P extends GitBooleanCallback
+      ? GitBooleanCallbackLiteral<V, P> extends true
         ? V
         : never
-      : P extends 'depth-initial'
-        ? DepthInitialLiteral<V> extends true
+      : P extends GitNumericParser
+        ? GitNumericLiteral<V, P> extends true
           ? V
           : never
-        : P extends 'object-filter' | 'object-filter-auto'
-          ? V extends undefined
+        : P extends 'depth-initial'
+          ? DepthInitialLiteral<V> extends true
             ? V
-            : V extends string
-              ? ObjectFilterLiteral<
-                  V,
-                  P extends 'object-filter-auto' ? true : false,
-                  Negative
-                > extends true
-                ? V
+            : never
+          : P extends 'object-filter' | 'object-filter-auto'
+            ? V extends undefined
+              ? V
+              : V extends string
+                ? ObjectFilterLiteral<
+                    V,
+                    P extends 'object-filter-auto' ? true : false,
+                    Negative
+                  > extends true
+                  ? V
+                  : never
                 : never
-              : never
-          : V;
+            : V;
+type ScalarList<V, P> = V extends undefined
+  ? V
+  : V extends readonly unknown[]
+    ? { [I in keyof V]: ScalarValue<Exclude<V[I], undefined>, P> }
+    : never;
 type ApplyBody<T, R extends Constraint> = R extends {
-  kind: 'scalar';
+  kind: 'eachScalar';
   key: infer K extends keyof T;
   parser: infer P;
 }
-  ? { [F in K]?: ScalarValue<T[F], P, R extends { negativeMagnitudes: true } ? true : false> }
+  ? { [F in K]?: ScalarList<T[F], P> }
   : R extends {
-        kind: 'range';
+        kind: 'scalar';
         key: infer K extends keyof T;
-        min: infer M extends number;
+        parser: infer P;
       }
-    ?
-        | {
-            [P in K]?: R extends { max: infer U extends number }
-              ? NumberAtMost<NumberAtLeast<T[P], M>, U>
-              : NumberAtLeast<T[P], M>;
-          }
-        | (R extends { when: infer W } ? Unless<T, W> : never)
-    : R extends { kind: 'integer'; key: infer K extends keyof T; min: infer M extends number }
-      ? { [P in K]?: SafeIntegerAtLeast<T[P], M, R extends { allowBoolean: true } ? true : false> }
-      : R extends {
-            kind: 'arity';
-            key: string;
-            min: number;
-            max?: number;
-          }
-        ? Arity<T, R> | (R extends { when: infer W } ? Unless<T, W> : never)
-        : R extends {
-              kind: 'required';
-              required: infer P extends readonly Predicate[];
+    ? { [F in K]?: ScalarValue<T[F], P, R extends { negativeMagnitudes: true } ? true : false> }
+    : R extends {
+          kind: 'range';
+          key: infer K extends keyof T;
+          min: infer M extends number;
+        }
+      ?
+          | {
+              [P in K]?: R extends { max: infer U extends number }
+                ? NumberAtMost<NumberAtLeast<T[P], M>, U>
+                : NumberAtLeast<T[P], M>;
             }
-          ? Every<T, P>
+          | (R extends { when: infer W } ? Unless<T, W> : never)
+      : R extends { kind: 'integer'; key: infer K extends keyof T; min: infer M extends number }
+        ? {
+            [P in K]?: SafeIntegerAtLeast<T[P], M, R extends { allowBoolean: true } ? true : false>;
+          }
+        : R extends {
+              kind: 'arity';
+              key: string;
+              min: number;
+              max?: number;
+            }
+          ? Arity<T, R> | (R extends { when: infer W } ? Unless<T, W> : never)
           : R extends {
-                kind: 'exclusiveGroups';
-                groups: infer G extends readonly (readonly Predicate[])[];
+                kind: 'required';
+                required: infer P extends readonly Predicate[];
               }
-            ? G extends readonly []
-              ? unknown
-              : ExclusiveGroups<T, G>
+            ? Every<T, P>
             : R extends {
-                  kind: 'exclusive';
-                  keys: infer K extends readonly string[];
+                  kind: 'exclusiveGroups';
+                  groups: infer G extends readonly (readonly Predicate[])[];
                 }
-              ? Exclusive<T, Extract<K[number], keyof T>>
+              ? G extends readonly []
+                ? unknown
+                : ExclusiveGroups<T, G>
               : R extends {
-                    kind: 'requiresAny';
-                    when: infer P extends Predicate;
-                    choices: infer Q extends readonly Predicate[];
+                    kind: 'exclusive';
+                    keys: infer K extends readonly string[];
                   }
-                ?
-                    | Reject<T, P>
-                    | (Q[number] extends infer C extends Predicate
-                        ? C extends unknown
-                          ? Satisfy<T, C>
-                          : never
-                        : never)
+                ? Exclusive<T, Extract<K[number], keyof T>>
                 : R extends {
-                      kind: 'requires';
+                      kind: 'requiresAny';
                       when: infer P extends Predicate;
-                      required: infer Q extends readonly Predicate[];
+                      choices: infer Q extends readonly Predicate[];
                     }
-                  ? Reject<T, P> | Every<T, Q>
+                  ?
+                      | Reject<T, P>
+                      | (Q[number] extends infer C extends Predicate
+                          ? C extends unknown
+                            ? Satisfy<T, C>
+                            : never
+                          : never)
                   : R extends {
-                        kind: 'conflicts';
+                        kind: 'requires';
                         when: infer P extends Predicate;
-                        others: infer Q extends readonly Predicate[];
+                        required: infer Q extends readonly Predicate[];
                       }
-                    ? Reject<T, P> | None<T, Q>
-                    : R extends { kind: 'forbid'; when: infer P extends readonly Predicate[] }
-                      ? NotEvery<T, P>
-                      : R extends {
-                            kind: 'elements';
-                            key: infer K extends keyof T;
-                            allowed: infer V extends readonly unknown[];
-                          }
-                        ? { [P in K]?: AllowedElements<Exclude<T[P], undefined>, V[number]> }
-                        : R extends { kind: 'unsupported'; keys: infer K extends readonly string[] }
-                          ? { [P in K[number]]?: never }
+                    ? Reject<T, P> | Every<T, Q>
+                    : R extends {
+                          kind: 'conflicts';
+                          when: infer P extends Predicate;
+                          others: infer Q extends readonly Predicate[];
+                        }
+                      ? Reject<T, P> | None<T, Q>
+                      : R extends { kind: 'forbid'; when: infer P extends readonly Predicate[] }
+                        ? NotEvery<T, P>
+                        : R extends {
+                              kind: 'elements';
+                              key: infer K extends keyof T;
+                              allowed: infer V extends readonly unknown[];
+                            }
+                          ? { [P in K]?: AllowedElements<Exclude<T[P], undefined>, V[number]> }
                           : R extends {
-                                kind: 'value';
-                                key: infer K extends keyof T;
-                                allowed: infer V extends readonly unknown[];
+                                kind: 'unsupported';
+                                keys: infer K extends readonly string[];
                               }
-                            ? { [P in K]?: Extract<V[number], T[P]> }
-                            : unknown; // Unmodeled scalar languages remain runtime checks.
+                            ? { [P in K[number]]?: never }
+                            : R extends {
+                                  kind: 'value';
+                                  key: infer K extends keyof T;
+                                  allowed: infer V extends readonly unknown[];
+                                }
+                              ? { [P in K]?: Extract<V[number], T[P]> }
+                              : unknown; // Unmodeled scalar languages remain runtime checks.
 
 type Rules<T, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,

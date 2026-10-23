@@ -7,6 +7,27 @@ import { type Constraint, violations } from './model.js';
 const evidence = { origin: 'git', reason: 'Test constraint', source: 'fixture' } as const;
 
 describe('finite constraint exploration', () => {
+  it('checks list scalars with the selected native context after evaluating the list guard', () => {
+    const rule: Constraint = {
+      ...evidence,
+      id: 'numbers',
+      kind: 'eachScalar',
+      key: 'items',
+      parser: { kind: 'integer', signed: false, bits: 32 },
+      guard: [{ key: 'items', test: 'lengthEquals', value: 2 }],
+    };
+    expect(violations([rule], { items: ['08', '1'] }, { integerProfile: 'decimal-cast' })).toEqual(
+      [],
+    );
+    expect(violations([rule], { items: ['08', '1'] }, { integerProfile: 'bounded' })).toHaveLength(
+      1,
+    );
+    expect(violations([rule], { items: ['1', 'invalid'] })).toHaveLength(1);
+    expect(violations([rule], { items: ['1', undefined] })).toHaveLength(1);
+    expect(violations([rule], { items: ['invalid'] })).toEqual([]);
+    expect(violations([{ ...rule, guard: [] }], { items: 'invalid' })).toHaveLength(1);
+  });
+
   it('checks all delegated option values while preserving early-help precedence', () => {
     const rule: Constraint = {
       ...evidence,
