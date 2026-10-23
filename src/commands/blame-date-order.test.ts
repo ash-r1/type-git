@@ -82,9 +82,11 @@ describe('streaming blame revision date callbacks', () => {
           expect(expected.stderr).toMatch(
             /(?:unknown date format|date format missing colon separator)/,
           );
-          await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(
-            GitArgumentError,
-          );
+          const result = repo.command(command, args as never);
+          await expect(result).rejects.toBeInstanceOf(GitArgumentError);
+          await expect(result).rejects.toMatchObject({
+            message: `--date: invalid revision-date-format value ${value}`,
+          });
         }
       }
     }, 120_000);
@@ -118,22 +120,38 @@ describe('streaming blame revision date callbacks', () => {
       const expected = native([command, 'HEAD', '--date=invalid', '-h']);
       expect(expected.status).toBe(128);
       expect(expected.stderr).toContain('unknown date format');
-      await expect(
-        repo.command(command, [{ operand: 'HEAD' }, ['--date', 'invalid'], ['-h']] as never),
-      ).rejects.toBeInstanceOf(GitArgumentError);
+      const result = repo.command(command, [
+        { operand: 'HEAD' },
+        ['--date', 'invalid'],
+        ['-h'],
+      ] as never);
+      await expect(result).rejects.toBeInstanceOf(GitArgumentError);
+      await expect(result).rejects.toMatchObject({
+        message: '--date: invalid revision-date-format value invalid',
+      });
     }, 120_000);
 
     it(`${command}: retains earlier command-owned callback validation`, async () => {
-      const expected = native([command, '--diff-algorithm=invalid', '-h', '--date=invalid']);
-      expect(expected.status).toBe(129);
-      expect(expected.stderr).toContain('diff-algorithm');
-      await expect(
-        repo.command(command, [
-          ['--diff-algorithm', 'invalid'],
+      for (const first of ['--diff-algorithm', '--date']) {
+        const second = first === '--date' ? '--diff-algorithm' : '--date';
+        const expected = native([command, `${first}=invalid`, '-h', `${second}=invalid`]);
+        expect(expected.status).toBe(first === '--date' ? 128 : 129);
+        expect(expected.stderr).toContain(
+          first === '--date' ? 'unknown date format' : 'diff-algorithm',
+        );
+        const result = repo.command(command, [
+          [first, 'invalid'],
           ['-h'],
-          ['--date', 'invalid'],
-        ] as never),
-      ).rejects.toBeInstanceOf(GitArgumentError);
+          [second, 'invalid'],
+        ] as never);
+        await expect(result).rejects.toBeInstanceOf(GitArgumentError);
+        await expect(result).rejects.toMatchObject({
+          message:
+            first === '--date'
+              ? '--date: invalid revision-date-format value invalid'
+              : '--diff-algorithm: unsupported option value invalid',
+        });
+      }
     }, 120_000);
 
     it(`${command}: treats date/help spellings after -- as literal file paths`, async () => {
