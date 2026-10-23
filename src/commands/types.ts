@@ -1,26 +1,25 @@
-import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
+import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
+import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
 import type { FastImportUnsignedParser } from '../constraints/fast-import-unsigned.js';
 import type { FastImportUnsignedLiteral } from '../constraints/fast-import-unsigned-types.js';
-import type { CompoundDecimalLiteral } from '../constraints/compound-decimal-types.js';
-import type { AsciiLower, AsciiUpper } from '../constraints/ascii-types.js';
 import type { GitBooleanCallback, GitBooleanSource } from '../constraints/git-boolean.js';
 import type {
   GitBooleanCallbackLiteral,
   GitBooleanCallbackValue,
 } from '../constraints/git-boolean-types.js';
-import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
+import type {
+  GitDecimalCallback,
+  GitDecimalCallbacks,
+  GitDecimalParser,
+  LegacyGitDecimal,
+} from '../constraints/git-decimal.js';
+import type { GitIntegerParser } from '../constraints/git-integer.js';
 import type {
   GitNumericLiteral,
   GitNumericParser,
   GitNumericValue,
 } from '../constraints/git-numeric-types.js';
-import type {
-  GitDecimalParser,
-  GitDecimalCallback,
-  GitDecimalCallbacks,
-  LegacyGitDecimal,
-} from '../constraints/git-decimal.js';
-import type { GitIntegerParser } from '../constraints/git-integer.js';
+import type { GitTimestampParser } from '../constraints/git-timestamp.js';
 import type { MainlineLiteral, MainlineValue } from '../constraints/mainline-types.js';
 import type { Constraint, Predicate } from '../constraints/model.js';
 import type { NumberLiteralOrder, SafeIntegerAtLeast } from '../constraints/number-types.js';
@@ -32,11 +31,13 @@ import type {
 } from '../constraints/string-callback-types.js';
 import type { Constrained, ConstraintRequirement } from '../constraints/types.js';
 import type { ExecOpts, GitOutputMode, RawResult } from '../core/types.js';
+import type { ArgumentsHaveLiteralNul } from './argument-string-types.js';
 import type { COMMAND_SPECS } from './generated.js';
+import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
 import type { InitialParserPass } from './initial-parser-pass-types.js';
 import type { PartitionRemaining, RevisionParserPass } from './revision-parser-pass-types.js';
 import type { GLOBAL_HELP_DISPATCH_OPTIONS, OptionSpec } from './spec.js';
-import type { CheckedGuiArguments, CommandGrammarContext } from './gui-syntax.js';
+import type { SvnSelect, SvnTokens, SvnWords } from './svn-dispatch-types.js';
 
 export type GitCommandName = keyof typeof COMMAND_SPECS;
 type Spec<C extends GitCommandName> = (typeof COMMAND_SPECS)[C];
@@ -837,11 +838,19 @@ type MagnitudeProfiledOption<S, D extends OptionSpec> = S extends { negativeMagn
       : Omit<D, 'parser'> & { parser: P & { negativeMagnitudes: true } }
     : D & { negativeMagnitudes: true }
   : D;
+type WithDecimalWidth<
+  P extends GitDecimalParser | GitTimestampParser,
+  Bits extends 32 | 64,
+> = P extends GitDecimalParser
+  ? Omit<P, 'longBits'> & { longBits: Bits }
+  : P extends GitTimestampParser
+    ? Omit<P, 'longBits'> & { longBits: Bits }
+    : never;
 type DecimalProfiledOption<S, D extends OptionSpec> = S extends {
   decimalLongBits: infer Bits extends 32 | 64;
 }
-  ? D extends { parser: infer P extends GitDecimalParser }
-    ? Omit<D, 'parser'> & { parser: Omit<P, 'longBits'> & { longBits: Bits } }
+  ? D extends { parser: infer P extends GitDecimalParser | GitTimestampParser }
+    ? Omit<D, 'parser'> & { parser: WithDecimalWidth<P, Bits> }
     : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
       ? D & {
           compoundLongBits: Bits;
@@ -850,14 +859,20 @@ type DecimalProfiledOption<S, D extends OptionSpec> = S extends {
       : D
   : D;
 type CallbackProfiledOption<S, D extends OptionSpec> = D extends {
-  parser: infer P extends GitDecimalParser & { nativeCallback: GitDecimalCallback };
+  parser: infer P extends GitTimestampParser & { nativeCallback: 'revision-age' };
 }
-  ? S extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
-    ? F[P['nativeCallback']] extends 'legacy'
-      ? Omit<D, 'parser'> & { parser: LegacyGitDecimal<P> }
-      : D
+  ? S extends { decimalCallbacks: { 'revision-age': 'legacy' } }
+    ? Omit<D, 'parser'> & { parser: Omit<P, 'conversion'> & { conversion: 'atoi' } }
     : D
-  : D;
+  : D extends {
+        parser: infer P extends GitDecimalParser & { nativeCallback: GitDecimalCallback };
+      }
+    ? S extends { decimalCallbacks: infer F extends GitDecimalCallbacks }
+      ? F[P['nativeCallback']] extends 'legacy'
+        ? Omit<D, 'parser'> & { parser: LegacyGitDecimal<P> }
+        : D
+      : D
+    : D;
 /** Defer old string-option validation and effects until parsing ends. */
 type ConflictProfiledOption<S, D extends OptionSpec> = S extends { conflictStyle: 'deferred' }
   ? D extends { nativeEnumCallback: 'conflict-style' }
@@ -1260,7 +1275,7 @@ type DecimalWidthChangesRaw<
         Extract<Options<C>[K], OptionSpec>
       > extends infer D extends OptionSpec
       ? D extends {
-          parser: infer P extends GitDecimalParser & {
+          parser: infer P extends (GitDecimalParser | GitTimestampParser) & {
             conversion: 'cast' | 'atoi' | 'prefix-cast';
           };
         }
@@ -1270,7 +1285,7 @@ type DecimalWidthChangesRaw<
           > extends infer Wide
           ? GitNumericValue<
               T extends readonly [unknown, infer V] ? V : DefaultValue<D>,
-              Omit<P, 'longBits'> & { longBits: 32 }
+              WithDecimalWidth<P, 32>
             > extends infer Narrow
             ? [Wide] extends [Narrow]
               ? [Narrow] extends [Wide]
@@ -1318,15 +1333,21 @@ type TupleCallbacksRaw<
 > = A extends readonly [infer T, ...infer Rest]
   ? T extends readonly [infer K extends keyof Options<C>, ...unknown[]]
     ? Options<C>[K] extends {
-        parser: { kind: 'decimal'; nativeCallback: infer F extends GitDecimalCallback };
+        parser: {
+          kind: 'decimal' | 'timestamp';
+          nativeCallback: infer F extends GitDecimalCallback;
+        };
       }
       ? F | TupleCallbacksRaw<C, Rest>
       : TupleCallbacksRaw<C, Rest>
     : TupleCallbacksRaw<C, Rest>
   : never;
-type CallbackChoices<K extends GitDecimalCallback> = ('unified-context' extends K
-  ? { 'unified-context': 'modern' } | { 'unified-context': 'legacy' }
+type CallbackChoices<K extends GitDecimalCallback> = ('revision-age' extends K
+  ? { 'revision-age': 'modern' } | { 'revision-age': 'legacy' }
   : {}) &
+  ('unified-context' extends K
+    ? { 'unified-context': 'modern' } | { 'unified-context': 'legacy' }
+    : {}) &
   ('revision-count' extends K
     ? { 'revision-count': 'modern' } | { 'revision-count': 'legacy' }
     : {}) &

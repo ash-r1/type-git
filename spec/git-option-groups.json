@@ -383,7 +383,13 @@
       },
       "--max-age": {
         "key": "max-age",
-        "value": "string"
+        "value": "integer",
+        "parser": {
+          "kind": "timestamp",
+          "conversion": "checked",
+          "longBits": 64,
+          "nativeCallback": "revision-age"
+        }
       },
       "--max-count": {
         "key": "max-count",
@@ -488,7 +494,13 @@
       },
       "--min-age": {
         "key": "min-age",
-        "value": "string"
+        "value": "integer",
+        "parser": {
+          "kind": "timestamp",
+          "conversion": "checked",
+          "longBits": 64,
+          "nativeCallback": "revision-age"
+        }
       },
       "--min-parents": {
         "key": "min-parents",
