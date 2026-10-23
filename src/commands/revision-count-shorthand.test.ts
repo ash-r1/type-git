@@ -31,7 +31,7 @@ const commands: readonly [GitCommandName, readonly string[]][] = [
 describe('revision count shorthand', () => {
   let root: string;
   let repo: WorktreeRepo;
-  let env: NodeJS.ProcessEnv;
+  let env: Record<string, string>;
   const native = (args: readonly string[], workdir = root) => {
     const result = spawnSync('git', ['-C', workdir, ...args], {
       env,
@@ -48,7 +48,10 @@ describe('revision count shorthand', () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-revision-count-'));
     env = {
       ...Object.fromEntries(
-        Object.entries(process.env).filter(([key]) => !key.toUpperCase().startsWith('GIT_')),
+        Object.entries(process.env).filter(
+          (entry): entry is [string, string] =>
+            entry[1] !== undefined && !entry[0].toUpperCase().startsWith('GIT_'),
+        ),
       ),
       HOME: root,
       XDG_CONFIG_HOME: root,
@@ -102,6 +105,14 @@ describe('revision count shorthand', () => {
             word === '--' || word === '--stdout' ? [word] : { operand: word },
           ),
         ];
+        if (command === 'diff-files' && expected.status === 129) {
+          // diff-files rejects a final parsed count above3 before running its diff.
+          expect(expected.stderr).toContain('usage: git diff-files');
+          await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(
+            GitArgumentError,
+          );
+          continue;
+        }
         const actual = await repo.command(command, args as never);
         expect(actual.exitCode).toBe(expected.status);
         expect(actual.stdout).toBe(expected.stdout);

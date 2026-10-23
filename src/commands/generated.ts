@@ -41093,16 +41093,34 @@ const commandSpec71 = {
       key: 'max-count',
       value: 'flag',
       set: 1,
+      effects: [
+        {
+          key: 'diff-files-stage',
+          set: true,
+        },
+      ],
     },
     '--ours': {
       key: 'max-count',
       value: 'flag',
       set: 2,
+      effects: [
+        {
+          key: 'diff-files-stage',
+          set: true,
+        },
+      ],
     },
     '--theirs': {
       key: 'max-count',
       value: 'flag',
       set: 3,
+      effects: [
+        {
+          key: 'diff-files-stage',
+          set: true,
+        },
+      ],
     },
     '-q': {
       key: 'silent-removed',
@@ -41355,6 +41373,49 @@ const commandSpec71 = {
           test: 'active',
         },
       ],
+    },
+    {
+      id: 'cli.diff-files.revision-count',
+      kind: 'range',
+      key: 'max-count',
+      min: -2147483648,
+      max: 3,
+      when: {
+        key: 'diff-files-stage',
+        test: 'inactive',
+      },
+      origin: 'git',
+      reason:
+        'diff-files rejects a final normalized count greater than3. Manual --base/--ours/--theirs are processed after revision options and replace the count regardless of their argv position. Negative counts remain accepted.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/diff-files.c#L51-L76',
+    },
+    {
+      id: 'cli.diff-files.min-age',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'min-age',
+          test: 'timestampNotDefault',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'diff-files requires final numeric age filters to remain the timestamp default sentinel. Date aliases overwrite numeric state; arbitrary approxidate text remains native-owned.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/diff-files.c#L72-L76',
+    },
+    {
+      id: 'cli.diff-files.max-age',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'max-age',
+          test: 'timestampNotDefault',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'diff-files requires final numeric age filters to remain the timestamp default sentinel. Date aliases overwrite numeric state; arbitrary approxidate text remains native-owned.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/diff-files.c#L72-L76',
     },
   ],
   source: 'builtin/diff-files.c; revision.c; diff.c; diff-merges.c',
