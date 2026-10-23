@@ -85,10 +85,15 @@ describe('ordered exits in audited single-pass parsers', () => {
       'HEAD',
       '-h',
     ]);
-    // grep -h means no filename; diff-files does not use the audited exit pass.
-    for (const name of ['grep', 'diff-files'] as const) {
-      expect((COMMAND_SPECS[name] as { parserExit?: unknown }).parserExit).toBeUndefined();
-    }
+    // grep -h means no filename even though its internal long help exits.
+    expect(() =>
+      commandArguments('grep', [['-h'], ['--threads', 'invalid'], ['-e', 'base']]),
+    ).toThrow('--threads: invalid integer value invalid');
+    expect(
+      commandArguments('grep', [['--threads', 1], ['--help'], ['--threads', 'invalid']]),
+    ).toEqual(['grep', '--threads=1', '--help', '--threads=invalid']);
+    // diff-files does not use this audited single-pass exit.
+    expect((COMMAND_SPECS['diff-files'] as { parserExit?: unknown }).parserExit).toBeUndefined();
   });
 
   it('does not probe parser traits used only after an audited help exit', async () => {
