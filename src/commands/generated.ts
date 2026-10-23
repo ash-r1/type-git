@@ -97996,6 +97996,15 @@ const commandSpec201 = {
   source: 'builtin/grep.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  parserExit: {
+    flags: ['--help'],
+    exceptFirst: ['--help'],
+    origin: 'git',
+    reason:
+      'Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand.',
+    source:
+      'Git 2.55.0 builtin/grep.c:cmd_grep parse_options KEEP_DASHDASH|STOP_AT_NON_OPTION; OPT_NEGBIT h; parse-options.c; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec202 = {
   argv: ['format-patch'],
