@@ -1,5 +1,6 @@
 import { partitionRemainingArguments, revisionParserPass } from './revision-parser-pass.js';
 import { initialParserPass } from './initial-parser-pass.js';
+import { initialParserInputs } from './initial-parser-inputs.js';
 import { svnDispatch, svnParserTokens, svnShapeOption } from './svn-dispatch.js';
 import {
   isBooleanCallback,
@@ -384,12 +385,29 @@ function buildArguments(
             };
           })(),
     );
+    const initialTokens = initialParserInputs(spec, args, pass.tokens);
     if (pass.exited) {
-      buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
+      buildArguments(
+        command,
+        initialTokens,
+        inRepository,
+        abi,
+        guiGrammar,
+        guiLaunch,
+        'first-pass',
+      );
       return serialized;
     }
     if (pass.subcommand !== undefined) {
-      buildArguments(command, pass.tokens, inRepository, abi, guiGrammar, guiLaunch, 'first-pass');
+      buildArguments(
+        command,
+        initialTokens,
+        inRepository,
+        abi,
+        guiGrammar,
+        guiLaunch,
+        'first-pass',
+      );
       buildArguments(
         spec.dispatch![pass.subcommand] as GitCommandName,
         pass.remaining.map((operand) => ({ operand })),
@@ -429,7 +447,7 @@ function buildArguments(
         : revision!.tokens;
       buildArguments(
         command,
-        [...pass.tokens, ...remaining],
+        [...initialTokens, ...remaining],
         inRepository,
         abi,
         guiGrammar,

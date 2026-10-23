@@ -20,3 +20,14 @@ git.command('backfill',[['--min-batch-size','invalid'],['-h']]);
 git.command('last-modified',[['--max-depth','invalid'],['-h']]);
 // @ts-expect-error Backfill explicit diff-merges remains unsupported.
 git.command('backfill',[['--diff-merges','cc'],{operand:'HEAD'}]);
+
+// Preserve the API's exact integer representation policy across the initial pass.
+// @ts-expect-error An unsafe JavaScript number is not made precise by tokenization.
+git.command('backfill',[['--min-batch-size',9007199254740992],['--min-batch-size',1],['-h']]);
+git.command('backfill',[['--min-batch-size','9007199254740992'],['-h']]);
+git.command('backfill',[['--min-batch-size',9007199254740992n],['-h']]);
+git.command('backfill',[['-h'],['--min-batch-size',9007199254740992]]);
+git.command('backfill',[['--min-batch-size','9007199254740992'],['-h'],['--min-batch-size',9007199254740992]]);
+declare const integerValue: 1 | 9007199254740992;
+// @ts-expect-error A known unsafe union member must not be discarded.
+git.command('backfill',[['--min-batch-size',integerValue],['-h']]);

@@ -176,4 +176,47 @@ describe('retained revision initial parser phases', () => {
       repo.command('backfill', [['--diff-merges', 'cc'], { operand: 'HEAD' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);
   }, 120_000);
+  it('preserves integer number representation checks only before reached callbacks', async () => {
+    const large = 9007199254740992;
+    for (const help of [false, true]) {
+      const args = [
+        ['--min-batch-size', large],
+        ['--min-batch-size', 1],
+        ...(help ? [['-h']] : []),
+      ];
+      await expect(repo.command('backfill', args as never)).rejects.toBeInstanceOf(
+        GitArgumentError,
+      );
+    }
+    for (const value of [String(large), BigInt(large)]) {
+      const expected = native([
+        'backfill',
+        `--min-batch-size=${value}`,
+        '--min-batch-size=1',
+        '-h',
+      ]);
+      const actual = await repo.command('backfill', [
+        ['--min-batch-size', value],
+        ['--min-batch-size', 1],
+        ['-h'],
+      ] as never);
+      expect(actual.exitCode).toBe(expected.status);
+      expect(actual.stdout).toBe(expected.stdout);
+      expect(actual.stderr).toBe(expected.stderr);
+    }
+    // An exact string before help must not acquire a later ignored number's representation.
+    for (const first of [false, true]) {
+      const args = first
+        ? [['-h'], ['--min-batch-size', large]]
+        : [['--min-batch-size', String(large)], ['-h'], ['--min-batch-size', large]];
+      const words = first
+        ? ['-h', `--min-batch-size=${large}`]
+        : [`--min-batch-size=${large}`, '-h', `--min-batch-size=${large}`];
+      const expected = native(['backfill', ...words]);
+      const actual = await repo.command('backfill', args as never);
+      expect(actual.exitCode).toBe(expected.status);
+      expect(actual.stdout).toBe(expected.stdout);
+      expect(actual.stderr).toBe(expected.stderr);
+    }
+  }, 120_000);
 });
