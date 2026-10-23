@@ -98001,9 +98001,10 @@ const commandSpec201 = {
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
-      'Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand.',
+      'Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand. A lone -h exits at the parser total-word shortcut before registered short options.',
     source:
       'Git 2.55.0 builtin/grep.c:cmd_grep parse_options KEEP_DASHDASH|STOP_AT_NON_OPTION; OPT_NEGBIT h; parse-options.c; git.c:handle_builtin',
+    singleWordExits: ['-h'],
   },
 } as const satisfies CommandSpec;
 const commandSpec202 = {

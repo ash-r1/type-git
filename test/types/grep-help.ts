@@ -11,3 +11,6 @@ git.command('grep',[['--threads','invalid'],['--help']]);
 git.command('grep',[['-h'],['--threads','invalid'],['-e','base']]);
 // @ts-expect-error Short h does not supply a pattern or select help.
 git.command('grep',[['-h'],['--threads',1]]);
+
+// The native one-word shortcut precedes registered filename suppression.
+git.command('grep',[['-h']]);

@@ -63,6 +63,11 @@ describe('grep internal help and filename suppression', () => {
     expect(actual.stderr).toBe(expected.stderr);
     return expected;
   };
+  it('a lone short h exits before the registered filename option', async () => {
+    const result = await compare([['-h']], ['-h']);
+    expect([0, 129]).toContain(result.status);
+    expect(result.stdout + result.stderr).toContain('usage:');
+  }, 120_000);
   it('internal long help preempts later integer callbacks', async () => {
     for (const value of ['invalid', '2147483648', '4294967295']) {
       const result = await compare(
