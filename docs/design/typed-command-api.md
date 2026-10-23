@@ -346,6 +346,12 @@ Revision count shorthand such as `log -3` retains its original argv word and use
 
 Revision timestamp callbacks (`--min-age` and `--max-age`) have their own decimal uintmax grammar. Current Git checks the full decimal magnitude before unsigned negation; old Git consumes an atoi prefix, narrows to signed int, then promotes to timestamp storage. The selected runner observes this callback independently of revision-count and other numeric callbacks. Unpinned public literals preserve old-family acceptance; explicitly pinned modern compiler checks reject malformed or overflowing literals. `diff-index` rejects a final normalized numeric `--min-age` or `--max-age` other than the timestamp default sentinel (unsigned all-ones). Later numeric values replace earlier parsed values; an immediate parse error still fails before replacement. `--since`/`--after` share the `max-age` state, and `--before`/`--until` share `min-age`, so their order with numeric filters is preserved. Arbitrary approxidate strings remain native-owned, including their nonzero exits; their grammar is not claimed complete. `--since-as-filter` uses a separate state and does not replace `max-age`.
 
+Revision `--date` validates the case-sensitive mode names, one optional `-local` suffix, the historical `local` alias, and `format:`/`format-local:` prefixes. Arbitrary strftime payloads remain native-owned. `auto:` suffix interpretation also remains native-owned because the same value can succeed with stdout pipes and fail with a terminal or pager. Callback errors precede later valid date values; command first-pass help can preempt revision parsing regardless of argv order. Native help exit codes are retained rather than normalized.
+
+`stash list` retains its repository-ref gate: without a stash it succeeds before parsing log date options; otherwise native child errors and the parent exit mapping are preserved. Its date grammar therefore stays deferred in public types.
+
+Date-format validation remains native-owned for `backfill`, `last-modified`, `replay`, `blame`, `annotate`, and `pickaxe`: their initial or interleaved option passes can reach help before revision callbacks. Their baseline behavior is preserved while that parser timing remains an audit obligation.
+
 ### Submodule frontends and sparse checkouts
 
 Public submodule operations and all registered submodule helper operations have

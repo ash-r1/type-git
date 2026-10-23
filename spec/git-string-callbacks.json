@@ -7,7 +7,8 @@
     "gpg-interface.c": "a4e80fd3a259a219129afac05bdf304b42fcfa55f07b15f781d226227d455c0f",
     "column.c": "7f180656b3d4a4ea41cb179379d4ff2b772ef8001fbb7e2b464218a94c65cae7",
     "builtin/merge.c": "3ab6a184e4ff7fd28bfcceb28df63f08460fc92d2598686fcc56e86290ba870d",
-    "strbuf.c": "fc6f170a22ce422ae4bad3e2211c35a8cd9d81f6f4ef210e039519c52b7ac388"
+    "strbuf.c": "fc6f170a22ce422ae4bad3e2211c35a8cd9d81f6f4ef210e039519c52b7ac388",
+    "date.c": "ee1f260f43aab1c6c79b7688d408eafc511fd1086764cc320771dd8f2972858e"
   },
   "profiles": {
     "anonymize-map": {
@@ -60,6 +61,42 @@
         }
       },
       "source": "column.c:parse_config/parse_option/parseopt_column_callback; enable projection only; auto depends on tty/pager during finalization"
+    },
+    "revision-date-format": {
+      "kind": "choice",
+      "exact": [
+        "relative",
+        "iso8601-strict",
+        "iso-strict",
+        "iso8601",
+        "iso",
+        "rfc2822",
+        "rfc",
+        "short",
+        "default",
+        "human",
+        "raw",
+        "unix",
+        "relative-local",
+        "iso8601-strict-local",
+        "iso-strict-local",
+        "iso8601-local",
+        "iso-local",
+        "rfc2822-local",
+        "rfc-local",
+        "short-local",
+        "default-local",
+        "human-local",
+        "raw-local",
+        "unix-local",
+        "local"
+      ],
+      "prefixes": [
+        "format:",
+        "format-local:",
+        "auto:"
+      ],
+      "source": "date.c:parse_date_type/parse_date_format; revision.c:parse_long_opt(date). Case-sensitive mode and optional -local suffix; format requires a colon and accepts arbitrary strftime text. auto: suffix validation depends on stdout TTY/pager and remains native-owned, including empty or malformed suffixes."
     }
   }
 }

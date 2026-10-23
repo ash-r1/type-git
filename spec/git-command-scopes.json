@@ -5641,6 +5641,10 @@
           "nativeWidth": "size_t",
           "negativeMagnitudes": false
         }
+      },
+      "--date": {
+        "key": "date",
+        "value": "string"
       }
     },
     "numericOption": {
@@ -5692,6 +5696,10 @@
         "key": "max-depth",
         "value": "flag",
         "set": 0
+      },
+      "--date": {
+        "key": "date",
+        "value": "string"
       }
     },
     "numericOption": {
@@ -5771,6 +5779,12 @@
           "set": false
         }
       ]
+    },
+    "options": {
+      "--date": {
+        "key": "date",
+        "value": "string"
+      }
     }
   },
   "blame": {
@@ -5836,6 +5850,10 @@
             "set": false
           }
         ]
+      },
+      "--date": {
+        "key": "date",
+        "value": "string"
       }
     },
     "numericOption": {
@@ -5919,6 +5937,10 @@
             "set": false
           }
         ]
+      },
+      "--date": {
+        "key": "date",
+        "value": "string"
       }
     },
     "numericOption": {
@@ -6255,6 +6277,10 @@
             "set": false
           }
         ]
+      },
+      "--date": {
+        "key": "date",
+        "value": "string"
       }
     },
     "numericOption": {

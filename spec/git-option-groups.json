@@ -192,7 +192,8 @@
       },
       "--date": {
         "key": "date",
-        "value": "string"
+        "value": "string",
+        "parser": "revision-date-format"
       },
       "--date-order": {
         "key": "date-order",
