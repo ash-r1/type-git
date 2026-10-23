@@ -34,6 +34,7 @@ git.command('stash list', [['--date', 'invalid']]);
 
 // The initial pass exits before this retained callback.
 git.command('backfill', [['--date', 'invalid'], ['-h']]);
-// Native-owned until these interleaved parser phases are modeled.
+// Streaming blame help exits before later revision callbacks.
 git.command('blame', [['-h'], ['--date', 'invalid']]);
+// @ts-expect-error Streaming revision callback executes before final path resolution.
 git.command('annotate', [['--date', 'invalid'], { operand: 'file' }]);
