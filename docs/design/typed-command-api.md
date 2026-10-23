@@ -1859,3 +1859,7 @@ states remain unknown and are explored independently. Windows Git can report
 `file/child` beneath an ordinary file as missing rather than ENOTDIR; native
 comparison tests retain its later callback/syntax errors instead of assuming the
 Unix stat diagnostic. The path is not read from command stdin.
+
+Revision `--date` validates the case-sensitive mode names, one optional `-local` suffix, the historical `local` alias, and `format:`/`format-local:` prefixes. Arbitrary strftime payloads remain native-owned. `auto:` suffix interpretation also remains native-owned because the same value can succeed with stdout pipes and fail with a terminal or pager. Callback errors precede later valid date values; command first-pass help can preempt revision parsing regardless of argv order. Native help exit codes are retained rather than normalized.
+
+`stash list` retains its repository-ref gate: without a stash it succeeds before parsing log date options; otherwise native child errors and the parent exit mapping are preserved. Its date grammar therefore stays deferred in public types.
