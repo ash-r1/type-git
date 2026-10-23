@@ -174,16 +174,19 @@ describe('revision date format callback', () => {
       const args = first ? [['-h'], ['--date', 'invalid']] : [['--date', 'invalid'], ['-h']];
       const words = first ? ['-h', '--date=invalid'] : ['--date=invalid', '-h'];
       const expected = native([...command.split(' '), ...words]);
-      try {
-        const actual = await repo.command(command, args as never);
-        expect(actual.exitCode).toBe(expected.status);
-        expect(actual.stdout).toBe(expected.stdout);
-        expect(actual.stderr).toBe(expected.stderr);
-      } catch (error) {
-        expect(error).toBeInstanceOf(GitArgumentError);
+      const outcome = await repo.command(command, args as never).then(
+        (value) => ({ ok: true as const, value }),
+        (error: unknown) => ({ ok: false as const, error }),
+      );
+      if (!outcome.ok) {
+        expect(outcome.error).toBeInstanceOf(GitArgumentError);
         expect(expected.status).not.toBe(0);
         expect(expected.stdout + expected.stderr).not.toContain('usage:');
+        continue;
       }
+      expect(outcome.value.exitCode).toBe(expected.status);
+      expect(outcome.value.stdout).toBe(expected.stdout);
+      expect(outcome.value.stderr).toBe(expected.stderr);
     }
   }, 120_000);
   it('keeps stash-list date parsing behind its repository-ref gate', async () => {
