@@ -149,7 +149,10 @@ export function parseGitScalar(
     return parseGitTimestamp(value, {
       ...parser,
       longBits: cLongBits,
-      conversion: decimalCallbacks?.['revision-age'] === 'legacy' ? 'atoi' : parser.conversion,
+      conversion:
+        parser.nativeCallback === 'revision-age' && decimalCallbacks?.['revision-age'] === 'legacy'
+          ? 'atoi'
+          : parser.conversion,
     });
   }
   if (typeof parser === 'object' && parser.kind === 'decimal') {

@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { parseGitTimestamp, timestampCallbackFamily } from './git-timestamp.js';
+import { parseGitScalar } from './git-scalars.js';
+import { decimalCallbackFamily } from './git-decimal.js';
+import {
+  parseGitTimestamp,
+  timestampCallbackFamily,
+  type GitTimestampParser,
+} from './git-timestamp.js';
 
 const modern = { kind: 'timestamp', conversion: 'checked', longBits: 64 } as const;
 const legacy = { kind: 'timestamp', conversion: 'atoi', longBits: 64 } as const;
@@ -50,6 +56,36 @@ describe('revision timestamp conversion', () => {
     expect(parseGitTimestamp(true, legacy).valid).toBe(false);
     expect(parseGitTimestamp('1\0', legacy).valid).toBe(false);
   });
+  it('applies executable callback selection only to explicitly marked parsers', () => {
+    const scalar = (parser: GitTimestampParser, value: string, family: 'modern' | 'legacy') =>
+      parseGitScalar(parser, value, undefined, 64, 64, true, undefined, false, {
+        'revision-age': family,
+      });
+    expect(scalar(modern, '1x', 'legacy')).toEqual({ valid: false });
+    expect(scalar(modern, '4294967295', 'legacy')).toEqual({ valid: true, value: 4294967295 });
+    const marked = { ...modern, nativeCallback: 'revision-age' } as const;
+    expect(scalar(marked, '1x', 'legacy')).toEqual({ valid: true, value: 1 });
+    expect(scalar(marked, '4294967295', 'legacy')).toEqual({
+      valid: true,
+      value: 18446744073709551615n,
+    });
+    expect(scalar(marked, '1x', 'modern')).toEqual({ valid: false });
+    expect(scalar(legacy, '1x', 'modern')).toEqual({ valid: true, value: 1 });
+  });
+
+  it('keeps timestamp diagnostics independent of revision-count diagnostics', () => {
+    const countFailure = { exitCode: 128, stdout: '', stderr: "fatal: 'invalid': not an integer" };
+    expect(decimalCallbackFamily('revision-age', countFailure)).toBeUndefined();
+    expect(decimalCallbackFamily('revision-count', countFailure)).toBe('modern');
+    const ageFailure = {
+      exitCode: 128,
+      stdout: '',
+      stderr: "fatal: 'invalid': not a number of seconds since epoch",
+    };
+    expect(decimalCallbackFamily('revision-age', ageFailure)).toBe('modern');
+    expect(decimalCallbackFamily('revision-count', ageFailure)).toBeUndefined();
+  });
+
   it('recognizes only positive callback evidence', () => {
     expect(
       timestampCallbackFamily({

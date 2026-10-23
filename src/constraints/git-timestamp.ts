@@ -1,4 +1,4 @@
-import { parseGitDecimal } from './git-decimal.js';
+import { DECIMAL_CALLBACK_PROBES, decimalCallbackFamily, parseGitDecimal } from './git-decimal.js';
 import { integerState } from './git-integer.js';
 
 /** Revision age uses uintmax seconds; old Git first converts an atoi signed int. */
@@ -10,7 +10,7 @@ export type GitTimestampParser = {
 };
 
 /** rev-list parses the age before -h without walking revisions or modifying files. */
-export const TIMESTAMP_CALLBACK_PROBE = ['rev-list', '--max-age=invalid', '-h'] as const;
+export const TIMESTAMP_CALLBACK_PROBE = DECIMAL_CALLBACK_PROBES['revision-age'];
 
 /** Unknown diagnostics leave the original executable responsible for validation. */
 export function timestampCallbackFamily(result: {
@@ -18,17 +18,7 @@ export function timestampCallbackFamily(result: {
   stdout: string;
   stderr: string;
 }): 'modern' | 'legacy' | undefined {
-  if (result.exitCode === 128 && /not a number of seconds since epoch/.test(result.stderr)) {
-    return 'modern';
-  }
-  if (
-    result.exitCode === 129 &&
-    (result.stdout + result.stderr).includes('usage:') &&
-    !/error:|fatal:/.test(result.stderr)
-  ) {
-    return 'legacy';
-  }
-  return undefined;
+  return decimalCallbackFamily('revision-age', result);
 }
 
 const DECIMAL_TIMESTAMP = /^[ \t\r\n\v\f]*([+-]?)(\d+)$/;
