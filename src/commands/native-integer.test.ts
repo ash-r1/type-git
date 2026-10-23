@@ -4,7 +4,7 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { parseGitInteger } from '../constraints/git-integer.js';
+import type { GitIntegerProfile } from '../constraints/git-integer.js';
 import { parseGitScalar } from '../constraints/git-scalars.js';
 import { GitArgumentError } from '../core/types.js';
 import { commandArguments } from './build.js';
@@ -21,6 +21,8 @@ describe('compiler-recorded native integer parsers', () => {
   let longBits: 32 | 64;
   let sizeTBits: 32 | 64;
   let binaryIntegers: boolean;
+  let integerProfile: GitIntegerProfile;
+  let negativeMagnitudes: boolean;
   beforeAll(async () => {
     root = await mkdtemp(join(tmpdir(), 'type-git-integer-'));
     env = {
@@ -55,6 +57,34 @@ describe('compiler-recorded native integer parsers', () => {
       expect(binary.status).toBe(128);
       expect(binary.stderr).toContain('invalid filter-spec');
     }
+    // Observe the selected executable: older int callbacks cast decimal long values,
+    // while unsigned-long magnitude callbacks have a separate sign policy.
+    const integer = spawnSync('git', ['column', '--width=2147483648', '-h'], {
+      env,
+      encoding: 'utf8',
+      timeout: 5000,
+    });
+    expect(integer.error).toBeUndefined();
+    expect(integer.signal).toBeNull();
+    expect([0, 129]).toContain(integer.status);
+    integerProfile = integerError.test(integer.stderr) ? 'bounded' : 'decimal-cast';
+    if (integerProfile === 'decimal-cast') {
+      expect(integer.stdout + integer.stderr).toContain('usage:');
+    }
+    const magnitude = spawnSync('git', ['clone', '--filter=blob:limit=-0', '-h'], {
+      env,
+      encoding: 'utf8',
+      timeout: 5000,
+    });
+    expect(magnitude.error).toBeUndefined();
+    expect(magnitude.signal).toBeNull();
+    negativeMagnitudes =
+      (magnitude.status === 0 || magnitude.status === 129) &&
+      (magnitude.stdout + magnitude.stderr).includes('usage:');
+    if (!negativeMagnitudes) {
+      expect(magnitude.status).toBe(128);
+      expect(magnitude.stderr).toContain('invalid filter-spec');
+    }
   });
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
@@ -64,9 +94,15 @@ describe('compiler-recorded native integer parsers', () => {
     'matches native width, radix, sign, unit and whitespace boundaries',
     () => {
       const profiles = [
-        { command: 'column', flag: '--width', signed: true, bits: 32 },
-        { command: 'column', flag: '--raw-mode', signed: false, bits: 32 },
-        { command: 'pack-objects', flag: '--max-pack-size', signed: false, bits: longBits },
+        { command: 'column', flag: '--width', signed: true, bits: 32, nativeWidth: undefined },
+        { command: 'column', flag: '--raw-mode', signed: false, bits: 32, nativeWidth: undefined },
+        {
+          command: 'pack-objects',
+          flag: '--max-pack-size',
+          signed: false,
+          bits: longBits,
+          nativeWidth: 'long',
+        },
       ] as const;
       const lexical = [
         '',
@@ -97,7 +133,13 @@ describe('compiler-recorded native integer parsers', () => {
         '\u00a01',
       ];
       for (const profile of profiles) {
-        const parser = { kind: 'integer', signed: profile.signed, bits: profile.bits } as const;
+        const parser = {
+          kind: 'integer',
+          signed: profile.signed,
+          bits: profile.bits,
+          nativeWidth: profile.nativeWidth,
+        } as const;
+        const acceptsNegativeMagnitude = profile.nativeWidth === 'long' && negativeMagnitudes;
         const limit = 1n << BigInt(profile.bits - (profile.signed ? 1 : 0));
         const values = [...lexical];
         for (const boundary of [0n, limit, -limit]) {
@@ -135,7 +177,16 @@ describe('compiler-recorded native integer parsers', () => {
             expect(native.stdout + native.stderr).toContain('usage:');
           }
           expect(
-            parseGitInteger(value, parser, binaryIntegers) !== undefined,
+            parseGitScalar(
+              parser,
+              value,
+              undefined,
+              longBits,
+              sizeTBits,
+              binaryIntegers,
+              integerProfile,
+              acceptsNegativeMagnitude,
+            ).valid,
             `${profile.command} ${JSON.stringify(value)}: ${native.stderr}`,
           ).toBe(accepted);
           const build = () =>
@@ -143,6 +194,8 @@ describe('compiler-recorded native integer parsers', () => {
               longBits,
               sizeTBits,
               binaryIntegers,
+              integerProfile,
+              negativeMagnitudes: acceptsNegativeMagnitude,
             });
           if (accepted) {
             expect(build).not.toThrow();
