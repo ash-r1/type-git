@@ -843,6 +843,8 @@ even for words ignored by Git.
 `node scripts/parser-exit-corpus.mjs --check` replays a deterministic independent
 Git 2.55.0 corpus, classifies native diagnostics, and reproduces the runtime and
 compiler fixtures. This finite corpus is not an exhaustive command proof.
+For `grep`, internal `--help` exits before later callbacks and final mode checks. Earlier integer callback errors still fail first. The parser stops at its first operand; later help-looking words retain native failure/path handling. With other arguments present, `-h` suppresses filenames and does not preempt callback validation or satisfy the pattern requirement. Git's standalone builtin `-h` shortcut is a separate dispatch obligation.
+
 The annotation is deliberately per scope: `grep -h` is an ordinary option and
 `diff-files` processes those options before handling help. Other exit phases, completion helpers,
 abbreviations, repository/configuration failures and other parse exits remain

@@ -4594,9 +4594,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/grep-help.test.ts",
+        "test/types/grep-help.ts"
       ],
-      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Pattern expression trees, file-supplied patterns, ref/path partitioning, configured no-index fallback and early return on max-count zero remain state-dependent. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
+      "remaining": "Repository/configuration/ref resolution, delegated value languages, callback side effects, abbreviations, combined short options, numeric lexical edge cases and independent witnesses for every rule. Pattern expression trees, file-supplied patterns, ref/path partitioning, configured no-index fallback and early return on max-count zero remain state-dependent. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Internal --help callback/final-check preemption is modeled for the finite native corpus; short -h filename suppression with other arguments remains ordinary parsing. Standalone builtin -h, arbitrary parser interactions, repository/config and platform profiles remain audit obligations.",
       "typedCommandAPI": true
     },
     "format-patch": {
