@@ -97,6 +97,12 @@ describe('selected native revision timestamp callback', () => {
           await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(
             GitArgumentError,
           );
+        } else if (command === 'diff-index' && expected.status === 129) {
+          // Parsed non-default age filters are forbidden by diff-index's final state check.
+          expect(expected.stderr).toContain('usage: git diff-index');
+          await expect(repo.command(command, args as never)).rejects.toBeInstanceOf(
+            GitArgumentError,
+          );
         } else {
           const actual = await repo.command(command, args as never);
           expect(actual.exitCode, `${flag}=${JSON.stringify(value)}`).toBe(expected.status);

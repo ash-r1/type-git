@@ -766,7 +766,7 @@ const remainingOptions1 = {
     value: 'flag',
   },
   '--after': {
-    key: 'after',
+    key: 'max-age',
     value: 'string',
   },
   '--all': {
@@ -809,7 +809,7 @@ const remainingOptions1 = {
     value: 'flag',
   },
   '--before': {
-    key: 'before',
+    key: 'min-age',
     value: 'string',
   },
   '--bisect': {
@@ -1531,7 +1531,7 @@ const remainingOptions1 = {
     ],
   },
   '--since': {
-    key: 'since',
+    key: 'max-age',
     value: 'string',
   },
   '--since-as-filter': {
@@ -1610,7 +1610,7 @@ const remainingOptions1 = {
     value: 'flag',
   },
   '--until': {
-    key: 'until',
+    key: 'min-age',
     value: 'string',
   },
   '--verify-objects': {
@@ -3131,7 +3131,7 @@ const remainingOptions2 = {
     ],
   },
   '--after': {
-    key: 'after',
+    key: 'max-age',
     value: 'string',
     effects: [
       {
@@ -3226,7 +3226,7 @@ const remainingOptions2 = {
     ],
   },
   '--before': {
-    key: 'before',
+    key: 'min-age',
     value: 'string',
     effects: [
       {
@@ -4462,7 +4462,7 @@ const remainingOptions2 = {
     ],
   },
   '--since': {
-    key: 'since',
+    key: 'max-age',
     value: 'string',
     effects: [
       {
@@ -4601,7 +4601,7 @@ const remainingOptions2 = {
     ],
   },
   '--until': {
-    key: 'until',
+    key: 'min-age',
     value: 'string',
     effects: [
       {
@@ -33300,7 +33300,7 @@ const commandSpec68 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -33343,7 +33343,7 @@ const commandSpec68 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -34065,7 +34065,7 @@ const commandSpec68 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -34144,7 +34144,7 @@ const commandSpec68 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -35776,7 +35776,7 @@ const commandSpec69 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -35819,7 +35819,7 @@ const commandSpec69 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -36541,7 +36541,7 @@ const commandSpec69 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -36620,7 +36620,7 @@ const commandSpec69 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -38167,7 +38167,7 @@ const commandSpec70 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -38210,7 +38210,7 @@ const commandSpec70 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -38932,7 +38932,7 @@ const commandSpec70 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -39011,7 +39011,7 @@ const commandSpec70 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -40152,7 +40152,7 @@ const commandSpec71 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -40195,7 +40195,7 @@ const commandSpec71 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -40917,7 +40917,7 @@ const commandSpec71 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -40996,7 +40996,7 @@ const commandSpec71 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -42125,7 +42125,7 @@ const commandSpec72 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -42168,7 +42168,7 @@ const commandSpec72 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -42890,7 +42890,7 @@ const commandSpec72 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -42969,7 +42969,7 @@ const commandSpec72 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -43302,6 +43302,34 @@ const commandSpec72 = {
       origin: 'git',
       reason:
         'diff-index permits only the default final revision count sentinel; earlier parsed counts may be replaced by a later -1.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/diff-index.c#L69-L71',
+    },
+    {
+      id: 'cli.diff-index.min-age',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'min-age',
+          test: 'timestampNotDefault',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'diff-index rejects a final numeric revision age filter other than the timestamp default sentinel. Later numeric values overwrite date aliases and earlier age values. Arbitrary approxidate text remains native-owned.',
+      source: 'https://github.com/git/git/blob/v2.55.0/builtin/diff-index.c#L69-L71',
+    },
+    {
+      id: 'cli.diff-index.max-age',
+      kind: 'forbid',
+      when: [
+        {
+          key: 'max-age',
+          test: 'timestampNotDefault',
+        },
+      ],
+      origin: 'git',
+      reason:
+        'diff-index rejects a final numeric revision age filter other than the timestamp default sentinel. Later numeric values overwrite date aliases and earlier age values. Arbitrary approxidate text remains native-owned.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/diff-index.c#L69-L71',
     },
   ],
@@ -44073,7 +44101,7 @@ const commandSpec73 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -44116,7 +44144,7 @@ const commandSpec73 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -44838,7 +44866,7 @@ const commandSpec73 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -44902,7 +44930,7 @@ const commandSpec73 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -47248,7 +47276,7 @@ const commandSpec81 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -47291,7 +47319,7 @@ const commandSpec81 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -48013,7 +48041,7 @@ const commandSpec81 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -48092,7 +48120,7 @@ const commandSpec81 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -49704,7 +49732,7 @@ const commandSpec82 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -49747,7 +49775,7 @@ const commandSpec82 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -50469,7 +50497,7 @@ const commandSpec82 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -50548,7 +50576,7 @@ const commandSpec82 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -56582,7 +56610,7 @@ const commandSpec85 = {
       ],
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
       effects: [
         {
@@ -56677,7 +56705,7 @@ const commandSpec85 = {
       ],
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
       effects: [
         {
@@ -57913,7 +57941,7 @@ const commandSpec85 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
       effects: [
         {
@@ -58024,7 +58052,7 @@ const commandSpec85 = {
       ],
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
       effects: [
         {
@@ -60768,7 +60796,7 @@ const commandSpec86 = {
       ],
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
       effects: [
         {
@@ -60863,7 +60891,7 @@ const commandSpec86 = {
       ],
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
       effects: [
         {
@@ -62099,7 +62127,7 @@ const commandSpec86 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
       effects: [
         {
@@ -62210,7 +62238,7 @@ const commandSpec86 = {
       ],
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
       effects: [
         {
@@ -77488,7 +77516,7 @@ const commandSpec184 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -77531,7 +77559,7 @@ const commandSpec184 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -78298,7 +78326,7 @@ const commandSpec184 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -78383,7 +78411,7 @@ const commandSpec184 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -80967,7 +80995,7 @@ const commandSpec194 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -81010,7 +81038,7 @@ const commandSpec194 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -81758,7 +81786,7 @@ const commandSpec194 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -81837,7 +81865,7 @@ const commandSpec194 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -83049,7 +83077,7 @@ const commandSpec195 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -83092,7 +83120,7 @@ const commandSpec195 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -83814,7 +83842,7 @@ const commandSpec195 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -83893,7 +83921,7 @@ const commandSpec195 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -86836,7 +86864,7 @@ const commandSpec198 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -86879,7 +86907,7 @@ const commandSpec198 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -87601,7 +87629,7 @@ const commandSpec198 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -87680,7 +87708,7 @@ const commandSpec198 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -88943,7 +88971,7 @@ const commandSpec199 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -88986,7 +89014,7 @@ const commandSpec199 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -89713,7 +89741,7 @@ const commandSpec199 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -89792,7 +89820,7 @@ const commandSpec199 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -91113,7 +91141,7 @@ const commandSpec200 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -91156,7 +91184,7 @@ const commandSpec200 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -91883,7 +91911,7 @@ const commandSpec200 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -91962,7 +91990,7 @@ const commandSpec200 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -94004,7 +94032,7 @@ const commandSpec202 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -94047,7 +94075,7 @@ const commandSpec202 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -94763,7 +94791,7 @@ const commandSpec202 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -94842,7 +94870,7 @@ const commandSpec202 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -97135,7 +97163,7 @@ const commandSpec204 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -97178,7 +97206,7 @@ const commandSpec204 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -97905,7 +97933,7 @@ const commandSpec204 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -97984,7 +98012,7 @@ const commandSpec204 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -99412,7 +99440,7 @@ const commandSpec205 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -99455,7 +99483,7 @@ const commandSpec205 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -100177,7 +100205,7 @@ const commandSpec205 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -100256,7 +100284,7 @@ const commandSpec205 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -101799,7 +101827,7 @@ const commandSpec206 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -101842,7 +101870,7 @@ const commandSpec206 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -102563,7 +102591,7 @@ const commandSpec206 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -102642,7 +102670,7 @@ const commandSpec206 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -109581,7 +109609,7 @@ const commandSpec275 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -109624,7 +109652,7 @@ const commandSpec275 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -110346,7 +110374,7 @@ const commandSpec275 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -110425,7 +110453,7 @@ const commandSpec275 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -117421,7 +117449,7 @@ const commandSpec306 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -117464,7 +117492,7 @@ const commandSpec306 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -118186,7 +118214,7 @@ const commandSpec306 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -118265,7 +118293,7 @@ const commandSpec306 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
@@ -123289,7 +123317,7 @@ const commandSpec309 = {
       value: 'flag',
     },
     '--after': {
-      key: 'after',
+      key: 'max-age',
       value: 'string',
     },
     '--all': {
@@ -123332,7 +123360,7 @@ const commandSpec309 = {
       value: 'flag',
     },
     '--before': {
-      key: 'before',
+      key: 'min-age',
       value: 'string',
     },
     '--bisect': {
@@ -124054,7 +124082,7 @@ const commandSpec309 = {
       ],
     },
     '--since': {
-      key: 'since',
+      key: 'max-age',
       value: 'string',
     },
     '--since-as-filter': {
@@ -124133,7 +124161,7 @@ const commandSpec309 = {
       value: 'flag',
     },
     '--until': {
-      key: 'until',
+      key: 'min-age',
       value: 'string',
     },
     '--verify-objects': {
