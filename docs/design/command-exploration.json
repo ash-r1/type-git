@@ -28005,7 +28005,7 @@
           }
         }
       ],
-      "rules": 13,
+      "rules": 16,
       "domains": {
         "no-output": [
           "undefined",
@@ -28857,7 +28857,11 @@
           "0",
           "1",
           "2",
-          "3"
+          "3",
+          "-2147483649",
+          "-2147483648",
+          "-2147483647",
+          "4"
         ],
         "maximal-only": [
           "undefined",
@@ -29100,6 +29104,10 @@
           "\"0b\"",
           "\"1kb\""
         ],
+        "diff-files-stage": [
+          "undefined",
+          "true"
+        ],
         "silent-removed": [
           "undefined",
           "true"
@@ -29121,9 +29129,9 @@
           "true"
         ]
       },
-      "total": "414811479339976896109341119984507259712068179398580659814400000000000000000000000000000000000000000",
-      "accepted": "926309881271790382324168170157995964650850522094015675891712000000000000000000000000000000000000",
-      "nodes": 7940,
+      "total": "1303693220782784530629357805665594244809357135252682073702400000000000000000000000000000000000000000",
+      "accepted": "661649915194135987374405835827139974750607515781439768494080000000000000000000000000000000000000",
+      "nodes": 23947,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"find-object\":\"\",\"operands\":[]}",
@@ -29137,7 +29145,10 @@
         "revision.children-parents": "{\"children\":true,\"operands\":[],\"rewrite-parents\":true}",
         "revision.limited-reflog": "{\"limited\":true,\"operands\":[],\"walk-reflogs\":true}",
         "revision.combined-paths": "{\"combined-all-paths\":true,\"operands\":[]}",
-        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}"
+        "revision.object-filter": "{\"filter\":\"\",\"operands\":[]}",
+        "cli.diff-files.revision-count": "{\"max-count\":-2147483649,\"operands\":[]}",
+        "cli.diff-files.min-age": "{\"min-age\":-2,\"operands\":[]}",
+        "cli.diff-files.max-age": "{\"max-age\":-2,\"operands\":[]}"
       }
     },
     {

@@ -2369,17 +2369,35 @@
       "--base": {
         "key": "max-count",
         "value": "flag",
-        "set": 1
+        "set": 1,
+        "effects": [
+          {
+            "key": "diff-files-stage",
+            "set": true
+          }
+        ]
       },
       "--ours": {
         "key": "max-count",
         "value": "flag",
-        "set": 2
+        "set": 2,
+        "effects": [
+          {
+            "key": "diff-files-stage",
+            "set": true
+          }
+        ]
       },
       "--theirs": {
         "key": "max-count",
         "value": "flag",
-        "set": 3
+        "set": 3,
+        "effects": [
+          {
+            "key": "diff-files-stage",
+            "set": true
+          }
+        ]
       },
       "-q": {
         "key": "silent-removed",
