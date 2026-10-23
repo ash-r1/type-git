@@ -77014,6 +77014,18 @@
     },
     {
       "command": "blame",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The parse_options_step/parse_revision_opt loop handles each revision callback before resuming native options; reached help exits before later callbacks and final checks.",
+        "source": "Git 2.55.0 builtin/blame.c:cmd_blame parse_options_step/parse_revision_opt loop; revision.c:handle_revision_opt; parse-options.c; git.c:handle_builtin"
+      },
       "transitions": [
         {
           "flag": "-G",
@@ -78518,6 +78530,18 @@
     },
     {
       "command": "annotate",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The parse_options_step/parse_revision_opt loop handles each revision callback before resuming native options; reached help exits before later callbacks and final checks.",
+        "source": "Git 2.55.0 builtin/blame.c:cmd_blame parse_options_step/parse_revision_opt loop; revision.c:handle_revision_opt; parse-options.c; git.c:handle_builtin"
+      },
       "transitions": [
         {
           "flag": "-G",
@@ -84349,6 +84373,18 @@
     },
     {
       "command": "pickaxe",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "origin": "git",
+        "reason": "The parse_options_step/parse_revision_opt loop handles each revision callback before resuming native options; reached help exits before later callbacks and final checks.",
+        "source": "Git 2.55.0 builtin/blame.c:cmd_blame parse_options_step/parse_revision_opt loop; revision.c:handle_revision_opt; parse-options.c; git.c:handle_builtin"
+      },
       "transitions": [
         {
           "flag": "-G",

@@ -352,7 +352,7 @@ Revision `--date` validates the case-sensitive mode names, one optional `-local`
 
 `backfill`, `last-modified`, and `replay` retain revision/diff words through an initial parse-options pass. Help exits that pass before the retained date callback, regardless of date/help order; earlier recognized initial callbacks still run. Replay mode conflicts follow this pass. Backfill-specific revision effects are shared with the retained parser. Named integer tuples retain their original numeric representation across tokenization: unsafe JavaScript numbers remain rejected when the callback is reached, while precise numeric strings and bigint values retain their selected native grammar. Earlier help still preempts later scalar checks. `--` is retained by backfill and last-modified and consumed by replay, matching their source flags.
 
-Date-format validation remains native-owned for `blame`, `annotate`, and `pickaxe`: their interleaved option/revision parsing still requires a separate audit.
+`blame`, `annotate`, and `pickaxe` interleave their own option parser with revision callbacks. A reached invalid date fails before later help or a replacement date, including after a revision operand. Help exits before later date or command-owned callback checks. After `--`, date/help spellings are literal paths. This models the audited streaming callback order; repository resolution, other callbacks, configuration, and broader parser interactions remain audit obligations.
 
 ### Submodule frontends and sparse checkouts
 

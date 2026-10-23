@@ -93818,6 +93818,7 @@ const commandSpec199 = {
     '--date': {
       key: 'date',
       value: 'string',
+      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',
@@ -95062,6 +95063,15 @@ const commandSpec199 = {
   ],
   source: 'builtin/blame.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    exceptFirst: ['--help'],
+    origin: 'git',
+    reason:
+      'The parse_options_step/parse_revision_opt loop handles each revision callback before resuming native options; reached help exits before later callbacks and final checks.',
+    source:
+      'Git 2.55.0 builtin/blame.c:cmd_blame parse_options_step/parse_revision_opt loop; revision.c:handle_revision_opt; parse-options.c; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec200 = {
   argv: ['annotate'],
@@ -95988,6 +95998,7 @@ const commandSpec200 = {
     '--date': {
       key: 'date',
       value: 'string',
+      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',
@@ -97232,6 +97243,15 @@ const commandSpec200 = {
   ],
   source: 'builtin/blame.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    exceptFirst: ['--help'],
+    origin: 'git',
+    reason:
+      'The parse_options_step/parse_revision_opt loop handles each revision callback before resuming native options; reached help exits before later callbacks and final checks.',
+    source:
+      'Git 2.55.0 builtin/blame.c:cmd_blame parse_options_step/parse_revision_opt loop; revision.c:handle_revision_opt; parse-options.c; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec201 = {
   argv: ['grep'],
@@ -102011,6 +102031,7 @@ const commandSpec204 = {
     '--date': {
       key: 'date',
       value: 'string',
+      parser: 'revision-date-format',
     },
     '--date-order': {
       key: 'date-order',
@@ -103255,6 +103276,15 @@ const commandSpec204 = {
   ],
   source: 'builtin/blame.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help'],
+    exceptFirst: ['--help'],
+    origin: 'git',
+    reason:
+      'The parse_options_step/parse_revision_opt loop handles each revision callback before resuming native options; reached help exits before later callbacks and final checks.',
+    source:
+      'Git 2.55.0 builtin/blame.c:cmd_blame parse_options_step/parse_revision_opt loop; revision.c:handle_revision_opt; parse-options.c; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec205 = {
   argv: ['whatchanged'],
