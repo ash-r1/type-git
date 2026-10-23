@@ -67,7 +67,7 @@ export function literal(value) {
 /** Representable projection for non-generic public option objects (broad string/number fields). */
 export function compilerRules(rules) {
   return rules.flatMap((rule) => {
-    if (rule.kind === 'integer' || rule.kind === 'range' || rule.kind === 'scalar') return [];
+    if (rule.kind === 'integer' || rule.kind === 'range' || rule.kind === 'scalar' || rule.kind === 'eachScalar') return [];
     // Excluding positive numbers cannot be expressed as a complement of TS number.
     if (rule.kind === 'forbid' && rule.when.some((p) => p.test === 'bytesPositive')) return [];
     if (rule.kind === 'conflicts') return [{ ...rule, others: rule.others.filter((p) => p.test !== 'positive') }];

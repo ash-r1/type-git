@@ -1,6 +1,7 @@
 import { booleanDomain } from './boolean-domains.mjs';
 /** Fixed representatives for scalar validation; these do not enumerate infinite value languages. */
 export function scalarRepresentatives(parser) {
+  if (parser === 'blame-line-range') return ['', ',', '1', '0', '-1', '1,+0', '1,-0', '3,1', '1,999', '/pattern/', ':function'];
   const boolean = typeof parser === 'string' ? booleanDomain(parser) : undefined;
   if (boolean) return [...boolean, '', 'no', 'off', 'false', 'yes', 'true', 'on', 'normal', 'all', '0', '-1', '08', 'invalid'];
   if (typeof parser === 'object' && parser.kind === 'timestamp') return ['', ' ', '0', '1', '-1', '+1', '01', ' \t+1', '1\n', '1x', '0x10', '4294967295', '-2147483648', '18446744073709551615', '-18446744073709551615', '18446744073709551616', '-18446744073709551616'];

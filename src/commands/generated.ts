@@ -95060,6 +95060,17 @@ const commandSpec199 = {
       reason: 'Native parser requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
     },
+    {
+      id: 'cli.blame.line-range-numbers',
+      kind: 'eachScalar',
+      key: 'L',
+      parser: 'blame-line-range',
+      origin: 'git',
+      reason:
+        'Deferred line-range parsing rejects nonpositive absolute numeric boundaries and zero relative lengths; other syntax and repository-dependent ranges remain native-owned.',
+      source:
+        'Git 2.55.0 line-range.c:parse_loc/parse_range_arg; builtin/blame.c:cmd_blame range loop after setup_scoreboard',
+    },
   ],
   source: 'builtin/blame.c',
   separator: true,
@@ -97239,6 +97250,17 @@ const commandSpec200 = {
       origin: 'git',
       reason: 'Native parser requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
+    },
+    {
+      id: 'cli.annotate.line-range-numbers',
+      kind: 'eachScalar',
+      key: 'L',
+      parser: 'blame-line-range',
+      origin: 'git',
+      reason:
+        'Deferred line-range parsing rejects nonpositive absolute numeric boundaries and zero relative lengths; other syntax and repository-dependent ranges remain native-owned.',
+      source:
+        'Git 2.55.0 line-range.c:parse_loc/parse_range_arg; builtin/blame.c:cmd_blame range loop after setup_scoreboard',
     },
   ],
   source: 'builtin/blame.c',
@@ -103272,6 +103294,17 @@ const commandSpec204 = {
       origin: 'git',
       reason: 'Native parser requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/blame.c',
+    },
+    {
+      id: 'cli.pickaxe.line-range-numbers',
+      kind: 'eachScalar',
+      key: 'L',
+      parser: 'blame-line-range',
+      origin: 'git',
+      reason:
+        'Deferred line-range parsing rejects nonpositive absolute numeric boundaries and zero relative lengths; other syntax and repository-dependent ranges remain native-owned.',
+      source:
+        'Git 2.55.0 line-range.c:parse_loc/parse_range_arg; builtin/blame.c:cmd_blame range loop after setup_scoreboard',
     },
   ],
   source: 'builtin/blame.c',

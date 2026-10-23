@@ -64,6 +64,7 @@ export type Constraint = Evidence & {
     | { kind: 'value'; key: string; allowed: readonly (string | number | boolean)[] }
     | { kind: 'elements'; key: string; allowed: readonly (string | number | boolean)[] }
     | { kind: 'scalar'; key: string; parser: GitScalarParser }
+    | { kind: 'eachScalar'; key: string; parser: GitScalarParser }
     | { kind: 'range'; key: string; min: number; max?: number; when?: Predicate }
     | { kind: 'eachInteger'; key: string; min: number }
     | { kind: 'integer'; key: string; min: number; allowBoolean?: boolean }
@@ -212,6 +213,19 @@ function violates(
         (!Array.isArray(items) || items.some((item) => !rule.allowed.includes(item)))
       );
     }
+    case 'eachScalar': {
+      const items = options[rule.key];
+      return (
+        items !== undefined &&
+        (!Array.isArray(items) ||
+          items.some(
+            (item) =>
+              item === undefined ||
+              // The guard has already been evaluated against the complete list.
+              violates({ ...rule, kind: 'scalar', guard: [] }, { [rule.key]: item }, scalarContext),
+          ))
+      );
+    }
     case 'scalar':
       return (
         options[rule.key] !== undefined &&
@@ -287,6 +301,7 @@ function bodyKeys(rule: Constraint): string[] {
       return rule.when.flatMap(predicateKeys);
     case 'range':
       return rule.when ? [rule.key, ...predicateKeys(rule.when)] : [rule.key];
+    case 'eachScalar':
     case 'scalar':
     case 'value':
     case 'elements':
