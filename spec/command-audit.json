@@ -3069,7 +3069,7 @@
         "src/commands/naming-help.test.ts",
         "test/types/naming-help.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Operands ignored by native Git are deliberately retained; conditional delegated parsers require further audit. Finite ordered-help and sole-completion controls retain reached numeric callbacks and bypass only later or final checks. Naming, revision, repository/configuration and full platform coverage remain partial."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Operands ignored by native Git are deliberately retained; conditional delegated parsers require further audit. Finite ordered-help and sole-completion controls retain argument representation checks and bypass final input-source checks only after an actual parser exit. Naming, revision, repository/configuration and full platform coverage remain partial."
     },
     "write-tree": {
       "state": "partial",
