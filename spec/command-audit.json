@@ -2726,7 +2726,7 @@
         "src/commands/four-parser-help.test.ts",
         "test/types/four-parser-help.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Ordered internal help and sole completion have finite native comparisons. Earlier callbacks and argument representation checks remain active; this does not establish full payload, repository, callback, or platform coverage."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Operands ignored by native Git are deliberately retained; conditional delegated parsers require further audit. Ordered internal help and sole completion have finite native comparisons. Earlier callbacks and argument representation checks remain active; this does not establish full payload, repository, callback, or platform coverage."
     },
     "check-ignore": {
       "state": "partial",
