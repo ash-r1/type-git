@@ -3503,9 +3503,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/utility-help.test.ts",
+        "test/types/utility-help.ts"
       ],
-      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule.",
+      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. Internal help and sole-word completion shortcuts now have ordered native/API and literal-contract controls; broader configuration, operand, callback, version and platform coverage remains partial.",
       "typedCommandAPI": true
     },
     "checkout-index": {
@@ -3765,9 +3767,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/utility-help.test.ts",
+        "test/types/utility-help.ts"
       ],
-      "remaining": "First --command spelling versus final command value and column-mode callbacks; configuration, numeric lexical forms, abbreviations and witnesses. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "First --command spelling versus final command value and column-mode callbacks; configuration, numeric lexical forms, abbreviations and witnesses. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Internal help and sole-word completion shortcuts now have ordered native/API and literal-contract controls; broader configuration, operand, callback, version and platform coverage remains partial.",
       "typedCommandAPI": true
     },
     "fmt-merge-msg": {
@@ -3783,9 +3787,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/utility-help.test.ts",
+        "test/types/utility-help.ts"
       ],
-      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations.",
+      "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule. Native OPTION_INTEGER/OPTION_UNSIGNED storage, lexical and default semantics are modeled for the recorded Git 2.55 compiler/libc profile; custom callbacks, other profiles and command-specific numeric semantics remain separate obligations. Internal help and sole-word completion shortcuts now have ordered native/API and literal-contract controls; broader configuration, operand, callback, version and platform coverage remains partial.",
       "typedCommandAPI": true
     },
     "bugreport": {
