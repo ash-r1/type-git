@@ -127,7 +127,7 @@ describe('ordered exits in audited single-pass parsers', () => {
     for (const name of ['branch', 'for-each-ref', 'tag', 'show-branch'] as const) {
       expect(COMMAND_SPECS[name].options['--color'].set).toBe('always');
       expect(COMMAND_SPECS[name].options['--no-color'].set).toBe('never');
-      expect(COMMAND_SPECS[name].parserExit.flags).toEqual(['-h', '--help']);
+      expect(COMMAND_SPECS[name].parserExit.flags).toEqual(['-h', '--help', '--help-all']);
       expect(COMMAND_SPECS[name].parserExit.exceptFirst).toEqual(['--help']);
     }
   });
