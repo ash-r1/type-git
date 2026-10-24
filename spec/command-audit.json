@@ -2980,7 +2980,7 @@
         "src/commands/maintenance-help.test.ts",
         "test/types/maintenance-help.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Ordered internal help and sole-word completion have native/API and literal-contract controls. Payload, repository/configuration, other parser forms and platform coverage remain partial."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Positional operand handling and conditional delegated parsers require further audit. Ordered internal help and sole-word completion have native/API and literal-contract controls. Payload, repository/configuration, other parser forms and platform coverage remain partial."
     },
     "check-ref-format": {
       "state": "partial",
