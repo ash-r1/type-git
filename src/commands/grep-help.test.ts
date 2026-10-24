@@ -68,6 +68,41 @@ describe('grep internal help and filename suppression', () => {
     expect([0, 129]).toContain(result.status);
     expect(result.stdout + result.stderr).toContain('usage:');
   }, 120_000);
+  it('full internal help exits in first position and before later callbacks', async () => {
+    for (const args of [
+      [['--help-all']],
+      [['--threads', 1], ['--help-all'], ['--threads', 'invalid']],
+      [['--threads', -1], ['--help-all']],
+      [['-h'], ['--help-all'], ['--threads', 'invalid']],
+    ]) {
+      const words = args.map((a) => (a.length === 1 ? String(a[0]) : `${a[0]}=${a[1]}`));
+      const result = await compare(args, words);
+      expect([0, 129]).toContain(result.status);
+      expect(result.stdout + result.stderr).toContain('usage:');
+    }
+  }, 120_000);
+  it('full help does not preempt earlier integer errors or pattern/operand interpretation', async () => {
+    const invalid = native(['grep', '--threads=invalid', '--help-all']);
+    expect(invalid.status).toBe(129);
+    expect(invalid.stderr).toMatch(/expects (?:a numerical|an integer) value/);
+    await expect(
+      repo.command('grep', [['--threads', 'invalid'], ['--help-all']] as never),
+    ).rejects.toMatchObject({
+      name: 'GitArgumentError',
+      message: '--threads: invalid integer value invalid',
+    });
+    const value = await compare(
+      [['--threads', 1], ['-e', '--help-all'], ['--'], { operand: 'file' }],
+      ['--threads=1', '-e', '--help-all', '--', 'file'],
+    );
+    expect(value.status).toBe(1);
+    expect(value.stdout + value.stderr).not.toContain('usage:');
+    const operand = await compare(
+      [['--threads', 1], { operand: 'base' }, { operand: '--help-all' }],
+      ['--threads=1', 'base', '--help-all'],
+    );
+    expect(operand.status).toBe(128);
+  }, 120_000);
   it('internal long help preempts later integer callbacks', async () => {
     for (const value of ['invalid', '2147483648', '4294967295']) {
       const result = await compare(
