@@ -80099,12 +80099,54 @@
           "--help"
         ],
         "origin": "git",
-        "reason": "Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand. A lone -h exits at the parser total-word shortcut before registered short options. Full internal --help-all selects extended usage before later callbacks, including in first position.",
+        "reason": "Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand. A lone -h exits at the parser total-word shortcut before registered short options. Full internal --help-all selects extended usage before later callbacks, including in first position. Completion helpers are recognized only as the sole parser word; multiword occurrences fail at their position unless earlier help has exited.",
         "source": "Git 2.55.0 builtin/grep.c:cmd_grep parse_options KEEP_DASHDASH|STOP_AT_NON_OPTION; OPT_NEGBIT h; parse-options.c; git.c:handle_builtin",
         "singleWordExits": [
-          "-h"
+          "-h",
+          "--git-completion-helper",
+          "--git-completion-helper-all"
         ]
       },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.grep.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.grep.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.grep.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.grep.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 6,
       "domains": {
         "max-count": [
@@ -80382,6 +80424,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -80406,8 +80456,8 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "3541176726776688381788160000",
-      "accepted": "1513881386587623488539852800",
+      "total": "14164706907106753527152640000",
+      "accepted": "6055525546350493954159411200",
       "nodes": 282,
       "isolatedRuleWitnesses": {
         "cli.grep.pattern": "{\"argumentTokens\":[],\"operands\":[]}",

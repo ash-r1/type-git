@@ -97846,6 +97846,42 @@ const commandSpec201 = {
       key: 'help',
       value: 'flag',
     },
+    '--git-completion-helper': {
+      key: 'completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.grep.completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.grep.completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   numericOption: {
     key: 'context',
@@ -98005,10 +98041,10 @@ const commandSpec201 = {
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
-      'Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand. A lone -h exits at the parser total-word shortcut before registered short options. Full internal --help-all selects extended usage before later callbacks, including in first position.',
+      'Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand. A lone -h exits at the parser total-word shortcut before registered short options. Full internal --help-all selects extended usage before later callbacks, including in first position. Completion helpers are recognized only as the sole parser word; multiword occurrences fail at their position unless earlier help has exited.',
     source:
       'Git 2.55.0 builtin/grep.c:cmd_grep parse_options KEEP_DASHDASH|STOP_AT_NON_OPTION; OPT_NEGBIT h; parse-options.c; git.c:handle_builtin',
-    singleWordExits: ['-h'],
+    singleWordExits: ['-h', '--git-completion-helper', '--git-completion-helper-all'],
   },
 } as const satisfies CommandSpec;
 const commandSpec202 = {
