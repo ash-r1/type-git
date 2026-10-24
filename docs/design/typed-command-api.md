@@ -847,6 +847,8 @@ For `grep`, internal `--help` and full `--help-all` exit before later callbacks 
 
 `grep --git-completion-helper` and `grep --git-completion-helper-all` return native completion output only when they are the sole parser word. An occurrence reached with additional words is rejected before later help; earlier help still preempts that check. Identical strings passed as pattern values or operands retain their native interpretation. Older Git without the full helper retains its native unsupported-option result; the API does not normalize it to success.
 
+The existing native first passes for `branch`, `for-each-ref`, `tag`, and `show-branch` also recognize exact `--help-all` as extended usage, including in first position. Earlier callbacks still execute; later callbacks and completion words are preempted. First-word `--help` retains its separate documentation dispatcher. This does not extend the unphased grep model to these commands or claim broader alias/completion coverage.
+
 The annotation is deliberately per scope: `grep -h` is an ordinary option and
 `diff-files` processes those options before handling help. Other exit phases, completion helpers,
 abbreviations, repository/configuration failures and other parse exits remain
