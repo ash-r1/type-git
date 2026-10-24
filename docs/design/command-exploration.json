@@ -3,6 +3,63 @@
   "commands": [
     {
       "command": "hash-object",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/hash-object.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.hash-object.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.hash-object.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.hash-object.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.hash-object.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 3,
       "domains": {
         "t": [
@@ -49,6 +106,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -66,8 +131,8 @@
           "true"
         ]
       },
-      "total": "405000",
-      "accepted": "120960",
+      "total": "1620000",
+      "accepted": "483840",
       "nodes": 52,
       "isolatedRuleWitnesses": {
         "cli.hash-object.stdin-count": "{\"operands\":[],\"stdin\":[true,true]}",
@@ -56478,6 +56543,63 @@
     },
     {
       "command": "check-attr",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/check-attr.c parse_options flags PARSE_OPT_KEEP_DASHDASH; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.check-attr.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.check-attr.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.check-attr.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.check-attr.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 8,
       "domains": {
         "all": [
@@ -56507,6 +56629,14 @@
           "\"1kb\""
         ],
         "help": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
           "undefined",
           "true"
         ],
@@ -56543,8 +56673,8 @@
           "true"
         ]
       },
-      "total": "518400",
-      "accepted": "197280",
+      "total": "2073600",
+      "accepted": "789120",
       "nodes": 165,
       "isolatedRuleWitnesses": {
         "cli.check-attr.all-attributes": "{\"all\":true,\"hasSeparator\":true,\"operands\":[],\"operandsBeforeSeparator\":[\"value\"],\"stdin\":true}",
@@ -61525,6 +61655,23 @@
     },
     {
       "command": "merge-file",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/merge-file.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
       "transitions": [
         {
           "flag": "-L",
@@ -61550,6 +61697,44 @@
           "accepted": "10",
           "isolatedRuleWitnesses": {
             "cli.merge-file.labels": "{\"L\":[\"value\",\"value\",\"value\"]}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.merge-file.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.merge-file.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.merge-file.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.merge-file.completion-helper-all-one-word": "{}"
           }
         }
       ],
@@ -61628,6 +61813,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -61645,8 +61838,8 @@
           "true"
         ]
       },
-      "total": "188956800",
-      "accepted": "37791360",
+      "total": "755827200",
+      "accepted": "151165440",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.merge-file.operands": "{\"operands\":[]}"
@@ -62554,6 +62747,63 @@
     },
     {
       "command": "rerere",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/rerere.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.rerere.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.rerere.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.rerere.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.rerere.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "rerere-autoupdate": [
@@ -62562,6 +62812,14 @@
           "false"
         ],
         "help": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
           "undefined",
           "true"
         ],
@@ -62589,8 +62847,8 @@
           "true"
         ]
       },
-      "total": "810",
-      "accepted": "630",
+      "total": "3240",
+      "accepted": "2520",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.rerere.operation": "{\"operand0\":\"\",\"operands\":[]}"
