@@ -482,7 +482,14 @@ function buildArguments(
   let documentationTailExited = false;
   let ended = false;
   let literalOperands = false;
-  let parserExited = evaluationMode === 'shape';
+  const soleFlag =
+    args.length === 1 && Array.isArray(args[0]) && args[0].length === 1 ? args[0][0] : undefined;
+  let parserExited =
+    evaluationMode === 'shape' ||
+    (evaluationMode === 'full' &&
+      !spec.parserExit?.firstPassOptions &&
+      typeof soleFlag === 'string' &&
+      spec.parserExit?.singleWordExits?.includes(soleFlag) === true);
   const prefixCounts = new Map<number, number>();
   const modes = new Map<string, unknown>();
   for (const [index, arg] of args.entries()) {
