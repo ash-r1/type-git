@@ -72300,6 +72300,46 @@ const commandSpec110 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.describe.completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.describe.completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -72363,6 +72403,16 @@ const commandSpec110 = {
   ],
   source: 'builtin/describe.c:cmd_describe',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
+    origin: 'git',
+    reason:
+      'Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.',
+    source:
+      'Git 2.55.0 builtin/describe.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec111 = {
   argv: ['name-rev'],
@@ -72469,6 +72519,46 @@ const commandSpec111 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.name-rev.completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.name-rev.completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -72505,6 +72595,16 @@ const commandSpec111 = {
   ],
   source: 'builtin/name-rev.c:cmd_name_rev',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
+    origin: 'git',
+    reason:
+      'Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.',
+    source:
+      'Git 2.55.0 builtin/name-rev.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec112 = {
   argv: ['cherry'],

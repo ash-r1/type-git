@@ -1,0 +1,7 @@
+# Ordered help in describe and name-rev
+
+Git 2.25 and 2.55 `builtin/describe.c` and `builtin/name-rev.c` use ordinary `parse_options` flags 0. Internal `-h`, later `--help` and `--help-all` exit before later callbacks and final mode or operand checks. Reached describe candidates integers and abbreviation callbacks still validate before a later help exit. Final long/zero-abbreviation and name-rev input-source conflicts occur after parsing and are bypassed by earlier help.
+
+Scope-local metadata reuses the existing ordered exit mechanism. Required match/ref values that resemble help remain values; tagged operands likewise do not select an exit. First-word `--help` remains the documentation dispatcher path. Completion helpers require a sole parser word; reached multiword helpers reject, while earlier help skips that check. Unsupported helper or option spellings on older Git retain native failures, not successful command outcomes. The name-rev stdin spelling and newer annotate-stdin spelling remain subject to the selected executable's availability and diagnostics.
+
+Known tuple shapes, NUL checks and the existing option catalogue boundary remain active after help. Arbitrary unknown tail words remain a separate compatibility limitation. Finite native/API help/error controls do not establish naming or revision payload correctness, repository/configuration combinations, abbreviation reachability or complete platform/version grammar. All audit entries remain partial.
