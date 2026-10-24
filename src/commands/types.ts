@@ -202,25 +202,27 @@ type DefaultValue<D extends OptionSpec> = D extends { clear: true }
 type BooleanSourceOf<D> = D extends { booleanSource: infer P extends GitBooleanSource }
   ? P
   : 'modern';
-type Normalize<V, D extends OptionSpec, Previous> = D extends {
-  parser: infer P extends GitNumericParser;
-}
-  ? GitNumericValue<V, P>
-  : D extends { parser: infer P extends GitBooleanCallback }
-    ? GitBooleanCallbackValue<V, P, Previous, BooleanSourceOf<D>>
-    : D extends { parser: infer P extends StringCallbackParser }
-      ? StringCallbackValue<V, P>
-      : D extends { caseInsensitive: true }
-        ? D extends { preserveCase: true }
-          ? V extends string
-            ? V extends object
-              ? string
+type Normalize<V, D extends OptionSpec, Previous> = D extends { nativeIntegerDeferred: true }
+  ? V
+  : D extends {
+        parser: infer P extends GitNumericParser;
+      }
+    ? GitNumericValue<V, P>
+    : D extends { parser: infer P extends GitBooleanCallback }
+      ? GitBooleanCallbackValue<V, P, Previous, BooleanSourceOf<D>>
+      : D extends { parser: infer P extends StringCallbackParser }
+        ? StringCallbackValue<V, P>
+        : D extends { caseInsensitive: true }
+          ? D extends { preserveCase: true }
+            ? V extends string
+              ? V extends object
+                ? string
+                : V
               : V
-            : V
-          : V extends string
-            ? AsciiLower<V>
-            : V
-        : V;
+            : V extends string
+              ? AsciiLower<V>
+              : V
+          : V;
 type TokenValue<
   T extends readonly unknown[],
   D extends OptionSpec,
@@ -611,40 +613,42 @@ type PerlIntegerLiteral<D extends OptionSpec, V> = V extends string
   : V extends number | bigint
     ? PerlIntegerText<`${V}`, false>
     : false;
-type ScalarLiteral<D extends OptionSpec, V> = D extends { parser: infer P extends GitNumericParser }
-  ? GitNumericLiteral<V, P>
-  : D extends { parser: infer P extends GitBooleanCallback }
-    ? V extends undefined
-      ? true
-      : GitBooleanCallbackLiteral<V, P, BooleanSourceOf<D>>
-    : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+type ScalarLiteral<D extends OptionSpec, V> = D extends { nativeIntegerDeferred: true }
+  ? true
+  : D extends { parser: infer P extends GitNumericParser }
+    ? GitNumericLiteral<V, P>
+    : D extends { parser: infer P extends GitBooleanCallback }
       ? V extends undefined
         ? true
-        : CompoundDecimalLiteral<
-            V,
-            D['parser'],
-            D extends { compoundLongBits: infer B extends 32 | 64 } ? B : 64,
-            D extends { compoundNegatedOverflow: true } ? true : false
-          >
-      : D extends {
-            parser: 'object-filter' | 'object-filter-auto';
-          }
-        ? V extends string
-          ? ObjectFilterLiteral<
+        : GitBooleanCallbackLiteral<V, P, BooleanSourceOf<D>>
+      : D extends { parser: 'shortlog-wrap' | 'show-branch-reflog' }
+        ? V extends undefined
+          ? true
+          : CompoundDecimalLiteral<
               V,
-              D['parser'] extends 'object-filter-auto' ? true : false,
-              D extends { negativeMagnitudes: true } ? true : false
+              D['parser'],
+              D extends { compoundLongBits: infer B extends 32 | 64 } ? B : 64,
+              D extends { compoundNegatedOverflow: true } ? true : false
             >
-          : true
-        : D extends { parser: infer F extends FastImportUnsignedParser }
-          ? FastImportUnsignedLiteral<V, F>
-          : D extends { parser: 'perl-int' | 'perl-int-gnu' }
-            ? PerlIntegerLiteral<D, V>
-            : D extends { parser: infer P extends StringCallbackParser }
-              ? StringCallbackLiteral<V, P>
-              : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
-                ? ParsedScalarLiteral<D, V>
-                : true;
+        : D extends {
+              parser: 'object-filter' | 'object-filter-auto';
+            }
+          ? V extends string
+            ? ObjectFilterLiteral<
+                V,
+                D['parser'] extends 'object-filter-auto' ? true : false,
+                D extends { negativeMagnitudes: true } ? true : false
+              >
+            : true
+          : D extends { parser: infer F extends FastImportUnsignedParser }
+            ? FastImportUnsignedLiteral<V, F>
+            : D extends { parser: 'perl-int' | 'perl-int-gnu' }
+              ? PerlIntegerLiteral<D, V>
+              : D extends { parser: infer P extends StringCallbackParser }
+                ? StringCallbackLiteral<V, P>
+                : D extends { parser: 'shortlog-group' | 'pull-rebase' | 'fast-export-reencode' }
+                  ? ParsedScalarLiteral<D, V>
+                  : true;
 type ParsedScalarLiteral<D extends OptionSpec, V> = V extends string
   ? string extends AsciiLower<V>
     ? true
@@ -898,7 +902,7 @@ type BooleanProfiledOption<S, D extends OptionSpec> = S extends {
     ? D & { booleanSource: P }
     : D
   : D;
-type ProfiledOption<S, D extends OptionSpec> = DispatcherProfiledOption<
+type OrdinaryProfiledOption<S, D extends OptionSpec> = DispatcherProfiledOption<
   S,
   BooleanProfiledOption<
     S,
@@ -911,6 +915,28 @@ type ProfiledOption<S, D extends OptionSpec> = DispatcherProfiledOption<
     >
   >
 >;
+/** Preserve raw old string values only inside the explicitly selected timing walk. */
+type ProfiledOption<S, D extends OptionSpec> = S extends { repackMaxPackSize: 'deferred' }
+  ? OrdinaryProfiledOption<S, D> extends infer P extends OptionSpec
+    ? P extends { nativeIntegerTiming: 'repack-max-pack-size' }
+      ? P & { nativeIntegerDeferred: true }
+      : P
+    : never
+  : OrdinaryProfiledOption<S, D>;
+/** Preserve a failing repack flag-union arm through the complete parser walk. */
+type ApplyRepackOption<
+  S,
+  D,
+  T extends readonly unknown[],
+  R extends readonly unknown[],
+  First extends boolean,
+> = D extends OptionSpec
+  ? ApplyOption<S, ProfiledOption<S, D>, T, R, First> extends infer Next
+    ? [Next] extends [never]
+      ? InvalidPass
+      : Next
+    : InvalidPass
+  : InvalidPass;
 type ApplyToken<
   C extends GitCommandName,
   S,
@@ -951,7 +977,9 @@ type ApplyToken<
       ? never
       : T extends readonly [infer K extends keyof O, ...unknown[]]
         ? O[K] extends infer D extends OptionSpec
-          ? ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
+          ? C extends 'repack'
+            ? ApplyRepackOption<S, D, T, Remaining, First>
+            : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : T extends readonly [infer K]
           ? [Extract<K, DocumentationFlag>] extends [never]
@@ -992,30 +1020,32 @@ type State<
   O = Options<C>,
 > = [S] extends [never]
   ? never
-  : S extends { parserExited: true }
+  : S extends InvalidPass
     ? S
-    : IsSingleWordExit<C, A, First> extends true
-      ? Put<S, 'parserExited', true>
-      : A extends readonly [infer H, ...infer Rest]
-        ? H extends readonly [ExitFlag<C, First>]
-          ? ParsingEnded<C, S> extends true
-            ? never
-            : Put<S, 'parserExited', true>
-          : State<
-              C,
-              Rest,
-              ApplyToken<
+    : S extends { parserExited: true }
+      ? S
+      : IsSingleWordExit<C, A, First> extends true
+        ? Put<S, 'parserExited', true>
+        : A extends readonly [infer H, ...infer Rest]
+          ? H extends readonly [ExitFlag<C, First>]
+            ? ParsingEnded<C, S> extends true
+              ? never
+              : Put<S, 'parserExited', true>
+            : State<
                 C,
-                '$remaining' extends ReadStateKeys<C> ? Put<S, '$remaining', Rest> : S,
-                H,
                 Rest,
-                First,
+                ApplyToken<
+                  C,
+                  '$remaining' extends ReadStateKeys<C> ? Put<S, '$remaining', Rest> : S,
+                  H,
+                  Rest,
+                  First,
+                  O
+                >,
+                false,
                 O
-              >,
-              false,
-              O
-            >
-        : S;
+              >
+          : S;
 /** A bad reached callback stays invalid even when another input-union arm exits. */
 type InvalidPass = { invalidParserPass: true };
 type RemainingOptions<C extends GitCommandName> =
@@ -1154,7 +1184,11 @@ type CommandState<
       ? S
       : never
     : never
-  : State<C, A, InitialState>;
+  : State<C, A, InitialState> extends infer S
+    ? [Extract<S, InvalidPass>] extends [never]
+      ? S
+      : never
+    : never;
 type ProfiledConstraint<S, R extends Constraint> = R extends {
   kind: 'scalar';
   key: string;
@@ -1780,7 +1814,7 @@ type IndependentlyPinnedCallbacks<
     : PinnedCallbackAlternatives<C, A, F, Ctx>
   : A;
 
-type CheckedLocalParserProfiles<
+type BaseLocalParserProfiles<
   C extends GitCommandName,
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
@@ -1808,6 +1842,33 @@ type CheckedLocalParserProfiles<
                 : InitialLocalProfiles<C, A, Ctx>
             : InitialLocalProfiles<C, A, Ctx>
     : never;
+
+/** A legacy string callback adds an alternative only if the whole tuple actually exits at help. */
+type DeferredRepackHelp<A extends readonly unknown[]> =
+  A extends readonly LocalCommandArgument<'repack'>[]
+    ? CommandState<
+        'repack',
+        A,
+        Put<Initial<'repack'>, 'argumentTokens', A> & { repackMaxPackSize: 'deferred' }
+      > extends infer S
+      ? [S] extends [never]
+        ? never
+        : [S] extends [{ parserExited: true }]
+          ? A
+          : never
+      : never
+    : never;
+type CheckedLocalParserProfiles<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext = {},
+> = C extends 'repack'
+  ? Ctx extends { repackMaxPackSize: 'immediate' }
+    ? BaseLocalParserProfiles<C, A, Ctx>
+    : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]
+      ? DeferredRepackHelp<A>
+      : A
+  : BaseLocalParserProfiles<C, A, Ctx>;
 
 /** Explore filename fields independently, checking the complete input in each state. */
 type FilenameFields<

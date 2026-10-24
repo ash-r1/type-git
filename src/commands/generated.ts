@@ -78430,6 +78430,7 @@ const commandSpec148 = {
       },
       key: 'max-pack-size',
       value: 'integer',
+      nativeIntegerTiming: 'repack-max-pack-size',
     },
     '--filter': {
       parser: 'object-filter',
@@ -78606,6 +78607,46 @@ const commandSpec148 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.repack.completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.repack.completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -78715,6 +78756,16 @@ const commandSpec148 = {
   ],
   source: 'builtin/repack.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
+    origin: 'git',
+    reason:
+      'Ordinary parse-options internal help exits at its position before later callbacks and final mode or operand checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.',
+    source:
+      'Git 2.55.0 builtin/repack.c parse_options flags 0; parse-options.c:parse_options_step; Git2.25 repack max-pack-size OPT_STRING',
+  },
 } as const satisfies CommandSpec;
 const commandSpec149 = {
   argv: ['replace'],

@@ -13,6 +13,8 @@ export type CommandGrammarContext = {
   guiGrammar?: GuiGrammar;
   guiLaunch?: GuiLaunch;
   conflictStyle?: 'immediate' | 'deferred';
+  /** Pin max-pack-size callback timing when a later repack help exit is reached. */
+  repackMaxPackSize?: 'immediate' | 'deferred';
   booleanSource?: GitBooleanSource;
   firstPassEmpty?: boolean;
   /** Pin the parent stash dispatch pass when validating a source-specific corpus. */

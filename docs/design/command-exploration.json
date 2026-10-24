@@ -62086,6 +62086,63 @@
     },
     {
       "command": "repack",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final mode or operand checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/repack.c parse_options flags 0; parse-options.c:parse_options_step; Git2.25 repack max-pack-size OPT_STRING"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.repack.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.repack.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.repack.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.repack.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 4,
       "domains": {
         "a": [
@@ -62279,6 +62336,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -62296,8 +62361,8 @@
           "true"
         ]
       },
-      "total": "25509168000000000000",
-      "accepted": "4888690329600000000",
+      "total": "102036672000000000000",
+      "accepted": "19554761318400000000",
       "nodes": 172,
       "isolatedRuleWitnesses": {
         "cli.repack.unreachable": "{\"keep-unreachable\":true,\"operands\":[],\"unpack-unreachable\":\"\"}",
