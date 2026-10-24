@@ -1,0 +1,7 @@
+# Ordered help in pack-objects and gc
+
+Git 2.55.0 `builtin/pack-objects.c` and `builtin/gc.c` use ordinary `parse_options` flags 0. Internal `-h`, later `--help` and `--help-all` exit before later callbacks and final operand or mode checks. The first `--help` remains the documentation dispatcher path. Configuration and repository checks before argument parsing remain native behavior.
+
+Scope-local metadata reuses the existing ordered exit machinery. Earlier pack-objects window/compression integer callbacks remain active; later callbacks are skipped after help. The gc prune date is a string at option parsing, so these tests preserve actual selected-Git behavior without claiming a static expiry grammar. Required values and tagged operands do not become help exits merely because their text resembles help. Shape, NUL and known-option catalogue checks remain active after an exit; arbitrary unknown tail options remain a recorded API compatibility boundary.
+
+Completion helpers require a sole parser word. Earlier help bypasses later completion checks; a reached multiword helper is rejected. Sole helpers preserve actual selected-Git output, including unsupported legacy helper failures. Native comparisons here exit at help, completion or earlier argument errors before packing/collection; they do not establish payload, configuration, filesystem, concurrency or full platform correctness. All command audits remain partial.
