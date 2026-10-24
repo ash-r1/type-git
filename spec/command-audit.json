@@ -3453,9 +3453,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/prune-help.test.ts",
+        "test/types/prune-help.ts"
       ],
-      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim.",
+      "remaining": "Repository, configuration, object and ref state; delegated callback value grammars, numeric lexical forms, abbreviations and independent witnesses for every rule. This entry is not a completeness claim. Ordered internal-help and sole-completion controls compare selected native results, including malformed expiry before help. Natural-language expiry grammar remains delegated to native Git; this does not establish a static date grammar or maintenance payload/repository completeness.",
       "typedCommandAPI": true
     },
     "prune-packed": {
