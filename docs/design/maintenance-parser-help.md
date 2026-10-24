@@ -1,0 +1,9 @@
+# Maintenance parser help
+
+Git 2.55.0 `builtin/count-objects.c`, `builtin/update-server-info.c`, `pack-refs.c:pack_refs_core` and `builtin/fsck.c` call `parse_options` with flags zero and no registered short `-h`. Scope-local metadata recognizes internal help at its parser position, while first `--help` remains the separate documentation dispatcher. This reuses the existing runtime/type exit machinery without changing its semantics.
+
+`parse-options.c:parse_options_step` recognizes completion helpers only with one parser word. Reached multiword helpers reject; earlier help exits before their checks. The selected Git's output and exit status are preserved, including Git 2.25's unsupported full-completion helper error. Final constraints remain applicable without help, and known argv shapes/NUL checks remain active even after an exit.
+
+The native/API matrix covers four Linux Git binaries inside and outside an isolated repository. Integration tests compare exact exit status, stdout and stderr for short/full help, internal help after a common ordinary option, sole completion, and help before a later completion helper. For a reached multiword completion helper, the tests independently assert the native unknown-option failure and the API GitArgumentError with its scope-specific rule ID; they do not compare native and API exit status or output byte for byte. These audit invocations exit at help, completion or parser errors before any maintenance operation, including reference packing or server-info updates. Missing repository and unsupported-option errors remain recorded failures rather than successful maintenance commands.
+
+All four audits remain partial. The finite corpus does not establish payload, repository/configuration, other parser forms or cross-platform completeness. Repack and prune callback ordering is outside this change and requires its own source/version audit.
