@@ -60611,6 +60611,63 @@
     },
     {
       "command": "prune",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Internal help exits at its parser position before later callbacks and maintenance work. Earlier expiry-date parsing remains delegated to the selected native Git and can fail before help. Completion shortcuts require a sole parser word; reached multiword occurrences are unknown options. First --help selects documentation dispatch.",
+        "source": "Git 2.55.0 builtin/prune.c:cmd_prune parse_options flags 0; parse-options-cb.c:parse_opt_expiry_date; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.prune.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.prune.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.prune.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.prune.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 0,
       "domains": {
         "dry-run": [
@@ -60645,6 +60702,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -60662,8 +60727,8 @@
           "true"
         ]
       },
-      "total": "32400",
-      "accepted": "32400",
+      "total": "129600",
+      "accepted": "129600",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
