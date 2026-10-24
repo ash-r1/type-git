@@ -22,3 +22,13 @@ git.command('grep',[['-h'],['--help-all'],['--threads','invalid']]);
 git.command('grep',[['-e','--help-all']]);
 // @ts-expect-error Full help still follows earlier integer callbacks.
 git.command('grep',[['--threads','invalid'],['--help-all']]);
+
+for(const completion of ['--git-completion-helper','--git-completion-helper-all'] as const){
+ git.command('grep',[[completion]]);
+ git.command('grep',[['--help-all'],[completion],['--threads','invalid']]);
+ git.command('grep',[['-e',completion]]);
+ // @ts-expect-error Completion helpers are unknown options when another word is present.
+ git.command('grep',[[completion],['--help-all']]);
+ // @ts-expect-error A preceding ordinary option prevents the single-word shortcut.
+ git.command('grep',[['--threads',1],[completion]]);
+}

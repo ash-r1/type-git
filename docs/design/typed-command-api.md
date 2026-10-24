@@ -845,6 +845,8 @@ Git 2.55.0 corpus, classifies native diagnostics, and reproduces the runtime and
 compiler fixtures. This finite corpus is not an exhaustive command proof.
 For `grep`, internal `--help` and full `--help-all` exit before later callbacks and final mode checks. `--help-all` also selects native extended usage in first position; unlike first-word `--help`, it is not rewritten to documentation dispatch. Earlier integer callback errors still fail first. The parser stops at its first operand; later help-looking words retain native failure/path handling. With other arguments present, `-h` suppresses filenames and does not preempt callback validation or satisfy the pattern requirement. A lone `grep -h` exits before registered short-option parsing, including outside a repository; the scope's single-word exit metadata models this exact shape. Adding another argument restores ordinary filename-suppression parsing. Other standalone builtin help shortcuts remain separate audit obligations.
 
+`grep --git-completion-helper` and `grep --git-completion-helper-all` return native completion output only when they are the sole parser word. An occurrence reached with additional words is rejected before later help; earlier help still preempts that check. Identical strings passed as pattern values or operands retain their native interpretation. Older Git without the full helper retains its native unsupported-option result; the API does not normalize it to success.
+
 The annotation is deliberately per scope: `grep -h` is an ordinary option and
 `diff-files` processes those options before handling help. Other exit phases, completion helpers,
 abbreviations, repository/configuration failures and other parse exits remain

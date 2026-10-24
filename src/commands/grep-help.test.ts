@@ -103,6 +103,48 @@ describe('grep internal help and filename suppression', () => {
     );
     expect(operand.status).toBe(128);
   }, 120_000);
+  it('preserves native one-word completion output and older unsupported helpers', async () => {
+    for (const flag of ['--git-completion-helper', '--git-completion-helper-all']) {
+      const result = await compare([[flag]], [flag]);
+      if (result.status === 0) {
+        expect(result.stdout).toContain('--cached');
+      } else {
+        expect(flag).toBe('--git-completion-helper-all');
+        expect(result.status).toBe(129);
+        expect(result.stderr).toContain('unknown option');
+      }
+    }
+  }, 120_000);
+  it('rejects reached multiword completion helpers before later help', async () => {
+    for (const flag of ['--git-completion-helper', '--git-completion-helper-all']) {
+      for (const args of [
+        [[flag], ['--help-all']],
+        [['--threads', 1], [flag]],
+      ]) {
+        const words = args.map((a) => (a.length === 1 ? String(a[0]) : `${a[0]}=${a[1]}`));
+        const expected = native(['grep', ...words]);
+        expect(expected.status).toBe(129);
+        expect(expected.stderr).toContain('unknown option');
+        await expect(repo.command('grep', args as never)).rejects.toThrow('one-word]');
+      }
+    }
+  }, 120_000);
+  it('earlier help preempts completion checks and values remain patterns', async () => {
+    for (const flag of ['--git-completion-helper', '--git-completion-helper-all']) {
+      const result = await compare(
+        [['--help-all'], [flag], ['--threads', 'invalid']],
+        ['--help-all', flag, '--threads=invalid'],
+      );
+      expect([0, 129]).toContain(result.status);
+      expect(result.stdout + result.stderr).toContain('usage:');
+      const value = await compare(
+        [['--threads', 1], ['-e', flag], ['--'], { operand: 'file' }],
+        ['--threads=1', '-e', flag, '--', 'file'],
+      );
+      expect(value.status).toBe(1);
+      expect(value.stdout).toBe('');
+    }
+  }, 120_000);
   it('internal long help preempts later integer callbacks', async () => {
     for (const value of ['invalid', '2147483648', '4294967295']) {
       const result = await compare(
