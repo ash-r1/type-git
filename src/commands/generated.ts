@@ -8407,7 +8407,7 @@ const commandSpec0 = {
     singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     origin: 'git',
     reason:
-      'Internal help exits at its parser position before later callbacks and maintenance work. Earlier expiry-date parsing remains delegated to the selected native Git and can fail before help. Completion shortcuts require a sole parser word; reached multiword occurrences are unknown options. First --help selects documentation dispatch.',
+      'Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.',
     source:
       'Git 2.55.0 builtin/hash-object.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin',
   },
@@ -71435,7 +71435,7 @@ const commandSpec101 = {
     singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     origin: 'git',
     reason:
-      'Internal help exits at its parser position before later callbacks and maintenance work. Earlier expiry-date parsing remains delegated to the selected native Git and can fail before help. Completion shortcuts require a sole parser word; reached multiword occurrences are unknown options. First --help selects documentation dispatch.',
+      'Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.',
     source:
       'Git 2.55.0 builtin/check-attr.c parse_options flags PARSE_OPT_KEEP_DASHDASH; parse-options.c:parse_options_step; git.c:handle_builtin',
   },
@@ -77628,7 +77628,7 @@ const commandSpec145 = {
     singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     origin: 'git',
     reason:
-      'Internal help exits at its parser position before later callbacks and maintenance work. Earlier expiry-date parsing remains delegated to the selected native Git and can fail before help. Completion shortcuts require a sole parser word; reached multiword occurrences are unknown options. First --help selects documentation dispatch.',
+      'Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.',
     source:
       'Git 2.55.0 builtin/merge-file.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin',
   },
@@ -79381,7 +79381,7 @@ const commandSpec150 = {
     singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
     origin: 'git',
     reason:
-      'Internal help exits at its parser position before later callbacks and maintenance work. Earlier expiry-date parsing remains delegated to the selected native Git and can fail before help. Completion shortcuts require a sole parser word; reached multiword occurrences are unknown options. First --help selects documentation dispatch.',
+      'Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.',
     source:
       'Git 2.55.0 builtin/rerere.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin',
   },
