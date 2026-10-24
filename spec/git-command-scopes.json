@@ -851,6 +851,10 @@
         "key": "track",
         "value": "flag",
         "set": false
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "optionGroups": [
@@ -859,10 +863,11 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
-      "reason": "The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed.",
+      "reason": "The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed. Exact internal --help-all is also a first-pass exit, including first position, unlike documentation-dispatched --help.",
       "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
@@ -1325,6 +1330,10 @@
           "signed": true,
           "bits": 32
         }
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "optionGroups": [
@@ -1333,10 +1342,11 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
-      "reason": "The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed.",
+      "reason": "The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed. Exact internal --help-all is also a first-pass exit, including first position, unlike documentation-dispatched --help.",
       "source": "https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin",
       "exceptFirst": [
         "--help"
@@ -3635,6 +3645,10 @@
             "set": false
           }
         ]
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "optionGroups": [
@@ -3643,10 +3657,11 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
-      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary.",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary. Exact internal --help-all is also a first-pass exit, including first position, unlike documentation-dispatched --help.",
       "source": "Git 2.55.0 builtin/for-each-ref.c:for_each_ref_core; parse-options.c:parse_options/parse_long_opt; git.c:handle_builtin",
       "exceptFirst": [
         "--help"
@@ -6509,6 +6524,10 @@
         "key": "reflog",
         "value": "optional-string",
         "parser": "show-branch-reflog"
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     },
     "optionGroups": [
@@ -6517,10 +6536,11 @@
     "parserExit": {
       "flags": [
         "-h",
-        "--help"
+        "--help",
+        "--help-all"
       ],
       "origin": "git",
-      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary.",
+      "reason": "The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary. Exact internal --help-all is also a first-pass exit, including first position, unlike documentation-dispatched --help.",
       "source": "Git 2.55.0 builtin/show-branch.c; parse-options.c:parse_options/parse_long_opt; git.c:handle_builtin",
       "exceptFirst": [
         "--help"

@@ -21475,6 +21475,10 @@ const commandSpec33 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -22333,10 +22337,10 @@ const commandSpec33 = {
   source: 'builtin/branch.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
-      'The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed.',
+      'The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed. Exact internal --help-all is also a first-pass exit, including first position, unlike documentation-dispatched --help.',
     source:
       'https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin',
     exceptFirst: ['--help'],
@@ -23136,6 +23140,7 @@ const commandSpec33 = {
       '--force',
       '--format',
       '--help',
+      '--help-all',
       '--ignore-case',
       '--list',
       '--merged',
@@ -28582,6 +28587,10 @@ const commandSpec38 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -30703,10 +30712,10 @@ const commandSpec38 = {
   source: 'builtin/tag.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
-      'The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed.',
+      'The ordinary native option pass resolves long prefixes, clusters and LASTARG_DEFAULT operands before help or final reference/path/mode checks. Both end markers are consumed. Exact internal --help-all is also a first-pass exit, including first position, unlike documentation-dispatched --help.',
     source:
       'https://github.com/git/git/blob/v2.55.0/parse-options.c#L988; Git 2.55.0 git.c:handle_builtin',
     exceptFirst: ['--help'],
@@ -31252,6 +31261,7 @@ const commandSpec38 = {
       '--force',
       '--format',
       '--help',
+      '--help-all',
       '--ignore-case',
       '--list',
       '--local-user',
@@ -69026,6 +69036,10 @@ const commandSpec94 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -69127,10 +69141,10 @@ const commandSpec94 = {
   source: 'builtin/for-each-ref.c:for_each_ref_core',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
-      'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary.',
+      'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary. Exact internal --help-all is also a first-pass exit, including first position, unlike documentation-dispatched --help.',
     source:
       'Git 2.55.0 builtin/for-each-ref.c:for_each_ref_core; parse-options.c:parse_options/parse_long_opt; git.c:handle_builtin',
     exceptFirst: ['--help'],
@@ -69600,6 +69614,7 @@ const commandSpec94 = {
       '--exclude',
       '--format',
       '--help',
+      '--help-all',
       '--ignore-case',
       '--include-root-refs',
       '--merged',
@@ -108008,6 +108023,10 @@ const commandSpec207 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
     '--git-completion-helper': {
       key: 'help',
       value: 'flag',
@@ -108108,10 +108127,10 @@ const commandSpec207 = {
   source: 'builtin/show-branch.c',
   separator: true,
   parserExit: {
-    flags: ['-h', '--help'],
+    flags: ['-h', '--help', '--help-all'],
     origin: 'git',
     reason:
-      'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary.',
+      'The native ordinary option pass resolves prefixes, clusters and reached callbacks before help; retained words become literal operands after end markers or the recorded stop boundary. Exact internal --help-all is also a first-pass exit, including first position, unlike documentation-dispatched --help.',
     source:
       'Git 2.55.0 builtin/show-branch.c; parse-options.c:parse_options/parse_long_opt; git.c:handle_builtin',
     exceptFirst: ['--help'],
@@ -108480,6 +108499,7 @@ const commandSpec207 = {
       '--current',
       '--date-order',
       '--help',
+      '--help-all',
       '--independent',
       '--list',
       '--merge-base',
