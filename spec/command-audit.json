@@ -2588,11 +2588,13 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/cmdmode-help.test.ts",
+        "test/types/cmdmode-help.ts"
       ],
       "state": "partial",
       "typedCommandAPI": true,
-      "remaining": "Object and ref resolution, fork-point reflog state and abbreviated option spellings."
+      "remaining": "Object and ref resolution, fork-point reflog state and abbreviated option spellings. Finite ordered-help and sole-completion controls retain reached CMDMODE conflicts and repeated-same-mode behavior. Payload, callback, repository/configuration and platform coverage remain partial."
     },
     "commit-tree": {
       "models": [],
@@ -2860,9 +2862,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/cmdmode-help.test.ts",
+        "test/types/cmdmode-help.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Operands ignored by native Git are deliberately retained; conditional delegated parsers require further audit. Finite ordered-help and sole-completion controls retain reached CMDMODE conflicts and repeated-same-mode behavior. Payload, callback, repository/configuration and platform coverage remain partial."
     },
     "patch-id": {
       "state": "partial",
@@ -2876,9 +2880,11 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/cmdmode-help.test.ts",
+        "test/types/cmdmode-help.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Operands ignored by native Git are deliberately retained; conditional delegated parsers require further audit. Finite ordered-help and sole-completion controls retain reached CMDMODE conflicts and repeated-same-mode behavior. Payload, callback, repository/configuration and platform coverage remain partial."
     },
     "verify-tag": {
       "state": "partial",
