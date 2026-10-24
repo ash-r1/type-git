@@ -38,6 +38,7 @@ import {
   validateArgvStrings,
   commandDecimalCallbacks,
   commandUsesConflictStyle,
+  commandUsesRepackMaxPackSize,
   commandUsesBooleanSource,
   commandUsesBooleanBinary,
   commandBooleanFeatures,
@@ -945,6 +946,7 @@ export class CliRunner {
       decimalCallbacks?: GitDecimalCallbacks;
       unsignedChar?: boolean;
       conflictStyle?: 'immediate' | 'deferred';
+      repackMaxPackSize?: 'immediate' | 'deferred';
       booleanSource?: GitBooleanSource;
       booleanBinaryIntegers?: boolean;
       booleanCapabilities?: GitBooleanCapabilities;
@@ -1001,6 +1003,35 @@ export class CliRunner {
       }
       depthAtoiBits = observed.bits;
     }
+    let repackMaxPackSize: 'immediate' | 'deferred' | undefined;
+    if (commandUsesRepackMaxPackSize(command, traitArgs)) {
+      const original = commandShapeArguments(command, args, inRepository);
+      const probe = await this.run(
+        context,
+        ['repack', '--max-pack-size=type-git-profile-invalid', '-h'],
+        {
+          ...(opts?.env ? { env: opts.env } : {}),
+          ...(opts?.signal ? { signal: opts.signal } : {}),
+        },
+      );
+      if (probe.aborted) {
+        return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+      }
+      if (
+        [0, 129].includes(probe.exitCode) &&
+        (probe.stdout + probe.stderr).startsWith('usage:') &&
+        !/^(?:error|fatal):/m.test(probe.stderr)
+      ) {
+        repackMaxPackSize = 'deferred';
+      } else if (
+        probe.exitCode === 129 &&
+        /^error: option [`']max-pack-size['`] expects .*integer/m.test(probe.stderr)
+      ) {
+        repackMaxPackSize = 'immediate';
+      } else {
+        return await execute(original);
+      }
+    }
     let firstPassEmpty: boolean | undefined;
     if (commandUsesFirstPassEmpty(command, traitArgs)) {
       const probeOptions = {
@@ -1027,6 +1058,7 @@ export class CliRunner {
       }
     }
     let abi: NativeAbi | undefined =
+      repackMaxPackSize === undefined &&
       firstPassEmpty === undefined &&
       depthAtoiBits === undefined &&
       submoduleInitAlias === undefined &&
@@ -1036,6 +1068,7 @@ export class CliRunner {
             longBits: nativeCLongBits(process.platform, process.arch),
             sizeTBits: nativeSizeTBits(process.arch),
             firstPassEmpty,
+            repackMaxPackSize,
             depthAtoiBits,
             submoduleInitAlias,
             emptyPickaxeRejected,
@@ -1111,6 +1144,7 @@ export class CliRunner {
                               decimalCallbacks,
                               unsignedChar,
                               conflictStyle,
+                              repackMaxPackSize,
                               booleanSource,
                               booleanBinaryIntegers,
                               booleanCapabilities,

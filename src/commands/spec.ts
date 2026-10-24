@@ -67,6 +67,8 @@ export type OptionSpec = {
   /** Empty patterns are rejected only by the observed modern pickaxe callback. */
   nativeEmptyPickaxe?: boolean;
   nativeEnumCallback?: 'conflict-style';
+  /** Selected native callback timing before an actual internal help exit. */
+  nativeIntegerTiming?: 'repack-max-pack-size';
   /** A source-audited helper alias whose availability is observed on the selected executable. */
   nativeCapability?: 'submodule-init-alias';
   /** Finite supplied values accepted by both literal types and runtime validation. */

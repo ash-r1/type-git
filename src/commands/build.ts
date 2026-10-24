@@ -164,6 +164,7 @@ export function commandArguments(
     decimalCallbacks?: GitDecimalCallbacks;
     unsignedChar?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
+    repackMaxPackSize?: 'immediate' | 'deferred';
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
@@ -208,6 +209,7 @@ function buildArguments(
     decimalCallbacks?: GitDecimalCallbacks;
     unsignedChar?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
+    repackMaxPackSize?: 'immediate' | 'deferred';
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
@@ -633,12 +635,16 @@ function buildArguments(
     ) {
       throw new GitArgumentError(`${flag}: not an option of Git's help dispatcher`);
     }
+    const deferredInteger =
+      option.nativeIntegerTiming === 'repack-max-pack-size' &&
+      abi?.repackMaxPackSize === 'deferred' &&
+      commandUsesRepackMaxPackSize(command, args);
     const integerParser = typeof option.parser === 'object';
     if (integerParser && supplied && !['string', 'number', 'bigint'].includes(typeof rawValue)) {
       throw new GitArgumentError(`${flag}: expected a number, bigint or numeric string`);
     }
     const integer =
-      integerParser && !parserExited
+      integerParser && !parserExited && !deferredInteger
         ? parseGitScalar(
             option.parser!,
             rawValue,
@@ -780,6 +786,7 @@ function buildArguments(
       continue;
     }
     const parsed =
+      (deferredInteger ? { valid: true, value } : undefined) ??
       integer ??
       (option.parser
         ? parseGitScalar(
@@ -1312,6 +1319,36 @@ export function commandUsesCompoundDecimal(
       (spec.options[arg[0]]?.parser === 'shortlog-wrap' ||
         spec.options[arg[0]]?.parser === 'show-branch-reflog'),
   );
+}
+
+/** Only an actual internal help exit can bypass the older deferred repack value. */
+export function commandUsesRepackMaxPackSize(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  if (
+    command !== 'repack' ||
+    !Array.isArray(args) ||
+    isDocumentationDispatch(COMMAND_SPECS[command], args)
+  ) {
+    return false;
+  }
+  let reached = false;
+  for (const arg of args) {
+    if (arg === '--' || (Array.isArray(arg) && arg.length === 1 && arg[0] === '--')) {
+      return false;
+    }
+    if (!Array.isArray(arg)) {
+      continue;
+    }
+    if (arg.length === 1 && ['-h', '--help', '--help-all'].includes(arg[0])) {
+      return reached;
+    }
+    if (arg[0] === '--max-pack-size' && arg.length === 2) {
+      reached = true;
+    }
+  }
+  return false;
 }
 
 /** Whether a conflict-style callback before help needs a selected-executable timing profile. */
