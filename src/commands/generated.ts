@@ -97842,6 +97842,10 @@ const commandSpec201 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   numericOption: {
     key: 'context',
@@ -97997,11 +98001,11 @@ const commandSpec201 = {
   separator: true,
   optionParsing: 'stop-at-operand',
   parserExit: {
-    flags: ['--help'],
+    flags: ['--help', '--help-all'],
     exceptFirst: ['--help'],
     origin: 'git',
     reason:
-      'Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand. A lone -h exits at the parser total-word shortcut before registered short options.',
+      'Internal parse-options long help exits before later callbacks and final semantic checks. Short -h disables filename output and is not a help exit; the parser stops at its first operand. A lone -h exits at the parser total-word shortcut before registered short options. Full internal --help-all selects extended usage before later callbacks, including in first position.',
     source:
       'Git 2.55.0 builtin/grep.c:cmd_grep parse_options KEEP_DASHDASH|STOP_AT_NON_OPTION; OPT_NEGBIT h; parse-options.c; git.c:handle_builtin',
     singleWordExits: ['-h'],

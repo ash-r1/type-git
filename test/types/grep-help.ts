@@ -14,3 +14,11 @@ git.command('grep',[['-h'],['--threads',1]]);
 
 // The native one-word shortcut precedes registered filename suppression.
 git.command('grep',[['-h']]);
+
+git.command('grep',[['--help-all']]);
+git.command('grep',[['--threads',1],['--help-all'],['--threads','invalid']]);
+git.command('grep',[['--threads',-1],['--help-all']]);
+git.command('grep',[['-h'],['--help-all'],['--threads','invalid']]);
+git.command('grep',[['-e','--help-all']]);
+// @ts-expect-error Full help still follows earlier integer callbacks.
+git.command('grep',[['--threads','invalid'],['--help-all']]);
