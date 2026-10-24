@@ -53353,6 +53353,23 @@
     },
     {
       "command": "merge-base",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/merge-base.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
       "modes": [
         {
           "group": "&cmdmode",
@@ -53413,6 +53430,46 @@
           ]
         }
       ],
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.merge-base.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.merge-base.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.merge-base.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.merge-base.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 4,
       "domains": {
         "all": [
@@ -53440,6 +53497,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -53457,8 +53522,8 @@
           "true"
         ]
       },
-      "total": "2880",
-      "accepted": "960",
+      "total": "11520",
+      "accepted": "3840",
       "nodes": 71,
       "isolatedRuleWitnesses": {
         "merge-base.all": "{\"all\":true,\"is-ancestor\":true,\"operands\":[\"value\",\"value\"]}",
@@ -57216,6 +57281,23 @@
     },
     {
       "command": "stripspace",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/stripspace.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
       "modes": [
         {
           "group": "&mode",
@@ -57266,6 +57348,46 @@
           ]
         }
       ],
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.stripspace.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.stripspace.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.stripspace.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.stripspace.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "strip-comments": [
@@ -57277,6 +57399,14 @@
           "true"
         ],
         "help": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
           "undefined",
           "true"
         ],
@@ -57297,8 +57427,8 @@
           "true"
         ]
       },
-      "total": "240",
-      "accepted": "48",
+      "total": "960",
+      "accepted": "192",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.stripspace.operands": "{\"operands\":[\"value\"]}"
@@ -57306,6 +57436,23 @@
     },
     {
       "command": "patch-id",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/patch-id.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
       "modes": [
         {
           "group": "&opts",
@@ -57355,6 +57502,46 @@
           ]
         }
       ],
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.patch-id.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.patch-id.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.patch-id.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.patch-id.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 0,
       "domains": {
         "unstable": [
@@ -57370,6 +57557,14 @@
           "true"
         ],
         "help": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
           "undefined",
           "true"
         ],
@@ -57390,8 +57585,8 @@
           "true"
         ]
       },
-      "total": "480",
-      "accepted": "480",
+      "total": "1920",
+      "accepted": "1920",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
