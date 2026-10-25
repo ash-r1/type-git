@@ -299,9 +299,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/ls-remote-help.test.ts",
+        "src/commands/ls-remote-help-native.test.ts",
+        "test/types/ls-remote-help.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit.",
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Finite help/completion/get-url controls distinguish sole -h usage from multiword heads and preserve stop-at-first-operand plus delegated native sort callback timing. External transport, complete refs/remotes/config/platform grammar remain unverified.",
       "typedCommandAPI": true
     },
     "ls-tree": {
