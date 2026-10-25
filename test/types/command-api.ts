@@ -500,7 +500,7 @@ git.command('ls-files', [['--format', '%(path)'], ['--stage']]);
 // @ts-expect-error Ignored output requires an explicit exclude source.
 git.command('ls-files', [['--ignored'], ['--cached']]);
 git.command('ls-tree', [['--name-only'], ['--name-only'], { operand: 'HEAD' }]);
-// @ts-expect-error Different native modes remain exclusive despite equivalent output.
+// Legacy bit modes permit both spellings; the selected modern parser retains its runtime conflict.
 git.command('ls-tree', [['--name-only'], ['--name-status'], { operand: 'HEAD' }]);
 git.command('for-each-ref', [['--start-after', 'refs/heads/a'], ['--no-sort'], ['--sort', 'refname']]);
 // @ts-expect-error The default sort entry plus an explicit sort conflicts with start-after.

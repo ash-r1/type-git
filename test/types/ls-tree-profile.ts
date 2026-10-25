@@ -12,7 +12,7 @@ git.command('ls-tree', [['--full-tree'], ['--help']]);
 git.command('ls-tree', [['--help-all'], ['--'], { operand: '-h' }]);
 // @ts-expect-error A reached malformed abbreviation remains invalid.
 git.command('ls-tree', [['--abbrev', 'bad'], ['-h']]);
-// @ts-expect-error Legacy relaxation requires a real help exit.
+// The legacy bit family also permits this ordinary tree listing.
 git.command('ls-tree', [['--long'], ['--name-only'], { operand: 'HEAD' }]);
 // @ts-expect-error Modern-only object mode cannot borrow the old bit-mode family.
 git.command('ls-tree', [['--long'], ['--object-only'], ['-h']]);
@@ -33,6 +33,12 @@ declare const lsTreeMixedMode: '--long' | '--object-only';
 // @ts-expect-error Both modern mode arms conflict; the old alternative cannot lose the newer-only arm.
 git.command('ls-tree', [[lsTreeMixedMode], ['--name-only'], ['-h']]);
 git.command('ls-tree', [['--long'], { operand: 'HEAD' }]);
+// @ts-expect-error Neither family permits a listing without its tree operand.
+git.command('ls-tree', [['--long'], ['--name-only']]);
+// @ts-expect-error Native abbreviation parsing still rejects a reached malformed value.
+git.command('ls-tree', [['--long'], ['--name-only'], ['--abbrev', 'bad'], { operand: 'HEAD' }]);
+// @ts-expect-error Neither family permits this combination: new object-only conflicts in modern and is absent in old Git.
+git.command('ls-tree', [['--long'], ['--name-only'], ['--object-only'], { operand: 'HEAD' }]);
 type Assert<T extends true> = T;
 type Equal<A,B> = [A] extends [B] ? [B] extends [A] ? true : false : false;
 type OldModes = readonly [readonly ['--long'], readonly ['--name-only'], readonly ['-h']];
@@ -41,9 +47,17 @@ type OldModesWithoutHelp = readonly [readonly ['--long'], readonly ['--name-only
 type HelpWithNewFormat = readonly [readonly ['--long'], readonly ['--format','%(path)'], readonly ['-h']];
 type SafeHelpOrLong = readonly [readonly ['-h' | '--long'], {readonly operand:'HEAD'}];
 type UnsafeTupleUnion = OldModes | readonly [readonly ['--long'], readonly ['--object-only'], readonly ['-h']];
-type UnsafeOrdinaryTupleUnion = OrdinaryLong | OldModesWithoutHelp;
+type InvalidOrdinaryModes = readonly [readonly ['--long'], readonly ['--name-only'], readonly ['--object-only'], {readonly operand:'HEAD'}];
+type UnsafeOrdinaryTupleUnion = OrdinaryLong | InvalidOrdinaryModes;
+type OldOrdinaryTupleUnion = OrdinaryLong | OldModesWithoutHelp;
 type SafeOrdinaryAndLegacyHelp = OrdinaryLong | OldModes;
+type NameAliasesWithoutHelp = readonly [readonly ['--name-only'], readonly ['--name-status'], {readonly operand:'HEAD'}];
 export type LsTreeModePins = readonly [
+ Assert<Equal<CheckedCommandArguments<'ls-tree', NameAliasesWithoutHelp, {lsTreeModes:'bits'}>, NameAliasesWithoutHelp>>,
+ Assert<Equal<CheckedCommandArguments<'ls-tree', NameAliasesWithoutHelp, {lsTreeModes:'cmdmode'}>, never>>,
+ Assert<Equal<CheckedCommandArguments<'ls-tree', OldOrdinaryTupleUnion, {lsTreeModes:'bits'}>, OldOrdinaryTupleUnion>>,
+ Assert<Equal<CheckedCommandArguments<'ls-tree', OldOrdinaryTupleUnion>, OldOrdinaryTupleUnion>>,
+ Assert<Equal<CheckedCommandArguments<'ls-tree', OldModesWithoutHelp, {lsTreeModes:'cmdmode'}>, never>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', UnsafeOrdinaryTupleUnion, {lsTreeModes:'bits'}>, never>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', UnsafeOrdinaryTupleUnion>, never>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', SafeOrdinaryAndLegacyHelp, {lsTreeModes:'bits'}>, SafeOrdinaryAndLegacyHelp>>,
@@ -56,7 +70,7 @@ export type LsTreeModePins = readonly [
  Assert<Equal<CheckedCommandArguments<'ls-tree', HelpWithNewFormat, {lsTreeModes:'cmdmode'}>, HelpWithNewFormat>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', OrdinaryLong, {lsTreeModes:'bits'}>, OrdinaryLong>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', OrdinaryLong, {lsTreeModes:'cmdmode'}>, OrdinaryLong>>,
- Assert<Equal<CheckedCommandArguments<'ls-tree', OldModesWithoutHelp, {lsTreeModes:'bits'}>, never>>,
+ Assert<Equal<CheckedCommandArguments<'ls-tree', OldModesWithoutHelp, {lsTreeModes:'bits'}>, OldModesWithoutHelp>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', OldModes, {lsTreeModes:'bits'}>, OldModes>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', OldModes, {lsTreeModes:'cmdmode'}>, never>>
 ];

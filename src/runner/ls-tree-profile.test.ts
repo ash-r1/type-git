@@ -44,6 +44,29 @@ describe('selected ls-tree mode observation', () => {
     }
     expect(spawn.mock.calls[3]?.[0].stdin).toBe('caller');
   });
+  it('observes the old family for a non-help listing before forwarding original argv', async () => {
+    const a = createNodeAdapters();
+    const spawn = vi.fn();
+    for (const r of [usage, usage, usage, result(0, 'file\n')]) {
+      spawn.mockResolvedValueOnce(r);
+    }
+    a.exec.spawn = spawn;
+    const listingArgs = [['--long'], ['--name-only'], { operand: 'HEAD' }];
+    const actual = await new CliRunner(a).runCommand(
+      { type: 'global' },
+      'ls-tree',
+      listingArgs,
+      true,
+    );
+    expect(actual.stdout).toBe('file\n');
+    expect(spawn).toHaveBeenCalledTimes(4);
+    expect(spawn.mock.calls[3]?.[0].argv.slice(-4)).toEqual([
+      'ls-tree',
+      '--long',
+      '--name-only',
+      'HEAD',
+    ]);
+  });
   it('retains observed modern reached mode conflicts', async () => {
     const a = createNodeAdapters();
     const spawn = vi.fn();

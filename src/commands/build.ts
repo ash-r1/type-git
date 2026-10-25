@@ -1349,7 +1349,7 @@ export function commandUsesCompoundDecimal(
   );
 }
 
-/** Observe legacy bit modes only when a reached old mode is followed by internal help. */
+/** Observe reached legacy bit options before help or an end-of-options marker. */
 export function commandUsesLsTreeModes(command: GitCommandName, args: readonly unknown[]): boolean {
   if (
     command !== 'ls-tree' ||
@@ -1361,7 +1361,7 @@ export function commandUsesLsTreeModes(command: GitCommandName, args: readonly u
   let reached = false;
   for (const arg of args) {
     if (arg === '--' || (Array.isArray(arg) && arg.length === 1 && arg[0] === '--')) {
-      return false;
+      return reached;
     }
     if (!Array.isArray(arg)) {
       continue;
@@ -1373,7 +1373,7 @@ export function commandUsesLsTreeModes(command: GitCommandName, args: readonly u
       reached = true;
     }
   }
-  return false;
+  return reached;
 }
 
 /** Profile an exclude callback reached before help or an end-of-options marker. */
