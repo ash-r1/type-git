@@ -5079,11 +5079,35 @@
     "options": {
       "-h": {
         "key": "sole-help",
-        "value": "flag"
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.unpack-file.short-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The handwritten command accepts exactly one command word. This canonical usage flag must be the sole word; unlike an operand it must not hide another word from the final operand count.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/unpack-file.c:cmd_unpack_file argc != 2 / sole usage shortcut"
+          }
+        ]
       },
       "--help-all": {
         "key": "sole-help",
-        "value": "flag"
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.unpack-file.full-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The handwritten command accepts exactly one command word. This canonical usage flag must be the sole word; unlike an operand it must not hide another word from the final operand count.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/unpack-file.c:cmd_unpack_file argc != 2 / sole usage shortcut"
+          }
+        ]
       }
     },
     "parserExit": {

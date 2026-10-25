@@ -81,8 +81,12 @@ describe('unpack-file internal help and callback order', () => {
     }
   });
   it('keeps multiword usage and wrapper operand-count errors separate', async () => {
-    await compare([['-h'], { operand: 'ignored' }], ['-h', 'ignored']);
-    await compare([['--help-all'], { operand: 'ignored' }], ['--help-all', 'ignored']);
+    for (const flag of ['-h', '--help-all']) {
+      await expect(
+        repo.command('unpack-file', [[flag], { operand: 'ignored' }] as never),
+      ).rejects.toBeInstanceOf(GitArgumentError);
+      expect(native(['unpack-file', flag, 'ignored']).status).not.toBe(0);
+    }
     await expect(repo.command('unpack-file', [] as never)).rejects.toBeInstanceOf(GitArgumentError);
     expect(native(['unpack-file']).status).not.toBe(0);
     await expect(

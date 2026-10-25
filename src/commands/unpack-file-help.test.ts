@@ -12,11 +12,11 @@ describe('unpack-file sole help words', () => {
       'unpack-file',
       'missing-blob',
     ]);
-    expect(commandArguments('unpack-file', [['--help-all'], { operand: 'missing-blob' }])).toEqual([
-      'unpack-file',
-      '--help-all',
-      'missing-blob',
-    ]);
+    for (const flag of ['-h', '--help-all']) {
+      expect(() =>
+        commandArguments('unpack-file', [[flag], { operand: 'missing-blob' }]),
+      ).toThrow();
+    }
     expect(() => commandArguments('unpack-file', [])).toThrow();
     expect(() =>
       commandArguments('unpack-file', [['--help-all'], { operand: 'one' }, { operand: 'two' }]),
