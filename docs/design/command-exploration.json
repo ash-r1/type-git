@@ -61955,6 +61955,23 @@
     },
     {
       "command": "read-tree",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git2.55 builtin/read-tree.c parse_options flags0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
       "transitions": [
         {
           "flag": "--exclude-per-directory",
@@ -61971,6 +61988,44 @@
           "accepted": "1",
           "isolatedRuleWitnesses": {
             "cli.read-tree.exclude-order": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.read-tree.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.read-tree.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.read-tree.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.read-tree.completion-helper-all-one-word": "{}"
           }
         }
       ],
@@ -62074,6 +62129,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -62092,8 +62155,8 @@
           "true"
         ]
       },
-      "total": "42326323200",
-      "accepted": "4003084800",
+      "total": "169305292800",
+      "accepted": "16012339200",
       "nodes": 261,
       "isolatedRuleWitnesses": {
         "cli.read-tree.mode": "{\"operands\":[\"value\"],\"prefix\":\"\",\"reset\":true}",

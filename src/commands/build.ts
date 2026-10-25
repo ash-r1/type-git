@@ -165,6 +165,7 @@ export function commandArguments(
     unsignedChar?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
     repackMaxPackSize?: 'immediate' | 'deferred';
+    readTreeExclude?: 'legacy' | 'modern';
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
@@ -210,6 +211,7 @@ function buildArguments(
     unsignedChar?: boolean;
     conflictStyle?: 'immediate' | 'deferred';
     repackMaxPackSize?: 'immediate' | 'deferred';
+    readTreeExclude?: 'legacy' | 'modern';
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
@@ -481,6 +483,7 @@ function buildArguments(
     operandsBeforeSeparator,
     pathsAfterSeparator,
   };
+  let readTreeExcludeSeen = false;
   let documentationTailExited = false;
   let ended = false;
   let literalOperands = false;
@@ -575,7 +578,7 @@ function buildArguments(
       !Object.hasOwn(activeOptions, flag) &&
       spec.numericOption &&
       /^-\d+$/.exec(flag)?.[0] === flag;
-    const option: OptionSpec | undefined =
+    let option: OptionSpec | undefined =
       documentationDispatch && documentationTailExited
         ? ignoredDocumentationOption(documentationLocals, flag, arg)
         : Object.hasOwn(activeOptions, flag)
@@ -602,6 +605,18 @@ function buildArguments(
       abi?.submoduleInitAlias !== true
     ) {
       throw new GitArgumentError(`${command}: ${flag} is unavailable in the selected helper`);
+    }
+    if (
+      !parserExited &&
+      option.nativeReadTreeExclude &&
+      abi?.readTreeExclude === 'legacy' &&
+      commandUsesReadTreeExclude(command, args)
+    ) {
+      if (readTreeExcludeSeen) {
+        throw new GitArgumentError('--exclude-per-directory: repeated legacy callback');
+      }
+      readTreeExcludeSeen = true;
+      option = { ...option, checks: undefined, allowed: undefined };
     }
     // git.c transfers a first-word --help to git-help before the local parser.
     // Later help spellings belong to that dispatcher, whose usage exit varies
@@ -1319,6 +1334,36 @@ export function commandUsesCompoundDecimal(
       (spec.options[arg[0]]?.parser === 'shortlog-wrap' ||
         spec.options[arg[0]]?.parser === 'show-branch-reflog'),
   );
+}
+
+/** An exclude callback needs profiling only before an actual internal help exit. */
+export function commandUsesReadTreeExclude(
+  command: GitCommandName,
+  args: readonly unknown[],
+): boolean {
+  if (
+    command !== 'read-tree' ||
+    !Array.isArray(args) ||
+    isDocumentationDispatch(COMMAND_SPECS[command], args)
+  ) {
+    return false;
+  }
+  let reached = false;
+  for (const arg of args) {
+    if (arg === '--' || (Array.isArray(arg) && arg.length === 1 && arg[0] === '--')) {
+      return false;
+    }
+    if (!Array.isArray(arg)) {
+      continue;
+    }
+    if (arg.length === 1 && ['-h', '--help', '--help-all'].includes(arg[0])) {
+      return reached;
+    }
+    if (arg[0] === '--exclude-per-directory' && arg.length === 2) {
+      reached = true;
+    }
+  }
+  return false;
 }
 
 /** Only an actual internal help exit can bypass the older deferred repack value. */

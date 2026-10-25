@@ -69,6 +69,8 @@ export type OptionSpec = {
   nativeEnumCallback?: 'conflict-style';
   /** Selected native callback timing before an actual internal help exit. */
   nativeIntegerTiming?: 'repack-max-pack-size';
+  /** Selected exclude callback family, used only before a reached read-tree help exit. */
+  nativeReadTreeExclude?: boolean;
   /** A source-audited helper alias whose availability is observed on the selected executable. */
   nativeCapability?: 'submodule-init-alias';
   /** Finite supplied values accepted by both literal types and runtime validation. */

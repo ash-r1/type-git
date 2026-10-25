@@ -39,6 +39,7 @@ import {
   commandDecimalCallbacks,
   commandUsesConflictStyle,
   commandUsesRepackMaxPackSize,
+  commandUsesReadTreeExclude,
   commandUsesBooleanSource,
   commandUsesBooleanBinary,
   commandBooleanFeatures,
@@ -947,6 +948,7 @@ export class CliRunner {
       unsignedChar?: boolean;
       conflictStyle?: 'immediate' | 'deferred';
       repackMaxPackSize?: 'immediate' | 'deferred';
+      readTreeExclude?: 'legacy' | 'modern';
       booleanSource?: GitBooleanSource;
       booleanBinaryIntegers?: boolean;
       booleanCapabilities?: GitBooleanCapabilities;
@@ -1003,6 +1005,54 @@ export class CliRunner {
       }
       depthAtoiBits = observed.bits;
     }
+    let readTreeExclude: 'legacy' | 'modern' | undefined;
+    if (commandUsesReadTreeExclude(command, traitArgs)) {
+      const original = commandShapeArguments(command, args, inRepository);
+      const observations = [];
+      for (const tail of [
+        ['--exclude-per-directory=.gitignore', '-h'],
+        ['-u', '--exclude-per-directory=type-git-profile-ignore', '-h'],
+        ['-u', '--exclude-per-directory=.gitignore', '--exclude-per-directory=.gitignore', '-h'],
+      ]) {
+        const probe = await this.run(context, ['read-tree', ...tail], {
+          ...(opts?.env ? { env: opts.env } : {}),
+          ...(opts?.signal ? { signal: opts.signal } : {}),
+        });
+        if (probe.aborted) {
+          return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+        }
+        observations.push(probe);
+      }
+      const usage = (r: { exitCode: number; stdout: string; stderr: string }) =>
+        [0, 129].includes(r.exitCode) &&
+        (r.stdout + r.stderr).startsWith('usage:') &&
+        !/^(?:error|fatal):/m.test(r.stderr);
+      const [first, value, repeated] = observations;
+      if (
+        first &&
+        value &&
+        repeated &&
+        usage(first) &&
+        usage(value) &&
+        repeated.exitCode === 128 &&
+        /^fatal: more than one --exclude-per-directory given\./m.test(repeated.stderr)
+      ) {
+        readTreeExclude = 'legacy';
+      } else if (
+        first &&
+        value &&
+        repeated &&
+        first.exitCode === 128 &&
+        /^fatal: --exclude-per-directory is meaningless unless -u/m.test(first.stderr) &&
+        value.exitCode === 128 &&
+        /^fatal: --exclude-per-directory argument must be \.gitignore/m.test(value.stderr) &&
+        usage(repeated)
+      ) {
+        readTreeExclude = 'modern';
+      } else {
+        return await execute(original);
+      }
+    }
     let repackMaxPackSize: 'immediate' | 'deferred' | undefined;
     if (commandUsesRepackMaxPackSize(command, traitArgs)) {
       const original = commandShapeArguments(command, args, inRepository);
@@ -1058,6 +1108,7 @@ export class CliRunner {
       }
     }
     let abi: NativeAbi | undefined =
+      readTreeExclude === undefined &&
       repackMaxPackSize === undefined &&
       firstPassEmpty === undefined &&
       depthAtoiBits === undefined &&
@@ -1069,6 +1120,7 @@ export class CliRunner {
             sizeTBits: nativeSizeTBits(process.arch),
             firstPassEmpty,
             repackMaxPackSize,
+            readTreeExclude,
             depthAtoiBits,
             submoduleInitAlias,
             emptyPickaxeRejected,
@@ -1145,6 +1197,7 @@ export class CliRunner {
                               unsignedChar,
                               conflictStyle,
                               repackMaxPackSize,
+                              readTreeExclude,
                               booleanSource,
                               booleanBinaryIntegers,
                               booleanCapabilities,
