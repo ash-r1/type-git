@@ -80894,6 +80894,46 @@ const commandSpec164 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.mailinfo.completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.mailinfo.completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -80909,6 +80949,16 @@ const commandSpec164 = {
   ],
   source: 'builtin/mailinfo.c',
   separator: true,
+  parserExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
+    origin: 'git',
+    reason:
+      'In the pinned parse-options implementation, internal help exits before final output-file arity and mail parsing. Reached quoted-cr callbacks still validate values; required encoding values remain values. Completion shortcuts require a sole parser word, unless earlier help already exited. First --help is documentation dispatch; unsupported legacy spellings remain native failures.',
+    source:
+      'Git 2.55.0 builtin/mailinfo.c:cmd_mailinfo parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec165 = {
   argv: ['mailsplit'],

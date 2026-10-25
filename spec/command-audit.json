@@ -3942,7 +3942,10 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/mailinfo-help.test.ts",
+        "src/commands/mailinfo-help-native.test.ts",
+        "test/types/mailinfo-help.ts"
       ],
       "remaining": "Repository and environment state, paths and URL validation, stdin/binary protocols, scalar lexical forms, abbreviations and independent witnesses for every rule. Native Git baseline is 2.55.",
       "typedCommandAPI": true
