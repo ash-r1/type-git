@@ -46,6 +46,38 @@ describe('selected read-tree exclude callback observation', () => {
     }
     expect(spawn.mock.calls[3]?.[0].stdin).toBe('caller');
   });
+  it('profiles a non-help callback and forwards the original dry-run payload', async () => {
+    const a = createNodeAdapters();
+    const spawn = vi.fn();
+    for (const result of [...legacy, response(0)]) {
+      spawn.mockResolvedValueOnce(result);
+    }
+    a.exec.spawn = spawn;
+    const payload = [
+      ['--dry-run'],
+      ['--exclude-per-directory', 'other'],
+      ['-m'],
+      { operand: 'HEAD' },
+      ['-u'],
+    ];
+    const result = await new CliRunner(a).runCommand(
+      { type: 'global' },
+      'read-tree',
+      payload,
+      true,
+    );
+    expect(result.exitCode).toBe(0);
+    expect(spawn).toHaveBeenCalledTimes(4);
+    expect(spawn.mock.calls[3]?.[0].argv).toEqual([
+      'git',
+      'read-tree',
+      '--dry-run',
+      '--exclude-per-directory=other',
+      '-m',
+      'HEAD',
+      '-u',
+    ]);
+  });
   it('retains an observed modern prerequisite error', async () => {
     const a = createNodeAdapters();
     const spawn = vi.fn();

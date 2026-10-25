@@ -3583,7 +3583,7 @@
         "src/runner/read-tree-profile.test.ts",
         "test/types/read-tree-exclude-profile.ts"
       ],
-      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. Finite internal-help controls observe selected exclude callback timing/value/repetition as a joint source family; legacy relaxation requires a later actual help exit. Non-help old callback behavior, index/worktree payloads and full platform grammar remain unverified.",
+      "remaining": "Repository and index state, object/path validity, merge-strategy and recursion callbacks, numeric lexical forms, binary and stdin protocols, abbreviations and witnesses for every rule. Finite help and no-help dry-run controls observe selected exclude callback timing/value/repetition and the legacy final update prerequisite as a joint source family. Actual index/worktree updates, other repository states and full platform grammar remain unverified.",
       "typedCommandAPI": true
     },
     "merge-file": {

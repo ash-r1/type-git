@@ -81,7 +81,7 @@ describe('read-tree exclude callback before help', () => {
       '--exclude-per-directory=second',
     ]);
   });
-  it('does not relax a tuple without internal help or its representation', () => {
+  it('retains the final legacy update prerequisite and representation guards', () => {
     expect(() =>
       commandArguments('read-tree', [['--exclude-per-directory', 'other']], true, legacy),
     ).toThrow();
@@ -92,16 +92,21 @@ describe('read-tree exclude callback before help', () => {
       commandArguments('read-tree', [['--exclude-per-directory', true], ['-h']], true, legacy),
     ).toThrow();
   });
-  it('only profiles a reached callback followed by a real help token', () => {
+  it('profiles reached callbacks while respecting help and end-of-options boundaries', () => {
     expect(
       commandUsesReadTreeExclude('read-tree', [['--exclude-per-directory', 'x'], ['-h']]),
     ).toBe(true);
     for (const args of [
-      [['--help'], ['--exclude-per-directory', 'x']],
-      [['-h'], ['--exclude-per-directory', 'x']],
       [['--exclude-per-directory', '-h']],
       [['--exclude-per-directory', 'x'], ['--'], ['-h']],
       [['--exclude-per-directory', 'x'], { operand: '-h' }],
+    ]) {
+      expect(commandUsesReadTreeExclude('read-tree', args)).toBe(true);
+    }
+    for (const args of [
+      [['--help'], ['--exclude-per-directory', 'x']],
+      [['-h'], ['--exclude-per-directory', 'x']],
+      [['--'], ['--exclude-per-directory', 'x']],
     ]) {
       expect(commandUsesReadTreeExclude('read-tree', args)).toBe(false);
     }
