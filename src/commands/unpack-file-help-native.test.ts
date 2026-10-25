@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -57,7 +57,11 @@ describe('unpack-file internal help and callback order', () => {
 
   const compare = async (args: readonly unknown[], words: string[]) => {
     const paths = ['.git/index', 'file', '.git/HEAD'];
-    const snapshot = () => Promise.all(paths.map((path) => readFile(join(root, path))));
+    const snapshot = () =>
+      Promise.all([
+        readdir(root).then((entries) => entries.sort()),
+        ...paths.map((path) => readFile(join(root, path))),
+      ]);
     const before = await snapshot();
     const expected = native(['unpack-file', ...words]);
     expect(await snapshot()).toEqual(before);
