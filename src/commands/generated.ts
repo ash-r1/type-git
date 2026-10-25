@@ -81904,6 +81904,10 @@ const commandSpec179 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {

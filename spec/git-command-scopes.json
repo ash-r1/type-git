@@ -7056,6 +7056,10 @@
       "--help": {
         "key": "help",
         "value": "flag"
+      },
+      "--help-all": {
+        "key": "help",
+        "value": "flag"
       }
     }
   },
