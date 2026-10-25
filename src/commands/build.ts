@@ -926,6 +926,9 @@ function buildArguments(
         `${command}: ${errors.map((rule) => `[${rule.id}] ${rule.reason}`).join('; ')}`,
       );
     }
+    if (readTreeExcludeSeen && state.u !== true) {
+      throw new GitArgumentError('--exclude-per-directory: legacy callback requires -u');
+    }
   }
   return argv;
 }
@@ -1336,7 +1339,7 @@ export function commandUsesCompoundDecimal(
   );
 }
 
-/** An exclude callback needs profiling only before an actual internal help exit. */
+/** Profile an exclude callback reached before help or an end-of-options marker. */
 export function commandUsesReadTreeExclude(
   command: GitCommandName,
   args: readonly unknown[],
@@ -1351,7 +1354,7 @@ export function commandUsesReadTreeExclude(
   let reached = false;
   for (const arg of args) {
     if (arg === '--' || (Array.isArray(arg) && arg.length === 1 && arg[0] === '--')) {
-      return false;
+      return reached;
     }
     if (!Array.isArray(arg)) {
       continue;
@@ -1363,7 +1366,7 @@ export function commandUsesReadTreeExclude(
       reached = true;
     }
   }
-  return false;
+  return reached;
 }
 
 /** Only an actual internal help exit can bypass the older deferred repack value. */

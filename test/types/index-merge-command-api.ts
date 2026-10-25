@@ -22,7 +22,7 @@ git.command('checkout-index', [['--all'], { operand: 'tracked' }]);
 git.command('read-tree', [['--dry-run'], ['--empty']]);
 git.command('read-tree', [['--dry-run'], ['--trivial'], { operand: 'HEAD' }]);
 git.command('read-tree', [['--dry-run'], ['-m'], ['-u'], ['--exclude-per-directory', '.gitignore'], { operand: 'HEAD' }]);
-// @ts-expect-error Exclude callback requires an earlier -u.
+// Legacy Git accepts a later -u; the selected native family enforces its own ordering.
 git.command('read-tree', [['--exclude-per-directory', '.gitignore'], ['-u'], ['-m'], { operand: 'HEAD' }]);
 // @ts-expect-error Empty prefix still selects a mode incompatible with -m.
 git.command('read-tree', [['-m'], ['--prefix', ''], { operand: 'HEAD' }]);

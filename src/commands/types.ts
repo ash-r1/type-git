@@ -1888,8 +1888,17 @@ type DeferredRepackHelp<A extends readonly unknown[]> =
           : never
       : never
     : never;
-/** Legacy relaxation is available only when every resulting state reaches internal help. */
-type LegacyReadTreeHelp<
+/** Check each complete legacy parser state, including the deferred update prerequisite. */
+type LegacyReadTreeStateValid<S> = S extends { parserExited: true }
+  ? true
+  : CheckRules<S, Spec<'read-tree'>['rules']> extends true
+    ? S extends { readTreeExcludeSeen: true }
+      ? S extends { u: true }
+        ? true
+        : false
+      : true
+    : false;
+type LegacyReadTreeArguments<
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext,
 > = A extends readonly LocalCommandArgument<'read-tree'>[]
@@ -1900,7 +1909,7 @@ type LegacyReadTreeHelp<
     > extends infer S
     ? [S] extends [never]
       ? never
-      : [S] extends [{ parserExited: true }]
+      : [LegacyReadTreeStateValid<S>] extends [true]
         ? A
         : never
     : never
@@ -1911,11 +1920,11 @@ type CheckedLocalParserProfiles<
   Ctx extends CommandGrammarContext = {},
 > = C extends 'read-tree'
   ? Ctx extends { readTreeExclude: 'legacy' }
-    ? LegacyReadTreeHelp<A, Ctx>
+    ? LegacyReadTreeArguments<A, Ctx>
     : Ctx extends { readTreeExclude: 'modern' }
       ? BaseLocalParserProfiles<C, A, Ctx>
       : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]
-        ? LegacyReadTreeHelp<A, Ctx>
+        ? LegacyReadTreeArguments<A, Ctx>
         : A
   : C extends 'repack'
     ? Ctx extends { repackMaxPackSize: 'immediate' }
