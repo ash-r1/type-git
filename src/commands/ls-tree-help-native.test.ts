@@ -69,6 +69,10 @@ describe('ls-tree internal help and callback order', () => {
     expect(actual.stderr).toBe(expected.stderr);
     return expected;
   };
+  it('retains ordinary non-help long output on the selected native Git', async () => {
+    const actual = await compare([['--long'], { operand: 'HEAD' }], ['--long', 'HEAD']);
+    expect(actual.status).toBe(0);
+  });
   it('matches help/completion and preserves unsupported old words', async () => {
     for (const flag of [
       '-h',

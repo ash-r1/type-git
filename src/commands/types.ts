@@ -1963,7 +1963,11 @@ type CheckedLocalParserProfiles<
   Ctx extends CommandGrammarContext = {},
 > = C extends 'ls-tree'
   ? Ctx extends { lsTreeModes: 'bits' }
-    ? LegacyLsTreeHelp<A, Ctx>
+    ? [
+        BaseLocalParserProfiles<C, A, Omit<Ctx, 'lsTreeModes'> & { lsTreeModes: 'cmdmode' }>,
+      ] extends [never]
+      ? LegacyLsTreeHelp<A, Ctx>
+      : A
     : Ctx extends { lsTreeModes: 'cmdmode' }
       ? BaseLocalParserProfiles<C, A, Ctx>
       : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]

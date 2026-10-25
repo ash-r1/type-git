@@ -16,6 +16,13 @@ describe('ls-tree selected mode callbacks before help', () => {
       commandArguments('ls-tree', [['--long'], ['--name-only'], ['-h']], true, cmdmode),
     ).toThrow('incompatible command mode');
   });
+  it('retains an ordinary valid non-help command with an explicit bits context', () => {
+    expect(commandArguments('ls-tree', [['--long'], { operand: 'HEAD' }], true, bits)).toEqual([
+      'ls-tree',
+      '--long',
+      'HEAD',
+    ]);
+  });
   it('does not borrow legacy relaxation without help', () => {
     expect(() =>
       commandArguments('ls-tree', [['--long'], ['--name-only'], { operand: 'HEAD' }], true, bits),
