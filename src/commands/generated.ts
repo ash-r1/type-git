@@ -68741,11 +68741,61 @@ const commandSpec92 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.ls-remote.completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.ls-remote.completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   rules: [],
   source: 'builtin/ls-remote.c:cmd_ls_remote',
   separator: true,
   optionParsing: 'stop-at-operand',
+  parserExit: {
+    flags: ['--help', '--help-all'],
+    exceptFirst: ['--help'],
+    singleWordExits: ['-h', '--git-completion-helper', '--git-completion-helper-all'],
+    origin: 'git',
+    reason:
+      'Internal full help exits at its reached position before later parsing. A sole -h requests help, but multiword -h is the heads option. Sole completion shortcuts are distinct from reached multiword unknown options. Parsing stops at the first operand; first --help is documentation dispatch.',
+    source:
+      'Git2.25/2.55 builtin/ls-remote.c parse_options STOP_AT_NON_OPTION; parse-options.c sole-h and completion shortcuts, internal full-help; git.c documentation dispatch',
+  },
 } as const satisfies CommandSpec;
 const commandSpec93 = {
   argv: ['ls-tree'],

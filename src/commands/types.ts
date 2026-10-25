@@ -989,6 +989,20 @@ type ApplyReadTreeOption<
       : Next
     : InvalidPass
   : InvalidPass;
+// Preserve rejected ls-remote option arms until the whole command state is checked.
+type ApplyLsRemoteOption<
+  S,
+  D,
+  T extends readonly unknown[],
+  R extends readonly unknown[],
+  F extends boolean,
+> = D extends OptionSpec
+  ? ApplyOption<S, ProfiledOption<S, D>, T, R, F> extends infer Next
+    ? [Next] extends [never]
+      ? InvalidPass
+      : Next
+    : InvalidPass
+  : InvalidPass;
 type ApplyToken<
   C extends GitCommandName,
   S,
@@ -1033,9 +1047,11 @@ type ApplyToken<
             ? ApplyLsTreeOption<S, D, T, Remaining, First>
             : C extends 'read-tree'
               ? ApplyReadTreeOption<S, D, T, Remaining, First>
-              : C extends 'repack'
-                ? ApplyRepackOption<S, D, T, Remaining, First>
-                : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
+              : C extends 'ls-remote'
+                ? ApplyLsRemoteOption<S, D, T, Remaining, First>
+                : C extends 'repack'
+                  ? ApplyRepackOption<S, D, T, Remaining, First>
+                  : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : T extends readonly [infer K]
           ? [Extract<K, DocumentationFlag>] extends [never]
