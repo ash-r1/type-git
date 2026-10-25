@@ -71,6 +71,10 @@ export type OptionSpec = {
   nativeIntegerTiming?: 'repack-max-pack-size';
   /** Selected read-tree exclude callback family, including its deferred final prerequisite. */
   nativeReadTreeExclude?: boolean;
+  /** Legacy ls-tree bit options that became mutually exclusive command modes. */
+  nativeLsTreeMode?: boolean;
+  /** Options absent from the observed legacy ls-tree bit family. */
+  nativeLsTreeModern?: boolean;
   /** A source-audited helper alias whose availability is observed on the selected executable. */
   nativeCapability?: 'submodule-init-alias';
   /** Finite supplied values accepted by both literal types and runtime validation. */

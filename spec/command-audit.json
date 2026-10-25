@@ -324,9 +324,13 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/ls-tree-profile.test.ts",
+        "src/commands/ls-tree-help-native.test.ts",
+        "src/runner/ls-tree-profile.test.ts",
+        "test/types/ls-tree-profile.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open.",
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Finite internal-help/sole-completion controls observe legacy BIT versus modern CMDMODE combinations as a joint help-ended profile. Reached abbreviation/mode callbacks retain their order; generic/pinned legacy relaxation requires actual internal help. Non-help legacy combinations and complete payload/config/platform grammar remain unverified.",
       "typedCommandAPI": true
     },
     "status": {

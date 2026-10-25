@@ -1,0 +1,11 @@
+# Selected ls-tree mode callbacks before help
+
+Git 2.25 implements long/name-only/name-status as bits. Git 2.55 implements these as command modes and rejects incompatible combinations immediately, before later help. Both parse option lists with flags 0. Newer object-only and format options cannot be borrowed into the older bit-mode family.
+
+The selected executable is observed with three help-ended pairs: long/name-only, name-only/long, and name-only/name-status. All three must either reach usage without a callback error or return the audited ordered mode-conflict diagnostics. Mixed, localized, outside-repository or other unknown results execute the original shape-validated argv. Every probe ends in internal help, consumes no caller stdin and preserves environment and abort signals. No version-number threshold is assumed.
+
+The legacy runtime and literal type alternatives are limited to complete walks reaching internal help. Only the source-audited old mode options lose their newer mutual exclusion; newer-only options reached before help invalidate that legacy alternative. Modern contexts retain immediate command-mode conflicts. Failed flag-union arms remain invalid. Earlier help skips later callbacks, while reached abbreviation callbacks still validate their values. Later help bypasses final format and missing-tree checks. Sole completion words remain distinct from multiword unknown options; older unsupported words preserve native errors.
+
+Known option catalogue, shape and NUL guards remain active after help. Required help-looking values, tagged operands and end markers do not create a help exit. First-word --help remains documentation dispatch.
+
+The finite four-Linux-Git controls do not establish non-help legacy mode combinations, complete tree/path payloads, repository configurations, concurrency or platform/version grammar. All command audits remain partial.

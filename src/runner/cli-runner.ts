@@ -40,6 +40,7 @@ import {
   commandUsesConflictStyle,
   commandUsesRepackMaxPackSize,
   commandUsesReadTreeExclude,
+  commandUsesLsTreeModes,
   commandUsesBooleanSource,
   commandUsesBooleanBinary,
   commandBooleanFeatures,
@@ -949,6 +950,7 @@ export class CliRunner {
       conflictStyle?: 'immediate' | 'deferred';
       repackMaxPackSize?: 'immediate' | 'deferred';
       readTreeExclude?: 'legacy' | 'modern';
+      lsTreeModes?: 'bits' | 'cmdmode';
       booleanSource?: GitBooleanSource;
       booleanBinaryIntegers?: boolean;
       booleanCapabilities?: GitBooleanCapabilities;
@@ -1004,6 +1006,49 @@ export class CliRunner {
         return await execute(commandShapeArguments(command, args, inRepository));
       }
       depthAtoiBits = observed.bits;
+    }
+    let lsTreeModes: 'bits' | 'cmdmode' | undefined;
+    if (commandUsesLsTreeModes(command, traitArgs)) {
+      const original = commandShapeArguments(command, args, inRepository);
+      const observations = [];
+      for (const tail of [
+        ['--long', '--name-only', '-h'],
+        ['--name-only', '--long', '-h'],
+        ['--name-only', '--name-status', '-h'],
+      ]) {
+        const probe = await this.run(context, ['ls-tree', ...tail], {
+          ...(opts?.env ? { env: opts.env } : {}),
+          ...(opts?.signal ? { signal: opts.signal } : {}),
+        });
+        if (probe.aborted) {
+          return { ...probe, stdout: binary ? new Uint8Array(0) : probe.stdout };
+        }
+        observations.push(probe);
+      }
+      const usage = (r: { exitCode: number; stdout: string; stderr: string }) =>
+        [0, 129].includes(r.exitCode) &&
+        (r.stdout + r.stderr).startsWith('usage:') &&
+        !/^(?:error|fatal):/m.test(r.stderr);
+      const pairs = [
+        ['--name-only', '--long'],
+        ['--long', '--name-only'],
+        ['--name-status', '--name-only'],
+      ];
+      if (observations.every(usage)) {
+        lsTreeModes = 'bits';
+      } else if (
+        observations.every(
+          (r, i) =>
+            r.exitCode === 129 &&
+            r.stderr.startsWith(
+              `error: options '${pairs[i]?.[0]}' and '${pairs[i]?.[1]}' cannot be used together`,
+            ),
+        )
+      ) {
+        lsTreeModes = 'cmdmode';
+      } else {
+        return await execute(original);
+      }
     }
     let readTreeExclude: 'legacy' | 'modern' | undefined;
     if (commandUsesReadTreeExclude(command, traitArgs)) {
@@ -1108,6 +1153,7 @@ export class CliRunner {
       }
     }
     let abi: NativeAbi | undefined =
+      lsTreeModes === undefined &&
       readTreeExclude === undefined &&
       repackMaxPackSize === undefined &&
       firstPassEmpty === undefined &&
@@ -1121,6 +1167,7 @@ export class CliRunner {
             firstPassEmpty,
             repackMaxPackSize,
             readTreeExclude,
+            lsTreeModes,
             depthAtoiBits,
             submoduleInitAlias,
             emptyPickaxeRejected,
@@ -1198,6 +1245,7 @@ export class CliRunner {
                               conflictStyle,
                               repackMaxPackSize,
                               readTreeExclude,
+                              lsTreeModes,
                               booleanSource,
                               booleanBinaryIntegers,
                               booleanCapabilities,

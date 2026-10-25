@@ -166,6 +166,7 @@ export function commandArguments(
     conflictStyle?: 'immediate' | 'deferred';
     repackMaxPackSize?: 'immediate' | 'deferred';
     readTreeExclude?: 'legacy' | 'modern';
+    lsTreeModes?: 'bits' | 'cmdmode';
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
@@ -212,6 +213,7 @@ function buildArguments(
     conflictStyle?: 'immediate' | 'deferred';
     repackMaxPackSize?: 'immediate' | 'deferred';
     readTreeExclude?: 'legacy' | 'modern';
+    lsTreeModes?: 'bits' | 'cmdmode';
     booleanSource?: GitBooleanSource;
     booleanBinaryIntegers?: boolean;
     booleanCapabilities?: GitBooleanCapabilities;
@@ -617,6 +619,14 @@ function buildArguments(
       }
       readTreeExcludeSeen = true;
       option = { ...option, checks: undefined, allowed: undefined };
+    }
+    if (!parserExited && abi?.lsTreeModes === 'bits' && commandUsesLsTreeModes(command, args)) {
+      if (option.nativeLsTreeModern) {
+        throw new GitArgumentError(`${flag}: unavailable in the selected legacy ls-tree parser`);
+      }
+      if (option.nativeLsTreeMode) {
+        option = { ...option, modeGroup: undefined };
+      }
     }
     // git.c transfers a first-word --help to git-help before the local parser.
     // Later help spellings belong to that dispatcher, whose usage exit varies
@@ -1337,6 +1347,33 @@ export function commandUsesCompoundDecimal(
       (spec.options[arg[0]]?.parser === 'shortlog-wrap' ||
         spec.options[arg[0]]?.parser === 'show-branch-reflog'),
   );
+}
+
+/** Observe legacy bit modes only when a reached old mode is followed by internal help. */
+export function commandUsesLsTreeModes(command: GitCommandName, args: readonly unknown[]): boolean {
+  if (
+    command !== 'ls-tree' ||
+    !Array.isArray(args) ||
+    isDocumentationDispatch(COMMAND_SPECS[command], args)
+  ) {
+    return false;
+  }
+  let reached = false;
+  for (const arg of args) {
+    if (arg === '--' || (Array.isArray(arg) && arg.length === 1 && arg[0] === '--')) {
+      return false;
+    }
+    if (!Array.isArray(arg)) {
+      continue;
+    }
+    if (arg.length === 1 && ['-h', '--help', '--help-all'].includes(arg[0])) {
+      return reached;
+    }
+    if (arg.length === 1 && ['-l', '--long', '--name-only', '--name-status'].includes(arg[0])) {
+      reached = true;
+    }
+  }
+  return false;
 }
 
 /** Profile an exclude callback reached before help or an end-of-options marker. */
