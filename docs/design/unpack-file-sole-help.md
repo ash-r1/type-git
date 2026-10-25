@@ -1,0 +1,7 @@
+# unpack-file sole help
+
+The inspected Git 2.25 and 2.55 commands use handwritten arity/object handling, not parse-options. A sole -h is usage; newer source also handles sole --help-all, whereas older executables try to resolve that word as an object. The selected executable's actual outcome is retained.
+
+Canonical -h and --help-all flag shapes bypass the wrapper's final blob-operand count only when they are the sole command word. A command-local sole-help state key avoids the generic help flag's final-rule bypass. No general multiword parser exit is added. Existing optionParsing:none and separator:false remain intact; tagged literal object-looking words are allowed, while separator tuples, unknown completion tuples, shape/NUL violations and final operand-count errors remain rejected.
+
+Finite native controls supply no valid blob. HEAD commits and HEAD trees are wrong object types; missing objects and wrong arities fail before temporary-file creation. Inside/outside repository failures and native usage exit codes remain distinct. Index, file and HEAD-file bytes are checked unchanged after each comparison. These controls do not establish successful blob extraction, temporary-file contents or complete configuration/platform grammar. All command audits remain partial.

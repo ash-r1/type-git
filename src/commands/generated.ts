@@ -73148,7 +73148,16 @@ const commandSpec114 = {
 } as const satisfies CommandSpec;
 const commandSpec115 = {
   argv: ['unpack-file'],
-  options: {},
+  options: {
+    '-h': {
+      key: 'sole-help',
+      value: 'flag',
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+    },
+  },
   rules: [
     {
       id: 'cli.unpack-file.blob',
@@ -73164,6 +73173,15 @@ const commandSpec115 = {
   source: 'builtin/unpack-file.c:cmd_unpack_file',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'The handwritten command has sole-word usage shortcuts before final blob arity. No ordinary option parser or multiword help exit is introduced. Older --help-all object-resolution failures remain selected-native outcomes.',
+    source:
+      'Git 2.55.0 builtin/unpack-file.c:cmd_unpack_file and show_usage_if_asked; Git 2.25.1 builtin/unpack-file.c:cmd_unpack_file',
+  },
 } as const satisfies CommandSpec;
 const commandSpec116 = {
   argv: ['gc'],
