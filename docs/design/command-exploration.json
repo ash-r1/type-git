@@ -53293,6 +53293,63 @@
     },
     {
       "command": "commit-tree",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Internal help exits at its parser position before final tree checks and commit generation. Earlier parent and message-file callbacks still run; required message values are not help. Sole completion shortcuts and first documentation help keep their native dispatch boundaries.",
+        "source": "Git 2.55.0 builtin/commit-tree.c:cmd_commit_tree parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.commit-tree.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.commit-tree.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.commit-tree.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.commit-tree.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "p": [
@@ -53327,6 +53384,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -53344,8 +53409,8 @@
           "true"
         ]
       },
-      "total": "37500",
-      "accepted": "7500",
+      "total": "150000",
+      "accepted": "30000",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "commit-tree.tree": "{\"operands\":[]}"

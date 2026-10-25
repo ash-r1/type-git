@@ -2615,7 +2615,10 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/commit-tree-help.test.ts",
+        "src/commands/commit-tree-help-native.test.ts",
+        "test/types/commit-tree-help.ts"
       ],
       "state": "partial",
       "typedCommandAPI": true,
