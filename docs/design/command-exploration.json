@@ -63909,6 +63909,63 @@
     },
     {
       "command": "for-each-repo",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Internal help exits before final config lookup and repository iteration. Required config values are not help; the first operand stops option parsing. Completion shortcuts require a sole parser word unless an earlier actual help exit has occurred. First --help remains documentation dispatch.",
+        "source": "Git 2.55.0 builtin/for-each-repo.c:cmd_for_each_repo PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.for-each-repo.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.for-each-repo.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.for-each-repo.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.for-each-repo.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "config": [
@@ -63924,6 +63981,14 @@
           "false"
         ],
         "help": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
           "undefined",
           "true"
         ],
@@ -63944,8 +64009,8 @@
           "true"
         ]
       },
-      "total": "900",
-      "accepted": "720",
+      "total": "3600",
+      "accepted": "2880",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.for-each-repo.config": "{\"operands\":[]}"
