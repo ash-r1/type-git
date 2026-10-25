@@ -3031,9 +3031,12 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/ls-files-help.test.ts",
+        "src/commands/ls-files-help-native.test.ts",
+        "test/types/ls-files-help.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open."
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Finite internal-help/sole-completion controls preserve reached abbreviation and exclude-file callbacks while bypassing later callbacks and final-mode checks. Native index read precedes option parsing; repository/index corruption and full payload/platform grammar remain unverified."
     },
     "symbolic-ref": {
       "state": "partial",
