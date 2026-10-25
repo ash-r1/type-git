@@ -1,0 +1,7 @@
+# Ordered help in trailer and tag parsers
+
+Git 2.55 `builtin/interpret-trailers.c` and `builtin/mktag.c` use ordinary `parse_options` flags 0. Internal `-h`, later `--help` and `--help-all` exit before later callbacks and final checks. Reached trailer enum callbacks reject invalid values before later help. The observed invalid enum callbacks return status 129 with empty stdout and stderr; these remain failed invocations, not successful help. Earlier help bypasses the final input-only/trailer restriction.
+
+Git 2.25 shares the ordinary trailer parser but mktag still rejects any nonzero argument count through a manual argc usage path. Older unsupported helpers/options and their usage failures retain actual native results; they are not successful tag operations or confirmed valid-help regressions. First-word `--help` remains the documentation dispatcher path. Required values and tagged operands resembling help remain values/operands. Sole completion helpers preserve selected-Git output, while reached multiword helpers reject.
+
+Known option shapes, NUL and the existing catalogue boundary remain active after help. Arbitrary unknown tails remain a separate compatibility limitation. Help/error probes terminate before trailer file edits or tag-object creation. Finite controls do not establish trailer/tag payloads, repository/configuration/filesystem/concurrency cases or complete platform/version grammar. All audits remain partial.
