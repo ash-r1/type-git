@@ -1941,10 +1941,9 @@ type LegacyReadTreeArguments<
     : never
   : never;
 /** Keep the complete legacy walk, including failed option-union branches. */
-type LsTreeBitState<
-  A extends readonly unknown[],
-  Ctx extends CommandGrammarContext,
-> = A extends readonly LocalCommandArgument<'ls-tree'>[]
+type LsTreeBitState<A extends readonly unknown[], Ctx extends CommandGrammarContext> = [A] extends [
+  readonly LocalCommandArgument<'ls-tree'>[],
+]
   ? CommandState<
       'ls-tree',
       A,
@@ -1957,24 +1956,38 @@ type LegacyLsTreeHelp<
   Ctx extends CommandGrammarContext,
   S = LsTreeBitState<A, Ctx>,
 > = [S] extends [never] ? never : [S] extends [{ parserExited: true }] ? A : never;
+/** Check each input tuple before collecting the family's failures. */
+type LsTreeBitsBranch<
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = A extends unknown
+  ? [A] extends [
+      BaseLocalParserProfiles<'ls-tree', A, Omit<Ctx, 'lsTreeModes'> & { lsTreeModes: 'cmdmode' }>,
+    ]
+    ? [LsTreeBitState<A, Ctx>] extends [never]
+      ? InvalidPass
+      : A
+    : [LegacyLsTreeHelp<A, Ctx>] extends [never]
+      ? InvalidPass
+      : A
+  : never;
+type CheckedLsTreeBits<
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+  R = LsTreeBitsBranch<A, Ctx>,
+> = [R] extends [never] ? never : [Extract<R, InvalidPass>] extends [never] ? A : never;
 type CheckedLocalParserProfiles<
   C extends GitCommandName,
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
 > = C extends 'ls-tree'
   ? Ctx extends { lsTreeModes: 'bits' }
-    ? [
-        BaseLocalParserProfiles<C, A, Omit<Ctx, 'lsTreeModes'> & { lsTreeModes: 'cmdmode' }>,
-      ] extends [never]
-      ? LegacyLsTreeHelp<A, Ctx>
-      : [LsTreeBitState<A, Ctx>] extends [never]
-        ? never
-        : A
+    ? CheckedLsTreeBits<A, Ctx>
     : Ctx extends { lsTreeModes: 'cmdmode' }
       ? BaseLocalParserProfiles<C, A, Ctx>
-      : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]
-        ? LegacyLsTreeHelp<A, Ctx>
-        : A
+      : [A] extends [BaseLocalParserProfiles<C, A, Ctx>]
+        ? A
+        : CheckedLsTreeBits<A, Ctx>
   : C extends 'read-tree'
     ? Ctx extends { readTreeExclude: 'legacy' }
       ? LegacyReadTreeArguments<A, Ctx>
