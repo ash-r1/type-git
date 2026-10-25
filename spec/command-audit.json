@@ -328,9 +328,11 @@
         "src/commands/ls-tree-profile.test.ts",
         "src/commands/ls-tree-help-native.test.ts",
         "src/runner/ls-tree-profile.test.ts",
-        "test/types/ls-tree-profile.ts"
+        "test/types/ls-tree-profile.ts",
+        "src/commands/ls-tree-nonhelp.test.ts",
+        "src/commands/ls-tree-nonhelp-native.test.ts"
       ],
-      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Finite internal-help/sole-completion controls observe legacy BIT versus modern CMDMODE combinations as a joint help-ended profile. Reached abbreviation/mode callbacks retain their order; generic/pinned legacy relaxation requires actual internal help. Non-help legacy combinations and complete payload/config/platform grammar remain unverified.",
+      "remaining": "Ref/object/path and callback value languages, configuration/repository conditions, binary stdin/output, abbreviated spellings and version differences. Native ignored operands are deliberately retained; conditional delegated parsers require further audit. Decimal callback lexical rules, selected C long 32/64 saturation, 32-bit narrowing, and validation order are modeled for the selected source-audited profiles. Other callbacks, other ABIs, configuration/repository semantics, and preemptive help paths remain open. Finite internal-help/sole-completion and read-only non-help listing controls observe legacy BIT versus modern CMDMODE combinations as a joint source profile. Reached abbreviation/mode callbacks and final tree requirements retain their order. Complete payload/config/concurrency/platform grammar remains unverified.",
       "typedCommandAPI": true
     },
     "status": {

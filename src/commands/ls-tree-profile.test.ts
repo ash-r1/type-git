@@ -23,10 +23,10 @@ describe('ls-tree selected mode callbacks before help', () => {
       'HEAD',
     ]);
   });
-  it('does not borrow legacy relaxation without help', () => {
-    expect(() =>
+  it('retains an observed legacy combination without help', () => {
+    expect(
       commandArguments('ls-tree', [['--long'], ['--name-only'], { operand: 'HEAD' }], true, bits),
-    ).toThrow();
+    ).toEqual(['ls-tree', '--long', '--name-only', 'HEAD']);
   });
   it('does not mix old modes with newer-only options before help', () => {
     expect(() =>
@@ -43,14 +43,19 @@ describe('ls-tree selected mode callbacks before help', () => {
       '-h',
     ]);
   });
-  it('profiles only a reached mode followed by a real help exit', () => {
+  it('profiles reached modes while respecting help, values and end markers', () => {
     expect(commandUsesLsTreeModes('ls-tree', [['--long'], ['-h']])).toBe(true);
     for (const args of [
-      [['--help'], ['--long']],
-      [['-h'], ['--long']],
       [['--long'], ['--']],
       [['--long'], ['--format', '-h']],
       [['--long'], { operand: '-h' }],
+      [['--long'], { operand: 'HEAD' }],
+    ]) {
+      expect(commandUsesLsTreeModes('ls-tree', args)).toBe(true);
+    }
+    for (const args of [
+      [['--help'], ['--long']],
+      [['-h'], ['--long']],
       [['--'], ['--long'], ['-h']],
     ]) {
       expect(commandUsesLsTreeModes('ls-tree', args)).toBe(false);

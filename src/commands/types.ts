@@ -1950,12 +1950,12 @@ type LsTreeBitState<A extends readonly unknown[], Ctx extends CommandGrammarCont
       Put<Initial<'ls-tree'>, 'argumentTokens', A> & Ctx & { lsTreeModes: 'bits' }
     >
   : never;
-/** Legacy BIT relaxation is limited to a complete walk reaching internal help. */
-type LegacyLsTreeHelp<
+/** Reached help bypasses final rules; every non-exiting legacy state still satisfies them. */
+type LegacyLsTreeArguments<
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext,
   S = LsTreeBitState<A, Ctx>,
-> = [S] extends [never] ? never : [S] extends [{ parserExited: true }] ? A : never;
+> = [S] extends [never] ? never : CheckRules<S, Spec<'ls-tree'>['rules']> extends true ? A : never;
 /** Check each input tuple before collecting the family's failures. */
 type LsTreeBitsBranch<
   A extends readonly unknown[],
@@ -1967,7 +1967,7 @@ type LsTreeBitsBranch<
     ? [LsTreeBitState<A, Ctx>] extends [never]
       ? InvalidPass
       : A
-    : [LegacyLsTreeHelp<A, Ctx>] extends [never]
+    : [LegacyLsTreeArguments<A, Ctx>] extends [never]
       ? InvalidPass
       : A
   : never;
