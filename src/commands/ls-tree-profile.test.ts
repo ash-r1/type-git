@@ -33,6 +33,16 @@ describe('ls-tree selected mode callbacks before help', () => {
       commandArguments('ls-tree', [['--long'], ['--object-only'], ['-h']], true, bits),
     ).toThrow();
   });
+  it('retains newer-only format rejection in the legacy help profile', () => {
+    const args = [['--long'], ['--format', '%(path)'], ['-h']];
+    expect(() => commandArguments('ls-tree', args, true, bits)).toThrow('unavailable');
+    expect(commandArguments('ls-tree', args, true, cmdmode)).toEqual([
+      'ls-tree',
+      '--long',
+      '--format=%(path)',
+      '-h',
+    ]);
+  });
   it('profiles only a reached mode followed by a real help exit', () => {
     expect(commandUsesLsTreeModes('ls-tree', [['--long'], ['-h']])).toBe(true);
     for (const args of [

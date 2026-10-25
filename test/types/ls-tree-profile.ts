@@ -38,7 +38,13 @@ type Equal<A,B> = [A] extends [B] ? [B] extends [A] ? true : false : false;
 type OldModes = readonly [readonly ['--long'], readonly ['--name-only'], readonly ['-h']];
 type OrdinaryLong = readonly [readonly ['--long'], {readonly operand:'HEAD'}];
 type OldModesWithoutHelp = readonly [readonly ['--long'], readonly ['--name-only'], {readonly operand:'HEAD'}];
+type HelpWithNewFormat = readonly [readonly ['--long'], readonly ['--format','%(path)'], readonly ['-h']];
+type SafeHelpOrLong = readonly [readonly ['-h' | '--long'], {readonly operand:'HEAD'}];
 export type LsTreeModePins = readonly [
+ Assert<Equal<CheckedCommandArguments<'ls-tree', SafeHelpOrLong, {lsTreeModes:'bits'}>, SafeHelpOrLong>>,
+ Assert<Equal<CheckedCommandArguments<'ls-tree', SafeHelpOrLong, {lsTreeModes:'cmdmode'}>, SafeHelpOrLong>>,
+ Assert<Equal<CheckedCommandArguments<'ls-tree', HelpWithNewFormat, {lsTreeModes:'bits'}>, never>>,
+ Assert<Equal<CheckedCommandArguments<'ls-tree', HelpWithNewFormat, {lsTreeModes:'cmdmode'}>, HelpWithNewFormat>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', OrdinaryLong, {lsTreeModes:'bits'}>, OrdinaryLong>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', OrdinaryLong, {lsTreeModes:'cmdmode'}>, OrdinaryLong>>,
  Assert<Equal<CheckedCommandArguments<'ls-tree', OldModesWithoutHelp, {lsTreeModes:'bits'}>, never>>,

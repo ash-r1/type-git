@@ -1940,8 +1940,8 @@ type LegacyReadTreeArguments<
         : never
     : never
   : never;
-/** Legacy BIT relaxation is limited to a complete walk reaching internal help. */
-type LegacyLsTreeHelp<
+/** Keep the complete legacy walk, including failed option-union branches. */
+type LsTreeBitState<
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext,
 > = A extends readonly LocalCommandArgument<'ls-tree'>[]
@@ -1949,14 +1949,14 @@ type LegacyLsTreeHelp<
       'ls-tree',
       A,
       Put<Initial<'ls-tree'>, 'argumentTokens', A> & Ctx & { lsTreeModes: 'bits' }
-    > extends infer S
-    ? [S] extends [never]
-      ? never
-      : [S] extends [{ parserExited: true }]
-        ? A
-        : never
-    : never
+    >
   : never;
+/** Legacy BIT relaxation is limited to a complete walk reaching internal help. */
+type LegacyLsTreeHelp<
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+  S = LsTreeBitState<A, Ctx>,
+> = [S] extends [never] ? never : [S] extends [{ parserExited: true }] ? A : never;
 type CheckedLocalParserProfiles<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -1967,7 +1967,9 @@ type CheckedLocalParserProfiles<
         BaseLocalParserProfiles<C, A, Omit<Ctx, 'lsTreeModes'> & { lsTreeModes: 'cmdmode' }>,
       ] extends [never]
       ? LegacyLsTreeHelp<A, Ctx>
-      : A
+      : [LsTreeBitState<A, Ctx>] extends [never]
+        ? never
+        : A
     : Ctx extends { lsTreeModes: 'cmdmode' }
       ? BaseLocalParserProfiles<C, A, Ctx>
       : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]
