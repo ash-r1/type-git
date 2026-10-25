@@ -57091,6 +57091,63 @@
     },
     {
       "command": "mktag",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/mktag.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.mktag.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.mktag.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.mktag.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.mktag.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 0,
       "domains": {
         "strict": [
@@ -57099,6 +57156,14 @@
           "false"
         ],
         "help": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
           "undefined",
           "true"
         ],
@@ -57119,8 +57184,8 @@
           "true"
         ]
       },
-      "total": "180",
-      "accepted": "180",
+      "total": "720",
+      "accepted": "720",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
@@ -64150,6 +64215,63 @@
     },
     {
       "command": "interpret-trailers",
+      "parserExit": {
+        "flags": [
+          "-h",
+          "--help",
+          "--help-all"
+        ],
+        "exceptFirst": [
+          "--help"
+        ],
+        "singleWordExits": [
+          "--git-completion-helper",
+          "--git-completion-helper-all"
+        ],
+        "origin": "git",
+        "reason": "Ordinary parse-options internal help exits at its position before later callbacks and final operand or mode checks. Earlier callbacks still run. Completion shortcuts require a sole parser word; a reached multiword helper is an unknown option. First --help is handled by the Git documentation dispatcher.",
+        "source": "Git 2.55.0 builtin/interpret-trailers.c parse_options flags 0; parse-options.c:parse_options_step; git.c:handle_builtin"
+      },
+      "transitions": [
+        {
+          "flag": "--git-completion-helper",
+          "rules": [
+            "cli.interpret-trailers.completion-helper-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.interpret-trailers.completion-helper-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--git-completion-helper-all",
+          "rules": [
+            "cli.interpret-trailers.completion-helper-all-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.interpret-trailers.completion-helper-all-one-word": "{}"
+          }
+        }
+      ],
       "rules": 2,
       "domains": {
         "in-place": [
@@ -64222,6 +64344,14 @@
           "undefined",
           "true"
         ],
+        "completion-helper": [
+          "undefined",
+          "true"
+        ],
+        "completion-helper-all": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -64239,8 +64369,8 @@
           "true"
         ]
       },
-      "total": "78732000",
-      "accepted": "53887680",
+      "total": "314928000",
+      "accepted": "215550720",
       "nodes": 20,
       "isolatedRuleWitnesses": {
         "cli.interpret-trailers.input-only": "{\"only-input\":true,\"operands\":[],\"trailer\":[\"\"]}",
