@@ -937,6 +937,30 @@ type ApplyRepackOption<
       : Next
     : InvalidPass
   : InvalidPass;
+/** Preserve failed mode union arms instead of dropping an incompatible parser family. */
+type ApplyLsTreeOption<
+  S,
+  D,
+  T extends readonly unknown[],
+  R extends readonly unknown[],
+  F extends boolean,
+> = D extends OptionSpec
+  ? (
+      S extends { parserExited: true }
+        ? ApplyOption<S, ProfiledOption<S, D>, T, R, F>
+        : S extends { lsTreeModes: 'bits' }
+          ? D extends { nativeLsTreeModern: true }
+            ? never
+            : D extends { nativeLsTreeMode: true }
+              ? ApplyOption<S, Omit<ProfiledOption<S, D>, 'modeGroup'>, T, R, F>
+              : ApplyOption<S, ProfiledOption<S, D>, T, R, F>
+          : ApplyOption<S, ProfiledOption<S, D>, T, R, F>
+    ) extends infer Next
+    ? [Next] extends [never]
+      ? InvalidPass
+      : Next
+    : InvalidPass
+  : InvalidPass;
 /** Retain failed read-tree union arms, including legacy duplicate callbacks. */
 type ApplyReadTreeOption<
   S,
@@ -1005,11 +1029,13 @@ type ApplyToken<
       ? never
       : T extends readonly [infer K extends keyof O, ...unknown[]]
         ? O[K] extends infer D extends OptionSpec
-          ? C extends 'read-tree'
-            ? ApplyReadTreeOption<S, D, T, Remaining, First>
-            : C extends 'repack'
-              ? ApplyRepackOption<S, D, T, Remaining, First>
-              : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
+          ? C extends 'ls-tree'
+            ? ApplyLsTreeOption<S, D, T, Remaining, First>
+            : C extends 'read-tree'
+              ? ApplyReadTreeOption<S, D, T, Remaining, First>
+              : C extends 'repack'
+                ? ApplyRepackOption<S, D, T, Remaining, First>
+                : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : T extends readonly [infer K]
           ? [Extract<K, DocumentationFlag>] extends [never]
@@ -1914,25 +1940,69 @@ type LegacyReadTreeArguments<
         : never
     : never
   : never;
+/** Keep the complete legacy walk, including failed option-union branches. */
+type LsTreeBitState<A extends readonly unknown[], Ctx extends CommandGrammarContext> = [A] extends [
+  readonly LocalCommandArgument<'ls-tree'>[],
+]
+  ? CommandState<
+      'ls-tree',
+      A,
+      Put<Initial<'ls-tree'>, 'argumentTokens', A> & Ctx & { lsTreeModes: 'bits' }
+    >
+  : never;
+/** Legacy BIT relaxation is limited to a complete walk reaching internal help. */
+type LegacyLsTreeHelp<
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+  S = LsTreeBitState<A, Ctx>,
+> = [S] extends [never] ? never : [S] extends [{ parserExited: true }] ? A : never;
+/** Check each input tuple before collecting the family's failures. */
+type LsTreeBitsBranch<
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+> = A extends unknown
+  ? [A] extends [
+      BaseLocalParserProfiles<'ls-tree', A, Omit<Ctx, 'lsTreeModes'> & { lsTreeModes: 'cmdmode' }>,
+    ]
+    ? [LsTreeBitState<A, Ctx>] extends [never]
+      ? InvalidPass
+      : A
+    : [LegacyLsTreeHelp<A, Ctx>] extends [never]
+      ? InvalidPass
+      : A
+  : never;
+type CheckedLsTreeBits<
+  A extends readonly unknown[],
+  Ctx extends CommandGrammarContext,
+  R = LsTreeBitsBranch<A, Ctx>,
+> = [R] extends [never] ? never : [Extract<R, InvalidPass>] extends [never] ? A : never;
 type CheckedLocalParserProfiles<
   C extends GitCommandName,
   A extends readonly unknown[],
   Ctx extends CommandGrammarContext = {},
-> = C extends 'read-tree'
-  ? Ctx extends { readTreeExclude: 'legacy' }
-    ? LegacyReadTreeArguments<A, Ctx>
-    : Ctx extends { readTreeExclude: 'modern' }
+> = C extends 'ls-tree'
+  ? Ctx extends { lsTreeModes: 'bits' }
+    ? CheckedLsTreeBits<A, Ctx>
+    : Ctx extends { lsTreeModes: 'cmdmode' }
       ? BaseLocalParserProfiles<C, A, Ctx>
-      : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]
-        ? LegacyReadTreeArguments<A, Ctx>
-        : A
-  : C extends 'repack'
-    ? Ctx extends { repackMaxPackSize: 'immediate' }
-      ? BaseLocalParserProfiles<C, A, Ctx>
-      : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]
-        ? DeferredRepackHelp<A>
-        : A
-    : BaseLocalParserProfiles<C, A, Ctx>;
+      : [A] extends [BaseLocalParserProfiles<C, A, Ctx>]
+        ? A
+        : CheckedLsTreeBits<A, Ctx>
+  : C extends 'read-tree'
+    ? Ctx extends { readTreeExclude: 'legacy' }
+      ? LegacyReadTreeArguments<A, Ctx>
+      : Ctx extends { readTreeExclude: 'modern' }
+        ? BaseLocalParserProfiles<C, A, Ctx>
+        : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]
+          ? LegacyReadTreeArguments<A, Ctx>
+          : A
+    : C extends 'repack'
+      ? Ctx extends { repackMaxPackSize: 'immediate' }
+        ? BaseLocalParserProfiles<C, A, Ctx>
+        : [BaseLocalParserProfiles<C, A, Ctx>] extends [never]
+          ? DeferredRepackHelp<A>
+          : A
+      : BaseLocalParserProfiles<C, A, Ctx>;
 
 /** Explore filename fields independently, checking the complete input in each state. */
 type FilenameFields<

@@ -16,6 +16,7 @@ export type CommandGrammarContext = {
   /** Pin max-pack-size callback timing when a later repack help exit is reached. */
   repackMaxPackSize?: 'immediate' | 'deferred';
   readTreeExclude?: 'legacy' | 'modern';
+  lsTreeModes?: 'bits' | 'cmdmode';
   booleanSource?: GitBooleanSource;
   firstPassEmpty?: boolean;
   /** Pin the parent stash dispatch pass when validating a source-specific corpus. */
