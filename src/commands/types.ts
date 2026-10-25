@@ -1017,6 +1017,20 @@ type ApplyCherryOption<
       : Next
     : InvalidPass
   : InvalidPass;
+// Preserve rejected commit-tree option arms until the whole command state is checked.
+type ApplyCommitTreeOption<
+  S,
+  D,
+  T extends readonly unknown[],
+  R extends readonly unknown[],
+  F extends boolean,
+> = D extends OptionSpec
+  ? ApplyOption<S, ProfiledOption<S, D>, T, R, F> extends infer Next
+    ? [Next] extends [never]
+      ? InvalidPass
+      : Next
+    : InvalidPass
+  : InvalidPass;
 type ApplyToken<
   C extends GitCommandName,
   S,
@@ -1065,9 +1079,11 @@ type ApplyToken<
                 ? ApplyLsRemoteOption<S, D, T, Remaining, First>
                 : C extends 'cherry'
                   ? ApplyCherryOption<S, D, T, Remaining, First>
-                  : C extends 'repack'
-                    ? ApplyRepackOption<S, D, T, Remaining, First>
-                    : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
+                  : C extends 'commit-tree'
+                    ? ApplyCommitTreeOption<S, D, T, Remaining, First>
+                    : C extends 'repack'
+                      ? ApplyRepackOption<S, D, T, Remaining, First>
+                      : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : T extends readonly [infer K]
           ? [Extract<K, DocumentationFlag>] extends [never]
