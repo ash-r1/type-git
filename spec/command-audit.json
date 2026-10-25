@@ -3819,7 +3819,10 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/for-each-repo-help.test.ts",
+        "src/commands/for-each-repo-help-native.test.ts",
+        "test/types/for-each-repo-help.ts"
       ],
       "remaining": "Repository/configuration state, delegated scalar/filter/format grammars, numeric lexical forms, abbreviations, binary/stdin protocols and independent witnesses for every rule.",
       "typedCommandAPI": true

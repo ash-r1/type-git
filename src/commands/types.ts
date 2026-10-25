@@ -1031,6 +1031,20 @@ type ApplyCommitTreeOption<
       : Next
     : InvalidPass
   : InvalidPass;
+// Preserve rejected for-each-repo option arms until the whole command state is checked.
+type ApplyForEachRepoOption<
+  S,
+  D,
+  T extends readonly unknown[],
+  R extends readonly unknown[],
+  F extends boolean,
+> = D extends OptionSpec
+  ? ApplyOption<S, ProfiledOption<S, D>, T, R, F> extends infer Next
+    ? [Next] extends [never]
+      ? InvalidPass
+      : Next
+    : InvalidPass
+  : InvalidPass;
 type ApplyToken<
   C extends GitCommandName,
   S,
@@ -1081,9 +1095,11 @@ type ApplyToken<
                   ? ApplyCherryOption<S, D, T, Remaining, First>
                   : C extends 'commit-tree'
                     ? ApplyCommitTreeOption<S, D, T, Remaining, First>
-                    : C extends 'repack'
-                      ? ApplyRepackOption<S, D, T, Remaining, First>
-                      : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
+                    : C extends 'for-each-repo'
+                      ? ApplyForEachRepoOption<S, D, T, Remaining, First>
+                      : C extends 'repack'
+                        ? ApplyRepackOption<S, D, T, Remaining, First>
+                        : ApplyOption<S, ProfiledOption<S, D>, T, Remaining, First>
           : never
         : T extends readonly [infer K]
           ? [Extract<K, DocumentationFlag>] extends [never]

@@ -80222,6 +80222,46 @@ const commandSpec157 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
+    '--git-completion-helper': {
+      key: 'completion-helper',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.for-each-repo.completion-helper-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
+    '--git-completion-helper-all': {
+      key: 'completion-helper-all',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.for-each-repo.completion-helper-all-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This completion word is recognized only when it is the sole parser argument; otherwise it is an unknown option.',
+          source:
+            'Git 2.55.0 parse-options.c:parse_options_step ctx.total == 1 completion shortcut',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -80242,6 +80282,16 @@ const commandSpec157 = {
   source: 'builtin/for-each-repo.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  parserExit: {
+    flags: ['-h', '--help', '--help-all'],
+    exceptFirst: ['--help'],
+    singleWordExits: ['--git-completion-helper', '--git-completion-helper-all'],
+    origin: 'git',
+    reason:
+      'Internal help exits before final config lookup and repository iteration. Required config values are not help; the first operand stops option parsing. Completion shortcuts require a sole parser word unless an earlier actual help exit has occurred. First --help remains documentation dispatch.',
+    source:
+      'Git 2.55.0 builtin/for-each-repo.c:cmd_for_each_repo PARSE_OPT_STOP_AT_NON_OPTION; parse-options.c:parse_options_step; git.c:handle_builtin',
+  },
 } as const satisfies CommandSpec;
 const commandSpec158 = {
   argv: ['column'],
