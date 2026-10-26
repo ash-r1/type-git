@@ -708,15 +708,17 @@ export class CliRunner {
         name,
         tokens,
         repository,
-        command === 'whatchanged'
+        command === 'whatchanged' || command === 'pack-redundant'
           ? {
               longBits: nativeCLongBits(process.platform, process.arch),
               sizeTBits: nativeSizeTBits(process.arch),
               ...selectedAbi,
               ...filename,
-              // Older Git permits this spelling; preserve the selected executable's
-              // deprecation/opt-in diagnosis instead of imposing the pinned schema.
-              whatchangedOptInRequired: false,
+              // Preserve the selected executable's version-dependent deprecation
+              // diagnosis instead of imposing the pinned schema's opt-in policy.
+              ...(command === 'whatchanged'
+                ? { whatchangedOptInRequired: false }
+                : { packRedundantOptInRequired: false }),
             }
           : filename
             ? { longBits: 64, sizeTBits: 64, ...selectedAbi, ...filename }
