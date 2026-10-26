@@ -11925,10 +11925,12 @@
         "GIT_ATTR_SYSTEM",
         "GIT_ATTR_GLOBAL",
         "GIT_CONFIG_SYSTEM",
-        "GIT_CONFIG_GLOBAL"
+        "GIT_CONFIG_GLOBAL",
+        "-h",
+        "--help-all"
       ],
       "origin": "git",
-      "reason": "Queries must name a native Git variable.",
+      "reason": "Queries must name a native Git variable or a sole native usage word; raw arity still requires exactly one word.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/var.c"
     }
   ],

@@ -64495,9 +64495,67 @@
     },
     {
       "command": "var",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "-h",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "Only sole usage words bypass variable-name validation. Native status and output remain selected-executable behavior.",
+        "source": "Git 2.25.1 builtin/var.c argc/read_var usage; Git 2.55.0 builtin/var.c show_usage_if_asked"
+      },
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.var.short-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.var.short-help-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.var.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.var.full-help-one-word": "{}"
+          }
+        }
+      ],
       "rules": 4,
       "domains": {
         "list": [
+          "undefined",
+          "true"
+        ],
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
+        "documentation-help": [
           "undefined",
           "true"
         ],
@@ -64522,7 +64580,9 @@
           "\"GIT_ATTR_SYSTEM\"",
           "\"GIT_ATTR_GLOBAL\"",
           "\"GIT_CONFIG_SYSTEM\"",
-          "\"GIT_CONFIG_GLOBAL\""
+          "\"GIT_CONFIG_GLOBAL\"",
+          "\"-h\"",
+          "\"--help-all\""
         ],
         "inRepository": [
           "undefined",
@@ -64536,8 +64596,8 @@
           "[\"value\",\"value\"]"
         ]
       },
-      "total": "1680",
-      "accepted": "72",
+      "total": "7680",
+      "accepted": "336",
       "nodes": 36,
       "isolatedRuleWitnesses": {
         "cli.var.tokens": "{\"operands\":[\"value\"]}",

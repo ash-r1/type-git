@@ -80807,6 +80807,45 @@ const commandSpec163 = {
       key: 'list',
       value: 'flag',
     },
+    '-h': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.var.short-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one word.',
+          source: 'Git 2.25.1 and 2.55.0 builtin/var.c argc != 2 and show_usage_if_asked',
+        },
+      ],
+    },
+    '--help': {
+      key: 'documentation-help',
+      value: 'flag',
+      firstOnly: true,
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.var.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one word.',
+          source: 'Git 2.25.1 and 2.55.0 builtin/var.c argc != 2 and show_usage_if_asked',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -80863,15 +80902,27 @@ const commandSpec163 = {
         'GIT_ATTR_GLOBAL',
         'GIT_CONFIG_SYSTEM',
         'GIT_CONFIG_GLOBAL',
+        '-h',
+        '--help-all',
       ],
       origin: 'git',
-      reason: 'Queries must name a native Git variable.',
+      reason:
+        'Queries must name a native Git variable or a sole native usage word; raw arity still requires exactly one word.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/var.c',
     },
   ],
   source: 'builtin/var.c',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'Only sole usage words bypass variable-name validation. Native status and output remain selected-executable behavior.',
+    source:
+      'Git 2.25.1 builtin/var.c argc/read_var usage; Git 2.55.0 builtin/var.c show_usage_if_asked',
+  },
 } as const satisfies CommandSpec;
 const commandSpec164 = {
   argv: ['mailinfo'],
