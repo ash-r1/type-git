@@ -120,7 +120,7 @@ describe('var sole usage and variable query controls', () => {
       for (const [variable, value] of [
         ['GIT_EDITOR', 'fixture-editor'],
         ['GIT_PAGER', 'fixture-pager'],
-      ]) {
+      ] as const) {
         const result = await compare([{ operand: variable }], [variable], '', outside);
         expect(result.status).toBe(0);
         expect(result.stdout).toBe(`${value}\n`);

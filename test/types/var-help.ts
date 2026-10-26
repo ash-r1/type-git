@@ -33,3 +33,10 @@ git.command('var', [['--']]);
 git.command('var', [['-h', true]]);
 // @ts-expect-error No union arm permits a second word.
 git.command('var', [[varUsage], { operand: 'ignored' }]);
+
+declare const varListingOrUsage: '-h' | '-l';
+git.command('var', [[varListingOrUsage]]);
+declare const varUsageOrDocumentation: '-h' | '--help';
+git.command('var', [[varUsageOrDocumentation]]);
+// @ts-expect-error A mixed valid mode still cannot hide another argument.
+git.command('var', [[varListingOrUsage], { operand: 'ignored' }]);

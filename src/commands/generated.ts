@@ -80878,12 +80878,23 @@ const commandSpec163 = {
       key: 'operands',
       min: 1,
       max: 1,
-      when: {
-        key: 'list',
-        test: 'inactive',
-      },
+      when: [
+        {
+          key: 'list',
+          test: 'inactive',
+        },
+        {
+          key: 'sole-help',
+          test: 'inactive',
+        },
+        {
+          key: 'documentation-help',
+          test: 'inactive',
+        },
+      ],
       origin: 'git',
-      reason: 'Native mode requires this number of arguments.',
+      reason:
+        'Ordinary variable queries require one operand. Sole usage and first-word documentation modes have no variable operand; raw arity remains exactly one word.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/var.c',
     },
     {

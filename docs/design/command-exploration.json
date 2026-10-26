@@ -64597,13 +64597,13 @@
         ]
       },
       "total": "7680",
-      "accepted": "336",
-      "nodes": 36,
+      "accepted": "840",
+      "nodes": 53,
       "isolatedRuleWitnesses": {
-        "cli.var.tokens": "{\"operands\":[\"value\"]}",
+        "cli.var.tokens": "{\"operands\":[],\"sole-help\":true}",
         "cli.var.listing": "{\"argumentTokens\":[\"value\"],\"list\":true,\"operands\":[\"value\"]}",
         "cli.var.query": "{\"argumentTokens\":[\"value\"],\"operands\":[]}",
-        "cli.var.variable": "{\"argumentTokens\":[\"value\"],\"operand0\":\"\",\"operands\":[\"value\"]}"
+        "cli.var.variable": "{\"argumentTokens\":[\"value\"],\"operand0\":\"\",\"operands\":[],\"sole-help\":true}"
       }
     },
     {
