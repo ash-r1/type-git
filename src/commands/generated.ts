@@ -119775,6 +119775,24 @@ const commandSpec279 = {
       key: 'i-still-use-this',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.pack-redundant.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical full usage spelling is accepted only as a sole command word. Other words retain the handwritten option and pack grammar.',
+          source:
+            'Git 2.55.0 builtin/pack-redundant.c:cmd_pack_redundant and usage.c:show_usage_if_asked; older native unknown-option usage retained.',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -119810,6 +119828,15 @@ const commandSpec279 = {
   source: 'builtin/pack-redundant.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['--help-all'],
+    origin: 'git',
+    reason:
+      'A sole canonical full usage word exits before version-dependent opt-in and pack arity checks. Selected native Git owns status and streams, including older unknown-option usage.',
+    source:
+      'Git 2.55.0 builtin/pack-redundant.c:cmd_pack_redundant show_usage_if_asked; Git2.25.1 handwritten option loop.',
+  },
 } as const satisfies CommandSpec;
 const commandSpec280 = {
   argv: ['upload-pack'],

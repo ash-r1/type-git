@@ -174,6 +174,15 @@ describe('selected-native pack-redundant opt-in controls', () => {
       }
     }
   });
+  it('preserves sole full usage status and streams inside and outside a repository', async () => {
+    for (const outside of [false, true]) {
+      const result = await compare([['--help-all']], ['--help-all'], '', outside);
+      if (!outside) {
+        expect([0, 129]).toContain(result.status);
+        expect(result.stdout + result.stderr).toContain('usage: git pack-redundant');
+      }
+    }
+  });
   it('retains missing pack/all input validation', async () => {
     await expect(repo.command('pack-redundant', [] as never)).rejects.toBeInstanceOf(
       GitArgumentError,
