@@ -6190,7 +6190,10 @@
         "test/types/argument-string-predicate.ts",
         "src/commands/argv-string-boundary.test.ts",
         "src/commands/global-help-dispatch.test.ts",
-        "test/types/global-help-dispatch.ts"
+        "test/types/global-help-dispatch.ts",
+        "src/commands/merge-index-help.test.ts",
+        "src/commands/merge-index-help-native.test.ts",
+        "test/types/merge-index-help.ts"
       ],
       "remaining": "Ordered prefix/program/path interpretation, actual conflicted-index program invocations and exit protocols, repository state, global-help delegation and independent rule witnesses remain pending. Native argument-word minimum and no-work -o program invocation have comparisons."
     },
