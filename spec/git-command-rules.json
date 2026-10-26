@@ -12190,6 +12190,16 @@
   ],
   "credential": [
     {
+      "id": "cli.credential.tokens",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "Credential accepts one operation word or a sole usage word.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/credential.c cmd_credential argc !=2"
+    },
+    {
       "id": "cli.credential.operands",
       "kind": "arity",
       "key": "operands",
@@ -12197,7 +12207,17 @@
       "max": 1,
       "origin": "git",
       "reason": "Native mode requires this number of arguments.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c",
+      "when": [
+        {
+          "key": "sole-help",
+          "test": "inactive"
+        },
+        {
+          "key": "documentation-help",
+          "test": "inactive"
+        }
+      ]
     },
     {
       "id": "cli.credential.operation",
@@ -12207,10 +12227,12 @@
         "fill",
         "approve",
         "reject",
-        "capability"
+        "capability",
+        "-h",
+        "--help-all"
       ],
       "origin": "git",
-      "reason": "Only the native credential operations are recognized.",
+      "reason": "Only native operation names or sole usage words are recognized; exact raw one-word arity remains enforced.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/credential.c"
     }
   ],
