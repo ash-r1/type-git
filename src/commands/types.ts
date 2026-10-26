@@ -1371,7 +1371,7 @@ type CheckRules<S, R extends readonly Constraint[]> = R extends readonly [
   infer H extends Constraint,
   ...infer Rest extends readonly Constraint[],
 ]
-  ? H extends { nativeWhatchangedOptIn: true }
+  ? H extends { nativeWhatchangedOptIn: true } | { nativePackRedundantOptIn: true }
     ? CheckRules<S, Rest>
     : H extends { nativeEmptyPickaxe: true }
       ? S extends { emptyPickaxeRejected: true }

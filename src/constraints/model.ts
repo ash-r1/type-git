@@ -45,6 +45,8 @@ export type Constraint = Evidence & {
   nativeEmptyPickaxe?: boolean;
   /** The selected executable owns this version-dependent deprecation prerequisite. */
   nativeWhatchangedOptIn?: boolean;
+  /** The selected executable owns pack-redundant deprecation policy. */
+  nativePackRedundantOptIn?: boolean;
 } & (
     | {
         kind: 'arity';
@@ -142,6 +144,7 @@ export type ScalarContext = {
   depthAtoiBits?: 32 | 64;
   emptyPickaxeRejected?: boolean;
   whatchangedOptInRequired?: boolean;
+  packRedundantOptInRequired?: boolean;
 };
 /** All violations, in declaration order, retain their evidence and stable identifiers. */
 export function violations(
@@ -162,6 +165,9 @@ function violates(
     return false;
   }
   if (rule.nativeWhatchangedOptIn && scalarContext?.whatchangedOptInRequired === false) {
+    return false;
+  }
+  if (rule.nativePackRedundantOptIn && scalarContext?.packRedundantOptInRequired === false) {
     return false;
   }
   if (rule.guard && !rule.guard.every((p) => matches(p, options))) {

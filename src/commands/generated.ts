@@ -119787,8 +119787,11 @@ const commandSpec279 = {
         },
       ],
       origin: 'git',
-      reason: 'Git 2.55 requires explicit acknowledgement for this obsolete command.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/pack-redundant.c',
+      reason:
+        'Pinned Git 2.55 requires acknowledgement; the public API delegates this version-dependent deprecation prerequisite to the selected native executable.',
+      source:
+        'Git 2.25.1 builtin/pack-redundant.c without opt-in; Git 2.55.0 you_still_use_that; Git 2.41 release notes escalation',
+      nativePackRedundantOptIn: true,
     },
     {
       id: 'cli.pack-redundant.arity-1-None',

@@ -25,7 +25,7 @@ git.command('index-pack', [['--stdin'], ['--verify']]);
 git.command('unpack-objects', [['-n'], ['--strict']]);
 // @ts-expect-error Unpack reads stdin and accepts no filenames.
 git.command('unpack-objects', [{ operand: 'file.pack' }]);
-// @ts-expect-error The obsolete command requires explicit acknowledgement.
+// The selected Git owns version-dependent deprecation acknowledgement.
 git.command('pack-redundant', [['--all']]);
 git.command('pack-redundant', [['--all'], ['--i-still-use-this'], { operand: 'ignored' }]);
 

@@ -175,6 +175,7 @@ export function commandArguments(
     submoduleInitAlias?: boolean;
     emptyPickaxeRejected?: boolean;
     whatchangedOptInRequired?: boolean;
+    packRedundantOptInRequired?: boolean;
     firstPassEmpty?: boolean;
   } & FilenameContext,
   guiGrammar?: GuiGrammar,
@@ -222,6 +223,7 @@ function buildArguments(
     submoduleInitAlias?: boolean;
     emptyPickaxeRejected?: boolean;
     whatchangedOptInRequired?: boolean;
+    packRedundantOptInRequired?: boolean;
     firstPassEmpty?: boolean;
   } & FilenameContext,
   guiGrammar?: GuiGrammar,
