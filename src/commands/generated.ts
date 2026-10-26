@@ -81695,15 +81695,58 @@ const commandSpec170 = {
   argv: ['credential'],
   options: {
     '-h': {
-      key: 'help',
+      key: 'sole-help',
       value: 'flag',
+      checks: [
+        {
+          id: 'cli.credential.short-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one operation word.',
+          source:
+            'Git 2.25.1 and 2.55.0 builtin/credential.c argc !=2 or sole -h; Git 2.55.0 show_usage_if_asked',
+        },
+      ],
     },
     '--help': {
-      key: 'help',
+      key: 'documentation-help',
       value: 'flag',
+      firstOnly: true,
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.credential.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one operation word.',
+          source:
+            'Git 2.25.1 and 2.55.0 builtin/credential.c argc !=2 or sole -h; Git 2.55.0 show_usage_if_asked',
+        },
+      ],
     },
   },
   rules: [
+    {
+      id: 'cli.credential.tokens',
+      kind: 'arity',
+      key: 'argumentTokens',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'Credential accepts one operation word or a sole usage word.',
+      source: 'Git 2.25.1 and 2.55.0 builtin/credential.c cmd_credential argc !=2',
+    },
     {
       id: 'cli.credential.operands',
       kind: 'arity',
@@ -81713,20 +81756,40 @@ const commandSpec170 = {
       origin: 'git',
       reason: 'Native mode requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
+      when: [
+        {
+          key: 'sole-help',
+          test: 'inactive',
+        },
+        {
+          key: 'documentation-help',
+          test: 'inactive',
+        },
+      ],
     },
     {
       id: 'cli.credential.operation',
       kind: 'value',
       key: 'operand0',
-      allowed: ['fill', 'approve', 'reject', 'capability'],
+      allowed: ['fill', 'approve', 'reject', 'capability', '-h', '--help-all'],
       origin: 'git',
-      reason: 'Only the native credential operations are recognized.',
+      reason:
+        'Only native operation names or sole usage words are recognized; exact raw one-word arity remains enforced.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/credential.c',
     },
   ],
   source: 'builtin/credential.c',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'Canonical sole usage words bypass operation validation. Native status and streams remain selected-executable behavior; no credential helper behavior changes.',
+    source:
+      'Git 2.25.1 builtin/credential.c argc !=2 or sole -h, unknown operation usage; Git 2.55.0 show_usage_if_asked',
+  },
 } as const satisfies CommandSpec;
 const commandSpec171 = {
   argv: ['credential', 'fill'],

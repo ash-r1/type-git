@@ -65232,9 +65232,63 @@
     },
     {
       "command": "credential",
-      "rules": 2,
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "-h",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "Canonical sole usage words bypass operation validation. Native status and streams remain selected-executable behavior; no credential helper behavior changes.",
+        "source": "Git 2.25.1 builtin/credential.c argc !=2 or sole -h, unknown operation usage; Git 2.55.0 show_usage_if_asked"
+      },
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.credential.short-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.credential.short-help-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.credential.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.credential.full-help-one-word": "{}"
+          }
+        }
+      ],
+      "rules": 3,
       "domains": {
-        "help": [
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
+        "documentation-help": [
           "undefined",
           "true"
         ],
@@ -65252,20 +65306,29 @@
           "\"fill\"",
           "\"approve\"",
           "\"reject\"",
-          "\"capability\""
+          "\"capability\"",
+          "\"-h\"",
+          "\"--help-all\""
         ],
         "inRepository": [
           "undefined",
           "false",
           "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
         ]
       },
-      "total": "210",
-      "accepted": "30",
-      "nodes": 7,
+      "total": "2160",
+      "accepted": "336",
+      "nodes": 27,
       "isolatedRuleWitnesses": {
-        "cli.credential.operands": "{\"operands\":[]}",
-        "cli.credential.operation": "{\"operand0\":\"\",\"operands\":[\"value\"]}"
+        "cli.credential.tokens": "{\"operands\":[],\"sole-help\":true}",
+        "cli.credential.operands": "{\"argumentTokens\":[\"value\"],\"operands\":[]}",
+        "cli.credential.operation": "{\"argumentTokens\":[\"value\"],\"operand0\":\"\",\"operands\":[],\"sole-help\":true}"
       }
     },
     {
