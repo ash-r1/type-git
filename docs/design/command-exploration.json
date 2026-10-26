@@ -103624,7 +103624,57 @@
     },
     {
       "command": "merge-index",
-      "rules": 1,
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "-h",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "Only canonical sole usage words exit before final arity; the handwritten ordered flag/program/path grammar remains delegated to the selected native executable.",
+        "source": "Git 2.25.1 and 2.55.0 builtin/merge-index.c:cmd_merge_index"
+      },
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.merge-index.short-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.merge-index.short-help-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.merge-index.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.merge-index.full-help-one-word": "{}"
+          }
+        }
+      ],
+      "rules": 3,
       "domains": {
         "one-shot": [
           "undefined",
@@ -103638,12 +103688,23 @@
           "undefined",
           "true"
         ],
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"invalid\"]",
+          "[\"-h\"]",
+          "[\"-h\",\"-h\"]",
+          "[\"-h\",\"invalid\"]",
+          "[\"--help-all\"]",
+          "[\"--help-all\",\"--help-all\"]",
+          "[\"--help-all\",\"invalid\"]"
         ],
         "operand0": [
           "undefined",
@@ -103657,16 +103718,17 @@
         "argumentTokens": [
           "undefined",
           "[]",
-          "[\"value\",\"value\"]",
           "[\"value\"]",
-          "[\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\"]"
         ]
       },
-      "total": "1200",
-      "accepted": "480",
-      "nodes": 2,
+      "total": "4608",
+      "accepted": "1536",
+      "nodes": 17,
       "isolatedRuleWitnesses": {
-        "cli.merge-index.arguments": "{\"operands\":[]}"
+        "cli.merge-index.arguments": "{\"operands\":[]}",
+        "cli.merge-index.sole-help-operand": "{\"argumentTokens\":[\"value\"],\"operands\":[]}",
+        "cli.merge-index.sole-help-spelling": "{\"argumentTokens\":[\"value\"],\"operands\":[\"value\"]}"
       }
     },
     {

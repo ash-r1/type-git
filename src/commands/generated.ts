@@ -120650,22 +120650,100 @@ const commandSpec290 = {
       key: 'all',
       value: 'flag',
     },
+    '-h': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.merge-index.short-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This canonical help shape is reserved for a sole native usage word. Multiword program/path words remain tagged operands.',
+          source:
+            'Git 2.55.0 builtin/merge-index.c:cmd_merge_index show_usage_if_asked before argc < 3; Git 2.25.1 argc < 3 usage',
+        },
+      ],
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.merge-index.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This canonical help shape is reserved for a sole native usage word. Multiword program/path words remain tagged operands.',
+          source:
+            'Git 2.55.0 builtin/merge-index.c:cmd_merge_index show_usage_if_asked before argc < 3; Git 2.25.1 argc < 3 usage',
+        },
+      ],
+    },
   },
   rules: [
     {
       id: 'cli.merge-index.arguments',
       kind: 'arity',
       key: 'argumentTokens',
-      min: 2,
+      min: 1,
       origin: 'git',
       reason:
-        'The native entrypoint requires at least two argument words before interpreting the optional ordered flags.',
+        'At least one word is required; a separate sole-word rule permits only recognized usage spellings when fewer than two words are supplied.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/merge-index.c',
+    },
+    {
+      id: 'cli.merge-index.sole-help-operand',
+      kind: 'arity',
+      key: 'operands',
+      min: 1,
+      when: {
+        key: 'argumentTokens',
+        test: 'lengthEquals',
+        value: 1,
+      },
+      origin: 'git',
+      reason:
+        'A single tagged word must be a recognized usage spelling; ordinary entrypoint calls still require at least two words.',
+      source:
+        'Git 2.25.1 and 2.55.0 builtin/merge-index.c:cmd_merge_index argc < 3 and sole usage handling',
+    },
+    {
+      id: 'cli.merge-index.sole-help-spelling',
+      kind: 'elements',
+      key: 'operands',
+      allowed: ['-h', '--help-all'],
+      guard: [
+        {
+          key: 'argumentTokens',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      origin: 'git',
+      reason:
+        'A single tagged word must be a recognized usage spelling; ordinary entrypoint calls still require at least two words.',
+      source:
+        'Git 2.25.1 and 2.55.0 builtin/merge-index.c:cmd_merge_index argc < 3 and sole usage handling',
     },
   ],
   source: 'builtin/merge-index.c',
   separator: true,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'Only canonical sole usage words exit before final arity; the handwritten ordered flag/program/path grammar remains delegated to the selected native executable.',
+    source: 'Git 2.25.1 and 2.55.0 builtin/merge-index.c:cmd_merge_index',
+  },
 } as const satisfies CommandSpec;
 const commandSpec291 = {
   argv: ['difftool'],
