@@ -78,6 +78,13 @@ try {
       for (const flag of entry.parserExit.firstPassOptions) if (!entry.options[flag] || entry.options[flag].consumesRest || entry.options[flag].before !== undefined) throw new Error(`${name} ${flag}: unsupported first-pass option`);
       for (const flag of entry.parserExit.flags) if (!entry.parserExit.firstPassOptions.includes(flag)) throw new Error(`${name}: exit missing from first pass`);
     }
+    if (entry.parserExit?.firstWordExits) {
+      if (entry.parserExit.firstPassOptions || entry.optionParsing !== 'none') throw new Error(`${name}: first-word exits require a handwritten parser`);
+      for (const flag of entry.parserExit.firstWordExits) {
+        const option = entry.options[flag];
+        if (!option || option.value !== 'flag' || !option.firstOnly || option.key === 'help') throw new Error(`${name} ${flag}: first-word exit must be a distinct first-only flag`);
+      }
+    }
     for (const flag of entry.parserExit?.exceptFirst ?? []) if (!entry.parserExit.flags.includes(flag)) throw new Error(`${name} ${flag}: excluded first token must be a parser exit`);
     for (const flag of entry.parserExit?.flags ?? []) {
       const option = entry.options[flag];

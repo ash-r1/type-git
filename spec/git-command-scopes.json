@@ -7114,13 +7114,24 @@
     "separator": false,
     "options": {
       "-h": {
-        "key": "help",
-        "value": "flag"
+        "key": "first-word-help",
+        "value": "flag",
+        "firstOnly": true
       },
       "--help": {
-        "key": "help",
-        "value": "flag"
+        "key": "documentation-help",
+        "value": "flag",
+        "firstOnly": true
       }
+    },
+    "parserExit": {
+      "flags": [],
+      "firstWordExits": [
+        "-h"
+      ],
+      "origin": "git",
+      "reason": "git-sh-setup exits on exact first raw -h before repository setup and operand arity, including tagged operands and any following words.",
+      "source": "Git 2.25.1 and 2.55.0 git-merge-one-file.sh and git-sh-setup.sh first argument case"
     }
   },
   "get-tar-commit-id": {

@@ -491,8 +491,21 @@ function buildArguments(
   let literalOperands = false;
   const soleFlag =
     args.length === 1 && Array.isArray(args[0]) && args[0].length === 1 ? args[0][0] : undefined;
+  const first = args[0];
+  const firstWord = Array.isArray(first)
+    ? first.length === 1
+      ? first[0]
+      : undefined
+    : first !== null && typeof first === 'object' && 'operand' in first
+      ? first.operand
+      : undefined;
+  const firstWordExited =
+    evaluationMode === 'full' &&
+    typeof firstWord === 'string' &&
+    spec.parserExit?.firstWordExits?.includes(firstWord) === true;
   let parserExited =
     evaluationMode === 'shape' ||
+    firstWordExited ||
     (evaluationMode === 'full' &&
       !spec.parserExit?.firstPassOptions &&
       typeof soleFlag === 'string' &&
@@ -637,7 +650,7 @@ function buildArguments(
       Array.isArray(args[0]) &&
       args[0].length === 1 &&
       args[0][0] === '--help';
-    if (option.firstOnly && index !== 0 && !documentationHelp) {
+    if (option.firstOnly && index !== 0 && !documentationHelp && !firstWordExited) {
       throw new GitArgumentError(`${command}: ${flag} must be the first argument`);
     }
     if (arg.length > 2) {
