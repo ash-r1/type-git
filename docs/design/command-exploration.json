@@ -65580,9 +65580,63 @@
     },
     {
       "command": "get-tar-commit-id",
-      "rules": 1,
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "-h",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "Only sole usage words bypass normal zero-argument tar input handling; no general option parser or multiword exit is added.",
+        "source": "Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c:cmd_get_tar_commit_id"
+      },
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.get-tar-commit-id.short-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.get-tar-commit-id.short-help-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.get-tar-commit-id.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.get-tar-commit-id.full-help-one-word": "{}"
+          }
+        }
+      ],
+      "rules": 2,
       "domains": {
-        "help": [
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
+        "documentation-help": [
           "undefined",
           "true"
         ],
@@ -65591,7 +65645,14 @@
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"invalid\"]",
+          "[\"-h\"]",
+          "[\"-h\",\"-h\"]",
+          "[\"-h\",\"invalid\"]",
+          "[\"--help-all\"]",
+          "[\"--help-all\",\"--help-all\"]",
+          "[\"--help-all\",\"invalid\"]"
         ],
         "operand0": [
           "undefined",
@@ -65601,13 +65662,19 @@
           "undefined",
           "false",
           "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\",\"value\"]"
         ]
       },
-      "total": "60",
-      "accepted": "12",
-      "nodes": 2,
+      "total": "864",
+      "accepted": "240",
+      "nodes": 7,
       "isolatedRuleWitnesses": {
-        "cli.get-tar-commit-id.operands": "{\"operands\":[\"value\"]}"
+        "cli.get-tar-commit-id.arguments": "{\"argumentTokens\":[\"value\",\"value\"],\"operands\":[]}",
+        "cli.get-tar-commit-id.usage-spelling": "{\"operands\":[\"value\"]}"
       }
     },
     {

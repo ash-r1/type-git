@@ -82012,29 +82012,80 @@ const commandSpec181 = {
   argv: ['get-tar-commit-id'],
   options: {
     '-h': {
-      key: 'help',
+      key: 'sole-help',
       value: 'flag',
+      checks: [
+        {
+          id: 'cli.get-tar-commit-id.short-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls accept no argument words.',
+          source:
+            'Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c argc != 1 and show_usage_if_asked',
+        },
+      ],
     },
     '--help': {
-      key: 'help',
+      key: 'documentation-help',
       value: 'flag',
+      firstOnly: true,
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.get-tar-commit-id.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls accept no argument words.',
+          source:
+            'Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c argc != 1 and show_usage_if_asked',
+        },
+      ],
     },
   },
   rules: [
     {
-      id: 'cli.get-tar-commit-id.operands',
+      id: 'cli.get-tar-commit-id.arguments',
       kind: 'arity',
-      key: 'operands',
+      key: 'argumentTokens',
       min: 0,
-      max: 0,
+      max: 1,
       origin: 'git',
-      reason: 'Native mode requires this number of arguments.',
-      source: 'https://github.com/git/git/blob/v2.55.0/builtin/get-tar-commit-id.c',
+      reason: 'Ordinary input mode takes no words; only a single usage spelling may be supplied.',
+      source: 'Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c:cmd_get_tar_commit_id',
+    },
+    {
+      id: 'cli.get-tar-commit-id.usage-spelling',
+      kind: 'elements',
+      key: 'operands',
+      allowed: ['-h', '--help-all'],
+      origin: 'git',
+      reason:
+        'Tagged sole usage spellings retain selected-native output; other operands are not accepted by this zero-argument command.',
+      source: 'Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c:cmd_get_tar_commit_id',
     },
   ],
   source: 'builtin/get-tar-commit-id.c',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'Only sole usage words bypass normal zero-argument tar input handling; no general option parser or multiword exit is added.',
+    source: 'Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c:cmd_get_tar_commit_id',
+  },
 } as const satisfies CommandSpec;
 const commandSpec182 = {
   argv: ['upload-archive'],

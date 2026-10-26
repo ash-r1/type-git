@@ -7141,13 +7141,52 @@
     "separator": false,
     "options": {
       "-h": {
-        "key": "help",
-        "value": "flag"
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.get-tar-commit-id.short-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The canonical usage shape is reserved for a sole native usage word. Ordinary calls accept no argument words.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c argc != 1 and show_usage_if_asked"
+          }
+        ]
       },
       "--help": {
-        "key": "help",
-        "value": "flag"
+        "key": "documentation-help",
+        "value": "flag",
+        "firstOnly": true
+      },
+      "--help-all": {
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.get-tar-commit-id.full-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The canonical usage shape is reserved for a sole native usage word. Ordinary calls accept no argument words.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c argc != 1 and show_usage_if_asked"
+          }
+        ]
       }
+    },
+    "parserExit": {
+      "flags": [],
+      "singleWordExits": [
+        "-h",
+        "--help-all"
+      ],
+      "origin": "git",
+      "reason": "Only sole usage words bypass normal zero-argument tar input handling; no general option parser or multiword exit is added.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/get-tar-commit-id.c:cmd_get_tar_commit_id"
     }
   },
   "upload-archive": {
