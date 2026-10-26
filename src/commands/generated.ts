@@ -81974,12 +81974,14 @@ const commandSpec180 = {
   argv: ['merge-one-file'],
   options: {
     '-h': {
-      key: 'help',
+      key: 'first-word-help',
       value: 'flag',
+      firstOnly: true,
     },
     '--help': {
-      key: 'help',
+      key: 'documentation-help',
       value: 'flag',
+      firstOnly: true,
     },
   },
   rules: [
@@ -81997,6 +81999,14 @@ const commandSpec180 = {
   source: 'git-merge-one-file.sh',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    firstWordExits: ['-h'],
+    origin: 'git',
+    reason:
+      'git-sh-setup exits on exact first raw -h before repository setup and operand arity, including tagged operands and any following words.',
+    source: 'Git 2.25.1 and 2.55.0 git-merge-one-file.sh and git-sh-setup.sh first argument case',
+  },
 } as const satisfies CommandSpec;
 const commandSpec181 = {
   argv: ['get-tar-commit-id'],

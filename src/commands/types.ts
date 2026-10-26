@@ -1148,6 +1148,23 @@ type IsSingleWordExit<
     ? true
     : false
   : false;
+type FirstWordExit<C extends GitCommandName> =
+  Spec<C> extends {
+    parserExit: { firstWordExits: readonly (infer F)[] };
+  }
+    ? F
+    : never;
+type IsFirstWordExit<
+  C extends GitCommandName,
+  A extends readonly unknown[],
+  First extends boolean,
+> = First extends true
+  ? [A] extends [readonly [infer H, ...unknown[]]]
+    ? [H] extends [readonly [FirstWordExit<C>] | { readonly operand: FirstWordExit<C> }]
+      ? true
+      : false
+    : false
+  : false;
 type State<
   C extends GitCommandName,
   A extends readonly unknown[],
@@ -1160,28 +1177,30 @@ type State<
     ? S
     : S extends { parserExited: true }
       ? S
-      : IsSingleWordExit<C, A, First> extends true
+      : IsFirstWordExit<C, A, First> extends true
         ? Put<S, 'parserExited', true>
-        : A extends readonly [infer H, ...infer Rest]
-          ? H extends readonly [ExitFlag<C, First>]
-            ? ParsingEnded<C, S> extends true
-              ? never
-              : Put<S, 'parserExited', true>
-            : State<
-                C,
-                Rest,
-                ApplyToken<
+        : IsSingleWordExit<C, A, First> extends true
+          ? Put<S, 'parserExited', true>
+          : A extends readonly [infer H, ...infer Rest]
+            ? H extends readonly [ExitFlag<C, First>]
+              ? ParsingEnded<C, S> extends true
+                ? never
+                : Put<S, 'parserExited', true>
+              : State<
                   C,
-                  '$remaining' extends ReadStateKeys<C> ? Put<S, '$remaining', Rest> : S,
-                  H,
                   Rest,
-                  First,
+                  ApplyToken<
+                    C,
+                    '$remaining' extends ReadStateKeys<C> ? Put<S, '$remaining', Rest> : S,
+                    H,
+                    Rest,
+                    First,
+                    O
+                  >,
+                  false,
                   O
-                >,
-                false,
-                O
-              >
-          : S;
+                >
+            : S;
 /** A bad reached callback stays invalid even when another input-union arm exits. */
 type InvalidPass = { invalidParserPass: true };
 type RemainingOptions<C extends GitCommandName> =

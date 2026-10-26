@@ -65532,9 +65532,22 @@
     },
     {
       "command": "merge-one-file",
+      "parserExit": {
+        "flags": [],
+        "firstWordExits": [
+          "-h"
+        ],
+        "origin": "git",
+        "reason": "git-sh-setup exits on exact first raw -h before repository setup and operand arity, including tagged operands and any following words.",
+        "source": "Git 2.25.1 and 2.55.0 git-merge-one-file.sh and git-sh-setup.sh first argument case"
+      },
       "rules": 1,
       "domains": {
-        "help": [
+        "first-word-help": [
+          "undefined",
+          "true"
+        ],
+        "documentation-help": [
           "undefined",
           "true"
         ],
@@ -65558,8 +65571,8 @@
           "true"
         ]
       },
-      "total": "96",
-      "accepted": "12",
+      "total": "192",
+      "accepted": "24",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.merge-one-file.operands": "{\"operands\":[]}"

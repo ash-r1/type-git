@@ -138,6 +138,8 @@ export type CommandSpec = {
     flags: readonly string[];
     /** A first --help is rewritten by Git's dispatcher before this parser runs. */
     exceptFirst?: readonly string[];
+    /** Handwritten entrypoints may exit on their exact first raw word, including a tagged operand. */
+    firstWordExits?: readonly string[];
     /** Native lone-help or completion exits only when this parser invocation has exactly one word. */
     singleWordExits?: readonly string[];
     /** ONE_SHOT diff parsing can exit on the final retained option word. */
