@@ -10585,13 +10585,111 @@
     "tables": [],
     "source": "builtin/remote-ext.c",
     "optionParsing": "none",
-    "separator": false
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.remote-ext.short-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "Canonical usage tuples are reserved for sole usage words. Normal remote/url words remain tagged operands.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked"
+          }
+        ]
+      },
+      "--help-all": {
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.remote-ext.full-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "Canonical usage tuples are reserved for sole usage words. Normal remote/url words remain tagged operands.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked"
+          }
+        ]
+      },
+      "--help": {
+        "key": "documentation-help",
+        "value": "flag",
+        "firstOnly": true
+      }
+    },
+    "parserExit": {
+      "flags": [],
+      "singleWordExits": [
+        "-h",
+        "--help-all"
+      ],
+      "origin": "git",
+      "reason": "Only canonical sole usage words bypass the two-operand helper grammar; native output and status stay selected-executable behavior.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked"
+    }
   },
   "remote-fd": {
     "tables": [],
     "source": "builtin/remote-fd.c",
     "optionParsing": "none",
-    "separator": false
+    "separator": false,
+    "options": {
+      "-h": {
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.remote-fd.short-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "Canonical usage tuples are reserved for sole usage words. Normal remote/url words remain tagged operands.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked"
+          }
+        ]
+      },
+      "--help-all": {
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.remote-fd.full-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "Canonical usage tuples are reserved for sole usage words. Normal remote/url words remain tagged operands.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked"
+          }
+        ]
+      },
+      "--help": {
+        "key": "documentation-help",
+        "value": "flag",
+        "firstOnly": true
+      }
+    },
+    "parserExit": {
+      "flags": [],
+      "singleWordExits": [
+        "-h",
+        "--help-all"
+      ],
+      "origin": "git",
+      "reason": "Only canonical sole usage words bypass the two-operand helper grammar; native output and status stay selected-executable behavior.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked"
+    }
   },
   "merge-recursive": {
     "tables": [],

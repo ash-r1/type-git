@@ -120367,8 +120367,58 @@ const commandSpec283 = {
 } as const satisfies CommandSpec;
 const commandSpec284 = {
   argv: ['remote-ext'],
-  options: {},
+  options: {
+    '-h': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.remote-ext.short-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'Canonical usage tuples are reserved for sole usage words. Normal remote/url words remain tagged operands.',
+          source: 'Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked',
+        },
+      ],
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.remote-ext.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'Canonical usage tuples are reserved for sole usage words. Normal remote/url words remain tagged operands.',
+          source: 'Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked',
+        },
+      ],
+    },
+    '--help': {
+      key: 'documentation-help',
+      value: 'flag',
+      firstOnly: true,
+    },
+  },
   rules: [
+    {
+      id: 'cli.remote-ext.tokens',
+      kind: 'arity',
+      key: 'argumentTokens',
+      min: 1,
+      max: 2,
+      origin: 'git',
+      reason: 'A helper call has two remote/url words or a sole usage word.',
+      source: 'Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked',
+    },
     {
       id: 'cli.remote-ext.operands-2-2',
       kind: 'arity',
@@ -120376,18 +120426,99 @@ const commandSpec284 = {
       min: 2,
       max: 2,
       origin: 'git',
-      reason: 'The native parser requires this number of destination/ref arguments.',
+      reason:
+        'Normal helper calls require two remote/url words, including remote names that resemble help.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/remote-ext.c',
+      when: {
+        key: 'argumentTokens',
+        test: 'lengthEquals',
+        value: 2,
+      },
+    },
+    {
+      id: 'cli.remote-ext.sole-usage-operand',
+      kind: 'elements',
+      key: 'operands',
+      allowed: ['-h', '--help-all'],
+      guard: [
+        {
+          key: 'argumentTokens',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      origin: 'git',
+      reason:
+        'A single tagged operand may represent a usage spelling; ordinary remote/url calls still require two words.',
+      source: 'Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked',
     },
   ],
   source: 'builtin/remote-ext.c',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'Only canonical sole usage words bypass the two-operand helper grammar; native output and status stay selected-executable behavior.',
+    source: 'Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked',
+  },
 } as const satisfies CommandSpec;
 const commandSpec285 = {
   argv: ['remote-fd'],
-  options: {},
+  options: {
+    '-h': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.remote-fd.short-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'Canonical usage tuples are reserved for sole usage words. Normal remote/url words remain tagged operands.',
+          source: 'Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked',
+        },
+      ],
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.remote-fd.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'Canonical usage tuples are reserved for sole usage words. Normal remote/url words remain tagged operands.',
+          source: 'Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked',
+        },
+      ],
+    },
+    '--help': {
+      key: 'documentation-help',
+      value: 'flag',
+      firstOnly: true,
+    },
+  },
   rules: [
+    {
+      id: 'cli.remote-fd.tokens',
+      kind: 'arity',
+      key: 'argumentTokens',
+      min: 1,
+      max: 2,
+      origin: 'git',
+      reason: 'A helper call has two remote/url words or a sole usage word.',
+      source: 'Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked',
+    },
     {
       id: 'cli.remote-fd.operands-2-2',
       kind: 'arity',
@@ -120395,13 +120526,44 @@ const commandSpec285 = {
       min: 2,
       max: 2,
       origin: 'git',
-      reason: 'The native parser requires this number of destination/ref arguments.',
+      reason:
+        'Normal helper calls require two remote/url words, including remote names that resemble help.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/remote-fd.c',
+      when: {
+        key: 'argumentTokens',
+        test: 'lengthEquals',
+        value: 2,
+      },
+    },
+    {
+      id: 'cli.remote-fd.sole-usage-operand',
+      kind: 'elements',
+      key: 'operands',
+      allowed: ['-h', '--help-all'],
+      guard: [
+        {
+          key: 'argumentTokens',
+          test: 'lengthEquals',
+          value: 1,
+        },
+      ],
+      origin: 'git',
+      reason:
+        'A single tagged operand may represent a usage spelling; ordinary remote/url calls still require two words.',
+      source: 'Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked',
     },
   ],
   source: 'builtin/remote-fd.c',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'Only canonical sole usage words bypass the two-operand helper grammar; native output and status stay selected-executable behavior.',
+    source: 'Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked',
+  },
 } as const satisfies CommandSpec;
 const commandSpec286 = {
   argv: ['merge-recursive'],

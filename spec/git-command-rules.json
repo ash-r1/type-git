@@ -16752,17 +16752,61 @@
   ],
   "remote-ext": [
     {
+      "id": "cli.remote-ext.tokens",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 2,
+      "origin": "git",
+      "reason": "A helper call has two remote/url words or a sole usage word.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked"
+    },
+    {
       "id": "cli.remote-ext.operands-2-2",
       "kind": "arity",
       "key": "operands",
       "min": 2,
       "max": 2,
       "origin": "git",
-      "reason": "The native parser requires this number of destination/ref arguments.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote-ext.c"
+      "reason": "Normal helper calls require two remote/url words, including remote names that resemble help.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote-ext.c",
+      "when": {
+        "key": "argumentTokens",
+        "test": "lengthEquals",
+        "value": 2
+      }
+    },
+    {
+      "id": "cli.remote-ext.sole-usage-operand",
+      "kind": "elements",
+      "key": "operands",
+      "allowed": [
+        "-h",
+        "--help-all"
+      ],
+      "guard": [
+        {
+          "key": "argumentTokens",
+          "test": "lengthEquals",
+          "value": 1
+        }
+      ],
+      "origin": "git",
+      "reason": "A single tagged operand may represent a usage spelling; ordinary remote/url calls still require two words.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked"
     }
   ],
   "remote-fd": [
+    {
+      "id": "cli.remote-fd.tokens",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 2,
+      "origin": "git",
+      "reason": "A helper call has two remote/url words or a sole usage word.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked"
+    },
     {
       "id": "cli.remote-fd.operands-2-2",
       "kind": "arity",
@@ -16770,8 +16814,32 @@
       "min": 2,
       "max": 2,
       "origin": "git",
-      "reason": "The native parser requires this number of destination/ref arguments.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote-fd.c"
+      "reason": "Normal helper calls require two remote/url words, including remote names that resemble help.",
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/remote-fd.c",
+      "when": {
+        "key": "argumentTokens",
+        "test": "lengthEquals",
+        "value": 2
+      }
+    },
+    {
+      "id": "cli.remote-fd.sole-usage-operand",
+      "kind": "elements",
+      "key": "operands",
+      "allowed": [
+        "-h",
+        "--help-all"
+      ],
+      "guard": [
+        {
+          "key": "argumentTokens",
+          "test": "lengthEquals",
+          "value": 1
+        }
+      ],
+      "origin": "git",
+      "reason": "A single tagged operand may represent a usage spelling; ordinary remote/url calls still require two words.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked"
     }
   ],
   "merge-recursive": [

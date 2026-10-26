@@ -1,0 +1,7 @@
+# Remote helper sole usage words
+
+`remote-fd` and `remote-ext` accept two remote/URL arguments. Git 2.25.1 uses `argc != 3` usage; Git 2.55.0 checks `show_usage_if_asked` before that arity. Both sole `-h` and `--help-all` retain selected-native usage status/streams. A help-looking remote name followed by a URL is a normal two-word call and remains representable with tagged operands.
+
+Command-local canonical usage tuples have exact one-word checks and single-word exits. A final raw arity of one to two words admits sole tagged usage spellings through a guarded element constraint; two-word calls still require two operands. Canonical usage tuples cannot stand in for ordinary remote/URL words. First-word documentation help and structural guards remain unchanged.
+
+The finite baseline covers 192 cases: 12 argument/stdin forms, two helpers, four Linux Git versions and inside/outside contexts. It found 64 sole-usage rejections, including 16 native exit-zero rejections. Normal controls use capabilities and EOF only: the FD URL is `0,1`, while the ext command path does not exist and must never execute. No `connect` request, descriptor transfer, child command or network operation is performed. Bad-command failures remain distinct (`remote-fd`128, `remote-ext`1). Repository entries, index, content and HEAD stay unchanged. This does not prove actual transport, descriptor numeric limits, command expansion or platform completeness. All 430 scopes remain partial.

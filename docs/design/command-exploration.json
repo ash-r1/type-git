@@ -103265,14 +103265,79 @@
     },
     {
       "command": "remote-ext",
-      "rules": 1,
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "-h",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "Only canonical sole usage words bypass the two-operand helper grammar; native output and status stay selected-executable behavior.",
+        "source": "Git 2.25.1 and 2.55.0 builtin/remote-ext.c argc !=3; modern show_usage_if_asked"
+      },
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.remote-ext.short-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.remote-ext.short-help-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.remote-ext.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.remote-ext.full-help-one-word": "{}"
+          }
+        }
+      ],
+      "rules": 3,
       "domains": {
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
+        "documentation-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"invalid\"]",
+          "[\"-h\"]",
+          "[\"-h\",\"-h\"]",
+          "[\"-h\",\"invalid\"]",
+          "[\"--help-all\"]",
+          "[\"--help-all\",\"--help-all\"]",
+          "[\"--help-all\",\"invalid\"]"
         ],
         "operand0": [
           "undefined",
@@ -103282,25 +103347,99 @@
           "undefined",
           "false",
           "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\"]"
         ]
       },
-      "total": "30",
-      "accepted": "6",
-      "nodes": 2,
+      "total": "1440",
+      "accepted": "240",
+      "nodes": 18,
       "isolatedRuleWitnesses": {
-        "cli.remote-ext.operands-2-2": "{\"operands\":[]}"
+        "cli.remote-ext.tokens": "{\"operands\":[]}",
+        "cli.remote-ext.operands-2-2": "{\"argumentTokens\":[\"value\",\"value\"],\"operands\":[]}",
+        "cli.remote-ext.sole-usage-operand": "{\"argumentTokens\":[\"value\"],\"operands\":[\"value\"]}"
       }
     },
     {
       "command": "remote-fd",
-      "rules": 1,
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "-h",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "Only canonical sole usage words bypass the two-operand helper grammar; native output and status stay selected-executable behavior.",
+        "source": "Git 2.25.1 and 2.55.0 builtin/remote-fd.c argc !=3; modern show_usage_if_asked"
+      },
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.remote-fd.short-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.remote-fd.short-help-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.remote-fd.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.remote-fd.full-help-one-word": "{}"
+          }
+        }
+      ],
+      "rules": 3,
       "domains": {
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
+        "documentation-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
           "[\"value\",\"value\"]",
           "[\"value\",\"value\",\"value\"]",
-          "[\"value\",\"value\",\"value\",\"value\"]"
+          "[\"value\",\"value\",\"value\",\"value\"]",
+          "[\"invalid\"]",
+          "[\"-h\"]",
+          "[\"-h\",\"-h\"]",
+          "[\"-h\",\"invalid\"]",
+          "[\"--help-all\"]",
+          "[\"--help-all\",\"--help-all\"]",
+          "[\"--help-all\",\"invalid\"]"
         ],
         "operand0": [
           "undefined",
@@ -103310,13 +103449,22 @@
           "undefined",
           "false",
           "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\",\"value\"]",
+          "[\"value\",\"value\"]"
         ]
       },
-      "total": "30",
-      "accepted": "6",
-      "nodes": 2,
+      "total": "1440",
+      "accepted": "240",
+      "nodes": 18,
       "isolatedRuleWitnesses": {
-        "cli.remote-fd.operands-2-2": "{\"operands\":[]}"
+        "cli.remote-fd.tokens": "{\"operands\":[]}",
+        "cli.remote-fd.operands-2-2": "{\"argumentTokens\":[\"value\",\"value\"],\"operands\":[]}",
+        "cli.remote-fd.sole-usage-operand": "{\"argumentTokens\":[\"value\"],\"operands\":[\"value\"]}"
       }
     },
     {
