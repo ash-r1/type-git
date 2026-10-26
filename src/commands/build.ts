@@ -500,9 +500,7 @@ function buildArguments(
       ? first.operand
       : undefined;
   const firstWordExited =
-    evaluationMode === 'full' &&
-    typeof firstWord === 'string' &&
-    spec.parserExit?.firstWordExits?.includes(firstWord) === true;
+    typeof firstWord === 'string' && spec.parserExit?.firstWordExits?.includes(firstWord) === true;
   let parserExited =
     evaluationMode === 'shape' ||
     firstWordExited ||

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { commandArguments } from './build.js';
+import { commandArguments, commandShapeArguments } from './build.js';
 
 describe('merge-one-file first-word help', () => {
   it('accepts exact first raw -h in either representation and ignores later semantic words', () => {
@@ -12,6 +12,20 @@ describe('merge-one-file first-word help', () => {
         '-h',
       ]);
     }
+  });
+  it('serializes ignored first-only tails consistently in shape mode', () => {
+    for (const first of [['-h'], { operand: '-h' }]) {
+      const args = [first, { operand: 'ignored' }, ['-h']];
+      expect(commandShapeArguments('merge-one-file', args)).toEqual(
+        commandArguments('merge-one-file', args),
+      );
+    }
+    expect(() =>
+      commandShapeArguments('merge-one-file', [{ operand: '-h' }, ['-h', true]]),
+    ).toThrow();
+    expect(() =>
+      commandShapeArguments('merge-one-file', [{ operand: '-h' }, { operand: '\0' }]),
+    ).toThrow('NUL');
   });
   it('retains ordinary seven-operand arity and first-only canonical help', () => {
     expect(() => commandArguments('merge-one-file', [])).toThrow();
