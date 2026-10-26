@@ -78,6 +78,35 @@ describe('unpack-file internal help and callback order', () => {
     }
     await compare([{ operand: '--help-all' }], ['--help-all']);
   });
+  it('matches successful native blob extraction and cleans up both output files', async () => {
+    const object = native(['rev-parse', 'HEAD:file']);
+    expect(object.status).toBe(0);
+    const blob = object.stdout.trim();
+    const before = (await readdir(root)).sort();
+    const expected = native(['unpack-file', blob]);
+    expect(expected.status).toBe(0);
+    expect(expected.stderr).toBe('');
+    expect(expected.stdout.trim()).toMatch(/^\.merge_file_[A-Za-z0-9]+$/);
+    const expectedFile = join(root, expected.stdout.trim());
+    let expectedContents: Buffer;
+    try {
+      expectedContents = await readFile(expectedFile);
+      expect(expectedContents.toString('utf8')).toBe('base\n');
+    } finally {
+      await rm(expectedFile);
+    }
+    const actual = await repo.command('unpack-file', [{ operand: blob }] as never);
+    expect(actual.exitCode).toBe(expected.status);
+    expect(actual.stderr).toBe(expected.stderr);
+    expect(actual.stdout.trim()).toMatch(/^\.merge_file_[A-Za-z0-9]+$/);
+    const actualFile = join(root, actual.stdout.trim());
+    try {
+      expect(await readFile(actualFile)).toEqual(expectedContents);
+    } finally {
+      await rm(actualFile);
+    }
+    expect((await readdir(root)).sort()).toEqual(before);
+  });
   it('preserves missing and wrong-type object failures before file creation', async () => {
     for (const object of ['missing-blob', 'HEAD', 'HEAD^{tree}', '--']) {
       const result = await compare([{ operand: object }], [object]);
