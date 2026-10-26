@@ -102816,6 +102816,36 @@
     },
     {
       "command": "pack-redundant",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "A sole canonical full usage word exits before version-dependent opt-in and pack arity checks. Selected native Git owns status and streams, including older unknown-option usage.",
+        "source": "Git 2.55.0 builtin/pack-redundant.c:cmd_pack_redundant show_usage_if_asked; Git2.25.1 handwritten option loop."
+      },
+      "transitions": [
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.pack-redundant.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.pack-redundant.full-help-one-word": "{}"
+          }
+        }
+      ],
       "rules": 2,
       "domains": {
         "help": [
@@ -102838,6 +102868,10 @@
           "undefined",
           "true"
         ],
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -102855,8 +102889,8 @@
           "true"
         ]
       },
-      "total": "960",
-      "accepted": "432",
+      "total": "1920",
+      "accepted": "864",
       "nodes": 14,
       "isolatedRuleWitnesses": {
         "cli.pack-redundant.acknowledgement": "{\"operands\":[\"value\"]}",
