@@ -58461,6 +58461,36 @@
     },
     {
       "command": "check-ref-format",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "A sole canonical full usage word exits before refname arity validation. Selected native Git owns status and streams, including older unknown-option usage.",
+        "source": "Git 2.55.0 builtin/check-ref-format.c:cmd_check_ref_format show_usage_if_asked; Git2.25.1 handwritten option loop."
+      },
+      "transitions": [
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.check-ref-format.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.check-ref-format.full-help-one-word": "{}"
+          }
+        }
+      ],
       "rules": 2,
       "domains": {
         "help": [
@@ -58481,6 +58511,10 @@
           "false"
         ],
         "refspec-pattern": [
+          "undefined",
+          "true"
+        ],
+        "sole-help": [
           "undefined",
           "true"
         ],
@@ -58508,8 +58542,8 @@
           "[\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "7200",
-      "accepted": "864",
+      "total": "14400",
+      "accepted": "1728",
       "nodes": 14,
       "isolatedRuleWitnesses": {
         "cli.check-ref-format.ref": "{\"operands\":[]}",

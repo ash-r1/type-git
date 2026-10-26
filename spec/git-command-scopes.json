@@ -5068,7 +5068,32 @@
       "--refspec-pattern": {
         "key": "refspec-pattern",
         "value": "flag"
+      },
+      "--help-all": {
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.check-ref-format.full-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The canonical full usage spelling must be the sole word before native refname arity validation.",
+            "source": "Git 2.55.0 builtin/check-ref-format.c:cmd_check_ref_format and usage.c:show_usage_if_asked; older native unknown-option usage retained."
+          }
+        ]
       }
+    },
+    "parserExit": {
+      "flags": [],
+      "singleWordExits": [
+        "--help-all"
+      ],
+      "origin": "git",
+      "reason": "A sole canonical full usage word exits before refname arity validation. Selected native Git owns status and streams, including older unknown-option usage.",
+      "source": "Git 2.55.0 builtin/check-ref-format.c:cmd_check_ref_format show_usage_if_asked; Git2.25.1 handwritten option loop."
     }
   },
   "unpack-file": {
