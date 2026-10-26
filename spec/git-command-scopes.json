@@ -6694,7 +6694,54 @@
       "-l": {
         "key": "list",
         "value": "flag"
+      },
+      "-h": {
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.var.short-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one word.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/var.c argc != 2 and show_usage_if_asked"
+          }
+        ]
+      },
+      "--help": {
+        "key": "documentation-help",
+        "value": "flag",
+        "firstOnly": true
+      },
+      "--help-all": {
+        "key": "sole-help",
+        "value": "flag",
+        "checks": [
+          {
+            "id": "cli.var.full-help-one-word",
+            "kind": "arity",
+            "key": "argumentTokens",
+            "min": 1,
+            "max": 1,
+            "origin": "git",
+            "reason": "The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one word.",
+            "source": "Git 2.25.1 and 2.55.0 builtin/var.c argc != 2 and show_usage_if_asked"
+          }
+        ]
       }
+    },
+    "parserExit": {
+      "flags": [],
+      "singleWordExits": [
+        "-h",
+        "--help-all"
+      ],
+      "origin": "git",
+      "reason": "Only sole usage words bypass variable-name validation. Native status and output remain selected-executable behavior.",
+      "source": "Git 2.25.1 builtin/var.c argc/read_var usage; Git 2.55.0 builtin/var.c show_usage_if_asked"
     }
   },
   "mailinfo": {
