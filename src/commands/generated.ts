@@ -82181,15 +82181,58 @@ const commandSpec183 = {
   argv: ['upload-archive--writer'],
   options: {
     '-h': {
-      key: 'help',
+      key: 'sole-help',
       value: 'flag',
+      checks: [
+        {
+          id: 'cli.upload-archive--writer.short-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one repository word.',
+          source:
+            'Git 2.25.1 and 2.55.0 builtin/upload-archive.c argc != 2 and sole -h; Git 2.55.0 show_usage_if_asked',
+        },
+      ],
     },
     '--help': {
-      key: 'help',
+      key: 'documentation-help',
       value: 'flag',
+      firstOnly: true,
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.upload-archive--writer.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one repository word.',
+          source:
+            'Git 2.25.1 and 2.55.0 builtin/upload-archive.c argc != 2 and sole -h; Git 2.55.0 show_usage_if_asked',
+        },
+      ],
     },
   },
   rules: [
+    {
+      id: 'cli.upload-archive--writer.tokens',
+      kind: 'arity',
+      key: 'argumentTokens',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason: 'The archive writer accepts exactly one repository argument or sole usage word.',
+      source: 'Git 2.25.1 and 2.55.0 builtin/upload-archive.c cmd_upload_archive_writer argc !=2',
+    },
     {
       id: 'cli.upload-archive--writer.operands',
       kind: 'arity',
@@ -82199,11 +82242,30 @@ const commandSpec183 = {
       origin: 'git',
       reason: 'Native mode requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c',
+      when: [
+        {
+          key: 'sole-help',
+          test: 'inactive',
+        },
+        {
+          key: 'documentation-help',
+          test: 'inactive',
+        },
+      ],
     },
   ],
   source: 'builtin/upload-archive.c',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'Only canonical sole usage words bypass the repository operand constraint. Legacy --help-all is passed through as a repository word and may fail natively.',
+    source:
+      'Git 2.25.1 builtin/upload-archive.c argc !=2 or sole -h; Git 2.55.0 show_usage_if_asked before writer arity',
+  },
 } as const satisfies CommandSpec;
 const commandSpec184 = {
   argv: ['rev-list'],

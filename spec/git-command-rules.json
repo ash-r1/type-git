@@ -12369,6 +12369,16 @@
   ],
   "upload-archive--writer": [
     {
+      "id": "cli.upload-archive--writer.tokens",
+      "kind": "arity",
+      "key": "argumentTokens",
+      "min": 1,
+      "max": 1,
+      "origin": "git",
+      "reason": "The archive writer accepts exactly one repository argument or sole usage word.",
+      "source": "Git 2.25.1 and 2.55.0 builtin/upload-archive.c cmd_upload_archive_writer argc !=2"
+    },
+    {
       "id": "cli.upload-archive--writer.operands",
       "kind": "arity",
       "key": "operands",
@@ -12376,7 +12386,17 @@
       "max": 1,
       "origin": "git",
       "reason": "Native mode requires this number of arguments.",
-      "source": "https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c"
+      "source": "https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c",
+      "when": [
+        {
+          "key": "sole-help",
+          "test": "inactive"
+        },
+        {
+          "key": "documentation-help",
+          "test": "inactive"
+        }
+      ]
     }
   ],
   "rev-list": [
