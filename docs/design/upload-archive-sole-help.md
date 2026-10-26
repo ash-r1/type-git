@@ -1,0 +1,7 @@
+# Archive frontend sole usage words
+
+The `upload-archive` frontend handles sole usage words before forwarding argv to `upload-archive--writer`. Git 2.25.1 recognizes sole `-h`; Git 2.55.0 uses `show_usage_if_asked`. Other arguments reach the writer's exact one-repository arity. Legacy sole `--help-all` therefore retains a child repository lookup failure through sideband, rather than becoming help. Native status and streams remain selected-executable behavior.
+
+The command-local metadata uses distinct sole usage and first-word documentation modes, retains safe literal flag unions, and enforces one raw argument for normal execution. Existing generic help keys allowed multiword usage or later documentation help to bypass final arity. The writer scope is unchanged by this follow-up.
+
+The finite 96-case audit covers 12 argument/protocol forms on four Linux Git versions inside/outside a repository. Eight successful packet-line archive requests require ACK, flush framing, data only on sideband1, and a final flush. Decoded archive payload must equal actual `git archive --format=tar HEAD` output. Packet segmentation may vary and is not required to match. Malformed requests preserve native failure outcomes. Root entries, index, tracked content and HEAD remain unchanged. This is ASCII fixture coverage, not arbitrary binary archive, transport, concurrent stream, repository-path, filesystem or platform completeness. All 430 scope audits remain partial.

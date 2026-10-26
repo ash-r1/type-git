@@ -82153,15 +82153,60 @@ const commandSpec182 = {
   argv: ['upload-archive'],
   options: {
     '-h': {
-      key: 'help',
+      key: 'sole-help',
       value: 'flag',
+      checks: [
+        {
+          id: 'cli.upload-archive.short-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one repository word.',
+          source:
+            'Git 2.25.1 and 2.55.0 builtin/upload-archive.c argc != 2 and sole -h; Git 2.55.0 show_usage_if_asked',
+        },
+      ],
     },
     '--help': {
-      key: 'help',
+      key: 'documentation-help',
       value: 'flag',
+      firstOnly: true,
+    },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.upload-archive.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical usage shape is reserved for a sole native usage word. Ordinary calls still require exactly one repository word.',
+          source:
+            'Git 2.25.1 and 2.55.0 builtin/upload-archive.c argc != 2 and sole -h; Git 2.55.0 show_usage_if_asked',
+        },
+      ],
     },
   },
   rules: [
+    {
+      id: 'cli.upload-archive.tokens',
+      kind: 'arity',
+      key: 'argumentTokens',
+      min: 1,
+      max: 1,
+      origin: 'git',
+      reason:
+        'The frontend forwards one repository word to its writer, or handles a sole usage word.',
+      source:
+        'Git 2.25.1 and 2.55.0 builtin/upload-archive.c cmd_upload_archive forwarding and writer argc !=2',
+    },
     {
       id: 'cli.upload-archive.operands',
       kind: 'arity',
@@ -82171,11 +82216,30 @@ const commandSpec182 = {
       origin: 'git',
       reason: 'Native mode requires this number of arguments.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/upload-archive.c',
+      when: [
+        {
+          key: 'sole-help',
+          test: 'inactive',
+        },
+        {
+          key: 'documentation-help',
+          test: 'inactive',
+        },
+      ],
     },
   ],
   source: 'builtin/upload-archive.c',
   separator: false,
   optionParsing: 'none',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['-h', '--help-all'],
+    origin: 'git',
+    reason:
+      'Only canonical sole usage words bypass repository operand validation. Other calls forward exactly one repository word to the writer; legacy --help-all retains its native sideband failure.',
+    source:
+      'Git 2.25.1 builtin/upload-archive.c cmd_upload_archive sole -h and writer argc !=2; Git 2.55.0 show_usage_if_asked and forwarded writer arguments',
+  },
 } as const satisfies CommandSpec;
 const commandSpec183 = {
   argv: ['upload-archive--writer'],
