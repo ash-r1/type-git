@@ -23,6 +23,11 @@ describe('get-tar-commit-id sole usage words', () => {
       ).toThrow();
     }
   });
+  it('rejects later documentation help instead of bypassing final constraints', () => {
+    expect(() =>
+      commandArguments('get-tar-commit-id', [{ operand: 'ordinary' }, ['--help']]),
+    ).toThrow();
+  });
   it('retains documentation, shape and NUL boundaries', () => {
     expect(commandArguments('get-tar-commit-id', [['--help'], ['--man']])).toEqual([
       'get-tar-commit-id',

@@ -138,6 +138,10 @@ describe('get-tar-commit-id sole usage and tar input controls', () => {
     }
   });
   it('rejects non-usage operands and multiword help', async () => {
+    expect(native(['get-tar-commit-id', 'ordinary', '--help']).status).toBe(129);
+    await expect(
+      repo.command('get-tar-commit-id', [{ operand: 'ordinary' }, ['--help']] as never),
+    ).rejects.toBeInstanceOf(GitArgumentError);
     await expect(
       repo.command('get-tar-commit-id', [{ operand: 'ordinary' }] as never),
     ).rejects.toBeInstanceOf(GitArgumentError);

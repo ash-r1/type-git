@@ -25,3 +25,6 @@ declare const getTarMaybeHelp: '-h' | 'ordinary';
 git.command('get-tar-commit-id', [{ operand: getTarMaybeHelp }]);
 // @ts-expect-error No flag union arm permits another word.
 git.command('get-tar-commit-id', [[getTarHelp], { operand: 'ignored' }]);
+
+// @ts-expect-error Only first-word --help selects documentation dispatch.
+git.command('get-tar-commit-id', [{ operand: 'ordinary' }, ['--help']]);

@@ -82030,8 +82030,9 @@ const commandSpec181 = {
       ],
     },
     '--help': {
-      key: 'help',
+      key: 'documentation-help',
       value: 'flag',
+      firstOnly: true,
     },
     '--help-all': {
       key: 'sole-help',

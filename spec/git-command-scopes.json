@@ -7157,8 +7157,9 @@
         ]
       },
       "--help": {
-        "key": "help",
-        "value": "flag"
+        "key": "documentation-help",
+        "value": "flag",
+        "firstOnly": true
       },
       "--help-all": {
         "key": "sole-help",
