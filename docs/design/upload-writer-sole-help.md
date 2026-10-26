@@ -1,0 +1,7 @@
+# Archive writer sole usage words
+
+The scope is `upload-archive--writer`, not the parent sideband frontend. Git 2.55.0 calls `show_usage_if_asked` before the writer's exact one-repository arity. Git 2.25.1 uses `argc != 2 || argv[1] == -h`; its sole `--help-all` is a repository word that fails with native exit128, rather than help. Selected native status and streams remain unchanged.
+
+The baseline 96-case audit covers 12 argument/protocol forms on four Linux Git versions inside/outside a repository. Canonical `--help-all` was rejected before execution, including two native exit-zero controls. Existing `help` keys allowed multiword `-h` and later `--help` to bypass final constraints. Command-local sole usage keys and raw one-word arity now preserve that boundary. Query operand arity is gated off in sole usage/documentation mode, including valid flag unions. Tagged arguments still mean repository words, subject to raw arity. First-word `--help` remains documentation dispatch.
+
+Successful packet-line requests contain `argument --format=tar` and `argument HEAD`, followed by a flush. Output must exactly equal native `git archive --format=tar HEAD` with fixture content; malformed protocol is a separate native exit128 control. Root entries, index, tracked content and HEAD are unchanged. This is finite ASCII fixture coverage, not exhaustive archive/protocol/transport/filesystem/platform proof. All 430 scopes remain partial.

@@ -65771,9 +65771,63 @@
     },
     {
       "command": "upload-archive--writer",
-      "rules": 1,
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "-h",
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "Only canonical sole usage words bypass the repository operand constraint. Legacy --help-all is passed through as a repository word and may fail natively.",
+        "source": "Git 2.25.1 builtin/upload-archive.c argc !=2 or sole -h; Git 2.55.0 show_usage_if_asked before writer arity"
+      },
+      "transitions": [
+        {
+          "flag": "-h",
+          "rules": [
+            "cli.upload-archive--writer.short-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.upload-archive--writer.short-help-one-word": "{}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.upload-archive--writer.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.upload-archive--writer.full-help-one-word": "{}"
+          }
+        }
+      ],
+      "rules": 2,
       "domains": {
-        "help": [
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
+        "documentation-help": [
           "undefined",
           "true"
         ],
@@ -65792,13 +65846,20 @@
           "undefined",
           "false",
           "true"
+        ],
+        "argumentTokens": [
+          "undefined",
+          "[]",
+          "[\"value\"]",
+          "[\"value\",\"value\"]"
         ]
       },
-      "total": "60",
-      "accepted": "12",
-      "nodes": 2,
+      "total": "480",
+      "accepted": "96",
+      "nodes": 16,
       "isolatedRuleWitnesses": {
-        "cli.upload-archive--writer.operands": "{\"operands\":[]}"
+        "cli.upload-archive--writer.tokens": "{\"operands\":[],\"sole-help\":true}",
+        "cli.upload-archive--writer.operands": "{\"argumentTokens\":[\"value\"],\"operands\":[]}"
       }
     },
     {
