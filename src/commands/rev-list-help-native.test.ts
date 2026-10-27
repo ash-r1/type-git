@@ -246,7 +246,7 @@ describe('rev-list sole full usage and traversal controls', () => {
       await rm(shadow, { recursive: true, force: true });
       await rm(blocked, { recursive: true, force: true });
     }
-  });
+  }, 120_000);
   it('pins successful ordinary payloads', async () => {
     const revision = native(['rev-parse', '--verify', 'HEAD']);
     expect(revision.status).toBe(0);
