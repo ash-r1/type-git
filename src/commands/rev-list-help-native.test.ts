@@ -1,7 +1,17 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import {
+  chmod,
+  copyFile,
+  mkdir,
+  mkdtemp,
+  readdir,
+  readFile,
+  rm,
+  writeFile,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { dirname, join } from 'node:path';
+import { delimiter, dirname, join, resolve } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.js';
 import { createGitSync } from '../impl/git-impl.js';
@@ -63,6 +73,7 @@ describe('rev-list sole full usage and traversal controls', () => {
     input: string | Uint8Array = '',
     outside = false,
     outsideParent = tmpdir(),
+    selected?: { gitBinary: string; env: Record<string, string> },
   ) => {
     const snapshot = () =>
       Promise.all([
@@ -72,11 +83,13 @@ describe('rev-list sole full usage and traversal controls', () => {
         ),
       ]);
     const cwd = outside ? await mkdtemp(join(outsideParent, 'type-git-rev-list-outside-')) : root;
-    const commandEnv = outside ? { ...env, GIT_CEILING_DIRECTORIES: dirname(cwd) } : env;
+    const gitBinary = selected?.gitBinary ?? 'git';
+    const baseEnv = selected?.env ?? env;
+    const commandEnv = outside ? { ...baseEnv, GIT_CEILING_DIRECTORIES: dirname(cwd) } : baseEnv;
     const before = await snapshot();
     try {
       if (outside) {
-        const discovery = spawnSync('git', ['-C', cwd, 'rev-parse', '--is-inside-work-tree'], {
+        const discovery = spawnSync(gitBinary, ['-C', cwd, 'rev-parse', '--is-inside-work-tree'], {
           env: commandEnv,
           encoding: 'utf8',
           timeout: 30_000,
@@ -85,7 +98,7 @@ describe('rev-list sole full usage and traversal controls', () => {
         expect(discovery.status).toBe(128);
         expect(discovery.stderr).toContain('not a git repository');
       }
-      const expected = spawnSync('git', ['-C', cwd, 'rev-list', ...words], {
+      const expected = spawnSync(gitBinary, ['-C', cwd, 'rev-list', ...words], {
         env: commandEnv,
         input,
         encoding: 'utf8',
@@ -101,12 +114,17 @@ describe('rev-list sole full usage and traversal controls', () => {
         ? new TypeGit(
             createGitSync({
               adapters: { exec, fs: new NodeFsAdapter() },
+              gitBinary,
               home: root,
               inheritEnv: false,
               env: commandEnv,
             }),
           )
-        : repo;
+        : selected
+          ? await new TypeGit({ gitBinary, home: root, inheritEnv: false, env: commandEnv }).open(
+              root,
+            )
+          : repo;
       const actual = await git.command('rev-list', args as never, { stdin: input });
       expect(await snapshot()).toEqual(before);
       expect(actual.exitCode).toBe(expected.status);
@@ -132,6 +150,48 @@ describe('rev-list sole full usage and traversal controls', () => {
         outside,
       );
       await compare([['--objects'], { operand: 'HEAD' }], ['--objects', 'HEAD'], '', outside);
+    }
+  });
+  it('uses the explicitly selected executable when PATH git has different behavior', async () => {
+    const pathKey = Object.keys(env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
+    const executableName = process.platform === 'win32' ? 'git.exe' : 'git';
+    const gitBinary = (env[pathKey] ?? '')
+      .split(delimiter)
+      .map((directory) => resolve(directory, executableName))
+      .find((candidate) => existsSync(candidate));
+    if (!gitBinary) {
+      throw new Error('The fixture requires the Git executable already used for repository setup');
+    }
+    const shadow = join(root, 'shadow-bin');
+    await mkdir(shadow);
+    const shadowGit = join(shadow, executableName);
+    await copyFile(process.execPath, shadowGit);
+    if (process.platform !== 'win32') {
+      await chmod(shadowGit, 0o755);
+    }
+    const selectedEnv = { ...env, [pathKey]: `${shadow}${delimiter}${env[pathKey] ?? ''}` };
+    try {
+      const defaultGit = spawnSync('git', ['-C', root, 'rev-list', '--help-all'], {
+        env: selectedEnv,
+        input: '',
+        encoding: 'utf8',
+        timeout: 30_000,
+      });
+      expect(defaultGit.error).toBeUndefined();
+      expect(defaultGit.signal).toBeNull();
+      for (const outside of [false, true]) {
+        const expected = await compare([['--help-all']], ['--help-all'], '', outside, tmpdir(), {
+          gitBinary,
+          env: selectedEnv,
+        });
+        expect([defaultGit.status, defaultGit.stdout, defaultGit.stderr]).not.toEqual([
+          expected.status,
+          expected.stdout,
+          expected.stderr,
+        ]);
+      }
+    } finally {
+      await rm(shadow, { recursive: true, force: true });
     }
   });
   it('pins successful ordinary payloads', async () => {
