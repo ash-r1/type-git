@@ -12704,6 +12704,10 @@
         {
           "key": "test-bitmap",
           "test": "inactive"
+        },
+        {
+          "key": "sole-full-help",
+          "test": "inactive"
         }
       ],
       "when": {
@@ -12777,7 +12781,7 @@
         }
       ],
       "origin": "git",
-      "reason": "A revision, object mode, ref source or stdin input is required.",
+      "reason": "A revision, object mode, ref source or stdin input is required except for canonical sole full usage.",
       "source": "https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c"
     },
     {
