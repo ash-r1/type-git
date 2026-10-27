@@ -1,4 +1,4 @@
-import type { Git } from '../../src/index.js';
+import type { Git, GitCommandArgument } from '../../src/index.js';
 declare const git: Git;
 git.command('rev-parse', [['--help-all']]);
 git.command('rev-parse', [['--help-all'], { operand: 'HEAD' }]);
@@ -11,3 +11,10 @@ git.command('rev-parse', [['--path-format', 'invalid'], ['--help-all']]);
 git.command('rev-parse', [['--help-all', true]]);
 // @ts-expect-error Unknown options are not enabled by full-help.
 git.command('rev-parse', [['--help-all'], ['--not-a-rev-parse-option']]);
+
+export const dynamicPaths: readonly GitCommandArgument<'rev-parse'>[] = [['--path-format', 'relative']];
+git.command('rev-parse', dynamicPaths);
+// @ts-expect-error Dynamic arrays preserve the existing path-format enumeration.
+export const invalidDynamicPaths: readonly GitCommandArgument<'rev-parse'>[] = [['--path-format', 'invalid']];
+export type RevParsePathFormat = Extract<GitCommandArgument<'rev-parse'>, readonly ['--path-format', unknown]>[1];
+export const narrowPathFormat = (value: RevParsePathFormat): 'absolute' | 'relative' => value;

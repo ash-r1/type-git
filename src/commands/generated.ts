@@ -111493,14 +111493,6 @@ const commandSpec209 = {
   rules: [],
   source: 'builtin/rev-parse.c',
   separator: true,
-  parserExit: {
-    flags: [],
-    singleWordExits: ['--help-all'],
-    origin: 'git',
-    reason:
-      'Only a sole full-help word enters the newer native usage shortcut. In multiword calls this spelling remains an ordinary rev-parse flag; callbacks still run and the selected executable owns output. Older Git echoes the flag after repository setup.',
-    source: 'Git2.25.1 and2.55.0 builtin/rev-parse.c:cmd_rev_parse; usage.c:show_usage_if_asked',
-  },
 } as const satisfies CommandSpec;
 const commandSpec210 = {
   argv: ['rev-parse', '--parseopt'],

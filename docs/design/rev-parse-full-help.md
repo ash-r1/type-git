@@ -7,3 +7,5 @@ In multiword calls `--help-all` is an ordinary flag. It does not bypass earlier 
 The finite native audit covers twelve shapes, four Linux Git versions, and inside/outside contexts. Repository file hashes remain unchanged. Tagged dash operand controls and a wrongly dispatched `--sq-quote` tuple are representation boundaries, not established product regressions. Public native tests also isolate an outside directory nested under a repository with a parent ceiling, and pin successful revision payloads.
 
 This does not establish complete revision/path/filter/parseopt/stdin, configuration, platform, or arbitrary flag passthrough parity. All 430 command audit scopes remain partial.
+
+The scope has no final validation rules to bypass, so it does not add parser-exit metadata. Native Git itself owns the sole-word shortcut. This also keeps ordinary `GitCommandArgument<'rev-parse'>` allowed-value enumerations narrow for dynamic arrays and consumers of the exported tuple union. Type fixtures reject an invalid dynamic path-format value and preserve assignment to `absolute | relative`.
