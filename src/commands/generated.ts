@@ -46647,6 +46647,24 @@ const commandSpec72 = {
       key: 'cached',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'sole-full-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.diff-index.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical full usage shape is reserved for the sole native usage shortcut; multiword full-help is not an exit from revision parsing.',
+          source:
+            'Git2.25.1 builtin/diff-index.c revision setup/usage; Git2.55.0 builtin/diff-index.c show_usage_if_asked and usage.c',
+        },
+      ],
+    },
   },
   rules: [
     {
