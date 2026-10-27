@@ -64783,6 +64783,15 @@
     },
     {
       "command": "mailsplit",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "A sole canonical full usage word exits before output-directory arity validation. Selected native Git owns status and streams, including older unknown-option failure.",
+        "source": "Git 2.55.0 builtin/mailsplit.c:cmd_mailsplit show_usage_if_asked; Git2.25.1 handwritten option loop."
+      },
       "transitions": [
         {
           "flag": "-o",
@@ -64802,6 +64811,25 @@
           "accepted": "4",
           "isolatedRuleWitnesses": {
             "cli.mailsplit.empty-output": "{\"$value\":\"\"}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.mailsplit.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.mailsplit.full-help-one-word": "{}"
           }
         }
       ],
@@ -64848,6 +64876,10 @@
           "undefined",
           "true"
         ],
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -64871,8 +64903,8 @@
           "true"
         ]
       },
-      "total": "460800",
-      "accepted": "354816",
+      "total": "921600",
+      "accepted": "709632",
       "nodes": 17,
       "isolatedRuleWitnesses": {
         "cli.mailsplit.implicit-output": "{\"operand0\":\"\",\"operands\":[]}",

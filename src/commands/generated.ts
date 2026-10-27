@@ -81167,6 +81167,24 @@ const commandSpec165 = {
       key: 'mboxrd',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.mailsplit.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical full usage spelling must be the sole word before native output-directory arity validation.',
+          source:
+            'Git 2.55.0 builtin/mailsplit.c:cmd_mailsplit and usage.c:show_usage_if_asked; older native unknown-option usage retained.',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -81205,6 +81223,15 @@ const commandSpec165 = {
   source: 'builtin/mailsplit.c',
   separator: true,
   optionParsing: 'stop-at-operand',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['--help-all'],
+    origin: 'git',
+    reason:
+      'A sole canonical full usage word exits before output-directory arity validation. Selected native Git owns status and streams, including older unknown-option failure.',
+    source:
+      'Git 2.55.0 builtin/mailsplit.c:cmd_mailsplit show_usage_if_asked; Git2.25.1 handwritten option loop.',
+  },
 } as const satisfies CommandSpec;
 const commandSpec166 = {
   argv: ['interpret-trailers'],
