@@ -28074,6 +28074,25 @@
           "isolatedRuleWitnesses": {
             "revision.stdin-repeated": "{\"stdin\":true}"
           }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.diff-files.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.diff-files.full-help-one-word": "{}"
+          }
         }
       ],
       "rules": 16,
@@ -29183,6 +29202,10 @@
           "undefined",
           "true"
         ],
+        "sole-full-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -29200,8 +29223,8 @@
           "true"
         ]
       },
-      "total": "1303693220782784530629357805665594244809357135252682073702400000000000000000000000000000000000000000",
-      "accepted": "661649915194135987374405835827139974750607515781439768494080000000000000000000000000000000000000",
+      "total": "2607386441565569061258715611331188489618714270505364147404800000000000000000000000000000000000000000",
+      "accepted": "1323299830388271974748811671654279949501215031562879536988160000000000000000000000000000000000000",
       "nodes": 23947,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"name-status\":true,\"no-output\":true,\"operands\":[]}",
