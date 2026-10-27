@@ -94588,6 +94588,15 @@
     },
     {
       "command": "rev-parse",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "Only a sole full-help word enters the newer native usage shortcut. In multiword calls this spelling remains an ordinary rev-parse flag; callbacks still run and the selected executable owns output. Older Git echoes the flag after repository setup.",
+        "source": "Git2.25.1 and2.55.0 builtin/rev-parse.c:cmd_rev_parse; usage.c:show_usage_if_asked"
+      },
       "rules": 0,
       "domains": {
         "help": [
@@ -94845,6 +94854,10 @@
           "\"receive\"",
           "\"uploadpack\""
         ],
+        "full-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -94862,8 +94875,8 @@
           "true"
         ]
       },
-      "total": "1467670855680000000000000",
-      "accepted": "1467670855680000000000000",
+      "total": "2935341711360000000000000",
+      "accepted": "2935341711360000000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },
