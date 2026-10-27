@@ -1,7 +1,7 @@
 import { spawnSync } from 'node:child_process';
 import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { NodeExecAdapter, NodeFsAdapter, TypeGit } from '../adapters/node/index.js';
 import { createGitSync } from '../impl/git-impl.js';
@@ -63,6 +63,7 @@ describe('fetch-pack sole full usage and diagnostic controls', () => {
     words: string[],
     input: string | Uint8Array = '',
     outside = false,
+    outsideParent = tmpdir(),
   ) => {
     const snapshot = () =>
       Promise.all([
@@ -70,11 +71,24 @@ describe('fetch-pack sole full usage and diagnostic controls', () => {
         Promise.resolve(native(['show-ref']).stdout),
         ...['.git/index', 'file', '.git/HEAD'].map((path) => readFile(join(root, path))),
       ]);
+    const cwd = outside ? await mkdtemp(join(outsideParent, 'type-git-fetch-pack-outside-')) : root;
+    const commandEnv = outside ? { ...env, GIT_CEILING_DIRECTORIES: dirname(cwd) } : env;
     const before = await snapshot();
-    const cwd = outside ? await mkdtemp(join(tmpdir(), 'type-git-fetch-pack-outside-')) : root;
     try {
+      if (outside) {
+        const discovery = spawnSync('git', ['-C', cwd, 'rev-parse', '--is-inside-work-tree'], {
+          env: commandEnv,
+          input: '',
+          encoding: 'utf8',
+          timeout: 30_000,
+        });
+        expect(discovery.error).toBeUndefined();
+        expect(discovery.signal).toBeNull();
+        expect(discovery.status).toBe(128);
+        expect(discovery.stderr).toContain('not a git repository');
+      }
       const expected = spawnSync('git', ['-C', cwd, 'fetch-pack', ...words], {
-        env,
+        env: commandEnv,
         input,
         encoding: 'utf8',
         timeout: 30_000,
@@ -91,7 +105,7 @@ describe('fetch-pack sole full usage and diagnostic controls', () => {
               adapters: { exec, fs: new NodeFsAdapter() },
               home: root,
               inheritEnv: false,
-              env,
+              env: commandEnv,
             }),
           )
         : repo;
@@ -130,6 +144,31 @@ describe('fetch-pack sole full usage and diagnostic controls', () => {
           expect(result.stdout).toContain('Diag: url=');
         }
       }
+    }
+  });
+  it('keeps outside controls outside when the temporary directory has a repository parent', async () => {
+    const nested = await mkdtemp(join(root, 'nested-temp-'));
+    try {
+      const inherited = spawnSync('git', ['-C', nested, 'rev-parse', '--is-inside-work-tree'], {
+        env,
+        input: '',
+        encoding: 'utf8',
+        timeout: 30_000,
+      });
+      expect(inherited.error).toBeUndefined();
+      expect(inherited.signal).toBeNull();
+      expect(inherited.status).toBe(0);
+      expect(inherited.stdout.trim()).toBe('true');
+      await compare([['--help-all']], ['--help-all'], '', true, nested);
+      await compare(
+        [['--diag-url'], { operand: 'file:///nonexistent' }],
+        ['--diag-url', 'file:///nonexistent'],
+        '',
+        true,
+        nested,
+      );
+    } finally {
+      await rm(nested, { recursive: true, force: true });
     }
   });
   it('retains missing destination validation', async () => {
