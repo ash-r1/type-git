@@ -111485,6 +111485,10 @@ const commandSpec209 = {
       value: 'string',
       allowed: ['fetch', 'receive', 'uploadpack'],
     },
+    '--help-all': {
+      key: 'full-help',
+      value: 'flag',
+    },
   },
   rules: [],
   source: 'builtin/rev-parse.c',

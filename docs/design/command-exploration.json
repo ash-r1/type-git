@@ -94845,6 +94845,10 @@
           "\"receive\"",
           "\"uploadpack\""
         ],
+        "full-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -94862,8 +94866,8 @@
           "true"
         ]
       },
-      "total": "1467670855680000000000000",
-      "accepted": "1467670855680000000000000",
+      "total": "2935341711360000000000000",
+      "accepted": "2935341711360000000000000",
       "nodes": 0,
       "isolatedRuleWitnesses": {}
     },

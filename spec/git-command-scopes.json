@@ -9093,6 +9093,10 @@
           "receive",
           "uploadpack"
         ]
+      },
+      "--help-all": {
+        "key": "full-help",
+        "value": "flag"
       }
     }
   },
