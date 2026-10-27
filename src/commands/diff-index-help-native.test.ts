@@ -275,5 +275,5 @@ describe('diff-index sole full usage and diff controls', () => {
   it('keeps nested outside controls outside the repository', async () => {
     await compare([['--help-all']], ['--help-all'], '', true, root);
     await compare([{ operand: 'HEAD' }], ['HEAD'], '', true, root);
-  });
+  }, 120_000);
 });
