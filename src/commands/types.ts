@@ -86,17 +86,18 @@ type Token<K, S extends OptionSpec, MayBeIgnored extends boolean> = S['value'] e
     ? readonly [flag: K, value?: Value<S, MayBeIgnored>]
     : readonly [flag: K, value: Value<S, MayBeIgnored>];
 /** Tuples identify options; objects identify positional operands. Their order is preserved. */
-type LocalCommandArgument<C extends GitCommandName> = C extends GitCommandName
-  ?
-      | {
-          [K in keyof Options<C>]: Options<C>[K] extends OptionSpec
-            ? Token<K, Options<C>[K], Spec<C> extends { parserExit: unknown } ? true : false>
-            : never;
-        }[keyof Options<C>]
-      | { readonly operand: string }
-      | (Spec<C>['separator'] extends false ? never : readonly ['--'])
-      | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}` | `-${bigint}`])
-  : never;
+type LocalCommandArgumentsByName = {
+  [C in GitCommandName]:
+    | {
+        [K in keyof Options<C>]: Options<C>[K] extends OptionSpec
+          ? Token<K, Options<C>[K], Spec<C> extends { parserExit: unknown } ? true : false>
+          : never;
+      }[keyof Options<C>]
+    | { readonly operand: string }
+    | (Spec<C>['separator'] extends false ? never : readonly ['--'])
+    | ([NumericOption<C>] extends [never] ? never : readonly [`-${number}` | `-${bigint}`]);
+};
+type LocalCommandArgument<C extends GitCommandName> = LocalCommandArgumentsByName[C];
 type Dispatch<C extends GitCommandName> = Spec<C> extends { dispatch: infer D } ? D : never;
 type DispatchOption<C extends GitCommandName> =
   Spec<C> extends {
