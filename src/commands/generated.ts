@@ -44630,6 +44630,24 @@ const commandSpec71 = {
       key: 'silent-removed',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'sole-full-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.diff-files.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical full usage shape is reserved for the sole native usage shortcut; multiword full-help is not an exit from revision parsing.',
+          source:
+            'Git2.25.1 builtin/diff-files.c revision setup/usage; Git2.55.0 builtin/diff-files.c show_usage_if_asked and usage.c',
+        },
+      ],
+    },
   },
   numericOption: {
     key: 'max-count',
