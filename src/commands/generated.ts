@@ -120406,6 +120406,24 @@ const commandSpec283 = {
       value: 'flag',
       clear: true,
     },
+    '--help-all': {
+      key: 'sole-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.fetch-pack.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical full usage spelling must be the sole word before native destination arity validation.',
+          source:
+            'Git 2.55.0 builtin/fetch-pack.c:cmd_fetch_pack and usage.c:show_usage_if_asked; older native unknown-option usage retained.',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -120421,6 +120439,15 @@ const commandSpec283 = {
   source: 'builtin/fetch-pack.c',
   separator: false,
   optionParsing: 'stop-at-operand',
+  parserExit: {
+    flags: [],
+    singleWordExits: ['--help-all'],
+    origin: 'git',
+    reason:
+      'A sole canonical full usage word exits before destination arity validation. Selected native Git owns status and streams, including older unknown-option usage.',
+    source:
+      'Git 2.55.0 builtin/fetch-pack.c:cmd_fetch_pack show_usage_if_asked; Git2.25.1 handwritten option loop.',
+  },
 } as const satisfies CommandSpec;
 const commandSpec284 = {
   argv: ['remote-ext'],

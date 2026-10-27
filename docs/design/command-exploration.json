@@ -103193,6 +103193,36 @@
     },
     {
       "command": "fetch-pack",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "A sole canonical full usage word exits before destination arity validation. Selected native Git owns status and streams, including older unknown-option usage.",
+        "source": "Git 2.55.0 builtin/fetch-pack.c:cmd_fetch_pack show_usage_if_asked; Git2.25.1 handwritten option loop."
+      },
+      "transitions": [
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.fetch-pack.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.fetch-pack.full-help-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "help": [
@@ -103307,6 +103337,10 @@
           "\"0b\"",
           "\"1kb\""
         ],
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -103324,8 +103358,8 @@
           "true"
         ]
       },
-      "total": "49152000000",
-      "accepted": "39321600000",
+      "total": "98304000000",
+      "accepted": "78643200000",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.fetch-pack.operands-1-None": "{\"operands\":[]}"
