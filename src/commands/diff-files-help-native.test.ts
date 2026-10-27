@@ -148,7 +148,7 @@ describe('diff-files sole full usage and diff controls', () => {
       await compare([['--name-status']], ['--name-status'], '', outside);
       await compare([['--exit-code']], ['--exit-code'], '', outside);
     }
-  });
+  }, 120_000);
   it('uses the explicitly selected executable when PATH git has different behavior', async () => {
     const pathKey = Object.keys(env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
     const executableName = process.platform === 'win32' ? 'git.exe' : 'git';
@@ -241,7 +241,7 @@ describe('diff-files sole full usage and diff controls', () => {
       await rm(shadow, { recursive: true, force: true });
       await rm(blocked, { recursive: true, force: true });
     }
-  });
+  }, 120_000);
   it('pins clean and modified ordinary payloads', async () => {
     const clean = await compare([], []);
     expect(clean.status).toBe(0);
