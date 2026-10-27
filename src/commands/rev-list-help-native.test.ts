@@ -166,10 +166,22 @@ describe('rev-list sole full usage and traversal controls', () => {
       await writeFile(blockedGit, 'not an executable\n', { mode: 0o644 });
       await chmod(blockedGit, 0o644);
     }
-    const searchPath = `${blocked}${delimiter}${env[pathKey] ?? ''}`;
+    const originalPath = env[pathKey] ?? '';
+    // Exercise quoted native Windows PATH entries, including Git installations with spaces.
+    const quotedPath =
+      process.platform === 'win32'
+        ? originalPath
+            .split(delimiter)
+            .map((directory) => `"${directory.replace(/^["']|["']$/g, '')}"`)
+            .join(delimiter)
+        : originalPath;
+    const searchPath = `${blocked}${delimiter}${quotedPath}`;
     let gitBinary: string | undefined;
     for (const directory of searchPath.split(delimiter)) {
-      const candidate = resolve(directory, executableName);
+      // libuv's Windows search strips boundary quotes; POSIX treats quotes literally.
+      const nativeDirectory =
+        process.platform === 'win32' ? directory.replace(/^["']|["']$/g, '') : directory;
+      const candidate = resolve(nativeDirectory, executableName);
       try {
         if (!(await stat(candidate)).isFile()) {
           continue;
