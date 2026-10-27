@@ -84273,6 +84273,24 @@ const commandSpec184 = {
       value: 'optional-string',
       allowed: ['human'],
     },
+    '--help-all': {
+      key: 'sole-full-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.rev-list.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'The canonical full usage shape is reserved for the sole native usage shortcut; multiword full-help is not an exit from revision parsing.',
+          source:
+            'Git2.25.1 builtin/rev-list.c revision setup/usage; Git2.55.0 builtin/rev-list.c show_usage_if_asked and usage.c',
+        },
+      ],
+    },
   },
   numericOption: {
     key: 'max-count',
@@ -84785,6 +84803,10 @@ const commandSpec184 = {
           key: 'test-bitmap',
           test: 'inactive',
         },
+        {
+          key: 'sole-full-help',
+          test: 'inactive',
+        },
       ],
       when: {
         key: 'argumentTokens',
@@ -84857,7 +84879,8 @@ const commandSpec184 = {
         },
       ],
       origin: 'git',
-      reason: 'A revision, object mode, ref source or stdin input is required.',
+      reason:
+        'A revision, object mode, ref source or stdin input is required except for canonical sole full usage.',
       source: 'https://github.com/git/git/blob/v2.55.0/builtin/rev-list.c',
     },
     {

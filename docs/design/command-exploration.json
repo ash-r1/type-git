@@ -66290,6 +66290,25 @@
           "isolatedRuleWitnesses": {
             "revision.stdin-repeated": "{\"stdin\":true}"
           }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.rev-list.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.rev-list.full-help-one-word": "{}"
+          }
         }
       ],
       "rules": 48,
@@ -67453,6 +67472,10 @@
           "\"human\"",
           "true"
         ],
+        "sole-full-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -67484,9 +67507,9 @@
           "[\"value\",\"value\",\"value\",\"value\"]"
         ]
       },
-      "total": "2764777768583708866411059899142452958446607568288597037757235200000000000000000000000000000000000000000000",
-      "accepted": "1805999157022454782849434882771617508549510993120055546733598905204736000000000000000000000000000000000",
-      "nodes": 597924,
+      "total": "5529555537167417732822119798284905916893215136577194075514470400000000000000000000000000000000000000000000",
+      "accepted": "3611998314108471202229534035317326312016511447824177467005132011995136000000000000000000000000000000000",
+      "nodes": 598191,
       "isolatedRuleWitnesses": {
         "diff.output-formats": "{\"argumentTokens\":[],\"name-status\":true,\"no-output\":true,\"operands\":[],\"operandsBeforeSeparator\":[],\"verify-objects\":true}",
         "diff.pickaxe-kinds": "{\"S\":\"\",\"argumentTokens\":[],\"find-object\":\"\",\"operands\":[],\"operandsBeforeSeparator\":[],\"test-bitmap\":true}",
