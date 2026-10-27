@@ -102848,6 +102848,36 @@
     },
     {
       "command": "unpack-objects",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "A sole canonical full usage word exits before zero-operand validation validation. Selected native Git owns status and streams, including older unknown-option usage.",
+        "source": "Git 2.55.0 builtin/unpack-objects.c:cmd_unpack_objects show_usage_if_asked; Git2.25.1 handwritten option loop."
+      },
+      "transitions": [
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.unpack-objects.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.unpack-objects.full-help-one-word": "{}"
+          }
+        }
+      ],
       "rules": 1,
       "domains": {
         "help": [
@@ -102888,6 +102918,10 @@
           "\"0b\"",
           "\"1kb\""
         ],
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -102905,8 +102939,8 @@
           "true"
         ]
       },
-      "total": "72000",
-      "accepted": "14400",
+      "total": "144000",
+      "accepted": "28800",
       "nodes": 2,
       "isolatedRuleWitnesses": {
         "cli.unpack-objects.arity-0-0": "{\"operands\":[\"value\"]}"
