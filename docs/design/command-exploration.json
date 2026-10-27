@@ -102624,6 +102624,15 @@
     },
     {
       "command": "index-pack",
+      "parserExit": {
+        "flags": [],
+        "singleWordExits": [
+          "--help-all"
+        ],
+        "origin": "git",
+        "reason": "A sole canonical full usage word exits before pack-input arity validation. Selected native Git owns status and streams, including older unknown-option usage.",
+        "source": "Git 2.55.0 builtin/index-pack.c:cmd_index_pack show_usage_if_asked; Git2.25.1 handwritten option loop."
+      },
       "transitions": [
         {
           "flag": "--progress-title",
@@ -102663,6 +102672,25 @@
           "accepted": "1",
           "isolatedRuleWitnesses": {
             "cli.index-pack.output-once": "{\"output\":\"\"}"
+          }
+        },
+        {
+          "flag": "--help-all",
+          "rules": [
+            "cli.index-pack.full-help-one-word"
+          ],
+          "domains": {
+            "argumentTokens": [
+              "undefined",
+              "[]",
+              "[\"value\"]",
+              "[\"value\",\"value\"]"
+            ]
+          },
+          "total": "4",
+          "accepted": "1",
+          "isolatedRuleWitnesses": {
+            "cli.index-pack.full-help-one-word": "{}"
           }
         }
       ],
@@ -102784,6 +102812,10 @@
           "\"0b\"",
           "\"1kb\""
         ],
+        "sole-help": [
+          "undefined",
+          "true"
+        ],
         "operands": [
           "[]",
           "[\"value\"]",
@@ -102801,8 +102833,8 @@
           "true"
         ]
       },
-      "total": "1399680000000",
-      "accepted": "44841600000",
+      "total": "2799360000000",
+      "accepted": "89683200000",
       "nodes": 117,
       "isolatedRuleWitnesses": {
         "cli.index-pack.arity-0-1": "{\"operands\":[\"value\",\"value\"],\"stdin\":true}",
