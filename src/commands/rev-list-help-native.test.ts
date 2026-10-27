@@ -1,6 +1,7 @@
 import { spawnSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { constants } from 'node:fs';
 import {
+  access,
   chmod,
   copyFile,
   mkdir,
@@ -8,6 +9,7 @@ import {
   readdir,
   readFile,
   rm,
+  stat,
   writeFile,
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -155,10 +157,33 @@ describe('rev-list sole full usage and traversal controls', () => {
   it('uses the explicitly selected executable when PATH git has different behavior', async () => {
     const pathKey = Object.keys(env).find((key) => key.toLowerCase() === 'path') ?? 'PATH';
     const executableName = process.platform === 'win32' ? 'git.exe' : 'git';
-    const gitBinary = (env[pathKey] ?? '')
-      .split(delimiter)
-      .map((directory) => resolve(directory, executableName))
-      .find((candidate) => existsSync(candidate));
+    const blocked = join(root, 'non-executable-bin');
+    await mkdir(blocked);
+    const blockedGit = join(blocked, executableName);
+    if (process.platform === 'win32') {
+      await mkdir(blockedGit);
+    } else {
+      await writeFile(blockedGit, 'not an executable\n', { mode: 0o644 });
+      await chmod(blockedGit, 0o644);
+    }
+    const searchPath = `${blocked}${delimiter}${env[pathKey] ?? ''}`;
+    let gitBinary: string | undefined;
+    for (const directory of searchPath.split(delimiter)) {
+      const candidate = resolve(directory, executableName);
+      try {
+        if (!(await stat(candidate)).isFile()) {
+          continue;
+        }
+        await access(candidate, constants.X_OK);
+        gitBinary = candidate;
+        break;
+      } catch (error) {
+        const code = (error as NodeJS.ErrnoException).code ?? '';
+        if (!['ENOENT', 'ENOTDIR', 'EACCES', 'EPERM'].includes(code)) {
+          throw error;
+        }
+      }
+    }
     if (!gitBinary) {
       throw new Error('The fixture requires the Git executable already used for repository setup');
     }
@@ -169,8 +194,16 @@ describe('rev-list sole full usage and traversal controls', () => {
     if (process.platform !== 'win32') {
       await chmod(shadowGit, 0o755);
     }
-    const selectedEnv = { ...env, [pathKey]: `${shadow}${delimiter}${env[pathKey] ?? ''}` };
+    const selectedEnv = { ...env, [pathKey]: `${shadow}${delimiter}${searchPath}` };
     try {
+      const pathGit = spawnSync('git', ['-C', root, 'rev-list', '--help-all'], {
+        env: { ...env, [pathKey]: searchPath },
+        input: '',
+        encoding: 'utf8',
+        timeout: 30_000,
+      });
+      expect(pathGit.error).toBeUndefined();
+      expect(pathGit.signal).toBeNull();
       const defaultGit = spawnSync('git', ['-C', root, 'rev-list', '--help-all'], {
         env: selectedEnv,
         input: '',
@@ -184,6 +217,13 @@ describe('rev-list sole full usage and traversal controls', () => {
           gitBinary,
           env: selectedEnv,
         });
+        if (!outside) {
+          expect([pathGit.status, pathGit.stdout, pathGit.stderr]).toEqual([
+            expected.status,
+            expected.stdout,
+            expected.stderr,
+          ]);
+        }
         expect([defaultGit.status, defaultGit.stdout, defaultGit.stderr]).not.toEqual([
           expected.status,
           expected.stdout,
@@ -192,6 +232,7 @@ describe('rev-list sole full usage and traversal controls', () => {
       }
     } finally {
       await rm(shadow, { recursive: true, force: true });
+      await rm(blocked, { recursive: true, force: true });
     }
   });
   it('pins successful ordinary payloads', async () => {

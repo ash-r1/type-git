@@ -9,3 +9,5 @@ The finite native audit uses twelve shapes, four Linux Git versions, and inside/
 Broad traversal, filtering, stdin, bitmap, shallow/partial repositories, configuration, and platform parity remain outside this finite check. All 430 command audit scopes remain partial.
 
 The executable-selection regression resolves the actual Git used for setup to an absolute path, shadows PATH’s `git` with a copy of the Node executable, and passes the real path through public `gitBinary` on both repository and outside clients. Native expectations use the same real path. The shadow command must produce a different status/output tuple, so accidentally using PATH’s executable cannot satisfy the help comparison. This is an executable-selection control, not a second native Git-version oracle.
+
+Executable lookup also skips non-files and candidates without execute permission. A leading non-executable file on POSIX (a directory named `git.exe` on Windows) verifies that native PATH lookup and the explicit selector reach the same later Git executable. Unexpected filesystem errors are not suppressed.
