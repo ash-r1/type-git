@@ -149,12 +149,14 @@ describe('native stat callback grammar and help placement', () => {
           ...scalarFlags.flatMap((flag) => [
             { flag, value: '', invalid: false },
             { flag, value: '010', invalid: false },
+            { flag, value: '-18446744073709551616', invalid: false },
             { flag, value: '0x10', invalid: true },
             { flag, value: '1\n', invalid: true },
           ]),
           { flag: '--stat', value: undefined, invalid: false },
           { flag: '--stat', value: ',,', invalid: false },
           { flag: '--stat', value: '0,999,999', invalid: false },
+          { flag: '--stat', value: '1,-18446744073709551616,0', invalid: false },
           { flag: '--stat', value: '1,2,3,', invalid: true },
           { flag: '--stat', value: '1,bad', invalid: true },
         ];

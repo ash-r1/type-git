@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parseGitScalar } from '../constraints/git-scalars.js';
 import { NUMERIC_CALLBACK_PARSERS } from '../constraints/numeric-callbacks.generated.js';
-import { commandArguments } from './build.js';
+import { commandArguments, commandUsesCompoundDecimal, commandUsesNativeABI } from './build.js';
 
 const continuing = ['diff', 'diff-files', 'diff-index', 'diff-tree', 'rev-list'] as const;
 const streaming = [
@@ -130,5 +130,21 @@ describe('diff stat callback grammar and reachability', () => {
         { operand: '*.ts' },
       ]),
     ).toEqual(['difftool', '--no-index', 'left', 'right', '--', '*.ts']);
+  });
+  it('discovers the registered tuple and unsigned scalar profiles through retained parsers', () => {
+    for (const command of ['diff', 'log', 'difftool'] as const) {
+      for (const flag of [...scalarFlags, '--stat']) {
+        const args = [[flag, '-18446744073709551616']];
+        expect(commandUsesNativeABI(command, args), `${command} ${flag}`).toBe(true);
+        expect(commandUsesCompoundDecimal(command, args), `${command} ${flag}`).toBe(true);
+      }
+    }
+    expect(commandUsesCompoundDecimal('shortlog', [['-w', '76,6,9']])).toBe(true);
+    expect(commandUsesCompoundDecimal('show-branch', [['--reflog', '1']])).toBe(true);
+    expect(commandUsesCompoundDecimal('log', [['--stat', 'bad'], ['-h']])).toBe(false);
+    expect(commandUsesCompoundDecimal('difftool', [['--stat-width', 'bad'], ['--tool-help']])).toBe(
+      false,
+    );
+    expect(commandUsesCompoundDecimal('shortlog', [['-h'], ['-w', 'bad']])).toBe(false);
   });
 });
