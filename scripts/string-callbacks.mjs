@@ -8,6 +8,8 @@ for (const [name, profile] of Object.entries(registry.profiles)) {
   if (!profile.source) throw new Error(`${name}: missing upstream evidence`);
   if (profile.kind === 'byte-character') {
     if (profile.emptyIsNative !== true) throw new Error(`${name}: empty byte-character must remain native-owned`);
+  } else if (profile.kind === 'resetting-token-list') {
+    if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || typeof profile.reset !== 'string' || !profile.reset || profile.trimAscii !== true || !Array.isArray(profile.ordinary) || !Array.isArray(profile.exclusive) || !profile.ordinary.length || !profile.exclusive.length || [...profile.ordinary, ...profile.exclusive].some(token => typeof token !== 'string' || !token || token === profile.reset || token.includes(profile.separator)) || new Set([...profile.ordinary, ...profile.exclusive]).size !== profile.ordinary.length + profile.exclusive.length) throw new Error(`${name}: invalid resetting token grammar`);
   } else if (profile.kind === 'character-set') {
     if (typeof profile.characters !== 'string' || !profile.characters || [...profile.characters].some(character => character.charCodeAt(0) === 0 || character.charCodeAt(0) >= 128) || new Set(profile.characters).size !== profile.characters.length) throw new Error(`${name}: invalid ASCII character vocabulary`);
   } else if (profile.kind === 'rename-score') {

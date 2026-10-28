@@ -558,10 +558,12 @@ const remainingOptions1 = {
     value: 'optional-string',
   },
   '--color-moved': {
+    parser: 'diff-color-moved',
     key: 'color-moved',
     value: 'optional-string',
   },
   '--color-moved-ws': {
+    parser: 'diff-color-moved-ws',
     key: 'color-moved-ws',
     value: 'string',
   },
@@ -769,14 +771,15 @@ const remainingOptions1 = {
     set: false,
   },
   '--no-color-moved': {
+    parser: 'diff-color-moved',
     key: 'color-moved',
     value: 'flag',
-    clear: true,
+    set: false,
   },
   '--no-color-moved-ws': {
     key: 'color-moved-ws',
     value: 'flag',
-    clear: true,
+    set: false,
   },
   '--no-relative': {
     key: 'relative',
@@ -2703,6 +2706,7 @@ const remainingOptions2 = {
     ],
   },
   '--color-moved': {
+    parser: 'diff-color-moved',
     key: 'color-moved',
     value: 'optional-string',
     effects: [
@@ -2713,6 +2717,7 @@ const remainingOptions2 = {
     ],
   },
   '--color-moved-ws': {
+    parser: 'diff-color-moved-ws',
     key: 'color-moved-ws',
     value: 'string',
     effects: [
@@ -3128,9 +3133,10 @@ const remainingOptions2 = {
     ],
   },
   '--no-color-moved': {
+    parser: 'diff-color-moved',
     key: 'color-moved',
     value: 'flag',
-    clear: true,
+    set: false,
     effects: [
       {
         key: 'revision-argument',
@@ -3141,7 +3147,7 @@ const remainingOptions2 = {
   '--no-color-moved-ws': {
     key: 'color-moved-ws',
     value: 'flag',
-    clear: true,
+    set: false,
     effects: [
       {
         key: 'revision-argument',
@@ -5436,10 +5442,12 @@ const remainingOptions3 = {
     value: 'optional-string',
   },
   '--color-moved': {
+    parser: 'diff-color-moved',
     key: 'color-moved',
     value: 'optional-string',
   },
   '--color-moved-ws': {
+    parser: 'diff-color-moved-ws',
     key: 'color-moved-ws',
     value: 'string',
   },
@@ -5648,14 +5656,15 @@ const remainingOptions3 = {
     set: false,
   },
   '--no-color-moved': {
+    parser: 'diff-color-moved',
     key: 'color-moved',
     value: 'flag',
-    clear: true,
+    set: false,
   },
   '--no-color-moved-ws': {
     key: 'color-moved-ws',
     value: 'flag',
-    clear: true,
+    set: false,
   },
   '--no-relative': {
     key: 'relative',
@@ -7227,10 +7236,12 @@ const remainingOptions4 = {
     value: 'optional-string',
   },
   '--color-moved': {
+    parser: 'diff-color-moved',
     key: 'color-moved',
     value: 'optional-string',
   },
   '--color-moved-ws': {
+    parser: 'diff-color-moved-ws',
     key: 'color-moved-ws',
     value: 'string',
   },
@@ -7449,14 +7460,15 @@ const remainingOptions4 = {
     set: false,
   },
   '--no-color-moved': {
+    parser: 'diff-color-moved',
     key: 'color-moved',
     value: 'flag',
-    clear: true,
+    set: false,
   },
   '--no-color-moved-ws': {
     key: 'color-moved-ws',
     value: 'flag',
-    clear: true,
+    set: false,
   },
   '--no-relative': {
     key: 'relative',
@@ -35810,10 +35822,12 @@ const commandSpec68 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -36055,14 +36069,15 @@ const commandSpec68 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -38339,10 +38354,12 @@ const commandSpec69 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -38584,14 +38601,15 @@ const commandSpec69 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -40822,10 +40840,12 @@ const commandSpec70 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -41033,14 +41053,15 @@ const commandSpec70 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -42856,10 +42877,12 @@ const commandSpec71 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -43067,14 +43090,15 @@ const commandSpec71 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -44957,10 +44981,12 @@ const commandSpec72 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -45168,14 +45194,15 @@ const commandSpec72 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -47000,10 +47027,12 @@ const commandSpec73 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -47211,14 +47240,15 @@ const commandSpec73 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -49031,10 +49061,12 @@ const commandSpec74 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -49252,14 +49284,15 @@ const commandSpec74 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -50263,10 +50296,12 @@ const commandSpec81 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -50508,14 +50543,15 @@ const commandSpec81 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -52783,10 +52819,12 @@ const commandSpec82 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -53018,14 +53056,15 @@ const commandSpec82 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -59491,6 +59530,7 @@ const commandSpec85 = {
       ],
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
       effects: [
@@ -59501,6 +59541,7 @@ const commandSpec85 = {
       ],
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
       effects: [
@@ -59895,9 +59936,10 @@ const commandSpec85 = {
       ],
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
       effects: [
         {
           key: 'revision-argument',
@@ -59908,7 +59950,7 @@ const commandSpec85 = {
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
       effects: [
         {
           key: 'revision-argument',
@@ -63730,6 +63772,7 @@ const commandSpec86 = {
       ],
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
       effects: [
@@ -63740,6 +63783,7 @@ const commandSpec86 = {
       ],
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
       effects: [
@@ -64134,9 +64178,10 @@ const commandSpec86 = {
       ],
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
       effects: [
         {
           key: 'revision-argument',
@@ -64147,7 +64192,7 @@ const commandSpec86 = {
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
       effects: [
         {
           key: 'revision-argument',
@@ -82880,10 +82925,12 @@ const commandSpec184 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -83091,14 +83138,15 @@ const commandSpec184 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -86429,10 +86477,12 @@ const commandSpec194 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -86641,14 +86691,15 @@ const commandSpec194 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -88949,10 +89000,12 @@ const commandSpec195 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -89160,14 +89213,15 @@ const commandSpec195 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -91372,10 +91426,12 @@ const commandSpec196 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -91593,14 +91649,15 @@ const commandSpec196 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -92292,10 +92349,12 @@ const commandSpec197 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -92513,14 +92572,15 @@ const commandSpec197 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -93298,10 +93358,12 @@ const commandSpec198 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -93509,14 +93571,15 @@ const commandSpec198 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -95852,10 +95915,12 @@ const commandSpec199 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -96057,14 +96122,15 @@ const commandSpec199 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -98098,10 +98164,12 @@ const commandSpec200 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -98303,14 +98371,15 @@ const commandSpec200 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -101103,10 +101172,12 @@ const commandSpec202 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -101315,14 +101386,15 @@ const commandSpec202 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -104299,10 +104371,12 @@ const commandSpec204 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -104504,14 +104578,15 @@ const commandSpec204 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -106604,10 +106679,12 @@ const commandSpec205 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -106849,14 +106926,15 @@ const commandSpec205 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -109082,10 +109160,12 @@ const commandSpec206 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -109293,14 +109373,15 @@ const commandSpec206 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -116925,10 +117006,12 @@ const commandSpec275 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -117136,14 +117219,15 @@ const commandSpec275 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -122346,10 +122430,12 @@ const commandSpec291 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -122520,14 +122606,15 @@ const commandSpec291 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -125578,10 +125665,12 @@ const commandSpec306 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -125823,14 +125912,15 @@ const commandSpec306 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',
@@ -131499,10 +131589,12 @@ const commandSpec309 = {
       value: 'optional-string',
     },
     '--color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'optional-string',
     },
     '--color-moved-ws': {
+      parser: 'diff-color-moved-ws',
       key: 'color-moved-ws',
       value: 'string',
     },
@@ -131744,14 +131836,15 @@ const commandSpec309 = {
       set: false,
     },
     '--no-color-moved': {
+      parser: 'diff-color-moved',
       key: 'color-moved',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-color-moved-ws': {
       key: 'color-moved-ws',
       value: 'flag',
-      clear: true,
+      set: false,
     },
     '--no-relative': {
       key: 'relative',

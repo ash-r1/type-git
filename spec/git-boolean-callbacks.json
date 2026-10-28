@@ -11,7 +11,8 @@
     "builtin/pull.c": "92fa45da7b63e7e91dea45829d4772c26970458cee8fe8622ba65b1f491b3cc3",
     "builtin/log.c": "fcd109d84314e40de11a186ebae6d58c5955e26bcc61425433bd4c45be35df80",
     "builtin/fast-export.c": "538ecd9d6f583081dad7954b2441015cbd0e9e1cec344ff0dc104387929974cf",
-    "builtin/commit.c": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121"
+    "builtin/commit.c": "3404e51612fd63c284275c9d9a98b16dd4eeea80d650339643ae60b18207a121",
+    "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b"
   },
   "boolean": {
     "true": [
@@ -101,6 +102,18 @@
         "all": "all"
       },
       "source": "builtin/commit.c:parse_untracked_setting_name; evaluated after parse_options by handle_untracked_files_arg; false means no, true means normal"
+    },
+    "diff-color-moved": {
+      "allowTrue": true,
+      "names": {
+        "plain": "plain",
+        "blocks": "blocks",
+        "zebra": "zebra",
+        "default": "default",
+        "dimmed-zebra": "dimmed-zebra",
+        "dimmed_zebra": "dimmed-zebra"
+      },
+      "source": "Git 2.25.1/2.55.0 diff.c:parse_color_moved/diff_opt_color_moved; git_parse_maybe_bool before exact names. Reuse selected native boolean/integer source profiles; lexical acceptance only, not configuration-dependent bare-mode state."
     }
   }
 }

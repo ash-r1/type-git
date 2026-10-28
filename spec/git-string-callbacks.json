@@ -10,7 +10,8 @@
     "strbuf.c": "fc6f170a22ce422ae4bad3e2211c35a8cd9d81f6f4ef210e039519c52b7ac388",
     "date.c": "ee1f260f43aab1c6c79b7688d408eafc511fd1086764cc320771dd8f2972858e",
     "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b",
-    "diff.h": "6a8b692aa594ba6e2b60729cf212f70e763a74b4e70439ee298a023232501097"
+    "diff.h": "6a8b692aa594ba6e2b60729cf212f70e763a74b4e70439ee298a023232501097",
+    "string-list.c": "9976ef5acd9f31b9ad174dde39b651bd4112ee73fd233bb2b505b5bf45abad05"
   },
   "profiles": {
     "anonymize-map": {
@@ -119,6 +120,21 @@
       "kind": "character-set",
       "characters": "ACDMRTUXBacdmrtuxb*",
       "source": "Git 2.25.1/2.55.0 diff.c:diff_status_letters/prepare_filter_bits/diff_opt_diff_filter; diff.h status constants; empty and repeated letters accepted, ASCII lowercase folds for class membership. Validate text only, not filter-state accumulation or payload selection."
+    },
+    "diff-color-moved-ws": {
+      "kind": "resetting-token-list",
+      "separator": ",",
+      "reset": "no",
+      "trimAscii": true,
+      "ordinary": [
+        "ignore-space-change",
+        "ignore-space-at-eol",
+        "ignore-all-space"
+      ],
+      "exclusive": [
+        "allow-indentation-change"
+      ],
+      "source": "Git 2.25.1/2.55.0 diff.c:parse_color_moved_ws/diff_opt_color_moved_ws; comma splitting with C whitespace trimming. no resets all bits including prior errors; indentation conflict checked after every token. Preserve raw argv/diagnostics; do not model rendered colors."
     }
   }
 }

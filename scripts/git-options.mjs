@@ -166,7 +166,7 @@ function tableOptions(definitions, command, numericOption, callbacks) {
       let value = noarg ? 'flag' : `${optional ? 'optional-' : ''}${numeric ? 'integer' : 'string'}`;
       const defaultString = optional && fields.defval?.match(/"(?:\\.|[^"\\])*"/);
       const callback = (fields.callback ?? '').replace(/[&()]/g, '');
-      let parser = numeric ? { kind: 'integer', signed: kind === 'OPTION_INTEGER', bits: definition.numeric.bits, ...(definition.nativeWidth ? { nativeWidth: definition.nativeWidth } : {}), ...(definition.nativeWidth === 'size_t' ? { negativeMagnitudes: false } : {}) } : { diff_opt_diff_filter: 'diff-filter-letters', diff_opt_find_renames: 'diff-rename-score', diff_opt_find_copies: 'diff-rename-score', diff_opt_break_rewrites: 'diff-break-score', parseopt_column_callback: 'column-mode', opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
+      let parser = numeric ? { kind: 'integer', signed: kind === 'OPTION_INTEGER', bits: definition.numeric.bits, ...(definition.nativeWidth ? { nativeWidth: definition.nativeWidth } : {}), ...(definition.nativeWidth === 'size_t' ? { negativeMagnitudes: false } : {}) } : { diff_opt_color_moved: 'diff-color-moved', diff_opt_color_moved_ws: 'diff-color-moved-ws', diff_opt_diff_filter: 'diff-filter-letters', diff_opt_find_renames: 'diff-rename-score', diff_opt_find_copies: 'diff-rename-score', diff_opt_break_rewrites: 'diff-break-score', parseopt_column_callback: 'column-mode', opt_parse_list_objects_filter: 'object-filter', option_fetch_parse_recurse_submodules: 'fetch-recurse', option_parse_push_signed: 'push-signed', option_parse_recurse_submodules: 'push-recurse' }[callback];
       const numericCallback = Object.values(callbacks.profiles).find(profile => profile.callbacks.some(entry => entry.name === callback && (!entry.file || entry.file === definition.file)));
       if (numericCallback) {
         parser = numericCallback.parser;
@@ -184,6 +184,7 @@ function tableOptions(definitions, command, numericOption, callbacks) {
       if (long && !flags.includes('PARSE_OPT_NONEG')) {
         const negated = { ...base, value: 'flag', ...(numeric || numericCallback ? { set: 0, ...(parser.positive ? { parser: undefined } : {}) } : kind === 'OPTION_FILENAME' ? { ignore: true } : noarg || (parser && parser !== 'object-filter') ? { set: false } : { clear: true }) };
         if (callback === 'parseopt_column_callback') Object.assign(negated, { parser: undefined, set: 'never' });
+        if (callback === 'diff_opt_color_moved_ws') negated.parser = undefined;
         if (base.checks) negated.checks = undefined;
         negations[long.startsWith('no-') ? `--${long.slice(3)}` : `--no-${long}`] ??= negated;
         if (long.startsWith('no-')) negations[`--no-${long}`] ??= negated;

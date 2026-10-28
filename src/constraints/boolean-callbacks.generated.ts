@@ -88,4 +88,17 @@ export const BOOLEAN_CALLBACKS = {
     source:
       'builtin/commit.c:parse_untracked_setting_name; evaluated after parse_options by handle_untracked_files_arg; false means no, true means normal',
   },
+  'diff-color-moved': {
+    allowTrue: true,
+    names: {
+      plain: 'plain',
+      blocks: 'blocks',
+      zebra: 'zebra',
+      default: 'default',
+      'dimmed-zebra': 'dimmed-zebra',
+      ['dimmed_zebra']: 'dimmed-zebra',
+    },
+    source:
+      'Git 2.25.1/2.55.0 diff.c:parse_color_moved/diff_opt_color_moved; git_parse_maybe_bool before exact names. Reuse selected native boolean/integer source profiles; lexical acceptance only, not configuration-dependent bare-mode state.',
+  },
 } as const satisfies Record<string, GitBooleanProfile>;

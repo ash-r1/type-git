@@ -121,6 +121,51 @@ type ByteCharacter<S extends string> = S extends `${infer First}${infer Rest}`
           : true
       : false
   : true;
+type AsciiWhitespace = ' ' | '\t' | '\n' | '\r' | '\v' | '\f';
+type TrimAsciiLeft<S extends string> = S extends `${AsciiWhitespace}${infer Rest}`
+  ? TrimAsciiLeft<Rest>
+  : S;
+type TrimAsciiRight<S extends string> = S extends `${infer Rest}${AsciiWhitespace}`
+  ? TrimAsciiRight<Rest>
+  : S;
+type ResetState = { ordinary: boolean; exclusive: boolean; invalid: boolean };
+type ResetToken<P, Token extends string, State extends ResetState> = P extends {
+  reset: infer Reset;
+  ordinary: readonly (infer Ordinary)[];
+  exclusive: readonly (infer Exclusive)[];
+}
+  ? TrimAsciiRight<TrimAsciiLeft<Token>> extends infer Text
+    ? Text extends Reset
+      ? { ordinary: false; exclusive: false; invalid: false }
+      : Text extends Ordinary
+        ? { ordinary: true; exclusive: State['exclusive']; invalid: State['invalid'] }
+        : Text extends Exclusive
+          ? { ordinary: State['ordinary']; exclusive: true; invalid: State['invalid'] }
+          : { ordinary: State['ordinary']; exclusive: State['exclusive']; invalid: true }
+    : never
+  : { ordinary: false; exclusive: false; invalid: true };
+type ResetStateValid<State extends ResetState> = State['invalid'] extends true
+  ? false
+  : State['ordinary'] extends true
+    ? State['exclusive'] extends true
+      ? false
+      : true
+    : true;
+type ResetTokenList<
+  S extends string,
+  P,
+  Token extends string = '',
+  State extends ResetState = { ordinary: false; exclusive: false; invalid: false },
+  N extends readonly unknown[] = [],
+> = N['length'] extends 128
+  ? true
+  : P extends { separator: infer Separator }
+    ? S extends `${infer C}${infer Rest}`
+      ? C extends Separator
+        ? ResetTokenList<Rest, P, '', ResetToken<P, Token, State>, readonly [...N, 0]>
+        : ResetTokenList<Rest, P, `${Token}${C}`, State, readonly [...N, 0]>
+      : ResetStateValid<ResetToken<P, Token, State>>
+    : false;
 type CharacterMembers<S extends string> = S extends `${infer C}${infer Rest}`
   ? C | CharacterMembers<Rest>
   : never;
@@ -219,7 +264,11 @@ type Parsed<V, P extends StringCallbackParser> = V extends string
                     characters: infer Characters extends string;
                   }
                 ? CharacterSetText<V, Characters>
-                : false
+                : Profile<P> extends { kind: 'resetting-token-list' }
+                  ? Dynamic<V> extends true
+                    ? true
+                    : ResetTokenList<V, Profile<P>>
+                  : false
   : V extends true
     ? Profile<P> extends { kind: 'rename-score' }
       ? true
