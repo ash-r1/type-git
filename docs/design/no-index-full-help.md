@@ -1,0 +1,7 @@
+# diff --no-index canonical sole full usage
+
+The explicit compound command accepts canonical sole `[["--help-all"]]` and passes it to the selected Git. Native usage status and output remain version-dependent. This fixes a false unknown-option rejection without adding parser-exit metadata or widening dynamic public word-diff values. Only the final two-path requirement exempts this canonical shape; ordinary comparisons still require two paths.
+
+The finite corpus covers twelve shapes across four Linux Git versions inside and outside a repository. It hashes all fixture files to check read-only behavior. Public tests pin equal-file exit 0 with empty output, unequal-file exit 1 and exact native patch contents, explicit executable selection, and outside directories nested beneath a repository with a parent ceiling. All native comparison tests have explicit 120-second timeouts.
+
+Multiword early exits, including native-supported full-help combinations observed by the corpus, remain outside this canonical-only change. Completion words are not added: the explicit no-index prefix contributes to native parser argument count and the observed completion probes return unknown-option usage. Implicit no-index dispatch through ordinary diff, directory/pathspec comparisons, stdin, configuration and broad platform parity remain separate scopes. Windows PATH execution requires remote Windows CI. All 430 audit scopes remain partial.

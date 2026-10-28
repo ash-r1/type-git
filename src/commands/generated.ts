@@ -49691,6 +49691,24 @@ const commandSpec74 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'sole-full-help',
+      value: 'flag',
+      checks: [
+        {
+          id: 'cli.diff-no-index.full-help-one-word',
+          kind: 'arity',
+          key: 'argumentTokens',
+          min: 1,
+          max: 1,
+          origin: 'git',
+          reason:
+            'This finite full-usage support is limited to the canonical sole local argument; multiword early-exit handling remains a separate audit.',
+          source:
+            'Git2.25.1/2.55.0 diff-no-index.c:diff_no_index and parse-options.c help-all handling',
+        },
+      ],
+    },
   },
   rules: [
     {
@@ -49753,6 +49771,10 @@ const commandSpec74 = {
       source: 'Git 2.55.0 diff-no-index.c:diff_no_index',
       reason:
         'No-index comparison requires two paths; directory comparisons may additionally accept pathspecs.',
+      when: {
+        key: 'sole-full-help',
+        test: 'inactive',
+      },
     },
   ],
   source: 'Git 2.55.0 diff-no-index.c:diff_no_index; diff.c:add_diff_options',
