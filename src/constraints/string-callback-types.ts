@@ -1,6 +1,28 @@
 import type { StringCallbackParser } from './string-callback.js';
+import type { UrlBytes } from './url-byte-types.js';
 import type { STRING_CALLBACKS } from './string-callbacks.generated.js';
 
+type HexDigit =
+  | '0'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
+  | 'a'
+  | 'b'
+  | 'c'
+  | 'd'
+  | 'e'
+  | 'f';
+type AsciiByte = UrlBytes[Extract<
+  keyof UrlBytes,
+  `${'0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'}${HexDigit}`
+>];
 type Profile<P extends StringCallbackParser> = (typeof STRING_CALLBACKS)[P];
 type Dynamic<S extends string, N extends readonly unknown[] = []> = {} extends Record<S, unknown>
   ? true
@@ -87,28 +109,42 @@ export type StringCallbackValue<V, P extends StringCallbackParser> = Projected<V
 }
   ? Value
   : V;
+// Inspect at most two concrete code units; long literals cannot become budget fallbacks.
+type ByteCharacter<S extends string> = S extends `${infer First}${infer Rest}`
+  ? Dynamic<First> extends true
+    ? true
+    : First extends AsciiByte
+      ? Rest extends ''
+        ? true
+        : Rest extends `${infer Second}${infer _Tail}`
+          ? Dynamic<Second>
+          : true
+      : false
+  : true;
 type Parsed<V, P extends StringCallbackParser> = V extends string
   ? V extends object
     ? true
-    : Profile<P> extends { kind: 'token-list' }
-      ? Projected<V, P> extends { valid: infer Valid }
-        ? Valid
-        : false
-      : Profile<P> extends {
-            kind: 'choice';
-            exact: readonly (infer E)[];
-            prefixes: readonly (infer Prefix extends string)[];
-          }
-        ? V extends E | `${Prefix}${string}`
-          ? true
-          : Dynamic<V>
-        : Profile<P> extends {
-              kind: 'first-separator';
-              separator: infer Sep extends string;
-              allowUnseparated: infer Optional extends boolean;
-            }
-          ? Pair<V, Sep, Optional>
+    : Profile<P> extends { kind: 'byte-character' }
+      ? ByteCharacter<V>
+      : Profile<P> extends { kind: 'token-list' }
+        ? Projected<V, P> extends { valid: infer Valid }
+          ? Valid
           : false
+        : Profile<P> extends {
+              kind: 'choice';
+              exact: readonly (infer E)[];
+              prefixes: readonly (infer Prefix extends string)[];
+            }
+          ? V extends E | `${Prefix}${string}`
+            ? true
+            : Dynamic<V>
+          : Profile<P> extends {
+                kind: 'first-separator';
+                separator: infer Sep extends string;
+                allowUnseparated: infer Optional extends boolean;
+              }
+            ? Pair<V, Sep, Optional>
+            : false
   : false;
 export type StringCallbackLiteral<V, P extends StringCallbackParser> = false extends Parsed<V, P>
   ? false

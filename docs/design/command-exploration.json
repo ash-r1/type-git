@@ -19771,15 +19771,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -23382,15 +23385,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -33462,15 +33468,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -37069,15 +37078,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -44162,6 +44174,7 @@
           "--output-indicator-new": {
             "key": "output-indicator-new",
             "value": "string",
+            "parser": "diff-output-indicator",
             "effects": [
               {
                 "key": "revision-argument",
@@ -44172,6 +44185,7 @@
           "--output-indicator-old": {
             "key": "output-indicator-old",
             "value": "string",
+            "parser": "diff-output-indicator",
             "effects": [
               {
                 "key": "revision-argument",
@@ -44182,6 +44196,7 @@
           "--output-indicator-context": {
             "key": "output-indicator-context",
             "value": "string",
+            "parser": "diff-output-indicator",
             "effects": [
               {
                 "key": "revision-argument",
@@ -49247,6 +49262,7 @@
           "--output-indicator-new": {
             "key": "output-indicator-new",
             "value": "string",
+            "parser": "diff-output-indicator",
             "effects": [
               {
                 "key": "revision-argument",
@@ -49257,6 +49273,7 @@
           "--output-indicator-old": {
             "key": "output-indicator-old",
             "value": "string",
+            "parser": "diff-output-indicator",
             "effects": [
               {
                 "key": "revision-argument",
@@ -49267,6 +49284,7 @@
           "--output-indicator-context": {
             "key": "output-indicator-context",
             "value": "string",
+            "parser": "diff-output-indicator",
             "effects": [
               {
                 "key": "revision-argument",
@@ -68745,15 +68763,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -72335,15 +72356,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -77123,15 +77147,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -84298,15 +84325,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -89815,15 +89845,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -99699,15 +99732,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -105579,15 +105615,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",
@@ -108762,15 +108801,18 @@
           },
           "--output-indicator-new": {
             "key": "output-indicator-new",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-old": {
             "key": "output-indicator-old",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--output-indicator-context": {
             "key": "output-indicator-context",
-            "value": "string"
+            "value": "string",
+            "parser": "diff-output-indicator"
           },
           "--break-rewrites": {
             "key": "break-rewrites",

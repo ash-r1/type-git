@@ -6,7 +6,9 @@ const root = new URL('../', import.meta.url);
 const registry = JSON.parse(await readFile(new URL('spec/git-string-callbacks.json', root), 'utf8'));
 for (const [name, profile] of Object.entries(registry.profiles)) {
   if (!profile.source) throw new Error(`${name}: missing upstream evidence`);
-  if (profile.kind === 'first-separator') {
+  if (profile.kind === 'byte-character') {
+    if (profile.emptyIsNative !== true) throw new Error(`${name}: empty byte-character must remain native-owned`);
+  } else if (profile.kind === 'first-separator') {
     if (typeof profile.separator !== 'string' || profile.separator.length !== 1 || typeof profile.allowUnseparated !== 'boolean') throw new Error(`${name}: invalid first-separator grammar`);
   } else if (profile.kind === 'choice') {
     for (const field of ['exact', 'prefixes']) if (!Array.isArray(profile[field]) || profile[field].some(value => typeof value !== 'string' || !value)) throw new Error(`${name}: invalid ${field}`);
