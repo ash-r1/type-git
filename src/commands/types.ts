@@ -169,9 +169,13 @@ type DeclaredStateKeys<C extends GitCommandName> =
   | EffectKeys<Options<C>[keyof Options<C>]>
   | OptionKeys<NumericOption<C>>
   | EffectKeys<NumericOption<C>>;
+/** Cache only the distributive rule-key projection; option tables keep their union semantics. */
+type RuleReadKeysByName = {
+  [C in GitCommandName]: ReferencedStateKeys<Spec<C>['rules']>;
+};
 /** Include both parser passes when deciding whether an unset or temporary key can be read. */
 type ReadStateKeys<C extends GitCommandName> =
-  | ReferencedStateKeys<Spec<C>['rules']>
+  | RuleReadKeysByName[C]
   | OptionReadKeys<
       | Options<C>[keyof Options<C>]
       | NumericOption<C>
