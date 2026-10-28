@@ -2759,13 +2759,29 @@ type UsageTailFits<C extends UsageCommand, A extends readonly unknown[]> = A ext
     : [IgnoredUsageTokenFits<C, A[number]>] extends [true]
       ? true
       : false;
+/** Check every possible reached flag separately, including numeric fallback paths. */
+type UsagePrefixAlternatives<
+  A extends readonly unknown[],
+  Prefix extends readonly unknown[] = readonly [],
+> = A extends readonly [infer H, ...infer R]
+  ? H extends readonly [infer F, ...infer V]
+    ? F extends unknown
+      ? UsagePrefixAlternatives<R, readonly [...Prefix, readonly [F, ...V]]>
+      : never
+    : UsagePrefixAlternatives<R, readonly [...Prefix, H]>
+  : Prefix;
+type InvalidUsagePrefix<C extends UsageCommand, A> = A extends readonly unknown[]
+  ? [CheckedCommandArguments<C, A>] extends [never]
+    ? true
+    : never
+  : true;
 type UsagePrefixFits<
   C extends UsageCommand,
   A extends readonly unknown[],
 > = A extends readonly GitCommandArgument<C>[]
-  ? [CheckedCommandArguments<C, A>] extends [never]
-    ? false
-    : true
+  ? [InvalidUsagePrefix<C, UsagePrefixAlternatives<A>>] extends [never]
+    ? true
+    : false
   : false;
 type UsageArgumentsFit<
   C extends UsageCommand,
