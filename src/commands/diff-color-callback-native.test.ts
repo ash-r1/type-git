@@ -23,19 +23,6 @@ if (builtinList.error || builtinList.status !== 0) {
   throw builtinList.error ?? new Error(`Cannot enumerate native builtins: ${builtinList.stderr}`);
 }
 const builtins = new Set(builtinList.stdout.split(/\s+/));
-const versionResult = spawnSync('git', ['--version'], {
-  env: cleanEnvironment,
-  encoding: 'utf8',
-  input: '',
-  timeout: 30_000,
-});
-if (versionResult.error || versionResult.status !== 0) {
-  throw versionResult.error ?? new Error(`Cannot identify selected Git: ${versionResult.stderr}`);
-}
-// Measured Git 2.25.1 returns 255 for valid color + multiword diff full help;
-// Git 2.47.3, 2.55.0 and 2.56.0 return 129. Bad color returns 129 on all four.
-const diffFullHelpExitCode = /^git version 2\.25\./.test(versionResult.stdout) ? 255 : 129;
-
 const continuing = ['diff', 'diff-files', 'diff-index', 'diff-tree', 'rev-list'] as const;
 const streaming = ['diff --no-index', 'range-diff', 'diff-pairs'] as const;
 const deferred = ['backfill', 'last-modified', 'replay'] as const;
@@ -44,6 +31,7 @@ describe('native diff color callback order', () => {
   let root: string;
   let repo: WorktreeRepo;
   let env: Record<string, string>;
+  let diffFullHelpExitCode: 129 | 255;
   const native = (words: string[]) => {
     const result = spawnSync('git', ['-C', root, ...words], {
       env,
@@ -86,6 +74,17 @@ describe('native diff color callback order', () => {
     expect(native(['add', 'file']).status).toBe(0);
     expect(native(['commit', '-qm', 'base']).status).toBe(0);
     repo = await new TypeGit({ home: root, inheritEnv: false, env }).open(root);
+    // Git 2.39 and 2.43 use different malformed-option exits. Probe the selected
+    // implementation rather than guessing a version threshold or backport.
+    const before = await snapshot();
+    const unknownOption = '--type-git-invalid-diff-usage-profile';
+    const probe = native(['diff', unknownOption]);
+    expect(probe.stderr).toContain(`error: invalid option: ${unknownOption}`);
+    if (probe.status !== 129 && probe.status !== 255) {
+      throw new Error(`Unsupported diff usage exit: ${probe.status}`);
+    }
+    diffFullHelpExitCode = probe.status;
+    expect(await snapshot()).toEqual(before);
   }, 120_000);
   afterAll(async () => {
     await rm(root, { recursive: true, force: true });
