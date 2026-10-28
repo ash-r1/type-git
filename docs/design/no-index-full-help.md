@@ -1,0 +1,9 @@
+# diff --no-index native usage exits
+
+The explicit compound command forwards `-h`, `--help`, and `--help-all` at the point where its native option parser exits. Earlier callbacks are still checked; later words are serialized without interpreting option values or requiring two paths. An earlier `--` prevents later words from selecting usage. Ordinary file comparisons still require two paths.
+
+A separate usage-call overload requires a finite prefix that guarantees the native exit in every union arm. It validates that prefix with the ordinary grammar and checks ignored-tail representations, including NUL rejection. It admits raw unknown words and ignored enum values only in that proven tail. Ordinary dynamic public argument arrays keep their existing narrow word-diff enumeration. Unknown words or invalid callbacks before the exit, uncertain prefixes, malformed known option shapes, and NUL words remain rejected.
+
+The expanded finite native corpus has thirty shapes across four Linux Git versions and inside/outside contexts. It checks exact status and both streams for valid prefixes, ignored unknown words and invalid values, operands before and after usage, separator boundaries, and ignored output destinations, as well as equal-file exit 0 and unequal-file exit 1. All fixture file hashes must remain unchanged. Completion words remain unknown with the explicit no-index prefix in this corpus. Every native comparison test has a 120-second timeout; selected executable and nested outside controls remain covered.
+
+This fixes the previously recorded multiword usage failures; the original canonical-only result remains a prior-head record, not current-source proof. Implicit no-index dispatch through ordinary diff, broader directory/pathspec handling, stdin, configuration and platform parity remain separate scopes. Windows PATH execution requires remote Windows CI. All 430 audit scopes remain partial.

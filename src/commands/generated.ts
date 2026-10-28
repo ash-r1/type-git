@@ -49691,6 +49691,10 @@ const commandSpec74 = {
       key: 'help',
       value: 'flag',
     },
+    '--help-all': {
+      key: 'help',
+      value: 'flag',
+    },
   },
   rules: [
     {
@@ -49757,6 +49761,14 @@ const commandSpec74 = {
   ],
   source: 'Git 2.55.0 diff-no-index.c:diff_no_index; diff.c:add_diff_options',
   separator: true,
+  usageExit: {
+    flags: ['-h', '--help', '--help-all'],
+    origin: 'git',
+    source:
+      'Git2.25.1 and2.55.0 diff-no-index.c:diff_no_index parse_options flags0; parse-options.c:parse_options_step usage exits',
+    reason:
+      'Usage terminates option parsing after earlier callbacks, before the two-path requirement; later words are serialized without interpreting options.',
+  },
 } as const satisfies CommandSpec;
 const commandSpec75 = {
   argv: ['reflog', 'list'],

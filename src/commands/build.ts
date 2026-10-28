@@ -79,6 +79,26 @@ function ignoredDocumentationOption(
   return undefined;
 }
 
+/** Retain local shapes and raw unknown words after a guaranteed native usage exit. */
+function ignoredUsageOption(
+  spec: CommandSpec,
+  flag: string,
+  argument: readonly unknown[],
+): OptionSpec | undefined {
+  if (Object.hasOwn(spec.options, flag)) {
+    const { before: _before, ...shape } = spec.options[flag]!;
+    return shape;
+  }
+  if (flag.startsWith('-') && (argument.length === 1 || argument.length === 2)) {
+    return {
+      key: 'ignored-usage-word',
+      value: argument.length === 1 ? 'flag' : 'string',
+      separateValue: true,
+    };
+  }
+  return undefined;
+}
+
 /** Select a registered child grammar after the dispatcher's permitted global options. */
 function dispatchArguments(
   spec: CommandSpec,
@@ -489,6 +509,7 @@ function buildArguments(
   };
   let readTreeExcludeSeen = false;
   let documentationTailExited = false;
+  let usageExited = false;
   let ended = false;
   let literalOperands = false;
   const soleFlag =
@@ -593,8 +614,9 @@ function buildArguments(
       !Object.hasOwn(activeOptions, flag) &&
       spec.numericOption &&
       /^-\d+$/.exec(flag)?.[0] === flag;
-    let option: OptionSpec | undefined =
-      documentationDispatch && documentationTailExited
+    let option: OptionSpec | undefined = usageExited
+      ? ignoredUsageOption(spec, flag, arg)
+      : documentationDispatch && documentationTailExited
         ? ignoredDocumentationOption(documentationLocals, flag, arg)
         : Object.hasOwn(activeOptions, flag)
           ? ((evaluationMode === 'shape' && shapeOptions && Object.hasOwn(shapeOptions, flag)
@@ -811,6 +833,11 @@ function buildArguments(
       const position = option.before + (prefixCounts.get(option.before) ?? 0);
       argv.splice(position, 0, ...emitted);
       prefixCounts.set(option.before, (prefixCounts.get(option.before) ?? 0) + emitted.length);
+    }
+    if (!ended && spec.usageExit?.flags.includes(flag)) {
+      usageExited = true;
+      parserExited = true;
+      continue;
     }
     if (parserExited) {
       continue;

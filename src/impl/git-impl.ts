@@ -1,5 +1,7 @@
 import type {
   CheckedDocumentationArguments,
+  CheckedUsageArguments,
+  UsageCommand,
   DocumentationCommand,
   DocumentationPrefix,
   CheckedCommandArguments,
@@ -616,6 +618,23 @@ export class GitImpl implements Git {
     args: A & NoInfer<CheckedDocumentationArguments<C, A>>,
     opts: GitCommandExecOpts<GitOutputMode>,
   ): Promise<RawResult<string | Uint8Array>>;
+
+  public command<C extends UsageCommand, const A extends readonly unknown[]>(
+    command: C,
+    args: A & NoInfer<CheckedUsageArguments<C, A>>,
+    opts: GitCommandExecOpts<'bytes'> & { stdout: 'bytes' },
+  ): Promise<RawResult<Uint8Array>>;
+  public command<C extends UsageCommand, const A extends readonly unknown[]>(
+    command: C,
+    args: A & NoInfer<CheckedUsageArguments<C, A>>,
+    opts?: GitCommandExecOpts,
+  ): Promise<RawResult>;
+  public command<C extends UsageCommand, const A extends readonly unknown[]>(
+    command: C,
+    args: A & NoInfer<CheckedUsageArguments<C, A>>,
+    opts: GitCommandExecOpts<GitOutputMode>,
+  ): Promise<RawResult<string | Uint8Array>>;
+
   public command<
     C extends GitCommandName,
     const A extends readonly GitCommandArgument<NoInfer<C>>[],
