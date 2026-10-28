@@ -9,7 +9,8 @@
     "builtin/merge.c": "3ab6a184e4ff7fd28bfcceb28df63f08460fc92d2598686fcc56e86290ba870d",
     "strbuf.c": "fc6f170a22ce422ae4bad3e2211c35a8cd9d81f6f4ef210e039519c52b7ac388",
     "date.c": "ee1f260f43aab1c6c79b7688d408eafc511fd1086764cc320771dd8f2972858e",
-    "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b"
+    "diff.c": "91ee06889cd5c86375382d2bf18987db866a1210e9b7322cdfb850a1d59f042b",
+    "diff.h": "6a8b692aa594ba6e2b60729cf212f70e763a74b4e70439ee298a023232501097"
   },
   "profiles": {
     "anonymize-map": {
@@ -113,6 +114,11 @@
       "kind": "rename-score",
       "parts": 2,
       "source": "Git 2.25.1/2.55.0 diff.c:diff_opt_break_rewrites; one or two rename-score fields separated by at most one slash; fields may be empty, bare accepted. Raw values stay unchanged."
+    },
+    "diff-filter-letters": {
+      "kind": "character-set",
+      "characters": "ACDMRTUXBacdmrtuxb*",
+      "source": "Git 2.25.1/2.55.0 diff.c:diff_status_letters/prepare_filter_bits/diff_opt_diff_filter; diff.h status constants; empty and repeated letters accepted, ASCII lowercase folds for class membership. Validate text only, not filter-state accumulation or payload selection."
     }
   }
 }

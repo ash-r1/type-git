@@ -2,6 +2,7 @@ import { STRING_CALLBACKS } from './string-callbacks.generated.js';
 
 export type StringCallbackProfile = { source: string } & (
   | { kind: 'rename-score'; parts: 1 | 2 }
+  | { kind: 'character-set'; characters: string }
   | { kind: 'byte-character'; emptyIsNative: true }
   | { kind: 'choice'; exact: readonly string[]; prefixes: readonly string[] }
   | {
@@ -34,6 +35,12 @@ export function parseStringCallback(
   }
   if (typeof value !== 'string') {
     return { valid: false };
+  }
+  if (profile.kind === 'character-set') {
+    return {
+      valid: [...value].every((character) => profile.characters.includes(character)),
+      value,
+    };
   }
   if (profile.kind === 'rename-score') {
     const parts = value.split('/');

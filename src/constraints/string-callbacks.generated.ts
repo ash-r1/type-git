@@ -92,4 +92,10 @@ export const STRING_CALLBACKS = {
     source:
       'Git 2.25.1/2.55.0 diff.c:diff_opt_break_rewrites; one or two rename-score fields separated by at most one slash; fields may be empty, bare accepted. Raw values stay unchanged.',
   },
+  'diff-filter-letters': {
+    kind: 'character-set',
+    characters: 'ACDMRTUXBacdmrtuxb*',
+    source:
+      'Git 2.25.1/2.55.0 diff.c:diff_status_letters/prepare_filter_bits/diff_opt_diff_filter; diff.h status constants; empty and repeated letters accepted, ASCII lowercase folds for class membership. Validate text only, not filter-state accumulation or payload selection.',
+  },
 } as const satisfies Record<string, StringCallbackProfile>;
